@@ -1,5 +1,6 @@
-export const INDEX_REQUESTED = 'listings/INDEX_REQUESTED'
-export const INDEX = 'listings/INDEX'
+export const FETCH_LISTINGS_REQUEST = 'FETCH_LISTINGS_REQUEST'
+export const FETCH_LISTINGS_SUCCESS = 'FETCH_LISTINGS_SUCCESS'
+export const FETCH_LISTINGS_FAILURE = 'FETCH_LISTINGS_FAILURE'
 
 const initialState = {
   indexRequested: false,
@@ -7,16 +8,22 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case INDEX_REQUESTED:
+    case FETCH_LISTINGS_REQUEST:
       return {
         ...state,
         indexRequested: true
       }
 
-    case INDEX:
+    case FETCH_LISTINGS_SUCCESS:
       return {
         ...state,
-        indexRequested: !state.indexRequested
+        indexRequested: false
+      }
+
+    case FETCH_LISTINGS_FAILURE:
+      return {
+        ...state,
+        indexRequested: false
       }
 
     default:
@@ -27,11 +34,11 @@ export default (state = initialState, action) => {
 export const index = () => {
   return dispatch => {
     dispatch({
-      type: INDEX_REQUESTED
+      type: FETCH_LISTINGS_REQUEST
     })
 
     dispatch({
-      type: INDEX
+      type: FETCH_LISTINGS_SUCCESS
     })
   }
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { push } from 'react-router-redux'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -6,11 +6,14 @@ import {
   index
 } from '../../modules/listings'
 
-const Listings = props => (
-  <div>
-    <h1>Listings Page</h1>
-  </div>
-)
+class Listings extends Component {
+  render() {
+    return (<div>
+        <h1>Listings Page</h1>
+      </div>
+    )
+  }
+}
 
 const mapStateToProps = state => ({
   indexRequested: state.listings.indexRequested,
