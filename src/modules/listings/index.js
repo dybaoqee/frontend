@@ -41,7 +41,7 @@ function requestPosts() {
 function receivePosts(json) {
   return {
     type: FETCH_LISTINGS_SUCCESS,
-    listings: json.data.children.map(child => child.data),
+    index: json.data.map(child => child.data),
     receivedAt: Date.now()
   }
 }

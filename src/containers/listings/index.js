@@ -13,6 +13,10 @@ class Listings extends Component {
   }
 
   render() {
+    console.log(this.props);
+    const { index } = this.props;
+
+    console.log(index);
     return (<div>
         <h1>Listings Page</h1>
       </div>
@@ -22,6 +26,7 @@ class Listings extends Component {
 
 const mapStateToProps = state => ({
   isFetching: state.listings.isFetching,
+  index: state.listings.index
 })
 
 // const mapDispatchToProps = dispatch => bindActionCreators({
