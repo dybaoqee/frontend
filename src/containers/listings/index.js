@@ -13,14 +13,21 @@ class Listings extends Component {
   }
 
   render() {
-    console.log(this.props);
-    const { index } = this.props;
+    const { index, isFetching } = this.props;
 
-    console.log(index);
-    return (<div>
-        <h1>Listings Page</h1>
+    if (isFetching) {
+      return <div>Fetching listings</div>
+    }
+
+    if (index) {
+      return <div>
+        {index.map((listing, i) =>
+          <div key={i}>{listing.name}</div>
+        )}
       </div>
-    )
+    } else {
+      return <div>&nbps;</div>
+    }
   }
 }
 

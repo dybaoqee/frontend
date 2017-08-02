@@ -18,7 +18,9 @@ export default (state = initialState, action) => {
     case FETCH_LISTINGS_SUCCESS:
       return {
         ...state,
-        isFetching: false
+        isFetching: false,
+        index: action.index,
+        receivedAt: action.receivedAt
       }
 
     case FETCH_LISTINGS_FAILURE:
@@ -41,7 +43,7 @@ function requestPosts() {
 function receivePosts(json) {
   return {
     type: FETCH_LISTINGS_SUCCESS,
-    index: json.data.map(child => child.data),
+    index: json.data,
     receivedAt: Date.now()
   }
 }
