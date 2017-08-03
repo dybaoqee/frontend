@@ -51,7 +51,7 @@ function receivePosts(json) {
 function fetchPosts() {
   return dispatch => {
     dispatch(requestPosts())
-    return fetch('http://localhost:4000/listings')
+    return fetch(process.env.REACT_APP_API_URL + 'listings')
       .then(response => response.json())
       .then(json => dispatch(receivePosts(json)))
   }
