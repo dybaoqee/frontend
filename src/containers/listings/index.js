@@ -27,6 +27,7 @@ class Listings extends Component {
             <p><b>Preço: R${listing.price}</b></p>
             <p><b>Área: {listing.area}m²</b></p>
             <p><b>Quartos: {listing.rooms}</b></p>
+            <p><b>Vagas de garagem: {listing.garage_spots}</b></p>
             <p>{listing.description}</p>
           </div>
         )}
