@@ -22,7 +22,11 @@ class Listings extends Component {
     if (index) {
       return <div>
         {index.map((listing, i) =>
-          <div key={i}>{listing.name}</div>
+          <div key={i}>
+            <h1>{listing.name}</h1>
+            <p><b>Rooms: {listing.rooms}</b></p>
+            <p>{listing.description}</p>
+          </div>
         )}
       </div>
     } else {
