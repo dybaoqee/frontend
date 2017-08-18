@@ -24,7 +24,9 @@ class Listings extends Component {
         {index.map((listing, i) =>
           <div key={i}>
             <h1>{listing.name}</h1>
-            <p><b>Rooms: {listing.rooms}</b></p>
+            <p><b>Preço: R${listing.price}</b></p>
+            <p><b>Área: {listing.area}m²</b></p>
+            <p><b>Quartos: {listing.rooms}</b></p>
             <p>{listing.description}</p>
           </div>
         )}
