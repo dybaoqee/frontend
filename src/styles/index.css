@@ -15,9 +15,25 @@ main {
   float: right; }
   .listings > div > div.listing {
     background: white;
-    margin: 0 0 8px; }
-    .listings > div > div.listing img {
-      height: 200px; }
+    margin: 0 0 8px;
+    overflow: auto; }
+    .listings > div > div.listing > div {
+      float: left;
+      width: 50%; }
+      .listings > div > div.listing > div:first-of-type {
+        background-position: center;
+        background-size: cover;
+        height: 200px;
+        position: relative;
+        width: 300px; }
+        .listings > div > div.listing > div:first-of-type div {
+          bottom: 10px;
+          color: white;
+          left: 10px;
+          position: absolute; }
+          .listings > div > div.listing > div:first-of-type div span {
+            clear: both;
+            display: block; }
 
 html {
   font-size: 100%; }

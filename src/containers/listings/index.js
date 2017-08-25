@@ -24,21 +24,31 @@ class Listings extends Component {
         <img src="http://www.mapaplan.com/seating-plan/wembley-stadium-chart-london/high-resolution/wembley-stadium-london-seating-plan-09-google-map-high-resolution.jpg" alt="Map"/>
 
         <div>
-          {index.map((listing, i) =>
-            <div className="listing" key={i}>
-              <div>
-                <img src="http://www.judicearaujo.com.br/imoveis/010420141931256rjkwb.jpg" alt="Apartment"/>
+          {index.map((listing, i) => {
+            const bgImgUrl = 'http://www.judicearaujo.com.br/imoveis/010420141931256rjkwb.jpg'
+            var divStyle = {
+              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.0) 50%, rgba(0, 0, 0, 0.7) 80%), url(${bgImgUrl})`
+            }
+
+            return <div className="listing" key={i}>
+              <div style={divStyle}>
+                <div>
+                  <span>R${listing.price}</span>
+                  <span>{listing.address.street}</span>
+                  <span>
+                    {listing.address.neighborhood}, {listing.address.city}
+                  </span>
+                </div>
               </div>
 
-              <h1>{listing.name}</h1>
-              <p><b>Preço: R${listing.price}</b></p>
-              <p><b>Área: {listing.area}m²</b></p>
-              <p><b>Quartos: {listing.rooms}</b></p>
-              <p><b>Vagas de garagem: {listing.garage_spots}</b></p>
-              <p>{listing.description}</p>
-              <p><b>Cidade: </b>{listing.address.city}</p>
+              <div>
+                <p>{listing.description}</p>
+                <p><b>Área: {listing.area}m²</b></p>
+                <p><b>Quartos: {listing.rooms}</b></p>
+                <p><b>Vagas de garagem: {listing.garage_spots}</b></p>
+              </div>
             </div>
-          )}
+          })}
         </div>
       </div>
     } else {
