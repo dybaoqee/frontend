@@ -25,7 +25,11 @@ class Listings extends Component {
 
         <div>
           {index.map((listing, i) =>
-            <div key={i}>
+            <div className="listing" key={i}>
+              <div>
+                <img src="http://www.judicearaujo.com.br/imoveis/010420141931256rjkwb.jpg" alt="Apartment"/>
+              </div>
+
               <h1>{listing.name}</h1>
               <p><b>Preço: R${listing.price}</b></p>
               <p><b>Área: {listing.area}m²</b></p>
