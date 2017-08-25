@@ -1,0 +1,10 @@
+.listings > * {
+  float: left;
+  width: 50%; }
+
+.listings > div {
+  background: #f5f5f5;
+  float: right; }
+  .listings > div > div {
+    background: white;
+    margin: 0 0 8px; }
