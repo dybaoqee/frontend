@@ -5,7 +5,9 @@ import Listings from '../listings'
 const App = () => (
   <div>
     <header>
-      <Link to="/">Home</Link>
+      <Link to="/">
+        <img src="logo.png" alt="Main Logo"/>
+      </Link>
     </header>
 
     <main>
