@@ -20,20 +20,35 @@ main {
     .listings > div > div.listing > div {
       float: left;
       width: 50%; }
-      .listings > div > div.listing > div:first-of-type {
+      .listings > div > div.listing > div.image-container {
         background-position: center;
         background-size: cover;
         height: 200px;
         position: relative;
         width: 300px; }
-        .listings > div > div.listing > div:first-of-type div {
+        .listings > div > div.listing > div.image-container div {
           bottom: 10px;
           color: white;
           left: 10px;
           position: absolute; }
-          .listings > div > div.listing > div:first-of-type div span {
+          .listings > div > div.listing > div.image-container div span {
             clear: both;
             display: block; }
+      .listings > div > div.listing > div.text-container {
+        width: calc(100% - 300px); }
+        .listings > div > div.listing > div.text-container div.description {
+          margin: 20px 10px 0; }
+        .listings > div > div.listing > div.text-container table {
+          border-bottom: 1px solid;
+          font-size: 13px;
+          margin: 20px 0;
+          width: 100%; }
+          .listings > div > div.listing > div.text-container table tr {
+            border-top: 1px solid; }
+            .listings > div > div.listing > div.text-container table tr td {
+              padding: 4px 10px; }
+              .listings > div > div.listing > div.text-container table tr td:nth-of-type(2n) {
+                text-align: right; }
 
 html {
   font-size: 100%; }
