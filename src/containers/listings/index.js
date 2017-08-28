@@ -69,7 +69,7 @@ class Listings extends Component {
                   </tbody>
                 </table>
 
-                <a href="#" className="btn">
+                <a href="/" className="btn">
                   Ver Detalhes
                 </a>
               </div>
