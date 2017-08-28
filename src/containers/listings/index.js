@@ -31,7 +31,7 @@ class Listings extends Component {
             }
 
             return <div className="listing" key={i}>
-              <div style={divStyle}>
+              <div className="image-container" style={divStyle}>
                 <div>
                   <span>R${listing.price}</span>
                   <span>{listing.address.street}</span>
@@ -41,11 +41,31 @@ class Listings extends Component {
                 </div>
               </div>
 
-              <div>
-                <p>{listing.description}</p>
-                <p><b>Área: {listing.area}m²</b></p>
-                <p><b>Quartos: {listing.rooms}</b></p>
-                <p><b>Vagas de garagem: {listing.garage_spots}</b></p>
+              <div className="text-container">
+                <div className="description">
+                  {listing.description}
+                </div>
+
+                <table>
+                  <tr>
+                    <td>Quartos</td>
+                    <td>{listing.rooms}</td>
+                    <td>Vagas Garagem</td>
+                    <td>{listing.garage_spots}</td>
+                  </tr>
+                  <tr>
+                    <td>Banheiros</td>
+                    <td>{listing.bathrooms}</td>
+                    <td>Andar</td>
+                    <td>{listing.floor}</td>
+                  </tr>
+                  <tr>
+                    <td>Área</td>
+                    <td>{listing.area}</td>
+                    <td>R$/m²</td>
+                    <td>xxxx</td>
+                  </tr>
+                </table>
               </div>
             </div>
           })}
@@ -62,12 +82,6 @@ const mapStateToProps = state => ({
   index: state.listings.index
 })
 
-// const mapDispatchToProps = dispatch => bindActionCreators({
-//   fetchPostsIfNeeded,
-//   changePage: () => push('/listings')
-// }, dispatch)
-
 export default connect(
-  mapStateToProps,
-  // mapDispatchToProps
+  mapStateToProps
 )(Listings)
