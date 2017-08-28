@@ -47,24 +47,26 @@ class Listings extends Component {
                 </div>
 
                 <table>
-                  <tr>
-                    <td>Quartos</td>
-                    <td>{listing.rooms}</td>
-                    <td>Vagas Garagem</td>
-                    <td>{listing.garage_spots}</td>
-                  </tr>
-                  <tr>
-                    <td>Banheiros</td>
-                    <td>{listing.bathrooms}</td>
-                    <td>Andar</td>
-                    <td>{listing.floor}</td>
-                  </tr>
-                  <tr>
-                    <td>Área</td>
-                    <td>{listing.area}</td>
-                    <td>R$/m²</td>
-                    <td>xxxx</td>
-                  </tr>
+                  <tbody>
+                    <tr>
+                      <td>Quartos</td>
+                      <td>{listing.rooms}</td>
+                      <td>Vagas Garagem</td>
+                      <td>{listing.garage_spots}</td>
+                    </tr>
+                    <tr>
+                      <td>Banheiros</td>
+                      <td>{listing.bathrooms}</td>
+                      <td>Andar</td>
+                      <td>{listing.floor}</td>
+                    </tr>
+                    <tr>
+                      <td>Área</td>
+                      <td>{listing.area}</td>
+                      <td>R$/m²</td>
+                      <td>xxxx</td>
+                    </tr>
+                  </tbody>
                 </table>
 
                 <a href="#" className="btn">
