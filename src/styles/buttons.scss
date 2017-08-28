@@ -1,0 +1,16 @@
+@import "mixins/color.scss";
+
+.btn {
+  background-color: $blue;
+  border-radius: 4px;
+  color: white;
+  font-size: 13px;
+  padding: 3px 15px 5px;
+  text-decoration: none;
+  transition: background-color 0.10s ease;
+  transform: 0.25;
+  &:hover {
+    background-color: darken($blue, 5%);
+    text-decoration: none;
+  }
+}

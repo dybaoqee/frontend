@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-// import { push } from 'react-router-redux'
-// import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {
   fetchPostsIfNeeded
@@ -34,8 +32,10 @@ class Listings extends Component {
               <div className="image-container" style={divStyle}>
                 <div>
                   <span>R${listing.price}</span>
-                  <span>{listing.address.street}</span>
-                  <span>
+                  <span className="address">
+                    {listing.address.street}
+                  </span>
+                  <span className="neighborhood">
                     {listing.address.neighborhood}, {listing.address.city}
                   </span>
                 </div>
@@ -66,6 +66,10 @@ class Listings extends Component {
                     <td>xxxx</td>
                   </tr>
                 </table>
+
+                <a href="#" className="btn">
+                  Ver Detalhes
+                </a>
               </div>
             </div>
           })}

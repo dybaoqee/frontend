@@ -1,3 +1,5 @@
+@import 'mixins/color.scss';
+
 .listings {
   > * {
     float: left;
@@ -29,27 +31,43 @@
             span {
               clear: both;
               display: block;
+              font-size: 18px;
+              &.address {
+                font-size: 13px;
+                margin-bottom: 1px;
+                margin-top: 3px;
+              }
+              &.neighborhood {
+                font-size: 10px;
+              }
             }
           }
         }
         &.text-container {
           width: calc(100% - 300px);
+          a.btn {
+            float: right;
+            margin: 14px;
+          }
           div.description {
+            font-size: 14px;
             margin: 20px 10px 0;
           }
           table {
-            border-bottom: 1px solid;
+            border-bottom: 1px solid $off-white;
             font-size: 13px;
-            margin: 20px 0;
+            margin: 20px 0 0;
             width: 100%;
             tr {
-              border-top: 1px solid;
+              border-top: 1px solid $off-white;
               td {
                 padding: 4px 10px;
                 &:nth-of-type(2n) {
+                  font-weight: bold;
                   text-align: right;
                 }
                 &:nth-of-type(2n-1) {
+                  color: $gray;
                 }
               }
             }
