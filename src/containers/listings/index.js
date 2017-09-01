@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import {
   fetchPostsIfNeeded
@@ -69,9 +70,9 @@ class Listings extends Component {
                   </tbody>
                 </table>
 
-                <a href="/" className="btn">
+                <Link to={`/listings/${listing.id}`} className="btn">
                   Ver Detalhes
-                </a>
+                </Link>
               </div>
             </div>
           })}
