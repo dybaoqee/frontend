@@ -14,7 +14,15 @@
       background: white;
       margin: 0 0 8px;
       overflow: auto;
-      > div {
+      > a {
+        display: block;
+        overflow: auto;
+        &:hover {
+          background: $off-white;
+        }
+      }
+      > a > div {
+        color: $text;
         float: left;
         width: 50%;
         &.image-container {
