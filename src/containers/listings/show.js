@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {
-  fetchPostsIfNeeded
-} from '../../modules/listings/index'
+  fetchListingIfNeeded
+} from '../../modules/listings/show'
 
 class Listings extends Component {
   componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(fetchPostsIfNeeded());
+    const { dispatch, id } = this.props;
+    dispatch(fetchListingIfNeeded(id));
   }
 
   render() {
