@@ -19,6 +19,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isFetching: false,
+        listing: action.index,
         receivedAt: action.receivedAt
       }
 
@@ -47,7 +48,7 @@ function receiveListing(json) {
   }
 }
 
-function fetchListings(id) {
+function fetchListing(id) {
   return dispatch => {
     dispatch(requestListing())
     return fetch(process.env.REACT_APP_API_URL + 'listings/' + id)
@@ -68,7 +69,7 @@ function shouldFetchListing(state, id) {
 export function fetchListingIfNeeded(id) {
   return (dispatch, getState) => {
     if (shouldFetchListing(getState(), id)) {
-      return dispatch(fetchListings(id))
+      return dispatch(fetchListing(id))
     }
   }
 }
