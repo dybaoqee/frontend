@@ -1,29 +1,28 @@
-export const REQUEST_LISTINGS = 'REQUEST_LISTINGS'
-export const FETCH_LISTINGS_SUCCESS = 'FETCH_LISTINGS_SUCCESS'
-export const FETCH_LISTINGS_FAILURE = 'FETCH_LISTINGS_FAILURE'
+export const REQUEST_LISTING = 'REQUEST_LISTING'
+export const FETCH_LISTING_SUCCESS = 'FETCH_LISTING_SUCCESS'
+export const FETCH_LISTING_FAILURE = 'FETCH_LISTING_FAILURE'
 
 const initialState = {
-  index: false,
+  listing: null,
   isFetching: false
 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case REQUEST_LISTINGS:
+    case REQUEST_LISTING:
       return {
         ...state,
         isFetching: true
       }
 
-    case FETCH_LISTINGS_SUCCESS:
+    case FETCH_LISTING_SUCCESS:
       return {
         ...state,
         isFetching: false,
-        index: action.index,
         receivedAt: action.receivedAt
       }
 
-    case FETCH_LISTINGS_FAILURE:
+    case FETCH_LISTING_FAILURE:
       return {
         ...state,
         isFetching: false
@@ -34,44 +33,42 @@ export default (state = initialState, action) => {
   }
 }
 
-function requestPosts() {
+function requestListing() {
   return {
-    type: REQUEST_LISTINGS
+    type: REQUEST_LISTING
   }
 }
 
-function receivePosts(json) {
+function receiveListing(json) {
   return {
-    type: FETCH_LISTINGS_SUCCESS,
+    type: FETCH_LISTING_SUCCESS,
     index: json.data,
     receivedAt: Date.now()
   }
 }
 
-function fetchListings() {
+function fetchListings(id) {
   return dispatch => {
-    dispatch(requestPosts())
-    return fetch(process.env.REACT_APP_API_URL + 'listings')
+    dispatch(requestListing())
+    return fetch(process.env.REACT_APP_API_URL + 'listings/' + id)
       .then(response => response.json())
-      .then(json => dispatch(receivePosts(json)))
+      .then(json => dispatch(receiveListing(json)))
   }
 }
 
-function shouldFetchPosts(state, id) {
-  const listings = state.listings
-  if (!listings.index) {
-    return true
-  } else if (listings.isFetching) {
-    return false
-  } else {
-    return listings.didInvalidate
-  }
+function shouldFetchListing(state, id) {
+  const listing = state.listing
+
+  if (!listing.listing) return true
+  if (listing.listing.id === id) return false
+  if (listing.isFetching) return false
+  return listing.didInvalidate
 }
 
 export function fetchListingIfNeeded(id) {
   return (dispatch, getState) => {
-    if (shouldFetchPosts(getState(), id)) {
-      return dispatch(fetchListings())
+    if (shouldFetchListing(getState(), id)) {
+      return dispatch(fetchListings(id))
     }
   }
 }
