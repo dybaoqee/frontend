@@ -11,26 +11,25 @@ class Listings extends Component {
   }
 
   render() {
-    const { isFetching, id } = this.props;
+    const { isFetching, listing } = this.props
 
     if (isFetching) {
       return <div>Fetching listing</div>
-    }
-
-    if (1 == 1) {
+    } else if (listing.listing) {
       return <div className="listings">
-        <h1>{id}</h1>
+        <h1>{listing.listing.rooms}</h1>
         <img src="http://www.mapaplan.com/seating-plan/wembley-stadium-chart-london/high-resolution/wembley-stadium-london-seating-plan-09-google-map-high-resolution.jpg" alt="Map"/>
       </div>
-    } else {
-      return <div>&nbps;</div>
     }
+
+    return <div>&nbsp;</div>
   }
 }
 
 const mapStateToProps = (state, ownProps) => ({
   id: ownProps.match.params.id,
-  isFetching: state.listings.isFetching
+  isFetching: state.listing.isFetching,
+  listing: state.listing
 })
 
 export default connect(
