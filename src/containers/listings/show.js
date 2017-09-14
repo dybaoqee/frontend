@@ -17,14 +17,13 @@ class Listings extends Component {
       return <div>Fetching listing</div>
     }
 
-    if (1 == 1) {
-      return <div className="listings">
-        <h1>{id}</h1>
-        <img src="http://www.mapaplan.com/seating-plan/wembley-stadium-chart-london/high-resolution/wembley-stadium-london-seating-plan-09-google-map-high-resolution.jpg" alt="Map"/>
-      </div>
-    } else {
-      return <div>&nbps;</div>
-    }
+    return <div className="listing">
+      <header>
+        <h6>Apartamento</h6>
+
+      </header>
+      <img src="http://www.mapaplan.com/seating-plan/wembley-stadium-chart-london/high-resolution/wembley-stadium-london-seating-plan-09-google-map-high-resolution.jpg" alt="Map"/>
+    </div>
   }
 }
 
