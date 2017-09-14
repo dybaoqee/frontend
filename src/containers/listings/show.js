@@ -19,10 +19,18 @@ class Listings extends Component {
 
     return <div className="listing">
       <header>
-        <h6>Apartamento</h6>
-        {listing.address.street}
-        {listing.address.neighborhood}, {listing.address.city}
-        {listing.price}
+        <div>
+          <div>
+            <h6>Apartamento</h6>
+            <p>{listing.address.street}</p>
+            <p>
+              {listing.address.neighborhood}, {listing.address.city}
+            </p>
+          </div>
+          <div>
+            R${listing.price}
+          </div>
+        </div>
 
         <button className="green">
           Marcar Visita
