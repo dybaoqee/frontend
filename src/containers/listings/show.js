@@ -11,18 +11,33 @@ class Listings extends Component {
   }
 
   render() {
-    const { isFetching, listing } = this.props
+    const { listing } = this.props.listing
 
-    if (isFetching) {
+    if (!listing) {
       return <div>Fetching listing</div>
-    } else if (listing.listing) {
-      return <div className="listings">
-        <h1>{listing.listing.rooms}</h1>
-        <img src="http://www.mapaplan.com/seating-plan/wembley-stadium-chart-london/high-resolution/wembley-stadium-london-seating-plan-09-google-map-high-resolution.jpg" alt="Map"/>
-      </div>
     }
 
-    return <div>&nbsp;</div>
+    return <div className="listing">
+      <header>
+        <div>
+          <div>
+            <h6>Apartamento</h6>
+            <p>{listing.address.street}</p>
+            <p>
+              {listing.address.neighborhood}, {listing.address.city}
+            </p>
+          </div>
+          <div>
+            R${listing.price}
+          </div>
+        </div>
+
+        <button className="green">
+          Marcar Visita
+        </button>
+      </header>
+      <img src="http://www.mapaplan.com/seating-plan/wembley-stadium-chart-london/high-resolution/wembley-stadium-london-seating-plan-09-google-map-high-resolution.jpg" alt="Map"/>
+    </div>
   }
 }
 
