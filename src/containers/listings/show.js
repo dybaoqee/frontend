@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import {
   fetchListingIfNeeded
@@ -76,7 +77,15 @@ class Listings extends Component {
       </div>
 
       <img src="http://www.mapaplan.com/seating-plan/wembley-stadium-chart-london/high-resolution/wembley-stadium-london-seating-plan-09-google-map-high-resolution.jpg" alt="Map"/>
+
+      <footer>
+        <Link to="/">‹ Ver Todos os Imóveis</Link>
+        <button className="green">
+          Marcar Visita
+        </button>
+      </footer>
     </div>
+
   }
 }
 
