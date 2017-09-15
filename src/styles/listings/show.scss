@@ -14,7 +14,7 @@
       align-items: center;
       display: flex;
       justify-content: space-between;
-      width: $main-content-width / 3 * 2;
+      width: $two-thirds-width;
       h6 {
         font-weight: normal;
         font-size: 11px;
@@ -33,6 +33,41 @@
     }
     > div > div:last-of-type {
       font-weight: bold;
+    }
+  }
+  .main-content {
+    display: flex;
+    margin-bottom: 40px;
+    > * {
+      float: left;
+    }
+    img {
+      width: $two-thirds-width;
+    }
+    > div {
+      width: $one-third-width;
+      > div {
+        margin: 20px 20px 40px;
+      }
+      table {
+        border-bottom: 1px solid $off-white;
+        font-size: 13px;
+        margin: 20px 0 0;
+        width: 100%;
+        tr {
+          border-top: 1px solid $off-white;
+          td {
+            padding: 4px 20px;
+            &:nth-of-type(2n) {
+              font-weight: bold;
+              text-align: right;
+            }
+            &:nth-of-type(2n-1) {
+              color: $gray;
+            }
+          }
+        }
+      }
     }
   }
 }
