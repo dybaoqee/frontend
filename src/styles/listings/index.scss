@@ -20,6 +20,14 @@
         overflow: auto;
         &:hover {
           background: $off-white;
+          > div.text-container {
+            table {
+              border-bottom: 1px solid darken($very-light-gray, 20%);
+              tr {
+                border-top: 1px solid darken($very-light-gray, 20%);
+              }
+            }
+          }
         }
       }
       > a > div {
