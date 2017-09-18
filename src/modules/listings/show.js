@@ -1,6 +1,7 @@
 export const REQUEST_LISTING = 'REQUEST_LISTING'
 export const FETCH_LISTING_SUCCESS = 'FETCH_LISTING_SUCCESS'
 export const FETCH_LISTING_FAILURE = 'FETCH_LISTING_FAILURE'
+export const SWITCH_LISTING_POPUP = 'SWITCH_LISTING_POPUP'
 
 const initialState = {
   listing: null,
@@ -28,6 +29,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isFetching: false
+      }
+
+    case SWITCH_LISTING_POPUP:
+      return {
+        ...state,
+        isShowingPopup: true
       }
 
     default:
@@ -72,5 +79,11 @@ export function fetchListingIfNeeded(id) {
     if (shouldFetchListing(getState(), id)) {
       return dispatch(fetchListing(id))
     }
+  }
+}
+
+export function switchPopup() {
+  return {
+    type: SWITCH_LISTING_POPUP
   }
 }

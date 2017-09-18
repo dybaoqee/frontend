@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import {
-  fetchListingIfNeeded
+  fetchListingIfNeeded,
+  switchPopup
 } from '../../modules/listings/show'
 
 class Listings extends Component {
@@ -34,7 +35,7 @@ class Listings extends Component {
           </div>
         </div>
 
-        <button className="green">
+        <button className="green" onClick={switchPopup}>
           Marcar Visita
         </button>
       </header>
@@ -87,7 +88,7 @@ class Listings extends Component {
       </footer>
 
       {isShowingPopup &&
-        <Popup/>
+        <Popup />
       }
 
     </div>
