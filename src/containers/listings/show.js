@@ -12,6 +12,7 @@ class Listings extends Component {
   }
 
   render() {
+    const { isShowingPopup } = this.props;
     const { listing } = this.props.listing
 
     if (!listing) {
@@ -85,7 +86,10 @@ class Listings extends Component {
         </button>
       </footer>
 
-      <Popup/>
+      {isShowingPopup &&
+        <Popup/>
+      }
+
     </div>
 
   }
@@ -108,6 +112,7 @@ function Popup() {
 const mapStateToProps = (state, ownProps) => ({
   id: ownProps.match.params.id,
   isFetching: state.listing.isFetching,
+  isShowingPopup: state.listing.isShowingPopup,
   listing: state.listing
 })
 

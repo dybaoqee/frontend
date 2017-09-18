@@ -4,7 +4,8 @@ export const FETCH_LISTING_FAILURE = 'FETCH_LISTING_FAILURE'
 
 const initialState = {
   listing: null,
-  isFetching: false
+  isFetching: false,
+  isShowingPopup: false
 }
 
 export default (state = initialState, action) => {
