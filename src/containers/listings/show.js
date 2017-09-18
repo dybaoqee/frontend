@@ -85,20 +85,24 @@ class Listings extends Component {
         </button>
       </footer>
 
-      <div className="popup">
-        <div>
-          <h1>Marcar Visita</h1>
-          <p>Teremos um grande prazer em mostrar este apartamento para você. Por favor insira abaixo seu nome, email e telefone com ddd e entraremos em contato em minutos.</p>
-
-          <input type="text" name="name" placeholder="Nome"/>
-          <input type="text" name="email" placeholder="Email"/>
-          <input type="text" name="phone" placeholder="Telefone"/>
-          <button>Enviar</button>
-        </div>
-      </div>
+      <Popup/>
     </div>
 
   }
+}
+
+function Popup() {
+  return <div className="popup">
+    <div>
+      <h1>Marcar Visita</h1>
+      <p>Teremos um grande prazer em mostrar este apartamento para você. Por favor insira abaixo seu nome, email e telefone com ddd e entraremos em contato em minutos.</p>
+
+      <input type="text" name="name" placeholder="Nome"/>
+      <input type="text" name="email" placeholder="Email"/>
+      <input type="text" name="phone" placeholder="Telefone"/>
+      <button>Enviar</button>
+    </div>
+  </div>
 }
 
 const mapStateToProps = (state, ownProps) => ({
