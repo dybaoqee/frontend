@@ -34,7 +34,7 @@ export default (state = initialState, action) => {
     case SWITCH_LISTING_POPUP:
       return {
         ...state,
-        isShowingPopup: true
+        isShowingPopup: !state.isShowingPopup
       }
 
     default:
