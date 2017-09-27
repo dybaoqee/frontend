@@ -1,17 +1,30 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {
-  fetchListingIfNeeded
+  fetchListingIfNeeded,
+  switchPopup
 } from '../../modules/listings/show'
 
 class Listings extends Component {
+  constructor() {
+    super()
+    this.togglePopup = this.togglePopup.bind(this)
+  }
+
   componentDidMount() {
-    const { dispatch, id } = this.props;
-    dispatch(fetchListingIfNeeded(id));
+    const { id, fetchListingIfNeeded } = this.props
+    fetchListingIfNeeded(id)
+  }
+
+  togglePopup() {
+    const {switchPopup} = this.props
+    switchPopup()
   }
 
   render() {
+    const { isShowingPopup } = this.props
     const { listing } = this.props.listing
 
     if (!listing) {
@@ -33,7 +46,7 @@ class Listings extends Component {
           </div>
         </div>
 
-        <button className="green">
+        <button className="green" onClick={this.togglePopup}>
           Marcar Visita
         </button>
       </header>
@@ -84,17 +97,39 @@ class Listings extends Component {
           Marcar Visita
         </button>
       </footer>
-    </div>
 
+      {isShowingPopup &&
+        <div className="popup">
+          <div>
+            <button className="close" onClick={this.togglePopup}>×</button>
+            <h1>Marcar Visita</h1>
+            <p>Teremos um grande prazer em mostrar este apartamento para você. Por favor insira abaixo seu nome, email e telefone com ddd e entraremos em contato em minutos.</p>
+
+            <input type="text" name="name" placeholder="Nome"/>
+            <input type="text" name="email" placeholder="Email"/>
+            <input type="text" name="phone" placeholder="Telefone"/>
+            <button>Enviar</button>
+          </div>
+        </div>
+      }
+
+    </div>
   }
 }
 
 const mapStateToProps = (state, ownProps) => ({
   id: ownProps.match.params.id,
   isFetching: state.listing.isFetching,
+  isShowingPopup: state.listing.isShowingPopup,
   listing: state.listing
 })
 
+const mapDispatchToProps = dispatch => bindActionCreators({
+  fetchListingIfNeeded,
+  switchPopup
+}, dispatch)
+
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(Listings)
