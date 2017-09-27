@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {
   fetchListingIfNeeded,
@@ -8,8 +9,8 @@ import {
 
 class Listings extends Component {
   componentDidMount() {
-    const { dispatch, id } = this.props;
-    dispatch(fetchListingIfNeeded(id));
+    const { id, fetchListingIfNeeded } = this.props;
+    fetchListingIfNeeded(id);
   }
 
   render() {
@@ -35,7 +36,7 @@ class Listings extends Component {
           </div>
         </div>
 
-        <button className="green" onClick={switchPopup}>
+        <button className="green" onClick={() => this.props.switchPopup()}>
           Marcar Visita
         </button>
       </header>
@@ -117,6 +118,12 @@ const mapStateToProps = (state, ownProps) => ({
   listing: state.listing
 })
 
+const mapDispatchToProps = dispatch => bindActionCreators({
+  fetchListingIfNeeded,
+  switchPopup
+}, dispatch)
+
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(Listings)
