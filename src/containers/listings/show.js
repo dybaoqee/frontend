@@ -13,23 +13,13 @@ import {
 } from '../../modules/listings/show'
 
 class Listings extends Component {
-  constructor() {
-    super()
-    this.togglePopup = this.togglePopup.bind(this)
-  }
-
   componentDidMount() {
     const { id, fetchListingIfNeeded } = this.props
     fetchListingIfNeeded(id)
   }
 
-  togglePopup() {
-    const {switchPopup} = this.props
-    switchPopup()
-  }
-
   render() {
-    const { isShowingPopup, postForm } = this.props
+    const { isShowingPopup, postForm, switchPopup } = this.props
     const { listing } = this.props.listing
 
     if (!listing) {
@@ -51,7 +41,7 @@ class Listings extends Component {
           </div>
         </div>
 
-        <button className="green" onClick={this.togglePopup}>
+        <button className="green" onClick={switchPopup}>
           Marcar Visita
         </button>
       </header>
@@ -106,7 +96,7 @@ class Listings extends Component {
       {isShowingPopup &&
         <div className="popup">
           <div>
-            <button className="close" onClick={this.togglePopup}>×</button>
+            <button className="close" onClick={switchPopup}>×</button>
             <h1>Marcar Visita</h1>
             <p>Teremos um grande prazer em mostrar este apartamento para você. Por favor insira abaixo seu nome, email e telefone com ddd e entraremos em contato em minutos.</p>
             <SimpleForm onSubmit={postForm} />
