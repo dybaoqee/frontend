@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { Field, reduxForm } from 'redux-form'
+
+import SimpleForm from "../../components/listings/show/form";
+
 import {
   fetchListingIfNeeded,
   switchPopup
@@ -104,10 +108,7 @@ class Listings extends Component {
             <button className="close" onClick={this.togglePopup}>×</button>
             <h1>Marcar Visita</h1>
             <p>Teremos um grande prazer em mostrar este apartamento para você. Por favor insira abaixo seu nome, email e telefone com ddd e entraremos em contato em minutos.</p>
-
-            <input type="text" name="name" placeholder="Nome"/>
-            <input type="text" name="email" placeholder="Email"/>
-            <input type="text" name="phone" placeholder="Telefone"/>
+            <SimpleForm onSubmit={() => {console.log('Opa')}} />
             <button>Enviar</button>
           </div>
         </div>
