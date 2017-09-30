@@ -87,3 +87,10 @@ export function switchPopup() {
     type: SWITCH_LISTING_POPUP
   }
 }
+
+export function postForm() {
+  console.log('To post form');
+  return {
+    type: SWITCH_LISTING_POPUP
+  }
+}
