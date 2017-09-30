@@ -109,7 +109,6 @@ class Listings extends Component {
             <h1>Marcar Visita</h1>
             <p>Teremos um grande prazer em mostrar este apartamento para você. Por favor insira abaixo seu nome, email e telefone com ddd e entraremos em contato em minutos.</p>
             <SimpleForm onSubmit={() => {console.log('Opa')}} />
-            <button>Enviar</button>
           </div>
         </div>
       }

@@ -23,6 +23,9 @@ const SimpleForm = props => {
         type="text"
         placeholder="Telefone"
       />
+      <button type="submit" disabled={pristine || submitting}>
+        Enviar
+      </button>
     </form>
   );
 };
