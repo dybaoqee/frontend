@@ -101,7 +101,8 @@ function willPostForm() {
   }
 }
 
-function receivePosts(json) {
+function didPostForm(json) {
+  console.log(json);
   return {
     type: SWITCH_LISTING_POPUP,
     index: json.data,
@@ -109,17 +110,11 @@ function receivePosts(json) {
 }
 
 export function postForm() {
-  return dispatch => {
+  return (dispatch, getState) => {
     dispatch(willPostForm())
-    console.log(
-      JSON.stringify({
-        user: {
-          name: "Valdick Soriano",
-          email: "gs@gustavosaiani.com",
-          phone: "1234 5678"
-        }
-      })
-    )
+
+    const { name, email, phone } = getState().form.listingInterest.values
+
     return fetch(process.env.REACT_APP_API_URL + 'users', {
       method: 'post',
       headers: {
@@ -128,12 +123,12 @@ export function postForm() {
       },
       body: JSON.stringify({
         user: {
-          name: "Valdick Soriano",
-          email: "gs@gustavosaiani.com",
-          phone: "1234 5678"
+          name: name,
+          email: email,
+          phone: phone
         }
       })
     }).then(response => response.json())
-      .then(json => dispatch(receivePosts(json)))
+      .then(json => dispatch(didPostForm(json)))
   }
 }
