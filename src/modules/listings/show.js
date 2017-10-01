@@ -3,11 +3,13 @@ export const FETCH_LISTING_SUCCESS = 'FETCH_LISTING_SUCCESS'
 export const FETCH_LISTING_FAILURE = 'FETCH_LISTING_FAILURE'
 export const SWITCH_LISTING_POPUP = 'SWITCH_LISTING_POPUP'
 export const POST_LISTING_INTEREST = 'POST_LISTING_INTEREST'
+export const POST_LISTING_INTEREST_SUCCESS = 'POST_LISTING_INTEREST_SUCCESS'
 
 const initialState = {
   listing: null,
   isFetching: false,
-  isShowingPopup: false
+  isShowingPopup: false,
+  isShowingPostSuccessPopup: false
 }
 
 export default (state = initialState, action) => {
@@ -42,6 +44,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isShowingPopup: false
+      }
+
+    case POST_LISTING_INTEREST_SUCCESS:
+      return {
+        ...state,
+        isShowingPostSuccessPopup: true
       }
 
     default:
@@ -101,11 +109,9 @@ function willPostForm() {
   }
 }
 
-function didPostForm(json) {
-  console.log(json);
+function didPostForm() {
   return {
-    type: SWITCH_LISTING_POPUP,
-    index: json.data,
+    type: POST_LISTING_INTEREST_SUCCESS
   }
 }
 

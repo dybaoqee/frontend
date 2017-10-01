@@ -19,7 +19,8 @@ class Listings extends Component {
   }
 
   render() {
-    const { isShowingPopup, postForm, switchPopup } = this.props
+    console.log(this.props);
+    const { isShowingPopup, postForm, switchPopup, isShowingPostSuccessPopup } = this.props
     const { listing } = this.props.listing
 
     if (!listing) {
@@ -104,6 +105,15 @@ class Listings extends Component {
         </div>
       }
 
+      {isShowingPostSuccessPopup &&
+        <div className="popup">
+          <div>
+            <button className="close" onClick={switchPopup}>×</button>
+            <h1>Notificamos um Agente EmCasa!</h1>
+            <p>Entraremos em contato o mais rápido possível para agendarmos uma visita!</p>
+          </div>
+        </div>
+      }
     </div>
   }
 }
@@ -112,6 +122,7 @@ const mapStateToProps = (state, ownProps) => ({
   id: ownProps.match.params.id,
   isFetching: state.listing.isFetching,
   isShowingPopup: state.listing.isShowingPopup,
+  isShowingPostSuccessPopup: state.listing.isShowingPostSuccessPopup,
   listing: state.listing
 })
 
