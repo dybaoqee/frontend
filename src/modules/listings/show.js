@@ -133,6 +133,7 @@ export function postForm() {
     dispatch(willPostForm())
 
     const { name, email, phone } = getState().form.listingInterest.values
+    const { id } = getState().listing.listing
 
     return fetch(process.env.REACT_APP_API_URL + 'users', {
       method: 'post',
@@ -145,6 +146,9 @@ export function postForm() {
           name: name,
           email: email,
           phone: phone
+        },
+        listing: {
+          id: id
         }
       })
     }).then(response => response.json())

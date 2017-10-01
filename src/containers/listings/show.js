@@ -20,7 +20,6 @@ class Listings extends Component {
   }
 
   render() {
-    console.log(this.props);
     const {
       isShowingPopup,
       postForm,
@@ -117,7 +116,7 @@ class Listings extends Component {
         <div className="popup">
           <div>
             <button className="close" onClick={closeSuccessPostPopup}>×</button>
-            <h1>Notificamos um Agente EmCasa!</h1>
+            <h1>Agente EmCasa Notificado</h1>
             <p>Entraremos em contato o mais rápido possível para agendarmos uma visita!</p>
             <button onClick={closeSuccessPostPopup}>Fechar</button>
           </div>
