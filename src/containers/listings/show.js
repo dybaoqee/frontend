@@ -2,29 +2,32 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { Field, reduxForm } from 'redux-form'
+
+import SimpleForm from "../../components/listings/show/form";
+
 import {
   fetchListingIfNeeded,
-  switchPopup
+  switchPopup,
+  postForm,
+  closeSuccessPostPopup
 } from '../../modules/listings/show'
 
 class Listings extends Component {
-  constructor() {
-    super()
-    this.togglePopup = this.togglePopup.bind(this)
-  }
-
   componentDidMount() {
     const { id, fetchListingIfNeeded } = this.props
     fetchListingIfNeeded(id)
   }
 
-  togglePopup() {
-    const {switchPopup} = this.props
-    switchPopup()
-  }
-
   render() {
-    const { isShowingPopup } = this.props
+    const {
+      isShowingPopup,
+      postForm,
+      switchPopup,
+      isShowingPostSuccessPopup,
+      closeSuccessPostPopup
+    } = this.props
+
     const { listing } = this.props.listing
 
     if (!listing) {
@@ -46,7 +49,7 @@ class Listings extends Component {
           </div>
         </div>
 
-        <button className="green" onClick={this.togglePopup}>
+        <button className="green" onClick={switchPopup}>
           Marcar Visita
         </button>
       </header>
@@ -101,18 +104,24 @@ class Listings extends Component {
       {isShowingPopup &&
         <div className="popup">
           <div>
-            <button className="close" onClick={this.togglePopup}>×</button>
+            <button className="close" onClick={switchPopup}>×</button>
             <h1>Marcar Visita</h1>
             <p>Teremos um grande prazer em mostrar este apartamento para você. Por favor insira abaixo seu nome, email e telefone com ddd e entraremos em contato em minutos.</p>
-
-            <input type="text" name="name" placeholder="Nome"/>
-            <input type="text" name="email" placeholder="Email"/>
-            <input type="text" name="phone" placeholder="Telefone"/>
-            <button>Enviar</button>
+            <SimpleForm onSubmit={postForm} />
           </div>
         </div>
       }
 
+      {isShowingPostSuccessPopup &&
+        <div className="popup">
+          <div>
+            <button className="close" onClick={closeSuccessPostPopup}>×</button>
+            <h1>Agente EmCasa Notificado</h1>
+            <p>Entraremos em contato o mais rápido possível para agendarmos uma visita!</p>
+            <button onClick={closeSuccessPostPopup}>Fechar</button>
+          </div>
+        </div>
+      }
     </div>
   }
 }
@@ -121,12 +130,15 @@ const mapStateToProps = (state, ownProps) => ({
   id: ownProps.match.params.id,
   isFetching: state.listing.isFetching,
   isShowingPopup: state.listing.isShowingPopup,
+  isShowingPostSuccessPopup: state.listing.isShowingPostSuccessPopup,
   listing: state.listing
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   fetchListingIfNeeded,
-  switchPopup
+  switchPopup,
+  postForm,
+  closeSuccessPostPopup
 }, dispatch)
 
 export default connect(
