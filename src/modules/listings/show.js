@@ -2,6 +2,7 @@ export const REQUEST_LISTING = 'REQUEST_LISTING'
 export const FETCH_LISTING_SUCCESS = 'FETCH_LISTING_SUCCESS'
 export const FETCH_LISTING_FAILURE = 'FETCH_LISTING_FAILURE'
 export const SWITCH_LISTING_POPUP = 'SWITCH_LISTING_POPUP'
+export const POST_LISTING_INTEREST = 'POST_LISTING_INTEREST'
 
 const initialState = {
   listing: null,
@@ -35,6 +36,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isShowingPopup: !state.isShowingPopup
+      }
+
+    case POST_LISTING_INTEREST:
+      return {
+        ...state,
+        isShowingPopup: false
       }
 
     default:
@@ -88,9 +95,45 @@ export function switchPopup() {
   }
 }
 
-export function postForm() {
-  console.log('To post form');
+function willPostForm() {
   return {
-    type: SWITCH_LISTING_POPUP
+    type: POST_LISTING_INTEREST
+  }
+}
+
+function receivePosts(json) {
+  return {
+    type: SWITCH_LISTING_POPUP,
+    index: json.data,
+  }
+}
+
+export function postForm() {
+  return dispatch => {
+    dispatch(willPostForm())
+    console.log(
+      JSON.stringify({
+        user: {
+          name: "Valdick Soriano",
+          email: "gs@gustavosaiani.com",
+          phone: "1234 5678"
+        }
+      })
+    )
+    return fetch(process.env.REACT_APP_API_URL + 'users', {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        user: {
+          name: "Valdick Soriano",
+          email: "gs@gustavosaiani.com",
+          phone: "1234 5678"
+        }
+      })
+    }).then(response => response.json())
+      .then(json => dispatch(receivePosts(json)))
   }
 }
