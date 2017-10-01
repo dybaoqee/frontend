@@ -9,7 +9,8 @@ import SimpleForm from "../../components/listings/show/form";
 import {
   fetchListingIfNeeded,
   switchPopup,
-  postForm
+  postForm,
+  closeSuccessPostPopup
 } from '../../modules/listings/show'
 
 class Listings extends Component {
@@ -20,7 +21,14 @@ class Listings extends Component {
 
   render() {
     console.log(this.props);
-    const { isShowingPopup, postForm, switchPopup, isShowingPostSuccessPopup } = this.props
+    const {
+      isShowingPopup,
+      postForm,
+      switchPopup,
+      isShowingPostSuccessPopup,
+      closeSuccessPostPopup
+    } = this.props
+
     const { listing } = this.props.listing
 
     if (!listing) {
@@ -108,9 +116,10 @@ class Listings extends Component {
       {isShowingPostSuccessPopup &&
         <div className="popup">
           <div>
-            <button className="close" onClick={switchPopup}>×</button>
+            <button className="close" onClick={closeSuccessPostPopup}>×</button>
             <h1>Notificamos um Agente EmCasa!</h1>
             <p>Entraremos em contato o mais rápido possível para agendarmos uma visita!</p>
+            <button onClick={closeSuccessPostPopup}>Fechar</button>
           </div>
         </div>
       }
@@ -129,7 +138,8 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = dispatch => bindActionCreators({
   fetchListingIfNeeded,
   switchPopup,
-  postForm
+  postForm,
+  closeSuccessPostPopup
 }, dispatch)
 
 export default connect(

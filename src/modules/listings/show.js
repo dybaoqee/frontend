@@ -4,6 +4,7 @@ export const FETCH_LISTING_FAILURE = 'FETCH_LISTING_FAILURE'
 export const SWITCH_LISTING_POPUP = 'SWITCH_LISTING_POPUP'
 export const POST_LISTING_INTEREST = 'POST_LISTING_INTEREST'
 export const POST_LISTING_INTEREST_SUCCESS = 'POST_LISTING_INTEREST_SUCCESS'
+export const CLOSE_POST_SUCCESS_POPUP = 'CLOSE_POST_SUCCESS_POPUP'
 
 const initialState = {
   listing: null,
@@ -50,6 +51,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isShowingPostSuccessPopup: true
+      }
+
+    case CLOSE_POST_SUCCESS_POPUP:
+      return {
+        ...state,
+        isShowingPostSuccessPopup: false
       }
 
     default:
@@ -112,6 +119,12 @@ function willPostForm() {
 function didPostForm() {
   return {
     type: POST_LISTING_INTEREST_SUCCESS
+  }
+}
+
+export function closeSuccessPostPopup() {
+  return {
+    type: CLOSE_POST_SUCCESS_POPUP
   }
 }
 
