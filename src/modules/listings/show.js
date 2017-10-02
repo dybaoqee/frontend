@@ -135,7 +135,7 @@ export function postForm() {
     const { name, email, phone } = getState().form.listingInterest.values
     const { id } = getState().listing.listing
 
-    return fetch(process.env.REACT_APP_API_URL + 'users', {
+    return fetch(process.env.REACT_APP_API_URL + 'listings_users', {
       method: 'post',
       headers: {
         'Accept': 'application/json',
