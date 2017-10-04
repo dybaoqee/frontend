@@ -14,18 +14,24 @@ class Listings extends Component {
   render() {
     const { index, isFetching } = this.props;
 
+    const varImg = {
+      backgroundImage: 'url(http://www.mapaplan.com/seating-plan/wembley-stadium-chart-london/high-resolution/wembley-stadium-london-seating-plan-09-google-map-high-resolution.jpg)'
+    }
+
     if (isFetching) {
       return <div>Fetching listings</div>
     }
 
     if (index) {
       return <div className="listings">
-        <img src="http://www.mapaplan.com/seating-plan/wembley-stadium-chart-london/high-resolution/wembley-stadium-london-seating-plan-09-google-map-high-resolution.jpg" alt="Map"/>
+        <div style={varImg}>
+          &nbsp;
+        </div>
 
         <div>
           {index.map((listing, i) => {
             const bgImgUrl = 'http://www.judicearaujo.com.br/imoveis/010420141931256rjkwb.jpg'
-            var divStyle = {
+            const divStyle = {
               backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.0) 50%, rgba(0, 0, 0, 0.7) 80%), url(${bgImgUrl})`
             }
 
