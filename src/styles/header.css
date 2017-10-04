@@ -1,4 +1,8 @@
 header {
-  padding: 10px; }
+  background: white;
+  padding: 10px;
+  position: fixed;
+  width: 100vw;
+  z-index: 1; }
   header img {
     width: 110px; }
