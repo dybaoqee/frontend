@@ -55,7 +55,7 @@ class Listings extends Component {
       </header>
 
       <div className="main-content">
-        <img src="http://www.judicearaujo.com.br/imoveis/010420141931256rjkwb.jpg" alt="Map"/>
+        <img src={`/listings/photos/${listing.photo}`} alt="Listing Photo"/>
 
         <div>
           <div>
@@ -92,7 +92,7 @@ class Listings extends Component {
         </div>
       </div>
 
-      <img src="http://www.mapaplan.com/seating-plan/wembley-stadium-chart-london/high-resolution/wembley-stadium-london-seating-plan-09-google-map-high-resolution.jpg" alt="Map"/>
+      <img src={`/listings/gmaps/${listing.gmaps}`} alt="Map"/>
 
       <footer>
         <Link to="/">‹ Ver Todos os Imóveis</Link>

@@ -30,7 +30,7 @@ class Listings extends Component {
 
         <div>
           {index.map((listing, i) => {
-            const bgImgUrl = 'http://www.judicearaujo.com.br/imoveis/010420141931256rjkwb.jpg'
+            const bgImgUrl = `listings/photos/${listing.photo}`
             const divStyle = {
               backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.0) 50%, rgba(0, 0, 0, 0.7) 80%), url(${bgImgUrl})`
             }
