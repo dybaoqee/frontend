@@ -15,7 +15,7 @@ class Listings extends Component {
     const { index, isFetching } = this.props;
 
     const varImg = {
-      backgroundImage: 'url(http://www.mapaplan.com/seating-plan/wembley-stadium-chart-london/high-resolution/wembley-stadium-london-seating-plan-09-google-map-high-resolution.jpg)'
+      backgroundImage: 'url(/mapa-leblon.jpg)'
     }
 
     if (isFetching) {
