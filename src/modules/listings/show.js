@@ -89,11 +89,12 @@ function fetchListing(id) {
 
 function shouldFetchListing(state, id) {
   const listing = state.listing
+  console.log(listing, id);
 
   if (!listing.listing) return true
   if (listing.listing.id === id) return false
   if (listing.isFetching) return false
-  return listing.didInvalidate
+  return true
 }
 
 export function fetchListingIfNeeded(id) {
