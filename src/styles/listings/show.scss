@@ -10,8 +10,13 @@
     background: white;
     display: flex;
     justify-content: space-between;
+    padding-left: 0;
+    padding-right: 0;
     position: static;
     width: 100%;
+    button {
+      margin-right: 20px;
+    }
     > div {
       align-items: center;
       display: flex;
@@ -32,6 +37,9 @@
           font-size: 11px;
         }
       }
+    }
+    > div > div:first-of-type {
+      padding-left: 10px;
     }
     > div > div:last-of-type {
       font-weight: bold;
