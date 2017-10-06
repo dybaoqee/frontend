@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { Field, reduxForm } from 'redux-form'
 
 import SimpleForm from "../../components/listings/show/form";
 
@@ -55,7 +54,7 @@ class Listings extends Component {
       </header>
 
       <div className="main-content">
-        <img src={`/listings/photos/${listing.photo}`} alt="Listing Photo"/>
+        <img src={`/listings/photos/${listing.photo}`} alt="Listing Main Pic"/>
 
         <div>
           <div>
