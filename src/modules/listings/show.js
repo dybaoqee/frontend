@@ -89,7 +89,6 @@ function fetchListing(id) {
 
 function shouldFetchListing(state, id) {
   const listing = state.listing
-  console.log(listing, id);
 
   if (!listing.listing) return true
   if (listing.listing.id === id) return false

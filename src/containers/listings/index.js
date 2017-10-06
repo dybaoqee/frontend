@@ -72,7 +72,7 @@ class Listings extends Component {
                         <td>Área</td>
                         <td>{listing.area}</td>
                         <td>R$/m²</td>
-                        <td>xxxx</td>
+                        <td>{Math.floor(listing.price / listing.area)}</td>
                       </tr>
                     </tbody>
                   </table>
