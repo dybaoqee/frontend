@@ -94,7 +94,10 @@ class Listings extends Component {
       <img src={`/listings/gmaps/${listing.gmaps}`} alt="Map"/>
 
       <footer>
-        <Link to="/">‹ Ver Todos os Imóveis</Link>
+        <div>
+          <Link to="/">‹ Ver Todos os Imóveis</Link>
+          <a href="mailto:contato@emcasa.com">contato@emcasa.com</a>
+        </div>
         <button className="green">
           Marcar Visita
         </button>
