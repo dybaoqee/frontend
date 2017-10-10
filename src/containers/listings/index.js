@@ -8,20 +8,20 @@ import Listing from "../../components/listings/index/listing"
 
 class Listings extends Component {
   componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(fetchPostsIfNeeded());
+    const { dispatch } = this.props
+    dispatch(fetchPostsIfNeeded())
   }
 
   render() {
-    const { index, isFetching } = this.props;
+    const { index, isFetching } = this.props
 
     const varImg = {
       backgroundImage: 'url(/mapa-leblon.jpg)'
     }
 
     return <div className="listings">
-      <h1>Teste aqui pessoal</h1>
-      <h2>Subtítulo do teste aqui pessoal</h2>
+      <h1>Seja feliz procurando sua casa nova</h1>
+      <h2>Veja os melhores apartamentos à venda na Zona Sul do Rio de Janeiro</h2>
 
       {isFetching &&
         <div>Fetching listings</div>}
