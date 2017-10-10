@@ -1,23 +1,38 @@
 @import '../mixins/color.scss';
 
-.listings {
+.listings h1 {
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.listings h2 {
+  font-size: 20px;
+  font-weight: normal;
+  margin: 0 0 40px;
+  text-align: center;
+}
+
+.listings > div {
+  width: 100%;
   > * {
+    display: flex;
     float: left;
     width: 50%
   }
 
-  > div:first-of-type {
+  > div.map-container {
     background-position: center;
     background-size: cover;
     height: calc(100vh - 48px);
     position: fixed;
   }
 
-  > div:last-of-type {
+  > div.entries-container {
     background: #f5f5f5;
+    display: block;
     float: right;
 
-    > div {
+    > div.listings-entry {
       background: white;
       margin: 0 0 8px;
       overflow: auto;
