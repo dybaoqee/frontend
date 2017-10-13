@@ -46,6 +46,7 @@
     }
   }
   .main-content {
+    align-items: flex-start;
     display: flex;
     margin-bottom: 40px;
     > * {
