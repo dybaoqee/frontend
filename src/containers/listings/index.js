@@ -4,6 +4,7 @@ import {
   fetchPostsIfNeeded
 } from '../../modules/listings/index'
 
+import MapContainer from "../../components/map-container"
 import Listing from "../../components/listings/index/listing"
 
 class Listings extends Component {
@@ -15,10 +16,6 @@ class Listings extends Component {
   render() {
     const { index, isFetching } = this.props
 
-    const varImg = {
-      backgroundImage: 'url(/mapa-leblon.jpg)'
-    }
-
     return <div className="listings">
       <h1>Seja feliz procurando sua casa nova</h1>
       <h2>Veja os melhores apartamentos à venda na Zona Sul do Rio de Janeiro</h2>
@@ -28,13 +25,14 @@ class Listings extends Component {
 
       {index &&
         <div>
-          <div className="map-container" style={varImg}>
-            &nbsp;
-          </div>
+          <MapContainer
+            listings={index}
+            height="calc(100vh - 50px)"
+            width="50%"/>
 
           <div className="entries-container">
             {index.map((listing, i) => {
-              return <Listing listing={listing} i={i} />
+              return <Listing listing={listing} key={i} />
             })}
           </div>
         </div>
