@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import SimpleForm from "../../components/listings/show/form";
+import SimpleForm from "../../components/listings/show/form"
+import MapContainer from "../../components/map-container"
 
 import {
   fetchListingIfNeeded,
@@ -54,7 +55,7 @@ class Listings extends Component {
       </header>
 
       <div className="main-content">
-        <img src={`/listings/photos/${listing.photo}`} alt="Listing Main Pic"/>
+        <img src={'/listings/photos/' + listing.photo} alt="Listing Main Pic"/>
 
         <div>
           <div>
@@ -91,7 +92,7 @@ class Listings extends Component {
         </div>
       </div>
 
-      <img src={`/listings/gmaps/${listing.gmaps}`} alt="Map"/>
+      <MapContainer lat={listing.address.lat} lng={listing.address.lng}/>
 
       <footer>
         <div>
@@ -108,7 +109,7 @@ class Listings extends Component {
           <div>
             <button className="close" onClick={switchPopup}>×</button>
             <h1>Marcar Visita</h1>
-            <p>Teremos um grande prazer em mostrar este apartamento para você. Por favor insira abaixo seu nome, email e telefone com ddd e entraremos em contato em minutos.</p>
+            <p>Será um prazer mostrar este apartamento para você. Por favor insira seu nome, email e telefone com ddd e entraremos em contato em minutos.</p>
             <SimpleForm onSubmit={postForm} />
           </div>
         </div>

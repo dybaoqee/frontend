@@ -1,5 +1,4 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, { Component } from 'react';
 import {Gmaps, Marker, InfoWindow, Circle} from 'react-gmaps';
 
 const coords = {
@@ -9,7 +8,7 @@ const coords = {
 
 const params = {v: '3.exp', key: 'AIzaSyDmYQLTPwsDPtErGWTgiejz17QCw39MEVQ'};
 
-class App extends React.Component {
+class MapContainer extends Component {
 
   onMapCreated(map) {
     map.setOptions({
@@ -32,7 +31,7 @@ class App extends React.Component {
   render() {
     return (
       <Gmaps
-        width={'800px'}
+        width={'8786.6666px'}
         height={'600px'}
         lat={coords.lat}
         lng={coords.lng}
@@ -59,3 +58,5 @@ class App extends React.Component {
     );
   }
 };
+
+export default MapContainer
