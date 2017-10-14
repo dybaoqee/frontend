@@ -39,7 +39,7 @@ class Listings extends Component {
         <div>
           <div>
             <h6>Apartamento</h6>
-            <p>{listing.address.street}, {listing.address.street_number}</p>
+            <p>{listing.address.street}</p>
             <p>
               {listing.address.neighborhood}, {listing.address.city}
             </p>
@@ -92,7 +92,10 @@ class Listings extends Component {
         </div>
       </div>
 
-      <MapContainer lat={listing.address.lat} lng={listing.address.lng}/>
+      <MapContainer lat={listing.address.lat}
+        lng={listing.address.lng}
+        width='786.66667px'
+        height='500px'/>
 
       <footer>
         <div>
