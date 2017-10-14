@@ -81,6 +81,9 @@
       }
     }
   }
+  .main-content + div {
+    height: 500px;
+  }
   > img {
     width: $two-thirds-width;
   }
