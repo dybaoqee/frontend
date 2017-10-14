@@ -1,26 +1,17 @@
-import React from 'react';
-import {Gmaps, Circle} from 'react-gmaps';
+import React from 'react'
+import {Gmaps, Circle} from 'react-gmaps'
 
-const params = {v: '3.exp', key: 'AIzaSyDmYQLTPwsDPtErGWTgiejz17QCw39MEVQ'};
+const params = {v: '3.exp', key: 'AIzaSyDmYQLTPwsDPtErGWTgiejz17QCw39MEVQ'}
 
 class MapContainer extends React.Component {
-
   onMapCreated(map) {
     map.setOptions({
       disableDefaultUI: true
-    });
-  }
-
-  onDragEnd(e) {
-    console.log('onDragEnd', e);
-  }
-
-  onCloseClick() {
-    console.log('onCloseClick');
+    })
   }
 
   onClick(e) {
-    console.log('onClick', e);
+    console.log('onClick', e)
   }
 
   render() {
@@ -33,7 +24,7 @@ class MapContainer extends React.Component {
         lat={lat}
         lng={lng}
         zoom={15}
-        loadingMessage={'Be happy'}
+        loadingMessage={'Carregando mapa'}
         params={params}
         onMapCreated={this.onMapCreated}>
         <Circle
@@ -43,8 +34,8 @@ class MapContainer extends React.Component {
           draggable={false}
           onDragEnd={this.onDragEnd} />
       </Gmaps>
-    );
+    )
   }
-};
+}
 
 export default MapContainer
