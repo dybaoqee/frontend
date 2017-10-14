@@ -14,6 +14,7 @@
     "node-sass-chokidar": "^0.0.3",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
+    "react-gmaps": "^1.7.0",
     "react-redux": "^5.0.5",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
