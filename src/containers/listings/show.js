@@ -112,7 +112,7 @@ class Listings extends Component {
           <div>
             <button className="close" onClick={switchPopup}>×</button>
             <h1>Marcar Visita</h1>
-            <p>Será um prazer mostrar este apartamento para você. Por favor insira seu nome, email e telefone com ddd e entraremos em contato em minutos.</p>
+            <p>Insira seu nome, email e telefone com DDD e<br/>entraremos em contato em minutos.</p>
             <SimpleForm onSubmit={postForm} />
           </div>
         </div>
