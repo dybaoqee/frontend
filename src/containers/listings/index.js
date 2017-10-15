@@ -17,8 +17,7 @@ class Listings extends Component {
     const { index, isFetching } = this.props
 
     return <div className="listings">
-      <h1>Seja feliz procurando sua casa nova</h1>
-      <h2>Veja os melhores apartamentos à venda na Zona Sul do Rio de Janeiro</h2>
+      <h1>Compra e venda seu imóvel na<br/>Zona Sul do Rio de Janeiro</h1>
 
       {isFetching &&
         <div>Fetching listings</div>}
