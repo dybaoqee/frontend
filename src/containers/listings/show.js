@@ -31,7 +31,7 @@ class Listings extends Component {
     const { listing } = this.props.listing
 
     if (!listing) {
-      return <div>Fetching listing</div>
+      return <div className="spinner"></div>
     }
 
     return <div className="listing">
