@@ -17,8 +17,6 @@ class MapContainer extends React.Component {
   render() {
     const {height, width, lat, lng, listings} = this.props
 
-    console.log(listings)
-
     return (
       <Gmaps
         width={width}
@@ -26,8 +24,8 @@ class MapContainer extends React.Component {
         lat={lat ? lat : '-22.9608099'}
         lng={lng ? lng : '-43.2096142'}
         zoom={15}
-        params={params}
-        onMapCreated={this.onMapCreated}>
+        loadingMessage={' '}
+        params={params}>
         <Circle
           lat={lat}
           lng={lng}
