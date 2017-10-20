@@ -55,7 +55,7 @@ class Listings extends Component {
       </header>
 
       <div className="main-content">
-        <img src={process.env.REACT_APP_S3_BASE_URL + listing.photo} alt="Listing Main Pic"/>
+        <img src={process.env.REACT_APP_S3_BASE_URL + 'listings/original/' + listing.photo} alt="Listing Main Pic"/>
 
         <div>
           <div>

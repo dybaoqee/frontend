@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 class Listing extends React.Component {
   render() {
     const { listing, i } = this.props
-    const bgImgUrl = process.env.REACT_APP_S3_BASE_URL + listing.photo
+    const bgImgUrl = process.env.REACT_APP_S3_BASE_URL + 'listings/small/' +listing.photo
     const divStyle = {
       backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.0) 50%, rgba(0, 0, 0, 0.7) 80%), url(${bgImgUrl})`
     }
