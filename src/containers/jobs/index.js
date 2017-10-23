@@ -24,7 +24,7 @@ class Jobs extends Component {
       <br/>
 
       <h2>Engenheiro Backend Elixir / Phoenix</h2>
-      <h3>R$10 a 15k/mês</h3>
+      <h3>R$10k a 15k/mês</h3>
       <h4>Remoto</h4>
 
       <p>O backend vai servir clientes web e mobile. Nosso objetivo é oferecer uma busca ágil e geolocalização. Experiência com ambas é um diferencial. Saber escrever código bem documentado e com testes é fundamental.</p>
@@ -32,7 +32,7 @@ class Jobs extends Component {
       <br/>
 
       <h2>Engenheiro JS / React / React Native</h2>
-      <h3>R$10/15k mês</h3>
+      <h3>R$10k a 15k/mês</h3>
       <h4>Remoto</h4>
 
       <p>Desenvolvedor React ou React Native. Se for bom em ambos é um grande diferencial. Familiaridade com APIs do Google Maps é outro plus. Saber escrever código bem documentado e com testes é fundamental.</p>
