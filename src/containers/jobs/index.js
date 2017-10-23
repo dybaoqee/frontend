@@ -9,7 +9,7 @@ class Jobs extends Component {
 
       <p>Já teve aqueles 20 minutos à toa naquele bairro que você sempre gostou e até sonhou morar? Imagine poder abrir um aplicativo e descobrir que num raio de 30 metros de você existem apartamentos à venda. Com um swipe, abrir a porta do apartamento e poder vê-lo por dentro, sem depender de ninguém, sem esperar.</p>
 
-      <p>Nossa visão é proporcionar esse nível de experiência aos clientes EmCasa. Usar tecnologia para que todo o processo de compra, da procura à entrega da chave, seja muito superior ao que existe hoje.</p>
+      <p>Nossa visão é proporcionar esse nível de experiência aos clientes EmCasa. Usar tecnologia para que todo o processo de compra, da busca do imóvel à entrega da chave, seja muito superior ao que existe hoje.</p>
 
       <p>Para chegarmos lá, estamos buscando desenvolvedores excepcionais.</p>
 
