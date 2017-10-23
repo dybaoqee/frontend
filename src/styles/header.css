@@ -6,3 +6,13 @@ header {
   z-index: 1; }
   header img {
     width: 110px; }
+  header > div {
+    float: right;
+    margin-right: 20px; }
+    header > div a {
+      color: #2c6e8e;
+      text-decoration: none; }
+      header > div a:hover {
+        text-decoration: underline; }
+      header > div a:visited {
+        color: #2c6e8e; }

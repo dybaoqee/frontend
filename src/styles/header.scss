@@ -1,3 +1,5 @@
+@import 'mixins/color.scss';
+
 header {
   background: white;
   padding: 10px;
@@ -6,5 +8,19 @@ header {
   z-index: 1;
   img {
     width: 110px;
+  }
+  > div {
+    float: right;
+    margin-right: 20px;
+    a {
+      color: $blue;
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+      &:visited {
+        color: $blue;
+      }
+    }
   }
 }

@@ -1,16 +1,14 @@
 import React from 'react';
-import { Route, Link } from 'react-router-dom'
+import { Route } from 'react-router-dom'
+import Header from '../../components/header'
 import Listings from '../listings'
 import Listing from '../listings/show'
 import Jobs from '../jobs'
 
 const App = () => (
   <div>
-    <header>
-      <Link to="/">
-        <img src="/logo.png" alt="Main Logo"/>
-      </Link>
-    </header>
+
+    <Header />
 
     <main>
       <Route exact path="/" component={Listings} />
