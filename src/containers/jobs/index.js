@@ -17,7 +17,7 @@ class Jobs extends Component {
 
       <h5>A Equipe</h5>
 
-      <p>Trabalharemos com uma equipe de desenvolvimento distribuída. Todas as habilidades indispensáveis para colaborar remotamente vão ser necessárias para nós também: disciplina, independência, iniciativa, comunicação.</p>
+      <p>Trabalharemos com uma equipe de desenvolvimento distribuída. Todas as habilidades necessárias para colaborar remotamente vão ser indispensáveis para nós também: disciplina, independência, iniciativa, comunicação.</p>
 
       <p>Estamos buscando pessoas com perfil de potenciais sócios da EmCasa, e ofereceremos equity para quem mostrar que deseja fazer parte do time a longo prazo.</p>
 
