@@ -1,0 +1,7 @@
+@import '../mixins/dimensions.scss';
+
+@media (max-width: $max-mobile-width) {
+  .jobs {
+    width: calc(100vw - 40px);
+  }
+}
