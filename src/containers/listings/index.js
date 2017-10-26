@@ -20,7 +20,7 @@ class Listings extends Component {
       <h1>Compre seu Imóvel na<br/>Zona Sul do Rio de Janeiro</h1>
 
       {isFetching &&
-        <div class="spinner"></div>}
+        <div className="spinner"></div>}
 
       {index &&
         <div>

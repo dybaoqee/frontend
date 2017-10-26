@@ -28,7 +28,7 @@ class Jobs extends Component {
 
       <p>O backend vai servir clientes web e mobile. Nosso objetivo é oferecer uma busca ágil e geolocalização. Experiência com ambas é um diferencial. Saber escrever código bem documentado e com testes é fundamental.</p>
 
-      <a href="https://docs.google.com/forms/d/1erD-GRBj629pKcFHpmwYOLz4OYbEHy8Mu5VB_o37EiM/" target="_blank" className="btn">
+      <a href="https://docs.google.com/forms/d/1erD-GRBj629pKcFHpmwYOLz4OYbEHy8Mu5VB_o37EiM/" target="_blank" rel="noopener noreferrer" className="btn">
         Cadastre-se
       </a>
 
@@ -41,7 +41,7 @@ class Jobs extends Component {
 
       <p>Desenvolvedor React ou React Native. Se for bom em ambos é um grande diferencial. Familiaridade com APIs do Google Maps é outro plus. Saber escrever código bem documentado e com testes é fundamental.</p>
 
-      <a href="https://docs.google.com/forms/d/1FIoJIqPfMLbh9qVj8ODJUNK08_yX_DbfhrRtF9oOWwA" target="_blank" className="btn">
+      <a href="https://docs.google.com/forms/d/1FIoJIqPfMLbh9qVj8ODJUNK08_yX_DbfhrRtF9oOWwA" target="_blank" rel="noopener noreferrer" className="btn">
         Cadastre-se
       </a>
 
