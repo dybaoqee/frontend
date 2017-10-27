@@ -15,6 +15,12 @@
         }
         > div.text-container {
           width: 100%;
+          table {
+            display: none;
+          }
+          a.btn {
+            margin-top: 20px;
+          }
         }
       }
     }
