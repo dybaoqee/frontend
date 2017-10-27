@@ -1,5 +1,5 @@
 import React from 'react'
-import {Gmaps, Circle} from 'react-gmaps'
+import {Gmaps, Marker} from 'react-gmaps'
 
 const params = {v: '3.exp', key: 'AIzaSyDmYQLTPwsDPtErGWTgiejz17QCw39MEVQ'}
 
@@ -26,13 +26,12 @@ class MapContainer extends React.Component {
         zoom={15}
         loadingMessage={' '}
         params={params}>
-        <Circle
+        <Marker
           lat={lat}
-          lng={lng}
-          radius={200}/>
+          lng={lng}/>
 
         {listings && listings.map((listing, i) => {
-          return <Circle key={i} lat={listing.address.lat} lng={listing.address.lng} radius={200} />
+          return <Marker key={i} lat={listing.address.lat} lng={listing.address.lng} />
         })}
 
       </Gmaps>
