@@ -5,8 +5,18 @@
     > div:first-of-type {
       display: none;
     }
-    > div:last-of-type {
+    > div.entries-container {
       width: 100%;
+      > div.listings-entry > a {
+        flex-direction: column;
+        text-decoration: none;
+        > div.image-container {
+          width: 100%;
+        }
+        > div.text-container {
+          width: 100%;
+        }
+      }
     }
   }
 }
