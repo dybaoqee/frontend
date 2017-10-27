@@ -1,7 +1,10 @@
 @import 'mixins/color.scss';
 
 header {
+  align-items: center;
   background: white;
+  display: flex;
+  justify-content: space-between;
   padding: 10px;
   position: fixed;
   width: 100vw;
@@ -11,7 +14,8 @@ header {
   }
   > div {
     float: right;
-    margin-right: 20px;
+    margin-right: 10px;
+    margin-top: 2px;
     a {
       color: $blue;
       text-decoration: none;

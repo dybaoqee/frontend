@@ -1,5 +1,8 @@
 header {
+  align-items: center;
   background: white;
+  display: flex;
+  justify-content: space-between;
   padding: 10px;
   position: fixed;
   width: 100vw;
@@ -8,7 +11,8 @@ header {
     width: 110px; }
   header > div {
     float: right;
-    margin-right: 20px; }
+    margin-right: 10px;
+    margin-top: 2px; }
     header > div a {
       color: #2c6e8e;
       text-decoration: none; }
