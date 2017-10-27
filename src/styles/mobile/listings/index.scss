@@ -1,0 +1,12 @@
+@import '../../mixins/dimensions.scss';
+
+@media (max-width: $max-mobile-width) {
+  .listings > div {
+    > div:first-of-type {
+      display: none;
+    }
+    > div:last-of-type {
+      width: 100%;
+    }
+  }
+}
