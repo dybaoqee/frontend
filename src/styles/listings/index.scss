@@ -33,6 +33,7 @@
       width: 100%;
       > a {
         display: flex;
+        text-decoration: none;
         &:hover {
           background: $off-white;
           > div.text-container {
