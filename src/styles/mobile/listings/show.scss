@@ -33,9 +33,8 @@
       }
     }
     .main-content {
-      > * {
-      }
       img {
+        width: 100vw;
       }
       > div {
         > div {
@@ -57,7 +56,13 @@
     > img {
     }
     footer {
+      width: 100vw;
+      > div {
+        width: calc(100vw - 180px);
+      }
       a {
+        float: left;
+        margin-bottom: 10px;
         &:hover {
         }
       }
