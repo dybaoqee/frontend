@@ -16,6 +16,7 @@
     "react-dom": "^15.5.4",
     "react-gmaps": "^1.7.0",
     "react-redux": "^5.0.5",
+    "react-responsive": "^3.0.0",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
     "react-router-redux": "next",

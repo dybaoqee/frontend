@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import MediaQuery from 'react-responsive'
 
 import SimpleForm from "../../components/listings/show/form"
 import MapContainer from "../../components/map-container"
@@ -92,10 +93,19 @@ class Listings extends Component {
         </div>
       </div>
 
-      <MapContainer lat={listing.address.lat}
-        lng={listing.address.lng}
-        width='786.66667px'
-        height='500px'/>
+      <MediaQuery query="(max-width: 600px)">
+        <MapContainer lat={listing.address.lat}
+          lng={listing.address.lng}
+          width='100vw'
+          height='300px'/>
+      </MediaQuery>
+
+      <MediaQuery query="(min-width: 601px)">
+        <MapContainer lat={listing.address.lat}
+          lng={listing.address.lng}
+          width='786.66667px'
+          height='500px'/>
+      </MediaQuery>
 
       <footer>
         <div>
