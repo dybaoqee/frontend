@@ -3,12 +3,12 @@
 @media (max-width: $max-mobile-width) {
   .listing {
     header {
-      align-items: flex-start;
+      align-items: flex-end;
       justify-content: space-between;
       width: 100vw;
       button {
         margin-right: 20px;
-        margin-top: 6px;
+        margin-bottom: 6px;
       }
       > div {
         align-items: flex-start;
@@ -18,42 +18,17 @@
           margin-left: 10px;
           margin-top: 10px;
         }
-        h6 {
-        }
-        p {
-          &:first-of-type {
-          }
-          &:last-of-type {
-          }
-        }
-      }
-      > div > div:first-of-type {
-      }
-      > div > div:last-of-type {
       }
     }
     .main-content {
+      flex-direction: column;
+      width: 100vw;
       img {
         width: 100vw;
       }
       > div {
-        > div {
-        }
-        table {
-          tr {
-            td {
-              &:nth-of-type(2n) {
-              }
-              &:nth-of-type(2n-1) {
-              }
-            }
-          }
-        }
+        width: 100vw;
       }
-    }
-    .main-content + div {
-    }
-    > img {
     }
     footer {
       width: 100vw;
@@ -61,9 +36,10 @@
         width: calc(100vw - 180px);
       }
       a {
+        display: none;
         float: left;
-        margin-bottom: 10px;
-        &:hover {
+        &:first-of-type {
+          display: block;
         }
       }
     }
