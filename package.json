@@ -8,11 +8,12 @@
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.1.0",
-    "react-scripts": "1.0.14"
+    "react-scripts": "1.0.16"
   },
   "dependencies": {
     "node-sass-chokidar": "^0.0.3",
     "react": "^15.5.4",
+    "react-document-meta": "^2.1.2",
     "react-dom": "^15.5.4",
     "react-gmaps": "^1.7.0",
     "react-redux": "^5.0.5",
