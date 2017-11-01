@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import DocumentMeta from 'react-document-meta'
 import { Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -33,24 +32,11 @@ class Listings extends Component {
 
     const { listing } = this.props.listing
 
-    const meta = {
-      title: 'EmCasa',
-      description: 'Teste descrição EmCasa',
-      canonical: 'http://example.com/path/to/page',
-      'og:title': 'OG Title do EmCasa',
-      meta: {
-        name: {
-          keywords: 'react,meta,document,html,tags'
-        }
-      }
-    }
-
     if (!listing) {
       return <div className="spinner"></div>
     }
 
     return (
-      <DocumentMeta {...meta}>
         <div className="listing">
           <header>
             <div>
@@ -155,7 +141,6 @@ class Listings extends Component {
             </div>
           }
       </div>
-      </DocumentMeta>
     )
   }
 }
