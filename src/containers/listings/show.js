@@ -37,6 +37,7 @@ class Listings extends Component {
       title: 'EmCasa',
       description: 'Teste descrição EmCasa',
       canonical: 'http://example.com/path/to/page',
+      'og:title': 'OG Title do EmCasa',
       meta: {
         name: {
           keywords: 'react,meta,document,html,tags'
