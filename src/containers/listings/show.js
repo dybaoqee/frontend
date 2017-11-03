@@ -2,10 +2,12 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import NumberFormat from 'react-number-format'
 import MediaQuery from 'react-responsive'
 
 import SimpleForm from "../../components/listings/show/form"
 import MapContainer from "../../components/map-container"
+import ListingTable from '../../components/listings/listing_table'
 
 import {
   fetchListingIfNeeded,
@@ -48,7 +50,7 @@ class Listings extends Component {
                 </p>
               </div>
               <div>
-                R${listing.price}
+                <NumberFormat value={listing.price} displayType={'text'} thousandSeparator={'.'} prefix={'R$'} decimalSeparator={','} />
               </div>
             </div>
 
@@ -64,34 +66,9 @@ class Listings extends Component {
               <div>
                 {listing.description}
               </div>
-              <table>
-                <tbody>
-                  <tr>
-                    <td>Quartos</td>
-                    <td>{listing.rooms}</td>
-                  </tr>
-                  <tr>
-                    <td>Vagas Garagem</td>
-                    <td>{listing.garage_spots}</td>
-                  </tr>
-                  <tr>
-                    <td>Banheiros</td>
-                    <td>{listing.bathrooms}</td>
-                  </tr>
-                  <tr>
-                    <td>Andar</td>
-                    <td>{listing.floor}</td>
-                  </tr>
-                  <tr>
-                    <td>Área</td>
-                    <td>{listing.area}</td>
-                  </tr>
-                  <tr>
-                    <td>R$/m²</td>
-                    <td>{Math.floor(listing.price / listing.area)}</td>
-                  </tr>
-                </tbody>
-              </table>
+
+              <ListingTable listing={listing}/>
+
             </div>
           </div>
 

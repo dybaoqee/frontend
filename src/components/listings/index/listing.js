@@ -1,5 +1,8 @@
-import React from 'react';
+import React from 'react'
+import NumberFormat from 'react-number-format'
 import { Link } from 'react-router-dom'
+
+import ListingTable from '../listing_table'
 
 class Listing extends React.Component {
   render() {
@@ -14,7 +17,7 @@ class Listing extends React.Component {
         <Link to={`listings/${listing.id}`}>
           <div className="image-container" style={divStyle}>
             <div>
-              <span>R${listing.price}</span>
+              <span><NumberFormat value={listing.price} displayType={'text'} thousandSeparator={'.'} prefix={'R$'} decimalSeparator={','} /></span>
               <span className="address">
                 {listing.address.street}
               </span>
@@ -29,31 +32,9 @@ class Listing extends React.Component {
               {listing.description}
             </div>
 
-            <table>
-              <tbody>
-                <tr>
-                  <td>Quartos</td>
-                  <td>{listing.rooms}</td>
-                  <td>Vagas Garagem</td>
-                  <td>{listing.garage_spots}</td>
-                </tr>
-                <tr>
-                  <td>Banheiros</td>
-                  <td>{listing.bathrooms}</td>
-                  <td>Andar</td>
-                  <td>{listing.floor}</td>
-                </tr>
-                <tr>
-                  <td>Área</td>
-                  <td>{listing.area}</td>
-                  <td>R$/m²</td>
-                  <td>{Math.floor(listing.price / listing.area)}</td>
-                </tr>
-              </tbody>
-            </table>
+            <ListingTable listing={listing}/>
 
             <Link to={`listings/${listing.id}`} className="btn">
-
               Ver Detalhes
             </Link>
           </div>
