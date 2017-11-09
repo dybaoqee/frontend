@@ -21,6 +21,11 @@
     width: 50%
   }
 
+  &.locked > div:first-of-type {
+    position: fixed !important;
+    top: 50px;
+  }
+
   > div.entries-container {
     background: #f5f5f5;
     display: block;

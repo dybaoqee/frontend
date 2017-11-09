@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {
-  fetchPostsIfNeeded
+  fetchPostsIfNeeded,
+  handleScroll
 } from '../../modules/listings/index'
 
 import MapContainer from "../../components/map-container"
@@ -11,10 +12,19 @@ class Listings extends Component {
   componentDidMount() {
     const { dispatch } = this.props
     dispatch(fetchPostsIfNeeded())
+
+    window.addEventListener('scroll', function() {
+      dispatch(handleScroll(document.documentElement.scrollTop))
+    })
+  }
+
+  componentDidUnmount() {
+    window.removeEventListener('scroll')
   }
 
   render() {
-    const { index, isFetching } = this.props
+    const { index, isFetching, lockGoogleMap } = this.props
+    console.log(lockGoogleMap);
 
     return <div className="listings">
       <h1>Compre seu Imóvel na<br/>Zona Sul do Rio de Janeiro</h1>
@@ -23,7 +33,7 @@ class Listings extends Component {
         <div className="spinner"></div>}
 
       {index &&
-        <div>
+        <div className={lockGoogleMap ? 'locked' : ''}>
           <MapContainer
             listings={index}
             height="calc(100vh - 50px)"
@@ -42,7 +52,8 @@ class Listings extends Component {
 
 const mapStateToProps = state => ({
   isFetching: state.listings.isFetching,
-  index: state.listings.index
+  index: state.listings.index,
+  lockGoogleMap: state.listings.lockGoogleMap
 })
 
 export default connect(
