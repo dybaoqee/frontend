@@ -87,7 +87,10 @@ class Listing extends React.Component {
     return (
       <Layout>
         <Head>
-          <title>EmCasa - Compre e venda imóveis na Zona Sul do Rio de Janeiro</title>
+          <title>
+            À venda: Apartamento - {listing.address.street} - {listing.address.neighborhood}, {listing.address.city} | EmCasa
+          </title>
+          <meta name="description" content={listing.description}/>
           <meta property="og:description" content={listing.description}/>
           <meta property="og:image" content={imgSrc}/>
         </Head>
