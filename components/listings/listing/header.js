@@ -2,10 +2,6 @@ import React from 'react'
 import NumberFormat from 'react-number-format'
 
 class ListingHeader extends React.Component {
-  switchPopup() {
-    console.log('Clicado em switchPopup');
-  }
-
   render() {
     const { listing } = this.props
 
