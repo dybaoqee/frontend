@@ -1,39 +1,26 @@
 {
-  "name": "em-casa-web-client",
-  "version": "0.1.0",
-  "private": true,
-  "devDependencies": {
-    "eslint": "^4.3.0",
-    "eslint-config-airbnb": "^15.1.0",
-    "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-jsx-a11y": "^5.1.1",
-    "eslint-plugin-react": "^7.1.0",
-    "react-scripts": "1.0.16"
+  "engines": {
+    "node": "~9.1.0",
+    "npm": "5.5.1"
+  },
+  "license": "UNLICENSED",
+  "scripts": {
+    "dev": "node server.js -p $PORT",
+    "build": "next build",
+    "start": "node server.js -p $PORT",
+    "heroku-postbuild": "npm run build"
   },
   "dependencies": {
-    "node-sass-chokidar": "^0.0.3",
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4",
+    "express": "^4.16.2",
+    "isomorphic-unfetch": "^2.0.0",
+    "next": "^4.1.4",
+    "react": "^16.1.0",
+    "react-dom": "^16.1.0",
+    "react-form": "^2.11.0",
     "react-gmaps": "^1.7.0",
-    "react-helmet": "^5.2.0",
-    "react-number-format": "^3.0.0",
-    "react-redux": "^5.0.5",
+    "react-number-format": "^3.0.2",
     "react-responsive": "^3.0.0",
-    "react-router": "^4.1.1",
-    "react-router-dom": "^4.1.1",
-    "react-router-redux": "next",
-    "redux": "^3.6.0",
-    "redux-form": "^7.0.4",
-    "redux-thunk": "^2.2.0",
-    "sanitize.css": "^5.0.0"
-  },
-  "scripts": {
-    "build-css": "node-sass-chokidar src/ -o src/",
-    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "start-js": "react-scripts start",
-    "start": "npm-run-all -p watch-css start-js",
-    "build": "npm run build-css && react-scripts build"
+    "babel-plugin-transform-define": "^1.2.0"
+
   }
 }
