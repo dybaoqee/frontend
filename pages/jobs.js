@@ -9,12 +9,12 @@ class Jobs extends Component {
       <Layout>
         <Head>
           <title>Trabalhe conosco | EmCasa</title>
-          <meta name="description" content="Procuramos desenvolvedores excepcionais em Elixir e React / React Native"/>
-          <meta property="og:description" content="Trabalhe conosco | EmCasa"/>
+          <meta name="description" content="Procuramos desenvolvedores excepcionais em Elixir e React / React Native. Cadastre-se!"/>
+          <meta property="og:description" content="Procuramos desenvolvedores excepcionais em Elixir e React / React Native. Cadastre-se!"/>
           <meta property="og:image" content="https://s3-sa-east-1.amazonaws.com/emcasa/listings/original/belisario-tavora.jpg"/>
           <meta name="twitter:card" content="summary_large_image"/>
           <meta name="twitter:title" content="Trabalhe conosco | EmCasa"/>
-          <meta name="twitter:description" content="Procuramos desenvolvedores excepcionais em Elixir e React / React Native"/>
+          <meta name="twitter:description" content="Procuramos desenvolvedores excepcionais em Elixir e React / React Native. Cadastre-se!"/>
           <meta name="twitter:image" content="https://s3-sa-east-1.amazonaws.com/emcasa/listings/original/belisario-tavora.jpg"/>
         </Head>
 
