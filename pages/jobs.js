@@ -1,10 +1,23 @@
 import React, { Component } from 'react'
+import Head from 'next/head'
+
 import Layout from '../components/main-layout'
 
 class Jobs extends Component {
   render() {
     return (
       <Layout>
+        <Head>
+          <title>Trabalhe conosco | EmCasa</title>
+          <meta name="description" content="Procuramos desenvolvedores excepcionais em Elixir e React / React Native"/>
+          <meta property="og:description" content="Trabalhe conosco | EmCasa"/>
+          <meta property="og:image" content="https://s3-sa-east-1.amazonaws.com/emcasa/listings/original/belisario-tavora.jpg"/>
+          <meta name="twitter:card" content="summary_large_image"/>
+          <meta name="twitter:title" content="Trabalhe conosco | EmCasa"/>
+          <meta name="twitter:description" content="Procuramos desenvolvedores excepcionais em Elixir e React / React Native"/>
+          <meta name="twitter:image" content="https://s3-sa-east-1.amazonaws.com/emcasa/listings/original/belisario-tavora.jpg"/>
+        </Head>
+
         <div className="jobs">
           <h1>Trabalhe EmCasa (ou onde quiser)</h1>
 
