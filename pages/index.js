@@ -47,13 +47,19 @@ export default class MyPage extends React.Component {
   render () {
     const { listings } = this.props
     const { lockGoogleMap } = this.state
+    const seoImgSrc = `${process.env.REACT_APP_S3_BASE_URL}listings/original/${listings[0].photo}`
 
     return (
       <Layout>
         <Head>
-          <title>EmCasa - Compre e venda imóveis na Zona Sul do Rio de Janeiro</title>
-          <meta property="og:description"
-          content="Conteúdo do Index"/>
+          <title>Apartamentos à venda no Rio de Janeiro | EmCasa</title>
+          <meta name="description" content="Compre seu Imóvel na Zona Sul do Rio de Janeiro"/>
+          <meta property="og:description" content="Compre seu Imóvel na Zona Sul do Rio de Janeiro"/>
+          <meta property="og:image" content={seoImgSrc}/>
+          <meta name="twitter:card" content="summary_large_image"/>
+          <meta name="twitter:title" content="Apartamentos à venda no Rio de Janeiro | EmCasa"/>
+          <meta name="twitter:description" content="Compre seu Imóvel na Zona Sul do Rio de Janeiro"/>
+          <meta name="twitter:image" content={seoImgSrc}/>
         </Head>
 
         <div className="listings">
