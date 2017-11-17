@@ -8,7 +8,13 @@ class ListingMainContent extends React.Component {
 
     return (
       <div className="main-content">
-        <img src={process.env.REACT_APP_S3_BASE_URL + 'listings/original/' + listing.photo} alt="Listing Main Pic"/>
+        <div>
+          {listing.matterport_code &&
+            <iframe width='787' height='480' src={`https://my.matterport.com/show/?m=${listing.matterport_code}`} frameborder='0' allowfullscreen></iframe>
+          }
+
+          <img src={process.env.REACT_APP_S3_BASE_URL + 'listings/original/' + listing.photo} alt="Listing Main Pic"/>
+        </div>
 
         <div>
           <div>
@@ -30,12 +36,20 @@ class ListingMainContent extends React.Component {
             float: left;
           }
 
-          .main-content > div {
+          .main-content > div:first-of-type {
+            width: 787px;
+          }
+
+          .main-content > div:last-of-type {
             width: 393px;
           }
 
           .main-content > div > div {
             margin: 20px 20px 40px;
+          }
+
+          iframe {
+            margin-bottom: 40px;
           }
 
           img {
