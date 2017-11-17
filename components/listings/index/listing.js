@@ -1,4 +1,5 @@
 import React from 'react'
+import Router from 'next/router'
 import NumberFormat from 'react-number-format'
 
 import ImageContainer from './image-container'
@@ -9,7 +10,7 @@ class Listing extends React.Component {
     const { listing, i } = this.props
 
     return (
-      <div className="listings-entry" key={i}>
+      <div className="listing" key={i} onClick={() => Router.push(`/listing?id=${listing.id}`, `/listing/${listing.id}`)}>
         <ImageContainer listing={listing} />
         <TextContainer listing={listing} />
 
@@ -18,12 +19,17 @@ class Listing extends React.Component {
         }
 
         <style jsx>{`
-          .listings-entry {
+          .listing {
             background: white;
+            cursor: pointer;
             margin: 0 0 8px;
             overflow: auto;
             position: relative;
             width: 100%;
+          }
+
+          .listing:hover {
+            background: #f5f5f5;
           }
 
           span.matterport {
@@ -42,10 +48,19 @@ class Listing extends React.Component {
 
 
           @media (max-width: 600px) {
-            .listings-entry > a {
+            .listing > a {
               flex-direction: column;
               text-decoration: none;
             }
+          }
+        `}</style>
+
+        <style jsx global>{`
+          .listing:hover table {
+            border-bottom: 1px solid #ccc;
+          }
+          .listing:hover table tr td {
+            border-top: 1px solid #ccc !important;
           }
         `}</style>
       </div>
