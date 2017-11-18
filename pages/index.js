@@ -69,7 +69,8 @@ export default class MyPage extends React.Component {
             <MapContainer
               listings={listings}
               height="calc(100vh - 50px)"
-              width="50vw"/>
+              width="50vw"
+              zoom={13}/>
           </div>
 
           <div className="entries-container">

@@ -15,7 +15,8 @@ class MapContainer extends React.Component {
   }
 
   render() {
-    const {height, width, lat, lng, listings} = this.props
+    const {height, width, lat, lng, listings, zoom} = this.props
+    const defaultZoom = 15
 
     return (
       <Gmaps
@@ -23,7 +24,7 @@ class MapContainer extends React.Component {
         height={height}
         lat={lat ? lat : '-22.9608099'}
         lng={lng ? lng : '-43.2096142'}
-        zoom={15}
+        zoom={zoom || 15}
         loadingMessage={' '}
         params={params}>
         <Marker
