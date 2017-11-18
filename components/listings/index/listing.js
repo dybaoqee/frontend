@@ -23,7 +23,7 @@ class Listing extends React.Component {
             background: white;
             cursor: pointer;
             margin: 0 0 8px;
-            overflow: auto;
+            overflow: hidden;
             position: relative;
             width: 100%;
           }
