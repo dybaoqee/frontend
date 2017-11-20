@@ -9,7 +9,7 @@ class ListingHeader extends React.Component {
       <header>
         <div>
           <div>
-            <h6>Apartamento</h6>
+            <h6>{listing.type}</h6>
             <p>{listing.address.street}</p>
             <p>
               {listing.address.neighborhood}, {listing.address.city}
