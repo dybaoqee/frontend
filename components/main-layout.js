@@ -1,6 +1,7 @@
 import Head from 'next/head'
 
 import Header from './header'
+import { mobileMedia } from '../constants/media'
 
 const Layout = (props) => (
   <div>
@@ -64,7 +65,7 @@ const Layout = (props) => (
         opacity: 0.5;
       }
 
-      @media (max-width: 600px) {
+      @media ${mobileMedia} {
         h1 {
           font-size: 22px;
         }

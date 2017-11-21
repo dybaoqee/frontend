@@ -1,6 +1,8 @@
 import React from 'react'
 import NumberFormat from 'react-number-format'
 
+import { mobileMedia } from '../../../constants/media'
+
 class ListingHeader extends React.Component {
   render() {
     const { listing } = this.props
@@ -66,7 +68,7 @@ class ListingHeader extends React.Component {
             font-size: 11px;
           }
 
-          @media (max-width: 600px) {
+          @media ${mobileMedia} {
             header {
               align-items: flex-end;
               justify-content: space-between;

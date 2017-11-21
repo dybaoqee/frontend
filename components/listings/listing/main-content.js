@@ -1,6 +1,7 @@
 import React from 'react'
 
 import ListingTable from '../listing_table'
+import { mobileMedia } from '../../../constants/media'
 
 class ListingMainContent extends React.Component {
   render() {
@@ -59,7 +60,7 @@ class ListingMainContent extends React.Component {
             width: 787px;
           }
 
-          @media (max-width: 600px) {
+          @media ${mobileMedia} {
             .main-content {
               flex-direction: column;
               width: 100vw;

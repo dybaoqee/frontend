@@ -3,6 +3,8 @@ import Head from 'next/head'
 
 import Layout from '../components/main-layout'
 
+import { mobileMedia } from '../constants/media'
+
 class Jobs extends Component {
   render() {
     return (
@@ -72,7 +74,7 @@ class Jobs extends Component {
             width: 700px;
           }
 
-          @media (max-width: 600px) {
+          @media ${mobileMedia} {
             .jobs {
               width: calc(100vw - 40px);
             }

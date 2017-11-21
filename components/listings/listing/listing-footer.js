@@ -1,6 +1,8 @@
 import React from 'react'
 import Link from 'next/link'
 
+import { mobileMedia } from '../../../constants/media'
+
 class ListingFooter extends React.Component {
   render() {
     const { listing } = this.props
@@ -34,7 +36,7 @@ class ListingFooter extends React.Component {
             text-decoration: none;
           }
 
-          @media (max-width: 600px) {
+          @media ${mobileMedia} {
             footer {
               width: calc(100vw - 40px);
             }
