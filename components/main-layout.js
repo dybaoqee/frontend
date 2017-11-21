@@ -1,7 +1,14 @@
+import Head from 'next/head'
+
 import Header from './header'
 
 const Layout = (props) => (
   <div>
+    <Head>
+      <meta name="viewport" content="initial-scale=1.0, width=device-width" key="viewport" />
+      <link rel="shortcut icon" href="/static/favicon.png" key="favicon" />
+    </Head>
+
     <Header />
     <main>
       {props.children}

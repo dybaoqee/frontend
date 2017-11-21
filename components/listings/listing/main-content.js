@@ -17,7 +17,7 @@ class ListingMainContent extends React.Component {
         </div>
 
         <div>
-          <div>
+          <div className="description">
             {listing.description}
           </div>
 
@@ -37,10 +37,12 @@ class ListingMainContent extends React.Component {
           }
 
           .main-content > div:first-of-type {
+            max-width: 100vw;
             width: 787px;
           }
 
           .main-content > div:last-of-type {
+            max-width: 100vw;
             width: 393px;
           }
 
@@ -53,6 +55,7 @@ class ListingMainContent extends React.Component {
           }
 
           img {
+            max-width: 100vw;
             width: 787px;
           }
 
@@ -61,12 +64,18 @@ class ListingMainContent extends React.Component {
               flex-direction: column;
               width: 100vw;
             }
+
             .main-content img {
               width: 100vw;
             }
+
             .main-content  > div {
                 width: 100vw;
               }
+            }
+
+            .description {
+              width: calc(100vw - 40px);
             }
           }
         `}</style>
