@@ -1,80 +1,102 @@
 import Head from 'next/head'
+import ReactGA from 'react-ga'
+import Router from 'next/router'
 
 import Header from './header'
 import { mobileMedia } from '../constants/media'
 
-const Layout = (props) => (
-  <div>
-    <Head>
-      <meta name="viewport" content="initial-scale=1.0, width=device-width" key="viewport" />
-      {(process.env.NODE_ENV == 'production') ?
-        <link rel="shortcut icon" href="/static/favicon.png" key="favicon" /> :
-        <link rel="shortcut icon" href="/static/favicon-dev.png" key="favicon" />
-      }
-    </Head>
+const googleAnalyticsTrackingId = 'UA-108127087-1'
 
-    <Header />
-    <main>
-      {props.children}
-    </main>
+Router.onRouteChangeComplete = () => {
+  ReactGA.initialize(googleAnalyticsTrackingId)
+  ReactGA.pageview(window.location.pathname)
+}
 
-    <style jsx global>{`
-      html {
-        font-size: 100%;
-      }
+export default class Layout extends React.Component {
+  render() {
+    return (
+      <div>
+        <Head>
+          <script async src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsTrackingId}`} />
 
-      body {
-        margin: 0;
-        padding: 0;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-        font-size: 1rem;
-        line-height: 1.5;
-      }
+          <script dangerouslySetInnerHTML={{ __html: `
+            window.dataLayer = window.dataLayer || []
+            function gtag(){
+              dataLayer.push(arguments)
+            }
+            gtag('js', new Date())
+            gtag('config', '${googleAnalyticsTrackingId}')
+          `}} />
 
-      main > div {
-        padding-top: 60px;
-      }
+          <meta name="viewport" content="initial-scale=1.0, width=device-width" key="viewport" />
+          {(process.env.NODE_ENV == 'production') ?
+            <link rel="shortcut icon" href="/static/favicon.png" key="favicon" /> :
+            <link rel="shortcut icon" href="/static/favicon-dev.png" key="favicon" />
+          }
+        </Head>
 
-      button,
-      .btn {
-        background-color: #2c6e8e;
-        border: none;
-        border-radius: 4px;
-        color: white;
-        cursor: pointer;
-        font-size: 13px;
-        outline: none;
-        padding: 3px 15px 5px;
-        text-decoration: none;
-        transition: background-color 0.10s ease;
-        transform: 0.25;
-      }
+        <Header />
+        <main>
+          {this.props.children}
+        </main>
 
-      button:hover,
-      .btn:hover {
-        background-color: #265f7b;
-        text-decoration: none;
-      }
+        <style jsx global>{`
+          html {
+            font-size: 100%;
+          }
 
-      button.green {
-        background: #24a11e;
-      }
+          body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            font-size: 1rem;
+            line-height: 1.5;
+          }
 
-      button.green:hover {
-        background: #1f8c1a;
-      }
+          main > div {
+            padding-top: 60px;
+          }
 
-      button:disabled {
-        opacity: 0.5;
-      }
+          button,
+          .btn {
+            background-color: #2c6e8e;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+            font-size: 13px;
+            outline: none;
+            padding: 3px 15px 5px;
+            text-decoration: none;
+            transition: background-color 0.10s ease;
+            transform: 0.25;
+          }
 
-      @media ${mobileMedia} {
-        h1 {
-          font-size: 22px;
-        }
-      }
-    `}</style>
-  </div>
-)
+          button:hover,
+          .btn:hover {
+            background-color: #265f7b;
+            text-decoration: none;
+          }
 
-export default Layout
+          button.green {
+            background: #24a11e;
+          }
+
+          button.green:hover {
+            background: #1f8c1a;
+          }
+
+          button:disabled {
+            opacity: 0.5;
+          }
+
+          @media ${mobileMedia} {
+            h1 {
+              font-size: 22px;
+            }
+          }
+        `}</style>
+      </div>
+    )
+  }
+}
