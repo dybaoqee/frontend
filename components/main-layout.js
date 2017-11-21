@@ -7,7 +7,10 @@ const Layout = (props) => (
   <div>
     <Head>
       <meta name="viewport" content="initial-scale=1.0, width=device-width" key="viewport" />
-      <link rel="shortcut icon" href="/static/favicon.png" key="favicon" />
+      {(process.env.NODE_ENV == 'production') ?
+        <link rel="shortcut icon" href="/static/favicon.png" key="favicon" /> :
+        <link rel="shortcut icon" href="/static/favicon-dev.png" key="favicon" />
+      }
     </Head>
 
     <Header />
