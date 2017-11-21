@@ -55,6 +55,10 @@ class ListingMainContent extends React.Component {
             margin-bottom: 40px;
           }
 
+          .description {
+            max-width: 100%;
+          }
+
           img {
             max-width: 100vw;
             width: 787px;
