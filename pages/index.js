@@ -7,6 +7,8 @@ import Layout from '../components/main-layout'
 import MapContainer from "../components/map-container"
 import Listing from "../components/listings/index/listing"
 
+import { mobileMedia } from '../constants/media'
+
 export default class MyPage extends React.Component {
     constructor(props) {
       super(props)
@@ -100,7 +102,7 @@ export default class MyPage extends React.Component {
             float: left;
           }
 
-          @media (max-width: 600px) {
+          @media ${mobileMedia} {
             .listings > div:first-of-type {
               display: none;
             }
@@ -109,7 +111,6 @@ export default class MyPage extends React.Component {
               width: 100%;
             }
           }
-
         `}</style>
         <style jsx global>{`
           div.locked > div {

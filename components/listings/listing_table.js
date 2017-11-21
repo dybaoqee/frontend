@@ -1,6 +1,8 @@
 import React from 'react'
 import NumberFormat from 'react-number-format'
 
+import { mobileMedia } from '../../constants/media'
+
 class ListingTable extends React.Component {
   render() {
     const { listing } = this.props
@@ -52,10 +54,17 @@ class ListingTable extends React.Component {
         table tr td:nth-of-type(2n-1) {
           color: #8c8c8c;
         }
+
+        @media ${mobileMedia} {
+          table {
+            width: 100vw;
+          }
+        }
+
       `}</style>
 
       <style jsx global>{`
-        @media (max-width: 600px) {
+        @media ${mobileMedia} {
           .listings table {
             display: none;
           }

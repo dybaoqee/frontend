@@ -1,6 +1,8 @@
 import React from 'react'
 import NumberFormat from 'react-number-format'
 
+import { mobileMedia  } from '../../../constants/media'
+
 class ImageContainer extends React.Component {
   render() {
     const { listing } = this.props
@@ -54,7 +56,7 @@ class ImageContainer extends React.Component {
           font-size: 10px;
         }
 
-        @media (max-width: 600px) {
+        @media ${mobileMedia} {
           .image-container {
             width: 100%;
           }

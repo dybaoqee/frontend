@@ -5,6 +5,8 @@ import NumberFormat from 'react-number-format'
 import ImageContainer from './image-container'
 import TextContainer from './text-container'
 
+import { mobileMedia } from '../../../constants/media'
+
 class Listing extends React.Component {
   render() {
     const { listing, i } = this.props
@@ -46,8 +48,7 @@ class Listing extends React.Component {
             transform: rotate(45deg);
           }
 
-
-          @media (max-width: 600px) {
+          @media ${mobileMedia} {
             .listing > a {
               flex-direction: column;
               text-decoration: none;

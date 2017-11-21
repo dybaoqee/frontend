@@ -3,6 +3,7 @@ import Link from 'next/link'
 
 import ListingTable from '../listing_table'
 
+import { mobileMedia } from '../../../constants/media'
 
 class TextContainer extends React.Component {
   render() {
@@ -36,7 +37,7 @@ class TextContainer extends React.Component {
             margin: 14px;
           }
 
-          @media (max-width: 600px) {
+          @media ${mobileMedia} {
             .text-container {
               width: 100%;
             }
