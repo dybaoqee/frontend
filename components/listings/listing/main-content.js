@@ -1,6 +1,7 @@
 import React from 'react'
 
 import ListingTable from '../listing_table'
+import Matterport from './matterport'
 import { mobileMedia } from '../../../constants/media'
 
 class ListingMainContent extends React.Component {
@@ -10,9 +11,8 @@ class ListingMainContent extends React.Component {
     return (
       <div className="main-content">
         <div>
-          {listing.matterport_code &&
-            <iframe width='787' height='480' src={`https://my.matterport.com/show/?m=${listing.matterport_code}`} frameborder='0' allowfullscreen></iframe>
-          }
+
+          <Matterport listing={listing} />
 
           <img src={process.env.REACT_APP_S3_BASE_URL + 'listings/original/' + listing.photo} alt="Listing Main Pic"/>
         </div>
@@ -49,10 +49,6 @@ class ListingMainContent extends React.Component {
 
           .main-content > div > div {
             margin: 20px 20px 40px;
-          }
-
-          iframe {
-            margin-bottom: 40px;
           }
 
           .description {
