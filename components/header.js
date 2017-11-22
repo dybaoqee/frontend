@@ -20,7 +20,7 @@ const Header = () => (
         justify-content: space-between;
         padding: 10px;
         position: fixed;
-        width: calc(100vw - 20px);
+        width: calc(100% - 20px);
         z-index: 1;
       }
       img {
