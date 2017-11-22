@@ -116,6 +116,7 @@ export default class MyPage extends React.Component {
           div.locked > div {
             position: fixed !important;
             top: 56px;
+            width: 50% !important;
           }
         `}</style>
       </Layout>
