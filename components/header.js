@@ -7,6 +7,10 @@ const Header = () => (
     </Link>
 
     <div>
+      <Link href="/indique">
+        <a>Indique e Ganhe</a>
+      </Link>
+
       <Link href="/jobs">
         <a>Trabalhe Conosco</a>
       </Link>
