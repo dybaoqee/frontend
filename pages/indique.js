@@ -48,7 +48,7 @@ export default class Indique extends Component {
             </p>
 
             <p>
-              A Campanha “INDIQUE E GANHE” se aplica somente para pessoas que efetuem a transação imobiliária sob intermediação da EmCasa, onde a realização do pagamento de comissão padrão de 3% sobre o valor total transacionado caracteriza a transação. Não se aplicam à campanha Pessoas que tenham demostrado interesse prévio em comprar ou vender, colocado seu apartamento à venda, recebido visitas, publicado no website, visitado demais apartamentos, realizado ou recebido ofertas ou qualquer outra atividade sem completar a transação imobiliária e o pagamento da comissão à Empresa.
+              A Campanha “INDIQUE E GANHE” se aplica somente para pessoas que efetuem a transação imobiliária sob intermediação da EmCasa, onde a realização do pagamento de comissão caracteriza a transação. Não se aplicam à campanha Pessoas que tenham demonstrado interesse prévio em comprar ou vender, colocado seu apartamento à venda, recebido visitas, publicado no website, visitado demais apartamentos, realizado ou recebido ofertas ou qualquer outra atividade sem completar a transação imobiliária e o pagamento da comissão à Empresa.
             </p>
 
             <p>
@@ -56,7 +56,7 @@ export default class Indique extends Component {
             </p>
 
             <p>
-              As indicações deverão ser feitas através do Formulário encontrado no website www.EmCasa.com/indique ou através do e-mail contato@EmCasa.com, onde cada indicação terá a validade de 6 (seis) meses a contar da data do recebimento do contato. Após 6 (seis) meses a contar da data do recebimento (“Data de Expiração”), a Indicação já não será válida. Assim, mesmo que a venda do Apartamento se concretize, a Pessoa que tiver indicado o Cliente não será mais elegível ao Pagamento. Neste caso, o Cliente poderá Comprar ou Vender o Apartamento e não haverá qualquer Indicação, sendo assim, a Empresa não efetuará qualquer Pagamento.
+              As indicações deverão ser feitas através do Formulário encontrado no website www.EmCasa.com/indique, onde cada indicação terá a validade de 6 (seis) meses a contar da data do recebimento do contato. Após 6 (seis) meses a contar da data do recebimento (“Data de Expiração”), a Indicação já não será válida. Assim, mesmo que a venda do Apartamento se concretize, a Pessoa que tiver indicado o Cliente não será mais elegível ao Pagamento. Neste caso, o Cliente poderá Comprar ou Vender o Apartamento e não haverá qualquer Indicação, sendo assim, a Empresa não efetuará qualquer Pagamento.
             </p>
 
             <p>
