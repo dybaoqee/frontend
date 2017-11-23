@@ -14,6 +14,10 @@ app.prepare()
     return app.render(req, res, '/jobs', req.query)
   })
 
+  server.get('/indique', (req, res) => {
+    return app.render(req, res, '/indique', req.query)
+  })
+
   server.get('/listing/:id', (req, res) => {
     const actualPage = '/listing'
     const queryParams = { id: req.params.id }

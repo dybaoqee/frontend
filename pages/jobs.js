@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import Head from 'next/head'
 
 import Layout from '../components/main-layout'
-
-import { mobileMedia } from '../constants/media'
+import TextContainer from '../components/text-container'
 
 class Jobs extends Component {
   render() {
@@ -20,7 +19,7 @@ class Jobs extends Component {
           <meta name="twitter:image" content="https://s3-sa-east-1.amazonaws.com/emcasa/listings/original/belisario-tavora.jpg"/>
         </Head>
 
-        <div className="jobs">
+        <TextContainer>
           <h1>Trabalhe EmCasa (ou onde quiser)</h1>
 
           <p>Criamos a EmCasa para melhorar a vida de quem está comprando e vendendo imóveis residenciais. Proporcionar mais qualidade, quantidade e velocidade de informação.</p>
@@ -62,24 +61,7 @@ class Jobs extends Component {
           <a href="https://docs.google.com/forms/d/1FIoJIqPfMLbh9qVj8ODJUNK08_yX_DbfhrRtF9oOWwA" target="_blank" rel="noopener noreferrer" className="btn">
             Cadastre-se
           </a>
-
-          <br/>
-          <br/>
-          <br/>
-        </div>
-
-        <style jsx>{`
-          .jobs {
-            margin: 0 auto;
-            width: 700px;
-          }
-
-          @media ${mobileMedia} {
-            .jobs {
-              width: calc(100vw - 40px);
-            }
-          }
-        `}</style>
+        </TextContainer>
       </Layout>
     )
   }
