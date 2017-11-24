@@ -14,7 +14,7 @@ class ListingMainContent extends React.Component {
 
           <Matterport listing={listing} />
 
-          <img src={process.env.REACT_APP_S3_BASE_URL + 'listings/original/' + listing.photo} alt="Listing Main Pic"/>
+          <img src={process.env.REACT_APP_S3_BASE_URL + 'listings/original/' + listing.images[0].filename} alt="Listing Main Pic"/>
         </div>
 
         <div>
