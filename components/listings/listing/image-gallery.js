@@ -30,16 +30,44 @@ export default class ImageGallery extends React.Component {
     const imgSrc = process.env.REACT_APP_S3_BASE_URL + 'listings/original/' + images[indexToShow].filename
 
     return (
-      <div>
-        <img src={imgSrc} onClick={this.showPreviousImage} alt="Listing Main Pic"/>
+      <div className="container">
+        <div onClick={this.showPreviousImage}>←</div>
+        <div onClick={this.showNextImage}>→</div>
         <style jsx>{`
-          img {
+          div.container {
+            background-color: #f0f0f0;
+            background-image: url(${imgSrc});
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            height: 590px;
             max-width: 100vw;
             width: 787px;
           }
 
+          div > div {
+            align-items: center;
+            display: flex;
+            color: white;
+            float: left;
+            font-size: 60px;
+            height: 100%;
+            padding: 0 30px;
+            width: calc(50% - 60px);
+          }
+
+          div > div:hover {
+            background: rgba(0,0,0, .5);
+          }
+
+          div > div:last-of-type {
+            float: right;
+            justify-content: flex-end;
+            text-align: right;
+          }
+
           @media ${mobileMedia} {
-            img {
+            div {
               width: 100vw;
             }
           }
