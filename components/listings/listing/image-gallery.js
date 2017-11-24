@@ -31,8 +31,8 @@ export default class ImageGallery extends React.Component {
 
     return (
       <div className="container">
-        <div onClick={this.showPreviousImage}>‹</div>
-        <div onClick={this.showNextImage}>›</div>
+        { (imagesLength > 1) &&<div onClick={this.showPreviousImage}>‹</div> }
+        { (imagesLength > 1) && <div onClick={this.showNextImage}>›</div> }
         <style jsx>{`
           div.container {
             background-color: #f0f0f0;
