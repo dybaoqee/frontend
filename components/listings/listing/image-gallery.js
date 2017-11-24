@@ -31,8 +31,8 @@ export default class ImageGallery extends React.Component {
 
     return (
       <div className="container">
-        <div onClick={this.showPreviousImage}>←</div>
-        <div onClick={this.showNextImage}>→</div>
+        <div onClick={this.showPreviousImage}>‹</div>
+        <div onClick={this.showNextImage}>›</div>
         <style jsx>{`
           div.container {
             background-color: #f0f0f0;
@@ -41,6 +41,7 @@ export default class ImageGallery extends React.Component {
             background-repeat: no-repeat;
             background-size: contain;
             height: 590px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
             max-width: 100vw;
             width: 787px;
           }
@@ -49,6 +50,7 @@ export default class ImageGallery extends React.Component {
             align-items: center;
             display: flex;
             color: white;
+            cursor: pointer;
             float: left;
             font-size: 60px;
             height: 100%;
@@ -57,7 +59,7 @@ export default class ImageGallery extends React.Component {
           }
 
           div > div:hover {
-            background: rgba(0,0,0, .5);
+            background: linear-gradient(to right, rgba(0, 0, 0, .333), rgba(0, 0, 0, 0));
           }
 
           div > div:last-of-type {
@@ -66,6 +68,9 @@ export default class ImageGallery extends React.Component {
             text-align: right;
           }
 
+          div > div:last-of-type:hover {
+            background: linear-gradient(to left, rgba(0, 0, 0, .333), rgba(0, 0, 0, 0));
+          }
           @media ${mobileMedia} {
             div {
               width: 100vw;
