@@ -2,6 +2,7 @@ import React from 'react'
 
 import ListingTable from '../listing_table'
 import Matterport from './matterport'
+import ImageGallery from './image-gallery'
 import { mobileMedia } from '../../../constants/media'
 
 class ListingMainContent extends React.Component {
@@ -11,10 +12,8 @@ class ListingMainContent extends React.Component {
     return (
       <div className="main-content">
         <div>
-
           <Matterport listing={listing} />
-
-          <img src={process.env.REACT_APP_S3_BASE_URL + 'listings/original/' + listing.images[0].filename} alt="Listing Main Pic"/>
+          <ImageGallery images={listing.images} />
         </div>
 
         <div>
@@ -55,18 +54,9 @@ class ListingMainContent extends React.Component {
             max-width: 100%;
           }
 
-          img {
-            max-width: 100vw;
-            width: 787px;
-          }
-
           @media ${mobileMedia} {
             .main-content {
               flex-direction: column;
-              width: 100vw;
-            }
-
-            .main-content img {
               width: 100vw;
             }
 
