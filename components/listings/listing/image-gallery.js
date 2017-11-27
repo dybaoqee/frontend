@@ -72,6 +72,10 @@ export default class ImageGallery extends React.Component {
             background: linear-gradient(to left, rgba(0, 0, 0, .333), rgba(0, 0, 0, 0));
           }
           @media ${mobileMedia} {
+            div.container {
+              height: 300px;
+            }
+
             div {
               width: 100vw;
             }
