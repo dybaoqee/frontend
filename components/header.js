@@ -110,7 +110,7 @@ export default class Header extends Component {
             }
 
             button:hover {
-              background: ${colors.offWhite}
+              background: ${colors.offWhite};
               color: gray;
             }
           }

@@ -67,7 +67,6 @@ class ListingMainContent extends React.Component {
 
             .description {
               width: calc(100vw - 40px);
-            }
           }
         `}</style>
       </div>
