@@ -26,6 +26,7 @@ class Popup extends React.Component {
           .popup > div {
             background-color: white;
             border-radius: 6px;
+            max-width: calc(100% - 80px);
             padding: 20px;
             position: relative;
             text-align: center;

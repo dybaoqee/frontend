@@ -148,9 +148,11 @@ class Listing extends React.Component {
 
           input[type=text] {
             border: 1px solid #ccc;
+            border-radius: 4px;
             clear: both;
             display: block;
             font-size: 14px;
+            max-width: calc(100% - 20px);
             margin: 0 auto 10px;
             padding: 10px;
             width: 350px;
