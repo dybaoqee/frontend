@@ -83,19 +83,20 @@ export default class MyPage extends React.Component {
         </div>
 
         <style jsx>{`
-          .listings h1 {
-            line-height: 1.2em;
-            margin-bottom: 40px;
-            text-align: center;
-          }
+          .listings {
+            h1 {
+              line-height: 1.2em;
+              margin-bottom: 40px;
+              text-align: center;
+            }
 
-          .listings > div {
-            float: left;
-            width: 50%;
-          }
-
-          .listings > div.entries-container {
-            float: right;
+            > div {
+              float: left;
+              width: 50%;
+              &.entries-container {
+                float: right;
+              }
+            }
           }
 
           .listings > div.map-container {

@@ -42,7 +42,7 @@ class ListingTable extends React.Component {
         }
 
         table tr td {
-          border-top: 1px solid #eee
+          border-top: 1px solid #eee;
           padding: 4px 10px;
         }
 
