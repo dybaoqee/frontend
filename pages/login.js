@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { setCookie } from '../utils/cookies'
 import Layout from '../components/main-layout'
 
 class Login extends React.Component {
@@ -36,7 +37,10 @@ class Login extends React.Component {
         }
       })
     }).then(response => response.json())
-    .then(response => { console.log("Logou:", response) })
+    .then(response => {
+      setCookie('access-token', response.user.token)
+      console.log("Logou:", response)
+    })
   }
 
   render() {

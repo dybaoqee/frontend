@@ -3,6 +3,8 @@ import Link from 'next/link'
 import Head from 'next/head'
 import 'isomorphic-unfetch'
 
+import { getCookie } from '../utils/cookies'
+
 import Layout from '../components/main-layout'
 import MapContainer from "../components/map-container"
 import Listing from "../components/listings/index/listing"
@@ -19,7 +21,11 @@ export default class MyPage extends React.Component {
 
   static async getInitialProps () {
     // eslint-disable-next-line no-undef
-    const res = await fetch(process.env.REACT_APP_API_URL + 'listings/')
+    const res = await fetch(process.env.REACT_APP_API_URL + 'listings/', {
+      headers: {
+        'authorization': `Token ${getCookie('access-token')}`
+      }
+    })
     const json = await res.json()
 
     return { listings: json.data }
