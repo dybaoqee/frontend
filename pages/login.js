@@ -39,7 +39,6 @@ class Login extends React.Component {
     }).then(response => response.json())
     .then(response => {
       setCookie('access-token', response.user.token)
-      console.log("Logou:", response)
     })
   }
 
