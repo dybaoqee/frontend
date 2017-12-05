@@ -21,7 +21,7 @@ export default class User extends Component {
     const res = await (id ? getUser(jwt, id) : getCurrentUser(jwt))
 
     return {
-      user: res.data,
+      user: res.data.data,
       authenticated: !!jwt,
       query: !!id
     }
