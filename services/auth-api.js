@@ -2,7 +2,7 @@ import { post } from '../lib/request'
 
 export const authenticate = async (email, password) => {
   try {
-    const res = await post('/users/login', {
+    const res = await post('users/login', {
       user: {
         email,
         password
