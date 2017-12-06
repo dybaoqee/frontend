@@ -22,6 +22,12 @@ app.prepare()
     return app.render(req, res, '/login', req.query)
   })
 
+  server.get('/listings/new', (req, res) => {
+    const actualPage = '/listings/new'
+    const queryParams = { id: req.params.id }
+    app.render(req, res, actualPage, queryParams)
+  })
+
   server.get('/listing/:id', (req, res) => {
     const actualPage = '/listing'
     const queryParams = { id: req.params.id }

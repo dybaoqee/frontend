@@ -1,10 +1,10 @@
-import React from 'react'
+import { Component } from 'react'
 import MediaQuery from 'react-responsive'
 import Head from 'next/head'
 import Router from 'next/router'
 import 'isomorphic-unfetch'
 
-import { Form, Text, Radio, RadioGroup, Select, Checkbox } from 'react-form'
+import { Form, Text } from 'react-form'
 
 import Layout from '../components/main-layout'
 import ListingHeader from '../components/listings/listing/header'
@@ -13,7 +13,7 @@ import ListingFooter from '../components/listings/listing/listing-footer'
 import MapContainer from "../components/map-container"
 import Popup from "../components/popup"
 
-class Listing extends React.Component {
+class Listing extends Component {
   constructor(props) {
     super(props)
     this.state = {
