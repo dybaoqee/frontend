@@ -58,8 +58,8 @@ export default class ListingNew extends Component {
             </div>
 
             <div className="input-control">
-              <label htmlFor="street-number">Número</label>
-              <input type="text" name="street-number" placeholder="Número" value={streetNumber} onChange={this.onChange} />
+              <label htmlFor="streetNumber">Número</label>
+              <input type="text" name="streetNumber" placeholder="Número" value={streetNumber} onChange={this.onChange} />
             </div>
 
 
@@ -84,8 +84,8 @@ export default class ListingNew extends Component {
             </div>
 
             <div className="input-control">
-              <label htmlFor="postal_code">CEP</label>
-              <input type="text" name="postal_code" placeholder="CEP" value={postalCode} onChange={this.onChange} />
+              <label htmlFor="postalCode">CEP</label>
+              <input type="text" name="postalCode" placeholder="CEP" value={postalCode} onChange={this.onChange} />
             </div>
 
             <div className="input-control">
