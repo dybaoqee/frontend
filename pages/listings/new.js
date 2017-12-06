@@ -1,6 +1,7 @@
 import { Component } from 'react'
 import { Form, Text } from 'react-form'
 
+import { redirectIfNotAuthenticated, getJwt } from '../../lib/auth'
 import { createListing } from '../../services/listing-api'
 import TextContainer from '../../components/text-container'
 import Layout from '../../components/main-layout'
@@ -14,6 +15,18 @@ export default class ListingNew extends Component {
     }
   }
 
+  static async getInitialProps(ctx) {
+    if (redirectIfNotAuthenticated(ctx)) {
+      return {}
+    }
+
+    const jwt = getJwt(ctx)
+
+    return {
+      jwt: jwt
+    }
+  }
+
   onChange = (e) => {
     const state = this.state
     state[e.target.name] = e.target.value
@@ -23,8 +36,9 @@ export default class ListingNew extends Component {
   handleSubmit = async (e) => {
     e.preventDefault()
 
-    const res = await createListing(this.state)
-    console.log(res)
+    const { jwt } = this.props
+
+    const res = await createListing(this.state, jwt)
   }
 
   render() {
