@@ -6,8 +6,6 @@ import 'isomorphic-unfetch'
 
 import { Form, Text, Radio, RadioGroup, Select, Checkbox } from 'react-form'
 
-import { getCookie } from '../utils/cookies'
-
 import Layout from '../components/main-layout'
 import ListingHeader from '../components/listings/listing/header'
 import ListingMainContent from '../components/listings/listing/main-content'
@@ -29,11 +27,7 @@ class Listing extends React.Component {
 
   static async getInitialProps(context) {
     const { id, showPopup } = context.query
-    const res = await fetch(process.env.REACT_APP_API_URL + 'listings/' + id, {
-      headers: {
-        'authorization': `Token ${getCookie('access-token')}`
-      }
-    })
+    const res = await fetch(process.env.REACT_APP_API_URL + 'listings/' + id)
     const json = await res.json()
 
     return {
