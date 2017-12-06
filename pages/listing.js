@@ -82,7 +82,8 @@ class Listing extends Component {
   render() {
     const { listing } = this.props
     const { showPopup, showPostSuccessPopup, name, email, phone } = this.state
-    const imgSrc = process.env.REACT_APP_S3_BASE_URL + 'listings/original/' + listing.images[0].filename
+    const imgFilename = (listing.images.length > 0) ? listing.images[0].filename : 'default.jpg'
+    const imgSrc = process.env.REACT_APP_S3_BASE_URL + 'listings/original/' + imgFilename
 
     return (
       <Layout>
