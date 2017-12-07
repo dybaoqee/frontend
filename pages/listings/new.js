@@ -1,6 +1,7 @@
 import { Component } from 'react'
 import { Form, Text } from 'react-form'
 
+import redirect from '../../lib/redirect'
 import { redirectIfNotAuthenticated, getJwt } from '../../lib/auth'
 import { createListing } from '../../services/listing-api'
 import TextContainer from '../../components/text-container'
@@ -39,6 +40,14 @@ export default class ListingNew extends Component {
     const { jwt } = this.props
 
     const res = await createListing(this.state, jwt)
+    const listingId = res.data.listing.id
+
+    if (!res.data) {
+      return res
+    }
+
+    redirect(`/listing?id=${listingId}`, null, `/listing/${listingId}`)
+    return null
   }
 
   render() {
