@@ -11,7 +11,10 @@ import * as colors from '../../constants/colors'
 export default class ListingNew extends Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      city: 'Rio de Janeiro',
+      state: 'RJ'
+    }
   }
 
   static async getInitialProps(ctx) {
@@ -62,6 +65,7 @@ export default class ListingNew extends Component {
           <h1>Adicionar Imóvel</h1>
 
           <form onSubmit={this.handleSubmit}>
+
             <h4>Endereço</h4>
 
             <div className="input-control">
@@ -87,12 +91,12 @@ export default class ListingNew extends Component {
 
             <div className="input-control">
               <label htmlFor="city">Cidade</label>
-              <input type="text" name="city" placeholder="Cidade" value={city} onChange={this.onChange} />
+              <input type="text" name="city" placeholder="Cidade" value={city} onChange={this.onChange} readOnly/>
             </div>
 
             <div className="input-control">
               <label htmlFor="state">Estado (Sigla)</label>
-              <input type="text" name="state" placeholder="Estado" value={state} onChange={this.onChange} />
+              <input type="text" name="state" placeholder="Estado" value={state} onChange={this.onChange} readOnly/>
             </div>
 
             <div className="input-control">
@@ -157,6 +161,16 @@ export default class ListingNew extends Component {
               <input type="text" name="score" placeholder="Placar do Farol" value={score} onChange={this.onChange} />
             </div>
 
+            {errors && <div>
+              <b>Verifique os erros:</b>
+
+              {Object.keys(errors).map(key =>
+                errors[key].map(error => {
+                  return <p>{key}: {error}</p>
+                })
+              )}
+            </div>}
+
             <button type="submit">Enviar</button>
           </form>
 
@@ -176,6 +190,9 @@ export default class ListingNew extends Component {
                 font-size: 16px;
                 padding: 10px;
                 width: calc(100% - 22px);
+                &[readonly] {
+                  color: #bbb;
+                }
               }
             }
           }
