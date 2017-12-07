@@ -11,9 +11,7 @@ import * as colors from '../../constants/colors'
 export default class ListingNew extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-
-    }
+    this.state = {}
   }
 
   static async getInitialProps(ctx) {
@@ -40,18 +38,23 @@ export default class ListingNew extends Component {
     const { jwt } = this.props
 
     const res = await createListing(this.state, jwt)
-    const listingId = res.data.listing.id
+
+    if (res.data.errors) {
+      this.setState({errors: res.data.errors})
+      return
+    }
 
     if (!res.data) {
       return res
     }
 
+    const listingId = res.data.listing.id
     Router.replace(`/listing?id=${listingId}`, `/listing/${listingId}`)
     return null
   }
 
   render() {
-    const { street, streetNumber, complement, city, state, postalCode, lat, lng, neighborhood, description, price, area, floor, rooms, bathrooms, matterportCode, score, garageSpots } = this.state
+    const { errors, street, streetNumber, complement, city, state, postalCode, lat, lng, neighborhood, description, price, area, floor, rooms, bathrooms, matterportCode, score, garageSpots } = this.state
 
     return (
       <Layout>

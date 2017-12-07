@@ -31,7 +31,7 @@ export const createListing = async (data, jwt) => {
     return response
   } catch (error) {
     return error.response && error.response.status === 422
-      ? "Email is already taken."
+      ? error.response
       : "Unknown error. Please try again."
   }
 }
