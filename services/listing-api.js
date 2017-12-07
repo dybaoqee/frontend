@@ -5,6 +5,7 @@ export const createListing = async (data, jwt) => {
   const payload = {
     listing: {
       'complement': data.complement,
+      'type': data.type,
       'description': data.description,
       'price': data.price,
       'floor': data.floor,

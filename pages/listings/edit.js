@@ -23,8 +23,11 @@ export default class ListingEdit extends Component {
       lng: address.lng,
       city: 'Rio de Janeiro',
       state: 'RJ',
+
       description: listing.description,
-      price: listing.description,
+      price: listing.price,
+      complement: listing.complement,
+      type: listing.type,
       area: listing.area,
       floor: listing.floor,
       bathrooms: listing.bathrooms,
@@ -80,7 +83,7 @@ export default class ListingEdit extends Component {
   }
 
   render() {
-    const { errors, street, streetNumber, complement, city, state, postalCode, lat, lng, neighborhood, description, price, area, floor, rooms, bathrooms, matterportCode, score, garageSpots } = this.state
+    const { errors, street, streetNumber, complement, city, state, postalCode, lat, lng, neighborhood, description, type, price, area, floor, rooms, bathrooms, matterportCode, score, garageSpots } = this.state
 
     return (
       <Layout>
@@ -140,6 +143,11 @@ export default class ListingEdit extends Component {
             <h4>Detalhes do imóvel</h4>
 
             <div className="input-control">
+              <label htmlFor="type">Tipo</label>
+              <input type="text" name="type" placeholder="Apartamento / Casa / Cobertura etc" value={type} onChange={this.onChange} />
+            </div>
+
+            <div className="input-control">
               <label htmlFor="description">Descrição</label>
               <input type="text" name="description" placeholder="Descrição" value={description} onChange={this.onChange} />
             </div>
@@ -166,7 +174,7 @@ export default class ListingEdit extends Component {
 
             <div className="input-control">
               <label htmlFor="garageSpots">Número de Vagas de Garagem</label>
-              <input type="text" name="garageSpotS" placeholder="Número de Vagas de Garagem" value={garageSpots} onChange={this.onChange} />
+              <input type="text" name="garageSpots" placeholder="Número de Vagas de Garagem" value={garageSpots} onChange={this.onChange} />
             </div>
 
             <div className="input-control">
