@@ -81,7 +81,7 @@ export default class MyPage extends React.Component {
 
           <div className="entries-container">
             {listings.map((listing, i) => {
-              return <Listing listing={listing} key={i} />
+              return <Listing listing={listing} key={i} isAuthenticated={isAuthenticated} />
             })}
           </div>
         </div>

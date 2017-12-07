@@ -99,7 +99,7 @@ class Listing extends Component {
         </Head>
 
         <div className="listing">
-          <ListingHeader listing={listing} handleOpenPopup={this.openPopup}/>
+          <ListingHeader listing={listing} handleOpenPopup={this.openPopup} isAuthenticated={isAuthenticated}/>
           <ListingMainContent listing={listing}/>
 
           <MediaQuery query="(max-width: 600px)">

@@ -1,11 +1,12 @@
-import React from 'react'
+import { Component } from 'react'
+import Link from 'next/link'
 import NumberFormat from 'react-number-format'
 
 import { mobileMedia } from '../../../constants/media'
 
-class ListingHeader extends React.Component {
+class ListingHeader extends Component {
   render() {
-    const { listing } = this.props
+    const { listing, isAuthenticated } = this.props
 
     return (
       <header>
@@ -21,6 +22,10 @@ class ListingHeader extends React.Component {
             <NumberFormat value={listing.price} displayType={'text'} thousandSeparator={'.'} prefix={'R$'} decimalSeparator={','} />
           </div>
         </div>
+
+        {isAuthenticated && <Link href={`/listings/edit?id=${listing.id}`} as={`/listings/${listing.id}/edit`}>
+          <a>Editar</a>
+        </Link>}
 
         <button className="green" onClick={this.props.handleOpenPopup}>
           Marcar Visita
