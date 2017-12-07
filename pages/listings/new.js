@@ -1,7 +1,7 @@
 import { Component } from 'react'
 import { Form, Text } from 'react-form'
+import Router from 'next/router'
 
-import redirect from '../../lib/redirect'
 import { redirectIfNotAuthenticated, getJwt } from '../../lib/auth'
 import { createListing } from '../../services/listing-api'
 import TextContainer from '../../components/text-container'
@@ -46,7 +46,7 @@ export default class ListingNew extends Component {
       return res
     }
 
-    redirect(`/listing?id=${listingId}`, null, `/listing/${listingId}`)
+    Router.replace(`/listing?id=${listingId}`, `/listing/${listingId}`)
     return null
   }
 
