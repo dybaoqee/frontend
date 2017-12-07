@@ -1,13 +1,20 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import Head from 'next/head'
 
+import { isAuthenticated } from "../lib/auth"
 import Layout from '../components/main-layout'
 import TextContainer from '../components/text-container'
 
 export default class Indique extends Component {
+  static async getInitialProps(context) {
+    return {
+      isAuthenticated: isAuthenticated(context)
+    }
+  }
+
   render() {
     return (
-      <Layout>
+      <Layout isAuthenticated={isAuthenticated}>
         <Head>
           <title>Indique e Ganhe | EmCasa</title>
           <meta name="description" content="Indique amigos que queiram comprar ou vender um imóvel residencial e ganhe R$1000"/>

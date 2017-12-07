@@ -2,7 +2,7 @@ import { Component } from 'react'
 import { Form, Text } from 'react-form'
 import Router from 'next/router'
 
-import { redirectIfNotAuthenticated, getJwt } from '../../lib/auth'
+import { redirectIfNotAuthenticated, getJwt, isAuthenticated } from '../../lib/auth'
 import { createListing } from '../../services/listing-api'
 import TextContainer from '../../components/text-container'
 import Layout from '../../components/main-layout'
@@ -25,7 +25,8 @@ export default class ListingNew extends Component {
     const jwt = getJwt(ctx)
 
     return {
-      jwt: jwt
+      jwt: jwt,
+      isAuthenticated: isAuthenticated(ctx)
     }
   }
 
@@ -60,7 +61,7 @@ export default class ListingNew extends Component {
     const { errors, street, streetNumber, complement, city, state, postalCode, lat, lng, neighborhood, description, type, price, area, floor, rooms, bathrooms, matterportCode, score, garageSpots } = this.state
 
     return (
-      <Layout>
+      <Layout isAuthenticated={isAuthenticated}>
         <TextContainer>
           <h1>Adicionar Imóvel</h1>
 

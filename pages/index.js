@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Head from 'next/head'
 import 'isomorphic-unfetch'
 
+import { isAuthenticated } from "../lib/auth"
 import Layout from '../components/main-layout'
 import MapContainer from "../components/map-container"
 import Listing from "../components/listings/index/listing"
@@ -17,12 +18,15 @@ export default class MyPage extends React.Component {
       }
     }
 
-  static async getInitialProps () {
+  static async getInitialProps(ctx) {
     // eslint-disable-next-line no-undef
     const res = await fetch(process.env.REACT_APP_API_URL + 'listings/')
     const json = await res.json()
 
-    return { listings: json.data }
+    return {
+      listings: json.data,
+      isAuthenticated: isAuthenticated(ctx)
+    }
   }
 
   componentDidMount = () => {
@@ -47,12 +51,12 @@ export default class MyPage extends React.Component {
   }
 
   render () {
-    const { listings } = this.props
+    const { listings, isAuthenticated } = this.props
     const { lockGoogleMap } = this.state
     const seoImgSrc = `${process.env.REACT_APP_S3_BASE_URL}listings/original/${listings[0].photo}`
 
     return (
-      <Layout>
+      <Layout isAuthenticated={isAuthenticated}>
         <Head>
           <title>Apartamentos à venda no Rio de Janeiro | EmCasa</title>
           <meta name="description" content="Compre seu Imóvel na Zona Sul do Rio de Janeiro"/>

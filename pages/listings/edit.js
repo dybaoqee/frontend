@@ -2,7 +2,7 @@ import { Component } from 'react'
 import { Form, Text } from 'react-form'
 import Router from 'next/router'
 
-import { redirectIfNotAuthenticated, getJwt } from '../../lib/auth'
+import { redirectIfNotAuthenticated, getJwt, isAuthenticated } from '../../lib/auth'
 import { createListing } from '../../services/listing-api'
 import TextContainer from '../../components/text-container'
 import Layout from '../../components/main-layout'
@@ -38,20 +38,21 @@ export default class ListingEdit extends Component {
     }
   }
 
-  static async getInitialProps(ctx) {
-    if (redirectIfNotAuthenticated(ctx)) {
+  static async getInitialProps(context) {
+    if (redirectIfNotAuthenticated(context)) {
       return {}
     }
 
-    const jwt = getJwt(ctx)
-    const { id } = ctx.query
+    const jwt = getJwt(context)
+    const { id } = context.query
 
     const res = await fetch(process.env.REACT_APP_API_URL + 'listings/' + id)
     const json = await res.json()
 
     return {
       jwt: jwt,
-      listing: json.data
+      listing: json.data,
+      isAuthenticated: isAuthenticated(context)
     }
   }
 
@@ -86,7 +87,7 @@ export default class ListingEdit extends Component {
     const { errors, street, streetNumber, complement, city, state, postalCode, lat, lng, neighborhood, description, type, price, area, floor, rooms, bathrooms, matterportCode, score, garageSpots } = this.state
 
     return (
-      <Layout>
+      <Layout isAuthenticated={isAuthenticated}>
         <TextContainer>
           <h1>Editar Imóvel</h1>
 

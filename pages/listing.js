@@ -4,6 +4,7 @@ import Head from 'next/head'
 import Router from 'next/router'
 import 'isomorphic-unfetch'
 
+import { isAuthenticated } from "../lib/auth"
 import { Form, Text } from 'react-form'
 
 import Layout from '../components/main-layout'
@@ -31,7 +32,8 @@ class Listing extends Component {
     const json = await res.json()
 
     return {
-      listing: json.data
+      listing: json.data,
+      isAuthenticated: isAuthenticated(context)
     }
   }
 
@@ -86,7 +88,7 @@ class Listing extends Component {
     const imgSrc = process.env.REACT_APP_S3_BASE_URL + 'listings/original/' + imgFilename
 
     return (
-      <Layout>
+      <Layout isAuthenticated={isAuthenticated}>
         <Head>
           <title>
             À venda: Apartamento - {listing.address.street} - {listing.address.neighborhood}, {listing.address.city} | EmCasa
