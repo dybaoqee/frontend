@@ -22,6 +22,10 @@ app.prepare()
     return app.render(req, res, '/login', req.query)
   })
 
+  server.get('/auth/logout', (req, res) => {
+    return app.render(req, res, '/auth/logout', req.query)
+  })
+
   server.get('/listings/new', (req, res) => {
     const actualPage = '/listings/new'
     app.render(req, res, actualPage)

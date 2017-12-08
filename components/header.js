@@ -41,6 +41,10 @@ export default class Header extends Component {
           <Link href="/jobs">
             <a>Trabalhe Conosco</a>
           </Link>
+
+          {isAuthenticated && <Link href="/auth/logout">
+            <a>Logout</a>
+          </Link>}
         </div>
 
         <style jsx>{`
