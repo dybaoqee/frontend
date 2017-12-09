@@ -3,6 +3,8 @@ import { Form, Text } from 'react-form'
 import Router from 'next/router'
 
 import { redirectIfNotAuthenticated, getJwt, isAuthenticated } from '../../lib/auth'
+import { editListing, updateListing } from '../../services/listing-api'
+
 import { createListing } from '../../services/listing-api'
 import TextContainer from '../../components/text-container'
 import Layout from '../../components/main-layout'
@@ -46,12 +48,21 @@ export default class ListingEdit extends Component {
     const jwt = getJwt(context)
     const { id } = context.query
 
-    const res = await fetch(process.env.REACT_APP_API_URL + 'listings/' + id)
-    const json = await res.json()
+    const res = await editListing(id, jwt)
+
+    if (res.data.errors) {
+      this.setState({errors: res.data.errors})
+      return {}
+    }
+
+    if (!res.data) {
+      return res
+    }
 
     return {
+      id: id,
       jwt: jwt,
-      listing: json.data,
+      listing: res.data.listing,
       isAuthenticated: isAuthenticated(context)
     }
   }
@@ -65,9 +76,9 @@ export default class ListingEdit extends Component {
   handleSubmit = async (e) => {
     e.preventDefault()
 
-    const { jwt } = this.props
+    const { jwt, id } = this.props
 
-    const res = await createListing(this.state, jwt)
+    const res = await updateListing(id, this.state, jwt)
 
     if (res.data.errors) {
       this.setState({errors: res.data.errors})
