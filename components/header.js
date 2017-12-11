@@ -18,6 +18,7 @@ export default class Header extends Component {
   }
 
   render() {
+    const { isAuthenticated } = this.props
     const { isMobileNavVisible } = this.state
 
     return (
@@ -29,6 +30,10 @@ export default class Header extends Component {
         <button onClick={this.toggleMobileNavVisibility}>☰</button>
 
         <div className={isMobileNavVisible ? 'visible' : ''}>
+          {isAuthenticated && <Link href="/listings/new">
+            <a>Adicionar Imóvel</a>
+          </Link>}
+
           <Link href="/indique">
             <a>Indique e Ganhe</a>
           </Link>
@@ -36,6 +41,10 @@ export default class Header extends Component {
           <Link href="/jobs">
             <a>Trabalhe Conosco</a>
           </Link>
+
+          {isAuthenticated && <Link href="/auth/logout">
+            <a>Logout</a>
+          </Link>}
         </div>
 
         <style jsx>{`

@@ -1,10 +1,11 @@
-import React from 'react'
+import { Component } from 'react'
 import MediaQuery from 'react-responsive'
 import Head from 'next/head'
 import Router from 'next/router'
 import 'isomorphic-unfetch'
 
-import { Form, Text, Radio, RadioGroup, Select, Checkbox } from 'react-form'
+import { isAuthenticated } from "../lib/auth"
+import { Form, Text } from 'react-form'
 
 import Layout from '../components/main-layout'
 import ListingHeader from '../components/listings/listing/header'
@@ -13,7 +14,7 @@ import ListingFooter from '../components/listings/listing/listing-footer'
 import MapContainer from "../components/map-container"
 import Popup from "../components/popup"
 
-class Listing extends React.Component {
+class Listing extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -31,7 +32,8 @@ class Listing extends React.Component {
     const json = await res.json()
 
     return {
-      listing: json.data
+      listing: json.data,
+      isAuthenticated: isAuthenticated(context)
     }
   }
 
@@ -82,10 +84,11 @@ class Listing extends React.Component {
   render() {
     const { listing } = this.props
     const { showPopup, showPostSuccessPopup, name, email, phone } = this.state
-    const imgSrc = process.env.REACT_APP_S3_BASE_URL + 'listings/original/' + listing.images[0].filename
+    const imgFilename = (listing.images.length > 0) ? listing.images[0].filename : 'default.jpg'
+    const imgSrc = process.env.REACT_APP_S3_BASE_URL + 'listings/original/' + imgFilename
 
     return (
-      <Layout>
+      <Layout isAuthenticated={isAuthenticated}>
         <Head>
           <title>
             À venda: Apartamento - {listing.address.street} - {listing.address.neighborhood}, {listing.address.city} | EmCasa
@@ -96,7 +99,7 @@ class Listing extends React.Component {
         </Head>
 
         <div className="listing">
-          <ListingHeader listing={listing} handleOpenPopup={this.openPopup}/>
+          <ListingHeader listing={listing} handleOpenPopup={this.openPopup} isAuthenticated={isAuthenticated}/>
           <ListingMainContent listing={listing}/>
 
           <MediaQuery query="(max-width: 600px)">

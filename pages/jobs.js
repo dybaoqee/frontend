@@ -1,13 +1,20 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import Head from 'next/head'
 
+import { isAuthenticated } from "../lib/auth"
 import Layout from '../components/main-layout'
 import TextContainer from '../components/text-container'
 
 class Jobs extends Component {
+  static async getInitialProps(context) {
+    return {
+      isAuthenticated: isAuthenticated(context)
+    }
+  }
+
   render() {
     return (
-      <Layout>
+      <Layout isAuthenticated={isAuthenticated}>
         <Head>
           <title>Trabalhe conosco | EmCasa</title>
           <meta name="description" content="Procuramos desenvolvedores excepcionais em Elixir e React / React Native. Cadastre-se!"/>

@@ -18,8 +18,33 @@ app.prepare()
     return app.render(req, res, '/indique', req.query)
   })
 
+  server.get('/login', (req, res) => {
+    return app.render(req, res, '/login', req.query)
+  })
+
+  server.get('/auth/logout', (req, res) => {
+    return app.render(req, res, '/auth/logout', req.query)
+  })
+
+  server.get('/listings/new', (req, res) => {
+    const actualPage = '/listings/new'
+    app.render(req, res, actualPage)
+  })
+
+  server.get('/listings/:id/edit', (req, res) => {
+    const actualPage = '/listings/edit'
+    const queryParams = { id: req.params.id }
+    app.render(req, res, actualPage, queryParams)
+  })
+
   server.get('/listing/:id', (req, res) => {
     const actualPage = '/listing'
+    const queryParams = { id: req.params.id }
+    app.render(req, res, actualPage, queryParams)
+  })
+
+  server.get('/user/:id', (req, res) => {
+    const actualPage = '/user'
     const queryParams = { id: req.params.id }
     app.render(req, res, actualPage, queryParams)
   })

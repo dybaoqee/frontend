@@ -7,7 +7,7 @@ import { mobileMedia } from '../../../constants/media'
 
 class TextContainer extends React.Component {
   render() {
-    const { listing } = this.props
+    const { listing, isAuthenticated } = this.props
 
     return (
       <div className="text-container">
@@ -17,9 +17,16 @@ class TextContainer extends React.Component {
 
         <ListingTable listing={listing}/>
 
-        <Link href={`/listing?id=${listing.id}`} as={`/listing/${listing.id}`} >
-          <a className="btn">Ver Detalhes</a>
-        </Link>
+        <div className="link-container">
+          {isAuthenticated && <Link href={`/listings/edit?id=${listing.id}`} as={`/listings/${listing.id}/edit`}>
+            <a>Editar</a>
+          </Link>}
+
+          <Link href={`/listing?id=${listing.id}`} as={`/listing/${listing.id}`} >
+            <a className="btn">Ver Detalhes</a>
+          </Link>
+        </div>
+
 
         <style jsx>{`
           .text-container {
@@ -32,10 +39,15 @@ class TextContainer extends React.Component {
             margin: 20px 10px 0;
           }
 
-          .btn {
+          .link-container {
+            align-items: center;
+            display: flex;
             float: right;
-            margin: 14px;
+            .btn {
+              margin: 14px 14px 14px 20px;
+            }
           }
+
 
           @media ${mobileMedia} {
             .text-container {

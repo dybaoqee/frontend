@@ -27,7 +27,9 @@ export default class ImageGallery extends React.Component {
 
     const indexToShow = Math.abs((imagesLength - imageIndex) % imagesLength)
 
-    const imgSrc = process.env.REACT_APP_S3_BASE_URL + 'listings/original/' + images[indexToShow].filename
+    const imgFilename = (images.length > 0) ? images[indexToShow] : 'default.jpg'
+
+    const imgSrc = process.env.REACT_APP_S3_BASE_URL + 'listings/original/' + imgFilename
 
     return (
       <div className="container">

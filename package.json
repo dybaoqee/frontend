@@ -11,9 +11,11 @@
     "heroku-postbuild": "npm run build"
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "babel-plugin-transform-define": "^1.2.0",
     "express": "^4.16.2",
     "isomorphic-unfetch": "^2.0.0",
+    "js-cookie": "^2.2.0",
     "next": "^4.1.4",
     "postcss-nested": "^2.1.2",
     "react": "^16.1.0",
