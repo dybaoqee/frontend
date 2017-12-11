@@ -8,13 +8,13 @@ import TextContainer from '../components/text-container'
 export default class Indique extends Component {
   static async getInitialProps(context) {
     return {
-      isAuthenticated: isAuthenticated(context)
+      authenticated: isAuthenticated(context)
     }
   }
 
   render() {
     return (
-      <Layout isAuthenticated={isAuthenticated}>
+      <Layout authenticated={authenticated}>
         <Head>
           <title>Indique e Ganhe | EmCasa</title>
           <meta name="description" content="Indique amigos que queiram comprar ou vender um imóvel residencial e ganhe R$1000"/>

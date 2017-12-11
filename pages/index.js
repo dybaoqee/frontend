@@ -18,14 +18,14 @@ export default class MyPage extends React.Component {
       }
     }
 
-  static async getInitialProps(ctx) {
+  static async getInitialProps(context) {
     // eslint-disable-next-line no-undef
     const res = await fetch(process.env.REACT_APP_API_URL + 'listings/')
     const json = await res.json()
 
     return {
       listings: json.data,
-      isAuthenticated: isAuthenticated(ctx)
+      authenticated: isAuthenticated(context)
     }
   }
 
@@ -51,12 +51,12 @@ export default class MyPage extends React.Component {
   }
 
   render () {
-    const { listings, isAuthenticated } = this.props
+    const { listings, authenticated } = this.props
     const { lockGoogleMap } = this.state
     const seoImgSrc = `${process.env.REACT_APP_S3_BASE_URL}listings/original/${listings[0].photo}`
 
     return (
-      <Layout isAuthenticated={isAuthenticated}>
+      <Layout authenticated={authenticated}>
         <Head>
           <title>Apartamentos à venda no Rio de Janeiro | EmCasa</title>
           <meta name="description" content="Compre seu Imóvel na Zona Sul do Rio de Janeiro"/>
@@ -81,7 +81,7 @@ export default class MyPage extends React.Component {
 
           <div className="entries-container">
             {listings.map((listing, i) => {
-              return <Listing listing={listing} key={i} isAuthenticated={isAuthenticated} />
+              return <Listing listing={listing} key={i} authenticated={authenticated} />
             })}
           </div>
         </div>

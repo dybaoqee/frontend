@@ -8,13 +8,15 @@ import TextContainer from '../components/text-container'
 class Jobs extends Component {
   static async getInitialProps(context) {
     return {
-      isAuthenticated: isAuthenticated(context)
+      authenticated: isAuthenticated(context)
     }
   }
 
   render() {
+    const {authenticated} = this.props
+
     return (
-      <Layout isAuthenticated={isAuthenticated}>
+      <Layout authenticated={authenticated}>
         <Head>
           <title>Trabalhe conosco | EmCasa</title>
           <meta name="description" content="Procuramos desenvolvedores excepcionais em Elixir e React / React Native. Cadastre-se!"/>

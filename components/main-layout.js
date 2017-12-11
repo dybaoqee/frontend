@@ -14,7 +14,7 @@ Router.onRouteChangeComplete = () => {
 
 export default class Layout extends React.Component {
   render() {
-    const { isAuthenticated } = this.props
+    const { authenticated } = this.props
 
     return (
       <div>
@@ -37,7 +37,7 @@ export default class Layout extends React.Component {
           }
         </Head>
 
-        <Header isAuthenticated={isAuthenticated} />
+        <Header authenticated={authenticated} />
         <main>
           {this.props.children}
         </main>

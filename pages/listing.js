@@ -33,7 +33,7 @@ class Listing extends Component {
 
     return {
       listing: json.data,
-      isAuthenticated: isAuthenticated(context)
+      authenticated: isAuthenticated(context)
     }
   }
 
@@ -82,13 +82,13 @@ class Listing extends Component {
   }
 
   render() {
-    const { listing } = this.props
+    const { authenticated, listing } = this.props
     const { showPopup, showPostSuccessPopup, name, email, phone } = this.state
     const imgFilename = (listing.images.length > 0) ? listing.images[0].filename : 'default.jpg'
     const imgSrc = process.env.REACT_APP_S3_BASE_URL + 'listings/original/' + imgFilename
 
     return (
-      <Layout isAuthenticated={isAuthenticated}>
+      <Layout authenticated={authenticated}>
         <Head>
           <title>
             À venda: Apartamento - {listing.address.street} - {listing.address.neighborhood}, {listing.address.city} | EmCasa
@@ -99,7 +99,7 @@ class Listing extends Component {
         </Head>
 
         <div className="listing">
-          <ListingHeader listing={listing} handleOpenPopup={this.openPopup} isAuthenticated={isAuthenticated}/>
+          <ListingHeader listing={listing} handleOpenPopup={this.openPopup} authenticated={authenticated}/>
           <ListingMainContent listing={listing}/>
 
           <MediaQuery query="(max-width: 600px)">

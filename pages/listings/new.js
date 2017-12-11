@@ -26,7 +26,7 @@ export default class ListingNew extends Component {
 
     return {
       jwt: jwt,
-      isAuthenticated: isAuthenticated(ctx)
+      authenticated: isAuthenticated(ctx)
     }
   }
 
@@ -58,10 +58,11 @@ export default class ListingNew extends Component {
   }
 
   render() {
+    const { authenticated } = this.props
     const { errors, street, streetNumber, complement, city, state, postalCode, lat, lng, neighborhood, description, type, price, area, floor, rooms, bathrooms, matterportCode, score, garageSpots } = this.state
 
     return (
-      <Layout isAuthenticated={isAuthenticated}>
+      <Layout authenticated={authenticated}>
         <TextContainer>
           <h1>Adicionar Imóvel</h1>
 
