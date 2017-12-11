@@ -5,13 +5,13 @@ let favicon
 
 if (!prod) {
   api_url = 'http://localhost:4000/'
-  favicon = 'favicon.png'
+  favicon = 'favicon-dev.png'
 } else if (process.env.IS_STAGING === 'true') {
   api_url = 'https://em-casa-backend-staging.herokuapp.com/'
   favicon = 'favicon-staging.png'
 } else {
   api_url = 'https://em-casa.herokuapp.com/'
-  favicon ='favicon-dev.png'
+  favicon ='favicon.png'
 }
 
 module.exports = {

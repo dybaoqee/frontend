@@ -31,7 +31,7 @@ export default class Layout extends React.Component {
           `}} />
 
           <meta name="viewport" content="initial-scale=1.0, width=device-width" key="viewport" />
-          <link rel="shortcut icon" href="/static/{process.env.REACT_APP_FAVICON}" key="favicon" />
+          <link rel="shortcut icon" href={`/static/${process.env.REACT_APP_FAVICON}`} key="favicon" />
         </Head>
 
         <Header authenticated={authenticated} />
