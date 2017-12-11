@@ -5,9 +5,9 @@ let api_url
 if (!prod) {
   api_url = 'http://localhost:4000/'
 } else if (process.env.IS_STAGING === 'true') {
-  api_url = 'https://em-casa-backend-staging.herokuapp.com'
+  api_url = 'https://em-casa-backend-staging.herokuapp.com/'
 } else {
-  api_url = 'https://em-casa.herokuapp.com'
+  api_url = 'https://em-casa.herokuapp.com/'
 }
 
 module.exports = {
