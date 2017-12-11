@@ -13,6 +13,7 @@ export default class Indique extends Component {
   }
 
   render() {
+    const { authenticated } = this.props
     return (
       <Layout authenticated={authenticated}>
         <Head>

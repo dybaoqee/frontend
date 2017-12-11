@@ -13,7 +13,7 @@ class Jobs extends Component {
   }
 
   render() {
-    const {authenticated} = this.props
+    const { authenticated } = this.props
 
     return (
       <Layout authenticated={authenticated}>
