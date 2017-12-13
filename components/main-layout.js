@@ -38,13 +38,16 @@ export default class Layout extends React.Component {
             t.src=v;s=b.getElementsByTagName(e)[0];
             s.parentNode.insertBefore(t,s)}(window,document,'script',
             'https://connect.facebook.net/en_US/fbevents.js');
-             fbq('init', '710980862398359');
+            fbq('init', '710980862398359');
             fbq('track', 'PageView');
-            <noscript>
-             <img height="1" width="1"
+            <!-- End Facebook Pixel Code -->
+          `}} />
+
+          <noscript dangerouslySetInnerHTML={{ __html: `
+            <!-- Facebook Pixel Code -->
+            <img height="1" width="1"
             src="https://www.facebook.com/tr?id=710980862398359&ev=PageView
             &noscript=1"/>
-            </noscript>
             <!-- End Facebook Pixel Code -->
           `}} />
 
