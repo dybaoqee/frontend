@@ -37,8 +37,15 @@ app.prepare()
     app.render(req, res, actualPage, queryParams)
   })
 
+  // TODO: Remove this early 2018
+  // I started the app with a path for each listing that wasn't great.
+  // @gusaiani
   server.get('/listing/:id', (req, res) => {
-    const actualPage = '/listing'
+    res.redirect(`/listings/${req.params.id}`)
+  })
+
+  server.get('/listings/:id', (req, res) => {
+    const actualPage = '/listings/show'
     const queryParams = { id: req.params.id }
     app.render(req, res, actualPage, queryParams)
   })

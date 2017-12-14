@@ -22,7 +22,7 @@ class TextContainer extends React.Component {
             <a>Editar</a>
           </Link>}
 
-          <Link href={`/listing?id=${listing.id}`} as={`/listing/${listing.id}`} >
+          <Link href={`/listings/show?id=${listing.id}`} as={`/listings/${listing.id}`} >
             <a className="btn">Ver Detalhes</a>
           </Link>
         </div>

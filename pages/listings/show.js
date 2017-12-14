@@ -4,15 +4,15 @@ import Head from 'next/head'
 import Router from 'next/router'
 import 'isomorphic-unfetch'
 
-import { isAuthenticated } from "../lib/auth"
+import { isAuthenticated } from "../../lib/auth"
 import { Form, Text } from 'react-form'
 
-import Layout from '../components/main-layout'
-import ListingHeader from '../components/listings/listing/header'
-import ListingMainContent from '../components/listings/listing/main-content'
-import ListingFooter from '../components/listings/listing/listing-footer'
-import MapContainer from "../components/map-container"
-import Popup from "../components/popup"
+import Layout from '../../components/main-layout'
+import ListingHeader from '../../components/listings/listing/header'
+import ListingMainContent from '../../components/listings/listing/main-content'
+import ListingFooter from '../../components/listings/listing/listing-footer'
+import MapContainer from "../../components/map-container"
+import Popup from "../../components/popup"
 
 class Listing extends Component {
   constructor(props) {

@@ -12,7 +12,7 @@ class Listing extends React.Component {
     const { listing, i, isAuthenticated } = this.props
 
     return (
-      <div className="listing" key={i} onClick={() => Router.push(`/listing?id=${listing.id}`, `/listing/${listing.id}`).then(() => window.scrollTo(0, 0))}>
+      <div className="listing" key={i} onClick={() => Router.push(`/listings/show?id=${listing.id}`, `/listings/${listing.id}`).then(() => window.scrollTo(0, 0))}>
         <ImageContainer listing={listing} />
         <TextContainer listing={listing} isAuthenticated={isAuthenticated} />
 
