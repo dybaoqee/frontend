@@ -28,7 +28,7 @@ class Listing extends Component {
 
   static async getInitialProps(context) {
     const { id, showPopup } = context.query
-    const res = await fetch(process.env.REACT_APP_API_URL + 'listings/' + id)
+    const res = await fetch(process.env.REACT_APP_API_URL + '/listings/' + id)
     const json = await res.json()
 
     return {

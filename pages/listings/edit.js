@@ -90,7 +90,7 @@ export default class ListingEdit extends Component {
     }
 
     const listingId = res.data.listing.id
-    Router.replace(`/listing?id=${listingId}`, `/listing/${listingId}`)
+    Router.replace(`/listings/show?id=${listingId}`, `/listings/${listingId}`).then(() => window.scrollTo(0, 0))
     return null
   }
 

@@ -20,7 +20,7 @@ export default class MyPage extends React.Component {
 
   static async getInitialProps(context) {
     // eslint-disable-next-line no-undef
-    const res = await fetch(process.env.REACT_APP_API_URL + 'listings/')
+    const res = await fetch(process.env.REACT_APP_API_URL + '/listings')
     const json = await res.json()
 
     return {
