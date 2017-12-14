@@ -28,6 +28,27 @@ const buildPayload = (data) => {
   }
 }
 
+export const getListings = async () => {
+  try {
+    const response = await get('/listings')
+    return response
+  } catch (error) {
+    return error.response && error.response.status === 422
+      ? error.response
+      : 'Unknown error. Please try again.'
+  }
+}
+export const getListing = async (id) => {
+  try {
+    const response = await get('/listings/' + id)
+    return response
+  } catch (error) {
+    return error.response && error.response.status === 422
+      ? error.response
+      : 'Unknown error. Please try again.'
+  }
+}
+
 export const createListing = async (data, jwt) => {
   const payload = buildPayload(data)
   try {

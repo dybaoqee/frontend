@@ -5,7 +5,6 @@ import Router from 'next/router'
 import { redirectIfNotAuthenticated, getJwt, isAuthenticated } from '../../lib/auth'
 import { editListing, updateListing } from '../../services/listing-api'
 
-import { createListing } from '../../services/listing-api'
 import TextContainer from '../../components/text-container'
 import Layout from '../../components/main-layout'
 import * as colors from '../../constants/colors'

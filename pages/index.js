@@ -4,6 +4,7 @@ import Head from 'next/head'
 import 'isomorphic-unfetch'
 
 import { isAuthenticated } from "../lib/auth"
+import { getListings } from "../services/listing-api"
 import Layout from '../components/main-layout'
 import MapContainer from "../components/map-container"
 import Listing from "../components/listings/index/listing"
@@ -20,11 +21,19 @@ export default class MyPage extends React.Component {
 
   static async getInitialProps(context) {
     // eslint-disable-next-line no-undef
-    const res = await fetch(process.env.REACT_APP_API_URL + '/listings')
-    const json = await res.json()
+    const res = await getListings()
+
+    if (res.data.errors) {
+      this.setState({errors: res.data.errors})
+      return {}
+    }
+
+    if (!res.data) {
+      return res
+    }
 
     return {
-      listings: json.data,
+      listings: res.data.listings,
       authenticated: isAuthenticated(context)
     }
   }
