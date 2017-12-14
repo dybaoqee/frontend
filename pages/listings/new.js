@@ -53,7 +53,7 @@ export default class ListingNew extends Component {
     }
 
     const listingId = res.data.listing.id
-    Router.replace(`/listings/show?id=${listingId}`, `/listings/${listingId}`).then(() => window.scrollTo(0, 0))
+    Router.replace(`/listings/show?id=${listingId}`, `/imoveis/${listingId}`).then(() => window.scrollTo(0, 0))
     return null
   }
 

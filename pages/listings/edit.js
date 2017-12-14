@@ -90,7 +90,7 @@ export default class ListingEdit extends Component {
     }
 
     const listingId = res.data.listing.id
-    Router.replace(`/listings/show?id=${listingId}`, `/listings/${listingId}`).then(() => window.scrollTo(0, 0))
+    Router.replace(`/listings/show?id=${listingId}`, `/imoveis/${listingId}`).then(() => window.scrollTo(0, 0))
     return null
   }
 
@@ -98,7 +98,7 @@ export default class ListingEdit extends Component {
     const { errors, street, streetNumber, complement, city, state, postalCode, lat, lng, neighborhood, description, type, price, area, floor, rooms, bathrooms, matterportCode, score, garageSpots } = this.state
 
     return (
-      <Layout isAuthenticated={isAuthenticated}>
+      <Layout authenticated={isAuthenticated}>
         <TextContainer>
           <h1>Editar Imóvel</h1>
 

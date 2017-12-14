@@ -30,7 +30,7 @@ export default class Header extends Component {
         <button onClick={this.toggleMobileNavVisibility}>☰</button>
 
         <div className={isMobileNavVisible ? 'visible' : ''}>
-          {authenticated && <Link href="/listings/new">
+          {authenticated && <Link href="/listings/new" as="/imoveis/adicionar">
             <a>Adicionar Imóvel</a>
           </Link>}
 

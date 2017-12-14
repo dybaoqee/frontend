@@ -9,12 +9,12 @@ import { mobileMedia } from '../../../constants/media'
 
 class Listing extends React.Component {
   render() {
-    const { listing, i, isAuthenticated } = this.props
+    const { listing, i, authenticated } = this.props
 
     return (
-      <div className="listing" key={i} onClick={() => Router.push(`/listings/show?id=${listing.id}`, `/listings/${listing.id}`).then(() => window.scrollTo(0, 0))}>
+      <div className="listing" key={i} onClick={() => Router.push(`/listings/show?id=${listing.id}`, `/imoveis/${listing.id}`).then(() => window.scrollTo(0, 0))}>
         <ImageContainer listing={listing} />
-        <TextContainer listing={listing} isAuthenticated={isAuthenticated} />
+        <TextContainer listing={listing} authenticated={authenticated} />
 
         {listing.matterport_code &&
           <span className="matterport">Tour Virtual</span>

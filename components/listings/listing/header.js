@@ -6,7 +6,7 @@ import { mobileMedia } from '../../../constants/media'
 
 class ListingHeader extends Component {
   render() {
-    const { listing, isAuthenticated } = this.props
+    const { listing, authenticated } = this.props
 
     return (
       <header>
@@ -23,7 +23,7 @@ class ListingHeader extends Component {
           </div>
         </div>
 
-        {isAuthenticated && <Link href={`/listings/edit?id=${listing.id}`} as={`/listings/${listing.id}/edit`}>
+        {authenticated && <Link href={`/listings/edit?id=${listing.id}`} as={`/imoveis/${listing.id}/editar`}>
           <a>Editar</a>
         </Link>}
 
