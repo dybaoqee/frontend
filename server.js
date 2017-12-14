@@ -26,12 +26,12 @@ app.prepare()
     return app.render(req, res, '/auth/logout', req.query)
   })
 
-  server.get('/listings/new', (req, res) => {
+  server.get('/imoveis/adicionar', (req, res) => {
     const actualPage = '/listings/new'
     app.render(req, res, actualPage)
   })
 
-  server.get('/listings/:id/edit', (req, res) => {
+  server.get('/imoveis/:id/editar', (req, res) => {
     const actualPage = '/listings/edit'
     const queryParams = { id: req.params.id }
     app.render(req, res, actualPage, queryParams)
@@ -41,10 +41,10 @@ app.prepare()
   // I started the app with a path for each listing that wasn't great.
   // @gusaiani
   server.get('/listing/:id', (req, res) => {
-    res.redirect(`/listings/${req.params.id}`)
+    res.redirect(`/imoveis/${req.params.id}`)
   })
 
-  server.get('/listings/:id', (req, res) => {
+  server.get('/imoveis/:id', (req, res) => {
     const actualPage = '/listings/show'
     const queryParams = { id: req.params.id }
     app.render(req, res, actualPage, queryParams)
