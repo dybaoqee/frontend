@@ -4,6 +4,7 @@ import { getListingImages } from '../../services/listing-images-api'
 import { redirectIfNotAuthenticated, getJwt, isAuthenticated } from '../../lib/auth'
 
 import Layout from '../../components/main-layout'
+import TextContainer from '../../components/text-container'
 
 export default class ListingImages extends Component {
   static async getInitialProps(context) {
@@ -37,17 +38,45 @@ export default class ListingImages extends Component {
 
     return (
       <Layout authenticated={authenticated}>
-        <div>
+        <TextContainer>
           <h1>Editar Imagens</h1>
 
-      {images && images.map((image, i) => {
-        const imgUrl = process.env.REACT_APP_S3_BASE_URL + 'listings/original/' + image.filename
+          <div className="images-container">
+            {images && images.map((image, i) => {
+              const imgUrl = process.env.REACT_APP_S3_BASE_URL + 'listings/original/' + image.filename
+              const imgStyle = { backgroundImage: `url(${imgUrl})` }
 
-        return <div key={i}>
-          <img src={imgUrl}/>
-        </div>
-      })}
-        </div>
+              return <div key={i}>
+                <div className="image-container"
+                     style={ imgStyle }>
+                </div>
+              </div>
+            })}
+          </div>
+        </TextContainer>
+        <style jsx>{`
+          .images-container {
+            background: #eee;
+            display: flex;
+            flex-wrap: wrap;
+            > div {
+              height: 200px;
+              width: 200px;
+
+              > .image-container {
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: contain;
+                width: 100%;
+                height: 140px;
+              }
+
+              img {
+                max-width: 100%;
+              }
+            }
+          }
+        `}</style>
       </Layout>
     )
   }

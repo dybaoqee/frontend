@@ -38,7 +38,6 @@ export const getListings = async () => {
       : 'Unknown error. Please try again.'
   }
 }
-
 export const getListing = async (id) => {
   try {
     const response = await get('/listings/' + id)
