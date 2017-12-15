@@ -50,9 +50,9 @@ app.prepare()
     app.render(req, res, actualPage, queryParams)
   })
 
-  server.get('/imoveis/:id/imagens', (req, res) => {
+  server.get('/imoveis/:listingId/imagens', (req, res) => {
     const actualPage = '/listings/images'
-    const queryParams = { id: req.params.id }
+    const queryParams = { listingId: req.params.listingId }
     app.render(req, res, actualPage, queryParams)
   })
 

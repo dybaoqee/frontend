@@ -36,7 +36,7 @@ class MapContainer extends React.Component {
         })}
 
       </Gmaps>
-    )
+
   }
 }
 
