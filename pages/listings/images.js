@@ -46,6 +46,7 @@ export default class ListingImages extends Component {
 
   moveImage = async (dragIndex, hoverIndex) => {
     const { images } = this.state
+    const { listingId, jwt } = this.props
     const dragImage = images[dragIndex]
 
     this.setState(
@@ -56,13 +57,11 @@ export default class ListingImages extends Component {
       })
     )
 
-    const arrayForApi = this.state.images.map((image, i) => {
+    const orderForApi = images.map((image, i) => {
       return {position: i, id: image.id}
     })
 
-    console.log('arrayForApi', arrayForApi)
-
-    const res = await reorderImages(this.props.listingId, arrayForApi, this.props.jwt)
+    const res = await reorderImages(listingId, arrayForApi, jwt)
 
     if (res.data.errors) {
       this.setState({errors: res.data.errors})
