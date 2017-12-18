@@ -1,11 +1,15 @@
 import { Component } from 'react'
 import { getListingImages } from '../../services/listing-images-api'
+import { DragDropContext } from 'react-dnd'
+import HTML5Backend from 'react-dnd-html5-backend'
 
 import { redirectIfNotAuthenticated, getJwt, isAuthenticated } from '../../lib/auth'
 
 import Layout from '../../components/main-layout'
 import TextContainer from '../../components/text-container'
+import DraggableImage from '../../components/listings/listing/images/image'
 
+@DragDropContext(HTML5Backend)
 export default class ListingImages extends Component {
   static async getInitialProps(context) {
     if (redirectIfNotAuthenticated(context)) {
@@ -33,6 +37,7 @@ export default class ListingImages extends Component {
       authenticated: isAuthenticated(context)
     }
   }
+
   render() {
     const { listingId, images, authenticated } = this.props
 
@@ -43,38 +48,13 @@ export default class ListingImages extends Component {
 
           <div className="images-container">
             {images && images.map((image, i) => {
-              const imgUrl = process.env.REACT_APP_S3_BASE_URL + 'listings/original/' + image.filename
-              const imgStyle = { backgroundImage: `url(${imgUrl})` }
-
-              return <div key={i}>
-                <div className="image-container"
-                     style={ imgStyle }>
-                </div>
-              </div>
+              return <DraggableImage image={image} />
             })}
           </div>
         </TextContainer>
         <style jsx>{`
           .images-container {
             background: #eee;
-            display: flex;
-            flex-wrap: wrap;
-            > div {
-              height: 200px;
-              width: 200px;
-
-              > .image-container {
-                background-position: center;
-                background-repeat: no-repeat;
-                background-size: contain;
-                width: 100%;
-                height: 140px;
-              }
-
-              img {
-                max-width: 100%;
-              }
-            }
           }
         `}</style>
       </Layout>
