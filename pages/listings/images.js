@@ -1,5 +1,6 @@
 import { Component } from 'react'
-import { getListingImages } from '../../services/listing-images-api'
+import update from 'immutability-helper'
+import { getListingImages, reorderImages } from '../../services/listing-images-api'
 import { DragDropContext } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 
@@ -11,6 +12,11 @@ import DraggableImage from '../../components/listings/listing/images/image'
 
 @DragDropContext(HTML5Backend)
 export default class ListingImages extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { images: this.props.images }
+  }
+
   static async getInitialProps(context) {
     if (redirectIfNotAuthenticated(context)) {
       return {}
@@ -38,8 +44,39 @@ export default class ListingImages extends Component {
     }
   }
 
+  moveImage = async (dragIndex, hoverIndex) => {
+    const { images } = this.state
+    const dragImage = images[dragIndex]
+
+    this.setState(
+      update(this.state, {
+        images: {
+          $splice: [[dragIndex, 1], [hoverIndex, 0, dragImage]],
+        }
+      })
+    )
+
+    const arrayForApi = this.state.images.map((image, i) => {
+      return {position: i, id: image.id}
+    })
+
+    console.log('arrayForApi', arrayForApi)
+
+    const res = await reorderImages(this.props.listingId, arrayForApi, this.props.jwt)
+
+    if (res.data.errors) {
+      this.setState({errors: res.data.errors})
+      return {}
+    }
+
+    if (!res.data) {
+      return res
+    }
+  }
+
   render() {
-    const { listingId, images, authenticated } = this.props
+    const { listingId, authenticated } = this.props
+    const { images } = this.state
 
     return (
       <Layout authenticated={authenticated}>
@@ -48,7 +85,11 @@ export default class ListingImages extends Component {
 
           <div className="images-container">
             {images && images.map((image, i) => {
-              return <DraggableImage image={image} />
+              return <DraggableImage
+                image={image}
+                key={image.id}
+                index={i}
+                moveImage={this.moveImage}/>
             })}
           </div>
         </TextContainer>

@@ -51,7 +51,7 @@ const imageTarget = {
     }
 
     // Time to actually perform the action
-    props.moveCard(dragIndex, hoverIndex)
+    props.moveImage(dragIndex, hoverIndex)
 
     // Note: we're mutating the monitor item here!
     // Generally it's better to avoid mutations,
@@ -76,7 +76,7 @@ export default class DraggableImage extends Component {
     isDragging: PropTypes.bool.isRequired,
     id: PropTypes.any.isRequired,
     text: PropTypes.string.isRequired,
-    moveCard: PropTypes.func.isRequired,
+    moveImage: PropTypes.func.isRequired,
   }
 
   render() {
@@ -85,15 +85,17 @@ export default class DraggableImage extends Component {
     } = this.props
     const imgUrl = process.env.REACT_APP_S3_BASE_URL + 'listings/original/' + image.filename
     const imgStyle = { backgroundImage: `url(${imgUrl})` }
+    const opacity = isDragging ? 0 : 1
 
     return connectDragSource(
       connectDropTarget(
-        <div style={ imgStyle }>
+        <div style={{ ...imgStyle, opacity }}>
           <style jsx>{`
             div {
               background-position: center;
               background-repeat: no-repeat;
               background-size: contain;
+              cursor: move;
               width: 100%;
               height: 140px;
             }
