@@ -1,4 +1,5 @@
 import { Component } from 'react'
+import Link from 'next/link'
 import update from 'immutability-helper'
 import { getListingImages, reorderImages } from '../../services/listing-images-api'
 import { DragDropContext } from 'react-dnd'
@@ -8,6 +9,7 @@ import { redirectIfNotAuthenticated, getJwt, isAuthenticated } from '../../lib/a
 
 import Layout from '../../components/main-layout'
 import TextContainer from '../../components/text-container'
+import AdminHeader from '../../components/admin-header'
 import DraggableImage from '../../components/listings/listing/images/image'
 
 @DragDropContext(HTML5Backend)
@@ -80,7 +82,12 @@ export default class ListingImages extends Component {
     return (
       <Layout authenticated={authenticated}>
         <TextContainer>
-          <h1>Editar Imagens</h1>
+          <AdminHeader>
+            <h1>Editar Imagens</h1>
+            <Link href={`/listings/edit?id=${listingId}`} as={`/imoveis/${listingId}/editar`} >
+              <a>Reordenar Imagens</a>
+            </Link>
+          </AdminHeader>
 
           <div className="images-container">
             {images && images.map((image, i) => {
@@ -95,6 +102,7 @@ export default class ListingImages extends Component {
         <style jsx>{`
           .images-container {
             background: #eee;
+            clear: both;
           }
         `}</style>
       </Layout>

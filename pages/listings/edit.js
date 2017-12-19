@@ -1,12 +1,14 @@
 import { Component } from 'react'
 import { Form, Text } from 'react-form'
+import Link from 'next/link'
 import Router from 'next/router'
 
 import { redirectIfNotAuthenticated, getJwt, isAuthenticated } from '../../lib/auth'
 import { editListing, updateListing } from '../../services/listing-api'
 
-import TextContainer from '../../components/text-container'
 import Layout from '../../components/main-layout'
+import TextContainer from '../../components/text-container'
+import AdminHeader from '../../components/admin-header'
 import * as colors from '../../constants/colors'
 
 export default class ListingEdit extends Component {
@@ -94,12 +96,18 @@ export default class ListingEdit extends Component {
   }
 
   render() {
+    const { id } = this.props
     const { errors, street, streetNumber, complement, city, state, postalCode, lat, lng, neighborhood, description, type, price, area, floor, rooms, bathrooms, matterportCode, score, garageSpots } = this.state
 
     return (
       <Layout authenticated={isAuthenticated}>
         <TextContainer>
-          <h1>Editar Imóvel</h1>
+          <AdminHeader>
+            <h1>Editar Imóvel</h1>
+            <Link href={`/listings/images?listingId=${id}`} as={`/imoveis/${id}/imagens`} >
+              <a>Reordenar Imagens</a>
+            </Link>
+          </AdminHeader>
 
           <form onSubmit={this.handleSubmit}>
 
