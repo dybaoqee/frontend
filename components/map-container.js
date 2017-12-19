@@ -1,9 +1,9 @@
-import React from 'react'
-import {Gmaps, Marker} from 'react-gmaps'
+import { Component } from 'react'
+import { Gmaps, Marker } from 'react-gmaps'
 
 const params = {v: '3.exp', key: 'AIzaSyDmYQLTPwsDPtErGWTgiejz17QCw39MEVQ'}
 
-class MapContainer extends React.Component {
+export default class MapContainer extends Component {
   onMapCreated(map) {
     map.setOptions({
       disableDefaultUI: true
@@ -18,26 +18,24 @@ class MapContainer extends React.Component {
     const {height, width, lat, lng, listings, zoom} = this.props
     const defaultZoom = 15
 
-    return (
-      <Gmaps
-        width={width}
-        height={height}
-        lat={lat ? lat : '-22.9608099'}
-        lng={lng ? lng : '-43.2096142'}
-        zoom={zoom || 15}
-        loadingMessage={' '}
-        params={params}>
-        <Marker
-          lat={lat}
-          lng={lng}/>
+    return <Gmaps
+      width={width}
+      height={height}
+      lat={lat ? lat : '-22.9608099'}
+      lng={lng ? lng : '-43.2096142'}
+      zoom={zoom || 15}
+      loadingMessage={' '}
+      params={params}>
 
-        {listings && listings.map((listing, i) => {
-          return <Marker key={i} lat={listing.address.lat} lng={listing.address.lng} />
-        })}
+      <Marker
+        lat={lat}
+        lng={lng}/>
 
-      </Gmaps>
-    )
+      {listings && listings.map((listing, i) => {
+        return <Marker key={i} lat={listing.address.lat} lng={listing.address.lng} />
+      })}
+
+    </Gmaps>
   }
 }
 
-export default MapContainer

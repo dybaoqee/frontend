@@ -31,12 +31,6 @@ app.prepare()
     app.render(req, res, actualPage)
   })
 
-  server.get('/imoveis/:id/editar', (req, res) => {
-    const actualPage = '/listings/edit'
-    const queryParams = { id: req.params.id }
-    app.render(req, res, actualPage, queryParams)
-  })
-
   // TODO: Remove this early 2018
   // I started the app with a path for each listing that wasn't great.
   // @gusaiani
@@ -47,6 +41,18 @@ app.prepare()
   server.get('/imoveis/:id', (req, res) => {
     const actualPage = '/listings/show'
     const queryParams = { id: req.params.id }
+    app.render(req, res, actualPage, queryParams)
+  })
+
+  server.get('/imoveis/:id/editar', (req, res) => {
+    const actualPage = '/listings/edit'
+    const queryParams = { id: req.params.id }
+    app.render(req, res, actualPage, queryParams)
+  })
+
+  server.get('/imoveis/:listingId/imagens', (req, res) => {
+    const actualPage = '/listings/images'
+    const queryParams = { listingId: req.params.listingId }
     app.render(req, res, actualPage, queryParams)
   })
 

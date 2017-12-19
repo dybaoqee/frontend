@@ -3,9 +3,10 @@ import MediaQuery from 'react-responsive'
 import Head from 'next/head'
 import Router from 'next/router'
 import 'isomorphic-unfetch'
+import { Form, Text } from 'react-form'
 
 import { isAuthenticated } from "../../lib/auth"
-import { Form, Text } from 'react-form'
+import { getListing } from '../../services/listing-api'
 
 import Layout from '../../components/main-layout'
 import ListingHeader from '../../components/listings/listing/header'
@@ -27,12 +28,22 @@ class Listing extends Component {
   }
 
   static async getInitialProps(context) {
-    const { id, showPopup } = context.query
-    const res = await fetch(process.env.REACT_APP_API_URL + '/listings/' + id)
-    const json = await res.json()
+    const { id } = context.query
 
+    const res = await getListing(id)
+
+    if (res.data.errors) {
+      this.setState({errors: res.data.errors})
+      return {}
+    }
+
+    if (!res.data) {
+      return res
+    }
+
+    console.log(res);
     return {
-      listing: json.data,
+      listing: res.data.listing,
       authenticated: isAuthenticated(context)
     }
   }
