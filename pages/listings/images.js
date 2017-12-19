@@ -57,11 +57,11 @@ export default class ListingImages extends Component {
       })
     )
 
-    const orderForApi = images.map((image, i) => {
+    const orderForApi = this.state.images.map((image, i) => {
       return {position: i, id: image.id}
     })
 
-    const res = await reorderImages(listingId, arrayForApi, jwt)
+    const res = await reorderImages(listingId, orderForApi, jwt)
 
     if (res.data.errors) {
       this.setState({errors: res.data.errors})
