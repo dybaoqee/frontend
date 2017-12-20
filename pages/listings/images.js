@@ -11,6 +11,7 @@ import Layout from '../../components/main-layout'
 import TextContainer from '../../components/text-container'
 import AdminHeader from '../../components/admin-header'
 import DraggableImage from '../../components/listings/listing/images/image'
+import ImageUpload from '../../components/listings/listing/images/upload'
 
 @DragDropContext(HTML5Backend)
 export default class ListingImages extends Component {
@@ -88,6 +89,8 @@ export default class ListingImages extends Component {
               <a>Editar Imóvel</a>
             </Link>
           </AdminHeader>
+
+          <ImageUpload />
 
           <div className="images-container">
             {images && images.map((image, i) => {

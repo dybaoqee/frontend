@@ -24,12 +24,14 @@
     "react-dnd": "^2.5.4",
     "react-dnd-html5-backend": "^2.5.4",
     "react-dom": "^16.1.0",
+    "react-dropzone": "^4.2.3",
     "react-form": "^2.11.0",
     "react-ga": "^2.3.5",
     "react-gmaps": "^1.7.0",
     "react-number-format": "^3.0.2",
     "react-responsive": "^3.0.0",
-    "styled-jsx-plugin-postcss": "^0.1.1"
+    "styled-jsx-plugin-postcss": "^0.1.1",
+    "superagent": "^3.8.2"
   },
   "postcss": {
     "plugins": {
