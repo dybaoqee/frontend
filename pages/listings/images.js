@@ -93,6 +93,15 @@ export default class ListingImages extends Component {
     if (!res.data) {
       return res
     }
+
+    const newImage = res.data.image
+    this.setState(
+      update(this.state, {
+        images: {
+          $unshift: [newImage],
+        }
+      })
+    )
   }
 
   render() {

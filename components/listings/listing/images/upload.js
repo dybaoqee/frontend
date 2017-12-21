@@ -6,19 +6,7 @@ const CLOUDINARY_UPLOAD_PRESET = 'emcasa-staging'
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/emcasa/upload/'
 
 export default class ImageUpload extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      uploadedFileCloudinaryUrl: ''
-    }
-  }
-
   onImageDrop(files) {
-    this.setState({
-      uploadedFile: files[0]
-    })
-
     this.handleImageUpload(files[0])
   }
 
@@ -34,13 +22,10 @@ export default class ImageUpload extends React.Component {
 
       if (response.body.secure_url !== '') {
         this.props.onImageUploaded(response);
-
-        this.setState({
-          uploadedFileCloudinaryUrl: response.body.secure_url
-        })
       }
     })
   }
+
   render() {
     return <div>
       <div className="FileUpload">
@@ -52,13 +37,6 @@ export default class ImageUpload extends React.Component {
          </Dropzone>
       </div>
 
-      <div>
-        {this.state.uploadedFileCloudinaryUrl === '' ? null :
-        <div>
-          <p>{this.state.uploadedFile.name}</p>
-          <img src={this.state.uploadedFileCloudinaryUrl} />
-        </div>}
-      </div>
       <style jsx>{`
         .FileUpload {
           clear: both;
