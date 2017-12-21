@@ -4,6 +4,7 @@ import { findDOMNode } from 'react-dom'
 import { DragSource, DropTarget } from 'react-dnd'
 
 import DraggableTypes from '../../../../constants/draggable_types'
+import { thumbnailUrl } from '../../../../utils/image_url'
 
 const imageSource = {
   beginDrag(props) {
@@ -83,7 +84,7 @@ export default class DraggableImage extends Component {
     const {
       image, isDragging, connectDragSource, connectDropTarget
     } = this.props
-    const imgUrl = process.env.REACT_APP_S3_BASE_URL + 'listings/original/' + image.filename
+    const imgUrl = thumbnailUrl(image.filename, image.is_cloudinary)
     const imgStyle = { backgroundImage: `url(${imgUrl})` }
     const opacity = isDragging ? 0 : 1
 
