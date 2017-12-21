@@ -105,7 +105,7 @@ export default class ListingEdit extends Component {
           <AdminHeader>
             <h1>Editar Imóvel</h1>
             <Link href={`/listings/images?listingId=${id}`} as={`/imoveis/${id}/imagens`} >
-              <a>Reordenar Imagens</a>
+              <a>Gerenciar Imagens</a>
             </Link>
           </AdminHeader>
 

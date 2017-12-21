@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { imageUrl } from '../../../utils/image_url'
 import { mobileMedia } from '../../../constants/media'
 
 export default class ImageGallery extends React.Component {
@@ -26,9 +27,10 @@ export default class ImageGallery extends React.Component {
     const { imageIndex } = this.state
 
     const indexToShow = Math.abs((imagesLength - imageIndex) % imagesLength)
-    const imgFilename = (images.length > 0) ? images[indexToShow].filename : 'default.jpg'
+    const imgFilename = (imagesLength > 0) ? images[indexToShow].filename : 'default.jpg'
+    const isCloudinary = (imagesLength > 0) ? images[indexToShow].is_cloudinary : false
 
-    const imgSrc = process.env.REACT_APP_S3_BASE_URL + 'listings/original/' + imgFilename
+    const imgSrc = imageUrl(imgFilename, isCloudinary)
 
     return (
       <div className="container">

@@ -5,6 +5,7 @@ import Router from 'next/router'
 import 'isomorphic-unfetch'
 import { Form, Text } from 'react-form'
 
+import { mainListingImage } from '../../utils/image_url'
 import { isAuthenticated } from "../../lib/auth"
 import { getListing } from '../../services/listing-api'
 
@@ -41,7 +42,6 @@ class Listing extends Component {
       return res
     }
 
-    console.log(res);
     return {
       listing: res.data.listing,
       authenticated: isAuthenticated(context)
@@ -95,8 +95,7 @@ class Listing extends Component {
   render() {
     const { authenticated, listing } = this.props
     const { showPopup, showPostSuccessPopup, name, email, phone } = this.state
-    const imgFilename = (listing.images.length > 0) ? listing.images[0].filename : 'default.jpg'
-    const imgSrc = process.env.REACT_APP_S3_BASE_URL + 'listings/original/' + imgFilename
+    const seoImgSrc = mainListingImage(listing.images)
 
     return (
       <Layout authenticated={authenticated}>
@@ -106,7 +105,7 @@ class Listing extends Component {
           </title>
           <meta name="description" content={listing.description}/>
           <meta property="og:description" content={listing.description}/>
-          <meta property="og:image" content={imgSrc}/>
+          <meta property="og:image" content={seoImgSrc}/>
         </Head>
 
         <div className="listing">

@@ -1,7 +1,10 @@
 import { Component } from 'react'
 import Link from 'next/link'
 import update from 'immutability-helper'
-import { getListingImages, reorderImages } from '../../services/listing-images-api'
+import {
+  getListingImages,
+  reorderImages,
+  createImage } from '../../services/listing-images-api'
 import { DragDropContext } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 
@@ -11,6 +14,7 @@ import Layout from '../../components/main-layout'
 import TextContainer from '../../components/text-container'
 import AdminHeader from '../../components/admin-header'
 import DraggableImage from '../../components/listings/listing/images/image'
+import ImageUpload from '../../components/listings/listing/images/upload'
 
 @DragDropContext(HTML5Backend)
 export default class ListingImages extends Component {
@@ -75,6 +79,22 @@ export default class ListingImages extends Component {
     }
   }
 
+  onImageUploaded = async (response) => {
+    const { listingId, jwt } = this.props
+    const filename = response.body.public_id + '.' + response.body.format
+
+    const res = await createImage(listingId, filename, jwt)
+
+    if (res.data.errors) {
+      this.setState({errors: res.data.errors})
+      return {}
+    }
+
+    if (!res.data) {
+      return res
+    }
+  }
+
   render() {
     const { listingId, authenticated } = this.props
     const { images } = this.state
@@ -85,9 +105,11 @@ export default class ListingImages extends Component {
           <AdminHeader>
             <h1>Editar Imagens</h1>
             <Link href={`/listings/edit?id=${listingId}`} as={`/imoveis/${listingId}/editar`} >
-              <a>Reordenar Imagens</a>
+              <a>Editar Imóvel</a>
             </Link>
           </AdminHeader>
+
+          <ImageUpload onImageUploaded={this.onImageUploaded} />
 
           <div className="images-container">
             {images && images.map((image, i) => {

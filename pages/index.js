@@ -3,11 +3,12 @@ import Link from 'next/link'
 import Head from 'next/head'
 import 'isomorphic-unfetch'
 
-import { isAuthenticated } from "../lib/auth"
-import { getListings } from "../services/listing-api"
+import { mainListingImage } from '../utils/image_url'
+import { isAuthenticated } from '../lib/auth'
+import { getListings } from '../services/listing-api'
 import Layout from '../components/main-layout'
-import MapContainer from "../components/map-container"
-import Listing from "../components/listings/index/listing"
+import MapContainer from '../components/map-container'
+import Listing from '../components/listings/index/listing'
 
 import { mobileMedia } from '../constants/media'
 
@@ -62,7 +63,7 @@ export default class MyPage extends React.Component {
   render () {
     const { listings, authenticated } = this.props
     const { lockGoogleMap } = this.state
-    const seoImgSrc = `${process.env.REACT_APP_S3_BASE_URL}listings/original/${listings[0].photo}`
+    const seoImgSrc = mainListingImage(listings[0].images)
 
     return (
       <Layout authenticated={authenticated}>
