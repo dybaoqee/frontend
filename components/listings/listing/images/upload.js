@@ -33,6 +33,8 @@ export default class ImageUpload extends React.Component {
       }
 
       if (response.body.secure_url !== '') {
+        this.props.onImageUploaded(response);
+
         this.setState({
           uploadedFileCloudinaryUrl: response.body.secure_url
         })
@@ -46,7 +48,7 @@ export default class ImageUpload extends React.Component {
           multiple={false}
           accept="image/*"
           onDrop={this.onImageDrop.bind(this)}>
-          <p>Drop an image or click to select a file to upload.</p>
+          <p>Arraste uma imagem ou clique aqui para iniciar o upload.</p>
          </Dropzone>
       </div>
 
@@ -57,6 +59,19 @@ export default class ImageUpload extends React.Component {
           <img src={this.state.uploadedFileCloudinaryUrl} />
         </div>}
       </div>
+      <style jsx>{`
+        .FileUpload {
+          clear: both;
+          :global(div) {
+            align-items: center;
+            display: flex;
+            height: 80px !important;
+            margin-bottom: 20px;
+            justify-content: center;
+            width: calc(100% - 4px) !important;
+          }
+        }
+      `}</style>
     </div>
   }
 }

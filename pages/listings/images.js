@@ -1,7 +1,10 @@
 import { Component } from 'react'
 import Link from 'next/link'
 import update from 'immutability-helper'
-import { getListingImages, reorderImages } from '../../services/listing-images-api'
+import {
+  getListingImages,
+  reorderImages,
+  createImage } from '../../services/listing-images-api'
 import { DragDropContext } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 
@@ -76,6 +79,22 @@ export default class ListingImages extends Component {
     }
   }
 
+  onImageUploaded = async (response) => {
+    const { listingId, jwt } = this.props
+    const filename = response.body.public_id + '.' + response.body.format
+
+    const res = await createImage(listingId, filename, jwt)
+
+    if (res.data.errors) {
+      this.setState({errors: res.data.errors})
+      return {}
+    }
+
+    if (!res.data) {
+      return res
+    }
+  }
+
   render() {
     const { listingId, authenticated } = this.props
     const { images } = this.state
@@ -90,7 +109,7 @@ export default class ListingImages extends Component {
             </Link>
           </AdminHeader>
 
-          <ImageUpload />
+          <ImageUpload onImageUploaded={this.onImageUploaded} />
 
           <div className="images-container">
             {images && images.map((image, i) => {
