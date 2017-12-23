@@ -104,6 +104,10 @@ export default class ListingImages extends Component {
     )
   }
 
+  onImageDeleted = async (response) => {
+    console.log(response)
+  }
+
   render() {
     const { listingId, authenticated } = this.props
     const { images } = this.state
@@ -126,6 +130,7 @@ export default class ListingImages extends Component {
                 image={image}
                 key={image.id}
                 index={i}
+                onImageDeleted={this.onImageDeleted}
                 moveImage={this.moveImage}/>
             })}
           </div>

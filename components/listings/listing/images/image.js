@@ -81,6 +81,10 @@ export default class DraggableImage extends Component {
     moveImage: PropTypes.func.isRequired,
   }
 
+  handleImageDelete = () => {
+    this.props.onImageDeleted("Deletada imaginariamente.")
+  }
+
   render() {
     const {
       image, isDragging, connectDragSource, connectDropTarget
@@ -91,7 +95,7 @@ export default class DraggableImage extends Component {
 
     return connectDragSource(
       connectDropTarget(
-        <div style={{ ...imgStyle, opacity }}>
+        <div style={{ ...imgStyle, opacity }} onClick={this.handleImageDelete}>
           <div className="trash">
             <Icon icon="trash" />
           </div>
