@@ -4,6 +4,7 @@ import { findDOMNode } from 'react-dom'
 import { DragSource, DropTarget } from 'react-dnd'
 
 import DraggableTypes from '../../../../constants/draggable_types'
+import Icon from '../../../../components/icon'
 import { thumbnailUrl } from '../../../../utils/image_url'
 
 const imageSource = {
@@ -91,6 +92,7 @@ export default class DraggableImage extends Component {
     return connectDragSource(
       connectDropTarget(
         <div style={{ ...imgStyle, opacity }}>
+          <Icon icon="trash" />
           <style jsx>{`
             div {
               background-position: center;
