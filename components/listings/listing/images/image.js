@@ -92,15 +92,29 @@ export default class DraggableImage extends Component {
     return connectDragSource(
       connectDropTarget(
         <div style={{ ...imgStyle, opacity }}>
-          <Icon icon="trash" />
+          <div className="trash">
+            <Icon icon="trash" />
+          </div>
+
           <style jsx>{`
             div {
+              align-items: center;
               background-position: center;
               background-repeat: no-repeat;
               background-size: contain;
               cursor: move;
-              width: 100%;
+              display: flex;
               height: 140px;
+              justify-content: flex-end;
+              width: 100%;
+
+              > div.trash {
+                cursor: pointer;
+                margin-right: 20px;
+                :global(svg) {
+                  fill: red;
+                }
+              }
             }
           `}</style>
         </div>
