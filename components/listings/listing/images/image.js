@@ -87,9 +87,9 @@ export default class DraggableImage extends Component {
   handleImageDelete = async () => {
     const isImageDeletedFromWebservice = await this.deleteImageFromWebService()
     if (isImageDeletedFromWebservice) {
-      this.props.onImageDeleted("Deletada do banco")
+      this.props.onImageDeleted(this.props)
     } else {
-      console.log('Deu pau');
+      console.error('Erro ao deletar imagem do banco.');
     }
   }
 

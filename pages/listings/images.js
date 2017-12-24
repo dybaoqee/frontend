@@ -104,8 +104,12 @@ export default class ListingImages extends Component {
     )
   }
 
-  onImageDeleted = async (response) => {
-    console.log(response)
+  onImageDeleted = async (image) => {
+    this.setState({
+      images: update(this.state.images, {
+        $splice: [[image.index, 1]]
+      })
+    })
   }
 
   render() {
