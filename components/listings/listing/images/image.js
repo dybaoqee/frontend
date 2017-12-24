@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { findDOMNode } from 'react-dom'
 import { DragSource, DropTarget } from 'react-dnd'
 
+import { deleteListingImage } from '../../../../services/listing-images-api'
 import DraggableTypes from '../../../../constants/draggable_types'
 import Icon from '../../../../components/icon'
 import { thumbnailUrl } from '../../../../utils/image_url'
@@ -74,15 +75,39 @@ export default class DraggableImage extends Component {
   static PropTypes = {
     connectDragSource: PropTypes.func.isRequired,
     connectDropTarget: PropTypes.func.isRequired,
+    id: PropTypes.any.isRequired,
     index: PropTypes.number.isRequired,
     isDragging: PropTypes.bool.isRequired,
-    id: PropTypes.any.isRequired,
-    text: PropTypes.string.isRequired,
+    jwt: PropTypes.string,
+    listingId: PropTypes.number.isRequired,
     moveImage: PropTypes.func.isRequired,
+    text: PropTypes.string.isRequired,
   }
 
-  handleImageDelete = () => {
-    this.props.onImageDeleted("Deletada imaginariamente.")
+  handleImageDelete = async () => {
+    const isImageDeletedFromWebservice = await this.deleteImageFromWebService()
+    if (isImageDeletedFromWebservice) {
+      this.props.onImageDeleted("Deletada do banco")
+    } else {
+      console.log('Deu pau');
+    }
+  }
+
+  deleteImageFromWebService = async () => {
+    const { image, listingId, jwt } = this.props
+
+    const res = await deleteListingImage(listingId, image.id, jwt)
+
+    if (res.data.errors) {
+      this.setState({errors: res.data.errors})
+      return
+    }
+
+    if (res.status === 204) {
+      return true
+    }
+
+    return res.status
   }
 
   render() {

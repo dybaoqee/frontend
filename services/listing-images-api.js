@@ -1,4 +1,4 @@
-import { get, post, put } from '../lib/request'
+import { get, post, put, del } from '../lib/request'
 
 export const createImage = async (listingId, filename, jwt) => {
   const payload = {
@@ -18,6 +18,7 @@ export const createImage = async (listingId, filename, jwt) => {
       : 'Unknown error. Please try again.'
   }
 }
+
 export const getListingImages = async (listingId, jwt) => {
   try {
     const response = await get(`/listings/${listingId}/images`, jwt)
@@ -40,3 +41,13 @@ export const reorderImages = async (listingId, order, jwt) => {
   }
 }
 
+export const deleteListingImage = async (listingId, imageId, jwt) => {
+  try {
+    const response = await del(`/listings/${listingId}/images/${imageId}`, jwt)
+    return response
+  } catch (error) {
+    return error.response && error.response.status === 422
+      ? error.response
+      : 'Unknown error. Please try again.'
+  }
+}
