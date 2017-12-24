@@ -3,7 +3,9 @@ import PropTypes from 'prop-types'
 import { findDOMNode } from 'react-dom'
 import { DragSource, DropTarget } from 'react-dnd'
 
+import { deleteListingImage } from '../../../../services/listing-images-api'
 import DraggableTypes from '../../../../constants/draggable_types'
+import Icon from '../../../../components/icon'
 import { thumbnailUrl } from '../../../../utils/image_url'
 
 const imageSource = {
@@ -73,11 +75,39 @@ export default class DraggableImage extends Component {
   static PropTypes = {
     connectDragSource: PropTypes.func.isRequired,
     connectDropTarget: PropTypes.func.isRequired,
+    id: PropTypes.any.isRequired,
     index: PropTypes.number.isRequired,
     isDragging: PropTypes.bool.isRequired,
-    id: PropTypes.any.isRequired,
-    text: PropTypes.string.isRequired,
+    jwt: PropTypes.string,
+    listingId: PropTypes.number.isRequired,
     moveImage: PropTypes.func.isRequired,
+    text: PropTypes.string.isRequired,
+  }
+
+  handleImageDelete = async () => {
+    const isImageDeletedFromWebservice = await this.deleteImageFromWebService()
+    if (isImageDeletedFromWebservice) {
+      this.props.onImageDeleted(this.props)
+    } else {
+      console.error('Erro ao deletar imagem do banco.');
+    }
+  }
+
+  deleteImageFromWebService = async () => {
+    const { image, listingId, jwt } = this.props
+
+    const res = await deleteListingImage(listingId, image.id, jwt)
+
+    if (res.data.errors) {
+      this.setState({errors: res.data.errors})
+      return
+    }
+
+    if (res.status === 204) {
+      return true
+    }
+
+    return res.status
   }
 
   render() {
@@ -90,15 +120,30 @@ export default class DraggableImage extends Component {
 
     return connectDragSource(
       connectDropTarget(
-        <div style={{ ...imgStyle, opacity }}>
+        <div style={{ ...imgStyle, opacity }} onClick={this.handleImageDelete}>
+          <div className="trash">
+            <Icon icon="trash" />
+          </div>
+
           <style jsx>{`
             div {
+              align-items: center;
               background-position: center;
               background-repeat: no-repeat;
               background-size: contain;
               cursor: move;
-              width: 100%;
+              display: flex;
               height: 140px;
+              justify-content: flex-end;
+              width: 100%;
+
+              > div.trash {
+                cursor: pointer;
+                margin-right: 20px;
+                :global(svg) {
+                  fill: red;
+                }
+              }
             }
           `}</style>
         </div>

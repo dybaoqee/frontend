@@ -104,8 +104,16 @@ export default class ListingImages extends Component {
     )
   }
 
+  onImageDeleted = async (image) => {
+    this.setState({
+      images: update(this.state.images, {
+        $splice: [[image.index, 1]]
+      })
+    })
+  }
+
   render() {
-    const { listingId, authenticated } = this.props
+    const { listingId, authenticated, jwt } = this.props
     const { images } = this.state
 
     return (
@@ -123,9 +131,12 @@ export default class ListingImages extends Component {
           <div className="images-container">
             {images && images.map((image, i) => {
               return <DraggableImage
+                listingId={listingId}
                 image={image}
                 key={image.id}
                 index={i}
+                jwt={jwt}
+                onImageDeleted={this.onImageDeleted}
                 moveImage={this.moveImage}/>
             })}
           </div>
