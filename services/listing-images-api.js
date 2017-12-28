@@ -4,8 +4,7 @@ export const createImage = async (listingId, filename, jwt) => {
   const payload = {
     image: {
       filename: filename,
-      position: 0,
-      is_cloudinary: true
+      position: 0
     }
   }
 

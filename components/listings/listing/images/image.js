@@ -114,7 +114,7 @@ export default class DraggableImage extends Component {
     const {
       image, isDragging, connectDragSource, connectDropTarget
     } = this.props
-    const imgUrl = thumbnailUrl(image.filename, image.is_cloudinary)
+    const imgUrl = thumbnailUrl(image.filename)
     const imgStyle = { backgroundImage: `url(${imgUrl})` }
     const opacity = isDragging ? 0 : 1
 
