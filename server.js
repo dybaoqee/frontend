@@ -18,12 +18,16 @@ app.prepare()
     return app.render(req, res, '/indique', req.query)
   })
 
-  server.get('/login', (req, res) => {
-    return app.render(req, res, '/login', req.query)
+  server.get('/filter', (req, res) => {
+    return app.render(req, res, '/filter', req.query)
   })
 
   server.get('/auth/logout', (req, res) => {
     return app.render(req, res, '/auth/logout', req.query)
+  })
+
+  server.get('/login', (req, res) => {
+    return app.render(req, res, '/login', req.query)
   })
 
   server.get('/imoveis/adicionar', (req, res) => {

@@ -1,4 +1,4 @@
-import React from 'react'
+import { Component } from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
 import 'isomorphic-unfetch'
@@ -12,7 +12,7 @@ import Listing from '../components/listings/index/listing'
 
 import { mobileMedia } from '../constants/media'
 
-export default class MyPage extends React.Component {
+export default class MyPage extends Component {
     constructor(props) {
       super(props)
       this.state = {
