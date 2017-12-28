@@ -28,9 +28,14 @@ const buildPayload = (data) => {
   }
 }
 
-export const getListings = async () => {
+export const getListings = async (query) => {
+  let url = '/listings'
+  url += (query.bairro)
+    ? '?neighborhood=' + query.bairro
+    : ''
+
   try {
-    const response = await get('/listings')
+    const response = await get(url)
     return response
   } catch (error) {
     return error.response && error.response.status === 422

@@ -21,8 +21,7 @@ export default class MyPage extends Component {
     }
 
   static async getInitialProps(context) {
-    // eslint-disable-next-line no-undef
-    const res = await getListings()
+    const res = await getListings(context.query)
 
     if (res.data.errors) {
       this.setState({errors: res.data.errors})
@@ -63,7 +62,7 @@ export default class MyPage extends Component {
   render () {
     const { listings, authenticated } = this.props
     const { lockGoogleMap } = this.state
-    const seoImgSrc = mainListingImage(listings[0].images)
+    const seoImgSrc = listings.length > 0 && mainListingImage(listings[0].images)
 
     return (
       <Layout authenticated={authenticated}>
@@ -93,6 +92,8 @@ export default class MyPage extends Component {
             {listings.map((listing, i) => {
               return <Listing listing={listing} key={i} authenticated={authenticated} />
             })}
+
+            {listings.length == 0 && <div>Não há listagens para sua busca</div>}
           </div>
         </div>
 
