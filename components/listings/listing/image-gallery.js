@@ -28,9 +28,8 @@ export default class ImageGallery extends React.Component {
 
     const indexToShow = Math.abs((imagesLength - imageIndex) % imagesLength)
     const imgFilename = (imagesLength > 0) ? images[indexToShow].filename : 'default.jpg'
-    const isCloudinary = (imagesLength > 0) ? images[indexToShow].is_cloudinary : false
 
-    const imgSrc = imageUrl(imgFilename, isCloudinary)
+    const imgSrc = imageUrl(imgFilename)
 
     return (
       <div className="container">
