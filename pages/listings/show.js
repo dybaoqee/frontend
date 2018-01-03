@@ -72,7 +72,7 @@ class Listing extends Component {
     const { id } = this.props.listing
     const { name, email, phone } = this.state
 
-    return fetch(process.env.REACT_APP_API_URL + 'listings_users', {
+    return fetch(process.env.REACT_APP_API_URL + '/listings_users', {
       method: 'post',
       headers: {
         'Accept': 'application/json',
