@@ -4,6 +4,7 @@ import Router from 'next/router'
 
 import Header from './header'
 import { mobileMedia } from '../constants/media'
+import * as colors from '../constants/colors'
 
 const googleAnalyticsTrackingId = 'UA-108127087-1'
 
@@ -90,6 +91,12 @@ export default class Layout extends React.Component {
             text-decoration: none;
             transition: background-color 0.10s ease;
             transform: 0.25;
+            &.gray {
+              background: ${colors.lightGray};
+              &:hover {
+                background: ${colors.lightGray};
+              }
+            }
           }
 
           button:hover,

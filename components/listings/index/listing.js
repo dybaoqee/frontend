@@ -8,11 +8,24 @@ import TextContainer from './text-container'
 import { mobileMedia } from '../../../constants/media'
 
 class Listing extends React.Component {
+  handleListingClick = (e) => {
+    const { listing } = this.props
+
+    // We have admin links inside a "link"
+    // (each listing is fully clickable)
+    // This function prevents double link attribution,
+    // which breaks back button behaviour.
+    if (e.target.getAttribute('class').indexOf('cancel-listing-nav') == -1) {
+      Router.push(`/listings/show?id=${listing.id}`, `/imoveis/${listing.id}`)
+        .then(() => window.scrollTo(0, 0))
+    }
+  }
+
   render() {
     const { listing, i, authenticated } = this.props
 
     return (
-      <div className="listing" key={i} onClick={() => Router.push(`/listings/show?id=${listing.id}`, `/imoveis/${listing.id}`).then(() => window.scrollTo(0, 0))}>
+      <div className="listing" key={i} onClick={this.handleListingClick}>
         <ImageContainer listing={listing} />
         <TextContainer listing={listing} authenticated={authenticated} />
 

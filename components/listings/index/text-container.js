@@ -19,7 +19,7 @@ class TextContainer extends React.Component {
 
         <div className="link-container">
           {authenticated && <Link href={`/listings/edit?id=${listing.id}`} as={`/imoveis/${listing.id}/editar`}>
-            <a>Editar</a>
+            <a className="btn gray cancel-listing-nav">Editar</a>
           </Link>}
 
           <Link href={`/listings/show?id=${listing.id}`} as={`/imoveis/${listing.id}`} >
@@ -44,7 +44,7 @@ class TextContainer extends React.Component {
             display: flex;
             float: right;
             .btn {
-              margin: 14px 14px 14px 20px;
+              margin: 14px 14px 14px 0px;
             }
           }
 
