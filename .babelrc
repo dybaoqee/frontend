@@ -1,18 +1,37 @@
 {
-  "presets": [
-    [
-      "next/babel",
-      {
-        "styled-jsx": {
-          "plugins": [
-            "styled-jsx-plugin-postcss"
-          ]
-        }
-      }
-    ]
-  ],
-  "plugins": [
-    ["transform-define", "./env-config.js"],
-    ["transform-decorators-legacy"]
-  ]
+  "env": {
+    "test": {
+      "presets": [
+        ["env", { "modules": "commonjs" }],
+        "next/babel",
+      ],
+      "plugins": [
+        ["transform-define", "./env-config.js"],
+        ["transform-decorators-legacy"],
+      ]
+    },
+
+    "development": {
+      "presets": [
+        ["env", { "modules": "commonjs" }],
+        "next/babel",
+      ],
+      "plugins": [
+        ["transform-define", "./env-config.js"],
+        ["transform-decorators-legacy"],
+          ["styled-jsx/babel", { "plugins": ["styled-jsx-plugin-postcss"] }]
+      ]
+    },
+
+    "production": {
+      "presets": [
+        ["env", { "modules": "commonjs" }],
+        "next/babel",
+      ],
+      "plugins": [
+        ["transform-define", "./env-config.js"],
+        ["transform-decorators-legacy"],
+      ]
+    }
+  },
 }
