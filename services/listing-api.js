@@ -29,23 +29,36 @@ const buildPayload = (data) => {
 }
 
 const translatedKeys = {
-  'bairro': 'neighborhood',
+  'bairro': 'neighborhoods',
+  'area_minima': 'min_area',
+  'area_maxima': 'max_area',
   'preco_maximo': 'max_price',
-  'preco_minimo': 'min_price'
+  'preco_minimo': 'min_price',
+  'quartos': 'rooms'
 }
 
-const buildQueryParams = function(query) {
-  return Object.keys(query).map(function(key) {
-    return translatedKeys[key] + '=' + query[key]
-  }).join('&')
+// Transforms something like
+// { bairro: 'Copacabana|Leblon', preco_maximo: '100000' }
+// into
+// { neighboorhood: ['Copacabana', 'Leblon'], max_price: '100000' }
+const buildGetParams = function(query) {
+  return Object.keys(query).reduce(function(previous, key) {
+    previous[translatedKeys[key]] = splitParam(query[key])
+    return previous
+  }, {})
+}
+
+const splitParam = function(param) {
+  const splitParam = param.split('|')
+  return (splitParam.length > 1) ? splitParam : param
 }
 
 export const getListings = async (query) => {
-  let endpoint = '/listings?'
-  let params = buildQueryParams(query)
+  const endpoint = '/listings'
+  const params = buildGetParams(query)
 
   try {
-    return await get(endpoint + params)
+    return await get(endpoint, null, params)
   } catch (error) {
     return error.response && error.response.status === 422
       ? error.response
