@@ -107,6 +107,10 @@ export default class Filter extends Component {
         <input type="text" name="area_maxima" onChange={this.handleInputChange} />
       </div>
 
+      <div>
+        <label>Quartos</label>
+        <input type="text" name="quartos" onChange={this.handleInputChange} />
+      </div>
       <style jsx>{`
         div,
         button {
