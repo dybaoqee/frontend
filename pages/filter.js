@@ -54,7 +54,7 @@ export default class Filter extends Component {
 
     return Object.keys(this.state).map(function(key) {
       const flattenedValue = that.joinParam(that.state[key])
-      return (flattenedValue === '') ? '' : `${key}=${flattenedValue}`
+      return (flattenedValue === '') ? null : `${key}=${flattenedValue}`
     }).join('&')
   }
 
@@ -66,6 +66,13 @@ export default class Filter extends Component {
       Router.push(`/?${params}`).then(() => window.scrollTo(0, 0))
     }
   }
+
+  handleInputChange = (e) => {
+    const state = this.state
+    state[e.target.name] = e.target.value
+    this.setState(state)
+  }
+
 
   render() {
     const { bairros } = this.props
@@ -79,6 +86,11 @@ export default class Filter extends Component {
           <label>{bairro}</label>
         </div>
       })}
+
+      <div>
+        <label>Preço Máximo</label>
+        <input type="text" name="preco_maximo" onChange={this.handleInputChange} />
+      </div>
 
       <button onClick={this.handleSubmit}>Go</button>
     </div>

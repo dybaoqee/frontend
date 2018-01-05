@@ -29,7 +29,7 @@ const buildPayload = (data) => {
 }
 
 const translatedKeys = {
-  'bairro': 'neighborhoods',
+  'bairros': 'neighborhoods',
   'area_minima': 'min_area',
   'area_maxima': 'max_area',
   'preco_maximo': 'max_price',
@@ -38,19 +38,21 @@ const translatedKeys = {
 }
 
 // Transforms something like
-// { bairro: 'Copacabana|Leblon', preco_maximo: '100000' }
+// { bairros: 'Copacabana|Leblon', preco_maximo: '100000' }
 // into
 // { neighboorhood: ['Copacabana', 'Leblon'], max_price: '100000' }
 const buildGetParams = function(query) {
   return Object.keys(query).reduce(function(previous, key) {
-    previous[translatedKeys[key]] = splitParam(query[key])
+    previous[translatedKeys[key]] = splitParam(query[key], key)
     return previous
   }, {})
 }
 
-const splitParam = function(param) {
-  const splitParam = param.split('|')
-  return (splitParam.length > 1) ? splitParam : param
+const splitParam = function(param, key) {
+  if (key === 'bairros') {
+    return param.split('|')
+  }
+  return param
 }
 
 export const getListings = async (query) => {
