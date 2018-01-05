@@ -28,15 +28,24 @@ const buildPayload = (data) => {
   }
 }
 
+const translatedKeys = {
+  'bairro': 'neighborhood',
+  'preco_maximo': 'max_price',
+  'preco_minimo': 'min_price'
+}
+
+const buildQueryParams = function(query) {
+  return Object.keys(query).map(function(key) {
+    return translatedKeys[key] + '=' + query[key]
+  }).join('&')
+}
+
 export const getListings = async (query) => {
-  let url = '/listings'
-  url += (query.bairro)
-    ? '?neighborhood=' + query.bairro
-    : ''
+  let endpoint = '/listings?'
+  let params = buildQueryParams(query)
 
   try {
-    const response = await get(url)
-    return response
+    return await get(endpoint + params)
   } catch (error) {
     return error.response && error.response.status === 422
       ? error.response
