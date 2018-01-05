@@ -88,9 +88,23 @@ export default class Filter extends Component {
       })}
 
       <div>
+        <label>Preço Mínimo</label>
+        <input type="text" name="preco_minimo" onChange={this.handleInputChange} />
+      </div>
+
+      <div>
         <label>Preço Máximo</label>
         <input type="text" name="preco_maximo" onChange={this.handleInputChange} />
       </div>
+
+      <style jsx>{`
+        div,
+        button {
+          clear: both;
+          float: left;
+          margin: 10px 0;
+        }
+      `}</style>
 
       <button onClick={this.handleSubmit}>Go</button>
     </div>
