@@ -97,6 +97,16 @@ export default class Filter extends Component {
         <input type="text" name="preco_maximo" onChange={this.handleInputChange} />
       </div>
 
+      <div>
+        <label>Área Mínima</label>
+        <input type="text" name="area_minima" onChange={this.handleInputChange} />
+      </div>
+
+      <div>
+        <label>Área Máxima</label>
+        <input type="text" name="area_maxima" onChange={this.handleInputChange} />
+      </div>
+
       <style jsx>{`
         div,
         button {
