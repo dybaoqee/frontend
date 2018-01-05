@@ -54,15 +54,17 @@ export default class Filter extends Component {
 
     return Object.keys(this.state).map(function(key) {
       const flattenedValue = that.joinParam(that.state[key])
-      if (flattenedValue === '') return ''
-      return `${key}=${flattenedValue}`
+      return (flattenedValue === '') ? '' : `${key}=${flattenedValue}`
     }).join('&')
   }
 
   handleSubmit = () => {
     const { bairros } = this.state
     const params = this.treatParams()
-    Router.push(`/?${params}`).then(() => window.scrollTo(0, 0))
+
+    if (params) {
+      Router.push(`/?${params}`).then(() => window.scrollTo(0, 0))
+    }
   }
 
   render() {
