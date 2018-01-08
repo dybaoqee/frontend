@@ -18,10 +18,6 @@ app.prepare()
     return app.render(req, res, '/indique', req.query)
   })
 
-  server.get('/filter', (req, res) => {
-    return app.render(req, res, '/filter', req.query)
-  })
-
   server.get('/auth/logout', (req, res) => {
     return app.render(req, res, '/auth/logout', req.query)
   })
@@ -33,13 +29,6 @@ app.prepare()
   server.get('/imoveis/adicionar', (req, res) => {
     const actualPage = '/listings/new'
     app.render(req, res, actualPage)
-  })
-
-  // TODO: Remove this early 2018
-  // I started the app with a path for each listing that wasn't great.
-  // @gusaiani
-  server.get('/listing/:id', (req, res) => {
-    res.redirect(`/imoveis/${req.params.id}`)
   })
 
   server.get('/imoveis/:id', (req, res) => {
