@@ -15,12 +15,12 @@ import Filter from '../components/listings/index/filter'
 import { mobileMedia } from '../constants/media'
 
 export default class MyPage extends Component {
-    constructor(props) {
-      super(props)
-      this.state = {
-        lockGoogleMap: false
-      }
+  constructor(props) {
+    super(props)
+    this.state = {
+      lockGoogleMap: false
     }
+  }
 
   static async getInitialProps(context) {
     const res = await getListings(context.query)
@@ -34,20 +34,22 @@ export default class MyPage extends Component {
       return res
     }
 
-    const neighborhoodRes = await getNeighborhoods()
+    const neighborhoodResponse = await getNeighborhoods()
 
-    if (neighborhoodRes.data.errors) {
-      this.setState({errors: neighborhoodRes.data.errors})
+    if (neighborhoodResponse.data.errors) {
+      this.setState({errors: neighborhoodResponse.data.errors})
+      return {}
     }
 
-    if (!neighborhoodRes.data) {
-      return neighborhoodRes
+    if (!neighborhoodResponse.data) {
+      this.setState({errors: 'Unknown error. Please try again.'})
+      return {}
     }
 
     return {
       listings: res.data.listings,
       authenticated: isAuthenticated(context),
-      neighborhoods: neighborhoodRes.data.neighborhoods
+      neighborhoods: neighborhoodResponse.data.neighborhoods
     }
   }
 

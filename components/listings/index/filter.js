@@ -1,8 +1,6 @@
 import { Component } from 'react'
 import Router from 'next/router'
 
-import { getNeighborhoods } from '../../../services/neighborhood-api'
-
 export default class Filter extends Component {
   constructor(props) {
     super(props)
@@ -59,12 +57,10 @@ export default class Filter extends Component {
 
 
   render() {
-    const { bairros } = this.props
+    const { neighborhoods } = this.props
 
     return <div>
-      <h1>Bairros</h1>
-
-      {bairros && bairros.map((bairro, i) => {
+      {neighborhoods && neighborhoods.map((bairro, i) => {
         return <div key={i}>
           <input type="checkbox" value={bairro} onClick={this.handleNeighborhoodChange} />
           <label>{bairro}</label>
