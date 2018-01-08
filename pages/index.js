@@ -6,9 +6,11 @@ import 'isomorphic-unfetch'
 import { mainListingImage } from '../utils/image_url'
 import { isAuthenticated } from '../lib/auth'
 import { getListings } from '../services/listing-api'
+import { getNeighborhoods } from '../services/neighborhood-api'
 import Layout from '../components/main-layout'
 import MapContainer from '../components/map-container'
 import Listing from '../components/listings/index/listing'
+import Filter from '../components/listings/index/filter'
 
 import { mobileMedia } from '../constants/media'
 
@@ -32,9 +34,20 @@ export default class MyPage extends Component {
       return res
     }
 
+    const neighborhoodRes = await getNeighborhoods()
+
+    if (neighborhoodRes.data.errors) {
+      this.setState({errors: neighborhoodRes.data.errors})
+    }
+
+    if (!neighborhoodRes.data) {
+      return neighborhoodRes
+    }
+
     return {
       listings: res.data.listings,
-      authenticated: isAuthenticated(context)
+      authenticated: isAuthenticated(context),
+      neighborhoods: neighborhoodRes.data.neighborhoods
     }
   }
 
@@ -60,7 +73,7 @@ export default class MyPage extends Component {
   }
 
   render () {
-    const { listings, authenticated } = this.props
+    const { listings, neighborhoods, authenticated } = this.props
     const { lockGoogleMap } = this.state
     const seoImgSrc = listings.length > 0 && mainListingImage(listings[0].images)
 
@@ -89,6 +102,8 @@ export default class MyPage extends Component {
           </div>
 
           <div className="entries-container">
+            {authenticated && <Filter neighborhoods={neighborhoods} />}
+
             {listings.map((listing, i) => {
               return <Listing listing={listing} key={i} authenticated={authenticated} />
             })}

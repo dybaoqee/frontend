@@ -1,29 +1,13 @@
 import { Component } from 'react'
 import Router from 'next/router'
 
-import { getNeighborhoods } from '../services/neighborhood-api'
+import { getNeighborhoods } from '../../../services/neighborhood-api'
 
 export default class Filter extends Component {
   constructor(props) {
     super(props)
     this.state = {
       bairros: {}
-    }
-  }
-
-  static async getInitialProps(context) {
-    const res = await getNeighborhoods()
-
-    if (res.data.errors) {
-      this.setState({errors: res.data.errors})
-    }
-
-    if (!res.data) {
-      return res
-    }
-
-    return {
-      bairros: res.data.neighborhoods
     }
   }
 
