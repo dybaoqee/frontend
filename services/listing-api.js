@@ -28,15 +28,39 @@ const buildPayload = (data) => {
   }
 }
 
+const translatedKeys = {
+  'bairros': 'neighborhoods',
+  'area_minima': 'min_area',
+  'area_maxima': 'max_area',
+  'preco_maximo': 'max_price',
+  'preco_minimo': 'min_price',
+  'quartos': 'rooms'
+}
+
+// Transforms something like
+// { bairros: 'Copacabana|Leblon', preco_maximo: '100000' }
+// into
+// { neighboorhood: ['Copacabana', 'Leblon'], max_price: '100000' }
+const buildGetParams = function(query) {
+  return Object.keys(query).reduce(function(previous, key) {
+    previous[translatedKeys[key]] = splitParam(query[key], key)
+    return previous
+  }, {})
+}
+
+const splitParam = function(param, key) {
+  if (key === 'bairros') {
+    return param.split('|')
+  }
+  return param
+}
+
 export const getListings = async (query) => {
-  let url = '/listings'
-  url += (query.bairro)
-    ? '?neighborhood=' + query.bairro
-    : ''
+  const endpoint = '/listings'
+  const params = buildGetParams(query)
 
   try {
-    const response = await get(url)
-    return response
+    return await get(endpoint, null, params)
   } catch (error) {
     return error.response && error.response.status === 422
       ? error.response
