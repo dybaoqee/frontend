@@ -90,21 +90,10 @@ export default class Filter extends Component {
 
 
       {!!areFiltersVisible && <div>
-        {neighborhoods && neighborhoods.map((bairro, i) => {
-          return <div key={i}>
-            <input type="checkbox" value={bairro} onClick={this.handleNeighborhoodChange} />
-            <label>{bairro}</label>
-          </div>
-        })}
-
-
         <div>
-          <label>Área Mínima</label>
+          <label>Área</label>
           <input type="text" name="area_minima" onChange={this.handleInputChange} />
-        </div>
-
-        <div>
-          <label>Área Máxima</label>
+          <label>a</label>
           <input type="text" name="area_maxima" onChange={this.handleInputChange} />
         </div>
 
@@ -113,12 +102,20 @@ export default class Filter extends Component {
           <input type="text" name="quartos" onChange={this.handleInputChange} />
         </div>
 
+        {neighborhoods && neighborhoods.map((bairro, i) => {
+          return <div key={i}>
+            <input type="checkbox" value={bairro} onClick={this.handleNeighborhoodChange} />
+            <label>{bairro}</label>
+          </div>
+        })}
+
         <button onClick={this.handleSubmit}>Go</button>
       </div>}
 
       <style jsx>{`
         div.container {
           border-bottom: 1px solid ${colors.lightGray};
+          overflow: auto;
           > div {
             display: block;
             &.price-container {
