@@ -38,6 +38,8 @@ export default class Filter extends Component {
     const that = this
 
     return Object.keys(this.state).map(function(key) {
+      if (key === 'areFiltersVisible') return null
+
       const flattenedValue = that.joinParam(that.state[key])
       return (flattenedValue === '') ? null : `${key}=${flattenedValue}`
     }).join('&')
@@ -67,8 +69,6 @@ export default class Filter extends Component {
   render() {
     const { neighborhoods } = this.props
     const { areFiltersVisible } = this.state
-
-    console.log(areFiltersVisible);
 
     return <div className="container">
       <div className="price-container">
@@ -102,14 +102,17 @@ export default class Filter extends Component {
           <input type="text" name="quartos" onChange={this.handleInputChange} />
         </div>
 
-        {neighborhoods && neighborhoods.map((bairro, i) => {
-          return <div key={i}>
-            <input type="checkbox" value={bairro} onClick={this.handleNeighborhoodChange} />
-            <label>{bairro}</label>
-          </div>
-        })}
+        <div>
+          <label className="neighborhood">Bairros</label>
+          {neighborhoods && neighborhoods.map((bairro, i) => {
+            return <div key={i} className="neighborhood">
+              <input type="checkbox" value={bairro} onClick={this.handleNeighborhoodChange} />
+              <label>{bairro}</label>
+            </div>
+          })}
+        </div>
 
-        <button onClick={this.handleSubmit}>Go</button>
+        <button onClick={this.handleSubmit}>Buscar</button>
       </div>}
 
       <style jsx>{`
@@ -139,8 +142,22 @@ export default class Filter extends Component {
           }
         }
 
+        div.neighborhood {
+          float: left;
+          width: 200px;
+        }
+
         label {
           margin-right: 10px;
+          &.neighborhood {
+            clear: both;
+            float: left;
+            width: 100% !important;
+          }
+          &:first-of-type {
+            display: inline-block;
+            width: 70px;
+          }
         }
 
         input {
@@ -150,8 +167,10 @@ export default class Filter extends Component {
 
         button {
           clear: both;
-          float: left;
-          margin: 10px 0;
+          float: right;
+          font-size: 18px;
+          margin: 10px 20px;
+          padding: 7px 20px 10px;
         }
       `}</style>
     </div>
