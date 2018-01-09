@@ -75,6 +75,7 @@ export default class Filter extends Component {
     const maxPriceOptions = [1000000, 2000000, 3000000, 5000000, 10000000]
     const minAreaOptions = [50, 80, 100, 150, 200, 300, 500, 1000]
     const maxAreaOptions = [50, 80, 100, 150, 200, 300, 500, 1000, 2000]
+    const roomNumberOptions = [1, 2, 3, 4, 5]
 
     return <div className="container">
       <div className="price-container">
@@ -135,7 +136,14 @@ export default class Filter extends Component {
 
         <div>
           <label>Quartos</label>
-          <input type="text" name="quartos" onChange={this.handleInputChange} />
+          <select name="quartos" onChange={this.handleInputChange}>
+            <option value=""></option>
+            {roomNumberOptions.map(function(option) {
+              return <option value={option}>
+                {option}
+              </option>
+            })}
+          </select>
         </div>
 
         <div>
