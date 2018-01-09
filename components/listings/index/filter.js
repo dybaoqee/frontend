@@ -43,7 +43,7 @@ export default class Filter extends Component {
 
       const flattenedValue = that.joinParam(that.state[key])
       return (flattenedValue === '') ? null : `${key}=${flattenedValue}`
-    }).join('&')
+    }).filter(n => n).join('&')
   }
 
   handleSubmit = () => {
