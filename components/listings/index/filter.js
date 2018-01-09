@@ -23,6 +23,8 @@ export default class Filter extends Component {
     }
 
     this.setState({ bairros: bairros })
+
+    this.updateFilter()
   }
 
   joinParam = (param) => {
@@ -43,15 +45,14 @@ export default class Filter extends Component {
 
       const flattenedValue = that.joinParam(that.state[key])
       return (flattenedValue === '') ? null : `${key}=${flattenedValue}`
-    }).join('&')
+    }).filter(n => n).join('&')
   }
 
-  handleSubmit = () => {
-    const { bairros } = this.state
+  updateFilter = () => {
     const params = this.treatParams()
 
     if (params) {
-      Router.push(`/?${params}`).then(() => window.scrollTo(0, 0))
+      Router.push(`/?${params}`)
     }
   }
 
@@ -59,6 +60,8 @@ export default class Filter extends Component {
     const state = this.state
     state[e.target.name] = e.target.value
     this.setState(state)
+
+    this.updateFilter()
   }
 
   handleToggleFilterVisibility = () => {
@@ -73,12 +76,15 @@ export default class Filter extends Component {
 
     const minPriceOptions = [750000, 1000000, 2000000, 3000000, 5000000]
     const maxPriceOptions = [1000000, 2000000, 3000000, 5000000, 10000000]
+    const minAreaOptions = [50, 80, 100, 150, 200, 300, 500, 1000]
+    const maxAreaOptions = [50, 80, 100, 150, 200, 300, 500, 1000, 2000]
+    const roomNumberOptions = [1, 2, 3, 4, 5]
 
     return <div className="container">
       <div className="price-container">
         <div>
           <label>Preço</label>
-          <select name="min_price" onChange={this.handleInputChange}>
+          <select name="preco_minimo" onChange={this.handleInputChange}>
             <option value="">sem mínimo</option>
             {minPriceOptions.map(function(option) {
               return <option value={option}>
@@ -89,7 +95,7 @@ export default class Filter extends Component {
 
           <label>a</label>
 
-          <select name="max_price" onChange={this.handleInputChange}>
+          <select name="preco_maximo" onChange={this.handleInputChange}>
             <option value="">sem máximo</option>
             {maxPriceOptions.map(function(option) {
               return <option value={option}>
@@ -100,11 +106,11 @@ export default class Filter extends Component {
         </div>
 
         {!!areFiltersVisible && <span onClick={this.handleToggleFilterVisibility}>
-          Menos Filtros<span>›</span>
+          Ver Menos Filtros<span>›</span>
         </span>}
 
         {!areFiltersVisible && <span onClick={this.handleToggleFilterVisibility}>
-          Mais Filtros<span>‹</span>
+          Ver Mais Filtros<span>‹</span>
         </span>}
       </div>
 
@@ -112,14 +118,35 @@ export default class Filter extends Component {
       {!!areFiltersVisible && <div>
         <div>
           <label>Área</label>
-          <input type="text" name="area_minima" onChange={this.handleInputChange} />
+          <select name="area_minima" onChange={this.handleInputChange}>
+            <option value="">sem mínimo</option>
+            {minAreaOptions.map(function(option) {
+              return <option value={option}>
+                {option}m²
+              </option>
+            })}
+          </select>
           <label>a</label>
-          <input type="text" name="area_maxima" onChange={this.handleInputChange} />
+          <select name="area_maxima" onChange={this.handleInputChange}>
+            <option value="">sem máximo</option>
+            {maxAreaOptions.map(function(option) {
+              return <option value={option}>
+                {option}m²
+              </option>
+            })}
+          </select>
         </div>
 
         <div>
           <label>Quartos</label>
-          <input type="text" name="quartos" onChange={this.handleInputChange} />
+          <select name="quartos" onChange={this.handleInputChange}>
+            <option value=""></option>
+            {roomNumberOptions.map(function(option) {
+              return <option value={option}>
+                {option}
+              </option>
+            })}
+          </select>
         </div>
 
         <div>
@@ -131,8 +158,6 @@ export default class Filter extends Component {
             </div>
           })}
         </div>
-
-        <button onClick={this.handleSubmit}>Buscar</button>
       </div>}
 
       <style jsx>{`
