@@ -1,5 +1,6 @@
 import { Component } from 'react'
 import Router from 'next/router'
+import NumberFormat from 'react-number-format'
 
 import * as colors from '../../../constants/colors'
 
@@ -70,13 +71,32 @@ export default class Filter extends Component {
     const { neighborhoods } = this.props
     const { areFiltersVisible } = this.state
 
+    const minPriceOptions = [750000, 1000000, 2000000, 3000000, 5000000]
+    const maxPriceOptions = [1000000, 2000000, 3000000, 5000000, 10000000]
+
     return <div className="container">
       <div className="price-container">
         <div>
           <label>Preço</label>
-          <input type="text" name="preco_minimo" onChange={this.handleInputChange} />
+          <select name="min_price" onChange={this.handleInputChange}>
+            <option value="">sem mínimo</option>
+            {minPriceOptions.map(function(option) {
+              return <option value={option}>
+                <NumberFormat value={option} displayType={'text'} thousandSeparator={'.'} prefix={'R$'} decimalSeparator={','} />
+              </option>
+            })}
+          </select>
+
           <label>a</label>
-          <input type="text" name="preco_maximo" onChange={this.handleInputChange} />
+
+          <select name="max_price" onChange={this.handleInputChange}>
+            <option value="">sem máximo</option>
+            {maxPriceOptions.map(function(option) {
+              return <option value={option}>
+                <NumberFormat value={option} displayType={'text'} thousandSeparator={'.'} prefix={'R$'} decimalSeparator={','} />
+              </option>
+            })}
+          </select>
         </div>
 
         {!!areFiltersVisible && <span onClick={this.handleToggleFilterVisibility}>
@@ -163,6 +183,10 @@ export default class Filter extends Component {
         input {
           margin-right: 10px;
           padding: 10px;
+        }
+
+        select {
+          margin-right: 10px;
         }
 
         button {

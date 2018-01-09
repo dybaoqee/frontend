@@ -1,6 +1,5 @@
 import React from 'react'
 import Router from 'next/router'
-import NumberFormat from 'react-number-format'
 
 import ImageContainer from './image-container'
 import TextContainer from './text-container'
