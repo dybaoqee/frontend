@@ -23,6 +23,8 @@ export default class Filter extends Component {
     }
 
     this.setState({ bairros: bairros })
+
+    this.updateFilter()
   }
 
   joinParam = (param) => {
@@ -46,12 +48,11 @@ export default class Filter extends Component {
     }).filter(n => n).join('&')
   }
 
-  handleSubmit = () => {
-    const { bairros } = this.state
+  updateFilter = () => {
     const params = this.treatParams()
 
     if (params) {
-      Router.push(`/?${params}`).then(() => window.scrollTo(0, 0))
+      Router.push(`/?${params}`)
     }
   }
 
@@ -59,6 +60,8 @@ export default class Filter extends Component {
     const state = this.state
     state[e.target.name] = e.target.value
     this.setState(state)
+
+    this.updateFilter()
   }
 
   handleToggleFilterVisibility = () => {
@@ -103,11 +106,11 @@ export default class Filter extends Component {
         </div>
 
         {!!areFiltersVisible && <span onClick={this.handleToggleFilterVisibility}>
-          Menos Filtros<span>›</span>
+          Ver Menos Filtros<span>›</span>
         </span>}
 
         {!areFiltersVisible && <span onClick={this.handleToggleFilterVisibility}>
-          Mais Filtros<span>‹</span>
+          Ver Mais Filtros<span>‹</span>
         </span>}
       </div>
 
@@ -155,8 +158,6 @@ export default class Filter extends Component {
             </div>
           })}
         </div>
-
-        <button onClick={this.handleSubmit}>Buscar</button>
       </div>}
 
       <style jsx>{`
