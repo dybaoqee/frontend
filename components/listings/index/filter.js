@@ -72,7 +72,7 @@ export default class Filter extends Component {
 
   render() {
     const { neighborhoods, query } = this.props
-    const { preco_minimo, preco_maximo, area_minima, area_maxima } = query
+    const { preco_minimo, preco_maximo, area_minima, area_maxima, quartos } = query
     const { areFiltersVisible } = this.state
 
     const minPriceOptions = [750000, 1000000, 2000000, 3000000, 5000000]
@@ -159,12 +159,14 @@ export default class Filter extends Component {
 
         <div>
           <label>Quartos</label>
-          <select name="quartos" onChange={this.handleInputChange}>
+          <select name="quartos" onChange={this.handleInputChange} defaultValue={quartos}>
             <option value=""></option>
             {roomNumberOptions.map(function(option) {
-              return <option value={option}>
-                {option}
-              </option>
+              return <NumberFormat
+                value={option}
+                renderText={value => <option value={option}>{value}</option>}
+                displayType={'text'}/>
+            })}
             })}
           </select>
         </div>
