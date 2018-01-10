@@ -6,10 +6,18 @@ import * as colors from '../../../constants/colors'
 
 export default class Filter extends Component {
   constructor(props) {
+    console.log('props', props);
     super(props)
+
+    const { preco_minimo, preco_maximo, area_minima, area_maxima, quartos, bairros } = props.query
     this.state = {
       areFiltersVisible: false,
-      bairros: {}
+      preco_minimo: preco_minimo,
+      preco_maximo: preco_maximo,
+      area_minima: area_minima,
+      area_maxima: area_maxima,
+      quartos: quartos,
+      bairros: bairros
     }
   }
 
@@ -42,6 +50,7 @@ export default class Filter extends Component {
 
     return Object.keys(this.state).map(function(key) {
       if (key === 'areFiltersVisible') return null
+      if (that.state[key] === undefined) return null
 
       const flattenedValue = that.joinParam(that.state[key])
       return (flattenedValue === '') ? null : `${key}=${flattenedValue}`
