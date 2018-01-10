@@ -151,12 +151,15 @@ export default class Filter extends Component {
 
         <div>
           <label className="neighborhood">Bairros</label>
-          {neighborhoods && neighborhoods.map((bairro, i) => {
-            return <div key={i} className="neighborhood">
-              <input type="checkbox" value={bairro} onClick={this.handleNeighborhoodChange} />
-              <label>{bairro}</label>
-            </div>
-          })}
+
+          <div className="select-container">
+            {neighborhoods && neighborhoods.map((bairro, i) => {
+              return <div key={i} className="neighborhood">
+                <input type="checkbox" value={bairro} onClick={this.handleNeighborhoodChange} />
+                <label>{bairro}</label>
+              </div>
+            })}
+          </div>
         </div>
       </div>}
 
@@ -187,10 +190,20 @@ export default class Filter extends Component {
           }
         }
 
-        div.neighborhood {
-          float: left;
-          width: 200px;
+        div.container .select-container {
+          display: grid;
+          grid-template-columns: 200px 200px 200px;
+          div.neighborhood {
+            align-items: center;
+            display: flex;
+            float: left;
+            padding: 0;
+            label {
+              max-width: calc(100% - 35px);
+            }
+          }
         }
+
 
         label {
           margin-right: 10px;
