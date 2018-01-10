@@ -6,10 +6,16 @@ import * as colors from '../../../constants/colors'
 
 export default class Filter extends Component {
   constructor(props) {
-    console.log('props', props);
     super(props)
 
     const { preco_minimo, preco_maximo, area_minima, area_maxima, quartos, bairros } = props.query
+    const bairrosArray = bairros ? bairros.split('|') : []
+
+    const bairrosObject = bairrosArray.reduce(function(previous, bairro) {
+      previous[bairro] = true
+      return previous
+    }, {})
+
     this.state = {
       areFiltersVisible: false,
       preco_minimo: preco_minimo,
@@ -17,7 +23,7 @@ export default class Filter extends Component {
       area_minima: area_minima,
       area_maxima: area_maxima,
       quartos: quartos,
-      bairros: bairros
+      bairros: bairrosObject
     }
   }
 
@@ -81,7 +87,8 @@ export default class Filter extends Component {
 
   render() {
     const { neighborhoods, query } = this.props
-    const { preco_minimo, preco_maximo, area_minima, area_maxima, quartos, bairros } = query
+    const { preco_minimo, preco_maximo, area_minima, area_maxima, quartos, bairros } = this.state
+
     const { areFiltersVisible } = this.state
 
     const minPriceOptions = [750000, 1000000, 2000000, 3000000, 5000000]
@@ -185,8 +192,13 @@ export default class Filter extends Component {
 
           <div className="select-container">
             {neighborhoods && neighborhoods.map((bairro, i) => {
+              const checked = bairros[bairro] === true
+
               return <div key={i} className="neighborhood">
-                <input type="checkbox" value={bairro} onClick={this.handleNeighborhoodChange} />
+                <input type="checkbox"
+                       value={bairro}
+                       checked={checked}
+                       onClick={this.handleNeighborhoodChange} />
                 <label>{bairro}</label>
               </div>
             })}
@@ -208,7 +220,7 @@ export default class Filter extends Component {
                   color: ${colors.blue};
                   cursor: pointer;
                   float: right;
-                  margin-right: 20px;
+                  margin-right: 10px;
                   > span {
                     margin-left: 5px;
                     transform: rotate(-90deg);
