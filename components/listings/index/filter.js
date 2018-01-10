@@ -107,6 +107,7 @@ export default class Filter extends Component {
             {minPriceOptions.map(function(option) {
               return <NumberFormat
                 value={option}
+                key={option}
                 renderText={value => <option value={option}>{value}</option>}
                 displayType={'text'}
                 thousandSeparator={'.'}
@@ -122,6 +123,7 @@ export default class Filter extends Component {
             {maxPriceOptions.map(function(option) {
               return <NumberFormat
                 value={option}
+                key={option}
                 renderText={value => <option value={option}>{value}</option>}
                 displayType={'text'}
                 thousandSeparator={'.'}
@@ -149,6 +151,7 @@ export default class Filter extends Component {
             {minAreaOptions.map(function(option) {
               return <NumberFormat
                 value={option}
+                key={option}
                 renderText={value => <option value={option}>{value}</option>}
                 displayType={'text'}
                 thousandSeparator={'.'}
@@ -164,6 +167,7 @@ export default class Filter extends Component {
             {maxAreaOptions.map(function(option) {
               return <NumberFormat
                 value={option}
+                key={option}
                 renderText={value => <option value={option}>{value}</option>}
                 displayType={'text'}
                 thousandSeparator={'.'}
@@ -180,6 +184,7 @@ export default class Filter extends Component {
             {roomNumberOptions.map(function(option) {
               return <NumberFormat
                 value={option}
+                key={option}
                 renderText={value => <option value={option}>{value}</option>}
                 displayType={'text'}/>
             })}
