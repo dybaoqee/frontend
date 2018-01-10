@@ -55,8 +55,6 @@ export default class MyPage extends Component {
   }
 
   componentDidMount = () => {
-    const that = this
-
     window.addEventListener('scroll', this.handleScroll)
   }
 

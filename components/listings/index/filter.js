@@ -46,13 +46,13 @@ export default class Filter extends Component {
   }
 
   treatParams = () => {
-    const that = this
+    const { state, joinParam } = this
 
-    return Object.keys(this.state).map(function(key) {
+    return Object.keys(state).map(function(key) {
       if (key === 'areFiltersVisible') return null
-      if (that.state[key] === undefined) return null
+      if (state[key] === undefined) return null
 
-      const flattenedValue = that.joinParam(that.state[key])
+      const flattenedValue = joinParam(state[key])
       return (flattenedValue === '') ? null : `${key}=${flattenedValue}`
     }).filter(n => n).join('&')
   }
@@ -81,7 +81,7 @@ export default class Filter extends Component {
 
   render() {
     const { neighborhoods, query } = this.props
-    const { preco_minimo, preco_maximo, area_minima, area_maxima, quartos } = query
+    const { preco_minimo, preco_maximo, area_minima, area_maxima, quartos, bairros } = query
     const { areFiltersVisible } = this.state
 
     const minPriceOptions = [750000, 1000000, 2000000, 3000000, 5000000]
