@@ -7,9 +7,23 @@ import * as colors from '../../../constants/colors'
 export default class Filter extends Component {
   constructor(props) {
     super(props)
+
+    const { preco_minimo, preco_maximo, area_minima, area_maxima, quartos, bairros } = props.query
+    const bairrosArray = bairros ? bairros.split('|') : []
+
+    const bairrosObject = bairrosArray.reduce(function(previous, bairro) {
+      previous[bairro] = true
+      return previous
+    }, {})
+
     this.state = {
       areFiltersVisible: false,
-      bairros: {}
+      preco_minimo: preco_minimo,
+      preco_maximo: preco_maximo,
+      area_minima: area_minima,
+      area_maxima: area_maxima,
+      quartos: quartos,
+      bairros: bairrosObject
     }
   }
 
@@ -38,12 +52,13 @@ export default class Filter extends Component {
   }
 
   treatParams = () => {
-    const that = this
+    const { state, joinParam } = this
 
-    return Object.keys(this.state).map(function(key) {
+    return Object.keys(state).map(function(key) {
       if (key === 'areFiltersVisible') return null
+      if (state[key] === undefined) return null
 
-      const flattenedValue = that.joinParam(that.state[key])
+      const flattenedValue = joinParam(state[key])
       return (flattenedValue === '') ? null : `${key}=${flattenedValue}`
     }).filter(n => n).join('&')
   }
@@ -71,7 +86,9 @@ export default class Filter extends Component {
   }
 
   render() {
-    const { neighborhoods } = this.props
+    const { neighborhoods, query } = this.props
+    const { preco_minimo, preco_maximo, area_minima, area_maxima, quartos, bairros } = this.state
+
     const { areFiltersVisible } = this.state
 
     const minPriceOptions = [750000, 1000000, 2000000, 3000000, 5000000]
@@ -84,23 +101,34 @@ export default class Filter extends Component {
       <div className="price-container">
         <div>
           <label>Preço</label>
-          <select name="preco_minimo" onChange={this.handleInputChange}>
+          <select name="preco_minimo" onChange={this.handleInputChange} defaultValue={preco_minimo}>
             <option value="">sem mínimo</option>
+
             {minPriceOptions.map(function(option) {
-              return <option value={option}>
-                <NumberFormat value={option} displayType={'text'} thousandSeparator={'.'} prefix={'R$'} decimalSeparator={','} />
-              </option>
+              return <NumberFormat
+                value={option}
+                key={option}
+                renderText={value => <option value={option}>{value}</option>}
+                displayType={'text'}
+                thousandSeparator={'.'}
+                prefix={'R$'}
+                decimalSeparator={','} />
             })}
           </select>
 
           <label>a</label>
 
-          <select name="preco_maximo" onChange={this.handleInputChange}>
+          <select name="preco_maximo" onChange={this.handleInputChange} defaultValue={preco_maximo}>
             <option value="">sem máximo</option>
             {maxPriceOptions.map(function(option) {
-              return <option value={option}>
-                <NumberFormat value={option} displayType={'text'} thousandSeparator={'.'} prefix={'R$'} decimalSeparator={','} />
-              </option>
+              return <NumberFormat
+                value={option}
+                key={option}
+                renderText={value => <option value={option}>{value}</option>}
+                displayType={'text'}
+                thousandSeparator={'.'}
+                prefix={'R$'}
+                decimalSeparator={','} />
             })}
           </select>
         </div>
@@ -118,45 +146,68 @@ export default class Filter extends Component {
       {!!areFiltersVisible && <div>
         <div>
           <label>Área</label>
-          <select name="area_minima" onChange={this.handleInputChange}>
+          <select name="area_minima" onChange={this.handleInputChange} defaultValue={area_minima}>
             <option value="">sem mínimo</option>
             {minAreaOptions.map(function(option) {
-              return <option value={option}>
-                {option}m²
-              </option>
+              return <NumberFormat
+                value={option}
+                key={option}
+                renderText={value => <option value={option}>{value}</option>}
+                displayType={'text'}
+                thousandSeparator={'.'}
+                suffix={'m²'}
+                decimalSeparator={','} />
             })}
           </select>
+
           <label>a</label>
-          <select name="area_maxima" onChange={this.handleInputChange}>
+
+          <select name="area_maxima" onChange={this.handleInputChange} defaultValue={area_maxima}>
             <option value="">sem máximo</option>
             {maxAreaOptions.map(function(option) {
-              return <option value={option}>
-                {option}m²
-              </option>
+              return <NumberFormat
+                value={option}
+                key={option}
+                renderText={value => <option value={option}>{value}</option>}
+                displayType={'text'}
+                thousandSeparator={'.'}
+                suffix={'m²'}
+                decimalSeparator={','} />
             })}
           </select>
         </div>
 
         <div>
           <label>Quartos</label>
-          <select name="quartos" onChange={this.handleInputChange}>
+          <select name="quartos" onChange={this.handleInputChange} defaultValue={quartos}>
             <option value=""></option>
             {roomNumberOptions.map(function(option) {
-              return <option value={option}>
-                {option}
-              </option>
+              return <NumberFormat
+                value={option}
+                key={option}
+                renderText={value => <option value={option}>{value}</option>}
+                displayType={'text'}/>
+            })}
             })}
           </select>
         </div>
 
         <div>
           <label className="neighborhood">Bairros</label>
-          {neighborhoods && neighborhoods.map((bairro, i) => {
-            return <div key={i} className="neighborhood">
-              <input type="checkbox" value={bairro} onClick={this.handleNeighborhoodChange} />
-              <label>{bairro}</label>
-            </div>
-          })}
+
+          <div className="select-container">
+            {neighborhoods && neighborhoods.map((bairro, i) => {
+              const checked = bairros[bairro] === true
+
+              return <div key={i} className="neighborhood">
+                <input type="checkbox"
+                       value={bairro}
+                       checked={checked}
+                       onClick={this.handleNeighborhoodChange} />
+                <label>{bairro}</label>
+              </div>
+            })}
+          </div>
         </div>
       </div>}
 
@@ -174,7 +225,7 @@ export default class Filter extends Component {
                   color: ${colors.blue};
                   cursor: pointer;
                   float: right;
-                  margin-right: 20px;
+                  margin-right: 10px;
                   > span {
                     margin-left: 5px;
                     transform: rotate(-90deg);
@@ -187,10 +238,20 @@ export default class Filter extends Component {
           }
         }
 
-        div.neighborhood {
-          float: left;
-          width: 200px;
+        div.container .select-container {
+          display: grid;
+          grid-template-columns: 200px 200px 200px;
+          div.neighborhood {
+            align-items: center;
+            display: flex;
+            float: left;
+            padding: 0;
+            label {
+              max-width: calc(100% - 35px);
+            }
+          }
         }
+
 
         label {
           margin-right: 10px;
