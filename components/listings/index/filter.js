@@ -71,7 +71,8 @@ export default class Filter extends Component {
   }
 
   render() {
-    const { neighborhoods } = this.props
+    const { neighborhoods, query } = this.props
+    const { preco_minimo, preco_maximo } = query
     const { areFiltersVisible } = this.state
 
     const minPriceOptions = [750000, 1000000, 2000000, 3000000, 5000000]
@@ -86,10 +87,17 @@ export default class Filter extends Component {
           <label>Preço</label>
           <select name="preco_minimo" onChange={this.handleInputChange}>
             <option value="">sem mínimo</option>
+
             {minPriceOptions.map(function(option) {
-              return <option value={option}>
-                <NumberFormat value={option} displayType={'text'} thousandSeparator={'.'} prefix={'R$'} decimalSeparator={','} />
-              </option>
+              const selected = (option == preco_minimo) ? 'selected' : null
+
+              return <NumberFormat
+                value={option}
+                renderText={value => <option value={option} selected={selected}>{value}</option>}
+                displayType={'text'}
+                thousandSeparator={'.'}
+                prefix={'R$'}
+                decimalSeparator={','} />
             })}
           </select>
 
@@ -98,9 +106,15 @@ export default class Filter extends Component {
           <select name="preco_maximo" onChange={this.handleInputChange}>
             <option value="">sem máximo</option>
             {maxPriceOptions.map(function(option) {
-              return <option value={option}>
-                <NumberFormat value={option} displayType={'text'} thousandSeparator={'.'} prefix={'R$'} decimalSeparator={','} />
-              </option>
+              const selected = (option == preco_maximo) ? 'selected' : null
+
+              return <NumberFormat
+                value={option}
+                renderText={value => <option value={option} selected={selected}>{value}</option>}
+                displayType={'text'}
+                thousandSeparator={'.'}
+                prefix={'R$'}
+                decimalSeparator={','} />
             })}
           </select>
         </div>

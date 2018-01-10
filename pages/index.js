@@ -49,7 +49,8 @@ export default class MyPage extends Component {
     return {
       listings: res.data.listings,
       authenticated: isAuthenticated(context),
-      neighborhoods: neighborhoodResponse.data.neighborhoods
+      neighborhoods: neighborhoodResponse.data.neighborhoods,
+      query: context.query
     }
   }
 
@@ -75,7 +76,7 @@ export default class MyPage extends Component {
   }
 
   render () {
-    const { listings, neighborhoods, authenticated } = this.props
+    const { listings, neighborhoods, authenticated, query } = this.props
     const { lockGoogleMap } = this.state
     const seoImgSrc = listings.length > 0 && mainListingImage(listings[0].images)
 
@@ -104,7 +105,7 @@ export default class MyPage extends Component {
           </div>
 
           <div className="entries-container">
-            {authenticated && <Filter neighborhoods={neighborhoods} />}
+            {authenticated && <Filter neighborhoods={neighborhoods} query={query} />}
 
             {listings.map((listing, i) => {
               return <Listing listing={listing} key={i} authenticated={authenticated} />
