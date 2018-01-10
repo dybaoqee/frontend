@@ -72,7 +72,7 @@ export default class Filter extends Component {
 
   render() {
     const { neighborhoods, query } = this.props
-    const { preco_minimo, preco_maximo } = query
+    const { preco_minimo, preco_maximo, area_minima, area_maxima } = query
     const { areFiltersVisible } = this.state
 
     const minPriceOptions = [750000, 1000000, 2000000, 3000000, 5000000]
@@ -128,21 +128,31 @@ export default class Filter extends Component {
       {!!areFiltersVisible && <div>
         <div>
           <label>Área</label>
-          <select name="area_minima" onChange={this.handleInputChange}>
+          <select name="area_minima" onChange={this.handleInputChange} defaultValue={area_minima}>
             <option value="">sem mínimo</option>
             {minAreaOptions.map(function(option) {
-              return <option value={option}>
-                {option}m²
-              </option>
+              return <NumberFormat
+                value={option}
+                renderText={value => <option value={option}>{value}</option>}
+                displayType={'text'}
+                thousandSeparator={'.'}
+                suffix={'m²'}
+                decimalSeparator={','} />
             })}
           </select>
+
           <label>a</label>
-          <select name="area_maxima" onChange={this.handleInputChange}>
+
+          <select name="area_maxima" onChange={this.handleInputChange} defaultValue={area_maxima}>
             <option value="">sem máximo</option>
             {maxAreaOptions.map(function(option) {
-              return <option value={option}>
-                {option}m²
-              </option>
+              return <NumberFormat
+                value={option}
+                renderText={value => <option value={option}>{value}</option>}
+                displayType={'text'}
+                thousandSeparator={'.'}
+                suffix={'m²'}
+                decimalSeparator={','} />
             })}
           </select>
         </div>
