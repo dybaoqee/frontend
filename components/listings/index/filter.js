@@ -85,15 +85,13 @@ export default class Filter extends Component {
       <div className="price-container">
         <div>
           <label>Preço</label>
-          <select name="preco_minimo" onChange={this.handleInputChange}>
+          <select name="preco_minimo" onChange={this.handleInputChange} defaultValue={preco_minimo}>
             <option value="">sem mínimo</option>
 
             {minPriceOptions.map(function(option) {
-              const selected = (option == preco_minimo) ? 'selected' : null
-
               return <NumberFormat
                 value={option}
-                renderText={value => <option value={option} selected={selected}>{value}</option>}
+                renderText={value => <option value={option}>{value}</option>}
                 displayType={'text'}
                 thousandSeparator={'.'}
                 prefix={'R$'}
@@ -103,14 +101,12 @@ export default class Filter extends Component {
 
           <label>a</label>
 
-          <select name="preco_maximo" onChange={this.handleInputChange}>
+          <select name="preco_maximo" onChange={this.handleInputChange} defaultValue={preco_maximo}>
             <option value="">sem máximo</option>
             {maxPriceOptions.map(function(option) {
-              const selected = (option == preco_maximo) ? 'selected' : null
-
               return <NumberFormat
                 value={option}
-                renderText={value => <option value={option} selected={selected}>{value}</option>}
+                renderText={value => <option value={option}>{value}</option>}
                 displayType={'text'}
                 thousandSeparator={'.'}
                 prefix={'R$'}
