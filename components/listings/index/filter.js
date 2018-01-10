@@ -245,9 +245,9 @@ export default class Filter extends Component {
             align-items: center;
             display: flex;
             float: left;
-            padding: 0;
+            padding: 6px 0;
             label {
-              max-width: calc(100% - 35px);
+              width: calc(100% - 35px);
             }
           }
         }
