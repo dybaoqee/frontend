@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { findDOMNode } from 'react-dom'
 import { DragSource, DropTarget } from 'react-dnd'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import faTrash from '@fortawesome/fontawesome-free-solid/faTrash'
 
 import { deleteListingImage } from '../../../../services/listing-images-api'
 import DraggableTypes from '../../../../constants/draggable_types'
-import Icon from '../../../../components/icon'
 import { thumbnailUrl } from '../../../../utils/image_url'
 
 const imageSource = {
@@ -122,7 +123,7 @@ export default class DraggableImage extends Component {
       connectDropTarget(
         <div style={{ ...imgStyle, opacity }} onClick={this.handleImageDelete}>
           <div className="trash">
-            <Icon icon="trash" />
+            <FontAwesomeIcon icon={faTrash} />
           </div>
 
           <style jsx>{`
