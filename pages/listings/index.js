@@ -103,7 +103,7 @@ export default class MyPage extends Component {
           </div>
 
           <div className="entries-container">
-            {authenticated && <Filter neighborhoods={neighborhoods} query={query} />}
+            <Filter neighborhoods={neighborhoods} query={query} />
 
             {listings.map((listing, i) => {
               return <Listing listing={listing} key={i} authenticated={authenticated} />
