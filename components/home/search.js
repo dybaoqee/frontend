@@ -1,12 +1,15 @@
 import { Component } from 'react'
 
 import * as colors from '../../constants/colors'
-import Icon from '../../components/icon'
 import { imageUrl } from '../../utils/image_url'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faSearch from '@fortawesome/fontawesome-free-solid/faSearch'
 
 export default class HomeSearch extends Component {
+  handleClick = () => {
+    console.log('Clicou');
+  }
+
   render() {
     return <div className="container">
       <h1>Encontre o Imóvel Perfeito para Você</h1>
@@ -19,9 +22,9 @@ export default class HomeSearch extends Component {
           <div className="neighborhoods">
             Bairros
           </div>
-          <button>
+          <div className="magnifier-container" onClick={this.handleClick}>
             <FontAwesomeIcon icon={faSearch} />
-          </button>
+          </div>
         </div>
         <div>
           <div className="rooms">
@@ -97,11 +100,36 @@ export default class HomeSearch extends Component {
           width: 40%;
         }
 
+        div.magnifier-container {
+          align-items: center;
+          background: ${colors.blue};
+          border-top-right-radius: 9px;
+          cursor: pointer;
+          display: flex;
+          height: 24px;
+          justify-content: center;
+          width: 40px;
+          &:hover {
+            background: ${colors.darkenedBlue}
+          }
+          :global(svg) {
+            height: 20px;
+            width: 40px;
+          }
+          :global(svg path) {
+            fill: white;
+          }
+        }
+
         button {
           border-radius: 0;
           border-top-right-radius: 9px;
           height: 44px;
+          padding: 3px 10px 5px;
           width: 60px;
+          svg {
+            width: 30px;
+          }
         }
 
       `}</style>
