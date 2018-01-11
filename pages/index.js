@@ -1,5 +1,6 @@
 import { Component } from 'react'
 import Head from 'next/head'
+import Link from 'next/link'
 import 'isomorphic-unfetch'
 
 import { getListings } from '../services/listing-api'
@@ -62,14 +63,20 @@ export default class MyPage extends Component {
 
         <HomeSearch />
         <HomeListings listings={listings} />
+        <Link href={'/listings/index'} as={'/imoveis'}>
+          <a>Ver Detalhes →</a>
+        </Link>
+        <iframe width='100%' height='480' src="https://my.matterport.com/show/?m=SNpWfLUSZeC" frameBorder='0' allowFullScreen></iframe>
 
         <style jsx>{`
-          .listings {
-            h1 {
-              line-height: 1.2em;
-              margin-bottom: 40px;
-              text-align: center;
-            }
+          a {
+            color: blue;
+            float: left;
+            left: 50%;
+            margin: 0 auto 20px;
+            position: relative;
+            text-align: center;
+            transform: translateX(-50%);
           }
         `}</style>
       </Layout>
