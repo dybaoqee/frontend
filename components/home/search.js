@@ -19,8 +19,14 @@ export default class HomeSearch extends Component {
           <button/>
         </div>
         <div>
-          <div className="">
-            Rio de Janeiro
+          <div className="rooms">
+            Quartos
+          </div>
+          <div className="min-price">
+            Preço Mínimo
+          </div>
+          <div className="max-price">
+            Preço Máximo
           </div>
         </div>
       </div>
@@ -70,6 +76,16 @@ export default class HomeSearch extends Component {
 
         div.neighborhoods {
           width: calc(50% - 30px);
+        }
+
+        div.rooms {
+          width: 30%;
+        }
+        div.min-price {
+          width: 40%;
+        }
+        div.max-price {
+          width: 40%;
         }
 
         button {
