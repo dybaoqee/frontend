@@ -10,6 +10,7 @@ import Layout from '../components/main-layout'
 import HomeSearch from '../components/home/search'
 import HomeListings from '../components/home/listings'
 import HomeSellingPoints from '../components/home/selling-points'
+import HomeBuySell from '../components/home/buy-sell'
 
 import { mobileMedia } from '../constants/media'
 
@@ -69,6 +70,7 @@ export default class MyPage extends Component {
         </Link>
         <iframe width='100%' height='480' src="https://my.matterport.com/show/?m=SNpWfLUSZeC" frameBorder='0' allowFullScreen></iframe>
         <HomeSellingPoints />
+        <HomeBuySell />
 
         <style jsx>{`
           a {
