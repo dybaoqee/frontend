@@ -1,7 +1,10 @@
 import { Component } from 'react'
 
 import * as colors from '../../constants/colors'
+import Icon from '../../components/icon'
 import { imageUrl } from '../../utils/image_url'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import faSearch from '@fortawesome/fontawesome-free-solid/faSearch'
 
 export default class HomeSearch extends Component {
   render() {
@@ -16,7 +19,9 @@ export default class HomeSearch extends Component {
           <div className="neighborhoods">
             Bairros
           </div>
-          <button/>
+          <button>
+            <FontAwesomeIcon icon={faSearch} />
+          </button>
         </div>
         <div>
           <div className="rooms">
