@@ -81,7 +81,7 @@ export default class Layout extends React.Component {
 
           button,
           .btn {
-            background-color: #2c6e8e;
+            background-color: ${colors.blue};
             border: none;
             border-radius: 4px;
             color: white;
@@ -102,7 +102,7 @@ export default class Layout extends React.Component {
 
           button:hover,
           .btn:hover {
-            background-color: #265f7b;
+            background-color: ${colors.darkenedBlue};
             text-decoration: none;
           }
 
