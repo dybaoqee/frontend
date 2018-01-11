@@ -9,6 +9,7 @@ import { isAuthenticated } from '../lib/auth'
 import Layout from '../components/main-layout'
 import HomeSearch from '../components/home/search'
 import HomeListings from '../components/home/listings'
+import HomeSellingPoints from '../components/home/selling-points'
 
 import { mobileMedia } from '../constants/media'
 
@@ -67,6 +68,7 @@ export default class MyPage extends Component {
           <a>Ver Detalhes →</a>
         </Link>
         <iframe width='100%' height='480' src="https://my.matterport.com/show/?m=SNpWfLUSZeC" frameBorder='0' allowFullScreen></iframe>
+        <HomeSellingPoints />
 
         <style jsx>{`
           a {

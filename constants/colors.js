@@ -1,3 +1,3 @@
-export const blue = '#2c6e8e'
+export const blue = '#227ea2'
 export const lightGray = '#bbb'
 export const offWhite = '#eee'

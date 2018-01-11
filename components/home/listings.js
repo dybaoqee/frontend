@@ -37,7 +37,6 @@ export default class HomeListings extends Component {
           > :global(span, p) {
             clear: both;
             float: left;
-            margin-left: 10px;
           }
 
           p {
