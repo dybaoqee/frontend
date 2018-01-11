@@ -9,7 +9,7 @@ import faSearch from '@fortawesome/fontawesome-free-solid/faSearch'
 export default class HomeSearch extends Component {
   render() {
     return <div className="container">
-      <h1>Nova Home Page - Aguarde</h1>
+      <h1>Encontre o Imóvel Perfeito para Você</h1>
 
       <div className="search">
         <div>
@@ -44,7 +44,10 @@ export default class HomeSearch extends Component {
 
           h1 {
             color: white;
+            font-weight: 300;
+            margin-top: 80px;
             text-align: center;
+            text-shadow: 0px 1px rgba(0, 0, 0, 0.8), 0px -1px rgba(0, 0, 0, 0.4)
           }
         }
 
@@ -76,6 +79,7 @@ export default class HomeSearch extends Component {
         div.city {
           background: ${colors.offWhite};
           border-top-left-radius: 10px;
+          color: ${colors.mediumGray};
           width: calc(50% - 30px);
         }
 
