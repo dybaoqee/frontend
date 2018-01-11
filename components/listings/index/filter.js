@@ -67,7 +67,7 @@ export default class Filter extends Component {
     const params = this.treatParams()
 
     if (params) {
-      Router.push(`/imoveis?${params}`)
+      Router.push(`/listings/index?${params}`, `/imoveis?${params}`)
     }
   }
 
