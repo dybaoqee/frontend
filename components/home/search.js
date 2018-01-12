@@ -116,7 +116,24 @@ export default class HomeSearch extends Component {
         </div>
       </div>
 
-      <style global jsx>{reactSelectStyles}</style>
+      <style global jsx>
+        {reactSelectStyles}
+      </style>
+      <style global jsx>{`
+        .search .Select-control {
+          border: none;
+          height: 42px;
+
+          .Select-placeholder {
+            align-items: center;
+            display: flex;
+          }
+          .Select-value {
+            align-items: center;
+            display: flex;
+          }
+        }
+      `}</style>
       <style jsx>{`
         div.container {
           background-image: url(${imageUrl('g41uu9olkmikizvyioqn.jpg')});
@@ -159,10 +176,13 @@ export default class HomeSearch extends Component {
         }
 
         div.city {
+          align-items: center;
           background: ${colors.offWhite};
           border-top-left-radius: 10px;
+          display: flex;
           color: ${colors.mediumGray};
-          width: calc(50% - 20px);
+          padding-left: 10px !important;
+          width: calc(50% - 30px);
         }
 
         div.neighborhoods {
