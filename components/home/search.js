@@ -1,4 +1,5 @@
 import { Component } from 'react'
+import Select from 'react-select'
 import reactSelectStyles from 'react-select/dist/react-select.min.css'
 
 import * as colors from '../../constants/colors'
@@ -7,11 +8,23 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faSearch from '@fortawesome/fontawesome-free-solid/faSearch'
 
 export default class HomeSearch extends Component {
+  state = {
+    selectedOption: '',
+  }
+
+  handleChange = (selectedOption) => {
+    this.setState({ selectedOption });
+    console.log(`Selected: ${selectedOption.label}`);
+  }
+
   handleClick = () => {
     console.log('Clicou');
   }
 
   render() {
+    const { selectedOption } = this.state
+  	const value = selectedOption && selectedOption.value
+
     return <div className="container">
       <h1>Encontre o Imóvel Perfeito para Você</h1>
 
@@ -29,7 +42,15 @@ export default class HomeSearch extends Component {
         </div>
         <div>
           <div className="rooms">
-            Quartos
+            <Select
+              name="form-field-name"
+              value={value}
+              onChange={this.handleChange}
+              options={[
+                { value: 'one', label: 'One' },
+                { value: 'two', label: 'Two' },
+              ]}
+            />
           </div>
           <div className="min-price">
             Preço Mínimo
