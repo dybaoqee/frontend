@@ -1,4 +1,5 @@
 import { Component } from 'react'
+import reactSelectStyles from 'react-select/dist/react-select.min.css'
 
 import * as colors from '../../constants/colors'
 import { imageUrl } from '../../utils/image_url'
@@ -39,6 +40,7 @@ export default class HomeSearch extends Component {
         </div>
       </div>
 
+      <style global jsx>{reactSelectStyles}</style>
       <style jsx>{`
         div.container {
           background-image: url(${imageUrl('g41uu9olkmikizvyioqn.jpg')});
