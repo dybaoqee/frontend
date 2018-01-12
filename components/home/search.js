@@ -1,4 +1,5 @@
 import { Component } from 'react'
+import Router from 'next/router'
 import Select from 'react-select'
 import reactSelectStyles from 'react-select/dist/react-select.min.css'
 
@@ -8,42 +9,58 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faSearch from '@fortawesome/fontawesome-free-solid/faSearch'
 
 export default class HomeSearch extends Component {
-  state = {
-    selectedOption: '',
-  }
+  state = {}
 
   handleRoomChange = (selectedOption) => {
-    console.log('selectedOption', selectedOption);
-    this.setState({ selectedOption });
-    console.log(`Selected: ${selectedOption.label}`);
+    this.setState({ quartos: selectedOption.value })
   }
 
   handleMinPriceChange = (selectedOption) => {
-    console.log('selectedOption', selectedOption);
-    this.setState({ selectedOption });
-    console.log(`Selected: ${selectedOption.label}`);
+    this.setState({ preco_minimo: selectedOption.value })
   }
 
   handleMaxPriceChange = (selectedOption) => {
-    console.log('selectedOption', selectedOption);
-    this.setState({ selectedOption });
-    console.log(`Selected: ${selectedOption.label}`);
+    this.setState({ preco_maximo: selectedOption.value })
   }
+
   handleNeighborhoodChange = (selectedOption) => {
-    console.log('selectedOption', selectedOption);
-    this.setState({ selectedOption });
-    console.log(`Selected: ${selectedOption.label}`);
+    this.setState({ bairros: selectedOption.value })
+  }
+
+  joinParam = (param) => {
+    if (param !== null && typeof param === 'object') {
+      return Object.keys(param).map(function(key) {
+        return key
+      }).join('|')
+    } else {
+      return param
+    }
+  }
+
+  treatParams = () => {
+    const { state, joinParam } = this
+
+    return Object.keys(state).map(function(key) {
+      if (key === 'areFiltersVisible') return null
+      if (state[key] === undefined) return null
+
+      const flattenedValue = joinParam(state[key])
+      return (flattenedValue === '') ? null : `${key}=${flattenedValue}`
+    }).filter(n => n).join('&')
   }
 
   handleClick = () => {
-    console.log('Clicou');
+    const params = this.treatParams()
+
+    if (params) {
+      Router.push(`/listings/index?${params}`, `/imoveis?${params}`)
+    }
   }
 
   render() {
     const { neighborhoods } = this.props
+    const { quartos, preco_minimo, preco_maximo, bairros } = this.state
 
-    const { selectedOption } = this.state
-  	const value = selectedOption && selectedOption.value
     const roomNumberOptions = [
       { value: '1', label: '1 quarto' },
       { value: '2', label: '2 quartos' },
@@ -80,7 +97,7 @@ export default class HomeSearch extends Component {
             <Select
               name="form-field-name"
               placeholder="Bairro"
-              value={value}
+              value={bairros}
               onChange={this.handleNeighborhoodChange}
               options={neighborhoodOptions} />
           </div>
@@ -93,7 +110,7 @@ export default class HomeSearch extends Component {
             <Select
               name="form-field-name"
               placeholder="Quartos"
-              value={value}
+              value={quartos}
               onChange={this.handleRoomChange}
               options={roomNumberOptions} />
           </div>
@@ -101,7 +118,7 @@ export default class HomeSearch extends Component {
             <Select
               name="form-field-name"
               placeholder="Preço Mínimo"
-              value={value}
+              value={preco_minimo}
               onChange={this.handleMinPriceChange}
               options={minPriceOptions} />
           </div>
@@ -109,7 +126,7 @@ export default class HomeSearch extends Component {
             <Select
               name="form-field-name"
               placeholder="Preço Máximo"
-              value={value}
+              value={preco_maximo}
               onChange={this.handleMaxPriceChange}
               options={maxPriceOptions} />
           </div>
@@ -121,8 +138,9 @@ export default class HomeSearch extends Component {
       </style>
       <style global jsx>{`
         .search .Select-control {
+          background: transparent;
           border: none;
-          height: 42px;
+          height: 45px;
 
           .Select-placeholder {
             align-items: center;
