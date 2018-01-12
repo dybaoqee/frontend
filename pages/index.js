@@ -48,7 +48,7 @@ export default class MyPage extends Component {
   }
 
   render () {
-    const { authenticated, listings } = this.props
+    const { authenticated, listings, neighborhoods } = this.props
 
     return (
       <Layout authenticated={authenticated}>
@@ -63,7 +63,7 @@ export default class MyPage extends Component {
           <meta name="twitter:image" content="https://s3-sa-east-1.amazonaws.com/emcasa/listings/original/belisario-tavora.jpg"/>
         </Head>
 
-        <HomeSearch />
+        <HomeSearch neighborhoods={neighborhoods} />
         <HomeListings listings={listings} />
         <Link href={'/listings/index'} as={'/imoveis'}>
           <a>Ver Detalhes →</a>

@@ -12,7 +12,24 @@ export default class HomeSearch extends Component {
     selectedOption: '',
   }
 
-  handleChange = (selectedOption) => {
+  handleRoomChange = (selectedOption) => {
+    console.log('selectedOption', selectedOption);
+    this.setState({ selectedOption });
+    console.log(`Selected: ${selectedOption.label}`);
+  }
+
+  handleMinPriceChange = (selectedOption) => {
+    console.log('selectedOption', selectedOption);
+    this.setState({ selectedOption });
+    console.log(`Selected: ${selectedOption.label}`);
+  }
+
+  handleMaxPriceChange = (selectedOption) => {
+    console.log('selectedOption', selectedOption);
+    this.setState({ selectedOption });
+    console.log(`Selected: ${selectedOption.label}`);
+  }
+  handleNeighborhoodChange = (selectedOption) => {
     console.log('selectedOption', selectedOption);
     this.setState({ selectedOption });
     console.log(`Selected: ${selectedOption.label}`);
@@ -23,6 +40,8 @@ export default class HomeSearch extends Component {
   }
 
   render() {
+    const { neighborhoods } = this.props
+
     const { selectedOption } = this.state
   	const value = selectedOption && selectedOption.value
     const roomNumberOptions = [
@@ -38,6 +57,16 @@ export default class HomeSearch extends Component {
       { value: 3000000, label: 'R$3.000.000' },
       { value: 5000000, label: 'R$5.000.000' }
     ]
+    const maxPriceOptions = [
+      { value: 1000000, label: 'R$1.000.000' },
+      { value: 2000000, label: 'R$2.000.000' },
+      { value: 3000000, label: 'R$3.000.000' },
+      { value: 5000000, label: 'R$5.000.000' },
+      { value: 10000000, label: 'R$10.000.000' }
+    ]
+    const neighborhoodOptions = neighborhoods.map(function(neighborhood) {
+      return { value: neighborhood, label: neighborhood }
+    })
 
     return <div className="container">
       <h1>Encontre o Imóvel Perfeito para Você</h1>
@@ -48,7 +77,12 @@ export default class HomeSearch extends Component {
             Rio de Janeiro
           </div>
           <div className="neighborhoods">
-            Bairros
+            <Select
+              name="form-field-name"
+              placeholder="Bairro"
+              value={value}
+              onChange={this.handleNeighborhoodChange}
+              options={neighborhoodOptions} />
           </div>
           <div className="magnifier-container" onClick={this.handleClick}>
             <FontAwesomeIcon icon={faSearch} />
@@ -60,15 +94,24 @@ export default class HomeSearch extends Component {
               name="form-field-name"
               placeholder="Quartos"
               value={value}
-              onChange={this.handleChange}
-              options={roomNumberOptions}
-            />
+              onChange={this.handleRoomChange}
+              options={roomNumberOptions} />
           </div>
           <div className="min-price">
-            Preço Mínimo
+            <Select
+              name="form-field-name"
+              placeholder="Preço Mínimo"
+              value={value}
+              onChange={this.handleMinPriceChange}
+              options={minPriceOptions} />
           </div>
           <div className="max-price">
-            Preço Máximo
+            <Select
+              name="form-field-name"
+              placeholder="Preço Máximo"
+              value={value}
+              onChange={this.handleMaxPriceChange}
+              options={maxPriceOptions} />
           </div>
         </div>
       </div>
