@@ -1,3 +1,6 @@
 export const blue = '#227ea2'
+export const darkenedBlue = '#1d6c8b'
+export const lightestGray = '#dcdcdc'
 export const lightGray = '#bbb'
+export const mediumGray = '#bababa'
 export const offWhite = '#eee'

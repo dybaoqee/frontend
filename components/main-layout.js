@@ -20,6 +20,7 @@ export default class Layout extends React.Component {
     return (
       <div>
         <Head>
+          <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800" rel="stylesheet" />
           <script async src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsTrackingId}`} />
 
           <script dangerouslySetInnerHTML={{ __html: `
@@ -69,7 +70,7 @@ export default class Layout extends React.Component {
           body {
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
             font-size: 1rem;
             line-height: 1.5;
           }
@@ -80,7 +81,7 @@ export default class Layout extends React.Component {
 
           button,
           .btn {
-            background-color: #2c6e8e;
+            background-color: ${colors.blue};
             border: none;
             border-radius: 4px;
             color: white;
@@ -101,7 +102,7 @@ export default class Layout extends React.Component {
 
           button:hover,
           .btn:hover {
-            background-color: #265f7b;
+            background-color: ${colors.darkenedBlue};
             text-decoration: none;
           }
 
