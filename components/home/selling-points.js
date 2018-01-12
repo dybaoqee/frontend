@@ -30,17 +30,24 @@ export default class HomeSellingPoints extends Component {
       </div>
       <style jsx>{`
         h1 {
+          font-weight: 300;
           text-align: center;
         }
+
         div.container {
           display: flex;
           justify-content: space-between;
-          margin: 0 auto;
+          margin: 0 auto 60px;
           width: 960px;
           div {
             width: calc(33.3333% - 40px);
             h2 {
               color: ${colors.blue};
+              font-weight: 300;
+            }
+            p {
+              color: ${colors.mediumDarkGray};
+              line-height: 1.8em;
             }
           }
         }
