@@ -3,6 +3,7 @@ import Link from 'next/link'
 import NumberFormat from 'react-number-format'
 
 import * as colors from '../../constants/colors'
+import { mobileMedia } from '../../constants/media'
 import { mainListingThumbnail } from '../../utils/image_url'
 
 export default class HomeListings extends Component {
@@ -85,6 +86,11 @@ export default class HomeListings extends Component {
           width: 100%;
         }
 
+        @media ${mobileMedia} {
+          div.container {
+            display: none;
+          }
+        }
       `}</style>
     </div>
   }

@@ -2,6 +2,7 @@ import { Component } from 'react'
 import Link from 'next/link'
 
 import * as colors from '../../constants/colors'
+import { mobileMedia } from '../../constants/media'
 
 export default class HomeBuySell extends Component {
   render() {
@@ -31,6 +32,7 @@ export default class HomeBuySell extends Component {
               font-size: 24px;
               font-weight: 300;
               margin-bottom: 30px;
+              text-align: center;
             }
             a {
               border: 1px solid ${colors.blue};
@@ -41,6 +43,16 @@ export default class HomeBuySell extends Component {
             }
           }
         }
+
+        @media ${mobileMedia} {
+          div.container {
+            width: 100vw;
+            h3 {
+              max-width: calc(100% - 140px);
+            }
+          }
+        }
+
       `}</style>
     </div>
   }
