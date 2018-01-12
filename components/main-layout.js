@@ -64,6 +64,7 @@ export default class Layout extends React.Component {
 
         <style jsx global>{`
           html {
+            color: ${colors.text};
             font-size: 100%;
           }
 
