@@ -1,6 +1,7 @@
 import { Component } from 'react'
 
 import * as colors from '../../constants/colors'
+import { mobileMedia } from '../../constants/media'
 
 export default class HomeBuySell extends Component {
   render() {
@@ -32,6 +33,13 @@ export default class HomeBuySell extends Component {
           max-width: 500px;
           text-align: center;
         }
+
+        @media ${mobileMedia} {
+          div {
+            display: none;
+          }
+        }
+
       `}</style>
     </div>
   }

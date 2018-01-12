@@ -1,12 +1,13 @@
 import { Component } from 'react'
 
 import * as colors from '../../constants/colors'
+import { mobileMedia } from '../../constants/media'
 
 export default class HomeSellingPoints extends Component {
   render() {
-    return <div>
+    return <div className="container">
       <h1>Imobiliária do jeito que deve ser</h1>
-      <div className="container">
+      <div>
         <div>
           <h2>Melhores condições de mercado</h2>
           <p>
@@ -34,7 +35,7 @@ export default class HomeSellingPoints extends Component {
           text-align: center;
         }
 
-        div.container {
+        div.container > div {
           display: flex;
           justify-content: space-between;
           margin: 0 auto 60px;
@@ -48,6 +49,23 @@ export default class HomeSellingPoints extends Component {
             p {
               color: ${colors.mediumDarkGray};
               line-height: 1.8em;
+            }
+          }
+        }
+
+        @media ${mobileMedia} {
+          div.container {
+            display: flex;
+            flex-direction: column;
+            width: 100vw;
+          }
+          div.container div {
+            align-items: center;
+            flex-direction: column;
+            width: 100vw;
+            div {
+              margin-bottom: 40px;
+              width: calc(100% - 40px);
             }
           }
         }
