@@ -13,16 +13,7 @@ export default class HomeBuySell extends Component {
         </Link>
       </div>
 
-      <div>
-        <h3>Quero vender meu imóvel!</h3>
-        <Link href={'/listings/index'} as={'/imoveis'}>
-          <a>Vender Imóvel</a>
-        </Link>
-      </div>
       <style jsx>{`
-        h1 {
-          text-align: center;
-        }
         div.container {
           border-bottom: 1px solid ${colors.lightGray};
           border-top: 1px solid ${colors.lightGray};
@@ -35,11 +26,10 @@ export default class HomeBuySell extends Component {
             display: flex;
             flex-direction: column;
             justify-content: center;
-            width: calc(50% - 1px);
-            &:first-of-type {
-              border-right: 1px solid ${colors.lightGray};
-            }
+            width: 100%;
             h3 {
+              font-size: 24px;
+              font-weight: 300;
               margin-bottom: 30px;
             }
             a {
