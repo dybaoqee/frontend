@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import ReactGA from 'react-ga'
 import Router from 'next/router'
+import reactSelectStyles from 'react-select/dist/react-select.min.css'
 
 import Header from './header'
 import { mobileMedia } from '../constants/media'
@@ -62,6 +63,9 @@ export default class Layout extends React.Component {
           {this.props.children}
         </main>
 
+        <style global jsx>
+          {reactSelectStyles}
+        </style>
         <style jsx global>{`
           html {
             color: ${colors.text};
