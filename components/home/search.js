@@ -140,9 +140,6 @@ export default class HomeSearch extends Component {
         </div>
       </div>
 
-      <style global jsx>
-        {reactSelectStyles}
-      </style>
       <style global jsx>{`
         .search .Select-control {
           background: transparent;
