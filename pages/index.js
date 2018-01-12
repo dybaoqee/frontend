@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import 'isomorphic-unfetch'
 
+import * as colors from '../constants/colors'
 import { getListings } from '../services/listing-api'
 import { getNeighborhoods } from '../services/neighborhood-api'
 import { isAuthenticated } from '../lib/auth'
@@ -66,7 +67,7 @@ export default class MyPage extends Component {
         <HomeSearch neighborhoods={neighborhoods} />
         <HomeListings listings={listings} />
         <Link href={'/listings/index'} as={'/imoveis'}>
-          <a>Ver Detalhes →</a>
+          <a>Ver mais imóveis →</a>
         </Link>
         <iframe width='100%' height='480' src="https://my.matterport.com/show/?m=SNpWfLUSZeC" frameBorder='0' allowFullScreen></iframe>
         <HomeSellingPoints />
@@ -74,12 +75,14 @@ export default class MyPage extends Component {
 
         <style jsx>{`
           a {
-            color: blue;
+            color: ${colors.blue};
             float: left;
+            font-size: 20px;
             left: 50%;
-            margin: 0 auto 20px;
+            margin: 0 auto 60px;
             position: relative;
             text-align: center;
+            text-decoration: none;
             transform: translateX(-50%);
           }
         `}</style>
