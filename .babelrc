@@ -8,6 +8,12 @@
       "plugins": [
         ["transform-define", "./env-config.js"],
         ["transform-decorators-legacy"],
+        [
+          "inline-import",
+          {
+            "extensions": [".css"]
+          }
+        ]
       ]
     },
 
@@ -19,7 +25,13 @@
       "plugins": [
         ["transform-define", "./env-config.js"],
         ["transform-decorators-legacy"],
-        ["styled-jsx/babel", { "plugins": ["styled-jsx-plugin-postcss"] }]
+        ["styled-jsx/babel", { "plugins": ["styled-jsx-plugin-postcss"] }],
+        [
+          "inline-import",
+          {
+            "extensions": [".css"]
+          }
+        ]
       ]
     },
 
@@ -31,7 +43,13 @@
       "plugins": [
         ["transform-define", "./env-config.js"],
         ["transform-decorators-legacy"],
-        ["styled-jsx/babel", { "plugins": ["styled-jsx-plugin-postcss"] }]
+        ["styled-jsx/babel", { "plugins": ["styled-jsx-plugin-postcss"] }],
+        [
+          "inline-import",
+          {
+            "extensions": [".css"]
+          }
+        ]
       ]
     }
   },
