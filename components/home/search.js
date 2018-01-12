@@ -11,20 +11,27 @@ import faSearch from '@fortawesome/fontawesome-free-solid/faSearch'
 export default class HomeSearch extends Component {
   state = {}
 
+  updateSelectedOption = (selectedOption, stateKey) => {
+    const value = (selectedOption && selectedOption.value) ? selectedOption.value : null
+    const state = this.state
+    state[stateKey] = value
+    this.setState(state)
+  }
+
   handleRoomChange = (selectedOption) => {
-    this.setState({ quartos: selectedOption.value })
+    this.updateSelectedOption(selectedOption, 'quartos')
   }
 
   handleMinPriceChange = (selectedOption) => {
-    this.setState({ preco_minimo: selectedOption.value })
+    this.updateSelectedOption(selectedOption, 'preco_minimo')
   }
 
   handleMaxPriceChange = (selectedOption) => {
-    this.setState({ preco_maximo: selectedOption.value })
+    this.updateSelectedOption(selectedOption, 'preco_maximo')
   }
 
   handleNeighborhoodChange = (selectedOption) => {
-    this.setState({ bairros: selectedOption.value })
+    this.updateSelectedOption(selectedOption, 'bairros')
   }
 
   joinParam = (param) => {
@@ -225,7 +232,7 @@ export default class HomeSearch extends Component {
           display: flex;
           height: 44px;
           justify-content: center;
-          width: 40px;
+          width: 60px;
           &:hover {
             background: ${colors.darkenedBlue}
           }
