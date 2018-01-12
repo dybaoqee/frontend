@@ -13,6 +13,7 @@ export default class HomeSearch extends Component {
   }
 
   handleChange = (selectedOption) => {
+    console.log('selectedOption', selectedOption);
     this.setState({ selectedOption });
     console.log(`Selected: ${selectedOption.label}`);
   }
@@ -24,6 +25,19 @@ export default class HomeSearch extends Component {
   render() {
     const { selectedOption } = this.state
   	const value = selectedOption && selectedOption.value
+    const roomNumberOptions = [
+      { value: '1', label: '1 quarto' },
+      { value: '2', label: '2 quartos' },
+      { value: '3', label: '3 quartos' },
+      { value: '4', label: '4 quartos' }
+    ]
+    const minPriceOptions = [
+      { value: 750000, label: 'R$750.000' },
+      { value: 1000000, label: 'R$1.000.000' },
+      { value: 2000000, label: 'R$2.000.000' },
+      { value: 3000000, label: 'R$3.000.000' },
+      { value: 5000000, label: 'R$5.000.000' }
+    ]
 
     return <div className="container">
       <h1>Encontre o Imóvel Perfeito para Você</h1>
@@ -44,12 +58,10 @@ export default class HomeSearch extends Component {
           <div className="rooms">
             <Select
               name="form-field-name"
+              placeholder="Quartos"
               value={value}
               onChange={this.handleChange}
-              options={[
-                { value: 'one', label: 'One' },
-                { value: 'two', label: 'Two' },
-              ]}
+              options={roomNumberOptions}
             />
           </div>
           <div className="min-price">
@@ -94,7 +106,8 @@ export default class HomeSearch extends Component {
             }
             > div {
               border-right: 1px solid ${colors.lightestGray};
-              padding: 10px;
+              height: 44px;
+              padding: 0;
               &:last-child {
                 border-right: none;
               }
@@ -106,11 +119,11 @@ export default class HomeSearch extends Component {
           background: ${colors.offWhite};
           border-top-left-radius: 10px;
           color: ${colors.mediumGray};
-          width: calc(50% - 30px);
+          width: calc(50% - 20px);
         }
 
         div.neighborhoods {
-          width: calc(50% - 30px);
+          width: calc(50% - 20px);
         }
 
         div.rooms {
@@ -129,7 +142,7 @@ export default class HomeSearch extends Component {
           border-top-right-radius: 9px;
           cursor: pointer;
           display: flex;
-          height: 24px;
+          height: 44px;
           justify-content: center;
           width: 40px;
           &:hover {
