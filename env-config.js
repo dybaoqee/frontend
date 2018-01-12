@@ -10,7 +10,7 @@ if (!prod) {
   api_url = 'https://em-casa-backend-staging.herokuapp.com'
   favicon = 'favicon-staging.png'
 } else {
-  api_url = 'https://em-casa.herokuapp.com'
+  api_url = 'https://em-casa-backend.herokuapp.com'
   favicon ='favicon.png'
 }
 
