@@ -10,6 +10,7 @@ import { isAuthenticated } from '../lib/auth'
 import Layout from '../components/main-layout'
 import HomeSearch from '../components/home/search'
 import HomeListings from '../components/home/listings'
+import HomeTour from '../components/home/tour'
 import HomeSellingPoints from '../components/home/selling-points'
 import HomeBuySell from '../components/home/buy-sell'
 
@@ -69,7 +70,7 @@ export default class MyPage extends Component {
         <Link href={'/listings/index'} as={'/imoveis'}>
           <a>Ver mais imóveis →</a>
         </Link>
-        <iframe width='100%' height='480' src="https://my.matterport.com/show/?m=SNpWfLUSZeC" frameBorder='0' allowFullScreen></iframe>
+        <HomeTour />
         <HomeSellingPoints />
         <HomeBuySell />
 
