@@ -62,6 +62,10 @@ export default class HomeSearch extends Component {
 
     if (params) {
       Router.push(`/listings/index?${params}`, `/imoveis?${params}`)
+        .then(() => window.scrollTo(0, 0))
+    } else {
+      Router.push('/listings/index', '/imoveis')
+        .then(() => window.scrollTo(0, 0))
     }
   }
 
@@ -171,7 +175,7 @@ export default class HomeSearch extends Component {
             font-weight: 300;
             margin-top: 80px;
             text-align: center;
-            text-shadow: 0px 1px rgba(0, 0, 0, 0.8), 0px -1px rgba(0, 0, 0, 0.4)
+            text-shadow: 0px 1px rgba(0, 0, 0, 0.4), 0px -1px rgba(0, 0, 0, 0.2)
           }
         }
 
@@ -265,9 +269,16 @@ export default class HomeSearch extends Component {
 
         @media ${mobileMedia} {
           div.container {
+            align-items: center;
+            display: flex;
+            flex-direction: column;
             height: auto;
             padding-bottom: 40px;
             width: 100vw;
+            h1 {
+              font-weight: 400;
+              max-width: calc(100vw - 60px);
+            }
           }
 
           div.search {
@@ -291,7 +302,7 @@ export default class HomeSearch extends Component {
           div.search > div > div.city {
             background: ${colors.offWhite};
             border-radius: 8px;
-            width: calc(100% - 30px);
+            width: calc(100% - 10px);
           }
 
           div.neighborhoods,
@@ -300,7 +311,7 @@ export default class HomeSearch extends Component {
           div.max-price,
           div.mobile-magnifier-container {
             border-radius: 8px;
-            width: calc(100% - 20px);
+            width: 100%;
           }
 
           div.magnifier-container {
