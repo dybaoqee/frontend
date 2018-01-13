@@ -88,7 +88,14 @@ export default class HomeListings extends Component {
 
         @media ${mobileMedia} {
           div.container {
-            display: none;
+            align-items: center;
+            flex-direction: column;
+            width: calc(100vw - 40px);
+
+            > div {
+              margin-bottom: 30px;
+              width: 100%;
+            }
           }
         }
       `}</style>

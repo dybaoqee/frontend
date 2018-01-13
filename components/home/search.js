@@ -256,7 +256,27 @@ export default class HomeSearch extends Component {
 
         @media ${mobileMedia} {
           div.container {
-            display: none;
+            width: 100vw;
+          }
+
+          div.search {
+            background: transparent;
+            border: none;
+            width: calc(100vw - 40px);
+            > div {
+              border-right: none;
+              flex-direction: column;
+              height: auto;
+              > div {
+                background: white;
+                margin-bottom: 20px;
+              }
+            }
+          }
+
+          div.city,
+          div.neighborhoods {
+            width: calc(100% - 20px);
           }
         }
       `}</style>
