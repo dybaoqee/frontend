@@ -36,7 +36,10 @@ export default class HomeBuySell extends Component {
 
         @media ${mobileMedia} {
           div {
-            display: none;
+            h1,
+            p {
+              max-width: calc(100vw - 40px)
+            }
           }
         }
 
