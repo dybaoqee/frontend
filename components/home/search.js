@@ -138,6 +138,9 @@ export default class HomeSearch extends Component {
               onChange={this.handleMaxPriceChange}
               options={maxPriceOptions} />
           </div>
+          <div className="mobile-magnifier-container" onClick={this.handleClick}>
+            Ver Imóveis →
+          </div>
         </div>
       </div>
 
@@ -215,9 +218,11 @@ export default class HomeSearch extends Component {
         div.rooms {
           width: 30%;
         }
+
         div.min-price {
           width: 40%;
         }
+
         div.max-price {
           width: 40%;
         }
@@ -243,6 +248,10 @@ export default class HomeSearch extends Component {
           }
         }
 
+        div.mobile-magnifier-container {
+          display: none;
+        }
+
         button {
           border-radius: 0;
           border-top-right-radius: 9px;
@@ -256,6 +265,8 @@ export default class HomeSearch extends Component {
 
         @media ${mobileMedia} {
           div.container {
+            height: auto;
+            padding-bottom: 40px;
             width: 100vw;
           }
 
@@ -264,19 +275,48 @@ export default class HomeSearch extends Component {
             border: none;
             width: calc(100vw - 40px);
             > div {
-              border-right: none;
               flex-direction: column;
               height: auto;
+              &:first-of-type {
+                border-bottom: none;
+              }
               > div {
+                border-right: none;
                 background: white;
                 margin-bottom: 20px;
               }
             }
           }
 
-          div.city,
-          div.neighborhoods {
+          div.search > div > div.city {
+            background: ${colors.offWhite};
+            border-radius: 8px;
+            width: calc(100% - 30px);
+          }
+
+          div.neighborhoods,
+          div.rooms,
+          div.min-price,
+          div.max-price,
+          div.mobile-magnifier-container {
+            border-radius: 8px;
             width: calc(100% - 20px);
+          }
+
+          div.magnifier-container {
+            display: none;
+          }
+
+          div.search > div > div.mobile-magnifier-container {
+            align-items: center;
+            background: ${colors.blue};
+            color: white;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            &:hover {
+              background: ${colors.darkenedBlue};
+            }
           }
         }
       `}</style>
