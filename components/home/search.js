@@ -195,7 +195,6 @@ export default class HomeSearch extends Component {
               border-bottom: 1px solid ${colors.lightestGray};
             }
             > div {
-              border-right: 1px solid ${colors.lightestGray};
               height: 44px;
               padding: 0;
               &:last-child {
@@ -220,10 +219,12 @@ export default class HomeSearch extends Component {
         }
 
         div.rooms {
+          border-right: 1px solid ${colors.lightestGray};
           width: 30%;
         }
 
         div.min-price {
+          border-right: 1px solid ${colors.lightestGray};
           width: 40%;
         }
 
