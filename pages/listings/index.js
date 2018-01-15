@@ -4,7 +4,7 @@ import Head from 'next/head'
 import 'isomorphic-unfetch'
 
 import { mainListingImage } from '../../utils/image_url'
-import { isAuthenticated } from '../../lib/auth'
+import { isAuthenticated, isAdmin, getCurrentUserId } from '../../lib/auth'
 import { getListings } from '../../services/listing-api'
 import { getNeighborhoods } from '../../services/neighborhood-api'
 import Layout from '../../components/main-layout'
@@ -48,7 +48,11 @@ export default class MyPage extends Component {
 
     return {
       listings: res.data.listings,
-      authenticated: isAuthenticated(context),
+      currentUser: {
+        id: getCurrentUserId(context),
+        admin: isAdmin(context),
+        authenticated: isAuthenticated(context)
+      },
       neighborhoods: neighborhoodResponse.data.neighborhoods,
       query: context.query
     }
@@ -74,12 +78,12 @@ export default class MyPage extends Component {
   }
 
   render () {
-    const { listings, neighborhoods, authenticated, query } = this.props
+    const { listings, neighborhoods, currentUser, query } = this.props
     const { lockGoogleMap } = this.state
     const seoImgSrc = listings.length > 0 && mainListingImage(listings[0].images)
 
     return (
-      <Layout authenticated={authenticated}>
+      <Layout authenticated={currentUser.authenticated}>
         <Head>
           <title>Apartamentos à venda no Rio de Janeiro | EmCasa</title>
           <meta name="description" content="Compre seu Imóvel na Zona Sul do Rio de Janeiro"/>
@@ -106,7 +110,7 @@ export default class MyPage extends Component {
             <Filter neighborhoods={neighborhoods} query={query} />
 
             {listings.map((listing, i) => {
-              return <Listing listing={listing} key={i} authenticated={authenticated} />
+              return <Listing listing={listing} key={i} currentUser={currentUser} />
             })}
 
             {listings.length == 0 && <div>Não há listagens para sua busca</div>}

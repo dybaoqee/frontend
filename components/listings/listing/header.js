@@ -4,9 +4,11 @@ import NumberFormat from 'react-number-format'
 
 import { mobileMedia } from '../../../constants/media'
 
+import { canEdit }  from '../../../permissions/listings-permissions'
+
 class ListingHeader extends Component {
   render() {
-    const { listing, authenticated } = this.props
+    const { listing, currentUser } = this.props
 
     return (
       <header>
@@ -23,7 +25,7 @@ class ListingHeader extends Component {
           </div>
         </div>
 
-        {authenticated && <Link href={`/listings/edit?id=${listing.id}`} as={`/imoveis/${listing.id}/editar`}>
+        {canEdit(currentUser, listing) && <Link href={`/listings/edit?id=${listing.id}`} as={`/imoveis/${listing.id}/editar`}>
           <a>Editar</a>
         </Link>}
 
