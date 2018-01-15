@@ -6,7 +6,7 @@ import 'isomorphic-unfetch'
 import { Form, Text } from 'react-form'
 
 import { mainListingImage } from '../../utils/image_url'
-import { isAuthenticated } from "../../lib/auth"
+import { isAuthenticated, isAdmin, getCurrentUserId } from '../../lib/auth'
 import { getListing } from '../../services/listing-api'
 
 import Layout from '../../components/main-layout'
@@ -44,7 +44,11 @@ class Listing extends Component {
 
     return {
       listing: res.data.listing,
-      authenticated: isAuthenticated(context)
+      currentUser: {
+        id: getCurrentUserId(context),
+        admin: isAdmin(context),
+        authenticated: isAuthenticated(context)
+      },
     }
   }
 
@@ -93,12 +97,12 @@ class Listing extends Component {
   }
 
   render() {
-    const { authenticated, listing } = this.props
+    const { currentUser, listing } = this.props
     const { showPopup, showPostSuccessPopup, name, email, phone } = this.state
     const seoImgSrc = mainListingImage(listing.images)
 
     return (
-      <Layout authenticated={authenticated}>
+      <Layout authenticated={currentUser.authenticated}>
         <Head>
           <title>
             À venda: Apartamento - {listing.address.street} - {listing.address.neighborhood}, {listing.address.city} | EmCasa
@@ -109,7 +113,7 @@ class Listing extends Component {
         </Head>
 
         <div className="listing">
-          <ListingHeader listing={listing} handleOpenPopup={this.openPopup} authenticated={authenticated}/>
+          <ListingHeader listing={listing} handleOpenPopup={this.openPopup} currentUser={currentUser}/>
           <ListingMainContent listing={listing}/>
 
           <MediaQuery query="(max-width: 600px)">

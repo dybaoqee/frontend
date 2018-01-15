@@ -5,9 +5,12 @@ import ListingTable from '../listing_table'
 
 import { mobileMedia } from '../../../constants/media'
 
+import { canEdit }  from '../../../permissions/listings-permissions'
+
 class TextContainer extends React.Component {
+
   render() {
-    const { listing, authenticated } = this.props
+    const { listing, currentUser } = this.props
 
     return (
       <div className="text-container">
@@ -18,7 +21,7 @@ class TextContainer extends React.Component {
         <ListingTable listing={listing}/>
 
         <div className="link-container">
-          {authenticated && <Link href={`/listings/edit?id=${listing.id}`} as={`/imoveis/${listing.id}/editar`}>
+          {canEdit(currentUser, listing) && <Link href={`/listings/edit?id=${listing.id}`} as={`/imoveis/${listing.id}/editar`}>
             <a className="btn gray cancel-listing-nav">Editar</a>
           </Link>}
 

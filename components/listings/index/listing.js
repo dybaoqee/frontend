@@ -21,12 +21,12 @@ class Listing extends React.Component {
   }
 
   render() {
-    const { listing, i, authenticated } = this.props
+    const { listing, i, currentUser } = this.props
 
     return (
       <div className="listing" key={i} onClick={this.handleListingClick}>
         <ImageContainer listing={listing} />
-        <TextContainer listing={listing} authenticated={authenticated} />
+        <TextContainer listing={listing} currentUser={currentUser} />
 
         {listing.matterport_code &&
           <span className="matterport">Tour Virtual</span>
