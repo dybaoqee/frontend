@@ -17,15 +17,12 @@ import MapContainer from "../../components/map-container"
 import Popup from "../../components/popup"
 
 class Listing extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      name: '',
-      email: '',
-      phone: '',
-      showPopup: false,
-      showPostSuccessPopup: false
-    }
+  state = {
+    name: '',
+    email: '',
+    phone: '',
+    showPopup: false,
+    showPostSuccessPopup: false
   }
 
   static async getInitialProps(context) {
