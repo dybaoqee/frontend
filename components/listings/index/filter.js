@@ -3,6 +3,7 @@ import Router from 'next/router'
 import NumberFormat from 'react-number-format'
 
 import * as colors from '../../../constants/colors'
+import { mobileMedia } from '../../../constants/media'
 
 export default class Filter extends Component {
   constructor(props) {
@@ -133,15 +134,24 @@ export default class Filter extends Component {
           </select>
         </div>
 
-        {!!areFiltersVisible && <span onClick={this.handleToggleFilterVisibility}>
-          Ver Menos Filtros<span>›</span>
-        </span>}
-
-        {!areFiltersVisible && <span onClick={this.handleToggleFilterVisibility}>
-          Ver Mais Filtros<span>‹</span>
-        </span>}
       </div>
 
+
+      {!!areFiltersVisible &&
+      <span
+        className="toggleFilterVisibility"
+        onClick={this.handleToggleFilterVisibility}
+      >
+        Ver Menos Filtros<span>›</span>
+      </span>}
+
+      {!areFiltersVisible &&
+      <span
+        className="toggleFilterVisibility"
+        onClick={this.handleToggleFilterVisibility}
+      >
+        Ver Mais Filtros<span>‹</span>
+      </span>}
 
       {!!areFiltersVisible && <div>
         <div>
@@ -214,24 +224,18 @@ export default class Filter extends Component {
       <style jsx>{`
         div.container {
           border-bottom: 1px solid ${colors.lightGray};
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
           overflow: auto;
           > div {
-            display: block;
+            flex: 0 0 100%;
             &.price-container {
               align-items: center;
               display: flex;
+              flex: 0 0 calc(100% - 170px);
               justify-content: space-between;
-              span {
-                  color: ${colors.blue};
-                  cursor: pointer;
-                  float: right;
-                  margin-right: 10px;
-                  > span {
-                    margin-left: 5px;
-                    transform: rotate(-90deg);
-                  }
-                }
-              }
+            }
             div {
               padding: 10px;
             }
@@ -252,6 +256,19 @@ export default class Filter extends Component {
           }
         }
 
+
+        span.toggleFilterVisibility {
+          color: ${colors.blue};
+          cursor: pointer;
+          padding-top: 13px;
+          margin-right: 20px;
+          text-align: right;
+          > span {
+            display: inline-block;
+            margin-left: 5px;
+            transform: rotate(-90deg);
+          }
+        }
 
         label {
           margin-right: 10px;
@@ -281,6 +298,26 @@ export default class Filter extends Component {
           font-size: 18px;
           margin: 10px 20px;
           padding: 7px 20px 10px;
+        }
+
+
+        @media ${mobileMedia} {
+          div.container {
+            flex-direction: column;
+          }
+
+          span.toggleFilterVisibility {
+            flex: 100%;
+            margin-bottom: 10px;
+            margin-right: 0;
+            order: 99;
+            text-align: center;
+          }
+
+          div.container .select-container {
+            display: grid;
+            grid-template-columns: 50% 50%;
+          }
         }
       `}</style>
     </div>
