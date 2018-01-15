@@ -21,6 +21,7 @@ class Listing extends Component {
     name: '',
     email: '',
     phone: '',
+    message: '',
     showPopup: false,
     showPostSuccessPopup: false
   }
@@ -71,22 +72,21 @@ class Listing extends Component {
     e.preventDefault()
 
     const { id } = this.props.listing
-    const { name, email, phone } = this.state
+    const { name, email, phone, message } = this.state
 
-    return fetch(process.env.REACT_APP_API_URL + '/listings_users', {
+    return fetch(process.env.REACT_APP_API_URL + '/interests', {
       method: 'post',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        user: {
+        interest: {
           name: name,
           email: email,
-          phone: phone
-        },
-        listing: {
-          id: id
+          phone: phone,
+          message: message,
+          listing_id: id
         }
       })
     }).then(response => response.json())
@@ -95,7 +95,7 @@ class Listing extends Component {
 
   render() {
     const { currentUser, listing } = this.props
-    const { showPopup, showPostSuccessPopup, name, email, phone } = this.state
+    const { showPopup, showPostSuccessPopup, name, email, phone, message } = this.state
     const seoImgSrc = mainListingImage(listing.images)
 
     return (
@@ -138,6 +138,7 @@ class Listing extends Component {
                 <input type="text" name="name" placeholder="Name" value={name} onChange={this.onChange} />
                 <input type="text" name="email" placeholder="Email" value={email} onChange={this.onChange} />
                 <input type="text" name="phone" placeholder="Telefone" value={phone} onChange={this.onChange} />
+                <input type="text" name="message" placeholder="Mensagem" value={message} onChange={this.onChange} />
                 <button type="submit">Enviar</button>
               </form>
 
