@@ -1,7 +1,6 @@
 import { Component } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
-import 'isomorphic-unfetch'
 
 import * as colors from '../constants/colors'
 import { getListings } from '../services/listing-api'

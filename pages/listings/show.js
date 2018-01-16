@@ -2,12 +2,12 @@ import { Component } from 'react'
 import MediaQuery from 'react-responsive'
 import Head from 'next/head'
 import Router from 'next/router'
-import 'isomorphic-unfetch'
 import { Form, Text } from 'react-form'
 
 import { mainListingImage } from '../../utils/image_url'
 import { isAuthenticated, isAdmin, getCurrentUserId } from '../../lib/auth'
 import { getListing } from '../../services/listing-api'
+import { createInterest } from '../../services/interest-api'
 
 import Layout from '../../components/main-layout'
 import ListingHeader from '../../components/listings/listing/header'
@@ -68,29 +68,23 @@ class Listing extends Component {
     this.setState(state)
   }
 
-  onSubmit = (e) => {
+  onSubmit = async (e) => {
     e.preventDefault()
 
     const { id } = this.props.listing
-    const { name, email, phone, message } = this.state
 
-    return fetch(process.env.REACT_APP_API_URL + '/interests', {
-      method: 'post',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        interest: {
-          name: name,
-          email: email,
-          phone: phone,
-          message: message,
-          listing_id: id
-        }
-      })
-    }).then(response => response.json())
-    .then(response => { this.setState({ showPopup: false, showPostSuccessPopup: true }) })
+    const res = await createInterest(id, this.state)
+
+    if (res.data.errors) {
+      this.setState({errors: res.data.errors})
+      return
+    }
+
+    if (!res.data) {
+      return res
+    }
+
+    this.setState({ showPopup: false, showPostSuccessPopup: true })
   }
 
   render() {
@@ -138,7 +132,7 @@ class Listing extends Component {
                 <input type="text" name="name" placeholder="Name" value={name} onChange={this.onChange} />
                 <input type="text" name="email" placeholder="Email" value={email} onChange={this.onChange} />
                 <input type="text" name="phone" placeholder="Telefone" value={phone} onChange={this.onChange} />
-                <input type="text" name="message" placeholder="Mensagem" value={message} onChange={this.onChange} />
+                <textarea name="message" placeholder="Mensagem" value={message} onChange={this.onChange} />
                 <button type="submit">Enviar</button>
               </form>
 
@@ -161,7 +155,8 @@ class Listing extends Component {
             width: 1180px;
           }
 
-          input[type=text] {
+          input[type=text],
+          textarea {
             border: 1px solid #ccc;
             border-radius: 4px;
             clear: both;

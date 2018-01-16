@@ -1,7 +1,6 @@
 import { Component } from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
-import 'isomorphic-unfetch'
 
 import { mainListingImage } from '../../utils/image_url'
 import { isAuthenticated, isAdmin, getCurrentUserId } from '../../lib/auth'
