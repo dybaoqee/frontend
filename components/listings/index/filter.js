@@ -318,6 +318,13 @@ export default class Filter extends Component {
             display: grid;
             grid-template-columns: 50% 50%;
           }
+
+          label {
+            font-size: 13px;
+            &:first-of-type {
+              width: 50px;
+            }
+          }
         }
       `}</style>
     </div>
