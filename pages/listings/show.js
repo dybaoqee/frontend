@@ -132,7 +132,7 @@ class Listing extends Component {
                 <input type="text" name="name" placeholder="Name" value={name} onChange={this.onChange} />
                 <input type="text" name="email" placeholder="Email" value={email} onChange={this.onChange} />
                 <input type="text" name="phone" placeholder="Telefone" value={phone} onChange={this.onChange} />
-                <textarea name="message" placeholder="Mensagem" value={message} onChange={this.onChange} />
+                <textarea name="message" placeholder="Mensagem (opcional)" value={message} onChange={this.onChange} />
                 <button type="submit">Enviar</button>
               </form>
 

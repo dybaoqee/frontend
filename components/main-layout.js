@@ -123,6 +123,11 @@ export default class Layout extends React.Component {
             opacity: 0.5;
           }
 
+          input,
+          textarea {
+            font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+          }
+
           @media ${mobileMedia} {
             h1 {
               font-size: 22px;
