@@ -6,24 +6,38 @@ import { getCookie, removeCookie } from '../../lib/session'
 import { signIn, redirectIfAuthenticated } from '../../lib/auth'
 
 export default class Login extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      error: null
-    }
+  state = {
+    error: null
   }
 
   static getInitialProps(ctx) {
     if (redirectIfAuthenticated(ctx)) {
       return {}
-    }
+    } else {
+      const success = getCookie("success", ctx.req)
 
-    const success = getCookie("success", ctx.req)
-    if (success) {
-      removeCookie("success")
+      if (success) {
+        removeCookie("success")
+      }
+      return {
+        success
+      }
     }
-    return {
-      success
+  }
+
+  handleSubmit = async (e) => {
+    e.preventDefault()
+
+    const email = e.target.elements.email.value
+    const password = e.target.elements.password.value
+
+    const error = await signIn(email, password)
+
+    if (error) {
+      this.setState({
+        error
+      })
+      return false
     }
   }
 
@@ -49,21 +63,5 @@ export default class Login extends Component {
         </div>
       </Layout>
     )
-  }
-
-  handleSubmit = async e => {
-    e.preventDefault()
-
-    const email = e.target.elements.email.value
-    const password = e.target.elements.password.value
-
-    const error = await signIn(email, password)
-
-    if (error) {
-      this.setState({
-        error
-      })
-      return false
-    }
   }
 }
