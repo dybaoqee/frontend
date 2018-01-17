@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Layout from '../../components/main-layout'
 import Error from '../../components/error'
 import { getCookie, removeCookie } from '../../lib/session'
-import { signIn, redirectIfAuthenticated } from '../../lib/auth'
+import { signIn, signUp, redirectIfAuthenticated } from '../../lib/auth'
 
 export default class Login extends Component {
   state = {
@@ -28,12 +28,15 @@ export default class Login extends Component {
   handleSubmit = async (e) => {
     e.preventDefault()
 
+    const name = e.target.elements.name.value
     const email = e.target.elements.email.value
+    const phone = e.target.elements.phone.value
     const password = e.target.elements.password.value
 
-    const error = await signIn(email, password)
+    const error = await signUp(name, email, password)
 
     if (error) {
+      console.log(error)
       this.setState({
         error
       })
@@ -49,17 +52,12 @@ export default class Login extends Component {
       <Layout>
         <div>
           <form onSubmit={this.handleSubmit}>
+            <input type="text" placeholder="name" name="name" />
             <input type="email" placeholder="email" name="email" />
+            <input type="phone" placeholder="phone" name="phone" />
             <input type="password" placeholder="password" name="password" />
             <button type="submit">Submit</button>
           </form>
-
-          <p>
-            {"Não tem cadastro? "}
-            <Link href="/auth/register">
-              <a>Register</a>
-            </Link>
-          </p>
         </div>
       </Layout>
     )

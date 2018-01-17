@@ -3,11 +3,10 @@ import { post, get } from '../lib/request'
 export const createUser = async (
   name,
   email,
-  password,
-  password_confirmation
+  password
 ) => {
   try {
-    const response = await post("/users", {
+    const response = await post("/users/register", {
       user: {
         name,
         email,
