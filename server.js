@@ -26,6 +26,10 @@ app.prepare()
     return app.render(req, res, '/login', req.query)
   })
 
+  server.get('/register', (req, res) => {
+    return app.render(req, res, '/register', req.query)
+  })
+
   server.get('/imoveis', (req, res) => {
     const actualPage = '/listings/index'
     app.render(req, res, actualPage, req.query)
