@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import ReactGA from 'react-ga'
 import Router from 'next/router'
-import reactSelectStyles from 'react-select/dist/react-select.min.css'
 
 import Header from './header'
 import { mobileMedia } from '../constants/media'
@@ -21,6 +20,7 @@ export default class Layout extends React.Component {
     return (
       <div>
         <Head>
+          <link rel="stylesheet" href="https://unpkg.com/react-select/dist/react-select.css" />
           <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800" rel="stylesheet" />
           <script async src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsTrackingId}`} />
 
@@ -63,10 +63,8 @@ export default class Layout extends React.Component {
           {this.props.children}
         </main>
 
-        <style global jsx>
-          {reactSelectStyles}
-        </style>
         <style jsx global>{`
+
           html {
             color: ${colors.text};
             font-size: 100%;
