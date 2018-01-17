@@ -42,7 +42,7 @@ export default class Login extends Component {
 
           <p>
             {"Don't have a user? "}
-            <Link prefetch href="/register">
+            <Link href="/register">
               <a>Register</a>
             </Link>
           </p>
