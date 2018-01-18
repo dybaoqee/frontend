@@ -3,6 +3,7 @@ import ReactGA from 'react-ga'
 import Router from 'next/router'
 
 import Header from './header'
+import Footer from './footer'
 import { mobileMedia } from '../constants/media'
 import * as colors from '../constants/colors'
 
@@ -15,7 +16,7 @@ Router.onRouteChangeComplete = () => {
 
 export default class Layout extends React.Component {
   render() {
-    const { authenticated } = this.props
+    const { authenticated, renderFooter } = this.props
 
     return (
       <div>
@@ -62,6 +63,8 @@ export default class Layout extends React.Component {
         <main>
           {this.props.children}
         </main>
+
+        {renderFooter && <Footer />}
 
         <style jsx global>{`
 
