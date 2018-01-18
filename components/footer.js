@@ -14,17 +14,21 @@ export default class Header extends Component {
       </Link>
 
       <div>
-        <a href="mailto:contato@emcasa.com">
-          contato@emcasa.com
-        </a>
+        <div>
+          <a href="mailto:contato@emcasa.com">
+            contato@emcasa.com
+          </a>
 
-        <a href="https://www.facebook.com/EmCasa" target="_blank" className="icon">
-          <FontAwesomeIcon icon={faFacebook} />
-        </a>
+          <div>
+            <a href="https://www.facebook.com/EmCasa" target="_blank" className="icon">
+              <FontAwesomeIcon icon={faFacebook} />
+            </a>
 
-        <a href="https://www.instagram.com/emcasaimoveis/" target="_blank" className="icon">
-          <FontAwesomeIcon icon={faInstagram} />
-        </a>
+            <a href="https://www.instagram.com/emcasaimoveis/" target="_blank" className="icon">
+              <FontAwesomeIcon icon={faInstagram} />
+            </a>
+          </div>
+        </div>
       </div>
 
       <style jsx>{`
@@ -46,8 +50,11 @@ export default class Header extends Component {
           width: 110px;
         }
 
-        div {
+        > div {
           align-items: center;
+        }
+
+        div {
           display: flex;
           a {
             position: relative;
@@ -57,6 +64,47 @@ export default class Header extends Component {
               color: ${colors.blue};
               font-size: 20px;
               top: 0;
+            }
+          }
+        }
+
+        @media ${mobileMedia} {
+          footer {
+            align-items: center;
+            padding: 10px 15px;
+
+            img {
+              width: 100px;
+            }
+
+            > div {
+              a {
+                margin-left: 0;
+                margin-right: 16px;
+              }
+
+              > div {
+                align-items: flex-end;
+                display: flex;
+                flex-direction: column;
+
+                a {
+                  order: 2
+                }
+
+                > a {
+                  font-size: 12px;
+                  margin-right: 0;
+                  margin-top: 5px;
+                }
+
+                div:first-of-type {
+                  order: 1;
+                  a:last-of-type {
+                    margin-right: 0;
+                  }
+                }
+              }
             }
           }
         }
