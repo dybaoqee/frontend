@@ -59,7 +59,6 @@ export default class Header extends Component {
           a {
             position: relative;
             margin-left: 30px;
-            top: -2px;
             &.icon {
               color: ${colors.blue};
               font-size: 20px;
