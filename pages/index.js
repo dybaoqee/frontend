@@ -52,7 +52,7 @@ export default class MyPage extends Component {
     const { authenticated, listings, neighborhoods } = this.props
 
     return (
-      <Layout authenticated={authenticated}>
+      <Layout authenticated={authenticated} renderFooter={true}>
         <Head>
           <title>Apartamentos à venda no Rio de Janeiro | EmCasa</title>
           <meta name="description" content="Compre seu Imóvel na Zona Sul do Rio de Janeiro"/>

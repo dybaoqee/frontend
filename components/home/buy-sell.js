@@ -16,12 +16,10 @@ export default class HomeBuySell extends Component {
 
       <style jsx>{`
         div.container {
-          border-bottom: 1px solid ${colors.lightGray};
           border-top: 1px solid ${colors.lightGray};
           display: flex;
           height: 300px;
           padding: 0;
-          margin-bottom: 40px;
           div {
             align-items: center;
             display: flex;

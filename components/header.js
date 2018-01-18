@@ -5,11 +5,8 @@ import { mobileMedia } from '../constants/media'
 import * as colors from '../constants/colors'
 
 export default class Header extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      isMobileNavVisible: false
-    }
+  state = {
+    isMobileNavVisible: false
   }
 
   toggleMobileNavVisibility = () => {
@@ -54,9 +51,9 @@ export default class Header extends Component {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
-            padding: 10px;
+            padding: 20px;
             position: fixed;
-            width: calc(100% - 20px);
+            width: calc(100% - 40px);
             z-index: 1;
           }
           img {

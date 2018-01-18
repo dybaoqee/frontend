@@ -2,12 +2,12 @@ import { Component } from 'react'
 import Router from 'next/router'
 import Select from 'react-select'
 import reactSelectStyles from 'react-select/dist/react-select.min.css'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import faSearch from '@fortawesome/fontawesome-free-solid/faSearch'
 
 import * as colors from '../../constants/colors'
 import { mobileMedia } from '../../constants/media'
 import { imageUrl } from '../../utils/image_url'
-import FontAwesomeIcon from '@fortawesome/react-fontawesome'
-import faSearch from '@fortawesome/fontawesome-free-solid/faSearch'
 
 export default class HomeSearch extends Component {
   state = {}
