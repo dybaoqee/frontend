@@ -170,6 +170,7 @@ export default class HomeSearch extends Component {
           background-position: center;
           background-size: cover;
           height: 400px;
+          padding-top: 20px;
 
           h1 {
             color: white;

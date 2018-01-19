@@ -30,6 +30,10 @@ export default class HomeSellingPoints extends Component {
         </div>
       </div>
       <style jsx>{`
+        div.container {
+          padding-top: 60px;
+        }
+
         h1 {
           font-weight: 300;
           text-align: center;

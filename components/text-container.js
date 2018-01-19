@@ -11,6 +11,7 @@ export default class TextContainer extends Component {
         <style jsx>{`
           div {
             margin: 0 auto 100px;
+            padding-top: 40px;
             width: 700px;
           }
 

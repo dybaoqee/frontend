@@ -53,6 +53,7 @@ export default class Header extends Component {
             justify-content: space-between;
             padding: 20px;
             position: fixed;
+            top: 0;
             width: calc(100% - 40px);
             z-index: 1;
           }

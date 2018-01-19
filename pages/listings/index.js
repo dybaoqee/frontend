@@ -71,7 +71,7 @@ export default class MyPage extends Component {
           <div>
             <MapContainer
               listings={listings}
-              height="calc(100vh - 56px)"
+              height="calc(100vh - 76px)"
               width="100%"
               zoom={13}/>
           </div>
@@ -112,7 +112,7 @@ export default class MyPage extends Component {
         <style jsx global>{`
           .listings > div:first-of-type > div {
             position: fixed !important;
-            top: 56px;
+            top: 76px;
             width: 50% !important;
           }
         `}</style>
