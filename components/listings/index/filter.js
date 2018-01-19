@@ -1,9 +1,11 @@
 import { Component } from 'react'
 import Router from 'next/router'
+import Select from 'react-select'
 import NumberFormat from 'react-number-format'
 
 import * as colors from '../../../constants/colors'
 import { mobileMedia } from '../../../constants/media'
+import * as filterOptions from '../../../constants/listing-filter-options'
 
 export default class Filter extends Component {
   constructor(props) {
@@ -28,19 +30,42 @@ export default class Filter extends Component {
     }
   }
 
-  handleNeighborhoodChange = (e) => {
-    const { bairros } = this.state
-
-    if (bairros[e.target.value] == true) {
-      delete bairros[e.target.value]
-    } else {
-      bairros[e.target.value] = true
-    }
-
-    this.setState({ bairros: bairros })
-
-    this.updateFilter()
+  updateSelectedOption = (selectedOption, stateKey) => {
+    const value = (selectedOption && selectedOption.value) ? selectedOption.value : null
+    const state = this.state
+    state[stateKey] = value
+    this.setState(state)
   }
+
+  handleRoomChange = (selectedOption) => {
+    this.updateSelectedOption(selectedOption, 'quartos')
+  }
+
+  handleMinPriceChange = (selectedOption) => {
+    this.updateSelectedOption(selectedOption, 'preco_minimo')
+  }
+
+  handleMaxPriceChange = (selectedOption) => {
+    this.updateSelectedOption(selectedOption, 'preco_maximo')
+  }
+
+  handleNeighborhoodChange = (selectedOption) => {
+    this.updateSelectedOption(selectedOption, 'bairros')
+  }
+
+  // handleNeighborhoodChange = (e) => {
+  //   const { bairros } = this.state
+
+  //   if (bairros[e.target.value] == true) {
+  //     delete bairros[e.target.value]
+  //   } else {
+  //     bairros[e.target.value] = true
+  //   }
+
+  //   this.setState({ bairros: bairros })
+
+  //   this.updateFilter()
+  // }
 
   joinParam = (param) => {
     if (param !== null && typeof param === 'object') {
@@ -92,50 +117,66 @@ export default class Filter extends Component {
 
     const { areFiltersVisible } = this.state
 
-    const minPriceOptions = [750000, 1000000, 2000000, 3000000, 5000000]
-    const maxPriceOptions = [1000000, 2000000, 3000000, 5000000, 10000000]
-    const minAreaOptions = [50, 80, 100, 150, 200, 300, 500, 1000]
-    const maxAreaOptions = [50, 80, 100, 150, 200, 300, 500, 1000, 2000]
-    const roomNumberOptions = [1, 2, 3, 4, 5]
-
     return <div className="container">
-      <div className="price-container">
-        <div>
-          <label>Preço</label>
-          <select name="preco_minimo" onChange={this.handleInputChange} defaultValue={preco_minimo}>
-            <option value="">sem mínimo</option>
+      <span className="filter-title">Filtros</span>
 
-            {minPriceOptions.map(function(option) {
-              return <NumberFormat
-                value={option}
-                key={option}
-                renderText={value => <option value={option}>{value}</option>}
-                displayType={'text'}
-                thousandSeparator={'.'}
-                prefix={'R$'}
-                decimalSeparator={','} />
-            })}
-          </select>
+      <div className="option-container price-container">
+        <label>De</label>
 
-          <label>a</label>
+        <Select
+          name="form-field-name"
+          style={{width: 160}}
+          placeholder="R$"
+          value={preco_minimo}
+          onChange={this.handleMinPriceChange}
+          options={filterOptions.minPriceOptions} />
 
-          <select name="preco_maximo" onChange={this.handleInputChange} defaultValue={preco_maximo}>
-            <option value="">sem máximo</option>
-            {maxPriceOptions.map(function(option) {
-              return <NumberFormat
-                value={option}
-                key={option}
-                renderText={value => <option value={option}>{value}</option>}
-                displayType={'text'}
-                thousandSeparator={'.'}
-                prefix={'R$'}
-                decimalSeparator={','} />
-            })}
-          </select>
-        </div>
+        <label>a</label>
 
+        <Select
+          name="form-field-name"
+          style={{width: 160}}
+          placeholder="R$"
+          value={preco_maximo}
+          onChange={this.handleMaxPriceChange}
+          options={filterOptions.maxPriceOptions} />
       </div>
 
+      <div className="option-container">
+        <label>De</label>
+
+        <Select
+          name="form-field-name"
+          style={{width: 100}}
+          placeholder="m²"
+          value={area_minima}
+          onChange={this.handleMinAreaChange}
+          options={filterOptions.minAreaOptions} />
+
+        <label>a</label>
+
+        <Select
+          name="form-field-name"
+          style={{width: 100}}
+          placeholder="m²"
+          value={area_minima}
+          onChange={this.handleMinAreaChange}
+          options={filterOptions.minAreaOptions} />
+      </div>
+
+      <div className="option-container">
+        <label>Quartos</label>
+        <Select
+          name="form-field-name"
+          placeholder="Quartos"
+          value={quartos}
+          onChange={this.handleRoomChange}
+          options={filterOptions.roomNumberOptions} />
+      </div>
+
+      <div className="option-container">
+        <label className="neighborhood">Bairros</label>
+      </div>
 
       {!!areFiltersVisible &&
       <span
@@ -153,97 +194,35 @@ export default class Filter extends Component {
         Ver Mais Filtros<span>‹</span>
       </span>}
 
-      {!!areFiltersVisible && <div>
-        <div>
-          <label>Área</label>
-          <select name="area_minima" onChange={this.handleInputChange} defaultValue={area_minima}>
-            <option value="">sem mínimo</option>
-            {minAreaOptions.map(function(option) {
-              return <NumberFormat
-                value={option}
-                key={option}
-                renderText={value => <option value={option}>{value}</option>}
-                displayType={'text'}
-                thousandSeparator={'.'}
-                suffix={'m²'}
-                decimalSeparator={','} />
-            })}
-          </select>
-
-          <label>a</label>
-
-          <select name="area_maxima" onChange={this.handleInputChange} defaultValue={area_maxima}>
-            <option value="">sem máximo</option>
-            {maxAreaOptions.map(function(option) {
-              return <NumberFormat
-                value={option}
-                key={option}
-                renderText={value => <option value={option}>{value}</option>}
-                displayType={'text'}
-                thousandSeparator={'.'}
-                suffix={'m²'}
-                decimalSeparator={','} />
-            })}
-          </select>
-        </div>
-
-        <div>
-          <label>Quartos</label>
-          <select name="quartos" onChange={this.handleInputChange} defaultValue={quartos}>
-            <option value=""></option>
-            {roomNumberOptions.map(function(option) {
-              return <NumberFormat
-                value={option}
-                key={option}
-                renderText={value => <option value={option}>{value}</option>}
-                displayType={'text'}/>
-            })}
-            })}
-          </select>
-        </div>
-
-        <div>
-          <label className="neighborhood">Bairros</label>
-
-          <div className="select-container">
-            {neighborhoods && neighborhoods.map((bairro, i) => {
-              const checked = bairros[bairro] === true
-
-              return <div key={i} className="neighborhood">
-                <input type="checkbox"
-                       value={bairro}
-                       checked={checked}
-                       onClick={this.handleNeighborhoodChange} />
-                <label>{bairro}</label>
-              </div>
-            })}
-          </div>
-        </div>
-      </div>}
+      <style global jsx>{`
+        .Select {
+          min-width: 180px;
+        }
+      `}</style>
 
       <style jsx>{`
         div.container {
+          align-items: center;
           background: white;
           border-bottom: 1px solid ${colors.lightGray};
           border-top: 1px solid ${colors.lightGray};
           display: flex;
-          flex-wrap: wrap;
-          justify-content: space-between;
-          overflow: auto;
+          justify-content: flex-start;
           position: fixed;
           width: 100vw;
           z-index: 4;
-          > div {
-            flex: 0 0 100%;
-            &.price-container {
-              align-items: center;
-              display: flex;
-              flex: 0 0 calc(100% - 170px);
-              justify-content: space-between;
-            }
-            div {
-              padding: 10px;
-            }
+        }
+
+        div.option-container {
+          align-items: center;
+          display: flex;
+          flex-wrap: nowrap;
+          margin-right: 40px;
+          label {
+            color: ${colors.lightGray};
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
           }
         }
 
@@ -261,6 +240,10 @@ export default class Filter extends Component {
           }
         }
 
+        span.filter-title {
+          padding-left: 20px;
+          padding-right: 30px;
+        }
 
         span.toggleFilterVisibility {
           color: ${colors.blue};
@@ -284,7 +267,6 @@ export default class Filter extends Component {
           }
           &:first-of-type {
             display: inline-block;
-            width: 70px;
           }
         }
 
