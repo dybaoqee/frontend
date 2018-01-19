@@ -28,10 +28,12 @@ class ImageContainer extends React.Component {
         .image-container {
           background-position: center;
           background-size: cover;
+          border-radius: 8px;
           float: left;
           height: 200px;
+          margin-left: 10px;
           position: relative;
-          width: 300px;
+          width: 290px;
         }
 
         .image-container div {

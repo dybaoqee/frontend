@@ -4,6 +4,7 @@ import Router from 'next/router'
 import ImageContainer from './image-container'
 import TextContainer from './text-container'
 
+import * as colors from '../../../constants/colors'
 import { mobileMedia } from '../../../constants/media'
 
 class Listing extends React.Component {
@@ -35,9 +36,11 @@ class Listing extends React.Component {
         <style jsx>{`
           .listing {
             background: white;
+            border-bottom: 1px solid ${colors.lightGray};
             cursor: pointer;
-            margin: 0 0 8px;
             overflow: hidden;
+            padding-bottom: 20px;
+            padding-top: 20px;
             position: relative;
             width: 100%;
           }

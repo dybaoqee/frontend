@@ -223,11 +223,16 @@ export default class Filter extends Component {
 
       <style jsx>{`
         div.container {
+          background: white;
           border-bottom: 1px solid ${colors.lightGray};
+          border-top: 1px solid ${colors.lightGray};
           display: flex;
           flex-wrap: wrap;
           justify-content: space-between;
           overflow: auto;
+          position: fixed;
+          width: 100vw;
+          z-index: 4;
           > div {
             flex: 0 0 100%;
             &.price-container {
@@ -300,6 +305,9 @@ export default class Filter extends Component {
           padding: 7px 20px 10px;
         }
 
+        span.toggleFilterVisibility {
+          display: none;
+        }
 
         @media ${mobileMedia} {
           div.container {
@@ -307,6 +315,7 @@ export default class Filter extends Component {
           }
 
           span.toggleFilterVisibility {
+            display: inline;
             flex: 100%;
             margin-bottom: 10px;
             margin-right: 0;

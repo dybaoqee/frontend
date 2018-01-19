@@ -34,7 +34,8 @@ class TextContainer extends React.Component {
         <style jsx>{`
           .text-container {
             float: left;
-            width: calc(100% - 300px);
+            margin-left: 20px;
+            width: calc(100% - 340px);
           }
 
           div.description {

@@ -68,17 +68,17 @@ export default class MyPage extends Component {
         </Head>
 
         <div className="listings">
-          <div>
+          <Filter neighborhoods={neighborhoods} query={query} />
+
+          <div className="map">
             <MapContainer
               listings={listings}
-              height="calc(100vh - 76px)"
+              height="100%"
               width="100%"
               zoom={13}/>
           </div>
 
           <div className="entries-container">
-            <Filter neighborhoods={neighborhoods} query={query} />
-
             {listings.map((listing, i) => {
               return <Listing listing={listing} key={i} currentUser={currentUser} />
             })}
@@ -91,11 +91,23 @@ export default class MyPage extends Component {
           .listings {
             > div {
               float: left;
-              width: 50%;
+              width: 60%;
               &.entries-container {
                 float: right;
+                margin-top: 45px;
               }
             }
+          }
+
+          .map {
+            background: white;
+            border-radius: 8px;
+            height: calc(100vh - 162px);
+            margin-left: 20px;
+            overflow: hidden;
+            position: fixed !important;
+            top: 142px;
+            width: calc(40% - 40px) !important;
           }
 
           @media ${mobileMedia} {
@@ -106,14 +118,6 @@ export default class MyPage extends Component {
             .listings > div.entries-container {
               width: 100%;
             }
-          }
-        `}</style>
-
-        <style jsx global>{`
-          .listings > div:first-of-type > div {
-            position: fixed !important;
-            top: 76px;
-            width: 50% !important;
           }
         `}</style>
       </Layout>
