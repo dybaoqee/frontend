@@ -81,8 +81,8 @@ export default class Layout extends React.Component {
             line-height: 1.5;
           }
 
-          main > div {
-            padding-top: 60px;
+          main {
+            margin-top: 76px;
           }
 
           button,

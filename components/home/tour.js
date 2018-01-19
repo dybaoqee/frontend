@@ -20,6 +20,7 @@ export default class HomeBuySell extends Component {
           clear: both;
           flex-direction: column;
           overflow: auto;
+          padding-top: 40px;
         }
         h1 {
           font-weight: 300;
