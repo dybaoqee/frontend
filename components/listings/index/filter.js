@@ -133,7 +133,7 @@ export default class Filter extends Component {
         <Select
           name="form-field-name"
           arrowRenderer={null}
-          style={{width: 160}}
+          style={{width: 130}}
           placeholder="R$"
           value={preco_minimo}
           onChange={this.handleMinPriceChange}
@@ -144,7 +144,7 @@ export default class Filter extends Component {
         <Select
           name="form-field-name"
           arrowRenderer={null}
-          style={{width: 160}}
+          style={{width: 130}}
           placeholder="R$"
           value={preco_maximo}
           onChange={this.handleMaxPriceChange}
@@ -157,7 +157,7 @@ export default class Filter extends Component {
         <Select
           name="form-field-name"
           arrowRenderer={null}
-          style={{width: 120}}
+          style={{width: 100}}
           placeholder="m²"
           value={area_minima}
           onChange={this.handleMinAreaChange}
@@ -168,10 +168,10 @@ export default class Filter extends Component {
         <Select
           name="form-field-name"
           arrowRenderer={null}
-          style={{width: 120}}
+          style={{width: 100}}
           placeholder="m²"
           value={area_maxima}
-          onChange={this.handleMinAreaChange}
+          onChange={this.handleMaxAreaChange}
           options={filterOptions.maxAreaOptions} />
       </div>
 
@@ -214,6 +214,10 @@ export default class Filter extends Component {
         .Select-placeholder {
           color: ${colors.mediumGray};
           text-align: center;
+        }
+
+        .Select.has-value.is-clearable.Select--single > .Select-control .Select-value {
+          padding-right: 20px;
         }
       `}</style>
 
