@@ -35,6 +35,8 @@ export default class Filter extends Component {
     const state = this.state
     state[stateKey] = value
     this.setState(state)
+
+    this.updateFilter()
   }
 
   handleRoomChange = (selectedOption) => {

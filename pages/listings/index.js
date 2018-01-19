@@ -94,7 +94,7 @@ export default class MyPage extends Component {
               width: 60%;
               &.entries-container {
                 float: right;
-                margin-top: 45px;
+                margin-top: 65px;
               }
             }
           }
