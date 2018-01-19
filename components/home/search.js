@@ -88,10 +88,12 @@ export default class HomeSearch extends Component {
           <div className="neighborhoods">
             <Select
               name="form-field-name"
+              arrowRenderer={null}
               placeholder="Bairro"
               value={bairros}
               onChange={this.handleNeighborhoodChange}
-              options={neighborhoodOptions} />
+              options={neighborhoodOptions}
+              searchable={false} />
           </div>
           <div className="magnifier-container" onClick={this.handleClick}>
             <FontAwesomeIcon icon={faSearch} />
@@ -101,26 +103,32 @@ export default class HomeSearch extends Component {
           <div className="rooms">
             <Select
               name="form-field-name"
+              arrowRenderer={null}
               placeholder="Quartos"
               value={quartos}
               onChange={this.handleRoomChange}
-              options={filterOptions.roomNumberOptions} />
+              options={filterOptions.roomNumberOptions}
+              searchable={false} />
           </div>
           <div className="min-price">
             <Select
               name="form-field-name"
+              arrowRenderer={null}
               placeholder="Preço Mínimo"
               value={preco_minimo}
               onChange={this.handleMinPriceChange}
-              options={filterOptions.minPriceOptions} />
+              options={filterOptions.minPriceOptions}
+              searchable={false} />
           </div>
           <div className="max-price">
             <Select
               name="form-field-name"
+              arrowRenderer={null}
               placeholder="Preço Máximo"
               value={preco_maximo}
               onChange={this.handleMaxPriceChange}
-              options={filterOptions.maxPriceOptions} />
+              options={filterOptions.maxPriceOptions}
+              searchable={false} />
           </div>
           <div className="mobile-magnifier-container" onClick={this.handleClick}>
             Ver Imóveis →

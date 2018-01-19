@@ -139,7 +139,8 @@ export default class Filter extends Component {
           placeholder="R$"
           value={preco_minimo}
           onChange={this.handleMinPriceChange}
-          options={filterOptions.minPriceOptions} />
+          options={filterOptions.minPriceOptions}
+          searchable={false} />
 
         <label>a</label>
 
@@ -150,7 +151,8 @@ export default class Filter extends Component {
           placeholder="R$"
           value={preco_maximo}
           onChange={this.handleMaxPriceChange}
-          options={filterOptions.maxPriceOptions} />
+          options={filterOptions.maxPriceOptions}
+          searchable={false} />
       </div>
 
       <div className="option-container">
@@ -163,7 +165,8 @@ export default class Filter extends Component {
           placeholder="m²"
           value={area_minima}
           onChange={this.handleMinAreaChange}
-          options={filterOptions.minAreaOptions} />
+          options={filterOptions.minAreaOptions}
+          searchable={false} />
 
         <label>a</label>
 
@@ -174,7 +177,8 @@ export default class Filter extends Component {
           placeholder="m²"
           value={area_maxima}
           onChange={this.handleMaxAreaChange}
-          options={filterOptions.maxAreaOptions} />
+          options={filterOptions.maxAreaOptions}
+          searchable={false} />
       </div>
 
       <div className="option-container">
@@ -185,7 +189,8 @@ export default class Filter extends Component {
           placeholder="Nº Quartos"
           value={quartos}
           onChange={this.handleRoomChange}
-          options={filterOptions.roomNumberOptions} />
+          options={filterOptions.roomNumberOptions}
+          searchable={false} />
       </div>
 
       <div className="option-container">
