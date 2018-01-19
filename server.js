@@ -30,6 +30,10 @@ app.prepare()
     return app.render(req, res, '/register', req.query)
   })
 
+  server.get('/confirmar_cadastro/:token', (req, res) => {
+    app.render(req, res, '/auth/confirm', req.query)
+  })
+
   server.get('/imoveis', (req, res) => {
     const actualPage = '/listings/index'
     app.render(req, res, actualPage, req.query)
