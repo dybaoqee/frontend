@@ -39,3 +39,8 @@ export const maxAreaOptions = [
   { value: 1000, label: '1000m²' }
 ]
 
+export function neighborhoodOptions(options) {
+  return options.map(function(option) {
+    return { value: option, label: option }
+  })
+}

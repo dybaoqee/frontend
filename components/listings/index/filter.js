@@ -14,11 +14,6 @@ export default class Filter extends Component {
     const { preco_minimo, preco_maximo, area_minima, area_maxima, quartos, bairros } = props.query
     const bairrosArray = bairros ? bairros.split('|') : []
 
-    const bairrosObject = bairrosArray.reduce(function(previous, bairro) {
-      previous[bairro] = true
-      return previous
-    }, {})
-
     this.state = {
       areFiltersVisible: false,
       preco_minimo: preco_minimo,
@@ -26,7 +21,7 @@ export default class Filter extends Component {
       area_minima: area_minima,
       area_maxima: area_maxima,
       quartos: quartos,
-      bairros: bairrosObject
+      bairros: bairrosArray
     }
   }
 
@@ -51,10 +46,6 @@ export default class Filter extends Component {
     this.updateSelectedOption(selectedOption, 'preco_maximo')
   }
 
-  handleNeighborhoodChange = (selectedOption) => {
-    this.updateSelectedOption(selectedOption, 'bairros')
-  }
-
   handleMinAreaChange = (selectedOption) => {
     this.updateSelectedOption(selectedOption, 'area_minima')
   }
@@ -62,25 +53,17 @@ export default class Filter extends Component {
   handleMaxAreaChange = (selectedOption) => {
     this.updateSelectedOption(selectedOption, 'area_maxima')
   }
-  // handleNeighborhoodChange = (e) => {
-  //   const { bairros } = this.state
 
-  //   if (bairros[e.target.value] == true) {
-  //     delete bairros[e.target.value]
-  //   } else {
-  //     bairros[e.target.value] = true
-  //   }
-
-  //   this.setState({ bairros: bairros })
-
-  //   this.updateFilter()
-  // }
+  handleNeighborhoodChange = (value) => {
+    console.log(value);
+    this.setState({ bairros: value })
+    console.log(this.state)
+    this.updateFilter()
+  }
 
   joinParam = (param) => {
-    if (param !== null && typeof param === 'object') {
-      return Object.keys(param).map(function(key) {
-        return key
-      }).join('|')
+    if (Array.isArray(param)) {
+      return param.join('|')
     } else {
       return param
     }
@@ -122,6 +105,7 @@ export default class Filter extends Component {
 
   render() {
     const { neighborhoods, query } = this.props
+    const neighborhoodOptions = filterOptions.neighborhoodOptions(neighborhoods)
     const { preco_minimo, preco_maximo, area_minima, area_maxima, quartos, bairros } = this.state
 
     const { areFiltersVisible } = this.state
@@ -194,7 +178,16 @@ export default class Filter extends Component {
       </div>
 
       <div className="option-container">
-        <label className="neighborhood">Bairros</label>
+        <Select
+          name="form-field-name"
+          arrowRenderer={null}
+          style={{width: 200}}
+          placeholder="Bairros"
+          multi={true}
+          value={bairros}
+          onChange={this.handleNeighborhoodChange}
+          options={neighborhoodOptions}
+          searchable={false} />
       </div>
 
       {!!areFiltersVisible &&

@@ -70,12 +70,9 @@ export default class HomeSearch extends Component {
   }
 
   render() {
-    const { neighborhoods } = this.props
     const { quartos, preco_minimo, preco_maximo, bairros } = this.state
-
-    const neighborhoodOptions = neighborhoods.map(function(neighborhood) {
-      return { value: neighborhood, label: neighborhood }
-    })
+    const { neighborhoods } = this.props
+    const neighborhoodOptions = filterOptions.neighborhoodOptions(neighborhoods)
 
     return <div className="container">
       <h1>Encontre o Imóvel Perfeito para Você</h1>
