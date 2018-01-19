@@ -53,6 +53,13 @@ export default class Filter extends Component {
     this.updateSelectedOption(selectedOption, 'bairros')
   }
 
+  handleMinAreaChange = (selectedOption) => {
+    this.updateSelectedOption(selectedOption, 'area_minima')
+  }
+
+  handleMaxAreaChange = (selectedOption) => {
+    this.updateSelectedOption(selectedOption, 'area_maxima')
+  }
   // handleNeighborhoodChange = (e) => {
   //   const { bairros } = this.state
 
@@ -125,6 +132,7 @@ export default class Filter extends Component {
 
         <Select
           name="form-field-name"
+          arrowRenderer={null}
           style={{width: 160}}
           placeholder="R$"
           value={preco_minimo}
@@ -135,6 +143,7 @@ export default class Filter extends Component {
 
         <Select
           name="form-field-name"
+          arrowRenderer={null}
           style={{width: 160}}
           placeholder="R$"
           value={preco_maximo}
@@ -147,7 +156,8 @@ export default class Filter extends Component {
 
         <Select
           name="form-field-name"
-          style={{width: 100}}
+          arrowRenderer={null}
+          style={{width: 120}}
           placeholder="m²"
           value={area_minima}
           onChange={this.handleMinAreaChange}
@@ -157,18 +167,20 @@ export default class Filter extends Component {
 
         <Select
           name="form-field-name"
-          style={{width: 100}}
+          arrowRenderer={null}
+          style={{width: 120}}
           placeholder="m²"
-          value={area_minima}
+          value={area_maxima}
           onChange={this.handleMinAreaChange}
-          options={filterOptions.minAreaOptions} />
+          options={filterOptions.maxAreaOptions} />
       </div>
 
       <div className="option-container">
-        <label>Quartos</label>
         <Select
           name="form-field-name"
-          placeholder="Quartos"
+          arrowRenderer={null}
+          style={{width: 130}}
+          placeholder="Nº Quartos"
           value={quartos}
           onChange={this.handleRoomChange}
           options={filterOptions.roomNumberOptions} />
@@ -195,19 +207,25 @@ export default class Filter extends Component {
       </span>}
 
       <style global jsx>{`
-        .Select {
-          min-width: 180px;
+        .Select-control {
+          border-color: ${colors.blue};
+        }
+
+        .Select-placeholder {
+          color: ${colors.mediumGray};
+          text-align: center;
         }
       `}</style>
 
       <style jsx>{`
+
         div.container {
           align-items: center;
           background: white;
           border-bottom: 1px solid ${colors.lightGray};
           border-top: 1px solid ${colors.lightGray};
           display: flex;
-          justify-content: flex-start;
+          padding: 10px 0;
           position: fixed;
           width: 100vw;
           z-index: 4;
@@ -216,13 +234,16 @@ export default class Filter extends Component {
         div.option-container {
           align-items: center;
           display: flex;
-          flex-wrap: nowrap;
           margin-right: 40px;
           label {
-            color: ${colors.lightGray};
+            color: ${colors.blue};
             font-size: 12px;
             font-weight: 700;
             text-transform: uppercase;
+          }
+
+          label:last-of-type {
+            margin: 0 10px;
           }
         }
 
@@ -241,6 +262,7 @@ export default class Filter extends Component {
         }
 
         span.filter-title {
+          color: ${colors.mediumDarkGray};
           padding-left: 20px;
           padding-right: 30px;
         }

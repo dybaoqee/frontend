@@ -102,11 +102,11 @@ export default class MyPage extends Component {
           .map {
             background: white;
             border-radius: 8px;
-            height: calc(100vh - 162px);
+            height: calc(100vh - 182px);
             margin-left: 20px;
             overflow: hidden;
             position: fixed !important;
-            top: 142px;
+            top: 162px;
             width: calc(40% - 40px) !important;
           }
 
