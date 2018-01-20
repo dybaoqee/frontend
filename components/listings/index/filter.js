@@ -6,6 +6,7 @@ import NumberFormat from 'react-number-format'
 import * as colors from '../../../constants/colors'
 import { mobileMedia } from '../../../constants/media'
 import * as filterOptions from '../../../constants/listing-filter-options'
+import { treatParams } from '../../../utils/filter-params.js'
 
 export default class Filter extends Component {
   constructor(props) {
@@ -55,46 +56,19 @@ export default class Filter extends Component {
   }
 
   handleNeighborhoodChange = (value) => {
-    console.log(value);
-    this.setState({ bairros: value })
-    console.log(this.state)
+    const state = this.state
+    state['bairros'] = value
+    this.setState(state)
+
     this.updateFilter()
   }
 
-  joinParam = (param) => {
-    if (Array.isArray(param)) {
-      return param.join('|')
-    } else {
-      return param
-    }
-  }
-
-  treatParams = () => {
-    const { state, joinParam } = this
-
-    return Object.keys(state).map(function(key) {
-      if (key === 'areFiltersVisible') return null
-      if (state[key] === undefined) return null
-
-      const flattenedValue = joinParam(state[key])
-      return (flattenedValue === '') ? null : `${key}=${flattenedValue}`
-    }).filter(n => n).join('&')
-  }
-
   updateFilter = () => {
-    const params = this.treatParams()
+    const params = treatParams(this.state)
 
     if (params) {
       Router.push(`/listings/index?${params}`, `/imoveis?${params}`)
     }
-  }
-
-  handleInputChange = (e) => {
-    const state = this.state
-    state[e.target.name] = e.target.value
-    this.setState(state)
-
-    this.updateFilter()
   }
 
   handleToggleFilterVisibility = () => {
