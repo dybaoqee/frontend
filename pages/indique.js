@@ -15,7 +15,7 @@ export default class Indique extends Component {
   render() {
     const { authenticated } = this.props
     return (
-      <Layout authenticated={authenticated}>
+      <Layout authenticated={authenticated} renderFooter={true}>
         <Head>
           <title>Indique e Ganhe | EmCasa</title>
           <meta name="description" content="Indique amigos que queiram comprar ou vender um imóvel residencial e ganhe R$1000"/>
