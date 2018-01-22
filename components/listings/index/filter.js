@@ -98,15 +98,16 @@ export default class Filter extends Component {
   }
 
   toggleNeighborhoodsFilterVisibility = () => {
-    this.toggleParamFilterVisibility('price')
+    this.toggleParamFilterVisibility('neighborhoods')
   }
 
   toggleParamFilterVisibility = (param) => {
+    const state = this.state
+    const newParamFilterVisibility = !state.filterVisibility[param]
 
     this.setAllParamFiltersVisibilityToFalse()
 
-    const state = this.state
-    state.filterVisibility[param] = !state.filterVisibility[param]
+    state.filterVisibility[param] = newParamFilterVisibility
     this.setState(state)
   }
 
@@ -304,11 +305,15 @@ export default class Filter extends Component {
         div.option-container {
           align-items: center;
           background: white;
+          border: 1px solid ${colors.lightGray};
+          border-bottom-left-radius: 6px;
+          border-bottom-right-radius: 6px;
+          border-top: 1px solid white;
           display: flex;
           margin-right: 40px;
           padding: 20px;
           position: absolute;
-          top: 70px;
+          top: 67px;
           label {
             color: ${colors.blue};
             font-size: 12px;
