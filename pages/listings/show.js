@@ -89,11 +89,13 @@ class Listing extends Component {
 
   render() {
     const { currentUser, listing } = this.props
+    const { isAuthenticated } = currentUser
     const { showPopup, showPostSuccessPopup, name, email, phone, message } = this.state
     const seoImgSrc = mainListingImage(listing.images)
 
     return (
-      <Layout authenticated={currentUser.authenticated}>
+      <Layout authenticated={isAuthenticated} renderFooter={true}>
+
         <Head>
           <title>
             À venda: Apartamento - {listing.address.street} - {listing.address.neighborhood}, {listing.address.city} | EmCasa

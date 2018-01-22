@@ -16,7 +16,7 @@ class Jobs extends Component {
     const { authenticated } = this.props
 
     return (
-      <Layout authenticated={authenticated}>
+      <Layout authenticated={authenticated} renderFooter={true}>
         <Head>
           <title>Trabalhe conosco | EmCasa</title>
           <meta name="description" content="Procuramos desenvolvedores excepcionais em Elixir e React / React Native. Cadastre-se!"/>
