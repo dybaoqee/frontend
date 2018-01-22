@@ -98,13 +98,21 @@ export default class Filter extends Component {
   }
 
   toggleNeighborhoodsFilterVisibility = () => {
-    this.toggleParamFilterVisibility('neighborhoods')
+    this.toggleParamFilterVisibility('price')
   }
 
   toggleParamFilterVisibility = (param) => {
     const state = this.state
     state.filterVisibility[param] = !state.filterVisibility[param]
     this.setState(state)
+  }
+
+  isAnyParamFilterOpen = () => {
+    const { filterVisibility } = this.state
+
+    return Object.keys(filterVisibility).some(function(key) {
+      return filterVisibility[key] === true
+    })
   }
 
   render() {
@@ -115,37 +123,40 @@ export default class Filter extends Component {
     const { areFiltersVisible, filterVisibility } = this.state
 
     return <div className="container">
+      {this.isAnyParamFilterOpen() && <div className="active-filter-overlay" />}
       <span className="filter-title">Filtros</span>
 
-      <button onClick={this.togglePriceFilterVisibility}>Preço</button>
+      <div className="filter-param-container">
+        <button onClick={this.togglePriceFilterVisibility}>Preço</button>
 
-      {filterVisibility.price &&
-        <div className="option-container price-container">
-          <label>De</label>
+        {filterVisibility.price &&
+          <div className="option-container price-container">
+            <label>De</label>
 
-          <Select
-            name="form-field-name"
-            arrowRenderer={null}
-            style={{width: 130}}
-            placeholder="R$"
-            value={preco_minimo}
-            onChange={this.handleMinPriceChange}
-            options={filterOptions.minPriceOptions}
-            searchable={false} />
+            <Select
+              name="form-field-name"
+              arrowRenderer={null}
+              style={{width: 130}}
+              placeholder="R$"
+              value={preco_minimo}
+              onChange={this.handleMinPriceChange}
+              options={filterOptions.minPriceOptions}
+              searchable={false} />
 
-          <label>a</label>
+            <label>a</label>
 
-          <Select
-            name="form-field-name"
-            arrowRenderer={null}
-            style={{width: 130}}
-            placeholder="R$"
-            value={preco_maximo}
-            onChange={this.handleMaxPriceChange}
-            options={filterOptions.maxPriceOptions}
-            searchable={false} />
-        </div>
-      }
+            <Select
+              name="form-field-name"
+              arrowRenderer={null}
+              style={{width: 130}}
+              placeholder="R$"
+              value={preco_maximo}
+              onChange={this.handleMaxPriceChange}
+              options={filterOptions.maxPriceOptions}
+              searchable={false} />
+          </div>
+        }
+      </div>
 
       <button onClick={this.toggleAreaFilterVisibility}>Área</button>
 
@@ -243,22 +254,40 @@ export default class Filter extends Component {
 
       <style jsx>{`
 
+        div.active-filter-overlay {
+          background: rgba(255, 255, 255, 0.85);
+          height: calc(100vh - 155px);
+          position: absolute;
+          top: 78px;
+          left: 0;
+          width: 100vw;
+        }
+
         div.container {
           align-items: center;
           background: white;
           border-bottom: 1px solid ${colors.lightGray};
           border-top: 1px solid ${colors.lightGray};
           display: flex;
+          overflow: visible;
           padding: 10px 0;
           position: fixed;
           width: 100vw;
           z-index: 4;
         }
 
+        div.filter-param-container {
+          position: relative;
+        }
+
         div.option-container {
           align-items: center;
+          background: white;
           display: flex;
           margin-right: 40px;
+          padding: 20px;
+          position: absolute;
+          top: 70px;
           label {
             color: ${colors.blue};
             font-size: 12px;
