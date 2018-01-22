@@ -77,7 +77,24 @@ export default class Filter extends Component {
 
     if (params) {
       Router.push(`/listings/index?${params}`, `/imoveis?${params}`)
+    } else {
+      Router.push(`/listings/index`, `/imoveis`)
     }
+  }
+
+  removeAllFilters = () => {
+    const state = this.state
+    state.filterParams = {
+      preco_minimo: undefined,
+      preco_maximo: undefined,
+      area_minima: undefined,
+      area_maxima: undefined,
+      quartos: undefined,
+      bairros: []
+    }
+    this.setState(state)
+
+    this.updateFilter()
   }
 
   handleToggleFilterVisibility = () => {
@@ -147,7 +164,7 @@ export default class Filter extends Component {
     }
 
     if (suffix) {
-      return 'R$' + suffix.replace('m', 'M')
+      return 'R$' + suffix.split('m').join('M')
     } else {
       return 'Preço'
     }
@@ -413,6 +430,10 @@ export default class Filter extends Component {
         Ver Mais Filtros<span>‹</span>
       </span>}
 
+      <span className="remove-all-filters" onClick={this.removeAllFilters}>
+        Limpar Filtros
+      </span>
+
       <style global jsx>{`
         .Select-control {
           border-color: ${colors.blue};
@@ -500,20 +521,6 @@ export default class Filter extends Component {
           }
         }
 
-        div.container .select-container {
-          display: grid;
-          grid-template-columns: 200px 200px 200px;
-          div.neighborhood {
-            align-items: center;
-            display: flex;
-            float: left;
-            padding: 6px 0;
-            label {
-              width: calc(100% - 35px);
-            }
-          }
-        }
-
         span.filter-title {
           color: ${colors.mediumDarkGray};
           padding-left: 20px;
@@ -580,6 +587,21 @@ export default class Filter extends Component {
           display: none;
         }
 
+        span.remove-all-filters {
+          color: ${colors.lightGray};
+          cursor: pointer;
+          display: block;
+          font-size: 13px;
+          letter-spacing: 1px;
+          margin-left: auto;
+          margin-right: 20px;
+          overflow: auto;
+          text-transform: uppercase;
+          &:hover {
+            color: ${colors.mediumDarkGray}
+          }
+        }
+
         @media ${mobileMedia} {
           div.container {
             flex-direction: column;
@@ -592,11 +614,6 @@ export default class Filter extends Component {
             margin-right: 0;
             order: 99;
             text-align: center;
-          }
-
-          div.container .select-container {
-            display: grid;
-            grid-template-columns: 50% 50%;
           }
 
           label {

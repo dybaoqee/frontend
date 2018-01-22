@@ -10,10 +10,11 @@ function joinParam(param) {
 
 export function treatParams(params) {
   return Object.keys(params).map(function(key) {
-    if (key === 'areFiltersVisible') return null
     if (params[key] === undefined) return null
 
     const flattenedValue = joinParam(params[key])
-    return (flattenedValue === '') ? null : `${key}=${flattenedValue}`
+    if (flattenedValue === '') return null
+
+    return flattenedValue ? `${key}=${flattenedValue}` : null
   }).filter(n => n).join('&')
 }
