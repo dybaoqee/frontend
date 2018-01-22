@@ -153,6 +153,68 @@ export default class Filter extends Component {
     }
   }
 
+  renderTextForAreaButton = () => {
+    const { area_minima, area_maxima } = this.state.filterParams
+    const abbreviatedMinArea = numeral(area_minima).format('0a')
+    const abbreviatedMaxArea = numeral(area_maxima).format('0a')
+
+    let suffix
+
+    if (area_minima && area_maxima) {
+      suffix = abbreviatedMinArea + '-' + abbreviatedMaxArea
+    } else if (area_minima) {
+      suffix = abbreviatedMinArea + 'm²+'
+    } else if (area_maxima) {
+      suffix = '0-' + abbreviatedMaxArea + 'm²'
+    }
+
+    if (suffix) {
+      return suffix
+    } else {
+      return 'Área'
+    }
+  }
+
+  renderTextForRoomsButton = () => {
+    const { quartos } = this.state.filterParams
+
+    let suffix
+
+    if (quartos) {
+      return quartos + ' quartos'
+    } else {
+      return 'Quartos'
+    }
+  }
+
+  renderTextForRoomsButton = () => {
+    const { quartos } = this.state.filterParams
+
+    let suffix
+
+    if (quartos) {
+      return quartos + ' quartos'
+    } else {
+      return 'Quartos'
+    }
+  }
+
+  renderTextForNeighborhoodsButton = () => {
+    const { bairros } = this.state.filterParams
+
+    if (bairros.length == 0) {
+      return 'Bairros'
+    }
+
+    const firstNeighborhood = bairros[0].value || bairros[0]
+
+    if (bairros.length == 1) {
+      return firstNeighborhood
+    } else {
+      return firstNeighborhood + 'e mais ' + (bairros.length - 1)
+    }
+  }
+
   shouldRenderPriceButtonAsActive = () => {
     const { filterVisibility } = this.state
     const { preco_minimo, preco_maximo } = this.state.filterParams
@@ -241,7 +303,7 @@ export default class Filter extends Component {
           className={this.shouldRenderAreaButtonAsActive() ? 'active' : ''}
           onClick={this.toggleAreaFilterVisibility}
         >
-          Área
+          {this.renderTextForAreaButton()}
         </button>
 
         {filterVisibility.area &&
@@ -283,7 +345,7 @@ export default class Filter extends Component {
           className={this.shouldRenderRoomsButtonAsActive() ? 'active' : ''}
           onClick={this.toggleRoomFilterVisibility}
         >
-          Quartos
+          {this.renderTextForRoomsButton()}
         </button>
 
         {filterVisibility.rooms &&
@@ -311,7 +373,7 @@ export default class Filter extends Component {
           className={this.shouldRenderNeighborhoodsButtonAsActive() ? 'active' : ''}
           onClick={this.toggleNeighborhoodsFilterVisibility}
         >
-          Bairros
+          {this.renderTextForNeighborhoodsButton()}
         </button>
 
         {filterVisibility.neighborhoods &&
