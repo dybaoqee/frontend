@@ -17,19 +17,21 @@ export default class Filter extends Component {
 
     this.state = {
       areFiltersVisible: false,
-      preco_minimo: preco_minimo,
-      preco_maximo: preco_maximo,
-      area_minima: area_minima,
-      area_maxima: area_maxima,
-      quartos: quartos,
-      bairros: bairrosArray
+      filterParams: {
+        preco_minimo: preco_minimo,
+        preco_maximo: preco_maximo,
+        area_minima: area_minima,
+        area_maxima: area_maxima,
+        quartos: quartos,
+        bairros: bairrosArray
+      }
     }
   }
 
   updateSelectedOption = (selectedOption, stateKey) => {
     const value = (selectedOption && selectedOption.value) ? selectedOption.value : null
     const state = this.state
-    state[stateKey] = value
+    state.filterParams[stateKey] = value
     this.setState(state)
 
     this.updateFilter()
@@ -57,14 +59,14 @@ export default class Filter extends Component {
 
   handleNeighborhoodChange = (value) => {
     const state = this.state
-    state['bairros'] = value
+    state.filterParams.bairros = value
     this.setState(state)
 
     this.updateFilter()
   }
 
   updateFilter = () => {
-    const params = treatParams(this.state)
+    const params = treatParams(this.state.filterParams)
 
     if (params) {
       Router.push(`/listings/index?${params}`, `/imoveis?${params}`)
@@ -80,7 +82,7 @@ export default class Filter extends Component {
   render() {
     const { neighborhoods, query } = this.props
     const neighborhoodOptions = filterOptions.neighborhoodOptions(neighborhoods)
-    const { preco_minimo, preco_maximo, area_minima, area_maxima, quartos, bairros } = this.state
+    const { preco_minimo, preco_maximo, area_minima, area_maxima, quartos, bairros } = this.state.filterParams
 
     const { areFiltersVisible } = this.state
 
