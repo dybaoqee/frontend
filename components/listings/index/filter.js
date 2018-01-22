@@ -17,6 +17,12 @@ export default class Filter extends Component {
 
     this.state = {
       areFiltersVisible: false,
+      filterVisibility: {
+        price: false,
+        area: false,
+        rooms: false,
+        neighborhoods: false
+      },
       filterParams: {
         preco_minimo: preco_minimo,
         preco_maximo: preco_maximo,
@@ -79,92 +85,130 @@ export default class Filter extends Component {
     this.setState(state)
   }
 
+  toggleRoomFilterVisibility = () => {
+    this.toggleParamFilterVisibility('rooms')
+  }
+
+  togglePriceFilterVisibility = () => {
+    this.toggleParamFilterVisibility('price')
+  }
+
+  toggleAreaFilterVisibility = () => {
+    this.toggleParamFilterVisibility('area')
+  }
+
+  toggleNeighborhoodsFilterVisibility = () => {
+    this.toggleParamFilterVisibility('neighborhoods')
+  }
+
+  toggleParamFilterVisibility = (param) => {
+    const state = this.state
+    state.filterVisibility[param] = !state.filterVisibility[param]
+    this.setState(state)
+  }
+
   render() {
     const { neighborhoods, query } = this.props
     const neighborhoodOptions = filterOptions.neighborhoodOptions(neighborhoods)
     const { preco_minimo, preco_maximo, area_minima, area_maxima, quartos, bairros } = this.state.filterParams
 
-    const { areFiltersVisible } = this.state
+    const { areFiltersVisible, filterVisibility } = this.state
 
     return <div className="container">
       <span className="filter-title">Filtros</span>
 
-      <div className="option-container price-container">
-        <label>De</label>
+      <button onClick={this.togglePriceFilterVisibility}>Preço</button>
 
-        <Select
-          name="form-field-name"
-          arrowRenderer={null}
-          style={{width: 130}}
-          placeholder="R$"
-          value={preco_minimo}
-          onChange={this.handleMinPriceChange}
-          options={filterOptions.minPriceOptions}
-          searchable={false} />
+      {filterVisibility.price &&
+        <div className="option-container price-container">
+          <label>De</label>
 
-        <label>a</label>
+          <Select
+            name="form-field-name"
+            arrowRenderer={null}
+            style={{width: 130}}
+            placeholder="R$"
+            value={preco_minimo}
+            onChange={this.handleMinPriceChange}
+            options={filterOptions.minPriceOptions}
+            searchable={false} />
 
-        <Select
-          name="form-field-name"
-          arrowRenderer={null}
-          style={{width: 130}}
-          placeholder="R$"
-          value={preco_maximo}
-          onChange={this.handleMaxPriceChange}
-          options={filterOptions.maxPriceOptions}
-          searchable={false} />
-      </div>
+          <label>a</label>
 
-      <div className="option-container">
-        <label>De</label>
+          <Select
+            name="form-field-name"
+            arrowRenderer={null}
+            style={{width: 130}}
+            placeholder="R$"
+            value={preco_maximo}
+            onChange={this.handleMaxPriceChange}
+            options={filterOptions.maxPriceOptions}
+            searchable={false} />
+        </div>
+      }
 
-        <Select
-          name="form-field-name"
-          arrowRenderer={null}
-          style={{width: 100}}
-          placeholder="m²"
-          value={area_minima}
-          onChange={this.handleMinAreaChange}
-          options={filterOptions.minAreaOptions}
-          searchable={false} />
+      <button onClick={this.toggleAreaFilterVisibility}>Área</button>
 
-        <label>a</label>
+      {filterVisibility.area &&
+        <div className="option-container">
+          <label>De</label>
 
-        <Select
-          name="form-field-name"
-          arrowRenderer={null}
-          style={{width: 100}}
-          placeholder="m²"
-          value={area_maxima}
-          onChange={this.handleMaxAreaChange}
-          options={filterOptions.maxAreaOptions}
-          searchable={false} />
-      </div>
+          <Select
+            name="form-field-name"
+            arrowRenderer={null}
+            style={{width: 100}}
+            placeholder="m²"
+            value={area_minima}
+            onChange={this.handleMinAreaChange}
+            options={filterOptions.minAreaOptions}
+            searchable={false} />
 
-      <div className="option-container">
-        <Select
-          name="form-field-name"
-          arrowRenderer={null}
-          style={{width: 130}}
-          placeholder="Nº Quartos"
-          value={quartos}
-          onChange={this.handleRoomChange}
-          options={filterOptions.roomNumberOptions}
-          searchable={false} />
-      </div>
+          <label>a</label>
 
-      <div className="option-container">
-        <Select
-          name="form-field-name"
-          arrowRenderer={null}
-          style={{width: 200}}
-          placeholder="Bairros"
-          multi={true}
-          value={bairros}
-          onChange={this.handleNeighborhoodChange}
-          options={neighborhoodOptions}
-          searchable={false} />
-      </div>
+          <Select
+            name="form-field-name"
+            arrowRenderer={null}
+            style={{width: 100}}
+            placeholder="m²"
+            value={area_maxima}
+            onChange={this.handleMaxAreaChange}
+            options={filterOptions.maxAreaOptions}
+            searchable={false} />
+        </div>
+      }
+
+      <button onClick={this.toggleRoomFilterVisibility}>Quartos</button>
+
+      {filterVisibility.rooms &&
+        <div className="option-container">
+          <Select
+            name="form-field-name"
+            arrowRenderer={null}
+            style={{width: 130}}
+            placeholder="Nº Quartos"
+            value={quartos}
+            onChange={this.handleRoomChange}
+            options={filterOptions.roomNumberOptions}
+            searchable={false} />
+        </div>
+      }
+
+      <button onClick={this.toggleNeighborhoodsFilterVisibility}>Bairros</button>
+
+      {filterVisibility.neighborhoods &&
+        <div className="option-container">
+          <Select
+            name="form-field-name"
+            arrowRenderer={null}
+            style={{width: 200}}
+            placeholder="Bairros"
+            multi={true}
+            value={bairros}
+            onChange={this.handleNeighborhoodChange}
+            options={neighborhoodOptions}
+            searchable={false} />
+        </div>
+      }
 
       {!!areFiltersVisible &&
       <span
@@ -282,11 +326,17 @@ export default class Filter extends Component {
         }
 
         button {
+          background: transparent;
+          border: 1px solid ${colors.lightGray};
+          border-radius: 500px;
+          color: ${colors.text};
           clear: both;
-          float: right;
-          font-size: 18px;
+          font-size: 15px;
           margin: 10px 20px;
           padding: 7px 20px 10px;
+          &:hover {
+            background: ${colors.offWhite}
+          }
         }
 
         span.toggleFilterVisibility {
