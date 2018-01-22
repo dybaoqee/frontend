@@ -153,6 +153,30 @@ export default class Filter extends Component {
     }
   }
 
+  shouldRenderPriceButtonAsActive = () => {
+    const { filterVisibility } = this.state
+    const { preco_minimo, preco_maximo } = this.state.filterParams
+    return preco_minimo || preco_maximo || filterVisibility.price
+  }
+
+  shouldRenderAreaButtonAsActive = () => {
+    const { filterVisibility } = this.state
+    const { area_minima, area_maxima } = this.state.filterParams
+    return area_minima || area_maxima || filterVisibility.area
+  }
+
+  shouldRenderRoomsButtonAsActive = () => {
+    const { filterVisibility } = this.state
+    const { quartos } = this.state.filterParams
+    return quartos || filterVisibility.rooms
+  }
+
+  shouldRenderNeighborhoodsButtonAsActive = () => {
+    const { filterVisibility } = this.state
+    const { bairros } = this.state.filterParams
+    return (bairros.length > 0) || filterVisibility.neighborhoods
+  }
+
   render() {
     const { neighborhoods, query } = this.props
     const neighborhoodOptions = filterOptions.neighborhoodOptions(neighborhoods)
@@ -171,7 +195,7 @@ export default class Filter extends Component {
 
       <div className="filter-param-container">
         <button
-          className={filterVisibility.price ? 'active' : ''}
+          className={this.shouldRenderPriceButtonAsActive() ? 'active' : ''}
           onClick={this.togglePriceFilterVisibility}
         >
           {this.renderTextForPriceButton()}
@@ -214,7 +238,7 @@ export default class Filter extends Component {
 
       <div className="filter-param-container">
         <button
-          className={filterVisibility.area ? 'active' : ''}
+          className={this.shouldRenderAreaButtonAsActive() ? 'active' : ''}
           onClick={this.toggleAreaFilterVisibility}
         >
           Área
@@ -256,7 +280,7 @@ export default class Filter extends Component {
 
       <div className="filter-param-container">
         <button
-          className={filterVisibility.rooms ? 'active' : ''}
+          className={this.shouldRenderRoomsButtonAsActive() ? 'active' : ''}
           onClick={this.toggleRoomFilterVisibility}
         >
           Quartos
@@ -284,7 +308,7 @@ export default class Filter extends Component {
 
       <div className="filter-param-container">
         <button
-          className={filterVisibility.neighborhoods ? 'active' : ''}
+          className={this.shouldRenderNeighborhoodsButtonAsActive() ? 'active' : ''}
           onClick={this.toggleNeighborhoodsFilterVisibility}
         >
           Bairros
