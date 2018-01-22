@@ -2,6 +2,7 @@ import { Component } from 'react'
 import Router from 'next/router'
 import Select from 'react-select'
 import NumberFormat from 'react-number-format'
+import numeral from 'numeral'
 
 import * as colors from '../../../constants/colors'
 import { mobileMedia } from '../../../constants/media'
@@ -130,6 +131,28 @@ export default class Filter extends Component {
     })
   }
 
+  renderTextForPriceButton = () => {
+    const { preco_minimo, preco_maximo } = this.state.filterParams
+    const abbreviatedMinPrice = numeral(preco_minimo).format('0a')
+    const abbreviatedMaxPrice = numeral(preco_maximo).format('0a')
+
+    let suffix
+
+    if (preco_minimo && preco_maximo) {
+      suffix = abbreviatedMinPrice + '-' + abbreviatedMaxPrice
+    } else if (preco_minimo) {
+      suffix = abbreviatedMinPrice + '+'
+    } else if (preco_maximo) {
+      suffix = '0-' + abbreviatedMaxPrice
+    }
+
+    if (suffix) {
+      return 'R$' + suffix.replace('m', 'M')
+    } else {
+      return 'Preço'
+    }
+  }
+
   render() {
     const { neighborhoods, query } = this.props
     const neighborhoodOptions = filterOptions.neighborhoodOptions(neighborhoods)
@@ -151,7 +174,7 @@ export default class Filter extends Component {
           className={filterVisibility.price ? 'active' : ''}
           onClick={this.togglePriceFilterVisibility}
         >
-          Preço
+          {this.renderTextForPriceButton()}
         </button>
 
         {filterVisibility.price &&
@@ -354,7 +377,6 @@ export default class Filter extends Component {
           background: white;
           border: 1px solid ${colors.lightGray};
           border-top: 1px solid white;
-          box-shadow: 0px 2px 2px ${colors.lightestGray};
           height: calc(100vh - 190px);
           justify-content: space-between;
           margin-right: 40px;
