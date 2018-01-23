@@ -68,6 +68,19 @@ export const getListings = async (query) => {
   }
 }
 
+export const getFeaturedListings = async (query) => {
+  const endpoint = '/featured_listings'
+  const params = buildGetParams(query)
+
+  try {
+    return await get(endpoint, null, params)
+  } catch (error) {
+    return error.response && error.response.status === 422
+      ? error.response
+      : 'Unknown error. Please try again.'
+  }
+}
+
 export const getListing = async (id) => {
   try {
     const response = await get('/listings/' + id)
