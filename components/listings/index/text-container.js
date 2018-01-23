@@ -55,6 +55,7 @@ class TextContainer extends React.Component {
 
           @media ${mobileMedia} {
             .text-container {
+              margin-left: 0;
               width: 100%;
             }
 

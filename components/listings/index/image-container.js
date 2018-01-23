@@ -61,7 +61,7 @@ class ImageContainer extends React.Component {
 
         @media ${mobileMedia} {
           .image-container {
-            width: 100%;
+            width: calc(100% - 20px);
           }
         }
       `}</style>

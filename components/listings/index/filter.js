@@ -293,6 +293,12 @@ export default class Filter extends Component {
     return isMobileOpen || isAnyFilterActive
   }
 
+  handleOverlayClick = () => {
+    const { isMobileOpen } = this.state
+
+    if (!isMobileOpen) this.setAllParamFiltersVisibilityToFalse()
+  }
+
   render() {
     const { neighborhoods, query } = this.props
     const neighborhoodOptions = filterOptions.neighborhoodOptions(neighborhoods)
@@ -303,16 +309,25 @@ export default class Filter extends Component {
     return <div className={"container "+ (this.isAnyParamFilterOpen() ? 'filter-open' : '')}>
       {
         this.isAnyParamFilterOpen() &&
-        <div className="active-filter-overlay" onClick={this.setAllParamFiltersVisibilityToFalse} />
+        <div className="active-filter-overlay" onClick={this.handleOverlayClick} />
       }
 
       <span className="filter-title">
         Filtros
       </span>
 
-      <button className={"mobile-filter-toggler " + (this.isMobileMainButtonActive ? 'active' : '')} onClick={this.handleToggleFilterVisibility}>
-        {this.renderTextForMobileMainButton()}
-      </button>
+      <div className="mobile-control-container">
+        <button
+          className={"mobile-filter-toggler " + (this.isMobileMainButtonActive() ? 'active' : '')}
+          onClick={this.handleToggleFilterVisibility}
+        >
+          {this.renderTextForMobileMainButton()}
+        </button>
+
+        <span className="mobile remove-all-filters" onClick={this.removeAllFilters}>
+          Limpar Filtros
+        </span>
+      </div>
 
       <div className="filter-param-container">
         <button
@@ -455,6 +470,15 @@ export default class Filter extends Component {
           </div>
         }
       </div>
+
+      {isMobileOpen &&
+        <button
+          className="close-mobile-filters"
+          onClick={this.handleToggleFilterVisibility}
+        >
+          Ver Resultados
+        </button>
+      }
 
       <span className="remove-all-filters" onClick={this.removeAllFilters}>
         Limpar Filtros
@@ -632,11 +656,21 @@ export default class Filter extends Component {
           &:hover {
             color: ${colors.mediumDarkGray}
           }
+          &.mobile {
+            display: none;
+          }
         }
 
         @media ${mobileMedia} {
           div.container {
-            flex-direction: column;
+            flex-wrap: wrap;
+          }
+
+          div.mobile-control-container {
+            align-items: center;
+            display: flex;
+            justify-content: space-between;
+            width: 100vw;
           }
 
           div.active-filter-overlay {
@@ -649,6 +683,9 @@ export default class Filter extends Component {
 
           span.remove-all-filters {
             display: none;
+            &.mobile {
+              display: block;
+            }
           }
 
           span.mobile-param-title {
@@ -704,6 +741,18 @@ export default class Filter extends Component {
 
           label {
             font-size: 13px;
+          }
+
+          button.close-mobile-filters {
+            background: ${colors.blue};
+            border: 1px solid ${colors.darkenedBlue};
+            color: white;
+            z-index: 3;
+            margin: 0 auto;
+            width: calc(100vw - 20px);
+            &:hover {
+              background: ${colors.darkenedBlue};
+            }
           }
         }
       `}</style>
