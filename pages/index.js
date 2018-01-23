@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 
 import * as colors from '../constants/colors'
-import { getListings } from '../services/listing-api'
+import { getFeaturedListings } from '../services/listing-api'
 import { getNeighborhoods } from '../services/neighborhood-api'
 import { isAuthenticated } from '../lib/auth'
 import Layout from '../components/main-layout'
@@ -17,7 +17,7 @@ import { mobileMedia } from '../constants/media'
 
 export default class MyPage extends Component {
   static async getInitialProps(context) {
-    const res = await getListings(context.query)
+    const res = await getFeaturedListings(context.query)
 
     if (res.data.errors) {
       this.setState({errors: res.data.errors})
