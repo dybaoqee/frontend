@@ -25,7 +25,7 @@ class Listing extends React.Component {
     const { listing, i, currentUser } = this.props
 
     return (
-      <div className="listing" key={i} onClick={this.handleListingClick}>
+      <div key={i} onClick={this.handleListingClick}>
         <ImageContainer listing={listing} />
         <TextContainer listing={listing} currentUser={currentUser} />
 
@@ -34,7 +34,7 @@ class Listing extends React.Component {
         }
 
         <style jsx>{`
-          .listing {
+          div {
             background: white;
             border-bottom: 1px solid ${colors.lightGray};
             cursor: pointer;
@@ -45,8 +45,12 @@ class Listing extends React.Component {
             width: 100%;
           }
 
-          .listing:hover {
+          div:hover {
             background: #f5f5f5;
+          }
+
+          div:first-of-type {
+            padding-top: 23px;
           }
 
           span.matterport {

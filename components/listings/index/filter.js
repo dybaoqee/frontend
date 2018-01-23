@@ -453,9 +453,9 @@ export default class Filter extends Component {
 
         div.active-filter-overlay {
           background: rgba(100, 100, 100, 0.85);
-          height: calc(100vh - 155px);
+          height: calc(100vh - 135px);
           position: absolute;
-          top: 78px;
+          top: 58px;
           left: 0;
           width: 100vw;
         }
@@ -484,12 +484,12 @@ export default class Filter extends Component {
           background: white;
           border: 1px solid ${colors.lightGray};
           border-top: 1px solid white;
-          height: calc(100vh - 190px);
+          height: calc(100vh - 170px);
           justify-content: space-between;
           margin-right: 40px;
           padding: 20px;
           position: absolute;
-          top: 67px;
+          top: 47px;
 
           div {
             align-items: center;
@@ -568,7 +568,7 @@ export default class Filter extends Component {
           color: ${colors.text};
           clear: both;
           font-size: 15px;
-          margin: 10px 20px;
+          margin: 0 20px 0 0;
           padding: 7px 20px 10px;
           &:hover {
             background: ${colors.offWhite}

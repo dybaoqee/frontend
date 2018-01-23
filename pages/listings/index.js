@@ -94,7 +94,7 @@ export default class MyPage extends Component {
               width: 60%;
               &.entries-container {
                 float: right;
-                margin-top: 65px;
+                margin-top: 59px;
               }
             }
           }
@@ -102,11 +102,11 @@ export default class MyPage extends Component {
           .map {
             background: white;
             border-radius: 8px;
-            height: calc(100vh - 182px);
+            height: calc(100vh - 178px);
             margin-left: 20px;
             overflow: hidden;
             position: fixed !important;
-            top: 162px;
+            top: 158px;
             width: calc(40% - 40px) !important;
           }
 
