@@ -56,8 +56,8 @@ export default class Login extends Component {
 
           <p>
             {"Não tem cadastro? "}
-            <Link href="/auth/register">
-              <a>Register</a>
+            <Link href="/auth/signup" as="/signup">
+              <a>Cadastre-se</a>
             </Link>
           </p>
         </div>

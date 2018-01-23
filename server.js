@@ -18,16 +18,16 @@ app.prepare()
     return app.render(req, res, '/indique', req.query)
   })
 
-  server.get('/auth/logout', (req, res) => {
+  server.get('/logout', (req, res) => {
     return app.render(req, res, '/auth/logout', req.query)
   })
 
   server.get('/login', (req, res) => {
-    return app.render(req, res, '/login', req.query)
+    return app.render(req, res, '/auth/login', req.query)
   })
 
-  server.get('/register', (req, res) => {
-    return app.render(req, res, '/register', req.query)
+  server.get('/signup', (req, res) => {
+    return app.render(req, res, '/auth/signup', req.query)
   })
 
   server.get('/confirmar_cadastro/:token', (req, res) => {
