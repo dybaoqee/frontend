@@ -17,7 +17,6 @@ export default class Filter extends Component {
     const bairrosArray = bairros ? bairros.split('|') : []
 
     this.state = {
-      areFiltersVisible: false,
       filterVisibility: {
         price: false,
         area: false,
@@ -99,7 +98,12 @@ export default class Filter extends Component {
 
   handleToggleFilterVisibility = () => {
     const state = this.state
-    state.areFiltersVisible = !state.areFiltersVisible
+    state.filterVisibility = {
+      price: true,
+      area: true,
+      rooms: true,
+      neighborhoods: true
+    }
     this.setState(state)
   }
 
@@ -261,7 +265,7 @@ export default class Filter extends Component {
     const neighborhoodOptions = filterOptions.neighborhoodOptions(neighborhoods)
     const { preco_minimo, preco_maximo, area_minima, area_maxima, quartos, bairros } = this.state.filterParams
 
-    const { areFiltersVisible, filterVisibility } = this.state
+    const { filterVisibility } = this.state
 
     return <div className={"container "+ (this.isAnyParamFilterOpen() ? 'filter-open' : '')}>
       {
@@ -269,8 +273,11 @@ export default class Filter extends Component {
         <div className="active-filter-overlay" onClick={this.setAllParamFiltersVisibilityToFalse} />
       }
 
-
       <span className="filter-title">Filtros</span>
+
+      <button className="mobile-filter-toggler" onClick={this.handleToggleFilterVisibility}>
+        Filtros
+      </button>
 
       <div className="filter-param-container">
         <button
@@ -281,10 +288,8 @@ export default class Filter extends Component {
         </button>
 
         {filterVisibility.price &&
-          <div className="option-container price-container">
+          <div className="option-container">
             <div>
-              <label>De</label>
-
               <Select
                 name="form-field-name"
                 arrowRenderer={null}
@@ -295,7 +300,7 @@ export default class Filter extends Component {
                 options={filterOptions.minPriceOptions}
                 searchable={false} />
 
-              <label>a</label>
+              <label>até</label>
 
               <Select
                 name="form-field-name"
@@ -326,8 +331,6 @@ export default class Filter extends Component {
         {filterVisibility.area &&
           <div className="option-container">
             <div>
-              <label>De</label>
-
               <Select
                 name="form-field-name"
                 arrowRenderer={null}
@@ -338,7 +341,7 @@ export default class Filter extends Component {
                 options={filterOptions.minAreaOptions}
                 searchable={false} />
 
-              <label>a</label>
+              <label>até</label>
 
               <Select
                 name="form-field-name"
@@ -414,22 +417,6 @@ export default class Filter extends Component {
         }
       </div>
 
-      {!!areFiltersVisible &&
-      <span
-        className="toggleFilterVisibility"
-        onClick={this.handleToggleFilterVisibility}
-      >
-        Ver Menos Filtros<span>›</span>
-      </span>}
-
-      {!areFiltersVisible &&
-      <span
-        className="toggleFilterVisibility"
-        onClick={this.handleToggleFilterVisibility}
-      >
-        Ver Mais Filtros<span>‹</span>
-      </span>}
-
       <span className="remove-all-filters" onClick={this.removeAllFilters}>
         Limpar Filtros
       </span>
@@ -450,7 +437,6 @@ export default class Filter extends Component {
       `}</style>
 
       <style jsx>{`
-
         div.active-filter-overlay {
           background: rgba(100, 100, 100, 0.85);
           height: calc(100vh - 135px);
@@ -460,6 +446,9 @@ export default class Filter extends Component {
           width: 100vw;
         }
 
+        button.mobile-filter-toggler {
+          display: none;
+        }
         div.container {
           align-items: center;
           background: white;
@@ -607,6 +596,45 @@ export default class Filter extends Component {
             flex-direction: column;
           }
 
+          div.active-filter-overlay {
+            background: white;
+          }
+
+          span.filter-title {
+            display: none;
+          }
+
+          span.remove-all-filters {
+            display: none;
+          }
+
+          button.mobile-filter-toggler {
+            display: block;
+            margin-left: 10px;
+            margin-right: auto;
+          }
+
+          div.filter-param-container {
+            width: 100vw;
+
+            button {
+              display: none;
+            }
+          }
+
+          div.option-container {
+            border: none;
+            height: auto;
+            margin-right: 0;
+            padding: 20px 10px;
+            position: relative;
+            top: 0;
+
+            span.close-filter-param {
+              display: none;
+            }
+          }
+
           span.toggleFilterVisibility {
             display: inline;
             flex: 100%;
@@ -618,9 +646,6 @@ export default class Filter extends Component {
 
           label {
             font-size: 13px;
-            &:first-of-type {
-              width: 50px;
-            }
           }
         }
       `}</style>
