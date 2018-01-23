@@ -715,7 +715,7 @@ export default class Filter extends Component {
             border: none;
             height: auto;
             margin-right: 0;
-            padding: 0 10px 20px;
+            padding: 0 10px 15px;
             position: relative;
             top: 0;
 
