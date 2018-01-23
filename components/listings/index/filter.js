@@ -17,6 +17,7 @@ export default class Filter extends Component {
     const bairrosArray = bairros ? bairros.split('|') : []
 
     this.state = {
+      isMobileOpen: false,
       filterVisibility: {
         price: false,
         area: false,
@@ -98,11 +99,12 @@ export default class Filter extends Component {
 
   handleToggleFilterVisibility = () => {
     const state = this.state
+    state.isMobileOpen = !state.isMobileOpen
     state.filterVisibility = {
-      price: true,
-      area: true,
-      rooms: true,
-      neighborhoods: true
+      price: state.isMobileOpen,
+      area: state.isMobileOpen,
+      rooms: state.isMobileOpen,
+      neighborhoods: state.isMobileOpen
     }
     this.setState(state)
   }
@@ -232,7 +234,7 @@ export default class Filter extends Component {
     if (bairros.length == 1) {
       return firstNeighborhood
     } else {
-      return firstNeighborhood + 'e mais ' + (bairros.length - 1)
+      return firstNeighborhood + ' e mais ' + (bairros.length - 1)
     }
   }
 
@@ -260,12 +262,43 @@ export default class Filter extends Component {
     return (bairros.length > 0) || filterVisibility.neighborhoods
   }
 
+  getNumberOfActiveFilters = () => {
+    const { preco_minimo, preco_maximo, area_minima, area_maxima, quartos, bairros } = this.state.filterParams
+
+    let numberOfFilters = 0
+
+    if (preco_minimo || preco_maximo) numberOfFilters++
+    if (area_minima || area_maxima) numberOfFilters++
+    if (quartos) numberOfFilters++
+    if (bairros.length > 0) numberOfFilters ++
+
+    return numberOfFilters
+  }
+
+  renderTextForMobileMainButton = () => {
+    const numberOfFilters = this.getNumberOfActiveFilters()
+
+    const suffix =
+      (numberOfFilters == 0) ?
+        ''
+        : ': ' + numberOfFilters
+
+    return 'Filtros' + suffix
+  }
+
+  isMobileMainButtonActive = () => {
+    const { isMobileOpen } = this.state
+    const isAnyFilterActive = this.getNumberOfActiveFilters() > 0
+
+    return isMobileOpen || isAnyFilterActive
+  }
+
   render() {
     const { neighborhoods, query } = this.props
     const neighborhoodOptions = filterOptions.neighborhoodOptions(neighborhoods)
     const { preco_minimo, preco_maximo, area_minima, area_maxima, quartos, bairros } = this.state.filterParams
 
-    const { filterVisibility } = this.state
+    const { filterVisibility, isMobileOpen } = this.state
 
     return <div className={"container "+ (this.isAnyParamFilterOpen() ? 'filter-open' : '')}>
       {
@@ -273,10 +306,12 @@ export default class Filter extends Component {
         <div className="active-filter-overlay" onClick={this.setAllParamFiltersVisibilityToFalse} />
       }
 
-      <span className="filter-title">Filtros</span>
-
-      <button className="mobile-filter-toggler" onClick={this.handleToggleFilterVisibility}>
+      <span className="filter-title">
         Filtros
+      </span>
+
+      <button className={"mobile-filter-toggler " + (this.isMobileMainButtonActive ? 'active' : '')} onClick={this.handleToggleFilterVisibility}>
+        {this.renderTextForMobileMainButton()}
       </button>
 
       <div className="filter-param-container">
@@ -288,7 +323,8 @@ export default class Filter extends Component {
         </button>
 
         {filterVisibility.price &&
-          <div className="option-container">
+          <div className="option-container price-container">
+            <span className="mobile-param-title">Preço</span>
             <div>
               <Select
                 name="form-field-name"
@@ -330,6 +366,7 @@ export default class Filter extends Component {
 
         {filterVisibility.area &&
           <div className="option-container">
+            <span className="mobile-param-title">Área</span>
             <div>
               <Select
                 name="form-field-name"
@@ -370,6 +407,7 @@ export default class Filter extends Component {
 
         {filterVisibility.rooms &&
           <div className="option-container">
+            <span className="mobile-param-title">Quartos</span>
             <div>
               <Select
                 name="form-field-name"
@@ -398,6 +436,7 @@ export default class Filter extends Component {
 
         {filterVisibility.neighborhoods &&
           <div className="option-container">
+            <span className="mobile-param-title">Bairros</span>
             <div>
               <Select
                 name="form-field-name"
@@ -572,6 +611,10 @@ export default class Filter extends Component {
           }
         }
 
+        span.mobile-param-title {
+          display: none;
+        }
+
         span.toggleFilterVisibility {
           display: none;
         }
@@ -608,6 +651,15 @@ export default class Filter extends Component {
             display: none;
           }
 
+          span.mobile-param-title {
+            color: ${colors.mediumDarkGray};
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+          }
+
           button.mobile-filter-toggler {
             display: block;
             margin-left: 10px;
@@ -626,9 +678,15 @@ export default class Filter extends Component {
             border: none;
             height: auto;
             margin-right: 0;
-            padding: 20px 10px;
+            padding: 10px 10px 20px;
             position: relative;
             top: 0;
+
+            &.price-container {
+              border-top: 1px solid ${colors.lightGray};
+              margin-top: 10px;
+              padding-top: 20px;
+            }
 
             span.close-filter-param {
               display: none;
