@@ -1,9 +1,13 @@
 import { Component } from 'react'
 import Router from 'next/router'
+import Select from 'react-select'
 import NumberFormat from 'react-number-format'
+import numeral from 'numeral'
 
 import * as colors from '../../../constants/colors'
 import { mobileMedia } from '../../../constants/media'
+import * as filterOptions from '../../../constants/listing-filter-options'
+import { treatParams } from '../../../utils/filter-params.js'
 
 export default class Filter extends Component {
   constructor(props) {
@@ -12,69 +16,82 @@ export default class Filter extends Component {
     const { preco_minimo, preco_maximo, area_minima, area_maxima, quartos, bairros } = props.query
     const bairrosArray = bairros ? bairros.split('|') : []
 
-    const bairrosObject = bairrosArray.reduce(function(previous, bairro) {
-      previous[bairro] = true
-      return previous
-    }, {})
-
     this.state = {
-      areFiltersVisible: false,
-      preco_minimo: preco_minimo,
-      preco_maximo: preco_maximo,
-      area_minima: area_minima,
-      area_maxima: area_maxima,
-      quartos: quartos,
-      bairros: bairrosObject
+      isMobileOpen: false,
+      filterVisibility: {
+        price: false,
+        area: false,
+        rooms: false,
+        neighborhoods: false
+      },
+      filterParams: {
+        preco_minimo: preco_minimo,
+        preco_maximo: preco_maximo,
+        area_minima: area_minima,
+        area_maxima: area_maxima,
+        quartos: quartos,
+        bairros: bairrosArray
+      }
     }
   }
 
-  handleNeighborhoodChange = (e) => {
-    const { bairros } = this.state
-
-    if (bairros[e.target.value] == true) {
-      delete bairros[e.target.value]
-    } else {
-      bairros[e.target.value] = true
-    }
-
-    this.setState({ bairros: bairros })
+  updateSelectedOption = (selectedOption, stateKey) => {
+    const value = (selectedOption && selectedOption.value) ? selectedOption.value : null
+    const state = this.state
+    state.filterParams[stateKey] = value
+    this.setState(state)
 
     this.updateFilter()
   }
 
-  joinParam = (param) => {
-    if (param !== null && typeof param === 'object') {
-      return Object.keys(param).map(function(key) {
-        return key
-      }).join('|')
-    } else {
-      return param
-    }
+  handleRoomChange = (selectedOption) => {
+    this.updateSelectedOption(selectedOption, 'quartos')
   }
 
-  treatParams = () => {
-    const { state, joinParam } = this
+  handleMinPriceChange = (selectedOption) => {
+    this.updateSelectedOption(selectedOption, 'preco_minimo')
+  }
 
-    return Object.keys(state).map(function(key) {
-      if (key === 'areFiltersVisible') return null
-      if (state[key] === undefined) return null
+  handleMaxPriceChange = (selectedOption) => {
+    this.updateSelectedOption(selectedOption, 'preco_maximo')
+  }
 
-      const flattenedValue = joinParam(state[key])
-      return (flattenedValue === '') ? null : `${key}=${flattenedValue}`
-    }).filter(n => n).join('&')
+  handleMinAreaChange = (selectedOption) => {
+    this.updateSelectedOption(selectedOption, 'area_minima')
+  }
+
+  handleMaxAreaChange = (selectedOption) => {
+    this.updateSelectedOption(selectedOption, 'area_maxima')
+  }
+
+  handleNeighborhoodChange = (value) => {
+    const state = this.state
+    state.filterParams.bairros = value
+    this.setState(state)
+
+    this.updateFilter()
   }
 
   updateFilter = () => {
-    const params = this.treatParams()
+    const params = treatParams(this.state.filterParams)
 
     if (params) {
       Router.push(`/listings/index?${params}`, `/imoveis?${params}`)
+    } else {
+      Router.push(`/listings/index`, `/imoveis`)
     }
   }
 
-  handleInputChange = (e) => {
+  removeAllFilters = () => {
     const state = this.state
-    state[e.target.name] = e.target.value
+    state.filterParams = {
+      preco_minimo: undefined,
+      preco_maximo: undefined,
+      area_minima: undefined,
+      area_maxima: undefined,
+      quartos: undefined,
+      bairros: []
+    }
     this.setState(state)
 
     this.updateFilter()
@@ -82,180 +99,485 @@ export default class Filter extends Component {
 
   handleToggleFilterVisibility = () => {
     const state = this.state
-    state.areFiltersVisible = !state.areFiltersVisible
+    state.isMobileOpen = !state.isMobileOpen
+    state.filterVisibility = {
+      price: state.isMobileOpen,
+      area: state.isMobileOpen,
+      rooms: state.isMobileOpen,
+      neighborhoods: state.isMobileOpen
+    }
     this.setState(state)
+  }
+
+  toggleRoomFilterVisibility = () => {
+    this.toggleParamFilterVisibility('rooms')
+  }
+
+  togglePriceFilterVisibility = () => {
+    this.toggleParamFilterVisibility('price')
+  }
+
+  toggleAreaFilterVisibility = () => {
+    this.toggleParamFilterVisibility('area')
+  }
+
+  toggleNeighborhoodsFilterVisibility = () => {
+    this.toggleParamFilterVisibility('neighborhoods')
+  }
+
+  toggleParamFilterVisibility = (param) => {
+    const state = this.state
+    const newParamFilterVisibility = !state.filterVisibility[param]
+
+    this.setAllParamFiltersVisibilityToFalse()
+
+    state.filterVisibility[param] = newParamFilterVisibility
+    this.setState(state)
+  }
+
+  setAllParamFiltersVisibilityToFalse = () => {
+    const { state } = this
+    const { filterVisibility } = state
+
+    Object.keys(filterVisibility).map(function(key) {
+      state.filterVisibility[key] = false
+    })
+
+    this.setState(state)
+  }
+
+  isAnyParamFilterOpen = () => {
+    const { filterVisibility } = this.state
+
+    return Object.keys(filterVisibility).some(function(key) {
+      return filterVisibility[key] === true
+    })
+  }
+
+  renderTextForPriceButton = () => {
+    const { preco_minimo, preco_maximo } = this.state.filterParams
+    const abbreviatedMinPrice = numeral(preco_minimo).format('0a')
+    const abbreviatedMaxPrice = numeral(preco_maximo).format('0a')
+
+    let suffix
+
+    if (preco_minimo && preco_maximo) {
+      suffix = abbreviatedMinPrice + '-' + abbreviatedMaxPrice
+    } else if (preco_minimo) {
+      suffix = abbreviatedMinPrice + '+'
+    } else if (preco_maximo) {
+      suffix = '0-' + abbreviatedMaxPrice
+    }
+
+    if (suffix) {
+      return 'R$' + suffix.split('m').join('M')
+    } else {
+      return 'Preço'
+    }
+  }
+
+  renderTextForAreaButton = () => {
+    const { area_minima, area_maxima } = this.state.filterParams
+    const abbreviatedMinArea = numeral(area_minima).format('0a')
+    const abbreviatedMaxArea = numeral(area_maxima).format('0a')
+
+    let suffix
+
+    if (area_minima && area_maxima) {
+      suffix = abbreviatedMinArea + '-' + abbreviatedMaxArea
+    } else if (area_minima) {
+      suffix = abbreviatedMinArea + 'm²+'
+    } else if (area_maxima) {
+      suffix = '0-' + abbreviatedMaxArea + 'm²'
+    }
+
+    if (suffix) {
+      return suffix
+    } else {
+      return 'Área'
+    }
+  }
+
+  renderTextForRoomsButton = () => {
+    const { quartos } = this.state.filterParams
+
+    let suffix
+
+    if (quartos) {
+      return quartos + ' quartos'
+    } else {
+      return 'Quartos'
+    }
+  }
+
+  renderTextForRoomsButton = () => {
+    const { quartos } = this.state.filterParams
+
+    let suffix
+
+    if (quartos) {
+      return quartos + ' quartos'
+    } else {
+      return 'Quartos'
+    }
+  }
+
+  renderTextForNeighborhoodsButton = () => {
+    const { bairros } = this.state.filterParams
+
+    if (bairros.length == 0) {
+      return 'Bairros'
+    }
+
+    const firstNeighborhood = bairros[0].value || bairros[0]
+
+    if (bairros.length == 1) {
+      return firstNeighborhood
+    } else {
+      return firstNeighborhood + ' e mais ' + (bairros.length - 1)
+    }
+  }
+
+  shouldRenderPriceButtonAsActive = () => {
+    const { filterVisibility } = this.state
+    const { preco_minimo, preco_maximo } = this.state.filterParams
+    return preco_minimo || preco_maximo || filterVisibility.price
+  }
+
+  shouldRenderAreaButtonAsActive = () => {
+    const { filterVisibility } = this.state
+    const { area_minima, area_maxima } = this.state.filterParams
+    return area_minima || area_maxima || filterVisibility.area
+  }
+
+  shouldRenderRoomsButtonAsActive = () => {
+    const { filterVisibility } = this.state
+    const { quartos } = this.state.filterParams
+    return quartos || filterVisibility.rooms
+  }
+
+  shouldRenderNeighborhoodsButtonAsActive = () => {
+    const { filterVisibility } = this.state
+    const { bairros } = this.state.filterParams
+    return (bairros.length > 0) || filterVisibility.neighborhoods
+  }
+
+  getNumberOfActiveFilters = () => {
+    const { preco_minimo, preco_maximo, area_minima, area_maxima, quartos, bairros } = this.state.filterParams
+
+    let numberOfFilters = 0
+
+    if (preco_minimo || preco_maximo) numberOfFilters++
+    if (area_minima || area_maxima) numberOfFilters++
+    if (quartos) numberOfFilters++
+    if (bairros.length > 0) numberOfFilters ++
+
+    return numberOfFilters
+  }
+
+  renderTextForMobileMainButton = () => {
+    const numberOfFilters = this.getNumberOfActiveFilters()
+
+    const suffix =
+      (numberOfFilters == 0) ?
+        ''
+        : ': ' + numberOfFilters
+
+    return 'Filtros' + suffix
+  }
+
+  isMobileMainButtonActive = () => {
+    const { isMobileOpen } = this.state
+    const isAnyFilterActive = this.getNumberOfActiveFilters() > 0
+
+    return isMobileOpen || isAnyFilterActive
+  }
+
+  handleOverlayClick = () => {
+    const { isMobileOpen } = this.state
+
+    if (!isMobileOpen) this.setAllParamFiltersVisibilityToFalse()
   }
 
   render() {
     const { neighborhoods, query } = this.props
-    const { preco_minimo, preco_maximo, area_minima, area_maxima, quartos, bairros } = this.state
+    const neighborhoodOptions = filterOptions.neighborhoodOptions(neighborhoods)
+    const { preco_minimo, preco_maximo, area_minima, area_maxima, quartos, bairros } = this.state.filterParams
 
-    const { areFiltersVisible } = this.state
+    const { filterVisibility, isMobileOpen } = this.state
 
-    const minPriceOptions = [750000, 1000000, 2000000, 3000000, 5000000]
-    const maxPriceOptions = [1000000, 2000000, 3000000, 5000000, 10000000]
-    const minAreaOptions = [50, 80, 100, 150, 200, 300, 500, 1000]
-    const maxAreaOptions = [50, 80, 100, 150, 200, 300, 500, 1000, 2000]
-    const roomNumberOptions = [1, 2, 3, 4, 5]
+    return <div className={"container "+ (this.isAnyParamFilterOpen() ? 'filter-open' : '')}>
+      {
+        this.isAnyParamFilterOpen() &&
+        <div className="active-filter-overlay" onClick={this.handleOverlayClick} />
+      }
 
-    return <div className="container">
-      <div className="price-container">
-        <div>
-          <label>Preço</label>
-          <select name="preco_minimo" onChange={this.handleInputChange} defaultValue={preco_minimo}>
-            <option value="">sem mínimo</option>
+      <span className="filter-title">
+        Filtros
+      </span>
 
-            {minPriceOptions.map(function(option) {
-              return <NumberFormat
-                value={option}
-                key={option}
-                renderText={value => <option value={option}>{value}</option>}
-                displayType={'text'}
-                thousandSeparator={'.'}
-                prefix={'R$'}
-                decimalSeparator={','} />
-            })}
-          </select>
+      <div className="mobile-control-container">
+        <button
+          className={"mobile-filter-toggler " + (this.isMobileMainButtonActive() ? 'active' : '')}
+          onClick={this.handleToggleFilterVisibility}
+        >
+          {this.renderTextForMobileMainButton()}
+        </button>
 
-          <label>a</label>
-
-          <select name="preco_maximo" onChange={this.handleInputChange} defaultValue={preco_maximo}>
-            <option value="">sem máximo</option>
-            {maxPriceOptions.map(function(option) {
-              return <NumberFormat
-                value={option}
-                key={option}
-                renderText={value => <option value={option}>{value}</option>}
-                displayType={'text'}
-                thousandSeparator={'.'}
-                prefix={'R$'}
-                decimalSeparator={','} />
-            })}
-          </select>
-        </div>
-
+        <span className="mobile remove-all-filters" onClick={this.removeAllFilters}>
+          Limpar Filtros
+        </span>
       </div>
 
+      <div className="filter-param-container">
+        <button
+          className={this.shouldRenderPriceButtonAsActive() ? 'active' : ''}
+          onClick={this.togglePriceFilterVisibility}
+        >
+          {this.renderTextForPriceButton()}
+        </button>
 
-      {!!areFiltersVisible &&
-      <span
-        className="toggleFilterVisibility"
-        onClick={this.handleToggleFilterVisibility}
-      >
-        Ver Menos Filtros<span>›</span>
-      </span>}
+        {filterVisibility.price &&
+          <div className="option-container price-container">
+            <span className="mobile-param-title">Preço</span>
+            <div>
+              <Select
+                name="form-field-name"
+                arrowRenderer={null}
+                style={{width: 130}}
+                placeholder="R$"
+                value={preco_minimo}
+                onChange={this.handleMinPriceChange}
+                options={filterOptions.minPriceOptions}
+                searchable={false} />
 
-      {!areFiltersVisible &&
-      <span
-        className="toggleFilterVisibility"
-        onClick={this.handleToggleFilterVisibility}
-      >
-        Ver Mais Filtros<span>‹</span>
-      </span>}
+              <label>até</label>
 
-      {!!areFiltersVisible && <div>
-        <div>
-          <label>Área</label>
-          <select name="area_minima" onChange={this.handleInputChange} defaultValue={area_minima}>
-            <option value="">sem mínimo</option>
-            {minAreaOptions.map(function(option) {
-              return <NumberFormat
-                value={option}
-                key={option}
-                renderText={value => <option value={option}>{value}</option>}
-                displayType={'text'}
-                thousandSeparator={'.'}
-                suffix={'m²'}
-                decimalSeparator={','} />
-            })}
-          </select>
+              <Select
+                name="form-field-name"
+                arrowRenderer={null}
+                style={{width: 130}}
+                placeholder="R$"
+                value={preco_maximo}
+                onChange={this.handleMaxPriceChange}
+                options={filterOptions.maxPriceOptions}
+                searchable={false} />
+            </div>
 
-          <label>a</label>
-
-          <select name="area_maxima" onChange={this.handleInputChange} defaultValue={area_maxima}>
-            <option value="">sem máximo</option>
-            {maxAreaOptions.map(function(option) {
-              return <NumberFormat
-                value={option}
-                key={option}
-                renderText={value => <option value={option}>{value}</option>}
-                displayType={'text'}
-                thousandSeparator={'.'}
-                suffix={'m²'}
-                decimalSeparator={','} />
-            })}
-          </select>
-        </div>
-
-        <div>
-          <label>Quartos</label>
-          <select name="quartos" onChange={this.handleInputChange} defaultValue={quartos}>
-            <option value=""></option>
-            {roomNumberOptions.map(function(option) {
-              return <NumberFormat
-                value={option}
-                key={option}
-                renderText={value => <option value={option}>{value}</option>}
-                displayType={'text'}/>
-            })}
-            })}
-          </select>
-        </div>
-
-        <div>
-          <label className="neighborhood">Bairros</label>
-
-          <div className="select-container">
-            {neighborhoods && neighborhoods.map((bairro, i) => {
-              const checked = bairros[bairro] === true
-
-              return <div key={i} className="neighborhood">
-                <input type="checkbox"
-                       value={bairro}
-                       checked={checked}
-                       onClick={this.handleNeighborhoodChange} />
-                <label>{bairro}</label>
-              </div>
-            })}
+            <span className="close-filter-param" onClick={this.setAllParamFiltersVisibilityToFalse}>
+              Aplicar
+            </span>
           </div>
-        </div>
-      </div>}
+        }
+      </div>
+
+      <div className="filter-param-container">
+        <button
+          className={this.shouldRenderAreaButtonAsActive() ? 'active' : ''}
+          onClick={this.toggleAreaFilterVisibility}
+        >
+          {this.renderTextForAreaButton()}
+        </button>
+
+        {filterVisibility.area &&
+          <div className="option-container">
+            <span className="mobile-param-title">Área</span>
+            <div>
+              <Select
+                name="form-field-name"
+                arrowRenderer={null}
+                style={{width: 100}}
+                placeholder="m²"
+                value={area_minima}
+                onChange={this.handleMinAreaChange}
+                options={filterOptions.minAreaOptions}
+                searchable={false} />
+
+              <label>até</label>
+
+              <Select
+                name="form-field-name"
+                arrowRenderer={null}
+                style={{width: 100}}
+                placeholder="m²"
+                value={area_maxima}
+                onChange={this.handleMaxAreaChange}
+                options={filterOptions.maxAreaOptions}
+                searchable={false} />
+            </div>
+            <span className="close-filter-param" onClick={this.setAllParamFiltersVisibilityToFalse}>
+              Aplicar
+            </span>
+          </div>
+        }
+      </div>
+
+      <div className="filter-param-container">
+        <button
+          className={this.shouldRenderRoomsButtonAsActive() ? 'active' : ''}
+          onClick={this.toggleRoomFilterVisibility}
+        >
+          {this.renderTextForRoomsButton()}
+        </button>
+
+        {filterVisibility.rooms &&
+          <div className="option-container">
+            <span className="mobile-param-title">Quartos</span>
+            <div>
+              <Select
+                name="form-field-name"
+                arrowRenderer={null}
+                style={{width: 130}}
+                placeholder="Nº Quartos"
+                value={quartos}
+                onChange={this.handleRoomChange}
+                options={filterOptions.roomNumberOptions}
+                searchable={false} />
+            </div>
+            <span className="close-filter-param" onClick={this.setAllParamFiltersVisibilityToFalse}>
+              Aplicar
+            </span>
+          </div>
+        }
+      </div>
+
+      <div className="filter-param-container">
+        <button
+          className={this.shouldRenderNeighborhoodsButtonAsActive() ? 'active' : ''}
+          onClick={this.toggleNeighborhoodsFilterVisibility}
+        >
+          {this.renderTextForNeighborhoodsButton()}
+        </button>
+
+        {filterVisibility.neighborhoods &&
+          <div className="option-container">
+            <span className="mobile-param-title">Bairros</span>
+            <div>
+              <Select
+                name="form-field-name"
+                arrowRenderer={null}
+                style={{width: 200}}
+                placeholder="Bairros"
+                multi={true}
+                value={bairros}
+                onChange={this.handleNeighborhoodChange}
+                options={neighborhoodOptions}
+                searchable={false} />
+            </div>
+            <span className="close-filter-param" onClick={this.setAllParamFiltersVisibilityToFalse}>
+              Aplicar
+            </span>
+          </div>
+        }
+      </div>
+
+      {isMobileOpen &&
+        <button
+          className="close-mobile-filters"
+          onClick={this.handleToggleFilterVisibility}
+        >
+          Ver Resultados
+        </button>
+      }
+
+      <span className="remove-all-filters" onClick={this.removeAllFilters}>
+        Limpar Filtros
+      </span>
+
+      <style global jsx>{`
+        .Select-control {
+          border-color: ${colors.blue};
+        }
+
+        .Select-placeholder {
+          color: ${colors.mediumGray};
+          text-align: center;
+        }
+
+        .Select.has-value.is-clearable.Select--single > .Select-control .Select-value {
+          padding-right: 20px;
+        }
+      `}</style>
 
       <style jsx>{`
+        div.active-filter-overlay {
+          background: rgba(100, 100, 100, 0.85);
+          height: calc(100vh - 135px);
+          position: absolute;
+          top: 58px;
+          left: 0;
+          width: 100vw;
+        }
+
+        button.mobile-filter-toggler {
+          display: none;
+        }
         div.container {
+          align-items: center;
+          background: white;
           border-bottom: 1px solid ${colors.lightGray};
+          border-top: 1px solid ${colors.lightGray};
           display: flex;
-          flex-wrap: wrap;
-          justify-content: space-between;
-          overflow: auto;
-          > div {
-            flex: 0 0 100%;
-            &.price-container {
-              align-items: center;
-              display: flex;
-              flex: 0 0 calc(100% - 170px);
-              justify-content: space-between;
-            }
-            div {
-              padding: 10px;
-            }
+          overflow: visible;
+          padding: 10px 0;
+          position: fixed;
+          width: 100vw;
+          z-index: 4;
+          &.filter-open {
+            box-shadow: 1px 1px 4px ${colors.lightGray};
           }
         }
 
-        div.container .select-container {
-          display: grid;
-          grid-template-columns: 200px 200px 200px;
-          div.neighborhood {
+        div.filter-param-container {
+          position: relative;
+        }
+
+        div.option-container {
+          background: white;
+          border: 1px solid ${colors.lightGray};
+          border-top: 1px solid white;
+          height: calc(100vh - 170px);
+          justify-content: space-between;
+          margin-right: 40px;
+          padding: 20px;
+          position: absolute;
+          top: 47px;
+
+          div {
             align-items: center;
             display: flex;
-            float: left;
-            padding: 6px 0;
-            label {
-              width: calc(100% - 35px);
+          }
+
+          label {
+            color: ${colors.blue};
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            &:last-of-type {
+              margin: 0 10px;
+            }
+          }
+
+          span.close-filter-param {
+            color: ${colors.blue};
+            display: block;
+            cursor: pointer;
+            float: right;
+            font-size: 12px;
+            font-weight: 700;
+            margin-top: 15px;
+            text-transform: uppercase;
+            &:hover {
+              color: ${colors.darkenedBlue};
             }
           }
         }
 
+        span.filter-title {
+          color: ${colors.mediumDarkGray};
+          padding-left: 20px;
+          padding-right: 30px;
+        }
 
         span.toggleFilterVisibility {
           color: ${colors.blue};
@@ -279,7 +601,6 @@ export default class Filter extends Component {
           }
           &:first-of-type {
             display: inline-block;
-            width: 70px;
           }
         }
 
@@ -293,20 +614,124 @@ export default class Filter extends Component {
         }
 
         button {
+          background: transparent;
+          border: 1px solid ${colors.lightGray};
+          border-radius: 500px;
+          color: ${colors.text};
           clear: both;
-          float: right;
-          font-size: 18px;
-          margin: 10px 20px;
+          font-size: 15px;
+          margin: 0 20px 0 0;
           padding: 7px 20px 10px;
+          &:hover {
+            background: ${colors.offWhite}
+          }
+          &.active {
+            background: ${colors.blue};
+            color: white;
+            border: 1px solid ${colors.darkenedBlue};
+            &:hover {
+              background: ${colors.darkenedBlue};
+            }
+          }
         }
 
+        span.mobile-param-title {
+          display: none;
+        }
+
+        span.toggleFilterVisibility {
+          display: none;
+        }
+
+        span.remove-all-filters {
+          color: ${colors.lightGray};
+          cursor: pointer;
+          display: block;
+          font-size: 13px;
+          letter-spacing: 1px;
+          margin-left: auto;
+          margin-right: 20px;
+          overflow: auto;
+          text-transform: uppercase;
+          &:hover {
+            color: ${colors.mediumDarkGray}
+          }
+          &.mobile {
+            display: none;
+          }
+        }
 
         @media ${mobileMedia} {
           div.container {
-            flex-direction: column;
+            flex-wrap: wrap;
+          }
+
+          div.mobile-control-container {
+            align-items: center;
+            display: flex;
+            justify-content: space-between;
+            width: 100vw;
+          }
+
+          div.active-filter-overlay {
+            background: white;
+          }
+
+          span.filter-title {
+            display: none;
+          }
+
+          span.remove-all-filters {
+            display: none;
+            &.mobile {
+              display: block;
+            }
+          }
+
+          span.mobile-param-title {
+            color: ${colors.mediumDarkGray};
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+          }
+
+          button.mobile-filter-toggler {
+            display: block;
+            margin-left: 10px;
+            margin-right: auto;
+          }
+
+          div.filter-param-container {
+            width: 100vw;
+
+            button {
+              display: none;
+            }
+          }
+
+          div.option-container {
+            border: none;
+            height: auto;
+            margin-right: 0;
+            padding: 10px 10px 20px;
+            position: relative;
+            top: 0;
+
+            &.price-container {
+              border-top: 1px solid ${colors.lightGray};
+              margin-top: 10px;
+              padding-top: 20px;
+            }
+
+            span.close-filter-param {
+              display: none;
+            }
           }
 
           span.toggleFilterVisibility {
+            display: inline;
             flex: 100%;
             margin-bottom: 10px;
             margin-right: 0;
@@ -314,15 +739,19 @@ export default class Filter extends Component {
             text-align: center;
           }
 
-          div.container .select-container {
-            display: grid;
-            grid-template-columns: 50% 50%;
-          }
-
           label {
             font-size: 13px;
-            &:first-of-type {
-              width: 50px;
+          }
+
+          button.close-mobile-filters {
+            background: ${colors.blue};
+            border: 1px solid ${colors.darkenedBlue};
+            color: white;
+            z-index: 3;
+            margin: 0 auto;
+            width: calc(100vw - 20px);
+            &:hover {
+              background: ${colors.darkenedBlue};
             }
           }
         }

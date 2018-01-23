@@ -1,12 +1,12 @@
 import { Component } from 'react'
 import Router from 'next/router'
 import Select from 'react-select'
-import reactSelectStyles from 'react-select/dist/react-select.min.css'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faSearch from '@fortawesome/fontawesome-free-solid/faSearch'
 
 import * as colors from '../../constants/colors'
 import { mobileMedia } from '../../constants/media'
+import * as filterOptions from '../../constants/listing-filter-options'
 import { imageUrl } from '../../utils/image_url'
 
 export default class HomeSearch extends Component {
@@ -70,32 +70,9 @@ export default class HomeSearch extends Component {
   }
 
   render() {
-    const { neighborhoods } = this.props
     const { quartos, preco_minimo, preco_maximo, bairros } = this.state
-
-    const roomNumberOptions = [
-      { value: '1', label: '1 quarto' },
-      { value: '2', label: '2 quartos' },
-      { value: '3', label: '3 quartos' },
-      { value: '4', label: '4 quartos' }
-    ]
-    const minPriceOptions = [
-      { value: 750000, label: 'R$750.000' },
-      { value: 1000000, label: 'R$1.000.000' },
-      { value: 2000000, label: 'R$2.000.000' },
-      { value: 3000000, label: 'R$3.000.000' },
-      { value: 5000000, label: 'R$5.000.000' }
-    ]
-    const maxPriceOptions = [
-      { value: 1000000, label: 'R$1.000.000' },
-      { value: 2000000, label: 'R$2.000.000' },
-      { value: 3000000, label: 'R$3.000.000' },
-      { value: 5000000, label: 'R$5.000.000' },
-      { value: 10000000, label: 'R$10.000.000' }
-    ]
-    const neighborhoodOptions = neighborhoods.map(function(neighborhood) {
-      return { value: neighborhood, label: neighborhood }
-    })
+    const { neighborhoods } = this.props
+    const neighborhoodOptions = filterOptions.neighborhoodOptions(neighborhoods)
 
     return <div className="container">
       <h1>Encontre o Imóvel Perfeito para Você</h1>
@@ -108,10 +85,12 @@ export default class HomeSearch extends Component {
           <div className="neighborhoods">
             <Select
               name="form-field-name"
+              arrowRenderer={null}
               placeholder="Bairro"
               value={bairros}
               onChange={this.handleNeighborhoodChange}
-              options={neighborhoodOptions} />
+              options={neighborhoodOptions}
+              searchable={false} />
           </div>
           <div className="magnifier-container" onClick={this.handleClick}>
             <FontAwesomeIcon icon={faSearch} />
@@ -121,26 +100,32 @@ export default class HomeSearch extends Component {
           <div className="rooms">
             <Select
               name="form-field-name"
+              arrowRenderer={null}
               placeholder="Quartos"
               value={quartos}
               onChange={this.handleRoomChange}
-              options={roomNumberOptions} />
+              options={filterOptions.roomNumberOptions}
+              searchable={false} />
           </div>
           <div className="min-price">
             <Select
               name="form-field-name"
+              arrowRenderer={null}
               placeholder="Preço Mínimo"
               value={preco_minimo}
               onChange={this.handleMinPriceChange}
-              options={minPriceOptions} />
+              options={filterOptions.minPriceOptions}
+              searchable={false} />
           </div>
           <div className="max-price">
             <Select
               name="form-field-name"
+              arrowRenderer={null}
               placeholder="Preço Máximo"
               value={preco_maximo}
               onChange={this.handleMaxPriceChange}
-              options={maxPriceOptions} />
+              options={filterOptions.maxPriceOptions}
+              searchable={false} />
           </div>
           <div className="mobile-magnifier-container" onClick={this.handleClick}>
             Ver Imóveis →

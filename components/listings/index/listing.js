@@ -4,6 +4,7 @@ import Router from 'next/router'
 import ImageContainer from './image-container'
 import TextContainer from './text-container'
 
+import * as colors from '../../../constants/colors'
 import { mobileMedia } from '../../../constants/media'
 
 class Listing extends React.Component {
@@ -24,7 +25,7 @@ class Listing extends React.Component {
     const { listing, i, currentUser } = this.props
 
     return (
-      <div className="listing" key={i} onClick={this.handleListingClick}>
+      <div key={i} onClick={this.handleListingClick}>
         <ImageContainer listing={listing} />
         <TextContainer listing={listing} currentUser={currentUser} />
 
@@ -33,17 +34,23 @@ class Listing extends React.Component {
         }
 
         <style jsx>{`
-          .listing {
+          div {
             background: white;
+            border-bottom: 1px solid ${colors.lightGray};
             cursor: pointer;
-            margin: 0 0 8px;
             overflow: hidden;
+            padding-bottom: 20px;
+            padding-top: 20px;
             position: relative;
             width: 100%;
           }
 
-          .listing:hover {
+          div:hover {
             background: #f5f5f5;
+          }
+
+          div:first-of-type {
+            padding-top: 23px;
           }
 
           span.matterport {
