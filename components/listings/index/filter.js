@@ -12,6 +12,7 @@ import { treatParams } from '../../../utils/filter-params.js'
 import PriceFilter from '../../../components/listings/index/filter/price'
 import AreaFilter from '../../../components/listings/index/filter/area'
 import RoomFilter from '../../../components/listings/index/filter/rooms'
+import NeighborhoodFilter from '../../../components/listings/index/filter/neighborhoods'
 
 export default class Filter extends Component {
   constructor(props) {
@@ -158,43 +159,6 @@ export default class Filter extends Component {
     })
   }
 
-
-
-  renderTextForRoomsButton = () => {
-    const { quartos } = this.state.filterParams
-
-    let suffix
-
-    if (quartos) {
-      return quartos + ' quartos'
-    } else {
-      return 'Quartos'
-    }
-  }
-
-  renderTextForNeighborhoodsButton = () => {
-    const { bairros } = this.state.filterParams
-
-    if (bairros.length == 0) {
-      return 'Bairros'
-    }
-
-    const firstNeighborhood = bairros[0].value || bairros[0]
-
-    if (bairros.length == 1) {
-      return firstNeighborhood
-    } else {
-      return firstNeighborhood + ' e mais ' + (bairros.length - 1)
-    }
-  }
-
-
-  shouldRenderNeighborhoodsButtonAsActive = () => {
-    const { filterVisibility } = this.state
-    const { bairros } = this.state.filterParams
-    return (bairros.length > 0) || filterVisibility.neighborhoods
-  }
-
   getNumberOfActiveFilters = () => {
     const { preco_minimo, preco_maximo, area_minima, area_maxima, quartos, bairros } = this.state.filterParams
 
@@ -234,7 +198,6 @@ export default class Filter extends Component {
 
   render() {
     const { neighborhoods, query } = this.props
-    const neighborhoodOptions = filterOptions.neighborhoodOptions(neighborhoods)
     const { preco_minimo, preco_maximo, area_minima, area_maxima, quartos, bairros } = this.state.filterParams
 
     const { filterVisibility, isMobileOpen } = this.state
@@ -290,35 +253,14 @@ export default class Filter extends Component {
         handleCloseFilterParam={this.setAllParamFiltersVisibilityToFalse}
       />
 
-      <div className="filter-param-container">
-        <button
-          className={this.shouldRenderNeighborhoodsButtonAsActive() ? 'active' : ''}
-          onClick={this.toggleNeighborhoodsFilterVisibility}
-        >
-          {this.renderTextForNeighborhoodsButton()}
-        </button>
-
-        {filterVisibility.neighborhoods &&
-          <div className="option-container">
-            <span className="mobile-param-title">Bairros</span>
-            <div>
-              <Select
-                name="form-field-name"
-                arrowRenderer={null}
-                style={{width: 200}}
-                placeholder="Bairros"
-                multi={true}
-                value={bairros}
-                onChange={this.handleNeighborhoodChange}
-                options={neighborhoodOptions}
-                searchable={false} />
-            </div>
-            <span className="close-filter-param" onClick={this.setAllParamFiltersVisibilityToFalse}>
-              Aplicar
-            </span>
-          </div>
-        }
-      </div>
+      <NeighborhoodFilter
+        isVisible={filterVisibility.neighborhoods}
+        options={neighborhoods}
+        selectedOptions={bairros}
+        handleChange={this.handleNeighborhoodChange}
+        toggleVisibility={this.toggleNeighborhoodsFilterVisibility}
+        handleCloseFilterParam={this.setAllParamFiltersVisibilityToFalse}
+      />
 
       {isMobileOpen &&
         <button
@@ -334,17 +276,19 @@ export default class Filter extends Component {
       </span>
 
       <style global jsx>{`
-        .Select-control {
-          border-color: ${colors.blue};
-        }
+        .listings-filter-container {
+          .Select-control {
+            border-color: ${colors.blue};
+          }
 
-        .Select-placeholder {
-          color: ${colors.mediumGray};
-          text-align: center;
-        }
+          .Select-placeholder {
+            color: ${colors.mediumGray};
+            text-align: center;
+          }
 
-        .Select.has-value.is-clearable.Select--single > .Select-control .Select-value {
-          padding-right: 20px;
+          .Select.has-value.is-clearable.Select--single > .Select-control .Select-value {
+            padding-right: 20px;
+          }
         }
       `}</style>
 
@@ -512,96 +456,96 @@ export default class Filter extends Component {
         }
 
         @media ${mobileMedia} {
-          div.container {
+          .listings-filter-container {
             flex-wrap: wrap;
-          }
 
-          div.mobile-control-container {
-            align-items: center;
-            display: flex;
-            justify-content: space-between;
-            width: 100vw;
-          }
+            div.mobile-control-container {
+              align-items: center;
+              display: flex;
+              justify-content: space-between;
+              width: 100vw;
+            }
 
-          div.active-filter-overlay {
-            background: white;
-          }
+            div.active-filter-overlay {
+              background: white;
+            }
 
-          span.filter-title {
-            display: none;
-          }
+            span.filter-title {
+              display: none;
+            }
 
-          span.remove-all-filters {
-            display: none;
-            &.mobile {
+            span.remove-all-filters {
+              display: none;
+              &.mobile {
+                display: block;
+              }
+            }
+
+            span.mobile-param-title {
+              color: ${colors.mediumDarkGray};
               display: block;
-            }
-          }
-
-          span.mobile-param-title {
-            color: ${colors.mediumDarkGray};
-            display: block;
-            font-size: 11px;
-            font-weight: 700;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-          }
-
-          button.mobile-filter-toggler {
-            display: block;
-            margin-left: 10px;
-            margin-right: auto;
-          }
-
-          div.filter-param-container {
-            width: 100vw;
-
-            button {
-              display: none;
-            }
-          }
-
-          div.option-container {
-            border: none;
-            height: auto;
-            margin-right: 0;
-            padding: 0 10px 15px;
-            position: relative;
-            top: 0;
-
-            &.price-container {
-              border-top: 1px solid ${colors.lightGray};
-              margin-top: 10px;
-              padding-top: 20px;
+              font-size: 11px;
+              font-weight: 700;
+              margin-bottom: 10px;
+              text-transform: uppercase;
             }
 
-            span.close-filter-param {
-              display: none;
+            button.mobile-filter-toggler {
+              display: block;
+              margin-left: 10px;
+              margin-right: auto;
             }
-          }
 
-          span.toggleFilterVisibility {
-            display: inline;
-            flex: 100%;
-            margin-bottom: 10px;
-            margin-right: 0;
-            order: 99;
-            text-align: center;
-          }
+            div.filter-param-container {
+              width: 100vw;
 
-          label {
-            font-size: 13px;
-          }
+              button {
+                display: none;
+              }
+            }
 
-          button.close-mobile-filters {
-            background: ${colors.blue};
-            border: 1px solid ${colors.darkenedBlue};
-            color: white;
-            z-index: 3;
-            margin: 0 auto;
-            width: calc(100vw - 20px);
-            &:hover {
-              background: ${colors.darkenedBlue};
+            div.option-container {
+              border: none;
+              height: auto;
+              margin-right: 0;
+              padding: 0 10px 15px;
+              position: relative;
+              top: 0;
+
+              &.price-container {
+                border-top: 1px solid ${colors.lightGray};
+                margin-top: 10px;
+                padding-top: 20px;
+              }
+
+              span.close-filter-param {
+                display: none;
+              }
+            }
+
+            span.toggleFilterVisibility {
+              display: inline;
+              flex: 100%;
+              margin-bottom: 10px;
+              margin-right: 0;
+              order: 99;
+              text-align: center;
+            }
+
+            label {
+              font-size: 13px;
+            }
+
+            button.close-mobile-filters {
+              background: ${colors.blue};
+              border: 1px solid ${colors.darkenedBlue};
+              color: white;
+              z-index: 3;
+              margin: 0 auto;
+              width: calc(100vw - 20px);
+              &:hover {
+                background: ${colors.darkenedBlue};
+              }
             }
           }
         }
