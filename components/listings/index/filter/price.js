@@ -1,5 +1,6 @@
 import { Component } from 'react'
 import Link from 'next/link'
+import Select from 'react-select'
 import numeral from 'numeral'
 
 import * as colors from '../../../../constants/colors'
@@ -36,12 +37,20 @@ export default class PriceFilter extends Component {
 
 
   render() {
-    const { isVisible, minPrice, maxPrice } = this.props
+    const {
+      isVisible,
+			minPrice,
+			maxPrice,
+			handleMinPriceChange,
+			handleMaxPriceChange,
+			toggleVisibility,
+			handleCloseFilterParam
+    } = this.props
 
     return <div className="filter-param-container">
       <button
         className={this.shouldRenderPriceButtonAsActive() ? 'active' : ''}
-        onClick={this.togglePriceFilterVisibility}
+        onClick={toggleVisibility}
       >
         {this.renderTextForPriceButton()}
       </button>
@@ -56,7 +65,7 @@ export default class PriceFilter extends Component {
               style={{width: 130}}
               placeholder="R$"
               value={minPrice}
-              onChange={this.handleMinPriceChange}
+              onChange={handleMinPriceChange}
               options={minPriceOptions}
               searchable={false} />
 
@@ -68,12 +77,12 @@ export default class PriceFilter extends Component {
               style={{width: 130}}
               placeholder="R$"
               value={maxPrice}
-              onChange={this.handleMaxPriceChange}
+              onChange={handleMaxPriceChange}
               options={maxPriceOptions}
               searchable={false} />
           </div>
 
-          <span className="close-filter-param" onClick={this.setAllParamFiltersVisibilityToFalse}>
+          <span className="close-filter-param" onClick={handleCloseFilterParam}>
             Aplicar
           </span>
         </div>
