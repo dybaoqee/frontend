@@ -10,6 +10,7 @@ import * as filterOptions from '../../../constants/listing-filter-options'
 import { treatParams } from '../../../utils/filter-params.js'
 
 import PriceFilter from '../../../components/listings/index/filter/price'
+import AreaFilter from '../../../components/listings/index/filter/area'
 
 export default class Filter extends Component {
   constructor(props) {
@@ -157,28 +158,6 @@ export default class Filter extends Component {
   }
 
 
-  renderTextForAreaButton = () => {
-    const { area_minima, area_maxima } = this.state.filterParams
-    const abbreviatedMinArea = numeral(area_minima).format('0a')
-    const abbreviatedMaxArea = numeral(area_maxima).format('0a')
-
-    let suffix
-
-    if (area_minima && area_maxima) {
-      suffix = abbreviatedMinArea + '-' + abbreviatedMaxArea
-    } else if (area_minima) {
-      suffix = abbreviatedMinArea + 'm²+'
-    } else if (area_maxima) {
-      suffix = '0-' + abbreviatedMaxArea + 'm²'
-    }
-
-    if (suffix) {
-      return suffix
-    } else {
-      return 'Área'
-    }
-  }
-
   renderTextForRoomsButton = () => {
     const { quartos } = this.state.filterParams
 
@@ -217,12 +196,6 @@ export default class Filter extends Component {
     } else {
       return firstNeighborhood + ' e mais ' + (bairros.length - 1)
     }
-  }
-
-  shouldRenderAreaButtonAsActive = () => {
-    const { filterVisibility } = this.state
-    const { area_minima, area_maxima } = this.state.filterParams
-    return area_minima || area_maxima || filterVisibility.area
   }
 
   shouldRenderRoomsButtonAsActive = () => {
@@ -314,46 +287,15 @@ export default class Filter extends Component {
         handleCloseFilterParam={this.setAllParamFiltersVisibilityToFalse}
       />
 
-      <div className="filter-param-container">
-        <button
-          className={this.shouldRenderAreaButtonAsActive() ? 'active' : ''}
-          onClick={this.toggleAreaFilterVisibility}
-        >
-          {this.renderTextForAreaButton()}
-        </button>
-
-        {filterVisibility.area &&
-          <div className="option-container">
-            <span className="mobile-param-title">Área</span>
-            <div>
-              <Select
-                name="form-field-name"
-                arrowRenderer={null}
-                style={{width: 100}}
-                placeholder="m²"
-                value={area_minima}
-                onChange={this.handleMinAreaChange}
-                options={filterOptions.minAreaOptions}
-                searchable={false} />
-
-              <label>até</label>
-
-              <Select
-                name="form-field-name"
-                arrowRenderer={null}
-                style={{width: 100}}
-                placeholder="m²"
-                value={area_maxima}
-                onChange={this.handleMaxAreaChange}
-                options={filterOptions.maxAreaOptions}
-                searchable={false} />
-            </div>
-            <span className="close-filter-param" onClick={this.setAllParamFiltersVisibilityToFalse}>
-              Aplicar
-            </span>
-          </div>
-        }
-      </div>
+      <AreaFilter
+        isVisible={filterVisibility.area}
+        minArea={area_minima}
+        maxArea={area_maxima}
+        handleMinAreaChange={this.handleMinAreaChange}
+        handleMaxAreaChange={this.handleMaxAreaChange}
+        toggleVisibility={this.toggleAreaFilterVisibility}
+        handleCloseFilterParam={this.setAllParamFiltersVisibilityToFalse}
+      />
 
       <div className="filter-param-container">
         <button
