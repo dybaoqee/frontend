@@ -9,6 +9,8 @@ import { mobileMedia } from '../../../constants/media'
 import * as filterOptions from '../../../constants/listing-filter-options'
 import { treatParams } from '../../../utils/filter-params.js'
 
+import PriceFilter from '../../../components/listings/index/filter/price'
+
 export default class Filter extends Component {
   constructor(props) {
     super(props)
@@ -154,27 +156,6 @@ export default class Filter extends Component {
     })
   }
 
-  renderTextForPriceButton = () => {
-    const { preco_minimo, preco_maximo } = this.state.filterParams
-    const abbreviatedMinPrice = numeral(preco_minimo).format('0a')
-    const abbreviatedMaxPrice = numeral(preco_maximo).format('0a')
-
-    let suffix
-
-    if (preco_minimo && preco_maximo) {
-      suffix = abbreviatedMinPrice + '-' + abbreviatedMaxPrice
-    } else if (preco_minimo) {
-      suffix = abbreviatedMinPrice + '+'
-    } else if (preco_maximo) {
-      suffix = '0-' + abbreviatedMaxPrice
-    }
-
-    if (suffix) {
-      return 'R$' + suffix.split('m').join('M')
-    } else {
-      return 'Preço'
-    }
-  }
 
   renderTextForAreaButton = () => {
     const { area_minima, area_maxima } = this.state.filterParams
@@ -236,12 +217,6 @@ export default class Filter extends Component {
     } else {
       return firstNeighborhood + ' e mais ' + (bairros.length - 1)
     }
-  }
-
-  shouldRenderPriceButtonAsActive = () => {
-    const { filterVisibility } = this.state
-    const { preco_minimo, preco_maximo } = this.state.filterParams
-    return preco_minimo || preco_maximo || filterVisibility.price
   }
 
   shouldRenderAreaButtonAsActive = () => {
@@ -325,51 +300,15 @@ export default class Filter extends Component {
         </button>
 
         <span className="mobile remove-all-filters" onClick={this.removeAllFilters}>
-          Limpar Filtros
+          Limpar
         </span>
       </div>
 
-      <div className="filter-param-container">
-        <button
-          className={this.shouldRenderPriceButtonAsActive() ? 'active' : ''}
-          onClick={this.togglePriceFilterVisibility}
-        >
-          {this.renderTextForPriceButton()}
-        </button>
-
-        {filterVisibility.price &&
-          <div className="option-container price-container">
-            <span className="mobile-param-title">Preço</span>
-            <div>
-              <Select
-                name="form-field-name"
-                arrowRenderer={null}
-                style={{width: 130}}
-                placeholder="R$"
-                value={preco_minimo}
-                onChange={this.handleMinPriceChange}
-                options={filterOptions.minPriceOptions}
-                searchable={false} />
-
-              <label>até</label>
-
-              <Select
-                name="form-field-name"
-                arrowRenderer={null}
-                style={{width: 130}}
-                placeholder="R$"
-                value={preco_maximo}
-                onChange={this.handleMaxPriceChange}
-                options={filterOptions.maxPriceOptions}
-                searchable={false} />
-            </div>
-
-            <span className="close-filter-param" onClick={this.setAllParamFiltersVisibilityToFalse}>
-              Aplicar
-            </span>
-          </div>
-        }
-      </div>
+      <PriceFilter
+        isVisible={filterVisibility.price}
+        minPrice={preco_minimo}
+        maxPrice={preco_maximo}
+      />
 
       <div className="filter-param-container">
         <button
