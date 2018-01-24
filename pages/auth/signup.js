@@ -32,7 +32,6 @@ export default class Login extends Component {
 
     const name = e.target.elements.name.value
     const email = e.target.elements.email.value
-    const phone = e.target.elements.phone.value
     const password = e.target.elements.password.value
 
     const error = await signUp(name, email, password)
