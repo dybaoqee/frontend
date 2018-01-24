@@ -11,6 +11,7 @@ import { treatParams } from '../../../utils/filter-params.js'
 
 import PriceFilter from '../../../components/listings/index/filter/price'
 import AreaFilter from '../../../components/listings/index/filter/area'
+import RoomFilter from '../../../components/listings/index/filter/rooms'
 
 export default class Filter extends Component {
   constructor(props) {
@@ -158,17 +159,6 @@ export default class Filter extends Component {
   }
 
 
-  renderTextForRoomsButton = () => {
-    const { quartos } = this.state.filterParams
-
-    let suffix
-
-    if (quartos) {
-      return quartos + ' quartos'
-    } else {
-      return 'Quartos'
-    }
-  }
 
   renderTextForRoomsButton = () => {
     const { quartos } = this.state.filterParams
@@ -198,11 +188,6 @@ export default class Filter extends Component {
     }
   }
 
-  shouldRenderRoomsButtonAsActive = () => {
-    const { filterVisibility } = this.state
-    const { quartos } = this.state.filterParams
-    return quartos || filterVisibility.rooms
-  }
 
   shouldRenderNeighborhoodsButtonAsActive = () => {
     const { filterVisibility } = this.state
@@ -297,34 +282,13 @@ export default class Filter extends Component {
         handleCloseFilterParam={this.setAllParamFiltersVisibilityToFalse}
       />
 
-      <div className="filter-param-container">
-        <button
-          className={this.shouldRenderRoomsButtonAsActive() ? 'active' : ''}
-          onClick={this.toggleRoomFilterVisibility}
-        >
-          {this.renderTextForRoomsButton()}
-        </button>
-
-        {filterVisibility.rooms &&
-          <div className="option-container">
-            <span className="mobile-param-title">Quartos</span>
-            <div>
-              <Select
-                name="form-field-name"
-                arrowRenderer={null}
-                style={{width: 130}}
-                placeholder="Nº Quartos"
-                value={quartos}
-                onChange={this.handleRoomChange}
-                options={filterOptions.roomNumberOptions}
-                searchable={false} />
-            </div>
-            <span className="close-filter-param" onClick={this.setAllParamFiltersVisibilityToFalse}>
-              Aplicar
-            </span>
-          </div>
-        }
-      </div>
+      <RoomFilter
+        isVisible={filterVisibility.rooms}
+        rooms={quartos}
+        handleChange={this.handleRoomChange}
+        toggleVisibility={this.toggleRoomFilterVisibility}
+        handleCloseFilterParam={this.setAllParamFiltersVisibilityToFalse}
+      />
 
       <div className="filter-param-container">
         <button
