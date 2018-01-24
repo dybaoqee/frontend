@@ -1,6 +1,8 @@
 import { Component } from 'react'
 import Link from 'next/link'
+
 import Layout from '../../components/main-layout'
+import OneColumnForm from '../../components/one-column-form'
 import Error from '../../components/error'
 import { getCookie, removeCookie } from '../../lib/session'
 import { signIn, signUp, redirectIfAuthenticated } from '../../lib/auth'
@@ -51,13 +53,23 @@ export default class Login extends Component {
     return (
       <Layout>
         <div>
-          <form onSubmit={this.handleSubmit}>
-            <input type="text" placeholder="name" name="name" />
-            <input type="email" placeholder="email" name="email" />
-            <input type="phone" placeholder="phone" name="phone" />
-            <input type="password" placeholder="password" name="password" />
-            <button type="submit">Submit</button>
-          </form>
+          <OneColumnForm handleSubmit={this.handleSubmit}>
+            <h1>Cadastre-se</h1>
+
+            <div className="control-group">
+              <input type="text" placeholder="Nome" name="name" />
+            </div>
+
+            <div className="control-group">
+              <input type="email" placeholder="Email" name="email" />
+            </div>
+
+            <div className="control-group">
+              <input type="password" placeholder="Senha" name="password" />
+            </div>
+
+            <button type="submit">Enviar</button>
+          </OneColumnForm>
         </div>
       </Layout>
     )
