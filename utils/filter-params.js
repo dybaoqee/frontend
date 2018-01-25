@@ -1,11 +1,7 @@
 function joinParam(param) {
-  if (Array.isArray(param)) {
-    return param.map(function(item) {
-      return item.value;
-    }).join('|')
-  } else {
-    return param
-  }
+  return param.map(function(item) {
+    return item.value;
+  }).join('|')
 }
 
 function treatMinPrice(params) {
@@ -38,12 +34,19 @@ function treatRooms(params) {
   }
 }
 
+function treatNeighborhoods(params) {
+  if(params.neighborhoods.value.length > 0) {
+    return `bairros=${joinParam(params.neighborhoods.value)}`
+  }
+}
+
 export function treatParams(params) {
   return [
     treatMinPrice(params),
     treatMaxPrice(params),
     treatMinArea(params),
     treatMaxArea(params),
-    treatRooms(params)
+    treatRooms(params),
+    treatNeighborhoods(params)
   ].filter(n => n).join('&')
 }

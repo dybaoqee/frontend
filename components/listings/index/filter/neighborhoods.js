@@ -32,13 +32,15 @@ export default class NeighborhoodFilter extends Component {
 
   render() {
     const {
-      isVisible,
+      neighborhoods,
 			options,
       selectedOptions,
 			handleChange,
 			toggleVisibility,
-			handleCloseFilterParam
+			handleClose
     } = this.props
+
+    const { value, visible } = neighborhoods
 
     const optionsObject = neighborhoodOptions(options)
 
@@ -50,7 +52,7 @@ export default class NeighborhoodFilter extends Component {
         {this.buttonText()}
       </button>
 
-      {isVisible &&
+      {visible &&
         <div className="option-container">
           <span className="mobile-param-title">Bairros</span>
           <div>
@@ -60,7 +62,7 @@ export default class NeighborhoodFilter extends Component {
               style={{width: 200}}
               placeholder="Bairros"
               multi={true}
-              value={selectedOptions}
+              value={value}
               onChange={handleChange}
               options={optionsObject}
               searchable={false} />
