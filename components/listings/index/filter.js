@@ -119,23 +119,23 @@ export default class Filter extends Component {
     this.setState(state)
   }
 
-  toggleRoomFilterVisibility = () => {
-    this.toggleParamFilterVisibility('rooms')
+  toggleRoomVisibility = () => {
+    this.toggleParamVisibility('rooms')
   }
 
-  togglePriceFilterVisibility = () => {
-    this.toggleParamFilterVisibility('price')
+  togglePriceVisibility = () => {
+    this.toggleParamVisibility('price')
   }
 
-  toggleAreaFilterVisibility = () => {
-    this.toggleParamFilterVisibility('area')
+  toggleAreaVisibility = () => {
+    this.toggleParamVisibility('area')
   }
 
-  toggleNeighborhoodsFilterVisibility = () => {
-    this.toggleParamFilterVisibility('neighborhoods')
+  toggleNeighborhoodsVisibility = () => {
+    this.toggleParamVisibility('neighborhoods')
   }
 
-  toggleParamFilterVisibility = (param) => {
+  toggleParamVisibility = (param) => {
     const state = this.state
     const newParamFilterVisibility = !state.visibility[param]
 
@@ -233,7 +233,7 @@ export default class Filter extends Component {
         price={price}
         handleMinPriceChange={this.handleMinPriceChange}
         handleMaxPriceChange={this.handleMaxPriceChange}
-        toggleVisibility={this.togglePriceFilterVisibility}
+        toggleVisibility={this.togglePriceVisibility}
         handleClose={this.hideAllParams}
       />
 
@@ -241,14 +241,14 @@ export default class Filter extends Component {
         area={area}
         handleMinAreaChange={this.handleMinAreaChange}
         handleMaxAreaChange={this.handleMaxAreaChange}
-        toggleVisibility={this.toggleAreaFilterVisibility}
+        toggleVisibility={this.toggleAreaVisibility}
         handleClose={this.hideAllParams}
       />
 
       <RoomFilter
         rooms={rooms}
         handleChange={this.handleRoomChange}
-        toggleVisibility={this.toggleRoomFilterVisibility}
+        toggleVisibility={this.toggleRoomVisibility}
         handleClose={this.hideAllParams}
       />
 
@@ -256,7 +256,7 @@ export default class Filter extends Component {
         neighborhoods={neighborhoods}
         options={neighborhoodOptions}
         handleChange={this.handleNeighborhoodChange}
-        toggleVisibility={this.toggleNeighborhoodsFilterVisibility}
+        toggleVisibility={this.toggleNeighborhoodsVisibility}
         handleClose={this.hideAllParams}
       />
 
