@@ -137,26 +137,26 @@ export default class Filter extends Component {
 
   toggleParamVisibility = (param) => {
     const state = this.state
-    const newParamFilterVisibility = !state.visibility[param]
+    const newParamFilterVisibility = !state.params[param].visible
 
     this.hideAllParams()
 
-    state.visibility[param] = newParamFilterVisibility
+    state.params[param].visible = newParamFilterVisibility
     this.setState(state)
   }
 
   hideAllParams = () => {
     const { state } = this
-    const { visibility } = state
+    const { params } = state
 
-    Object.keys(visibility).map(function(key) {
-      state.visibility[key] = false
+    Object.keys(params).map(function(key) {
+      state.params[key].visible = false
     })
 
     this.setState(state)
   }
 
-  isAnyParamOpen = () => {
+  isAnyParamVisible = () => {
     const { params } = this.state
 
     return Object.keys(params).some(function(key) {
@@ -206,9 +206,9 @@ export default class Filter extends Component {
     const { price, area, rooms, neighborhoods } = this.state.params
     const { visibility, isMobileOpen } = this.state
 
-    return <div className={"listings-filter-container "+ (this.isAnyParamOpen() ? 'filter-open' : '')}>
+    return <div className={"listings-filter-container "+ (this.isAnyParamVisible() ? 'filter-open' : '')}>
       {
-        this.isAnyParamOpen() &&
+        this.isAnyParamVisible() &&
         <div className="active-filter-overlay" onClick={this.handleOverlayClick} />
       }
 
