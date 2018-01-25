@@ -9,23 +9,23 @@ import { minAreaOptions, maxAreaOptions } from '../../../../constants/listing-fi
 
 export default class AreaFilter extends Component {
   isButtonActive = () => {
-    const { isVisible, minArea, maxArea } = this.props
-    return minArea || maxArea || isVisible
+    const { min, max, visible } = this.props.area
+    return min || max || visible
   }
 
   buttonText = () => {
-    const { minArea, maxArea } = this.props
-    const abbreviatedMinArea = numeral(minArea).format('0a')
-    const abbreviatedMaxArea = numeral(maxArea).format('0a')
+    const { min, max } = this.props.area
+    const abbreviatedMin = numeral(min).format('0a')
+    const abbreviatedMax = numeral(max).format('0a')
 
     let suffix
 
-    if (minArea && maxArea) {
-      suffix = abbreviatedMinArea + '-' + abbreviatedMaxArea
-    } else if (minArea) {
-      suffix = abbreviatedMinArea + 'm²+'
-    } else if (maxArea) {
-      suffix = '0-' + abbreviatedMaxArea + 'm²'
+    if (min && max) {
+      suffix = abbreviatedMin + '-' + abbreviatedMax
+    } else if (min) {
+      suffix = abbreviatedMin + 'm²+'
+    } else if (max) {
+      suffix = '0-' + abbreviatedMax + 'm²'
     }
 
     if (suffix) {
@@ -37,14 +37,14 @@ export default class AreaFilter extends Component {
 
   render() {
     const {
-      isVisible,
-			minArea,
-			maxArea,
+      area,
 			handleMinAreaChange,
 			handleMaxAreaChange,
 			toggleVisibility,
 			handleClose
     } = this.props
+
+    const { min, max, visible } = area
 
     return <div className="filter-param-container">
       <button
@@ -54,7 +54,7 @@ export default class AreaFilter extends Component {
         {this.buttonText()}
       </button>
 
-      {isVisible &&
+      {visible &&
         <div className="option-container">
           <span className="mobile-param-title">Área</span>
           <div>
@@ -63,7 +63,7 @@ export default class AreaFilter extends Component {
               arrowRenderer={null}
               style={{width: 100}}
               placeholder="m²"
-              value={minArea}
+              value={min}
               onChange={handleMinAreaChange}
               options={minAreaOptions}
               searchable={false} />
@@ -75,7 +75,7 @@ export default class AreaFilter extends Component {
               arrowRenderer={null}
               style={{width: 100}}
               placeholder="m²"
-              value={maxArea}
+              value={max}
               onChange={handleMaxAreaChange}
               options={maxAreaOptions}
               searchable={false} />
