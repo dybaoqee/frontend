@@ -22,13 +22,13 @@ export default class Filter extends Component {
 
     this.state = {
       isMobileOpen: false,
-      filterVisibility: {
+      visibility: {
         price: false,
         area: false,
         rooms: false,
         neighborhoods: false
       },
-      filterParams: {
+      params: {
         preco_minimo: preco_minimo,
         preco_maximo: preco_maximo,
         area_minima: area_minima,
@@ -42,7 +42,7 @@ export default class Filter extends Component {
   updateSelectedOption = (selectedOption, stateKey) => {
     const value = (selectedOption && selectedOption.value) ? selectedOption.value : null
     const state = this.state
-    state.filterParams[stateKey] = value
+    state.params[stateKey] = value
     this.setState(state)
 
     this.updateFilter()
@@ -70,14 +70,14 @@ export default class Filter extends Component {
 
   handleNeighborhoodChange = (value) => {
     const state = this.state
-    state.filterParams.bairros = value
+    state.params.bairros = value
     this.setState(state)
 
     this.updateFilter()
   }
 
   updateFilter = () => {
-    const params = treatParams(this.state.filterParams)
+    const params = treatParams(this.state.params)
 
     if (params) {
       Router.push(`/listings/index?${params}`, `/imoveis?${params}`)
@@ -88,7 +88,7 @@ export default class Filter extends Component {
 
   removeAllFilters = () => {
     const state = this.state
-    state.filterParams = {
+    state.params = {
       preco_minimo: undefined,
       preco_maximo: undefined,
       area_minima: undefined,
@@ -104,7 +104,7 @@ export default class Filter extends Component {
   handleToggleFilterVisibility = () => {
     const state = this.state
     state.isMobileOpen = !state.isMobileOpen
-    state.filterVisibility = {
+    state.visibility = {
       price: state.isMobileOpen,
       area: state.isMobileOpen,
       rooms: state.isMobileOpen,
@@ -131,35 +131,35 @@ export default class Filter extends Component {
 
   toggleParamFilterVisibility = (param) => {
     const state = this.state
-    const newParamFilterVisibility = !state.filterVisibility[param]
+    const newParamFilterVisibility = !state.visibility[param]
 
     this.setAllParamFiltersVisibilityToFalse()
 
-    state.filterVisibility[param] = newParamFilterVisibility
+    state.visibility[param] = newParamFilterVisibility
     this.setState(state)
   }
 
   setAllParamFiltersVisibilityToFalse = () => {
     const { state } = this
-    const { filterVisibility } = state
+    const { visibility } = state
 
-    Object.keys(filterVisibility).map(function(key) {
-      state.filterVisibility[key] = false
+    Object.keys(visibility).map(function(key) {
+      state.visibility[key] = false
     })
 
     this.setState(state)
   }
 
   isAnyParamFilterOpen = () => {
-    const { filterVisibility } = this.state
+    const { visibility } = this.state
 
-    return Object.keys(filterVisibility).some(function(key) {
-      return filterVisibility[key] === true
+    return Object.keys(visibility).some(function(key) {
+      return visibility[key] === true
     })
   }
 
   getNumberOfActiveFilters = () => {
-    const { preco_minimo, preco_maximo, area_minima, area_maxima, quartos, bairros } = this.state.filterParams
+    const { preco_minimo, preco_maximo, area_minima, area_maxima, quartos, bairros } = this.state.params
 
     let numberOfFilters = 0
 
@@ -197,9 +197,9 @@ export default class Filter extends Component {
 
   render() {
     const { neighborhoods, query } = this.props
-    const { preco_minimo, preco_maximo, area_minima, area_maxima, quartos, bairros } = this.state.filterParams
+    const { preco_minimo, preco_maximo, area_minima, area_maxima, quartos, bairros } = this.state.params
 
-    const { filterVisibility, isMobileOpen } = this.state
+    const { visibility, isMobileOpen } = this.state
 
     return <div className={"listings-filter-container "+ (this.isAnyParamFilterOpen() ? 'filter-open' : '')}>
       {
@@ -225,7 +225,7 @@ export default class Filter extends Component {
       </div>
 
       <PriceFilter
-        isVisible={filterVisibility.price}
+        isVisible={visibility.price}
         minPrice={preco_minimo}
         maxPrice={preco_maximo}
         handleMinPriceChange={this.handleMinPriceChange}
@@ -235,7 +235,7 @@ export default class Filter extends Component {
       />
 
       <AreaFilter
-        isVisible={filterVisibility.area}
+        isVisible={visibility.area}
         minArea={area_minima}
         maxArea={area_maxima}
         handleMinAreaChange={this.handleMinAreaChange}
@@ -245,7 +245,7 @@ export default class Filter extends Component {
       />
 
       <RoomFilter
-        isVisible={filterVisibility.rooms}
+        isVisible={visibility.rooms}
         rooms={quartos}
         handleChange={this.handleRoomChange}
         toggleVisibility={this.toggleRoomFilterVisibility}
@@ -253,7 +253,7 @@ export default class Filter extends Component {
       />
 
       <NeighborhoodFilter
-        isVisible={filterVisibility.neighborhoods}
+        isVisible={visibility.neighborhoods}
         options={neighborhoods}
         selectedOptions={bairros}
         handleChange={this.handleNeighborhoodChange}
