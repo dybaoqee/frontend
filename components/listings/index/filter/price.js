@@ -9,23 +9,23 @@ import { minPriceOptions, maxPriceOptions } from '../../../../constants/listing-
 
 export default class PriceFilter extends Component {
   isButtonActive = () => {
-    const { isVisible, minPrice, maxPrice } = this.props
-    return minPrice || maxPrice || isVisible
+    const { min, max, visible } = this.props.price
+    return min || max || visible
   }
 
   buttonText = () => {
-    const { minPrice, maxPrice } = this.props
-    const abbreviatedMinPrice = numeral(minPrice).format('0a')
-    const abbreviatedMaxPrice = numeral(maxPrice).format('0a')
+    const { min, max } = this.props.price
+    const abbreviatedMin = numeral(min).format('0a')
+    const abbreviatedMax = numeral(max).format('0a')
 
     let suffix
 
-    if (minPrice && maxPrice) {
-      suffix = abbreviatedMinPrice + '-' + abbreviatedMaxPrice
-    } else if (minPrice) {
-      suffix = abbreviatedMinPrice + '+'
-    } else if (maxPrice) {
-      suffix = '0-' + abbreviatedMaxPrice
+    if (min && max) {
+      suffix = abbreviatedMin + '-' + abbreviatedMax
+    } else if (min) {
+      suffix = abbreviatedMin + '+'
+    } else if (max) {
+      suffix = '0-' + abbreviatedMax
     }
 
     if (suffix) {
@@ -38,9 +38,7 @@ export default class PriceFilter extends Component {
 
   render() {
     const {
-      isVisible,
-			minPrice,
-			maxPrice,
+      price,
 			handleMinPriceChange,
 			handleMaxPriceChange,
 			toggleVisibility,
@@ -55,7 +53,7 @@ export default class PriceFilter extends Component {
         {this.buttonText()}
       </button>
 
-      {isVisible &&
+      {price.visible &&
         <div className="option-container price-container">
           <span className="mobile-param-title">Preço</span>
           <div>
@@ -64,7 +62,7 @@ export default class PriceFilter extends Component {
               arrowRenderer={null}
               style={{width: 130}}
               placeholder="R$"
-              value={minPrice}
+              value={price.min}
               onChange={handleMinPriceChange}
               options={minPriceOptions}
               searchable={false} />
@@ -76,7 +74,7 @@ export default class PriceFilter extends Component {
               arrowRenderer={null}
               style={{width: 130}}
               placeholder="R$"
-              value={maxPrice}
+              value={price.max}
               onChange={handleMaxPriceChange}
               options={maxPriceOptions}
               searchable={false} />
