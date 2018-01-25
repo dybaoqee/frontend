@@ -9,12 +9,12 @@ import { roomNumberOptions } from '../../../../constants/listing-filter-options'
 
 export default class RoomFilter extends Component {
   isButtonActive = () => {
-    const { rooms, isVisible } = this.props
-    return rooms || isVisible
+    const { value, visible } = this.props.rooms
+    return value || visible
   }
 
   buttonText = () => {
-    const { rooms, isVisible } = this.props
+    const { rooms } = this.props.rooms
 
     if (rooms) {
       return rooms + ' quartos'
@@ -25,12 +25,13 @@ export default class RoomFilter extends Component {
 
   render() {
     const {
-      isVisible,
-			rooms,
+      rooms,
 			handleChange,
 			toggleVisibility,
 			handleClose
     } = this.props
+
+    const { value, visible } = rooms
 
     return <div className="filter-param-container">
       <button
@@ -40,7 +41,7 @@ export default class RoomFilter extends Component {
         {this.buttonText()}
       </button>
 
-      {isVisible &&
+      {visible &&
         <div className="option-container">
           <span className="mobile-param-title">Quartos</span>
           <div>
@@ -49,7 +50,7 @@ export default class RoomFilter extends Component {
               arrowRenderer={null}
               style={{width: 130}}
               placeholder="Nº Quartos"
-              value={rooms}
+              value={value}
               onChange={handleChange}
               options={roomNumberOptions}
               searchable={false} />

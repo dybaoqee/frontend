@@ -32,11 +32,18 @@ function treatMaxArea(params) {
   }
 }
 
+function treatRooms(params) {
+  if(params.rooms.value) {
+    return `quartos=${params.rooms.value}`
+  }
+}
+
 export function treatParams(params) {
   return [
     treatMinPrice(params),
     treatMaxPrice(params),
     treatMinArea(params),
     treatMaxArea(params),
+    treatRooms(params)
   ].filter(n => n).join('&')
 }
