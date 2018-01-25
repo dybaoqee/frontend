@@ -133,13 +133,13 @@ export default class Filter extends Component {
     const state = this.state
     const newParamFilterVisibility = !state.visibility[param]
 
-    this.setAllParamFiltersVisibilityToFalse()
+    this.hideAllParams()
 
     state.visibility[param] = newParamFilterVisibility
     this.setState(state)
   }
 
-  setAllParamFiltersVisibilityToFalse = () => {
+  hideAllParams = () => {
     const { state } = this
     const { visibility } = state
 
@@ -192,7 +192,7 @@ export default class Filter extends Component {
   handleOverlayClick = () => {
     const { isMobileOpen } = this.state
 
-    if (!isMobileOpen) this.setAllParamFiltersVisibilityToFalse()
+    if (!isMobileOpen) this.hideAllParams()
   }
 
   render() {
@@ -231,7 +231,7 @@ export default class Filter extends Component {
         handleMinPriceChange={this.handleMinPriceChange}
         handleMaxPriceChange={this.handleMaxPriceChange}
         toggleVisibility={this.togglePriceFilterVisibility}
-        handleClose={this.setAllParamFiltersVisibilityToFalse}
+        handleClose={this.hideAllParams}
       />
 
       <AreaFilter
@@ -241,7 +241,7 @@ export default class Filter extends Component {
         handleMinAreaChange={this.handleMinAreaChange}
         handleMaxAreaChange={this.handleMaxAreaChange}
         toggleVisibility={this.toggleAreaFilterVisibility}
-        handleClose={this.setAllParamFiltersVisibilityToFalse}
+        handleClose={this.hideAllParams}
       />
 
       <RoomFilter
@@ -249,7 +249,7 @@ export default class Filter extends Component {
         rooms={quartos}
         handleChange={this.handleRoomChange}
         toggleVisibility={this.toggleRoomFilterVisibility}
-        handleClose={this.setAllParamFiltersVisibilityToFalse}
+        handleClose={this.hideAllParams}
       />
 
       <NeighborhoodFilter
@@ -258,7 +258,7 @@ export default class Filter extends Component {
         selectedOptions={bairros}
         handleChange={this.handleNeighborhoodChange}
         toggleVisibility={this.toggleNeighborhoodsFilterVisibility}
-        handleClose={this.setAllParamFiltersVisibilityToFalse}
+        handleClose={this.hideAllParams}
       />
 
       {isMobileOpen &&
