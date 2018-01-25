@@ -45,38 +45,38 @@ export default class Filter extends Component {
     }
   }
 
-  updateSelectedOption = (selectedOption, stateKey) => {
+  updateSelectedOption = (selectedOption, param, key) => {
     const value = (selectedOption && selectedOption.value) ? selectedOption.value : null
     const state = this.state
-    state.params[stateKey] = value
+    state.params[param][key] = value
     this.setState(state)
 
     this.updateFilter()
   }
 
   handleRoomChange = (selectedOption) => {
-    this.updateSelectedOption(selectedOption, 'quartos')
+    this.updateSelectedOption(selectedOption, 'rooms', 'value')
   }
 
   handleMinPriceChange = (selectedOption) => {
-    this.updateSelectedOption(selectedOption, 'preco_minimo')
+    this.updateSelectedOption(selectedOption, 'price', 'min')
   }
 
   handleMaxPriceChange = (selectedOption) => {
-    this.updateSelectedOption(selectedOption, 'preco_maximo')
+    this.updateSelectedOption(selectedOption, 'price', 'max')
   }
 
   handleMinAreaChange = (selectedOption) => {
-    this.updateSelectedOption(selectedOption, 'area_minima')
+    this.updateSelectedOption(selectedOption, 'area', 'min')
   }
 
   handleMaxAreaChange = (selectedOption) => {
-    this.updateSelectedOption(selectedOption, 'area_maxima')
+    this.updateSelectedOption(selectedOption, 'area', 'max')
   }
 
   handleNeighborhoodChange = (value) => {
     const state = this.state
-    state.params.bairros = value
+    state.params.neighborhoods.value = value
     this.setState(state)
 
     this.updateFilter()
