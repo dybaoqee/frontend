@@ -18,7 +18,7 @@ export default class Filter extends Component {
     super(props)
 
     const { preco_minimo, preco_maximo, area_minima, area_maxima, quartos, bairros } = props.query
-    const bairrosArray = bairros ? bairros.split('|') : []
+    const neighborhoods = bairros ? bairros.split('|') : []
 
     this.state = {
       isMobileOpen: false,
@@ -38,7 +38,7 @@ export default class Filter extends Component {
           visible: false
         },
         neighborhoods: {
-          value: bairrosArray,
+          value: neighborhoods,
           visible: false
         }
       }
