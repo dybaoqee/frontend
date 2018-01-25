@@ -1,5 +1,6 @@
 const express = require('express')
 const next = require('next')
+const sslRedirect = require('heroku-ssl-redirect')
 
 const dev = process.env.NODE_ENV !== 'production'
 const port = process.env.PORT || 3000
@@ -9,6 +10,7 @@ const handle = app.getRequestHandler()
 app.prepare()
 .then(() => {
   const server = express()
+  server.use(sslRedirect(['production']))
 
   server.get('/jobs', (req, res) => {
     return app.render(req, res, '/jobs', req.query)
