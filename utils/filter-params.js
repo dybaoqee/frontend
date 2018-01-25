@@ -20,8 +20,23 @@ function treatMaxPrice(params) {
   }
 }
 
+function treatMinArea(params) {
+  if(params.area.min) {
+    return `area_minima=${params.area.min}`
+  }
+}
+
+function treatMaxArea(params) {
+  if(params.area.max) {
+    return `area_maxima=${params.area.max}`
+  }
+}
+
 export function treatParams(params) {
   return [
     treatMinPrice(params),
     treatMaxPrice(params),
+    treatMinArea(params),
+    treatMaxArea(params),
+  ].filter(n => n).join('&')
 }
