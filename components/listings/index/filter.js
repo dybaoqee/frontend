@@ -45,33 +45,34 @@ export default class Filter extends Component {
     }
   }
 
-  updateSelectedOption = (selectedOption, param, key) => {
-    const value = (selectedOption && selectedOption.value) ? selectedOption.value : null
+  updateParam = (param, key, value) => {
+    const newValue = (value && value.value) ? value.value : null
+
     const state = this.state
-    state.params[param][key] = value
+    state.params[param][key] = newValue
     this.setState(state)
 
     this.updateFilter()
   }
 
-  handleRoomChange = (selectedOption) => {
-    this.updateSelectedOption(selectedOption, 'rooms', 'value')
+  handleRoomChange = (value) => {
+    this.updateParam('rooms', 'value', value)
   }
 
-  handleMinPriceChange = (selectedOption) => {
-    this.updateSelectedOption(selectedOption, 'price', 'min')
+  handleMinPriceChange = (value) => {
+    this.updateParam('price', 'min', value)
   }
 
-  handleMaxPriceChange = (selectedOption) => {
-    this.updateSelectedOption(selectedOption, 'price', 'max')
+  handleMaxPriceChange = (value) => {
+    this.updateParam('price', 'max', value)
   }
 
-  handleMinAreaChange = (selectedOption) => {
-    this.updateSelectedOption(selectedOption, 'area', 'min')
+  handleMinAreaChange = (value) => {
+    this.updateParam('area', 'min', value)
   }
 
-  handleMaxAreaChange = (selectedOption) => {
-    this.updateSelectedOption(selectedOption, 'area', 'max')
+  handleMaxAreaChange = (value) => {
+    this.updateParam('area', 'max', value)
   }
 
   handleNeighborhoodChange = (value) => {
