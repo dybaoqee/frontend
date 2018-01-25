@@ -8,13 +8,20 @@ function joinParam(param) {
   }
 }
 
+function treatMinPrice(params) {
+  if(params.price.min) {
+    return `preco_minimo=${params.price.min}`
+  }
+}
+
+function treatMaxPrice(params) {
+  if(params.price.max) {
+    return `preco_maximo=${params.price.max}`
+  }
+}
+
 export function treatParams(params) {
-  return Object.keys(params).map(function(key) {
-    if (params[key] === undefined) return null
-
-    const flattenedValue = joinParam(params[key])
-    if (flattenedValue === '') return null
-
-    return flattenedValue ? `${key}=${flattenedValue}` : null
-  }).filter(n => n).join('&')
+  return [
+    treatMinPrice(params),
+    treatMaxPrice(params),
 }

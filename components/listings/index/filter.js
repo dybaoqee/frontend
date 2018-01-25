@@ -45,41 +45,48 @@ export default class Filter extends Component {
     }
   }
 
-  updateParam = (param, key, value) => {
-    const newValue = (value && value.value) ? value.value : null
-
+  handleRoomChange = (rooms) => {
     const state = this.state
-    state.params[param][key] = newValue
+    state.params.rooms.value = rooms.value
     this.setState(state)
+  }
 
+  handleMinPriceChange = (minPrice) => {
+    const state = this.state
+    state.params.price.min =
+      minPrice ? minPrice.value : undefined
+    this.setState(state)
     this.updateFilter()
   }
 
-  handleRoomChange = (value) => {
-    this.updateParam('rooms', 'value', value)
+  handleMaxPriceChange = (maxPrice) => {
+    const state = this.state
+    state.params.price.max =
+      maxPrice ? maxPrice.value : undefined
+    this.setState(state)
+    this.updateFilter()
   }
 
-  handleMinPriceChange = (value) => {
-    this.updateParam('price', 'min', value)
+  handleMinAreaChange = (minArea) => {
+    const state = this.state
+    state.params.area.min =
+      minArea ? minArea.value : undefined
+    this.setState(state)
+    this.updateFilter()
   }
 
-  handleMaxPriceChange = (value) => {
-    this.updateParam('price', 'max', value)
-  }
-
-  handleMinAreaChange = (value) => {
-    this.updateParam('area', 'min', value)
-  }
-
-  handleMaxAreaChange = (value) => {
-    this.updateParam('area', 'max', value)
+  handleMaxAreaChange = (maxArea) => {
+    const state = this.state
+    state.params.area.max =
+      maxArea ? maxArea.value : undefined
+    this.setState(state)
+    this.updateFilter()
   }
 
   handleNeighborhoodChange = (value) => {
     const state = this.state
     state.params.neighborhoods.value = value
     this.setState(state)
-
     this.updateFilter()
   }
 
