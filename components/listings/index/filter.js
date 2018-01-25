@@ -8,6 +8,7 @@ import * as colors from '../../../constants/colors'
 import { mobileMedia } from '../../../constants/media'
 import { treatParams } from '../../../utils/filter-params.js'
 
+import FilterHeader from '../../../components/listings/index/filter/header'
 import PriceFilter from '../../../components/listings/index/filter/price'
 import AreaFilter from '../../../components/listings/index/filter/area'
 import RoomFilter from '../../../components/listings/index/filter/rooms'
@@ -117,13 +118,15 @@ export default class Filter extends Component {
     this.updateFilter()
   }
 
-  handleToggleFilterVisibility = () => {
+  handleToggleVisibility = () => {
     const state = this.state
-    state.isMobileOpen = !state.isMobileOpen
-    state.params.price.visible = true
-    state.params.area.visible = true
-    state.params.rooms.visible = true
-    state.params.neighborhoods.visible = true
+    const isMobileOpen = !state.isMobileOpen
+
+    state.isMobileOpen = isMobileOpen
+    state.params.price.visible = isMobileOpen
+    state.params.area.visible = isMobileOpen
+    state.params.rooms.visible = isMobileOpen
+    state.params.neighborhoods.visible = isMobileOpen
 
     this.setState(state)
   }
@@ -173,6 +176,8 @@ export default class Filter extends Component {
     })
   }
 
+
+  getNumberOfActiveParams = () => {
   getNumberOfActiveParams = () => {
     const { price, area, rooms, neighborhoods } = this.state.params
 
@@ -196,12 +201,27 @@ export default class Filter extends Component {
 
     return 'Filtros' + suffix
   }
+    const { price, area, rooms, neighborhoods } = this.state.params
 
-  isMobileMainButtonActive = () => {
-    const { isMobileOpen } = this.state
-    const isAnyFilterActive = this.getNumberOfActiveParams() > 0
+    let numberOfParams = 0
 
-    return isMobileOpen || isAnyFilterActive
+    if (price.min || price.max) numberOfParams++
+    if (area.min || area.max) numberOfParams++
+    if (rooms.value) numberOfParams++
+    if (neighborhoods.value.length > 0) numberOfParams ++
+
+    return numberOfParams
+  }
+
+  renderTextForMobileMainButton = () => {
+    const numberOfParams = this.getNumberOfActiveParams()
+
+    const suffix =
+      (numberOfParams == 0) ?
+        ''
+        : ': ' + numberOfParams
+
+    return 'Filtros' + suffix
   }
 
   handleOverlayClick = () => {
@@ -225,18 +245,11 @@ export default class Filter extends Component {
         Filtros
       </span>
 
-      <div className="mobile-control-container">
-        <button
-          className={"mobile-filter-toggler " + (this.isMobileMainButtonActive() ? 'active' : '')}
-          onClick={this.handleToggleFilterVisibility}
-        >
-          {this.renderTextForMobileMainButton()}
-        </button>
-
-        <span className="mobile remove-all-filters" onClick={this.removeAllFilters}>
-          Limpar
-        </span>
-      </div>
+      <FilterHeader
+        params={this.state.params}
+        isMobileOpen={isMobileOpen}
+        handleToggleVisibility={this.handleToggleVisibility}
+      />
 
       <PriceFilter
         price={price}
@@ -272,7 +285,7 @@ export default class Filter extends Component {
       {isMobileOpen &&
         <button
           className="close-mobile-filters"
-          onClick={this.handleToggleFilterVisibility}
+          onClick={this.handleToggleVisibility}
         >
           Ver Resultados
         </button>
