@@ -120,12 +120,11 @@ export default class Filter extends Component {
   handleToggleFilterVisibility = () => {
     const state = this.state
     state.isMobileOpen = !state.isMobileOpen
-    state.visibility = {
-      price: state.isMobileOpen,
-      area: state.isMobileOpen,
-      rooms: state.isMobileOpen,
-      neighborhoods: state.isMobileOpen
-    }
+    state.params.price.visible = true
+    state.params.area.visible = true
+    state.params.rooms.visible = true
+    state.params.neighborhoods.visible = true
+
     this.setState(state)
   }
 
@@ -344,7 +343,7 @@ export default class Filter extends Component {
             position: absolute;
             top: 47px;
 
-            div {
+            > div {
               align-items: center;
               display: flex;
             }
