@@ -8,12 +8,12 @@ import { mobileMedia } from '../../../../constants/media'
 import { roomNumberOptions } from '../../../../constants/listing-filter-options'
 
 export default class RoomFilter extends Component {
-  shouldRenderRoomsButtonAsActive = () => {
+  isButtonActive = () => {
     const { rooms, isVisible } = this.props
     return rooms || isVisible
   }
 
-  renderTextForRoomsButton = () => {
+  buttonText = () => {
     const { rooms, isVisible } = this.props
 
     if (rooms) {
@@ -29,15 +29,15 @@ export default class RoomFilter extends Component {
 			rooms,
 			handleChange,
 			toggleVisibility,
-			handleCloseFilterParam
+			handleClose
     } = this.props
 
     return <div className="filter-param-container">
       <button
-        className={this.shouldRenderRoomsButtonAsActive() ? 'active' : ''}
+        className={this.isButtonActive() ? 'active' : ''}
         onClick={toggleVisibility}
       >
-        {this.renderTextForRoomsButton()}
+        {this.buttonText()}
       </button>
 
       {isVisible &&
@@ -54,7 +54,7 @@ export default class RoomFilter extends Component {
               options={roomNumberOptions}
               searchable={false} />
           </div>
-          <span className="close-filter-param" onClick={handleCloseFilterParam}>
+          <span className="close-filter-param" onClick={handleClose}>
             Aplicar
           </span>
         </div>

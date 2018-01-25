@@ -8,12 +8,12 @@ import { mobileMedia } from '../../../../constants/media'
 import { minPriceOptions, maxPriceOptions } from '../../../../constants/listing-filter-options'
 
 export default class PriceFilter extends Component {
-  shouldRenderPriceButtonAsActive = () => {
+  isButtonActive = () => {
     const { isVisible, minPrice, maxPrice } = this.props
     return minPrice || maxPrice || isVisible
   }
 
-  renderTextForPriceButton = () => {
+  buttonText = () => {
     const { minPrice, maxPrice } = this.props
     const abbreviatedMinPrice = numeral(minPrice).format('0a')
     const abbreviatedMaxPrice = numeral(maxPrice).format('0a')
@@ -44,15 +44,15 @@ export default class PriceFilter extends Component {
 			handleMinPriceChange,
 			handleMaxPriceChange,
 			toggleVisibility,
-			handleCloseFilterParam
+			handleClose
     } = this.props
 
     return <div className="filter-param-container">
       <button
-        className={this.shouldRenderPriceButtonAsActive() ? 'active' : ''}
+        className={this.isButtonActive() ? 'active' : ''}
         onClick={toggleVisibility}
       >
-        {this.renderTextForPriceButton()}
+        {this.buttonText()}
       </button>
 
       {isVisible &&
@@ -82,7 +82,7 @@ export default class PriceFilter extends Component {
               searchable={false} />
           </div>
 
-          <span className="close-filter-param" onClick={handleCloseFilterParam}>
+          <span className="close-filter-param" onClick={handleClose}>
             Aplicar
           </span>
         </div>

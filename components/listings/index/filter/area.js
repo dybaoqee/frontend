@@ -8,12 +8,12 @@ import { mobileMedia } from '../../../../constants/media'
 import { minAreaOptions, maxAreaOptions } from '../../../../constants/listing-filter-options'
 
 export default class AreaFilter extends Component {
-  shouldRenderAreaButtonAsActive = () => {
+  isButtonActive = () => {
     const { isVisible, minArea, maxArea } = this.props
     return minArea || maxArea || isVisible
   }
 
-  renderTextForAreaButton = () => {
+  buttonText = () => {
     const { minArea, maxArea } = this.props
     const abbreviatedMinArea = numeral(minArea).format('0a')
     const abbreviatedMaxArea = numeral(maxArea).format('0a')
@@ -43,15 +43,15 @@ export default class AreaFilter extends Component {
 			handleMinAreaChange,
 			handleMaxAreaChange,
 			toggleVisibility,
-			handleCloseFilterParam
+			handleClose
     } = this.props
 
     return <div className="filter-param-container">
       <button
-        className={this.shouldRenderAreaButtonAsActive() ? 'active' : ''}
+        className={this.isButtonActive() ? 'active' : ''}
         onClick={toggleVisibility}
       >
-        {this.renderTextForAreaButton()}
+        {this.buttonText()}
       </button>
 
       {isVisible &&
@@ -80,7 +80,7 @@ export default class AreaFilter extends Component {
               options={maxAreaOptions}
               searchable={false} />
           </div>
-          <span className="close-filter-param" onClick={handleCloseFilterParam}>
+          <span className="close-filter-param" onClick={handleClose}>
             Aplicar
           </span>
         </div>

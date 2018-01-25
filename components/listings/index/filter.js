@@ -6,7 +6,6 @@ import numeral from 'numeral'
 
 import * as colors from '../../../constants/colors'
 import { mobileMedia } from '../../../constants/media'
-import * as filterOptions from '../../../constants/listing-filter-options'
 import { treatParams } from '../../../utils/filter-params.js'
 
 import PriceFilter from '../../../components/listings/index/filter/price'
@@ -232,7 +231,7 @@ export default class Filter extends Component {
         handleMinPriceChange={this.handleMinPriceChange}
         handleMaxPriceChange={this.handleMaxPriceChange}
         toggleVisibility={this.togglePriceFilterVisibility}
-        handleCloseFilterParam={this.setAllParamFiltersVisibilityToFalse}
+        handleClose={this.setAllParamFiltersVisibilityToFalse}
       />
 
       <AreaFilter
@@ -242,7 +241,7 @@ export default class Filter extends Component {
         handleMinAreaChange={this.handleMinAreaChange}
         handleMaxAreaChange={this.handleMaxAreaChange}
         toggleVisibility={this.toggleAreaFilterVisibility}
-        handleCloseFilterParam={this.setAllParamFiltersVisibilityToFalse}
+        handleClose={this.setAllParamFiltersVisibilityToFalse}
       />
 
       <RoomFilter
@@ -250,7 +249,7 @@ export default class Filter extends Component {
         rooms={quartos}
         handleChange={this.handleRoomChange}
         toggleVisibility={this.toggleRoomFilterVisibility}
-        handleCloseFilterParam={this.setAllParamFiltersVisibilityToFalse}
+        handleClose={this.setAllParamFiltersVisibilityToFalse}
       />
 
       <NeighborhoodFilter
@@ -259,7 +258,7 @@ export default class Filter extends Component {
         selectedOptions={bairros}
         handleChange={this.handleNeighborhoodChange}
         toggleVisibility={this.toggleNeighborhoodsFilterVisibility}
-        handleCloseFilterParam={this.setAllParamFiltersVisibilityToFalse}
+        handleClose={this.setAllParamFiltersVisibilityToFalse}
       />
 
       {isMobileOpen &&

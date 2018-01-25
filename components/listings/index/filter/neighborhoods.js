@@ -64,7 +64,7 @@ export default class NeighborhoodFilter extends Component {
               options={optionsObject}
               searchable={false} />
           </div>
-          <span className="close-filter-param" onClick={toggleVisibility}>
+          <span className="close-filter-param" onClick={handleClose}>
             Aplicar
           </span>
         </div>
