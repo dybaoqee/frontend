@@ -546,10 +546,13 @@ export default class Filter extends Component {
             button.close-mobile-filters {
               background: ${colors.blue};
               border: 1px solid ${colors.darkenedBlue};
+              bottom: 10px;
               color: white;
-              z-index: 3;
+              left: 10px;
               margin: 0 auto;
+              position: fixed;
               width: calc(100vw - 20px);
+              z-index: 3;
               &:hover {
                 background: ${colors.darkenedBlue};
               }
