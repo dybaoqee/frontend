@@ -9,23 +9,24 @@ import { neighborhoodOptions } from '../../../../constants/listing-filter-option
 
 export default class NeighborhoodFilter extends Component {
   isButtonActive = () => {
-    const { isVisible, selectedOptions } = this.props
-    return (selectedOptions.length > 0) || isVisible
+    const { visible, value } = this.props.neighborhoods
+    return (value.length > 0) || visible
   }
 
   buttonText = () => {
-    const { options, selectedOptions } = this.props
+    const { options } = this.props
+    const { visible, value } = this.props.neighborhoods
 
-    if (selectedOptions.length == 0) {
+    if (value.length == 0) {
       return 'Bairros'
     }
 
-    const firstOption = options[0].value || options[0]
+    const firstOption = value[0].value || value[0]
 
-    if (options.length == 1) {
+    if (value.length == 1) {
       return firstOption
     } else {
-      return firstOption + ' e mais ' + (options.length - 1)
+      return firstOption + ' e mais ' + (value.length - 1)
     }
   }
 

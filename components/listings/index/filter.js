@@ -22,19 +22,25 @@ export default class Filter extends Component {
 
     this.state = {
       isMobileOpen: false,
-      visibility: {
-        price: false,
-        area: false,
-        rooms: false,
-        neighborhoods: false
-      },
       params: {
-        preco_minimo: preco_minimo,
-        preco_maximo: preco_maximo,
-        area_minima: area_minima,
-        area_maxima: area_maxima,
-        quartos: quartos,
-        bairros: bairrosArray
+        price: {
+          min: preco_minimo,
+          max: preco_maximo,
+          visible: false
+        },
+        area: {
+          min: area_minima,
+          max: area_maxima,
+          visible: false
+        },
+        rooms: {
+          value: quartos,
+          visible: false
+        },
+        neighborhoods: {
+          value: bairrosArray,
+          visible: false
+        }
       }
     }
   }
@@ -150,41 +156,41 @@ export default class Filter extends Component {
     this.setState(state)
   }
 
-  isAnyParamFilterOpen = () => {
-    const { visibility } = this.state
+  isAnyParamOpen = () => {
+    const { params } = this.state
 
-    return Object.keys(visibility).some(function(key) {
-      return visibility[key] === true
+    return Object.keys(params).some(function(key) {
+      return params[key]['visible'] === true
     })
   }
 
-  getNumberOfActiveFilters = () => {
-    const { preco_minimo, preco_maximo, area_minima, area_maxima, quartos, bairros } = this.state.params
+  getNumberOfActiveParams = () => {
+    const { price, area, rooms, neighborhoods } = this.state.params
 
-    let numberOfFilters = 0
+    let numberOfParams = 0
 
-    if (preco_minimo || preco_maximo) numberOfFilters++
-    if (area_minima || area_maxima) numberOfFilters++
-    if (quartos) numberOfFilters++
-    if (bairros.length > 0) numberOfFilters ++
+    if (price.min || price.max) numberOfParams++
+    if (area.min || area.max) numberOfParams++
+    if (rooms.value) numberOfParams++
+    if (neighborhoods.value.length > 0) numberOfParams ++
 
-    return numberOfFilters
+    return numberOfParams
   }
 
   renderTextForMobileMainButton = () => {
-    const numberOfFilters = this.getNumberOfActiveFilters()
+    const numberOfParams = this.getNumberOfActiveParams()
 
     const suffix =
-      (numberOfFilters == 0) ?
+      (numberOfParams == 0) ?
         ''
-        : ': ' + numberOfFilters
+        : ': ' + numberOfParams
 
     return 'Filtros' + suffix
   }
 
   isMobileMainButtonActive = () => {
     const { isMobileOpen } = this.state
-    const isAnyFilterActive = this.getNumberOfActiveFilters() > 0
+    const isAnyFilterActive = this.getNumberOfActiveParams() > 0
 
     return isMobileOpen || isAnyFilterActive
   }
@@ -196,14 +202,13 @@ export default class Filter extends Component {
   }
 
   render() {
-    const { neighborhoods, query } = this.props
-    const { preco_minimo, preco_maximo, area_minima, area_maxima, quartos, bairros } = this.state.params
-
+    const { neighborhoodOptions, query } = this.props
+    const { price, area, rooms, neighborhoods } = this.state.params
     const { visibility, isMobileOpen } = this.state
 
-    return <div className={"listings-filter-container "+ (this.isAnyParamFilterOpen() ? 'filter-open' : '')}>
+    return <div className={"listings-filter-container "+ (this.isAnyParamOpen() ? 'filter-open' : '')}>
       {
-        this.isAnyParamFilterOpen() &&
+        this.isAnyParamOpen() &&
         <div className="active-filter-overlay" onClick={this.handleOverlayClick} />
       }
 
@@ -225,9 +230,7 @@ export default class Filter extends Component {
       </div>
 
       <PriceFilter
-        isVisible={visibility.price}
-        minPrice={preco_minimo}
-        maxPrice={preco_maximo}
+        price={price}
         handleMinPriceChange={this.handleMinPriceChange}
         handleMaxPriceChange={this.handleMaxPriceChange}
         toggleVisibility={this.togglePriceFilterVisibility}
@@ -235,9 +238,7 @@ export default class Filter extends Component {
       />
 
       <AreaFilter
-        isVisible={visibility.area}
-        minArea={area_minima}
-        maxArea={area_maxima}
+        area={area}
         handleMinAreaChange={this.handleMinAreaChange}
         handleMaxAreaChange={this.handleMaxAreaChange}
         toggleVisibility={this.toggleAreaFilterVisibility}
@@ -245,17 +246,15 @@ export default class Filter extends Component {
       />
 
       <RoomFilter
-        isVisible={visibility.rooms}
-        rooms={quartos}
+        rooms={rooms}
         handleChange={this.handleRoomChange}
         toggleVisibility={this.toggleRoomFilterVisibility}
         handleClose={this.hideAllParams}
       />
 
       <NeighborhoodFilter
-        isVisible={visibility.neighborhoods}
-        options={neighborhoods}
-        selectedOptions={bairros}
+        neighborhoods={neighborhoods}
+        options={neighborhoodOptions}
         handleChange={this.handleNeighborhoodChange}
         toggleVisibility={this.toggleNeighborhoodsFilterVisibility}
         handleClose={this.hideAllParams}
