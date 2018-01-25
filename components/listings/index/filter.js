@@ -51,7 +51,7 @@ export default class Filter extends Component {
     state.params.price.min =
       minPrice ? minPrice.value : undefined
     this.setState(state)
-    this.updateFilter()
+    this.updateRoute()
   }
 
   handleMaxPriceChange = (maxPrice) => {
@@ -59,7 +59,7 @@ export default class Filter extends Component {
     state.params.price.max =
       maxPrice ? maxPrice.value : undefined
     this.setState(state)
-    this.updateFilter()
+    this.updateRoute()
   }
 
   handleMinAreaChange = (minArea) => {
@@ -67,7 +67,7 @@ export default class Filter extends Component {
     state.params.area.min =
       minArea ? minArea.value : undefined
     this.setState(state)
-    this.updateFilter()
+    this.updateRoute()
   }
 
   handleMaxAreaChange = (maxArea) => {
@@ -75,7 +75,7 @@ export default class Filter extends Component {
     state.params.area.max =
       maxArea ? maxArea.value : undefined
     this.setState(state)
-    this.updateFilter()
+    this.updateRoute()
   }
 
   handleRoomChange = (rooms) => {
@@ -83,17 +83,17 @@ export default class Filter extends Component {
     state.params.rooms.value =
       rooms ? rooms.value : undefined
     this.setState(state)
-    this.updateFilter()
+    this.updateRoute()
   }
 
   handleNeighborhoodChange = (value) => {
     const state = this.state
     state.params.neighborhoods.value = value
     this.setState(state)
-    this.updateFilter()
+    this.updateRoute()
   }
 
-  updateFilter = () => {
+  updateRoute = () => {
     const params = treatParams(this.state.params)
 
     if (params) {
@@ -115,7 +115,7 @@ export default class Filter extends Component {
     }
     this.setState(state)
 
-    this.updateFilter()
+    this.updateRoute()
   }
 
   handleToggleVisibility = () => {
@@ -240,10 +240,6 @@ export default class Filter extends Component {
         this.isAnyParamVisible() &&
         <div className="active-filter-overlay" onClick={this.handleOverlayClick} />
       }
-
-      <span className="filter-title">
-        Filtros
-      </span>
 
       <FilterHeader
         params={this.state.params}
