@@ -115,15 +115,13 @@ export default class Filter extends Component {
     this.updateRoute()
   }
 
-  handleToggleVisibility = () => {
+  handleToggleOtherParams = () => {
     const state = this.state
     const isMobileOpen = !state.isMobileOpen
 
     state.isMobileOpen = isMobileOpen
-    state.params.price.visible = isMobileOpen
     state.params.area.visible = isMobileOpen
     state.params.rooms.visible = isMobileOpen
-    state.params.neighborhoods.visible = isMobileOpen
 
     this.setState(state)
   }
@@ -161,6 +159,8 @@ export default class Filter extends Component {
     Object.keys(params).map(function(key) {
       state.params[key].visible = false
     })
+
+    state.isMobileOpen = false
 
     this.setState(state)
   }
@@ -229,7 +229,8 @@ export default class Filter extends Component {
       <FilterHeader
         params={this.state.params}
         isMobileOpen={isMobileOpen}
-        handleToggleVisibility={this.handleToggleVisibility}
+        hideAllParams={this.hideAllParams}
+        handleToggleOtherParams={this.handleToggleOtherParams}
       />
 
       <PriceFilter
@@ -266,7 +267,7 @@ export default class Filter extends Component {
       {isMobileOpen &&
         <button
           className="close-mobile-filters"
-          onClick={this.handleToggleVisibility}
+          onClick={this.hideAllParams}
         >
           Ver Resultados
         </button>
@@ -438,6 +439,7 @@ export default class Filter extends Component {
               display: none;
               &.mobile {
                 display: block;
+                margin-right: 0;
               }
             }
 
@@ -465,12 +467,6 @@ export default class Filter extends Component {
               padding: 0 10px 15px;
               position: relative;
               top: 0;
-
-              &.price-container {
-                border-top: 1px solid ${colors.lightGray};
-                margin-top: 10px;
-                padding-top: 20px;
-              }
 
               span.close-filter-param {
                 display: none;

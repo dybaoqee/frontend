@@ -36,7 +36,7 @@ export default class FilterHeader extends Component {
   }
 
   render() {
-    const { handleToggleVisibility } = this.props
+    const { handleToggleOtherParams } = this.props
     return [
       <span key={1} className="filter-title">
         Filtros
@@ -58,14 +58,14 @@ export default class FilterHeader extends Component {
       <div key={2} className="mobile-control-container">
         <button
           className={'mobile-filter-toggler ' + (this.isMobileMainButtonActive() ? 'active' : '')}
-          onClick={handleToggleVisibility}
+          onClick={handleToggleOtherParams}
         >
           Preço
         </button>
 
         <button
           className={'mobile-filter-toggler ' + (this.isMobileMainButtonActive() ? 'active' : '')}
-          onClick={handleToggleVisibility}
+          onClick={handleToggleOtherParams}
         >
           {this.renderTextForMobileMainButton()}
         </button>
