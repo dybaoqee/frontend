@@ -1,10 +1,7 @@
 import { Component } from 'react'
-import Link from 'next/link'
-import Select from 'react-select'
-import numeral from 'numeral'
 
-import * as colors from '../../../../constants/colors'
 import { mobileMedia } from '../../../../constants/media'
+import * as colors from '../../../../constants/colors'
 
 export default class FilterHeader extends Component {
   getNumberOfActiveParams = () => {
@@ -20,51 +17,119 @@ export default class FilterHeader extends Component {
     return numberOfParams
   }
 
-  renderTextForMobileMainButton = () => {
-    const numberOfParams = this.getNumberOfActiveParams()
+  isMobileOtherButtonActive = () => {
+    const { area, rooms } = this.props.params
 
-    const suffix =
-      (numberOfParams == 0) ?
-        ''
-        : ': ' + numberOfParams
-
-    return 'Filtros' + suffix
+    return area.visible || area.min || area.max || rooms.visible || rooms.value
   }
 
-  isMobileMainButtonActive = () => {
-    const { isMobileOpen } = this.props
-    const isAnyFilterActive = this.getNumberOfActiveParams() > 0
+  isMobilePriceButtonActive = () => {
+    const { visible, min, max } = this.props.params.price
 
-    return isMobileOpen || isAnyFilterActive
+    return visible || min || max
+  }
+
+  isMobileNeighborhoodsButtonActive = () => {
+    const { visible, value } = this.props.params.neighborhoods
+
+    return visible || value.length
+  }
+
+  isMobileOtherButtonActive = () => {
+    const { area, rooms } = this.props.params
+
+    return area.visible || area.min || area.max || rooms.visible || rooms.value
   }
 
   render() {
-    const { handleToggleVisibility } = this.props
+    const {
+      toggleOtherMobileParams,
+      toggleMobilePriceVisibility,
+      toggleMobileNeighborhoodsVisibility,
+      resetAllParams
+    } = this.props
+
     return [
       <span key={1} className="filter-title">
         Filtros
+        <style jsx>{`
+          span {
+            color: ${colors.mediumDarkGray};
+            padding-left: 20px;
+            padding-right: 30px;
+          }
+
+          @media ${mobileMedia} {
+            span {
+              display: none;
+              padding: 0 10px;
+            }
+          }
+        `}</style>
       </span>,
 
       <div key={2} className="mobile-control-container">
         <button
-          className={"mobile-filter-toggler " + (this.isMobileMainButtonActive() ? 'active' : '')}
-          onClick={handleToggleVisibility}
+          className={'mobile-filter-toggler ' + (this.isMobileNeighborhoodsButtonActive() ? 'active' : '')}
+          onClick={toggleMobileNeighborhoodsVisibility}
         >
-          {this.renderTextForMobileMainButton()}
+          Bairros
         </button>
 
+        <button
+          className={'mobile-filter-toggler ' + (this.isMobilePriceButtonActive() ? 'active' : '')}
+          onClick={toggleMobilePriceVisibility}
+        >
+          Preço
+        </button>
 
-        <span className="mobile remove-all-filters" onClick={this.removeAllFilters}>
+        <button
+          className={'mobile-filter-toggler ' + (this.isMobileOtherButtonActive() ? 'active' : '')}
+          onClick={toggleOtherMobileParams}
+        >
+          Outros
+        </button>
+
+        <span className="mobile remove-all-filters" onClick={resetAllParams}>
           Limpar
         </span>
-      <style jsx>{`
-        .mobile-control-container button {
-          margin-left: 10px;
-          margin-right: 0;
-          padding-left: 10px;
-          padding-right: 10px;
-        }
-      `}</style>
+
+        <style jsx>{`
+          span.filter-title {
+            color: ${colors.mediumDarkGray};
+            padding-left: 20px;
+            padding-right: 30px;
+          }
+
+          .mobile-filter-toggler {
+            display: none;
+          }
+
+          @media ${mobileMedia} {
+            div.mobile-control-container {
+              align-items: center;
+              display: flex;
+              justify-content: space-between;
+              width: 100vw;
+
+              button {
+                margin-left: 10px;
+                margin-right: 0;
+                padding-left: 10px;
+                padding-right: 10px;
+              }
+
+              button.mobile-filter-toggler {
+                display: block;
+                margin-left: 10px;
+              }
+            }
+
+            span.filter-title {
+              display: none;
+            }
+          }
+        `}</style>
       </div>
     ]
   }

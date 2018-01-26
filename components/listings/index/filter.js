@@ -1,8 +1,5 @@
 import { Component } from 'react'
 import Router from 'next/router'
-import Select from 'react-select'
-import NumberFormat from 'react-number-format'
-import numeral from 'numeral'
 
 import * as colors from '../../../constants/colors'
 import { mobileMedia } from '../../../constants/media'
@@ -99,36 +96,23 @@ export default class Filter extends Component {
     if (params) {
       Router.push(`/listings/index?${params}`, `/imoveis?${params}`)
     } else {
-      Router.push(`/listings/index`, `/imoveis`)
+      Router.push('/listings/index', '/imoveis')
     }
   }
 
-  removeAllFilters = () => {
+  resetAllParams = () => {
     const state = this.state
-    state.params = {
-      preco_minimo: undefined,
-      preco_maximo: undefined,
-      area_minima: undefined,
-      area_maxima: undefined,
-      quartos: undefined,
-      bairros: []
-    }
+
+    state.params.price.min = undefined
+    state.params.price.max = undefined
+    state.params.area.min = undefined
+    state.params.area.max = undefined
+    state.params.rooms.value = undefined
+    state.params.neighborhoods.value = []
+
     this.setState(state)
 
     this.updateRoute()
-  }
-
-  handleToggleVisibility = () => {
-    const state = this.state
-    const isMobileOpen = !state.isMobileOpen
-
-    state.isMobileOpen = isMobileOpen
-    state.params.price.visible = isMobileOpen
-    state.params.area.visible = isMobileOpen
-    state.params.rooms.visible = isMobileOpen
-    state.params.neighborhoods.visible = isMobileOpen
-
-    this.setState(state)
   }
 
   toggleRoomVisibility = () => {
@@ -145,6 +129,61 @@ export default class Filter extends Component {
 
   toggleNeighborhoodsVisibility = () => {
     this.toggleParamVisibility('neighborhoods')
+  }
+
+  toggleMobilePriceVisibility = () => {
+    const { visible } = this.state.params.price
+    const state = this.state
+
+    if (visible) {
+      state.params.price.visible = false
+      state.isMobileOpen = false
+    } else {
+      state.params.price.visible = true
+      state.params.neighborhoods.visible = false
+      state.params.area.visible = false
+      state.params.rooms.visible = false
+      state.isMobileOpen = true
+    }
+
+    this.setState(state)
+  }
+
+  toggleMobileNeighborhoodsVisibility = () => {
+    const { visible } = this.state.params.neighborhoods
+    const state = this.state
+
+    if (visible) {
+      state.params.neighborhoods.visible = false
+      state.isMobileOpen = false
+    } else {
+      state.params.neighborhoods.visible = true
+      state.params.price.visible = false
+      state.params.area.visible = false
+      state.params.rooms.visible = false
+      state.isMobileOpen = true
+    }
+
+    this.setState(state)
+  }
+
+  toggleOtherMobileParams = () => {
+    const state = this.state
+    const visible = state.params.area.visible
+
+    if (visible) {
+      state.isMobileOpen = false
+      state.params.area.visible = false
+      state.params.rooms.visible = false
+    } else {
+      state.isMobileOpen = true
+      state.params.area.visible = true
+      state.params.rooms.visible = true
+    }
+
+    state.params.price.visible = false
+    state.params.neighborhoods.visible = false
+    this.setState(state)
   }
 
   toggleParamVisibility = (param) => {
@@ -164,6 +203,8 @@ export default class Filter extends Component {
     Object.keys(params).map(function(key) {
       state.params[key].visible = false
     })
+
+    state.isMobileOpen = false
 
     this.setState(state)
   }
@@ -219,11 +260,11 @@ export default class Filter extends Component {
   }
 
   render() {
-    const { neighborhoodOptions, query } = this.props
+    const { neighborhoodOptions } = this.props
     const { price, area, rooms, neighborhoods } = this.state.params
-    const { visibility, isMobileOpen } = this.state
+    const { isMobileOpen } = this.state
 
-    return <div className={"listings-filter-container "+ (this.isAnyParamVisible() ? 'filter-open' : '')}>
+    return <div className={'listings-filter-container '+ (this.isAnyParamVisible() ? 'filter-open' : '')}>
       {
         this.isAnyParamVisible() &&
         <div className="active-filter-overlay" onClick={this.handleOverlayClick} />
@@ -232,7 +273,10 @@ export default class Filter extends Component {
       <FilterHeader
         params={this.state.params}
         isMobileOpen={isMobileOpen}
-        handleToggleVisibility={this.handleToggleVisibility}
+        toggleMobilePriceVisibility={this.toggleMobilePriceVisibility}
+        toggleMobileNeighborhoodsVisibility={this.toggleMobileNeighborhoodsVisibility}
+        resetAllParams={this.resetAllParams}
+        toggleOtherMobileParams={this.toggleOtherMobileParams}
       />
 
       <PriceFilter
@@ -269,13 +313,13 @@ export default class Filter extends Component {
       {isMobileOpen &&
         <button
           className="close-mobile-filters"
-          onClick={this.handleToggleVisibility}
+          onClick={this.hideAllParams}
         >
           Ver Resultados
         </button>
       }
 
-      <span className="remove-all-filters" onClick={this.removeAllFilters}>
+      <span className="remove-all-filters" onClick={this.resetAllParams}>
         Limpar Filtros
       </span>
 
@@ -317,9 +361,6 @@ export default class Filter extends Component {
             width: 100vw;
           }
 
-          button.mobile-filter-toggler {
-            display: none;
-          }
 
           div.filter-param-container {
             position: relative;
@@ -363,25 +404,6 @@ export default class Filter extends Component {
               &:hover {
                 color: ${colors.darkenedBlue};
               }
-            }
-          }
-
-          span.filter-title {
-            color: ${colors.mediumDarkGray};
-            padding-left: 20px;
-            padding-right: 30px;
-          }
-
-          span.toggleFilterVisibility {
-            color: ${colors.blue};
-            cursor: pointer;
-            padding-top: 13px;
-            margin-right: 20px;
-            text-align: right;
-            > span {
-              display: inline-block;
-              margin-left: 5px;
-              transform: rotate(-90deg);
             }
           }
 
@@ -432,10 +454,6 @@ export default class Filter extends Component {
             display: none;
           }
 
-          span.toggleFilterVisibility {
-            display: none;
-          }
-
           span.remove-all-filters {
             color: ${colors.lightGray};
             cursor: pointer;
@@ -459,25 +477,15 @@ export default class Filter extends Component {
           .listings-filter-container {
             flex-wrap: wrap;
 
-            div.mobile-control-container {
-              align-items: center;
-              display: flex;
-              justify-content: space-between;
-              width: 100vw;
-            }
-
             div.active-filter-overlay {
               background: white;
-            }
-
-            span.filter-title {
-              display: none;
             }
 
             span.remove-all-filters {
               display: none;
               &.mobile {
                 display: block;
+                margin-right: 0;
               }
             }
 
@@ -490,12 +498,6 @@ export default class Filter extends Component {
               text-transform: uppercase;
             }
 
-            button.mobile-filter-toggler {
-              display: block;
-              margin-left: 10px;
-              margin-right: 10px;
-            }
-
             div.filter-param-container {
               width: 100vw;
 
@@ -506,30 +508,17 @@ export default class Filter extends Component {
 
             div.option-container {
               border: none;
+              border-top: 1px solid ${colors.lightGray};
               height: auto;
               margin-right: 0;
-              padding: 0 10px 15px;
+              margin-top: 10px;
+              padding: 15px 10px 15px;
               position: relative;
               top: 0;
-
-              &.price-container {
-                border-top: 1px solid ${colors.lightGray};
-                margin-top: 10px;
-                padding-top: 20px;
-              }
 
               span.close-filter-param {
                 display: none;
               }
-            }
-
-            span.toggleFilterVisibility {
-              display: inline;
-              flex: 100%;
-              margin-bottom: 10px;
-              margin-right: 0;
-              order: 99;
-              text-align: center;
             }
 
             label {
