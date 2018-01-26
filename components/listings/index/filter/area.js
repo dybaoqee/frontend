@@ -1,10 +1,7 @@
 import { Component } from 'react'
-import Link from 'next/link'
 import Select from 'react-select'
 import numeral from 'numeral'
 
-import * as colors from '../../../../constants/colors'
-import { mobileMedia } from '../../../../constants/media'
 import { minAreaOptions, maxAreaOptions } from '../../../../constants/listing-filter-options'
 
 export default class AreaFilter extends Component {
@@ -38,10 +35,10 @@ export default class AreaFilter extends Component {
   render() {
     const {
       area,
-			handleMinAreaChange,
-			handleMaxAreaChange,
-			toggleVisibility,
-			handleClose
+      handleMinAreaChange,
+      handleMaxAreaChange,
+      toggleVisibility,
+      handleClose
     } = this.props
 
     const { min, max, visible } = area

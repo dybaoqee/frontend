@@ -1,10 +1,7 @@
 import { Component } from 'react'
-import Link from 'next/link'
 import Select from 'react-select'
 import numeral from 'numeral'
 
-import * as colors from '../../../../constants/colors'
-import { mobileMedia } from '../../../../constants/media'
 import { minPriceOptions, maxPriceOptions } from '../../../../constants/listing-filter-options'
 
 export default class PriceFilter extends Component {
