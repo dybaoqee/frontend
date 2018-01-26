@@ -1,8 +1,5 @@
 import { Component } from 'react'
 import Router from 'next/router'
-import Select from 'react-select'
-import NumberFormat from 'react-number-format'
-import numeral from 'numeral'
 
 import * as colors from '../../../constants/colors'
 import { mobileMedia } from '../../../constants/media'
@@ -99,7 +96,7 @@ export default class Filter extends Component {
     if (params) {
       Router.push(`/listings/index?${params}`, `/imoveis?${params}`)
     } else {
-      Router.push(`/listings/index`, `/imoveis`)
+      Router.push('/listings/index', '/imoveis')
     }
   }
 
@@ -219,11 +216,11 @@ export default class Filter extends Component {
   }
 
   render() {
-    const { neighborhoodOptions, query } = this.props
+    const { neighborhoodOptions } = this.props
     const { price, area, rooms, neighborhoods } = this.state.params
-    const { visibility, isMobileOpen } = this.state
+    const { isMobileOpen } = this.state
 
-    return <div className={"listings-filter-container "+ (this.isAnyParamVisible() ? 'filter-open' : '')}>
+    return <div className={'listings-filter-container '+ (this.isAnyParamVisible() ? 'filter-open' : '')}>
       {
         this.isAnyParamVisible() &&
         <div className="active-filter-overlay" onClick={this.handleOverlayClick} />
@@ -317,9 +314,6 @@ export default class Filter extends Component {
             width: 100vw;
           }
 
-          button.mobile-filter-toggler {
-            display: none;
-          }
 
           div.filter-param-container {
             position: relative;
@@ -363,25 +357,6 @@ export default class Filter extends Component {
               &:hover {
                 color: ${colors.darkenedBlue};
               }
-            }
-          }
-
-          span.filter-title {
-            color: ${colors.mediumDarkGray};
-            padding-left: 20px;
-            padding-right: 30px;
-          }
-
-          span.toggleFilterVisibility {
-            color: ${colors.blue};
-            cursor: pointer;
-            padding-top: 13px;
-            margin-right: 20px;
-            text-align: right;
-            > span {
-              display: inline-block;
-              margin-left: 5px;
-              transform: rotate(-90deg);
             }
           }
 
@@ -432,10 +407,6 @@ export default class Filter extends Component {
             display: none;
           }
 
-          span.toggleFilterVisibility {
-            display: none;
-          }
-
           span.remove-all-filters {
             color: ${colors.lightGray};
             cursor: pointer;
@@ -459,19 +430,8 @@ export default class Filter extends Component {
           .listings-filter-container {
             flex-wrap: wrap;
 
-            div.mobile-control-container {
-              align-items: center;
-              display: flex;
-              justify-content: space-between;
-              width: 100vw;
-            }
-
             div.active-filter-overlay {
               background: white;
-            }
-
-            span.filter-title {
-              display: none;
             }
 
             span.remove-all-filters {
@@ -488,12 +448,6 @@ export default class Filter extends Component {
               font-weight: 700;
               margin-bottom: 10px;
               text-transform: uppercase;
-            }
-
-            button.mobile-filter-toggler {
-              display: block;
-              margin-left: 10px;
-              margin-right: 10px;
             }
 
             div.filter-param-container {
@@ -521,15 +475,6 @@ export default class Filter extends Component {
               span.close-filter-param {
                 display: none;
               }
-            }
-
-            span.toggleFilterVisibility {
-              display: inline;
-              flex: 100%;
-              margin-bottom: 10px;
-              margin-right: 0;
-              order: 99;
-              text-align: center;
             }
 
             label {
