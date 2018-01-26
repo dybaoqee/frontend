@@ -68,7 +68,7 @@ export default class MyPage extends Component {
         </Head>
 
         <div className="listings">
-          <Filter neighborhoods={neighborhoods} query={query} />
+          <Filter neighborhoodOptions={neighborhoods} query={query} />
 
           <div className="map">
             <MapContainer
@@ -117,6 +117,10 @@ export default class MyPage extends Component {
 
             .listings > div.entries-container {
               width: 100%;
+            }
+
+            .map {
+              display: none;
             }
           }
         `}</style>
