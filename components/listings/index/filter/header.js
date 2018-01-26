@@ -36,7 +36,14 @@ export default class FilterHeader extends Component {
   }
 
   render() {
-    const { handleToggleOtherParams, hideAllParams, resetAllParams } = this.props
+    const {
+      handleToggleOtherParams,
+      toggleMobilePriceVisibility,
+      toggleMobileNeighborhoodsVisibility,
+      hideAllParams,
+      resetAllParams
+    } = this.props
+
     return [
       <span key={1} className="filter-title">
         Filtros
@@ -58,7 +65,14 @@ export default class FilterHeader extends Component {
       <div key={2} className="mobile-control-container">
         <button
           className={'mobile-filter-toggler ' + (this.isMobileMainButtonActive() ? 'active' : '')}
-          onClick={handleToggleOtherParams}
+          onClick={toggleMobileNeighborhoodsVisibility}
+        >
+          Bairros
+        </button>
+
+        <button
+          className={'mobile-filter-toggler ' + (this.isMobileMainButtonActive() ? 'active' : '')}
+          onClick={toggleMobilePriceVisibility}
         >
           Preço
         </button>

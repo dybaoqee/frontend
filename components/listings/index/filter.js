@@ -117,12 +117,14 @@ export default class Filter extends Component {
 
   handleToggleOtherParams = () => {
     const state = this.state
-    const isMobileOpen = !state.isMobileOpen
+    const visible = state.params.neighborhoods.visible
 
-    state.isMobileOpen = isMobileOpen
-    state.params.area.visible = isMobileOpen
-    state.params.rooms.visible = isMobileOpen
+    state.isMobileOpen = !visible
+    state.params.area.visible = !visible
+    state.params.rooms.visible = !visible
 
+    state.params.neighborhoods.visible = visible
+    state.params.price.visible = visible
     this.setState(state)
   }
 
@@ -140,6 +142,30 @@ export default class Filter extends Component {
 
   toggleNeighborhoodsVisibility = () => {
     this.toggleParamVisibility('neighborhoods')
+  }
+
+  toggleMobilePriceVisibility = () => {
+    const { visible } = this.state.params.price
+
+    const state = this.state
+    state.params.price.visible = !visible
+    state.params.area.visible = visible
+    state.params.rooms.visible = visible
+    state.params.neighborhoods.visible = visible
+    state.isMobileOpen = !visible
+    this.setState(state)
+  }
+
+  toggleMobileNeighborhoodsVisibility = () => {
+    const { visible } = this.state.params.neighborhoods
+
+    const state = this.state
+    state.params.neighborhoods.visible = !visible
+    state.params.price.visible = visible
+    state.params.area.visible = visible
+    state.params.rooms.visible = visible
+    state.isMobileOpen = !visible
+    this.setState(state)
   }
 
   toggleParamVisibility = (param) => {
@@ -229,6 +255,8 @@ export default class Filter extends Component {
       <FilterHeader
         params={this.state.params}
         isMobileOpen={isMobileOpen}
+        toggleMobilePriceVisibility={this.toggleMobilePriceVisibility}
+        toggleMobileNeighborhoodsVisibility={this.toggleMobileNeighborhoodsVisibility}
         resetAllParams={this.resetAllParams}
         hideAllParams={this.hideAllParams}
         handleToggleOtherParams={this.handleToggleOtherParams}
