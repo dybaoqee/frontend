@@ -57,6 +57,7 @@ export default class FilterHeader extends Component {
           @media ${mobileMedia} {
             span {
               display: none;
+              padding: 0 10px;
             }
           }
         `}</style>
@@ -113,10 +114,10 @@ export default class FilterHeader extends Component {
                 padding-left: 10px;
                 padding-right: 10px;
               }
+
               button.mobile-filter-toggler {
                 display: block;
                 margin-left: 10px;
-                margin-right: 10px;
               }
             }
 
