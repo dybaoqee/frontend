@@ -41,11 +41,11 @@ export default class FilterHeader extends Component {
   render() {
     const { handleToggleVisibility } = this.props
     return [
-      <span className="filter-title">
+      <span key={1} className="filter-title">
         Filtros
       </span>,
 
-      <div className="mobile-control-container">
+      <div key={2} className="mobile-control-container">
         <button
           className={"mobile-filter-toggler " + (this.isMobileMainButtonActive() ? 'active' : '')}
           onClick={handleToggleVisibility}
@@ -53,9 +53,18 @@ export default class FilterHeader extends Component {
           {this.renderTextForMobileMainButton()}
         </button>
 
+
         <span className="mobile remove-all-filters" onClick={this.removeAllFilters}>
           Limpar
         </span>
+      <style jsx>{`
+        .mobile-control-container button {
+          margin-left: 10px;
+          margin-right: 0;
+          padding-left: 10px;
+          padding-right: 10px;
+        }
+      `}</style>
       </div>
     ]
   }

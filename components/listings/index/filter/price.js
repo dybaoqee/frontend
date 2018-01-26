@@ -35,7 +35,6 @@ export default class PriceFilter extends Component {
     }
   }
 
-
   render() {
     const {
       price,

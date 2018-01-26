@@ -178,7 +178,6 @@ export default class Filter extends Component {
 
 
   getNumberOfActiveParams = () => {
-  getNumberOfActiveParams = () => {
     const { price, area, rooms, neighborhoods } = this.state.params
 
     let numberOfParams = 0
@@ -200,17 +199,6 @@ export default class Filter extends Component {
         : ': ' + numberOfParams
 
     return 'Filtros' + suffix
-  }
-    const { price, area, rooms, neighborhoods } = this.state.params
-
-    let numberOfParams = 0
-
-    if (price.min || price.max) numberOfParams++
-    if (area.min || area.max) numberOfParams++
-    if (rooms.value) numberOfParams++
-    if (neighborhoods.value.length > 0) numberOfParams ++
-
-    return numberOfParams
   }
 
   renderTextForMobileMainButton = () => {
@@ -293,23 +281,6 @@ export default class Filter extends Component {
 
       <style global jsx>{`
         .listings-filter-container {
-          .Select-control {
-            border-color: ${colors.blue};
-          }
-
-          .Select-placeholder {
-            color: ${colors.mediumGray};
-            text-align: center;
-          }
-
-          .Select.has-value.is-clearable.Select--single > .Select-control .Select-value {
-            padding-right: 20px;
-          }
-        }
-      `}</style>
-
-      <style global jsx>{`
-        .listings-filter-container {
           align-items: center;
           background: white;
           border-bottom: 1px solid ${colors.lightGray};
@@ -322,6 +293,19 @@ export default class Filter extends Component {
           z-index: 4;
           &.filter-open {
             box-shadow: 1px 1px 4px ${colors.lightGray};
+          }
+
+          .Select-control {
+            border-color: ${colors.blue};
+          }
+
+          .Select-placeholder {
+            color: ${colors.mediumGray};
+            text-align: center;
+          }
+
+          .Select.has-value.is-clearable.Select--single > .Select-control .Select-value {
+            padding-right: 20px;
           }
 
           div.active-filter-overlay {
@@ -509,7 +493,7 @@ export default class Filter extends Component {
             button.mobile-filter-toggler {
               display: block;
               margin-left: 10px;
-              margin-right: auto;
+              margin-right: 10px;
             }
 
             div.filter-param-container {
