@@ -17,22 +17,28 @@ export default class FilterHeader extends Component {
     return numberOfParams
   }
 
-  renderTextForMobileMainButton = () => {
-    const numberOfParams = this.getNumberOfActiveParams()
+  isMobileOtherButtonActive = () => {
+    const { area, rooms } = this.props.params
 
-    const suffix =
-      (numberOfParams == 0) ?
-        ''
-        : ': ' + numberOfParams
-
-    return 'Filtros' + suffix
+    return area.visible || area.min || area.max || rooms.visible || rooms.value
   }
 
-  isMobileMainButtonActive = () => {
-    const { isMobileOpen } = this.props
-    const isAnyFilterActive = this.getNumberOfActiveParams() > 0
+  isMobilePriceButtonActive = () => {
+    const { visible, min, max } = this.props.params.price
 
-    return isMobileOpen || isAnyFilterActive
+    return visible || min || max
+  }
+
+  isMobileNeighborhoodsButtonActive = () => {
+    const { visible, value } = this.props.params.neighborhoods
+
+    return visible || value.length
+  }
+
+  isMobileOtherButtonActive = () => {
+    const { area, rooms } = this.props.params
+
+    return area.visible || area.min || area.max || rooms.visible || rooms.value
   }
 
   render() {
@@ -40,7 +46,6 @@ export default class FilterHeader extends Component {
       toggleOtherMobileParams,
       toggleMobilePriceVisibility,
       toggleMobileNeighborhoodsVisibility,
-      hideAllParams,
       resetAllParams
     } = this.props
 
@@ -65,26 +70,25 @@ export default class FilterHeader extends Component {
 
       <div key={2} className="mobile-control-container">
         <button
-          className={'mobile-filter-toggler ' + (this.isMobileMainButtonActive() ? 'active' : '')}
+          className={'mobile-filter-toggler ' + (this.isMobileNeighborhoodsButtonActive() ? 'active' : '')}
           onClick={toggleMobileNeighborhoodsVisibility}
         >
           Bairros
         </button>
 
         <button
-          className={'mobile-filter-toggler ' + (this.isMobileMainButtonActive() ? 'active' : '')}
+          className={'mobile-filter-toggler ' + (this.isMobilePriceButtonActive() ? 'active' : '')}
           onClick={toggleMobilePriceVisibility}
         >
           Preço
         </button>
 
         <button
-          className={'mobile-filter-toggler ' + (this.isMobileMainButtonActive() ? 'active' : '')}
+          className={'mobile-filter-toggler ' + (this.isMobileOtherButtonActive() ? 'active' : '')}
           onClick={toggleOtherMobileParams}
         >
-          {this.renderTextForMobileMainButton()}
+          Outros
         </button>
-
 
         <span className="mobile remove-all-filters" onClick={resetAllParams}>
           Limpar

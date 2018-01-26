@@ -276,7 +276,6 @@ export default class Filter extends Component {
         toggleMobilePriceVisibility={this.toggleMobilePriceVisibility}
         toggleMobileNeighborhoodsVisibility={this.toggleMobileNeighborhoodsVisibility}
         resetAllParams={this.resetAllParams}
-        hideAllParams={this.hideAllParams}
         toggleOtherMobileParams={this.toggleOtherMobileParams}
       />
 
