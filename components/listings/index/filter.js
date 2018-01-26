@@ -100,16 +100,16 @@ export default class Filter extends Component {
     }
   }
 
-  removeAllFilters = () => {
+  resetAllParams = () => {
     const state = this.state
-    state.params = {
-      preco_minimo: undefined,
-      preco_maximo: undefined,
-      area_minima: undefined,
-      area_maxima: undefined,
-      quartos: undefined,
-      bairros: []
-    }
+
+    state.params.price.min = undefined
+    state.params.price.max = undefined
+    state.params.area.min = undefined
+    state.params.area.max = undefined
+    state.params.rooms.value = undefined
+    state.params.neighborhoods.value = []
+
     this.setState(state)
 
     this.updateRoute()
@@ -229,6 +229,7 @@ export default class Filter extends Component {
       <FilterHeader
         params={this.state.params}
         isMobileOpen={isMobileOpen}
+        resetAllParams={this.resetAllParams}
         hideAllParams={this.hideAllParams}
         handleToggleOtherParams={this.handleToggleOtherParams}
       />
@@ -273,7 +274,7 @@ export default class Filter extends Component {
         </button>
       }
 
-      <span className="remove-all-filters" onClick={this.removeAllFilters}>
+      <span className="remove-all-filters" onClick={this.resetAllParams}>
         Limpar Filtros
       </span>
 

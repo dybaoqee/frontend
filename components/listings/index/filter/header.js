@@ -36,7 +36,7 @@ export default class FilterHeader extends Component {
   }
 
   render() {
-    const { handleToggleOtherParams } = this.props
+    const { handleToggleOtherParams, hideAllParams, resetAllParams } = this.props
     return [
       <span key={1} className="filter-title">
         Filtros
@@ -71,7 +71,7 @@ export default class FilterHeader extends Component {
         </button>
 
 
-        <span className="mobile remove-all-filters" onClick={this.removeAllFilters}>
+        <span className="mobile remove-all-filters" onClick={resetAllParams}>
           Limpar
         </span>
 
