@@ -118,6 +118,10 @@ export default class MyPage extends Component {
             .listings > div.entries-container {
               width: 100%;
             }
+
+            .map {
+              display: none;
+            }
           }
         `}</style>
       </Layout>
