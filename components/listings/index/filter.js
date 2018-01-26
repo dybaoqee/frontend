@@ -115,19 +115,6 @@ export default class Filter extends Component {
     this.updateRoute()
   }
 
-  handleToggleOtherParams = () => {
-    const state = this.state
-    const visible = state.params.neighborhoods.visible
-
-    state.isMobileOpen = !visible
-    state.params.area.visible = !visible
-    state.params.rooms.visible = !visible
-
-    state.params.neighborhoods.visible = visible
-    state.params.price.visible = visible
-    this.setState(state)
-  }
-
   toggleRoomVisibility = () => {
     this.toggleParamVisibility('rooms')
   }
@@ -146,25 +133,56 @@ export default class Filter extends Component {
 
   toggleMobilePriceVisibility = () => {
     const { visible } = this.state.params.price
-
     const state = this.state
-    state.params.price.visible = !visible
-    state.params.area.visible = visible
-    state.params.rooms.visible = visible
-    state.params.neighborhoods.visible = visible
-    state.isMobileOpen = !visible
+
+    if (visible) {
+      state.params.price.visible = false
+      state.isMobileOpen = false
+    } else {
+      state.params.price.visible = true
+      state.params.neighborhoods.visible = false
+      state.params.area.visible = false
+      state.params.rooms.visible = false
+      state.isMobileOpen = true
+    }
+
     this.setState(state)
   }
 
   toggleMobileNeighborhoodsVisibility = () => {
     const { visible } = this.state.params.neighborhoods
-
     const state = this.state
-    state.params.neighborhoods.visible = !visible
-    state.params.price.visible = visible
-    state.params.area.visible = visible
-    state.params.rooms.visible = visible
-    state.isMobileOpen = !visible
+
+    if (visible) {
+      state.params.neighborhoods.visible = false
+      state.isMobileOpen = false
+    } else {
+      state.params.neighborhoods.visible = true
+      state.params.price.visible = false
+      state.params.area.visible = false
+      state.params.rooms.visible = false
+      state.isMobileOpen = true
+    }
+
+    this.setState(state)
+  }
+
+  toggleOtherMobileParams = () => {
+    const state = this.state
+    const visible = state.params.area.visible
+
+    if (visible) {
+      state.isMobileOpen = false
+      state.params.area.visible = false
+      state.params.rooms.visible = false
+    } else {
+      state.isMobileOpen = true
+      state.params.area.visible = true
+      state.params.rooms.visible = true
+    }
+
+    state.params.price.visible = false
+    state.params.neighborhoods.visible = false
     this.setState(state)
   }
 
@@ -259,7 +277,7 @@ export default class Filter extends Component {
         toggleMobileNeighborhoodsVisibility={this.toggleMobileNeighborhoodsVisibility}
         resetAllParams={this.resetAllParams}
         hideAllParams={this.hideAllParams}
-        handleToggleOtherParams={this.handleToggleOtherParams}
+        toggleOtherMobileParams={this.toggleOtherMobileParams}
       />
 
       <PriceFilter
@@ -491,9 +509,11 @@ export default class Filter extends Component {
 
             div.option-container {
               border: none;
+              border-top: 1px solid ${colors.lightGray};
               height: auto;
               margin-right: 0;
-              padding: 0 10px 15px;
+              margin-top: 10px;
+              padding: 15px 10px 15px;
               position: relative;
               top: 0;
 

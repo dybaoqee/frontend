@@ -37,7 +37,7 @@ export default class FilterHeader extends Component {
 
   render() {
     const {
-      handleToggleOtherParams,
+      toggleOtherMobileParams,
       toggleMobilePriceVisibility,
       toggleMobileNeighborhoodsVisibility,
       hideAllParams,
@@ -79,7 +79,7 @@ export default class FilterHeader extends Component {
 
         <button
           className={'mobile-filter-toggler ' + (this.isMobileMainButtonActive() ? 'active' : '')}
-          onClick={handleToggleOtherParams}
+          onClick={toggleOtherMobileParams}
         >
           {this.renderTextForMobileMainButton()}
         </button>
@@ -96,16 +96,8 @@ export default class FilterHeader extends Component {
             padding-right: 30px;
           }
 
-          .mobile-control-container {
-            button {
-              margin-left: 10px;
-              margin-right: 0;
-              padding-left: 10px;
-              padding-right: 10px;
-              &.mobile-filter-toggler {
-                display: none;
-              }
-            }
+          .mobile-filter-toggler {
+            display: none;
           }
 
           @media ${mobileMedia} {
@@ -115,6 +107,12 @@ export default class FilterHeader extends Component {
               justify-content: space-between;
               width: 100vw;
 
+              button {
+                margin-left: 10px;
+                margin-right: 0;
+                padding-left: 10px;
+                padding-right: 10px;
+              }
               button.mobile-filter-toggler {
                 display: block;
                 margin-left: 10px;
