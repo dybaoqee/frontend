@@ -13,8 +13,6 @@ import HomeTour from '../components/home/tour'
 import HomeSellingPoints from '../components/home/selling-points'
 import HomeBuySell from '../components/home/buy-sell'
 
-import { mobileMedia } from '../constants/media'
-
 export default class MyPage extends Component {
   static async getInitialProps(context) {
     const res = await getFeaturedListings(context.query)
@@ -50,18 +48,21 @@ export default class MyPage extends Component {
 
   render () {
     const { authenticated, listings, neighborhoods } = this.props
+    const seoImg = 'https://res.cloudinary.com/emcasa/image/upload/v1513818385/Nova_home_EmCasa_orsrdy.png'
+    const seoTitle = 'EmCasa: Apartamentos, Casas e Imóveis à venda e para comprar ou anunciar no Rio de Janeiro'
+    const seoDescription = 'Imobiliária Digital com Tour Virtual em 3D, assistência jurídica e comissões de 3%. Encontre Imóveis, Casas e Apartamentos novos e usados para compra, venda, anuncio ou avaliação em Ipanema, Leblon, Copacabana, Botafogo, Flamengo, Lagoa e toda Zona Sul do Rio de Janeiro, RJ.'
 
     return (
       <Layout authenticated={authenticated} renderFooter={true}>
         <Head>
-          <title>Apartamentos à venda no Rio de Janeiro | EmCasa</title>
-          <meta name="description" content="Compre seu Imóvel na Zona Sul do Rio de Janeiro"/>
-          <meta property="og:description" content="Compre seu Imóvel na Zona Sul do Rio de Janeiro"/>
-          <meta property="og:image" content="https://s3-sa-east-1.amazonaws.com/emcasa/listings/original/belisario-tavora.jpg"/>
+          <title>{seoTitle}</title>
+          <meta name="description" content={seoDescription}/>
+          <meta property="og:description" content={seoDescription}/>
+          <meta property="og:image" content={seoImg}/>
           <meta name="twitter:card" content="summary_large_image"/>
-          <meta name="twitter:title" content="Apartamentos à venda no Rio de Janeiro | EmCasa"/>
-          <meta name="twitter:description" content="Compre seu Imóvel na Zona Sul do Rio de Janeiro"/>
-          <meta name="twitter:image" content="https://s3-sa-east-1.amazonaws.com/emcasa/listings/original/belisario-tavora.jpg"/>
+          <meta name="twitter:title" content={seoTitle}/>
+          <meta name="twitter:description" content={seoDescription}/>
+          <meta name="twitter:image" content={seoImg}/>
         </Head>
 
         <HomeSearch neighborhoods={neighborhoods} />
