@@ -48,7 +48,7 @@ export default class MyPage extends Component {
 
   render () {
     const { authenticated, listings, neighborhoods } = this.props
-    const seoImg = 'http://res.cloudinary.com/emcasa/image/upload/v1517100633/26951894_1371183779648665_4316988210157552841_o_bjsmrj.jpg'
+    const seoImg = 'http://res.cloudinary.com/emcasa/image/upload/v1517101014/emcasa-fb-2018-01-27_ntxnrz.jpg'
     const seoTitle = 'EmCasa: Apartamentos, Casas e Imóveis à venda e para comprar ou anunciar no Rio de Janeiro'
     const seoDescription = 'Imobiliária Digital com Tour Virtual em 3D, assistência jurídica e comissões de 3%. Encontre Imóveis, Casas e Apartamentos novos e usados para compra, venda, anuncio ou avaliação em Ipanema, Leblon, Copacabana, Botafogo, Flamengo, Lagoa e toda Zona Sul do Rio de Janeiro, RJ.'
 
@@ -56,13 +56,15 @@ export default class MyPage extends Component {
       <Layout authenticated={authenticated} renderFooter={true}>
         <Head>
           <title>{seoTitle}</title>
-          <meta name="description" content={seoDescription}/>
-          <meta property="og:description" content={seoDescription}/>
-          <meta property="og:image" content={seoImg}/>
-          <meta name="twitter:card" content="summary_large_image"/>
-          <meta name="twitter:title" content={seoTitle}/>
-          <meta name="twitter:description" content={seoDescription}/>
-          <meta name="twitter:image" content={seoImg}/>
+          <meta name="description" content={seoDescription} />
+          <meta property="og:description" content={seoDescription} />
+          <meta property="og:image" content={seoImg} />
+          <meta property="og:image:height" content="838" />
+          <meta property="og:image:width" content="1476" />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:title" content={seoTitle} />
+          <meta name="twitter:description" content={seoDescription} />
+          <meta name="twitter:image" content={seoImg} />
         </Head>
 
         <HomeSearch neighborhoods={neighborhoods} />
