@@ -16,7 +16,7 @@ export const createInterest = async (listingId, data) => {
   const payload = buildPayload(listingId, data)
 
   try {
-    return await post('/interests', payload)
+    return await post(`/listings/${listingId}/interests`, payload)
   } catch (error) {
     return error.response && error.response.status === 422
       ? error.response
