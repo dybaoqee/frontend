@@ -6,7 +6,7 @@ import { desktopHeaderAndFilterHeight } from '../../../constants/dimensions'
 
 export default class ListingsNotFound extends Component {
   resetFilter = () => {
-    Router.push('/listings/index', '/imoveis')
+    window.location.href = '/imoveis'
   }
 
   render() {
