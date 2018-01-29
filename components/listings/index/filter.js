@@ -11,66 +11,85 @@ import NeighborhoodFilter from '../../../components/listings/index/filter/neighb
 
 export default class Filter extends Component {
   render() {
-    const { neighborhoodOptions } = this.props
-    const { price, area, rooms, neighborhoods } = this.props.params
-    const { isMobileOpen } = this.props.params
+    const { params, neighborhoodOptions } = this.props
+    const { isMobileOpen, price, area, rooms, neighborhoods } = params
+    const {
+      handleMinPriceChange,
+      handleMaxPriceChange,
+      handleMinAreaChange,
+      handleMaxAreaChange,
+      handleRoomChange,
+      handleNeighborhoodChange,
+      resetAllParams,
+      toggleRoomVisibility,
+      togglePriceVisibility,
+      toggleAreaVisibility,
+      toggleNeighborhoodsVisibility,
+      toggleMobilePriceVisibility,
+      toggleMobileNeighborhoodsVisibility,
+      toggleOtherMobileParams,
+      toggleParamVisibility,
+      hideAllParams,
+      isAnyParamVisible,
+      handleOverlayClick,
+    } = this.props
 
-    return <div className={'listings-filter-container '+ (this.isAnyParamVisible() ? 'filter-open' : '')}>
+    return <div className={'listings-filter-container '+ (isAnyParamVisible() ? 'filter-open' : '')}>
       {
-        this.isAnyParamVisible() &&
-        <div className="active-filter-overlay" onClick={this.handleOverlayClick} />
+        isAnyParamVisible() &&
+        <div className="active-filter-overlay" onClick={handleOverlayClick} />
       }
 
       <FilterHeader
-        params={this.state.params}
+        params={params}
         isMobileOpen={isMobileOpen}
-        toggleMobilePriceVisibility={this.toggleMobilePriceVisibility}
-        toggleMobileNeighborhoodsVisibility={this.toggleMobileNeighborhoodsVisibility}
-        resetAllParams={this.resetAllParams}
-        toggleOtherMobileParams={this.toggleOtherMobileParams}
+        toggleMobilePriceVisibility={toggleMobilePriceVisibility}
+        toggleMobileNeighborhoodsVisibility={toggleMobileNeighborhoodsVisibility}
+        resetAllParams={resetAllParams}
+        toggleOtherMobileParams={toggleOtherMobileParams}
       />
 
       <PriceFilter
         price={price}
-        handleMinPriceChange={this.handleMinPriceChange}
-        handleMaxPriceChange={this.handleMaxPriceChange}
-        toggleVisibility={this.togglePriceVisibility}
-        handleClose={this.hideAllParams}
+        handleMinPriceChange={handleMinPriceChange}
+        handleMaxPriceChange={handleMaxPriceChange}
+        toggleVisibility={togglePriceVisibility}
+        handleClose={hideAllParams}
       />
 
       <AreaFilter
         area={area}
-        handleMinAreaChange={this.handleMinAreaChange}
-        handleMaxAreaChange={this.handleMaxAreaChange}
-        toggleVisibility={this.toggleAreaVisibility}
-        handleClose={this.hideAllParams}
+        handleMinAreaChange={handleMinAreaChange}
+        handleMaxAreaChange={handleMaxAreaChange}
+        toggleVisibility={toggleAreaVisibility}
+        handleClose={hideAllParams}
       />
 
       <RoomFilter
         rooms={rooms}
-        handleChange={this.handleRoomChange}
-        toggleVisibility={this.toggleRoomVisibility}
-        handleClose={this.hideAllParams}
+        handleChange={handleRoomChange}
+        toggleVisibility={toggleRoomVisibility}
+        handleClose={hideAllParams}
       />
 
       <NeighborhoodFilter
         neighborhoods={neighborhoods}
         options={neighborhoodOptions}
-        handleChange={this.handleNeighborhoodChange}
-        toggleVisibility={this.toggleNeighborhoodsVisibility}
-        handleClose={this.hideAllParams}
+        handleChange={handleNeighborhoodChange}
+        toggleVisibility={toggleNeighborhoodsVisibility}
+        handleClose={hideAllParams}
       />
 
       {isMobileOpen &&
         <button
           className="close-mobile-filters"
-          onClick={this.hideAllParams}
+          onClick={hideAllParams}
         >
           Ver Resultados
         </button>
       }
 
-      <span className="remove-all-filters" onClick={this.resetAllParams}>
+      <span className="remove-all-filters" onClick={resetAllParams}>
         Limpar Filtros
       </span>
 

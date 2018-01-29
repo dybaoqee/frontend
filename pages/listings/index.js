@@ -16,6 +16,39 @@ import Filter from '../../components/listings/index/filter'
 import { mobileMedia } from '../../constants/media'
 
 export default class ListingsIndex extends Component {
+  constructor(props) {
+    super(props)
+
+    const { preco_minimo, preco_maximo, area_minima, area_maxima, quartos, bairros } = props.query
+    const neighborhoods = bairros ? bairros.split('|') : []
+
+    this.state = {
+      filterParams: {
+        isMobileOpen: false,
+        params: {
+          price: {
+            min: preco_minimo,
+            max: preco_maximo,
+            visible: false
+          },
+          area: {
+            min: area_minima,
+            max: area_maxima,
+            visible: false
+          },
+          rooms: {
+            value: quartos,
+            visible: false
+          },
+          neighborhoods: {
+            value: neighborhoods,
+            visible: false
+          }
+        }
+      }
+    }
+  }
+
   static async getInitialProps(context) {
     const res = await getListings(context.query)
 
@@ -40,9 +73,6 @@ export default class ListingsIndex extends Component {
       return {}
     }
 
-    const { preco_minimo, preco_maximo, area_minima, area_maxima, quartos, bairros } = context.query
-    const neighborhoods = bairros ? bairros.split('|') : []
-
     return {
       listings: res.data.listings,
       currentUser: {
@@ -50,31 +80,8 @@ export default class ListingsIndex extends Component {
         admin: isAdmin(context),
         authenticated: isAuthenticated(context)
       },
-      neighborhoods: neighborhoodResponse.data.neighborhoods,
+      neighborhoodOptions: neighborhoodResponse.data.neighborhoods,
       query: context.query,
-      filter: {
-        isMobileOpen: false,
-        params: {
-          price: {
-            min: preco_minimo,
-            max: preco_maximo,
-            visible: false
-          },
-          area: {
-            min: area_minima,
-            max: area_maxima,
-            visible: false
-          },
-          rooms: {
-            value: quartos,
-            visible: false
-          },
-          neighborhoods: {
-            value: neighborhoods,
-            visible: false
-          }
-        }
-      }
     }
   }
 
@@ -166,6 +173,16 @@ export default class ListingsIndex extends Component {
     this.toggleParamVisibility('neighborhoods')
   }
 
+  toggleParamVisibility = (param) => {
+    const state = this.state
+    const newParamFilterVisibility = !state.filterParams.params[param].visible
+
+    this.hideAllParams()
+
+    state.filterParams.params[param].visible = newParamFilterVisibility
+    this.setState(state)
+  }
+
   toggleMobilePriceVisibility = () => {
     const { visible } = this.state.params.price
     const state = this.state
@@ -221,34 +238,24 @@ export default class ListingsIndex extends Component {
     this.setState(state)
   }
 
-  toggleParamVisibility = (param) => {
-    const state = this.state
-    const newParamFilterVisibility = !state.params[param].visible
-
-    this.hideAllParams()
-
-    state.params[param].visible = newParamFilterVisibility
-    this.setState(state)
-  }
-
   hideAllParams = () => {
     const { state } = this
-    const { params } = state
+    const { filterParams } = state
 
-    Object.keys(params).map(function(key) {
-      state.params[key].visible = false
+    Object.keys(filterParams.params).map(function(key) {
+      state.filterParams.params[key].visible = false
     })
 
-    state.isMobileOpen = false
+    state.filterParams.isMobileOpen = false
 
     this.setState(state)
   }
 
   isAnyParamVisible = () => {
-    const { params } = this.state
+    const { filterParams } = this.state
 
-    return Object.keys(params).some(function(key) {
-      return params[key]['visible'] === true
+    return Object.keys(filterParams).some(function(key) {
+      return filterParams[key]['visible'] === true
     })
   }
 
@@ -277,24 +284,15 @@ export default class ListingsIndex extends Component {
     return 'Filtros' + suffix
   }
 
-  renderTextForMobileMainButton = () => {
-    const numberOfParams = this.getNumberOfActiveParams()
-
-    const suffix =
-      (numberOfParams == 0) ?
-        ''
-        : ': ' + numberOfParams
-
-    return 'Filtros' + suffix
-  }
-
   handleOverlayClick = () => {
     const { isMobileOpen } = this.state
 
     if (!isMobileOpen) this.hideAllParams()
   }
+
   render() {
-    const { listings, neighborhoods, currentUser, filter } = this.props
+    const { listings, neighborhoodOptions, currentUser } = this.props
+    const { isMobileOpen, params } = this.state.filterParams
     const seoImgSrc = listings.length > 0 && mainListingImage(listings[0].images)
 
     return (
@@ -311,7 +309,29 @@ export default class ListingsIndex extends Component {
         </Head>
 
         <div className="listings">
-          <Filter neighborhoodOptions={neighborhoods} params={filter} />
+          <Filter
+            neighborhoodOptions={neighborhoodOptions}
+            isMobileOpen={isMobileOpen}
+            params={params}
+            handleMinPriceChange={this.handleMinPriceChange}
+            handleMaxPriceChange={this.handleMaxPriceChange}
+            handleMinAreaChange={this.handleMinAreaChange}
+            handleMaxAreaChange={this.handleMaxAreaChange}
+            handleRoomChange={this.handleRoomChange}
+            handleNeighborhoordChange={this.handleNeighborhoordChange}
+            resetAllParams={this.resetAllParams}
+            toggleRoomVisibility={this.toggleRoomVisibility}
+            togglePriceVisibility={this.togglePriceVisibility}
+            toggleAreaVisibility={this.toggleAreaVisibility}
+            toggleNeighborhoodsVisibility={this.toggleNeighborhoodsVisibility}
+            toggleMobilePriceVisibility={this.toggleMobilePriceVisibility}
+            toggleMobileNeighborhoodsVisibility={this.toggleMobileNeighborhoodsVisibility}
+            toggleOtherMobileParams={this.toggleOtherMobileParams}
+            toggleParamVisibility={this.toggleParamVisibility}
+            hideAllParams={this.hideAllParams}
+            isAnyParamVisible={this.isAnyParamVisible}
+            handleOverlayClick={this.handleOverlayClick}
+          />
 
           <div className="map">
             <MapContainer
