@@ -11,8 +11,8 @@ import NeighborhoodFilter from '../../../components/listings/index/filter/neighb
 
 export default class Filter extends Component {
   render() {
-    const { params, neighborhoodOptions } = this.props
-    const { isMobileOpen, price, area, rooms, neighborhoods } = params
+    const { isMobileOpen, params, neighborhoodOptions } = this.props
+    const { price, area, rooms, neighborhoods } = params
     const {
       handleMinPriceChange,
       handleMaxPriceChange,
@@ -28,7 +28,6 @@ export default class Filter extends Component {
       toggleMobilePriceVisibility,
       toggleMobileNeighborhoodsVisibility,
       toggleOtherMobileParams,
-      toggleParamVisibility,
       hideAllParams,
       isAnyParamVisible,
       handleOverlayClick,

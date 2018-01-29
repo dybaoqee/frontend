@@ -1,16 +1,14 @@
 import { Component } from 'react'
-import Router from 'next/router'
 
 import * as colors from '../../../constants/colors'
+import { mobileMedia } from '../../../constants/media'
 import { desktopHeaderAndFilterHeight } from '../../../constants/dimensions'
 
 export default class ListingsNotFound extends Component {
-  resetFilter = () => {
-    window.location.href = '/imoveis'
-  }
-
   render() {
-    return <div className="container" onClick={this.resetFilter}>
+    const { resetAllParams } = this.props
+
+    return <div className="container" onClick={resetAllParams}>
       <div>
         <p>Não encontramos listagens para sua busca.</p>
         <p>Clique aqui para limpar os filtros.</p>
@@ -41,6 +39,15 @@ export default class ListingsNotFound extends Component {
           color: ${colors.red};
           font-weight: 600;
           margin: 0 0 10px;
+          max-width: calc(100% - 40px);
+          text-align: center;
+        }
+
+        @media ${mobileMedia} {
+          .container {
+            margin-left: 20px;
+            width: calc(100% - 40px);
+          }
         }
       `}</style>
     </div>

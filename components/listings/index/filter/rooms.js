@@ -1,10 +1,6 @@
 import { Component } from 'react'
-import Link from 'next/link'
 import Select from 'react-select'
-import numeral from 'numeral'
 
-import * as colors from '../../../../constants/colors'
-import { mobileMedia } from '../../../../constants/media'
 import { roomNumberOptions } from '../../../../constants/listing-filter-options'
 
 export default class RoomFilter extends Component {
@@ -26,9 +22,9 @@ export default class RoomFilter extends Component {
   render() {
     const {
       rooms,
-			handleChange,
-			toggleVisibility,
-			handleClose
+      handleChange,
+      toggleVisibility,
+      handleClose
     } = this.props
 
     const { value, visible } = rooms
