@@ -55,7 +55,7 @@ export default class Header extends Component {
             position: fixed;
             top: 0;
             width: calc(100% - 40px);
-            z-index: 1;
+            z-index: 5;
           }
           img {
             width: 110px;
