@@ -1,3 +1,4 @@
+import { Component } from 'react'
 import Head from 'next/head'
 import ReactGA from 'react-ga'
 import Router from 'next/router'
@@ -14,7 +15,7 @@ Router.onRouteChangeComplete = () => {
   ReactGA.pageview(window.location.pathname)
 }
 
-export default class Layout extends React.Component {
+export default class Layout extends Component {
   render() {
     const { authenticated, renderFooter } = this.props
 
