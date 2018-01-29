@@ -31,7 +31,7 @@ export const getListingImages = async (listingId, jwt) => {
 
 export const reorderImages = async (listingId, order, jwt) => {
   try {
-    const response = await put(`/listings/${listingId}/image_order`, {'images': order}, jwt)
+    const response = await put(`/listings/${listingId}/images_orders`, {'images': order}, jwt)
     return response
   } catch (error) {
     return error.response && error.response.status === 422
