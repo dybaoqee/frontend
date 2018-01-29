@@ -5,9 +5,7 @@ const buildPayload = (listingId, data) => {
     interest: {
       name: data.name,
       email: data.email,
-      phone: data.phone,
-      message: data.message,
-      listing_id: listingId
+      phone: data.phone
     }
   }
 }
@@ -16,7 +14,7 @@ export const createInterest = async (listingId, data) => {
   const payload = buildPayload(listingId, data)
 
   try {
-    return await post('/interests', payload)
+    return await post(`/listings/${listingId}/interests`, payload)
   } catch (error) {
     return error.response && error.response.status === 422
       ? error.response
