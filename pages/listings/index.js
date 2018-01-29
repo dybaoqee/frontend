@@ -1,5 +1,4 @@
 import { Component } from 'react'
-import Link from 'next/link'
 import Head from 'next/head'
 
 import { mainListingImage } from '../../utils/image_url'
@@ -9,11 +8,12 @@ import { getNeighborhoods } from '../../services/neighborhood-api'
 import Layout from '../../components/main-layout'
 import MapContainer from '../../components/map-container'
 import Listing from '../../components/listings/index/listing'
+import ListingsNotFound from '../../components/listings/index/not-found'
 import Filter from '../../components/listings/index/filter'
 
 import { mobileMedia } from '../../constants/media'
 
-export default class MyPage extends Component {
+export default class ListingsIndex extends Component {
   static async getInitialProps(context) {
     const res = await getListings(context.query)
 
@@ -50,7 +50,7 @@ export default class MyPage extends Component {
     }
   }
 
-  render () {
+  render() {
     const { listings, neighborhoods, currentUser, query } = this.props
     const seoImgSrc = listings.length > 0 && mainListingImage(listings[0].images)
 
@@ -83,7 +83,7 @@ export default class MyPage extends Component {
               return <Listing listing={listing} key={i} currentUser={currentUser} />
             })}
 
-            {(listings.length == 0) && <div>Não há listagens para sua busca</div>}
+            {(listings.length == 0) && <ListingsNotFound />}
           </div>
         </div>
 
