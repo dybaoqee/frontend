@@ -1,8 +1,6 @@
 import { Component } from 'react'
 import MediaQuery from 'react-responsive'
 import Head from 'next/head'
-import Router from 'next/router'
-import { Form, Text } from 'react-form'
 
 import { mainListingImage } from '../../utils/image_url'
 import { isAuthenticated, isAdmin, getCurrentUserId } from '../../lib/auth'
@@ -13,10 +11,10 @@ import Layout from '../../components/main-layout'
 import ListingHeader from '../../components/listings/listing/header'
 import ListingMainContent from '../../components/listings/listing/main-content'
 import ListingFooter from '../../components/listings/listing/listing-footer'
-import MapContainer from "../../components/map-container"
-import Popup from "../../components/popup"
+import MapContainer from '../../components/map-container'
+import Popup from '../../components/popup'
 
-class Listing extends Component {
+export default class Listing extends Component {
   state = {
     name: '',
     email: '',
@@ -141,13 +139,13 @@ class Listing extends Component {
             </Popup>
           }
 
-        {showPostSuccessPopup &&
-          <Popup handleClose={this.closeSuccessPostPopup}>
-            <h1>Agente EmCasa Notificado</h1>
-            <p>Entraremos em contato o mais rápido possível para agendarmos uma visita!</p>
-            <button onClick={this.closeSuccessPostPopup}>Fechar</button>
-          </Popup>
-        }
+          {showPostSuccessPopup &&
+            <Popup handleClose={this.closeSuccessPostPopup}>
+              <h1>Agente EmCasa Notificado</h1>
+              <p>Entraremos em contato o mais rápido possível para agendarmos uma visita!</p>
+              <button onClick={this.closeSuccessPostPopup}>Fechar</button>
+            </Popup>
+          }
         </div>
 
         <style jsx>{`
@@ -176,5 +174,3 @@ class Listing extends Component {
     )
   }
 }
-
-export default Listing
