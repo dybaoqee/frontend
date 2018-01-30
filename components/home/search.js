@@ -151,7 +151,7 @@ export default class HomeSearch extends Component {
       `}</style>
       <style jsx>{`
         div.container {
-          background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0)), url(${imageUrl('Nova_home_EmCasa_orsrdy.png')});
+          background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0)), url(${imageUrl('emcasa-home-2018-01-30_zmkjyy.jpg')});
           background-position: center;
           background-size: cover;
           height: 400px;
