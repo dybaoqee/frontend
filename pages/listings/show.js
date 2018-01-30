@@ -2,17 +2,17 @@ import { Component } from 'react'
 import MediaQuery from 'react-responsive'
 import Head from 'next/head'
 
-import { mainListingImage } from '../../utils/image_url'
-import { isAuthenticated, isAdmin, getCurrentUserId } from '../../lib/auth'
-import { getListing } from '../../services/listing-api'
-import { createInterest } from '../../services/interest-api'
+import { mainListingImage } from 'utils/image_url'
+import { isAuthenticated, isAdmin, getCurrentUserId } from 'lib/auth'
+import { getListing } from 'services/listing-api'
+import { createInterest } from 'services/interest-api'
 
-import Layout from '../../components/main-layout'
-import ListingHeader from '../../components/listings/listing/header'
-import ListingMainContent from '../../components/listings/listing/main-content'
-import ListingFooter from '../../components/listings/listing/listing-footer'
-import MapContainer from '../../components/map-container'
-import Popup from '../../components/popup'
+import Layout from 'components/main-layout'
+import ListingHeader from 'components/listings/listing/header'
+import ListingMainContent from 'components/listings/listing/main-content'
+import ListingFooter from 'components/listings/listing/listing-footer'
+import MapContainer from 'components/map-container'
+import Popup from 'components/popup'
 
 export default class Listing extends Component {
   state = {
