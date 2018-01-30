@@ -9,10 +9,10 @@ export const mainListingThumbnail = (images) => {
 }
 
 export const imageUrl = (filename) => {
-  return process.env.REACT_APP_CLOUDINARY_BASE_URL + '/v1513818385/' + filename
+  return process.env.REACT_APP_CLOUDINARY_BASE_URL + '/f_auto/v1513818385/' + filename
 }
 
 export const thumbnailUrl = (filename) => {
-  return process.env.REACT_APP_CLOUDINARY_BASE_URL + '/c_fit,h_400,w_600/v1513818385/' + filename
+  return process.env.REACT_APP_CLOUDINARY_BASE_URL + '/f_auto,c_fit,h_400,w_600/v1513818385/' + filename
 }
 
