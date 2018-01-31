@@ -2,7 +2,6 @@ import React from 'react'
 
 import ListingTable from '../listing_table'
 import Matterport from './matterport'
-import ImageGallery from './image-gallery'
 import { mobileMedia } from '../../../constants/media'
 
 class ListingMainContent extends React.Component {
@@ -13,7 +12,6 @@ class ListingMainContent extends React.Component {
       <div className="main-content">
         <div>
           <Matterport listing={listing} />
-          <ImageGallery images={listing.images} />
         </div>
 
         <div>

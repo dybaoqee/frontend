@@ -8,9 +8,10 @@ import { getListing } from 'services/listing-api'
 import { createInterest } from 'services/interest-api'
 
 import Layout from 'components/main-layout'
-import ListingHeader from 'components/listings/listing/header'
-import ListingMainContent from 'components/listings/listing/main-content'
-import ListingFooter from 'components/listings/listing/listing-footer'
+import ListingOldHeader from 'components/listings/show/old_header'
+import ListingHeader from 'components/listings/show/header'
+import ListingMainContent from 'components/listings/show/main-content'
+import ListingFooter from 'components/listings/show/listing-footer'
 import MapContainer from 'components/map-container'
 import InterestForm from 'components/listings/interest_form'
 import Popup from 'components/popup'
@@ -106,6 +107,7 @@ export default class Listing extends Component {
 
         <div className="listing">
           <ListingHeader listing={listing} handleOpenPopup={this.openPopup} currentUser={currentUser}/>
+          <ListingOldHeader listing={listing} handleOpenPopup={this.openPopup} currentUser={currentUser}/>
           <ListingMainContent listing={listing}/>
 
           <MediaQuery query="(max-width: 600px)">
@@ -149,7 +151,6 @@ export default class Listing extends Component {
           .listing {
             margin: 0 auto;
             max-width: 100vw;
-            width: 1180px;
           }
         `}</style>
       </Layout>

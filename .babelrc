@@ -19,7 +19,9 @@
           {
             "root": ["./"],
             "alias": {
-              "components": "./components"
+              "components": "./components",
+              "constants": "./constants",
+              "permissions": "./permissions",
             }
           }
         ]
@@ -46,7 +48,9 @@
           {
             "root": ["./"],
             "alias": {
-              "components": "./components"
+              "components": "./components",
+              "constants": "./constants",
+              "permissions": "./permissions",
             }
           }
         ]
@@ -73,7 +77,9 @@
           {
             "root": ["./"],
             "alias": {
-              "components": "./components"
+              "components": "./components",
+              "constants": "./constants",
+              "permissions": "./permissions",
             }
           }
         ]
