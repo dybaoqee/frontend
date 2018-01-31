@@ -1,50 +1,51 @@
 import React from 'react'
 
-import ListingTable from '../listing_table'
-import Matterport from './matterport'
-import { mobileMedia } from '../../../constants/media'
+import ListingTable from 'components/listings/listing_table'
+import {mobileMedia} from 'constants/media'
+import {maxDesktopOneColumn} from 'constants/dimensions'
 
 class ListingMainContent extends React.Component {
   render() {
-    const { listing } = this.props
+    const {listing} = this.props
 
     return (
-      <div className="main-content">
+      <div className="container">
         <div>
-          <Matterport listing={listing} />
+          <div className="description">
+            <h6>{listing.type}</h6>
+            {listing.description}
+          </div>
         </div>
 
         <div>
-          <div className="description">
-            {listing.description}
-          </div>
-
-          <ListingTable listing={listing}/>
+          <ListingTable listing={listing} />
         </div>
 
         <style jsx>{`
-          .main-content {
+          .container {
             align-items: flex-start;
             display: flex;
             margin-bottom: 40px;
             margin-top: 30px;
+            max-width: ${maxDesktopOneColumn};
+            width: 100vw;
           }
 
-          .main-content > * {
+          .container > * {
             float: left;
           }
 
-          .main-content > div:first-of-type {
+          .container > div:first-of-type {
             max-width: 100vw;
             width: 787px;
           }
 
-          .main-content > div:last-of-type {
+          .container > div:last-of-type {
             max-width: 100vw;
             width: 393px;
           }
 
-          .main-content > div > div {
+          .container > div > div {
             margin: 20px 20px 40px;
           }
 
@@ -53,12 +54,12 @@ class ListingMainContent extends React.Component {
           }
 
           @media ${mobileMedia} {
-            .main-content {
+            .container {
               flex-direction: column;
               width: 100vw;
             }
 
-            .main-content  > div {
+            .container  > div {
                 width: 100vw;
               }
             }

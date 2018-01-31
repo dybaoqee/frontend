@@ -8,7 +8,6 @@ import { getListing } from 'services/listing-api'
 import { createInterest } from 'services/interest-api'
 
 import Layout from 'components/main-layout'
-import ListingOldHeader from 'components/listings/show/old_header'
 import ListingHeader from 'components/listings/show/header'
 import ListingMainContent from 'components/listings/show/main-content'
 import ListingFooter from 'components/listings/show/listing-footer'
@@ -107,7 +106,6 @@ export default class Listing extends Component {
 
         <div className="listing">
           <ListingHeader listing={listing} handleOpenPopup={this.openPopup} currentUser={currentUser}/>
-          <ListingOldHeader listing={listing} handleOpenPopup={this.openPopup} currentUser={currentUser}/>
           <ListingMainContent listing={listing}/>
 
           <MediaQuery query="(max-width: 600px)">

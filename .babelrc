@@ -22,6 +22,7 @@
               "components": "./components",
               "constants": "./constants",
               "permissions": "./permissions",
+              "utils": "./utils",
             }
           }
         ]
@@ -51,6 +52,7 @@
               "components": "./components",
               "constants": "./constants",
               "permissions": "./permissions",
+              "utils": "./utils",
             }
           }
         ]
@@ -80,6 +82,7 @@
               "components": "./components",
               "constants": "./constants",
               "permissions": "./permissions",
+              "utils": "./utils",
             }
           }
         ]

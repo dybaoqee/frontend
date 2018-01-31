@@ -1,7 +1,8 @@
 import React from 'react'
 
-import { imageUrl } from '../../../utils/image_url'
-import { mobileMedia } from '../../../constants/media'
+import { imageUrl } from 'utils/image_url'
+import { mobileMedia } from 'constants/media'
+import {desktopHeaderHeight} from 'constants/dimensions'
 
 export default class ImageGallery extends React.Component {
   constructor(props) {
@@ -41,11 +42,11 @@ export default class ImageGallery extends React.Component {
             background-image: url(${imgSrc});
             background-position: center;
             background-repeat: no-repeat;
-            background-size: contain;
-            height: 590px;
+            background-size: cover;
+            height: calc(100vh - ${desktopHeaderHeight + 240}px);
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
             max-width: 100vw;
-            width: 787px;
+            width: 100vw;
           }
 
           div > div {

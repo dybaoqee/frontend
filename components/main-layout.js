@@ -93,9 +93,9 @@ export default class Layout extends Component {
             border-radius: 4px;
             color: white;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 16px;
             outline: none;
-            padding: 3px 15px 5px;
+            padding: 10px 20px 12px;
             text-decoration: none;
             transition: background-color 0.10s ease;
             transform: 0.25;
@@ -114,11 +114,11 @@ export default class Layout extends Component {
           }
 
           button.green {
-            background: #24a11e;
+            background: ${colors.green};
           }
 
           button.green:hover {
-            background: #1f8c1a;
+            background: ${colors.darkenedGreen};
           }
 
           button:disabled {
