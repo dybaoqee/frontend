@@ -115,6 +115,8 @@ export default class Layout extends Component {
 
           button.green {
             background: ${colors.green};
+            border: 1px solid ${colors.borderGreen};
+            box-shadow: inset 0 2px 2px 0 rgba(255,255,255,0.2), 0 4px 6px 0 rgba(38,38,38,0.2);
           }
 
           button.green:hover {

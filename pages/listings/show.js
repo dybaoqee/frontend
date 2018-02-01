@@ -1,5 +1,4 @@
 import { Component } from 'react'
-import MediaQuery from 'react-responsive'
 import Head from 'next/head'
 
 import { mainListingImage } from 'utils/image_url'
@@ -11,7 +10,7 @@ import Layout from 'components/main-layout'
 import ListingHeader from 'components/listings/show/header'
 import ListingMainContent from 'components/listings/show/main-content'
 import ListingFooter from 'components/listings/show/listing-footer'
-import MapContainer from 'components/map-container'
+import ListingMap from 'components/listings/show/map'
 import InterestForm from 'components/listings/interest_form'
 import Popup from 'components/popup'
 
@@ -105,22 +104,17 @@ export default class Listing extends Component {
         </Head>
 
         <div className="listing">
-          <ListingHeader listing={listing} handleOpenPopup={this.openPopup} currentUser={currentUser}/>
-          <ListingMainContent listing={listing}/>
+          <ListingHeader
+            listing={listing}
+            handleOpenPopup={this.openPopup}
+            currentUser={currentUser} />
 
-          <MediaQuery query="(max-width: 600px)">
-            <MapContainer lat={listing.address.lat}
-              lng={listing.address.lng}
-              width='100vw'
-              height='300px'/>
-          </MediaQuery>
+          <ListingMainContent
+            listing={listing}
+            handleOpenPopup={this.handleOpenPopup} />
 
-          <MediaQuery query="(min-width: 601px)">
-            <MapContainer lat={listing.address.lat}
-              lng={listing.address.lng}
-              width='786.66667px'
-              height='500px'/>
-          </MediaQuery>
+          <ListingMap
+            listing={listing} />
 
           <ListingFooter />
 

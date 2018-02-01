@@ -1,7 +1,7 @@
 import React from 'react'
 import NumberFormat from 'react-number-format'
 
-import { mobileMedia } from '../../constants/media'
+import { mobileMedia } from 'constants/media'
 
 class ListingTable extends React.Component {
   render() {

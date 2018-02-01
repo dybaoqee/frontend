@@ -1,43 +1,41 @@
 import React from 'react'
 
-import ListingTable from 'components/listings/listing_table'
 import {mobileMedia} from 'constants/media'
-import {maxDesktopOneColumn} from 'constants/dimensions'
+import * as colors from 'constants/colors'
 
-class ListingMainContent extends React.Component {
+import ListingCard from 'components/listings/show/card'
+export default class ListingMainContent extends React.Component {
   render() {
-    const {listing} = this.props
+    const {listing, handleOpenPopup} = this.props
 
     return (
       <div className="container">
         <div>
           <div className="description">
             <h6>{listing.type}</h6>
-            {listing.description}
+            <p>
+              {listing.description}
+            </p>
           </div>
         </div>
 
-        <div>
-          <ListingTable listing={listing} />
-        </div>
+        <ListingCard
+          listing={listing}
+          handleOpenPopup={handleOpenPopup} />
 
         <style jsx>{`
           .container {
             align-items: flex-start;
             display: flex;
-            margin-bottom: 40px;
-            margin-top: 30px;
-            max-width: ${maxDesktopOneColumn};
+            justify-content: space-between;
+            margin: 30px auto 40px;
+            max-width: 960px;
             width: 100vw;
-          }
-
-          .container > * {
-            float: left;
           }
 
           .container > div:first-of-type {
             max-width: 100vw;
-            width: 787px;
+            width: calc(100% - 380px);
           }
 
           .container > div:last-of-type {
@@ -51,7 +49,19 @@ class ListingMainContent extends React.Component {
 
           .description {
             max-width: 100%;
+
+            h6 {
+              font-size: 12px;
+              text-transform: uppercase;
+            }
+
+            p {
+              color: ${colors.gray4a};
+              font-size: 20px;
+              font-weight: 300;
+            }
           }
+
 
           @media ${mobileMedia} {
             .container {
@@ -73,4 +83,3 @@ class ListingMainContent extends React.Component {
   }
 }
 
-export default ListingMainContent
