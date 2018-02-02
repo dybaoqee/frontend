@@ -5,24 +5,9 @@ import {mobileMedia} from 'constants/media'
 import {desktopHeaderHeight} from 'constants/dimensions'
 
 export default class ImageGallery extends React.Component {
-  state = {
-    imageIndex: 0
-  }
-
-  showNextImage = () => {
-    const {imageIndex} = this.state
-    this.setState({imageIndex: imageIndex + 1})
-  }
-
-  showPreviousImage = () => {
-    const {imageIndex} = this.state
-    this.setState({imageIndex: imageIndex - 1})
-  }
-
   render() {
-    const {images} = this.props
+    const {images, imageIndex} = this.props
     const imagesLength = images.length
-    const {imageIndex} = this.state
 
     const indexToShow = Math.abs((imagesLength - imageIndex) % imagesLength)
     const imgFilename = (imagesLength > 0) ? images[indexToShow].filename : 'default.jpg'
@@ -35,15 +20,19 @@ export default class ImageGallery extends React.Component {
         {(imagesLength > 1) && <div onClick={this.showNextImage}>›</div>}
         <style jsx>{`
           div.container {
-            background-color: #f0f0f0;
+            background-color: rgba(0, 0, 0, 0.85);
             background-image: url(${imgSrc});
             background-position: center;
             background-repeat: no-repeat;
-            background-size: cover;
-            height: calc(100vh - ${desktopHeaderHeight + 240}px);
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+            background-size: contain;
+            height: 100vh;
+            left: 0;
             max-width: 100vw;
+            position: fixed;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+            top: 0;
             width: 100vw;
+            z-index: 9;
           }
 
           div > div {

@@ -19,8 +19,10 @@ export default class Listing extends Component {
     email: '',
     phone: '',
     message: '',
-    showPopup: false,
-    showPostSuccessPopup: false
+    isInterestPopupVisible: false,
+    isInterestSuccessPopupVisible: false,
+    isImageGalleryVisible: false,
+    imageIndex: 0,
   }
 
   static async getInitialProps(context) {
@@ -47,16 +49,34 @@ export default class Listing extends Component {
     }
   }
 
+  showImageGallery = () => {
+    this.setState({isImageGalleryVisible: true})
+  }
+
+  hideImageGallery = () => {
+    this.setState({isImageGalleryVisible: false})
+  }
+
+  showNextImage = () => {
+    const {imageIndex} = this.state
+    this.setState({imageIndex: imageIndex + 1})
+  }
+
+  showPreviousImage = () => {
+    const {imageIndex} = this.state
+    this.setState({imageIndex: imageIndex - 1})
+  }
+
   openPopup = () => {
-    this.setState({showPopup: true})
+    this.setState({isInterestPopupVisible: true})
   }
 
   closePopup = () => {
-    this.setState({showPopup: false})
+    this.setState({isInterestPopupVisible: false})
   }
 
   closeSuccessPostPopup = () => {
-    this.setState({showPostSuccessPopup: false})
+    this.setState({isInterestSuccessPopupVisible: false})
   }
 
   onChange = (e) => {
@@ -81,15 +101,17 @@ export default class Listing extends Component {
       return res
     }
 
-    this.setState({showPopup: false, showPostSuccessPopup: true})
+    this.setState({isInterestPopupVisible: false, isInterestSuccessPopupVisible: true})
   }
 
   render() {
     const {currentUser, listing} = this.props
     const {isAuthenticated} = currentUser
     const {
-      showPopup,
-      showPostSuccessPopup,
+      imageIndex,
+      isImageGalleryVisible,
+      isInterestPopupVisible,
+      isInterestSuccessPopupVisible,
       name,
       email,
       phone,
@@ -98,6 +120,11 @@ export default class Listing extends Component {
 
     return (
       <Layout authenticated={isAuthenticated} renderFooter={true}>
+        {isImageGalleryVisible &&
+          <ImageGallery
+            images={listing.images}
+            imageIndex={imageIndex} />
+        }
 
         <ListingHead listing={listing} />
 
@@ -105,6 +132,7 @@ export default class Listing extends Component {
           <ListingHeader
             listing={listing}
             handleOpenPopup={this.openPopup}
+            handleOpenImageGallery={this.showImageGallery}
             currentUser={currentUser} />
 
           <ListingMainContent
@@ -114,7 +142,7 @@ export default class Listing extends Component {
           <ListingMap
             listing={listing} />
 
-          {showPopup &&
+          {isInterestPopupVisible &&
             <InterestForm
               name={name}
               email={email}
@@ -125,7 +153,7 @@ export default class Listing extends Component {
               onSubmit={this.onSubmit} />
           }
 
-          {showPostSuccessPopup &&
+          {isInterestSuccessPopupVisible &&
             <InterestPosted
               handleClose={this.closeSuccessPostPopup} />
           }

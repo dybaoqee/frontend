@@ -114,13 +114,24 @@ export default class Layout extends Component {
           }
 
           button.green {
-            background: ${colors.green};
-            border: 1px solid ${colors.borderGreen};
             box-shadow: inset 0 2px 2px 0 rgba(255,255,255,0.2), 0 4px 6px 0 rgba(38,38,38,0.2);
+            background: ${colors.green};
+            border: 1px solid ${colors.darkenedGreen};
+            color: white;
+            &:hover {
+              background: ${colors.darkenedGreen};
+            }
           }
 
-          button.green:hover {
-            background: ${colors.darkenedGreen};
+          button.white {
+            background: ${colors.offWhite};
+            border: 1px solid ${colors.mediumGray};
+            box-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            color: ${colors.text};
+            margin-left: 20px;
+            &:hover {
+              background: ${colors.lightestGray};
+            }
           }
 
           button:disabled {
