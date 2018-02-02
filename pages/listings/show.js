@@ -8,6 +8,7 @@ import Layout from 'components/main-layout'
 import ListingHead from 'components/listings/show/head'
 import ListingHeader from 'components/listings/show/header'
 import ImageGallery from 'components/listings/show/image-gallery'
+import Matterport from 'components/listings/show/matterport'
 import ListingMainContent from 'components/listings/show/main-content'
 import ListingMap from 'components/listings/show/map'
 import InterestForm from 'components/listings/interest_form'
@@ -22,6 +23,7 @@ export default class Listing extends Component {
     isInterestPopupVisible: false,
     isInterestSuccessPopupVisible: false,
     isImageGalleryVisible: false,
+    is3DTourVisible: false,
     imageIndex: 0,
   }
 
@@ -67,6 +69,14 @@ export default class Listing extends Component {
     this.setState({imageIndex: imageIndex - 1})
   }
 
+  show3DTour = () => {
+    this.setState({is3DTourVisible: true})
+  }
+
+  hide3DTour = () => {
+    this.setState({is3DTourVisible: false})
+  }
+
   openPopup = () => {
     this.setState({isInterestPopupVisible: true})
   }
@@ -109,6 +119,7 @@ export default class Listing extends Component {
     const {isAuthenticated} = currentUser
     const {
       imageIndex,
+      is3DTourVisible,
       isImageGalleryVisible,
       isInterestPopupVisible,
       isInterestSuccessPopupVisible,
@@ -126,7 +137,13 @@ export default class Listing extends Component {
             imageIndex={imageIndex}
             handlePrevious={this.showNextImage}
             handleNext={this.showPreviousImage}
-            handleHide={this.hideImageGallery} />
+            handleClose={this.hideImageGallery} />
+        }
+
+        {is3DTourVisible &&
+          <Matterport
+            matterport_code={listing.matterport_code}
+            handleClose={this.hideImageGallery} />
         }
 
         <ListingHead listing={listing} />
@@ -136,6 +153,7 @@ export default class Listing extends Component {
             listing={listing}
             handleOpenPopup={this.openPopup}
             handleOpenImageGallery={this.showImageGallery}
+            handleOpen3DTour={this.show3DTour}
             currentUser={currentUser} />
 
           <ListingMainContent

@@ -8,7 +8,14 @@ import {canEdit} from 'permissions/listings-permissions'
 
 export default class ListingHeader extends Component {
   render() {
-    const {listing, currentUser, handleOpenPopup, handleOpenImageGallery} = this.props
+    const {
+      listing,
+      currentUser,
+      handleOpenPopup,
+      handleOpenImageGallery,
+      handleOpen3DTour,
+    } = this.props
+
     const imgSrc = mainListingImage(listing.images)
 
     return (
@@ -32,7 +39,7 @@ export default class ListingHeader extends Component {
             Ver Fotos
           </button>
 
-          <button className="white">
+          <button className="white" onClick={handleOpen3DTour}>
             Ver Tour 3D
           </button>
         </div>

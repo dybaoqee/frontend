@@ -1,24 +1,22 @@
 import React from 'react'
 
 import {imageUrl} from 'utils/image_url'
-import {mobileMedia} from 'constants/media'
+
+import Lightbox from 'components/lightbox'
 
 export default class ImageGallery extends React.Component {
   render() {
-    const {images, imageIndex, handleHide, handleNext, handlePrevious} = this.props
+    const {images, imageIndex, handleClose, handleNext, handlePrevious} = this.props
     const imagesLength = images.length
 
     const indexToShow = Math.abs((imagesLength - imageIndex) % imagesLength)
-    const imgFilename = (imagesLength > 0) ? images[indexToShow].filename : 'default.jpg'
-
-    const imgSrc = imageUrl(imgFilename)
 
     return (
-      <div className="container">
+      <Lightbox handleClose={handleClose} >
         {images.map(function(image, index) {
           const imgSrc = imageUrl(image.filename)
-          const display = (index == indexToShow) ? 'block' : 'none';
-          const style = {
+          const display = (index == indexToShow) ? 'block' : 'none'
+          const style = {
             backgroundImage: `url(${imgSrc})`,
             display: display,
           }
@@ -26,26 +24,10 @@ export default class ImageGallery extends React.Component {
           return <div key={index} className="image" style={style}/>
         })}
 
-        <button onClick={handleHide}>
-          ×
-        </button>
-
         {(imagesLength > 1) && <div className="nav" onClick={handlePrevious}>‹</div>}
         {(imagesLength > 1) && <div className="nav" onClick={handleNext}>›</div>}
 
         <style jsx>{`
-          div.container {
-            background-color: rgba(0, 0, 0, 0.85);
-            height: 100vh;
-            left: 0;
-            max-width: 100vw;
-            position: fixed;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
-            top: 0;
-            width: 100vw;
-            z-index: 9;
-          }
-
           div.nav {
             align-items: center;
             display: flex;
@@ -82,35 +64,8 @@ export default class ImageGallery extends React.Component {
             width: 100vw;
             z-index: -1;
           }
-
-          button {
-            box-shadow: none;
-            color: white;
-            background: transparent;
-            font-size: 48px;
-            font-weight: 300;
-            line-height: .8em;
-            padding: 12px 20px 20px;
-            position: absolute;
-            right: 10px;
-            top: 10px;
-            z-index: 3;
-            &:hover {
-              background: rgba(255, 255, 255, 0.1);
-            }
-          }
-
-          @media ${mobileMedia} {
-            div.container {
-              height: 300px;
-            }
-
-            div {
-              width: 100vw;
-            }
-          }
         `}</style>
-      </div>
+      </Lightbox>
     )
   }
 }

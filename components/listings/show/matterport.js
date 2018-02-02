@@ -1,31 +1,25 @@
-import React from 'react'
+import {Component} from 'react'
 import MediaQuery from 'react-responsive'
 
-class Matterport extends React.Component {
+export default class Matterport extends Component {
   render() {
-    const { listing } = this.props
+    const {matterport_code} = this.props
+    const src = `https://my.matterport.com/show/?m=${matterport_code}`
 
     return (
       <div>
-        {listing.matterport_code &&
+        {matterport_code &&
           <MediaQuery query="(max-width: 600px)">
-            <iframe width='100%' height='200' src={`https://my.matterport.com/show/?m=${listing.matterport_code}`} frameBorder='0' allowFullScreen></iframe>
-          </MediaQuery>
-        }
-        {listing.matterport_code &&
-          <MediaQuery query="(min-width: 601px)">
-            <iframe width='100%' height='480' src={`https://my.matterport.com/show/?m=${listing.matterport_code}`} frameBorder='0' allowFullScreen></iframe>
+            <iframe width='100%' height='200' src={src} frameBorder='0' allowFullScreen />
           </MediaQuery>
         }
 
-        <style jsx>{`
-          iframe {
-            margin-bottom: 40px;
-          }
-        `}</style>
+        {matterport_code &&
+          <MediaQuery query="(min-width: 601px)">
+            <iframe width='100%' height='480' src={src} frameBorder='0' allowFullScreen />
+          </MediaQuery>
+        }
       </div>
     )
   }
 }
-
-export default Matterport
