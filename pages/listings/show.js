@@ -1,8 +1,8 @@
-import { Component } from 'react'
+import {Component} from 'react'
 
-import { isAuthenticated, isAdmin, getCurrentUserId } from 'lib/auth'
-import { getListing } from 'services/listing-api'
-import { createInterest } from 'services/interest-api'
+import {isAuthenticated, isAdmin, getCurrentUserId} from 'lib/auth'
+import {getListing} from 'services/listing-api'
+import {createInterest} from 'services/interest-api'
 
 import Layout from 'components/main-layout'
 import ListingHead from 'components/listings/show/head'
@@ -23,7 +23,7 @@ export default class Listing extends Component {
   }
 
   static async getInitialProps(context) {
-    const { id } = context.query
+    const {id} = context.query
 
     const res = await getListing(id)
 
@@ -67,7 +67,7 @@ export default class Listing extends Component {
   onSubmit = async (e) => {
     e.preventDefault()
 
-    const { id } = this.props.listing
+    const {id} = this.props.listing
 
     const res = await createInterest(id, this.state)
 
@@ -80,13 +80,13 @@ export default class Listing extends Component {
       return res
     }
 
-    this.setState({ showPopup: false, showPostSuccessPopup: true })
+    this.setState({showPopup: false, showPostSuccessPopup: true})
   }
 
   render() {
-    const { currentUser, listing } = this.props
-    const { isAuthenticated } = currentUser
-    const { showPopup, showPostSuccessPopup, name, email, phone, message } = this.state
+    const {currentUser, listing} = this.props
+    const {isAuthenticated} = currentUser
+    const {showPopup, showPostSuccessPopup, name, email, phone, message} = this.state
 
     return (
       <Layout authenticated={isAuthenticated} renderFooter={true}>
