@@ -22,7 +22,7 @@ export default class Layout extends Component {
     return (
       <div>
         <Head>
-          <link rel="stylesheet" href="https://unpkg.com/react-select/dist/react-select.css" />
+          <link rel="stylesheet" href="/static/react-select.css" />
           <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800" rel="stylesheet" />
           <script async src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsTrackingId}`} />
 
@@ -93,9 +93,9 @@ export default class Layout extends Component {
             border-radius: 4px;
             color: white;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 16px;
             outline: none;
-            padding: 3px 15px 5px;
+            padding: 10px 20px 12px;
             text-decoration: none;
             transition: background-color 0.10s ease;
             transform: 0.25;
@@ -114,11 +114,13 @@ export default class Layout extends Component {
           }
 
           button.green {
-            background: #24a11e;
+            background: ${colors.green};
+            border: 1px solid ${colors.borderGreen};
+            box-shadow: inset 0 2px 2px 0 rgba(255,255,255,0.2), 0 4px 6px 0 rgba(38,38,38,0.2);
           }
 
           button.green:hover {
-            background: #1f8c1a;
+            background: ${colors.darkenedGreen};
           }
 
           button:disabled {
