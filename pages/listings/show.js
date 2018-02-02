@@ -1,18 +1,17 @@
 import { Component } from 'react'
-import Head from 'next/head'
 
-import { mainListingImage } from 'utils/image_url'
 import { isAuthenticated, isAdmin, getCurrentUserId } from 'lib/auth'
 import { getListing } from 'services/listing-api'
 import { createInterest } from 'services/interest-api'
 
 import Layout from 'components/main-layout'
+import ListingHead from 'components/listings/show/head'
 import ListingHeader from 'components/listings/show/header'
 import ListingMainContent from 'components/listings/show/main-content'
 import ListingFooter from 'components/listings/show/listing-footer'
 import ListingMap from 'components/listings/show/map'
 import InterestForm from 'components/listings/interest_form'
-import Popup from 'components/popup'
+import InterestPosted from 'components/listings/interest_posted'
 
 export default class Listing extends Component {
   state = {
@@ -89,21 +88,13 @@ export default class Listing extends Component {
     const { currentUser, listing } = this.props
     const { isAuthenticated } = currentUser
     const { showPopup, showPostSuccessPopup, name, email, phone, message } = this.state
-    const seoImgSrc = mainListingImage(listing.images)
 
     return (
       <Layout authenticated={isAuthenticated} renderFooter={true}>
 
-        <Head>
-          <title>
-            À venda: Apartamento - {listing.address.street} - {listing.address.neighborhood}, {listing.address.city} | EmCasa
-          </title>
-          <meta name="description" content={listing.description}/>
-          <meta property="og:description" content={listing.description}/>
-          <meta property="og:image" content={seoImgSrc}/>
-        </Head>
+        <ListingHead listing={listing} />
 
-        <div className="listing">
+        <div>
           <ListingHeader
             listing={listing}
             handleOpenPopup={this.openPopup}
@@ -131,16 +122,13 @@ export default class Listing extends Component {
           }
 
           {showPostSuccessPopup &&
-            <Popup handleClose={this.closeSuccessPostPopup}>
-              <h1>Agente EmCasa Notificado</h1>
-              <p>Entraremos em contato o mais rápido possível para agendarmos uma visita!</p>
-              <button onClick={this.closeSuccessPostPopup}>Fechar</button>
-            </Popup>
+            <InterestPosted
+              handleClose={this.closeSuccessPostPopup} />
           }
         </div>
 
         <style jsx>{`
-          .listing {
+          div {
             margin: 0 auto;
             max-width: 100vw;
           }
