@@ -22,7 +22,7 @@ export default class Layout extends Component {
     return (
       <div>
         <Head>
-          <link rel="stylesheet" href="/static/react-select.css" />
+          <link rel="stylesheet" href="https://s3.sa-east-1.amazonaws.com/emcasa/css/react-select.css" rel="stylesheet" />
           <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800" rel="stylesheet" />
           <script async src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsTrackingId}`} />
 
