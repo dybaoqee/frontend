@@ -10,12 +10,12 @@ export default class InterestForm extends Component {
       phone,
       message,
       onChange,
-      closePopup,
+      handleClose,
       onSubmit
     } = this.props
 
     return (
-      <Popup handleClose={closePopup}>
+      <Popup handleClose={handleClose}>
         <h1>Marcar Visita</h1>
         <p>Insira seu nome, email e telefone com DDD e<br/>entraremos em contato em minutos.</p>
 

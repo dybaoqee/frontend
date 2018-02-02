@@ -86,7 +86,14 @@ export default class Listing extends Component {
   render() {
     const {currentUser, listing} = this.props
     const {isAuthenticated} = currentUser
-    const {showPopup, showPostSuccessPopup, name, email, phone, message} = this.state
+    const {
+      showPopup,
+      showPostSuccessPopup,
+      name,
+      email,
+      phone,
+      message
+    } = this.state
 
     return (
       <Layout authenticated={isAuthenticated} renderFooter={true}>
@@ -101,7 +108,7 @@ export default class Listing extends Component {
 
           <ListingMainContent
             listing={listing}
-            handleOpenPopup={this.handleOpenPopup} />
+            handleOpenPopup={this.openPopup} />
 
           <ListingMap
             listing={listing} />
@@ -114,8 +121,7 @@ export default class Listing extends Component {
               message={message}
               handleClose={this.closePopup}
               onChange={this.onChange}
-              onSubmit={this.onSubmit}
-            />
+              onSubmit={this.onSubmit} />
           }
 
           {showPostSuccessPopup &&
@@ -123,13 +129,6 @@ export default class Listing extends Component {
               handleClose={this.closeSuccessPostPopup} />
           }
         </div>
-
-        <style jsx>{`
-          div {
-            margin: 0 auto;
-            max-width: 100vw;
-          }
-        `}</style>
       </Layout>
     )
   }

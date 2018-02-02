@@ -18,7 +18,6 @@ class Popup extends React.Component {
             height: 100vh;
             justify-content: center;
             left: 0;
-            position: absolute;
             top: 0;
             width: 100vw;
             z-index: 10;

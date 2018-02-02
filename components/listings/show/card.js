@@ -6,6 +6,8 @@ import {mobileMedia} from 'constants/media'
 
 export default class ListingCard extends React.Component {
   render() {
+    const {handleOpenPopup} = this.props
+
     const {
       price,
       rooms,
@@ -51,7 +53,7 @@ export default class ListingCard extends React.Component {
           <span>xxxxx</span>
         </div>
 
-        <button className="green" onClick={this.props.handleOpenPopup}>
+        <button className="green" onClick={handleOpenPopup}>
           Marcar Visita
         </button>
       </div>
