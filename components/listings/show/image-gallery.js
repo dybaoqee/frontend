@@ -1,31 +1,28 @@
 import React from 'react'
 
-import { imageUrl } from 'utils/image_url'
-import { mobileMedia } from 'constants/media'
+import {imageUrl} from 'utils/image_url'
+import {mobileMedia} from 'constants/media'
 import {desktopHeaderHeight} from 'constants/dimensions'
 
 export default class ImageGallery extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      imageIndex: 0
-    }
+  state = {
+    imageIndex: 0
   }
 
   showNextImage = () => {
-    const { imageIndex } = this.state
-    this.setState({ imageIndex: imageIndex + 1 })
+    const {imageIndex} = this.state
+    this.setState({imageIndex: imageIndex + 1})
   }
 
   showPreviousImage = () => {
-    const { imageIndex } = this.state
-    this.setState({ imageIndex: imageIndex - 1 })
+    const {imageIndex} = this.state
+    this.setState({imageIndex: imageIndex - 1})
   }
 
   render() {
-    const { images } = this.props
+    const {images} = this.props
     const imagesLength = images.length
-    const { imageIndex } = this.state
+    const {imageIndex} = this.state
 
     const indexToShow = Math.abs((imagesLength - imageIndex) % imagesLength)
     const imgFilename = (imagesLength > 0) ? images[indexToShow].filename : 'default.jpg'
@@ -34,8 +31,8 @@ export default class ImageGallery extends React.Component {
 
     return (
       <div className="container">
-        { (imagesLength > 1) &&<div onClick={this.showPreviousImage}>‹</div> }
-        { (imagesLength > 1) && <div onClick={this.showNextImage}>›</div> }
+        {(imagesLength > 1) &&<div onClick={this.showPreviousImage}>‹</div>}
+        {(imagesLength > 1) && <div onClick={this.showNextImage}>›</div>}
         <style jsx>{`
           div.container {
             background-color: #f0f0f0;

@@ -1,22 +1,18 @@
-import { Component } from 'react'
-import Link from 'next/link'
+import {Component} from 'react'
 
+import {mainListingImage} from 'utils/image_url'
 import {desktopHeaderHeight} from 'constants/dimensions'
 import * as colors from 'constants/colors'
-import { mobileMedia } from 'constants/media'
-import { canEdit }  from 'permissions/listings-permissions'
 
-import ImageGallery from 'components/listings/show/image-gallery'
-
-class ListingHeader extends Component {
+export default class ListingHeader extends Component {
   render() {
-    const { listing, currentUser } = this.props
+    const {listing, handleOpenPopup} = this.props
+    const imgSrc = mainListingImage(listing.images)
 
     return (
       <header>
-        <ImageGallery images={listing.images} />
         <div className="top-right">
-          <button className="green" onClick={this.props.handleOpenPopup}>
+          <button className="green" onClick={handleOpenPopup}>
             Marcar Visita
           </button>
         </div>
@@ -26,6 +22,11 @@ class ListingHeader extends Component {
         </div>
         <style jsx>{`
           header {
+            background-color: #f0f0f0;
+            background-image: url(${imgSrc});
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
             height: calc(100vh - ${desktopHeaderHeight + 240}px);
             position: relative;
             width: 100vw;
@@ -64,5 +65,3 @@ class ListingHeader extends Component {
     )
   }
 }
-
-export default ListingHeader
