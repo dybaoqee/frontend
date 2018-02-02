@@ -2,11 +2,10 @@ import React from 'react'
 
 import {imageUrl} from 'utils/image_url'
 import {mobileMedia} from 'constants/media'
-import {desktopHeaderHeight} from 'constants/dimensions'
 
 export default class ImageGallery extends React.Component {
   render() {
-    const {images, imageIndex} = this.props
+    const {images, imageIndex, handleHide} = this.props
     const imagesLength = images.length
 
     const indexToShow = Math.abs((imagesLength - imageIndex) % imagesLength)
@@ -16,8 +15,13 @@ export default class ImageGallery extends React.Component {
 
     return (
       <div className="container">
-        {(imagesLength > 1) &&<div onClick={this.showPreviousImage}>‹</div>}
+        <button onClick={handleHide}>
+          ×
+        </button>
+
+        {(imagesLength > 1) && <div onClick={this.showPreviousImage}>‹</div>}
         {(imagesLength > 1) && <div onClick={this.showNextImage}>›</div>}
+
         <style jsx>{`
           div.container {
             background-color: rgba(0, 0, 0, 0.85);
@@ -60,6 +64,23 @@ export default class ImageGallery extends React.Component {
           div > div:last-of-type:hover {
             background: linear-gradient(to left, rgba(0, 0, 0, .333), rgba(0, 0, 0, 0));
           }
+
+          button {
+            box-shadow: none;
+            color: white;
+            background: transparent;
+            font-size: 48px;
+            font-weight: 300;
+            line-height: .8em;
+            padding: 12px 20px 20px;
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            &:hover {
+              background: rgba(255, 255, 255, 0.1);
+            }
+          }
+
           @media ${mobileMedia} {
             div.container {
               height: 300px;

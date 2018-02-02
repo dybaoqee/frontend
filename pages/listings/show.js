@@ -123,7 +123,8 @@ export default class Listing extends Component {
         {isImageGalleryVisible &&
           <ImageGallery
             images={listing.images}
-            imageIndex={imageIndex} />
+            imageIndex={imageIndex}
+            handleHide={this.hideImageGallery} />
         }
 
         <ListingHead listing={listing} />
