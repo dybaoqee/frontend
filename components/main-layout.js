@@ -91,6 +91,7 @@ export default class Layout extends Component {
             background-color: ${colors.blue};
             border: none;
             border-radius: 4px;
+            box-shadow: inset 0 2px 2px 0 rgba(255,255,255,0.2), 0 4px 6px 0 rgba(38,38,38,0.2);
             color: white;
             cursor: pointer;
             font-size: 16px;
@@ -99,22 +100,20 @@ export default class Layout extends Component {
             text-decoration: none;
             transition: background-color 0.10s ease;
             transform: 0.25;
-            &.gray {
-              background: ${colors.lightGray};
-              &:hover {
-                background: ${colors.lightGray};
-              }
+            &:hover {
+              background-color: ${colors.darkenedBlue};
+              text-decoration: none;
             }
           }
 
-          button:hover,
-          .btn:hover {
-            background-color: ${colors.darkenedBlue};
-            text-decoration: none;
+          button.gray {
+            background: ${colors.lightGray};
+            &:hover {
+              background: ${colors.lightGray};
+            }
           }
 
           button.green {
-            box-shadow: inset 0 2px 2px 0 rgba(255,255,255,0.2), 0 4px 6px 0 rgba(38,38,38,0.2);
             background: ${colors.green};
             border: 1px solid ${colors.darkenedGreen};
             color: white;
@@ -126,7 +125,6 @@ export default class Layout extends Component {
           button.white {
             background: ${colors.offWhite};
             border: 1px solid ${colors.mediumGray};
-            box-shadow: 1px 1px 2px rgba(0,0,0,0.3);
             color: ${colors.text};
             margin-left: 20px;
             &:hover {
