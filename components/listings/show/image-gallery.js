@@ -5,7 +5,7 @@ import {mobileMedia} from 'constants/media'
 
 export default class ImageGallery extends React.Component {
   render() {
-    const {images, imageIndex, handleHide} = this.props
+    const {images, imageIndex, handleHide, handleNext, handlePrevious} = this.props
     const imagesLength = images.length
 
     const indexToShow = Math.abs((imagesLength - imageIndex) % imagesLength)
@@ -14,13 +14,14 @@ export default class ImageGallery extends React.Component {
     const imgSrc = imageUrl(imgFilename)
 
     return (
+
       <div className="container">
         <button onClick={handleHide}>
           ×
         </button>
 
-        {(imagesLength > 1) && <div onClick={this.showPreviousImage}>‹</div>}
-        {(imagesLength > 1) && <div onClick={this.showNextImage}>›</div>}
+        {(imagesLength > 1) && <div onClick={handlePrevious}>‹</div>}
+        {(imagesLength > 1) && <div onClick={handleNext}>›</div>}
 
         <style jsx>{`
           div.container {
@@ -48,6 +49,7 @@ export default class ImageGallery extends React.Component {
             font-size: 60px;
             height: 100%;
             padding: 0 30px;
+            user-select: none;
             width: calc(50% - 60px);
           }
 

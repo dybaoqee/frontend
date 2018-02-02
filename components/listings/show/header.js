@@ -11,6 +11,8 @@ export default class ListingHeader extends Component {
 
     return (
       <header>
+        <div className="open-image-gallery-overlay" onClick={handleOpenImageGallery} />
+
         <div className="top-right">
           <button className="green" onClick={handleOpenPopup}>
             Marcar Visita
@@ -41,6 +43,11 @@ export default class ListingHeader extends Component {
 
           header > div {
             position: absolute;
+            &.open-image-gallery-overlay {
+              cursor: pointer;
+              height: 100%;
+              width: 100%;
+            }
             &.bottom-right {
               bottom: 20px;
               right: 20px;

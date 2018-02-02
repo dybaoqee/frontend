@@ -124,6 +124,8 @@ export default class Listing extends Component {
           <ImageGallery
             images={listing.images}
             imageIndex={imageIndex}
+            handlePrevious={this.showNextImage}
+            handleNext={this.showPreviousImage}
             handleHide={this.hideImageGallery} />
         }
 
