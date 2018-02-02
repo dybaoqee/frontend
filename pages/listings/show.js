@@ -8,7 +8,6 @@ import Layout from 'components/main-layout'
 import ListingHead from 'components/listings/show/head'
 import ListingHeader from 'components/listings/show/header'
 import ListingMainContent from 'components/listings/show/main-content'
-import ListingFooter from 'components/listings/show/listing-footer'
 import ListingMap from 'components/listings/show/map'
 import InterestForm from 'components/listings/interest_form'
 import InterestPosted from 'components/listings/interest_posted'
@@ -106,8 +105,6 @@ export default class Listing extends Component {
 
           <ListingMap
             listing={listing} />
-
-          <ListingFooter />
 
           {showPopup &&
             <InterestForm
