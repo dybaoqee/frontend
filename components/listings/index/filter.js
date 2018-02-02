@@ -201,6 +201,7 @@ export default class Filter extends Component {
             background: transparent;
             border: 1px solid ${colors.lightGray};
             border-radius: 500px;
+            box-shadow: none;
             color: ${colors.text};
             clear: both;
             font-size: 15px;
@@ -224,7 +225,7 @@ export default class Filter extends Component {
           }
 
           span.remove-all-filters {
-            color: ${colors.lightGray};
+            color: ${colors.blue};
             cursor: pointer;
             display: block;
             font-size: 13px;

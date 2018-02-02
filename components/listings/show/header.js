@@ -1,12 +1,14 @@
 import {Component} from 'react'
+import Link from 'next/link'
 
 import {mainListingImage} from 'utils/image_url'
 import {desktopHeaderHeight} from 'constants/dimensions'
-import * as colors from 'constants/colors'
+
+import {canEdit} from 'permissions/listings-permissions'
 
 export default class ListingHeader extends Component {
   render() {
-    const {listing, handleOpenPopup, handleOpenImageGallery} = this.props
+    const {listing, currentUser, handleOpenPopup, handleOpenImageGallery} = this.props
     const imgSrc = mainListingImage(listing.images)
 
     return (
@@ -14,6 +16,12 @@ export default class ListingHeader extends Component {
         <div className="open-image-gallery-overlay" onClick={handleOpenImageGallery} />
 
         <div className="top-right">
+          {canEdit(currentUser, listing) &&
+            <Link href={`/listings/edit?id=${listing.id}`} as={`/imoveis/${listing.id}/editar`}>
+              <button>Editar</button>
+            </Link>
+          }
+
           <button className="green" onClick={handleOpenPopup}>
             Marcar Visita
           </button>
@@ -56,6 +64,10 @@ export default class ListingHeader extends Component {
               top: 20px;
               right: 20px;
             }
+          }
+
+          button {
+            margin-left: 20px;
           }
         `}</style>
       </header>
