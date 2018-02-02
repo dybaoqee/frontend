@@ -143,7 +143,7 @@ export default class Listing extends Component {
         {is3DTourVisible &&
           <Matterport
             matterport_code={listing.matterport_code}
-            handleClose={this.hideImageGallery} />
+            handleClose={this.hide3DTour} />
         }
 
         <ListingHead listing={listing} />

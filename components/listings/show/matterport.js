@@ -1,13 +1,15 @@
 import {Component} from 'react'
 import MediaQuery from 'react-responsive'
 
+import Lightbox from 'components/lightbox'
+
 export default class Matterport extends Component {
   render() {
-    const {matterport_code} = this.props
+    const {matterport_code, handleClose} = this.props
     const src = `https://my.matterport.com/show/?m=${matterport_code}`
 
     return (
-      <div>
+      <Lightbox handleClose={handleClose}>
         {matterport_code &&
           <MediaQuery query="(max-width: 600px)">
             <iframe width='100%' height='200' src={src} frameBorder='0' allowFullScreen />
@@ -16,10 +18,10 @@ export default class Matterport extends Component {
 
         {matterport_code &&
           <MediaQuery query="(min-width: 601px)">
-            <iframe width='100%' height='480' src={src} frameBorder='0' allowFullScreen />
+            <iframe width='100%' height='100%' src={src} frameBorder='0' allowFullScreen />
           </MediaQuery>
         }
-      </div>
+      </Lightbox>
     )
   }
 }
