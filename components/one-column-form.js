@@ -1,7 +1,7 @@
 import { Component } from 'react'
 
-import { mobileMedia } from '../constants/media'
-import * as colors from '../constants/colors'
+import { mobileMedia } from 'constants/media'
+import * as colors from 'constants/colors'
 
 export default class OneColumnForm extends Component {
   render() {

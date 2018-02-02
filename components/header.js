@@ -1,8 +1,8 @@
 import { Component } from 'react'
 import Link from 'next/link'
 
-import { mobileMedia } from '../constants/media'
-import * as colors from '../constants/colors'
+import { mobileMedia } from 'constants/media'
+import * as colors from 'constants/colors'
 
 export default class Header extends Component {
   state = {

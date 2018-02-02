@@ -1,8 +1,8 @@
 import { Component } from 'react'
 
-import * as colors from '../../../constants/colors'
-import { mobileMedia } from '../../../constants/media'
-import { desktopHeaderAndFilterHeight } from '../../../constants/dimensions'
+import * as colors from 'constants/colors'
+import { mobileMedia } from 'constants/media'
+import { desktopHeaderAndFilterHeight } from 'constants/dimensions'
 
 export default class ListingsNotFound extends Component {
   render() {

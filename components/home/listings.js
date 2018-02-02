@@ -1,10 +1,10 @@
-import { Component } from 'react'
+import {Component} from 'react'
 import Link from 'next/link'
 import NumberFormat from 'react-number-format'
 
-import * as colors from '../../constants/colors'
-import { mobileMedia } from '../../constants/media'
-import { mainListingThumbnail } from '../../utils/image_url'
+import * as colors from 'constants/colors'
+import {mobileMedia} from 'constants/media'
+import {mainListingThumbnail} from 'utils/image_url'
 
 export default class HomeListings extends Component {
   render() {

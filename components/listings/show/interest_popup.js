@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Popup from "../components/popup"
+import Popup from "components/popup"
 
 class InterestPopup extends React.Component {
   render() {

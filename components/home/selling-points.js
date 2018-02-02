@@ -1,7 +1,7 @@
 import { Component } from 'react'
 
-import * as colors from '../../constants/colors'
-import { mobileMedia } from '../../constants/media'
+import * as colors from 'constants/colors'
+import {mobileMedia} from 'constants/media'
 
 export default class HomeSellingPoints extends Component {
   render() {

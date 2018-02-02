@@ -1,14 +1,13 @@
 import React from 'react'
 import Link from 'next/link'
 
-import ListingTable from '../listing_table'
+import ListingTable from 'components/listings/listing_table'
 
-import { mobileMedia } from '../../../constants/media'
+import {mobileMedia} from 'constants/media'
 
-import { canEdit }  from '../../../permissions/listings-permissions'
+import {canEdit} from 'permissions/listings-permissions'
 
 class TextContainer extends React.Component {
-
   render() {
     const { listing, currentUser } = this.props
 

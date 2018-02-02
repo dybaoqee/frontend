@@ -3,8 +3,8 @@ import Link from 'next/link'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import { faFacebook, faInstagram } from '@fortawesome/fontawesome-free-brands'
 
-import { mobileMedia } from '../constants/media'
-import * as colors from '../constants/colors'
+import { mobileMedia } from 'constants/media'
+import * as colors from 'constants/colors'
 
 export default class Header extends Component {
   render() {

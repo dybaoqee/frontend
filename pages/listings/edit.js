@@ -3,13 +3,13 @@ import { Form, Text } from 'react-form'
 import Link from 'next/link'
 import Router from 'next/router'
 
-import { redirectIfNotAuthenticated, getJwt, isAuthenticated } from '../../lib/auth'
-import { editListing, updateListing } from '../../services/listing-api'
+import { redirectIfNotAuthenticated, getJwt, isAuthenticated } from 'lib/auth'
+import { editListing, updateListing } from 'services/listing-api'
 
-import Layout from '../../components/main-layout'
-import TextContainer from '../../components/text-container'
-import AdminHeader from '../../components/admin-header'
-import * as colors from '../../constants/colors'
+import Layout from 'components/main-layout'
+import TextContainer from 'components/text-container'
+import AdminHeader from 'components/admin-header'
+import * as colors from 'constants/colors'
 
 export default class ListingEdit extends Component {
   constructor(props) {

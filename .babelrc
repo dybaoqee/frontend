@@ -21,7 +21,9 @@
             "alias": {
               "components": "./components",
               "constants": "./constants",
+              "lib": "./lib",
               "permissions": "./permissions",
+              "services": "./services",
               "utils": "./utils",
             }
           }
@@ -51,7 +53,9 @@
             "alias": {
               "components": "./components",
               "constants": "./constants",
+              "lib": "./lib",
               "permissions": "./permissions",
+              "services": "./services",
               "utils": "./utils",
             }
           }
@@ -81,7 +85,9 @@
             "alias": {
               "components": "./components",
               "constants": "./constants",
+              "lib": "./lib",
               "permissions": "./permissions",
+              "services": "./services",
               "utils": "./utils",
             }
           }

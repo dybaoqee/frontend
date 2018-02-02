@@ -1,12 +1,12 @@
-import { Component } from 'react'
+import {Component} from 'react'
 import Head from 'next/head'
 import ReactGA from 'react-ga'
 import Router from 'next/router'
 
 import Header from './header'
 import Footer from './footer'
-import { mobileMedia } from '../constants/media'
-import * as colors from '../constants/colors'
+import { mobileMedia } from 'constants/media'
+import * as colors from 'constants/colors'
 
 const googleAnalyticsTrackingId = 'UA-108127087-1'
 

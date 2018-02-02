@@ -1,6 +1,6 @@
-import { Component } from 'react'
+import {Component} from 'react'
 
-import { mobileMedia } from '../constants/media'
+import {mobileMedia} from 'constants/media'
 
 export default class TextContainer extends Component {
   render() {
