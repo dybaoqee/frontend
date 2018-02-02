@@ -28,7 +28,7 @@ export default class ListingMap extends React.Component {
         div {
           display: flex;
           justify-content: space-around;
-          margin-top: 100px;
+          margin: 100px 0;
         }
       `}</style>
     </div>

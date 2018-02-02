@@ -7,11 +7,16 @@ import ListingCard from 'components/listings/show/card'
 export default class ListingMainContent extends React.Component {
   render() {
     const {listing, handleOpenPopup} = this.props
+    const {street, neighborhood} = listing.address
 
     return (
       <div className="container">
         <div>
           <div className="description">
+            <p className="street">
+              {street}, {neighborhood}
+            </p>
+
             <h6>{listing.type}</h6>
             <p>
               {listing.description}
@@ -59,6 +64,10 @@ export default class ListingMainContent extends React.Component {
               color: ${colors.gray4a};
               font-size: 20px;
               font-weight: 300;
+              &.street {
+                font-weight: 400;
+                margin-bottom: 60px;
+              }
             }
           }
 
