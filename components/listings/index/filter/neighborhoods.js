@@ -65,7 +65,7 @@ export default class NeighborhoodFilter extends Component {
               value={value}
               onChange={handleChange}
               options={optionsObject}
-              searchable={false} />
+              noResultsText="Resultado Não Encontrado" />
           </div>
           <span className="close-filter-param" onClick={handleClose}>
             Aplicar
