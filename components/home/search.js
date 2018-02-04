@@ -89,8 +89,7 @@ export default class HomeSearch extends Component {
               placeholder="Bairro"
               value={bairros}
               onChange={this.handleNeighborhoodChange}
-              options={neighborhoodOptions}
-              searchable={false} />
+              options={neighborhoodOptions} />
           </div>
           <div className="magnifier-container" onClick={this.handleClick}>
             <FontAwesomeIcon icon={faSearch} />
