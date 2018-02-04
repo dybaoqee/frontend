@@ -90,7 +90,7 @@ export default class HomeSearch extends Component {
               value={bairros}
               onChange={this.handleNeighborhoodChange}
               options={neighborhoodOptions}
-              searchable={false} />
+              noResultsText="Não Encontramos Resultado"/>
           </div>
           <div className="magnifier-container" onClick={this.handleClick}>
             <FontAwesomeIcon icon={faSearch} />
@@ -146,6 +146,9 @@ export default class HomeSearch extends Component {
           .Select-value {
             align-items: center;
             display: flex;
+          }
+          .Select-input {
+            padding-top: 7px;
           }
         }
       `}</style>
