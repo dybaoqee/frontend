@@ -1,7 +1,7 @@
-import { Component } from 'react'
+import {Component} from 'react'
 import Link from 'next/link'
 
-import { mobileMedia } from 'constants/media'
+import {mobileMedia} from 'constants/media'
 import * as colors from 'constants/colors'
 
 export default class Header extends Component {
@@ -11,12 +11,12 @@ export default class Header extends Component {
 
   toggleMobileNavVisibility = () => {
     const newState = !this.state.isMobileNavVisible
-    this.setState({ isMobileNavVisible: newState })
+    this.setState({isMobileNavVisible: newState})
   }
 
   render() {
-    const { authenticated } = this.props
-    const { isMobileNavVisible } = this.state
+    const {authenticated} = this.props
+    const {isMobileNavVisible} = this.state
 
     return (
       <header>
@@ -106,6 +106,8 @@ export default class Header extends Component {
 
             button {
               background: transparent;
+              border: none;
+              box-shadow: none;
               color: gray;
               display: block;
               font-size: 17px;
