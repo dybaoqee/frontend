@@ -71,20 +71,23 @@ export default class ListingMainContent extends React.Component {
             }
           }
 
-
           @media ${mobileMedia} {
             .container {
               flex-direction: column;
               width: 100vw;
             }
 
-            .container  > div {
-                width: 100vw;
-              }
+            .container > div {
+              width: 100vw;
+            }
+
+            .container > div:first-of-type {
+              width: 100vw;
             }
 
             .description {
               width: calc(100vw - 40px);
+            }
           }
         `}</style>
       </div>
