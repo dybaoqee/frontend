@@ -106,7 +106,7 @@ export default class ListingCard extends React.Component {
 
         @media ${mobileMedia} {
           div.container {
-            border: none;
+            margin: 0 auto;
           }
         }
       `}</style>
