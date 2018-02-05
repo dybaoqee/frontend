@@ -26,7 +26,6 @@ export default class Lightbox extends React.Component {
           z-index: 9;
         }
 
-
         button {
           border: none;
           box-shadow: none;
