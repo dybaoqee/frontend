@@ -17,6 +17,8 @@ export default class ListingCard extends React.Component {
       area
     } = this.props.listing
 
+    const price_per_square_meter = Math.floor(price / area)
+
     return <div className="container">
       <span className="price">
         <NumberFormat
@@ -50,7 +52,14 @@ export default class ListingCard extends React.Component {
         </div>
         <div>
           <span>Preço/m²</span>
-          <span>xxxxx</span>
+          <span>
+            <NumberFormat
+              value={price_per_square_meter}
+              displayType={'text'}
+              thousandSeparator={'.'}
+              prefix={'R$'}
+              decimalSeparator={','} />
+          </span>
         </div>
 
         <button className="green" onClick={handleOpenPopup}>
