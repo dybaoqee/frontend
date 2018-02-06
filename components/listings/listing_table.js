@@ -1,11 +1,11 @@
 import React from 'react'
 import NumberFormat from 'react-number-format'
 
-import { mobileMedia } from '../../constants/media'
+import {mobileMedia} from 'constants/media'
 
-class ListingTable extends React.Component {
+export default class ListingTable extends React.Component {
   render() {
-    const { listing } = this.props
+    const {listing} = this.props
     const price_per_square_meter = Math.floor(listing.price / listing.area)
 
     return (
@@ -28,54 +28,54 @@ class ListingTable extends React.Component {
             <td>{listing.area}</td>
             <td>Preço/m²</td>
             <td>
-              <NumberFormat value={price_per_square_meter} displayType={'text'} thousandSeparator={'.'} prefix={'R$'} decimalSeparator={','} />
+              <NumberFormat
+                value={price_per_square_meter}
+                displayType={'text'}
+                thousandSeparator={'.'}
+                prefix={'R$'}
+                decimalSeparator={','} />
             </td>
-
           </tr>
         </tbody>
-      <style jsx>{`
-        table {
-          border-bottom: 1px solid #eee;
-          font-size: 13px;
-          margin: 20px 0 0;
-          width: 100%;
-        }
 
-        table tr td {
-          border-top: 1px solid #eee;
-          padding: 4px 10px;
-        }
-
-        table tr td:nth-of-type(2n) {
-          font-weight: bold;
-          text-align: right;
-        }
-
-        table tr td:nth-of-type(2n-1) {
-          color: #8c8c8c;
-        }
-
-        @media ${mobileMedia} {
+        <style jsx>{`
           table {
-            width: 100vw;
+            border-bottom: 1px solid #eee;
+            font-size: 13px;
+            margin: 20px 0 0;
+            width: 100%;
           }
-        }
 
-      `}</style>
-
-      <style jsx global>{`
-        @media ${mobileMedia} {
-          .listings table {
-            display: none;
+          table tr td {
+            border-top: 1px solid #eee;
+            padding: 4px 10px;
           }
-        }
-      `}</style>
+
+          table tr td:nth-of-type(2n) {
+            font-weight: bold;
+            text-align: right;
+          }
+
+          table tr td:nth-of-type(2n-1) {
+            color: #8c8c8c;
+          }
+
+          @media ${mobileMedia} {
+            table {
+              width: 100vw;
+            }
+          }
+        `}</style>
+
+        <style jsx global>{`
+          @media ${mobileMedia} {
+            .listings table {
+              display: none;
+            }
+          }
+        `}</style>
 
       </table>
     )
   }
 }
-
-export default ListingTable
-
-

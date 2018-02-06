@@ -1,4 +1,4 @@
-import { get, post, put } from '../lib/request'
+import { get, post, put } from 'lib/request'
 
 export const getNeighborhoods = async () => {
   try {

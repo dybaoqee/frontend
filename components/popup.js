@@ -5,7 +5,7 @@ class Popup extends React.Component {
     return (
       <div className="popup">
         <div>
-          <button className="close" onClick={this.props.handleClose}>×</button>
+          <button onClick={this.props.handleClose}>×</button>
           {this.props.children}
         </div>
 
@@ -18,7 +18,6 @@ class Popup extends React.Component {
             height: 100vh;
             justify-content: center;
             left: 0;
-            position: absolute;
             top: 0;
             width: 100vw;
             z-index: 10;
@@ -33,8 +32,11 @@ class Popup extends React.Component {
             width: 500px;
           }
 
-          button.close {
+          button {
             background-color: transparent;
+            border: none;
+            border-radius: 6px;
+            box-shadow: none;
             color: #8c8c8c;
             float: right;
             font-size: 40px;
@@ -46,7 +48,7 @@ class Popup extends React.Component {
             top: 0;
           }
 
-          button.close:hover {
+          button:hover {
             background-color: #f0f0f0;
           }
 

@@ -1,8 +1,8 @@
 import { Component } from 'react'
 import Link from 'next/link'
 
-import * as colors from '../../constants/colors'
-import { mobileMedia } from '../../constants/media'
+import * as colors from 'constants/colors'
+import {mobileMedia} from 'constants/media'
 
 export default class HomeBuySell extends Component {
   render() {

@@ -1,9 +1,9 @@
 import { Component } from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
-import Layout from '../components/main-layout'
-import { getUser, getCurrentUser } from '../services/user-api'
-import { redirectIfNotAuthenticated, getJwt } from '../lib/auth'
+import Layout from 'components/main-layout'
+import { getUser, getCurrentUser } from 'services/user-api'
+import { redirectIfNotAuthenticated, getJwt } from 'lib/auth'
 
 export default class User extends Component {
   static propTypes = {

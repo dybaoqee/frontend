@@ -1,13 +1,13 @@
 import { Component } from 'react'
 
-import * as colors from '../../../constants/colors'
-import { mobileMedia } from '../../../constants/media'
+import * as colors from 'constants/colors'
+import { mobileMedia } from 'constants/media'
 
-import FilterHeader from '../../../components/listings/index/filter/header'
-import PriceFilter from '../../../components/listings/index/filter/price'
-import AreaFilter from '../../../components/listings/index/filter/area'
-import RoomFilter from '../../../components/listings/index/filter/rooms'
-import NeighborhoodFilter from '../../../components/listings/index/filter/neighborhoods'
+import FilterHeader from 'components/listings/index/filter/header'
+import PriceFilter from 'components/listings/index/filter/price'
+import AreaFilter from 'components/listings/index/filter/area'
+import RoomFilter from 'components/listings/index/filter/rooms'
+import NeighborhoodFilter from 'components/listings/index/filter/neighborhoods'
 
 export default class Filter extends Component {
   render() {
@@ -201,6 +201,7 @@ export default class Filter extends Component {
             background: transparent;
             border: 1px solid ${colors.lightGray};
             border-radius: 500px;
+            box-shadow: none;
             color: ${colors.text};
             clear: both;
             font-size: 15px;
@@ -224,7 +225,7 @@ export default class Filter extends Component {
           }
 
           span.remove-all-filters {
-            color: ${colors.lightGray};
+            color: ${colors.blue};
             cursor: pointer;
             display: block;
             font-size: 13px;

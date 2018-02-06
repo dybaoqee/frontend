@@ -2,11 +2,11 @@ import { Component } from 'react'
 import { Form, Text } from 'react-form'
 import Router from 'next/router'
 
-import { redirectIfNotAuthenticated, getJwt, isAuthenticated } from '../../lib/auth'
-import { createListing } from '../../services/listing-api'
-import TextContainer from '../../components/text-container'
-import Layout from '../../components/main-layout'
-import * as colors from '../../constants/colors'
+import { redirectIfNotAuthenticated, getJwt, isAuthenticated } from 'lib/auth'
+import { createListing } from 'services/listing-api'
+import TextContainer from 'components/text-container'
+import Layout from 'components/main-layout'
+import * as colors from 'constants/colors'
 
 export default class ListingNew extends Component {
   constructor(props) {

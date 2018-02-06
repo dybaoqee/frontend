@@ -1,7 +1,7 @@
 import { Component } from 'react'
 import Select from 'react-select'
 
-import { roomNumberOptions } from '../../../../constants/listing-filter-options'
+import { roomNumberOptions } from 'constants/listing-filter-options'
 
 export default class RoomFilter extends Component {
   isButtonActive = () => {

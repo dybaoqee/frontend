@@ -17,14 +17,12 @@ module.exports = {
     "react"
   ],
   "rules": {
-    "indent": [
-      "error",
-      2
-    ],
+    "indent": ["error", 2],
     "linebreak-style": ["error", "unix"],
+    "object-curly-spacing": ["error", "never"],
     "quotes": ["error", "single"],
+    "react/jsx-uses-vars": 1,
     "semi": ["error", "never"],
-    "react/jsx-uses-vars": 1
   },
   "globals": {
     "process": true,

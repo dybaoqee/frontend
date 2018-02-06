@@ -1,4 +1,4 @@
-import { get, post, put, del } from '../lib/request'
+import { get, post, put, del } from 'lib/request'
 
 export const createImage = async (listingId, filename, jwt) => {
   const payload = {

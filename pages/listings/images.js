@@ -4,17 +4,17 @@ import update from 'immutability-helper'
 import {
   getListingImages,
   reorderImages,
-  createImage } from '../../services/listing-images-api'
+  createImage } from 'services/listing-images-api'
 import { DragDropContext } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 
-import { redirectIfNotAuthenticated, getJwt, isAuthenticated } from '../../lib/auth'
+import { redirectIfNotAuthenticated, getJwt, isAuthenticated } from 'lib/auth'
 
-import Layout from '../../components/main-layout'
-import TextContainer from '../../components/text-container'
-import AdminHeader from '../../components/admin-header'
-import DraggableImage from '../../components/listings/listing/images/image'
-import ImageUpload from '../../components/listings/listing/images/upload'
+import Layout from 'components/main-layout'
+import TextContainer from 'components/text-container'
+import AdminHeader from 'components/admin-header'
+import DraggableImage from 'components/listings/show/images/image'
+import ImageUpload from 'components/listings/show/images/upload'
 
 @DragDropContext(HTML5Backend)
 export default class ListingImages extends Component {

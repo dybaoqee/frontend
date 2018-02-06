@@ -2,7 +2,7 @@ import { Component } from 'react'
 import Select from 'react-select'
 import numeral from 'numeral'
 
-import { minPriceOptions, maxPriceOptions } from '../../../../constants/listing-filter-options'
+import { minPriceOptions, maxPriceOptions } from 'constants/listing-filter-options'
 
 export default class PriceFilter extends Component {
   isButtonActive = () => {

@@ -5,9 +5,9 @@ import { DragSource, DropTarget } from 'react-dnd'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faTrash from '@fortawesome/fontawesome-free-solid/faTrash'
 
-import { deleteListingImage } from '../../../../services/listing-images-api'
-import DraggableTypes from '../../../../constants/draggable_types'
-import { thumbnailUrl } from '../../../../utils/image_url'
+import { deleteListingImage } from 'services/listing-images-api'
+import DraggableTypes from 'constants/draggable_types'
+import { thumbnailUrl } from 'utils/image_url'
 
 const imageSource = {
   beginDrag(props) {
@@ -121,7 +121,7 @@ export default class DraggableImage extends Component {
 
     return connectDragSource(
       connectDropTarget(
-        <div style={{ ...imgStyle, opacity }} onClick={this.handleImageDelete}>
+        <div style={{...imgStyle, opacity}} onClick={this.handleImageDelete}>
           <div className="trash">
             <FontAwesomeIcon icon={faTrash} />
           </div>

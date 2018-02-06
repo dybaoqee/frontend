@@ -1,4 +1,4 @@
-import { post } from '../lib/request'
+import { post } from 'lib/request'
 
 const buildPayload = (listingId, data) => {
   return {

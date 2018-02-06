@@ -1,5 +1,5 @@
 import { Component } from 'react'
-import { signOut } from '../../lib/auth'
+import { signOut } from 'lib/auth'
 
 export default class Logout extends Component {
   componentDidMount() {

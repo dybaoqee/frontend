@@ -1,4 +1,4 @@
-import { post, get } from '../lib/request'
+import { post, get } from 'lib/request'
 
 export const createUser = async (
   name,

@@ -1,4 +1,4 @@
-import { post, put } from '../lib/request'
+import { post, put } from 'lib/request'
 
 export const authenticate = async (email, password) => {
   try {

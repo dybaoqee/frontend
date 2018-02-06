@@ -1,8 +1,8 @@
 import React from 'react'
 import NumberFormat from 'react-number-format'
 
-import { mainListingThumbnail } from '../../../utils/image_url'
-import { mobileMedia  } from '../../../constants/media'
+import { mainListingThumbnail } from 'utils/image_url'
+import { mobileMedia  } from 'constants/media'
 
 class ImageContainer extends React.Component {
   render() {

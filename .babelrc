@@ -19,7 +19,12 @@
           {
             "root": ["./"],
             "alias": {
-              "components": "./components"
+              "components": "./components",
+              "constants": "./constants",
+              "lib": "./lib",
+              "permissions": "./permissions",
+              "services": "./services",
+              "utils": "./utils",
             }
           }
         ]
@@ -46,7 +51,12 @@
           {
             "root": ["./"],
             "alias": {
-              "components": "./components"
+              "components": "./components",
+              "constants": "./constants",
+              "lib": "./lib",
+              "permissions": "./permissions",
+              "services": "./services",
+              "utils": "./utils",
             }
           }
         ]
@@ -73,7 +83,12 @@
           {
             "root": ["./"],
             "alias": {
-              "components": "./components"
+              "components": "./components",
+              "constants": "./constants",
+              "lib": "./lib",
+              "permissions": "./permissions",
+              "services": "./services",
+              "utils": "./utils",
             }
           }
         ]

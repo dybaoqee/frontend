@@ -1,5 +1,5 @@
-import { Component } from 'react'
-import { Gmaps, Marker } from 'react-gmaps'
+import {Component} from 'react'
+import {Gmaps, Marker} from 'react-gmaps'
 
 const params = {v: '3.exp', key: 'AIzaSyDmYQLTPwsDPtErGWTgiejz17QCw39MEVQ'}
 
@@ -8,10 +8,6 @@ export default class MapContainer extends Component {
     map.setOptions({
       disableDefaultUI: true
     })
-  }
-
-  onClick(e) {
-    console.log('onClick', e)
   }
 
   render() {
@@ -23,7 +19,7 @@ export default class MapContainer extends Component {
       height={height}
       lat={lat ? lat : '-22.9608099'}
       lng={lng ? lng : '-43.2096142'}
-      zoom={zoom || 15}
+      zoom={zoom || defaultZoom}
       loadingMessage={' '}
       params={params}>
 

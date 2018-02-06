@@ -1,13 +1,13 @@
-import { Component } from 'react'
+import {Component} from 'react'
 import Router from 'next/router'
 import Select from 'react-select'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faSearch from '@fortawesome/fontawesome-free-solid/faSearch'
 
-import * as colors from '../../constants/colors'
-import { mobileMedia } from '../../constants/media'
-import * as filterOptions from '../../constants/listing-filter-options'
-import { imageUrl } from '../../utils/image_url'
+import * as colors from 'constants/colors'
+import {mobileMedia} from 'constants/media'
+import * as filterOptions from 'constants/listing-filter-options'
+import {imageUrl} from 'utils/image_url'
 
 export default class HomeSearch extends Component {
   state = {}
