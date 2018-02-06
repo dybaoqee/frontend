@@ -72,7 +72,7 @@ export default class Layout extends Component {
           html {
             color: ${colors.text};
             font-size: 100%;
-            webkit-font-smoothing: antialiased;
+            -webkit-font-smoothing: antialiased;
           }
 
           body {
