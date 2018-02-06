@@ -35,9 +35,11 @@ export default class ListingHeader extends Component {
         </div>
 
         <div className="bottom-right">
-          <button className="white" onClick={handleOpenImageGallery}>
-            Ver Fotos
-          </button>
+          {(listing.images.length > 0) &&
+            <button className="white" onClick={handleOpenImageGallery}>
+              Ver Fotos
+            </button>
+          }
 
           {listing.matterport_code &&
             <button className="white" onClick={handleOpen3DTour}>
