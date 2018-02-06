@@ -5,7 +5,7 @@ import Router from 'next/router'
 
 import Header from './header'
 import Footer from './footer'
-import { mobileMedia } from 'constants/media'
+import {mobileMedia} from 'constants/media'
 import * as colors from 'constants/colors'
 
 const googleAnalyticsTrackingId = 'UA-108127087-1'
@@ -17,7 +17,7 @@ Router.onRouteChangeComplete = () => {
 
 export default class Layout extends Component {
   render() {
-    const { authenticated, renderFooter } = this.props
+    const {authenticated, renderFooter} = this.props
 
     return (
       <div>
@@ -26,7 +26,7 @@ export default class Layout extends Component {
           <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800" rel="stylesheet" />
           <script async src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsTrackingId}`} />
 
-          <script dangerouslySetInnerHTML={{ __html: `
+          <script dangerouslySetInnerHTML={{__html: `
             window.dataLayer = window.dataLayer || []
             function gtag(){
               dataLayer.push(arguments)
@@ -48,7 +48,7 @@ export default class Layout extends Component {
             <!-- End Facebook Pixel Code -->
           `}} />
 
-          <noscript dangerouslySetInnerHTML={{ __html: `
+          <noscript dangerouslySetInnerHTML={{__html: `
             <!-- Facebook Pixel Code -->
             <img height="1" width="1"
             src="https://www.facebook.com/tr?id=710980862398359&ev=PageView
@@ -72,6 +72,7 @@ export default class Layout extends Component {
           html {
             color: ${colors.text};
             font-size: 100%;
+            webkit-font-smoothing: antialiased;
           }
 
           body {
