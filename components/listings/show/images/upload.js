@@ -5,23 +5,25 @@ import request from 'superagent'
 const CLOUDINARY_UPLOAD_PRESET = 'emcasa-staging'
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/emcasa/upload/'
 
-export default class ImageUpload extends React.Component {
-  onImageDrop(files) {
-    this.handleImageUpload(files[0])
+export default class ImageUpload extends Component {
+  onImageDrop = (files) => {
+    const {handleImageUpload} = this
+
+    files.map(function(file) {
+      handleImageUpload(file)
+    })
   }
 
-  handleImageUpload(file) {
+  handleImageUpload = (file) => {
+    const {onImageUploaded} = this.props
+
     let upload = request.post(CLOUDINARY_UPLOAD_URL)
-                         .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
-                         .field('file', file)
+      .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
+      .field('file', file)
 
     upload.end((err, response) => {
-      if (err) {
-        console.error(err)
-      }
-
       if (response.body.secure_url !== '') {
-        this.props.onImageUploaded(response);
+        onImageUploaded(response)
       }
     })
   }
@@ -30,11 +32,11 @@ export default class ImageUpload extends React.Component {
     return <div>
       <div className="FileUpload">
         <Dropzone
-          multiple={false}
+          multiple={true}
           accept="image/*"
-          onDrop={this.onImageDrop.bind(this)}>
+          onDrop={this.onImageDrop}>
           <p>Arraste uma imagem ou clique aqui para iniciar o upload.</p>
-         </Dropzone>
+        </Dropzone>
       </div>
 
       <style jsx>{`
