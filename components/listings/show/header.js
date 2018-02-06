@@ -39,9 +39,11 @@ export default class ListingHeader extends Component {
             Ver Fotos
           </button>
 
-          <button className="white" onClick={handleOpen3DTour}>
-            Ver Tour 3D
-          </button>
+          {listing.matterport_code &&
+            <button className="white" onClick={handleOpen3DTour}>
+              Ver Tour 3D
+            </button>
+          }
         </div>
 
         <style jsx>{`
