@@ -1,6 +1,6 @@
 import * as colors from 'constants/colors'
 import {mobileMedia} from 'constants/media'
-import styled from "styled-components"
+import styled from 'styled-components'
 
 export default styled.div`
   border-top: 1px solid ${colors.lightGray};
