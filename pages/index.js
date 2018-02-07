@@ -1,11 +1,11 @@
-import { Component } from 'react'
+import {Component} from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 
 import * as colors from 'constants/colors'
-import { getFeaturedListings } from 'services/listing-api'
-import { getNeighborhoods } from 'services/neighborhood-api'
-import { isAuthenticated } from 'lib/auth'
+import {getFeaturedListings} from 'services/listing-api'
+import {getNeighborhoods} from 'services/neighborhood-api'
+import {isAuthenticated} from 'lib/auth'
 import Layout from 'components/main-layout'
 import HomeSearch from 'components/home/search'
 import HomeListings from 'components/home/listings'
@@ -47,7 +47,7 @@ export default class MyPage extends Component {
   }
 
   render () {
-    const { authenticated, listings, neighborhoods } = this.props
+    const {authenticated, listings, neighborhoods} = this.props
     const seoImg = 'http://res.cloudinary.com/emcasa/image/upload/v1517101014/emcasa-fb-2018-01-27_ntxnrz.jpg'
     const seoTitle = 'EmCasa: Apartamentos, Casas e Imóveis à venda e para comprar ou anunciar no Rio de Janeiro'
     const seoDescription = 'Imobiliária Digital com Tour Virtual em 3D, assistência jurídica e comissões de 3%. Encontre Imóveis, Casas e Apartamentos novos e usados para compra, venda, anuncio ou avaliação em Ipanema, Leblon, Copacabana, Botafogo, Flamengo, Lagoa e toda Zona Sul do Rio de Janeiro, RJ.'
