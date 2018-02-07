@@ -1,6 +1,6 @@
-import { Component } from 'react'
+import {Component} from 'react'
 import Link from 'next/link'
-import Container, { Title } from './styles'
+import Container, {Title} from './styles'
 
 export default class HomeBuySell extends Component {
   render() {
