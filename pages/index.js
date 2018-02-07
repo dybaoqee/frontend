@@ -9,9 +9,9 @@ import {isAuthenticated} from 'lib/auth'
 import Layout from 'components/main-layout'
 import HomeSearch from 'components/home/search'
 import HomeListings from 'components/home/listings'
-import HomeTour from 'components/home/tour'
+import HomeTour from 'components/home/Tour'
 import HomeSellingPoints from 'components/home/selling-points'
-import HomeBuySell from 'components/home/buy-sell'
+import HomeBuySell from 'components/home/BuySell'
 
 export default class MyPage extends Component {
   static async getInitialProps(context) {
