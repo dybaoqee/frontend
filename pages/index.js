@@ -11,7 +11,7 @@ import HomeSearch from 'components/home/search'
 import HomeListings from 'components/home/listings'
 import HomeTour from 'components/home/tour'
 import HomeSellingPoints from 'components/home/selling-points'
-import HomeBuySell from 'components/home/buy-sell'
+import HomeBuySell from 'components/home/BuySell'
 
 export default class MyPage extends Component {
   static async getInitialProps(context) {
