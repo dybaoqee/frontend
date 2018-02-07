@@ -59,10 +59,16 @@ export default class HomeSellingPoints extends Component {
 
         @media ${mobileMedia} {
           div.container {
+            align-items: center;
             display: flex;
             flex-direction: column;
             width: 100vw;
           }
+
+          h1 {
+              max-width: calc(100vw - 60px);
+          }
+
           div.container div {
             align-items: center;
             flex-direction: column;

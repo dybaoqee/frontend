@@ -268,6 +268,7 @@ export default class HomeSearch extends Component {
             width: 100vw;
             h1 {
               font-weight: 400;
+              margin-top: 20px;
               max-width: calc(100vw - 60px);
             }
           }
@@ -275,6 +276,7 @@ export default class HomeSearch extends Component {
           div.search {
             background: transparent;
             border: none;
+            margin-top: 20px;
             width: calc(100vw - 40px);
             > div {
               flex-direction: column;
