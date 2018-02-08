@@ -27,8 +27,6 @@ export default class ListingHeader extends Component {
           <iframe width='100%' height='400px' src={src} frameBorder='0' allowFullScreen />
         }
 
-        <div className="open-image-gallery-overlay" onClick={handleOpenImageGallery} />
-
         <div className="top-right">
           {canEdit(currentUser, listing) &&
             <Link href={`/listings/edit?id=${listing.id}`} as={`/imoveis/${listing.id}/editar`}>
@@ -56,7 +54,7 @@ export default class ListingHeader extends Component {
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
-            height: calc(100vh - ${desktopHeaderHeight + 240}px);
+            height: 400px;
             position: relative;
             width: 100vw;
           }
