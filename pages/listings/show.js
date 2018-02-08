@@ -1,4 +1,5 @@
 import {Component} from 'react'
+import ReactGA from 'react-ga'
 
 import {isAuthenticated, isAdmin, getCurrentUserId, getJwt} from 'lib/auth'
 import {getListing} from 'services/listing-api'
