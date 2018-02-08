@@ -6,27 +6,27 @@ export default styled.header`
   position: relative;
   width: 100%;
 
-  > div {
+  & div {
     position: absolute;
   }
 
-  > div.open-image-gallery-overlay {
+  & div.open-image-gallery-overlay {
     cursor: pointer;
     height: 100%;
     width: 100%;
   }
 
-  > div.bottom-right {
+  & div.bottom-right {
     bottom: 20px;
     right: 20px;
   }
 
-  > div.top-right {
+  & div.top-right {
     top: 20px;
     right: 20px;
   }
 
-  > button {
+  & button {
     margin-left: 20px;
   }
 `
