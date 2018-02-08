@@ -79,6 +79,13 @@ export default class Listing extends Component {
   }
 
   openPopup = () => {
+    ReactGA.initialize(process.env.GOOGLE_ANALYTICS_TRACKING_ID)
+    ReactGA.event({
+      category: 'Interest',
+      label: 'openInterestPopup',
+      action: 'User opened Popup to Book Visit',
+    })
+
     this.setState({isInterestPopupVisible: true})
   }
 

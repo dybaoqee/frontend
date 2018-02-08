@@ -9,12 +9,16 @@ if (!prod) {
 } else if (process.env.IS_STAGING === 'true') {
   favicon = 'favicon-staging.png'
 } else {
-  favicon ='favicon.png'
+  favicon = 'favicon.png'
 }
 
 module.exports = {
   'process.env.NODE_ENV': prod ? 'production' : 'development',
   'process.env.REACT_APP_API_URL': api_url,
-  'process.env.REACT_APP_CLOUDINARY_BASE_URL': 'https://res.cloudinary.com/emcasa/image/upload',
-  'process.env.REACT_APP_FAVICON': favicon
+  'process.env.REACT_APP_CLOUDINARY_BASE_URL':
+    'https://res.cloudinary.com/emcasa/image/upload',
+  'process.env.REACT_APP_FAVICON': favicon,
+  'process.env.GOOGLE_ANALYTICS_TRACKING_ID': prod
+    ? process.env.GOOGLE_ANALYTICS_TRACKING_ID
+    : null,
 }
