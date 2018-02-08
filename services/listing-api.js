@@ -81,9 +81,9 @@ export const getFeaturedListings = async (query) => {
   }
 }
 
-export const getListing = async (id) => {
+export const getListing = async (id, jwt) => {
   try {
-    const response = await get('/listings/' + id)
+    const response = await get('/listings/' + id, jwt)
     return response
   } catch (error) {
     return error.response && error.response.status === 422
