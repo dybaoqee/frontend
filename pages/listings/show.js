@@ -7,7 +7,7 @@ import {createInterest} from 'services/interest-api'
 
 import Layout from 'components/main-layout'
 import ListingHead from 'components/listings/show/head'
-import ListingHeader from 'components/listings/show/header'
+import ListingHeader from 'components/listings/show/Header'
 import ImageGallery from 'components/listings/show/image-gallery'
 import Matterport from 'components/listings/show/matterport'
 import ListingMainContent from 'components/listings/show/main-content'

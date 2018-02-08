@@ -27,7 +27,10 @@
               "utils": "./utils",
             }
           }
-        ]
+        ],
+        ["babel-plugin-styled-components", {
+          "ssr": true
+        }]
       ]
     },
 
@@ -59,7 +62,10 @@
               "utils": "./utils",
             }
           }
-        ]
+        ],
+        ["babel-plugin-styled-components", {
+          "ssr": true
+        }]
       ]
     },
 
@@ -91,7 +97,11 @@
               "utils": "./utils",
             }
           }
-        ]
+        ],
+        ["babel-plugin-styled-components", {
+          "ssr": true
+        }]
+
       ]
     }
   },
