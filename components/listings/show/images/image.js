@@ -1,21 +1,21 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import { findDOMNode } from 'react-dom'
-import { DragSource, DropTarget } from 'react-dnd'
+import {findDOMNode} from 'react-dom'
+import {DragSource, DropTarget} from 'react-dnd'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faTrash from '@fortawesome/fontawesome-free-solid/faTrash'
 
-import { deleteListingImage } from 'services/listing-images-api'
+import {deleteListingImage} from 'services/listing-images-api'
 import DraggableTypes from 'constants/draggable_types'
-import { thumbnailUrl } from 'utils/image_url'
+import {thumbnailUrl} from 'utils/image_url'
 
 const imageSource = {
   beginDrag(props) {
     return {
       id: props.id,
-      index: props.index
+      index: props.index,
     }
-  }
+  },
 }
 
 const imageTarget = {
@@ -62,10 +62,10 @@ const imageTarget = {
     // but it's good here for the sake of performance
     // to avoid expensive index searches.
     monitor.getItem().index = hoverIndex
-  }
+  },
 }
 
-@DropTarget(DraggableTypes.IMAGE, imageTarget, connect => ({
+@DropTarget(DraggableTypes.IMAGE, imageTarget, (connect) => ({
   connectDropTarget: connect.dropTarget(),
 }))
 @DragSource(DraggableTypes.IMAGE, imageSource, (connect, monitor) => ({
@@ -90,12 +90,12 @@ export default class DraggableImage extends Component {
     if (isImageDeletedFromWebservice) {
       this.props.onImageDeleted(this.props)
     } else {
-      console.error('Erro ao deletar imagem do banco.');
+      console.error('Erro ao deletar imagem do banco.')
     }
   }
 
   deleteImageFromWebService = async () => {
-    const { image, listingId, jwt } = this.props
+    const {image, listingId, jwt} = this.props
 
     const res = await deleteListingImage(listingId, image.id, jwt)
 
@@ -112,11 +112,9 @@ export default class DraggableImage extends Component {
   }
 
   render() {
-    const {
-      image, isDragging, connectDragSource, connectDropTarget
-    } = this.props
+    const {image, isDragging, connectDragSource, connectDropTarget} = this.props
     const imgUrl = thumbnailUrl(image.filename)
-    const imgStyle = { backgroundImage: `url(${imgUrl})` }
+    const imgStyle = {backgroundImage: `url(${imgUrl})`}
     const opacity = isDragging ? 0 : 1
 
     return connectDragSource(
@@ -152,4 +150,3 @@ export default class DraggableImage extends Component {
     )
   }
 }
-

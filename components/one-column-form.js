@@ -1,11 +1,11 @@
-import { Component } from 'react'
+import {Component} from 'react'
 
-import { mobileMedia } from 'constants/media'
+import {mobileMedia} from 'constants/media'
 import * as colors from 'constants/colors'
 
 export default class OneColumnForm extends Component {
   render() {
-    const { handleSubmit } = this.props
+    const {handleSubmit} = this.props
 
     return (
       <form onSubmit={handleSubmit}>
@@ -36,7 +36,6 @@ export default class OneColumnForm extends Component {
             margin: 0 auto 100px;
             padding-top: 40px;
             width: 400px;
-
           }
 
           @media ${mobileMedia} {

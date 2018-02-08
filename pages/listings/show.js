@@ -46,7 +46,7 @@ export default class Listing extends Component {
       currentUser: {
         id: getCurrentUserId(context),
         admin: isAdmin(context),
-        authenticated: isAuthenticated(context)
+        authenticated: isAuthenticated(context),
       },
     }
   }
@@ -111,7 +111,10 @@ export default class Listing extends Component {
       return res
     }
 
-    this.setState({isInterestPopupVisible: false, isInterestSuccessPopupVisible: true})
+    this.setState({
+      isInterestPopupVisible: false,
+      isInterestSuccessPopupVisible: true,
+    })
   }
 
   render() {
@@ -126,25 +129,27 @@ export default class Listing extends Component {
       name,
       email,
       phone,
-      message
+      message,
     } = this.state
 
     return (
       <Layout authenticated={authenticated} renderFooter={true}>
-        {isImageGalleryVisible &&
+        {isImageGalleryVisible && (
           <ImageGallery
             images={listing.images}
             imageIndex={imageIndex}
             handlePrevious={this.showNextImage}
             handleNext={this.showPreviousImage}
-            handleClose={this.hideImageGallery} />
-        }
+            handleClose={this.hideImageGallery}
+          />
+        )}
 
-        {is3DTourVisible &&
+        {is3DTourVisible && (
           <Matterport
             matterport_code={listing.matterport_code}
-            handleClose={this.hide3DTour} />
-        }
+            handleClose={this.hide3DTour}
+          />
+        )}
 
         <ListingHead listing={listing} />
 
@@ -154,16 +159,17 @@ export default class Listing extends Component {
             handleOpenPopup={this.openPopup}
             handleOpenImageGallery={this.showImageGallery}
             handleOpen3DTour={this.show3DTour}
-            currentUser={currentUser} />
+            currentUser={currentUser}
+          />
 
           <ListingMainContent
             listing={listing}
-            handleOpenPopup={this.openPopup} />
+            handleOpenPopup={this.openPopup}
+          />
 
-          <ListingMap
-            listing={listing} />
+          <ListingMap listing={listing} />
 
-          {isInterestPopupVisible &&
+          {isInterestPopupVisible && (
             <InterestForm
               name={name}
               email={email}
@@ -171,13 +177,13 @@ export default class Listing extends Component {
               message={message}
               handleClose={this.closePopup}
               onChange={this.onChange}
-              onSubmit={this.onSubmit} />
-          }
+              onSubmit={this.onSubmit}
+            />
+          )}
 
-          {isInterestSuccessPopupVisible &&
-            <InterestPosted
-              handleClose={this.closeSuccessPostPopup} />
-          }
+          {isInterestSuccessPopupVisible && (
+            <InterestPosted handleClose={this.closeSuccessPostPopup} />
+          )}
         </div>
       </Layout>
     )

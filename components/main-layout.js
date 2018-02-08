@@ -22,11 +22,23 @@ export default class Layout extends Component {
     return (
       <div>
         <Head>
-          <link rel="stylesheet" href="https://s3.sa-east-1.amazonaws.com/emcasa/css/react-select.css" rel="stylesheet" />
-          <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800" rel="stylesheet" />
-          <script async src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsTrackingId}`} />
+          <link
+            rel="stylesheet"
+            href="https://s3.sa-east-1.amazonaws.com/emcasa/css/react-select.css"
+            rel="stylesheet"
+          />
+          <link
+            href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800"
+            rel="stylesheet"
+          />
+          <script
+            async
+            src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsTrackingId}`}
+          />
 
-          <script dangerouslySetInnerHTML={{__html: `
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
             window.dataLayer = window.dataLayer || []
             function gtag(){
               dataLayer.push(arguments)
@@ -46,29 +58,40 @@ export default class Layout extends Component {
             fbq('init', '710980862398359');
             fbq('track', 'PageView');
             <!-- End Facebook Pixel Code -->
-          `}} />
+          `,
+            }}
+          />
 
-          <noscript dangerouslySetInnerHTML={{__html: `
+          <noscript
+            dangerouslySetInnerHTML={{
+              __html: `
             <!-- Facebook Pixel Code -->
             <img height="1" width="1"
             src="https://www.facebook.com/tr?id=710980862398359&ev=PageView
             &noscript=1"/>
             <!-- End Facebook Pixel Code -->
-          `}} />
+          `,
+            }}
+          />
 
-          <meta name="viewport" content="initial-scale=1.0, width=device-width" key="viewport" />
-          <link rel="shortcut icon" href={`/static/${process.env.REACT_APP_FAVICON}`} key="favicon" />
+          <meta
+            name="viewport"
+            content="initial-scale=1.0, width=device-width"
+            key="viewport"
+          />
+          <link
+            rel="shortcut icon"
+            href={`/static/${process.env.REACT_APP_FAVICON}`}
+            key="favicon"
+          />
         </Head>
 
         <Header authenticated={authenticated} />
-        <main>
-          {this.props.children}
-        </main>
+        <main>{this.props.children}</main>
 
         {renderFooter && <Footer />}
 
         <style jsx global>{`
-
           html {
             color: ${colors.text};
             font-size: 100%;
@@ -78,7 +101,8 @@ export default class Layout extends Component {
           body {
             margin: 0;
             padding: 0;
-            font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            font-family: 'Open Sans', -apple-system, BlinkMacSystemFont,
+              'Segoe UI', Helvetica, Arial, sans-serif;
             font-size: 1rem;
             line-height: 1.5;
           }
@@ -92,14 +116,15 @@ export default class Layout extends Component {
             background-color: ${colors.blue};
             border: 1px solid ${colors.darkenedBlue};
             border-radius: 4px;
-            box-shadow: inset 0 2px 2px 0 rgba(255,255,255,0.2), 0 4px 6px 0 rgba(38,38,38,0.2);
+            box-shadow: inset 0 2px 2px 0 rgba(255, 255, 255, 0.2),
+              0 4px 6px 0 rgba(38, 38, 38, 0.2);
             color: white;
             cursor: pointer;
             font-size: 16px;
             outline: none;
             padding: 10px 20px 12px;
             text-decoration: none;
-            transition: background-color 0.10s ease;
+            transition: background-color 0.1s ease;
             transform: 0.25;
             &:hover {
               background-color: ${colors.darkenedBlue};
@@ -138,7 +163,8 @@ export default class Layout extends Component {
 
           input,
           textarea {
-            font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            font-family: 'Open Sans', -apple-system, BlinkMacSystemFont,
+              'Segoe UI', Helvetica, Arial, sans-serif;
           }
 
           @media ${mobileMedia} {

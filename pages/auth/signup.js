@@ -1,28 +1,28 @@
-import { Component } from 'react'
+import {Component} from 'react'
 import Link from 'next/link'
 
 import Layout from 'components/main-layout'
 import OneColumnForm from 'components/one-column-form'
 import Error from 'components/error'
-import { getCookie, removeCookie } from 'lib/session'
-import { signIn, signUp, redirectIfAuthenticated } from 'lib/auth'
+import {getCookie, removeCookie} from 'lib/session'
+import {signIn, signUp, redirectIfAuthenticated} from 'lib/auth'
 
 export default class Login extends Component {
   state = {
-    error: null
+    error: null,
   }
 
   static getInitialProps(ctx) {
     if (redirectIfAuthenticated(ctx)) {
       return {}
     } else {
-      const success = getCookie("success", ctx.req)
+      const success = getCookie('success', ctx.req)
 
       if (success) {
-        removeCookie("success")
+        removeCookie('success')
       }
       return {
-        success
+        success,
       }
     }
   }
@@ -39,15 +39,15 @@ export default class Login extends Component {
     if (error) {
       console.log(error)
       this.setState({
-        error
+        error,
       })
       return false
     }
   }
 
   render() {
-    const { url, success } = this.props
-    const { error } = this.state
+    const {url, success} = this.props
+    const {error} = this.state
 
     return (
       <Layout>

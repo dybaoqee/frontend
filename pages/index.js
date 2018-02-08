@@ -42,15 +42,18 @@ export default class MyPage extends Component {
       listings: res.data.listings,
       authenticated: isAuthenticated(context),
       neighborhoods: neighborhoodResponse.data.neighborhoods,
-      query: context.query
+      query: context.query,
     }
   }
 
-  render () {
+  render() {
     const {authenticated, listings, neighborhoods} = this.props
-    const seoImg = 'http://res.cloudinary.com/emcasa/image/upload/v1517101014/emcasa-fb-2018-01-27_ntxnrz.jpg'
-    const seoTitle = 'EmCasa: Apartamentos, Casas e Imóveis à venda e para comprar ou anunciar no Rio de Janeiro'
-    const seoDescription = 'Imobiliária Digital com Tour Virtual em 3D, assistência jurídica e comissões de 3%. Encontre Imóveis, Casas e Apartamentos novos e usados para compra, venda, anuncio ou avaliação em Ipanema, Leblon, Copacabana, Botafogo, Flamengo, Lagoa e toda Zona Sul do Rio de Janeiro, RJ.'
+    const seoImg =
+      'http://res.cloudinary.com/emcasa/image/upload/v1517101014/emcasa-fb-2018-01-27_ntxnrz.jpg'
+    const seoTitle =
+      'EmCasa: Apartamentos, Casas e Imóveis à venda e para comprar ou anunciar no Rio de Janeiro'
+    const seoDescription =
+      'Imobiliária Digital com Tour Virtual em 3D, assistência jurídica e comissões de 3%. Encontre Imóveis, Casas e Apartamentos novos e usados para compra, venda, anuncio ou avaliação em Ipanema, Leblon, Copacabana, Botafogo, Flamengo, Lagoa e toda Zona Sul do Rio de Janeiro, RJ.'
 
     return (
       <Layout authenticated={authenticated} renderFooter={true}>

@@ -21,7 +21,6 @@ export default class TextContainer extends Component {
             }
           }
         `}</style>
-
       </div>
     )
   }

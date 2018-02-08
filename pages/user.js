@@ -1,14 +1,14 @@
-import { Component } from 'react'
+import {Component} from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
 import Layout from 'components/main-layout'
-import { getUser, getCurrentUser } from 'services/user-api'
-import { redirectIfNotAuthenticated, getJwt } from 'lib/auth'
+import {getUser, getCurrentUser} from 'services/user-api'
+import {redirectIfNotAuthenticated, getJwt} from 'lib/auth'
 
 export default class User extends Component {
   static propTypes = {
     user: PropTypes.object,
-    authenticated: PropTypes.bool
+    authenticated: PropTypes.bool,
   }
 
   static async getInitialProps(ctx) {
@@ -23,12 +23,12 @@ export default class User extends Component {
     return {
       user: res.data.data,
       authenticated: !!jwt,
-      query: !!id
+      query: !!id,
     }
   }
 
   render() {
-    const { authenticated, url, user, query } = this.props
+    const {authenticated, url, user, query} = this.props
 
     if (!user) {
       return null

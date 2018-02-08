@@ -28,7 +28,7 @@ export default styled.div`
   @media ${mobileMedia} {
     > h1,
     > p {
-      max-width: calc(100vw - 40px)
+      max-width: calc(100vw - 40px);
     }
   }
 `

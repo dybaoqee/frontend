@@ -6,26 +6,40 @@ import Lightbox from 'components/lightbox'
 
 export default class ImageGallery extends React.Component {
   render() {
-    const {images, imageIndex, handleClose, handleNext, handlePrevious} = this.props
+    const {
+      images,
+      imageIndex,
+      handleClose,
+      handleNext,
+      handlePrevious,
+    } = this.props
     const imagesLength = images.length
 
     const indexToShow = Math.abs((imagesLength - imageIndex) % imagesLength)
 
     return (
-      <Lightbox handleClose={handleClose} >
+      <Lightbox handleClose={handleClose}>
         {images.map(function(image, index) {
           const imgSrc = imageUrl(image.filename)
-          const display = (index == indexToShow) ? 'block' : 'none'
+          const display = index == indexToShow ? 'block' : 'none'
           const style = {
             backgroundImage: `url(${imgSrc})`,
             display: display,
           }
 
-          return <div key={index} className="image" style={style}/>
+          return <div key={index} className="image" style={style} />
         })}
 
-        {(imagesLength > 1) && <div className="nav" onClick={handlePrevious}>‹</div>}
-        {(imagesLength > 1) && <div className="nav" onClick={handleNext}>›</div>}
+        {imagesLength > 1 && (
+          <div className="nav" onClick={handlePrevious}>
+            ‹
+          </div>
+        )}
+        {imagesLength > 1 && (
+          <div className="nav" onClick={handleNext}>
+            ›
+          </div>
+        )}
 
         <style jsx>{`
           div.nav {
@@ -41,14 +55,22 @@ export default class ImageGallery extends React.Component {
             width: calc(50% - 60px);
             z-index: 10;
             &:hover {
-              background: linear-gradient(to right, rgba(0, 0, 0, .333), rgba(0, 0, 0, 0));
+              background: linear-gradient(
+                to right,
+                rgba(0, 0, 0, 0.333),
+                rgba(0, 0, 0, 0)
+              );
             }
             &:last-of-type {
               float: right;
               justify-content: flex-end;
               text-align: right;
               &:hover {
-                background: linear-gradient(to left, rgba(0, 0, 0, .333), rgba(0, 0, 0, 0));
+                background: linear-gradient(
+                  to left,
+                  rgba(0, 0, 0, 0.333),
+                  rgba(0, 0, 0, 0)
+                );
               }
             }
           }

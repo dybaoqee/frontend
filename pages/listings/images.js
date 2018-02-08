@@ -1,14 +1,15 @@
-import { Component } from 'react'
+import {Component} from 'react'
 import Link from 'next/link'
 import update from 'immutability-helper'
 import {
   getListingImages,
   reorderImages,
-  createImage } from 'services/listing-images-api'
-import { DragDropContext } from 'react-dnd'
+  createImage,
+} from 'services/listing-images-api'
+import {DragDropContext} from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 
-import { redirectIfNotAuthenticated, getJwt, isAuthenticated } from 'lib/auth'
+import {redirectIfNotAuthenticated, getJwt, isAuthenticated} from 'lib/auth'
 
 import Layout from 'components/main-layout'
 import TextContainer from 'components/text-container'
@@ -20,7 +21,7 @@ import ImageUpload from 'components/listings/show/images/upload'
 export default class ListingImages extends Component {
   constructor(props) {
     super(props)
-    this.state = { images: this.props.images }
+    this.state = {images: this.props.images}
   }
 
   static async getInitialProps(context) {
@@ -29,7 +30,7 @@ export default class ListingImages extends Component {
     }
 
     const jwt = getJwt(context)
-    const { listingId } = context.query
+    const {listingId} = context.query
 
     const res = await getListingImages(listingId, jwt)
 
@@ -46,20 +47,20 @@ export default class ListingImages extends Component {
       listingId,
       jwt,
       images: res.data.images,
-      authenticated: isAuthenticated(context)
+      authenticated: isAuthenticated(context),
     }
   }
 
   moveImage = async (dragIndex, hoverIndex) => {
-    const { images } = this.state
-    const { listingId, jwt } = this.props
+    const {images} = this.state
+    const {listingId, jwt} = this.props
     const dragImage = images[dragIndex]
 
     this.setState(
       update(this.state, {
         images: {
           $splice: [[dragIndex, 1], [hoverIndex, 0, dragImage]],
-        }
+        },
       })
     )
 
@@ -80,7 +81,7 @@ export default class ListingImages extends Component {
   }
 
   onImageUploaded = async (response) => {
-    const { listingId, jwt } = this.props
+    const {listingId, jwt} = this.props
     const filename = response.body.public_id + '.' + response.body.format
 
     const res = await createImage(listingId, filename, jwt)
@@ -99,7 +100,7 @@ export default class ListingImages extends Component {
       update(this.state, {
         images: {
           $unshift: [newImage],
-        }
+        },
       })
     )
   }
@@ -107,21 +108,24 @@ export default class ListingImages extends Component {
   onImageDeleted = async (image) => {
     this.setState({
       images: update(this.state.images, {
-        $splice: [[image.index, 1]]
-      })
+        $splice: [[image.index, 1]],
+      }),
     })
   }
 
   render() {
-    const { listingId, authenticated, jwt } = this.props
-    const { images } = this.state
+    const {listingId, authenticated, jwt} = this.props
+    const {images} = this.state
 
     return (
       <Layout authenticated={authenticated}>
         <TextContainer>
           <AdminHeader>
             <h1>Editar Imagens</h1>
-            <Link href={`/listings/edit?id=${listingId}`} as={`/imoveis/${listingId}/editar`} >
+            <Link
+              href={`/listings/edit?id=${listingId}`}
+              as={`/imoveis/${listingId}/editar`}
+            >
               <a>Editar Imóvel</a>
             </Link>
           </AdminHeader>
@@ -129,16 +133,20 @@ export default class ListingImages extends Component {
           <ImageUpload onImageUploaded={this.onImageUploaded} />
 
           <div className="images-container">
-            {images && images.map((image, i) => {
-              return <DraggableImage
-                listingId={listingId}
-                image={image}
-                key={image.id}
-                index={i}
-                jwt={jwt}
-                onImageDeleted={this.onImageDeleted}
-                moveImage={this.moveImage}/>
-            })}
+            {images &&
+              images.map((image, i) => {
+                return (
+                  <DraggableImage
+                    listingId={listingId}
+                    image={image}
+                    key={image.id}
+                    index={i}
+                    jwt={jwt}
+                    onImageDeleted={this.onImageDeleted}
+                    moveImage={this.moveImage}
+                  />
+                )
+              })}
           </div>
         </TextContainer>
         <style jsx>{`

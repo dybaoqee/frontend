@@ -10,17 +10,29 @@ export default class Matterport extends Component {
 
     return (
       <Lightbox handleClose={handleClose}>
-        {matterport_code &&
+        {matterport_code && (
           <MediaQuery query="(max-width: 600px)">
-            <iframe width='100%' height='100%' src={src} frameBorder='0' allowFullScreen />
+            <iframe
+              width="100%"
+              height="100%"
+              src={src}
+              frameBorder="0"
+              allowFullScreen
+            />
           </MediaQuery>
-        }
+        )}
 
-        {matterport_code &&
+        {matterport_code && (
           <MediaQuery query="(min-width: 601px)">
-            <iframe width='100%' height='100%' src={src} frameBorder='0' allowFullScreen />
+            <iframe
+              width="100%"
+              height="100%"
+              src={src}
+              frameBorder="0"
+              allowFullScreen
+            />
           </MediaQuery>
-        }
+        )}
       </Lightbox>
     )
   }
