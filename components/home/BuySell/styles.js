@@ -13,7 +13,7 @@ export default styled.div`
     flex-direction: column;
     justify-content: center;
     width: 100%;
-    a {
+    > a {
       border: 1px solid ${colors.blue};
       border-radius: 6px;
       color: ${colors.blue};
