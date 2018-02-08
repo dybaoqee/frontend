@@ -1,25 +1,32 @@
-import { Component } from 'react'
+import {Component} from 'react'
 import Head from 'next/head'
 import Router from 'next/router'
 
-import { treatParams } from 'utils/filter-params.js'
-import { mainListingImage } from 'utils/image_url'
-import { isAuthenticated, isAdmin, getCurrentUserId } from 'lib/auth'
-import { getListings } from 'services/listing-api'
-import { getNeighborhoods } from 'services/neighborhood-api'
+import {treatParams} from 'utils/filter-params.js'
+import {mainListingImage} from 'utils/image_url'
+import {isAuthenticated, isAdmin, getCurrentUserId} from 'lib/auth'
+import {getListings} from 'services/listing-api'
+import {getNeighborhoods} from 'services/neighborhood-api'
 import Layout from 'components/main-layout'
 import MapContainer from 'components/map-container'
 import Listing from 'components/listings/index/listing'
 import ListingsNotFound from 'components/listings/index/not-found'
 import Filter from 'components/listings/index/filter'
 
-import { mobileMedia } from 'constants/media'
+import {mobileMedia} from 'constants/media'
 
 export default class ListingsIndex extends Component {
   constructor(props) {
     super(props)
 
-    const { preco_minimo, preco_maximo, area_minima, area_maxima, quartos, bairros } = props.query
+    const {
+      preco_minimo,
+      preco_maximo,
+      area_minima,
+      area_maxima,
+      quartos,
+      bairros,
+    } = props.query
     const neighborhoods = bairros ? bairros.split('|') : []
 
     this.state = {
@@ -29,23 +36,23 @@ export default class ListingsIndex extends Component {
           price: {
             min: preco_minimo,
             max: preco_maximo,
-            visible: false
+            visible: false,
           },
           area: {
             min: area_minima,
             max: area_maxima,
-            visible: false
+            visible: false,
           },
           rooms: {
             value: quartos,
-            visible: false
+            visible: false,
           },
           neighborhoods: {
             value: neighborhoods,
-            visible: false
-          }
-        }
-      }
+            visible: false,
+          },
+        },
+      },
     }
   }
 
@@ -78,49 +85,44 @@ export default class ListingsIndex extends Component {
       currentUser: {
         id: getCurrentUserId(context),
         admin: isAdmin(context),
-        authenticated: isAuthenticated(context)
+        authenticated: isAuthenticated(context),
       },
       neighborhoodOptions: neighborhoodResponse.data.neighborhoods,
-      query: context.query
+      query: context.query,
     }
   }
 
   handleMinPriceChange = (minPrice) => {
     const state = this.state
-    state.filterParams.params.price.min =
-      minPrice ? minPrice.value : undefined
+    state.filterParams.params.price.min = minPrice ? minPrice.value : undefined
     this.setState(state)
     this.updateRoute()
   }
 
   handleMaxPriceChange = (maxPrice) => {
     const state = this.state
-    state.filterParams.params.price.max =
-      maxPrice ? maxPrice.value : undefined
+    state.filterParams.params.price.max = maxPrice ? maxPrice.value : undefined
     this.setState(state)
     this.updateRoute()
   }
 
   handleMinAreaChange = (minArea) => {
     const state = this.state
-    state.filterParams.params.area.min =
-      minArea ? minArea.value : undefined
+    state.filterParams.params.area.min = minArea ? minArea.value : undefined
     this.setState(state)
     this.updateRoute()
   }
 
   handleMaxAreaChange = (maxArea) => {
     const state = this.state
-    state.filterParams.params.area.max =
-      maxArea ? maxArea.value : undefined
+    state.filterParams.params.area.max = maxArea ? maxArea.value : undefined
     this.setState(state)
     this.updateRoute()
   }
 
   handleRoomChange = (rooms) => {
     const state = this.state
-    state.filterParams.params.rooms.value =
-      rooms ? rooms.value : undefined
+    state.filterParams.params.rooms.value = rooms ? rooms.value : undefined
     this.setState(state)
     this.updateRoute()
   }
@@ -184,7 +186,7 @@ export default class ListingsIndex extends Component {
   }
 
   toggleMobilePriceVisibility = () => {
-    const { visible } = this.state.filterParams.params.price
+    const {visible} = this.state.filterParams.params.price
     const state = this.state
 
     if (visible) {
@@ -202,7 +204,7 @@ export default class ListingsIndex extends Component {
   }
 
   toggleMobileNeighborhoodsVisibility = () => {
-    const { visible } = this.state.filterParams.params.neighborhoods
+    const {visible} = this.state.filterParams.params.neighborhoods
     const state = this.state
 
     if (visible) {
@@ -239,8 +241,8 @@ export default class ListingsIndex extends Component {
   }
 
   hideAllParams = () => {
-    const { state } = this
-    const { filterParams } = state
+    const {state} = this
+    const {filterParams} = state
 
     Object.keys(filterParams.params).map(function(key) {
       state.filterParams.params[key].visible = false
@@ -252,23 +254,22 @@ export default class ListingsIndex extends Component {
   }
 
   isAnyParamVisible = () => {
-    const { params } = this.state.filterParams
+    const {params} = this.state.filterParams
 
     return Object.keys(params).some(function(key) {
       return params[key]['visible'] === true
     })
   }
 
-
   getNumberOfActiveParams = () => {
-    const { price, area, rooms, neighborhoods } = this.state.params.filterParams
+    const {price, area, rooms, neighborhoods} = this.state.params.filterParams
 
     let numberOfParams = 0
 
     if (price.min || price.max) numberOfParams++
     if (area.min || area.max) numberOfParams++
     if (rooms.value) numberOfParams++
-    if (neighborhoods.value.length > 0) numberOfParams ++
+    if (neighborhoods.value.length > 0) numberOfParams++
 
     return numberOfParams
   }
@@ -276,36 +277,46 @@ export default class ListingsIndex extends Component {
   renderTextForMobileMainButton = () => {
     const numberOfParams = this.getNumberOfActiveParams()
 
-    const suffix =
-      (numberOfParams == 0) ?
-        ''
-        : ': ' + numberOfParams
+    const suffix = numberOfParams == 0 ? '' : ': ' + numberOfParams
 
     return 'Filtros' + suffix
   }
 
   handleOverlayClick = () => {
-    const { isMobileOpen } = this.state.filterParams
+    const {isMobileOpen} = this.state.filterParams
 
     if (!isMobileOpen) this.hideAllParams()
   }
 
   render() {
-    const { listings, neighborhoodOptions, currentUser } = this.props
-    const { isMobileOpen, params } = this.state.filterParams
-    const seoImgSrc = listings.length > 0 && mainListingImage(listings[0].images)
+    const {listings, neighborhoodOptions, currentUser} = this.props
+    const {isMobileOpen, params} = this.state.filterParams
+    const seoImgSrc =
+      listings.length > 0 && mainListingImage(listings[0].images)
 
     return (
       <Layout authenticated={currentUser.authenticated}>
         <Head>
           <title>Apartamentos à venda no Rio de Janeiro | EmCasa</title>
-          <meta name="description" content="Compre seu Imóvel na Zona Sul do Rio de Janeiro"/>
-          <meta property="og:description" content="Compre seu Imóvel na Zona Sul do Rio de Janeiro"/>
-          <meta property="og:image" content={seoImgSrc}/>
-          <meta name="twitter:card" content="summary_large_image"/>
-          <meta name="twitter:title" content="Apartamentos à venda no Rio de Janeiro | EmCasa"/>
-          <meta name="twitter:description" content="Compre seu Imóvel na Zona Sul do Rio de Janeiro"/>
-          <meta name="twitter:image" content={seoImgSrc}/>
+          <meta
+            name="description"
+            content="Compre seu Imóvel na Zona Sul do Rio de Janeiro"
+          />
+          <meta
+            property="og:description"
+            content="Compre seu Imóvel na Zona Sul do Rio de Janeiro"
+          />
+          <meta property="og:image" content={seoImgSrc} />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta
+            name="twitter:title"
+            content="Apartamentos à venda no Rio de Janeiro | EmCasa"
+          />
+          <meta
+            name="twitter:description"
+            content="Compre seu Imóvel na Zona Sul do Rio de Janeiro"
+          />
+          <meta name="twitter:image" content={seoImgSrc} />
         </Head>
 
         <div className="listings">
@@ -325,7 +336,9 @@ export default class ListingsIndex extends Component {
             toggleAreaVisibility={this.toggleAreaVisibility}
             toggleNeighborhoodsVisibility={this.toggleNeighborhoodsVisibility}
             toggleMobilePriceVisibility={this.toggleMobilePriceVisibility}
-            toggleMobileNeighborhoodsVisibility={this.toggleMobileNeighborhoodsVisibility}
+            toggleMobileNeighborhoodsVisibility={
+              this.toggleMobileNeighborhoodsVisibility
+            }
             toggleOtherMobileParams={this.toggleOtherMobileParams}
             toggleParamVisibility={this.toggleParamVisibility}
             hideAllParams={this.hideAllParams}
@@ -338,17 +351,20 @@ export default class ListingsIndex extends Component {
               listings={listings}
               height="100%"
               width="100%"
-              zoom={13}/>
+              zoom={13}
+            />
           </div>
 
           <div className="entries-container">
             {listings.map((listing, i) => {
-              return <Listing listing={listing} key={i} currentUser={currentUser} />
+              return (
+                <Listing listing={listing} key={i} currentUser={currentUser} />
+              )
             })}
 
-            {(listings.length == 0) &&
-              <ListingsNotFound resetAllParams={this.resetAllParams}/>
-            }
+            {listings.length == 0 && (
+              <ListingsNotFound resetAllParams={this.resetAllParams} />
+            )}
           </div>
         </div>
 
