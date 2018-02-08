@@ -1,6 +1,7 @@
 import {Component} from 'react'
 import Link from 'next/link'
 
+import Container from './styles'
 import {canEdit} from 'permissions/listings-permissions'
 
 export default class ListingHeader extends Component {
@@ -17,7 +18,7 @@ export default class ListingHeader extends Component {
     const src = `https://my.matterport.com/show/?m=${matterport_code}`
 
     return (
-      <header>
+      <Container>
         {matterport_code && (
           <iframe
             width="100%"
@@ -50,40 +51,7 @@ export default class ListingHeader extends Component {
             </button>
           )}
         </div>
-
-        <style jsx>{`
-          header {
-            background-color: #f0f0f0;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            height: 400px;
-            position: relative;
-            width: 100vw;
-          }
-
-          header > div {
-            position: absolute;
-            &.open-image-gallery-overlay {
-              cursor: pointer;
-              height: 100%;
-              width: 100%;
-            }
-            &.bottom-right {
-              bottom: 20px;
-              right: 20px;
-            }
-            &.top-right {
-              top: 20px;
-              right: 20px;
-            }
-          }
-
-          button {
-            margin-left: 20px;
-          }
-        `}</style>
-      </header>
+      </Container>
     )
   }
 }
