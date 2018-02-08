@@ -4,7 +4,10 @@ module.exports = {
     "commonjs": true,
     "es6": true
   },
-  "extends": "eslint:recommended",
+  "extends": [
+    "eslint:recommended",
+    "plugin:prettier/recommended"
+  ],
   "parser": "babel-eslint",
   "parserOptions": {
     "ecmaFeatures": {
@@ -14,9 +17,18 @@ module.exports = {
     "sourceType": "module"
   },
   "plugins": [
-    "react"
+    "react",
+    "prettier",
   ],
   "rules": {
+    "array-bracket-spacing": [2, "never"],
+    "comma-dangle": ["error", {
+        "arrays": "always-multiline",
+        "objects": "never",
+        "imports": "never",
+        "exports": "never",
+        "functions": "ignore"
+    }],
     "indent": ["error", 2],
     "linebreak-style": ["error", "unix"],
     "object-curly-spacing": ["error", "never"],
