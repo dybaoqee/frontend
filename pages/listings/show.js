@@ -116,7 +116,7 @@ export default class Listing extends Component {
 
   render() {
     const {currentUser, listing} = this.props
-    const {isAuthenticated} = currentUser
+    const {authenticated} = currentUser
     const {
       imageIndex,
       is3DTourVisible,
@@ -130,7 +130,7 @@ export default class Listing extends Component {
     } = this.state
 
     return (
-      <Layout authenticated={isAuthenticated} renderFooter={true}>
+      <Layout authenticated={authenticated} renderFooter={true}>
         {isImageGalleryVisible &&
           <ImageGallery
             images={listing.images}
