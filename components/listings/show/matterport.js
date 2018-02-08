@@ -1,5 +1,4 @@
 import {Component} from 'react'
-import MediaQuery from 'react-responsive'
 
 import Lightbox from 'components/lightbox'
 
@@ -15,7 +14,8 @@ export default class Matterport extends Component {
           height="100%"
           src={src}
           frameBorder="0"
-          allowFullScreen />
+          allowFullScreen
+        />
       </Lightbox>
     )
   }
