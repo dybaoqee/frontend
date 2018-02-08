@@ -1,17 +1,20 @@
 import React from 'react'
 
-import Popup from "components/popup"
+import Popup from 'components/popup'
 
-class InterestPopup extends React.Component {
+export default class InterestPopup extends React.Component {
   render() {
+    const {handleClose} = this.props
+
     return (
-      <Popup this.props.handleClose={this.closePopup}>
+      <Popup handleClose={handleClose}>
         <h1>Marcar Visita</h1>
-        <p>Insira seu nome, email e telefone com DDD e<br/>entraremos em contato em minutos.</p>
+        <p>
+          Insira seu nome, email e telefone com DDD e<br />entraremos em contato
+          em minutos.
+        </p>
         <h1>Form goes here</h1>
       </Popup>
     )
   }
 }
-
-export default InterestPopup
