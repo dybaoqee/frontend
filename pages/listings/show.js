@@ -1,6 +1,6 @@
 import {Component} from 'react'
 
-import {isAuthenticated, isAdmin, getCurrentUserId} from 'lib/auth'
+import {isAuthenticated, isAdmin, getCurrentUserId, getJwt} from 'lib/auth'
 import {getListing} from 'services/listing-api'
 import {createInterest} from 'services/interest-api'
 
@@ -28,9 +28,10 @@ export default class Listing extends Component {
   }
 
   static async getInitialProps(context) {
+    const jwt = getJwt(context)
     const {id} = context.query
 
-    const res = await getListing(id)
+    const res = await getListing(id, jwt)
 
     if (res.data.errors) {
       this.setState({errors: res.data.errors})
