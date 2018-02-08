@@ -43,13 +43,6 @@ export default class Listing extends Component {
       return res
     }
 
-    ReactGA.initialize(process.env.GOOGLE_ANALYTICS_TRACKING_ID)
-    ReactGA.event({
-      category: 'Imoveis',
-      label: 'listingShow',
-      action: 'User Opened Listing',
-    })
-
     return {
       listing: res.data.listing,
       currentUser: {
@@ -58,6 +51,15 @@ export default class Listing extends Component {
         authenticated: isAuthenticated(context),
       },
     }
+  }
+
+  componentDidMount() {
+    ReactGA.initialize(process.env.GOOGLE_ANALYTICS_TRACKING_ID)
+    ReactGA.event({
+      category: 'Imoveis',
+      label: 'listingShow',
+      action: 'User Opened Listing',
+    })
   }
 
   showImageGallery = () => {
