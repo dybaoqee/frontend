@@ -1,17 +1,17 @@
-import { Component } from 'react'
+import {Component} from 'react'
 import Select from 'react-select'
 import numeral from 'numeral'
 
-import { minAreaOptions, maxAreaOptions } from 'constants/listing-filter-options'
+import {minAreaOptions, maxAreaOptions} from 'constants/listing-filter-options'
 
 export default class AreaFilter extends Component {
   isButtonActive = () => {
-    const { min, max, visible } = this.props.area
+    const {min, max, visible} = this.props.area
     return min || max || visible
   }
 
   buttonText = () => {
-    const { min, max } = this.props.area
+    const {min, max} = this.props.area
     const abbreviatedMin = numeral(min).format('0a')
     const abbreviatedMax = numeral(max).format('0a')
 
@@ -38,50 +38,54 @@ export default class AreaFilter extends Component {
       handleMinAreaChange,
       handleMaxAreaChange,
       toggleVisibility,
-      handleClose
+      handleClose,
     } = this.props
 
-    const { min, max, visible } = area
+    const {min, max, visible} = area
 
-    return <div className="filter-param-container">
-      <button
-        className={this.isButtonActive() ? 'active' : ''}
-        onClick={toggleVisibility}
-      >
-        {this.buttonText()}
-      </button>
+    return (
+      <div className="filter-param-container">
+        <button
+          className={this.isButtonActive() ? 'active' : ''}
+          onClick={toggleVisibility}
+        >
+          {this.buttonText()}
+        </button>
 
-      {visible &&
-        <div className="option-container">
-          <span className="mobile-param-title">Área</span>
-          <div>
-            <Select
-              name="form-field-name"
-              arrowRenderer={null}
-              style={{width: 100}}
-              placeholder="m²"
-              value={min}
-              onChange={handleMinAreaChange}
-              options={minAreaOptions}
-              searchable={false} />
+        {visible && (
+          <div className="option-container">
+            <span className="mobile-param-title">Área</span>
+            <div>
+              <Select
+                name="form-field-name"
+                arrowRenderer={null}
+                style={{width: 100}}
+                placeholder="m²"
+                value={min}
+                onChange={handleMinAreaChange}
+                options={minAreaOptions}
+                searchable={false}
+              />
 
-            <label>até</label>
+              <label>até</label>
 
-            <Select
-              name="form-field-name"
-              arrowRenderer={null}
-              style={{width: 100}}
-              placeholder="m²"
-              value={max}
-              onChange={handleMaxAreaChange}
-              options={maxAreaOptions}
-              searchable={false} />
+              <Select
+                name="form-field-name"
+                arrowRenderer={null}
+                style={{width: 100}}
+                placeholder="m²"
+                value={max}
+                onChange={handleMaxAreaChange}
+                options={maxAreaOptions}
+                searchable={false}
+              />
+            </div>
+            <span className="close-filter-param" onClick={handleClose}>
+              Aplicar
+            </span>
           </div>
-          <span className="close-filter-param" onClick={handleClose}>
-            Aplicar
-          </span>
-        </div>
-      }
-    </div>
+        )}
+      </div>
+    )
   }
 }

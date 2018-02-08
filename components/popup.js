@@ -12,7 +12,7 @@ class Popup extends React.Component {
         <style jsx>{`
           .popup {
             align-items: center;
-            background-color: rgba(0,0,0,0.7);
+            background-color: rgba(0, 0, 0, 0.7);
             display: flex;
             position: fixed;
             height: 100vh;
@@ -51,7 +51,6 @@ class Popup extends React.Component {
           button:hover {
             background-color: #f0f0f0;
           }
-
         `}</style>
       </div>
     )

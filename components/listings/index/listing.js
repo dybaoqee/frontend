@@ -5,33 +5,35 @@ import ImageContainer from './image-container'
 import TextContainer from './text-container'
 
 import * as colors from 'constants/colors'
-import { mobileMedia } from 'constants/media'
+import {mobileMedia} from 'constants/media'
 
 class Listing extends React.Component {
   handleListingClick = (e) => {
-    const { listing } = this.props
+    const {listing} = this.props
 
     // We have admin links inside a "link"
     // (each listing is fully clickable)
     // This function prevents double link attribution,
     // which breaks back button behaviour.
     if (e.target.getAttribute('class').indexOf('cancel-listing-nav') == -1) {
-      Router.push(`/listings/show?id=${listing.id}`, `/imoveis/${listing.id}`)
-        .then(() => window.scrollTo(0, 0))
+      Router.push(
+        `/listings/show?id=${listing.id}`,
+        `/imoveis/${listing.id}`
+      ).then(() => window.scrollTo(0, 0))
     }
   }
 
   render() {
-    const { listing, i, currentUser } = this.props
+    const {listing, i, currentUser} = this.props
 
     return (
       <div key={i} onClick={this.handleListingClick}>
         <ImageContainer listing={listing} />
         <TextContainer listing={listing} currentUser={currentUser} />
 
-        {listing.matterport_code &&
+        {listing.matterport_code && (
           <span className="matterport">Tour Virtual</span>
-        }
+        )}
 
         <style jsx>{`
           div {
@@ -89,4 +91,3 @@ class Listing extends React.Component {
 }
 
 export default Listing
-
