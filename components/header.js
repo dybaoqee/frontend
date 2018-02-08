@@ -6,7 +6,7 @@ import * as colors from 'constants/colors'
 
 export default class Header extends Component {
   state = {
-    isMobileNavVisible: false
+    isMobileNavVisible: false,
   }
 
   toggleMobileNavVisibility = () => {
@@ -21,15 +21,19 @@ export default class Header extends Component {
     return (
       <header>
         <Link href="/">
-          <a><img src="/static/logo.png" alt="Main Logo"/></a>
+          <a>
+            <img src="/static/logo.png" alt="Main Logo" />
+          </a>
         </Link>
 
         <button onClick={this.toggleMobileNavVisibility}>☰</button>
 
         <div className={isMobileNavVisible ? 'visible' : ''}>
-          {authenticated && <Link href="/listings/new" as="/imoveis/adicionar">
-            <a>Adicionar Imóvel</a>
-          </Link>}
+          {authenticated && (
+            <Link href="/listings/new" as="/imoveis/adicionar">
+              <a>Adicionar Imóvel</a>
+            </Link>
+          )}
 
           <Link href="/indique">
             <a>Indique e Ganhe</a>
@@ -39,9 +43,11 @@ export default class Header extends Component {
             <a>Trabalhe Conosco</a>
           </Link>
 
-          {authenticated && <Link href="/auth/logout">
-            <a>Logout</a>
-          </Link>}
+          {authenticated && (
+            <Link href="/auth/logout">
+              <a>Logout</a>
+            </Link>
+          )}
         </div>
 
         <style jsx>{`

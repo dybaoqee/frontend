@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import {Component} from 'react'
 import Dropzone from 'react-dropzone'
 import request from 'superagent'
 
@@ -17,7 +17,8 @@ export default class ImageUpload extends Component {
   handleImageUpload = (file) => {
     const {onImageUploaded} = this.props
 
-    let upload = request.post(CLOUDINARY_UPLOAD_URL)
+    let upload = request
+      .post(CLOUDINARY_UPLOAD_URL)
       .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
       .field('file', file)
 
@@ -29,29 +30,28 @@ export default class ImageUpload extends Component {
   }
 
   render() {
-    return <div>
-      <div className="FileUpload">
-        <Dropzone
-          multiple={true}
-          accept="image/*"
-          onDrop={this.onImageDrop}>
-          <p>Arraste uma imagem ou clique aqui para iniciar o upload.</p>
-        </Dropzone>
-      </div>
+    return (
+      <div>
+        <div className="FileUpload">
+          <Dropzone multiple={true} accept="image/*" onDrop={this.onImageDrop}>
+            <p>Arraste uma imagem ou clique aqui para iniciar o upload.</p>
+          </Dropzone>
+        </div>
 
-      <style jsx>{`
-        .FileUpload {
-          clear: both;
-          :global(div) {
-            align-items: center;
-            display: flex;
-            height: 80px !important;
-            margin-bottom: 20px;
-            justify-content: center;
-            width: calc(100% - 4px) !important;
+        <style jsx>{`
+          .FileUpload {
+            clear: both;
+            :global(div) {
+              align-items: center;
+              display: flex;
+              height: 80px !important;
+              margin-bottom: 20px;
+              justify-content: center;
+              width: calc(100% - 4px) !important;
+            }
           }
-        }
-      `}</style>
-    </div>
+        `}</style>
+      </div>
+    )
   }
 }

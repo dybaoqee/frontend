@@ -9,26 +9,31 @@ import {canEdit} from 'permissions/listings-permissions'
 
 class TextContainer extends React.Component {
   render() {
-    const { listing, currentUser } = this.props
+    const {listing, currentUser} = this.props
 
     return (
       <div className="text-container">
-        <div className="description">
-          {listing.description}
-        </div>
+        <div className="description">{listing.description}</div>
 
-        <ListingTable listing={listing}/>
+        <ListingTable listing={listing} />
 
         <div className="link-container">
-          {canEdit(currentUser, listing) && <Link href={`/listings/edit?id=${listing.id}`} as={`/imoveis/${listing.id}/editar`}>
-            <a className="btn gray cancel-listing-nav">Editar</a>
-          </Link>}
+          {canEdit(currentUser, listing) && (
+            <Link
+              href={`/listings/edit?id=${listing.id}`}
+              as={`/imoveis/${listing.id}/editar`}
+            >
+              <a className="btn gray cancel-listing-nav">Editar</a>
+            </Link>
+          )}
 
-          <Link href={`/listings/show?id=${listing.id}`} as={`/imoveis/${listing.id}`} >
+          <Link
+            href={`/listings/show?id=${listing.id}`}
+            as={`/imoveis/${listing.id}`}
+          >
             <a className="btn">Ver Detalhes</a>
           </Link>
         </div>
-
 
         <style jsx>{`
           .text-container {
@@ -50,7 +55,6 @@ class TextContainer extends React.Component {
               margin: 14px 14px 14px 0px;
             }
           }
-
 
           @media ${mobileMedia} {
             .text-container {

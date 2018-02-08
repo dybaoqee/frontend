@@ -1,4 +1,1 @@
-export default ({ message }) =>
-   <aside>
-    {message}
-   </aside>
+export default ({message}) => <aside>{message}</aside>

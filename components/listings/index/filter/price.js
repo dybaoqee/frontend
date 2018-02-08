@@ -1,17 +1,20 @@
-import { Component } from 'react'
+import {Component} from 'react'
 import Select from 'react-select'
 import numeral from 'numeral'
 
-import { minPriceOptions, maxPriceOptions } from 'constants/listing-filter-options'
+import {
+  minPriceOptions,
+  maxPriceOptions,
+} from 'constants/listing-filter-options'
 
 export default class PriceFilter extends Component {
   isButtonActive = () => {
-    const { min, max, visible } = this.props.price
+    const {min, max, visible} = this.props.price
     return min || max || visible
   }
 
   buttonText = () => {
-    const { min, max } = this.props.price
+    const {min, max} = this.props.price
     const abbreviatedMin = numeral(min).format('0a')
     const abbreviatedMax = numeral(max).format('0a')
 
@@ -35,52 +38,56 @@ export default class PriceFilter extends Component {
   render() {
     const {
       price,
-			handleMinPriceChange,
-			handleMaxPriceChange,
-			toggleVisibility,
-			handleClose
+      handleMinPriceChange,
+      handleMaxPriceChange,
+      toggleVisibility,
+      handleClose,
     } = this.props
 
-    return <div className="filter-param-container">
-      <button
-        className={this.isButtonActive() ? 'active' : ''}
-        onClick={toggleVisibility}
-      >
-        {this.buttonText()}
-      </button>
+    return (
+      <div className="filter-param-container">
+        <button
+          className={this.isButtonActive() ? 'active' : ''}
+          onClick={toggleVisibility}
+        >
+          {this.buttonText()}
+        </button>
 
-      {price.visible &&
-        <div className="option-container price-container">
-          <span className="mobile-param-title">Preço</span>
-          <div>
-            <Select
-              name="form-field-name"
-              arrowRenderer={null}
-              style={{width: 130}}
-              placeholder="R$"
-              value={price.min}
-              onChange={handleMinPriceChange}
-              options={minPriceOptions}
-              searchable={false} />
+        {price.visible && (
+          <div className="option-container price-container">
+            <span className="mobile-param-title">Preço</span>
+            <div>
+              <Select
+                name="form-field-name"
+                arrowRenderer={null}
+                style={{width: 130}}
+                placeholder="R$"
+                value={price.min}
+                onChange={handleMinPriceChange}
+                options={minPriceOptions}
+                searchable={false}
+              />
 
-            <label>até</label>
+              <label>até</label>
 
-            <Select
-              name="form-field-name"
-              arrowRenderer={null}
-              style={{width: 130}}
-              placeholder="R$"
-              value={price.max}
-              onChange={handleMaxPriceChange}
-              options={maxPriceOptions}
-              searchable={false} />
+              <Select
+                name="form-field-name"
+                arrowRenderer={null}
+                style={{width: 130}}
+                placeholder="R$"
+                value={price.max}
+                onChange={handleMaxPriceChange}
+                options={maxPriceOptions}
+                searchable={false}
+              />
+            </div>
+
+            <span className="close-filter-param" onClick={handleClose}>
+              Aplicar
+            </span>
           </div>
-
-          <span className="close-filter-param" onClick={handleClose}>
-            Aplicar
-          </span>
-        </div>
-      }
-    </div>
+        )}
+      </div>
+    )
   }
 }

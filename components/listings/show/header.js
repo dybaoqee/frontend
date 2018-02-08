@@ -18,16 +18,25 @@ export default class ListingHeader extends Component {
 
     return (
       <header>
-        {matterport_code &&
-          <iframe width='100%' height='400px' src={src} frameBorder='0' allowFullScreen />
-        }
+        {matterport_code && (
+          <iframe
+            width="100%"
+            height="400px"
+            src={src}
+            frameBorder="0"
+            allowFullScreen
+          />
+        )}
 
         <div className="top-right">
-          {canEdit(currentUser, listing) &&
-            <Link href={`/listings/edit?id=${listing.id}`} as={`/imoveis/${listing.id}/editar`}>
+          {canEdit(currentUser, listing) && (
+            <Link
+              href={`/listings/edit?id=${listing.id}`}
+              as={`/imoveis/${listing.id}/editar`}
+            >
               <button>Editar</button>
             </Link>
-          }
+          )}
 
           <button className="green" onClick={handleOpenPopup}>
             Marcar Visita
@@ -35,11 +44,11 @@ export default class ListingHeader extends Component {
         </div>
 
         <div className="bottom-right">
-          {(listing.images.length > 0) &&
+          {listing.images.length > 0 && (
             <button className="white" onClick={handleOpenImageGallery}>
               Ver Fotos
             </button>
-          }
+          )}
         </div>
 
         <style jsx>{`

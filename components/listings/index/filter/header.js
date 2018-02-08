@@ -1,42 +1,42 @@
-import { Component } from 'react'
+import {Component} from 'react'
 
-import { mobileMedia } from 'constants/media'
+import {mobileMedia} from 'constants/media'
 import * as colors from 'constants/colors'
 
 export default class FilterHeader extends Component {
   getNumberOfActiveParams = () => {
-    const { price, area, rooms, neighborhoods } = this.props.params
+    const {price, area, rooms, neighborhoods} = this.props.params
 
     let numberOfParams = 0
 
     if (price.min || price.max) numberOfParams++
     if (area.min || area.max) numberOfParams++
     if (rooms.value) numberOfParams++
-    if (neighborhoods.value.length > 0) numberOfParams ++
+    if (neighborhoods.value.length > 0) numberOfParams++
 
     return numberOfParams
   }
 
   isMobileOtherButtonActive = () => {
-    const { area, rooms } = this.props.params
+    const {area, rooms} = this.props.params
 
     return area.visible || area.min || area.max || rooms.visible || rooms.value
   }
 
   isMobilePriceButtonActive = () => {
-    const { visible, min, max } = this.props.params.price
+    const {visible, min, max} = this.props.params.price
 
     return visible || min || max
   }
 
   isMobileNeighborhoodsButtonActive = () => {
-    const { visible, value } = this.props.params.neighborhoods
+    const {visible, value} = this.props.params.neighborhoods
 
     return visible || value.length
   }
 
   isMobileOtherButtonActive = () => {
-    const { area, rooms } = this.props.params
+    const {area, rooms} = this.props.params
 
     return area.visible || area.min || area.max || rooms.visible || rooms.value
   }
@@ -46,7 +46,7 @@ export default class FilterHeader extends Component {
       toggleOtherMobileParams,
       toggleMobilePriceVisibility,
       toggleMobileNeighborhoodsVisibility,
-      resetAllParams
+      resetAllParams,
     } = this.props
 
     return [
@@ -70,21 +70,30 @@ export default class FilterHeader extends Component {
 
       <div key={2} className="mobile-control-container">
         <button
-          className={'mobile-filter-toggler ' + (this.isMobileNeighborhoodsButtonActive() ? 'active' : '')}
+          className={
+            'mobile-filter-toggler ' +
+            (this.isMobileNeighborhoodsButtonActive() ? 'active' : '')
+          }
           onClick={toggleMobileNeighborhoodsVisibility}
         >
           Bairros
         </button>
 
         <button
-          className={'mobile-filter-toggler ' + (this.isMobilePriceButtonActive() ? 'active' : '')}
+          className={
+            'mobile-filter-toggler ' +
+            (this.isMobilePriceButtonActive() ? 'active' : '')
+          }
           onClick={toggleMobilePriceVisibility}
         >
           Preço
         </button>
 
         <button
-          className={'mobile-filter-toggler ' + (this.isMobileOtherButtonActive() ? 'active' : '')}
+          className={
+            'mobile-filter-toggler ' +
+            (this.isMobileOtherButtonActive() ? 'active' : '')
+          }
           onClick={toggleOtherMobileParams}
         >
           Outros
@@ -130,7 +139,7 @@ export default class FilterHeader extends Component {
             }
           }
         `}</style>
-      </div>
+      </div>,
     ]
   }
 }

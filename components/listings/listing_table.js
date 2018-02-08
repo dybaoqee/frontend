@@ -33,7 +33,8 @@ export default class ListingTable extends React.Component {
                 displayType={'text'}
                 thousandSeparator={'.'}
                 prefix={'R$'}
-                decimalSeparator={','} />
+                decimalSeparator={','}
+              />
             </td>
           </tr>
         </tbody>
@@ -74,7 +75,6 @@ export default class ListingTable extends React.Component {
             }
           }
         `}</style>
-
       </table>
     )
   }

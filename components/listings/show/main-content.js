@@ -18,15 +18,11 @@ export default class ListingMainContent extends React.Component {
             </p>
 
             <h6>{listing.type}</h6>
-            <p>
-              {listing.description}
-            </p>
+            <p>{listing.description}</p>
           </div>
         </div>
 
-        <ListingCard
-          listing={listing}
-          handleOpenPopup={handleOpenPopup} />
+        <ListingCard listing={listing} handleOpenPopup={handleOpenPopup} />
 
         <style jsx>{`
           .container {
@@ -94,4 +90,3 @@ export default class ListingMainContent extends React.Component {
     )
   }
 }
-
