@@ -1,4 +1,5 @@
 import {Component} from 'react'
+import ReactGA from 'react-ga'
 import Router from 'next/router'
 import Select from 'react-select'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
@@ -67,6 +68,13 @@ export default class HomeSearch extends Component {
     const params = this.treatParams()
 
     if (params) {
+      ReactGA.initialize(process.env.GOOGLE_ANALYTICS_TRACKING_ID)
+      ReactGA.event({
+        category: 'Search',
+        label: 'User search from Home',
+        action: 'homeSearch',
+      })
+
       Router.push(`/listings/index?${params}`, `/imoveis?${params}`).then(() =>
         window.scrollTo(0, 0)
       )
