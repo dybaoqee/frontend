@@ -10,7 +10,7 @@ export default styled.header`
     position: absolute;
   }
 
-  & div.open-image-gallery-overlay {
+  & div.overlay {
     cursor: pointer;
     height: 100%;
     width: 100%;

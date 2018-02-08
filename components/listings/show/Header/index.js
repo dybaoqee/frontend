@@ -19,6 +19,8 @@ export default class ListingHeader extends Component {
 
     return (
       <Container>
+        <div className="overlay" onClick={handleOpen3DTour} />
+
         {matterport_code && (
           <iframe
             width="100%"

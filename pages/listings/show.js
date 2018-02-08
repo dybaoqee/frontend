@@ -71,8 +71,8 @@ export default class Listing extends Component {
     this.setState({imageIndex: imageIndex - 1})
   }
 
-  show3DTour = () => {
-    this.setState({is3DTourVisible: true})
+  show3DTour = async () => {
+    await this.setState({is3DTourVisible: true})
   }
 
   hide3DTour = () => {
