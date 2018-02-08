@@ -8,10 +8,8 @@ import Footer from './footer'
 import {mobileMedia} from 'constants/media'
 import * as colors from 'constants/colors'
 
-const googleAnalyticsTrackingId = 'UA-108127087-1'
-
 Router.onRouteChangeComplete = () => {
-  ReactGA.initialize(googleAnalyticsTrackingId)
+  ReactGA.initialize(process.env.GOOGLE_ANALYTICS_TRACKING_ID)
   ReactGA.pageview(window.location.pathname)
 }
 
@@ -33,7 +31,9 @@ export default class Layout extends Component {
           />
           <script
             async
-            src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsTrackingId}`}
+            src={`https://www.googletagmanager.com/gtag/js?id=${
+              process.env.GOOGLE_ANALYTICS_TRACKING_ID
+            }`}
           />
 
           <script
@@ -44,7 +44,7 @@ export default class Layout extends Component {
               dataLayer.push(arguments)
             }
             gtag('js', new Date())
-            gtag('config', '${googleAnalyticsTrackingId}')
+            gtag('config', '${process.env.GOOGLE_ANALYTICS_TRACKING_ID}')
 
             <!-- Facebook Pixel Code -->
             !function(f,b,e,v,n,t,s)
