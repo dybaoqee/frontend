@@ -43,6 +43,13 @@ export default class Listing extends Component {
       return res
     }
 
+    ReactGA.initialize(process.env.GOOGLE_ANALYTICS_TRACKING_ID)
+    ReactGA.event({
+      category: 'Imoveis',
+      label: 'listingShow',
+      action: 'User Opened Listing',
+    })
+
     return {
       listing: res.data.listing,
       currentUser: {
@@ -119,6 +126,13 @@ export default class Listing extends Component {
     if (!res.data) {
       return res
     }
+
+    ReactGA.initialize(process.env.GOOGLE_ANALYTICS_TRACKING_ID)
+    ReactGA.event({
+      category: 'Interest',
+      label: 'submitInterest',
+      action: 'User submitted Interest',
+    })
 
     this.setState({
       isInterestPopupVisible: false,
