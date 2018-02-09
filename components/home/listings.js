@@ -22,6 +22,7 @@ export default class HomeListings extends Component {
               href={`/listings/show?id=${listing.id}`}
               as={`/imoveis/${listing.id}`}
               key={listing.id}
+              prefetch
             >
               <div className="listing">
                 <div className="image-container" style={imgStyle} />
