@@ -10,10 +10,10 @@ export default class RoomFilter extends Component {
   }
 
   buttonText = () => {
-    const {rooms} = this.props.rooms
+    const {value} = this.props.rooms
 
-    if (rooms) {
-      return rooms + ' quartos'
+    if (value) {
+      return value + ' quartos'
     } else {
       return 'Quartos'
     }

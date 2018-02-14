@@ -18,7 +18,7 @@ export default class AreaFilter extends Component {
     let suffix
 
     if (min && max) {
-      suffix = abbreviatedMin + '-' + abbreviatedMax
+      suffix = abbreviatedMin + '-' + abbreviatedMax +'m²'
     } else if (min) {
       suffix = abbreviatedMin + 'm²+'
     } else if (max) {
