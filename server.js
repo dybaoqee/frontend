@@ -10,7 +10,7 @@ const handle = app.getRequestHandler()
 app.prepare()
 .then(() => {
   const server = express()
-  server.use(sslRedirect(['production']))
+  server.use(sslRedirect(['production'], 301))
 
   server.get('/jobs', (req, res) => {
     return app.render(req, res, '/jobs', req.query)
