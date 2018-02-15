@@ -2,7 +2,7 @@ import {Component} from 'react'
 import ReactGA from 'react-ga'
 
 import {isAuthenticated, isAdmin, getCurrentUserId, getJwt} from 'lib/auth'
-import {getListing} from 'services/listing-api'
+import {getListing, getRelatedListings} from 'services/listing-api'
 import {createInterest} from 'services/interest-api'
 
 import Layout from 'components/main-layout'
@@ -14,6 +14,7 @@ import ListingMainContent from 'components/listings/show/main-content'
 import ListingMap from 'components/listings/show/map'
 import InterestForm from 'components/listings/show/interest_form'
 import InterestPosted from 'components/listings/show/interest_posted'
+import RelatedListings from 'components/listings/show/RelatedListings'
 
 export default class Listing extends Component {
   state = {
@@ -32,19 +33,23 @@ export default class Listing extends Component {
     const jwt = getJwt(context)
     const {id} = context.query
 
-    const res = await getListing(id, jwt)
+    const results = await Promise.all([ getListing(id, jwt), getRelatedListings(id) ])
 
-    if (res.data.errors) {
-      this.setState({errors: res.data.errors})
-      return {}
-    }
+    for(const res of results) {
+      console.log(res)
+      if (res.data.errors) {
+        this.setState({errors: res.data.errors})
+        return {}
+      }
 
-    if (!res.data) {
-      return res
+      if (!res.data) {
+        return res
+      }
     }
 
     return {
-      listing: res.data.listing,
+      listing: results[0].data.listing,
+      related: results[1].data.listings,
       currentUser: {
         id: getCurrentUserId(context),
         admin: isAdmin(context),
@@ -143,7 +148,7 @@ export default class Listing extends Component {
   }
 
   render() {
-    const {currentUser, listing} = this.props
+    const {currentUser, listing, related} = this.props
     const {authenticated} = currentUser
     const {
       imageIndex,
@@ -193,6 +198,8 @@ export default class Listing extends Component {
           />
 
           <ListingMap listing={listing} />
+
+          <RelatedListings listings={related} />
 
           {isInterestPopupVisible && (
             <InterestForm
