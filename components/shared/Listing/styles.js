@@ -1,6 +1,6 @@
 import * as colors from 'constants/colors'
 import {mobileMedia} from 'constants/media'
-import styled from "styled-components"
+import styled from 'styled-components'
 
 export default styled.div`
   border-radius: 8px;
@@ -42,6 +42,11 @@ export default styled.div`
     background-position: center;
     background-size: cover;
     height: 180px;
+    width: 100%;
+  }
+
+  @media ${mobileMedia} {
+    margin-bottom: 30px;
     width: 100%;
   }
 `
