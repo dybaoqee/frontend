@@ -68,12 +68,23 @@ export const getListings = async (query) => {
   }
 }
 
-export const getFeaturedListings = async (query) => {
-  const endpoint = '/featured_listings'
-  const params = buildGetParams(query)
+export const getRelatedListings = async (id) => {
+  const endpoint = `/listings/${id}/related`
 
   try {
-    return await get(endpoint, null, params)
+    return await get(endpoint, null)
+  } catch (error) {
+    return error.response && error.response.status === 422
+      ? error.response
+      : 'Unknown error. Please try again.'
+  }
+}
+
+export const getFeaturedListings = async () => {
+  const endpoint = '/featured_listings'
+
+  try {
+    return await get(endpoint, null)
   } catch (error) {
     return error.response && error.response.status === 422
       ? error.response
