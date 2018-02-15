@@ -12,8 +12,8 @@ import ImageGallery from 'components/listings/show/image-gallery'
 import Matterport from 'components/listings/show/matterport'
 import ListingMainContent from 'components/listings/show/main-content'
 import ListingMap from 'components/listings/show/map'
-import InterestForm from 'components/listings/interest_form'
-import InterestPosted from 'components/listings/interest_posted'
+import InterestForm from 'components/listings/show/interest_form'
+import InterestPosted from 'components/listings/show/interest_posted'
 
 export default class Listing extends Component {
   state = {
