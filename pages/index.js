@@ -39,7 +39,6 @@ export default class MyPage extends Component {
     }
 
     return {
-      renderFooter: true,
       listings: res.data.listings,
       authenticated: isAuthenticated(context),
       neighborhoods: neighborhoodResponse.data.neighborhoods,
