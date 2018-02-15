@@ -2,11 +2,11 @@ import {Component} from 'react'
 
 import * as colors from 'constants/colors'
 import {mobileMedia} from 'constants/media'
-import Listing from "../Listing"
+import Listing from 'components/shared/Listing'
 
 export default class ListingFeed extends Component {
   static defaultProps = {
-    numberOfListingsToShow: 4
+    numberOfListingsToShow: 4,
   }
 
   render() {
@@ -14,12 +14,9 @@ export default class ListingFeed extends Component {
 
     return (
       <div className="container">
-        {listings.slice(0, numberOfListingsToShow).map(listing => (
-          <Listing
-            key={listing.id}
-            {...listing}
-          />
-        ))}
+        {listings
+          .slice(0, numberOfListingsToShow)
+          .map((listing) => <Listing key={listing.id} {...listing} />)}
 
         <style jsx>{`
           div.container {
@@ -37,7 +34,6 @@ export default class ListingFeed extends Component {
               width: calc(100vw - 40px);
 
               > div {
-                margin-bottom: 30px !important;
                 width: 100%;
               }
             }
