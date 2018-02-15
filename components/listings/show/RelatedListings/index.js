@@ -1,13 +1,13 @@
-import {Component} from "react"
+import {Component} from 'react'
 
-import ListingFeed from "components/shared/ListingFeed"
-import Container from "./styles"
+import ListingFeed from 'components/shared/ListingFeed'
+import Container from './styles'
 
 export default class RelatedListings extends Component {
   render() {
     return (
       <Container>
-        <h3>Anúncios Parecidos</h3>
+        <h3>Confira também:</h3>
         <ListingFeed {...this.props} />
       </Container>
     )
