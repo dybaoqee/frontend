@@ -72,7 +72,7 @@ export const getRelatedListings = async id => {
   const endpoint = `/listings/${id}/related`
 
   try {
-    return await get(endpoint, null)
+    return await get(endpoint, null, {limit: 4})
   } catch (error) {
     if (error.response && error.response.status === 422)
       throw new Error('Unknown error. Please try again.', error)

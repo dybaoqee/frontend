@@ -5,18 +5,12 @@ import {mobileMedia} from 'constants/media'
 import Listing from 'components/shared/Listing'
 
 export default class ListingFeed extends Component {
-  static defaultProps = {
-    numberOfListingsToShow: 4
-  }
-
   render() {
-    const {listings, numberOfListingsToShow} = this.props
+    const {listings} = this.props
 
     return (
       <div className="container">
-        {listings
-          .slice(0, numberOfListingsToShow)
-          .map(listing => <Listing key={listing.id} {...listing} />)}
+        {listings.map((listing) => <Listing key={listing.id} {...listing} />)}
 
         <style jsx>{`
           div.container {

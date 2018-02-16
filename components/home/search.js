@@ -99,7 +99,7 @@ export default class HomeSearch extends Component {
 
     return (
       <div className="container">
-        <h1>Encontre o Imóvel Perfeito para Você</h1>
+        <h1>Encontre o Imóvel Perfeito para Você no Rio de Janeiro</h1>
 
         <div className="search">
           <div>
