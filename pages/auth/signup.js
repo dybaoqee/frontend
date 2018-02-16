@@ -2,8 +2,8 @@ import {Component} from 'react'
 import Link from 'next/link'
 
 import Layout from 'components/views/shared/Shell'
-import OneColumnForm from 'components/one-column-form'
-import Error from 'components/error'
+import Form from 'components/views/auth/shared/Form'
+import Error from 'components/views/auth/shared/Error'
 import {getCookie, removeCookie} from 'lib/session'
 import {signIn, signUp, redirectIfAuthenticated} from 'lib/auth'
 
@@ -52,7 +52,7 @@ export default class Login extends Component {
     return (
       <Layout>
         <div>
-          <OneColumnForm handleSubmit={this.handleSubmit}>
+          <Form handleSubmit={this.handleSubmit}>
             <h1>Cadastre-se</h1>
 
             <div className="control-group">
@@ -68,7 +68,7 @@ export default class Login extends Component {
             </div>
 
             <button type="submit">Enviar</button>
-          </OneColumnForm>
+          </Form>
         </div>
       </Layout>
     )
