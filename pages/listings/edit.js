@@ -8,7 +8,7 @@ import {editListing, updateListing} from 'services/listing-api'
 
 import Layout from 'components/views/shared/Shell'
 import TextContainer from 'components/text-container'
-import AdminHeader from 'components/admin-header'
+import AdminHeader from 'components/views/shared/AdminHeader'
 import * as colors from 'constants/colors'
 
 export default class ListingEdit extends Component {

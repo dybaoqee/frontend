@@ -13,7 +13,7 @@ import {redirectIfNotAuthenticated, getJwt, isAuthenticated} from 'lib/auth'
 
 import Layout from 'components/views/shared/Shell'
 import TextContainer from 'components/text-container'
-import AdminHeader from 'components/admin-header'
+import AdminHeader from 'components/views/shared/AdminHeader'
 import DraggableImage from 'components/views/listings/show/images/image'
 import ImageUpload from 'components/views/listings/show/images/upload'
 
