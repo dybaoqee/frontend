@@ -7,7 +7,7 @@ import {redirectIfNotAuthenticated, getJwt, isAuthenticated} from 'lib/auth'
 import {editListing, updateListing} from 'services/listing-api'
 
 import Layout from 'components/views/shared/Shell'
-import TextContainer from 'components/text-container'
+import TextContainer from 'components/shared/TextContainer'
 import AdminHeader from 'components/views/shared/AdminHeader'
 import * as colors from 'constants/colors'
 

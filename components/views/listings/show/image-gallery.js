@@ -2,7 +2,7 @@ import React from 'react'
 
 import {imageUrl} from 'utils/image_url'
 
-import Lightbox from 'components/lightbox'
+import Lightbox from 'components/shared/Lightbox'
 
 export default class ImageGallery extends React.Component {
   render() {

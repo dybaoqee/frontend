@@ -3,7 +3,7 @@ import Head from 'next/head'
 
 import {isAuthenticated} from 'lib/auth'
 import Layout from 'components/views/shared/Shell'
-import TextContainer from 'components/text-container'
+import TextContainer from 'components/shared/TextContainer'
 
 export default class Indique extends Component {
   static async getInitialProps(context) {

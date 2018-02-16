@@ -1,6 +1,6 @@
 import {Component} from 'react'
 
-import Lightbox from 'components/lightbox'
+import Lightbox from 'components/shared/Lightbox'
 
 export default class Matterport extends Component {
   render() {
