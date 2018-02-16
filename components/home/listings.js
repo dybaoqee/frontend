@@ -1,1 +1,2 @@
-export { default } from "components/shared/ListingFeed"
+export {default} from 'components/shared/ListingFeed'
+

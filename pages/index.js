@@ -2,9 +2,9 @@ import {Component} from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 
-import * as colors from 'constants/colors'
 import {getFeaturedListings} from 'services/listing-api'
 import {getNeighborhoods} from 'services/neighborhood-api'
+import * as colors from 'constants/colors'
 import {isAuthenticated} from 'lib/auth'
 import Layout from 'components/main-layout'
 import HomeSearch from 'components/home/search'
@@ -15,39 +15,26 @@ import HomeBuySell from 'components/home/BuySell'
 
 export default class MyPage extends Component {
   static async getInitialProps(context) {
-    const res = await getFeaturedListings(context.query)
-
-    if (res.data.errors) {
-      this.setState({errors: res.data.errors})
-      return {}
-    }
-
-    if (!res.data) {
-      return res
-    }
-
-    const neighborhoodResponse = await getNeighborhoods()
-
-    if (neighborhoodResponse.data.errors) {
-      this.setState({errors: neighborhoodResponse.data.errors})
-      return {}
-    }
-
-    if (!neighborhoodResponse.data) {
-      this.setState({errors: 'Unknown error. Please try again.'})
-      return {}
-    }
+    const [feed, search] = await Promise.all([
+      getFeaturedListings(context.query).then(({data}) => data),
+      getNeighborhoods().then(({data}) => data)
+    ]).catch(error => {
+      const {response} = error
+      if (response && response.data.errors) this.setState({
+        errors: response.data.errors
+      })
+      else throw error
+    })
 
     return {
-      listings: res.data.listings,
-      authenticated: isAuthenticated(context),
-      neighborhoods: neighborhoodResponse.data.neighborhoods,
-      query: context.query,
+      feed,
+      search,
+      authenticated: isAuthenticated(context)
     }
   }
 
   render() {
-    const {authenticated, listings, neighborhoods} = this.props
+    const {authenticated, feed, search} = this.props
     const seoImg =
       'http://res.cloudinary.com/emcasa/image/upload/v1517101014/emcasa-fb-2018-01-27_ntxnrz.jpg'
     const seoTitle =
@@ -70,8 +57,8 @@ export default class MyPage extends Component {
           <meta name="twitter:image" content={seoImg} />
         </Head>
 
-        <HomeSearch neighborhoods={neighborhoods} />
-        <HomeListings listings={listings} />
+        <HomeSearch {...search} />
+        <HomeListings {...feed} />
         <Link href={'/listings/index'} as={'/imoveis'}>
           <a>Ver mais imóveis →</a>
         </Link>
