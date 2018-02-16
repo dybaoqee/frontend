@@ -5,8 +5,7 @@ module.exports = {
     "es6": true
   },
   "extends": [
-    "eslint:recommended",
-    "plugin:prettier/recommended"
+    "eslint:recommended"
   ],
   "parser": "babel-eslint",
   "parserOptions": {
@@ -18,9 +17,14 @@ module.exports = {
   },
   "plugins": [
     "react",
-    "prettier",
+    "prettier"
   ],
   "rules": {
+    "prettier/prettier": ["error", {
+      "bracketSpacing": false,
+      "singleQuote": true,
+      "semi": false
+    }],
     "array-bracket-spacing": [2, "never"],
     "comma-dangle": ["error", {
         "arrays": "always-multiline",
