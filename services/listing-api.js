@@ -1,6 +1,6 @@
-import { get, post, put } from 'lib/request'
+import {get, post, put} from 'lib/request'
 
-const buildPayload = (data) => {
+const buildPayload = data => {
   return {
     listing: {
       complement: data.complement,
@@ -29,12 +29,12 @@ const buildPayload = (data) => {
 }
 
 const translatedKeys = {
-  'bairros': 'neighborhoods',
-  'area_minima': 'min_area',
-  'area_maxima': 'max_area',
-  'preco_maximo': 'max_price',
-  'preco_minimo': 'min_price',
-  'quartos': 'rooms'
+  bairros: 'neighborhoods',
+  area_minima: 'min_area',
+  area_maxima: 'max_area',
+  preco_maximo: 'max_price',
+  preco_minimo: 'min_price',
+  quartos: 'rooms'
 }
 
 // Transforms something like
@@ -55,28 +55,28 @@ const splitParam = function(param, key) {
   return param
 }
 
-export const getListings = async (query) => {
+export const getListings = async query => {
   const endpoint = '/listings'
   const params = buildGetParams(query)
 
   try {
     return await get(endpoint, null, params)
   } catch (error) {
-    return error.response && error.response.status === 422
-      ? error.response
-      : 'Unknown error. Please try again.'
+    if (error.response && error.response.status === 422)
+      throw new Error('Unknown error. Please try again.', error)
+    else throw error
   }
 }
 
-export const getRelatedListings = async (id) => {
+export const getRelatedListings = async id => {
   const endpoint = `/listings/${id}/related`
 
   try {
     return await get(endpoint, null)
   } catch (error) {
-    return error.response && error.response.status === 422
-      ? error.response
-      : 'Unknown error. Please try again.'
+    if (error.response && error.response.status === 422)
+      throw new Error('Unknown error. Please try again.', error)
+    else throw error
   }
 }
 
@@ -86,9 +86,9 @@ export const getFeaturedListings = async () => {
   try {
     return await get(endpoint, null)
   } catch (error) {
-    return error.response && error.response.status === 422
-      ? error.response
-      : 'Unknown error. Please try again.'
+    if (error.response && error.response.status === 422)
+      throw new Error('Unknown error. Please try again.', error)
+    else throw error
   }
 }
 
@@ -97,9 +97,9 @@ export const getListing = async (id, jwt) => {
     const response = await get('/listings/' + id, jwt)
     return response
   } catch (error) {
-    return error.response && error.response.status === 422
-      ? error.response
-      : 'Unknown error. Please try again.'
+    if (error.response && error.response.status === 422)
+      throw new Error('Unknown error. Please try again.', error)
+    else throw error
   }
 }
 
@@ -109,18 +109,14 @@ export const createListing = async (data, jwt) => {
     const response = await post('/listings', payload, jwt)
     return response
   } catch (error) {
-    return error.response && error.response.status === 422
-      ? error.response
-      : 'Unknown error. Please try again.'
+    if (error.response && error.response.status === 422)
+      throw new Error('Unknown error. Please try again.', error)
+    else throw error
   }
 }
 
 export const editListing = async (id, jwt) => {
-  try {
-    return get(`/listings/${id}/edit`, jwt)
-  } catch (error) {
-    return error.response
-  }
+  return get(`/listings/${id}/edit`, jwt)
 }
 
 export const updateListing = async (id, data, jwt) => {
@@ -129,8 +125,8 @@ export const updateListing = async (id, data, jwt) => {
     const response = await put(`/listings/${id}`, payload, jwt)
     return response
   } catch (error) {
-    return error.response && error.response.status === 422
-      ? error.response
-      : 'Unknown error. Please try again.'
+    if (error.response && error.response.status === 422)
+      throw new Error('Unknown error. Please try again.', error)
+    else throw error
   }
 }
