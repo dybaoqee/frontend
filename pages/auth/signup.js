@@ -1,7 +1,7 @@
 import {Component} from 'react'
 import Link from 'next/link'
 
-import Layout from 'components/main-layout'
+import Layout from 'components/views/shared/Shell'
 import OneColumnForm from 'components/one-column-form'
 import Error from 'components/error'
 import {getCookie, removeCookie} from 'lib/session'

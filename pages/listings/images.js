@@ -11,7 +11,7 @@ import HTML5Backend from 'react-dnd-html5-backend'
 
 import {redirectIfNotAuthenticated, getJwt, isAuthenticated} from 'lib/auth'
 
-import Layout from 'components/main-layout'
+import Layout from 'components/views/shared/Shell'
 import TextContainer from 'components/text-container'
 import AdminHeader from 'components/admin-header'
 import DraggableImage from 'components/views/listings/show/images/image'

@@ -3,8 +3,9 @@ import Head from 'next/head'
 import ReactGA from 'react-ga'
 import Router from 'next/router'
 
-import Header from './header'
-import Footer from './footer'
+import Header from './Header'
+import Footer from './Footer'
+
 import {mobileMedia} from 'constants/media'
 import * as colors from 'constants/colors'
 

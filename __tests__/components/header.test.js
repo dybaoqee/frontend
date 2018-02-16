@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import Header from 'components/header';
+import Header from 'components/views/Shell/Header';
 import Link from 'next/link'
 
 configure({ adapter: new Adapter() });

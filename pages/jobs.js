@@ -2,7 +2,7 @@ import {Component} from 'react'
 import Head from 'next/head'
 
 import {isAuthenticated} from 'lib/auth'
-import Layout from 'components/main-layout'
+import Layout from 'components/views/shared/Shell'
 import TextContainer from 'components/text-container'
 
 class Jobs extends Component {

@@ -5,7 +5,7 @@ import {isAuthenticated, isAdmin, getCurrentUserId, getJwt} from 'lib/auth'
 import {getListing, getRelatedListings} from 'services/listing-api'
 import {createInterest} from 'services/interest-api'
 
-import Layout from 'components/main-layout'
+import Layout from 'components/views/shared/Shell'
 import ListingHead from 'components/views/listings/show/head'
 import ListingHeader from 'components/views/listings/show/Header'
 import ImageGallery from 'components/views/listings/show/image-gallery'

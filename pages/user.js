@@ -1,7 +1,7 @@
 import {Component} from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
-import Layout from 'components/main-layout'
+import Layout from 'components/views/shared/Shell'
 import {getUser, getCurrentUser} from 'services/user-api'
 import {redirectIfNotAuthenticated, getJwt} from 'lib/auth'
 

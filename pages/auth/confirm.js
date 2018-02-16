@@ -1,6 +1,6 @@
 import {Component} from 'react'
 import Link from 'next/link'
-import Layout from 'components/main-layout'
+import Layout from 'components/views/shared/Shell'
 import Error from 'components/error'
 import {getCookie, removeCookie} from 'lib/session'
 import {signIn, signUp, redirectIfAuthenticated, confirm} from 'lib/auth'
