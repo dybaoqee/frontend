@@ -34,7 +34,7 @@ export default class MyPage extends Component {
   }
 
   render() {
-    const {authenticated} = this.props
+    const {authenticated, feed, search} = this.props
     const seoImg =
       'http://res.cloudinary.com/emcasa/image/upload/v1517101014/emcasa-fb-2018-01-27_ntxnrz.jpg'
     const seoTitle =
@@ -57,8 +57,8 @@ export default class MyPage extends Component {
           <meta name="twitter:image" content={seoImg} />
         </Head>
 
-        <HomeSearch {...this.props.search} />
-        <HomeListings {...this.props.feed} />
+        <HomeSearch {...search} />
+        <HomeListings {...feed} />
         <Link href={'/listings/index'} as={'/imoveis'}>
           <a>Ver mais imóveis →</a>
         </Link>
