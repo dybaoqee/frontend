@@ -2,6 +2,8 @@ import {Component} from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 
+import {getFeaturedListings} from 'services/listing-api'
+import {getNeighborhoods} from 'services/neighborhood-api'
 import * as colors from 'constants/colors'
 import {isAuthenticated} from 'lib/auth'
 import Layout from 'components/main-layout'
@@ -14,8 +16,8 @@ import HomeBuySell from 'components/home/BuySell'
 export default class MyPage extends Component {
   static async getInitialProps(context) {
     const [feed, search] = await Promise.all([
-      HomeListings.getInitialProps(context),
-      HomeSearch.getInitialProps(context)
+      getFeaturedListings(context.query).then(({data}) => data),
+      getNeighborhoods().then(({data}) => data)
     ]).catch(error => {
       const {response} = error
       if (response && response.data.errors) this.setState({

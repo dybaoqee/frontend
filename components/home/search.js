@@ -8,17 +8,10 @@ import faSearch from '@fortawesome/fontawesome-free-solid/faSearch'
 import * as colors from 'constants/colors'
 import {mobileMedia} from 'constants/media'
 import * as filterOptions from 'constants/listing-filter-options'
-import {getNeighborhoods} from 'services/neighborhood-api'
 import {imageUrl} from 'utils/image_url'
 
 export default class HomeSearch extends Component {
   state = {}
-
-  static async getInitialProps() {
-    return {
-      neighborhoods: (await getNeighborhoods()).data.neighborhoods
-    }
-  }
 
   updateSelectedOption = (selectedOption, stateKey) => {
     const value =
