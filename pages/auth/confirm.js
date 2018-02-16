@@ -15,8 +15,6 @@ export default class Confirm extends Component {
 
     const res = await confirm(token)
 
-    console.log(res)
-
     if (!res.user) {
       return {
         error: res,
