@@ -33,22 +33,14 @@ export default class Listing extends Component {
     const jwt = getJwt(context)
     const {id} = context.query
 
-    const results = await Promise.all([getListing(id, jwt), getRelatedListings(id)])
-
-    for(const res of results) {
-      if (res.data.errors) {
-        this.setState({errors: res.data.errors})
-        return {}
-      }
-
-      if (!res.data) {
-        return res
-      }
-    }
+    const [listing, related] = await Promise.all([
+      getListing(id, jwt).then(({data}) => data.listing),
+      getRelatedListings(id).then(({data}) => data.listings),
+    ])
 
     return {
-      listing: results[0].data.listing,
-      related: results[1].data.listings,
+      listing,
+      related,
       currentUser: {
         id: getCurrentUserId(context),
         admin: isAdmin(context),
