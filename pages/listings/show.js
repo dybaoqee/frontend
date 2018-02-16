@@ -33,10 +33,9 @@ export default class Listing extends Component {
     const jwt = getJwt(context)
     const {id} = context.query
 
-    const results = await Promise.all([ getListing(id, jwt), getRelatedListings(id) ])
+    const results = await Promise.all([getListing(id, jwt), getRelatedListings(id)])
 
     for(const res of results) {
-      console.log(res)
       if (res.data.errors) {
         this.setState({errors: res.data.errors})
         return {}
