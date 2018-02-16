@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 
-import ListingTable from 'components/listings/index/listing_table'
+import ListingTable from 'components/views/listings/index/listing_table'
 
 import {mobileMedia} from 'constants/media'
 

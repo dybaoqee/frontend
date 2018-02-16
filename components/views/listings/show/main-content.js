@@ -3,7 +3,8 @@ import React from 'react'
 import {mobileMedia} from 'constants/media'
 import * as colors from 'constants/colors'
 
-import ListingCard from 'components/listings/show/card'
+import ListingCard from 'components/views/listings/show/card'
+
 export default class ListingMainContent extends React.Component {
   render() {
     const {listing, handleOpenPopup} = this.props

@@ -9,9 +9,9 @@ import {getListings} from 'services/listing-api'
 import {getNeighborhoods} from 'services/neighborhood-api'
 import Layout from 'components/main-layout'
 import MapContainer from 'components/map-container'
-import Listing from 'components/listings/index/listing'
-import ListingsNotFound from 'components/listings/index/not-found'
-import Filter from 'components/listings/index/filter'
+import Listing from 'components/views/listings/index/listing'
+import ListingsNotFound from 'components/views/listings/index/not-found'
+import Filter from 'components/views/listings/index/filter'
 
 import {mobileMedia} from 'constants/media'
 

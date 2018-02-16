@@ -14,8 +14,8 @@ import {redirectIfNotAuthenticated, getJwt, isAuthenticated} from 'lib/auth'
 import Layout from 'components/main-layout'
 import TextContainer from 'components/text-container'
 import AdminHeader from 'components/admin-header'
-import DraggableImage from 'components/listings/show/images/image'
-import ImageUpload from 'components/listings/show/images/upload'
+import DraggableImage from 'components/views/listings/show/images/image'
+import ImageUpload from 'components/views/listings/show/images/upload'
 
 @DragDropContext(HTML5Backend)
 export default class ListingImages extends Component {

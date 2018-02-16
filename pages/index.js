@@ -7,11 +7,11 @@ import {getNeighborhoods} from 'services/neighborhood-api'
 import * as colors from 'constants/colors'
 import {isAuthenticated} from 'lib/auth'
 import Layout from 'components/main-layout'
-import HomeSearch from 'components/home/search'
-import HomeListings from 'components/home/listings'
-import HomeTour from 'components/home/Tour'
-import HomeSellingPoints from 'components/home/selling-points'
-import HomeBuySell from 'components/home/BuySell'
+import HomeSearch from 'components/views/home/search'
+import HomeListings from 'components/views/home/listings'
+import HomeTour from 'components/views/home/Tour'
+import HomeSellingPoints from 'components/views/home/selling-points'
+import HomeBuySell from 'components/views/home/BuySell'
 
 export default class MyPage extends Component {
   static async getInitialProps(context) {
