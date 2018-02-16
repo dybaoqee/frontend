@@ -31,6 +31,8 @@ export default class ListingsIndex extends Component {
 
     this.state = {
       filterParams: {
+        currentPage: 1,
+        listings: {1: props.listings},
         isMobileOpen: false,
         params: {
           price: {
@@ -56,18 +58,11 @@ export default class ListingsIndex extends Component {
     }
   }
 
+  componentWillMount() {
+    this.onLoadPage()
+  }
+
   static async getInitialProps(context) {
-    const res = await getListings(context.query)
-
-    if (res.data.errors) {
-      this.setState({errors: res.data.errors})
-      return {}
-    }
-
-    if (!res.data) {
-      return res
-    }
-
     const neighborhoodResponse = await getNeighborhoods()
 
     if (neighborhoodResponse.data.errors) {
@@ -81,7 +76,6 @@ export default class ListingsIndex extends Component {
     }
 
     return {
-      listings: res.data.listings,
       currentUser: {
         id: getCurrentUserId(context),
         admin: isAdmin(context),
@@ -90,6 +84,18 @@ export default class ListingsIndex extends Component {
       neighborhoodOptions: neighborhoodResponse.data.neighborhoods,
       query: context.query,
     }
+  }
+
+  onLoadPage = async (page = 1) => {
+    const {data} = await getListings()
+    const currentPage = data.page_number
+    this.setState({
+      currentPage,
+      listings: {
+        ...this.state.listings,
+        [currentPage]: data.listings
+      }
+    })
   }
 
   handleMinPriceChange = (minPrice) => {
@@ -288,9 +294,15 @@ export default class ListingsIndex extends Component {
     if (!isMobileOpen) this.hideAllParams()
   }
 
+  get currentListings() {
+    const {currentPage, listings} = this.state
+    return listings[currentPage] || []
+  }
+
   render() {
-    const {listings, neighborhoodOptions, currentUser} = this.props
+    const {neighborhoodOptions, currentUser} = this.props
     const {isMobileOpen, params} = this.state.filterParams
+    const listings = this.currentListings
     const seoImgSrc =
       listings.length > 0 && mainListingImage(listings[0].images)
 
