@@ -10,7 +10,7 @@ import {getNeighborhoods} from 'services/neighborhood-api'
 import Layout from 'components/views/shared/Shell'
 import MapContainer from 'components/shared/MapContainer'
 import Listing from 'components/views/listings/index/Listing'
-import ListingsNotFound from 'components/views/listings/index/not-found'
+import ListingsNotFound from 'components/views/listings/index/NotFound'
 import Filter from 'components/views/listings/index/Search'
 
 import {mobileMedia} from 'constants/media'
