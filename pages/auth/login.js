@@ -1,9 +1,9 @@
 import {Component} from 'react'
 import Link from 'next/link'
 
-import Layout from 'components/views/shared/Shell'
-import Form from 'components/views/auth/shared/Form'
-import Error from 'components/views/auth/shared/Error'
+import Layout from 'components/shared/Shell'
+import Form from 'components/auth/shared/Form'
+import Error from 'components/auth/shared/Error'
 import {getCookie, removeCookie} from 'lib/session'
 import {signIn, redirectIfAuthenticated} from 'lib/auth'
 

@@ -5,7 +5,7 @@ import Router from 'next/router'
 import {redirectIfNotAuthenticated, getJwt, isAuthenticated} from 'lib/auth'
 import {createListing} from 'services/listing-api'
 import TextContainer from 'components/shared/TextContainer'
-import Layout from 'components/views/shared/Shell'
+import Layout from 'components/shared/Shell'
 import * as colors from 'constants/colors'
 
 export default class ListingNew extends Component {
