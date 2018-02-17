@@ -9,7 +9,7 @@ import {getListings} from 'services/listing-api'
 import {getNeighborhoods} from 'services/neighborhood-api'
 import Layout from 'components/views/shared/Shell'
 import MapContainer from 'components/shared/MapContainer'
-import Listing from 'components/views/listings/index/listing'
+import Listing from 'components/views/listings/index/Listing'
 import ListingsNotFound from 'components/views/listings/index/not-found'
 import Filter from 'components/views/listings/index/Search'
 

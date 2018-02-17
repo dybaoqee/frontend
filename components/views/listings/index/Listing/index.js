@@ -1,11 +1,11 @@
 import React from 'react'
 import Router from 'next/router'
 
-import ImageContainer from './image-container'
-import TextContainer from './text-container'
-
 import * as colors from 'constants/colors'
 import {mobileMedia} from 'constants/media'
+
+import ImageContainer from './ImageContainer'
+import TextContainer from './TextContainer'
 
 class Listing extends React.Component {
   handleListingClick = (e) => {
