@@ -1,11 +1,10 @@
 import React from 'react'
 import Link from 'next/link'
 
-import ListingTable from 'components/listings/index/listing_table'
-
 import {mobileMedia} from 'constants/media'
-
 import {canEdit} from 'permissions/listings-permissions'
+
+import ListingTable from './Table'
 
 class TextContainer extends React.Component {
   render() {
