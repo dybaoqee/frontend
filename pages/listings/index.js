@@ -11,7 +11,7 @@ import Layout from 'components/views/shared/Shell'
 import MapContainer from 'components/shared/MapContainer'
 import Listing from 'components/views/listings/index/listing'
 import ListingsNotFound from 'components/views/listings/index/not-found'
-import Filter from 'components/views/listings/index/filter'
+import Filter from 'components/views/listings/index/Search'
 
 import {mobileMedia} from 'constants/media'
 
