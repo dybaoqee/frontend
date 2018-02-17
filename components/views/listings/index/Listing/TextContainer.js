@@ -4,7 +4,7 @@ import Link from 'next/link'
 import {mobileMedia} from 'constants/media'
 import {canEdit} from 'permissions/listings-permissions'
 
-import ListingTable from 'components/views/listings/index/listing_table'
+import ListingTable from './Table'
 
 class TextContainer extends React.Component {
   render() {
