@@ -33,8 +33,6 @@ export default class ListingsIndex extends Component {
     this.state = {
       ...initialState,
       filterParams: {
-        // currentPage: 1,
-        // listings: {1: props.listings},
         isMobileOpen: false,
         params: {
           price: {
@@ -68,27 +66,27 @@ export default class ListingsIndex extends Component {
     ])
 
     return {
+      initialState,
       currentUser: {
         id: getCurrentUserId(context),
         admin: isAdmin(context),
         authenticated: isAuthenticated(context),
       },
-      initialState,
       neighborhoods,
       query: context.query,
     }
   }
 
-  static async getState(page) {
+  static async getState({page}) {
     const {data} = await getListings({page, page_size: 10})
     return {
-      currentPage: data.current_page,
-      listings: {[data.current_page]: data.listings}
+      currentPage: data.page_number,
+      listings: {[data.page_number]: data.listings}
     }
   }
 
   onLoad = async (page) => {
-    const state = await this.constructor.getState(page)
+    const state = await this.constructor.getState({page})
     this.setState({
       ...state,
       listings: {
