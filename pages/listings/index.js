@@ -376,8 +376,12 @@ export default class ListingsIndex extends Component {
               currentPage={currentPage}
               pages={listings}
               onLoad={this.onLoad}>
-              {(listing, i) => (
-                <Listing key={i} listing={listing} currentUser={currentUser} />
+              {(listing) => (
+                <Listing
+                  key={listing.id}
+                  listing={listing}
+                  currentUser={currentUser}
+                />
               )}
             </InfiniteScroll>
           </div>
