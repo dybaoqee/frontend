@@ -363,7 +363,7 @@ export default class ListingsIndex extends Component {
 
           <div className="map">
             <MapContainer
-              listings={listings}
+              listings={this.currentListings}
               height="100%"
               width="100%"
               zoom={13}
