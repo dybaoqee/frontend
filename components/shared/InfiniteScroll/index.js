@@ -1,4 +1,5 @@
 import {Component} from 'react'
+import Observer from '@researchgate/react-intersection-observer'
 import Container, {Page, Button} from './styles'
 
 export default class InfiniteScroll extends Component {
@@ -17,27 +18,25 @@ export default class InfiniteScroll extends Component {
     }
   }
 
-  onLoad = () => {
-    const {onLoad, currentPage} = this.props
-    onLoad(currentPage + 1)
-  }
+  onChange = (i) => () => this.props.onChange(i)
 
-  renderPage = (page) => {
+  renderPage = ([page, data]) => {
     const {children: render} = this.props
-    const data = this.props.pages[page]
     return (
       <Page key={page}>
-        {data.map((node) => render(node, page))}
+        {data.map(render)}
       </Page>
     )
   }
 
   render() {
-    const {pages} = this.props
+    const {pages, onNext} = this.props
     return (
       <Container>
-        {Object.keys(pages).map(this.renderPage)}
-        <Button onClick={this.onLoad}>Carregar Mais</Button>
+        {Array.from(pages).map(this.renderPage)}
+        <Observer>
+          <Button onClick={onNext}>Carregar Mais</Button>
+        </Observer>
       </Container>
     )
   }

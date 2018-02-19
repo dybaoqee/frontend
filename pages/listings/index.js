@@ -1,4 +1,5 @@
 import {Component} from 'react'
+import update from 'immutability-helper'
 import Head from 'next/head'
 import Router from 'next/router'
 
@@ -29,9 +30,14 @@ export default class ListingsIndex extends Component {
       bairros,
     } = props.query
     const neighborhoods = bairros ? bairros.split('|') : []
+    const listings = new Map(initialState.listings)
+    const currentPage = initialState.currentPage || 1
 
     this.state = {
       ...initialState,
+      listings,
+      nextPage: currentPage + 1,
+      prevPage: currentPage - 1,
       filterParams: {
         isMobileOpen: false,
         params: {
@@ -81,18 +87,36 @@ export default class ListingsIndex extends Component {
     const {data} = await getListings({page, page_size: 10})
     return {
       currentPage: data.page_number,
-      listings: {[data.page_number]: data.listings}
+      totalPages: data.total_pages,
+      listings: [[data.page_number, data.listings]]
     }
   }
 
-  onLoad = async (page) => {
-    const state = await this.constructor.getState({page})
+  onChange = async (currentPage) => this.setState({currentPage})
+
+  onNext = async () => {
+    const {nextPage} = this.state
+    if (!nextPage) return
+    const {listings, ...state} = await this.constructor.getState({
+      page: nextPage
+    })
     this.setState({
       ...state,
-      listings: {
-        ...this.state.listings,
-        ...state.listings
-      }
+      listings: update(this.state.listings, {$add: [[nextPage, listings]]}),
+      nextPage: nextPage + 1
+    })
+  }
+
+  onPrev = async () => {
+    const {prevPage} = this.state
+    if (!prevPage) return
+    const {listings, ...state} = await this.constructor.getState({
+      page: prevPage
+    })
+    this.setState({
+      ...state,
+      listings: new Map([[prevPage, listings], ...this.state.listings]),
+      prevPage: prevPage - 1
     })
   }
 
@@ -294,7 +318,7 @@ export default class ListingsIndex extends Component {
 
   get currentListings() {
     const {currentPage, listings} = this.state
-    return listings[currentPage] || []
+    return listings.get(currentPage) || []
   }
 
   get seoImage() {
@@ -375,7 +399,10 @@ export default class ListingsIndex extends Component {
             <InfiniteScroll
               currentPage={currentPage}
               pages={listings}
-              onLoad={this.onLoad}>
+              onChange={this.onChange}
+              onNext={this.onNext}
+              onPrev={this.onPrev}
+            >
               {(listing) => (
                 <Listing
                   key={listing.id}
