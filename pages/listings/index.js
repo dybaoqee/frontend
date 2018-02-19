@@ -80,7 +80,7 @@ export default class ListingsIndex extends Component {
   }
 
   static async load(page) {
-    const {data} = await getListings({page})
+    const {data} = await getListings({page, page_size: 10})
     return {
       currentPage: data.current_page,
       listings: {[data.current_page]: data.listings}
