@@ -1,6 +1,6 @@
 import {Component} from 'react'
 
-import Popup from 'components/popup'
+import Popup from 'components/shared/Popup'
 
 export default class InterestForm extends Component {
   render() {

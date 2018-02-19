@@ -5,13 +5,13 @@ import {isAuthenticated, isAdmin, getCurrentUserId, getJwt} from 'lib/auth'
 import {getListing, getRelatedListings} from 'services/listing-api'
 import {createInterest} from 'services/interest-api'
 
-import Layout from 'components/main-layout'
-import ListingHead from 'components/listings/show/head'
+import Layout from 'components/shared/Shell'
+import ListingHead from 'components/listings/show/Head'
 import ListingHeader from 'components/listings/show/Header'
-import ImageGallery from 'components/listings/show/image-gallery'
-import Matterport from 'components/listings/show/matterport'
-import ListingMainContent from 'components/listings/show/main-content'
-import ListingMap from 'components/listings/show/map'
+import ImageGallery from 'components/listings/show/ImageGallery'
+import Matterport from 'components/listings/show/Matterport'
+import ListingMainContent from 'components/listings/show/Body'
+import ListingMap from 'components/listings/show/Map'
 import InterestForm from 'components/listings/show/interest_form'
 import InterestPosted from 'components/listings/show/interest_posted'
 import RelatedListings from 'components/listings/show/RelatedListings'
@@ -33,23 +33,14 @@ export default class Listing extends Component {
     const jwt = getJwt(context)
     const {id} = context.query
 
-    const results = await Promise.all([ getListing(id, jwt), getRelatedListings(id) ])
-
-    for(const res of results) {
-      console.log(res)
-      if (res.data.errors) {
-        this.setState({errors: res.data.errors})
-        return {}
-      }
-
-      if (!res.data) {
-        return res
-      }
-    }
+    const [listing, related] = await Promise.all([
+      getListing(id, jwt).then(({data}) => data.listing),
+      getRelatedListings(id).then(({data}) => data.listings),
+    ])
 
     return {
-      listing: results[0].data.listing,
-      related: results[1].data.listings,
+      listing,
+      related,
       currentUser: {
         id: getCurrentUserId(context),
         admin: isAdmin(context),

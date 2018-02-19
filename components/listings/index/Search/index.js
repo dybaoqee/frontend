@@ -3,11 +3,11 @@ import {Component} from 'react'
 import * as colors from 'constants/colors'
 import {mobileMedia} from 'constants/media'
 
-import FilterHeader from 'components/listings/index/filter/header'
-import PriceFilter from 'components/listings/index/filter/price'
-import AreaFilter from 'components/listings/index/filter/area'
-import RoomFilter from 'components/listings/index/filter/rooms'
-import NeighborhoodFilter from 'components/listings/index/filter/neighborhoods'
+import FilterHeader from './Header'
+import PriceFilter from './Price'
+import AreaFilter from './Area'
+import RoomFilter from './Rooms'
+import NeighborhoodFilter from './Neighborhoods'
 
 export default class Filter extends Component {
   render() {

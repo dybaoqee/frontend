@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import {Component} from 'react'
 import Link from 'next/link'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import {faFacebook, faInstagram} from '@fortawesome/fontawesome-free-brands'
@@ -6,7 +6,7 @@ import {faFacebook, faInstagram} from '@fortawesome/fontawesome-free-brands'
 import {mobileMedia} from 'constants/media'
 import * as colors from 'constants/colors'
 
-export default class Header extends Component {
+export default class Footer extends Component {
   render() {
     return (
       <footer>
