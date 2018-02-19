@@ -16,7 +16,7 @@ import Filter from 'components/listings/index/Search'
 import {mobileMedia} from 'constants/media'
 
 export default class ListingsIndex extends Component {
-  constructor(props) {
+  constructor({initialState, ...props}) {
     super(props)
 
     const {
@@ -30,9 +30,10 @@ export default class ListingsIndex extends Component {
     const neighborhoods = bairros ? bairros.split('|') : []
 
     this.state = {
+      ...initialState,
       filterParams: {
-        currentPage: 1,
-        listings: {1: props.listings},
+        // currentPage: 1,
+        // listings: {1: props.listings},
         isMobileOpen: false,
         params: {
           price: {
@@ -58,22 +59,12 @@ export default class ListingsIndex extends Component {
     }
   }
 
-  componentWillMount() {
-    this.onLoadPage()
-  }
-
   static async getInitialProps(context) {
-    const neighborhoodResponse = await getNeighborhoods()
-
-    if (neighborhoodResponse.data.errors) {
-      this.setState({errors: neighborhoodResponse.data.errors})
-      return {}
-    }
-
-    if (!neighborhoodResponse.data) {
-      this.setState({errors: 'Unknown error. Please try again.'})
-      return {}
-    }
+    const currentPage = context.query.page || 1
+    const [initialState, neighborhoods] = await Promise.all([
+      this.load(currentPage),
+      getNeighborhoods().then(({data}) => data.neighborhoods),
+    ])
 
     return {
       currentUser: {
@@ -81,19 +72,27 @@ export default class ListingsIndex extends Component {
         admin: isAdmin(context),
         authenticated: isAuthenticated(context),
       },
-      neighborhoodOptions: neighborhoodResponse.data.neighborhoods,
+      initialState,
+      neighborhoods,
       query: context.query,
     }
   }
 
-  onLoadPage = async (page = 1) => {
-    const {data} = await getListings()
-    const currentPage = data.page_number
+  static async load(page) {
+    const {data} = await getListings({page})
+    return {
+      currentPage: data.current_page,
+      listings: {[data.current_page]: data.listings}
+    }
+  }
+
+  onLoad = async (page) => {
+    const {listings, ...props} = this.constructor.load(page)
     this.setState({
-      currentPage,
+      ...props,
       listings: {
         ...this.state.listings,
-        [currentPage]: data.listings
+        ...listings
       }
     })
   }
@@ -300,7 +299,7 @@ export default class ListingsIndex extends Component {
   }
 
   render() {
-    const {neighborhoodOptions, currentUser} = this.props
+    const {neighborhoods, currentUser} = this.props
     const {isMobileOpen, params} = this.state.filterParams
     const listings = this.currentListings
     const seoImgSrc =
@@ -333,7 +332,7 @@ export default class ListingsIndex extends Component {
 
         <div className="listings">
           <Filter
-            neighborhoodOptions={neighborhoodOptions}
+            neighborhoodOptions={neighborhoods}
             isMobileOpen={isMobileOpen}
             params={params}
             handleMinPriceChange={this.handleMinPriceChange}
