@@ -37,7 +37,7 @@ export default class InfiniteScroll extends Component {
     return (
       <Container>
         {Object.keys(pages).map(this.renderPage)}
-        <Button>Carregar Mais</Button>
+        <Button onClick={this.onLoad}>Carregar Mais</Button>
       </Container>
     )
   }
