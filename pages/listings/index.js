@@ -301,7 +301,7 @@ export default class ListingsIndex extends Component {
 
   get seoImage() {
     const listing = this.currentListings.pop()
-    return listing ? mainListingImage(listing.image) : null
+    return listing ? mainListingImage(listing.images) : null
   }
 
   render() {
