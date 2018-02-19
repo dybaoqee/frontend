@@ -8,6 +8,7 @@ import {isAuthenticated, isAdmin, getCurrentUserId} from 'lib/auth'
 import {getListings} from 'services/listing-api'
 import {getNeighborhoods} from 'services/neighborhood-api'
 import Layout from 'components/shared/Shell'
+import InfiniteScroll from 'components/shared/InfiniteScroll'
 import MapContainer from 'components/shared/MapContainer'
 import Listing from 'components/listings/index/Listing'
 import ListingsNotFound from 'components/listings/index/NotFound'
@@ -298,13 +299,16 @@ export default class ListingsIndex extends Component {
     return listings[currentPage] || []
   }
 
+  get seoImage() {
+    const listing = this.currentListings.pop()
+    return listing ? mainListingImage(listing.image) : null
+  }
+
   render() {
     const {neighborhoods, currentUser} = this.props
     const {isMobileOpen, params} = this.state.filterParams
-    const listings = this.currentListings
-    const seoImgSrc =
-      listings.length > 0 && mainListingImage(listings[0].images)
-
+    const {currentPage, listings} = this.state
+    const seoImgSrc = this.seoImage
     return (
       <Layout authenticated={currentUser.authenticated}>
         <Head>
@@ -367,15 +371,17 @@ export default class ListingsIndex extends Component {
           </div>
 
           <div className="entries-container">
-            {listings.map((listing, i) => {
-              return (
-                <Listing listing={listing} key={i} currentUser={currentUser} />
-              )
-            })}
-
             {listings.length == 0 && (
               <ListingsNotFound resetAllParams={this.resetAllParams} />
             )}
+            <InfiniteScroll
+              currentPage={currentPage}
+              pages={listings}
+              onLoad={this.onLoad}>
+              {(listing, i) => (
+                <Listing key={i} listing={listing} currentUser={currentUser} />
+              )}
+            </InfiniteScroll>
           </div>
         </div>
 
