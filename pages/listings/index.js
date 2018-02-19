@@ -61,9 +61,9 @@ export default class ListingsIndex extends Component {
   }
 
   static async getInitialProps(context) {
-    const currentPage = context.query.page || 1
+    const page = context.query.page || 1
     const [initialState, neighborhoods] = await Promise.all([
-      this.load(currentPage),
+      this.getState({page}),
       getNeighborhoods().then(({data}) => data.neighborhoods),
     ])
 
@@ -79,7 +79,7 @@ export default class ListingsIndex extends Component {
     }
   }
 
-  static async load(page) {
+  static async getState(page) {
     const {data} = await getListings({page, page_size: 10})
     return {
       currentPage: data.current_page,
@@ -88,12 +88,12 @@ export default class ListingsIndex extends Component {
   }
 
   onLoad = async (page) => {
-    const {listings, ...props} = this.constructor.load(page)
+    const state = await this.constructor.getState(page)
     this.setState({
-      ...props,
+      ...state,
       listings: {
         ...this.state.listings,
-        ...listings
+        ...state.listings
       }
     })
   }
