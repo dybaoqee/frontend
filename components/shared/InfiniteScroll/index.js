@@ -1,5 +1,5 @@
 import {Component} from 'react'
-import Container, {Button} from './styles'
+import Container, {Page, Button} from './styles'
 
 export default class InfiniteScroll extends Component {
   constructor(props) {
@@ -26,7 +26,9 @@ export default class InfiniteScroll extends Component {
     const {children: render} = this.props
     const data = this.props.pages[page]
     return (
-      <li>{render(data, page)}</li>
+      <Page key={page}>
+        {data.map((node) => render(node, page))}
+      </Page>
     )
   }
 
