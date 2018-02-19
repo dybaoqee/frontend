@@ -12,6 +12,13 @@ app.prepare()
   const server = express()
   server.use(sslRedirect(['production'], 301))
 
+  if(process.env.NODE_ENV === 'production') {
+    server.use((req, res, next) => {
+      if (req.hostname === 'localhost' || req.subdomains.length > 0) return next()
+      res.redirect(301, `https://www.${req.headers.host}${req.url}`)
+    })
+  }
+
   server.get('/jobs', (req, res) => {
     return app.render(req, res, '/jobs', req.query)
   })
