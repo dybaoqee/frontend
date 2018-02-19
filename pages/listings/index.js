@@ -100,9 +100,9 @@ export default class ListingsIndex extends Component {
     const {listings, ...state} = await this.constructor.getState({
       page: nextPage
     })
-    this.setState({
+    await this.setState({
       ...state,
-      listings: update(this.state.listings, {$add: [[nextPage, listings]]}),
+      listings: update(this.state.listings, {$add: listings}),
       nextPage: nextPage + 1
     })
   }
