@@ -43,8 +43,9 @@ const translatedKeys = {
 // { neighboorhood: ['Copacabana', 'Leblon'], max_price: '100000' }
 const buildGetParams = function(query) {
   return Object.keys(query).reduce(function(previous, key) {
-    previous[translatedKeys[key]] = splitParam(query[key], key)
-    return previous
+    const realKey = translatedKeys[key] || key
+    const value = splitParam(query[key], key)
+    return {...previous, [realKey]: value}
   }, {})
 }
 
