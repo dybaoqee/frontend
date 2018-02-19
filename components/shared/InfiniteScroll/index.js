@@ -22,19 +22,19 @@ export default class InfiniteScroll extends Component {
     onLoad(currentPage + 1)
   }
 
-  renderPage(page) {
-    const {render} = this.props
-    const data = this.props.data[page]
+  renderPage = (page) => {
+    const {children: render} = this.props
+    const data = this.props.pages[page]
     return (
       <li>{render(data, page)}</li>
     )
   }
 
   render() {
-    const {data} = this.props
+    const {pages} = this.props
     return (
       <Container>
-        {Object.keys(data).map(this.renderPage)}
+        {Object.keys(pages).map(this.renderPage)}
         <Button>Carregar Mais</Button>
       </Container>
     )
