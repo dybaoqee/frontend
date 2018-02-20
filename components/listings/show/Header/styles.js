@@ -11,8 +11,11 @@ export default styled.header`
     position: absolute;
   }
 
-  .image {
-    max-height: 100%;
+  div.image {
+    background-position: center;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
     margin: 0 auto;
     display: block;
   }

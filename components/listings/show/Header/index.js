@@ -15,7 +15,7 @@ export default class ListingHeader extends Component {
       handleOpen3DTour,
     } = this.props
 
-    const {matterport_code} = listing
+    const {matterport_code, images} = listing
     const src = `https://my.matterport.com/show/?m=${matterport_code}`
 
     return (
@@ -31,7 +31,10 @@ export default class ListingHeader extends Component {
             allowFullScreen
           />
         ) : (
-          <img className="image" src={mainListingImage(listing)} />
+          <div
+            className="image"
+            style={{backgroundImage: `url(${mainListingImage(images)})`}}
+          />
         )}
 
         <div className="top-right">
