@@ -27,5 +27,5 @@ export default function ListingsMap({children, range, currentPage, ...props}) {
 }
 
 ListingsMap.defaultProps = {
-  range: 6
+  range: 4
 }

@@ -85,7 +85,7 @@ export default class ListingsIndex extends Component {
   }
 
   static async getState({page}) {
-    const {data} = await getListings({page, page_size: 10})
+    const {data} = await getListings({page, page_size: 15})
     return {
       currentPage: data.page_number,
       totalPages: data.total_pages,
