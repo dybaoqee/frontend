@@ -5,9 +5,16 @@ export default styled.header`
   height: 400px;
   position: relative;
   width: 100%;
+  background-color: ${colors.offWhite};
 
   & div {
     position: absolute;
+  }
+
+  .image {
+    max-height: 100%;
+    margin: 0 auto;
+    display: block;
   }
 
   & div.overlay {

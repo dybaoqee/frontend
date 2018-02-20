@@ -3,6 +3,7 @@ import Link from 'next/link'
 
 import Container from './styles'
 import {canEdit} from 'permissions/listings-permissions'
+import {mainListingImage} from 'utils/image_url'
 
 export default class ListingHeader extends Component {
   render() {
@@ -21,7 +22,7 @@ export default class ListingHeader extends Component {
       <Container>
         <div className="overlay" onClick={handleOpen3DTour} />
 
-        {matterport_code && (
+        {matterport_code ? (
           <iframe
             width="100%"
             height="400px"
@@ -29,6 +30,8 @@ export default class ListingHeader extends Component {
             frameBorder="0"
             allowFullScreen
           />
+        ) : (
+          <img className="image" src={mainListingImage(listing)} />
         )}
 
         <div className="top-right">
