@@ -108,6 +108,7 @@ export default class ListingsIndex extends Component {
     })
   }
 
+  /*
   onPrev = async () => {
     const {prevPage} = this.state
     if (!prevPage) return
@@ -120,6 +121,7 @@ export default class ListingsIndex extends Component {
       prevPage: prevPage - 1
     })
   }
+  */
 
   handleMinPriceChange = (minPrice) => {
     const state = this.state
@@ -404,7 +406,6 @@ export default class ListingsIndex extends Component {
               pages={listings}
               onChange={this.onChange}
               onNext={this.onNext}
-              onPrev={this.onPrev}
             >
               {(listing) => (
                 <Listing
