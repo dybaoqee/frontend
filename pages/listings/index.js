@@ -319,7 +319,6 @@ export default class ListingsIndex extends Component {
 
   get currentListings() {
     const {currentPage, listings} = this.state
-    console.log(typeof listings, listings)
     return listings.get(currentPage) || []
   }
 
@@ -386,8 +385,13 @@ export default class ListingsIndex extends Component {
           />
 
           <div className="map">
-            <MapContainer height="100%" width="100%" zoom={13}>
-              {this.currentListings}
+            <MapContainer
+              zoom={13}
+              width="100%"
+              height="100%"
+              currentPage={currentPage}
+            >
+              {listings}
             </MapContainer>
           </div>
 
