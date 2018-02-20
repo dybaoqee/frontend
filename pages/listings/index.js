@@ -10,7 +10,7 @@ import {getListings} from 'services/listing-api'
 import {getNeighborhoods} from 'services/neighborhood-api'
 import Layout from 'components/shared/Shell'
 import InfiniteScroll from 'components/shared/InfiniteScroll'
-import MapContainer from 'components/shared/MapContainer'
+import Map from 'components/shared/MapContainer'
 import Listing from 'components/listings/index/Listing'
 import ListingsNotFound from 'components/listings/index/NotFound'
 import Filter from 'components/listings/index/Search'
@@ -385,7 +385,7 @@ export default class ListingsIndex extends Component {
           />
 
           <div className="map">
-            <MapContainer
+            <Map
               listings={this.currentListings}
               height="100%"
               width="100%"
