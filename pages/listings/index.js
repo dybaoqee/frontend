@@ -18,7 +18,7 @@ import Filter from 'components/listings/index/Search'
 import {mobileMedia} from 'constants/media'
 
 export default class ListingsIndex extends Component {
-  constructor({initialState, ...props}) {
+  constructor(props) {
     super(props)
 
     const {
@@ -29,6 +29,7 @@ export default class ListingsIndex extends Component {
       quartos,
       bairros,
     } = props.query
+    const {initialState} = props
     const neighborhoods = bairros ? bairros.split('|') : []
     const listings = new Map(initialState.listings)
     const currentPage = initialState.currentPage || 1
