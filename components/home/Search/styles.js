@@ -40,37 +40,49 @@ export const Search = styled.div`
   border: 1px solid ${colors.lightestGray};
   border-radius: 10px;
   display: flex;
-  flex-direction: column;
+
   margin: 60px auto 0;
   width: 600px;
   > div {
     align-items: center;
-    display: flex;
     height: 44px;
     &:first-of-type {
       border-bottom: 1px solid ${colors.lightestGray};
     }
-    > div {
-      height: 44px;
-      padding: 0;
-      &:last-child {
-        border-right: none;
-      }
+  }
+
+  & .Select-control {
+    background: transparent;
+    border: none;
+    height: 45px;
+
+    .Select-placeholder {
+      align-items: center;
+      display: flex;
+    }
+    .Select-value {
+      align-items: center;
+      border-radius: 9px;
+      display: flex;
+    }
+    .Select-input {
+      padding-top: 7px;
     }
   }
 
   @media ${mobileMedia} {
     background: transparent;
     border: none;
+    flex-direction: column;
     margin-top: 20px;
     width: calc(100vw - 40px);
     > div {
       flex-direction: column;
-      height: auto;
       &:first-of-type {
         border-bottom: none;
       }
       > div {
+        border-radius: 9px;
         border-right: none;
         background: white;
         margin-bottom: 20px;
@@ -80,5 +92,54 @@ export const Search = styled.div`
 `
 
 export const Neighborhoods = styled.div`
-  width: calc(50% - 20px);
+  width: calc(100% - 60px);
+  @media ${mobileMedia} {
+    border-radius: 8px;
+    width: 100%;
+  }
+`
+
+export const Magnifier = styled.div`
+  align-items: center;
+  background: ${colors.blue};
+  border-bottom-right-radius: 9px;
+  border-top-right-radius: 9px;
+  cursor: pointer;
+  display: flex;
+  height: 44px;
+  justify-content: center;
+  width: 60px;
+  &:hover {
+    background: ${colors.darkenedBlue};
+  }
+  svg {
+    height: 20px;
+    width: 40px;
+  }
+  svg path {
+    fill: white;
+  }
+
+  @media ${mobileMedia} {
+    display: none;
+  }
+`
+
+export const MobileMagnifier = styled.div`
+  display: none;
+
+  @media ${mobileMedia} {
+    align-items: center;
+    background: ${colors.blue};
+    border-radius: 8px;
+    margin-top: 10px;
+    width: 100%;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    &:hover {
+      background: ${colors.darkenedBlue};
+    }
+  }
 `

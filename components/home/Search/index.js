@@ -10,7 +10,12 @@ import {mobileMedia} from 'constants/media'
 import * as filterOptions from 'constants/listing-filter-options'
 import {imageUrl} from 'utils/image_url'
 
-import Container, {Search, Neighborhoods} from './styles'
+import Container, {
+  Search,
+  Neighborhoods,
+  Magnifier,
+  MobileMagnifier,
+} from './styles'
 
 export default class HomeSearch extends Component {
   state = {}
@@ -97,99 +102,24 @@ export default class HomeSearch extends Component {
         <h1>Encontre o Imóvel Perfeito para Você no Rio de Janeiro</h1>
 
         <Search>
-          <div>
-            <Neighborhoods>
-              <Select
-                name="form-field-name"
-                arrowRenderer={null}
-                placeholder="Bairro"
-                value={bairros}
-                onChange={this.handleNeighborhoodChange}
-                options={neighborhoodOptions}
-                noResultsText="Não Encontramos Resultado"
-              />
-            </Neighborhoods>
-            <div className="magnifier-container" onClick={this.handleClick}>
-              <FontAwesomeIcon icon={faSearch} />
-            </div>
-          </div>
-          <div
-            className="mobile-magnifier-container"
-            onClick={this.handleClick}
-          >
+          <Neighborhoods>
+            <Select
+              name="form-field-name"
+              arrowRenderer={null}
+              placeholder="Bairro"
+              value={bairros}
+              onChange={this.handleNeighborhoodChange}
+              options={neighborhoodOptions}
+              noResultsText="Não Encontramos Resultado"
+            />
+          </Neighborhoods>
+          <Magnifier onClick={this.handleClick}>
+            <FontAwesomeIcon icon={faSearch} />
+          </Magnifier>
+          <MobileMagnifier onClick={this.handleClick}>
             Ver Imóveis →
-          </div>
+          </MobileMagnifier>
         </Search>
-
-        <style global jsx>{`
-          .search .Select-control {
-            background: transparent;
-            border: none;
-            height: 45px;
-
-            .Select-placeholder {
-              align-items: center;
-              display: flex;
-            }
-            .Select-value {
-              align-items: center;
-              display: flex;
-            }
-            .Select-input {
-              padding-top: 7px;
-            }
-          }
-        `}</style>
-        <style jsx>{`
-          div.magnifier-container {
-            align-items: center;
-            background: ${colors.blue};
-            border-top-right-radius: 9px;
-            cursor: pointer;
-            display: flex;
-            height: 44px;
-            justify-content: center;
-            width: 60px;
-            &:hover {
-              background: ${colors.darkenedBlue};
-            }
-            :global(svg) {
-              height: 20px;
-              width: 40px;
-            }
-            :global(svg path) {
-              fill: white;
-            }
-          }
-
-          div.mobile-magnifier-container {
-            display: none;
-          }
-
-          @media ${mobileMedia} {
-            div.neighborhoods,
-            div.mobile-magnifier-container {
-              border-radius: 8px;
-              width: 100%;
-            }
-
-            div.magnifier-container {
-              display: none;
-            }
-
-            div.search > div > div.mobile-magnifier-container {
-              align-items: center;
-              background: ${colors.blue};
-              color: white;
-              cursor: pointer;
-              display: flex;
-              justify-content: center;
-              &:hover {
-                background: ${colors.darkenedBlue};
-              }
-            }
-          }
-        `}</style>
       </Container>
     )
   }
