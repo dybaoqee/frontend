@@ -108,21 +108,6 @@ export default class ListingsIndex extends Component {
     })
   }
 
-  /*
-  onPrev = async () => {
-    const {prevPage} = this.state
-    if (!prevPage) return
-    const {listings, ...state} = await this.constructor.getState({
-      page: prevPage
-    })
-    this.setState({
-      ...state,
-      listings: new MapContainer([[prevPage, listings], ...this.state.listings]),
-      prevPage: prevPage - 1
-    })
-  }
-  */
-
   handleMinPriceChange = (minPrice) => {
     const state = this.state
     state.filterParams.params.price.min = minPrice ? minPrice.value : undefined
