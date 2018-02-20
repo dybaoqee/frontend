@@ -10,7 +10,7 @@ import {getListings} from 'services/listing-api'
 import {getNeighborhoods} from 'services/neighborhood-api'
 import Layout from 'components/shared/Shell'
 import InfiniteScroll from 'components/shared/InfiniteScroll'
-import Map from 'components/shared/MapContainer'
+import MapContainer from 'components/listings/index/Map'
 import Listing from 'components/listings/index/Listing'
 import ListingsNotFound from 'components/listings/index/NotFound'
 import Filter from 'components/listings/index/Search'
@@ -116,7 +116,7 @@ export default class ListingsIndex extends Component {
     })
     this.setState({
       ...state,
-      listings: new Map([[prevPage, listings], ...this.state.listings]),
+      listings: new MapContainer([[prevPage, listings], ...this.state.listings]),
       prevPage: prevPage - 1
     })
   }
@@ -319,6 +319,7 @@ export default class ListingsIndex extends Component {
 
   get currentListings() {
     const {currentPage, listings} = this.state
+    console.log(typeof listings, listings)
     return listings.get(currentPage) || []
   }
 
@@ -385,12 +386,9 @@ export default class ListingsIndex extends Component {
           />
 
           <div className="map">
-            <Map
-              listings={this.currentListings}
-              height="100%"
-              width="100%"
-              zoom={13}
-            />
+            <MapContainer height="100%" width="100%" zoom={13}>
+              {this.currentListings}
+            </MapContainer>
           </div>
 
           <div className="entries-container">

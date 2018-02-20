@@ -1,5 +1,7 @@
 import {Component} from 'react'
-import {Gmaps, Marker} from 'react-gmaps'
+import {Gmaps} from 'react-gmaps'
+
+import Marker from './Marker'
 
 const params = {v: '3.exp', key: 'AIzaSyDmYQLTPwsDPtErGWTgiejz17QCw39MEVQ'}
 
@@ -11,7 +13,7 @@ export default class MapContainer extends Component {
   }
 
   render() {
-    const {height, width, lat, lng, listings, zoom} = this.props
+    const {children, height, width, lat, lng, zoom} = this.props
     const defaultZoom = 15
 
     return (
@@ -25,18 +27,10 @@ export default class MapContainer extends Component {
         params={params}
       >
         <Marker lat={lat} lng={lng} />
-
-        {listings &&
-          listings.map((listing, i) => {
-            return (
-              <Marker
-                key={i}
-                lat={listing.address.lat}
-                lng={listing.address.lng}
-              />
-            )
-          })}
+        {children}
       </Gmaps>
     )
   }
 }
+
+export {Marker}
