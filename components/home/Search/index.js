@@ -11,7 +11,7 @@ import Container, {
   Search,
   Neighborhoods,
   Magnifier,
-  MobileMagnifier,
+  MobileMagnifier
 } from './styles'
 
 export default class HomeSearch extends Component {
@@ -76,7 +76,7 @@ export default class HomeSearch extends Component {
       ReactGA.event({
         category: 'Search',
         label: 'User search from Home',
-        action: 'homeSearch',
+        action: 'homeSearch'
       })
 
       Router.push(`/listings/index?${params}`, `/imoveis?${params}`).then(() =>
@@ -90,7 +90,7 @@ export default class HomeSearch extends Component {
   }
 
   render() {
-    const {quartos, preco_minimo, preco_maximo, bairros} = this.state
+    const {bairros} = this.state
     const {neighborhoods} = this.props
     const neighborhoodOptions = filterOptions.neighborhoodOptions(neighborhoods)
 
