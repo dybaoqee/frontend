@@ -8,7 +8,7 @@ export default function ListingsMarker({relevance, size, ...props}) {
   return (
     <Marker
       icon={{
-        size: getSize(relevance * size),
+        scaledSize: getSize(Math.ceil(relevance * size)),
         url: `${ICON_URL}/red.png`
       }}
       {...props}
@@ -17,5 +17,5 @@ export default function ListingsMarker({relevance, size, ...props}) {
 }
 
 ListingsMarker.defaultProps = {
-  size: 40
+  size: 90
 }
