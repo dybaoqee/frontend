@@ -1,7 +1,7 @@
 import _ from 'lodash/fp'
 import {Component} from 'react'
 import Observer from '@researchgate/react-intersection-observer'
-import Container, {Page, Button} from './styles'
+import Container, {Page, Footer} from './styles'
 
 const guard = (cond) => (fun) => (...args) => {
   if (cond(...args)) fun(...args)
@@ -49,7 +49,7 @@ export default class InfiniteScroll extends Component {
           onChange={this.onNext}
           rootMargin={`${threshold} 0px 0px 0px`}
         >
-          <Button>Carregar Mais</Button>
+          <Footer>Carregar Mais</Footer>
         </Observer>
       </Container>
     )
