@@ -1,14 +1,11 @@
-import Map, {Marker} from 'components/shared/Map'
+import Map from 'components/shared/Map'
+import Marker from './Marker'
 
-const relevance = (a, b) => a / b * -1
+const relevance = (a, b) => a / (b * 1.5) * -1
 
-export default function ListingsMap({
-  children,
-  range,
-  currentPage,
-  size,
-  ...props
-}) {
+const diff = (a, b) => Math.abs(a - b)
+
+export default function ListingsMap({children, range, currentPage, ...props}) {
   const pages = Array.from(children)
   const index = pages.findIndex(([num]) => num === currentPage)
   const visiblePages = pages.slice(index - range, index + range + 1)
@@ -18,6 +15,7 @@ export default function ListingsMap({
         listings.map((listing) => (
           <Marker
             key={listing.id}
+            relevance={relevance(diff(page, currentPage), range)}
             lat={listing.address.lat}
             lng={listing.address.lng}
           />
@@ -28,7 +26,5 @@ export default function ListingsMap({
 }
 
 ListingsMap.defaultProps = {
-  range: 3,
-  size: 40,
-  minSize: 10
+  range: 3
 }

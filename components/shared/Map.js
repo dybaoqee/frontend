@@ -1,7 +1,5 @@
 import {Component} from 'react'
-import {Gmaps} from 'react-gmaps'
-
-import Marker from './Marker'
+import {Gmaps, Marker} from 'react-gmaps'
 
 const params = {v: '3.exp', key: 'AIzaSyDmYQLTPwsDPtErGWTgiejz17QCw39MEVQ'}
 
