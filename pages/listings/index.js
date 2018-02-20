@@ -317,7 +317,7 @@ export default class ListingsIndex extends Component {
   render() {
     const {neighborhoods, currentUser} = this.props
     const {isMobileOpen, params} = this.state.filterParams
-    const {currentPage, listings} = this.state
+    const {currentPage, totalPages, listings} = this.state
     const seoImgSrc = this.seoImage
     return (
       <Layout authenticated={currentUser.authenticated}>
@@ -388,6 +388,7 @@ export default class ListingsIndex extends Component {
             )}
             <InfiniteScroll
               currentPage={currentPage}
+              totalPages={totalPages}
               pages={listings}
               onChange={this.onChange}
               onNext={this.onNext}

@@ -41,13 +41,16 @@ export default class InfiniteScroll extends Component {
   }
 
   render() {
-    const {pages, threshold, onNext} = this.props
+    const {pages, threshold, onNext, currentPage, totalPages} = this.props
+    const last = currentPage >= totalPages
     return (
       <Container>
         {Array.from(pages).map(this.renderPage)}
-        <Observer onChange={this.onNext} rootMargin={`${threshold} 0px`}>
-          <Footer>Carregar Mais</Footer>
-        </Observer>
+        {!last && (
+          <Observer onChange={this.onNext} rootMargin={`${threshold} 0px`}>
+            <Footer>Carregando...</Footer>
+          </Observer>
+        )}
       </Container>
     )
   }
