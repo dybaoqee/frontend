@@ -35,11 +35,13 @@ export default class InfiniteScroll extends Component {
   renderPage = ([page, data]) => {
     const {children: render} = this.props
     return (
-      <Observer onChange={this.onChange(page)}>
-        <Page key={page}>
-          {data.map(render)}
-        </Page>
-      </Observer>
+      <Page key={page}>
+        <Observer onChange={this.onChange(page)}>
+          <div>
+            {data.map(render)}
+          </div>
+        </Observer>
+      </Page>
     )
   }
 
