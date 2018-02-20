@@ -12,7 +12,7 @@ export default class ListingHeader extends Component {
       currentUser,
       handleOpenPopup,
       handleOpenImageGallery,
-      handleOpen3DTour,
+      handleOpen3DTour
     } = this.props
 
     const {matterport_code, images} = listing
@@ -20,7 +20,9 @@ export default class ListingHeader extends Component {
 
     return (
       <Container>
-        <div className="overlay" onClick={handleOpen3DTour} />
+        {matterport_code && (
+          <div className="overlay" onClick={handleOpen3DTour} />
+        )}
 
         {matterport_code ? (
           <iframe
@@ -34,6 +36,7 @@ export default class ListingHeader extends Component {
           <div
             className="image"
             style={{backgroundImage: `url(${mainListingImage(images)})`}}
+            onClick={handleOpenImageGallery}
           />
         )}
 
@@ -53,6 +56,12 @@ export default class ListingHeader extends Component {
         </div>
 
         <div className="bottom-right">
+          {listing.matterport_code && (
+            <button className="white" onClick={handleOpen3DTour}>
+              Ver Tour
+            </button>
+          )}
+
           {listing.images.length > 0 && (
             <button className="white" onClick={handleOpenImageGallery}>
               Ver Fotos

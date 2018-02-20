@@ -14,6 +14,7 @@ export default styled.header`
   div.image {
     background-position: center;
     background-size: cover;
+    cursor: pointer;
     height: 100%;
     width: 100%;
     margin: 0 auto;
