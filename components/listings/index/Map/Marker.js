@@ -19,7 +19,3 @@ export default function ListingsMarker({relevance, size, ...props}) {
     />
   )
 }
-
-ListingsMarker.defaultProps = {
-  size: 90
-}
