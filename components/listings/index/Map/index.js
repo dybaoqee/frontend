@@ -8,7 +8,7 @@ const relevance = (d, c) => Math.abs(d / c - 1)
 export default function ListingsMap({children, range, currentPage, ...props}) {
   const pages = Array.from(children)
   const index = pages.findIndex(([num]) => num === currentPage)
-  const visiblePages = pages.slice(index - range, index + range)
+  const visiblePages = pages.slice(Math.max(0, index - range), index + range)
   const length = visiblePages.length
   return (
     <Map {...props}>
@@ -27,5 +27,5 @@ export default function ListingsMap({children, range, currentPage, ...props}) {
 }
 
 ListingsMap.defaultProps = {
-  range: 4
+  range: 6
 }
