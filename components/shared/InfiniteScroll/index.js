@@ -14,7 +14,7 @@ const inView = _.flow([
 
 export default class InfiniteScroll extends Component {
   static defaultProps = {
-    threshold: '100px'
+    threshold: '2000px'
   }
 
   constructor(props) {
@@ -45,10 +45,7 @@ export default class InfiniteScroll extends Component {
     return (
       <Container>
         {Array.from(pages).map(this.renderPage)}
-        <Observer
-          onChange={this.onNext}
-          rootMargin={`${threshold} 0px 0px 0px`}
-        >
+        <Observer onChange={this.onNext} rootMargin={`${threshold} 0px`}>
           <Footer>Carregar Mais</Footer>
         </Observer>
       </Container>
