@@ -46,9 +46,6 @@ export const Search = styled.div`
   > div {
     align-items: center;
     height: 44px;
-    &:first-of-type {
-      border-bottom: 1px solid ${colors.lightestGray};
-    }
   }
 
   & .Select-control {
