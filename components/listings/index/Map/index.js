@@ -1,9 +1,9 @@
 import Map from 'components/shared/Map'
 import Marker from './Marker'
 
-const diff = (a, c) => Math.abs(a - c)
+const diff = (a, b) => Math.abs(a - b)
 
-const relevance = (d, c) => Math.abs(d / c - 1)
+const relevance = (pos, length) => Math.abs(pos / length - 1)
 
 export default function ListingsMap({children, range, currentPage, ...props}) {
   const pages = Array.from(children)
