@@ -27,7 +27,7 @@ export default class ListingsIndex extends Component {
       area_minima,
       area_maxima,
       quartos,
-      bairros,
+      bairros
     } = props.query
     const {initialState} = props
     const neighborhoods = bairros ? bairros.split('|') : []
@@ -45,31 +45,30 @@ export default class ListingsIndex extends Component {
           price: {
             min: preco_minimo,
             max: preco_maximo,
-            visible: false,
+            visible: false
           },
           area: {
             min: area_minima,
             max: area_maxima,
-            visible: false,
+            visible: false
           },
           rooms: {
             value: quartos,
-            visible: false,
+            visible: false
           },
           neighborhoods: {
             value: neighborhoods,
-            visible: false,
-          },
-        },
-      },
+            visible: false
+          }
+        }
+      }
     }
   }
 
   static async getInitialProps(context) {
-    const page = context.query.page || 1
     const [initialState, neighborhoods] = await Promise.all([
-      this.getState({page}),
-      getNeighborhoods().then(({data}) => data.neighborhoods),
+      this.getState(context.query),
+      getNeighborhoods().then(({data}) => data.neighborhoods)
     ])
 
     return {
@@ -77,15 +76,16 @@ export default class ListingsIndex extends Component {
       currentUser: {
         id: getCurrentUserId(context),
         admin: isAdmin(context),
-        authenticated: isAuthenticated(context),
+        authenticated: isAuthenticated(context)
       },
       neighborhoods,
-      query: context.query,
+      query: context.query
     }
   }
 
-  static async getState({page}) {
-    const {data} = await getListings({page, page_size: 15})
+  static async getState(query) {
+    const page = query.page || 1
+    const {data} = await getListings({...query, page, page_size: 15})
     return {
       currentPage: data.page_number,
       totalPages: data.total_pages,
@@ -97,8 +97,10 @@ export default class ListingsIndex extends Component {
 
   onNext = async () => {
     const {nextPage} = this.state
+    const params = treatParams(this.state.filterParams)
     if (!nextPage) return
     const {listings, ...state} = await this.constructor.getState({
+      ...params,
       page: nextPage
     })
     await this.setState({
