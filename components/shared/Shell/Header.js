@@ -1,4 +1,4 @@
-import {Component} from 'react'
+import {Component, Fragment} from 'react'
 import Link from 'next/link'
 
 import {mobileMedia} from 'constants/media'
@@ -14,21 +14,12 @@ export default class Header extends Component {
     this.setState({isMobileNavVisible: newState})
   }
 
-  render() {
-    const {authenticated} = this.props
+  renderNav() {
+    const {authenticated, errorCode} = this.props
     const {isMobileNavVisible} = this.state
 
     return (
-      <header>
-        <Link href="/">
-          <a>
-            <img
-              src="/static/emcasa-imobiliaria-rio-de-janeiro.png"
-              alt="Emcasa Imobiliária no Rio de Janeiro"
-            />
-          </a>
-        </Link>
-
+      <Fragment>
         <button onClick={this.toggleMobileNavVisibility}>☰</button>
 
         <div className={isMobileNavVisible ? 'visible' : ''}>
@@ -52,6 +43,24 @@ export default class Header extends Component {
             </Link>
           )}
         </div>
+      </Fragment>
+    )
+  }
+
+  render() {
+    const {authenticated, errorCode} = this.props
+
+    return (
+      <header>
+        <Link href="/">
+          <a>
+            <img
+              src="/static/emcasa-imobiliaria-rio-de-janeiro.png"
+              alt="Emcasa Imobiliária no Rio de Janeiro"
+            />
+          </a>
+        </Link>
+        {errorCode ? <div>errorCode</div> : this.renderNav()}
 
         <style jsx>{`
           header {

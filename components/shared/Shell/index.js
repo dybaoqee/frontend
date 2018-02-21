@@ -16,11 +16,11 @@ Router.onRouteChangeComplete = () => {
 
 export default class Layout extends Component {
   render() {
-    const {authenticated, renderFooter} = this.props
+    const {authenticated, errorCode, renderFooter} = this.props
 
     return (
       <div>
-        <Header authenticated={authenticated} />
+        <Header errorCode={errorCode} authenticated={authenticated} />
         <main>{this.props.children}</main>
         {renderFooter && <Footer />}
         <style jsx global>{`
