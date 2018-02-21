@@ -28,6 +28,10 @@ export default class AppDocument extends Document {
           />
           <script
             async
+            src="https://polyfill.io/v2/polyfill.js?feature=IntersectionObserver"
+          />
+          <script
+            async
             src={`https://www.googletagmanager.com/gtag/js?id=${
               process.env.GOOGLE_ANALYTICS_TRACKING_ID
             }`}
