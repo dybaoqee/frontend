@@ -1,7 +1,7 @@
 import _ from 'lodash/fp'
 import {Component} from 'react'
 import Observer from '@researchgate/react-intersection-observer'
-import Container, {Page, Footer} from './styles'
+import Container, {Footer} from './styles'
 
 const guard = (cond) => (fun) => (...args) => {
   if (cond(...args)) fun(...args)
@@ -32,11 +32,11 @@ export default class InfiniteScroll extends Component {
   renderPage = ([page, data]) => {
     const {children: render} = this.props
     return (
-      <Page key={page}>
+      <li key={page}>
         <Observer onChange={this.onChange(page)}>
           <div>{data.map(render)}</div>
         </Observer>
-      </Page>
+      </li>
     )
   }
 

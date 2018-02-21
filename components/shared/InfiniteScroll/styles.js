@@ -8,9 +8,6 @@ export default styled.ul`
   list-style: none;
 `
 
-export const Page = styled.li`
-`
-
 export const Footer = styled.footer`
   width: 100%;
   padding: 25px 0;
