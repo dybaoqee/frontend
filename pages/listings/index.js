@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import {Component} from 'react'
 import update from 'immutability-helper'
 import Head from 'next/head'
@@ -100,15 +101,17 @@ export default class ListingsIndex extends Component {
   }
 
   componentWillReceiveProps(props) {
-    this.setState(getDerivedState(props))
+    if (!_.isEqual(props.initialState, this.props.initialState)) {
+      this.setState(getDerivedState(props))
+    }
   }
 
   onChange = async (currentPage) => this.setState({currentPage})
 
   onNext = async () => {
     const {nextPage} = this.state
-    const params = treatParams(this.state.filterParams.params)
     if (!nextPage) return
+    const params = treatParams(this.state.filterParams.params)
     const {listings, ...state} = await this.constructor.getState({
       ...params,
       page: nextPage
