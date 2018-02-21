@@ -1,7 +1,7 @@
 import {Component, Fragment} from 'react'
 import Link from 'next/link'
 
-import Container from './styled'
+import Container, {Button, Nav} from './styled'
 
 export default class Header extends Component {
   state = {
@@ -19,9 +19,9 @@ export default class Header extends Component {
 
     return (
       <Fragment>
-        <button onClick={this.toggleMobileNavVisibility}>☰</button>
+        <Button onClick={this.toggleMobileNavVisibility}>☰</Button>
 
-        <div className={isMobileNavVisible ? 'visible' : ''}>
+        <Nav visible={isMobileNavVisible}>
           {authenticated && (
             <Link href="/listings/new" as="/imoveis/adicionar">
               <a>Adicionar Imóvel</a>
@@ -41,7 +41,7 @@ export default class Header extends Component {
               <a>Logout</a>
             </Link>
           )}
-        </div>
+        </Nav>
       </Fragment>
     )
   }
