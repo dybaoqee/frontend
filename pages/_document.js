@@ -26,10 +26,7 @@ export default class AppDocument extends Document {
             href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800"
             rel="stylesheet"
           />
-          <script
-            async
-            src="https://polyfill.io/v2/polyfill.js?feature=IntersectionObserver"
-          />
+          <script src="https://polyfill.io/v2/polyfill.js?feature=IntersectionObserver" />
           <script
             async
             src={`https://www.googletagmanager.com/gtag/js?id=${
