@@ -12,7 +12,10 @@ export default class Footer extends Component {
       <footer>
         <Link href="/">
           <a>
-            <img src="/static/logo.png" alt="Footer Logo" />
+            <img
+              src="/static/emcasa-imobiliaria-rio-de-janeiro.png"
+              alt="Emcasa Imobiliária no Rio de Janeiro"
+            />
           </a>
         </Link>
 
