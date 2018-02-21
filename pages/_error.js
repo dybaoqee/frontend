@@ -1,7 +1,7 @@
 import {Component} from 'react'
 
 import {isAuthenticated} from 'lib/auth'
-import Layout from 'components/main-layout'
+import Layout from 'components/shared/Shell'
 
 export default class ErrorPage extends Component {
 
