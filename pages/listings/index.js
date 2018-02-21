@@ -17,6 +17,18 @@ import Filter from 'components/listings/index/Search'
 
 import {mobileMedia} from 'constants/media'
 
+const getDerivedState = ({initialState}) => {
+  const listings = new Map(initialState.listings)
+  const currentPage = initialState.currentPage || 1
+  return {
+    ...initialState,
+    listings,
+    currentPage,
+    nextPage: currentPage + 1,
+    prevPage: currentPage - 1
+  }
+}
+
 export default class ListingsIndex extends Component {
   constructor(props) {
     super(props)
@@ -29,16 +41,10 @@ export default class ListingsIndex extends Component {
       quartos,
       bairros
     } = props.query
-    const {initialState} = props
     const neighborhoods = bairros ? bairros.split('|') : []
-    const listings = new Map(initialState.listings)
-    const currentPage = initialState.currentPage || 1
 
     this.state = {
-      ...initialState,
-      listings,
-      nextPage: currentPage + 1,
-      prevPage: currentPage - 1,
+      ...getDerivedState(props),
       filterParams: {
         isMobileOpen: false,
         params: {
@@ -91,6 +97,10 @@ export default class ListingsIndex extends Component {
       totalPages: data.total_pages,
       listings: [[data.page_number, data.listings]]
     }
+  }
+
+  componentWillReceiveProps(props) {
+    this.setState(getDerivedState(props))
   }
 
   onChange = async (currentPage) => this.setState({currentPage})
