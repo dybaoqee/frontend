@@ -2,15 +2,19 @@ import Document, {Head, Main, NextScript} from 'next/document'
 import {ServerStyleSheet} from 'styled-components'
 import flush from 'styled-jsx/server'
 
+const FEATURES = ['IntersectionObserver', 'Array.prototype.findIndex']
+
 export default class AppDocument extends Document {
-  static getInitialProps ({renderPage}) {
+  static getInitialProps({renderPage}) {
     const sheet = new ServerStyleSheet()
-    const page = renderPage((App) => (props) => sheet.collectStyles(<App {...props} />))
+    const page = renderPage((App) => (props) =>
+      sheet.collectStyles(<App {...props} />)
+    )
     const styleTags = [sheet.getStyleElement(), flush()]
     return {...page, styleTags}
   }
 
-  render () {
+  render() {
     const {styleTags} = this.props
 
     return (
@@ -26,7 +30,11 @@ export default class AppDocument extends Document {
             href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800"
             rel="stylesheet"
           />
-          <script src="https://polyfill.io/v2/polyfill.js?feature=IntersectionObserver" />
+          <script
+            src={`https://polyfill.io/v2/polyfill.js?feature=${FEATURES.join(
+              ','
+            )}`}
+          />
           <script
             async
             src={`https://www.googletagmanager.com/gtag/js?id=${
@@ -55,7 +63,8 @@ export default class AppDocument extends Document {
             fbq('init', '710980862398359');
             fbq('track', 'PageView');
             <!-- End Facebook Pixel Code -->
-          `}}
+          `
+            }}
           />
           <noscript
             dangerouslySetInnerHTML={{
@@ -65,7 +74,8 @@ export default class AppDocument extends Document {
             src="https://www.facebook.com/tr?id=710980862398359&ev=PageView
             &noscript=1"/>
             <!-- End Facebook Pixel Code -->
-          `}}
+          `
+            }}
           />
           <meta
             name="viewport"
