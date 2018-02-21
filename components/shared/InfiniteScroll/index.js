@@ -1,6 +1,8 @@
+import 'intersection-observer-polyfill/index.global'
 import _ from 'lodash/fp'
 import {Component} from 'react'
 import Observer from '@researchgate/react-intersection-observer'
+
 import Container, {Footer} from './styles'
 
 const guard = (cond) => (fun) => (...args) => {
