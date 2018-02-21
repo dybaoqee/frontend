@@ -96,6 +96,7 @@ export default class ListingsIndex extends Component {
     return {
       currentPage: data.page_number,
       totalPages: data.total_pages,
+      totalResults: data.total_entries,
       listings: [[data.page_number, data.listings]]
     }
   }
@@ -332,7 +333,7 @@ export default class ListingsIndex extends Component {
   render() {
     const {neighborhoods, currentUser} = this.props
     const {isMobileOpen, params} = this.state.filterParams
-    const {currentPage, totalPages, listings} = this.state
+    const {currentPage, totalPages, totalResults, listings} = this.state
     const seoImgSrc = this.seoImage
     return (
       <Layout authenticated={currentUser.authenticated}>
@@ -398,24 +399,25 @@ export default class ListingsIndex extends Component {
           </div>
 
           <div className="entries-container">
-            {listings.length == 0 && (
+            {totalResults == 0 ? (
               <ListingsNotFound resetAllParams={this.resetAllParams} />
+            ) : (
+              <InfiniteScroll
+                currentPage={currentPage}
+                totalPages={totalPages}
+                pages={listings}
+                onChange={this.onChange}
+                onNext={this.onNext}
+              >
+                {(listing) => (
+                  <Listing
+                    key={listing.id}
+                    listing={listing}
+                    currentUser={currentUser}
+                  />
+                )}
+              </InfiniteScroll>
             )}
-            <InfiniteScroll
-              currentPage={currentPage}
-              totalPages={totalPages}
-              pages={listings}
-              onChange={this.onChange}
-              onNext={this.onNext}
-            >
-              {(listing) => (
-                <Listing
-                  key={listing.id}
-                  listing={listing}
-                  currentUser={currentUser}
-                />
-              )}
-            </InfiniteScroll>
           </div>
         </div>
 
