@@ -1,3 +1,4 @@
+import qs from 'querystring'
 import _ from 'lodash'
 import {Component} from 'react'
 import update from 'immutability-helper'
@@ -112,7 +113,7 @@ export default class ListingsIndex extends Component {
   onNext = async () => {
     const {nextPage} = this.state
     if (!nextPage) return
-    const params = treatParams(this.state.filterParams.params)
+    const params = qs.parse(treatParams(this.state.filterParams.params))
     const {listings, ...state} = await this.constructor.getState({
       ...params,
       page: nextPage
