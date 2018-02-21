@@ -1,7 +1,7 @@
 import {Component, Fragment} from 'react'
 import Link from 'next/link'
 
-import Container, {Button, Nav} from './styled'
+import Container, {Button, Nav, Error} from './styled'
 
 export default class Header extends Component {
   state = {
@@ -52,14 +52,14 @@ export default class Header extends Component {
     return (
       <Container>
         <Link href="/">
-          <a>
+          <a className="logo">
             <img
               src="/static/emcasa-imobiliaria-rio-de-janeiro.png"
               alt="Emcasa Imobiliária no Rio de Janeiro"
             />
           </a>
         </Link>
-        {errorCode ? <div>errorCode</div> : this.renderNav()}
+        {errorCode ? <Error>{errorCode}</Error> : this.renderNav()}
       </Container>
     )
   }

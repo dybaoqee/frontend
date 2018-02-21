@@ -71,3 +71,27 @@ export const Nav = styled.nav`
     }
   }
 `
+
+export const Error = styled(({children, ...props}) => (
+  <div {...props}>
+    <span>{children}</span>
+  </div>
+))`
+  padding-top: 109px;
+  padding-right: 222px;
+  padding-bottom: 30px;
+  > span {
+    height: 122px;
+    width: 152px;
+    color: #f0f0f0;
+    font-family: 'Open Sans';
+    font-size: 90px;
+    font-weight: bold;
+    line-height: 122px;
+    text-align: right;
+  }
+  & ~ a.logo {
+    align-self: flex-end;
+    padding-bottom: 100px;
+  }
+`

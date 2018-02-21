@@ -36,9 +36,9 @@ export default class ErrorPage extends Component {
   }
 
   render() {
-    const {authenticated} = this.props
+    const {authenticated, statusCode} = this.props
     return (
-      <Layout authenticated={authenticated}>
+      <Layout errorCode={statusCode} authenticated={authenticated}>
         <h1>{this.title}</h1>
         <p>{this.message}</p>
       </Layout>
