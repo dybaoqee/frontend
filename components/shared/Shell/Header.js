@@ -6,7 +6,7 @@ import * as colors from 'constants/colors'
 
 export default class Header extends Component {
   state = {
-    isMobileNavVisible: false,
+    isMobileNavVisible: false
   }
 
   toggleMobileNavVisibility = () => {
@@ -22,7 +22,10 @@ export default class Header extends Component {
       <header>
         <Link href="/">
           <a>
-            <img src="/static/logo.png" alt="Main Logo" />
+            <img
+              src="/static/emcasa-imobiliaria-rio-de-janeiro.png"
+              alt="Emcasa Imobiliária no Rio de Janeiro"
+            />
           </a>
         </Link>
 
