@@ -107,7 +107,7 @@ export default class ListingsIndex extends Component {
 
   onNext = async () => {
     const {nextPage} = this.state
-    const params = treatParams(this.state.filterParams)
+    const params = treatParams(this.state.filterParams.params)
     if (!nextPage) return
     const {listings, ...state} = await this.constructor.getState({
       ...params,
