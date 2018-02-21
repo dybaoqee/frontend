@@ -6,11 +6,11 @@ import {getFeaturedListings} from 'services/listing-api'
 import {getNeighborhoods} from 'services/neighborhood-api'
 import * as colors from 'constants/colors'
 import {isAuthenticated} from 'lib/auth'
-import Layout from 'components/main-layout'
-import HomeSearch from 'components/home/search'
-import HomeListings from 'components/home/listings'
+import Layout from 'components/shared/Shell'
+import HomeSearch from 'components/home/Search'
+import HomeListings from 'components/home/Listings'
 import HomeTour from 'components/home/Tour'
-import HomeSellingPoints from 'components/home/selling-points'
+import HomeSellingPoints from 'components/home/SellingPoints'
 import HomeBuySell from 'components/home/BuySell'
 
 export default class MyPage extends Component {
@@ -23,7 +23,7 @@ export default class MyPage extends Component {
     return {
       feed,
       search,
-      authenticated: isAuthenticated(context)
+      authenticated: isAuthenticated(context),
     }
   }
 

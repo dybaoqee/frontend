@@ -3,7 +3,7 @@ import MediaQuery from 'react-responsive'
 
 import {mobileMedia} from 'constants/media'
 
-import MapContainer from 'components/map-container'
+import MapContainer from 'components/shared/MapContainer'
 
 export default class ListingMap extends React.Component {
   render() {

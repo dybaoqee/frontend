@@ -6,9 +6,9 @@ import Router from 'next/router'
 import {redirectIfNotAuthenticated, getJwt, isAuthenticated} from 'lib/auth'
 import {editListing, updateListing} from 'services/listing-api'
 
-import Layout from 'components/main-layout'
-import TextContainer from 'components/text-container'
-import AdminHeader from 'components/admin-header'
+import Layout from 'components/shared/Shell'
+import TextContainer from 'components/shared/TextContainer'
+import AdminHeader from 'components/shared/AdminHeader'
 import * as colors from 'constants/colors'
 
 export default class ListingEdit extends Component {
