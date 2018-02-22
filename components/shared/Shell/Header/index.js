@@ -59,7 +59,7 @@ export default class Header extends Component {
             />
           </a>
         </Link>
-        {errorCode ? <Error>{errorCode}</Error> : this.renderNav()}
+        {this.renderNav()}
       </Container>
     )
   }
