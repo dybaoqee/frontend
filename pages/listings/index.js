@@ -1,3 +1,5 @@
+import qs from 'querystring'
+import _ from 'lodash'
 import {Component} from 'react'
 import Head from 'next/head'
 import Router from 'next/router'
@@ -9,12 +11,23 @@ import {isAuthenticated, isAdmin, getCurrentUserId} from 'lib/auth'
 import {getListings} from 'services/listing-api'
 import {getNeighborhoods} from 'services/neighborhood-api'
 import Layout from 'components/shared/Shell'
-import MapContainer from 'components/shared/MapContainer'
+import InfiniteScroll from 'components/shared/InfiniteScroll'
+import MapContainer from 'components/listings/index/Map'
 import Listing from 'components/listings/index/Listing'
 import ListingsNotFound from 'components/listings/index/NotFound'
 import Filter from 'components/listings/index/Search'
 
 import {mobileMedia} from 'constants/media'
+
+const getDerivedState = ({initialState}) => {
+  const listings = new Map(initialState.listings)
+  const currentPage = initialState.currentPage || 1
+  return {
+    ...initialState,
+    listings,
+    currentPage
+  }
+}
 
 export default class ListingsIndex extends Component {
   constructor(props) {
@@ -33,6 +46,7 @@ export default class ListingsIndex extends Component {
     const neighborhoods = bairros ? bairros.split('|') : []
 
     this.state = {
+      ...getDerivedState(props),
       filterParams: {
         isMobileOpen: false,
         params: {
@@ -61,39 +75,52 @@ export default class ListingsIndex extends Component {
   }
 
   static async getInitialProps(context) {
-    const res = await getListings(context.query)
-
-    if (res.data.errors) {
-      this.setState({errors: res.data.errors})
-      return {}
-    }
-
-    if (!res.data) {
-      return res
-    }
-
-    const neighborhoodResponse = await getNeighborhoods()
-
-    if (neighborhoodResponse.data.errors) {
-      this.setState({errors: neighborhoodResponse.data.errors})
-      return {}
-    }
-
-    if (!neighborhoodResponse.data) {
-      this.setState({errors: 'Unknown error. Please try again.'})
-      return {}
-    }
+    const [initialState, neighborhoods] = await Promise.all([
+      this.getState(context.query),
+      getNeighborhoods().then(({data}) => data.neighborhoods)
+    ])
 
     return {
-      listings: res.data.listings,
+      initialState,
+      neighborhoods,
       currentUser: {
         id: getCurrentUserId(context),
         admin: isAdmin(context),
         authenticated: isAuthenticated(context)
       },
-      neighborhoodOptions: neighborhoodResponse.data.neighborhoods,
       query: context.query
     }
+  }
+
+  static async getState(query) {
+    const page = query.page || 1
+    const {data} = await getListings({...query, page, page_size: 15})
+    return {
+      currentPage: data.page_number,
+      totalPages: data.total_pages,
+      totalResults: data.total_entries,
+      listings: [[data.page_number, data.listings]]
+    }
+  }
+
+  componentWillReceiveProps(props) {
+    if (!_.isEqual(props.initialState, this.props.initialState)) {
+      this.setState(getDerivedState(props))
+    }
+  }
+
+  onLoad = async () => {
+    const {currentPage, totalPages} = this.state
+    if (currentPage >= totalPages) return
+    const params = qs.parse(treatParams(this.state.filterParams.params))
+    const {listings, ...state} = await this.constructor.getState({
+      ...params,
+      page: currentPage + 1
+    })
+    await this.setState({
+      ...state,
+      listings: update(this.state.listings, {$add: listings})
+    })
   }
 
   onChangeFilter = (name, value) =>
@@ -260,12 +287,21 @@ export default class ListingsIndex extends Component {
     if (!isMobileOpen) this.hideAllParams()
   }
 
-  render() {
-    const {listings, neighborhoodOptions, currentUser} = this.props
-    const {isMobileOpen, params} = this.state.filterParams
-    const seoImgSrc =
-      listings.length > 0 && mainListingImage(listings[0].images)
+  get currentListings() {
+    const {currentPage, listings} = this.state
+    return listings.get(currentPage) || []
+  }
 
+  get seoImage() {
+    const listing = this.currentListings[0]
+    return listing ? mainListingImage(listing.images) : null
+  }
+
+  render() {
+    const {neighborhoods, currentUser} = this.props
+    const {isMobileOpen, params} = this.state.filterParams
+    const {currentPage, totalPages, totalResults, listings} = this.state
+    const seoImgSrc = this.seoImage
     return (
       <Layout authenticated={currentUser.authenticated}>
         <Head>
@@ -293,7 +329,7 @@ export default class ListingsIndex extends Component {
 
         <div className="listings">
           <Filter
-            neighborhoodOptions={neighborhoodOptions}
+            neighborhoodOptions={neighborhoods}
             isMobileOpen={isMobileOpen}
             params={params}
             onChange={this.onChangeFilter}
@@ -315,22 +351,33 @@ export default class ListingsIndex extends Component {
 
           <div className="map">
             <MapContainer
-              listings={listings}
-              height="100%"
-              width="100%"
               zoom={13}
-            />
+              width="100%"
+              height="100%"
+              currentPage={currentPage}
+            >
+              {listings}
+            </MapContainer>
           </div>
 
           <div className="entries-container">
-            {listings.map((listing, i) => {
-              return (
-                <Listing listing={listing} key={i} currentUser={currentUser} />
-              )
-            })}
-
-            {listings.length == 0 && (
+            {totalResults == 0 ? (
               <ListingsNotFound resetAllParams={this.resetAllParams} />
+            ) : (
+              <InfiniteScroll
+                currentPage={currentPage}
+                totalPages={totalPages}
+                pages={listings}
+                onLoad={this.onLoad}
+              >
+                {(listing) => (
+                  <Listing
+                    key={listing.id}
+                    listing={listing}
+                    currentUser={currentUser}
+                  />
+                )}
+              </InfiniteScroll>
             )}
           </div>
         </div>

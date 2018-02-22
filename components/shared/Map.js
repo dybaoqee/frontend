@@ -11,7 +11,7 @@ export default class MapContainer extends Component {
   }
 
   render() {
-    const {height, width, lat, lng, listings, zoom} = this.props
+    const {children, height, width, lat, lng, zoom} = this.props
     const defaultZoom = 15
 
     return (
@@ -25,18 +25,10 @@ export default class MapContainer extends Component {
         params={params}
       >
         <Marker lat={lat} lng={lng} />
-
-        {listings &&
-          listings.map((listing, i) => {
-            return (
-              <Marker
-                key={i}
-                lat={listing.address.lat}
-                lng={listing.address.lng}
-              />
-            )
-          })}
+        {children}
       </Gmaps>
     )
   }
 }
+
+export {Marker}

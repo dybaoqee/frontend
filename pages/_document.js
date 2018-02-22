@@ -3,14 +3,16 @@ import {ServerStyleSheet} from 'styled-components'
 import flush from 'styled-jsx/server'
 
 export default class AppDocument extends Document {
-  static getInitialProps ({renderPage}) {
+  static getInitialProps({renderPage}) {
     const sheet = new ServerStyleSheet()
-    const page = renderPage((App) => (props) => sheet.collectStyles(<App {...props} />))
+    const page = renderPage((App) => (props) =>
+      sheet.collectStyles(<App {...props} />)
+    )
     const styleTags = [sheet.getStyleElement(), flush()]
     return {...page, styleTags}
   }
 
-  render () {
+  render() {
     const {styleTags} = this.props
 
     return (
@@ -54,7 +56,8 @@ export default class AppDocument extends Document {
             fbq('init', '710980862398359');
             fbq('track', 'PageView');
             <!-- End Facebook Pixel Code -->
-          `}}
+          `
+            }}
           />
           <noscript
             dangerouslySetInnerHTML={{
@@ -64,7 +67,8 @@ export default class AppDocument extends Document {
             src="https://www.facebook.com/tr?id=710980862398359&ev=PageView
             &noscript=1"/>
             <!-- End Facebook Pixel Code -->
-          `}}
+          `
+            }}
           />
           <meta
             name="viewport"
