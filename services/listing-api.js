@@ -34,7 +34,8 @@ const translatedKeys = {
   area_maxima: 'max_area',
   preco_maximo: 'max_price',
   preco_minimo: 'min_price',
-  quartos: 'rooms'
+  quartos_maximo: 'max_rooms',
+  quartos_minimo: 'min_rooms'
 }
 
 // Transforms something like

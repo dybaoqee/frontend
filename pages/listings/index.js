@@ -21,6 +21,8 @@ export default class ListingsIndex extends Component {
     super(props)
 
     const {
+      quartos_minimo,
+      quartos_maximo,
       preco_minimo,
       preco_maximo,
       area_minima,
@@ -45,7 +47,8 @@ export default class ListingsIndex extends Component {
             visible: false
           },
           rooms: {
-            value: quartos,
+            min: quartos_minimo,
+            max: quartos_maximo,
             visible: false
           },
           neighborhoods: {
