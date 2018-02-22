@@ -25,9 +25,7 @@ const getDerivedState = ({initialState}) => {
   return {
     ...initialState,
     listings,
-    currentPage,
-    nextPage: currentPage + 1,
-    prevPage: currentPage - 1
+    currentPage
   }
 }
 
@@ -108,20 +106,17 @@ export default class ListingsIndex extends Component {
     }
   }
 
-  onChange = async (currentPage) => this.setState({currentPage})
-
-  onNext = async () => {
-    const {nextPage} = this.state
-    if (!nextPage) return
+  onLoad = async () => {
+    const {currentPage, totalPages} = this.state
+    if (currentPage >= totalPages) return
     const params = qs.parse(treatParams(this.state.filterParams.params))
     const {listings, ...state} = await this.constructor.getState({
       ...params,
-      page: nextPage
+      page: currentPage + 1
     })
     await this.setState({
       ...state,
-      listings: update(this.state.listings, {$add: listings}),
-      nextPage: nextPage + 1
+      listings: update(this.state.listings, {$add: listings})
     })
   }
 
@@ -407,8 +402,7 @@ export default class ListingsIndex extends Component {
                 currentPage={currentPage}
                 totalPages={totalPages}
                 pages={listings}
-                onChange={this.onChange}
-                onNext={this.onNext}
+                onLoad={this.onLoad}
               >
                 {(listing) => (
                   <Listing

@@ -3,31 +3,14 @@ import {Component} from 'react'
 
 import Container, {Footer} from './styles'
 
-const guard = (cond) => (fun) => (...args) => {
-  if (cond(...args)) fun(...args)
-}
-
-const inView = _.flow([
-  _.throttle(200),
-  guard(({isIntersecting}) => isIntersecting)
-])
-
 export default class InfiniteScroll extends Component {
   static defaultProps = {
-    threshold: '2000px'
+    threshold: 2000
   }
 
-  constructor(props) {
-    super(props)
-    const {currentPage} = props
-    this.state = {
-      currentPage
-    }
+  componentDidMount() {
+    window.addEventListener('scroll', this.onScroll)
   }
-
-  onChange = (i) => inView(() => this.props.onChange(i))
-
-  onNext = inView(() => this.props.onNext())
 
   renderPage = ([page, data]) => {
     const {children: render} = this.props
@@ -38,13 +21,17 @@ export default class InfiniteScroll extends Component {
     )
   }
 
+  footerRef = (el) => {
+    this.footer = el
+  }
+
   render() {
-    const {pages, threshold, onNext, currentPage, totalPages} = this.props
+    const {pages, threshold, currentPage, totalPages} = this.props
     const last = currentPage >= totalPages
     return (
       <Container>
         {Array.from(pages).map(this.renderPage)}
-        {!last && <Footer>Carregando...</Footer>}
+        {!last && <Footer innerRef={this.footerRef}>Carregando...</Footer>}
       </Container>
     )
   }
