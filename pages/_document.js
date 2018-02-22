@@ -2,11 +2,7 @@ import Document, {Head, Main, NextScript} from 'next/document'
 import {ServerStyleSheet} from 'styled-components'
 import flush from 'styled-jsx/server'
 
-const FEATURES = [
-  'IntersectionObserver',
-  'IntersectionObserverEntry',
-  'Array.prototype.findIndex'
-]
+const FEATURES = ['Array.prototype.findIndex']
 
 export default class AppDocument extends Document {
   static getInitialProps({renderPage}) {

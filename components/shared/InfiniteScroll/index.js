@@ -1,6 +1,5 @@
 import _ from 'lodash/fp'
 import {Component} from 'react'
-import Observer from '@researchgate/react-intersection-observer'
 
 import Container, {Footer} from './styles'
 
@@ -34,9 +33,7 @@ export default class InfiniteScroll extends Component {
     const {children: render} = this.props
     return (
       <li key={page}>
-        <Observer onChange={this.onChange(page)}>
-          <div>{data.map(render)}</div>
-        </Observer>
+        <div>{data.map(render)}</div>
       </li>
     )
   }
@@ -47,11 +44,7 @@ export default class InfiniteScroll extends Component {
     return (
       <Container>
         {Array.from(pages).map(this.renderPage)}
-        {!last && (
-          <Observer onChange={this.onNext} rootMargin={`${threshold} 0px`}>
-            <Footer>Carregando...</Footer>
-          </Observer>
-        )}
+        {!last && <Footer>Carregando...</Footer>}
       </Container>
     )
   }
