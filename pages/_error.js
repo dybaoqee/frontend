@@ -3,6 +3,7 @@ import {Component} from 'react'
 import {isAuthenticated} from 'lib/auth'
 import Layout from 'components/shared/Shell'
 import Error from 'components/shared/Shell/Error'
+import Link from 'next/link'
 
 export default class ErrorPage extends Component {
   static getInitialProps({err, res, ...ctx}) {
@@ -46,7 +47,12 @@ export default class ErrorPage extends Component {
       <Layout errorCode={statusCode} authenticated={authenticated}>
         <Error>
           <h1>{this.title}</h1>
+          <h2>{statusCode}</h2>
           <p>{this.message}</p>
+          <p>
+            Visite nossa <Link href="/">página inicial</Link> ou entre em&nbsp;
+            <Link href="mailto:contato@emcasa.com">contato</Link> com a gente
+          </p>
         </Error>
       </Layout>
     )
