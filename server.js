@@ -77,6 +77,10 @@ app.prepare()
     app.render(req, res, actualPage, queryParams)
   })
 
+  server.get('/busca', (req, res) => {
+    return app.render(req, res, '/search', req.query)
+  })
+
   server.get('*', (req, res) => {
     return handle(req, res)
   })
