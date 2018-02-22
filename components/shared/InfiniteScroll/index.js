@@ -1,4 +1,4 @@
-import _ from 'lodash/fp'
+import _ from 'lodash'
 import {Component} from 'react'
 
 import Container, {Footer} from './styles'
@@ -12,6 +12,19 @@ export default class InfiniteScroll extends Component {
     window.addEventListener('scroll', this.onScroll)
   }
 
+  onScroll = _.throttle((e) => {
+    if (!this.footer) return
+    const {threshold, onLoad} = this.props
+    const rect = this.footer.getBoundingClientRect()
+    // Distance from the bottom of the viewport to the footer element
+    const distance = rect.y - window.innerHeight
+    if (Math.abs(distance) <= threshold) onLoad()
+  }, 500)
+
+  footerRef = (el) => {
+    this.footer = el
+  }
+
   renderPage = ([page, data]) => {
     const {children: render} = this.props
     return (
@@ -19,10 +32,6 @@ export default class InfiniteScroll extends Component {
         <div>{data.map(render)}</div>
       </li>
     )
-  }
-
-  footerRef = (el) => {
-    this.footer = el
   }
 
   render() {
