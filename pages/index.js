@@ -17,15 +17,8 @@ export default class MyPage extends Component {
   static async getInitialProps(context) {
     const [feed, search] = await Promise.all([
       getFeaturedListings(context.query).then(({data}) => data),
-      getNeighborhoods().then(({data}) => data),
-    ]).catch((error) => {
-      const {response} = error
-      if (response && response.data.errors)
-        this.setState({
-          errors: response.data.errors,
-        })
-      else throw error
-    })
+      getNeighborhoods().then(({data}) => data)
+    ])
 
     return {
       feed,
