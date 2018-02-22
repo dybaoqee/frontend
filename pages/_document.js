@@ -2,8 +2,6 @@ import Document, {Head, Main, NextScript} from 'next/document'
 import {ServerStyleSheet} from 'styled-components'
 import flush from 'styled-jsx/server'
 
-const FEATURES = ['Array.prototype.findIndex']
-
 export default class AppDocument extends Document {
   static getInitialProps({renderPage}) {
     const sheet = new ServerStyleSheet()
@@ -29,11 +27,6 @@ export default class AppDocument extends Document {
           <link
             href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800"
             rel="stylesheet"
-          />
-          <script
-            src={`https://cdn.polyfill.io/v2/polyfill.min.js?feature=${FEATURES.join(
-              ','
-            )}&flags=gated`}
           />
           <script
             async
