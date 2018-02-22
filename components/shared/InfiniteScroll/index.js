@@ -16,13 +16,22 @@ export default class InfiniteScroll extends Component {
     window.removeEventListener('scroll', this.onScroll)
   }
 
-  onScroll = _.throttle((e) => {
-    if (!this.footer) return
-    const {threshold, onLoad} = this.props
+  // Distance from the bottom of the viewport to the footer element
+  get footerViewportDistance() {
+    if (!this.footer) return null
     const rect = this.footer.getBoundingClientRect()
-    // Distance from the bottom of the viewport to the footer element
-    const distance = rect.y - window.innerHeight
-    if (Math.abs(distance) <= threshold) onLoad()
+    return rect.y - window.innerHeight
+  }
+
+  shouldTriggerLoad = () => {
+    const {threshold} = this.props
+    const distance = this.footerViewportDistance
+    return !isNaN(distance) && Math.abs(distance) <= threshold
+  }
+
+  onScroll = _.throttle(() => {
+    const {onLoad} = this.props
+    if (this.shouldTriggerLoad()) onLoad()
   }, 500)
 
   footerRef = (el) => {
