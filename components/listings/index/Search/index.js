@@ -10,16 +10,12 @@ import RoomFilter from './Rooms'
 import NeighborhoodFilter from './Neighborhoods'
 
 export default class Filter extends Component {
+  onChange = (prop) => (value) => this.props.onChange(prop, value)
+
   render() {
     const {isMobileOpen, params, neighborhoodOptions} = this.props
     const {price, area, rooms, neighborhoods} = params
     const {
-      handleMinPriceChange,
-      handleMaxPriceChange,
-      handleMinAreaChange,
-      handleMaxAreaChange,
-      handleRoomChange,
-      handleNeighborhoodChange,
       resetAllParams,
       toggleRoomVisibility,
       togglePriceVisibility,
@@ -57,23 +53,21 @@ export default class Filter extends Component {
 
         <PriceFilter
           price={price}
-          handleMinPriceChange={handleMinPriceChange}
-          handleMaxPriceChange={handleMaxPriceChange}
+          onChange={this.onChange('price')}
           toggleVisibility={togglePriceVisibility}
           handleClose={hideAllParams}
         />
 
         <AreaFilter
           area={area}
-          handleMinAreaChange={handleMinAreaChange}
-          handleMaxAreaChange={handleMaxAreaChange}
+          onChange={this.onChange('area')}
           toggleVisibility={toggleAreaVisibility}
           handleClose={hideAllParams}
         />
 
         <RoomFilter
           rooms={rooms}
-          handleChange={handleRoomChange}
+          onChange={this.onChange('rooms')}
           toggleVisibility={toggleRoomVisibility}
           handleClose={hideAllParams}
         />
@@ -81,7 +75,7 @@ export default class Filter extends Component {
         <NeighborhoodFilter
           neighborhoods={neighborhoods}
           options={neighborhoodOptions}
-          handleChange={handleNeighborhoodChange}
+          onChange={this.onChange('neighborhoods')}
           toggleVisibility={toggleNeighborhoodsVisibility}
           handleClose={hideAllParams}
         />

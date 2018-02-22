@@ -1,28 +1,44 @@
 import {Component} from 'react'
 import Select from 'react-select'
+import numeral from 'numeral'
 
 import {roomNumberOptions} from 'constants/listing-filter-options'
 
 export default class RoomFilter extends Component {
+  onChange = (prop) => (val) => {
+    const {rooms: {min, max}, onChange} = this.props
+    onChange({min, max, [prop]: val ? val.value : undefined})
+  }
+
+  onChangeMin = this.onChange('min')
+
+  onChangeMax = this.onChange('max')
+
   isButtonActive = () => {
-    const {value, visible} = this.props.rooms
-    return value || visible
+    const {min, max, visible} = this.props.rooms
+    return min || max || visible
   }
 
   buttonText = () => {
-    const {value} = this.props.rooms
+    const {min, max} = this.props.rooms
+    const abbreviatedMin = numeral(min).format('0a')
+    const abbreviatedMax = numeral(max).format('0a')
 
-    if (value) {
-      return value + ' quartos'
+    if (min && max) {
+      return `${abbreviatedMin}-${abbreviatedMax} quartos`
+    } else if (min) {
+      return `${abbreviatedMin}+ quartos`
+    } else if (max) {
+      return `0-${abbreviatedMax} quartos`
     } else {
       return 'Quartos'
     }
   }
 
   render() {
-    const {rooms, handleChange, toggleVisibility, handleClose} = this.props
+    const {rooms, toggleVisibility, handleClose} = this.props
 
-    const {value, visible} = rooms
+    const {min, max, visible} = rooms
 
     return (
       <div className="filter-param-container">
@@ -38,12 +54,23 @@ export default class RoomFilter extends Component {
             <span className="mobile-param-title">Quartos</span>
             <div>
               <Select
-                name="form-field-name"
                 arrowRenderer={null}
                 style={{width: 130}}
                 placeholder="Nº Quartos"
-                value={value}
-                onChange={handleChange}
+                value={min}
+                onChange={this.onChangeMin}
+                options={roomNumberOptions}
+                searchable={false}
+              />
+
+              <label>até</label>
+
+              <Select
+                arrowRenderer={null}
+                style={{width: 130}}
+                placeholder="Nº Quartos"
+                value={max}
+                onChange={this.onChangeMax}
                 options={roomNumberOptions}
                 searchable={false}
               />

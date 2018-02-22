@@ -4,10 +4,19 @@ import numeral from 'numeral'
 
 import {
   minPriceOptions,
-  maxPriceOptions,
+  maxPriceOptions
 } from 'constants/listing-filter-options'
 
 export default class PriceFilter extends Component {
+  onChange = (prop) => (val) => {
+    const {price: {min, max}, onChange} = this.props
+    onChange({min, max, [prop]: val ? val.value : undefined})
+  }
+
+  onChangeMin = this.onChange('min')
+
+  onChangeMax = this.onChange('max')
+
   isButtonActive = () => {
     const {min, max, visible} = this.props.price
     return min || max || visible
@@ -36,13 +45,7 @@ export default class PriceFilter extends Component {
   }
 
   render() {
-    const {
-      price,
-      handleMinPriceChange,
-      handleMaxPriceChange,
-      toggleVisibility,
-      handleClose,
-    } = this.props
+    const {price, toggleVisibility, handleClose} = this.props
 
     return (
       <div className="filter-param-container">
@@ -58,12 +61,11 @@ export default class PriceFilter extends Component {
             <span className="mobile-param-title">Preço</span>
             <div>
               <Select
-                name="form-field-name"
                 arrowRenderer={null}
                 style={{width: 130}}
                 placeholder="R$"
                 value={price.min}
-                onChange={handleMinPriceChange}
+                onChange={this.onChangeMin}
                 options={minPriceOptions}
                 searchable={false}
               />
@@ -71,12 +73,11 @@ export default class PriceFilter extends Component {
               <label>até</label>
 
               <Select
-                name="form-field-name"
                 arrowRenderer={null}
                 style={{width: 130}}
                 placeholder="R$"
                 value={price.max}
-                onChange={handleMaxPriceChange}
+                onChange={this.onChangeMax}
                 options={maxPriceOptions}
                 searchable={false}
               />

@@ -38,7 +38,14 @@ export default class FilterHeader extends Component {
   isMobileOtherButtonActive = () => {
     const {area, rooms} = this.props.params
 
-    return area.visible || area.min || area.max || rooms.visible || rooms.value
+    return (
+      area.visible ||
+      area.min ||
+      area.max ||
+      rooms.visible ||
+      rooms.min ||
+      rooms.max
+    )
   }
 
   render() {
