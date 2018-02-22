@@ -2,7 +2,11 @@ import Document, {Head, Main, NextScript} from 'next/document'
 import {ServerStyleSheet} from 'styled-components'
 import flush from 'styled-jsx/server'
 
-const FEATURES = ['IntersectionObserver', 'Array.prototype.findIndex']
+const FEATURES = [
+  'IntersectionObserver',
+  'IntersectionObserverEntry',
+  'Array.prototype.findIndex'
+]
 
 export default class AppDocument extends Document {
   static getInitialProps({renderPage}) {
@@ -31,9 +35,9 @@ export default class AppDocument extends Document {
             rel="stylesheet"
           />
           <script
-            src={`https://polyfill.io/v2/polyfill.js?feature=${FEATURES.join(
+            src={`https://cdn.polyfill.io/v2/polyfill.min.js?feature=${FEATURES.join(
               ','
-            )}`}
+            )}&flags=gated`}
           />
           <script
             async
