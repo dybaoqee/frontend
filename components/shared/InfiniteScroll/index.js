@@ -12,6 +12,10 @@ export default class InfiniteScroll extends Component {
     window.addEventListener('scroll', this.onScroll)
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.onScroll)
+  }
+
   onScroll = _.throttle((e) => {
     if (!this.footer) return
     const {threshold, onLoad} = this.props
