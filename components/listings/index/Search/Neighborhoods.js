@@ -8,6 +8,8 @@ import {mobileMedia} from 'constants/media'
 import {neighborhoodOptions} from 'constants/listing-filter-options'
 
 export default class NeighborhoodFilter extends Component {
+  onChange = (value) => this.props.onChange({value})
+
   isButtonActive = () => {
     const {visible, value} = this.props.neighborhoods
     return value.length > 0 || visible
@@ -35,9 +37,8 @@ export default class NeighborhoodFilter extends Component {
       neighborhoods,
       options,
       selectedOptions,
-      handleChange,
       toggleVisibility,
-      handleClose,
+      handleClose
     } = this.props
 
     const {value, visible} = neighborhoods
@@ -64,7 +65,7 @@ export default class NeighborhoodFilter extends Component {
                 placeholder="Bairros"
                 multi={true}
                 value={value}
-                onChange={handleChange}
+                onChange={this.onChange}
                 options={optionsObject}
                 noResultsText="Resultado Não Encontrado"
               />

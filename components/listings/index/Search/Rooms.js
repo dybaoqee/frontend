@@ -4,6 +4,8 @@ import Select from 'react-select'
 import {roomNumberOptions} from 'constants/listing-filter-options'
 
 export default class RoomFilter extends Component {
+  onChange = (val) => this.props.onChange({value: val ? val.value : undefined})
+
   isButtonActive = () => {
     const {value, visible} = this.props.rooms
     return value || visible
@@ -20,7 +22,7 @@ export default class RoomFilter extends Component {
   }
 
   render() {
-    const {rooms, handleChange, toggleVisibility, handleClose} = this.props
+    const {rooms, toggleVisibility, handleClose} = this.props
 
     const {value, visible} = rooms
 
@@ -43,7 +45,7 @@ export default class RoomFilter extends Component {
                 style={{width: 130}}
                 placeholder="Nº Quartos"
                 value={value}
-                onChange={handleChange}
+                onChange={this.onChange}
                 options={roomNumberOptions}
                 searchable={false}
               />

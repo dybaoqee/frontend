@@ -5,6 +5,15 @@ import numeral from 'numeral'
 import {minAreaOptions, maxAreaOptions} from 'constants/listing-filter-options'
 
 export default class AreaFilter extends Component {
+  onChange = (prop) => (val) => {
+    const {area: {min, max}, onChange} = this.props
+    onChange({min, max, [prop]: val ? val.value : undefined})
+  }
+
+  onChangeMin = this.onChange('min')
+
+  onChangeMax = this.onChange('max')
+
   isButtonActive = () => {
     const {min, max, visible} = this.props.area
     return min || max || visible
@@ -33,13 +42,7 @@ export default class AreaFilter extends Component {
   }
 
   render() {
-    const {
-      area,
-      handleMinAreaChange,
-      handleMaxAreaChange,
-      toggleVisibility,
-      handleClose,
-    } = this.props
+    const {area, toggleVisibility, handleClose} = this.props
 
     const {min, max, visible} = area
 
@@ -57,12 +60,11 @@ export default class AreaFilter extends Component {
             <span className="mobile-param-title">Área</span>
             <div>
               <Select
-                name="form-field-name"
                 arrowRenderer={null}
                 style={{width: 100}}
                 placeholder="m²"
                 value={min}
-                onChange={handleMinAreaChange}
+                onChange={this.onChangeMin}
                 options={minAreaOptions}
                 searchable={false}
               />
@@ -70,12 +72,11 @@ export default class AreaFilter extends Component {
               <label>até</label>
 
               <Select
-                name="form-field-name"
                 arrowRenderer={null}
                 style={{width: 100}}
                 placeholder="m²"
                 value={max}
-                onChange={handleMaxAreaChange}
+                onChange={this.onChangeMax}
                 options={maxAreaOptions}
                 searchable={false}
               />

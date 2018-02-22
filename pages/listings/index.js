@@ -1,6 +1,7 @@
 import {Component} from 'react'
 import Head from 'next/head'
 import Router from 'next/router'
+import update from 'immutability-helper'
 
 import {treatParams} from 'utils/filter-params.js'
 import {mainListingImage} from 'utils/image_url'
@@ -25,7 +26,7 @@ export default class ListingsIndex extends Component {
       area_minima,
       area_maxima,
       quartos,
-      bairros,
+      bairros
     } = props.query
     const neighborhoods = bairros ? bairros.split('|') : []
 
@@ -36,23 +37,23 @@ export default class ListingsIndex extends Component {
           price: {
             min: preco_minimo,
             max: preco_maximo,
-            visible: false,
+            visible: false
           },
           area: {
             min: area_minima,
             max: area_maxima,
-            visible: false,
+            visible: false
           },
           rooms: {
             value: quartos,
-            visible: false,
+            visible: false
           },
           neighborhoods: {
             value: neighborhoods,
-            visible: false,
-          },
-        },
-      },
+            visible: false
+          }
+        }
+      }
     }
   }
 
@@ -85,54 +86,22 @@ export default class ListingsIndex extends Component {
       currentUser: {
         id: getCurrentUserId(context),
         admin: isAdmin(context),
-        authenticated: isAuthenticated(context),
+        authenticated: isAuthenticated(context)
       },
       neighborhoodOptions: neighborhoodResponse.data.neighborhoods,
-      query: context.query,
+      query: context.query
     }
   }
 
-  handleMinPriceChange = (minPrice) => {
-    const state = this.state
-    state.filterParams.params.price.min = minPrice ? minPrice.value : undefined
-    this.setState(state)
-    this.updateRoute()
-  }
-
-  handleMaxPriceChange = (maxPrice) => {
-    const state = this.state
-    state.filterParams.params.price.max = maxPrice ? maxPrice.value : undefined
-    this.setState(state)
-    this.updateRoute()
-  }
-
-  handleMinAreaChange = (minArea) => {
-    const state = this.state
-    state.filterParams.params.area.min = minArea ? minArea.value : undefined
-    this.setState(state)
-    this.updateRoute()
-  }
-
-  handleMaxAreaChange = (maxArea) => {
-    const state = this.state
-    state.filterParams.params.area.max = maxArea ? maxArea.value : undefined
-    this.setState(state)
-    this.updateRoute()
-  }
-
-  handleRoomChange = (rooms) => {
-    const state = this.state
-    state.filterParams.params.rooms.value = rooms ? rooms.value : undefined
-    this.setState(state)
-    this.updateRoute()
-  }
-
-  handleNeighborhoodChange = (value) => {
-    const state = this.state
-    state.filterParams.params.neighborhoods.value = value
-    this.setState(state)
-    this.updateRoute()
-  }
+  onChangeFilter = (name, value) =>
+    this.setState(
+      {
+        filterParams: update(this.state.filterParams, {
+          params: {[name]: {$merge: value}}
+        })
+      },
+      this.updateRoute
+    )
 
   updateRoute = () => {
     const params = treatParams(this.state.filterParams.params)
@@ -324,12 +293,7 @@ export default class ListingsIndex extends Component {
             neighborhoodOptions={neighborhoodOptions}
             isMobileOpen={isMobileOpen}
             params={params}
-            handleMinPriceChange={this.handleMinPriceChange}
-            handleMaxPriceChange={this.handleMaxPriceChange}
-            handleMinAreaChange={this.handleMinAreaChange}
-            handleMaxAreaChange={this.handleMaxAreaChange}
-            handleRoomChange={this.handleRoomChange}
-            handleNeighborhoodChange={this.handleNeighborhoodChange}
+            onChange={this.onChangeFilter}
             resetAllParams={this.resetAllParams}
             toggleRoomVisibility={this.toggleRoomVisibility}
             togglePriceVisibility={this.togglePriceVisibility}
