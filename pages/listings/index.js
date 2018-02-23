@@ -5,7 +5,6 @@ import Head from 'next/head'
 import Router from 'next/router'
 import update from 'immutability-helper'
 
-import smoothScrollPolyfill from 'utils/polyfills/smooth-scroll'
 import {treatParams} from 'utils/filter-params.js'
 import {mainListingImage} from 'utils/image_url'
 import {isAuthenticated, isAdmin, getCurrentUserId} from 'lib/auth'
@@ -115,7 +114,7 @@ export default class ListingsIndex extends Component {
   }
 
   componentDidMount() {
-    smoothScrollPolyfill()
+    require('utils/polyfills/smooth-scroll')()
   }
 
   onLoad = async () => {
