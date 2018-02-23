@@ -4,7 +4,6 @@ async function loadPolyfill(force = false) {
   window.__forceSmoothScrollPolyfill__ = force
   const polyfill = await import('smoothscroll-polyfill')
   polyfill.polyfill()
-  console.log('eyy lmao')
 }
 
 // Browsers with partial/no support for smooth scrolling
