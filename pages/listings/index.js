@@ -114,7 +114,7 @@ export default class ListingsIndex extends Component {
   }
 
   componentDidMount() {
-    require('utils/polyfills/smooth-scroll')()
+    require('utils/polyfills/smooth-scroll').load()
   }
 
   onLoad = async () => {

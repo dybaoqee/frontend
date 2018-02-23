@@ -1,15 +1,17 @@
 import ua from './user-agent'
 
-const loadPolyfill = (force = false) => {
+async function loadPolyfill(force = false) {
   window.__forceSmoothScrollPolyfill__ = force
-  import('smoothscroll-polyfill').polyfill()
+  const polyfill = await import('smoothscroll-polyfill')
+  polyfill.polyfill()
+  console.log('eyy lmao')
 }
 
 const shouldLoadPolyfill = () =>
   ['ie', 'edge', 'safari'].indexOf(ua.browser.name) !== -1
 
-export default () => {
-  if (shouldLoadPolyfill) {
-    loadPolyfill(true)
+export async function load() {
+  if (shouldLoadPolyfill()) {
+    return loadPolyfill(true)
   }
 }
