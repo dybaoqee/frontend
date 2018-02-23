@@ -24,10 +24,10 @@ class Listing extends React.Component {
   }
 
   render() {
-    const {listing, i, currentUser} = this.props
+    const {id, listing, currentUser} = this.props
 
     return (
-      <div key={i} onClick={this.handleListingClick}>
+      <div id={id} onClick={this.handleListingClick}>
         <ImageContainer listing={listing} />
         <TextContainer listing={listing} currentUser={currentUser} />
 

@@ -133,6 +133,11 @@ export default class ListingsIndex extends Component {
       this.updateRoute
     )
 
+  onSelectListing = (id) =>
+    document.getElementById(`listing-${id}`).scrollIntoView({
+      behavior: 'smooth'
+    })
+
   updateRoute = () => {
     const params = treatParams(this.state.filterParams.params)
 
@@ -355,6 +360,7 @@ export default class ListingsIndex extends Component {
               width="100%"
               height="100%"
               currentPage={currentPage}
+              onSelect={this.onSelectListing}
             >
               {listings}
             </MapContainer>
@@ -373,6 +379,7 @@ export default class ListingsIndex extends Component {
                 {(listing) => (
                   <Listing
                     key={listing.id}
+                    id={`listing-${listing.id}`}
                     listing={listing}
                     currentUser={currentUser}
                   />
