@@ -6,7 +6,8 @@
   "jest": {
     "setupFiles": [
       "<rootDir>/shim.js"
-    ]
+    ],
+    "setupTestFrameworkScriptFile": "<rootDir>config/setupTests.js"
   },
   "license": "UNLICENSED",
   "scripts": {
