@@ -6,7 +6,7 @@ const loadPolyfill = (force = false) => {
 }
 
 const shouldLoadPolyfill = () =>
-  ['ie', 'safari'].indexOf(ua.browser.name) !== -1
+  ['ie', 'edge', 'safari'].indexOf(ua.browser.name) !== -1
 
 export default () => {
   if (shouldLoadPolyfill) {
