@@ -7,6 +7,7 @@ async function loadPolyfill(force = false) {
   console.log('eyy lmao')
 }
 
+// Browsers with partial/no support for smooth scrolling
 const shouldLoadPolyfill = () =>
   ['ie', 'edge', 'safari'].indexOf(ua.browser.name) !== -1
 
