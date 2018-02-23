@@ -18,6 +18,10 @@ import ListingsNotFound from 'components/listings/index/NotFound'
 import Filter from 'components/listings/index/Search'
 
 import {mobileMedia} from 'constants/media'
+import {
+  desktopHeaderHeight,
+  desktopFilterHeight
+} from 'constants/dimensions'
 
 const getDerivedState = ({initialState}) => {
   const listings = new Map(initialState.listings)
@@ -109,6 +113,10 @@ export default class ListingsIndex extends Component {
     }
   }
 
+  componentDidMount() {
+    require('utils/polyfills/smooth-scroll').load()
+  }
+
   onLoad = async () => {
     const {currentPage, totalPages} = this.state
     if (currentPage >= totalPages) return
@@ -133,10 +141,12 @@ export default class ListingsIndex extends Component {
       this.updateRoute
     )
 
-  onSelectListing = (id) =>
-    document.getElementById(`listing-${id}`).scrollIntoView({
-      behavior: 'smooth'
-    })
+  onSelectListing = (id) => {
+    const element = document.getElementById(`listing-${id}`)
+    const rect = element.getBoundingClientRect()
+    const top = rect.top - desktopHeaderHeight - desktopFilterHeight
+    window.scrollBy({top, behavior: 'smooth'})
+  }
 
   updateRoute = () => {
     const params = treatParams(this.state.filterParams.params)
