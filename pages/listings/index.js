@@ -18,10 +18,10 @@ import ListingsNotFound from 'components/listings/index/NotFound'
 import Filter from 'components/listings/index/Search'
 
 import {mobileMedia} from 'constants/media'
-
-const HEADER_HEIGHT = 76
-
-const FILTER_HEIGHT = 58
+import {
+  desktopHeaderHeight,
+  desktopFilterHeight
+} from 'constants/dimensions'
 
 const getDerivedState = ({initialState}) => {
   const listings = new Map(initialState.listings)
@@ -144,7 +144,7 @@ export default class ListingsIndex extends Component {
   onSelectListing = (id) => {
     const element = document.getElementById(`listing-${id}`)
     const rect = element.getBoundingClientRect()
-    const top = rect.top - HEADER_HEIGHT - FILTER_HEIGHT
+    const top = rect.top - desktopHeaderHeight - desktopFilterHeight
     window.scrollBy({top, behavior: 'smooth'})
   }
 
