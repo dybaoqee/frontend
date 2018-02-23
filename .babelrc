@@ -6,6 +6,7 @@
         ["lodash"],
         ["transform-define", "./env-config.js"],
         ["transform-decorators-legacy"],
+        ["styled-jsx/babel", {"plugins": ["styled-jsx-plugin-postcss"]}],
         [
           "inline-import",
           {
