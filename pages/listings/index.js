@@ -19,6 +19,10 @@ import Filter from 'components/listings/index/Search'
 
 import {mobileMedia} from 'constants/media'
 
+const HEADER_HEIGHT = 76
+
+const FILTER_HEIGHT = 58
+
 const getDerivedState = ({initialState}) => {
   const listings = new Map(initialState.listings)
   const currentPage = initialState.currentPage || 1
@@ -133,10 +137,12 @@ export default class ListingsIndex extends Component {
       this.updateRoute
     )
 
-  onSelectListing = (id) =>
-    document.getElementById(`listing-${id}`).scrollIntoView({
-      behavior: 'smooth'
-    })
+  onSelectListing = (id) => {
+    const element = document.getElementById(`listing-${id}`)
+    const rect = element.getBoundingClientRect()
+    const top = rect.top - HEADER_HEIGHT - FILTER_HEIGHT
+    window.scrollBy({top, behavior: 'smooth'})
+  }
 
   updateRoute = () => {
     const params = treatParams(this.state.filterParams.params)
