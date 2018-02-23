@@ -1,3 +1,5 @@
 import Sniffr from 'sniffr'
 
-export default Sniffr.sniff(navigator.userAgent)
+export default (typeof window !== 'undefined'
+  ? Sniffr.sniff(window.navigator.userAgent)
+  : undefined)
