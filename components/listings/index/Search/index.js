@@ -49,7 +49,7 @@ export default class Filter extends Component {
   render() {
     const {active} = this
     const {visible} = this.state
-    const {params, resetAllParams, neighborhoods} = this.props
+    const {params, onReset, neighborhoods} = this.props
     let className = 'listings-filter-container'
     if (active) className += ' filter-open'
 
@@ -63,7 +63,7 @@ export default class Filter extends Component {
           params={params}
           visible={visible}
           onToggle={this.onToggleList}
-          resetAllParams={resetAllParams}
+          onReset={onReset}
         />
 
         <PriceFilter
@@ -105,7 +105,7 @@ export default class Filter extends Component {
           </button>
         )}
 
-        <span className="remove-all-filters" onClick={resetAllParams}>
+        <span className="remove-all-filters" onClick={onReset}>
           Limpar Filtros
         </span>
 

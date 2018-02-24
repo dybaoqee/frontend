@@ -1,3 +1,4 @@
+import url from 'url'
 import qs from 'querystring'
 import _ from 'lodash'
 import {Component} from 'react'
@@ -92,6 +93,11 @@ export default class ListingsIndex extends Component {
 
   componentDidMount() {
     require('utils/polyfills/smooth-scroll').load()
+    Router.onRouteChangeStart = this.onUpdateRoute
+  }
+
+  componentWillUnmount() {
+    Router.onRouteChangeStart = undefined
   }
 
   onLoadNextPage = async () => {
@@ -115,40 +121,25 @@ export default class ListingsIndex extends Component {
   }
 
   onChangeFilter = (name, value) => {
-    this.updateRoute({[name]: value})
-  }
-
-  updateRoute = (newParams) => {
     const params = treatParams({
       ...this.params,
-      ...newParams
+      [name]: value
     })
-    const query = qs.parse(params)
 
     if (params) {
       Router.push(`/listings/index?${params}`, `/imoveis?${params}`)
     } else {
       Router.push('/listings/index', '/imoveis')
     }
+  }
+
+  onResetFilter = () => Router.push('/listings/index', '/imoveis')
+
+  onUpdateRoute = (requestPath) => {
+    const {query} = url.parse(requestPath, true)
     this.setState(
       getDerivedState({initialState: this.constructor.getState(query)})
     )
-  }
-
-  onResetFilter = () => {
-    const state = this.state
-
-    state.filterParams.params.price.min = undefined
-    state.filterParams.params.price.max = undefined
-    state.filterParams.params.area.min = undefined
-    state.filterParams.params.area.max = undefined
-    state.filterParams.params.rooms.min = undefined
-    state.filterParams.params.rooms.max = undefined
-    state.filterParams.params.neighborhoods.value = []
-
-    this.setState(state)
-
-    this.updateRoute()
   }
 
   get params() {
