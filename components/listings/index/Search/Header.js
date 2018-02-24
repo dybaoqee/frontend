@@ -13,7 +13,7 @@ export default class FilterHeader extends Component {
   isActiveList = (prop) => {
     const param = this.props.params[prop]
     const visible = this.props.visibility[prop]
-    return visible || param.value
+    return visible || param.value.length
   }
 
   isAreaActive = () => this.isActiveRange('area')
@@ -21,7 +21,7 @@ export default class FilterHeader extends Component {
   isRoomsActive = () => this.isActiveRange('rooms')
   isNeighborhoodsActive = () => this.isActiveList('neighborhoods')
   isOtherActive = () =>
-    this.isActiveRange('rooms') && this.isActiveRange('area')
+    this.isActiveRange('rooms') || this.isActiveRange('area')
 
   getNumberOfActiveParams = () =>
     _.filter([
