@@ -82,10 +82,11 @@ export default class Filter extends Component {
         />
 
         <PriceFilter
-          price={price}
+          value={params.price}
+          visible={visibility.price}
           onChange={this.onChangePrice}
-          toggleVisibility={this.onTogglePrice}
-          handleClose={this.onClose}
+          onToggle={this.onTogglePrice}
+          onClose={this.onClose}
         />
 
         <AreaFilter
