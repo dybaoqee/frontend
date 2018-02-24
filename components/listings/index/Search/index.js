@@ -90,14 +90,15 @@ export default class Filter extends Component {
         />
 
         <AreaFilter
-          area={area}
+          value={params.area}
+          visible={visibility.area}
           onChange={this.onChangeArea}
-          toggleVisibility={this.onToggleArea}
-          handleClose={this.onClose}
+          onToggle={this.onToggleArea}
+          onClose={this.onClose}
         />
 
         <RoomFilter
-          value={rooms}
+          value={params.rooms}
           visible={visibility.rooms}
           onChange={this.onChangeRooms}
           onToggle={this.onToggleRooms}
