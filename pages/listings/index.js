@@ -173,32 +173,6 @@ export default class ListingsIndex extends Component {
     this.updateRoute()
   }
 
-  toggleRoomVisibility = () => {
-    this.toggleParamVisibility('rooms')
-  }
-
-  togglePriceVisibility = () => {
-    this.toggleParamVisibility('price')
-  }
-
-  toggleAreaVisibility = () => {
-    this.toggleParamVisibility('area')
-  }
-
-  toggleNeighborhoodsVisibility = () => {
-    this.toggleParamVisibility('neighborhoods')
-  }
-
-  toggleParamVisibility = (param) => {
-    const state = this.state
-    const newParamFilterVisibility = !state.filterParams.params[param].visible
-
-    this.hideAllParams()
-
-    state.filterParams.params[param].visible = newParamFilterVisibility
-    this.setState(state)
-  }
-
   toggleMobilePriceVisibility = () => {
     const {visible} = this.state.filterParams.params.price
     const state = this.state
@@ -296,12 +270,6 @@ export default class ListingsIndex extends Component {
     return 'Filtros' + suffix
   }
 
-  handleOverlayClick = () => {
-    const {isMobileOpen} = this.state.filterParams
-
-    if (!isMobileOpen) this.hideAllParams()
-  }
-
   get currentListings() {
     const {currentPage, listings} = this.state
     return listings.get(currentPage) || []
@@ -314,7 +282,7 @@ export default class ListingsIndex extends Component {
 
   render() {
     const {neighborhoods, currentUser} = this.props
-    const {isMobileOpen, params} = this.state.filterParams
+    const {params} = this.state.filterParams
     const {currentPage, totalPages, totalResults, listings} = this.state
     const seoImgSrc = this.seoImage
     return (
@@ -345,23 +313,9 @@ export default class ListingsIndex extends Component {
         <div className="listings">
           <Filter
             neighborhoodOptions={neighborhoods}
-            isMobileOpen={isMobileOpen}
             params={params}
             onChange={this.onChangeFilter}
             resetAllParams={this.resetAllParams}
-            toggleRoomVisibility={this.toggleRoomVisibility}
-            togglePriceVisibility={this.togglePriceVisibility}
-            toggleAreaVisibility={this.toggleAreaVisibility}
-            toggleNeighborhoodsVisibility={this.toggleNeighborhoodsVisibility}
-            toggleMobilePriceVisibility={this.toggleMobilePriceVisibility}
-            toggleMobileNeighborhoodsVisibility={
-              this.toggleMobileNeighborhoodsVisibility
-            }
-            toggleOtherMobileParams={this.toggleOtherMobileParams}
-            toggleParamVisibility={this.toggleParamVisibility}
-            hideAllParams={this.hideAllParams}
-            isAnyParamVisible={this.isAnyParamVisible}
-            handleOverlayClick={this.handleOverlayClick}
           />
 
           <div className="map">
