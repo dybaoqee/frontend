@@ -158,116 +158,20 @@ export default class ListingsIndex extends Component {
     }
   }
 
-  resetAllParams = () => {
+  onResetFilter = () => {
     const state = this.state
 
     state.filterParams.params.price.min = undefined
     state.filterParams.params.price.max = undefined
     state.filterParams.params.area.min = undefined
     state.filterParams.params.area.max = undefined
-    state.filterParams.params.rooms.value = undefined
+    state.filterParams.params.rooms.min = undefined
+    state.filterParams.params.rooms.max = undefined
     state.filterParams.params.neighborhoods.value = []
 
     this.setState(state)
 
     this.updateRoute()
-  }
-
-  toggleMobilePriceVisibility = () => {
-    const {visible} = this.state.filterParams.params.price
-    const state = this.state
-
-    if (visible) {
-      state.filterParams.params.price.visible = false
-      state.filterParams.isMobileOpen = false
-    } else {
-      state.filterParams.params.price.visible = true
-      state.filterParams.params.neighborhoods.visible = false
-      state.filterParams.params.area.visible = false
-      state.filterParams.params.rooms.visible = false
-      state.filterParams.isMobileOpen = true
-    }
-
-    this.setState(state)
-  }
-
-  toggleMobileNeighborhoodsVisibility = () => {
-    const {visible} = this.state.filterParams.params.neighborhoods
-    const state = this.state
-
-    if (visible) {
-      state.filterParams.params.neighborhoods.visible = false
-      state.filterParams.isMobileOpen = false
-    } else {
-      state.filterParams.params.neighborhoods.visible = true
-      state.filterParams.params.price.visible = false
-      state.filterParams.params.area.visible = false
-      state.filterParams.params.rooms.visible = false
-      state.filterParams.isMobileOpen = true
-    }
-
-    this.setState(state)
-  }
-
-  toggleOtherMobileParams = () => {
-    const state = this.state
-    const visible = state.filterParams.params.area.visible
-
-    if (visible) {
-      state.filterParams.isMobileOpen = false
-      state.filterParams.params.area.visible = false
-      state.filterParams.params.rooms.visible = false
-    } else {
-      state.filterParams.isMobileOpen = true
-      state.filterParams.params.area.visible = true
-      state.filterParams.params.rooms.visible = true
-    }
-
-    state.filterParams.params.price.visible = false
-    state.filterParams.params.neighborhoods.visible = false
-    this.setState(state)
-  }
-
-  hideAllParams = () => {
-    const {state} = this
-    const {filterParams} = state
-
-    Object.keys(filterParams.params).map(function(key) {
-      state.filterParams.params[key].visible = false
-    })
-
-    state.filterParams.isMobileOpen = false
-
-    this.setState(state)
-  }
-
-  isAnyParamVisible = () => {
-    const {params} = this.state.filterParams
-
-    return Object.keys(params).some(function(key) {
-      return params[key]['visible'] === true
-    })
-  }
-
-  getNumberOfActiveParams = () => {
-    const {price, area, rooms, neighborhoods} = this.state.params.filterParams
-
-    let numberOfParams = 0
-
-    if (price.min || price.max) numberOfParams++
-    if (area.min || area.max) numberOfParams++
-    if (rooms.value) numberOfParams++
-    if (neighborhoods.value.length > 0) numberOfParams++
-
-    return numberOfParams
-  }
-
-  renderTextForMobileMainButton = () => {
-    const numberOfParams = this.getNumberOfActiveParams()
-
-    const suffix = numberOfParams == 0 ? '' : ': ' + numberOfParams
-
-    return 'Filtros' + suffix
   }
 
   get currentListings() {
@@ -315,7 +219,7 @@ export default class ListingsIndex extends Component {
             params={params}
             neighborhoods={neighborhoods}
             onChange={this.onChangeFilter}
-            resetAllParams={this.resetAllParams}
+            onReset={this.onResetFilter}
           />
 
           <div className="map">
@@ -332,7 +236,7 @@ export default class ListingsIndex extends Component {
 
           <div className="entries-container">
             {totalResults == 0 ? (
-              <ListingsNotFound resetAllParams={this.resetAllParams} />
+              <ListingsNotFound resetAllParams={this.onResetFilter} />
             ) : (
               <InfiniteScroll
                 currentPage={currentPage}
