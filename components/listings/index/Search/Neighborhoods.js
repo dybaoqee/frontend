@@ -10,14 +10,14 @@ import {neighborhoodOptions} from 'constants/listing-filter-options'
 export default class NeighborhoodFilter extends Component {
   onChange = (value) => this.props.onChange({value})
 
-  isButtonActive = () => {
-    const {visible, value} = this.props.neighborhoods
+  get active() {
+    const {visible, value: {value}} = this.props
     return value.length > 0 || visible
   }
 
-  buttonText = () => {
+  get buttonText() {
     const {options} = this.props
-    const {visible, value} = this.props.neighborhoods
+    const {visible, value: {value}} = this.props
 
     if (value.length == 0) {
       return 'Bairros'
@@ -33,25 +33,14 @@ export default class NeighborhoodFilter extends Component {
   }
 
   render() {
-    const {
-      neighborhoods,
-      options,
-      selectedOptions,
-      toggleVisibility,
-      handleClose
-    } = this.props
+    const {value, visible, neighborhoods, onToggle, onClose} = this.props
 
-    const {value, visible} = neighborhoods
-
-    const optionsObject = neighborhoodOptions(options)
+    const optionsObject = neighborhoodOptions(neighborhoods)
 
     return (
       <div className="filter-param-container">
-        <button
-          className={this.isButtonActive() ? 'active' : ''}
-          onClick={toggleVisibility}
-        >
-          {this.buttonText()}
+        <button className={this.active ? 'active' : ''} onClick={onToggle}>
+          {this.buttonText}
         </button>
 
         {visible && (
@@ -64,13 +53,13 @@ export default class NeighborhoodFilter extends Component {
                 style={{width: 200}}
                 placeholder="Bairros"
                 multi={true}
-                value={value}
+                value={value.value}
                 onChange={this.onChange}
                 options={optionsObject}
                 noResultsText="Resultado Não Encontrado"
               />
             </div>
-            <span className="close-filter-param" onClick={handleClose}>
+            <span className="close-filter-param" onClick={onClose}>
               Aplicar
             </span>
           </div>

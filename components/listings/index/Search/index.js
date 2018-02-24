@@ -62,9 +62,8 @@ export default class Filter extends Component {
 
   render() {
     const {active} = this
-    const {params, resetAllParams, neighborhoodOptions} = this.props
+    const {params, resetAllParams, neighborhoods} = this.props
     const {visibility} = this.state
-    const {price, area, rooms, neighborhoods} = params
     let className = 'listings-filter-container'
     if (active) className += ' filter-open'
 
@@ -106,11 +105,12 @@ export default class Filter extends Component {
         />
 
         <NeighborhoodFilter
+          value={params.neighborhoods}
+          visible={visibility.neighborhoods}
           neighborhoods={neighborhoods}
-          options={neighborhoodOptions}
           onChange={this.onChangeNeighborhoods}
-          toggleVisibility={this.onToggleNeighborhoods}
-          handleClose={this.onClose}
+          onToggle={this.onToggleNeighborhoods}
+          onClose={this.onClose}
         />
 
         {active && (

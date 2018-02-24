@@ -312,8 +312,8 @@ export default class ListingsIndex extends Component {
 
         <div className="listings">
           <Filter
-            neighborhoodOptions={neighborhoods}
             params={params}
+            neighborhoods={neighborhoods}
             onChange={this.onChangeFilter}
             resetAllParams={this.resetAllParams}
           />
