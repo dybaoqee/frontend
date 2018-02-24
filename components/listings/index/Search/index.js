@@ -97,10 +97,11 @@ export default class Filter extends Component {
         />
 
         <RoomFilter
-          rooms={rooms}
+          value={rooms}
+          visible={visibility.rooms}
           onChange={this.onChangeRooms}
-          toggleVisibility={this.onToggleRooms}
-          handleClose={this.onClose}
+          onToggle={this.onToggleRooms}
+          onClose={this.onClose}
         />
 
         <NeighborhoodFilter
