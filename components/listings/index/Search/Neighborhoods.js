@@ -8,27 +8,25 @@ import {mobileMedia} from 'constants/media'
 import {neighborhoodOptions} from 'constants/listing-filter-options'
 
 export default class NeighborhoodFilter extends Component {
-  onChange = (value) => this.props.onChange({value})
+  onChange = (value) => this.props.onChange(value)
 
   get active() {
-    const {visible, value: {value}} = this.props
+    const {visible, value} = this.props
     return value.length > 0 || visible
   }
 
   get buttonText() {
     const {options} = this.props
-    const {visible, value: {value}} = this.props
+    const {visible, value} = this.props
 
     if (value.length == 0) {
       return 'Bairros'
     }
 
-    const firstOption = value[0].value || value[0]
-
     if (value.length == 1) {
-      return firstOption
+      return value[0]
     } else {
-      return firstOption + ' e mais ' + (value.length - 1)
+      return value[0] + ' e mais ' + (value.length - 1)
     }
   }
 
@@ -53,7 +51,7 @@ export default class NeighborhoodFilter extends Component {
                 style={{width: 200}}
                 placeholder="Bairros"
                 multi={true}
-                value={value.value}
+                value={value}
                 onChange={this.onChange}
                 options={optionsObject}
                 noResultsText="Resultado Não Encontrado"

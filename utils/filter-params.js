@@ -43,8 +43,8 @@ function treatMaxRooms(params) {
 }
 
 function treatNeighborhoods(params) {
-  if (params.neighborhoods.value.length > 0) {
-    return `bairros=${joinParam(params.neighborhoods.value)}`
+  if (params.neighborhoods.length > 0) {
+    return `bairros=${joinParam(params.neighborhoods)}`
   }
 }
 

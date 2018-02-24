@@ -13,7 +13,7 @@ export default class FilterHeader extends Component {
   isActiveList = (prop) => {
     const param = this.props.params[prop]
     const visible = this.props.visible.indexOf(prop) !== -1
-    return visible || param.value.length
+    return visible || (param && param.length)
   }
 
   isAreaActive = () => this.isActiveRange('area')

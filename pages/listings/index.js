@@ -18,10 +18,7 @@ import ListingsNotFound from 'components/listings/index/NotFound'
 import Filter from 'components/listings/index/Search'
 
 import {mobileMedia} from 'constants/media'
-import {
-  desktopHeaderHeight,
-  desktopFilterHeight
-} from 'constants/dimensions'
+import {desktopHeaderHeight, desktopFilterHeight} from 'constants/dimensions'
 
 const getDerivedState = ({initialState}) => {
   const listings = new Map(initialState.listings)
@@ -33,49 +30,29 @@ const getDerivedState = ({initialState}) => {
   }
 }
 
+const splitParam = (param) => (param ? param.split('|') : [])
+
+const getDerivedParams = ({query}) => ({
+  price: {
+    min: query.preco_minimo,
+    max: query.preco_maximo
+  },
+  area: {
+    min: query.area_minima,
+    max: query.area_maxima
+  },
+  rooms: {
+    min: query.quartos_minimo,
+    max: query.quartos_maximo
+  },
+  neighborhoods: splitParam(query.bairros)
+})
+
 export default class ListingsIndex extends Component {
   constructor(props) {
     super(props)
 
-    const {
-      quartos_minimo,
-      quartos_maximo,
-      preco_minimo,
-      preco_maximo,
-      area_minima,
-      area_maxima,
-      quartos,
-      bairros
-    } = props.query
-    const neighborhoods = bairros ? bairros.split('|') : []
-
-    this.state = {
-      ...getDerivedState(props),
-      filterParams: {
-        isMobileOpen: false,
-        params: {
-          price: {
-            min: preco_minimo,
-            max: preco_maximo,
-            visible: false
-          },
-          area: {
-            min: area_minima,
-            max: area_maxima,
-            visible: false
-          },
-          rooms: {
-            min: quartos_minimo,
-            max: quartos_maximo,
-            visible: false
-          },
-          neighborhoods: {
-            value: neighborhoods,
-            visible: false
-          }
-        }
-      }
-    }
+    this.state = getDerivedState(props)
   }
 
   static async getInitialProps(context) {
@@ -117,12 +94,11 @@ export default class ListingsIndex extends Component {
     require('utils/polyfills/smooth-scroll').load()
   }
 
-  onLoad = async () => {
+  onLoadNextPage = async () => {
     const {currentPage, totalPages} = this.state
     if (currentPage >= totalPages) return
-    const params = qs.parse(treatParams(this.state.filterParams.params))
     const {listings, ...state} = await this.constructor.getState({
-      ...params,
+      ...this.params,
       page: currentPage + 1
     })
     await this.setState({
@@ -131,16 +107,6 @@ export default class ListingsIndex extends Component {
     })
   }
 
-  onChangeFilter = (name, value) =>
-    this.setState(
-      {
-        filterParams: update(this.state.filterParams, {
-          params: {[name]: {$merge: value}}
-        })
-      },
-      this.updateRoute
-    )
-
   onSelectListing = (id) => {
     const element = document.getElementById(`listing-${id}`)
     const rect = element.getBoundingClientRect()
@@ -148,8 +114,13 @@ export default class ListingsIndex extends Component {
     window.scrollBy({top, behavior: 'smooth'})
   }
 
-  updateRoute = () => {
-    const params = treatParams(this.state.filterParams.params)
+  onChangeFilter = (name, value) => this.updateRoute({[name]: value})
+
+  updateRoute = (newParams) => {
+    const params = treatParams({
+      ...this.params,
+      ...newParams
+    })
 
     if (params) {
       Router.push(`/listings/index?${params}`, `/imoveis?${params}`)
@@ -174,6 +145,10 @@ export default class ListingsIndex extends Component {
     this.updateRoute()
   }
 
+  get params() {
+    return getDerivedParams(this.props)
+  }
+
   get currentListings() {
     const {currentPage, listings} = this.state
     return listings.get(currentPage) || []
@@ -185,8 +160,8 @@ export default class ListingsIndex extends Component {
   }
 
   render() {
+    const {showMobileFilter, params} = this
     const {neighborhoods, currentUser} = this.props
-    const {params} = this.state.filterParams
     const {currentPage, totalPages, totalResults, listings} = this.state
     const seoImgSrc = this.seoImage
     return (
@@ -242,7 +217,7 @@ export default class ListingsIndex extends Component {
                 currentPage={currentPage}
                 totalPages={totalPages}
                 pages={listings}
-                onLoad={this.onLoad}
+                onLoad={this.onLoadNextPage}
               >
                 {(listing) => (
                   <Listing
