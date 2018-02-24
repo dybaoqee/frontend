@@ -114,19 +114,25 @@ export default class ListingsIndex extends Component {
     window.scrollBy({top, behavior: 'smooth'})
   }
 
-  onChangeFilter = (name, value) => this.updateRoute({[name]: value})
+  onChangeFilter = (name, value) => {
+    this.updateRoute({[name]: value})
+  }
 
   updateRoute = (newParams) => {
     const params = treatParams({
       ...this.params,
       ...newParams
     })
+    const query = qs.parse(params)
 
     if (params) {
       Router.push(`/listings/index?${params}`, `/imoveis?${params}`)
     } else {
       Router.push('/listings/index', '/imoveis')
     }
+    this.setState(
+      getDerivedState({initialState: this.constructor.getState(query)})
+    )
   }
 
   onResetFilter = () => {
