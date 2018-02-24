@@ -6,13 +6,13 @@ import * as colors from 'constants/colors'
 export default class FilterHeader extends Component {
   isActiveRange = (prop) => {
     const param = this.props.params[prop]
-    const visible = this.props.visibility[prop]
+    const visible = this.props.visible.indexOf(prop) !== -1
     return visible || param.min || param.max
   }
 
   isActiveList = (prop) => {
     const param = this.props.params[prop]
-    const visible = this.props.visibility[prop]
+    const visible = this.props.visible.indexOf(prop) !== -1
     return visible || param.value.length
   }
 

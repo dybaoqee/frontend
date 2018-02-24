@@ -12,12 +12,7 @@ import NeighborhoodFilter from './Neighborhoods'
 
 export default class Filter extends Component {
   state = {
-    visibility: {
-      area: false,
-      rooms: false,
-      price: false,
-      neighborhoods: false
-    }
+    visible: []
   }
 
   onChange = (prop) => (value) => this.props.onChange(prop, value)
@@ -28,42 +23,33 @@ export default class Filter extends Component {
   onChangeNeighborhoods = this.onChange('neighborhoods')
 
   onToggle = (prop) => () =>
-    this.setState({
-      visibility: {
-        ...this.state.visibility,
-        [prop]: !this.state.visibility[prop]
-      }
-    })
+    this.setState({visible: this.isVisible(prop) ? [] : [prop]})
 
-  onToggleList = (...props) => () => {
-    const main = props[0]
-    const value = !this.state.visibility[main]
-    this.setState({
-      visibility: props.reduce((result, prop) => ({...result, [prop]: value}), {
-        ...this.state.visibility
-      })
-    })
-  }
+  // Toggle multiple items at once on mobile
+  onToggleList = (...props) => () =>
+    this.setState({visible: this.isVisible(props[0]) ? [] : props})
 
   onToggleArea = this.onToggle('area')
   onToggleRooms = this.onToggle('rooms')
   onTogglePrice = this.onToggle('price')
   onToggleNeighborhoods = this.onToggle('neighborhoods')
 
-  onClose = () =>
-    this.setState(({visibility}) => ({
-      visibility: _.mapValues(visibility, false)
-    }))
+  onClose = () => this.setState({visible: []})
+
+  isVisible(prop) {
+    const {visible} = this.state
+    if (!prop) return visible.length !== 0
+    return visible.indexOf(prop) !== -1
+  }
 
   get active() {
-    const {visibility} = this.state
-    return Object.keys(visibility).find((prop) => visibility[prop])
+    return this.state.visible.length !== 0
   }
 
   render() {
     const {active} = this
+    const {visible} = this.state
     const {params, resetAllParams, neighborhoods} = this.props
-    const {visibility} = this.state
     let className = 'listings-filter-container'
     if (active) className += ' filter-open'
 
@@ -75,14 +61,14 @@ export default class Filter extends Component {
 
         <FilterHeader
           params={params}
-          visibility={visibility}
+          visible={visible}
           onToggle={this.onToggleList}
           resetAllParams={resetAllParams}
         />
 
         <PriceFilter
           value={params.price}
-          visible={visibility.price}
+          visible={this.isVisible('price')}
           onChange={this.onChangePrice}
           onToggle={this.onTogglePrice}
           onClose={this.onClose}
@@ -90,7 +76,7 @@ export default class Filter extends Component {
 
         <AreaFilter
           value={params.area}
-          visible={visibility.area}
+          visible={this.isVisible('area')}
           onChange={this.onChangeArea}
           onToggle={this.onToggleArea}
           onClose={this.onClose}
@@ -98,7 +84,7 @@ export default class Filter extends Component {
 
         <RoomFilter
           value={params.rooms}
-          visible={visibility.rooms}
+          visible={this.isVisible('rooms')}
           onChange={this.onChangeRooms}
           onToggle={this.onToggleRooms}
           onClose={this.onClose}
@@ -106,7 +92,7 @@ export default class Filter extends Component {
 
         <NeighborhoodFilter
           value={params.neighborhoods}
-          visible={visibility.neighborhoods}
+          visible={this.isVisible('neighborhoods')}
           neighborhoods={neighborhoods}
           onChange={this.onChangeNeighborhoods}
           onToggle={this.onToggleNeighborhoods}
