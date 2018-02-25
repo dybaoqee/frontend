@@ -1,10 +1,6 @@
 import {Component} from 'react'
-import Link from 'next/link'
 import Select from 'react-select'
-import numeral from 'numeral'
 
-import * as colors from 'constants/colors'
-import {mobileMedia} from 'constants/media'
 import {neighborhoodOptions} from 'constants/listing-filter-options'
 
 export default class NeighborhoodFilter extends Component {
@@ -16,8 +12,7 @@ export default class NeighborhoodFilter extends Component {
   }
 
   get buttonText() {
-    const {options} = this.props
-    const {visible, value} = this.props
+    const {value} = this.props
 
     if (value.length == 0) {
       return 'Bairros'

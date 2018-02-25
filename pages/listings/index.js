@@ -1,5 +1,4 @@
 import url from 'url'
-import qs from 'querystring'
 import _ from 'lodash'
 import {Component} from 'react'
 import Head from 'next/head'
@@ -157,7 +156,7 @@ export default class ListingsIndex extends Component {
   }
 
   render() {
-    const {showMobileFilter, params} = this
+    const {params} = this
     const {neighborhoods, currentUser} = this.props
     const {currentPage, totalPages, totalResults, listings} = this.state
     const seoImgSrc = this.seoImage
