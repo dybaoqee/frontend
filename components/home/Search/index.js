@@ -1,9 +1,9 @@
 import {Component} from 'react'
 import ReactGA from 'react-ga'
-import Router from 'next/router'
 import Select from 'react-select'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faSearch from '@fortawesome/fontawesome-free-solid/faSearch'
+import Link from 'next/link'
 
 import * as filterOptions from 'constants/listing-filter-options'
 
@@ -68,31 +68,30 @@ export default class HomeSearch extends Component {
       .join('&')
   }
 
-  handleClick = () => {
+  buildLink = () => {
     const params = this.treatParams()
 
     if (params) {
-      ReactGA.initialize(process.env.GOOGLE_ANALYTICS_TRACKING_ID)
-      ReactGA.event({
-        category: 'Search',
-        label: 'User search from Home',
-        action: 'homeSearch'
-      })
-
-      Router.push(`/listings/index?${params}`, `/imoveis?${params}`).then(() =>
-        window.scrollTo(0, 0)
-      )
+      return {href: `/listings/index?${params}`, as: `/imoveis?${params}`}
     } else {
-      Router.push('/listings/index', '/imoveis').then(() =>
-        window.scrollTo(0, 0)
-      )
+      return {href: '/listings/index', as: '/imoveis'}
     }
+  }
+
+  handleClick = () => {
+    ReactGA.initialize(process.env.GOOGLE_ANALYTICS_TRACKING_ID)
+    ReactGA.event({
+      category: 'Search',
+      label: 'User search from Home',
+      action: 'homeSearch'
+    })
   }
 
   render() {
     const {bairros} = this.state
     const {neighborhoods} = this.props
     const neighborhoodOptions = filterOptions.neighborhoodOptions(neighborhoods)
+    const {href, as} = this.buildLink()
 
     return (
       <Container>
@@ -110,9 +109,11 @@ export default class HomeSearch extends Component {
               noResultsText="Não Encontramos Resultado"
             />
           </Neighborhoods>
-          <Magnifier onClick={this.handleClick}>
-            <FontAwesomeIcon icon={faSearch} />
-          </Magnifier>
+          <Link href={href} as={as} prefetch>
+            <Magnifier onClick={this.handleClick}>
+              <FontAwesomeIcon icon={faSearch} />
+            </Magnifier>
+          </Link>
           <MobileMagnifier onClick={this.handleClick}>
             Ver Imóveis →
           </MobileMagnifier>
