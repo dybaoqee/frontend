@@ -114,9 +114,11 @@ export default class HomeSearch extends Component {
               <FontAwesomeIcon icon={faSearch} />
             </Magnifier>
           </Link>
-          <MobileMagnifier onClick={this.handleClick}>
-            Ver Imóveis →
-          </MobileMagnifier>
+          <Link href={href} as={as}>
+            <MobileMagnifier onClick={this.handleClick}>
+              Ver Imóveis →
+            </MobileMagnifier>
+          </Link>
         </Search>
       </Container>
     )
