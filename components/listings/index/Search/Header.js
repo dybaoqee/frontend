@@ -4,57 +4,35 @@ import {mobileMedia} from 'constants/media'
 import * as colors from 'constants/colors'
 
 export default class FilterHeader extends Component {
-  getNumberOfActiveParams = () => {
-    const {price, area, rooms, neighborhoods} = this.props.params
-
-    let numberOfParams = 0
-
-    if (price.min || price.max) numberOfParams++
-    if (area.min || area.max) numberOfParams++
-    if (rooms.value) numberOfParams++
-    if (neighborhoods.value.length > 0) numberOfParams++
-
-    return numberOfParams
+  isActiveRange = (prop) => {
+    const param = this.props.params[prop]
+    const visible = this.props.visible.indexOf(prop) !== -1
+    return visible || param.min || param.max
   }
 
-  isMobileOtherButtonActive = () => {
-    const {area, rooms} = this.props.params
-
-    return area.visible || area.min || area.max || rooms.visible || rooms.value
+  isActiveList = (prop) => {
+    const param = this.props.params[prop]
+    const visible = this.props.visible.indexOf(prop) !== -1
+    return visible || (param && param.length)
   }
 
-  isMobilePriceButtonActive = () => {
-    const {visible, min, max} = this.props.params.price
+  isAreaActive = () => this.isActiveRange('area')
+  isPriceActive = () => this.isActiveRange('price')
+  isRoomsActive = () => this.isActiveRange('rooms')
+  isNeighborhoodsActive = () => this.isActiveList('neighborhoods')
+  isOtherActive = () =>
+    this.isActiveRange('rooms') || this.isActiveRange('area')
 
-    return visible || min || max
-  }
-
-  isMobileNeighborhoodsButtonActive = () => {
-    const {visible, value} = this.props.params.neighborhoods
-
-    return visible || value.length
-  }
-
-  isMobileOtherButtonActive = () => {
-    const {area, rooms} = this.props.params
-
-    return (
-      area.visible ||
-      area.min ||
-      area.max ||
-      rooms.visible ||
-      rooms.min ||
-      rooms.max
-    )
-  }
+  getNumberOfActiveParams = () =>
+    _.filter([
+      this.isAreaActive(),
+      this.isPriceActive(),
+      this.isRoomsActive(),
+      this.isNeighborhoodsActive()
+    ]).length
 
   render() {
-    const {
-      toggleOtherMobileParams,
-      toggleMobilePriceVisibility,
-      toggleMobileNeighborhoodsVisibility,
-      resetAllParams,
-    } = this.props
+    const {onToggle, onReset} = this.props
 
     return [
       <span key={1} className="filter-title">
@@ -79,34 +57,32 @@ export default class FilterHeader extends Component {
         <button
           className={
             'mobile-filter-toggler ' +
-            (this.isMobileNeighborhoodsButtonActive() ? 'active' : '')
+            (this.isNeighborhoodsActive() ? 'active' : '')
           }
-          onClick={toggleMobileNeighborhoodsVisibility}
+          onClick={onToggle('neighborhoods')}
         >
           Bairros
         </button>
 
         <button
           className={
-            'mobile-filter-toggler ' +
-            (this.isMobilePriceButtonActive() ? 'active' : '')
+            'mobile-filter-toggler ' + (this.isPriceActive() ? 'active' : '')
           }
-          onClick={toggleMobilePriceVisibility}
+          onClick={onToggle('price')}
         >
           Preço
         </button>
 
         <button
           className={
-            'mobile-filter-toggler ' +
-            (this.isMobileOtherButtonActive() ? 'active' : '')
+            'mobile-filter-toggler ' + (this.isOtherActive() ? 'active' : '')
           }
-          onClick={toggleOtherMobileParams}
+          onClick={onToggle('rooms', 'area')}
         >
           Outros
         </button>
 
-        <span className="mobile remove-all-filters" onClick={resetAllParams}>
+        <span className="mobile remove-all-filters" onClick={onReset}>
           Limpar
         </span>
 
@@ -146,7 +122,7 @@ export default class FilterHeader extends Component {
             }
           }
         `}</style>
-      </div>,
+      </div>
     ]
   }
 }

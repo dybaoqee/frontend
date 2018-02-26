@@ -6,7 +6,7 @@ import {roomNumberOptions} from 'constants/listing-filter-options'
 
 export default class RoomFilter extends Component {
   onChange = (prop) => (val) => {
-    const {rooms: {min, max}, onChange} = this.props
+    const {value: {min, max}, onChange} = this.props
     onChange({min, max, [prop]: val ? val.value : undefined})
   }
 
@@ -14,13 +14,13 @@ export default class RoomFilter extends Component {
 
   onChangeMax = this.onChange('max')
 
-  isButtonActive = () => {
-    const {min, max, visible} = this.props.rooms
+  get active() {
+    const {value: {min, max}, visible} = this.props
     return min || max || visible
   }
 
-  buttonText = () => {
-    const {min, max} = this.props.rooms
+  get buttonText() {
+    const {min, max} = this.props.value
     const abbreviatedMin = numeral(min).format('0a')
     const abbreviatedMax = numeral(max).format('0a')
 
@@ -36,17 +36,12 @@ export default class RoomFilter extends Component {
   }
 
   render() {
-    const {rooms, toggleVisibility, handleClose} = this.props
-
-    const {min, max, visible} = rooms
+    const {value, visible, onToggle, onClose} = this.props
 
     return (
       <div className="filter-param-container">
-        <button
-          className={this.isButtonActive() ? 'active' : ''}
-          onClick={toggleVisibility}
-        >
-          {this.buttonText()}
+        <button className={this.active ? 'active' : ''} onClick={onToggle}>
+          {this.buttonText}
         </button>
 
         {visible && (
@@ -57,7 +52,7 @@ export default class RoomFilter extends Component {
                 arrowRenderer={null}
                 style={{width: 130}}
                 placeholder="Nº Quartos"
-                value={min}
+                value={value.min}
                 onChange={this.onChangeMin}
                 options={roomNumberOptions}
                 searchable={false}
@@ -69,13 +64,13 @@ export default class RoomFilter extends Component {
                 arrowRenderer={null}
                 style={{width: 130}}
                 placeholder="Nº Quartos"
-                value={max}
+                value={value.max}
                 onChange={this.onChangeMax}
                 options={roomNumberOptions}
                 searchable={false}
               />
             </div>
-            <span className="close-filter-param" onClick={handleClose}>
+            <span className="close-filter-param" onClick={onClose}>
               Aplicar
             </span>
           </div>

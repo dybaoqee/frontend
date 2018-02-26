@@ -6,7 +6,7 @@ import {minAreaOptions, maxAreaOptions} from 'constants/listing-filter-options'
 
 export default class AreaFilter extends Component {
   onChange = (prop) => (val) => {
-    const {area: {min, max}, onChange} = this.props
+    const {value: {min, max}, onChange} = this.props
     onChange({min, max, [prop]: val ? val.value : undefined})
   }
 
@@ -14,20 +14,20 @@ export default class AreaFilter extends Component {
 
   onChangeMax = this.onChange('max')
 
-  isButtonActive = () => {
-    const {min, max, visible} = this.props.area
+  get active() {
+    const {value: {min, max}, visible} = this.props
     return min || max || visible
   }
 
-  buttonText = () => {
-    const {min, max} = this.props.area
+  get buttonText() {
+    const {min, max} = this.props.value
     const abbreviatedMin = numeral(min).format('0a')
     const abbreviatedMax = numeral(max).format('0a')
 
     let suffix
 
     if (min && max) {
-      suffix = abbreviatedMin + '-' + abbreviatedMax +'m²'
+      suffix = abbreviatedMin + '-' + abbreviatedMax + 'm²'
     } else if (min) {
       suffix = abbreviatedMin + 'm²+'
     } else if (max) {
@@ -42,17 +42,12 @@ export default class AreaFilter extends Component {
   }
 
   render() {
-    const {area, toggleVisibility, handleClose} = this.props
-
-    const {min, max, visible} = area
+    const {value, visible, onToggle, onClose} = this.props
 
     return (
       <div className="filter-param-container">
-        <button
-          className={this.isButtonActive() ? 'active' : ''}
-          onClick={toggleVisibility}
-        >
-          {this.buttonText()}
+        <button className={this.active ? 'active' : ''} onClick={onToggle}>
+          {this.buttonText}
         </button>
 
         {visible && (
@@ -63,7 +58,7 @@ export default class AreaFilter extends Component {
                 arrowRenderer={null}
                 style={{width: 100}}
                 placeholder="m²"
-                value={min}
+                value={value.min}
                 onChange={this.onChangeMin}
                 options={minAreaOptions}
                 searchable={false}
@@ -75,13 +70,13 @@ export default class AreaFilter extends Component {
                 arrowRenderer={null}
                 style={{width: 100}}
                 placeholder="m²"
-                value={max}
+                value={value.max}
                 onChange={this.onChangeMax}
                 options={maxAreaOptions}
                 searchable={false}
               />
             </div>
-            <span className="close-filter-param" onClick={handleClose}>
+            <span className="close-filter-param" onClick={onClose}>
               Aplicar
             </span>
           </div>

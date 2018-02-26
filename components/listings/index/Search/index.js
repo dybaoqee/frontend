@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import {Component} from 'react'
 
 import * as colors from 'constants/colors'
@@ -10,83 +11,101 @@ import RoomFilter from './Rooms'
 import NeighborhoodFilter from './Neighborhoods'
 
 export default class Filter extends Component {
+  state = {
+    visible: []
+  }
+
   onChange = (prop) => (value) => this.props.onChange(prop, value)
 
+  onChangeArea = this.onChange('area')
+  onChangeRooms = this.onChange('rooms')
+  onChangePrice = this.onChange('price')
+  onChangeNeighborhoods = this.onChange('neighborhoods')
+
+  onToggle = (prop) => () =>
+    this.setState({visible: this.isVisible(prop) ? [] : [prop]})
+
+  // Toggle multiple items at once on mobile
+  onToggleList = (...props) => () =>
+    this.setState({visible: this.isVisible(props[0]) ? [] : props})
+
+  onToggleArea = this.onToggle('area')
+  onToggleRooms = this.onToggle('rooms')
+  onTogglePrice = this.onToggle('price')
+  onToggleNeighborhoods = this.onToggle('neighborhoods')
+
+  onClose = () => this.setState({visible: []})
+
+  isVisible(prop) {
+    const {visible} = this.state
+    if (!prop) return visible.length !== 0
+    return visible.indexOf(prop) !== -1
+  }
+
+  get active() {
+    return this.state.visible.length !== 0
+  }
+
   render() {
-    const {isMobileOpen, params, neighborhoodOptions} = this.props
-    const {price, area, rooms, neighborhoods} = params
-    const {
-      resetAllParams,
-      toggleRoomVisibility,
-      togglePriceVisibility,
-      toggleAreaVisibility,
-      toggleNeighborhoodsVisibility,
-      toggleMobilePriceVisibility,
-      toggleMobileNeighborhoodsVisibility,
-      toggleOtherMobileParams,
-      hideAllParams,
-      isAnyParamVisible,
-      handleOverlayClick,
-    } = this.props
+    const {active} = this
+    const {visible} = this.state
+    const {params, onReset, neighborhoods} = this.props
+    let className = 'listings-filter-container'
+    if (active) className += ' filter-open'
 
     return (
-      <div
-        className={
-          'listings-filter-container ' +
-          (isAnyParamVisible() ? 'filter-open' : '')
-        }
-      >
-        {isAnyParamVisible() && (
-          <div className="active-filter-overlay" onClick={handleOverlayClick} />
+      <div className={className}>
+        {active && (
+          <div className="active-filter-overlay" onClick={this.onClose} />
         )}
 
         <FilterHeader
           params={params}
-          isMobileOpen={isMobileOpen}
-          toggleMobilePriceVisibility={toggleMobilePriceVisibility}
-          toggleMobileNeighborhoodsVisibility={
-            toggleMobileNeighborhoodsVisibility
-          }
-          resetAllParams={resetAllParams}
-          toggleOtherMobileParams={toggleOtherMobileParams}
+          visible={visible}
+          onToggle={this.onToggleList}
+          onReset={onReset}
         />
 
         <PriceFilter
-          price={price}
-          onChange={this.onChange('price')}
-          toggleVisibility={togglePriceVisibility}
-          handleClose={hideAllParams}
+          value={params.price}
+          visible={this.isVisible('price')}
+          onChange={this.onChangePrice}
+          onToggle={this.onTogglePrice}
+          onClose={this.onClose}
         />
 
         <AreaFilter
-          area={area}
-          onChange={this.onChange('area')}
-          toggleVisibility={toggleAreaVisibility}
-          handleClose={hideAllParams}
+          value={params.area}
+          visible={this.isVisible('area')}
+          onChange={this.onChangeArea}
+          onToggle={this.onToggleArea}
+          onClose={this.onClose}
         />
 
         <RoomFilter
-          rooms={rooms}
-          onChange={this.onChange('rooms')}
-          toggleVisibility={toggleRoomVisibility}
-          handleClose={hideAllParams}
+          value={params.rooms}
+          visible={this.isVisible('rooms')}
+          onChange={this.onChangeRooms}
+          onToggle={this.onToggleRooms}
+          onClose={this.onClose}
         />
 
         <NeighborhoodFilter
+          value={params.neighborhoods}
+          visible={this.isVisible('neighborhoods')}
           neighborhoods={neighborhoods}
-          options={neighborhoodOptions}
-          onChange={this.onChange('neighborhoods')}
-          toggleVisibility={toggleNeighborhoodsVisibility}
-          handleClose={hideAllParams}
+          onChange={this.onChangeNeighborhoods}
+          onToggle={this.onToggleNeighborhoods}
+          onClose={this.onClose}
         />
 
-        {isMobileOpen && (
-          <button className="close-mobile-filters" onClick={hideAllParams}>
+        {active && (
+          <button className="close-mobile-filters" onClick={this.onClose}>
             Ver Resultados
           </button>
         )}
 
-        <span className="remove-all-filters" onClick={resetAllParams}>
+        <span className="remove-all-filters" onClick={onReset}>
           Limpar Filtros
         </span>
 

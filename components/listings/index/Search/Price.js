@@ -9,7 +9,7 @@ import {
 
 export default class PriceFilter extends Component {
   onChange = (prop) => (val) => {
-    const {price: {min, max}, onChange} = this.props
+    const {value: {min, max}, onChange} = this.props
     onChange({min, max, [prop]: val ? val.value : undefined})
   }
 
@@ -17,13 +17,13 @@ export default class PriceFilter extends Component {
 
   onChangeMax = this.onChange('max')
 
-  isButtonActive = () => {
-    const {min, max, visible} = this.props.price
+  get active() {
+    const {value: {min, max}, visible} = this.props
     return min || max || visible
   }
 
-  buttonText = () => {
-    const {min, max} = this.props.price
+  get buttonText() {
+    const {min, max} = this.props.value
     const abbreviatedMin = numeral(min).format('0a')
     const abbreviatedMax = numeral(max).format('0a')
 
@@ -45,18 +45,15 @@ export default class PriceFilter extends Component {
   }
 
   render() {
-    const {price, toggleVisibility, handleClose} = this.props
+    const {value, visible, onToggle, onClose} = this.props
 
     return (
       <div className="filter-param-container">
-        <button
-          className={this.isButtonActive() ? 'active' : ''}
-          onClick={toggleVisibility}
-        >
-          {this.buttonText()}
+        <button className={this.active ? 'active' : ''} onClick={onToggle}>
+          {this.buttonText}
         </button>
 
-        {price.visible && (
+        {visible && (
           <div className="option-container price-container">
             <span className="mobile-param-title">Preço</span>
             <div>
@@ -64,7 +61,7 @@ export default class PriceFilter extends Component {
                 arrowRenderer={null}
                 style={{width: 130}}
                 placeholder="R$"
-                value={price.min}
+                value={value.min}
                 onChange={this.onChangeMin}
                 options={minPriceOptions}
                 searchable={false}
@@ -76,14 +73,14 @@ export default class PriceFilter extends Component {
                 arrowRenderer={null}
                 style={{width: 130}}
                 placeholder="R$"
-                value={price.max}
+                value={value.max}
                 onChange={this.onChangeMax}
                 options={maxPriceOptions}
                 searchable={false}
               />
             </div>
 
-            <span className="close-filter-param" onClick={handleClose}>
+            <span className="close-filter-param" onClick={onClose}>
               Aplicar
             </span>
           </div>
