@@ -37,39 +37,76 @@ export default class AppDocument extends Document {
           <script
             dangerouslySetInnerHTML={{
               __html: `
-            window.dataLayer = window.dataLayer || []
-            function gtag(){
-              dataLayer.push(arguments)
-            }
-            gtag('js', new Date())
-            gtag('config', '${process.env.GOOGLE_ANALYTICS_TRACKING_ID}')
+                window.dataLayer = window.dataLayer || []
+                function gtag(){
+                  dataLayer.push(arguments)
+                }
+                gtag('js', new Date())
+                gtag('config', '${process.env.GOOGLE_ANALYTICS_TRACKING_ID}')
 
-            <!-- Facebook Pixel Code -->
-            !function(f,b,e,v,n,t,s)
-            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-            n.queue=[];t=b.createElement(e);t.async=!0;
-            t.src=v;s=b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t,s)}(window,document,'script',
-            'https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', '710980862398359');
-            fbq('track', 'PageView');
-            <!-- End Facebook Pixel Code -->
-          `
+                <!-- Facebook Pixel Code -->
+                !function(f,b,e,v,n,t,s)
+                {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+                n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+                if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+                n.queue=[];t=b.createElement(e);t.async=!0;
+                t.src=v;s=b.getElementsByTagName(e)[0];
+                s.parentNode.insertBefore(t,s)}(window,document,'script',
+                'https://connect.facebook.net/en_US/fbevents.js');
+                fbq('init', '710980862398359');
+                fbq('track', 'PageView');
+                <!-- End Facebook Pixel Code -->
+              `
             }}
           />
+
           <noscript
             dangerouslySetInnerHTML={{
               __html: `
-            <!-- Facebook Pixel Code -->
-            <img height="1" width="1"
-            src="https://www.facebook.com/tr?id=710980862398359&ev=PageView
-            &noscript=1"/>
-            <!-- End Facebook Pixel Code -->
-          `
+                <!-- Facebook Pixel Code -->
+                <img height="1" width="1"
+                src="https://www.facebook.com/tr?id=710980862398359&ev=PageView
+                &noscript=1"/>
+                <!-- End Facebook Pixel Code -->
+              `
             }}
           />
+
+          {/* Start code for Google AdWords */}
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                /* <![CDATA[ */
+                var google_conversion_id = 830164609;
+                var google_custom_params = window.google_tag_params;
+                var google_remarketing_only = true;
+                /* ]]> */
+              `
+            }}
+          />
+
+          <script
+            type="text/javascript"
+            src="//www.googleadservices.com/pagead/conversion.js"
+          />
+
+          <noscript
+            dangerouslySetInnerHTML={{
+              __html: `
+                <div style="display:inline;">
+                  <img
+                    height="1"
+                    width="1"
+                    style="border-style:none;"
+                    alt=""
+                    src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/830164609/?guid=ON&amp;script=0"
+                  />
+                </div>
+              `
+            }}
+          />
+          {/* End code for Google AdWords */}
+
           <meta
             name="viewport"
             content="initial-scale=1.0, width=device-width"
