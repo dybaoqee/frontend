@@ -8,19 +8,78 @@ import TextContainer from 'components/shared/TextContainer'
 import Layout from 'components/shared/Shell'
 import * as colors from 'constants/colors'
 
+import FirstStep from 'components/listings/new/steps/AddressAutoComplete'
+import SecondStep from 'components/listings/new/steps/AddressInfo'
+import ThirdStep from 'components/listings/new/steps/PropertyInfo'
+import FourthStep from 'components/listings/new/steps/PropertyGallery'
+import FifthStep from 'components/listings/new/steps/PropertyGalleryEdit'
+
+import EmCasaButton from 'components/shared/Common/Buttons'
+
 export default class ListingNew extends Component {
   constructor(props) {
     super(props)
+
     this.state = {
+      page: 0,
+      loading: false,
+      finished: false,
       city: 'Rio de Janeiro',
       state: 'RJ'
     }
+
+    this.steps = [
+      <FirstStep />,
+      <SecondStep />,
+      <ThirdStep />,
+      <FourthStep />,
+      <FifthStep />
+    ]
+
+    this.nextPage = this.nextPage.bind(this)
+    // this.submit = this.submit.bind(this)
+  }
+
+  nextPage() {
+    const {page} = this.state
+
+    if (page === 4) {
+      console.log('FINISHED')
+    } else {
+      this.setState({
+        page: page + 1
+      })
+    }
+  }
+
+  getStepContent(page) {
+    const Current = this.steps[page]
+    return React.cloneElement(Current, {...this.props})
+  }
+
+  renderContent() {
+    const {page, finished} = this.state
+
+    if (finished) {
+      return (
+        <div>
+          <p>The form was submitted succesfully. Thank you!</p>
+        </div>
+      )
+    }
+
+    return (
+      <div>
+        <div>{this.getStepContent(page)}</div>
+      </div>
+    )
   }
 
   static async getInitialProps(ctx) {
     if (redirectIfNotAuthenticated(ctx)) {
       return {}
     }
+    this.teste = undefined
 
     const jwt = getJwt(ctx)
 
@@ -62,6 +121,7 @@ export default class ListingNew extends Component {
 
   render() {
     const {authenticated} = this.props
+    const {page, loading} = this.state
     const {
       errors,
       street,
@@ -88,9 +148,16 @@ export default class ListingNew extends Component {
     return (
       <Layout authenticated={authenticated}>
         <TextContainer>
-          <h1>Adicionar Imóvel</h1>
+          <h1>Adicionar novo Imóvel</h1>
+          {this.renderContent()}
+          <div style={{display: 'flex', justifyContent: 'space-between'}}>
+            <EmCasaButton disabled>Anterior</EmCasaButton>
+            <EmCasaButton light disabled>
+              Próximo
+            </EmCasaButton>
+          </div>
 
-          <form onSubmit={this.handleSubmit}>
+          {/* <form onSubmit={this.handleSubmit}>
             <h4>Endereço</h4>
 
             <div className="input-control">
@@ -327,7 +394,7 @@ export default class ListingNew extends Component {
             )}
 
             <button type="submit">Enviar</button>
-          </form>
+          </form> */}
         </TextContainer>
 
         <style jsx>{`
