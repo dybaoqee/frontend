@@ -6,8 +6,6 @@ export default class AddressAutoComplete extends React.Component {
   constructor(props) {
     super(props)
     this.timer = null
-    this.onChange = this.onChange.bind(this)
-    this.searchPlaces = this.searchPlaces.bind(this)
     this.state = {
       predictions: [],
       place: {},
@@ -15,7 +13,7 @@ export default class AddressAutoComplete extends React.Component {
     }
   }
 
-  async searchPlaces(input) {
+  searchPlaces = async (input) => {
     try {
       const response = await fetch(`/maps/autocomplete?q=${encodeURI(input)}`)
       const json = await response.json()
@@ -29,7 +27,7 @@ export default class AddressAutoComplete extends React.Component {
     this.setState({place, predictions: []})
   }
 
-  onChange(e) {
+  onChange = (e) => {
     const {value} = e.target
     this.setState({search: value, place: {}})
     clearTimeout(this.timer)
