@@ -20,5 +20,6 @@ module.exports = {
   'process.env.GOOGLE_ANALYTICS_TRACKING_ID': prod
     ? process.env.GOOGLE_ANALYTICS_TRACKING_ID
     : null,
-  'process.env.GOOGLE_MAPS_KEY': process.env.GOOGLE_MAPS_KEY || null
+  'process.env.GOOGLE_MAPS_KEY':
+    process.env.GOOGLE_MAPS_KEY || 'AIzaSyDmYQLTPwsDPtErGWTgiejz17QCw39MEVQ'
 }
