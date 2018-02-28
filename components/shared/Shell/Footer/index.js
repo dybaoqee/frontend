@@ -1,6 +1,11 @@
 import Link from 'next/link'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
-import {faFacebook, faInstagram} from '@fortawesome/fontawesome-free-brands'
+import {
+  faFacebook,
+  faInstagram,
+  faLinkedin,
+  faTwitter
+} from '@fortawesome/fontawesome-free-brands'
 
 import Container from './styles'
 
@@ -34,6 +39,22 @@ const Footer = () => (
             className="icon"
           >
             <FontAwesomeIcon icon={faInstagram} />
+          </a>
+
+          <a
+            href="https://www.linkedin.com/company/emcasa/"
+            target="_blank"
+            className="icon"
+          >
+            <FontAwesomeIcon icon={faLinkedin} />
+          </a>
+
+          <a
+            href="https://twitter.com/EmCasaTech"
+            target="_blank"
+            className="icon"
+          >
+            <FontAwesomeIcon icon={faTwitter} />
           </a>
         </div>
       </div>
