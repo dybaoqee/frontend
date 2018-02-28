@@ -1,7 +1,7 @@
 import {Component, Fragment} from 'react'
 import Link from 'next/link'
 
-import Container, {Button, Nav, Error} from './styled'
+import Container, {Button, Nav} from './styled'
 
 export default class Header extends Component {
   state = {
@@ -14,7 +14,7 @@ export default class Header extends Component {
   }
 
   renderNav() {
-    const {authenticated, errorCode} = this.props
+    const {authenticated} = this.props
     const {isMobileNavVisible} = this.state
 
     return (
@@ -51,8 +51,6 @@ export default class Header extends Component {
   }
 
   render() {
-    const {authenticated, errorCode} = this.props
-
     return (
       <Container>
         <Link href="/">
