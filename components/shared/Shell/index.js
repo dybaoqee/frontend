@@ -29,7 +29,6 @@ export default class Layout extends Component {
             font-size: 100%;
             -webkit-font-smoothing: antialiased;
           }
-
           body {
             margin: 0;
             padding: 0;
@@ -38,11 +37,9 @@ export default class Layout extends Component {
             font-size: 1rem;
             line-height: 1.5;
           }
-
           main {
             margin-top: 76px;
           }
-
           button,
           .btn {
             background-color: ${colors.blue};
@@ -63,14 +60,12 @@ export default class Layout extends Component {
               text-decoration: none;
             }
           }
-
           button.gray {
             background: ${colors.lightGray};
             &:hover {
               background: ${colors.lightGray};
             }
           }
-
           button.green {
             background: ${colors.green};
             border: 1px solid ${colors.darkenedGreen};
@@ -79,7 +74,6 @@ export default class Layout extends Component {
               background: ${colors.darkenedGreen};
             }
           }
-
           button.white {
             background: ${colors.offWhite};
             border: 1px solid ${colors.mediumGray};
@@ -88,17 +82,14 @@ export default class Layout extends Component {
               background: ${colors.lightestGray};
             }
           }
-
           button:disabled {
             opacity: 0.5;
           }
-
           input,
           textarea {
             font-family: 'Open Sans', -apple-system, BlinkMacSystemFont,
               'Segoe UI', Helvetica, Arial, sans-serif;
           }
-
           @media ${mobileMedia} {
             h1 {
               font-size: 22px;

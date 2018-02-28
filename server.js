@@ -6,6 +6,7 @@ const dev = process.env.NODE_ENV !== 'production'
 const port = process.env.PORT || 3000
 const app = next({dir: '.', dev})
 const handle = app.getRequestHandler()
+const MapsService = require('./services/google-maps-api')
 
 app
   .prepare()
@@ -20,6 +21,23 @@ app
         res.redirect(301, `https://www.${req.headers.host}${req.url}`)
       })
     }
+
+    server.get('/maps/autocomplete', async (req, res) => {
+      const {q} = req.query
+      try {
+        const result = await MapsService.search(
+          MapsService.placesAutoComplete,
+          {
+            input: q,
+            language: 'pt-BR',
+            components: {country: 'br'}
+          }
+        )
+        res.status(200).send(result)
+      } catch (e) {
+        res.status(500).send({error: e})
+      }
+    })
 
     server.get('/jobs', (req, res) => {
       return app.render(req, res, '/jobs', req.query)
