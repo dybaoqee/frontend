@@ -28,6 +28,10 @@ export default class Header extends Component {
             </Link>
           )}
 
+          <Link href="/sell">
+            <a>Venda seu Imóvel</a>
+          </Link>
+
           <Link href="/indique">
             <a>Indique e Ganhe</a>
           </Link>
