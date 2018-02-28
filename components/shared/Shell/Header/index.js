@@ -28,7 +28,7 @@ export default class Header extends Component {
             </Link>
           )}
 
-          <Link href="/sell">
+          <Link href="/sell" as="venda-seu-imovel">
             <a>Venda seu Imóvel</a>
           </Link>
 
