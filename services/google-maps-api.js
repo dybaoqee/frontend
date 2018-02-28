@@ -1,16 +1,21 @@
-/*  Usage:
+/*  Server-side Google maps API
 
-    import MapsService, {operations} from 'services/google-maps-api'
+Usage:
 
-    MapsService(operations.geocode, {
-      address: '1600 Amphitheatre Parkway, Mountain View, CA'
-    })
-      .then((response) => console.log(response))
-      .catch((err) => console.log('err'))
+    const MapsService = require('services/google-maps-api')
+
+   const result = await MapsService.search(
+          MapsService.placesAutoComplete,
+          {
+            input: 'Rua José Getúlio',
+            language: 'pt-BR',
+            components: {country: 'br'}
+          }
+        )
  */
 const key = process.env.GOOGLE_MAPS_KEY
 const googleMapsClient = require('@google/maps').createClient({
-  key,
+  key: key || 'AIzaSyDmYQLTPwsDPtErGWTgiejz17QCw39MEVQ',
   language: 'pt-BR',
   Promise: Promise
 })
@@ -23,11 +28,12 @@ const {geocode, places, placesAutoComplete} = googleMapsClient
  * @param {Object} query - The query object that will be sent.
  *
  */
-export default function(operation, object) {
+function MapService(operation, object) {
   return operation(object).asPromise()
 }
 
-export const operations = {
+module.exports = {
+  search: MapService,
   geocode,
   places,
   placesAutoComplete
