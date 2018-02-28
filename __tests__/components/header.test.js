@@ -7,7 +7,7 @@ describe('Header', () => {
   it('should render unauthenticated', () => {
     const header = shallow(<Header />)
 
-    expect(header.find(Link)).toHaveLength(3)
+    expect(header.find(Link)).toHaveLength(4)
 
     expect(
       header
@@ -37,7 +37,7 @@ describe('Header', () => {
   it('should render authenticated', () => {
     const header = shallow(<Header authenticated={true} />)
 
-    expect(header.find(Link)).toHaveLength(5)
+    expect(header.find(Link)).toHaveLength(6)
 
     expect(
       header
