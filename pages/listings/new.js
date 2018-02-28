@@ -35,12 +35,9 @@ export default class ListingNew extends Component {
       <FourthStep />,
       <FifthStep />
     ]
-
-    this.nextPage = this.nextPage.bind(this)
-    // this.submit = this.submit.bind(this)
   }
 
-  nextPage() {
+  nextPage = () => {
     const {page} = this.state
 
     if (page === 4) {
