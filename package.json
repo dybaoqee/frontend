@@ -22,6 +22,7 @@
     "@fortawesome/fontawesome-free-brands": "^5.0.4",
     "@fortawesome/fontawesome-free-solid": "^5.0.4",
     "@fortawesome/react-fontawesome": "^0.0.17",
+    "@google/maps": "^0.4.5",
     "axios": "^0.17.1",
     "babel-plugin-inline-import": "^2.0.6",
     "babel-plugin-lodash": "^3.3.2",

@@ -96,6 +96,10 @@
   dependencies:
     humps "^2.0.1"
 
+"@google/maps@^0.4.5":
+  version "0.4.5"
+  resolved "https://registry.yarnpkg.com/@google/maps/-/maps-0.4.5.tgz#72eb9cf8e7de944619245d0f8f3f969571ea84d8"
+
 "@semantic-release/commit-analyzer@^3.0.1":
   version "3.0.7"
   resolved "https://registry.yarnpkg.com/@semantic-release/commit-analyzer/-/commit-analyzer-3.0.7.tgz#dc955444a6d3d2ae9b8e21f90c2c80c4e9142b2f"

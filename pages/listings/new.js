@@ -13,7 +13,7 @@ export default class ListingNew extends Component {
     super(props)
     this.state = {
       city: 'Rio de Janeiro',
-      state: 'RJ',
+      state: 'RJ'
     }
   }
 
@@ -26,7 +26,7 @@ export default class ListingNew extends Component {
 
     return {
       jwt: jwt,
-      authenticated: isAuthenticated(ctx),
+      authenticated: isAuthenticated(ctx)
     }
   }
 
@@ -82,7 +82,7 @@ export default class ListingNew extends Component {
       bathrooms,
       matterportCode,
       score,
-      garageSpots,
+      garageSpots
     } = this.state
 
     return (
