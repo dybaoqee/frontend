@@ -1,4 +1,4 @@
-import React from 'react'
+/* eslint-env jest */
 import {shallow} from 'enzyme'
 import Header from 'components/shared/Shell/Header'
 import Link from 'next/link'
@@ -17,12 +17,21 @@ describe('Header', () => {
         )
         .exists()
     ).toEqual(true)
+
+    expect(
+      header
+        .find('[href="/sell"]')
+        .find('a')
+        .text()
+    ).toEqual('Venda seu Imóvel')
+
     expect(
       header
         .find('[href="/indique"]')
         .find('a')
         .text()
     ).toEqual('Indique e Ganhe')
+
     expect(
       header
         .find('[href="/jobs"]')
@@ -47,12 +56,14 @@ describe('Header', () => {
         )
         .exists()
     ).toEqual(true)
+
     expect(
       header
         .find('[href="/indique"]')
         .find('a')
         .text()
     ).toEqual('Indique e Ganhe')
+
     expect(
       header
         .find('[href="/jobs"]')
@@ -66,6 +77,7 @@ describe('Header', () => {
         .find('a')
         .text()
     ).toEqual('Logout')
+
     expect(
       header
         .find('[href="/listings/new"]')
