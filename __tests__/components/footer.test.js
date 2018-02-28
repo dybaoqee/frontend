@@ -1,3 +1,4 @@
+/* eslint-env jest */
 import {shallow} from 'enzyme'
 import Footer from 'components/shared/Shell/Footer'
 import Link from 'next/link'

@@ -45,8 +45,5 @@ module.exports = {
   },
   globals: {
     process: true,
-    describe: true,
-    it: true,
-    expect: true
   },
 }
