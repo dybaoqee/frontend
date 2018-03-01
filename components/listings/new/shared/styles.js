@@ -9,6 +9,7 @@ const Title = styled.h1`
 
 const Field = styled.div`
   position: relative;
+  display: grid;
   label {
     font-weight: 600;
     font-size: 11px;

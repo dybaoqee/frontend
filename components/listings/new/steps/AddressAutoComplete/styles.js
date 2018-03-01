@@ -5,7 +5,6 @@ const SearchResults = styled.div`
   z-index: 10;
   font-weight: 600;
   font-size: 14px;
-  position: absolute;
   background-color: white;
   min-width: 100%;
   > div {

@@ -1,5 +1,6 @@
 import {Title, Input, Field} from '../../shared/styles'
 import {FieldContainer} from './styles'
+import Counter from 'components/shared/Common/Counter'
 export default ({placeChosen}) => {
   const {address_components} = placeChosen
   return (
@@ -29,6 +30,18 @@ export default ({placeChosen}) => {
         <Field>
           <label htmlFor="area">Área (em m²)</label>
           <Input type="text" name="area" placeholder="R$" />
+        </Field>
+        <Field>
+          <label>Nᵒ quartos</label>
+          <Counter />
+        </Field>
+        <Field>
+          <label>Nᵒ banheiros</label>
+          <Counter />
+        </Field>
+        <Field>
+          <label>Nᵒ vagas garagem</label>
+          <Counter />
         </Field>
       </FieldContainer>
     </div>
