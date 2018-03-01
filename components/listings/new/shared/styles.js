@@ -41,10 +41,23 @@ const Input = styled.input`
   &[readonly] {
     color: #bbb;
   }
+  &[disabled] {
+    background-color: ${colors.lightestGray};
+  }
 
   @media ${mobileMedia} {
     margin-bottom: 10px;
   }
 `
 
-export {Title, Field, Input, StepContainer}
+const ButtonControls = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+
+  > :last-child {
+    margin-left: auto;
+  }
+`
+
+export {Title, Field, Input, StepContainer, ButtonControls}

@@ -14,7 +14,10 @@ import PropertyGallery from 'components/listings/new/steps/PropertyGallery'
 import PropertyGalleryEdit from 'components/listings/new/steps/PropertyGalleryEdit'
 
 import EmCasaButton from 'components/shared/Common/Buttons'
-import {StepContainer} from 'components/listings/new/shared/styles'
+import {
+  StepContainer,
+  ButtonControls
+} from 'components/listings/new/shared/styles'
 
 export default class ListingNew extends Component {
   constructor(props) {
@@ -26,7 +29,9 @@ export default class ListingNew extends Component {
       finished: false,
       city: 'Rio de Janeiro',
       state: 'RJ',
-      placeChosen: {}
+      placeChosen: {},
+      canAdvance: false,
+      canRegress: false
     }
 
     this.steps = [
@@ -38,27 +43,41 @@ export default class ListingNew extends Component {
     ]
   }
 
-  nextPage = () => {
+  previousPage = () => {
     const {page} = this.state
 
-    if (page === 4) {
-      console.log('FINISHED')
-    } else {
+    if (page > 0) {
       this.setState({
-        page: page + 1
+        page: page - 1
       })
     }
   }
 
+  nextPage = () => {
+    const {page, canAdvance} = this.state
+
+    if (page === 4) {
+      console.log('FINISHED')
+    } else {
+      if (canAdvance)
+        this.setState({
+          page: page + 1,
+          canRegress: true
+        })
+    }
+  }
+
   setChosenPlace = (placeChosen) => {
-    this.setState({placeChosen})
+    this.setState({placeChosen, canAdvance: true})
   }
 
   getStepContent(page) {
     const Current = this.steps[page]
+    const {placeChosen} = this.state
     return React.cloneElement(Current, {
       ...this.props,
-      choosePlace: this.setChosenPlace
+      choosePlace: this.setChosenPlace,
+      placeChosen
     })
   }
 
@@ -125,7 +144,7 @@ export default class ListingNew extends Component {
 
   render() {
     const {authenticated} = this.props
-    const {page, loading} = this.state
+    const {page, loading, canAdvance, canRegress} = this.state
     const {
       errors,
       street,
@@ -149,48 +168,26 @@ export default class ListingNew extends Component {
       garageSpots
     } = this.state
 
-    console.log(this.state)
-
     return (
       <Layout authenticated={authenticated}>
         <StepContainer>
           <h1>Adicionar novo Imóvel</h1>
           {this.renderContent()}
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              marginTop: 20
-            }}
-          >
-            <EmCasaButton disabled>Anterior</EmCasaButton>
-            <EmCasaButton light disabled>
+          <ButtonControls>
+            {page > 0 && (
+              <EmCasaButton
+                light
+                disabled={!canRegress}
+                onClick={this.previousPage}
+              >
+                Anterior
+              </EmCasaButton>
+            )}
+            <EmCasaButton disabled={!canAdvance} onClick={this.nextPage}>
               Próximo
             </EmCasaButton>
-          </div>
+          </ButtonControls>
         </StepContainer>
-
-        <style jsx>{`
-          form {
-            .input-control {
-              margin-bottom: 20px;
-              label {
-                float: left;
-                margin: 0 0 10px 0;
-              }
-              input {
-                border: 1px solid ${colors.lightGray};
-                border-radius: 6px;
-                font-size: 16px;
-                padding: 10px;
-                width: calc(100% - 22px);
-                &[readonly] {
-                  color: #bbb;
-                }
-              }
-            }
-          }
-        `}</style>
       </Layout>
     )
   }

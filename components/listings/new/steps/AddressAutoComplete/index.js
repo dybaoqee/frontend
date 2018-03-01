@@ -1,6 +1,7 @@
 import React from 'react'
 import {Title, Input, Field} from '../../shared/styles'
 import {SearchResults} from './styles'
+import ErrorContainer from 'components/listings/new/shared/ErrorContainer'
 
 export default class AddressAutoComplete extends React.Component {
   constructor(props) {
@@ -27,7 +28,7 @@ export default class AddressAutoComplete extends React.Component {
 
   async setPlace(place) {
     const {choosePlace} = this.props
-    this.setState({place, predictions: [], loadingPlaceInfo: true})
+    this.setState({place, predictions: [], loadingPlaceInfo: true, errors: []})
     try {
       const response = await fetch(
         `/maps/placeDetail?q=${encodeURI(place.place_id)}`
@@ -35,7 +36,12 @@ export default class AddressAutoComplete extends React.Component {
       const json = await response.json()
       choosePlace(json.json.result)
     } catch (e) {
-      throw new Error(e)
+      this.setState({
+        errors: [
+          ...this.state.errors,
+          'Ocorreu um erro ao buscar informações sobre o endereço. Tente novamente'
+        ]
+      })
     }
 
     this.setState({loadingPlaceInfo: false})
@@ -74,6 +80,7 @@ export default class AddressAutoComplete extends React.Component {
             ))}
           </SearchResults>
           {loadingPlaceInfo && <p>Buscando informações sobre o local...</p>}
+          <ErrorContainer errors={errors} />
         </Field>
       </div>
     )
