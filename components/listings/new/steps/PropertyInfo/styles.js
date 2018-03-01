@@ -1,24 +1,30 @@
 import styled from 'styled-components'
 import * as colors from 'constants/colors'
-import {mobileMedia} from 'constants/media'
+import {notMobileMedia, mobileMedia} from 'constants/media'
 import {Field} from '../../shared/styles'
 
 const FieldContainer = styled.div`
+  box-sizing: border-box;
   display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
+  grid-template-columns: repeat(6, minmax(50px, 1fr));
   grid-gap: 20px;
 
+  @media ${notMobileMedia} {
+    > ${Field}:nth-child(1) {
+      grid-column: span 2;
+    }
+
+    > ${Field}:nth-child(2) {
+      grid-column: span 3;
+    }
+
+    > ${Field}:nth-child(n + 4):not(:nth-child(n + 10)) {
+      grid-column: span 2;
+    }
+  }
+
   @media ${mobileMedia} {
-    display: block;
     grid-template-columns: 1fr;
-  }
-
-  > ${Field}:first-of-type {
-    grid-column: 1 / 4;
-  }
-
-  > ${Field}:nth-child(5) {
-    grid-column: 1 / 3;
   }
 `
 

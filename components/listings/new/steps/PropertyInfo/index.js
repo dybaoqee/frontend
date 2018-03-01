@@ -13,7 +13,7 @@ export default ({placeChosen}) => {
         </Field>
         <Field>
           <label htmlFor="type">Tipo do imóvel</label>
-          <Input type="text" name="type" placeholder="R$" />
+          <Input type="text" name="type" placeholder="Tipo" />
         </Field>
         <Field>
           <label htmlFor="floor">Andar</label>

@@ -7,7 +7,7 @@ export default styled.div`
   box-sizing: border-box;
   > :nth-child(2) {
     user-select: none;
-    flex: 1;
+    width: 70px;
     text-align: center;
   }
 `
