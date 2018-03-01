@@ -1,4 +1,4 @@
-import {Component} from 'react'
+import React, {Component} from 'react'
 import Router from 'next/router'
 
 import {redirectIfNotAuthenticated, getJwt, isAuthenticated} from 'lib/auth'
@@ -21,11 +21,12 @@ export default class ListingNew extends Component {
     super(props)
 
     this.state = {
-      page: 1,
+      page: 0,
       loading: false,
       finished: false,
       city: 'Rio de Janeiro',
-      state: 'RJ'
+      state: 'RJ',
+      placeChosen: {}
     }
 
     this.steps = [
@@ -49,9 +50,16 @@ export default class ListingNew extends Component {
     }
   }
 
+  setChosenPlace = (placeChosen) => {
+    this.setState({placeChosen})
+  }
+
   getStepContent(page) {
     const Current = this.steps[page]
-    return React.cloneElement(Current, {...this.props})
+    return React.cloneElement(Current, {
+      ...this.props,
+      choosePlace: this.setChosenPlace
+    })
   }
 
   renderContent() {

@@ -24,7 +24,9 @@ export default class AddressAutoComplete extends React.Component {
   }
 
   setPlace(place) {
+    const {choosePlace} = this.props
     this.setState({place, predictions: []})
+    choosePlace(place)
   }
 
   onChange = (e) => {
@@ -36,6 +38,7 @@ export default class AddressAutoComplete extends React.Component {
   }
   render() {
     const {predictions, place, search} = this.state
+
     return (
       <div>
         <Title>Onde fica o seu imóvel?</Title>
