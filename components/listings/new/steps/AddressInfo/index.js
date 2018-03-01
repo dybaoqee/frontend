@@ -1,6 +1,5 @@
 import {Title, Input, Field} from '../../shared/styles'
 import {FieldContainer} from './styles'
-import _ from 'lodash/fp'
 
 function filterPropertyComponent(array, property) {
   return (
@@ -10,8 +9,6 @@ function filterPropertyComponent(array, property) {
 
 export default ({placeChosen}) => {
   const {address_components} = placeChosen
-
-  console.log(address_components)
 
   const street = filterPropertyComponent(address_components, 'route')
   const streetNumber = filterPropertyComponent(
