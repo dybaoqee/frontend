@@ -1,13 +1,13 @@
-import {Component} from "react"
+import {Component} from 'react'
 import Link from 'next/link'
 import NumberFormat from 'react-number-format'
 
 import {mainListingThumbnail} from 'utils/image_url'
-import Container from "./styles"
+import Container from './styles'
 
 export default class Listing extends Component {
   render() {
-    const { id, images, price, address } = this.props
+    const {id, images, price, address} = this.props
     const imgUrl = mainListingThumbnail(images)
     const imgStyle = {backgroundImage: `url(${imgUrl})`}
 
