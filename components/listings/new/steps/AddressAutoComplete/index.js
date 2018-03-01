@@ -69,19 +69,16 @@ export default class AddressAutoComplete extends React.Component {
             placeholder="Coloque seu endereço aqui"
             onChange={this.onChange}
           />
-          <SearchResults>
-            {predictions.map((prediction) => (
-              <div
-                onClick={() => this.setPlace(prediction)}
-                key={prediction.id}
-              >
-                {prediction.description}
-              </div>
-            ))}
-          </SearchResults>
-          {loadingPlaceInfo && <p>Buscando informações sobre o local...</p>}
-          <ErrorContainer errors={errors} />
         </Field>
+        <SearchResults>
+          {predictions.map((prediction) => (
+            <div onClick={() => this.setPlace(prediction)} key={prediction.id}>
+              {prediction.description}
+            </div>
+          ))}
+        </SearchResults>
+        {loadingPlaceInfo && <p>Buscando informações sobre o local...</p>}
+        <ErrorContainer errors={errors} />
       </div>
     )
   }
