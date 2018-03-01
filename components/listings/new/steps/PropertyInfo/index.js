@@ -12,7 +12,9 @@ export default ({placeChosen}) => {
           <Input type="text" name="price" placeholder="R$" />
         </Field>
         <Field>
-          <label htmlFor="type">Tipo do imóvel</label>
+          <label htmlFor="type">
+            Tipo do imóvel <span>(Obrigatório)</span>
+          </label>
           <Input type="text" name="type" placeholder="Tipo" />
         </Field>
         <Field>

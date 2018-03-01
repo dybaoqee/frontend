@@ -16,6 +16,10 @@ const Field = styled.div`
     text-transform: uppercase;
     float: left;
     margin: 0 0 10px 0;
+
+    span {
+      color: ${colors.red};
+    }
   }
 `
 
