@@ -1,12 +1,12 @@
 import {Component} from 'react'
 import {Gmaps, Marker} from 'react-gmaps'
 
-const params = {v: '3.exp', key: 'AIzaSyDmYQLTPwsDPtErGWTgiejz17QCw39MEVQ'}
+const params = {v: '3.exp', key: process.env.GOOGLE_MAPS_KEY}
 
 export default class MapContainer extends Component {
   onMapCreated(map) {
     map.setOptions({
-      disableDefaultUI: true,
+      disableDefaultUI: true
     })
   }
 
