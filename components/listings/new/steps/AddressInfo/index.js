@@ -11,15 +11,23 @@ function filterPropertyComponent(array, property) {
 export default ({placeChosen}) => {
   const {address_components} = placeChosen
 
+  console.log(address_components)
+
   const street = filterPropertyComponent(address_components, 'route')
   const streetNumber = filterPropertyComponent(
     address_components,
     'street_number'
   )
-  const administrativeArea = filterPropertyComponent(
+  const state = filterPropertyComponent(
+    address_components,
+    'administrative_area_level_1'
+  )
+
+  const city = filterPropertyComponent(
     address_components,
     'administrative_area_level_2'
   )
+
   const postal_code = filterPropertyComponent(address_components, 'postal_code')
   return (
     <div>
@@ -65,7 +73,7 @@ export default ({placeChosen}) => {
           <Input
             type="text"
             name="address"
-            defaultValue={administrativeArea.long_name}
+            defaultValue={city.long_name}
             placeholder="Coloque sua cidade aqui"
             disabled
           />
@@ -75,7 +83,7 @@ export default ({placeChosen}) => {
           <Input
             type="text"
             name="address"
-            defaultValue={administrativeArea.short_name}
+            defaultValue={state.short_name}
             placeholder="Coloque seu estado aqui"
             disabled
           />
