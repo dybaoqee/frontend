@@ -1,4 +1,5 @@
 import {Component} from 'react'
+import {Form, Text} from 'react-form'
 import Router from 'next/router'
 
 import {redirectIfNotAuthenticated, getJwt, isAuthenticated} from 'lib/auth'
@@ -7,69 +8,13 @@ import TextContainer from 'components/shared/TextContainer'
 import Layout from 'components/shared/Shell'
 import * as colors from 'constants/colors'
 
-import AddressAutoComplete from 'components/listings/new/steps/AddressAutoComplete'
-import AddressInfo from 'components/listings/new/steps/AddressInfo'
-import PropertyInfo from 'components/listings/new/steps/PropertyInfo'
-import PropertyGallery from 'components/listings/new/steps/PropertyGallery'
-import PropertyGalleryEdit from 'components/listings/new/steps/PropertyGalleryEdit'
-
-import EmCasaButton from 'components/shared/Common/Buttons'
-import {StepContainer} from 'components/listings/new/shared/styles'
-
 export default class ListingNew extends Component {
   constructor(props) {
     super(props)
-
     this.state = {
-      page: 1,
-      loading: false,
-      finished: false,
       city: 'Rio de Janeiro',
       state: 'RJ'
     }
-
-    this.steps = [
-      <AddressAutoComplete />,
-      <AddressInfo />,
-      <PropertyInfo />,
-      <PropertyGallery />,
-      <PropertyGalleryEdit />
-    ]
-  }
-
-  nextPage = () => {
-    const {page} = this.state
-
-    if (page === 4) {
-      console.log('FINISHED')
-    } else {
-      this.setState({
-        page: page + 1
-      })
-    }
-  }
-
-  getStepContent(page) {
-    const Current = this.steps[page]
-    return React.cloneElement(Current, {...this.props})
-  }
-
-  renderContent() {
-    const {page, finished} = this.state
-
-    if (finished) {
-      return (
-        <div>
-          <p>The form was submitted succesfully. Thank you!</p>
-        </div>
-      )
-    }
-
-    return (
-      <div>
-        <div>{this.getStepContent(page)}</div>
-      </div>
-    )
   }
 
   static async getInitialProps(ctx) {
@@ -117,7 +62,6 @@ export default class ListingNew extends Component {
 
   render() {
     const {authenticated} = this.props
-    const {page, loading} = this.state
     const {
       errors,
       street,
@@ -143,22 +87,248 @@ export default class ListingNew extends Component {
 
     return (
       <Layout authenticated={authenticated}>
-        <StepContainer>
-          <h1>Adicionar novo Imóvel</h1>
-          {this.renderContent()}
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              marginTop: 20
-            }}
-          >
-            <EmCasaButton disabled>Anterior</EmCasaButton>
-            <EmCasaButton light disabled>
-              Próximo
-            </EmCasaButton>
-          </div>
-        </StepContainer>
+        <TextContainer>
+          <h1>Adicionar Imóvel</h1>
+
+          <form onSubmit={this.handleSubmit}>
+            <h4>Endereço</h4>
+
+            <div className="input-control">
+              <label htmlFor="street">Rua</label>
+              <input
+                type="text"
+                name="street"
+                placeholder="Rua"
+                value={street}
+                onChange={this.onChange}
+              />
+            </div>
+
+            <div className="input-control">
+              <label htmlFor="streetNumber">Número</label>
+              <input
+                type="text"
+                name="streetNumber"
+                placeholder="Número"
+                value={streetNumber}
+                onChange={this.onChange}
+              />
+            </div>
+
+            <div className="input-control">
+              <label htmlFor="complement">Complemento</label>
+              <input
+                type="text"
+                name="complement"
+                placeholder="Complemento"
+                value={complement}
+                onChange={this.onChange}
+              />
+            </div>
+
+            <div className="input-control">
+              <label htmlFor="neighborhood">Bairro</label>
+              <input
+                type="text"
+                name="neighborhood"
+                placeholder="Bairro"
+                value={neighborhood}
+                onChange={this.onChange}
+              />
+            </div>
+
+            <div className="input-control">
+              <label htmlFor="city">Cidade</label>
+              <input
+                type="text"
+                name="city"
+                placeholder="Cidade"
+                value={city}
+                onChange={this.onChange}
+                readOnly
+              />
+            </div>
+
+            <div className="input-control">
+              <label htmlFor="state">Estado (Sigla)</label>
+              <input
+                type="text"
+                name="state"
+                placeholder="Estado"
+                value={state}
+                onChange={this.onChange}
+                readOnly
+              />
+            </div>
+
+            <div className="input-control">
+              <label htmlFor="postalCode">CEP</label>
+              <input
+                type="text"
+                name="postalCode"
+                placeholder="CEP"
+                value={postalCode}
+                onChange={this.onChange}
+              />
+            </div>
+
+            <div className="input-control">
+              <label htmlFor="lat">Latitude</label>
+              <input
+                type="text"
+                name="lat"
+                placeholder="Latitude"
+                value={lat}
+                onChange={this.onChange}
+              />
+            </div>
+
+            <div className="input-control">
+              <label htmlFor="lng">Longitude</label>
+              <input
+                type="text"
+                name="lng"
+                placeholder="Longitude"
+                value={lng}
+                onChange={this.onChange}
+              />
+            </div>
+
+            <h4>Detalhes do imóvel</h4>
+
+            <div className="input-control">
+              <label htmlFor="type">Tipo</label>
+              <input
+                type="text"
+                name="type"
+                placeholder="Apartamento / Casa / Cobertura etc"
+                value={type}
+                onChange={this.onChange}
+              />
+            </div>
+
+            <div className="input-control">
+              <label htmlFor="description">Descrição</label>
+              <input
+                type="text"
+                name="description"
+                placeholder="Descrição"
+                value={description}
+                onChange={this.onChange}
+              />
+            </div>
+
+            <div className="input-control">
+              <label htmlFor="price">Preço</label>
+              <input
+                type="text"
+                name="price"
+                placeholder="Preço"
+                value={price}
+                onChange={this.onChange}
+              />
+            </div>
+
+            <div className="input-control">
+              <label htmlFor="area">Área (em m²)</label>
+              <input
+                type="text"
+                name="area"
+                placeholder="Área"
+                value={area}
+                onChange={this.onChange}
+              />
+            </div>
+
+            <div className="input-control">
+              <label htmlFor="floor">Andar</label>
+              <input
+                type="text"
+                name="floor"
+                placeholder="Andar"
+                value={floor}
+                onChange={this.onChange}
+              />
+            </div>
+
+            <div className="input-control">
+              <label htmlFor="floor">Número de Quartos</label>
+              <input
+                type="text"
+                name="rooms"
+                placeholder="Número de Quartos"
+                value={rooms}
+                onChange={this.onChange}
+              />
+            </div>
+
+            <div className="input-control">
+              <label htmlFor="garageSpots">Número de Vagas de Garagem</label>
+              <input
+                type="text"
+                name="garageSpots"
+                placeholder="Número de Vagas de Garagem"
+                value={garageSpots}
+                onChange={this.onChange}
+              />
+            </div>
+
+            <div className="input-control">
+              <label htmlFor="bathrooms">Número de Banheiros</label>
+              <input
+                type="text"
+                name="bathrooms"
+                placeholder="Número de Banheiros"
+                value={bathrooms}
+                onChange={this.onChange}
+              />
+            </div>
+
+            <div className="input-control">
+              <label htmlFor="matterportCode">
+                Código do Matterport (algo como 8FxqPg9yX8w)
+              </label>
+              <input
+                type="text"
+                name="matterportCode"
+                placeholder="Código do Matterport"
+                value={matterportCode}
+                onChange={this.onChange}
+              />
+            </div>
+
+            <div className="input-control">
+              <label htmlFor="score">
+                Farol (4 = verde, 3 = amarelo, 2 = vermelho, 1 = preto)
+              </label>
+              <input
+                type="text"
+                name="score"
+                placeholder="Placar do Farol"
+                value={score}
+                onChange={this.onChange}
+              />
+            </div>
+
+            {errors && (
+              <div>
+                <b>Verifique os erros:</b>
+
+                {Object.keys(errors).map((key) =>
+                  errors[key].map((error) => {
+                    return (
+                      <p>
+                        {key}: {error}
+                      </p>
+                    )
+                  })
+                )}
+              </div>
+            )}
+
+            <button type="submit">Enviar</button>
+          </form>
+        </TextContainer>
 
         <style jsx>{`
           form {
