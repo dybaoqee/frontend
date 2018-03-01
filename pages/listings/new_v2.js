@@ -149,6 +149,8 @@ export default class ListingNew extends Component {
       garageSpots
     } = this.state
 
+    console.log(this.state)
+
     return (
       <Layout authenticated={authenticated}>
         <StepContainer>

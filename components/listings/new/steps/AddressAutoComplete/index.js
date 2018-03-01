@@ -9,7 +9,9 @@ export default class AddressAutoComplete extends React.Component {
     this.state = {
       predictions: [],
       place: {},
-      search: ''
+      search: '',
+      errors: [],
+      loadingPlaceInfo: false
     }
   }
 
@@ -23,10 +25,20 @@ export default class AddressAutoComplete extends React.Component {
     }
   }
 
-  setPlace(place) {
+  async setPlace(place) {
     const {choosePlace} = this.props
-    this.setState({place, predictions: []})
-    choosePlace(place)
+    this.setState({place, predictions: [], loadingPlaceInfo: true})
+    try {
+      const response = await fetch(
+        `/maps/placeDetail?q=${encodeURI(place.place_id)}`
+      )
+      const json = await response.json()
+      choosePlace(json.json.result)
+    } catch (e) {
+      throw new Error(e)
+    }
+
+    this.setState({loadingPlaceInfo: false})
   }
 
   onChange = (e) => {
@@ -37,13 +49,13 @@ export default class AddressAutoComplete extends React.Component {
     this.timer = setTimeout(this.searchPlaces.bind(null, value), 500)
   }
   render() {
-    const {predictions, place, search} = this.state
+    const {predictions, place, search, loadingPlaceInfo, errors} = this.state
 
     return (
       <div>
         <Title>Onde fica o seu imóvel?</Title>
         <Field>
-          <label htmlFor="street">Rua</label>
+          <label htmlFor="street">Endereço</label>
           <Input
             type="text"
             name="street"
@@ -61,6 +73,7 @@ export default class AddressAutoComplete extends React.Component {
               </div>
             ))}
           </SearchResults>
+          {loadingPlaceInfo && <p>Buscando informações sobre o local...</p>}
         </Field>
       </div>
     )

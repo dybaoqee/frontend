@@ -39,6 +39,19 @@ app
       }
     })
 
+    server.get('/maps/placeDetail', async (req, res) => {
+      const {q} = req.query
+      try {
+        const result = await MapsService.search(MapsService.place, {
+          placeid: q,
+          language: 'pt-BR'
+        })
+        res.status(200).send(result)
+      } catch (e) {
+        res.status(500).send({error: e})
+      }
+    })
+
     server.get('/jobs', (req, res) => {
       return app.render(req, res, '/jobs', req.query)
     })

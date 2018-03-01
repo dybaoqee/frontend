@@ -20,7 +20,7 @@ const googleMapsClient = require('@google/maps').createClient({
   Promise: Promise
 })
 
-const {geocode, places, placesAutoComplete} = googleMapsClient
+const {geocode, place, places, placesAutoComplete} = googleMapsClient
 
 /**
  * Execute a Google Maps API operation and return as a Promise.
@@ -35,6 +35,7 @@ function MapService(operation, object) {
 module.exports = {
   search: MapService,
   geocode,
+  place,
   places,
   placesAutoComplete
 }
