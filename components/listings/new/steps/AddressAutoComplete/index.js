@@ -1,6 +1,7 @@
 import React from 'react'
 import {Title, Input, Field} from '../../shared/styles'
 import {SearchResults} from './styles'
+import ErrorContainer from 'components/listings/new/shared/ErrorContainer'
 
 export default class AddressAutoComplete extends React.Component {
   constructor(props) {
@@ -9,7 +10,9 @@ export default class AddressAutoComplete extends React.Component {
     this.state = {
       predictions: [],
       place: {},
-      search: ''
+      search: '',
+      errors: [],
+      loadingPlaceInfo: false
     }
   }
 
@@ -23,8 +26,25 @@ export default class AddressAutoComplete extends React.Component {
     }
   }
 
-  setPlace(place) {
-    this.setState({place, predictions: []})
+  async setPlace(place) {
+    const {choosePlace} = this.props
+    this.setState({place, predictions: [], loadingPlaceInfo: true, errors: []})
+    try {
+      const response = await fetch(
+        `/maps/placeDetail?q=${encodeURI(place.place_id)}`
+      )
+      const json = await response.json()
+      choosePlace(json.json.result)
+    } catch (e) {
+      this.setState({
+        errors: [
+          ...this.state.errors,
+          'Ocorreu um erro ao buscar informações sobre o endereço. Tente novamente'
+        ]
+      })
+    }
+
+    this.setState({loadingPlaceInfo: false})
   }
 
   onChange = (e) => {
@@ -35,12 +55,13 @@ export default class AddressAutoComplete extends React.Component {
     this.timer = setTimeout(this.searchPlaces.bind(null, value), 500)
   }
   render() {
-    const {predictions, place, search} = this.state
+    const {predictions, place, search, loadingPlaceInfo, errors} = this.state
+
     return (
       <div>
         <Title>Onde fica o seu imóvel?</Title>
         <Field>
-          <label htmlFor="street">Rua</label>
+          <label htmlFor="street">Endereço</label>
           <Input
             type="text"
             name="street"
@@ -58,6 +79,8 @@ export default class AddressAutoComplete extends React.Component {
               </div>
             ))}
           </SearchResults>
+          {loadingPlaceInfo && <p>Buscando informações sobre o local...</p>}
+          <ErrorContainer errors={errors} />
         </Field>
       </div>
     )

@@ -39,6 +39,19 @@ app
       }
     })
 
+    server.get('/maps/placeDetail', async (req, res) => {
+      const {q} = req.query
+      try {
+        const result = await MapsService.search(MapsService.place, {
+          placeid: q,
+          language: 'pt-BR'
+        })
+        res.status(200).send(result)
+      } catch (e) {
+        res.status(500).send({error: e})
+      }
+    })
+
     server.get('/jobs', (req, res) => {
       return app.render(req, res, '/jobs', req.query)
     })
@@ -74,6 +87,11 @@ app
 
     server.get('/imoveis/adicionar', (req, res) => {
       const actualPage = '/listings/new'
+      app.render(req, res, actualPage)
+    })
+
+    server.get('/imoveis/adicionar_v2', (req, res) => {
+      const actualPage = '/listings/new_v2'
       app.render(req, res, actualPage)
     })
 
