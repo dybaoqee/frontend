@@ -1,5 +1,4 @@
 import {Component} from 'react'
-import {Form, Text} from 'react-form'
 import Router from 'next/router'
 
 import {redirectIfNotAuthenticated, getJwt, isAuthenticated} from 'lib/auth'
@@ -8,20 +7,21 @@ import TextContainer from 'components/shared/TextContainer'
 import Layout from 'components/shared/Shell'
 import * as colors from 'constants/colors'
 
-import FirstStep from 'components/listings/new/steps/AddressAutoComplete'
-import SecondStep from 'components/listings/new/steps/AddressInfo'
-import ThirdStep from 'components/listings/new/steps/PropertyInfo'
-import FourthStep from 'components/listings/new/steps/PropertyGallery'
-import FifthStep from 'components/listings/new/steps/PropertyGalleryEdit'
+import AddressAutoComplete from 'components/listings/new/steps/AddressAutoComplete'
+import AddressInfo from 'components/listings/new/steps/AddressInfo'
+import PropertyInfo from 'components/listings/new/steps/PropertyInfo'
+import PropertyGallery from 'components/listings/new/steps/PropertyGallery'
+import PropertyGalleryEdit from 'components/listings/new/steps/PropertyGalleryEdit'
 
 import EmCasaButton from 'components/shared/Common/Buttons'
+import {StepContainer} from 'components/listings/new/shared/styles'
 
 export default class ListingNew extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      page: 0,
+      page: 1,
       loading: false,
       finished: false,
       city: 'Rio de Janeiro',
@@ -29,11 +29,11 @@ export default class ListingNew extends Component {
     }
 
     this.steps = [
-      <FirstStep />,
-      <SecondStep />,
-      <ThirdStep />,
-      <FourthStep />,
-      <FifthStep />
+      <AddressAutoComplete />,
+      <AddressInfo />,
+      <PropertyInfo />,
+      <PropertyGallery />,
+      <PropertyGalleryEdit />
     ]
   }
 
@@ -143,16 +143,22 @@ export default class ListingNew extends Component {
 
     return (
       <Layout authenticated={authenticated}>
-        <TextContainer>
+        <StepContainer>
           <h1>Adicionar novo Imóvel</h1>
           {this.renderContent()}
-          <div style={{display: 'flex', justifyContent: 'space-between'}}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              marginTop: 20
+            }}
+          >
             <EmCasaButton disabled>Anterior</EmCasaButton>
             <EmCasaButton light disabled>
               Próximo
             </EmCasaButton>
           </div>
-        </TextContainer>
+        </StepContainer>
 
         <style jsx>{`
           form {
