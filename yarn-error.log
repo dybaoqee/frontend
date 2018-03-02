@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/Cellar/yarn/1.5.1/libexec/bin/yarn.js dev
+  /usr/local/bin/node /usr/local/Cellar/yarn/1.5.1/libexec/bin/yarn.js test --watcg
 
 PATH: 
   /usr/local/opt/openssl/bin:/Users/nathanqueija/.rbenv/shims:/Users/nathanqueija/.rbenv/shims:/usr/local/opt/openssl/bin:/Users/nathanqueija/Library/Android/sdk/platform-tools:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/mysql/bin/:/Users/nathanqueija/.composer/vendor/bin
@@ -7090,7 +7090,7 @@ Trace:
   Error: Command failed.
   Exit code: 1
   Command: sh
-  Arguments: -c node server.js -p $PORT
+  Arguments: -c jest --watcg
   Directory: /Users/nathanqueija/Desktop/Projetos/emcasa/frontend
   Output:
   

@@ -13,12 +13,11 @@ export default class Counter extends Component {
     }
   }
 
-  IncrementItem = () => {
-    this.setState({counter: this.state.counter + 1})
-  }
-  DecreaseItem = () => {
-    this.setState({counter: this.state.counter - 1})
-  }
+  makeIncrementer = (amount) => () =>
+    this.setState((prevState) => ({counter: prevState.counter + amount}))
+
+  IncrementItem = this.makeIncrementer(1)
+  DecreaseItem = this.makeIncrementer(-1)
 
   componentWillUpdate(prevProps, nextState) {
     const {counter} = nextState

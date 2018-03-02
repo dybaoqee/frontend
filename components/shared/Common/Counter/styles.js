@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import * as colors from 'constants/colors'
-import {mobileMedia} from 'constants/media'
 
 export default styled.div`
   display: flex;
