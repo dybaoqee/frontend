@@ -7,7 +7,7 @@ function filterPropertyComponent(array, property) {
   )
 }
 
-export default ({placeChosen}) => {
+export default ({placeChosen, onChange}) => {
   const {address_components} = placeChosen
 
   const street = filterPropertyComponent(address_components, 'route')
@@ -34,18 +34,20 @@ export default ({placeChosen}) => {
           <label htmlFor="address">Endereço</label>
           <Input
             type="text"
-            name="address"
+            name="street"
             defaultValue={street.long_name}
             placeholder="Coloque seu endereço aqui"
+            onChange={onChange}
           />
         </Field>
         <Field>
           <label htmlFor="address">Número</label>
           <Input
             type="text"
-            name="number"
+            name="streetNumber"
             defaultValue={streetNumber.long_name}
             placeholder="Coloque seu número aqui"
+            onChange={onChange}
           />
         </Field>
         <Field>
@@ -54,24 +56,27 @@ export default ({placeChosen}) => {
             type="text"
             name="complement"
             placeholder="Coloque o complemento aqui"
+            onChange={onChange}
           />
         </Field>
         <Field>
           <label htmlFor="address">CEP</label>
           <Input
             type="text"
-            name="cep"
+            name="postalCode"
             defaultValue={postal_code.long_name}
-            placeholder="Coloque seu cep aqui"
+            placeholder="00000-000"
+            onChange={onChange}
           />
         </Field>
         <Field>
           <label htmlFor="address">Cidade</label>
           <Input
             type="text"
-            name="address"
+            name="city"
             defaultValue={city.long_name}
             placeholder="Coloque sua cidade aqui"
+            onChange={onChange}
             disabled
           />
         </Field>
@@ -79,9 +84,10 @@ export default ({placeChosen}) => {
           <label htmlFor="address">Estado</label>
           <Input
             type="text"
-            name="address"
+            name="state"
             defaultValue={state.short_name}
             placeholder="Coloque seu estado aqui"
+            onChange={onChange}
             disabled
           />
         </Field>

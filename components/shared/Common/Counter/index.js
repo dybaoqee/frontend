@@ -13,17 +13,17 @@ export default class Counter extends Component {
     }
   }
 
-  makeIncrementer = (amount) => () =>
-    this.setState((prevState) => ({counter: prevState.counter + amount}))
+  makeIncrementer = (amount) => () => {
+    const {onChange, name} = this.props
+    this.setState((prevState) => {
+      const updatedValue = prevState.counter + amount
+      onChange && onChange({target: {name, value: updatedValue}})
+      return {counter: updatedValue}
+    })
+  }
 
   IncrementItem = this.makeIncrementer(1)
   DecreaseItem = this.makeIncrementer(-1)
-
-  componentWillUpdate(prevProps, nextState) {
-    const {counter} = nextState
-    const {onChange} = this.props
-    onChange && onChange(counter)
-  }
 
   render() {
     const {min = 0, max = 20} = this.props
