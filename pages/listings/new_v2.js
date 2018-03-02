@@ -12,6 +12,7 @@ import PropertyGallery from 'components/listings/new/steps/PropertyGallery'
 import PropertyGalleryEdit from 'components/listings/new/steps/PropertyGalleryEdit'
 
 import EmCasaButton from 'components/shared/Common/Buttons'
+import ErrorContainer from 'components/listings/new/shared/ErrorContainer'
 
 import {
   StepContainer,
@@ -28,6 +29,8 @@ export default class ListingNew extends Component {
       placeChosen: {},
       canAdvance: false,
       canRegress: false,
+      errors: [],
+      showErrors: false,
       listing: {matterportCode: null, score: null}
     }
 
@@ -58,46 +61,82 @@ export default class ListingNew extends Component {
 
     if (page > 0) {
       this.setState({
-        page: page - 1
+        page: page - 1,
+        canAdvance: true,
+        errors: [],
+        showErrors: false
       })
     }
   }
 
   nextPage = () => {
-    const {page, canAdvance} = this.state
+    const {page, errors} = this.state
 
-    if (page === 3) {
+    if (page === 4) {
       console.log('FINISHED')
     } else {
-      if (canAdvance)
+      if (errors.length > 0) {
         this.setState({
-          page: page + 1,
-          canRegress: true
+          canAdvance: false,
+          showErrors: true
         })
+        return
+      }
+      this.setState({page: page + 1, canRegress: true})
     }
   }
 
   setChosenPlace = (placeChosen) => {
     const {listing} = this.state
+    const {address_components} = placeChosen
     const neighborhood =
       filterPropertyComponent(
         placeChosen.address_components,
         'sublocality_level_1'
       ).long_name || ''
+    const street = filterPropertyComponent(address_components, 'route')
+      .long_name
+    const streetNumber = filterPropertyComponent(
+      address_components,
+      'street_number'
+    ).long_name
+    const state = filterPropertyComponent(
+      address_components,
+      'administrative_area_level_1'
+    ).short_name
+
+    const city = filterPropertyComponent(
+      address_components,
+      'administrative_area_level_2'
+    ).long_name
+    const postalCode = filterPropertyComponent(
+      address_components,
+      'postal_code'
+    ).long_name
     this.setState({
       placeChosen,
       canAdvance: true,
-      listing: {...listing, ...placeChosen.geometry.location, neighborhood}
+      listing: {
+        ...listing,
+        ...placeChosen.geometry.location,
+        neighborhood,
+        street,
+        streetNumber,
+        state,
+        city,
+        postalCode
+      }
     })
   }
 
   getStepContent(page) {
     const Current = this.steps[page]
-    const {placeChosen} = this.state
+    const {placeChosen, listing} = this.state
     return React.cloneElement(Current, {
       ...this.props,
       choosePlace: this.setChosenPlace,
       placeChosen,
+      listing,
       onChange: this.onFieldChange
     })
   }
@@ -120,9 +159,25 @@ export default class ListingNew extends Component {
     )
   }
 
-  onFieldChange = (e) => {
-    const {listing} = this.state
+  onFieldChange = (e, errorMessage) => {
+    let listing = Object.assign({}, this.state.listing)
     listing[e.target.name] = e.target.value
+    if (errorMessage) {
+      let newErrors = this.state.errors
+      let errorCount = this.state.errors.filter(
+        (error) => error.key === e.target.name
+      ).length
+      if (errorCount === 0)
+        newErrors.push({key: e.target.name, value: errorMessage})
+      this.setState({errors: newErrors})
+    } else {
+      this.setState({
+        errors: [
+          ...this.state.errors.filter((error) => error.key !== e.target.name)
+        ],
+        canAdvance: true
+      })
+    }
     this.setState({listing})
   }
 
@@ -152,14 +207,16 @@ export default class ListingNew extends Component {
 
   render() {
     const {authenticated} = this.props
-    const {page, canAdvance, canRegress} = this.state
-    const {errors, type} = this.state
+    const {page, canAdvance, canRegress, errors, showErrors} = this.state
 
     return (
       <Layout authenticated={authenticated}>
         <StepContainer>
           <h1>Adicionar novo Imóvel</h1>
           {this.renderContent()}
+          {showErrors && (
+            <ErrorContainer errors={errors.map((error) => error.value)} />
+          )}
           <ButtonControls>
             {page > 0 && (
               <EmCasaButton

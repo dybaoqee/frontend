@@ -10,6 +10,29 @@ const Title = styled.h1`
 const Field = styled.div`
   position: relative;
   display: grid;
+
+  .Select-control {
+    border: 1px solid ${colors.lightGray};
+    box-sizing: border-box;
+    border-radius: 6px;
+    height: 54px;
+    vertical-align: middle;
+    font-size: 16px;
+  }
+
+  .Select-placeholder {
+    align-items: center;
+    display: flex;
+  }
+  .Select-value {
+    align-items: center;
+    border-radius: 9px;
+    display: flex;
+  }
+  .Select-input {
+    padding-top: 7px;
+  }
+
   label {
     font-weight: 600;
     font-size: 11px;
