@@ -196,13 +196,9 @@ export default class ListingsIndex extends Component {
           <div className="map">
             <MapContainer
               zoom={13}
-              width="100%"
-              height="100%"
-              currentPage={currentPage}
               onSelect={this.onSelectListing}
-            >
-              {listings}
-            </MapContainer>
+              listings={listings}
+            />
           </div>
 
           <div className="entries-container">

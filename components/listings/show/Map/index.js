@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Container from './styles'
-import MapContainer from 'components/shared/Map'
+import Map from 'components/shared/Map'
 
 export default class ListingMap extends React.Component {
   render() {
@@ -10,7 +10,7 @@ export default class ListingMap extends React.Component {
 
     return (
       <Container>
-        <MapContainer
+        <Map
           center={{lat, lng}}
           markers={[{lat: lat, lng: lng, text: 'Aqui'}]}
         />
