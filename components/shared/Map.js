@@ -1,34 +1,31 @@
 import {Component} from 'react'
-import {Gmaps, Marker} from 'react-gmaps'
+import GoogleMapReact from 'google-map-react'
 
 const params = {v: '3.exp', key: process.env.GOOGLE_MAPS_KEY}
 
+const AnyReactComponent = ({text}) => <div>{text}</div>
+
 export default class MapContainer extends Component {
-  onMapCreated(map) {
-    map.setOptions({
-      disableDefaultUI: true
-    })
+  static defaultProps = {
+    center: {lat: -22.9608099, lng: -43.2096142},
+    zoom: 15
   }
 
   render() {
-    const {children, height, width, lat, lng, zoom} = this.props
-    const defaultZoom = 15
+    const {children, height, width, center, zoom} = this.props
 
     return (
-      <Gmaps
-        width={width}
-        height={height}
-        lat={lat ? lat : '-22.9608099'}
-        lng={lng ? lng : '-43.2096142'}
-        zoom={zoom || defaultZoom}
-        loadingMessage={' '}
-        params={params}
+      <GoogleMapReact
+        bootstrapURLKeys={{key: process.env.GOOGLE_MAPS_KEY}}
+        defaultCenter={center}
+        defaultZoom={zoom}
       >
-        <Marker lat={lat} lng={lng} />
-        {children}
-      </Gmaps>
+        <AnyReactComponent
+          lat={center.lat}
+          lng={center.lng}
+          text={'Kreyser Avrora'}
+        />
+      </GoogleMapReact>
     )
   }
 }
-
-export {Marker}

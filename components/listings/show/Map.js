@@ -1,20 +1,20 @@
 import React from 'react'
 import MediaQuery from 'react-responsive'
 
-import {mobileMedia} from 'constants/media'
-
 import MapContainer from 'components/shared/Map'
 
 export default class ListingMap extends React.Component {
   render() {
     const {listing} = this.props
+    const {lat, lng} = listing.address
 
     return (
       <div>
         <MediaQuery query="(max-width: 600px)">
           <MapContainer
-            lat={listing.address.lat}
-            lng={listing.address.lng}
+            center={{lat, lng}}
+            lat={lat}
+            lng={lng}
             width="100vw"
             height="300px"
           />
@@ -32,6 +32,7 @@ export default class ListingMap extends React.Component {
         <style jsx>{`
           div {
             display: flex;
+            height: 400px;
             justify-content: space-around;
             margin: 100px 0;
           }
