@@ -12,7 +12,7 @@ export default class ListingMap extends React.Component {
       <Container>
         <MapContainer
           center={{lat, lng}}
-          markers={[{lat: lat, lng: lng, text: 'yo'}]}
+          markers={[{lat: lat, lng: lng, text: 'Aqui'}]}
         />
       </Container>
     )

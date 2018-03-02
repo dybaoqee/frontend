@@ -19,7 +19,6 @@ export default class MapContainer extends Component {
         defaultZoom={zoom}
       >
         {markers.map((marker, i) => {
-          console.log('markerrrr', marker)
           const {lat, lng, text} = marker
           return <MapMarker key={i} lat={lat} lng={lng} text={text} />
         })}
