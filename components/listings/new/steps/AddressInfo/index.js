@@ -1,26 +1,9 @@
 import {Title, Input, Field} from '../../shared/styles'
 import {FieldContainer} from './styles'
-import {filterPropertyComponent} from 'services/google-maps-api'
 
-export default ({placeChosen, onChange}) => {
-  const {address_components} = placeChosen
+export default ({onChange, listing}) => {
+  const {street, streetNumber, complement, postalCode, city, state} = listing
 
-  const street = filterPropertyComponent(address_components, 'route')
-  const streetNumber = filterPropertyComponent(
-    address_components,
-    'street_number'
-  )
-  const state = filterPropertyComponent(
-    address_components,
-    'administrative_area_level_1'
-  )
-
-  const city = filterPropertyComponent(
-    address_components,
-    'administrative_area_level_2'
-  )
-
-  const postal_code = filterPropertyComponent(address_components, 'postal_code')
   return (
     <div>
       <Title>Onde fica o seu imóvel?</Title>
@@ -30,7 +13,7 @@ export default ({placeChosen, onChange}) => {
           <Input
             type="text"
             name="street"
-            defaultValue={street.long_name}
+            defaultValue={street}
             placeholder="Coloque seu endereço aqui"
             onChange={onChange}
           />
@@ -40,7 +23,7 @@ export default ({placeChosen, onChange}) => {
           <Input
             type="text"
             name="streetNumber"
-            defaultValue={streetNumber.long_name}
+            defaultValue={streetNumber}
             placeholder="Coloque seu número aqui"
             onChange={onChange}
           />
@@ -50,6 +33,7 @@ export default ({placeChosen, onChange}) => {
           <Input
             type="text"
             name="complement"
+            defaultValue={complement}
             placeholder="Coloque o complemento aqui"
             onChange={onChange}
           />
@@ -59,7 +43,7 @@ export default ({placeChosen, onChange}) => {
           <Input
             type="text"
             name="postalCode"
-            defaultValue={postal_code.long_name}
+            defaultValue={postalCode}
             placeholder="00000-000"
             onChange={onChange}
           />
@@ -69,7 +53,7 @@ export default ({placeChosen, onChange}) => {
           <Input
             type="text"
             name="city"
-            defaultValue={city.long_name}
+            defaultValue={city}
             placeholder="Coloque sua cidade aqui"
             onChange={onChange}
             disabled
@@ -80,7 +64,7 @@ export default ({placeChosen, onChange}) => {
           <Input
             type="text"
             name="state"
-            defaultValue={state.short_name}
+            defaultValue={state}
             placeholder="Coloque seu estado aqui"
             onChange={onChange}
             disabled

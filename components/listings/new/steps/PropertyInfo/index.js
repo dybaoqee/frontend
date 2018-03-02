@@ -4,8 +4,17 @@ import {FieldContainer, TextArea, SuggestionList} from './styles'
 import Counter from 'components/shared/Common/Counter'
 import Select from 'react-select'
 export default class PropertyInfo extends Component {
-  state = {
-    type: ''
+  constructor(props) {
+    super(props)
+    this.state = {
+      type: ''
+    }
+    const {onChange, listing} = props
+    onChange &&
+      onChange(
+        {target: {name: 'type', value: listing.type}},
+        !listing.type ? 'Selecione o tipo do imóvel' : undefined
+      )
   }
 
   onChangeSelect = ({value}) => {
@@ -15,7 +24,19 @@ export default class PropertyInfo extends Component {
   }
 
   render() {
-    const {onChange} = this.props
+    const {onChange, listing} = this.props
+    const {
+      price,
+      type: propertyType,
+      floor,
+      maintenance_fee,
+      property_tax,
+      area,
+      rooms,
+      bathrooms,
+      garageSpots,
+      description
+    } = listing
     const {type} = this.state
     return (
       <div>
@@ -26,6 +47,7 @@ export default class PropertyInfo extends Component {
             <Input
               type="text"
               name="price"
+              defaultValue={price}
               placeholder="R$"
               onChange={onChange}
             />
@@ -45,7 +67,7 @@ export default class PropertyInfo extends Component {
                 {value: 'Casa', label: 'Casa'},
                 {value: 'Cobertura', label: 'Cobertura'}
               ]}
-              value={type}
+              value={propertyType}
               onChange={this.onChangeSelect}
             />
           </Field>
@@ -54,6 +76,7 @@ export default class PropertyInfo extends Component {
             <Input
               type="text"
               name="floor"
+              defaultValue={floor}
               placeholder="Andar"
               onChange={onChange}
             />
@@ -62,6 +85,7 @@ export default class PropertyInfo extends Component {
             <label htmlFor="maintenance_fee">Condomínio</label>
             <Input
               type="text"
+              defaultValue={maintenance_fee}
               name="maintenance_fee"
               placeholder="R$"
               onChange={onChange}
@@ -72,6 +96,7 @@ export default class PropertyInfo extends Component {
             <Input
               type="text"
               name="property_tax"
+              defaultValue={property_tax}
               placeholder="R$"
               onChange={onChange}
             />
@@ -79,6 +104,7 @@ export default class PropertyInfo extends Component {
           <Field>
             <label htmlFor="area">Área (em m²)</label>
             <Input
+              defaultValue={area}
               type="text"
               name="area"
               placeholder="R$"
@@ -87,21 +113,30 @@ export default class PropertyInfo extends Component {
           </Field>
           <Field>
             <label>Nᵒ quartos</label>
-            <Counter onChange={onChange} name="rooms" />
+            <Counter onChange={onChange} defaultValue={rooms} name="rooms" />
           </Field>
           <Field>
             <label>Nᵒ banheiros</label>
-            <Counter onChange={onChange} name="bathrooms" />
+            <Counter
+              onChange={onChange}
+              defaultValue={bathrooms}
+              name="bathrooms"
+            />
           </Field>
           <Field>
             <label>Nᵒ vagas garagem</label>
-            <Counter onChange={onChange} name="garageSpots" />
+            <Counter
+              onChange={onChange}
+              defaultValue={garageSpots}
+              name="garageSpots"
+            />
           </Field>
           <Field>
             <label>Descrição</label>
             <TextArea
               onChange={onChange}
               name="description"
+              defaultValue={description}
               placeholder="Ex.: Apartamento bem localizado,
              próximo ao Parque Boulevard e a 5 minutos à pé da estação de metrô Rubi.
             Rua arborizada, com padaria e farmácia a 2 quadras do edifício.

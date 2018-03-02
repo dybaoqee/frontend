@@ -9,7 +9,7 @@ export default class Counter extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      counter: props.min || 0
+      counter: props.defaultValue || props.min || 0
     }
   }
 
