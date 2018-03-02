@@ -38,21 +38,19 @@ export default class InfiniteScroll extends Component {
     this.footer = el
   }
 
-  renderPage = ([page, data]) => {
-    const {children: render} = this.props
-    return (
-      <li key={page}>
-        <div>{data.map(render)}</div>
-      </li>
-    )
-  }
-
   render() {
-    const {pages, threshold, currentPage, totalPages} = this.props
+    const {
+      entries,
+      threshold,
+      currentPage,
+      totalPages,
+      children: renderEntry
+    } = this.props
     const last = currentPage >= totalPages
+
     return (
       <Container>
-        {Array.from(pages).map(this.renderPage)}
+        {entries.map(renderEntry)}
         {!last && <Footer innerRef={this.footerRef}>Carregando...</Footer>}
       </Container>
     )
