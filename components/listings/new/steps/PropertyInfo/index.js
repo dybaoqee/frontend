@@ -1,5 +1,5 @@
 import {Title, Input, Field} from '../../shared/styles'
-import {FieldContainer} from './styles'
+import {FieldContainer, TextArea, SuggestionList} from './styles'
 import Counter from 'components/shared/Common/Counter'
 export default ({placeChosen}) => {
   const {address_components} = placeChosen
@@ -44,6 +44,25 @@ export default ({placeChosen}) => {
         <Field>
           <label>Nᵒ vagas garagem</label>
           <Counter />
+        </Field>
+        <Field>
+          <label>Descrição</label>
+          <TextArea placeholder="Ex.: Apartamento bem localizado,
+           próximo ao Parque Boulevard e a 5 minutos à pé da estação de metrô Rubi.
+          Rua arborizada, com padaria e farmácia a 2 quadras do edifício.
+          Imóvel arejado e com face norte..." />
+        </Field>
+        <Field>
+          <SuggestionList>
+            <li>
+              Fale sobre a vizinhança, pontos de referência e vias de acesso;
+            </li>
+            <li>Cite informações como: padarias, mercados, farmácias, etc;</li>
+            <li>
+              Fale sobre o estado do imóvel e suas características. Ex.:
+              reformado, arejado, iluminado, etc.
+            </li>
+          </SuggestionList>
         </Field>
       </FieldContainer>
     </div>

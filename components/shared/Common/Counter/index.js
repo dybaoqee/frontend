@@ -26,7 +26,7 @@ export default class Counter extends Component {
   }
 
   render() {
-    const {min = 0, max = 10} = this.props
+    const {min = 0, max = 20} = this.props
     const {counter} = this.state
     return (
       <CounterContainer>
