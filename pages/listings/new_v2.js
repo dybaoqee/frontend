@@ -153,7 +153,7 @@ export default class ListingNew extends Component {
   render() {
     const {authenticated} = this.props
     const {page, canAdvance, canRegress} = this.state
-    const {errors, type} = this.state
+    const {errors} = this.state
 
     return (
       <Layout authenticated={authenticated}>
