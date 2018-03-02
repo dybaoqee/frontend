@@ -11,7 +11,8 @@ export default styled.div`
   }
 `
 
-export const CounterButton = styled.div`
+export const CounterButton = styled.button`
+  all: initial;
   border: solid 1px ${colors.blue};
   border-radius: 25px;
   color: ${colors.blue};
@@ -30,9 +31,5 @@ export const CounterButton = styled.div`
   &:hover {
     background-color: ${colors.blue};
     color: white;
-  }
-
-  &:disabled {
-    background-color: red;
   }
 `
