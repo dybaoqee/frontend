@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import Router from 'next/router'
 import {redirectIfNotAuthenticated, getJwt, isAuthenticated} from 'lib/auth'
 import {createListing} from 'services/listing-api'
+import {filterPropertyComponent} from 'services/google-maps-api'
 import Layout from 'components/shared/Shell'
 
 import AddressAutoComplete from 'components/listings/new/steps/AddressAutoComplete'
@@ -77,7 +78,17 @@ export default class ListingNew extends Component {
   }
 
   setChosenPlace = (placeChosen) => {
-    this.setState({placeChosen, canAdvance: true})
+    const {listing} = this.state
+    const neighborhood =
+      filterPropertyComponent(
+        placeChosen.address_components,
+        'sublocality_level_1'
+      ).long_name || ''
+    this.setState({
+      placeChosen,
+      canAdvance: true,
+      listing: {...listing, ...placeChosen.geometry.location, neighborhood}
+    })
   }
 
   getStepContent(page) {
@@ -142,7 +153,7 @@ export default class ListingNew extends Component {
   render() {
     const {authenticated} = this.props
     const {page, canAdvance, canRegress} = this.state
-    const {errors, lat, lng, neighborhood, type} = this.state
+    const {errors, type} = this.state
 
     return (
       <Layout authenticated={authenticated}>

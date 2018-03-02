@@ -1,11 +1,6 @@
 import {Title, Input, Field} from '../../shared/styles'
 import {FieldContainer} from './styles'
-
-function filterPropertyComponent(array, property) {
-  return (
-    array.filter((component) => component.types.includes(property))[0] || {}
-  )
-}
+import {filterPropertyComponent} from 'services/google-maps-api'
 
 export default ({placeChosen, onChange}) => {
   const {address_components} = placeChosen
