@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import * as colors from 'constants/colors'
 import {mobileMedia} from 'constants/media'
+import MaskedInput from 'react-text-mask'
 
 const Title = styled.h1`
   font-weight: normal;
@@ -77,6 +78,8 @@ const Input = styled.input`
     margin-bottom: 10px;
   }
 `
+
+export const InputWithMask = Input.withComponent(MaskedInput)
 
 const ButtonControls = styled.div`
   display: flex;

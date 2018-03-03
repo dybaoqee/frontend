@@ -39,7 +39,7 @@ export default class ListingNew extends Component {
       <AddressInfo />,
       <PropertyInfo />,
       <PropertyGallery />,
-      <PropertyGalleryEdit />
+      <PropertyGalleryEdit />,
     ]
   }
 
@@ -69,11 +69,28 @@ export default class ListingNew extends Component {
     }
   }
 
+  formatListingData = (listing, fields) => {
+    let listingFomatted = {...listing}
+
+    for (const key of Object.keys(listingFomatted)) {
+      if (fields.includes(key) && listingFomatted[key]) {
+        listingFomatted[key] = parseInt(
+          listingFomatted[key]
+            .split(',')[0]
+            .match(/\d+(?:\d\.\d+)?/g)
+            .join('')
+        )
+      }
+    }
+
+    return listingFomatted
+  }
+
   nextPage = () => {
     const {page, errors} = this.state
 
-    if (page === 4) {
-      console.log('FINISHED')
+    if (page === 2) {
+      this.submitListing()
     } else {
       if (errors.length > 0) {
         this.setState({
@@ -173,7 +190,7 @@ export default class ListingNew extends Component {
     } else {
       this.setState({
         errors: [
-          ...this.state.errors.filter((error) => error.key !== e.target.name)
+          ...this.state.errors.filter((error) => error.key !== e.target.name),
         ],
         canAdvance: true
       })
@@ -181,12 +198,18 @@ export default class ListingNew extends Component {
     this.setState({listing})
   }
 
-  handleSubmit = async (e) => {
-    e.preventDefault()
-
+  submitListing = async () => {
     const {jwt} = this.props
+    const postData = this.formatPostData(this.state.listing, [
+      'price',
+      'property_tax',
+      'maintenance_fee',
+      'area'
+    ])
 
-    const res = await createListing(this.state, jwt)
+    return
+
+    const res = await createListing(postData, jwt)
 
     if (res.data.errors) {
       this.setState({errors: res.data.errors})
@@ -208,7 +231,6 @@ export default class ListingNew extends Component {
   render() {
     const {authenticated} = this.props
     const {page, canAdvance, canRegress, errors, showErrors} = this.state
-
     return (
       <Layout authenticated={authenticated}>
         <StepContainer>
