@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import Router from 'next/router'
 import {redirectIfNotAuthenticated, getJwt, isAuthenticated} from 'lib/auth'
 import {createListing, formatListingData} from 'services/listing-api'
-import {filterPropertyComponent} from 'services/google-maps-api'
+import {filterComponent} from 'services/google-maps-api'
 import Layout from 'components/shared/Shell'
 
 import AddressAutoComplete from 'components/listings/new/steps/AddressAutoComplete'
@@ -88,29 +88,16 @@ export default class ListingNew extends Component {
 
   setChosenPlace = (placeChosen) => {
     const {listing} = this.state
-    const {address_components} = placeChosen
-    const neighborhood =
-      filterPropertyComponent(address_components, 'sublocality_level_1')
-        .long_name || ''
-    const street = filterPropertyComponent(address_components, 'route')
+    const {address_components: components} = placeChosen
+    const neighborhood = filterComponent(components, 'street_number').long_name
+    const street = filterComponent(components, 'route').long_name
+    const streetNumber = filterComponent(components, 'street_number').long_name
+    const state = filterComponent(components, 'administrative_area_level_1')
+      .short_name
+    const city = filterComponent(components, 'administrative_area_level_2')
       .long_name
-    const streetNumber = filterPropertyComponent(
-      address_components,
-      'street_number'
-    ).long_name
-    const state = filterPropertyComponent(
-      address_components,
-      'administrative_area_level_1'
-    ).short_name
+    const postalCode = filterComponent(components, 'postal_code').long_name
 
-    const city = filterPropertyComponent(
-      address_components,
-      'administrative_area_level_2'
-    ).long_name
-    const postalCode = filterPropertyComponent(
-      address_components,
-      'postal_code'
-    ).long_name
     this.setState({
       placeChosen,
       canAdvance: true,
@@ -129,11 +116,9 @@ export default class ListingNew extends Component {
 
   getStepContent(page) {
     const Current = this.steps[page]
-    const {placeChosen, listing} = this.state
+    const {listing} = this.state
     return React.cloneElement(Current, {
-      ...this.props,
       choosePlace: this.setChosenPlace,
-      placeChosen,
       listing,
       onChange: this.onFieldChange
     })
