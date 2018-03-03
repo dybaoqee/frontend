@@ -47,7 +47,6 @@ export default class PropertyInfo extends Component {
       garageSpots,
       description
     } = listing
-    const {type} = this.state
     return (
       <div>
         <Title>Dados principais do imóvel</Title>
@@ -68,7 +67,6 @@ export default class PropertyInfo extends Component {
               Tipo do imóvel <span>(Obrigatório)</span>
             </label>
             <Select
-              className="teste"
               name="type"
               clearable={false}
               placeholder="Selecione o tipo"
@@ -78,7 +76,7 @@ export default class PropertyInfo extends Component {
                 {value: 'Casa', label: 'Casa'},
                 {value: 'Cobertura', label: 'Cobertura'}
               ]}
-              value={propertyType}
+              value={propertyType || ''}
               onChange={this.onChangeSelect}
             />
           </Field>

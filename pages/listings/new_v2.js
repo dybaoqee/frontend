@@ -29,7 +29,7 @@ export default class ListingNew extends Component {
       placeChosen: {},
       canAdvance: false,
       canRegress: false,
-      errors: [],
+      errors: {},
       showErrors: false,
       listing: {matterportCode: null, score: null}
     }
@@ -39,7 +39,7 @@ export default class ListingNew extends Component {
       <AddressInfo />,
       <PropertyInfo />,
       <PropertyGallery />,
-      <PropertyGalleryEdit />,
+      <PropertyGalleryEdit />
     ]
   }
 
@@ -69,15 +69,13 @@ export default class ListingNew extends Component {
     }
   }
 
-
-
   nextPage = () => {
     const {page, errors} = this.state
 
-    if (page === 2) {
+    if (page === 3) {
       this.submitListing()
     } else {
-      if (errors.length > 0) {
+      if (Object.keys(errors).length > 0) {
         this.setState({
           canAdvance: false,
           showErrors: true
@@ -92,10 +90,8 @@ export default class ListingNew extends Component {
     const {listing} = this.state
     const {address_components} = placeChosen
     const neighborhood =
-      filterPropertyComponent(
-        placeChosen.address_components,
-        'sublocality_level_1'
-      ).long_name || ''
+      filterPropertyComponent(address_components, 'sublocality_level_1')
+        .long_name || ''
     const street = filterPropertyComponent(address_components, 'route')
       .long_name
     const streetNumber = filterPropertyComponent(
@@ -162,25 +158,20 @@ export default class ListingNew extends Component {
   }
 
   onFieldChange = (e, errorMessage) => {
-    let listing = Object.assign({}, this.state.listing)
-    listing[e.target.name] = e.target.value
+    const {errors, listing} = this.state
+    let updatedErrors = {...errors}
+
     if (errorMessage) {
-      let newErrors = this.state.errors
-      let errorCount = this.state.errors.filter(
-        (error) => error.key === e.target.name
-      ).length
-      if (errorCount === 0)
-        newErrors.push({key: e.target.name, value: errorMessage})
-      this.setState({errors: newErrors})
+      updatedErrors[e.target.name] = errorMessage
     } else {
-      this.setState({
-        errors: [
-          ...this.state.errors.filter((error) => error.key !== e.target.name),
-        ],
-        canAdvance: true
-      })
+      delete updatedErrors[e.target.name]
     }
-    this.setState({listing})
+
+    this.setState({
+      errors: updatedErrors,
+      listing: {...listing, [e.target.name]: e.target.value},
+      canAdvance: !updatedErrors[e.target.name]
+    })
   }
 
   submitListing = async () => {
@@ -219,9 +210,7 @@ export default class ListingNew extends Component {
         <StepContainer>
           <h1>Adicionar novo Imóvel</h1>
           {this.renderContent()}
-          {showErrors && (
-            <ErrorContainer errors={errors.map((error) => error.value)} />
-          )}
+          {showErrors && <ErrorContainer errors={errors} />}
           <ButtonControls>
             {page > 0 && (
               <EmCasaButton
