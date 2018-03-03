@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import Router from 'next/router'
 import {redirectIfNotAuthenticated, getJwt, isAuthenticated} from 'lib/auth'
-import {createListing} from 'services/listing-api'
+import {createListing, formatListingData} from 'services/listing-api'
 import {filterPropertyComponent} from 'services/google-maps-api'
 import Layout from 'components/shared/Shell'
 
@@ -69,22 +69,7 @@ export default class ListingNew extends Component {
     }
   }
 
-  formatListingData = (listing, fields) => {
-    let listingFomatted = {...listing}
 
-    for (const key of Object.keys(listingFomatted)) {
-      if (fields.includes(key) && listingFomatted[key]) {
-        listingFomatted[key] = parseInt(
-          listingFomatted[key]
-            .split(',')[0]
-            .match(/\d+(?:\d\.\d+)?/g)
-            .join('')
-        )
-      }
-    }
-
-    return listingFomatted
-  }
 
   nextPage = () => {
     const {page, errors} = this.state
@@ -200,14 +185,12 @@ export default class ListingNew extends Component {
 
   submitListing = async () => {
     const {jwt} = this.props
-    const postData = this.formatPostData(this.state.listing, [
+    const postData = formatListingData(this.state.listing, [
       'price',
       'property_tax',
       'maintenance_fee',
       'area'
     ])
-
-    return
 
     const res = await createListing(postData, jwt)
 
