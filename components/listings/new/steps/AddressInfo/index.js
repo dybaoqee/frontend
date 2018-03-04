@@ -1,6 +1,6 @@
-import {Title, Input, Field} from '../../shared/styles'
+import {Title, Input, InputWithMask, Field} from '../../shared/styles'
 import {FieldContainer} from './styles'
-
+const postalCodeMask = [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/]
 export default ({onChange, listing}) => {
   const {street, streetNumber, complement, postalCode, city, state} = listing
 
@@ -40,11 +40,12 @@ export default ({onChange, listing}) => {
         </Field>
         <Field>
           <label htmlFor="address">CEP</label>
-          <Input
-            type="text"
+          <InputWithMask
+            value={postalCode}
             name="postalCode"
-            defaultValue={postalCode}
-            placeholder="00000-000"
+            mask={postalCodeMask}
+            placeholder="Coloque o CEP aqui"
+            guide={false}
             onChange={onChange}
           />
         </Field>

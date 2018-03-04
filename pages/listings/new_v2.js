@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import Router from 'next/router'
 import {redirectIfNotAuthenticated, getJwt, isAuthenticated} from 'lib/auth'
-import {createListing} from 'services/listing-api'
-import {filterPropertyComponent} from 'services/google-maps-api'
+import {createListing, formatListingData} from 'services/listing-api'
+import {filterComponent} from 'services/google-maps-api'
 import Layout from 'components/shared/Shell'
 
 import AddressAutoComplete from 'components/listings/new/steps/AddressAutoComplete'
@@ -29,7 +29,7 @@ export default class ListingNew extends Component {
       placeChosen: {},
       canAdvance: false,
       canRegress: false,
-      errors: [],
+      errors: {},
       showErrors: false,
       listing: {matterportCode: null, score: null}
     }
@@ -72,10 +72,10 @@ export default class ListingNew extends Component {
   nextPage = () => {
     const {page, errors} = this.state
 
-    if (page === 4) {
-      console.log('FINISHED')
+    if (page === 3) {
+      this.submitListing()
     } else {
-      if (errors.length > 0) {
+      if (Object.keys(errors).length > 0) {
         this.setState({
           canAdvance: false,
           showErrors: true
@@ -88,31 +88,16 @@ export default class ListingNew extends Component {
 
   setChosenPlace = (placeChosen) => {
     const {listing} = this.state
-    const {address_components} = placeChosen
-    const neighborhood =
-      filterPropertyComponent(
-        placeChosen.address_components,
-        'sublocality_level_1'
-      ).long_name || ''
-    const street = filterPropertyComponent(address_components, 'route')
+    const {address_components: components} = placeChosen
+    const neighborhood = filterComponent(components, 'street_number').long_name
+    const street = filterComponent(components, 'route').long_name
+    const streetNumber = filterComponent(components, 'street_number').long_name
+    const state = filterComponent(components, 'administrative_area_level_1')
+      .short_name
+    const city = filterComponent(components, 'administrative_area_level_2')
       .long_name
-    const streetNumber = filterPropertyComponent(
-      address_components,
-      'street_number'
-    ).long_name
-    const state = filterPropertyComponent(
-      address_components,
-      'administrative_area_level_1'
-    ).short_name
+    const postalCode = filterComponent(components, 'postal_code').long_name
 
-    const city = filterPropertyComponent(
-      address_components,
-      'administrative_area_level_2'
-    ).long_name
-    const postalCode = filterPropertyComponent(
-      address_components,
-      'postal_code'
-    ).long_name
     this.setState({
       placeChosen,
       canAdvance: true,
@@ -131,11 +116,9 @@ export default class ListingNew extends Component {
 
   getStepContent(page) {
     const Current = this.steps[page]
-    const {placeChosen, listing} = this.state
+    const {listing} = this.state
     return React.cloneElement(Current, {
-      ...this.props,
       choosePlace: this.setChosenPlace,
-      placeChosen,
       listing,
       onChange: this.onFieldChange
     })
@@ -160,33 +143,32 @@ export default class ListingNew extends Component {
   }
 
   onFieldChange = (e, errorMessage) => {
-    let listing = Object.assign({}, this.state.listing)
-    listing[e.target.name] = e.target.value
+    const {errors, listing} = this.state
+    let updatedErrors = {...errors}
+
     if (errorMessage) {
-      let newErrors = this.state.errors
-      let errorCount = this.state.errors.filter(
-        (error) => error.key === e.target.name
-      ).length
-      if (errorCount === 0)
-        newErrors.push({key: e.target.name, value: errorMessage})
-      this.setState({errors: newErrors})
+      updatedErrors[e.target.name] = errorMessage
     } else {
-      this.setState({
-        errors: [
-          ...this.state.errors.filter((error) => error.key !== e.target.name)
-        ],
-        canAdvance: true
-      })
+      delete updatedErrors[e.target.name]
     }
-    this.setState({listing})
+
+    this.setState({
+      errors: updatedErrors,
+      listing: {...listing, [e.target.name]: e.target.value},
+      canAdvance: !updatedErrors[e.target.name]
+    })
   }
 
-  handleSubmit = async (e) => {
-    e.preventDefault()
-
+  submitListing = async () => {
     const {jwt} = this.props
+    const postData = formatListingData(this.state.listing, [
+      'price',
+      'property_tax',
+      'maintenance_fee',
+      'area'
+    ])
 
-    const res = await createListing(this.state, jwt)
+    const res = await createListing(postData, jwt)
 
     if (res.data.errors) {
       this.setState({errors: res.data.errors})
@@ -208,15 +190,12 @@ export default class ListingNew extends Component {
   render() {
     const {authenticated} = this.props
     const {page, canAdvance, canRegress, errors, showErrors} = this.state
-
     return (
       <Layout authenticated={authenticated}>
         <StepContainer>
           <h1>Adicionar novo Imóvel</h1>
           {this.renderContent()}
-          {showErrors && (
-            <ErrorContainer errors={errors.map((error) => error.value)} />
-          )}
+          {showErrors && <ErrorContainer errors={errors} />}
           <ButtonControls>
             {page > 0 && (
               <EmCasaButton

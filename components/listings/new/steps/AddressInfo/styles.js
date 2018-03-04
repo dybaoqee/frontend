@@ -1,11 +1,10 @@
 import styled from 'styled-components'
-import * as colors from 'constants/colors'
 import {mobileMedia} from 'constants/media'
 import {Field} from '../../shared/styles'
 
 const FieldContainer = styled.div`
   display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
+  grid-template-columns: 1fr 2fr 1fr;
   grid-gap: 20px;
 
   @media ${mobileMedia} {

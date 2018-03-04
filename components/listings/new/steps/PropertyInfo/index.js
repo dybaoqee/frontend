@@ -1,8 +1,18 @@
 import {Component} from 'react'
-import {Title, Input, Field} from '../../shared/styles'
+import {Title, Input, InputWithMask, Field} from '../../shared/styles'
 import {FieldContainer, TextArea, SuggestionList} from './styles'
 import Counter from 'components/shared/Common/Counter'
 import Select from 'react-select'
+import createNumberMask from 'text-mask-addons/dist/createNumberMask'
+
+const priceMask = createNumberMask({
+  prefix: 'R$ ',
+  suffix: ',00',
+  thousandsSeparatorSymbol: '.',
+  integerLimit: 7,
+  allowLeadingZeroes: true
+})
+
 export default class PropertyInfo extends Component {
   constructor(props) {
     super(props)
@@ -37,18 +47,18 @@ export default class PropertyInfo extends Component {
       garageSpots,
       description
     } = listing
-    const {type} = this.state
     return (
       <div>
         <Title>Dados principais do imóvel</Title>
         <FieldContainer>
           <Field>
             <label htmlFor="price">Valor do imóvel</label>
-            <Input
-              type="text"
+            <InputWithMask
+              value={price}
               name="price"
-              defaultValue={price}
+              mask={priceMask}
               placeholder="R$"
+              guide={false}
               onChange={onChange}
             />
           </Field>
@@ -57,7 +67,6 @@ export default class PropertyInfo extends Component {
               Tipo do imóvel <span>(Obrigatório)</span>
             </label>
             <Select
-              className="teste"
               name="type"
               clearable={false}
               placeholder="Selecione o tipo"
@@ -67,7 +76,7 @@ export default class PropertyInfo extends Component {
                 {value: 'Casa', label: 'Casa'},
                 {value: 'Cobertura', label: 'Cobertura'}
               ]}
-              value={propertyType}
+              value={propertyType || ''}
               onChange={this.onChangeSelect}
             />
           </Field>
@@ -83,31 +92,34 @@ export default class PropertyInfo extends Component {
           </Field>
           <Field>
             <label htmlFor="maintenance_fee">Condomínio</label>
-            <Input
-              type="text"
-              defaultValue={maintenance_fee}
+            <InputWithMask
+              value={maintenance_fee}
               name="maintenance_fee"
+              mask={priceMask}
               placeholder="R$"
+              guide={false}
               onChange={onChange}
             />
           </Field>
           <Field>
             <label htmlFor="property_tax">IPTU</label>
-            <Input
-              type="text"
+            <InputWithMask
+              value={property_tax}
               name="property_tax"
-              defaultValue={property_tax}
+              mask={priceMask}
               placeholder="R$"
+              guide={false}
               onChange={onChange}
             />
           </Field>
           <Field>
             <label htmlFor="area">Área (em m²)</label>
-            <Input
-              defaultValue={area}
-              type="text"
+            <InputWithMask
+              value={area}
               name="area"
-              placeholder="R$"
+              placeholder="Área"
+              mask={[/\d/, /\d/, /\d/, /\d/, /\d/]}
+              guide={false}
               onChange={onChange}
             />
           </Field>

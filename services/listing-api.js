@@ -1,6 +1,6 @@
 import {get, post, put} from 'lib/request'
 
-const buildPayload = data => {
+const buildPayload = (data) => {
   return {
     listing: {
       complement: data.complement,
@@ -50,6 +50,27 @@ const buildGetParams = function(query) {
   }, {})
 }
 
+// Transforms something like
+// { price: 'R$ 1.800,00', ... }
+// into
+// { price: 1800 }
+export const formatListingData = function(listing, fields) {
+  let listingFomatted = {...listing}
+
+  for (const key of Object.keys(listingFomatted)) {
+    if (fields.includes(key) && listingFomatted[key]) {
+      listingFomatted[key] = parseInt(
+        listingFomatted[key]
+          .split(',')[0]
+          .match(/\d+(?:\d\.\d+)?/g)
+          .join('')
+      )
+    }
+  }
+
+  return listingFomatted
+}
+
 const splitParam = function(param, key) {
   if (key === 'bairros') {
     return param.split('|')
@@ -57,7 +78,7 @@ const splitParam = function(param, key) {
   return param
 }
 
-export const getListings = async query => {
+export const getListings = async (query) => {
   const endpoint = '/listings'
   const params = buildGetParams(query)
 
@@ -70,7 +91,7 @@ export const getListings = async query => {
   }
 }
 
-export const getRelatedListings = async id => {
+export const getRelatedListings = async (id) => {
   const endpoint = `/listings/${id}/related`
 
   try {

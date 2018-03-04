@@ -32,7 +32,7 @@ function MapService(operation, object) {
   return operation(object).asPromise()
 }
 
-function filterPropertyComponent(array, property) {
+function filterComponent(array, property) {
   return (
     array.filter((component) => component.types.includes(property))[0] || {}
   )
@@ -44,5 +44,5 @@ module.exports = {
   place,
   places,
   placesAutoComplete,
-  filterPropertyComponent
+  filterComponent
 }
