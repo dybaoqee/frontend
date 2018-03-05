@@ -1,4 +1,4 @@
-import {Component} from 'react'
+import {Component, Fragment} from 'react'
 import ReactGA from 'react-ga'
 
 import {isAuthenticated, isAdmin, getCurrentUserId, getJwt} from 'lib/auth'
@@ -15,6 +15,8 @@ import ListingMap from 'components/listings/show/Map'
 import InterestForm from 'components/listings/show/interest_form'
 import InterestPosted from 'components/listings/show/interest_posted'
 import RelatedListings from 'components/listings/show/RelatedListings'
+import Error from 'components/shared/Shell/Error'
+import Link from 'next/link'
 
 export default class Listing extends Component {
   state = {
@@ -26,26 +28,32 @@ export default class Listing extends Component {
     isInterestSuccessPopupVisible: false,
     isImageGalleryVisible: false,
     is3DTourVisible: false,
-    imageIndex: 0,
+    imageIndex: 0
   }
 
   static async getInitialProps(context) {
     const jwt = getJwt(context)
     const {id} = context.query
-
-    const [listing, related] = await Promise.all([
-      getListing(id, jwt).then(({data}) => data.listing),
-      getRelatedListings(id).then(({data}) => data.listings),
-    ])
-
-    return {
-      listing,
-      related,
-      currentUser: {
-        id: getCurrentUserId(context),
-        admin: isAdmin(context),
-        authenticated: isAuthenticated(context),
-      },
+    const currentUser = {
+      id: getCurrentUserId(context),
+      admin: isAdmin(context),
+      authenticated: isAuthenticated(context)
+    }
+    try {
+      const [listing, related] = await Promise.all([
+        getListing(id, jwt).then(({data}) => data.listing),
+        getRelatedListings(id).then(({data}) => data.listings)
+      ])
+      return {
+        listing,
+        related,
+        currentUser
+      }
+    } catch (e) {
+      return {
+        statusCode: 404,
+        currentUser
+      }
     }
   }
 
@@ -54,7 +62,7 @@ export default class Listing extends Component {
     ReactGA.event({
       category: 'Imoveis',
       label: 'listingShow',
-      action: 'User Opened Listing',
+      action: 'User Opened Listing'
     })
   }
 
@@ -89,7 +97,7 @@ export default class Listing extends Component {
     ReactGA.event({
       category: 'Interest',
       label: 'openInterestPopup',
-      action: 'User opened Popup to Book Visit',
+      action: 'User opened Popup to Book Visit'
     })
 
     this.setState({isInterestPopupVisible: true})
@@ -129,18 +137,17 @@ export default class Listing extends Component {
     ReactGA.event({
       category: 'Interest',
       label: 'submitInterest',
-      action: 'User submitted Interest',
+      action: 'User submitted Interest'
     })
 
     this.setState({
       isInterestPopupVisible: false,
-      isInterestSuccessPopupVisible: true,
+      isInterestSuccessPopupVisible: true
     })
   }
 
-  render() {
+  showListing = () => {
     const {currentUser, listing, related} = this.props
-    const {authenticated} = currentUser
     const {
       imageIndex,
       is3DTourVisible,
@@ -150,11 +157,11 @@ export default class Listing extends Component {
       name,
       email,
       phone,
-      message,
+      message
     } = this.state
 
     return (
-      <Layout authenticated={authenticated} renderFooter={true}>
+      <Fragment>
         {isImageGalleryVisible && (
           <ImageGallery
             images={listing.images}
@@ -208,6 +215,29 @@ export default class Listing extends Component {
             <InterestPosted handleClose={this.closeSuccessPostPopup} />
           )}
         </div>
+      </Fragment>
+    )
+  }
+
+  render() {
+    const {currentUser, statusCode} = this.props
+    const {authenticated} = currentUser
+
+    return (
+      <Layout authenticated={authenticated} renderFooter={true}>
+        {statusCode ? (
+          <Error>
+            <h1>Imóvel não encontrado</h1>
+            <h2>{statusCode}</h2>
+            <p>
+              Visite nossa <Link href="/">página inicial</Link> ou entre
+              em&nbsp;
+              <Link href="mailto:contato@emcasa.com">contato</Link> com a gente
+            </p>
+          </Error>
+        ) : (
+          this.showListing()
+        )}
       </Layout>
     )
   }
