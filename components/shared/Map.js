@@ -11,7 +11,7 @@ export default class MapContainer extends Component {
   }
 
   render() {
-    const {markers, center, zoom} = this.props
+    const {markers, center, zoom, onSelect} = this.props
 
     return (
       <GoogleMapReact
@@ -19,9 +19,18 @@ export default class MapContainer extends Component {
         defaultCenter={center}
         defaultZoom={zoom}
       >
-        {markers.map((marker, i) => {
-          const {lat, lng, text} = marker
-          return <MapMarker key={i} lat={lat} lng={lng} text={text} />
+        {markers.map((marker) => {
+          const {id, lat, lng, text} = marker
+          return (
+            <MapMarker
+              onSelect={onSelect}
+              id={id}
+              key={id}
+              lat={lat}
+              lng={lng}
+              text={text}
+            />
+          )
         })}
       </GoogleMapReact>
     )
