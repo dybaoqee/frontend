@@ -3,7 +3,6 @@ import _ from 'lodash'
 import {Component} from 'react'
 import Head from 'next/head'
 import Router from 'next/router'
-import update from 'immutability-helper'
 
 import {treatParams} from 'utils/filter-params.js'
 import {mainListingImage} from 'utils/image_url'
@@ -21,11 +20,9 @@ import {mobileMedia} from 'constants/media'
 import {desktopHeaderHeight, desktopFilterHeight} from 'constants/dimensions'
 
 const getDerivedState = ({initialState}) => {
-  const listings = new Map(initialState.listings)
   const currentPage = initialState.currentPage || 1
   return {
     ...initialState,
-    listings,
     currentPage
   }
 }
@@ -80,7 +77,7 @@ export default class ListingsIndex extends Component {
       currentPage: data.page_number,
       totalPages: data.total_pages,
       totalResults: data.total_entries,
-      listings: [[data.page_number, data.listings]]
+      listings: data.listings
     }
   }
 
@@ -108,7 +105,7 @@ export default class ListingsIndex extends Component {
     })
     await this.setState({
       ...state,
-      listings: update(this.state.listings, {$add: listings})
+      listings: [...this.state.listings, ...listings]
     })
   }
 
@@ -145,13 +142,8 @@ export default class ListingsIndex extends Component {
     return getDerivedParams(this.props)
   }
 
-  get currentListings() {
-    const {currentPage, listings} = this.state
-    return listings.get(currentPage) || []
-  }
-
   get seoImage() {
-    const listing = this.currentListings[0]
+    const listing = this.state.listings[0]
     return listing ? mainListingImage(listing.images) : null
   }
 
@@ -196,13 +188,9 @@ export default class ListingsIndex extends Component {
           <div className="map">
             <MapContainer
               zoom={13}
-              width="100%"
-              height="100%"
-              currentPage={currentPage}
               onSelect={this.onSelectListing}
-            >
-              {listings}
-            </MapContainer>
+              listings={listings}
+            />
           </div>
 
           <div className="entries-container">
@@ -212,7 +200,7 @@ export default class ListingsIndex extends Component {
               <InfiniteScroll
                 currentPage={currentPage}
                 totalPages={totalPages}
-                pages={listings}
+                entries={listings}
                 onLoad={this.onLoadNextPage}
               >
                 {(listing) => (
