@@ -1,1 +1,1 @@
-export default () => <div>Adicionado imóvel...</div>
+export default () => <div>A operação está sendo processada...</div>
