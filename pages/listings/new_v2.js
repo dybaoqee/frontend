@@ -31,7 +31,25 @@ export default class ListingNew extends Component {
       canRegress: false,
       errors: {},
       showErrors: false,
-      listing: {matterportCode: null, score: null}
+      listing: {
+        matterportCode: null,
+        score: 4,
+        description: '',
+        bathrooms: 0,
+        rooms: 0,
+        garageSpots: 0,
+        area: null,
+        property_tax: null,
+        maintenance_fee: null,
+        floor: null,
+        price: null,
+        type: null,
+        complement: null,
+        postalCode: null,
+        neighborhood: null,
+        lat: null,
+        lng: null
+      }
     }
 
     this.steps = [
@@ -89,7 +107,8 @@ export default class ListingNew extends Component {
   setChosenPlace = (placeChosen) => {
     const {listing} = this.state
     const {address_components: components} = placeChosen
-    const neighborhood = filterComponent(components, 'street_number').long_name
+    const neighborhood = filterComponent(components, 'sublocality_level_1')
+      .long_name
     const street = filterComponent(components, 'route').long_name
     const streetNumber = filterComponent(components, 'street_number').long_name
     const state = filterComponent(components, 'administrative_area_level_1')
