@@ -44,7 +44,7 @@ export default class PropertyInfo extends Component {
       area,
       rooms,
       bathrooms,
-      garageSpots,
+      garage_spots,
       description
     } = listing
     return (
@@ -139,8 +139,8 @@ export default class PropertyInfo extends Component {
             <label>Nᵒ vagas garagem</label>
             <Counter
               onChange={onChange}
-              defaultValue={garageSpots}
-              name="garageSpots"
+              defaultValue={garage_spots}
+              name="garage_spots"
             />
           </Field>
           <Field>
