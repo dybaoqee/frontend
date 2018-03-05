@@ -31,24 +31,12 @@ export default class ListingNew extends Component {
       canRegress: false,
       errors: {},
       showErrors: false,
+      submitting: false,
       listing: {
         matterportCode: null,
         score: 4,
-        description: '',
-        bathrooms: 0,
-        rooms: 0,
-        garageSpots: 0,
-        area: null,
-        property_tax: null,
-        maintenance_fee: null,
-        floor: null,
-        price: null,
-        type: null,
-        complement: null,
-        postalCode: null,
-        neighborhood: null,
-        lat: null,
-        lng: null
+        price: 0,
+        area: 0
       }
     }
 
@@ -90,8 +78,14 @@ export default class ListingNew extends Component {
   nextPage = () => {
     const {page, errors} = this.state
 
-    if (page === 3) {
+    if (page === 2) {
       this.submitListing()
+      this.setState({
+        page: page + 1,
+        canRegress: false,
+        canAdvance: false,
+        submitting: true
+      })
     } else {
       if (Object.keys(errors).length > 0) {
         this.setState({
@@ -187,23 +181,29 @@ export default class ListingNew extends Component {
       'area'
     ])
 
-    const res = await createListing(postData, jwt)
+    try {
+      const res = await createListing(postData, jwt)
 
-    if (res.data.errors) {
-      this.setState({errors: res.data.errors})
-      return
+      if (res.data.errors) {
+        this.setState({showErrors: true, errors: res.data.errors})
+        return
+      }
+
+      if (!res.data) {
+        return res
+      }
+      const listingId = res.data.listing.id
+      Router.replace(`/imoveis/${listingId}/imagens`).then(() =>
+        window.scrollTo(0, 0)
+      )
+      return null
+    } catch (e) {
+      this.setState({
+        showErrors: true,
+        canRegress: true,
+        errors: ['Ocorreu um erro desconhecido. Por favor, tente novamente.']
+      })
     }
-
-    if (!res.data) {
-      return res
-    }
-
-    const listingId = res.data.listing.id
-    Router.replace(
-      `/listings/show?id=${listingId}`,
-      `/imoveis/${listingId}`
-    ).then(() => window.scrollTo(0, 0))
-    return null
   }
 
   render() {
