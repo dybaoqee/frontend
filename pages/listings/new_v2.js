@@ -1,11 +1,9 @@
 import React, {Component} from 'react'
 import Router from 'next/router'
-
 import {redirectIfNotAuthenticated, getJwt, isAuthenticated} from 'lib/auth'
-import {createListing} from 'services/listing-api'
-import TextContainer from 'components/shared/TextContainer'
+import {createListing, formatListingData} from 'services/listing-api'
+import {filterComponent} from 'services/google-maps-api'
 import Layout from 'components/shared/Shell'
-import * as colors from 'constants/colors'
 
 import AddressAutoComplete from 'components/listings/new/steps/AddressAutoComplete'
 import AddressInfo from 'components/listings/new/steps/AddressInfo'
@@ -14,6 +12,8 @@ import PropertyGallery from 'components/listings/new/steps/PropertyGallery'
 import PropertyGalleryEdit from 'components/listings/new/steps/PropertyGalleryEdit'
 
 import EmCasaButton from 'components/shared/Common/Buttons'
+import ErrorContainer from 'components/listings/new/shared/ErrorContainer'
+
 import {
   StepContainer,
   ButtonControls
@@ -25,13 +25,13 @@ export default class ListingNew extends Component {
 
     this.state = {
       page: 0,
-      loading: false,
       finished: false,
-      city: 'Rio de Janeiro',
-      state: 'RJ',
       placeChosen: {},
       canAdvance: false,
-      canRegress: false
+      canRegress: false,
+      errors: {},
+      showErrors: false,
+      listing: {matterportCode: null, score: null}
     }
 
     this.steps = [
@@ -43,41 +43,84 @@ export default class ListingNew extends Component {
     ]
   }
 
+  static async getInitialProps(ctx) {
+    if (redirectIfNotAuthenticated(ctx)) {
+      return {}
+    }
+
+    const jwt = getJwt(ctx)
+
+    return {
+      jwt: jwt,
+      authenticated: isAuthenticated(ctx)
+    }
+  }
+
   previousPage = () => {
     const {page} = this.state
 
     if (page > 0) {
       this.setState({
-        page: page - 1
+        page: page - 1,
+        canAdvance: true,
+        errors: [],
+        showErrors: false
       })
     }
   }
 
   nextPage = () => {
-    const {page, canAdvance} = this.state
+    const {page, errors} = this.state
 
-    if (page === 4) {
-      console.log('FINISHED')
+    if (page === 3) {
+      this.submitListing()
     } else {
-      if (canAdvance)
+      if (Object.keys(errors).length > 0) {
         this.setState({
-          page: page + 1,
-          canRegress: true
+          canAdvance: false,
+          showErrors: true
         })
+        return
+      }
+      this.setState({page: page + 1, canRegress: true})
     }
   }
 
   setChosenPlace = (placeChosen) => {
-    this.setState({placeChosen, canAdvance: true})
+    const {listing} = this.state
+    const {address_components: components} = placeChosen
+    const neighborhood = filterComponent(components, 'street_number').long_name
+    const street = filterComponent(components, 'route').long_name
+    const streetNumber = filterComponent(components, 'street_number').long_name
+    const state = filterComponent(components, 'administrative_area_level_1')
+      .short_name
+    const city = filterComponent(components, 'administrative_area_level_2')
+      .long_name
+    const postalCode = filterComponent(components, 'postal_code').long_name
+
+    this.setState({
+      placeChosen,
+      canAdvance: true,
+      listing: {
+        ...listing,
+        ...placeChosen.geometry.location,
+        neighborhood,
+        street,
+        streetNumber,
+        state,
+        city,
+        postalCode
+      }
+    })
   }
 
   getStepContent(page) {
     const Current = this.steps[page]
-    const {placeChosen} = this.state
+    const {listing} = this.state
     return React.cloneElement(Current, {
-      ...this.props,
       choosePlace: this.setChosenPlace,
-      placeChosen
+      listing,
+      onChange: this.onFieldChange
     })
   }
 
@@ -99,31 +142,33 @@ export default class ListingNew extends Component {
     )
   }
 
-  static async getInitialProps(ctx) {
-    if (redirectIfNotAuthenticated(ctx)) {
-      return {}
+  onFieldChange = (e, errorMessage) => {
+    const {errors, listing} = this.state
+    let updatedErrors = {...errors}
+
+    if (errorMessage) {
+      updatedErrors[e.target.name] = errorMessage
+    } else {
+      delete updatedErrors[e.target.name]
     }
 
-    const jwt = getJwt(ctx)
-
-    return {
-      jwt: jwt,
-      authenticated: isAuthenticated(ctx)
-    }
+    this.setState({
+      errors: updatedErrors,
+      listing: {...listing, [e.target.name]: e.target.value},
+      canAdvance: !updatedErrors[e.target.name]
+    })
   }
 
-  onChange = (e) => {
-    const state = this.state
-    state[e.target.name] = e.target.value
-    this.setState(state)
-  }
-
-  handleSubmit = async (e) => {
-    e.preventDefault()
-
+  submitListing = async () => {
     const {jwt} = this.props
+    const postData = formatListingData(this.state.listing, [
+      'price',
+      'property_tax',
+      'maintenance_fee',
+      'area'
+    ])
 
-    const res = await createListing(this.state, jwt)
+    const res = await createListing(postData, jwt)
 
     if (res.data.errors) {
       this.setState({errors: res.data.errors})
@@ -144,35 +189,13 @@ export default class ListingNew extends Component {
 
   render() {
     const {authenticated} = this.props
-    const {page, loading, canAdvance, canRegress} = this.state
-    const {
-      errors,
-      street,
-      streetNumber,
-      complement,
-      city,
-      state,
-      postalCode,
-      lat,
-      lng,
-      neighborhood,
-      description,
-      type,
-      price,
-      area,
-      floor,
-      rooms,
-      bathrooms,
-      matterportCode,
-      score,
-      garageSpots
-    } = this.state
-
+    const {page, canAdvance, canRegress, errors, showErrors} = this.state
     return (
       <Layout authenticated={authenticated}>
         <StepContainer>
           <h1>Adicionar novo Imóvel</h1>
           {this.renderContent()}
+          {showErrors && <ErrorContainer errors={errors} />}
           <ButtonControls>
             {page > 0 && (
               <EmCasaButton

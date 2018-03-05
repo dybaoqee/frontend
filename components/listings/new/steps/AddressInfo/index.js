@@ -1,31 +1,9 @@
-import {Title, Input, Field} from '../../shared/styles'
+import {Title, Input, InputWithMask, Field} from '../../shared/styles'
 import {FieldContainer} from './styles'
+const postalCodeMask = [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/]
+export default ({onChange, listing}) => {
+  const {street, streetNumber, complement, postalCode, city, state} = listing
 
-function filterPropertyComponent(array, property) {
-  return (
-    array.filter((component) => component.types.includes(property))[0] || {}
-  )
-}
-
-export default ({placeChosen}) => {
-  const {address_components} = placeChosen
-
-  const street = filterPropertyComponent(address_components, 'route')
-  const streetNumber = filterPropertyComponent(
-    address_components,
-    'street_number'
-  )
-  const state = filterPropertyComponent(
-    address_components,
-    'administrative_area_level_1'
-  )
-
-  const city = filterPropertyComponent(
-    address_components,
-    'administrative_area_level_2'
-  )
-
-  const postal_code = filterPropertyComponent(address_components, 'postal_code')
   return (
     <div>
       <Title>Onde fica o seu imóvel?</Title>
@@ -34,18 +12,20 @@ export default ({placeChosen}) => {
           <label htmlFor="address">Endereço</label>
           <Input
             type="text"
-            name="address"
-            defaultValue={street.long_name}
+            name="street"
+            defaultValue={street}
             placeholder="Coloque seu endereço aqui"
+            onChange={onChange}
           />
         </Field>
         <Field>
           <label htmlFor="address">Número</label>
           <Input
             type="text"
-            name="number"
-            defaultValue={streetNumber.long_name}
+            name="streetNumber"
+            defaultValue={streetNumber}
             placeholder="Coloque seu número aqui"
+            onChange={onChange}
           />
         </Field>
         <Field>
@@ -53,25 +33,30 @@ export default ({placeChosen}) => {
           <Input
             type="text"
             name="complement"
+            defaultValue={complement}
             placeholder="Coloque o complemento aqui"
+            onChange={onChange}
           />
         </Field>
         <Field>
           <label htmlFor="address">CEP</label>
-          <Input
-            type="text"
-            name="cep"
-            defaultValue={postal_code.long_name}
-            placeholder="Coloque seu cep aqui"
+          <InputWithMask
+            value={postalCode}
+            name="postalCode"
+            mask={postalCodeMask}
+            placeholder="Coloque o CEP aqui"
+            guide={false}
+            onChange={onChange}
           />
         </Field>
         <Field>
           <label htmlFor="address">Cidade</label>
           <Input
             type="text"
-            name="address"
-            defaultValue={city.long_name}
+            name="city"
+            defaultValue={city}
             placeholder="Coloque sua cidade aqui"
+            onChange={onChange}
             disabled
           />
         </Field>
@@ -79,9 +64,10 @@ export default ({placeChosen}) => {
           <label htmlFor="address">Estado</label>
           <Input
             type="text"
-            name="address"
-            defaultValue={state.short_name}
+            name="state"
+            defaultValue={state}
             placeholder="Coloque seu estado aqui"
+            onChange={onChange}
             disabled
           />
         </Field>

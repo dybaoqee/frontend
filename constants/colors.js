@@ -6,6 +6,8 @@ export const darkenedBlue = '#1d6c8b'
 export const red = '#e54848'
 export const darkenedRed = '#902020'
 
+export const orange = '#FF881D'
+
 export const green = '#08c56d'
 export const borderGreen = '#008647'
 export const darkenedGreen = '#00ac54'

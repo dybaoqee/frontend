@@ -2,8 +2,13 @@ import styled from 'styled-components'
 import * as colors from 'constants/colors'
 
 export default styled.ul`
-  height: 100px;
   color: ${colors.red};
+  padding: 0;
+  list-style: none;
 `
 
-export const Error = styled.li``
+export const Error = styled.li`
+  :before {
+    content: '· ';
+  }
+`

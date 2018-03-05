@@ -20,6 +20,9 @@ const FieldContainer = styled.div`
   > ${Field}:nth-child(n + 4):not(:nth-child(n + 10)) {
     grid-column: span 2;
   }
+  > ${Field}:nth-child(n + 8) {
+    grid-column: span 6;
+  }
 
   @media ${mobileMedia} {
     display: block;
@@ -27,6 +30,28 @@ const FieldContainer = styled.div`
     > ${Field} {
       margin-bottom: 10px;
     }
+  }
+`
+
+export const TextArea = styled.textarea`
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  box-sizing: border-box;
+  padding: 10px;
+  min-height: 97px;
+  resize: vertical;
+  width: 100%;
+`
+export const SuggestionList = styled.ul`
+  list-style-type: none;
+  font-size: 12px;
+  font-weight: 600;
+  color: ${colors.orange};
+  padding: 0;
+
+  > li:before {
+    content: '· ';
   }
 `
 

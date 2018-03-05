@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import * as colors from 'constants/colors'
 import {mobileMedia} from 'constants/media'
+import MaskedInput from 'react-text-mask'
 
 const Title = styled.h1`
   font-weight: normal;
@@ -10,6 +11,29 @@ const Title = styled.h1`
 const Field = styled.div`
   position: relative;
   display: grid;
+
+  .Select-control {
+    border: 1px solid ${colors.lightGray};
+    box-sizing: border-box;
+    border-radius: 6px;
+    height: 54px;
+    vertical-align: middle;
+    font-size: 16px;
+  }
+
+  .Select-placeholder {
+    align-items: center;
+    display: flex;
+  }
+  .Select-value {
+    align-items: center;
+    border-radius: 9px;
+    display: flex;
+  }
+  .Select-input {
+    padding-top: 7px;
+  }
+
   label {
     font-weight: 600;
     font-size: 11px;
@@ -54,6 +78,8 @@ const Input = styled.input`
     margin-bottom: 10px;
   }
 `
+
+export const InputWithMask = Input.withComponent(MaskedInput)
 
 const ButtonControls = styled.div`
   display: flex;

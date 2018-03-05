@@ -32,10 +32,17 @@ function MapService(operation, object) {
   return operation(object).asPromise()
 }
 
+function filterComponent(array, property) {
+  return (
+    array.filter((component) => component.types.includes(property))[0] || {}
+  )
+}
+
 module.exports = {
   search: MapService,
   geocode,
   place,
   places,
-  placesAutoComplete
+  placesAutoComplete,
+  filterComponent
 }

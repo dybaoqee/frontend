@@ -9,25 +9,24 @@ export default class Counter extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      counter: props.min || 0
+      counter: props.defaultValue || props.min || 0
     }
   }
 
-  IncrementItem = () => {
-    this.setState({counter: this.state.counter + 1})
-  }
-  DecreaseItem = () => {
-    this.setState({counter: this.state.counter - 1})
+  makeIncrementer = (amount) => () => {
+    const {onChange, name} = this.props
+    this.setState((prevState) => {
+      const updatedValue = prevState.counter + amount
+      onChange && onChange({target: {name, value: updatedValue}})
+      return {counter: updatedValue}
+    })
   }
 
-  componentWillUpdate(prevProps, nextState) {
-    const {counter} = nextState
-    const {onChange} = this.props
-    onChange && onChange(counter)
-  }
+  IncrementItem = this.makeIncrementer(1)
+  DecreaseItem = this.makeIncrementer(-1)
 
   render() {
-    const {min = 0, max = 10} = this.props
+    const {min = 0, max = 20} = this.props
     const {counter} = this.state
     return (
       <CounterContainer>

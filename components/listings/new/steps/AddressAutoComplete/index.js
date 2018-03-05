@@ -20,13 +20,35 @@ export default class AddressAutoComplete extends React.Component {
     try {
       const response = await fetch(`/maps/autocomplete?q=${encodeURI(input)}`)
       const json = await response.json()
-      this.setState({predictions: json.json.predictions})
+
+      const {predictions} = json.json
+
+      this.setState({
+        predictions,
+        errors:
+          predictions.length === 0
+            ? [
+                ...this.state.errors,
+                'Não encontramos o endereço. Tente novamente com outros termos.'
+              ]
+            : []
+      })
     } catch (e) {
-      throw new Error(e)
+      this.setState({
+        errors: [...this.state.errors, 'Ocorreu um erro ao buscar o endereço.']
+      })
     }
   }
 
   async setPlace(place) {
+    const streetNumber = place.structured_formatting.main_text.split(',')[1]
+    if (!streetNumber) {
+      this.setState({
+        errors: [...this.state.errors, 'Digite o número da localização'],
+        place
+      })
+      return
+    }
     const {choosePlace} = this.props
     this.setState({place, predictions: [], loadingPlaceInfo: true, errors: []})
     try {
@@ -49,7 +71,7 @@ export default class AddressAutoComplete extends React.Component {
 
   onChange = (e) => {
     const {value} = e.target
-    this.setState({search: value, place: {}})
+    this.setState({search: value, place: {}, errors: []})
     clearTimeout(this.timer)
 
     this.timer = setTimeout(this.searchPlaces.bind(null, value), 500)
@@ -60,6 +82,7 @@ export default class AddressAutoComplete extends React.Component {
     return (
       <div>
         <Title>Onde fica o seu imóvel?</Title>
+        <ErrorContainer errors={errors} />
         <Field>
           <label htmlFor="street">Endereço</label>
           <Input
@@ -78,7 +101,6 @@ export default class AddressAutoComplete extends React.Component {
           ))}
         </SearchResults>
         {loadingPlaceInfo && <p>Buscando informações sobre o local...</p>}
-        <ErrorContainer errors={errors} />
       </div>
     )
   }

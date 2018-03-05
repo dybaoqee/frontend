@@ -5,7 +5,7 @@
 
 ## Run
 
-To run locally, download, install and run [https://github.com/em-casa/backend](the backend).
+To run locally, download, install and run [the backend](https://github.com/em-casa/backend).
 
 Then, `yarn start`.
 

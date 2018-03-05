@@ -54,11 +54,13 @@
     "react-number-format": "^3.1.2",
     "react-responsive": "^4.0.3",
     "react-select": "^1.2.0",
+    "react-text-mask": "^5.1.0",
     "smoothscroll-polyfill": "^0.4.0",
     "sniffr": "^1.1.4",
     "styled-components": "^3.1.6",
     "styled-jsx-plugin-postcss": "^0.1.2",
-    "superagent": "^3.8.2"
+    "superagent": "^3.8.2",
+    "text-mask-addons": "^3.7.1"
   },
   "postcss": {
     "plugins": {
