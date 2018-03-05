@@ -34,7 +34,6 @@ export default class ListingNew extends Component {
       submitting: false,
       listing: {
         matterportCode: null,
-        score: 4,
         price: 0,
         area: 0
       }
