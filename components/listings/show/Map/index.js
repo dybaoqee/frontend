@@ -9,19 +9,11 @@ export default class ListingMap extends React.Component {
   render() {
     const {listing} = this.props
     const {lat, lng} = listing.address
+    const text = <FontAwesomeIcon icon={faHome} />
 
     return (
       <Container>
-        <Map
-          center={{lat, lng}}
-          markers={[
-            {
-              lat: lat,
-              lng: lng,
-              text: <FontAwesomeIcon icon={faHome} />
-            },
-          ]}
-        />
+        <Map center={{lat, lng}} markers={[{lat, lng, text}]} />
       </Container>
     )
   }
