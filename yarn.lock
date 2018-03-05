@@ -1774,7 +1774,7 @@ create-hmac@^1.1.0, create-hmac@^1.1.2, create-hmac@^1.1.4:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-create-react-class@^15.5.2, create-react-class@^15.6.0:
+create-react-class@^15.6.0:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/create-react-class/-/create-react-class-15.6.2.tgz#cf1ed15f12aad7f14ef5f2dfe05e6c42f91ef02a"
   dependencies:
@@ -4805,6 +4805,10 @@ nth-check@~1.0.1:
   dependencies:
     boolbase "~1.0.0"
 
+number-abbreviate@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/number-abbreviate/-/number-abbreviate-2.0.0.tgz#e9cb2d18db800e153cf072829553c4afe0df7898"
+
 number-is-nan@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
@@ -5476,13 +5480,6 @@ react-ga@^2.4.0:
   optionalDependencies:
     prop-types "^15.6.0"
     react "^15.6.2"
-
-react-gmaps@^1.7.0:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/react-gmaps/-/react-gmaps-1.7.0.tgz#644bc0fc61e303d82af9ac62c953eecc487ee363"
-  dependencies:
-    create-react-class "^15.5.2"
-    object-assign "^4.0.1"
 
 react-hot-loader@3.1.1:
   version "3.1.1"

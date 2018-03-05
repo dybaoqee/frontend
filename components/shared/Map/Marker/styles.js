@@ -8,7 +8,7 @@ export default styled.div`
   box-shadow: 1px 3px 6px rgba(0, 0, 0, 0.3);
   color: white;
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 400;
   margin-top: -6px;
   padding: 4px 10px 6px;
   position: absolute;
