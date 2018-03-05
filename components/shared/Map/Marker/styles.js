@@ -13,6 +13,12 @@ export default styled.div`
   padding: 4px 10px 6px;
   position: absolute;
   transform: translate(-50%, -100%);
+  &:hover {
+    background: ${colors.darkenedBlue};
+    &:after {
+      border-top: 8px solid ${colors.darkenedBlue};
+    }
+  }
   &:after {
     bottom: -6px;
     content: '';
