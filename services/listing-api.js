@@ -129,7 +129,7 @@ export const getListing = async (id, jwt) => {
 export const createListing = async (data, jwt) => {
   const payload = buildPayload(data)
   try {
-    const response = await post('/listings', payload, jwt)
+    const response = await post('/v2/listings', payload, jwt)
     return response
   } catch (error) {
     if (error.response && error.response.status === 422)
