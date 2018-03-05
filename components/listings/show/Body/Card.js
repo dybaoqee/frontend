@@ -14,7 +14,7 @@ export default class ListingCard extends React.Component {
       bathrooms,
       garage_spots,
       floor,
-      area,
+      area
     } = this.props.listing
 
     const price_per_square_meter = Math.floor(price / area)
