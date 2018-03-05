@@ -107,6 +107,12 @@ app
       app.render(req, res, actualPage, queryParams)
     })
 
+    server.get('/imoveis/:id/editar_v2', (req, res) => {
+      const actualPage = '/listings/edit_v2'
+      const queryParams = {id: req.params.id}
+      app.render(req, res, actualPage, queryParams)
+    })
+
     server.get('/imoveis/:listingId/imagens', (req, res) => {
       const actualPage = '/listings/images'
       const queryParams = {listingId: req.params.listingId}
