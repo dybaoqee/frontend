@@ -47,7 +47,7 @@ export default class ListingNew extends Component {
       <AddressAutoComplete />,
       <PropertyInfo />,
       <PropertyGallery />,
-      <PropertyGalleryEdit />
+      <PropertyGalleryEdit />,
     ]
   }
 
@@ -197,7 +197,7 @@ export default class ListingNew extends Component {
       'price',
       'property_tax',
       'maintenance_fee',
-      'area'
+      'area',
     ])
 
     try {
@@ -212,9 +212,10 @@ export default class ListingNew extends Component {
         return res
       }
       const listingId = res.data.listing.id
-      Router.replace(`/imoveis/${listingId}/imagens`).then(() =>
-        window.scrollTo(0, 0)
-      )
+      Router.replace(
+        `/listings/images?listingId=${listingId}`,
+        `/imoveis/${listingId}/imagens`
+      ).then(() => window.scrollTo(0, 0))
       return null
     } catch (e) {
       this.setState({
