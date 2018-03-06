@@ -7,6 +7,7 @@ const port = process.env.PORT || 3000
 const app = next({dir: '.', dev})
 const handle = app.getRequestHandler()
 const MapsService = require('./services/google-maps-api')
+const userRole = require('./lib/middlewares/userRole')
 
 app
   .prepare()
@@ -85,7 +86,7 @@ app
       app.render(req, res, actualPage, req.query)
     })
 
-    server.get('/imoveis/adicionar', (req, res) => {
+    server.get('/imoveis/adicionar', userRole.isAdmin, (req, res) => {
       const actualPage = '/listings/new'
       app.render(req, res, actualPage)
     })
@@ -96,7 +97,7 @@ app
       app.render(req, res, actualPage, queryParams)
     })
 
-    server.get('/imoveis/:id/editar', (req, res) => {
+    server.get('/imoveis/:id/editar', userRole.isAdmin, (req, res) => {
       const actualPage = '/listings/edit'
       const queryParams = {id: req.params.id}
       app.render(req, res, actualPage, queryParams)
