@@ -1,4 +1,4 @@
-import {Component} from 'react'
+import {Component, Fragment} from 'react'
 import {Title, Input, InputWithMask, Field} from '../../shared/styles'
 import {FieldContainer, TextArea, SuggestionList} from './styles'
 import Counter from 'components/shared/Common/Counter'
@@ -16,9 +16,6 @@ const priceMask = createNumberMask({
 export default class PropertyInfo extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      type: ''
-    }
     const {onChange, listing} = props
     onChange &&
       onChange(
@@ -27,16 +24,62 @@ export default class PropertyInfo extends Component {
       )
   }
 
-  onChangeSelect = ({value}) => {
+  onChangeSelect = (...args) => {
     const {onChange} = this.props
-    this.setState({type: value})
-    onChange && onChange({target: {name: 'type', value}})
+    const [type, selection] = args
+    onChange && onChange({target: {name: type, value: selection.value}})
+  }
+
+  showAdminFields = () => {
+    const {onChange, listing} = this.props
+    const {price, matterport_code, score} = listing
+    return (
+      <Fragment>
+        <Field>
+          <label htmlFor="price">Valor do imóvel</label>
+          <InputWithMask
+            value={price}
+            name="price"
+            mask={priceMask}
+            placeholder="R$"
+            guide={false}
+            onChange={onChange}
+          />
+        </Field>
+        <Field>
+          <label htmlFor="floor">Código do Matterport</label>
+          <Input
+            type="text"
+            name="matterport_code"
+            defaultValue={matterport_code}
+            placeholder=""
+            onChange={onChange}
+          />
+        </Field>
+        <Field>
+          <label htmlFor="score">Farol</label>
+          <Select
+            name="score"
+            clearable={false}
+            placeholder="Selecione o Farol"
+            noResultsText="Nenhum resultado encontrado"
+            options={[
+              {value: 4, label: 'Verde'},
+              {value: 3, label: 'Amarelo'},
+              {value: 2, label: 'Vermelho'},
+              {value: 1, label: 'Preto'}
+            ]}
+            value={score || ''}
+            onChange={this.onChangeSelect.bind(null, 'score')}
+          />
+        </Field>
+      </Fragment>
+    )
   }
 
   render() {
-    const {onChange, listing} = this.props
+    const {onChange, listing, isAdmin} = this.props
     const {
-      price,
       type: propertyType,
       floor,
       maintenance_fee,
@@ -52,17 +95,6 @@ export default class PropertyInfo extends Component {
         <Title>Dados principais do imóvel</Title>
         <FieldContainer>
           <Field>
-            <label htmlFor="price">Valor do imóvel</label>
-            <InputWithMask
-              value={price}
-              name="price"
-              mask={priceMask}
-              placeholder="R$"
-              guide={false}
-              onChange={onChange}
-            />
-          </Field>
-          <Field>
             <label htmlFor="type">
               Tipo do imóvel <span>(Obrigatório)</span>
             </label>
@@ -77,7 +109,7 @@ export default class PropertyInfo extends Component {
                 {value: 'Cobertura', label: 'Cobertura'}
               ]}
               value={propertyType || ''}
-              onChange={this.onChangeSelect}
+              onChange={this.onChangeSelect.bind(null, 'type')}
             />
           </Field>
           <Field>
@@ -154,21 +186,23 @@ export default class PropertyInfo extends Component {
             Rua arborizada, com padaria e farmácia a 2 quadras do edifício.
             Imóvel arejado e com face norte..."
             />
+            {!isAdmin && (
+              <SuggestionList>
+                <li>
+                  Fale sobre a vizinhança, pontos de referência e vias de
+                  acesso;
+                </li>
+                <li>
+                  Cite informações como: padarias, mercados, farmácias, etc;
+                </li>
+                <li>
+                  Fale sobre o estado do imóvel e suas características. Ex.:
+                  reformado, arejado, iluminado, etc.
+                </li>
+              </SuggestionList>
+            )}
           </Field>
-          <Field>
-            <SuggestionList>
-              <li>
-                Fale sobre a vizinhança, pontos de referência e vias de acesso;
-              </li>
-              <li>
-                Cite informações como: padarias, mercados, farmácias, etc;
-              </li>
-              <li>
-                Fale sobre o estado do imóvel e suas características. Ex.:
-                reformado, arejado, iluminado, etc.
-              </li>
-            </SuggestionList>
-          </Field>
+          {isAdmin && this.showAdminFields()}
         </FieldContainer>
       </div>
     )
