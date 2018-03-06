@@ -1,6 +1,6 @@
 import React from 'react'
 import {Title, Input, Field} from '../../shared/styles'
-import {SearchResults} from './styles'
+import {SearchResults, FieldContainer} from './styles'
 import ErrorContainer from 'components/listings/new/shared/ErrorContainer'
 
 export default class AddressAutoComplete extends React.Component {
@@ -71,6 +71,8 @@ export default class AddressAutoComplete extends React.Component {
 
   onChange = (e) => {
     const {value} = e.target
+    const {resetListing} = this.props
+    resetListing()
     this.setState({search: value, place: {}, errors: []})
     clearTimeout(this.timer)
 
@@ -78,28 +80,49 @@ export default class AddressAutoComplete extends React.Component {
   }
   render() {
     const {predictions, place, search, loadingPlaceInfo, errors} = this.state
+    const {listing, onChange} = this.props
+    const address = `${listing.street}, ${listing.street_number} - ${
+      listing.neighborhood
+    }, ${listing.city} - ${listing.state}, Brasil`
 
     return (
       <div>
         <Title>Onde fica o seu imóvel?</Title>
         <ErrorContainer errors={errors} />
-        <Field>
-          <label htmlFor="street">Endereço</label>
-          <Input
-            type="text"
-            name="street"
-            value={place.description || search}
-            placeholder="Coloque seu endereço aqui"
-            onChange={this.onChange}
-          />
-        </Field>
-        <SearchResults>
-          {predictions.map((prediction) => (
-            <div onClick={() => this.setPlace(prediction)} key={prediction.id}>
-              {prediction.description}
-            </div>
-          ))}
-        </SearchResults>
+        <FieldContainer>
+          <Field>
+            <label htmlFor="street">Endereço</label>
+            <Input
+              type="text"
+              name="street"
+              value={place.description || (listing.street ? address : search)}
+              placeholder="Coloque seu endereço aqui"
+              onChange={this.onChange}
+              autoComplete="off"
+            />
+            <SearchResults>
+              {predictions.map((prediction) => (
+                <div
+                  onClick={() => this.setPlace(prediction)}
+                  key={prediction.id}
+                >
+                  {prediction.description}
+                </div>
+              ))}
+            </SearchResults>
+          </Field>
+          <Field>
+            <label htmlFor="address">Complemento</label>
+            <Input
+              type="text"
+              name="complement"
+              defaultValue={listing.complement}
+              placeholder=""
+              onChange={onChange}
+            />
+          </Field>
+        </FieldContainer>
+
         {loadingPlaceInfo && <p>Buscando informações sobre o local...</p>}
       </div>
     )
