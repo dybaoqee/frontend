@@ -6,7 +6,7 @@ import {
   redirectIfNotAuthenticated,
   getJwt,
   isAuthenticated,
-  isAdmin
+  isAdmin as isAdminUser
 } from 'lib/auth'
 import {
   editListing,
@@ -57,6 +57,8 @@ export default class ListingEditV2 extends Component {
       return {}
     }
 
+    const isAdmin = isAdminUser(context)
+
     const jwt = getJwt(context)
     const {id} = context.query
 
@@ -77,7 +79,7 @@ export default class ListingEditV2 extends Component {
         jwt: jwt,
         listing: res.data.listing,
         isAuthenticated: isAuthenticated(context),
-        isAdmin: isAdmin(context)
+        isAdmin
       }
     } catch (e) {
       return {

@@ -4,7 +4,7 @@ import {
   redirectIfNotAuthenticated,
   getJwt,
   isAuthenticated,
-  isAdmin
+  isAdmin as isAdminUser
 } from 'lib/auth'
 import {createListing, formatListingData} from 'services/listing-api'
 import {filterComponent} from 'services/google-maps-api'
@@ -57,13 +57,14 @@ export default class ListingNew extends Component {
     if (redirectIfNotAuthenticated(ctx)) {
       return {}
     }
+    const isAdmin = isAdminUser(ctx)
 
     const jwt = getJwt(ctx)
 
     return {
       jwt: jwt,
       authenticated: isAuthenticated(ctx),
-      isAdmin: isAdmin(ctx)
+      isAdmin
     }
   }
 
