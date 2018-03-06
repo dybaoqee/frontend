@@ -215,11 +215,11 @@ export default class ListingNew extends Component {
   }
 
   render() {
-    const {authenticated} = this.props
+    const {authenticated, isAdmin} = this.props
     const {page, canAdvance, canRegress, errors, showErrors} = this.state
 
     return (
-      <Layout authenticated={authenticated}>
+      <Layout authenticated={authenticated} isAdmin={isAdmin}>
         <StepContainer>
           <h1>Adicionar novo Imóvel</h1>
           {this.renderContent()}

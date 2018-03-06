@@ -4,6 +4,7 @@ import Router from 'next/router'
 import _ from 'lodash'
 import {
   redirectIfNotAuthenticated,
+  redirectIfNotAdmin,
   getJwt,
   isAuthenticated,
   isAdmin as isAdminUser
@@ -53,7 +54,7 @@ export default class ListingEditV2 extends Component {
   }
 
   static async getInitialProps(context) {
-    if (redirectIfNotAuthenticated(context)) {
+    if (redirectIfNotAdmin(context)) {
       return {}
     }
 
@@ -203,10 +204,10 @@ export default class ListingEditV2 extends Component {
   }
 
   render() {
-    const {authenticated, id} = this.props
+    const {isAuthenticated, id, isAdmin} = this.props
     const {page, canAdvance, canRegress, errors, showErrors} = this.state
     return (
-      <Layout authenticated={authenticated}>
+      <Layout authenticated={isAuthenticated} isAdmin={isAdmin}>
         <StepContainer>
           <h1>Editar Imóvel</h1>
           {page < 2 && (

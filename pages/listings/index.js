@@ -153,7 +153,10 @@ export default class ListingsIndex extends Component {
     const {currentPage, totalPages, totalResults, listings} = this.state
     const seoImgSrc = this.seoImage
     return (
-      <Layout authenticated={currentUser.authenticated}>
+      <Layout
+        authenticated={currentUser.authenticated}
+        isAdmin={currentUser.admin}
+      >
         <Head>
           <title>Apartamentos à venda no Rio de Janeiro | EmCasa</title>
           <meta
