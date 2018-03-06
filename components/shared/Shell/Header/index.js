@@ -14,19 +14,19 @@ export default class Header extends Component {
   }
 
   renderNav() {
-    const {authenticated} = this.props
+    const {authenticated, isAdmin} = this.props
     const {isMobileNavVisible} = this.state
-
     return (
       <Fragment>
         <Button onClick={this.toggleMobileNavVisibility}>☰</Button>
 
         <Nav visible={isMobileNavVisible}>
-          {authenticated && (
-            <Link href="/listings/new" as="/imoveis/adicionar">
-              <a>Adicionar Imóvel</a>
-            </Link>
-          )}
+          {authenticated &&
+            isAdmin && (
+              <Link href="/listings/new" as="/imoveis/adicionar">
+                <a>Adicionar Imóvel</a>
+              </Link>
+            )}
 
           <Link href="/sell" as="venda-seu-imovel">
             <a>Venda seu Imóvel</a>

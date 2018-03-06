@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
 import Router from 'next/router'
 import {
-  redirectIfNotAuthenticated,
+  redirectIfNotAdmin,
   getJwt,
   isAuthenticated,
-  isAdmin
+  isAdmin as isAdminUser
 } from 'lib/auth'
 import {createListing, formatListingData} from 'services/listing-api'
 import {filterComponent} from 'services/google-maps-api'
@@ -54,16 +54,18 @@ export default class ListingNew extends Component {
   }
 
   static async getInitialProps(ctx) {
-    if (redirectIfNotAuthenticated(ctx)) {
+    if (redirectIfNotAdmin(ctx)) {
       return {}
     }
+
+    const isAdmin = isAdminUser(ctx)
 
     const jwt = getJwt(ctx)
 
     return {
       jwt: jwt,
       authenticated: isAuthenticated(ctx),
-      isAdmin: isAdmin(ctx)
+      isAdmin
     }
   }
 
@@ -213,11 +215,11 @@ export default class ListingNew extends Component {
   }
 
   render() {
-    const {authenticated} = this.props
+    const {authenticated, isAdmin} = this.props
     const {page, canAdvance, canRegress, errors, showErrors} = this.state
 
     return (
-      <Layout authenticated={authenticated}>
+      <Layout authenticated={authenticated} isAdmin={isAdmin}>
         <StepContainer>
           <h1>Adicionar novo Imóvel</h1>
           {this.renderContent()}

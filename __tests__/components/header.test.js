@@ -44,7 +44,7 @@ describe('Header', () => {
   })
 
   it('should render authenticated', () => {
-    const header = shallow(<Header authenticated={true} />)
+    const header = shallow(<Header authenticated={true} isAdmin={true} />)
 
     expect(header.find(Link)).toHaveLength(6)
 
@@ -84,5 +84,16 @@ describe('Header', () => {
         .find('a')
         .text()
     ).toEqual('Adicionar Imóvel')
+  })
+
+  it('should not show Add Listing button if not admin', () => {
+    const header = shallow(<Header authenticated={true} />)
+
+    expect(
+      header
+        .find(Link)
+        .find('[href="/listings/new"]')
+        .exists()
+    ).toEqual(false)
   })
 })
