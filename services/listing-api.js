@@ -13,7 +13,7 @@ const buildPayload = (data) => {
       area: data.area,
       garage_spots: data.garageSpots || data.garage_spots,
       score: data.score,
-      matterport_code: data.matterportCode,
+      matterport_code: data.matterportCode || data.matterport_code,
       maintenance_fee: data.maintenance_fee,
       property_tax: data.property_tax
     },
