@@ -90,11 +90,6 @@ app
       app.render(req, res, actualPage)
     })
 
-    server.get('/imoveis/adicionar_v2', (req, res) => {
-      const actualPage = '/listings/new_v2'
-      app.render(req, res, actualPage)
-    })
-
     server.get('/imoveis/:id', (req, res) => {
       const actualPage = '/listings/show'
       const queryParams = {id: req.params.id}

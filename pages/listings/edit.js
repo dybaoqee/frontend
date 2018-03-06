@@ -1,44 +1,55 @@
-import {Component} from 'react'
-import {Form, Text} from 'react-form'
+import React, {Component} from 'react'
 import Link from 'next/link'
 import Router from 'next/router'
-
-import {redirectIfNotAuthenticated, getJwt, isAuthenticated} from 'lib/auth'
-import {editListing, updateListing} from 'services/listing-api'
-
+import _ from 'lodash'
+import {
+  redirectIfNotAuthenticated,
+  getJwt,
+  isAuthenticated,
+  isAdmin
+} from 'lib/auth'
+import {
+  editListing,
+  updateListing,
+  formatListingData
+} from 'services/listing-api'
 import Layout from 'components/shared/Shell'
-import TextContainer from 'components/shared/TextContainer'
-import AdminHeader from 'components/shared/AdminHeader'
-import * as colors from 'constants/colors'
 
-export default class ListingEdit extends Component {
+import AddressInfo from 'components/listings/new/steps/AddressInfo'
+import PropertyInfo from 'components/listings/new/steps/PropertyInfo'
+import PropertyGallery from 'components/listings/new/steps/PropertyGallery'
+
+import EmCasaButton from 'components/shared/Common/Buttons'
+import ErrorContainer from 'components/listings/new/shared/ErrorContainer'
+
+import {
+  StepContainer,
+  ButtonControls
+} from 'components/listings/new/shared/styles'
+
+export default class ListingEditV2 extends Component {
   constructor(props) {
     super(props)
-    const {address} = props.listing
-    const {listing} = props
+    let {listing} = props
 
+    var listingFiltered = _.pickBy(listing, function(value, key) {
+      return key !== 'address'
+    })
     this.state = {
-      street: address.street,
-      streetNumber: address.street_number,
-      neighborhood: address.neighborhood,
-      postalCode: address.postal_code,
-      lat: address.lat,
-      lng: address.lng,
-      city: 'Rio de Janeiro',
-      state: 'RJ',
-
-      description: listing.description,
-      price: listing.price,
-      complement: listing.complement,
-      type: listing.type,
-      area: listing.area,
-      floor: listing.floor,
-      bathrooms: listing.bathrooms,
-      garageSpots: listing.garage_spots,
-      rooms: listing.rooms,
-      matterportCode: listing.matterport_code,
-      score: listing.score,
+      page: 0,
+      finished: false,
+      placeChosen: {},
+      canAdvance: true,
+      canRegress: false,
+      errors: {},
+      showErrors: false,
+      submitting: false,
+      listing: {
+        ...listingFiltered,
+        ...listing.address
+      }
     }
+    this.steps = [<AddressInfo />, <PropertyInfo />, <PropertyGallery />]
   }
 
   static async getInitialProps(context) {
@@ -49,37 +60,128 @@ export default class ListingEdit extends Component {
     const jwt = getJwt(context)
     const {id} = context.query
 
-    const res = await editListing(id, jwt)
+    try {
+      const res = await editListing(id, jwt)
 
-    if (res.data.errors) {
-      this.setState({errors: res.data.errors})
-      return {}
-    }
+      if (res.data.errors) {
+        this.setState({errors: res.data.errors})
+        return {}
+      }
 
-    if (!res.data) {
-      return res
-    }
+      if (!res.data) {
+        return res
+      }
 
-    return {
-      id: id,
-      jwt: jwt,
-      listing: res.data.listing,
-      isAuthenticated: isAuthenticated(context),
+      return {
+        id: id,
+        jwt: jwt,
+        listing: res.data.listing,
+        isAuthenticated: isAuthenticated(context),
+        isAdmin: isAdmin(context)
+      }
+    } catch (e) {
+      return {
+        id: id,
+        jwt: jwt,
+        isAuthenticated: isAuthenticated(context),
+        isAdmin: isAdmin(context)
+      }
     }
   }
 
-  onChange = (e) => {
-    const state = this.state
-    state[e.target.name] = e.target.value
-    this.setState(state)
+  previousPage = () => {
+    const {page} = this.state
+
+    if (page > 0) {
+      this.setState({
+        page: page - 1,
+        canAdvance: true,
+        errors: [],
+        showErrors: false
+      })
+    }
   }
 
-  handleSubmit = async (e) => {
-    e.preventDefault()
+  nextPage = () => {
+    const {page, errors} = this.state
 
+    if (page === 1) {
+      this.editListing()
+      this.setState({
+        page: page + 1,
+        canRegress: false,
+        canAdvance: false,
+        submitting: true
+      })
+    } else {
+      if (Object.keys(errors).length > 0) {
+        this.setState({
+          canAdvance: false,
+          showErrors: true
+        })
+        return
+      }
+      this.setState({page: page + 1, canRegress: true})
+    }
+  }
+
+  getStepContent(page) {
+    const Current = this.steps[page]
+    const {listing} = this.state
+    return React.cloneElement(Current, {
+      choosePlace: this.setChosenPlace,
+      listing,
+      onChange: this.onFieldChange,
+      isAdmin: this.props.isAdmin
+    })
+  }
+
+  renderContent() {
+    const {page, finished} = this.state
+
+    if (finished) {
+      return (
+        <div>
+          <p>The form was submitted succesfully. Thank you!</p>
+        </div>
+      )
+    }
+
+    return (
+      <div>
+        <div>{this.getStepContent(page)}</div>
+      </div>
+    )
+  }
+
+  onFieldChange = (e, errorMessage) => {
+    const {errors, listing} = this.state
+    let updatedErrors = {...errors}
+
+    if (errorMessage) {
+      updatedErrors[e.target.name] = errorMessage
+    } else {
+      delete updatedErrors[e.target.name]
+    }
+
+    this.setState({
+      errors: updatedErrors,
+      listing: {...listing, [e.target.name]: e.target.value},
+      canAdvance: !updatedErrors[e.target.name]
+    })
+  }
+
+  editListing = async () => {
     const {jwt, id} = this.props
 
-    const res = await updateListing(id, this.state, jwt)
+    const postData = formatListingData(this.state.listing, [
+      'price',
+      'property_tax',
+      'maintenance_fee',
+      'area',
+    ])
+
+    const res = await updateListing(id, postData, jwt)
 
     if (res.data.errors) {
       this.setState({errors: res.data.errors})
@@ -99,304 +201,37 @@ export default class ListingEdit extends Component {
   }
 
   render() {
-    const {id} = this.props
-    const {
-      errors,
-      street,
-      streetNumber,
-      complement,
-      city,
-      state,
-      postalCode,
-      lat,
-      lng,
-      neighborhood,
-      description,
-      type,
-      price,
-      area,
-      floor,
-      rooms,
-      bathrooms,
-      matterportCode,
-      score,
-      garageSpots,
-    } = this.state
-
+    const {authenticated, id} = this.props
+    const {page, canAdvance, canRegress, errors, showErrors} = this.state
     return (
-      <Layout authenticated={isAuthenticated}>
-        <TextContainer>
-          <AdminHeader>
-            <h1>Editar Imóvel</h1>
+      <Layout authenticated={authenticated}>
+        <StepContainer>
+          <h1>Editar Imóvel</h1>
+          {page < 2 && (
             <Link
               href={`/listings/images?listingId=${id}`}
               as={`/imoveis/${id}/imagens`}
             >
-              <a>Gerenciar Imagens</a>
+              <EmCasaButton>Gerenciar Imagens</EmCasaButton>
             </Link>
-          </AdminHeader>
-
-          <form onSubmit={this.handleSubmit}>
-            <h4>Endereço</h4>
-
-            <div className="input-control">
-              <label htmlFor="street">Rua</label>
-              <input
-                type="text"
-                name="street"
-                placeholder="Rua"
-                value={street}
-                onChange={this.onChange}
-              />
-            </div>
-
-            <div className="input-control">
-              <label htmlFor="streetNumber">Número</label>
-              <input
-                type="text"
-                name="streetNumber"
-                placeholder="Número"
-                value={streetNumber}
-                onChange={this.onChange}
-              />
-            </div>
-
-            <div className="input-control">
-              <label htmlFor="complement">Complemento</label>
-              <input
-                type="text"
-                name="complement"
-                placeholder="Complemento"
-                value={complement}
-                onChange={this.onChange}
-              />
-            </div>
-
-            <div className="input-control">
-              <label htmlFor="neighborhood">Bairro</label>
-              <input
-                type="text"
-                name="neighborhood"
-                placeholder="Bairro"
-                value={neighborhood}
-                onChange={this.onChange}
-              />
-            </div>
-
-            <div className="input-control">
-              <label htmlFor="city">Cidade</label>
-              <input
-                type="text"
-                name="city"
-                placeholder="Cidade"
-                value={city}
-                onChange={this.onChange}
-                readOnly
-              />
-            </div>
-
-            <div className="input-control">
-              <label htmlFor="state">Estado (Sigla)</label>
-              <input
-                type="text"
-                name="state"
-                placeholder="Estado"
-                value={state}
-                onChange={this.onChange}
-                readOnly
-              />
-            </div>
-
-            <div className="input-control">
-              <label htmlFor="postalCode">CEP</label>
-              <input
-                type="text"
-                name="postalCode"
-                placeholder="CEP"
-                value={postalCode}
-                onChange={this.onChange}
-              />
-            </div>
-
-            <div className="input-control">
-              <label htmlFor="lat">Latitude</label>
-              <input
-                type="text"
-                name="lat"
-                placeholder="Latitude"
-                value={lat}
-                onChange={this.onChange}
-              />
-            </div>
-
-            <div className="input-control">
-              <label htmlFor="lng">Longitude</label>
-              <input
-                type="text"
-                name="lng"
-                placeholder="Longitude"
-                value={lng}
-                onChange={this.onChange}
-              />
-            </div>
-
-            <h4>Detalhes do imóvel</h4>
-
-            <div className="input-control">
-              <label htmlFor="type">Tipo</label>
-              <input
-                type="text"
-                name="type"
-                placeholder="Apartamento / Casa / Cobertura etc"
-                value={type}
-                onChange={this.onChange}
-              />
-            </div>
-
-            <div className="input-control">
-              <label htmlFor="description">Descrição</label>
-              <input
-                type="text"
-                name="description"
-                placeholder="Descrição"
-                value={description}
-                onChange={this.onChange}
-              />
-            </div>
-
-            <div className="input-control">
-              <label htmlFor="price">Preço</label>
-              <input
-                type="text"
-                name="price"
-                placeholder="Preço"
-                value={price}
-                onChange={this.onChange}
-              />
-            </div>
-
-            <div className="input-control">
-              <label htmlFor="area">Área (em m²)</label>
-              <input
-                type="text"
-                name="area"
-                placeholder="Área"
-                value={area}
-                onChange={this.onChange}
-              />
-            </div>
-
-            <div className="input-control">
-              <label htmlFor="floor">Andar</label>
-              <input
-                type="text"
-                name="floor"
-                placeholder="Andar"
-                value={floor}
-                onChange={this.onChange}
-              />
-            </div>
-
-            <div className="input-control">
-              <label htmlFor="floor">Número de Quartos</label>
-              <input
-                type="text"
-                name="rooms"
-                placeholder="Número de Quartos"
-                value={rooms}
-                onChange={this.onChange}
-              />
-            </div>
-
-            <div className="input-control">
-              <label htmlFor="garageSpots">Número de Vagas de Garagem</label>
-              <input
-                type="text"
-                name="garageSpots"
-                placeholder="Número de Vagas de Garagem"
-                value={garageSpots}
-                onChange={this.onChange}
-              />
-            </div>
-
-            <div className="input-control">
-              <label htmlFor="bathrooms">Número de Banheiros</label>
-              <input
-                type="text"
-                name="bathrooms"
-                placeholder="Número de Banheiros"
-                value={bathrooms}
-                onChange={this.onChange}
-              />
-            </div>
-
-            <div className="input-control">
-              <label htmlFor="matterportCode">
-                Código do Matterport (algo como 8FxqPg9yX8w)
-              </label>
-              <input
-                type="text"
-                name="matterportCode"
-                placeholder="Código do Matterport"
-                value={matterportCode}
-                onChange={this.onChange}
-              />
-            </div>
-
-            <div className="input-control">
-              <label htmlFor="score">
-                Farol (4 = verde, 3 = amarelo, 2 = vermelho, 1 = preto)
-              </label>
-              <input
-                type="text"
-                name="score"
-                placeholder="Placar do Farol"
-                value={score}
-                onChange={this.onChange}
-              />
-            </div>
-
-            {errors && (
-              <div>
-                <b>Verifique os erros:</b>
-
-                {Object.keys(errors).map((key) =>
-                  errors[key].map((error) => {
-                    return (
-                      <p>
-                        {key}: {error}
-                      </p>
-                    )
-                  })
-                )}
-              </div>
+          )}
+          {this.renderContent()}
+          {showErrors && <ErrorContainer errors={errors} />}
+          <ButtonControls>
+            {page > 0 && (
+              <EmCasaButton
+                light
+                disabled={!canRegress}
+                onClick={this.previousPage}
+              >
+                Anterior
+              </EmCasaButton>
             )}
-
-            <button type="submit">Enviar</button>
-          </form>
-        </TextContainer>
-
-        <style jsx>{`
-          form {
-            .input-control {
-              margin-bottom: 20px;
-              label {
-                float: left;
-                margin: 0 0 10px 0;
-              }
-              input {
-                border: 1px solid ${colors.lightGray};
-                border-radius: 6px;
-                font-size: 16px;
-                padding: 10px;
-                width: calc(100% - 22px);
-                &[readonly] {
-                  color: #bbb;
-                }
-              }
-            }
-          }
-        `}</style>
+            <EmCasaButton disabled={!canAdvance} onClick={this.nextPage}>
+              Próximo
+            </EmCasaButton>
+          </ButtonControls>
+        </StepContainer>
       </Layout>
     )
   }

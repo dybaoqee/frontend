@@ -1,1 +1,1 @@
-export default () => <div>Step 4</div>
+export default () => <div>A operação está sendo processada...</div>

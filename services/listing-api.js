@@ -11,17 +11,19 @@ const buildPayload = (data) => {
       rooms: data.rooms,
       bathrooms: data.bathrooms,
       area: data.area,
-      garage_spots: data.garageSpots,
+      garage_spots: data.garageSpots || data.garage_spots,
       score: data.score,
-      matterport_code: data.matterportCode
+      matterport_code: data.matterportCode || data.matterport_code,
+      maintenance_fee: data.maintenance_fee,
+      property_tax: data.property_tax
     },
     address: {
       street: data.street,
-      street_number: data.streetNumber,
+      street_number: data.streetNumber || data.street_number,
       neighborhood: data.neighborhood,
       city: data.city,
       state: data.state,
-      postal_code: data.postalCode,
+      postal_code: data.postalCode || data.postal_code,
       lat: data.lat,
       lng: data.lng
     }
@@ -61,6 +63,7 @@ export const formatListingData = function(listing, fields) {
     if (fields.includes(key) && listingFomatted[key]) {
       listingFomatted[key] = parseInt(
         listingFomatted[key]
+          .toString()
           .split(',')[0]
           .match(/\d+(?:\d\.\d+)?/g)
           .join('')
@@ -129,7 +132,7 @@ export const getListing = async (id, jwt) => {
 export const createListing = async (data, jwt) => {
   const payload = buildPayload(data)
   try {
-    const response = await post('/listings', payload, jwt)
+    const response = await post('/v2/listings', payload, jwt)
     return response
   } catch (error) {
     if (error.response && error.response.status === 422)
@@ -145,7 +148,7 @@ export const editListing = async (id, jwt) => {
 export const updateListing = async (id, data, jwt) => {
   const payload = buildPayload(data)
   try {
-    const response = await put(`/listings/${id}`, payload, jwt)
+    const response = await put(`/v2/listings/${id}`, payload, jwt)
     return response
   } catch (error) {
     if (error.response && error.response.status === 422)

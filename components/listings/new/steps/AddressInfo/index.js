@@ -2,7 +2,7 @@ import {Title, Input, InputWithMask, Field} from '../../shared/styles'
 import {FieldContainer} from './styles'
 const postalCodeMask = [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/]
 export default ({onChange, listing}) => {
-  const {street, streetNumber, complement, postalCode, city, state} = listing
+  const {street, street_number, complement, postal_code, city, state} = listing
 
   return (
     <div>
@@ -16,16 +16,18 @@ export default ({onChange, listing}) => {
             defaultValue={street}
             placeholder="Coloque seu endereço aqui"
             onChange={onChange}
+            disabled
           />
         </Field>
         <Field>
           <label htmlFor="address">Número</label>
           <Input
             type="text"
-            name="streetNumber"
-            defaultValue={streetNumber}
+            name="street_number"
+            defaultValue={street_number}
             placeholder="Coloque seu número aqui"
             onChange={onChange}
+            disabled
           />
         </Field>
         <Field>
@@ -41,12 +43,13 @@ export default ({onChange, listing}) => {
         <Field>
           <label htmlFor="address">CEP</label>
           <InputWithMask
-            value={postalCode}
-            name="postalCode"
+            value={postal_code}
+            name="postal_code"
             mask={postalCodeMask}
             placeholder="Coloque o CEP aqui"
             guide={false}
             onChange={onChange}
+            disabled
           />
         </Field>
         <Field>

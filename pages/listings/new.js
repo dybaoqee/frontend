@@ -1,20 +1,56 @@
-import {Component} from 'react'
-import {Form, Text} from 'react-form'
+import React, {Component} from 'react'
 import Router from 'next/router'
-
-import {redirectIfNotAuthenticated, getJwt, isAuthenticated} from 'lib/auth'
-import {createListing} from 'services/listing-api'
-import TextContainer from 'components/shared/TextContainer'
+import {
+  redirectIfNotAuthenticated,
+  getJwt,
+  isAuthenticated,
+  isAdmin
+} from 'lib/auth'
+import {createListing, formatListingData} from 'services/listing-api'
+import {filterComponent} from 'services/google-maps-api'
 import Layout from 'components/shared/Shell'
-import * as colors from 'constants/colors'
+
+import AddressAutoComplete from 'components/listings/new/steps/AddressAutoComplete'
+import AddressInfo from 'components/listings/new/steps/AddressInfo'
+import PropertyInfo from 'components/listings/new/steps/PropertyInfo'
+import PropertyGallery from 'components/listings/new/steps/PropertyGallery'
+import PropertyGalleryEdit from 'components/listings/new/steps/PropertyGalleryEdit'
+
+import EmCasaButton from 'components/shared/Common/Buttons'
+import ErrorContainer from 'components/listings/new/shared/ErrorContainer'
+
+import {
+  StepContainer,
+  ButtonControls
+} from 'components/listings/new/shared/styles'
 
 export default class ListingNew extends Component {
   constructor(props) {
     super(props)
+
     this.state = {
-      city: 'Rio de Janeiro',
-      state: 'RJ'
+      page: 0,
+      finished: false,
+      placeChosen: {},
+      canAdvance: false,
+      canRegress: false,
+      errors: {},
+      showErrors: false,
+      submitting: false,
+      listing: {
+        matterportCode: null,
+        price: 0,
+        area: 0
+      }
     }
+
+    this.steps = [
+      <AddressAutoComplete />,
+      <AddressInfo />,
+      <PropertyInfo />,
+      <PropertyGallery />,
+      <PropertyGalleryEdit />,
+    ]
   }
 
   static async getInitialProps(ctx) {
@@ -26,331 +62,181 @@ export default class ListingNew extends Component {
 
     return {
       jwt: jwt,
-      authenticated: isAuthenticated(ctx)
+      authenticated: isAuthenticated(ctx),
+      isAdmin: isAdmin(ctx)
     }
   }
 
-  onChange = (e) => {
-    const state = this.state
-    state[e.target.name] = e.target.value
-    this.setState(state)
+  previousPage = () => {
+    const {page} = this.state
+
+    if (page > 0) {
+      this.setState({
+        page: page - 1,
+        canAdvance: true,
+        errors: [],
+        showErrors: false
+      })
+    }
   }
 
-  handleSubmit = async (e) => {
-    e.preventDefault()
+  nextPage = () => {
+    const {page, errors} = this.state
 
+    if (page === 2) {
+      this.submitListing()
+      this.setState({
+        page: page + 1,
+        canRegress: false,
+        canAdvance: false,
+        submitting: true
+      })
+    } else {
+      if (Object.keys(errors).length > 0) {
+        this.setState({
+          canAdvance: false,
+          showErrors: true
+        })
+        return
+      }
+      this.setState({page: page + 1, canRegress: true})
+    }
+  }
+
+  setChosenPlace = (placeChosen) => {
+    const {listing} = this.state
+    const {address_components: components} = placeChosen
+    const neighborhood = filterComponent(components, 'sublocality_level_1')
+      .long_name
+    const street = filterComponent(components, 'route').long_name
+    const street_number = filterComponent(components, 'street_number').long_name
+    const state = filterComponent(components, 'administrative_area_level_1')
+      .short_name
+    const city = filterComponent(components, 'administrative_area_level_2')
+      .long_name
+    const postal_code = filterComponent(components, 'postal_code').long_name
+
+    this.setState({
+      placeChosen,
+      canAdvance: true,
+      listing: {
+        ...listing,
+        ...placeChosen.geometry.location,
+        neighborhood,
+        street,
+        street_number,
+        state,
+        city,
+        postal_code
+      }
+    })
+  }
+
+  getStepContent(page) {
+    const Current = this.steps[page]
+    const {listing} = this.state
+    return React.cloneElement(Current, {
+      choosePlace: this.setChosenPlace,
+      listing,
+      onChange: this.onFieldChange,
+      isAdmin: this.props.isAdmin
+    })
+  }
+
+  renderContent() {
+    const {page, finished} = this.state
+
+    if (finished) {
+      return (
+        <div>
+          <p>The form was submitted succesfully. Thank you!</p>
+        </div>
+      )
+    }
+
+    return (
+      <div>
+        <div>{this.getStepContent(page)}</div>
+      </div>
+    )
+  }
+
+  onFieldChange = (e, errorMessage) => {
+    const {errors, listing} = this.state
+    let updatedErrors = {...errors}
+
+    if (errorMessage) {
+      updatedErrors[e.target.name] = errorMessage
+    } else {
+      delete updatedErrors[e.target.name]
+    }
+
+    this.setState({
+      errors: updatedErrors,
+      listing: {...listing, [e.target.name]: e.target.value},
+      canAdvance: !updatedErrors[e.target.name]
+    })
+  }
+
+  submitListing = async () => {
     const {jwt} = this.props
+    const postData = formatListingData(this.state.listing, [
+      'price',
+      'property_tax',
+      'maintenance_fee',
+      'area',
+    ])
 
-    const res = await createListing(this.state, jwt)
+    try {
+      const res = await createListing(postData, jwt)
 
-    if (res.data.errors) {
-      this.setState({errors: res.data.errors})
-      return
+      if (res.data.errors) {
+        this.setState({showErrors: true, errors: res.data.errors})
+        return
+      }
+
+      if (!res.data) {
+        return res
+      }
+      const listingId = res.data.listing.id
+      Router.replace(`/imoveis/${listingId}/imagens`).then(() =>
+        window.scrollTo(0, 0)
+      )
+      return null
+    } catch (e) {
+      this.setState({
+        showErrors: true,
+        canRegress: true,
+        errors: ['Ocorreu um erro desconhecido. Por favor, tente novamente.']
+      })
     }
-
-    if (!res.data) {
-      return res
-    }
-
-    const listingId = res.data.listing.id
-    Router.replace(
-      `/listings/show?id=${listingId}`,
-      `/imoveis/${listingId}`
-    ).then(() => window.scrollTo(0, 0))
-    return null
   }
 
   render() {
     const {authenticated} = this.props
-    const {
-      errors,
-      street,
-      streetNumber,
-      complement,
-      city,
-      state,
-      postalCode,
-      lat,
-      lng,
-      neighborhood,
-      description,
-      type,
-      price,
-      area,
-      floor,
-      rooms,
-      bathrooms,
-      matterportCode,
-      score,
-      garageSpots
-    } = this.state
+    const {page, canAdvance, canRegress, errors, showErrors} = this.state
 
     return (
       <Layout authenticated={authenticated}>
-        <TextContainer>
-          <h1>Adicionar Imóvel</h1>
-
-          <form onSubmit={this.handleSubmit}>
-            <h4>Endereço</h4>
-
-            <div className="input-control">
-              <label htmlFor="street">Rua</label>
-              <input
-                type="text"
-                name="street"
-                placeholder="Rua"
-                value={street}
-                onChange={this.onChange}
-              />
-            </div>
-
-            <div className="input-control">
-              <label htmlFor="streetNumber">Número</label>
-              <input
-                type="text"
-                name="streetNumber"
-                placeholder="Número"
-                value={streetNumber}
-                onChange={this.onChange}
-              />
-            </div>
-
-            <div className="input-control">
-              <label htmlFor="complement">Complemento</label>
-              <input
-                type="text"
-                name="complement"
-                placeholder="Complemento"
-                value={complement}
-                onChange={this.onChange}
-              />
-            </div>
-
-            <div className="input-control">
-              <label htmlFor="neighborhood">Bairro</label>
-              <input
-                type="text"
-                name="neighborhood"
-                placeholder="Bairro"
-                value={neighborhood}
-                onChange={this.onChange}
-              />
-            </div>
-
-            <div className="input-control">
-              <label htmlFor="city">Cidade</label>
-              <input
-                type="text"
-                name="city"
-                placeholder="Cidade"
-                value={city}
-                onChange={this.onChange}
-                readOnly
-              />
-            </div>
-
-            <div className="input-control">
-              <label htmlFor="state">Estado (Sigla)</label>
-              <input
-                type="text"
-                name="state"
-                placeholder="Estado"
-                value={state}
-                onChange={this.onChange}
-                readOnly
-              />
-            </div>
-
-            <div className="input-control">
-              <label htmlFor="postalCode">CEP</label>
-              <input
-                type="text"
-                name="postalCode"
-                placeholder="CEP"
-                value={postalCode}
-                onChange={this.onChange}
-              />
-            </div>
-
-            <div className="input-control">
-              <label htmlFor="lat">Latitude</label>
-              <input
-                type="text"
-                name="lat"
-                placeholder="Latitude"
-                value={lat}
-                onChange={this.onChange}
-              />
-            </div>
-
-            <div className="input-control">
-              <label htmlFor="lng">Longitude</label>
-              <input
-                type="text"
-                name="lng"
-                placeholder="Longitude"
-                value={lng}
-                onChange={this.onChange}
-              />
-            </div>
-
-            <h4>Detalhes do imóvel</h4>
-
-            <div className="input-control">
-              <label htmlFor="type">Tipo</label>
-              <input
-                type="text"
-                name="type"
-                placeholder="Apartamento / Casa / Cobertura etc"
-                value={type}
-                onChange={this.onChange}
-              />
-            </div>
-
-            <div className="input-control">
-              <label htmlFor="description">Descrição</label>
-              <input
-                type="text"
-                name="description"
-                placeholder="Descrição"
-                value={description}
-                onChange={this.onChange}
-              />
-            </div>
-
-            <div className="input-control">
-              <label htmlFor="price">Preço</label>
-              <input
-                type="text"
-                name="price"
-                placeholder="Preço"
-                value={price}
-                onChange={this.onChange}
-              />
-            </div>
-
-            <div className="input-control">
-              <label htmlFor="area">Área (em m²)</label>
-              <input
-                type="text"
-                name="area"
-                placeholder="Área"
-                value={area}
-                onChange={this.onChange}
-              />
-            </div>
-
-            <div className="input-control">
-              <label htmlFor="floor">Andar</label>
-              <input
-                type="text"
-                name="floor"
-                placeholder="Andar"
-                value={floor}
-                onChange={this.onChange}
-              />
-            </div>
-
-            <div className="input-control">
-              <label htmlFor="floor">Número de Quartos</label>
-              <input
-                type="text"
-                name="rooms"
-                placeholder="Número de Quartos"
-                value={rooms}
-                onChange={this.onChange}
-              />
-            </div>
-
-            <div className="input-control">
-              <label htmlFor="garageSpots">Número de Vagas de Garagem</label>
-              <input
-                type="text"
-                name="garageSpots"
-                placeholder="Número de Vagas de Garagem"
-                value={garageSpots}
-                onChange={this.onChange}
-              />
-            </div>
-
-            <div className="input-control">
-              <label htmlFor="bathrooms">Número de Banheiros</label>
-              <input
-                type="text"
-                name="bathrooms"
-                placeholder="Número de Banheiros"
-                value={bathrooms}
-                onChange={this.onChange}
-              />
-            </div>
-
-            <div className="input-control">
-              <label htmlFor="matterportCode">
-                Código do Matterport (algo como 8FxqPg9yX8w)
-              </label>
-              <input
-                type="text"
-                name="matterportCode"
-                placeholder="Código do Matterport"
-                value={matterportCode}
-                onChange={this.onChange}
-              />
-            </div>
-
-            <div className="input-control">
-              <label htmlFor="score">
-                Farol (4 = verde, 3 = amarelo, 2 = vermelho, 1 = preto)
-              </label>
-              <input
-                type="text"
-                name="score"
-                placeholder="Placar do Farol"
-                value={score}
-                onChange={this.onChange}
-              />
-            </div>
-
-            {errors && (
-              <div>
-                <b>Verifique os erros:</b>
-
-                {Object.keys(errors).map((key) =>
-                  errors[key].map((error) => {
-                    return (
-                      <p>
-                        {key}: {error}
-                      </p>
-                    )
-                  })
-                )}
-              </div>
+        <StepContainer>
+          <h1>Adicionar novo Imóvel</h1>
+          {this.renderContent()}
+          {showErrors && <ErrorContainer errors={errors} />}
+          <ButtonControls>
+            {page > 0 && (
+              <EmCasaButton
+                light
+                disabled={!canRegress}
+                onClick={this.previousPage}
+              >
+                Anterior
+              </EmCasaButton>
             )}
-
-            <button type="submit">Enviar</button>
-          </form>
-        </TextContainer>
-
-        <style jsx>{`
-          form {
-            .input-control {
-              margin-bottom: 20px;
-              label {
-                float: left;
-                margin: 0 0 10px 0;
-              }
-              input {
-                border: 1px solid ${colors.lightGray};
-                border-radius: 6px;
-                font-size: 16px;
-                padding: 10px;
-                width: calc(100% - 22px);
-                &[readonly] {
-                  color: #bbb;
-                }
-              }
-            }
-          }
-        `}</style>
+            <EmCasaButton disabled={!canAdvance} onClick={this.nextPage}>
+              Próximo
+            </EmCasaButton>
+          </ButtonControls>
+        </StepContainer>
       </Layout>
     )
   }

@@ -10,18 +10,27 @@ const FieldContainer = styled.div`
   grid-gap: 20px;
 
   > ${Field}:nth-child(1) {
-    grid-column: span 2;
+    grid-column: span 4;
   }
 
   > ${Field}:nth-child(2) {
-    grid-column: span 3;
-  }
-
-  > ${Field}:nth-child(n + 4):not(:nth-child(n + 10)) {
     grid-column: span 2;
   }
-  > ${Field}:nth-child(n + 8) {
+
+  > ${Field}:nth-child(n + 3):not(:nth-child(n + 6)) {
+    grid-column: span 2;
+  }
+
+  > ${Field}:nth-child(n + 6):not(:nth-child(n + 9)) {
+    grid-column: span 2;
+  }
+
+  > ${Field}:nth-child(9) {
     grid-column: span 6;
+  }
+
+  > ${Field}:nth-child(n + 10) {
+    grid-column: span 2;
   }
 
   @media ${mobileMedia} {
