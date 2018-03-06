@@ -11,7 +11,6 @@ import {filterComponent} from 'services/google-maps-api'
 import Layout from 'components/shared/Shell'
 
 import AddressAutoComplete from 'components/listings/new/steps/AddressAutoComplete'
-import AddressInfo from 'components/listings/new/steps/AddressInfo'
 import PropertyInfo from 'components/listings/new/steps/PropertyInfo'
 import PropertyGallery from 'components/listings/new/steps/PropertyGallery'
 import PropertyGalleryEdit from 'components/listings/new/steps/PropertyGalleryEdit'
@@ -46,10 +45,9 @@ export default class ListingNew extends Component {
 
     this.steps = [
       <AddressAutoComplete />,
-      <AddressInfo />,
       <PropertyInfo />,
       <PropertyGallery />,
-      <PropertyGalleryEdit />,
+      <PropertyGalleryEdit />
     ]
   }
 
@@ -85,7 +83,7 @@ export default class ListingNew extends Component {
   nextPage = () => {
     const {page, errors} = this.state
 
-    if (page === 2) {
+    if (page === 1) {
       this.submitListing()
       this.setState({
         page: page + 1,
@@ -134,6 +132,18 @@ export default class ListingNew extends Component {
     })
   }
 
+  resetListing = () => {
+    const {listing} = this.state
+    const listingWithoutAddress = {...listing}
+    delete listingWithoutAddress.street
+    this.setState({
+      canAdvance: false,
+      listing: {
+        ...listingWithoutAddress
+      }
+    })
+  }
+
   getStepContent(page) {
     const Current = this.steps[page]
     const {listing} = this.state
@@ -141,7 +151,8 @@ export default class ListingNew extends Component {
       choosePlace: this.setChosenPlace,
       listing,
       onChange: this.onFieldChange,
-      isAdmin: this.props.isAdmin
+      isAdmin: this.props.isAdmin,
+      resetListing: this.resetListing
     })
   }
 
@@ -186,7 +197,7 @@ export default class ListingNew extends Component {
       'price',
       'property_tax',
       'maintenance_fee',
-      'area',
+      'area'
     ])
 
     try {

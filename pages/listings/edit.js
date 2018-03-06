@@ -3,7 +3,6 @@ import Link from 'next/link'
 import Router from 'next/router'
 import _ from 'lodash'
 import {
-  redirectIfNotAuthenticated,
   redirectIfNotAdmin,
   getJwt,
   isAuthenticated,
@@ -15,8 +14,9 @@ import {
   formatListingData
 } from 'services/listing-api'
 import Layout from 'components/shared/Shell'
+import {filterComponent} from 'services/google-maps-api'
 
-import AddressInfo from 'components/listings/new/steps/AddressInfo'
+import AddressAutoComplete from 'components/listings/new/steps/AddressAutoComplete'
 import PropertyInfo from 'components/listings/new/steps/PropertyInfo'
 import PropertyGallery from 'components/listings/new/steps/PropertyGallery'
 
@@ -50,7 +50,11 @@ export default class ListingEditV2 extends Component {
         ...listing.address
       }
     }
-    this.steps = [<AddressInfo />, <PropertyInfo />, <PropertyGallery />]
+    this.steps = [
+      <AddressAutoComplete />,
+      <PropertyInfo />,
+      <PropertyGallery />
+    ]
   }
 
   static async getInitialProps(context) {
@@ -128,6 +132,35 @@ export default class ListingEditV2 extends Component {
     }
   }
 
+  setChosenPlace = (placeChosen) => {
+    const {listing} = this.state
+    const {address_components: components} = placeChosen
+    const neighborhood = filterComponent(components, 'sublocality_level_1')
+      .long_name
+    const street = filterComponent(components, 'route').long_name
+    const street_number = filterComponent(components, 'street_number').long_name
+    const state = filterComponent(components, 'administrative_area_level_1')
+      .short_name
+    const city = filterComponent(components, 'administrative_area_level_2')
+      .long_name
+    const postal_code = filterComponent(components, 'postal_code').long_name
+
+    this.setState({
+      placeChosen,
+      canAdvance: true,
+      listing: {
+        ...listing,
+        ...placeChosen.geometry.location,
+        neighborhood,
+        street,
+        street_number,
+        state,
+        city,
+        postal_code
+      }
+    })
+  }
+
   getStepContent(page) {
     const Current = this.steps[page]
     const {listing} = this.state
@@ -135,7 +168,20 @@ export default class ListingEditV2 extends Component {
       choosePlace: this.setChosenPlace,
       listing,
       onChange: this.onFieldChange,
-      isAdmin: this.props.isAdmin
+      isAdmin: this.props.isAdmin,
+      resetListing: this.resetListing
+    })
+  }
+
+  resetListing = () => {
+    const {listing} = this.state
+    const listingWithoutAddress = {...listing}
+    delete listingWithoutAddress.street
+    this.setState({
+      canAdvance: false,
+      listing: {
+        ...listingWithoutAddress
+      }
     })
   }
 
@@ -181,7 +227,7 @@ export default class ListingEditV2 extends Component {
       'price',
       'property_tax',
       'maintenance_fee',
-      'area',
+      'area'
     ])
 
     const res = await updateListing(id, postData, jwt)
