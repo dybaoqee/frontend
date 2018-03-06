@@ -16,6 +16,7 @@ export default ({onChange, listing}) => {
             defaultValue={street}
             placeholder="Coloque seu endereço aqui"
             onChange={onChange}
+            disabled
           />
         </Field>
         <Field>
@@ -26,6 +27,7 @@ export default ({onChange, listing}) => {
             defaultValue={street_number}
             placeholder="Coloque seu número aqui"
             onChange={onChange}
+            disabled
           />
         </Field>
         <Field>
@@ -47,6 +49,7 @@ export default ({onChange, listing}) => {
             placeholder="Coloque o CEP aqui"
             guide={false}
             onChange={onChange}
+            disabled
           />
         </Field>
         <Field>
