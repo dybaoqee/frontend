@@ -90,11 +90,6 @@ app
       app.render(req, res, actualPage)
     })
 
-    server.get('/imoveis/adicionar_v2', (req, res) => {
-      const actualPage = '/listings/new_v2'
-      app.render(req, res, actualPage)
-    })
-
     server.get('/imoveis/:id', (req, res) => {
       const actualPage = '/listings/show'
       const queryParams = {id: req.params.id}
@@ -103,12 +98,6 @@ app
 
     server.get('/imoveis/:id/editar', (req, res) => {
       const actualPage = '/listings/edit'
-      const queryParams = {id: req.params.id}
-      app.render(req, res, actualPage, queryParams)
-    })
-
-    server.get('/imoveis/:id/editar_v2', (req, res) => {
-      const actualPage = '/listings/edit_v2'
       const queryParams = {id: req.params.id}
       app.render(req, res, actualPage, queryParams)
     })
