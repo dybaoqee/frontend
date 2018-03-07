@@ -34,7 +34,7 @@ export default class PropertyInfo extends Component {
     return (
       <Fragment>
         <Field>
-          <label htmlFor="price">Valor do imóvel</label>
+          <label htmlFor="price">Preço</label>
           <InputWithMask
             value={price && price.toString().length > 0 ? price : ''}
             name="price"
