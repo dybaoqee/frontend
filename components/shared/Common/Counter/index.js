@@ -30,7 +30,11 @@ export default class Counter extends Component {
     const {counter} = this.state
     return (
       <CounterContainer>
-        <CounterButton disabled={counter <= min} onClick={this.DecreaseItem}>
+        <CounterButton
+          className="minus"
+          disabled={counter <= min}
+          onClick={this.DecreaseItem}
+        >
           -
         </CounterButton>
         <span>{this.state.counter}</span>
