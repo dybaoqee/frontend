@@ -8,7 +8,7 @@ import createNumberMask from 'text-mask-addons/dist/createNumberMask'
 const priceMask = createNumberMask({
   prefix: '',
   thousandsSeparatorSymbol: '.',
-  integerLimit: 8
+  integerLimit: 12
 })
 
 export default class PropertyInfo extends Component {
