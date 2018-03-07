@@ -132,7 +132,7 @@ export const getListing = async (id, jwt) => {
 export const createListing = async (data, jwt) => {
   const payload = buildPayload(data)
   try {
-    const response = await post('/v2/listings', payload, jwt)
+    const response = await post('/listings', payload, jwt)
     return response
   } catch (error) {
     if (error.response && error.response.status === 422)
@@ -148,7 +148,7 @@ export const editListing = async (id, jwt) => {
 export const updateListing = async (id, data, jwt) => {
   const payload = buildPayload(data)
   try {
-    const response = await put(`/v2/listings/${id}`, payload, jwt)
+    const response = await put(`/listings/${id}`, payload, jwt)
     return response
   } catch (error) {
     if (error.response && error.response.status === 422)
