@@ -6,11 +6,9 @@ import Select from 'react-select'
 import createNumberMask from 'text-mask-addons/dist/createNumberMask'
 
 const priceMask = createNumberMask({
-  prefix: 'R$ ',
-  suffix: ',00',
+  prefix: '',
   thousandsSeparatorSymbol: '.',
-  integerLimit: 7,
-  allowLeadingZeroes: true
+  integerLimit: 12
 })
 
 export default class PropertyInfo extends Component {
@@ -38,10 +36,9 @@ export default class PropertyInfo extends Component {
         <Field>
           <label htmlFor="price">Valor do imóvel</label>
           <InputWithMask
-            value={price}
+            value={price && price.toString().length > 0 ? price : ''}
             name="price"
             mask={priceMask}
-            placeholder="R$"
             guide={false}
             onChange={onChange}
           />
@@ -128,7 +125,6 @@ export default class PropertyInfo extends Component {
               value={maintenance_fee}
               name="maintenance_fee"
               mask={priceMask}
-              placeholder="R$"
               guide={false}
               onChange={onChange}
             />
@@ -139,7 +135,6 @@ export default class PropertyInfo extends Component {
               value={property_tax}
               name="property_tax"
               mask={priceMask}
-              placeholder="R$"
               guide={false}
               onChange={onChange}
             />

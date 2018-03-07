@@ -91,7 +91,7 @@ export default class AddressAutoComplete extends React.Component {
         <ErrorContainer errors={errors} />
         <FieldContainer>
           <Field>
-            <label htmlFor="street">Endereço</label>
+            <label htmlFor="street">Endereço com número</label>
             <Input
               type="text"
               name="street"

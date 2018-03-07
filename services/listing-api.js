@@ -6,7 +6,7 @@ const buildPayload = (data) => {
       complement: data.complement,
       type: data.type,
       description: data.description,
-      price: data.price,
+      price: data.price || 0,
       floor: data.floor,
       rooms: data.rooms,
       bathrooms: data.bathrooms,
