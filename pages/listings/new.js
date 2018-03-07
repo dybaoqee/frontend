@@ -36,11 +36,7 @@ export default class ListingNew extends Component {
       errors: {},
       showErrors: false,
       submitting: false,
-      listing: {
-        matterportCode: null,
-        price: 0,
-        area: 0
-      }
+      listing: {}
     }
 
     this.steps = [
@@ -187,7 +183,7 @@ export default class ListingNew extends Component {
     this.setState({
       errors: updatedErrors,
       listing: {...listing, [e.target.name]: e.target.value},
-      canAdvance: !updatedErrors[e.target.name]
+      canAdvance: Object.keys(updatedErrors).length === 0
     })
   }
 
