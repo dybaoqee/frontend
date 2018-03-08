@@ -4,7 +4,7 @@ import update from 'immutability-helper'
 import {
   getListingImages,
   reorderImages,
-  createImage,
+  createImage
 } from 'services/listing-images-api'
 import {DragDropContext} from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
@@ -15,7 +15,7 @@ import Layout from 'components/shared/Shell'
 import TextContainer from 'components/shared/TextContainer'
 import AdminHeader from 'components/shared/AdminHeader'
 import DraggableImage from 'components/listings/show/images/image'
-import ImageUpload from 'components/listings/show/images/upload'
+import ImageUpload from 'components/listings/show/images/Upload'
 
 @DragDropContext(HTML5Backend)
 export default class ListingImages extends Component {
@@ -47,7 +47,7 @@ export default class ListingImages extends Component {
       listingId,
       jwt,
       images: res.data.images,
-      authenticated: isAuthenticated(context),
+      authenticated: isAuthenticated(context)
     }
   }
 
@@ -59,8 +59,8 @@ export default class ListingImages extends Component {
     this.setState(
       update(this.state, {
         images: {
-          $splice: [[dragIndex, 1], [hoverIndex, 0, dragImage]],
-        },
+          $splice: [[dragIndex, 1], [hoverIndex, 0, dragImage]]
+        }
       })
     )
 
@@ -99,8 +99,8 @@ export default class ListingImages extends Component {
     this.setState(
       update(this.state, {
         images: {
-          $unshift: [newImage],
-        },
+          $unshift: [newImage]
+        }
       })
     )
   }
@@ -108,8 +108,8 @@ export default class ListingImages extends Component {
   onImageDeleted = async (image) => {
     this.setState({
       images: update(this.state.images, {
-        $splice: [[image.index, 1]],
-      }),
+        $splice: [[image.index, 1]]
+      })
     })
   }
 
