@@ -44,7 +44,9 @@ export default class ImageUpload extends Component {
             <Tile />
             <Tile />
           </Tiles>
-          <EmCasaButton secondary>Carregue suas fotos</EmCasaButton>
+          <EmCasaButton secondary>
+            Clique aqui ou arraste suas fotos
+          </EmCasaButton>
         </Dropzone>
       </Container>
     )

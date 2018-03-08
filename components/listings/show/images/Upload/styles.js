@@ -26,6 +26,7 @@ export const Tiles = styled.div`
   position: absolute;
   height: calc(100% - 50px);
   width: calc(100% - 50px);
+  z-index: -1;
 `
 
 export const Tile = styled.div`
