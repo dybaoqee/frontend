@@ -6,6 +6,7 @@ export default styled.div`
   clear: both;
   > div {
     border-color: ${colors.lightestGray} !important;
+    cursor: pointer;
     align-items: center;
     display: flex;
     margin-bottom: 20px;
