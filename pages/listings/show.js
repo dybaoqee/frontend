@@ -12,18 +12,20 @@ import ImageGallery from 'components/listings/show/ImageGallery'
 import Matterport from 'components/listings/show/Matterport'
 import ListingMainContent from 'components/listings/show/Body'
 import ListingMap from 'components/listings/show/Map'
-import InterestForm from 'components/listings/show/interest_form'
-import InterestPosted from 'components/listings/show/interest_posted'
+import InterestForm from 'components/listings/show/InterestForm'
+import InterestPosted from 'components/listings/show/InterestForm/interest_posted'
 import RelatedListings from 'components/listings/show/RelatedListings'
 import Error from 'components/shared/Shell/Error'
 import Link from 'next/link'
 
 export default class Listing extends Component {
   state = {
-    name: '',
-    email: '',
-    phone: '',
-    message: '',
+    interestForm: {
+      name: '',
+      email: '',
+      phone: '',
+      message: ''
+    },
     isInterestPopupVisible: false,
     isInterestSuccessPopupVisible: false,
     isImageGalleryVisible: false,
@@ -112,17 +114,18 @@ export default class Listing extends Component {
   }
 
   onChange = (e) => {
-    const state = this.state
-    state[e.target.name] = e.target.value
-    this.setState(state)
+    const {interestForm} = this.state
+    interestForm[e.target.name] = e.target.value
+    this.setState({interestForm})
   }
 
   onSubmit = async (e) => {
     e.preventDefault()
 
+    const {interestForm} = this.state
     const {id} = this.props.listing
 
-    const res = await createInterest(id, this.state)
+    const res = await createInterest(id, interestForm)
 
     if (res.data.errors) {
       this.setState({errors: res.data.errors})
@@ -154,10 +157,7 @@ export default class Listing extends Component {
       isImageGalleryVisible,
       isInterestPopupVisible,
       isInterestSuccessPopupVisible,
-      name,
-      email,
-      phone,
-      message
+      interestForm
     } = this.state
 
     return (
@@ -201,10 +201,7 @@ export default class Listing extends Component {
 
           {isInterestPopupVisible && (
             <InterestForm
-              name={name}
-              email={email}
-              phone={phone}
-              message={message}
+              data={interestForm}
               handleClose={this.closePopup}
               onChange={this.onChange}
               onSubmit={this.onSubmit}
