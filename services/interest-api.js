@@ -1,4 +1,4 @@
-import { post } from 'lib/request'
+import {post, get} from 'lib/request'
 
 const buildPayload = (listingId, data) => {
   return {
@@ -23,3 +23,12 @@ export const createInterest = async (listingId, data) => {
   }
 }
 
+export const getInterestTypes = async () => {
+  try {
+    return await get('/interest_types')
+  } catch (error) {
+    return error.response && error.response.status === 422
+      ? error.response
+      : 'Unknown error. Please try again.'
+  }
+}
