@@ -226,7 +226,7 @@ export default class ListingNew extends Component {
     return (
       <Layout authenticated={authenticated} isAdmin={isAdmin}>
         <StepContainer>
-          <h1>Adicionar novo Imóvel</h1>
+          <h1>Adicionar Novo Imóvel</h1>
           {this.renderContent()}
           {showErrors && <ErrorContainer errors={errors} />}
           <ButtonControls>

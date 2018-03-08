@@ -2,7 +2,8 @@ import {Component} from 'react'
 import Dropzone from 'react-dropzone'
 import request from 'superagent'
 
-import Container from './styles'
+import Container, {Tiles, Tile} from './styles'
+import EmCasaButton from 'components/shared/Common/Buttons'
 
 const CLOUDINARY_UPLOAD_PRESET = 'emcasa-staging'
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/emcasa/upload/'
@@ -35,7 +36,17 @@ export default class ImageUpload extends Component {
     return (
       <Container>
         <Dropzone multiple={true} accept="image/*" onDrop={this.onImageDrop}>
-          <p>Arraste uma imagem ou clique aqui para iniciar o upload.</p>
+          <Tiles>
+            <Tile />
+            <Tile />
+            <Tile />
+            <Tile />
+            <Tile />
+            <Tile />
+          </Tiles>
+          <EmCasaButton secondary>
+            Clique aqui ou arraste suas fotos
+          </EmCasaButton>
         </Dropzone>
       </Container>
     )
