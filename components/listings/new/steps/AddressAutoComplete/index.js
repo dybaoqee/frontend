@@ -1,5 +1,5 @@
 import React from 'react'
-import {Title, Input, Field} from '../../shared/styles'
+import {Title, Input, Field} from 'components/listings/shared/styles'
 import {SearchResults, FieldContainer} from './styles'
 import ErrorContainer from 'components/listings/new/shared/ErrorContainer'
 

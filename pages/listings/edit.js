@@ -26,7 +26,7 @@ import ErrorContainer from 'components/listings/new/shared/ErrorContainer'
 import {
   StepContainer,
   ButtonControls
-} from 'components/listings/new/shared/styles'
+} from 'components/listings/shared/styles'
 
 export default class ListingEditV2 extends Component {
   constructor(props) {
