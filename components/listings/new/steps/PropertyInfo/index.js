@@ -1,5 +1,10 @@
 import {Component, Fragment} from 'react'
-import {Title, Input, InputWithMask, Field} from '../../shared/styles'
+import {
+  Title,
+  Input,
+  InputWithMask,
+  Field
+} from 'components/listings/shared/styles'
 import {FieldContainer, TextArea, SuggestionList} from './styles'
 import Counter from 'components/shared/Common/Counter'
 import Select from 'react-select'

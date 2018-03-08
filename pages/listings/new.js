@@ -18,10 +18,7 @@ import PropertyGalleryEdit from 'components/listings/new/steps/PropertyGalleryEd
 import EmCasaButton from 'components/shared/Common/Buttons'
 import ErrorContainer from 'components/listings/new/shared/ErrorContainer'
 
-import {
-  StepContainer,
-  ButtonControls
-} from 'components/listings/new/shared/styles'
+import {StepContainer, ButtonControls} from 'components/listings/shared/styles'
 
 export default class ListingNew extends Component {
   constructor(props) {

@@ -1,4 +1,9 @@
-import {Title, Input, InputWithMask, Field} from '../../shared/styles'
+import {
+  Title,
+  Input,
+  InputWithMask,
+  Field
+} from 'components/listings/shared/styles'
 import {FieldContainer} from './styles'
 const postalCodeMask = [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/]
 export default ({onChange, listing}) => {

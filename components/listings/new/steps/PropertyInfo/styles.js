@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import * as colors from 'constants/colors'
 import {mobileMedia} from 'constants/media'
-import {Field} from '../../shared/styles'
+import {Field} from 'components/listings/shared/styles'
 
 const FieldContainer = styled.div`
   box-sizing: border-box;

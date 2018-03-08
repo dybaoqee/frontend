@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import {mobileMedia} from 'constants/media'
-import {Field} from '../../shared/styles'
+import {Field} from 'components/listings/shared/styles'
 
 const FieldContainer = styled.div`
   display: grid;
