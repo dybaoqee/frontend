@@ -6,7 +6,8 @@ const buildPayload = (listingId, data) => {
       name: data.name,
       email: data.email,
       phone: data.phone,
-      message: data.message
+      message: data.message,
+      interest_type_id: data.interest_type_id
     }
   }
 }

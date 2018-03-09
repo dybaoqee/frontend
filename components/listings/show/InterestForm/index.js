@@ -56,6 +56,12 @@ export default class InterestForm extends Component {
         value: ''
       }
     })
+    onChange({
+      target: {
+        name: 'interest_type_id',
+        value: interestType.value
+      }
+    })
   }
 
   onChangeHoursSelect = (hour) => {
