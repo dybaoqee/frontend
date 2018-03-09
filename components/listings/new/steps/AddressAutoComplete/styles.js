@@ -4,7 +4,7 @@ import {mobileMedia} from 'constants/media'
 
 const SearchResults = styled.div`
   z-index: 2;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 14px;
   background-color: white;
   min-width: 100%;
@@ -15,11 +15,20 @@ const SearchResults = styled.div`
   }
   > div {
     border: 1px solid ${colors.lightGray};
+    font-size: 14px;
+    border-top: 0;
     box-sizing: border-box;
     width: 100%;
-    min-height: 30px;
     padding: 5px;
     cursor: pointer;
+
+    p {
+      margin: 0;
+    }
+
+    span {
+      font-weight: 600;
+    }
 
     &:hover {
       background-color: ${colors.lightestGray};
