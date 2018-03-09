@@ -31,7 +31,8 @@ app
           {
             input: q,
             language: 'pt-BR',
-            components: {country: 'br'}
+            components: {country: 'br'},
+            types: ['address']
           }
         )
         res.status(200).send(result)
