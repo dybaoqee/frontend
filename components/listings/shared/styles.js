@@ -67,6 +67,12 @@ const Input = styled.input`
   font-size: 16px;
   padding: 15px;
   width: 100%;
+
+  :focus {
+    border: 1px solid ${colors.blue};
+    outline: none;
+  }
+
   &[readonly] {
     color: #bbb;
   }
