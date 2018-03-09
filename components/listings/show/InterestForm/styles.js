@@ -7,6 +7,10 @@ export default styled.form`
   max-width: calc(100% - 80px);
   padding-bottom: 30px;
 
+  @media ${mobileMedia} {
+    max-width: calc(100% - 20px);
+  }
+
   p.error {
     color: ${colors.red};
   }
@@ -50,7 +54,7 @@ export default styled.form`
 
   > span {
     color: ${colors.lightGray};
-    font-weight: 600;
+    font-weight: 400;
     font-size: 16px;
     display: block;
     margin-bottom: 10px;
