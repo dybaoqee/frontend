@@ -53,7 +53,7 @@ export default class InterestForm extends Component {
     onChange({
       target: {
         name: 'message',
-        value: ''
+        value: interestType.value === 2 ? 'Me ligue às 08:00h' : ''
       }
     })
     onChange({
