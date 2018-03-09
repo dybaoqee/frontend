@@ -79,7 +79,7 @@ export default class InterestForm extends Component {
         name="score"
         clearable={false}
         searchable={false}
-        placeholder="Como devemos entrar em contato?"
+        placeholder="Como fazemos?"
         noResultsText="Nenhum resultado encontrado"
         options={interestTypes}
         value={interestType}
