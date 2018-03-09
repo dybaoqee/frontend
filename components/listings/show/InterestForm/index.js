@@ -149,6 +149,16 @@ export default class InterestForm extends Component {
     )
   }
 
+  openCalendly = () => {
+    const {onSubmit} = this.props
+    Calendly.showPopupWidget('https://calendly.com/em-casa')
+    onSubmit(undefined, {
+      name: 'Calendly',
+      message:
+        'Essa mensagem está sendo enviada porque algum usuário tentou agendar uma visista pelo Calendly neste imóvel'
+    })
+  }
+
   render() {
     const {handleClose, onSubmit} = this.props
     const {showForm} = this.state
@@ -179,9 +189,7 @@ export default class InterestForm extends Component {
                 type="button"
                 secondary
                 full
-                onClick={() =>
-                  Calendly.showPopupWidget('https://calendly.com/em-casa')
-                }
+                onClick={this.openCalendly}
               >
                 Agendamento online
               </EmCasaButton>
