@@ -40,13 +40,28 @@ export default class AddressAutoComplete extends React.Component {
     }
   }
 
+  positionCursor = () => {
+    const searchWord = 'número'
+    const input = this.searchInput
+    const startPosition = this.searchInput.value.indexOf(searchWord)
+
+    input.setSelectionRange(startPosition, this.searchInput.value.length)
+    input.focus()
+  }
+
   async setPlace(place) {
-    const streetNumber = place.structured_formatting.main_text.split(',')[1]
-    if (!streetNumber) {
-      this.setState({
-        errors: [...this.state.errors, 'Digite o número da localização'],
-        place
-      })
+    const {structured_formatting} = place
+    const placeAddress = structured_formatting.main_text.split(',')
+    if (!placeAddress[1]) {
+      this.setState(
+        {
+          errors: [...this.state.errors, 'Digite o número da localização'],
+          place: {},
+          predictions: [],
+          search: `${placeAddress[0]}, número`
+        },
+        this.positionCursor
+      )
       return
     }
     const {choosePlace} = this.props
@@ -69,6 +84,28 @@ export default class AddressAutoComplete extends React.Component {
     this.setState({loadingPlaceInfo: false})
   }
 
+  getSearchResults = () => {
+    const {predictions, search} = this.state
+    const words = search
+      .replace(/,/g, ' ')
+      .split(' ')
+      .filter((word) => word && word.length > 0)
+    const regex = new RegExp('(' + words.join('|') + ')', 'ig')
+
+    return predictions.map((prediction) => {
+      const formattedOutput = prediction.description.replace(
+        regex,
+        '<span>$1</span>'
+      )
+
+      return (
+        <div onClick={() => this.setPlace(prediction)} key={prediction.id}>
+          <p dangerouslySetInnerHTML={{__html: formattedOutput}} />
+        </div>
+      )
+    })
+  }
+
   onChange = (e) => {
     const {value} = e.target
     const {resetListing} = this.props
@@ -76,10 +113,10 @@ export default class AddressAutoComplete extends React.Component {
     this.setState({search: value, place: {}, errors: []})
     clearTimeout(this.timer)
 
-    this.timer = setTimeout(this.searchPlaces.bind(null, value), 500)
+    this.timer = setTimeout(this.searchPlaces.bind(null, value), 300)
   }
   render() {
-    const {predictions, place, search, loadingPlaceInfo, errors} = this.state
+    const {place, search, loadingPlaceInfo, errors} = this.state
     const {listing, onChange} = this.props
     const address = `${listing.street}, ${listing.street_number} - ${
       listing.neighborhood
@@ -95,21 +132,13 @@ export default class AddressAutoComplete extends React.Component {
             <Input
               type="text"
               name="street"
+              innerRef={(input) => (this.searchInput = input)}
               value={place.description || (listing.street ? address : search)}
               placeholder="Coloque seu endereço aqui"
               onChange={this.onChange}
               autoComplete="off"
             />
-            <SearchResults>
-              {predictions.map((prediction) => (
-                <div
-                  onClick={() => this.setPlace(prediction)}
-                  key={prediction.id}
-                >
-                  {prediction.description}
-                </div>
-              ))}
-            </SearchResults>
+            <SearchResults>{this.getSearchResults()}</SearchResults>
           </Field>
           <Field>
             <label htmlFor="address">Complemento</label>
