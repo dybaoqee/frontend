@@ -44,7 +44,7 @@ export default class Listing extends Component {
     try {
       const [listing, related] = await Promise.all([
         getListing(id, jwt).then(({data}) => data.listing),
-        getRelatedListings(id).then(({data}) => data.listings)
+        getRelatedListings(id).then(({data}) => data.listings),
       ])
       return {
         listing,
@@ -119,13 +119,13 @@ export default class Listing extends Component {
     this.setState({interestForm})
   }
 
-  onSubmit = async (e) => {
-    e.preventDefault()
+  onSubmit = async (e, custom) => {
+    e && e.preventDefault()
 
     const {interestForm} = this.state
     const {id} = this.props.listing
 
-    const res = await createInterest(id, interestForm)
+    const res = await createInterest(id, custom || interestForm)
 
     if (res.data.errors) {
       this.setState({errors: res.data.errors})
@@ -143,10 +143,11 @@ export default class Listing extends Component {
       action: 'User submitted Interest'
     })
 
-    this.setState({
-      isInterestPopupVisible: false,
-      isInterestSuccessPopupVisible: true
-    })
+    !custom &&
+      this.setState({
+        isInterestPopupVisible: false,
+        isInterestSuccessPopupVisible: true
+      })
   }
 
   showListing = () => {
