@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export default styled.div`
-  width: 290px;
+  min-width: 100%;
   height: 190px;
   margin-bottom: 2px;
   border-radius: 4px;
@@ -26,12 +26,11 @@ export default styled.div`
 `
 
 export const Image = styled.div`
-  background-color: red;
   background-image: ${({img}) => img};
 
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  height: 100%;
-  width: 100%;
+  min-height: 100%;
+  min-width: 100%;
 `

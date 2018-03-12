@@ -133,7 +133,7 @@ export default class ListingImages extends Component {
 
           <ImageUpload onImageUploaded={this.onImageUploaded} />
 
-          <ImagesContainer className="images-container">
+          <ImagesContainer>
             {images &&
               images.map((image, i) => {
                 return (
