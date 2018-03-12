@@ -1,7 +1,7 @@
 export const text = '#262626'
 
 export const blue = '#227ea2'
-export const lightblue = '#E1F7FF'
+export const lightBlue = '#e1f7ff'
 export const darkenedBlue = '#1d6c8b'
 
 export const red = '#e54848'
