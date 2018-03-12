@@ -9,13 +9,15 @@ import {deleteListingImage} from 'services/listing-images-api'
 import DraggableTypes from 'constants/draggable_types'
 import {thumbnailUrl} from 'utils/image_url'
 
+import Container, {Image} from './styles'
+
 const imageSource = {
   beginDrag(props) {
     return {
       id: props.id,
-      index: props.index,
+      index: props.index
     }
-  },
+  }
 }
 
 const imageTarget = {
@@ -62,15 +64,15 @@ const imageTarget = {
     // but it's good here for the sake of performance
     // to avoid expensive index searches.
     monitor.getItem().index = hoverIndex
-  },
+  }
 }
 
 @DropTarget(DraggableTypes.IMAGE, imageTarget, (connect) => ({
-  connectDropTarget: connect.dropTarget(),
+  connectDropTarget: connect.dropTarget()
 }))
 @DragSource(DraggableTypes.IMAGE, imageSource, (connect, monitor) => ({
   connectDragSource: connect.dragSource(),
-  isDragging: monitor.isDragging(),
+  isDragging: monitor.isDragging()
 }))
 export default class DraggableImage extends Component {
   static PropTypes = {
@@ -82,7 +84,7 @@ export default class DraggableImage extends Component {
     jwt: PropTypes.string,
     listingId: PropTypes.number.isRequired,
     moveImage: PropTypes.func.isRequired,
-    text: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired
   }
 
   handleImageDelete = async () => {
@@ -114,37 +116,27 @@ export default class DraggableImage extends Component {
   render() {
     const {image, isDragging, connectDragSource, connectDropTarget} = this.props
     const imgUrl = thumbnailUrl(image.filename)
-    const imgStyle = {backgroundImage: `url(${imgUrl})`}
-    const opacity = isDragging ? 0 : 1
 
     return connectDragSource(
       connectDropTarget(
-        <div style={{...imgStyle, opacity}} onClick={this.handleImageDelete}>
-          <div className="trash">
-            <FontAwesomeIcon icon={faTrash} />
-          </div>
-
-          <style jsx>{`
-            div {
-              align-items: center;
-              background-position: center;
-              background-repeat: no-repeat;
-              background-size: contain;
-              cursor: move;
-              display: flex;
-              height: 140px;
-              justify-content: flex-end;
-              width: 100%;
-
-              > div.trash {
-                cursor: pointer;
-                margin-right: 20px;
-                :global(svg) {
-                  fill: red;
-                }
+        <div className="draggable-wrapper">
+          <Container isDragging={isDragging}>
+            <div className="bg" />
+            <Image img={`url(${imgUrl})`} />
+            <div className="trash" onClick={this.handleImageDelete}>
+              <FontAwesomeIcon icon={faTrash} />
+            </div>
+          </Container>
+          <style jsx>
+            {`
+              .draggable-wrapper {
+                box-sizing: border-box;
+                border: 2px dashed ${isDragging ? '#bababa' : 'white'};
+                border-radius: 4px;
+                background-color: #f0f0f0;
               }
-            }
-          `}</style>
+            `}
+          </style>
         </div>
       )
     )
