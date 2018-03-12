@@ -121,7 +121,6 @@ export default class DraggableImage extends Component {
       connectDropTarget(
         <div className="draggable-wrapper">
           <Container isDragging={isDragging}>
-            <div className="bg" />
             <Image img={`url(${imgUrl})`} />
             <div className="trash" onClick={this.handleImageDelete}>
               <FontAwesomeIcon icon={faTrash} />
@@ -134,6 +133,8 @@ export default class DraggableImage extends Component {
                 border: 2px dashed ${isDragging ? '#bababa' : 'white'};
                 border-radius: 4px;
                 background-color: #f0f0f0;
+                width: 100%;
+                height: 100%;
               }
             `}
           </style>
