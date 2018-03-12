@@ -14,8 +14,9 @@ import {redirectIfNotAuthenticated, getJwt, isAuthenticated} from 'lib/auth'
 import Layout from 'components/shared/Shell'
 import TextContainer from 'components/shared/TextContainer'
 import AdminHeader from 'components/shared/AdminHeader'
-import DraggableImage from 'components/listings/show/images/image'
+import DraggableImage from 'components/listings/show/images/DraggableImage'
 import ImageUpload from 'components/listings/show/images/Upload'
+import ImagesContainer from 'components/listings/show/images/styles'
 
 @DragDropContext(HTML5Backend)
 export default class ListingImages extends Component {
@@ -132,7 +133,7 @@ export default class ListingImages extends Component {
 
           <ImageUpload onImageUploaded={this.onImageUploaded} />
 
-          <div className="images-container">
+          <ImagesContainer className="images-container">
             {images &&
               images.map((image, i) => {
                 return (
@@ -147,14 +148,8 @@ export default class ListingImages extends Component {
                   />
                 )
               })}
-          </div>
+          </ImagesContainer>
         </TextContainer>
-        <style jsx>{`
-          .images-container {
-            background: #eee;
-            clear: both;
-          }
-        `}</style>
       </Layout>
     )
   }
