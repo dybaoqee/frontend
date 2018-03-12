@@ -55,7 +55,6 @@ export default class AddressAutoComplete extends React.Component {
     if (!placeAddress[1]) {
       this.setState(
         {
-          errors: [...this.state.errors, 'Digite o número da localização'],
           place: {},
           predictions: [],
           search: `${placeAddress[0]}, número`
