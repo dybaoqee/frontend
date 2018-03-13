@@ -133,6 +133,7 @@ export default class ListingEditV2 extends Component {
   }
 
   setChosenPlace = (placeChosen) => {
+    if (!placeChosen.id) return
     const {listing} = this.state
     const {address_components: components} = placeChosen
     const neighborhood = filterComponent(components, 'sublocality_level_1')

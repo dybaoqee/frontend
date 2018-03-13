@@ -40,7 +40,7 @@ export default class ListingNew extends Component {
       <AddressAutoComplete />,
       <PropertyInfo />,
       <PropertyGallery />,
-      <PropertyGalleryEdit />,
+      <PropertyGalleryEdit />
     ]
   }
 
@@ -97,6 +97,7 @@ export default class ListingNew extends Component {
   }
 
   setChosenPlace = (placeChosen) => {
+    if (!placeChosen.id) return
     const {listing} = this.state
     const {address_components: components} = placeChosen
     const neighborhood = filterComponent(components, 'sublocality_level_1')
@@ -190,7 +191,7 @@ export default class ListingNew extends Component {
       'price',
       'property_tax',
       'maintenance_fee',
-      'area',
+      'area'
     ])
 
     try {
