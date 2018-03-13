@@ -130,7 +130,7 @@ export default class DraggableImage extends Component {
             {`
               .draggable-wrapper {
                 box-sizing: border-box;
-                border: 2px dashed ${isDragging ? '#bababa' : 'white'};
+                border: ${!isDragging ? 'none' : '2px dashed #bababa'};
                 border-radius: 4px;
                 background-color: #f0f0f0;
                 width: 100%;
