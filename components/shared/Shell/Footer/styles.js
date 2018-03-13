@@ -29,7 +29,7 @@ export default styled.footer`
       position: relative;
       margin-left: 30px;
       &.icon {
-        color: ${colors.blue};
+        color: ${colors.blue.medium};
         font-size: 20px;
         top: 0;
       }

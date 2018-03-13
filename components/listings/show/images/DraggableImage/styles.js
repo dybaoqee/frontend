@@ -16,18 +16,16 @@ export default styled.div`
     top: 10px;
     left: 15px;
     cursor: pointer;
-    z-index: 10;
+    z-index: 2;
     color: white;
-    text-shadow: 1px 1px 5px rgba(255, 0, 0, 0.5);
     svg {
-      filter: drop-shadow(0 1px 1px black);
+      filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.6));
     }
   }
 `
 
 export const Image = styled.div`
   background-image: ${({img}) => img};
-
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

@@ -13,9 +13,9 @@ export default styled.div`
 
 export const CounterButton = styled.span`
   align-items: center;
-  border: solid 1px ${colors.blue};
+  border: solid 1px ${colors.blue.medium};
   border-radius: 20px;
-  color: ${colors.blue};
+  color: ${colors.blue.medium};
   font-size: 20px;
   font-weight: 400;
   margin: 2px;
@@ -30,7 +30,7 @@ export const CounterButton = styled.span`
   opacity: ${(props) => (props.disabled ? 0.2 : 1)};
 
   &:hover {
-    background-color: ${colors.blue};
+    background-color: ${colors.blue.medium};
     color: white;
   }
   &[disabled] {

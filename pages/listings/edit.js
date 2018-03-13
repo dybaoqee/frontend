@@ -25,7 +25,8 @@ import ErrorContainer from 'components/listings/new/shared/ErrorContainer'
 
 import {
   StepContainer,
-  ButtonControls
+  ButtonControls,
+  Header
 } from 'components/listings/shared/styles'
 
 export default class ListingEditV2 extends Component {
@@ -256,15 +257,17 @@ export default class ListingEditV2 extends Component {
     return (
       <Layout authenticated={isAuthenticated} isAdmin={isAdmin}>
         <StepContainer>
-          <h1>Editar Imóvel</h1>
-          {page < 2 && (
-            <Link
-              href={`/listings/images?listingId=${id}`}
-              as={`/imoveis/${id}/imagens`}
-            >
-              <EmCasaButton>Gerenciar Imagens</EmCasaButton>
-            </Link>
-          )}
+          <Header>
+            <h1>Editar Imóvel</h1>
+            {page < 2 && (
+              <Link
+                href={`/listings/images?listingId=${id}`}
+                as={`/imoveis/${id}/imagens`}
+              >
+                <a>Editar Imagens</a>
+              </Link>
+            )}
+          </Header>
           {this.renderContent()}
           {showErrors && <ErrorContainer errors={errors} />}
           <ButtonControls>

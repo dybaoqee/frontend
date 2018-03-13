@@ -69,7 +69,7 @@ const Input = styled.input`
   width: 100%;
 
   :focus {
-    border: 1px solid ${colors.blue};
+    border: 1px solid ${colors.blue.medium};
     outline: none;
   }
 
@@ -97,4 +97,17 @@ const ButtonControls = styled.div`
   }
 `
 
-export {Title, Field, Input, StepContainer, ButtonControls}
+const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+
+  a {
+    text-decoration: none;
+    color: ${colors.blue.medium};
+  }
+`
+
+export {Title, Field, Input, StepContainer, ButtonControls, Header}

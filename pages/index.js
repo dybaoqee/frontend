@@ -67,7 +67,7 @@ export default class MyPage extends Component {
 
         <style jsx>{`
           a {
-            color: ${colors.blue};
+            color: ${colors.blue.medium};
             float: left;
             font-size: 20px;
             left: 50%;

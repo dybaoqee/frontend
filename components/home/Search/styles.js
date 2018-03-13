@@ -98,7 +98,7 @@ export const Neighborhoods = styled.div`
 
 export const Magnifier = styled.div`
   align-items: center;
-  background: ${colors.blue};
+  background: ${colors.blue.medium};
   border-bottom-right-radius: 9px;
   border-top-right-radius: 9px;
   cursor: pointer;
@@ -107,7 +107,7 @@ export const Magnifier = styled.div`
   justify-content: center;
   width: 60px;
   &:hover {
-    background: ${colors.darkenedBlue};
+    background: ${colors.blue.dark};
   }
   svg {
     height: 20px;
@@ -127,7 +127,7 @@ export const MobileMagnifier = styled.div`
 
   @media ${mobileMedia} {
     align-items: center;
-    background: ${colors.blue};
+    background: ${colors.blue.medium};
     border-radius: 8px;
     margin-top: 10px;
     width: 100%;
@@ -136,7 +136,7 @@ export const MobileMagnifier = styled.div`
     display: flex;
     justify-content: center;
     &:hover {
-      background: ${colors.darkenedBlue};
+      background: ${colors.blue.dark};
     }
   }
 `

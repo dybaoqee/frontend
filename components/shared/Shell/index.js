@@ -46,8 +46,8 @@ export default class Layout extends Component {
           }
           button,
           .btn {
-            background-color: ${colors.blue};
-            border: 1px solid ${colors.darkenedBlue};
+            background-color: ${colors.blue.medium};
+            border: 1px solid ${colors.blue.dark};
             border-radius: 4px;
             box-shadow: inset 0 2px 2px 0 rgba(255, 255, 255, 0.2),
               0 4px 6px 0 rgba(38, 38, 38, 0.2);
@@ -60,7 +60,7 @@ export default class Layout extends Component {
             transition: background-color 0.1s ease;
             transform: 0.25;
             &:hover {
-              background-color: ${colors.darkenedBlue};
+              background-color: ${colors.blue.dark};
               text-decoration: none;
             }
           }

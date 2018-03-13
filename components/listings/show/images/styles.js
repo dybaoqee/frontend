@@ -4,7 +4,7 @@ import * as colors from 'constants/colors'
 
 export default styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
   justify-items: center;
   grid-gap: 20px;
 
@@ -12,11 +12,15 @@ export default styled.div`
     display: block;
 
     > div {
-      margin-bottom: 20px;
+      margin-bottom: 10px;
     }
   }
 
-  > div:first-child {
+  > :first-child {
+    grid-row: 2 / 2;
+  }
+
+  > div:nth-child(2) {
     grid-column: span 2;
     justify-self: stretch;
     height: 227px;
@@ -30,8 +34,8 @@ export default styled.div`
       height: 28px;
       width: 120px;
       border-radius: 0 4px 0 4px;
-      background-color: ${colors.lightBlue};
-      color: ${colors.blue};
+      background-color: ${colors.blue.light};
+      color: ${colors.blue.medium};
       content: 'FOTO DE CAPA';
       font-size: 12px;
       font-weight: bold;
@@ -45,5 +49,37 @@ export default styled.div`
     > div {
       min-height: 100%;
     }
+  }
+`
+
+export const ImagePlaceholder = styled.div`
+  color: ${colors.mediumDarkGray};
+  box-sizing: border-box;
+  min-height: 100%;
+  min-width: 100%;
+  height: 190px;
+  border: 2px dashed ${colors.lightGray};
+  border-radius: 4px;
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  align-content: center;
+
+  > span {
+    font-weight: 200;
+    font-size: 60px;
+    line-height: 40px;
+  }
+
+  > p {
+    font-weight: normal;
+    font-size: 18px;
+    align-self: end;
+    padding: 0;
+    margin: 0;
+  }
+
+  > p:last-child {
+    align-self: start;
   }
 `
