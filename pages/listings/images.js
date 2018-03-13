@@ -1,4 +1,4 @@
-import {Component} from 'react'
+import {Component, Fragment} from 'react'
 import Link from 'next/link'
 import update from 'immutability-helper'
 import {
@@ -8,15 +8,20 @@ import {
 } from 'services/listing-images-api'
 import {DragDropContext} from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import faPlus from '@fortawesome/fontawesome-free-solid/faPlus'
 
 import {redirectIfNotAuthenticated, getJwt, isAuthenticated} from 'lib/auth'
 
 import Layout from 'components/shared/Shell'
 import TextContainer from 'components/shared/TextContainer'
-import AdminHeader from 'components/shared/AdminHeader'
 import DraggableImage from 'components/listings/show/images/DraggableImage'
 import ImageUpload from 'components/listings/show/images/Upload'
-import ImagesContainer from 'components/listings/show/images/styles'
+import ImagesContainer, {
+  ImagePlaceholder
+} from 'components/listings/show/images/styles'
+
+import {Header} from 'components/listings/shared/styles'
 
 @DragDropContext(HTML5Backend)
 export default class ListingImages extends Component {
@@ -121,7 +126,7 @@ export default class ListingImages extends Component {
     return (
       <Layout authenticated={authenticated}>
         <TextContainer>
-          <AdminHeader>
+          <Header>
             <h1>Editar Imagens</h1>
             <Link
               href={`/listings/edit?id=${listingId}`}
@@ -129,26 +134,39 @@ export default class ListingImages extends Component {
             >
               <a>Editar Imóvel</a>
             </Link>
-          </AdminHeader>
+          </Header>
 
-          <ImageUpload onImageUploaded={this.onImageUploaded} />
-
-          <ImagesContainer>
-            {images &&
-              images.map((image, i) => {
-                return (
-                  <DraggableImage
-                    listingId={listingId}
-                    image={image}
-                    key={image.id}
-                    index={i}
-                    jwt={jwt}
-                    onImageDeleted={this.onImageDeleted}
-                    moveImage={this.moveImage}
-                  />
-                )
-              })}
-          </ImagesContainer>
+          {images.length === 0 ? (
+            <ImageUpload onImageUploaded={this.onImageUploaded} />
+          ) : (
+            <Fragment>
+              <p>Clique e arraste para reordenar as imagens</p>
+              <ImagesContainer>
+                <ImageUpload onImageUploaded={this.onImageUploaded}>
+                  <ImagePlaceholder>
+                    <p className="trash">
+                      <FontAwesomeIcon icon={faPlus} />
+                    </p>
+                    <p>Adicionar foto</p>
+                  </ImagePlaceholder>
+                </ImageUpload>
+                {images &&
+                  images.map((image, i) => {
+                    return (
+                      <DraggableImage
+                        listingId={listingId}
+                        image={image}
+                        key={image.id}
+                        index={i}
+                        jwt={jwt}
+                        onImageDeleted={this.onImageDeleted}
+                        moveImage={this.moveImage}
+                      />
+                    )
+                  })}
+              </ImagesContainer>
+            </Fragment>
+          )}
         </TextContainer>
       </Layout>
     )
