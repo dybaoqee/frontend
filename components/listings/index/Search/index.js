@@ -126,7 +126,7 @@ export default class Filter extends Component {
             }
 
             .Select-control {
-              border-color: ${colors.blue};
+              border-color: ${colors.blue.medium};
             }
 
             .Select-placeholder {
@@ -170,7 +170,7 @@ export default class Filter extends Component {
               }
 
               label {
-                color: ${colors.blue};
+                color: ${colors.blue.medium};
                 font-size: 12px;
                 font-weight: 700;
                 text-transform: uppercase;
@@ -180,7 +180,7 @@ export default class Filter extends Component {
               }
 
               span.close-filter-param {
-                color: ${colors.blue};
+                color: ${colors.blue.medium};
                 display: block;
                 cursor: pointer;
                 float: right;
@@ -189,7 +189,7 @@ export default class Filter extends Component {
                 margin-top: 15px;
                 text-transform: uppercase;
                 &:hover {
-                  color: ${colors.darkenedBlue};
+                  color: ${colors.blue.dark};
                 }
               }
             }
@@ -229,11 +229,11 @@ export default class Filter extends Component {
                 background: ${colors.offWhite};
               }
               &.active {
-                background: ${colors.blue};
+                background: ${colors.blue.medium};
                 color: white;
-                border: 1px solid ${colors.darkenedBlue};
+                border: 1px solid ${colors.blue.dark};
                 &:hover {
-                  background: ${colors.darkenedBlue};
+                  background: ${colors.blue.dark};
                 }
               }
             }
@@ -243,7 +243,7 @@ export default class Filter extends Component {
             }
 
             span.remove-all-filters {
-              color: ${colors.blue};
+              color: ${colors.blue.medium};
               cursor: pointer;
               display: block;
               font-size: 13px;
@@ -314,8 +314,8 @@ export default class Filter extends Component {
               }
 
               button.close-mobile-filters {
-                background: ${colors.blue};
-                border: 1px solid ${colors.darkenedBlue};
+                background: ${colors.blue.medium};
+                border: 1px solid ${colors.blue.dark};
                 bottom: 10px;
                 color: white;
                 left: 10px;
@@ -324,7 +324,7 @@ export default class Filter extends Component {
                 width: calc(100vw - 20px);
                 z-index: 3;
                 &:hover {
-                  background: ${colors.darkenedBlue};
+                  background: ${colors.blue.dark};
                 }
               }
             }

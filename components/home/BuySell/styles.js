@@ -14,9 +14,9 @@ export default styled.div`
     justify-content: center;
     width: 100%;
     > a {
-      border: 1px solid ${colors.blue};
+      border: 1px solid ${colors.blue.medium};
       border-radius: 6px;
-      color: ${colors.blue};
+      color: ${colors.blue.medium};
       padding: 15px 30px;
       text-decoration: none;
     }

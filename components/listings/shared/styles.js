@@ -69,7 +69,7 @@ const Input = styled.input`
   width: 100%;
 
   :focus {
-    border: 1px solid ${colors.blue};
+    border: 1px solid ${colors.blue.medium};
     outline: none;
   }
 
@@ -106,6 +106,7 @@ const Header = styled.div`
 
   a {
     text-decoration: none;
+    color: ${colors.blue.medium};
   }
 `
 

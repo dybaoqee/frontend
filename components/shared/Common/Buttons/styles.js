@@ -3,12 +3,12 @@ import * as colors from 'constants/colors'
 
 export default styled.button`
   background-color: ${({light, secondary}) =>
-    light ? 'white' : secondary ? colors.green : colors.blue};
-  color: ${(props) => (props.light ? colors.blue : 'white')};
+    light ? 'white' : secondary ? colors.green : colors.blue.medium};
+  color: ${(props) => (props.light ? colors.blue.medium : 'white')};
   width: ${({full}) => (full ? '100%' : '')};
 
   border: 1px solid
-    ${({secondary}) => (secondary ? colors.darkenedGreen : colors.blue)};
+    ${({secondary}) => (secondary ? colors.darkenedGreen : colors.blue.medium)};
 
   font-weight: 600;
 

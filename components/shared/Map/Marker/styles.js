@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import * as colors from 'constants/colors'
 
 export default styled.div`
-  background: ${colors.blue};
+  background: ${colors.blue.medium};
   border-radius: 4px;
   box-shadow: 1px 3px 6px rgba(0, 0, 0, 0.3);
   color: white;
@@ -14,9 +14,9 @@ export default styled.div`
   position: absolute;
   transform: translate(-50%, -100%);
   &:hover {
-    background: ${colors.darkenedBlue};
+    background: ${colors.blue.dark};
     &:after {
-      border-top: 8px solid ${colors.darkenedBlue};
+      border-top: 8px solid ${colors.blue.dark};
     }
   }
   &:after {
@@ -29,6 +29,6 @@ export default styled.div`
     height: 0;
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
-    border-top: 8px solid ${colors.blue};
+    border-top: 8px solid ${colors.blue.medium};
   }
 `

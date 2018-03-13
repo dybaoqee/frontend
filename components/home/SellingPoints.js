@@ -62,7 +62,7 @@ export default class HomeSellingPoints extends Component {
             div {
               width: calc(33.3333% - 40px);
               h2 {
-                color: ${colors.blue};
+                color: ${colors.blue.medium};
                 font-weight: 300;
               }
               p {

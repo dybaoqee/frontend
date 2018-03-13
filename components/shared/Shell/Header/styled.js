@@ -45,7 +45,7 @@ export const Nav = styled.nav`
   margin-right: 10px;
   margin-top: 2px;
   a {
-    color: ${colors.blue};
+    color: ${colors.blue.medium};
     margin-left: 20px;
     text-decoration: none;
   }
@@ -53,7 +53,7 @@ export const Nav = styled.nav`
     text-decoration: underline;
   }
   a:visited {
-    color: ${colors.blue};
+    color: ${colors.blue.medium};
   }
   @media ${mobileMedia} {
     display: ${(props) => (props.visible ? 'flex' : 'none')};
