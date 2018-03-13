@@ -10,29 +10,9 @@ const SearchResults = styled.div`
   min-width: 100%;
   position: absolute;
   top: 100%;
+
   @media ${mobileMedia} {
     top: 90%;
-  }
-  > div {
-    border: 1px solid ${colors.lightGray};
-    font-size: 14px;
-    border-top: 0;
-    box-sizing: border-box;
-    width: 100%;
-    padding: 5px;
-    cursor: pointer;
-
-    p {
-      margin: 0;
-    }
-
-    span {
-      font-weight: 600;
-    }
-
-    &:hover {
-      background-color: ${colors.lightestGray};
-    }
   }
 `
 
@@ -47,4 +27,27 @@ const FieldContainer = styled.div`
   }
 `
 
-export {SearchResults, FieldContainer}
+const SearchResult = styled.div`
+  border: 1px solid ${colors.lightGray};
+  font-size: 14px;
+  border-top: 0;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 5px;
+  cursor: pointer;
+  background-color: ${(props) => (props.selected ? colors.lightGray : 'white')};
+
+  p {
+    margin: 0;
+  }
+
+  span {
+    font-weight: 600;
+  }
+
+  :hover {
+    background-color: ${colors.lightGray};
+  }
+`
+
+export {SearchResults, FieldContainer, SearchResult}
