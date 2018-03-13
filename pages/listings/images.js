@@ -8,8 +8,6 @@ import {
 } from 'services/listing-images-api'
 import {DragDropContext} from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
-import FontAwesomeIcon from '@fortawesome/react-fontawesome'
-import faPlus from '@fortawesome/fontawesome-free-solid/faPlus'
 
 import {redirectIfNotAuthenticated, getJwt, isAuthenticated} from 'lib/auth'
 
@@ -144,9 +142,7 @@ export default class ListingImages extends Component {
               <ImagesContainer>
                 <ImageUpload onImageUploaded={this.onImageUploaded}>
                   <ImagePlaceholder>
-                    <p className="trash">
-                      <FontAwesomeIcon icon={faPlus} />
-                    </p>
+                    <span>+</span>
                     <p>Adicionar foto</p>
                   </ImagePlaceholder>
                 </ImageUpload>

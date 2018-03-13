@@ -34,8 +34,8 @@ export default styled.div`
       height: 28px;
       width: 120px;
       border-radius: 0 4px 0 4px;
-      background-color: ${colors.lightBlue};
-      color: ${colors.blue};
+      background-color: ${colors.blue.light};
+      color: ${colors.blue.medium};
       content: 'FOTO DE CAPA';
       font-size: 12px;
       font-weight: bold;
@@ -53,7 +53,7 @@ export default styled.div`
 `
 
 export const ImagePlaceholder = styled.div`
-  color: ${colors.mediumGray};
+  color: ${colors.mediumDarkGray};
   box-sizing: border-box;
   min-height: 100%;
   min-width: 100%;
@@ -64,6 +64,12 @@ export const ImagePlaceholder = styled.div`
   grid-template-columns: 1fr;
   justify-items: center;
   align-content: center;
+
+  > span {
+    font-weight: 200;
+    font-size: 60px;
+    line-height: 40px;
+  }
 
   > p {
     font-weight: normal;
