@@ -16,7 +16,7 @@ export default styled.div`
     top: 10px;
     left: 15px;
     cursor: pointer;
-    z-index: 10;
+    z-index: 2;
     color: white;
     svg {
       filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.6));
