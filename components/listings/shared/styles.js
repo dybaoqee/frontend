@@ -97,4 +97,16 @@ const ButtonControls = styled.div`
   }
 `
 
-export {Title, Field, Input, StepContainer, ButtonControls}
+const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+
+  a {
+    text-decoration: none;
+  }
+`
+
+export {Title, Field, Input, StepContainer, ButtonControls, Header}
