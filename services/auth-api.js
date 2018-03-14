@@ -1,4 +1,4 @@
-import { post, put } from 'lib/request'
+import {post, put} from 'lib/request'
 
 export const authenticate = async (email, password) => {
   try {
@@ -11,8 +11,8 @@ export const authenticate = async (email, password) => {
     return res.data
   } catch (error) {
     return error.response && error.response.status === 404
-      ? "Wrong email/password"
-      : "Unknown error. Please try again"
+      ? 'Ocorreu um erro desconhecido. Por favor, tente novamente.'
+      : 'E-mail ou senha inválidos.'
   }
 }
 
@@ -26,7 +26,7 @@ export const confirmUser = async (token) => {
     return res.data
   } catch (error) {
     return error.response && error.response.status === 404
-      ? "Wrong token"
-      : "Unknown error. Please try again"
+      ? 'Wrong token'
+      : 'Unknown error. Please try again'
   }
 }
