@@ -16,6 +16,21 @@ export const authenticate = async (email, password) => {
   }
 }
 
+export const resetPassword = async (email) => {
+  try {
+    const res = await post('/users/reset_password', {
+      user: {
+        email
+      }
+    })
+    return res.data
+  } catch (error) {
+    throw error.response && error.response.status === 404
+      ? 'Esse e-mail não está cadastrado.'
+      : 'Ocorreu um erro desconhecido. Por favor, tente novamente.'
+  }
+}
+
 export const confirmUser = async (token) => {
   try {
     const res = await put('/users/confirm', {
