@@ -61,6 +61,11 @@ export default class Login extends Component {
           </EmCasaButton>
           <Errors errors={errors} />
           <p>
+            <Link href="/auth/password_recovery" as="/lembrar_senha">
+              <a>Esqueci minha senha</a>
+            </Link>
+          </p>
+          <p>
             {'Não tem cadastro? '}
             <Link href="/auth/signup" as="/signup">
               <a>Cadastre-se</a>
