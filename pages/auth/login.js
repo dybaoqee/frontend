@@ -2,14 +2,16 @@ import {Component} from 'react'
 import Link from 'next/link'
 
 import Layout from 'components/shared/Shell'
-import Form from 'components/auth/Form'
-import Error from 'components/auth/Error'
+import Form from 'components/shared/Common/Form'
+import Errors from 'components/shared/Common/Errors'
+import EmCasaButton from 'components/shared/Common/Buttons'
 import {getCookie, removeCookie} from 'lib/session'
 import {signIn, redirectIfAuthenticated} from 'lib/auth'
+import _ from 'lodash'
 
 export default class Login extends Component {
   state = {
-    error: null,
+    errors: []
   }
 
   static getInitialProps(ctx) {
@@ -22,55 +24,46 @@ export default class Login extends Component {
         removeCookie('success')
       }
       return {
-        success,
+        success
       }
     }
   }
 
   handleSubmit = async (e) => {
     e.preventDefault()
+    this.setState({errors: []})
 
     const email = e.target.elements.email.value
     const password = e.target.elements.password.value
+    let errors = await signIn(email, password)
 
-    const error = await signIn(email, password)
-
-    if (error) {
-      this.setState({
-        error,
-      })
-      return false
+    if (errors) {
+      errors = errors && _.isArray(errors) ? errors : [errors]
+      this.setState({errors})
     }
   }
 
   render() {
-    const {url, success} = this.props
-    const {error} = this.state
+    const {errors} = this.state
 
     return (
       <Layout>
-        <div>
-          <Form handleSubmit={this.handleSubmit}>
-            <h1>Login</h1>
+        <Form onSubmit={this.handleSubmit}>
+          <h1>Login</h1>
+          <input type="email" placeholder="email" name="email" />
+          <input type="password" placeholder="password" name="password" />
 
-            <div className="control-group">
-              <input type="email" placeholder="email" name="email" />
-            </div>
-
-            <div className="control-group">
-              <input type="password" placeholder="password" name="password" />
-            </div>
-
-            <button type="submit">Enviar</button>
-
-            <p>
-              {'Não tem cadastro? '}
-              <Link href="/auth/signup" as="/signup">
-                <a>Cadastre-se</a>
-              </Link>
-            </p>
-          </Form>
-        </div>
+          <EmCasaButton full type="submit">
+            Enviar
+          </EmCasaButton>
+          <Errors errors={errors} />
+          <p>
+            {'Não tem cadastro? '}
+            <Link href="/auth/signup" as="/signup">
+              <a>Cadastre-se</a>
+            </Link>
+          </p>
+        </Form>
       </Layout>
     )
   }
