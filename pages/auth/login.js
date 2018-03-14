@@ -50,8 +50,8 @@ export default class Login extends Component {
       <Layout>
         <Form onSubmit={this.handleSubmit}>
           <h1>Login</h1>
-          <input type="email" placeholder="email" name="email" />
-          <input type="password" placeholder="password" name="password" />
+          <input type="email" placeholder="Email" name="email" />
+          <input type="password" placeholder="Senha" name="password" />
 
           <EmCasaButton full type="submit">
             Enviar
