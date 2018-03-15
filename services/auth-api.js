@@ -59,7 +59,7 @@ export const confirmUser = async (token) => {
     return res.data
   } catch (error) {
     return error.response && error.response.status === 404
-      ? 'Wrong token'
-      : 'Unknown error. Please try again'
+      ? 'Esse link expirou.'
+      : 'Ocorreu um erro desconhecido. Por favor, tente novamente.'
   }
 }
