@@ -44,6 +44,8 @@ export const Nav = styled.nav`
   float: right;
   margin-right: 10px;
   margin-top: 2px;
+  display: flex;
+  align-items: baseline;
   a {
     color: ${colors.blue.medium};
     margin-left: 20px;
@@ -68,7 +70,17 @@ export const Nav = styled.nav`
       border-bottom: 1px solid ${colors.offWhite};
       margin: 0;
       padding: 10px;
+      min-width: 100%;
     }
+  }
+`
+
+export const UserHeader = styled.div`
+  margin-left: ${({authenticated}) => (authenticated ? 0 : 10)}px;
+  @media ${mobileMedia} {
+    min-width: 100%;
+    margin-left: 0px;
+    margin-top: 10px;
   }
 `
 
@@ -76,22 +88,4 @@ export const Error = styled(({children, ...props}) => (
   <div {...props}>
     <span>{children}</span>
   </div>
-))`
-  padding-top: 109px;
-  padding-right: 222px;
-  padding-bottom: 30px;
-  > span {
-    height: 122px;
-    width: 152px;
-    color: #f0f0f0;
-    font-family: 'Open Sans';
-    font-size: 90px;
-    font-weight: bold;
-    line-height: 122px;
-    text-align: right;
-  }
-  & ~ a.logo {
-    align-self: flex-end;
-    padding-bottom: 100px;
-  }
-`
+))

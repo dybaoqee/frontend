@@ -9,6 +9,7 @@ export default styled.footer`
   display: flex;
   justify-content: space-between;
   padding: 20px;
+  flex-wrap: wrap;
 
   a {
     color: ${colors.mediumDarkGray};
@@ -19,57 +20,52 @@ export default styled.footer`
     width: 110px;
   }
 
-  > div {
-    align-items: center;
+  @media ${mobileMedia} {
+    img {
+      width: 100px;
+    }
+  }
+`
+
+export const EmCasaInfo = styled.div`
+  display: flex;
+  img {
+    margin-right: 20px;
   }
 
-  div {
-    display: flex;
-    a {
-      position: relative;
-      margin-left: 30px;
-      &.icon {
-        color: ${colors.blue.medium};
-        font-size: 20px;
-        top: 0;
-      }
+  > a {
+    align-self: center;
+  }
+
+  @media ${mobileMedia} {
+    align-items: flex-end;
+    flex-direction: column;
+  }
+`
+
+export const EmCasaContact = styled.div`
+  display: flex;
+  a {
+    align-self: center;
+    margin-left: 30px;
+    &.icon {
+      color: ${colors.blue.medium};
+      font-size: 20px;
+      top: 0;
     }
   }
 
   @media ${mobileMedia} {
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    padding: 10px 15px;
 
-  img {
-    width: 100px;
-  }
-
-  > div {
     a {
-      margin-left: 0;
-      margin-right: 16px;
-    }
+      order: 2;
+      justify-self: center;
 
-    > div {
-      align-items: flex-end;
-      display: flex;
-      flex-direction: column;
-
-      a {
-        order: 2;
-      }
-
-      > a {
-        font-size: 12px;
-        margin-right: 0;
-        margin-top: 5px;
-      }
-
-      div:first-of-type {
-        order: 1;
-        a:last-of-type {
-          margin-right: 0;
-        }
+      &.icon {
+        margin-left: 30px;
       }
     }
   }
