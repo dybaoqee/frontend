@@ -1,4 +1,4 @@
-import {Component} from 'react'
+import {Component, Fragment} from 'react'
 
 import Layout from 'components/shared/Shell'
 import Form from 'components/shared/Common/Form'
@@ -11,7 +11,8 @@ import _ from 'lodash'
 export default class Login extends Component {
   state = {
     errors: [],
-    loading: false
+    loading: false,
+    data: {}
   }
 
   static getInitialProps(ctx) {
@@ -37,29 +38,40 @@ export default class Login extends Component {
     const email = e.target.elements.email.value
     const password = e.target.elements.password.value
 
-    let errors = await signUp(name, email, password)
-    if (errors) {
-      errors = errors && _.isArray(errors) ? errors : [errors]
-      this.setState({errors})
+    try {
+      let data = await signUp(name, email, password)
+      this.setState({data, loading: false})
+    } catch (e) {
+      let errors = e
+      errors = _.isArray(errors) ? errors : [errors]
+      this.setState({errors, loading: false})
     }
-
-    this.setState({loading: false})
   }
 
   render() {
-    const {errors, loading} = this.state
+    const {errors, loading, data} = this.state
 
     return (
       <Layout>
         <Form onSubmit={this.handleSubmit}>
-          <h1>Cadastre-se</h1>
-          <input type="text" placeholder="Nome" name="name" />
-          <input type="email" placeholder="Email" name="email" />
-          <input type="password" placeholder="Senha" name="password" />
-          <EmCasaButton disabled={loading} full type="submit">
-            {loading ? 'Aguarde...' : 'Enviar'}
-          </EmCasaButton>
-          <Errors errors={errors} />
+          {data.name ? (
+            <Fragment>
+              <p>{`${_.capitalize(
+                data.name.split(' ')[0]
+              )}, enviamos um e-mail para você confirmar seu cadastro.`}</p>
+            </Fragment>
+          ) : (
+            <Fragment>
+              <h1>Cadastre-se</h1>
+              <input type="text" placeholder="Nome" name="name" />
+              <input type="email" placeholder="Email" name="email" />
+              <input type="password" placeholder="Senha" name="password" />
+              <EmCasaButton disabled={loading} full type="submit">
+                {loading ? 'Aguarde...' : 'Enviar'}
+              </EmCasaButton>
+              <Errors errors={errors} />
+            </Fragment>
+          )}
         </Form>
       </Layout>
     )

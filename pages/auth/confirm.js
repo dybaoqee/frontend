@@ -1,13 +1,14 @@
 import {Component} from 'react'
-import Link from 'next/link'
 import Layout from 'components/shared/Shell'
-import Error from 'components/auth/Error'
-import {getCookie, removeCookie} from 'lib/session'
-import {signIn, signUp, redirectIfAuthenticated, confirm} from 'lib/auth'
+import Errors from 'components/shared/Common/Errors'
+import _ from 'lodash'
+import {confirm} from 'lib/auth'
+import Container from 'components/shared/Common/Container'
+import Link from 'next/link'
 
 export default class Confirm extends Component {
   state = {
-    error: null,
+    error: null
   }
 
   static async getInitialProps(ctx) {
@@ -15,25 +16,42 @@ export default class Confirm extends Component {
 
     const res = await confirm(token)
 
-    if (!res.user) {
+    if (!res.data.name) {
       return {
-        error: res,
+        error: res
       }
     }
 
     return {
-      user: res.user,
+      user: res.data
     }
   }
 
   render() {
     const {user, error} = this.props
-    const {name} = user
 
     return (
       <Layout>
-        {name}
-        {error}
+        <Container>
+          {error ? (
+            <Errors errors={[error]} />
+          ) : (
+            <div>
+              <p>
+                {`${_.capitalize(
+                  user.name.split(' ')[0]
+                )}, seu cadastro foi confirmado!`}
+              </p>
+              <p>
+                Clique{' '}
+                <Link href={'/login'}>
+                  <a>aqui</a>
+                </Link>{' '}
+                para fazer login.
+              </p>
+            </div>
+          )}
+        </Container>
       </Layout>
     )
   }
