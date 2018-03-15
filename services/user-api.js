@@ -11,7 +11,7 @@ export const createUser = async (name, email, password) => {
     })
     return response
   } catch (error) {
-    return error.response && error.response.status === 422
+    throw error.response && error.response.status === 422
       ? 'Esse e-mail já está em uso.'
       : 'Ocorreu um erro desconhecido. Por favor, tente novamente.'
   }
