@@ -82,6 +82,10 @@ app
       return app.render(req, res, '/auth/password_recovery', req.query)
     })
 
+    server.get('/resetar_senha/:token', (req, res) => {
+      return app.render(req, res, '/auth/password_reset', req.query)
+    })
+
     server.get('/confirmar_cadastro/:token', (req, res) => {
       app.render(req, res, '/auth/confirm', req.query)
     })
