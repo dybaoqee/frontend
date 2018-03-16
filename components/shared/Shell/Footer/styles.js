@@ -66,6 +66,10 @@ export const EmCasaContact = styled.div`
       order: 2;
       margin-left: 0px;
     }
+
+    a[href='/jobs'] {
+      display: none;
+    }
   }
 
   @media ${footerMobileMedia} {
