@@ -1,5 +1,5 @@
 import * as colors from 'constants/colors'
-import {mobileMedia} from 'constants/media'
+import {headerMobileMedia, footerMobileMedia} from 'constants/media'
 import styled from 'styled-components'
 
 export default styled.footer`
@@ -20,10 +20,14 @@ export default styled.footer`
     width: 110px;
   }
 
-  @media ${mobileMedia} {
+  @media ${headerMobileMedia} {
     img {
       width: 100px;
     }
+  }
+
+  @media ${footerMobileMedia} {
+    flex-direction: column;
   }
 `
 
@@ -35,11 +39,6 @@ export const EmCasaInfo = styled.div`
 
   > a {
     align-self: center;
-  }
-
-  @media ${mobileMedia} {
-    align-items: flex-end;
-    flex-direction: column;
   }
 `
 
@@ -55,18 +54,24 @@ export const EmCasaContact = styled.div`
     }
   }
 
-  @media ${mobileMedia} {
+  @media ${headerMobileMedia} {
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+
+    .icons {
+      display: flex;
+      justify-content: space-evenly;
+    }
 
     a {
       order: 2;
-      justify-self: center;
+      margin-left: 0px;
+    }
+  }
 
-      &.icon {
-        margin-left: 30px;
-      }
+  @media ${footerMobileMedia} {
+    &.icon {
+      background-color: white;
+      margin-left: 0px;
     }
   }
 `
