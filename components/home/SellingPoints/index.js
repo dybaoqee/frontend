@@ -1,12 +1,10 @@
 import {Component} from 'react'
-
-import * as colors from 'constants/colors'
-import {mobileMedia} from 'constants/media'
+import Container from './styles'
 
 export default class HomeSellingPoints extends Component {
   render() {
     return (
-      <div className="container">
+      <Container>
         <h1>Imobiliária do jeito que deve ser</h1>
         <div>
           <div>
@@ -44,58 +42,7 @@ export default class HomeSellingPoints extends Component {
             </p>
           </div>
         </div>
-        <style jsx>{`
-          div.container {
-            padding-top: 60px;
-          }
-
-          h1 {
-            font-weight: 300;
-            text-align: center;
-          }
-
-          div.container > div {
-            display: flex;
-            justify-content: space-between;
-            margin: 0 auto 60px;
-            width: 960px;
-            div {
-              width: calc(33.3333% - 40px);
-              h2 {
-                color: ${colors.blue.medium};
-                font-weight: 300;
-              }
-              p {
-                color: ${colors.mediumDarkGray};
-                line-height: 1.8em;
-              }
-            }
-          }
-
-          @media ${mobileMedia} {
-            div.container {
-              align-items: center;
-              display: flex;
-              flex-direction: column;
-              width: 100vw;
-            }
-
-            h1 {
-              max-width: calc(100vw - 60px);
-            }
-
-            div.container div {
-              align-items: center;
-              flex-direction: column;
-              width: 100vw;
-              div {
-                margin-bottom: 40px;
-                width: calc(100% - 40px);
-              }
-            }
-          }
-        `}</style>
-      </div>
+      </Container>
     )
   }
 }
