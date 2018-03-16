@@ -29,6 +29,10 @@ export default styled.footer`
     img {
       width: 100px;
     }
+
+    a {
+      font-size: 12px;
+    }
   }
 
   @media ${footerMobileMedia} {
@@ -68,7 +72,7 @@ export const EmCasaContact = styled.div`
 
     a {
       order: 2;
-      margin-left: 20px;
+      margin-left: 16px;
     }
 
     a[href='/jobs'] {
