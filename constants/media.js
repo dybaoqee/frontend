@@ -11,3 +11,7 @@ export const headerMobileMedia = `
 export const footerMobileMedia = `
  only screen and (max-width: 360px)
 `
+
+export const listingFeed = `
+ only screen and (max-width: 1230px)
+`
