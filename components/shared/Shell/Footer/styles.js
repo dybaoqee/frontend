@@ -1,5 +1,5 @@
 import * as colors from 'constants/colors'
-import {mobileMedia} from 'constants/media'
+import {headerMobileMedia, footerMobileMedia} from 'constants/media'
 import styled from 'styled-components'
 
 export default styled.footer`
@@ -13,17 +13,30 @@ export default styled.footer`
 
   a {
     color: ${colors.mediumDarkGray};
+    font-size: 16px;
     text-decoration: none;
+
+    &.icon {
+      font-size: 20px;
+    }
   }
 
   img {
     width: 110px;
   }
 
-  @media ${mobileMedia} {
+  @media ${headerMobileMedia} {
     img {
       width: 100px;
     }
+
+    a {
+      font-size: 12px;
+    }
+  }
+
+  @media ${footerMobileMedia} {
+    flex-direction: column;
   }
 `
 
@@ -36,11 +49,6 @@ export const EmCasaInfo = styled.div`
   > a {
     align-self: center;
   }
-
-  @media ${mobileMedia} {
-    align-items: flex-end;
-    flex-direction: column;
-  }
 `
 
 export const EmCasaContact = styled.div`
@@ -50,23 +58,35 @@ export const EmCasaContact = styled.div`
     margin-left: 30px;
     &.icon {
       color: ${colors.blue.medium};
-      font-size: 20px;
       top: 0;
     }
   }
 
-  @media ${mobileMedia} {
+  @media ${headerMobileMedia} {
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+
+    .icons {
+      display: flex;
+      justify-content: flex-end;
+    }
 
     a {
       order: 2;
-      justify-self: center;
+      margin-left: 16px;
+    }
 
-      &.icon {
-        margin-left: 30px;
-      }
+    a[href='/jobs'] {
+      display: none;
+    }
+  }
+
+  @media ${footerMobileMedia} {
+    .icons {
+      justify-content: space-evenly;
+    }
+
+    a {
+      margin-left: 0px;
     }
   }
 `

@@ -15,27 +15,20 @@ export default class Header extends Component {
   }
 
   getUserHeader = (authenticated) => {
-    return (
+    return !authenticated ? (
       <UserHeader authenticated={authenticated}>
-        {' '}
-        {!authenticated ? (
-          <Fragment>
-            <Link href="/login">
-              <EmCasaButton light>Entrar</EmCasaButton>
-            </Link>
+        <Link href="/login">
+          <EmCasaButton light>Entrar</EmCasaButton>
+        </Link>
 
-            <Link href="/signup">
-              <EmCasaButton>Criar conta</EmCasaButton>
-            </Link>
-          </Fragment>
-        ) : (
-          <Fragment>
-            <Link href="/auth/logout">
-              <a>Sair</a>
-            </Link>
-          </Fragment>
-        )}
+        <Link href="/signup">
+          <EmCasaButton>Criar conta</EmCasaButton>
+        </Link>
       </UserHeader>
+    ) : (
+      <Link href="/auth/logout">
+        <a>Sair</a>
+      </Link>
     )
   }
 

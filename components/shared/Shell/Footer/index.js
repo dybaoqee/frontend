@@ -20,15 +20,16 @@ const Footer = () => (
           />
         </a>
       </Link>
-      <Link href="/jobs">
-        <a>Trabalhe Conosco</a>
-      </Link>
     </EmCasaInfo>
 
     <EmCasaContact>
       <a href="mailto:contato@emcasa.com">contato@emcasa.com</a>
 
-      <div>
+      <Link href="/jobs">
+        <a>Trabalhe Conosco</a>
+      </Link>
+
+      <div className="icons">
         <a
           href="https://www.facebook.com/EmCasa"
           target="_blank"
