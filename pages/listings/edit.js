@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Router from 'next/router'
 import _ from 'lodash'
 import {
-  redirectIfNotAdmin,
+  redirectIfNotAuthenticated,
   getJwt,
   isAuthenticated,
   isAdmin as isAdminUser
@@ -59,9 +59,7 @@ export default class ListingEditV2 extends Component {
   }
 
   static async getInitialProps(context) {
-    if (redirectIfNotAdmin(context)) {
-      return {}
-    }
+    if (redirectIfNotAuthenticated(context)) return {}
 
     const isAdmin = isAdminUser(context)
 

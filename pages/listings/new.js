@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import Router from 'next/router'
 import {
-  redirectIfNotAdmin,
+  redirectIfNotAuthenticated,
   getJwt,
   isAuthenticated,
   isAdmin as isAdminUser
@@ -45,7 +45,7 @@ export default class ListingNew extends Component {
   }
 
   static async getInitialProps(ctx) {
-    if (redirectIfNotAdmin(ctx)) {
+    if (redirectIfNotAuthenticated(ctx)) {
       return {}
     }
 

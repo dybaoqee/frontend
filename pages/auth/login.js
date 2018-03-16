@@ -33,10 +33,11 @@ export default class Login extends Component {
   handleSubmit = async (e) => {
     e.preventDefault()
     this.setState({errors: [], loading: true})
+    const {url} = this.props
 
     const email = e.target.elements.email.value
     const password = e.target.elements.password.value
-    let errors = await signIn(email, password)
+    let errors = await signIn(email, password, url)
 
     if (errors) {
       errors = errors && _.isArray(errors) ? errors : [errors]
