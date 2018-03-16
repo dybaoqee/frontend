@@ -13,7 +13,12 @@ export default styled.footer`
 
   a {
     color: ${colors.mediumDarkGray};
+    font-size: 16px;
     text-decoration: none;
+
+    &.icon {
+      font-size: 20px;
+    }
   }
 
   img {
@@ -49,7 +54,6 @@ export const EmCasaContact = styled.div`
     margin-left: 30px;
     &.icon {
       color: ${colors.blue.medium};
-      font-size: 20px;
       top: 0;
     }
   }
@@ -59,12 +63,12 @@ export const EmCasaContact = styled.div`
 
     .icons {
       display: flex;
-      justify-content: space-evenly;
+      justify-content: flex-end;
     }
 
     a {
       order: 2;
-      margin-left: 0px;
+      margin-left: 20px;
     }
 
     a[href='/jobs'] {
@@ -73,8 +77,11 @@ export const EmCasaContact = styled.div`
   }
 
   @media ${footerMobileMedia} {
-    &.icon {
-      background-color: white;
+    .icons {
+      justify-content: space-evenly;
+    }
+
+    a {
       margin-left: 0px;
     }
   }
