@@ -4,18 +4,25 @@ import {headerMobileMedia} from 'constants/media'
 import * as colors from 'constants/colors'
 
 export default styled.header`
+  box-sizing: border-box;
   align-items: center;
   background: white;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 20px;
+  padding: 11px 20px;
   position: fixed;
   top: 0;
-  width: calc(100% - 40px);
+  width: 100%;
+  min-height: 76px;
   z-index: 5;
   img {
     width: 110px;
+    vertical-align: middle;
+  }
+
+  @media ${headerMobileMedia} {
+    padding: 17px 20px;
   }
 `
 

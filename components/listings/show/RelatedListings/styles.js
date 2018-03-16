@@ -11,14 +11,6 @@ export default styled.div`
     content: ' ';
     display: table;
   }
-  > h3 {
-    font-size: 12px;
-    line-height: 17px;
-    font-weight: bold;
-    text-transform: uppercase;
-    margin: 50px auto 0;
-    max-width: 1180px;
-  }
   > div {
     padding-top: 25px !important;
   }

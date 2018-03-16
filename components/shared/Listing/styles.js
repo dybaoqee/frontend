@@ -3,15 +3,16 @@ import {mobileMedia} from 'constants/media'
 import styled from 'styled-components'
 
 export default styled.div`
+  box-sizing: border-box;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   cursor: pointer;
   float: left;
   font-size: 20px;
   height: 300px;
-  overflow: hidden;
-  width: 282px;
+  width: 100%;
   background: white;
+  position: relative;
 
   &:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
@@ -39,6 +40,7 @@ export default styled.div`
     }
   }
   > .image-container {
+    border-radius: 8px 8px 0 0;
     background-position: center;
     background-size: cover;
     height: 180px;
