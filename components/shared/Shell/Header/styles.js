@@ -9,13 +9,18 @@ export default styled.header`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 20px;
+  padding: 11px 20px;
   position: fixed;
   top: 0;
   width: calc(100% - 40px);
   z-index: 5;
   img {
     width: 110px;
+    vertical-align: middle;
+  }
+
+  @media ${headerMobileMedia} {
+    padding: 17px 20px;
   }
 `
 
