@@ -125,7 +125,7 @@ export default class PropertyInfo extends Component {
             />
           </Field>
           <Field>
-            <label htmlFor="maintenance_fee">Condomínio</label>
+            <label htmlFor="maintenance_fee">Condomínio (R$)</label>
             <InputWithMask
               value={maintenance_fee}
               name="maintenance_fee"
@@ -135,7 +135,7 @@ export default class PropertyInfo extends Component {
             />
           </Field>
           <Field>
-            <label htmlFor="property_tax">IPTU</label>
+            <label htmlFor="property_tax">IPTU (R$)</label>
             <InputWithMask
               value={property_tax}
               name="property_tax"
