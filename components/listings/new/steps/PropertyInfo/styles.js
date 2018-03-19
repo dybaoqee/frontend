@@ -56,7 +56,7 @@ export const SuggestionList = styled.ul`
   list-style-type: none;
   font-size: 12px;
   font-weight: 600;
-  color: ${colors.orange};
+  color: ${colors.orange.medium};
   padding: 0;
 
   > li:before {
