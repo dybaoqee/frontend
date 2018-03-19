@@ -1,5 +1,4 @@
 import * as colors from 'constants/colors'
-import {mobileMedia} from 'constants/media'
 import styled from 'styled-components'
 
 export default styled.div`
@@ -7,6 +6,8 @@ export default styled.div`
   color: ${colors.orange.medium};
   border-bottom: 1px solid ${colors.orange.medium};
   padding: 10px;
+  display: flex;
+  justify-content: center;
 
   svg {
     float: left;
