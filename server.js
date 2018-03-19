@@ -101,7 +101,7 @@ app
 
     server.get('/imoveis/:id', (req, res) => {
       const actualPage = '/listings/show'
-      const queryParams = {id: req.params.id}
+      const queryParams = {id: req.params.id, ...req.query}
       app.render(req, res, actualPage, queryParams)
     })
 
