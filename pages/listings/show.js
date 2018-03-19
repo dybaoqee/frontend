@@ -166,16 +166,6 @@ export default class Listing extends Component {
 
     return (
       <Fragment>
-        {!is_active && (
-          <Warning
-            message={
-              url.query.r
-                ? 'Seu imóvel foi pré-cadastrado! Agora é só aguardar que nossa equipe entrará em contato.'
-                : 'Imóvel não está visível para o público pois está em fase de moderação.'
-            }
-          />
-        )}
-
         {isImageGalleryVisible && (
           <ImageGallery
             images={listing.images}
@@ -203,6 +193,15 @@ export default class Listing extends Component {
             handleOpen3DTour={this.show3DTour}
             currentUser={currentUser}
           />
+          {!is_active && (
+            <Warning
+              message={
+                url.query.r
+                  ? 'Seu imóvel foi pré-cadastrado! Agora é só aguardar que nossa equipe entrará em contato.'
+                  : 'Imóvel não está visível para o público pois está em fase de moderação.'
+              }
+            />
+          )}
 
           <ListingMainContent
             listing={listing}
