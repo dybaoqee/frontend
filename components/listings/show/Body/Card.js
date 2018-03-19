@@ -56,7 +56,7 @@ export default class ListingCard extends React.Component {
             <span>Preço/m²</span>
             <span>
               <NumberFormat
-                value={price_per_square_meter}
+                value={price_per_square_meter || 0}
                 displayType={'text'}
                 thousandSeparator={'.'}
                 prefix={'R$'}

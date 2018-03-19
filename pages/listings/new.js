@@ -186,7 +186,7 @@ export default class ListingNew extends Component {
   }
 
   submitListing = async () => {
-    const {jwt} = this.props
+    const {jwt, isAdmin} = this.props
     const postData = formatListingData(this.state.listing, [
       'price',
       'property_tax',
@@ -206,10 +206,19 @@ export default class ListingNew extends Component {
         return res
       }
       const listingId = res.data.listing.id
-      Router.replace(
-        `/listings/images?listingId=${listingId}`,
-        `/imoveis/${listingId}/imagens`
-      ).then(() => window.scrollTo(0, 0))
+
+      if (isAdmin) {
+        Router.replace(
+          `/listings/images?listingId=${listingId}`,
+          `/imoveis/${listingId}/imagens`
+        ).then(() => window.scrollTo(0, 0))
+      } else {
+        Router.replace(
+          `/listings/${listingId}`,
+          `/imoveis/${listingId}?r=1`
+        ).then(() => window.scrollTo(0, 0))
+      }
+
       return null
     } catch (e) {
       this.setState({

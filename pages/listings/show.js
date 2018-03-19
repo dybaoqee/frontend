@@ -17,6 +17,7 @@ import InterestPosted from 'components/listings/show/InterestForm/interest_poste
 import RelatedListings from 'components/listings/show/RelatedListings'
 import Error from 'components/shared/Shell/Error'
 import Link from 'next/link'
+import Warning from 'components/shared/Common/Warning'
 
 export default class Listing extends Component {
   state = {
@@ -44,8 +45,9 @@ export default class Listing extends Component {
     try {
       const [listing, related] = await Promise.all([
         getListing(id, jwt).then(({data}) => data.listing),
-        getRelatedListings(id).then(({data}) => data.listings),
+        getRelatedListings(id).then(({data}) => data.listings)
       ])
+
       return {
         listing,
         related,
@@ -151,7 +153,8 @@ export default class Listing extends Component {
   }
 
   showListing = () => {
-    const {currentUser, listing, related} = this.props
+    const {currentUser, listing, related, url} = this.props
+    const {is_active} = listing
     const {
       imageIndex,
       is3DTourVisible,
@@ -190,6 +193,15 @@ export default class Listing extends Component {
             handleOpen3DTour={this.show3DTour}
             currentUser={currentUser}
           />
+          {!is_active && (
+            <Warning
+              message={
+                url.query.r
+                  ? 'Seu imóvel foi pré-cadastrado! Agora é só aguardar que nossa equipe entrará em contato.'
+                  : 'Imóvel não está visível para o público pois está em fase de moderação.'
+              }
+            />
+          )}
 
           <ListingMainContent
             listing={listing}
