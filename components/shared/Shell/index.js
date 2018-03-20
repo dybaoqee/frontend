@@ -71,11 +71,11 @@ export default class Layout extends Component {
             }
           }
           button.green {
-            background: ${colors.green};
-            border: 1px solid ${colors.darkenedGreen};
+            background: ${colors.green.medium};
+            border: 1px solid ${colors.green.dark};
             color: white;
             &:hover {
-              background: ${colors.darkenedGreen};
+              background: ${colors.green.dark};
             }
           }
           button.white {
