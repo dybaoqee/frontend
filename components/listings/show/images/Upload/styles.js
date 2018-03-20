@@ -46,9 +46,9 @@ export const Tile = styled.div`
   border-radius: 4px;
 `
 export const UploadWarning = styled.span`
-  background-color: ${colors.green};
+  background-color: ${colors.green.medium};
   border-radius: 4px;
-  border: 2px dashed ${colors.borderGreen};
+  border: 2px dashed ${colors.green.border};
   box-sizing: border-box;
   position: absolute;
   font-size: 20px;

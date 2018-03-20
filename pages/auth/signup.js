@@ -8,7 +8,7 @@ import {getCookie, removeCookie} from 'lib/session'
 import {signUp, redirectIfAuthenticated} from 'lib/auth'
 import _ from 'lodash'
 
-export default class Login extends Component {
+export default class Signup extends Component {
   state = {
     errors: [],
     loading: false,

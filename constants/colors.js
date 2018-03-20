@@ -14,9 +14,11 @@ export const orange = {
   light: '#ffe3cb'
 }
 
-export const green = '#08c56d'
-export const borderGreen = '#008647'
-export const darkenedGreen = '#00ac54'
+export const green = {
+  medium: '#0dbd62',
+  border: '#008647',
+  dark: '#00ac54'
+}
 
 export const offWhite = '#eee'
 export const lightestGray = '#dcdcdc'
