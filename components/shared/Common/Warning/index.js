@@ -1,6 +1,6 @@
 import Container from './styles'
-export default ({message}) => (
-  <Container>
-    <span>{message || 'Aviso'}</span>
+export default (props) => (
+  <Container {...props}>
+    <span>{props.message || 'Aviso'}</span>
   </Container>
 )
