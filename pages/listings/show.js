@@ -195,9 +195,10 @@ export default class Listing extends Component {
           />
           {!is_active && (
             <Warning
+              green={url.query.r}
               message={
                 url.query.r
-                  ? 'Seu imóvel foi pré-cadastrado! Agora é só aguardar que nossa equipe entrará em contato.'
+                  ? 'Pré-cadastro feito com sucesso. Nossa equipe entrará em contato via email.'
                   : 'Imóvel não está visível para o público pois está em fase de moderação.'
               }
             />
