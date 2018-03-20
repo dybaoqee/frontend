@@ -4,7 +4,8 @@ import Errors from 'components/shared/Common/Errors'
 import _ from 'lodash'
 import {confirm} from 'lib/auth'
 import Container from 'components/shared/Common/Container'
-import Link from 'next/link'
+import Router from 'next/router'
+import {setCookie} from 'lib/session'
 
 export default class Confirm extends Component {
   state = {
@@ -13,17 +14,28 @@ export default class Confirm extends Component {
 
   static async getInitialProps(ctx) {
     const {token} = ctx.req.params
+    let user = {},
+      errors = []
 
-    const res = await confirm(token)
-
-    if (!res.data.name) {
-      return {
-        error: res
-      }
+    try {
+      user = await confirm(token)
+    } catch (e) {
+      errors = e
     }
 
     return {
-      user: res.data
+      user,
+      errors
+    }
+  }
+
+  componentDidMount() {
+    const {user} = this.props
+    if (user.name) {
+      setCookie('jwt', user.token)
+      setCookie('currentUserId', user.id)
+      setCookie('userRole', user.role)
+      Router.replace('/')
     }
   }
 
@@ -41,13 +53,6 @@ export default class Confirm extends Component {
                 {`${_.capitalize(
                   user.name.split(' ')[0]
                 )}, seu cadastro foi confirmado!`}
-              </p>
-              <p>
-                Clique{' '}
-                <Link href={'/login'}>
-                  <a>aqui</a>
-                </Link>{' '}
-                para fazer login.
               </p>
             </div>
           )}
