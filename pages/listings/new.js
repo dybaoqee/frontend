@@ -234,7 +234,7 @@ export default class ListingNew extends Component {
           action: 'User Created Listing'
         })
         Router.replace(
-          `/listings/${listingId}`,
+          `/listings/show?id=${listingId}`,
           `/imoveis/${listingId}?r=1`
         ).then(() => window.scrollTo(0, 0))
       }
