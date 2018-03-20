@@ -1,6 +1,7 @@
 import {Component} from 'react'
 import Link from 'next/link'
 import Container, {Title} from './styles'
+import EmCasaButton from 'components/shared/Common/Buttons'
 
 export default class HomeBuySell extends Component {
   render() {
@@ -9,7 +10,15 @@ export default class HomeBuySell extends Component {
         <div>
           <Title>Pronto para comprar seu imóvel?</Title>
           <Link href={'/listings/index'} as={'/imoveis'}>
-            <a>Comprar Imóvel</a>
+            <EmCasaButton light secondary>
+              Comprar Imóvel
+            </EmCasaButton>
+          </Link>
+        </div>
+        <div>
+          <Title>Quero vender meu imóvel!</Title>
+          <Link href={'/listings/new'} as={'/imoveis/adicionar'}>
+            <EmCasaButton light>Vender imóvel</EmCasaButton>
           </Link>
         </div>
       </Container>

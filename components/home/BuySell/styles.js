@@ -3,27 +3,35 @@ import {mobileMedia} from 'constants/media'
 import styled from 'styled-components'
 
 export default styled.div`
+  box-sizing: border-box;
   border-top: 1px solid ${colors.lightGray};
-  display: flex;
-  height: 300px;
-  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
   > div {
+    box-sizing: border-box;
     align-items: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
     width: 100%;
-    > a {
-      border: 1px solid ${colors.blue.medium};
-      border-radius: 6px;
-      color: ${colors.blue.medium};
-      padding: 15px 30px;
-      text-decoration: none;
-    }
+    padding: 60px;
+  }
+
+  > div:first-of-type {
+    border-right: 1px solid ${colors.lightGray};
   }
 
   @media ${mobileMedia} {
-    max-width: 100%;
+    grid-template-columns: 1fr;
+
+    > div {
+      padding: 30px;
+    }
+
+    > div:first-of-type {
+      border-right: none;
+      border-bottom: 1px solid ${colors.lightGray};
+    }
   }
 `
 
@@ -33,8 +41,4 @@ export const Title = styled.h3`
   margin-bottom: 30px;
   margin-top: 0;
   text-align: center;
-
-  @media ${mobileMedia} {
-    max-width: calc(100% - 140px);
-  }
 `
