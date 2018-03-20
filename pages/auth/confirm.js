@@ -35,12 +35,12 @@ export default class Confirm extends Component {
       setCookie('jwt', user.token)
       setCookie('currentUserId', user.id)
       setCookie('userRole', user.role)
-      Router.replace('/')
+      Router.replace('/?r=1')
     }
   }
 
   render() {
-    const {user, error} = this.props
+    const {error} = this.props
 
     return (
       <Layout>
@@ -49,11 +49,7 @@ export default class Confirm extends Component {
             <Errors errors={[error]} />
           ) : (
             <div>
-              <p>
-                {`${_.capitalize(
-                  user.name.split(' ')[0]
-                )}, seu cadastro foi confirmado!`}
-              </p>
+              <p>Confirmando...</p>
             </div>
           )}
         </Container>
