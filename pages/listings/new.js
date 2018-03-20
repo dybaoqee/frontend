@@ -102,6 +102,11 @@ export default class ListingNew extends Component {
         })
         return
       }
+      ReactGA.event({
+        category: 'Imoveis',
+        label: 'listingCreate',
+        action: 'User has accessed Listing Details Page'
+      })
       this.setState({page: page + 1, canRegress: true})
     }
   }
