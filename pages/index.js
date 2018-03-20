@@ -12,6 +12,7 @@ import HomeListings from 'components/shared/Listing/Feed'
 import HomeTour from 'components/home/Tour'
 import HomeSellingPoints from 'components/home/SellingPoints'
 import HomeBuySell from 'components/home/BuySell'
+import Warning from 'components/shared/Common/Warning'
 
 export default class MyPage extends Component {
   static async getInitialProps(context) {
@@ -29,7 +30,7 @@ export default class MyPage extends Component {
   }
 
   render() {
-    const {authenticated, feed, search, isAdmin} = this.props
+    const {authenticated, feed, search, isAdmin, url} = this.props
     const seoImg =
       'http://res.cloudinary.com/emcasa/image/upload/v1517101014/emcasa-fb-2018-01-27_ntxnrz.jpg'
     const seoTitle =
@@ -55,7 +56,9 @@ export default class MyPage extends Component {
           <meta name="twitter:description" content={seoDescription} />
           <meta name="twitter:image" content={seoImg} />
         </Head>
-
+        {url.query.r && (
+          <Warning green message={'Seu cadastro foi confirmado!'} />
+        )}
         <HomeSearch {...search} />
         <HomeListings {...feed} />
         <Link href={'/listings/index'} as={'/imoveis'}>
