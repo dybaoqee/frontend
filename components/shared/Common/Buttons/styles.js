@@ -4,7 +4,8 @@ import * as colors from 'constants/colors'
 export default styled.button`
   background-color: ${({light, secondary}) =>
     light ? 'white' : secondary ? colors.green.medium : colors.blue.medium};
-  color: ${(props) => (props.light ? colors.blue.medium : 'white')};
+  color: ${({light, secondary}) =>
+    !light ? 'white' : secondary ? colors.green.medium : colors.blue.medium};
   width: ${({full}) => (full ? '100%' : '')};
 
   border: 1px solid
