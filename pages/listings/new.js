@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import Router from 'next/router'
+import ReactGA from 'react-ga'
 import {
   redirectIfNotAuthenticated,
   getJwt,
@@ -58,6 +59,15 @@ export default class ListingNew extends Component {
       authenticated: isAuthenticated(ctx),
       isAdmin
     }
+  }
+
+  componentDidMount() {
+    ReactGA.initialize(process.env.GOOGLE_ANALYTICS_TRACKING_ID)
+    ReactGA.event({
+      category: 'Imoveis',
+      label: 'listingCreate',
+      action: 'User Opened Listing Creation page'
+    })
   }
 
   previousPage = () => {
@@ -213,6 +223,11 @@ export default class ListingNew extends Component {
           `/imoveis/${listingId}/imagens`
         ).then(() => window.scrollTo(0, 0))
       } else {
+        ReactGA.event({
+          category: 'Imoveis',
+          label: 'listingCreate',
+          action: 'User Created Listing'
+        })
         Router.replace(
           `/listings/${listingId}`,
           `/imoveis/${listingId}?r=1`
@@ -221,6 +236,11 @@ export default class ListingNew extends Component {
 
       return null
     } catch (e) {
+      ReactGA.event({
+        category: 'Imoveis',
+        label: 'listingCreate',
+        action: 'User Received Error on Listing Creation'
+      })
       this.setState({
         showErrors: true,
         canRegress: true,
