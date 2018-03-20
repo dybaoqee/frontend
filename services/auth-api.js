@@ -56,7 +56,7 @@ export const confirmUser = async (token) => {
         token
       }
     })
-    return res.data
+    return res
   } catch (error) {
     return error.response && error.response.status === 404
       ? 'Esse link expirou.'
