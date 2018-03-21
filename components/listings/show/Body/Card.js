@@ -31,7 +31,7 @@ export default class ListingCard extends React.Component {
               decimalSeparator={','}
             />
           ) : (
-            'Preço à definir'
+            'Preço a definir'
           )}
         </span>
 
