@@ -59,7 +59,7 @@ export default class MyPage extends Component {
         {url.query.r && (
           <Warning green>
             <p>
-              <span>Seu cadastro foi confirmado.</span>
+              <b>Seu cadastro foi confirmado.</b>
             </p>
           </Warning>
         )}
