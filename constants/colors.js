@@ -1,20 +1,24 @@
 export const text = '#262626'
 
 export const blue = {
-  medium: '#227ea2',
   light: '#e1f7ff',
+  medium: '#227ea2',
   dark: '#1d6c8b'
 }
 
-export const red = '#e54848'
-export const darkenedRed = '#902020'
+export const red = {
+  light: '#fcf0f0',
+  medium: '#e54848',
+  dark: '#902020'
+}
 
 export const orange = {
-  medium: '#ff881d',
-  light: '#ffe3cb'
+  light: '#ffe3cb',
+  medium: '#ff881d'
 }
 
 export const green = {
+  light: '#e6ffed',
   medium: '#0dbd62',
   border: '#008647',
   dark: '#00ac54'

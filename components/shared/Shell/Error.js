@@ -14,7 +14,7 @@ export default styled.div`
 
     > a {
       text-decoration: none;
-      color: ${colors.red};
+      color: ${colors.red.medium};
     }
 
     &:last-of-type {

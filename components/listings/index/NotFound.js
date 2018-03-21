@@ -37,7 +37,7 @@ export default class ListingsNotFound extends Component {
           }
 
           p {
-            color: ${colors.red};
+            color: ${colors.red.medium};
             font-weight: 600;
             margin: 0 0 10px;
             max-width: calc(100% - 40px);

@@ -42,7 +42,7 @@ const Field = styled.div`
     margin: 0 0 10px 0;
 
     span {
-      color: ${colors.red};
+      color: ${colors.red.medium};
     }
   }
 `
