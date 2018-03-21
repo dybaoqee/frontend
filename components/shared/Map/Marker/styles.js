@@ -7,10 +7,10 @@ export default styled.div`
   border-radius: 4px;
   box-shadow: 1px 3px 6px rgba(0, 0, 0, 0.3);
   color: white;
-  font-size: 16px;
+  font-size: 12px;
   font-weight: 400;
   margin-top: -6px;
-  padding: 4px 10px 6px;
+  padding: 3px 6px 4px;
   position: absolute;
   transform: translate(-50%, -100%);
   &:hover {
