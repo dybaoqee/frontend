@@ -2,6 +2,7 @@ import React from 'react'
 import {Title, Input, Field} from 'components/listings/shared/styles'
 import {SearchResults, FieldContainer, SearchResult} from './styles'
 import ErrorContainer from 'components/listings/new/shared/ErrorContainer'
+import {filterComponent} from 'services/google-maps-api'
 
 export default class AddressAutoComplete extends React.Component {
   constructor(props) {
@@ -38,9 +39,9 @@ export default class AddressAutoComplete extends React.Component {
         errors:
           predictions.length === 0
             ? [
-              ...this.state.errors,
-              'Não encontramos o endereço. Tente novamente com outros termos.',
-            ]
+                ...this.state.errors,
+                'Não encontramos o endereço. Tente novamente com outros termos.'
+              ]
             : []
       })
     } catch (e) {
@@ -81,12 +82,33 @@ export default class AddressAutoComplete extends React.Component {
       )
       const json = await response.json()
       this.complementInput.focus()
+
+      const street_number = filterComponent(
+        json.json.result.address_components,
+        'street_number'
+      ).long_name
+      const postal_code = filterComponent(
+        json.json.result.address_components,
+        'postal_code'
+      ).long_name
+      if (!street_number || !postal_code) {
+        this.setState(
+          {
+            place: {},
+            search: `${placeAddress[0]}, número`,
+            showPredictions: false
+          },
+          this.positionCursor
+        )
+        throw {reason: 'Não encontramos um endereço válido com esse número.'}
+      }
       choosePlace(json.json.result)
     } catch (e) {
       this.setState({
         errors: [
           ...this.state.errors,
-          'Ocorreu um erro ao buscar informações sobre o endereço. Tente novamente',
+          e.reason ||
+            'Ocorreu um erro ao buscar informações sobre o endereço. Tente novamente'
         ]
       })
     }
@@ -133,31 +155,31 @@ export default class AddressAutoComplete extends React.Component {
     let newPredictionSelected = predictionSelected
     if (predictions.length > 0) {
       switch (keyCode) {
-      case 9:
-        search.indexOf('número') === -1
-          ? this.setPlace(predictions[0])
-          : this.setState({showPredictions: !showPredictions})
-        break
-      case 38:
-        newPredictionSelected =
+        case 9:
+          search.indexOf('número') === -1
+            ? this.setPlace(predictions[0])
+            : this.setState({showPredictions: !showPredictions})
+          break
+        case 38:
+          newPredictionSelected =
             predictionSelected > 0
               ? newPredictionSelected - 1
               : predictions.length - 1
-        break
-      case 40:
-        newPredictionSelected =
+          break
+        case 40:
+          newPredictionSelected =
             predictionSelected >= predictions.length - 1
               ? 0
               : newPredictionSelected + 1
-        break
-      case 13:
-        const prediction = predictions.filter(
-          (prediction) =>
-            prediction.description ===
+          break
+        case 13:
+          const prediction = predictions.filter(
+            (prediction) =>
+              prediction.description ===
               this.predictionsIds[newPredictionSelected]
-        )[0]
-        this.setPlace(prediction)
-        break
+          )[0]
+          this.setPlace(prediction)
+          break
       }
     }
 
