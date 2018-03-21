@@ -2,10 +2,10 @@ import ErrorContainer, {
   Error
 } from 'components/listings/new/shared/ErrorContainer/styles'
 
+import _ from 'lodash'
+
 function getErrors(errors) {
-  for (const key of Object.keys(errors)) {
-    return <Error key={key}>{errors[key]}</Error>
-  }
+  return _.values(errors).map((value) => <Error key={value}>{value}</Error>)
 }
 export default ({errors}) => (
   <ErrorContainer>{getErrors(errors)}</ErrorContainer>
