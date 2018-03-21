@@ -45,7 +45,7 @@ export default class Listing extends Component {
     try {
       const [listing, related] = await Promise.all([
         getListing(id, jwt).then(({data}) => data.listing),
-        getRelatedListings(id).then(({data}) => data.listings),
+        getRelatedListings(id).then(({data}) => data.listings)
       ])
 
       return {
@@ -197,8 +197,8 @@ export default class Listing extends Component {
             <Warning green={url.query.r}>
               {url.query.r ? (
                 <p>
-                  <span>Pré-cadastro feito com sucesso.</span> Nossa equipe
-                  entrará em contato via email.
+                  <b>Pré-cadastro feito com sucesso.</b> Nossa equipe entrará em
+                  contato via email.
                 </p>
               ) : (
                 <p>
