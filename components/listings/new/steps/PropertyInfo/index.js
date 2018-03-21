@@ -19,11 +19,21 @@ const priceMask = createNumberMask({
 export default class PropertyInfo extends Component {
   constructor(props) {
     super(props)
-    const {onChange, listing} = props
-    onChange &&
-      onChange(
-        {target: {name: 'type', value: listing.type}},
-        !listing.type ? 'Selecione o tipo do imóvel' : undefined
+    const {onChange, listing, isAdmin} = props
+
+    onChange(
+      {target: {name: 'type', value: listing.type}},
+      !listing.type ? 'Selecione o tipo do imóvel' : undefined
+    )
+
+    isAdmin &&
+      setTimeout(
+        () =>
+          onChange(
+            {target: {name: 'price', value: listing.price || 0}},
+            this.getPriceErrorMessage(listing.price || 0)
+          ),
+        100
       )
   }
 
@@ -31,6 +41,24 @@ export default class PropertyInfo extends Component {
     const {onChange} = this.props
     const [type, selection] = args
     onChange && onChange({target: {name: type, value: selection.value}})
+  }
+
+  getPriceErrorMessage = (price) => {
+    const value = parseInt(price.toString().replace(/\D/g, ''))
+    const errorMessage =
+      value < 750000
+        ? 'O valor do imóvel precisa ser no mínimo R$ 750.000,00'
+        : value > 100000000
+          ? 'O valor máximo do imóvel é R$ 100.000.000,00'
+          : undefined
+    return errorMessage
+  }
+
+  onChangePrice = (e) => {
+    const {onChange} = this.props
+
+    const errorMessage = this.getPriceErrorMessage(e.target.value || 0)
+    onChange && onChange(e, errorMessage)
   }
 
   showAdminFields = () => {
@@ -45,7 +73,7 @@ export default class PropertyInfo extends Component {
             name="price"
             mask={priceMask}
             guide={false}
-            onChange={onChange}
+            onChange={this.onChangePrice}
           />
         </Field>
         <Field>
