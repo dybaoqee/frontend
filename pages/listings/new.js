@@ -32,7 +32,7 @@ export default class ListingNew extends Component {
       canAdvance: false,
       canRegress: false,
       errors: {},
-      showErrors: false,
+      showErrors: true,
       submitting: false,
       listing: {}
     }
@@ -41,7 +41,7 @@ export default class ListingNew extends Component {
       <AddressAutoComplete />,
       <PropertyInfo />,
       <PropertyGallery />,
-      <PropertyGalleryEdit />
+      <PropertyGalleryEdit />,
     ]
   }
 
@@ -86,29 +86,30 @@ export default class ListingNew extends Component {
   nextPage = () => {
     const {page, errors} = this.state
 
-    if (page === 1) {
-      this.submitListing()
+    if (Object.keys(errors).length > 0) {
       this.setState({
-        page: page + 1,
-        canRegress: false,
         canAdvance: false,
-        submitting: true
+        showErrors: true
       })
-    } else {
-      if (Object.keys(errors).length > 0) {
-        this.setState({
-          canAdvance: false,
-          showErrors: true
-        })
-        return
-      }
+      return
+    }
+
+    if (page === 0) {
       ReactGA.event({
         category: 'Imoveis',
         label: 'listingCreate',
         action: 'User has accessed Listing Details Page'
       })
-      this.setState({page: page + 1, canRegress: true})
+    } else if (page === 1) {
+      this.submitListing()
     }
+
+    this.setState({
+      page: page + 1,
+      canRegress: true,
+      canAdvance: page < 1,
+      showErrors: true
+    })
   }
 
   setChosenPlace = (placeChosen) => {
@@ -206,7 +207,7 @@ export default class ListingNew extends Component {
       'price',
       'property_tax',
       'maintenance_fee',
-      'area'
+      'area',
     ])
 
     try {
@@ -233,10 +234,7 @@ export default class ListingNew extends Component {
           label: 'listingCreate',
           action: 'User Created Listing'
         })
-        Router.replace(
-          `/listings/show?id=${listingId}`,
-          `/imoveis/${listingId}?r=1`
-        ).then(() => window.scrollTo(0, 0))
+        window.location.replace(`/imoveis/${listingId}?r=1`)
       }
 
       return null
