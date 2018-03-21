@@ -57,7 +57,11 @@ export default class MyPage extends Component {
           <meta name="twitter:image" content={seoImg} />
         </Head>
         {url.query.r && (
-          <Warning green message={'Seu cadastro foi confirmado.'} />
+          <Warning green>
+            <p>
+              <span>Seu cadastro foi confirmado.</span>
+            </p>
+          </Warning>
         )}
         <HomeSearch {...search} />
         <HomeListings {...feed} />

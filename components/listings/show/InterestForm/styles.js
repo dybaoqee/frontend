@@ -12,7 +12,7 @@ export default styled.form`
   }
 
   p.error {
-    color: ${colors.red};
+    color: ${colors.red.medium};
   }
 
   input[type='text'],

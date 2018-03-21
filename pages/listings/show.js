@@ -45,7 +45,7 @@ export default class Listing extends Component {
     try {
       const [listing, related] = await Promise.all([
         getListing(id, jwt).then(({data}) => data.listing),
-        getRelatedListings(id).then(({data}) => data.listings)
+        getRelatedListings(id).then(({data}) => data.listings),
       ])
 
       return {
@@ -194,13 +194,19 @@ export default class Listing extends Component {
             currentUser={currentUser}
           />
           {!is_active && (
-            <Warning
-              message={
-                url.query.r
-                  ? 'Seu imóvel foi pré-cadastrado! Agora é só aguardar que nossa equipe entrará em contato.'
-                  : 'Imóvel não está visível para o público pois está em fase de moderação.'
-              }
-            />
+            <Warning green={url.query.r}>
+              {url.query.r ? (
+                <p>
+                  <span>Pré-cadastro feito com sucesso.</span> Nossa equipe
+                  entrará em contato via email.
+                </p>
+              ) : (
+                <p>
+                  Imóvel não está visível para o público pois está em fase de
+                  moderação.
+                </p>
+              )}
+            </Warning>
           )}
 
           <ListingMainContent

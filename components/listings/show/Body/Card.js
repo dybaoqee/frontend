@@ -22,13 +22,17 @@ export default class ListingCard extends React.Component {
     return (
       <div className="container">
         <span className="price">
-          <NumberFormat
-            value={price}
-            displayType={'text'}
-            thousandSeparator={'.'}
-            prefix={'R$'}
-            decimalSeparator={','}
-          />
+          {price && price > 0 ? (
+            <NumberFormat
+              value={price}
+              displayType={'text'}
+              thousandSeparator={'.'}
+              prefix={'R$'}
+              decimalSeparator={','}
+            />
+          ) : (
+            'Preço a definir'
+          )}
         </span>
 
         <div>
@@ -52,18 +56,22 @@ export default class ListingCard extends React.Component {
             <span>Área</span>
             <span>{area}</span>
           </div>
-          <div>
-            <span>Preço/m²</span>
-            <span>
-              <NumberFormat
-                value={price_per_square_meter || 0}
-                displayType={'text'}
-                thousandSeparator={'.'}
-                prefix={'R$'}
-                decimalSeparator={','}
-              />
-            </span>
-          </div>
+          {price && price > 0 ? (
+            <div>
+              <span>Preço/m²</span>
+              <span>
+                <NumberFormat
+                  value={price_per_square_meter || 0}
+                  displayType={'text'}
+                  thousandSeparator={'.'}
+                  prefix={'R$'}
+                  decimalSeparator={','}
+                />
+              </span>
+            </div>
+          ) : (
+            ''
+          )}
 
           <button className="green" onClick={handleOpenPopup}>
             Marcar Visita
