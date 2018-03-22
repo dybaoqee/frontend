@@ -49,6 +49,7 @@ export default class Login extends Component {
 
   render() {
     const {errors, loading} = this.state
+    const {url} = this.props
 
     return (
       <Layout>
@@ -68,7 +69,15 @@ export default class Login extends Component {
           </p>
           <p>
             {'Não tem cadastro? '}
-            <Link href="/auth/signup" as="/signup">
+            <Link
+              href={{
+                pathname: '/auth/signup',
+                query: url.query && url.query.r ? {r: url.query.r} : {}
+              }}
+              as={{
+                pathname: '/signup'
+              }}
+            >
               <a>Cadastre-se</a>
             </Link>
           </p>
