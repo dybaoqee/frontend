@@ -32,7 +32,7 @@ export default class ListingNew extends Component {
       canAdvance: false,
       canRegress: false,
       errors: {},
-      showErrors: true,
+      showErrors: false,
       submitting: false,
       listing: {}
     }
@@ -41,7 +41,7 @@ export default class ListingNew extends Component {
       <AddressAutoComplete />,
       <PropertyInfo />,
       <PropertyGallery />,
-      <PropertyGalleryEdit />,
+      <PropertyGalleryEdit />
     ]
   }
 
@@ -107,8 +107,7 @@ export default class ListingNew extends Component {
     this.setState({
       page: page + 1,
       canRegress: true,
-      canAdvance: page < 1,
-      showErrors: true
+      canAdvance: page < 1
     })
   }
 
@@ -184,6 +183,15 @@ export default class ListingNew extends Component {
     )
   }
 
+  componentWillUpdate(nextProps, nextState) {
+    const {errors} = this.state
+    const {errors: nextErrors} = nextState
+    if (Object.keys(errors).length > 0 && Object.keys(nextErrors).length === 0)
+      this.setState({
+        canAdvance: true
+      })
+  }
+
   onFieldChange = (e, errorMessage) => {
     const {errors, listing} = this.state
     let updatedErrors = {...errors}
@@ -196,8 +204,7 @@ export default class ListingNew extends Component {
 
     this.setState({
       errors: updatedErrors,
-      listing: {...listing, [e.target.name]: e.target.value},
-      canAdvance: Object.keys(updatedErrors).length === 0
+      listing: {...listing, [e.target.name]: e.target.value}
     })
   }
 
@@ -207,7 +214,7 @@ export default class ListingNew extends Component {
       'price',
       'property_tax',
       'maintenance_fee',
-      'area',
+      'area'
     ])
 
     try {
@@ -272,7 +279,10 @@ export default class ListingNew extends Component {
                 Anterior
               </EmCasaButton>
             )}
-            <EmCasaButton disabled={!canAdvance} onClick={this.nextPage}>
+            <EmCasaButton
+              disabled={page > 1 || !canAdvance}
+              onClick={this.nextPage}
+            >
               Próximo
             </EmCasaButton>
           </ButtonControls>

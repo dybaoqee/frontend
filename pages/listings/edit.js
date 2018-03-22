@@ -45,7 +45,7 @@ export default class ListingEditV2 extends Component {
       canAdvance: true,
       canRegress: false,
       errors: {},
-      showErrors: true,
+      showErrors: false,
       submitting: false,
       listing: {
         ...listingFiltered,
@@ -142,8 +142,7 @@ export default class ListingEditV2 extends Component {
     this.setState({
       page: page + 1,
       canRegress: true,
-      canAdvance: page < 1,
-      showErrors: true
+      canAdvance: page < 1
     })
   }
 
@@ -219,6 +218,15 @@ export default class ListingEditV2 extends Component {
     )
   }
 
+  componentWillUpdate(nextProps, nextState) {
+    const {errors} = this.state
+    const {errors: nextErrors} = nextState
+    if (Object.keys(errors).length > 0 && Object.keys(nextErrors).length === 0)
+      this.setState({
+        canAdvance: true
+      })
+  }
+
   onFieldChange = (e, errorMessage) => {
     const {errors, listing} = this.state
     let updatedErrors = {...errors}
@@ -231,8 +239,7 @@ export default class ListingEditV2 extends Component {
 
     this.setState({
       errors: updatedErrors,
-      listing: {...listing, [e.target.name]: e.target.value},
-      canAdvance: !updatedErrors[e.target.name]
+      listing: {...listing, [e.target.name]: e.target.value}
     })
   }
 
@@ -300,7 +307,10 @@ export default class ListingEditV2 extends Component {
                 Anterior
               </EmCasaButton>
             )}
-            <EmCasaButton disabled={!canAdvance} onClick={this.nextPage}>
+            <EmCasaButton
+              disabled={page > 1 || !canAdvance}
+              onClick={this.nextPage}
+            >
               Próximo
             </EmCasaButton>
           </ButtonControls>
