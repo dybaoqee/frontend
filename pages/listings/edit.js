@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import Link from 'next/link'
 import Router from 'next/router'
+import ReactGA from 'react-ga'
 import _ from 'lodash'
 import {
   redirectIfNotAuthenticated,
@@ -95,6 +96,15 @@ export default class ListingEditV2 extends Component {
     }
   }
 
+  componentDidMount() {
+    ReactGA.initialize(process.env.GOOGLE_ANALYTICS_TRACKING_ID)
+    ReactGA.event({
+      category: 'Imoveis',
+      label: 'listingEdit',
+      action: 'User Opened Listing Edit page'
+    })
+  }
+
   previousPage = () => {
     const {page} = this.state
 
@@ -111,24 +121,29 @@ export default class ListingEditV2 extends Component {
   nextPage = () => {
     const {page, errors} = this.state
 
-    if (page === 1) {
-      this.editListing()
+    if (Object.keys(errors).length > 0) {
       this.setState({
-        page: page + 1,
-        canRegress: false,
         canAdvance: false,
-        submitting: true
+        showErrors: true
       })
-    } else {
-      if (Object.keys(errors).length > 0) {
-        this.setState({
-          canAdvance: false,
-          showErrors: true
-        })
-        return
-      }
-      this.setState({page: page + 1, canRegress: true})
+      return
     }
+
+    if (page === 0) {
+      ReactGA.event({
+        category: 'Imoveis',
+        label: 'listingEdit',
+        action: 'User has accessed Listing Details Page'
+      })
+    } else if (page === 1) {
+      this.editListing()
+    }
+
+    this.setState({
+      page: page + 1,
+      canRegress: true,
+      canAdvance: page < 1
+    })
   }
 
   setChosenPlace = (placeChosen) => {
@@ -203,6 +218,15 @@ export default class ListingEditV2 extends Component {
     )
   }
 
+  componentWillUpdate(nextProps, nextState) {
+    const {errors} = this.state
+    const {errors: nextErrors} = nextState
+    if (Object.keys(errors).length > 0 && Object.keys(nextErrors).length === 0)
+      this.setState({
+        canAdvance: true
+      })
+  }
+
   onFieldChange = (e, errorMessage) => {
     const {errors, listing} = this.state
     let updatedErrors = {...errors}
@@ -215,8 +239,7 @@ export default class ListingEditV2 extends Component {
 
     this.setState({
       errors: updatedErrors,
-      listing: {...listing, [e.target.name]: e.target.value},
-      canAdvance: !updatedErrors[e.target.name]
+      listing: {...listing, [e.target.name]: e.target.value}
     })
   }
 
@@ -240,6 +263,12 @@ export default class ListingEditV2 extends Component {
     if (!res.data) {
       return res
     }
+
+    ReactGA.event({
+      category: 'Imoveis',
+      label: 'listingEdit',
+      action: 'User Edited Listing'
+    })
 
     const listingId = res.data.listing.id
     Router.replace(
@@ -278,7 +307,10 @@ export default class ListingEditV2 extends Component {
                 Anterior
               </EmCasaButton>
             )}
-            <EmCasaButton disabled={!canAdvance} onClick={this.nextPage}>
+            <EmCasaButton
+              disabled={page > 1 || !canAdvance}
+              onClick={this.nextPage}
+            >
               Próximo
             </EmCasaButton>
           </ButtonControls>

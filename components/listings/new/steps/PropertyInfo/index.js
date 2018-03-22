@@ -16,14 +16,28 @@ const priceMask = createNumberMask({
   integerLimit: 12
 })
 
+const minPrice = 650000
+const maxPrice = 100000000
+const currencyStyle = {style: 'currency', currency: 'BRL'}
+
 export default class PropertyInfo extends Component {
   constructor(props) {
     super(props)
-    const {onChange, listing} = props
-    onChange &&
-      onChange(
-        {target: {name: 'type', value: listing.type}},
-        !listing.type ? 'Selecione o tipo do imóvel' : undefined
+    const {onChange, listing, isAdmin} = props
+
+    onChange(
+      {target: {name: 'type', value: listing.type}},
+      !listing.type ? 'Selecione o tipo do imóvel' : undefined
+    )
+
+    isAdmin &&
+      setTimeout(
+        () =>
+          onChange(
+            {target: {name: 'price', value: listing.price || 0}},
+            this.getPriceErrorMessage(listing.price || 0)
+          ),
+        100
       )
   }
 
@@ -31,6 +45,26 @@ export default class PropertyInfo extends Component {
     const {onChange} = this.props
     const [type, selection] = args
     onChange && onChange({target: {name: type, value: selection.value}})
+  }
+
+  getPriceErrorMessage = (price) => {
+    const value = parseInt(price.toString().replace(/\D/g, ''))
+    const errorMessage =
+      value < minPrice
+        ? `O valor do imóvel precisa ser no mínimo
+        ${minPrice.toLocaleString('pt-BR', currencyStyle)}`
+        : value > maxPrice
+          ? `O valor do imóvel precisa ser no máximo
+          ${maxPrice.toLocaleString('pt-BR', currencyStyle)}`
+          : undefined
+    return errorMessage
+  }
+
+  onChangePrice = (e) => {
+    const {onChange} = this.props
+
+    const errorMessage = this.getPriceErrorMessage(e.target.value || 0)
+    onChange && onChange(e, errorMessage)
   }
 
   showAdminFields = () => {
@@ -45,7 +79,7 @@ export default class PropertyInfo extends Component {
             name="price"
             mask={priceMask}
             guide={false}
-            onChange={onChange}
+            onChange={this.onChangePrice}
           />
         </Field>
         <Field>
@@ -69,7 +103,7 @@ export default class PropertyInfo extends Component {
               {value: 4, label: 'Verde'},
               {value: 3, label: 'Amarelo'},
               {value: 2, label: 'Vermelho'},
-              {value: 1, label: 'Preto'}
+              {value: 1, label: 'Preto'},
             ]}
             value={score || ''}
             onChange={this.onChangeSelect.bind(null, 'score')}
@@ -108,7 +142,7 @@ export default class PropertyInfo extends Component {
               options={[
                 {value: 'Apartamento', label: 'Apartamento'},
                 {value: 'Casa', label: 'Casa'},
-                {value: 'Cobertura', label: 'Cobertura'}
+                {value: 'Cobertura', label: 'Cobertura'},
               ]}
               value={propertyType || ''}
               onChange={this.onChangeSelect.bind(null, 'type')}
