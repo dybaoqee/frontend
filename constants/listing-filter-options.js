@@ -5,8 +5,6 @@ export const roomNumberOptions = [
   {value: '4', label: '4 quartos'}
 ]
 
-export const minMaxPrice = [650000, 100000000]
-
 export const minPriceOptions = [
   {value: 750000, label: 'R$750.000'},
   {value: 1000000, label: 'R$1.000.000'},
