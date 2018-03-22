@@ -9,6 +9,7 @@ import {FieldContainer, TextArea, SuggestionList} from './styles'
 import Counter from 'components/shared/Common/Counter'
 import Select from 'react-select'
 import createNumberMask from 'text-mask-addons/dist/createNumberMask'
+import {minMaxPrice} from 'constants/listing-filter-options'
 
 const priceMask = createNumberMask({
   prefix: '',
@@ -46,9 +47,9 @@ export default class PropertyInfo extends Component {
   getPriceErrorMessage = (price) => {
     const value = parseInt(price.toString().replace(/\D/g, ''))
     const errorMessage =
-      value < 750000
-        ? 'O valor do imóvel precisa ser no mínimo R$ 750.000,00'
-        : value > 100000000
+      value < minMaxPrice[0]
+        ? 'O valor do imóvel precisa ser no mínimo R$ 650.000,00'
+        : value > minMaxPrice[1]
           ? 'O valor máximo do imóvel é R$ 100.000.000,00'
           : undefined
     return errorMessage
