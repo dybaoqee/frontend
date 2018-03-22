@@ -54,7 +54,7 @@ export default class PropertyInfo extends Component {
         ? `O valor do imóvel precisa ser no mínimo
         ${minPrice.toLocaleString('pt-BR', currencyStyle)}`
         : value > maxPrice
-          ? `O valor do imóvel precisa ser no mínimo
+          ? `O valor do imóvel precisa ser no máximo
           ${maxPrice.toLocaleString('pt-BR', currencyStyle)}`
           : undefined
     return errorMessage
