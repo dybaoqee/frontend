@@ -33,13 +33,13 @@ export default class Signup extends Component {
   handleSubmit = async (e) => {
     e.preventDefault()
     this.setState({errors: [], loading: true})
+    const {url} = this.props
 
     const name = e.target.elements.name.value
     const email = e.target.elements.email.value
     const password = e.target.elements.password.value
-
     try {
-      let data = await signUp(name, email, password)
+      let data = await signUp(name, email, password, url)
       this.setState({data, loading: false})
     } catch (e) {
       let errors = e
