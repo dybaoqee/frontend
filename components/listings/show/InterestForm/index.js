@@ -161,7 +161,7 @@ export default class InterestForm extends Component {
     onSubmit(undefined, {
       name: 'Calendly',
       message:
-        'Essa mensagem está sendo enviada porque algum usuário tentou agendar uma visista pelo Calendly neste imóvel'
+        'Essa mensagem está sendo enviada porque algum usuário tentou agendar uma visita pelo Calendly neste imóvel'
     })
   }
 
