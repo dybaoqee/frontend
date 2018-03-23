@@ -9,10 +9,10 @@ const SearchResults = styled.div`
   background-color: white;
   min-width: 100%;
   position: absolute;
-  top: 100%;
+  top: 85%;
 
   @media ${mobileMedia} {
-    top: 90%;
+    top: 75%;
   }
 `
 
