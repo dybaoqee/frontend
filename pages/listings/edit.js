@@ -183,13 +183,14 @@ export default class ListingEditV2 extends Component {
 
   getStepContent(page) {
     const Current = this.steps[page]
-    const {listing} = this.state
+    const {listing, showErrors, errors} = this.state
     return React.cloneElement(Current, {
       choosePlace: this.setChosenPlace,
       listing,
       onChange: this.onFieldChange,
       isAdmin: this.props.isAdmin,
-      resetListing: this.resetListing
+      resetListing: this.resetListing,
+      errors: showErrors ? errors : []
     })
   }
 
@@ -331,7 +332,7 @@ export default class ListingEditV2 extends Component {
               )}
             </Header>
             {this.renderContent()}
-            {showErrors && <ErrorContainer errors={errors} />}
+            {showErrors && page > 1 && <ErrorContainer errors={errors} />}
             <ButtonControls>
               {page > 0 && (
                 <EmCasaButton
