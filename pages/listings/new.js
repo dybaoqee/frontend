@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import Router from 'next/router'
 import ReactGA from 'react-ga'
+import _ from 'lodash'
 import {
   redirectIfNotAuthenticated,
   getJwt,
@@ -251,10 +252,14 @@ export default class ListingNew extends Component {
         label: 'listingCreate',
         action: 'User Received Error on Listing Creation'
       })
+
+      const errors = _.isArray(e)
+        ? e
+        : [e.data ? _.flattenDeep(Object.values(e.data.errors)) : e]
       this.setState({
         showErrors: true,
         canRegress: true,
-        errors: ['Ocorreu um erro desconhecido. Por favor, tente novamente.']
+        errors
       })
     }
   }

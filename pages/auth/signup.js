@@ -40,10 +40,11 @@ export default class Signup extends Component {
     const password = e.target.elements.password.value
     try {
       let data = await signUp(name, email, password, url)
-      this.setState({data, loading: false})
+      this.setState({data})
     } catch (e) {
-      let errors = e
-      errors = _.isArray(errors) ? errors : [errors]
+      const errors = _.isArray(e)
+        ? e
+        : [e.data ? _.flattenDeep(Object.values(e.data.errors)) : e]
       this.setState({errors, loading: false})
     }
   }

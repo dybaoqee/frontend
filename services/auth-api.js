@@ -10,7 +10,7 @@ export const authenticate = async (email, password) => {
     })
     return res.data
   } catch (error) {
-    return error.response && error.response.status === 404
+    throw error.response && error.response.status === 404
       ? 'Ocorreu um erro desconhecido. Por favor, tente novamente.'
       : 'E-mail ou senha inválidos.'
   }
@@ -58,7 +58,7 @@ export const confirmUser = async (token) => {
     })
     return res
   } catch (error) {
-    return error.response && error.response.status === 404
+    throw error.response && error.response.status === 404
       ? 'Esse link expirou.'
       : 'Ocorreu um erro desconhecido. Por favor, tente novamente.'
   }

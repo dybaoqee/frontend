@@ -39,10 +39,11 @@ export default class PasswordReset extends Component {
     const {token} = this.props
     try {
       let data = await resetPassword(password, password_confirm, token)
-      this.setState({data, loading: false})
+      this.setState({data})
     } catch (e) {
-      let errors = e
-      errors = _.isArray(errors) ? errors : [errors]
+      const errors = _.isArray(e)
+        ? e
+        : [e.data ? _.flattenDeep(Object.values(e.data.errors)) : e]
       this.setState({errors, loading: false})
     }
   }
