@@ -37,14 +37,14 @@ export default class Login extends Component {
 
     const email = e.target.elements.email.value
     const password = e.target.elements.password.value
-    let errors = await signIn(email, password, url)
-
-    if (errors) {
-      errors = errors && _.isArray(errors) ? errors : [errors]
-      this.setState({errors})
+    try {
+      await signIn(email, password, url)
+    } catch (e) {
+      const errors = _.isArray(e)
+        ? e
+        : [e.data ? _.flattenDeep(Object.values(e.data.errors)) : e]
+      this.setState({errors, loading: false})
     }
-
-    this.setState({loading: false})
   }
 
   render() {
