@@ -6,6 +6,7 @@ export default styled.form`
   margin: 0 auto;
   padding: 10px;
   width: ${({full}) => (full ? '100%' : '400px')};
+  box-sizing: border-box;
 
   .Select-control {
     border: 1px solid ${colors.lightGray};
