@@ -1,8 +1,8 @@
 import React from 'react'
-import {Title, Input, Field} from 'components/listings/shared/styles'
+import {Title, Field} from 'components/listings/shared/styles'
 import {SearchResults, FieldContainer, SearchResult} from './styles'
-import ErrorContainer from 'components/listings/new/shared/ErrorContainer'
 import {filterComponent} from 'services/google-maps-api'
+import Form from 'components/shared/Common/Form'
 
 export default class AddressAutoComplete extends React.Component {
   constructor(props) {
@@ -45,7 +45,7 @@ export default class AddressAutoComplete extends React.Component {
           predictions.length === 0
           ? [
               ...this.state.errors,
-            'Não encontramos o endereço.Tente novamente com outros termos.',
+            'Não encontramos o endereço.Tente outros termos.',
             ]
           : []
       })
@@ -221,18 +221,17 @@ export default class AddressAutoComplete extends React.Component {
     }, ${listing.city} - ${listing.state}, Brasil`
 
     return (
-      <div>
+      <Form full errors={errors.length ? {street: errors[0]} : {}}>
         <Title>Onde fica o seu imóvel?</Title>
-        <ErrorContainer errors={errors} />
         <FieldContainer>
           <Field>
             <label htmlFor="street">Endereço com número</label>
-            <Input
+            <input
               onKeyDown={this.onKeyPress}
               onBlur={this.onBlur}
               type="text"
               name="street"
-              innerRef={(input) => (this.searchInput = input)}
+              ref={(input) => (this.searchInput = input)}
               value={place.description || (listing.street ? address : search)}
               placeholder="Coloque seu endereço aqui"
               onChange={this.onChange}
@@ -244,11 +243,11 @@ export default class AddressAutoComplete extends React.Component {
           </Field>
           <Field>
             <label htmlFor="address">Complemento</label>
-            <Input
+            <input
               type="text"
               name="complement"
               defaultValue={listing.complement}
-              innerRef={(input) => {
+              ref={(input) => {
                 this.complementInput = input
               }}
               placeholder=""
@@ -258,7 +257,7 @@ export default class AddressAutoComplete extends React.Component {
         </FieldContainer>
 
         {loadingPlaceInfo && <p>Buscando informações sobre o local...</p>}
-      </div>
+      </Form>
     )
   }
 }
