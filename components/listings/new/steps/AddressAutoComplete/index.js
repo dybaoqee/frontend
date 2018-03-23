@@ -19,6 +19,7 @@ export default class AddressAutoComplete extends React.Component {
     }
 
     this.predictionsIds = []
+    this.secondaryText = undefined
   }
 
   componentDidMount() {
@@ -32,17 +33,21 @@ export default class AddressAutoComplete extends React.Component {
 
       const {predictions} = json.json
 
+      const predictionsSorted = predictions.sort(
+        (a, b) => b.structured_formatting.secondary_text === this.secondaryText
+      )
+
       this.setState({
-        predictions,
+        predictions: predictionsSorted,
         showPredictions: true,
         predictionSelected: 0,
         errors:
           predictions.length === 0
-            ? [
-                ...this.state.errors,
-                'Não encontramos o endereço. Tente novamente com outros termos.'
-              ]
-            : []
+          ? [
+              ...this.state.errors,
+            'Não encontramos o endereço.Tente novamente com outros termos.',
+            ]
+          : []
       })
     } catch (e) {
       this.setState({
@@ -63,6 +68,7 @@ export default class AddressAutoComplete extends React.Component {
   setPlace = async (place) => {
     const {structured_formatting} = place
     const placeAddress = structured_formatting.main_text.split(',')
+    this.secondaryText = structured_formatting.secondary_text
     if (!placeAddress[1]) {
       this.setState(
         {

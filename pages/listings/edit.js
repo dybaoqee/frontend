@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import Link from 'next/link'
 import Router from 'next/router'
 import ReactGA from 'react-ga'
+import Error from 'components/shared/Shell/Error'
 import _ from 'lodash'
 import {
   redirectIfNotAuthenticated,
@@ -47,10 +48,12 @@ export default class ListingEditV2 extends Component {
       errors: {},
       showErrors: false,
       submitting: false,
-      listing: {
-        ...listingFiltered,
-        ...listing.address
-      }
+      listing: props.statusCode
+        ? {}
+        : {
+          ...listingFiltered,
+          ...listing.address
+        }
     }
     this.steps = [
       <AddressAutoComplete />,
@@ -87,11 +90,13 @@ export default class ListingEditV2 extends Component {
         isAdmin
       }
     } catch (e) {
+      const statusCode = e.response.status
       return {
+        statusCode,
         id: id,
         jwt: jwt,
         isAuthenticated: isAuthenticated(context),
-        isAdmin: isAdmin(context)
+        isAdmin: isAdminUser(context)
       }
     }
   }
@@ -279,42 +284,58 @@ export default class ListingEditV2 extends Component {
   }
 
   render() {
-    const {isAuthenticated, id, isAdmin} = this.props
+    const {isAuthenticated, id, isAdmin, statusCode} = this.props
     const {page, canAdvance, canRegress, errors, showErrors} = this.state
     return (
       <Layout authenticated={isAuthenticated} isAdmin={isAdmin}>
-        <StepContainer>
-          <Header>
-            <h1>Editar Imóvel</h1>
-            {page < 2 && (
-              <Link
-                href={`/listings/images?listingId=${id}`}
-                as={`/imoveis/${id}/imagens`}
-              >
-                <a>Editar Imagens</a>
-              </Link>
-            )}
-          </Header>
-          {this.renderContent()}
-          {showErrors && <ErrorContainer errors={errors} />}
-          <ButtonControls>
-            {page > 0 && (
+        {statusCode ? (
+          <Error>
+            <h1>
+              {statusCode === 404
+                ? 'Imóvel não encontrado'
+                : 'Você não tem permissão para editar esse Imóvel'}
+            </h1>
+            <h2>{statusCode}</h2>
+            <p>
+              Visite nossa <Link href="/">página inicial</Link> ou entre
+              em&nbsp;
+              <Link href="mailto:contato@emcasa.com">contato</Link> com a gente
+            </p>
+          </Error>
+        ) : (
+          <StepContainer>
+            <Header>
+              <h1>Editar Imóvel</h1>
+              {page < 2 && (
+                <Link
+                  href={`/listings/images?listingId=${id}`}
+                  as={`/imoveis/${id}/imagens`}
+                >
+                  <a>Editar Imagens</a>
+                </Link>
+              )}
+            </Header>
+            {this.renderContent()}
+            {showErrors && <ErrorContainer errors={errors} />}
+            <ButtonControls>
+              {page > 0 && (
+                <EmCasaButton
+                  light
+                  disabled={!canRegress}
+                  onClick={this.previousPage}
+                >
+                  Anterior
+                </EmCasaButton>
+              )}
               <EmCasaButton
-                light
-                disabled={!canRegress}
-                onClick={this.previousPage}
+                disabled={page > 1 || !canAdvance}
+                onClick={this.nextPage}
               >
-                Anterior
+                Próximo
               </EmCasaButton>
-            )}
-            <EmCasaButton
-              disabled={page > 1 || !canAdvance}
-              onClick={this.nextPage}
-            >
-              Próximo
-            </EmCasaButton>
-          </ButtonControls>
-        </StepContainer>
+            </ButtonControls>
+          </StepContainer>
+        )}
       </Layout>
     )
   }
