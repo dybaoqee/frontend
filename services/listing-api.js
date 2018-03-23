@@ -135,9 +135,7 @@ export const createListing = async (data, jwt) => {
     const response = await post('/listings', payload, jwt)
     return response
   } catch (error) {
-    if (error.response && error.response.status === 422)
-      throw new Error('Unknown error. Please try again.', error)
-    else throw error
+    throw error.response || error.message
   }
 }
 
