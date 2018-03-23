@@ -51,14 +51,14 @@ export default class ListingEditV2 extends Component {
       listing: props.statusCode
         ? {}
         : {
-          ...listingFiltered,
-          ...listing.address
-        }
+            ...listingFiltered,
+            ...listing.address
+          }
     }
     this.steps = [
       <AddressAutoComplete />,
       <PropertyInfo />,
-      <PropertyGallery />
+      <PropertyGallery />,
     ]
   }
 
@@ -255,32 +255,47 @@ export default class ListingEditV2 extends Component {
       'price',
       'property_tax',
       'maintenance_fee',
-      'area'
+      'area',
     ])
 
-    const res = await updateListing(id, postData, jwt)
+    try {
+      const res = await updateListing(id, postData, jwt)
+      if (res.data.errors) {
+        this.setState({errors: res.data.errors})
+        return
+      }
+      if (!res.data) {
+        return res
+      }
 
-    if (res.data.errors) {
-      this.setState({errors: res.data.errors})
-      return
+      ReactGA.event({
+        category: 'Imoveis',
+        label: 'listingEdit',
+        action: 'User Edited Listing'
+      })
+
+      const listingId = res.data.listing.id
+      Router.replace(
+        `/listings/show?id=${listingId}`,
+        `/imoveis/${listingId}`
+      ).then(() => window.scrollTo(0, 0))
+      return null
+    } catch (e) {
+      ReactGA.event({
+        category: 'Imoveis',
+        label: 'listingEdit',
+        action: 'User Received Error on Listing Edition'
+      })
+
+      const errors = _.isArray(e)
+        ? e
+        : [e.data ? _.flattenDeep(Object.values(e.data.errors)) : e]
+      this.setState({
+        showErrors: true,
+        canRegress: true,
+        errors
+      })
     }
-
-    if (!res.data) {
-      return res
-    }
-
-    ReactGA.event({
-      category: 'Imoveis',
-      label: 'listingEdit',
-      action: 'User Edited Listing'
-    })
-
-    const listingId = res.data.listing.id
-    Router.replace(
-      `/listings/show?id=${listingId}`,
-      `/imoveis/${listingId}`
-    ).then(() => window.scrollTo(0, 0))
-    return null
   }
 
   render() {
