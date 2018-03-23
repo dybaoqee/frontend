@@ -38,8 +38,9 @@ export default class PasswordRecovery extends Component {
       let data = await redefinePassword(email)
       this.setState({data, loading: false})
     } catch (e) {
-      let errors = e
-      errors = _.isArray(errors) ? errors : [errors]
+      const errors = _.isArray(e)
+        ? e
+        : [e.data ? _.flattenDeep(Object.values(e.data.errors)) : e]
       this.setState({errors, loading: false})
     }
   }
