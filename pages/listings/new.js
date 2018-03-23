@@ -42,7 +42,7 @@ export default class ListingNew extends Component {
       <AddressAutoComplete />,
       <PropertyInfo />,
       <PropertyGallery />,
-      <PropertyGalleryEdit />
+      <PropertyGalleryEdit />,
     ]
   }
 
@@ -178,11 +178,7 @@ export default class ListingNew extends Component {
       )
     }
 
-    return (
-      <div>
-        <div>{this.getStepContent(page)}</div>
-      </div>
-    )
+    return <div>{this.getStepContent(page)}</div>
   }
 
   componentWillUpdate(nextProps, nextState) {
@@ -216,7 +212,7 @@ export default class ListingNew extends Component {
       'price',
       'property_tax',
       'maintenance_fee',
-      'area'
+      'area',
     ])
 
     try {
