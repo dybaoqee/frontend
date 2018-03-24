@@ -10,7 +10,6 @@ export default styled.form`
 
   .Select-control {
     border: 1px solid ${colors.lightGray};
-    box-sizing: border-box;
     border-radius: 6px;
     height: 54px;
     vertical-align: middle;
@@ -80,6 +79,10 @@ export default styled.form`
           margin-bottom: 10px !important;
         }
 
+        .Select.${key} > .Select-control{
+          border: none;
+        }
+
         label[for*="${key}"]:after{
           box-sizing: border-box;
           display: flex;
@@ -87,7 +90,7 @@ export default styled.form`
           position: absolute;
           background: ${colors.red.medium};
           color: white;
-          padding: 6px 4px 4px 4px;
+          padding: 6px 4px 4px 8px;
           width: 100%;
           bottom: -12px;
           border-radius: 0 0 6px 6px;
