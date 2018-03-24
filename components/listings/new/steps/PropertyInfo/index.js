@@ -14,7 +14,12 @@ const priceMask = createNumberMask({
 
 const minPrice = 650000
 const maxPrice = 100000000
-const currencyStyle = {style: 'currency', currency: 'BRL'}
+const currencyStyle = {
+  style: 'currency',
+  currency: 'BRL',
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 0
+}
 
 export default class PropertyInfo extends Component {
   constructor(props) {
@@ -100,7 +105,7 @@ export default class PropertyInfo extends Component {
               {value: 4, label: 'Verde'},
               {value: 3, label: 'Amarelo'},
               {value: 2, label: 'Vermelho'},
-              {value: 1, label: 'Preto'}
+              {value: 1, label: 'Preto'},
             ]}
             value={score || ''}
             onChange={this.onChangeSelect.bind(null, 'score')}
@@ -140,7 +145,7 @@ export default class PropertyInfo extends Component {
               options={[
                 {value: 'Apartamento', label: 'Apartamento'},
                 {value: 'Casa', label: 'Casa'},
-                {value: 'Cobertura', label: 'Cobertura'},
+                {value: 'Cobertura', label: 'Cobertura'}
               ]}
               value={propertyType || ''}
               onChange={this.onChangeSelect.bind(null, 'type')}
