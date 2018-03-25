@@ -7,7 +7,7 @@ describe('Header', () => {
   it('should render unauthenticated', () => {
     const header = shallow(<Header />)
 
-    expect(header.find(Link)).toHaveLength(5)
+    expect(header.find(Link)).toHaveLength(6)
 
     expect(
       header
@@ -20,10 +20,17 @@ describe('Header', () => {
 
     expect(
       header
+        .find('[href="/listings"]')
+        .find('a')
+        .text()
+    ).toEqual('Compre')
+
+    expect(
+      header
         .find('[href="/listings/new"]')
         .find('a')
         .text()
-    ).toEqual('Venda seu Imóvel')
+    ).toEqual('Venda')
 
     expect(
       header
@@ -41,7 +48,7 @@ describe('Header', () => {
   it('should render authenticated', () => {
     const header = shallow(<Header authenticated={true} isAdmin={true} />)
 
-    expect(header.find(Link)).toHaveLength(4)
+    expect(header.find(Link)).toHaveLength(5)
 
     expect(
       header
@@ -71,7 +78,7 @@ describe('Header', () => {
         .find('[href="/listings/new"]')
         .find('a')
         .text()
-    ).toEqual('Venda seu Imóvel')
+    ).toEqual('Venda')
 
     expect(header.find('[href="/auth/logout"]').exists()).toEqual(true)
     expect(header.find('[href="/login"]').exists()).toEqual(false)

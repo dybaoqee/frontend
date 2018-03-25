@@ -40,8 +40,12 @@ export default class Header extends Component {
         <Button onClick={this.toggleMobileNavVisibility}>☰</Button>
 
         <Nav visible={isMobileNavVisible}>
-          <Link href="/listings/new" as="/imoveis/adicionar">
-            <a>Venda seu Imóvel</a>
+          <Link href="/listings" as="/imoveis" prefetch>
+            <a>Compre</a>
+          </Link>
+
+          <Link href="/listings/new" as="/imoveis/adicionar" prefetch>
+            <a>Venda</a>
           </Link>
 
           <Link href="/indique">
