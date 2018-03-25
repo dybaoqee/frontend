@@ -6,6 +6,10 @@ export default styled.ul`
   margin: 0;
   padding: 0;
   list-style: none;
+  a[href] {
+    color: inherit;
+    text-decoration: none;
+  }
 `
 
 export const Footer = styled.footer`
