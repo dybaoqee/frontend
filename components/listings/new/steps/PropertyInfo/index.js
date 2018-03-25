@@ -1,10 +1,6 @@
 import {Component, Fragment} from 'react'
-import {
-  Title,
-  Input,
-  InputWithMask,
-  Field
-} from 'components/listings/shared/styles'
+import {Title, InputWithMask, Field} from 'components/listings/shared/styles'
+import Form from 'components/shared/Common/Form'
 import {FieldContainer, TextArea, SuggestionList} from './styles'
 import Counter from 'components/shared/Common/Counter'
 import Select from 'react-select'
@@ -18,7 +14,12 @@ const priceMask = createNumberMask({
 
 const minPrice = 650000
 const maxPrice = 100000000
-const currencyStyle = {style: 'currency', currency: 'BRL'}
+const currencyStyle = {
+  style: 'currency',
+  currency: 'BRL',
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 0
+}
 
 export default class PropertyInfo extends Component {
   constructor(props) {
@@ -51,10 +52,10 @@ export default class PropertyInfo extends Component {
     const value = parseInt(price.toString().replace(/\D/g, ''))
     const errorMessage =
       value < minPrice
-        ? `O valor do imóvel precisa ser no mínimo
+        ? `Valor mínimo:
         ${minPrice.toLocaleString('pt-BR', currencyStyle)}`
         : value > maxPrice
-          ? `O valor do imóvel precisa ser no máximo
+          ? `Valor máximo:
           ${maxPrice.toLocaleString('pt-BR', currencyStyle)}`
           : undefined
     return errorMessage
@@ -77,6 +78,7 @@ export default class PropertyInfo extends Component {
           <InputWithMask
             value={price && price.toString().length > 0 ? price : ''}
             name="price"
+            type="text"
             mask={priceMask}
             guide={false}
             onChange={this.onChangePrice}
@@ -84,7 +86,7 @@ export default class PropertyInfo extends Component {
         </Field>
         <Field>
           <label htmlFor="floor">Código do Matterport</label>
-          <Input
+          <input
             type="text"
             name="matterport_code"
             defaultValue={matterport_code}
@@ -95,8 +97,8 @@ export default class PropertyInfo extends Component {
         <Field>
           <label htmlFor="score">Farol</label>
           <Select
-            name="score"
             clearable={false}
+            className="score"
             placeholder="Selecione o Farol"
             noResultsText="Nenhum resultado encontrado"
             options={[
@@ -114,7 +116,7 @@ export default class PropertyInfo extends Component {
   }
 
   render() {
-    const {onChange, listing, isAdmin} = this.props
+    const {onChange, listing, isAdmin, errors} = this.props
     const {
       type: propertyType,
       floor,
@@ -126,8 +128,9 @@ export default class PropertyInfo extends Component {
       garage_spots,
       description
     } = listing
+
     return (
-      <div>
+      <Form full errors={errors}>
         <Title>Dados principais do imóvel</Title>
         <FieldContainer>
           <Field>
@@ -135,14 +138,14 @@ export default class PropertyInfo extends Component {
               Tipo do imóvel <span>(Obrigatório)</span>
             </label>
             <Select
-              name="type"
               clearable={false}
+              className="type"
               placeholder="Selecione o tipo"
               noResultsText="Nenhum resultado encontrado"
               options={[
                 {value: 'Apartamento', label: 'Apartamento'},
                 {value: 'Casa', label: 'Casa'},
-                {value: 'Cobertura', label: 'Cobertura'},
+                {value: 'Cobertura', label: 'Cobertura'}
               ]}
               value={propertyType || ''}
               onChange={this.onChangeSelect.bind(null, 'type')}
@@ -150,7 +153,7 @@ export default class PropertyInfo extends Component {
           </Field>
           <Field>
             <label htmlFor="floor">Andar</label>
-            <Input
+            <input
               type="text"
               name="floor"
               defaultValue={floor}
@@ -161,6 +164,7 @@ export default class PropertyInfo extends Component {
           <Field>
             <label htmlFor="maintenance_fee">Condomínio (R$)</label>
             <InputWithMask
+              type="text"
               value={maintenance_fee}
               name="maintenance_fee"
               mask={priceMask}
@@ -171,6 +175,7 @@ export default class PropertyInfo extends Component {
           <Field>
             <label htmlFor="property_tax">IPTU (R$)</label>
             <InputWithMask
+              type="text"
               value={property_tax}
               name="property_tax"
               mask={priceMask}
@@ -182,6 +187,7 @@ export default class PropertyInfo extends Component {
             <label htmlFor="area">Área (em m²)</label>
             <InputWithMask
               value={area}
+              type="text"
               name="area"
               placeholder="Área"
               mask={[/\d/, /\d/, /\d/, /\d/, /\d/]}
@@ -238,7 +244,7 @@ export default class PropertyInfo extends Component {
           </Field>
           {isAdmin && this.showAdminFields()}
         </FieldContainer>
-      </div>
+      </Form>
     )
   }
 }

@@ -3,36 +3,16 @@ import * as colors from 'constants/colors'
 import {mobileMedia} from 'constants/media'
 import MaskedInput from 'react-text-mask'
 
-const Title = styled.h1`
+export const Title = styled.h1`
   font-weight: normal;
   font-size: 22px;
 `
 
-const Field = styled.div`
+export const Field = styled.div`
+  display: flex;
+  flex-direction: column;
   position: relative;
-  display: grid;
-
-  .Select-control {
-    border: 1px solid ${colors.lightGray};
-    box-sizing: border-box;
-    border-radius: 6px;
-    height: 54px;
-    vertical-align: middle;
-    font-size: 16px;
-  }
-
-  .Select-placeholder {
-    align-items: center;
-    display: flex;
-  }
-  .Select-value {
-    align-items: center;
-    border-radius: 9px;
-    display: flex;
-  }
-  .Select-input {
-    padding-top: 7px;
-  }
+  box-sizing: border-box;
 
   label {
     font-weight: 600;
@@ -45,9 +25,13 @@ const Field = styled.div`
       color: ${colors.red.medium};
     }
   }
+
+  @media ${mobileMedia} {
+    padding-bottom: 10px;
+  }
 `
 
-const StepContainer = styled.div`
+export const StepContainer = styled.div`
   box-sizing: border-box;
   width: 700px;
   margin: 0 auto 100px;
@@ -60,44 +44,22 @@ const StepContainer = styled.div`
     width: 100vw;
   }
 `
-const Input = styled.input`
-  border: 1px solid ${colors.lightGray};
-  border-radius: 6px;
-  box-sizing: border-box;
-  font-size: 16px;
-  padding: 15px;
-  width: 100%;
-
-  :focus {
-    border: 1px solid ${colors.blue.medium};
-    outline: none;
-  }
-
-  &[readonly] {
-    color: #bbb;
-  }
-  &[disabled] {
-    background-color: ${colors.lightestGray};
-  }
-
-  @media ${mobileMedia} {
-    margin-bottom: 10px;
-  }
-`
+export const Input = styled.input``
 
 export const InputWithMask = Input.withComponent(MaskedInput)
 
-const ButtonControls = styled.div`
+export const ButtonControls = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
+  padding: 10px;
 
   > :last-child {
     margin-left: auto;
   }
 `
 
-const Header = styled.div`
+export const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: baseline;
@@ -109,5 +71,3 @@ const Header = styled.div`
     color: ${colors.blue.medium};
   }
 `
-
-export {Title, Field, Input, StepContainer, ButtonControls, Header}
