@@ -1,0 +1,44 @@
+import styled from 'styled-components'
+
+export default styled.div`
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  position: fixed;
+  height: 100vh !important;
+  justify-content: center;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  z-index: 10;
+  > div {
+    box-sizing: border-box;
+    background-color: white;
+    width: auto;
+    border-radius: 6px;
+    max-width: calc(100% - 40px);
+    position: relative;
+    text-align: center;
+    margin-bottom: 0px !important;
+  }
+`
+
+export const Close = styled.button`
+  background-color: transparent;
+  border: none;
+  border-radius: 6px;
+  box-shadow: none;
+  color: #8c8c8c;
+  float: right;
+  font-size: 40px;
+  font-weight: lighter;
+  line-height: 36px;
+  padding: 4px 12px 10px;
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  :hover {
+    background-color: #f0f0f0;
+  }
+`
