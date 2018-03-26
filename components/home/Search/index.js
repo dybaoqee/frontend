@@ -47,7 +47,7 @@ export default class HomeSearch extends Component {
       label: 'User search from Home',
       action: 'homeSearch'
     })
-    Router.replace(href, as)
+    Router.push(href, as)
   }
 
   buildLink = () => {
