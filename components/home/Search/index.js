@@ -1,6 +1,5 @@
 import {Component} from 'react'
 import ReactGA from 'react-ga'
-import Select from 'react-select'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faSearch from '@fortawesome/fontawesome-free-solid/faSearch'
 import Link from 'next/link'
