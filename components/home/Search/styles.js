@@ -48,52 +48,125 @@ export const Search = styled.div`
     height: 44px;
   }
 
-  & .Select-control {
-    background: transparent;
-    border: none;
-    height: 45px;
-
-    .Select-placeholder {
-      align-items: center;
-      display: flex;
-    }
-    .Select-value {
-      align-items: center;
-      border-radius: 9px;
-      display: flex;
-    }
-    .Select-input {
-      padding-top: 7px;
-    }
-  }
-
   @media ${mobileMedia} {
-    background: transparent;
-    border: none;
-    flex-direction: column;
-    margin-top: 20px;
-    width: calc(100vw - 40px);
-    > div {
-      flex-direction: column;
-      &:first-of-type {
-        border-bottom: none;
-      }
-      > div {
-        border-radius: 9px;
-        border-right: none;
-        background: white;
-        margin-bottom: 20px;
-      }
-    }
+    width: calc(100% - 20px);
   }
 `
 
 export const Neighborhoods = styled.div`
+  box-sizing: border-box;
   width: calc(100% - 60px);
+  cursor: pointer;
+  user-select: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: ${colors.mediumDarkGray};
+  display: flex;
+  padding: 10px;
   @media ${mobileMedia} {
     border-radius: 8px;
     width: 100%;
   }
+`
+
+export const Neighborhood = styled.div`
+  box-sizing: border-box;
+  height: 54px;
+  position: relative;
+
+  @media ${mobileMedia} {
+    border-bottom: 1px solid ${colors.mediumGray};
+    padding: 5px 24px;
+  }
+
+  svg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    pointer-events: none;
+    @media ${mobileMedia} {
+      margin-right: 10px;
+    }
+  }
+
+  svg path {
+    ${({checked}) =>
+      `fill: ${checked ? colors.blue.medium : colors.offWhite};`};
+  }
+
+  label {
+    ${({checked}) => `color: ${checked ? colors.blue.medium : 'none'};`};
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: start;
+    align-items: center;
+  }
+
+  input {
+    box-sizing: border-box;
+    cursor: pointer;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  > label {
+    text-align: left;
+  }
+`
+
+export const NeighborhoodsOptions = styled.form`
+  padding: 20px 24px;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(3, 150px);
+  justify-items: stretch;
+  align-items: center;
+  grid-column-gap: 15px;
+
+  @media ${mobileMedia} {
+    display: block;
+    min-width: calc(100vw - 40px);
+    max-height: calc(100vh - 100px);
+    overflow: scroll;
+    padding: 0px;
+  }
+
+  > button[type='submit'] {
+    grid-column: span 3;
+    width: 100%;
+
+    @media ${mobileMedia} {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 50%;
+      height: 62px;
+      background: none;
+      color: ${colors.blue.medium};
+      box-shadow: none;
+      border: none;
+      font-weight: 600;
+      text-align: right;
+    }
+  }
+`
+
+export const Title = styled.div`
+  box-sizing: border-box;
+  height: 62px;
+  padding: 20px 24px;
+  color: ${colors.mediumGray};
+  border-bottom: 1px solid ${colors.mediumGray};
+  font-size: 18px;
+  line-height: 24px;
+  text-align: left;
 `
 
 export const Magnifier = styled.div`
@@ -115,10 +188,6 @@ export const Magnifier = styled.div`
   }
   svg path {
     fill: white;
-  }
-
-  @media ${mobileMedia} {
-    display: none;
   }
 `
 
