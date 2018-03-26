@@ -21,57 +21,14 @@ import Container, {
 } from './styles'
 
 export default class HomeSearch extends Component {
-  state = {}
-
-  updateSelectedOption = (selectedOption, stateKey) => {
-    const value =
-      selectedOption && selectedOption.value ? selectedOption.value : null
-    const state = this.state
-    state[stateKey] = value
-    this.setState(state)
-  }
-
-  handleRoomChange = (selectedOption) => {
-    this.updateSelectedOption(selectedOption, 'quartos')
-  }
-
-  handleMinPriceChange = (selectedOption) => {
-    this.updateSelectedOption(selectedOption, 'preco_minimo')
-  }
-
-  handleMaxPriceChange = (selectedOption) => {
-    this.updateSelectedOption(selectedOption, 'preco_maximo')
   }
 
   handleNeighborhoodChange = (selectedOption) => {
     this.updateSelectedOption(selectedOption, 'bairros')
   }
 
-  joinParam = (param) => {
-    if (param !== null && typeof param === 'object') {
-      return Object.keys(param)
-        .map(function(key) {
-          return key
-        })
-        .join('|')
-    } else {
-      return param
-    }
   }
 
-  treatParams = () => {
-    const {state, joinParam} = this
-
-    return Object.keys(state)
-      .map(function(key) {
-        if (key === 'areFiltersVisible') return null
-        if (state[key] === undefined) return null
-
-        const flattenedValue = joinParam(state[key])
-        return flattenedValue === '' ? null : `${key}=${flattenedValue}`
-      })
-      .filter((n) => n)
-      .join('&')
   }
 
   buildLink = () => {
