@@ -5,7 +5,10 @@ export default function ListingsMap({listings, ...props}) {
   const markers = listings.map((listing) => {
     const {id, price} = listing
     const {lat, lng} = listing.address
-    const abbreviatedPrice = abbreviate(price, 2).toUpperCase().replace('.', ',')
+    const abbreviatedPrice = abbreviate(price, 2)
+      .toString()
+      .toUpperCase()
+      .replace('.', ',')
     return {id, lat, lng, text: abbreviatedPrice}
   })
 

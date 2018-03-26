@@ -29,7 +29,7 @@ module.exports = {
     'comma-dangle': [
       'error',
       {
-        arrays: 'always-multiline',
+        arrays: 'ignore',
         objects: 'never',
         imports: 'never',
         exports: 'never',
