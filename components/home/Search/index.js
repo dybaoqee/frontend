@@ -1,16 +1,23 @@
 import {Component} from 'react'
 import ReactGA from 'react-ga'
+import EmCasaButton from 'components/shared/Common/Buttons'
+import Popup from 'components/shared/Popup'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faSearch from '@fortawesome/fontawesome-free-solid/faSearch'
+import faCheck from '@fortawesome/fontawesome-free-solid/faCheck'
 import Link from 'next/link'
+import Router from 'next/router'
+import _ from 'lodash'
 
 import * as filterOptions from 'constants/listing-filter-options'
 
 import Container, {
   Search,
   Neighborhoods,
+  Neighborhood,
+  NeighborhoodsOptions,
   Magnifier,
-  MobileMagnifier
+  Title
 } from './styles'
 
 export default class HomeSearch extends Component {
