@@ -21,20 +21,40 @@ import Container, {
 } from './styles'
 
 export default class HomeSearch extends Component {
+  state = {
+    opened: false,
+    neighborhoods: []
   }
 
-  handleNeighborhoodChange = (selectedOption) => {
-    this.updateSelectedOption(selectedOption, 'bairros')
+  componentDidMount() {
+    ReactGA.initialize(process.env.GOOGLE_ANALYTICS_TRACKING_ID)
   }
 
+  neighborhoodChosen = (e) => {
+    const {target: {value, checked}} = e
+    const {neighborhoods: selected} = this.state
+    const neighborhoods = checked
+      ? _.union([value], selected)
+      : _.remove(selected, (actualValue) => actualValue !== value)
+    this.setState({neighborhoods})
   }
 
+  searchListings = (e) => {
+    const {href, as} = this.buildLink()
+    e.preventDefault()
+    ReactGA.event({
+      category: 'Search',
+      label: 'User search from Home',
+      action: 'homeSearch'
+    })
+    Router.replace(href, as)
   }
 
   buildLink = () => {
-    const params = this.treatParams()
+    const {neighborhoods} = this.state
+    const params = `bairros=${neighborhoods.join('|')}`
 
-    if (params) {
+    if (neighborhoods.length) {
       return {href: `/listings/index?${params}`, as: `/imoveis?${params}`}
     } else {
       return {href: '/listings/index', as: '/imoveis'}
@@ -42,7 +62,6 @@ export default class HomeSearch extends Component {
   }
 
   handleClick = () => {
-    ReactGA.initialize(process.env.GOOGLE_ANALYTICS_TRACKING_ID)
     ReactGA.event({
       category: 'Search',
       label: 'User search from Home',
@@ -50,10 +69,15 @@ export default class HomeSearch extends Component {
     })
   }
 
+  handlePopup = (open) => {
+    this.setState({opened: open === false ? false : true})
+  }
+
   render() {
-    const {bairros} = this.state
-    const {neighborhoods} = this.props
-    const neighborhoodOptions = filterOptions.neighborhoodOptions(neighborhoods)
+    const {neighborhoods, opened} = this.state
+    const neighborhoodOptions = filterOptions.neighborhoodOptions(
+      this.props.neighborhoods
+    )
     const {href, as} = this.buildLink()
 
     return (
@@ -61,26 +85,42 @@ export default class HomeSearch extends Component {
         <h1>Encontre o Imóvel Perfeito para Você no Rio de Janeiro</h1>
 
         <Search>
-          <Neighborhoods>
-            <Select
-              name="form-field-name"
-              arrowRenderer={null}
-              placeholder="Bairro"
-              value={bairros}
-              onChange={this.handleNeighborhoodChange}
-              options={neighborhoodOptions}
-              noResultsText="Não Encontramos Resultado"
-            />
+          <Neighborhoods onClick={this.handlePopup}>
+            {neighborhoods.length === 0 ? 'Bairros' : neighborhoods.join(', ')}
           </Neighborhoods>
+          {opened && (
+            <Popup handleClose={this.handlePopup} hideClose>
+              <Title>Selecione os bairros</Title>
+              <NeighborhoodsOptions onSubmit={this.searchListings}>
+                {neighborhoodOptions.map(({value, label}) => (
+                  <Neighborhood
+                    key={value}
+                    checked={
+                      _.filter(
+                        neighborhoods,
+                        (neighborhood) => neighborhood === value
+                      ).length > 0
+                    }
+                  >
+                    <label>{label}</label>
+                    <input
+                      onChange={this.neighborhoodChosen}
+                      type="checkbox"
+                      name="neighborhood"
+                      value={value}
+                    />
+                    <FontAwesomeIcon icon={faCheck} />
+                  </Neighborhood>
+                ))}
+                <EmCasaButton type="submit">Ver resultados</EmCasaButton>
+              </NeighborhoodsOptions>
+            </Popup>
+          )}
+
           <Link href={href} as={as} prefetch>
             <Magnifier onClick={this.handleClick}>
               <FontAwesomeIcon icon={faSearch} />
             </Magnifier>
-          </Link>
-          <Link href={href} as={as}>
-            <MobileMagnifier onClick={this.handleClick}>
-              Ver Imóveis →
-            </MobileMagnifier>
           </Link>
         </Search>
       </Container>
