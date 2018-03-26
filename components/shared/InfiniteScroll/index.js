@@ -59,7 +59,7 @@ export default class InfiniteScroll extends Component {
         {entries.map(renderEntry)}
         {!last && (
           <Link href={{...to, query: {page: currentPage + 1, ...query}}}>
-            <a>
+            <a title="Próxima página">
               <Footer innerRef={this.footerRef}>Carregando...</Footer>
             </a>
           </Link>
