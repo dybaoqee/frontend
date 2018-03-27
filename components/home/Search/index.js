@@ -94,7 +94,12 @@ export default class HomeSearch extends Component {
                 : neighborhoods[0]}
           </Neighborhoods>
           {opened && (
-            <Popup handleClose={this.handlePopup} hideClose>
+            <Popup
+              handleClose={this.handlePopup}
+              hideClose
+              full
+              media={pickerMobileMedia}
+            >
               <Title>Selecione os bairros</Title>
               <NeighborhoodsOptions onSubmit={this.searchListings}>
                 {neighborhoodOptions.map(({value, label}) => (
