@@ -1,5 +1,5 @@
 import * as colors from 'constants/colors'
-import {mobileMedia} from 'constants/media'
+import {mobileMedia, pickerMobileMedia} from 'constants/media'
 import styled from 'styled-components'
 import {imageUrl} from 'utils/image_url'
 
@@ -58,12 +58,14 @@ export const Neighborhoods = styled.div`
   width: calc(100% - 60px);
   cursor: pointer;
   user-select: none;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   color: ${colors.mediumDarkGray};
   display: flex;
   padding: 10px;
+
+  &:last-of-type {
+    margin-bottom: 20px;
+  }
+
   @media ${mobileMedia} {
     border-radius: 8px;
     width: 100%;
@@ -71,19 +73,50 @@ export const Neighborhoods = styled.div`
 `
 
 export const Neighborhood = styled.div`
+  border: 1px solid ${colors.offWhite};
+  border-top: none;
   box-sizing: border-box;
   height: 54px;
   position: relative;
+  padding: 0 15px;
+  min-width: 200px;
 
-  @media ${mobileMedia} {
+  &:nth-child(3n) {
+    border-right: none;
+  }
+
+  &:nth-child(3n + 1) {
+    border-left: none;
+  }
+
+  &:nth-child(3n + 2) {
+    border-left: none;
+    border-right: none;
+  }
+
+  &:hover {
+    background: ${colors.offWhite};
+
+    svg path {
+      fill: ${colors.blue.medium};
+    }
+
+    label {
+      color: ${colors.blue.medium};
+    }
+  }
+
+  @media ${pickerMobileMedia} {
+    width: 100vw;
+    background: white;
     border-bottom: 1px solid ${colors.mediumGray};
-    padding: 5px 24px;
+    padding: 5px 15px;
   }
 
   svg {
     position: absolute;
     top: 0;
-    right: 0;
+    right: 15px;
     height: 100%;
     pointer-events: none;
     @media ${mobileMedia} {
@@ -97,12 +130,15 @@ export const Neighborhood = styled.div`
   }
 
   label {
-    ${({checked}) => `color: ${checked ? colors.blue.medium : 'none'};`};
     height: 100%;
     display: grid;
     grid-template-columns: 1fr;
     justify-items: start;
     align-items: center;
+    max-width: calc(100% - 40px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   input {
@@ -122,31 +158,30 @@ export const Neighborhood = styled.div`
 `
 
 export const NeighborhoodsOptions = styled.form`
-  padding: 20px 24px;
+  padding: 0 0 10px;
   box-sizing: border-box;
   display: grid;
-  grid-template-columns: repeat(3, 150px);
-  justify-items: stretch;
-  align-items: center;
-  grid-column-gap: 15px;
+  grid-template-columns: repeat(3, 260px);
 
-  @media ${mobileMedia} {
+  @media ${pickerMobileMedia} {
     display: block;
-    min-width: calc(100vw - 40px);
-    max-height: calc(100vh - 100px);
+    height: calc(100vh - 62px);
+    max-height: 100vh;
     overflow: scroll;
     padding: 0px;
   }
 
   > button[type='submit'] {
     grid-column: span 3;
-    width: 100%;
+    width: calc(100% - 20px);
+    margin: 10px 10px 0;
 
-    @media ${mobileMedia} {
+    @media ${pickerMobileMedia} {
       position: absolute;
+      margin: 0;
       top: 0;
       right: 0;
-      width: 50%;
+      width: 40vw;
       height: 62px;
       background: none;
       color: ${colors.blue.medium};
@@ -162,7 +197,7 @@ export const Title = styled.div`
   box-sizing: border-box;
   height: 62px;
   padding: 20px 24px;
-  color: ${colors.mediumGray};
+  color: ${colors.mediumDarkGray};
   border-bottom: 1px solid ${colors.mediumGray};
   font-size: 18px;
   line-height: 24px;

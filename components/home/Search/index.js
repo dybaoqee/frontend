@@ -8,6 +8,7 @@ import faCheck from '@fortawesome/fontawesome-free-solid/faCheck'
 import Link from 'next/link'
 import Router from 'next/router'
 import _ from 'lodash'
+import {pickerMobileMedia} from 'constants/media'
 
 import * as filterOptions from 'constants/listing-filter-options'
 
@@ -86,10 +87,19 @@ export default class HomeSearch extends Component {
 
         <Search>
           <Neighborhoods onClick={this.handlePopup}>
-            {neighborhoods.length === 0 ? 'Bairros' : neighborhoods.join(', ')}
+            {neighborhoods.length === 0
+              ? 'Bairros'
+              : neighborhoods.length > 1
+                ? `${neighborhoods[0]} e mais ${neighborhoods.length - 1}`
+                : neighborhoods[0]}
           </Neighborhoods>
           {opened && (
-            <Popup handleClose={this.handlePopup} hideClose>
+            <Popup
+              handleClose={this.handlePopup}
+              hideClose
+              full
+              media={pickerMobileMedia}
+            >
               <Title>Selecione os bairros</Title>
               <NeighborhoodsOptions onSubmit={this.searchListings}>
                 {neighborhoodOptions.map(({value, label}) => (
@@ -104,6 +114,12 @@ export default class HomeSearch extends Component {
                   >
                     <label>{label}</label>
                     <input
+                      checked={
+                        _.filter(
+                          neighborhoods,
+                          (neighborhood) => neighborhood === value
+                        ).length > 0
+                      }
                       onChange={this.neighborhoodChosen}
                       type="checkbox"
                       name="neighborhood"
