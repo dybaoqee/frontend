@@ -158,16 +158,12 @@ export const NeighborhoodsOptions = styled.form`
   padding: 0 0 10px;
   box-sizing: border-box;
   display: grid;
-  grid-template-columns: repeat(3, 280px);
-  justify-items: stretch;
-  align-items: center;
-  grid-column-gap: 0;
+  grid-template-columns: repeat(3, 260px);
 
-  @media ${mobileMedia} {
+  @media ${pickerMobileMedia} {
     display: block;
-    grid-template-columns: repeat(1, 100%);
-    min-width: calc(100vw - 0px);
-    max-height: calc(100vh - 60px);
+    height: calc(100vh - 62px);
+    max-height: 100vh;
     overflow: scroll;
     padding: 0px;
   }
