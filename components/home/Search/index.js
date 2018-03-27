@@ -114,6 +114,12 @@ export default class HomeSearch extends Component {
                   >
                     <label>{label}</label>
                     <input
+                      checked={
+                        _.filter(
+                          neighborhoods,
+                          (neighborhood) => neighborhood === value
+                        ).length > 0
+                      }
                       onChange={this.neighborhoodChosen}
                       type="checkbox"
                       name="neighborhood"
