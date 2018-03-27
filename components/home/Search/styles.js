@@ -173,11 +173,12 @@ export const NeighborhoodsOptions = styled.form`
     width: calc(100% - 20px);
     margin: 10px 10px 0;
 
-    @media ${mobileMedia} {
+    @media ${pickerMobileMedia} {
       position: absolute;
+      margin: 0;
       top: 0;
       right: 0;
-      width: 50%;
+      width: 40vw;
       height: 62px;
       background: none;
       color: ${colors.blue.medium};
