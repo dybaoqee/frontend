@@ -87,7 +87,11 @@ export default class HomeSearch extends Component {
 
         <Search>
           <Neighborhoods onClick={this.handlePopup}>
-            {neighborhoods.length === 0 ? 'Bairros' : neighborhoods.join(', ')}
+            {neighborhoods.length === 0
+              ? 'Bairros'
+              : neighborhoods.length > 1
+                ? `${neighborhoods[0]} e mais ${neighborhoods.length - 1}`
+                : neighborhoods[0]}
           </Neighborhoods>
           {opened && (
             <Popup handleClose={this.handlePopup} hideClose>
