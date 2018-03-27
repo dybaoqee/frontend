@@ -8,6 +8,7 @@ import faCheck from '@fortawesome/fontawesome-free-solid/faCheck'
 import Link from 'next/link'
 import Router from 'next/router'
 import _ from 'lodash'
+import {pickerMobileMedia} from 'constants/media'
 
 import * as filterOptions from 'constants/listing-filter-options'
 
