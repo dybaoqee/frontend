@@ -149,7 +149,7 @@ export default class ListingsIndex extends Component {
 
   render() {
     const {params} = this
-    const {neighborhoods, currentUser} = this.props
+    const {neighborhoods, currentUser, query} = this.props
     const {currentPage, totalPages, totalResults, listings} = this.state
     const seoImgSrc = this.seoImage
     return (
@@ -205,6 +205,7 @@ export default class ListingsIndex extends Component {
                 totalPages={totalPages}
                 entries={listings}
                 onLoad={this.onLoadNextPage}
+                to={{pathname: '/imoveis', query}}
               >
                 {(listing) => (
                   <Listing

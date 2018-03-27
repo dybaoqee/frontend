@@ -1,11 +1,15 @@
 import _ from 'lodash'
 import {Component} from 'react'
+import Link from 'next/link'
 
 import Container, {Footer} from './styles'
+import {withRouter} from 'next/router'
 
+@withRouter
 export default class InfiniteScroll extends Component {
   static defaultProps = {
-    threshold: 2000
+    threshold: 2000,
+    to: {}
   }
 
   componentDidMount() {
@@ -38,20 +42,28 @@ export default class InfiniteScroll extends Component {
     this.footer = el
   }
 
+  get nextPageHref() {}
+
   render() {
     const {
+      to,
       entries,
-      threshold,
       currentPage,
       totalPages,
       children: renderEntry
     } = this.props
     const last = currentPage >= totalPages
-
+    const query = to.query || {}
     return (
       <Container>
         {entries.map(renderEntry)}
-        {!last && <Footer innerRef={this.footerRef}>Carregando...</Footer>}
+        {!last && (
+          <Footer innerRef={this.footerRef}>
+            <Link href={{...to, query: {...query, page: currentPage + 1}}}>
+              <a title="Próxima página">Carregando...</a>
+            </Link>
+          </Footer>
+        )}
       </Container>
     )
   }

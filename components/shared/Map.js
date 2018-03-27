@@ -25,7 +25,7 @@ export default class MapContainer extends Component {
             <MapMarker
               onSelect={onSelect}
               id={id}
-              key={`${lat}${lng}`}
+              key={id}
               lat={lat}
               lng={lng}
               text={text}
