@@ -102,7 +102,8 @@ export const Neighborhood = styled.div`
     }
   }
 
-  @media ${mobileMedia} {
+  @media ${pickerMobileMedia} {
+    width: 100vw;
     background: white;
     border-bottom: 1px solid ${colors.mediumGray};
     padding: 5px 15px;
