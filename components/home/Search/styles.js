@@ -58,12 +58,14 @@ export const Neighborhoods = styled.div`
   width: calc(100% - 60px);
   cursor: pointer;
   user-select: none;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   color: ${colors.mediumDarkGray};
   display: flex;
   padding: 10px;
+
+  &:last-of-type {
+    margin-bottom: 20px;
+  }
+
   @media ${mobileMedia} {
     border-radius: 8px;
     width: 100%;
@@ -71,19 +73,44 @@ export const Neighborhoods = styled.div`
 `
 
 export const Neighborhood = styled.div`
+  border: 1px solid ${colors.offWhite};
+  border-top: none;
   box-sizing: border-box;
   height: 54px;
   position: relative;
+  padding: 0 15px;
+
+  &:nth-child(3n) {
+    border-right: none;
+  }
+
+  &:nth-child(3n + 1) {
+    border-left: none;
+  }
+
+  &:nth-child(3n + 2) {
+    border-left: none;
+    border-right: none;
+  }
+
+  &:hover {
+    background: ${colors.offWhite};
+
+    svg path {
+      fill: ${colors.blue.medium};
+    }
+  }
 
   @media ${mobileMedia} {
+    background: white;
     border-bottom: 1px solid ${colors.mediumGray};
-    padding: 5px 24px;
+    padding: 5px 15px;
   }
 
   svg {
     position: absolute;
     top: 0;
-    right: 0;
+    right: 15px;
     height: 100%;
     pointer-events: none;
     @media ${mobileMedia} {
@@ -103,6 +130,10 @@ export const Neighborhood = styled.div`
     grid-template-columns: 1fr;
     justify-items: start;
     align-items: center;
+    max-width: calc(100% - 40px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   input {
@@ -122,25 +153,27 @@ export const Neighborhood = styled.div`
 `
 
 export const NeighborhoodsOptions = styled.form`
-  padding: 20px 24px;
+  padding: 0 0 10px;
   box-sizing: border-box;
   display: grid;
-  grid-template-columns: repeat(3, 150px);
+  grid-template-columns: repeat(3, 280px);
   justify-items: stretch;
   align-items: center;
-  grid-column-gap: 15px;
+  grid-column-gap: 0;
 
   @media ${mobileMedia} {
     display: block;
-    min-width: calc(100vw - 40px);
-    max-height: calc(100vh - 100px);
+    grid-template-columns: repeat(1, 100%);
+    min-width: calc(100vw - 0px);
+    max-height: calc(100vh - 60px);
     overflow: scroll;
     padding: 0px;
   }
 
   > button[type='submit'] {
     grid-column: span 3;
-    width: 100%;
+    width: calc(100% - 20px);
+    margin: 10px 10px 0;
 
     @media ${mobileMedia} {
       position: absolute;
@@ -162,7 +195,7 @@ export const Title = styled.div`
   box-sizing: border-box;
   height: 62px;
   padding: 20px 24px;
-  color: ${colors.mediumGray};
+  color: ${colors.mediumDarkGray};
   border-bottom: 1px solid ${colors.mediumGray};
   font-size: 18px;
   line-height: 24px;
