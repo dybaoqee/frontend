@@ -100,6 +100,10 @@ export const Neighborhood = styled.div`
     svg path {
       fill: ${colors.blue.medium};
     }
+
+    label {
+      color: ${colors.blue.medium};
+    }
   }
 
   @media ${pickerMobileMedia} {
@@ -126,7 +130,6 @@ export const Neighborhood = styled.div`
   }
 
   label {
-    ${({checked}) => `color: ${checked ? colors.blue.medium : 'none'};`};
     height: 100%;
     display: grid;
     grid-template-columns: 1fr;
