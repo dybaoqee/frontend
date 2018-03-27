@@ -1,5 +1,5 @@
 import * as colors from 'constants/colors'
-import {mobileMedia} from 'constants/media'
+import {mobileMedia, pickerMobileMedia} from 'constants/media'
 import styled from 'styled-components'
 import {imageUrl} from 'utils/image_url'
 
