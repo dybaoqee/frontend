@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 export default styled.div`
+  box-sizing: border-box;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.7);
   display: flex;
@@ -11,15 +12,24 @@ export default styled.div`
   top: 0;
   width: 100vw;
   z-index: 10;
+
   > div {
     box-sizing: border-box;
     background-color: white;
-    width: auto;
     border-radius: 6px;
     max-width: calc(100% - 40px);
     position: relative;
     text-align: center;
     margin-bottom: 0px !important;
+
+    ${({full, media}) =>
+      full &&
+      media &&
+      `@media ${media}{
+        max-width: 100vw;
+        width: 100vw;
+        border-radius: 0px;
+      }`};
   }
 `
 
