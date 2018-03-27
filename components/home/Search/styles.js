@@ -79,6 +79,7 @@ export const Neighborhood = styled.div`
   height: 54px;
   position: relative;
   padding: 0 15px;
+  min-width: 200px;
 
   &:nth-child(3n) {
     border-right: none;
