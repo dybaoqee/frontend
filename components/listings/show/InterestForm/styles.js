@@ -5,6 +5,7 @@ import {mobileMedia} from 'constants/media'
 export default styled.form`
   margin: auto;
   max-width: calc(100% - 80px);
+  width: 500px;
   padding-bottom: 30px;
 
   @media ${mobileMedia} {
@@ -67,4 +68,8 @@ export default styled.form`
       color: ${colors.lightGray};
     }
   }
+`
+
+export const Container = styled.div`
+  padding: 20px;
 `
