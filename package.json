@@ -13,7 +13,8 @@
     "build": "next build",
     "start": "node server.js -p $PORT",
     "test":
-      "jest && next build && WEBSERVICE_BASE_URL=https://em-casa-backend-staging.herokuapp.com start-server-and-test start http://localhost:3000 cy:run",
+      "jest && yarn build && start-server-and-test start http://localhost:3000/login cy:run",
+
     "heroku-postbuild": "npm run build",
     "cypress:open": "cypress open",
     "cy:run": "cypress run --record --key cc8e33f0-d280-48fb-981e-34051f56acc0"
