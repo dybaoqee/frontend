@@ -4,9 +4,7 @@
     "npm": "5.6.0"
   },
   "jest": {
-    "setupFiles": [
-      "<rootDir>/shim.js"
-    ],
+    "setupFiles": ["<rootDir>/shim.js"],
     "setupTestFrameworkScriptFile": "<rootDir>config/setupTests.js"
   },
   "license": "UNLICENSED",
