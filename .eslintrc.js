@@ -3,17 +3,18 @@ module.exports = {
     browser: true,
     commonjs: true,
     es6: true,
+    'cypress/globals': true
   },
   extends: ['prettier', 'eslint:recommended'],
   parser: 'babel-eslint',
   parserOptions: {
     ecmaFeatures: {
       experimentalObjectRestSpread: true,
-      jsx: true,
+      jsx: true
     },
-    sourceType: 'module',
+    sourceType: 'module'
   },
-  plugins: ['react', 'prettier'],
+  plugins: ['react', 'prettier', 'cypress'],
   rules: {
     'prettier/prettier': [
       'error',
@@ -22,8 +23,8 @@ module.exports = {
         singleQuote: true,
         semi: false,
         arrowParens: 'always',
-        trailingComma: 'none',
-      },
+        trailingComma: 'none'
+      }
     ],
     'array-bracket-spacing': [2, 'never'],
     'comma-dangle': [
@@ -33,17 +34,17 @@ module.exports = {
         objects: 'never',
         imports: 'never',
         exports: 'never',
-        functions: 'ignore',
-      },
+        functions: 'ignore'
+      }
     ],
     indent: ['error', 2],
     'linebreak-style': ['error', 'unix'],
     'object-curly-spacing': ['error', 'never'],
     quotes: ['error', 'single'],
     'react/jsx-uses-vars': 1,
-    semi: ['error', 'never'],
+    semi: ['error', 'never']
   },
   globals: {
-    process: true,
-  },
+    process: true
+  }
 }
