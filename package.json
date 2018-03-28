@@ -12,9 +12,11 @@
     "dev": "node server.js -p $PORT",
     "build": "next build",
     "start": "node server.js -p $PORT",
-    "test": "jest",
+    "test":
+      "jest && next build && WEBSERVICE_BASE_URL=https://em-casa-backend-staging.herokuapp.com start-server-and-test start http://localhost:3000 cy:run",
     "heroku-postbuild": "npm run build",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "cy:run": "cypress run"
   },
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.2",
