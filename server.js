@@ -127,7 +127,14 @@ const startServer = () => {
       })
 
       server.get('*', (req, res) => {
-        return handle(req, res)
+        const parsedUrl = parse(req.url, true)
+        const rootStaticFiles = ['/robots.txt', '/sitemap.xml']
+        if (rootStaticFiles.indexOf(parsedUrl.pathname) > -1) {
+          const path = join(__dirname, 'static', parsedUrl.pathname)
+          app.serveStatic(req, res, path)
+        } else {
+          return handle(req, res)
+        }
       })
 
       server.listen(port, (err) => {
