@@ -58,10 +58,6 @@ const startServer = () => {
         return app.render(req, res, '/jobs', req.query)
       })
 
-      server.get('/venda-seu-imovel', (req, res) => {
-        return app.render(req, res, '/sell', req.query)
-      })
-
       server.get('/indique', (req, res) => {
         return app.render(req, res, '/indique', req.query)
       })
