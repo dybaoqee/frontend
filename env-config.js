@@ -21,5 +21,6 @@ module.exports = {
     ? process.env.GOOGLE_ANALYTICS_TRACKING_ID
     : null,
   'process.env.GOOGLE_MAPS_KEY':
-    process.env.GOOGLE_MAPS_KEY || 'AIzaSyDmYQLTPwsDPtErGWTgiejz17QCw39MEVQ'
+    process.env.GOOGLE_MAPS_KEY || 'AIzaSyDmYQLTPwsDPtErGWTgiejz17QCw39MEVQ',
+  'process.env.TEST': process.env.TEST === 'cypress' ? 'cypress' : 'jest'
 }
