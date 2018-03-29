@@ -154,12 +154,12 @@ buildSitemap()
     console.log(response)
     startServer()
   })
-  .catch((e) =>
+  .catch((e) => {
     console.log(
       `The following error has ocurred while trying to build sitemap: ${
         e.message
       }`
     )
-  )
+  })
 
 module.exports = startServer
