@@ -4,7 +4,9 @@
     "npm": "5.6.0"
   },
   "jest": {
-    "setupFiles": ["<rootDir>/shim.js"],
+    "setupFiles": [
+      "<rootDir>/shim.js"
+    ],
     "setupTestFrameworkScriptFile": "<rootDir>config/setupTests.js"
   },
   "license": "UNLICENSED",
@@ -12,9 +14,7 @@
     "dev": "node server.js -p $PORT",
     "build": "next build",
     "start": "node server.js -p $PORT",
-    "test":
-      "jest && yarn build && start-server-and-test start http://localhost:3000/login cy:run",
-
+    "test": "jest && yarn build && start-server-and-test start http://localhost:3000/login cy:run",
     "heroku-postbuild": "npm run build",
     "cy:open": "cypress open",
     "cy:run": "cypress run --record --key cc8e33f0-d280-48fb-981e-34051f56acc0"
@@ -82,6 +82,7 @@
     "eslint-plugin-react": "^7.6.0",
     "jest-styled-components": "^5.0.0",
     "prettier": "1.10.2",
-    "start-server-and-test": "^1.1.0"
+    "start-server-and-test": "^1.1.0",
+    "xml-formatter": "^1.0.1"
   }
 }

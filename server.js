@@ -1,7 +1,9 @@
 const express = require('express')
 const next = require('next')
+const {parse} = require('url')
+const {join} = require('path')
 const sslRedirect = require('heroku-ssl-redirect')
-
+const buildSitemap = require('./lib/sitemap')
 const dev = process.env.NODE_ENV !== 'production'
 const port = process.env.PORT || 3000
 const app = next({dir: '.', dev})
@@ -56,10 +58,6 @@ const startServer = () => {
 
       server.get('/jobs', (req, res) => {
         return app.render(req, res, '/jobs', req.query)
-      })
-
-      server.get('/venda-seu-imovel', (req, res) => {
-        return app.render(req, res, '/sell', req.query)
       })
 
       server.get('/indique', (req, res) => {
@@ -129,7 +127,14 @@ const startServer = () => {
       })
 
       server.get('*', (req, res) => {
-        return handle(req, res)
+        const parsedUrl = parse(req.url, true)
+        const rootStaticFiles = ['/robots.txt', '/sitemap.xml']
+        if (rootStaticFiles.indexOf(parsedUrl.pathname) > -1) {
+          const path = join(__dirname, 'static', parsedUrl.pathname)
+          app.serveStatic(req, res, path)
+        } else {
+          return handle(req, res)
+        }
       })
 
       server.listen(port, (err) => {
@@ -144,6 +149,17 @@ const startServer = () => {
     })
 }
 
-startServer()
+buildSitemap()
+  .then((response) => {
+    console.log(response)
+    startServer()
+  })
+  .catch((e) =>
+    console.log(
+      `The following error has ocurred while trying to build sitemap: ${
+        e.message
+      }`
+    )
+  )
 
 module.exports = startServer
