@@ -65,7 +65,8 @@
     "styled-components": "^3.1.6",
     "styled-jsx-plugin-postcss": "^0.1.2",
     "superagent": "^3.8.2",
-    "text-mask-addons": "^3.7.1"
+    "text-mask-addons": "^3.7.1",
+    "xml-formatter": "^1.0.1"
   },
   "postcss": {
     "plugins": {
@@ -82,7 +83,6 @@
     "eslint-plugin-react": "^7.6.0",
     "jest-styled-components": "^5.0.0",
     "prettier": "1.10.2",
-    "start-server-and-test": "^1.1.0",
-    "xml-formatter": "^1.0.1"
+    "start-server-and-test": "^1.1.0"
   }
 }
