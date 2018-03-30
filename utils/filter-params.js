@@ -1,7 +1,11 @@
 function joinParam(param) {
   return param
     .map(function(item) {
-      return item.value
+      // If neighborhoods come from the url, such as if a filter has been applied
+      // from the home page, the neighborhood name is passed simply as `item`.
+      // If the neighborhood comes from the multiselect, the neighborhood name
+      // is sent as `item.value`
+      return item.value ? item.value : item
     })
     .join('|')
 }
