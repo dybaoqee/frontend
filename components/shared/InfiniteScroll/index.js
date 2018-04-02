@@ -24,7 +24,7 @@ export default class InfiniteScroll extends Component {
   get footerViewportDistance() {
     if (!this.footer) return null
     const rect = this.footer.getBoundingClientRect()
-    return rect.y - window.innerHeight
+    return (rect.y || rect.bottom) - window.innerHeight
   }
 
   shouldTriggerLoad = () => {
