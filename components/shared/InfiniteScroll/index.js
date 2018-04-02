@@ -4,6 +4,7 @@ import Link from 'next/link'
 
 import Container, {Footer} from './styles'
 import {withRouter} from 'next/router'
+import {getY} from 'utils/polyfills/bounding-rect'
 
 @withRouter
 export default class InfiniteScroll extends Component {
@@ -24,7 +25,7 @@ export default class InfiniteScroll extends Component {
   get footerViewportDistance() {
     if (!this.footer) return null
     const rect = this.footer.getBoundingClientRect()
-    return rect.y - window.innerHeight
+    return getY(rect) - window.innerHeight
   }
 
   shouldTriggerLoad = () => {
