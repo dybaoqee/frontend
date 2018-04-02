@@ -13,7 +13,7 @@
     "build": "next build",
     "start": "node server.js -p $PORT",
     "test":
-      "jest && yarn build && TEST=cypress start-server-and-test start http://localhost:3000/login cy:run",
+      "jest && TEST=cypress start-server-and-test dev http://localhost:3000/login cy:run",
     "heroku-postbuild": "npm run build",
     "cy:open": "cypress open",
     "cy:run": "cypress run"
