@@ -148,18 +148,5 @@ const startServer = () => {
       process.exit(1)
     })
 }
-
-buildSitemap()
-  .then((response) => {
-    console.log(response)
-    startServer()
-  })
-  .catch((e) => {
-    console.log(
-      `The following error has ocurred while trying to build sitemap: ${
-        e.message
-      }`
-    )
-  })
-
+startServer()
 module.exports = startServer
