@@ -11,11 +11,14 @@ export default styled.button`
   border: 1px solid
     ${({secondary}) => (secondary ? colors.green.dark : colors.blue.medium)};
 
-  font-weight: 600;
-
   &:hover {
     background-color: ${({light, secondary}) =>
       light ? 'white' : secondary ? colors.green.dark : ''};
+  }
+
+  svg {
+    margin-right: 5px;
+    width: 15px;
   }
 
   cursor: ${(props) => (props.disabled ? 'default' : 'pointer')};
