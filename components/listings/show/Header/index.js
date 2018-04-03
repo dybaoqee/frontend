@@ -1,6 +1,9 @@
 import {Component} from 'react'
 import Link from 'next/link'
-
+import EmCasaButton from 'components/shared/Common/Buttons'
+import faHeart from '@fortawesome/fontawesome-free-solid/faHeart'
+import {Mutation} from 'react-apollo'
+import {FAVORITE_LISTING} from 'graphql/listings/mutations'
 import Container from './styles'
 import {canEdit} from 'permissions/listings-permissions'
 import {mainListingImage} from 'utils/image_url'
