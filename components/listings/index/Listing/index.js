@@ -26,11 +26,20 @@ class Listing extends React.Component {
   }
 
   render() {
-    const {id, listing, currentUser} = this.props
+    const {id, listing, currentUser, favorited, loading} = this.props
 
     return (
       <div id={id} onClick={this.handleListingClick}>
-        <ImageContainer listing={listing} />
+        <ImageContainer
+          currentUser={currentUser}
+          listing={listing}
+          favorite={
+            favorited.filter(
+              (actual) => actual.id.toString() === listing.id.toString()
+            ).length > 0
+          }
+          loading={loading}
+        />
         <TextContainer listing={listing} currentUser={currentUser} />
 
         {listing.matterport_code && (
