@@ -1,7 +1,13 @@
 import styled from 'styled-components'
 import * as colors from 'constants/colors'
 
-export default styled.button`
+export const BaseButton = styled.button`
+  font-weight: 600;
+  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Helvetica, Arial, sans-serif;
+`
+
+export default BaseButton.extend`
   background-color: ${({light, secondary}) =>
     light ? 'white' : secondary ? colors.green.medium : colors.blue.medium};
   color: ${({light, secondary}) =>
@@ -10,8 +16,6 @@ export default styled.button`
 
   border: 1px solid
     ${({secondary}) => (secondary ? colors.green.dark : colors.blue.medium)};
-
-  font-weight: 600;
 
   &:hover {
     background-color: ${({light, secondary}) =>
