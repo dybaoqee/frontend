@@ -1,7 +1,7 @@
-import styled from 'styled-components'
 import * as colors from 'constants/colors'
+import {BaseButton} from '../styles'
 
-export default styled.button`
+export default BaseButton.extend`
   box-shadow: none;
   background-color: ${({light}) => (light ? 'white' : colors.blue.medium)};
   color: ${({light}) => (light ? colors.blue.medium : 'white')};
@@ -11,8 +11,6 @@ export default styled.button`
 
   border: 1px solid
     ${({light}) => (light ? colors.blue.medium : colors.blue.darker)};
-
-  font-weight: 600;
 
   &:hover {
     background-color: ${({light}) => (light ? 'white' : colors.blue.darker)};
