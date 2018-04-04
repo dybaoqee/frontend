@@ -130,8 +130,25 @@ const startServer = () => {
         const parsedUrl = parse(req.url, true)
         const rootStaticFiles = ['/robots.txt', '/sitemap.xml']
         if (rootStaticFiles.indexOf(parsedUrl.pathname) > -1) {
-          const path = join(__dirname, 'static', parsedUrl.pathname)
-          app.serveStatic(req, res, path)
+          if (parsedUrl.pathname.indexOf('sitemap') > -1) {
+            buildSitemap()
+              .then((response) => {
+                console.log(response)
+                const path = join(__dirname, 'static', parsedUrl.pathname)
+                app.serveStatic(req, res, path)
+              })
+              .catch((e) => {
+                console.log(
+                  `The following error has ocurred while trying to build sitemap: ${
+                    e.message
+                  }`
+                )
+                app.render(req, res, '/', req.query)
+              })
+          } else {
+            const path = join(__dirname, 'static', parsedUrl.pathname)
+            app.serveStatic(req, res, path)
+          }
         } else {
           return handle(req, res)
         }
@@ -148,18 +165,5 @@ const startServer = () => {
       process.exit(1)
     })
 }
-
-buildSitemap()
-  .then((response) => {
-    console.log(response)
-    startServer()
-  })
-  .catch((e) => {
-    console.log(
-      `The following error has ocurred while trying to build sitemap: ${
-        e.message
-      }`
-    )
-  })
-
+startServer()
 module.exports = startServer
