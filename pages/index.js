@@ -77,8 +77,7 @@ export default class MyPage extends Component {
           </p>
           <p>
             O tour virtual permite fazer mais visitas, ocupando menos tempo e
-            com mais segurança. Venda seu imóvel mais rápido! - "Vendi meu
-            imóvel em 12 dias com a EmCasa" - Graciano
+            com mais segurança. Venda seu imóvel mais rápido!
           </p>
           <p>
             Tenha assistência jurídica no processo inteiro (documentação,
