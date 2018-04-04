@@ -10,6 +10,8 @@ import HomeTour from 'components/home/Tour'
 import HomeSellingPoints from 'components/home/SellingPoints'
 import HomeBuySell from 'components/home/BuySell'
 import Warning from 'components/shared/Common/Warning'
+import Topics from 'components/shared/Common/Topics'
+import CallToAction from 'components/shared/Common/CallToAction'
 
 export default class MyPage extends Component {
   static async getInitialProps(context) {
