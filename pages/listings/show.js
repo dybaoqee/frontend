@@ -168,13 +168,14 @@ class Listing extends Component {
     } = this.state
 
     return (
-      <Query query={GET_FAVORITE_LISTINGS}>
-        {({loading, error, data: {favoritedListings}}) => {
+      <Query query={GET_FAVORITE_LISTINGS} skip={!currentUser.authenticated}>
+        {({loading, error, data}) => {
           const favorite =
             !loading &&
             !error &&
-            favoritedListings &&
-            favoritedListings.filter(
+            data &&
+            data.favoritedListings &&
+            data.favoritedListings.filter(
               (listingSaved) =>
                 listingSaved.id.toString() === listing.id.toString()
             ).length > 0
