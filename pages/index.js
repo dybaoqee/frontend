@@ -70,20 +70,6 @@ export default class MyPage extends Component {
         <HomeTour />
         <HomeSellingPoints />
         <HomeBuySell />
-
-        <style jsx>{`
-          a {
-            color: ${colors.blue.medium};
-            float: left;
-            font-size: 20px;
-            left: 50%;
-            margin: 0 auto 60px;
-            position: relative;
-            text-align: center;
-            text-decoration: none;
-            transform: translateX(-50%);
-          }
-        `}</style>
       </Layout>
     )
   }
