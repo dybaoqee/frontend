@@ -64,6 +64,16 @@ export default class MyPage extends Component {
         )}
         <HomeSearch {...search} />
         <HomeListings {...feed} />
+        <CallToAction
+          call="Ver mais imóveis"
+          href={'/listings/index'}
+          as={'/imoveis'}
+        />
+        <CallToAction
+          call="Vender imóvel"
+          href={'/listings/new'}
+          as={'/imoveis/adicionar'}
+        />
         <HomeTour />
         <HomeSellingPoints />
         <HomeBuySell />
