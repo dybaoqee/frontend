@@ -1,10 +1,7 @@
 import {Component} from 'react'
 import Head from 'next/head'
-import Link from 'next/link'
-
 import {getFeaturedListings} from 'services/listing-api'
 import {getNeighborhoods} from 'services/neighborhood-api'
-import * as colors from 'constants/colors'
 import {isAuthenticated, isAdmin} from 'lib/auth'
 import Layout from 'components/shared/Shell'
 import HomeSearch from 'components/home/Search'
