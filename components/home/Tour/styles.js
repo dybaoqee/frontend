@@ -4,7 +4,6 @@ import styled from 'styled-components'
 
 export default styled.div`
   align-items: center;
-  border-top: 1px solid ${colors.lightGray};
   display: flex;
   clear: both;
   flex-direction: column;

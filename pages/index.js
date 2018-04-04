@@ -1,10 +1,7 @@
 import {Component} from 'react'
 import Head from 'next/head'
-import Link from 'next/link'
-
 import {getFeaturedListings} from 'services/listing-api'
 import {getNeighborhoods} from 'services/neighborhood-api'
-import * as colors from 'constants/colors'
 import {isAuthenticated, isAdmin} from 'lib/auth'
 import Layout from 'components/shared/Shell'
 import HomeSearch from 'components/home/Search'
@@ -13,6 +10,8 @@ import HomeTour from 'components/home/Tour'
 import HomeSellingPoints from 'components/home/SellingPoints'
 import HomeBuySell from 'components/home/BuySell'
 import Warning from 'components/shared/Common/Warning'
+import Topics from 'components/shared/Common/Topics'
+import CallToAction from 'components/shared/Common/CallToAction'
 
 export default class MyPage extends Component {
   static async getInitialProps(context) {
@@ -65,26 +64,35 @@ export default class MyPage extends Component {
         )}
         <HomeSearch {...search} />
         <HomeListings {...feed} />
-        <Link href={'/listings/index'} as={'/imoveis'}>
-          <a>Ver mais imóveis →</a>
-        </Link>
+        <CallToAction
+          call="Ver mais imóveis"
+          href={'/listings/index'}
+          as={'/imoveis'}
+        />
+        <Topics title="Venda seu imóvel" showNumbers>
+          <p>
+            Anuncie seu imóvel por apenas 3% do valor da venda. Os clientes
+            EmCasa poupam, em média, R$20mil e a gente só recebe a comissão
+            quando você recebe o valor da venda.
+          </p>
+          <p>
+            O tour virtual permite fazer mais visitas, ocupando menos tempo e
+            com mais segurança. Venda seu imóvel mais rápido! - "Vendi meu
+            imóvel em 12 dias com a EmCasa" - Graciano
+          </p>
+          <p>
+            Tenha assistência jurídica no processo inteiro (documentação,
+            financiamento, FGTS) sem pagar mais por isso
+          </p>
+        </Topics>
+        <CallToAction
+          call="Vender imóvel"
+          href={'/listings/new'}
+          as={'/imoveis/adicionar'}
+        />
         <HomeTour />
         <HomeSellingPoints />
         <HomeBuySell />
-
-        <style jsx>{`
-          a {
-            color: ${colors.blue.medium};
-            float: left;
-            font-size: 20px;
-            left: 50%;
-            margin: 0 auto 60px;
-            position: relative;
-            text-align: center;
-            text-decoration: none;
-            transform: translateX(-50%);
-          }
-        `}</style>
       </Layout>
     )
   }
