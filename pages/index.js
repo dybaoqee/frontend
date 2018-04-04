@@ -69,6 +69,22 @@ export default class MyPage extends Component {
           href={'/listings/index'}
           as={'/imoveis'}
         />
+        <Topics title="Venda seu imóvel" showNumbers>
+          <p>
+            Anuncie seu imóvel por apenas 3% do valor da venda. Os clientes
+            EmCasa poupam, em média, R$20mil e a gente só recebe a comissão
+            quando você recebe o valor da venda.
+          </p>
+          <p>
+            O tour virtual permite fazer mais visitas, ocupando menos tempo e
+            com mais segurança. Venda seu imóvel mais rápido! - "Vendi meu
+            imóvel em 12 dias com a EmCasa" - Graciano
+          </p>
+          <p>
+            Tenha assistência jurídica no processo inteiro (documentacão,
+            financiamento, FGTS) sem pgar mais por isso
+          </p>
+        </Topics>
         <CallToAction
           call="Vender imóvel"
           href={'/listings/new'}
