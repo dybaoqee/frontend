@@ -1,4 +1,6 @@
 import React from 'react'
+import {LikeContainer} from './styles'
+import LikeButton from 'components/shared/Common/Buttons/Like'
 import NumberFormat from 'react-number-format'
 
 import {mainListingThumbnail} from 'utils/image_url'
@@ -6,14 +8,19 @@ import {mobileMedia} from 'constants/media'
 
 class ImageContainer extends React.Component {
   render() {
-    const {listing} = this.props
+    const {listing, favorite, currentUser, loading} = this.props
     const bgImgUrl = mainListingThumbnail(listing.images)
     const divStyle = {
-      backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.0) 50%, rgba(0, 0, 0, 0.7) 80%), url(${bgImgUrl})`,
+      backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.0) 50%, rgba(0, 0, 0, 0.7) 80%), url(${bgImgUrl})`
     }
-
     return (
       <div className="image-container" style={divStyle}>
+        {currentUser.authenticated &&
+          !loading && (
+            <LikeContainer>
+              <LikeButton favorite={favorite} listing={listing} />
+            </LikeContainer>
+          )}
         <div>
           <span>
             <NumberFormat
