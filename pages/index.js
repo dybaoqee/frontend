@@ -64,9 +64,6 @@ export default class MyPage extends Component {
         )}
         <HomeSearch {...search} />
         <HomeListings {...feed} />
-        <Link href={'/listings/index'} as={'/imoveis'}>
-          <a>Ver mais imóveis →</a>
-        </Link>
         <HomeTour />
         <HomeSellingPoints />
         <HomeBuySell />
