@@ -7,6 +7,7 @@ export default styled.div`
 
   h1 {
     font-weight: 300;
+    margin-bottom: 60px;
     text-align: center;
     padding: 0 20px;
   }
@@ -19,14 +20,21 @@ export default styled.div`
     justify-content: center;
     div {
       width: 100%;
-      h2 {
-        color: ${colors.blue.medium};
-        font-weight: 300;
-      }
       p {
         color: ${colors.mediumDarkGray};
         line-height: 1.8em;
+        text-align: center;
       }
+    }
+  }
+
+  svg {
+    display: block;
+    height: 70px;
+    margin: 0 auto 30px;
+    width: 70px !important;
+    path {
+      fill: ${colors.mediumGray};
     }
   }
 
@@ -35,7 +43,7 @@ export default styled.div`
       margin: 0 20px 60px;
       grid-template-columns: 1fr;
       div {
-        margin-bottom: 40px;
+        margin: 0 auto 40px;
         width: calc(100% - 40px);
       }
     }
