@@ -10,12 +10,14 @@ import TextContainer from './TextContainer'
 class Listing extends React.Component {
   handleListingClick = (e) => {
     const {listing} = this.props
-
     // We have admin links inside a "link"
     // (each listing is fully clickable)
     // This function prevents double link attribution,
     // which breaks back button behaviour.
-    if (e.target.getAttribute('class').indexOf('cancel-listing-nav') == -1) {
+    if (
+      e.target.getAttribute('class') &&
+      e.target.getAttribute('class').indexOf('cancel-listing-nav') == -1
+    ) {
       Router.push(
         `/listings/show?id=${listing.id}`,
         `/imoveis/${listing.id}`
