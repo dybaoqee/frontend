@@ -81,8 +81,8 @@ export default class MyPage extends Component {
             imóvel em 12 dias com a EmCasa" - Graciano
           </p>
           <p>
-            Tenha assistência jurídica no processo inteiro (documentacão,
-            financiamento, FGTS) sem pgar mais por isso
+            Tenha assistência jurídica no processo inteiro (documentação,
+            financiamento, FGTS) sem pagar mais por isso
           </p>
         </Topics>
         <CallToAction
