@@ -8,3 +8,12 @@ export const FAVORITE_LISTING = gql`
     }
   }
 `
+
+export const UNFAVORITE_LISTING = gql`
+  mutation unfavoriteListing($id: ID!) {
+    unfavoriteListing(id: $id) {
+      id
+      type
+    }
+  }
+`
