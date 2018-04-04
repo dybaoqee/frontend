@@ -18,77 +18,59 @@ export default class ListingHeader extends Component {
 
     const {matterport_code, images} = listing
     const src = `https://my.matterport.com/show/?m=${matterport_code}`
-
     return (
-      <Mutation mutation={FAVORITE_LISTING}>
-        {(favoriteListing, {data}) => (
-          <Container>
-            {matterport_code && (
-              <div className="overlay" onClick={handleOpen3DTour} />
-            )}
-            {console.log(data)}
-            {matterport_code ? (
-              <iframe
-                width="100%"
-                height="400px"
-                src={src}
-                frameBorder="0"
-                allowFullScreen
-              />
-            ) : (
-              <div
-                className="image"
-                style={{backgroundImage: `url(${mainListingImage(images)})`}}
-                onClick={handleOpenImageGallery}
-              />
-            )}
-
-            <div className="top-right">
-              {canEdit(currentUser, listing) && (
-                <Link
-                  href={`/listings/edit?id=${listing.id}`}
-                  as={`/imoveis/${listing.id}/editar`}
-                >
-                  <button>Editar</button>
-                </Link>
-              )}
-
-              {!favoritedListing.loading && (
-                <EmCasaButton
-                  light={!favoritedListing.favorite}
-                  icon={faHeart}
-                  onClick={() =>
-                    favoriteListing({
-                      variables: {
-                        id: listing.id
-                      }
-                    })
-                  }
-                >
-                  {favoritedListing.favorite ? 'Salvo' : 'Salvar'}
-                </EmCasaButton>
-              )}
-              <button className="green" onClick={handleOpenPopup}>
-                Marcar Visita
-              </button>
-            </div>
-
-            <div className="bottom-right">
-              {listing.matterport_code && (
-                <button className="white" onClick={handleOpen3DTour}>
-                  Ver Tour
-                </button>
-              )}
-
-              {listing.images.length > 0 && (
-                <button className="white" onClick={handleOpenImageGallery}>
-                  Ver Fotos
-                </button>
-              )}
-            </div>
-          </Container>
+      <Container>
+        {matterport_code && (
+          <div className="overlay" onClick={handleOpen3DTour} />
         )}
-      </Mutation>
+        {matterport_code ? (
+          <iframe
+            width="100%"
+            height="400px"
+            src={src}
+            frameBorder="0"
+            allowFullScreen
+          />
+        ) : (
+          <div
+            className="image"
+            style={{backgroundImage: `url(${mainListingImage(images)})`}}
+            onClick={handleOpenImageGallery}
+          />
+        )}
+        <div className="top-right">
+          {canEdit(currentUser, listing) && (
+            <Link
+              href={`/listings/edit?id=${listing.id}`}
+              as={`/imoveis/${listing.id}/editar`}
+            >
+              <button>Editar</button>
+            </Link>
+          )}
+
+          {!favoritedListing.loading &&
+            currentUser.authenticated && (
+              <LikeButton
+                favorite={favoritedListing.favorite}
+                listing={listing}
+              />
+            )}
+        </div>
+
+        <div className="bottom-right">
+          {listing.matterport_code && (
+            <button className="white" onClick={handleOpen3DTour}>
+              Ver Tour
+            </button>
+          )}
+
+          {listing.images.length > 0 && (
+            <button className="white" onClick={handleOpenImageGallery}>
+              Ver Fotos
+            </button>
+          )}
+        </div>
+      </Container>
     )
   }
 }
