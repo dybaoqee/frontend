@@ -1,2 +1,8 @@
 import Button from './styles'
-export default (props) => <Button {...props}>{props.children}</Button>
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+export default (props) => (
+  <Button {...props}>
+    {props.icon && <FontAwesomeIcon icon={props.icon} />}
+    {props.children}
+  </Button>
+)

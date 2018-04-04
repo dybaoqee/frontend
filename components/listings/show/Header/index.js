@@ -1,6 +1,6 @@
 import {Component} from 'react'
 import Link from 'next/link'
-
+import LikeButton from 'components/shared/Common/Buttons/Like'
 import Container from './styles'
 import {canEdit} from 'permissions/listings-permissions'
 import {mainListingImage} from 'utils/image_url'
@@ -12,18 +12,17 @@ export default class ListingHeader extends Component {
       currentUser,
       handleOpenPopup,
       handleOpenImageGallery,
-      handleOpen3DTour
+      handleOpen3DTour,
+      favoritedListing
     } = this.props
 
     const {matterport_code, images} = listing
     const src = `https://my.matterport.com/show/?m=${matterport_code}`
-
     return (
       <Container>
         {matterport_code && (
           <div className="overlay" onClick={handleOpen3DTour} />
         )}
-
         {matterport_code ? (
           <iframe
             width="100%"
@@ -39,7 +38,6 @@ export default class ListingHeader extends Component {
             onClick={handleOpenImageGallery}
           />
         )}
-
         <div className="top-right">
           {canEdit(currentUser, listing) && (
             <Link
@@ -50,9 +48,13 @@ export default class ListingHeader extends Component {
             </Link>
           )}
 
-          <button className="green" onClick={handleOpenPopup}>
-            Marcar Visita
-          </button>
+          {!favoritedListing.loading &&
+            currentUser.authenticated && (
+              <LikeButton
+                favorite={favoritedListing.favorite}
+                listing={listing}
+              />
+            )}
         </div>
 
         <div className="bottom-right">

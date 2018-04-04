@@ -3,6 +3,9 @@ import _ from 'lodash'
 import {Component} from 'react'
 import Head from 'next/head'
 import Router from 'next/router'
+import withData from '/lib/apollo/withData'
+import {Query} from 'react-apollo'
+import {GET_FAVORITE_LISTINGS} from 'graphql/user/queries'
 
 import {treatParams} from 'utils/filter-params.js'
 import {mainListingImage} from 'utils/image_url'
@@ -45,7 +48,7 @@ const getDerivedParams = ({query}) => ({
   neighborhoods: splitParam(query.bairros)
 })
 
-export default class ListingsIndex extends Component {
+class ListingsIndex extends Component {
   constructor(props) {
     super(props)
 
@@ -200,22 +203,33 @@ export default class ListingsIndex extends Component {
             {totalResults == 0 ? (
               <ListingsNotFound resetAllParams={this.onResetFilter} />
             ) : (
-              <InfiniteScroll
-                currentPage={currentPage}
-                totalPages={totalPages}
-                entries={listings}
-                onLoad={this.onLoadNextPage}
-                to={{pathname: '/imoveis', query}}
+              <Query
+                query={GET_FAVORITE_LISTINGS}
+                skip={!currentUser.authenticated}
               >
-                {(listing) => (
-                  <Listing
-                    key={listing.id}
-                    id={`listing-${listing.id}`}
-                    listing={listing}
-                    currentUser={currentUser}
-                  />
+                {({data, loading}) => (
+                  <InfiniteScroll
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    entries={listings}
+                    onLoad={this.onLoadNextPage}
+                    to={{pathname: '/imoveis', query}}
+                  >
+                    {(listing) => (
+                      <Listing
+                        key={listing.id}
+                        id={`listing-${listing.id}`}
+                        listing={listing}
+                        currentUser={currentUser}
+                        loading={loading}
+                        favorited={
+                          !data.favoritedListings ? [] : data.favoritedListings
+                        }
+                      />
+                    )}
+                  </InfiniteScroll>
                 )}
-              </InfiniteScroll>
+              </Query>
             )}
           </div>
         </div>
@@ -261,3 +275,5 @@ export default class ListingsIndex extends Component {
     )
   }
 }
+
+export default withData(ListingsIndex)
