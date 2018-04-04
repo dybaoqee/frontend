@@ -5,7 +5,7 @@ import {imageUrl} from 'utils/image_url'
 
 export default styled.div`
   background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0)),
-    url(${imageUrl('emcasa-home-2018-01-30_zmkjyy.jpg')});
+    url(${imageUrl('home-2018-04-03_cozxd9.jpg')});
   background-position: center;
   background-size: cover;
   height: 400px;
