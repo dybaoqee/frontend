@@ -27,7 +27,8 @@ class Listing extends React.Component {
   }
 
   render() {
-    const {id, listing, currentUser, favorited, loading} = this.props
+    let {id, listing, currentUser, favorited, loading} = this.props
+    listing = humps.decamelizeKeys(listing)
 
     return (
       <div id={id} onClick={this.handleListingClick}>
