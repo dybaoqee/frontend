@@ -44,6 +44,7 @@
     "graphql": "^0.13.2",
     "graphql-tag": "^2.8.0",
     "heroku-ssl-redirect": "^0.0.4",
+    "humps": "^2.0.1",
     "immutability-helper": "^2.6.2",
     "isomorphic-unfetch": "^2.0.0",
     "jest": "^22.0.4",
