@@ -5,7 +5,7 @@ import Head from 'next/head'
 import Router from 'next/router'
 import withData from '/lib/apollo/withData'
 import {Query} from 'react-apollo'
-import {GET_FAVORITE_LISTINGS} from 'graphql/user/queries'
+import {GET_FAVORITE_LISTINGS_IDS} from 'graphql/user/queries'
 
 import {treatParams} from 'utils/filter-params.js'
 import {mainListingImage} from 'utils/image_url'
@@ -204,7 +204,7 @@ class ListingsIndex extends Component {
               <ListingsNotFound resetAllParams={this.onResetFilter} />
             ) : (
               <Query
-                query={GET_FAVORITE_LISTINGS}
+                query={GET_FAVORITE_LISTINGS_IDS}
                 skip={!currentUser.authenticated}
               >
                 {({data, loading}) => (
