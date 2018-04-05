@@ -6,7 +6,6 @@ export default styled.div`
   background: linear-gradient(180deg, ${colors.grayf0} 0%, white 100%);
   max-width: 100vw;
   padding: 100px 0px 30px 0px;
-  margin-top: 40px;
 `
 
 export const Title = styled.h2`
