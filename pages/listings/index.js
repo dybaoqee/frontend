@@ -241,7 +241,7 @@ class ListingsIndex extends Component {
               width: 60%;
               &.entries-container {
                 float: right;
-                margin-top: 59px;
+                margin-top: 58px;
               }
             }
           }
