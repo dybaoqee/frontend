@@ -43,9 +43,7 @@ export default class Layout extends Component {
             font-size: 1rem;
             line-height: 1.5;
           }
-          main {
-            margin-top: 76px;
-          }
+
           button,
           .btn {
             background-color: ${colors.blue.medium};
