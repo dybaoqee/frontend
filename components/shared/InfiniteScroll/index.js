@@ -51,21 +51,25 @@ export default class InfiniteScroll extends Component {
       entries,
       currentPage,
       totalPages,
+      title,
       children: renderEntry
     } = this.props
     const last = currentPage >= totalPages
     const query = to.query || {}
     return (
-      <Container>
-        {entries.map(renderEntry)}
-        {!last && (
-          <Footer innerRef={this.footerRef}>
-            <Link href={{...to, query: {...query, page: currentPage + 1}}}>
-              <a title="Próxima página">Carregando...</a>
-            </Link>
-          </Footer>
-        )}
-      </Container>
+      <Wrapper title={title}>
+        {title && <Title>{title}</Title>}
+        <Container>
+          {entries.map(renderEntry)}
+          {!last && (
+            <Footer innerRef={this.footerRef}>
+              <Link href={{...to, query: {...query, page: currentPage + 1}}}>
+                <a title="Próxima página">Carregando...</a>
+              </Link>
+            </Footer>
+          )}
+        </Container>
+      </Wrapper>
     )
   }
 }
