@@ -30,7 +30,7 @@ export default class MyPage extends Component {
   render() {
     const {authenticated, feed, search, isAdmin, url} = this.props
     const seoImg =
-      'http://res.cloudinary.com/emcasa/image/upload/v1517101014/emcasa-fb-2018-01-27_ntxnrz.jpg'
+      'https://res.cloudinary.com/emcasa/image/upload/f_auto/v1513818385/home-2018-04-03_cozxd9.jpg'
     const seoTitle =
       'EmCasa | Apartamentos, Casas e Imóveis à Venda no Rio de Janeiro'
     const seoDescription =
