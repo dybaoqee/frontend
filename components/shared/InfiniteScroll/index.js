@@ -2,7 +2,7 @@ import _ from 'lodash'
 import {Component} from 'react'
 import Link from 'next/link'
 
-import Container, {Footer} from './styles'
+import Container, {Footer, Title, Wrapper} from './styles'
 import {withRouter} from 'next/router'
 import {getY} from 'utils/polyfills/bounding-rect'
 
