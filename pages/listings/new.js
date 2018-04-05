@@ -42,7 +42,7 @@ export default class ListingNew extends Component {
       <AddressAutoComplete />,
       <PropertyInfo />,
       <PropertyGallery />,
-      <PropertyGalleryEdit />,
+      <PropertyGalleryEdit />
     ]
   }
 
@@ -212,7 +212,7 @@ export default class ListingNew extends Component {
       'price',
       'property_tax',
       'maintenance_fee',
-      'area',
+      'area'
     ])
 
     try {
