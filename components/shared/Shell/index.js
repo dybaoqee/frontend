@@ -1,5 +1,4 @@
-import {Component} from 'react'
-import Head from 'next/head'
+import {Component, Fragment} from 'react'
 import ReactGA from 'react-ga'
 import Router from 'next/router'
 
