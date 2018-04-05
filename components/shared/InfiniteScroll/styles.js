@@ -24,3 +24,27 @@ export const Footer = styled.footer`
     text-decoration: none;
   }
 `
+
+export const Wrapper = styled.div`
+  box-sizing: border-box;
+  position: relative;
+
+  ${({title}) =>
+    title &&
+    `
+      > :nth-child(2) {
+      padding-top: 44px;
+    }`};
+`
+
+export const Title = styled.h1`
+  margin: 0;
+  font-weight: 600;
+  font-size: 16px;
+  position: fixed;
+  background: white;
+  width: 100%;
+  z-index: 1;
+  box-shadow: inset 0 -1px 0 0 ${colors.lightGray};
+  padding: 10px;
+`
