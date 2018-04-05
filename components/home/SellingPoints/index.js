@@ -1,7 +1,7 @@
 import {Component} from 'react'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faDollarSign from '@fortawesome/fontawesome-free-solid/faDollarSign'
-import faBookmark from '@fortawesome/fontawesome-free-solid/faBookmark'
+import faDesktop from '@fortawesome/fontawesome-free-solid/faDesktop'
 import faFileAlt from '@fortawesome/fontawesome-free-solid/faFileAlt'
 
 import Container from './styles'
@@ -23,7 +23,7 @@ export default class HomeSellingPoints extends Component {
           </div>
 
           <div>
-            <FontAwesomeIcon icon={faBookmark} />
+            <FontAwesomeIcon icon={faDesktop} />
             <p>
               Usamos tecnologia para melhorar a experiência e inteligência de
               dados para oferecer recomendações precisas. Nosso time é treinado,
