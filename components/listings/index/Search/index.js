@@ -114,7 +114,6 @@ export default class Filter extends Component {
             align-items: center;
             background: white;
             border-bottom: 1px solid ${colors.lightGray};
-            border-top: 1px solid ${colors.lightGray};
             display: flex;
             overflow: visible;
             padding: 10px 0;
