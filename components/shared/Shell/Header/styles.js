@@ -16,6 +16,7 @@ export default styled.header`
   width: 100%;
   min-height: 76px;
   z-index: 5;
+  box-shadow: inset 0 -1px 0 0 ${colors.lightestGray};
   img {
     width: 110px;
     vertical-align: middle;
