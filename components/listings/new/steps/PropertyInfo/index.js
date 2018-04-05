@@ -218,6 +218,8 @@ export default class PropertyInfo extends Component {
           <Field>
             <label>Descrição</label>
             <TextArea
+              lang="pt-BR"
+              spellcheck
               onChange={onChange}
               name="description"
               defaultValue={description}
