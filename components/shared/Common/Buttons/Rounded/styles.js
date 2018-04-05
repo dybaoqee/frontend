@@ -8,6 +8,7 @@ export default BaseButton.extend`
   width: ${({full}) => (full ? '100%' : '')};
   border-radius: 20px;
   margin: 5px;
+  padding: 10px 20px;
 
   border: 1px solid
     ${({light}) => (light ? colors.blue.medium : colors.blue.darker)};
