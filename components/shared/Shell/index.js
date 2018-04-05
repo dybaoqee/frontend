@@ -7,6 +7,7 @@ import Footer from './Footer'
 
 import {mobileMedia} from 'constants/media'
 import * as colors from 'constants/colors'
+import Container, {Main} from './styles'
 
 Router.onRouteChangeComplete = () => {
   ReactGA.initialize(process.env.GOOGLE_ANALYTICS_TRACKING_ID)
