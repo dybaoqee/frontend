@@ -2,7 +2,7 @@ import {Component, Fragment} from 'react'
 import ReactGA from 'react-ga'
 import withData from '/lib/apollo/withData'
 import {Query} from 'react-apollo'
-import {GET_FAVORITE_LISTINGS} from 'graphql/user/queries'
+import {GET_FAVORITE_LISTINGS_IDS} from 'graphql/user/queries'
 import {isAuthenticated, isAdmin, getCurrentUserId, getJwt} from 'lib/auth'
 import {getListing, getRelatedListings} from 'services/listing-api'
 import {createInterest} from 'services/interest-api'
@@ -168,7 +168,10 @@ class Listing extends Component {
     } = this.state
 
     return (
-      <Query query={GET_FAVORITE_LISTINGS} skip={!currentUser.authenticated}>
+      <Query
+        query={GET_FAVORITE_LISTINGS_IDS}
+        skip={!currentUser.authenticated}
+      >
         {({loading, error, data}) => {
           const favorite =
             !loading &&
