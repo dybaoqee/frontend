@@ -3,7 +3,7 @@ import Container from './styles'
 
 export default (props) => (
   <Container>
-    <Link {...props}>
+    <Link href={props.href} as={props.as}>
       <a>{props.call} →</a>
     </Link>
   </Container>

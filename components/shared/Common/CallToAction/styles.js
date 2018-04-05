@@ -6,6 +6,7 @@ export default styled.div`
   display: flex;
   justify-content: center;
   padding: 20px 0;
+  margin-bottom: 40px;
   a {
     color: ${colors.blue.medium};
     font-size: 20px;

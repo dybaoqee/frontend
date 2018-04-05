@@ -5,6 +5,7 @@ export const BaseButton = styled.button`
   font-weight: 600;
   font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
     Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
 `
 
 export default BaseButton.extend`

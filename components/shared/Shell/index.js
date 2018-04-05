@@ -1,5 +1,4 @@
-import {Component} from 'react'
-import Head from 'next/head'
+import {Component, Fragment} from 'react'
 import ReactGA from 'react-ga'
 import Router from 'next/router'
 
@@ -8,6 +7,7 @@ import Footer from './Footer'
 
 import {mobileMedia} from 'constants/media'
 import * as colors from 'constants/colors'
+import Container, {Main} from './styles'
 
 Router.onRouteChangeComplete = () => {
   ReactGA.initialize(process.env.GOOGLE_ANALYTICS_TRACKING_ID)
@@ -19,14 +19,16 @@ export default class Layout extends Component {
     const {authenticated, errorCode, renderFooter, isAdmin} = this.props
 
     return (
-      <div>
+      <Fragment>
         <Header
           errorCode={errorCode}
           authenticated={authenticated}
           isAdmin={isAdmin}
         />
-        <main>{this.props.children}</main>
-        {renderFooter && <Footer />}
+        <Container>
+          <Main>{this.props.children}</Main>
+          {renderFooter && <Footer />}
+        </Container>
         <style jsx global>{`
           html {
             color: ${colors.text};
@@ -41,9 +43,7 @@ export default class Layout extends Component {
             font-size: 1rem;
             line-height: 1.5;
           }
-          main {
-            margin-top: 76px;
-          }
+
           button,
           .btn {
             background-color: ${colors.blue.medium};
@@ -100,7 +100,7 @@ export default class Layout extends Component {
             }
           }
         `}</style>
-      </div>
+      </Fragment>
     )
   }
 }
