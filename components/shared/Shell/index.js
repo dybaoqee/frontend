@@ -19,14 +19,16 @@ export default class Layout extends Component {
     const {authenticated, errorCode, renderFooter, isAdmin} = this.props
 
     return (
-      <div>
+      <Fragment>
         <Header
           errorCode={errorCode}
           authenticated={authenticated}
           isAdmin={isAdmin}
         />
-        <main>{this.props.children}</main>
-        {renderFooter && <Footer />}
+        <Container>
+          <Main>{this.props.children}</Main>
+          {renderFooter && <Footer />}
+        </Container>
         <style jsx global>{`
           html {
             color: ${colors.text};
@@ -100,7 +102,7 @@ export default class Layout extends Component {
             }
           }
         `}</style>
-      </div>
+      </Fragment>
     )
   }
 }
