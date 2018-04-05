@@ -4,9 +4,11 @@ import styled from 'styled-components'
 
 export default styled.div`
   align-items: center;
+  background: ${colors.offWhite};
   display: flex;
   clear: both;
   flex-direction: column;
+  margin-top: 40px;
   overflow: auto;
   padding-top: 40px;
 
