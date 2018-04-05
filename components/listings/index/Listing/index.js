@@ -6,6 +6,7 @@ import {mobileMedia} from 'constants/media'
 
 import ImageContainer from './ImageContainer'
 import TextContainer from './TextContainer'
+import humps from 'humps'
 
 class Listing extends React.Component {
   handleListingClick = (e) => {
