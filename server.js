@@ -93,6 +93,10 @@ const startServer = () => {
         app.render(req, res, actualPage, req.query)
       })
 
+      server.get('/saiba-mais-para-vender', (req, res) => {
+        return app.render(req, res, '/listings/sell/know-more', req.query)
+      })
+
       server.get('/imoveis/adicionar', (req, res) => {
         const actualPage = '/listings/new'
         app.render(req, res, actualPage)
