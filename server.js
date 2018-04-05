@@ -102,6 +102,10 @@ const startServer = () => {
         app.render(req, res, actualPage)
       })
 
+      server.get('/imoveis/favoritos', (req, res) => {
+        return app.render(req, res, '/listings/fav', req.query)
+      })
+
       server.get('/imoveis/:id', (req, res) => {
         const actualPage = '/listings/show'
         const queryParams = {id: req.params.id, ...req.query}
