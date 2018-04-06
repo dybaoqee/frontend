@@ -10,8 +10,7 @@ export default BaseButton.extend`
   margin: 5px;
   padding: 10px 20px;
 
-  border: 1px solid
-    ${({light}) => (light ? colors.blue.medium : colors.blue.darker)};
+  border: 1px solid ${colors.blue.medium};
 
   &:hover {
     background-color: ${({light}) => (light ? 'white' : colors.blue.darker)};
