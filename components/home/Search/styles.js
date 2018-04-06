@@ -75,24 +75,12 @@ export const Neighborhoods = styled.div`
 export const Neighborhood = styled.div`
   border: 1px solid ${colors.offWhite};
   border-top: none;
+  border-left: none;
   box-sizing: border-box;
   height: 54px;
   position: relative;
   padding: 0 15px;
   min-width: 200px;
-
-  &:nth-child(3n) {
-    border-right: none;
-  }
-
-  &:nth-child(3n + 1) {
-    border-left: none;
-  }
-
-  &:nth-child(3n + 2) {
-    border-left: none;
-    border-right: none;
-  }
 
   &:hover {
     background: ${colors.offWhite};

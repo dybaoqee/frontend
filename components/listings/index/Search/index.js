@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import {Component} from 'react'
 
 import * as colors from 'constants/colors'
@@ -120,6 +119,7 @@ export default class Filter extends Component {
             position: fixed;
             width: 100vw;
             z-index: 4;
+            box-sizing: border-box;
             &.filter-open {
               box-shadow: 1px 1px 4px ${colors.lightGray};
             }
