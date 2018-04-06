@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import {Component} from 'react'
 
 import * as colors from 'constants/colors'
