@@ -6,6 +6,7 @@ import {mobileMedia} from 'constants/media'
 
 import ImageContainer from './ImageContainer'
 import TextContainer from './TextContainer'
+import humps from 'humps'
 
 class Listing extends React.Component {
   handleListingClick = (e) => {
@@ -26,7 +27,8 @@ class Listing extends React.Component {
   }
 
   render() {
-    const {id, listing, currentUser, favorited, loading} = this.props
+    let {id, listing, currentUser, favorited, loading} = this.props
+    listing = humps.decamelizeKeys(listing)
 
     return (
       <div id={id} onClick={this.handleListingClick}>

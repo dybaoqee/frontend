@@ -2,7 +2,7 @@ import _ from 'lodash'
 import {Component} from 'react'
 import Link from 'next/link'
 
-import Container, {Footer} from './styles'
+import Container, {Footer, Title, Wrapper} from './styles'
 import {withRouter} from 'next/router'
 import {getY} from 'utils/polyfills/bounding-rect'
 
@@ -36,7 +36,7 @@ export default class InfiniteScroll extends Component {
 
   onScroll = _.throttle(() => {
     const {onLoad} = this.props
-    if (this.shouldTriggerLoad()) onLoad()
+    if (this.shouldTriggerLoad()) onLoad && onLoad()
   }, 500)
 
   footerRef = (el) => {
@@ -51,21 +51,25 @@ export default class InfiniteScroll extends Component {
       entries,
       currentPage,
       totalPages,
+      title,
       children: renderEntry
     } = this.props
     const last = currentPage >= totalPages
     const query = to.query || {}
     return (
-      <Container>
-        {entries.map(renderEntry)}
-        {!last && (
-          <Footer innerRef={this.footerRef}>
-            <Link href={{...to, query: {...query, page: currentPage + 1}}}>
-              <a title="Próxima página">Carregando...</a>
-            </Link>
-          </Footer>
-        )}
-      </Container>
+      <Wrapper title={title}>
+        {title && <Title>{title}</Title>}
+        <Container>
+          {entries.map(renderEntry)}
+          {!last && (
+            <Footer innerRef={this.footerRef}>
+              <Link href={{...to, query: {...query, page: currentPage + 1}}}>
+                <a title="Próxima página">Carregando...</a>
+              </Link>
+            </Footer>
+          )}
+        </Container>
+      </Wrapper>
     )
   }
 }

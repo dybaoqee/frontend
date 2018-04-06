@@ -26,9 +26,14 @@ export default class Header extends Component {
         </Link>
       </UserHeader>
     ) : (
-      <Link href="/auth/logout">
-        <a>Sair</a>
-      </Link>
+      <Fragment>
+        <Link href="/listings/fav" as="/imoveis/favoritos">
+          <a>Favoritos</a>
+        </Link>
+        <Link href="/auth/logout">
+          <a>Sair</a>
+        </Link>
+      </Fragment>
     )
   }
 

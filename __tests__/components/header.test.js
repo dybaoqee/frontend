@@ -48,7 +48,7 @@ describe('Header', () => {
   it('should render authenticated', () => {
     const header = shallow(<Header authenticated={true} isAdmin={true} />)
 
-    expect(header.find(Link)).toHaveLength(5)
+    expect(header.find(Link)).toHaveLength(6)
 
     expect(
       header

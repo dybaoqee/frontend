@@ -9,7 +9,7 @@ import {mobileMedia} from 'constants/media'
 class ImageContainer extends React.Component {
   render() {
     const {listing, favorite, currentUser, loading} = this.props
-    const bgImgUrl = mainListingThumbnail(listing.images)
+    const bgImgUrl = mainListingThumbnail(listing.images || [])
     const divStyle = {
       backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.0) 50%, rgba(0, 0, 0, 0.7) 80%), url(${bgImgUrl})`
     }
