@@ -82,11 +82,9 @@ class ListingsIndex extends Component {
       page_size: 50,
       excluded_listing_ids: query.excluded_listing_ids || []
     })
+
     return {
-      currentPage: data.page_number,
-      totalPages: data.total_pages,
-      totalResults: data.total_entries,
-      listings: data.listings
+      ...data
     }
   }
 
@@ -116,6 +114,7 @@ class ListingsIndex extends Component {
       page: currentPage + 1,
       excluded_listing_ids
     })
+
     await this.setState({
       ...state,
       listings: [...this.state.listings, ...listings]
