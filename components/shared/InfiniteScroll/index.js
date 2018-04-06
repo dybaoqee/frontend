@@ -35,8 +35,13 @@ export default class InfiniteScroll extends Component {
   }
 
   onScroll = _.throttle(() => {
-    const {onLoad} = this.props
-    if (this.shouldTriggerLoad()) onLoad && onLoad()
+    const {onLoad, remaining_count} = this.props
+
+    if (this.shouldTriggerLoad()) {
+      !_.isUndefined(remaining_count)
+        ? remaining_count > 0 && onLoad && onLoad()
+        : onLoad && onLoad()
+    }
   }, 500)
 
   footerRef = (el) => {
