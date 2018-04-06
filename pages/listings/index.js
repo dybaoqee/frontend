@@ -75,7 +75,13 @@ class ListingsIndex extends Component {
 
   static async getState(query) {
     const page = query.page || 1
-    const {data} = await getListings({...query, page, page_size: 50})
+
+    const {data} = await getListings({
+      ...query,
+      page,
+      page_size: 50,
+      excluded_listing_ids: query.excluded_listing_ids || []
+    })
     return {
       currentPage: data.page_number,
       totalPages: data.total_pages,
@@ -101,10 +107,14 @@ class ListingsIndex extends Component {
 
   onLoadNextPage = async () => {
     const {currentPage, totalPages} = this.state
+    const excluded_listing_ids = this.state.listings.map(
+      (actualListing) => actualListing.id
+    )
     if (currentPage >= totalPages) return
     const {listings, ...state} = await this.constructor.getState({
       ...this.params,
-      page: currentPage + 1
+      page: currentPage + 1,
+      excluded_listing_ids
     })
     await this.setState({
       ...state,
