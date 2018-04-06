@@ -162,8 +162,15 @@ class ListingsIndex extends Component {
   render() {
     const {params} = this
     const {neighborhoods, currentUser, query} = this.props
-    const {currentPage, totalPages, totalResults, listings} = this.state
+    const {
+      currentPage,
+      totalPages,
+      totalResults,
+      listings,
+      remaining_count
+    } = this.state
     const seoImgSrc = this.seoImage
+
     return (
       <Layout
         authenticated={currentUser.authenticated}
@@ -221,6 +228,7 @@ class ListingsIndex extends Component {
                     currentPage={currentPage}
                     totalPages={totalPages}
                     entries={listings}
+                    remaining_count={remaining_count}
                     onLoad={this.onLoadNextPage}
                     to={{pathname: '/imoveis', query}}
                   >
