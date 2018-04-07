@@ -35,8 +35,13 @@ export default class InfiniteScroll extends Component {
   }
 
   onScroll = _.throttle(() => {
-    const {onLoad} = this.props
-    if (this.shouldTriggerLoad()) onLoad && onLoad()
+    const {onLoad, remaining_count} = this.props
+
+    if (this.shouldTriggerLoad()) {
+      !_.isUndefined(remaining_count)
+        ? remaining_count > 0 && onLoad && onLoad()
+        : onLoad && onLoad()
+    }
   }, 500)
 
   footerRef = (el) => {
@@ -50,18 +55,17 @@ export default class InfiniteScroll extends Component {
       to,
       entries,
       currentPage,
-      totalPages,
       title,
+      remaining_count,
       children: renderEntry
     } = this.props
-    const last = currentPage >= totalPages
     const query = to.query || {}
     return (
       <Wrapper title={title}>
         {title && <Title>{title}</Title>}
         <Container>
           {entries.map(renderEntry)}
-          {!last && (
+          {remaining_count > 0 && (
             <Footer innerRef={this.footerRef}>
               <Link href={{...to, query: {...query, page: currentPage + 1}}}>
                 <a title="Próxima página">Carregando...</a>

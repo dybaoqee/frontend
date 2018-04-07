@@ -75,12 +75,16 @@ class ListingsIndex extends Component {
 
   static async getState(query) {
     const page = query.page || 1
-    const {data} = await getListings({...query, page, page_size: 50})
+
+    const {data} = await getListings({
+      ...query,
+      page,
+      page_size: 50,
+      excluded_listing_ids: query.excluded_listing_ids || []
+    })
+
     return {
-      currentPage: data.page_number,
-      totalPages: data.total_pages,
-      totalResults: data.total_entries,
-      listings: data.listings
+      ...data
     }
   }
 
@@ -101,11 +105,16 @@ class ListingsIndex extends Component {
 
   onLoadNextPage = async () => {
     const {currentPage, totalPages} = this.state
+    const excluded_listing_ids = this.state.listings.map(
+      (actualListing) => actualListing.id
+    )
     if (currentPage >= totalPages) return
     const {listings, ...state} = await this.constructor.getState({
       ...this.params,
-      page: currentPage + 1
+      page: currentPage + 1,
+      excluded_listing_ids
     })
+
     await this.setState({
       ...state,
       listings: [...this.state.listings, ...listings]
@@ -153,8 +162,15 @@ class ListingsIndex extends Component {
   render() {
     const {params} = this
     const {neighborhoods, currentUser, query} = this.props
-    const {currentPage, totalPages, totalResults, listings} = this.state
+    const {
+      currentPage,
+      totalPages,
+      totalResults,
+      listings,
+      remaining_count
+    } = this.state
     const seoImgSrc = this.seoImage
+
     return (
       <Layout
         authenticated={currentUser.authenticated}
@@ -212,6 +228,7 @@ class ListingsIndex extends Component {
                     currentPage={currentPage}
                     totalPages={totalPages}
                     entries={listings}
+                    remaining_count={remaining_count}
                     onLoad={this.onLoadNextPage}
                     to={{pathname: '/imoveis', query}}
                   >
