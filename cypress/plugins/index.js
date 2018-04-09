@@ -1,4 +1,4 @@
-const webpack = require('@cypress/webpack-preprocessor')
+const browserify = require('@cypress/browserify-preprocessor')
 // ***********************************************************
 // This example plugins/index.js can be used to load plugins
 //
@@ -13,7 +13,12 @@ const webpack = require('@cypress/webpack-preprocessor')
 // the project's config changing)
 
 module.exports = (on, config) => {
-  // `on` is used to hook into various events Cypress emits
-  // `config` is the resolved Cypress config
-  on('file:preprocessor', webpack())
+  const options = browserify.defaultOptions
+
+  options.browserifyOptions.transform[1][1].babelrc = true
+  options.browserifyOptions.transform[1][1].plugins.push(
+    'babel-plugin-transform-class-properties'
+  )
+
+  on('file:preprocessor', browserify(options))
 }
