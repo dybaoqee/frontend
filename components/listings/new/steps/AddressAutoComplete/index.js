@@ -45,11 +45,11 @@ export default class AddressAutoComplete extends React.Component {
         predictionSelected: 0,
         errors:
           predictions.length === 0
-          ? [
-              ...this.state.errors,
-            'Não encontramos o endereço.Tente outros termos.',
-            ]
-          : []
+            ? [
+                ...this.state.errors,
+                'Não encontramos o endereço.Tente outros termos.'
+              ]
+            : []
       })
     } catch (e) {
       this.setState({
