@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 import {Title, Field} from 'components/listings/shared/styles'
 import {SearchResults, FieldContainer, SearchResult} from './styles'
 import {filterComponent} from 'services/google-maps-api'
@@ -28,10 +29,11 @@ export default class AddressAutoComplete extends React.Component {
 
   searchPlaces = async (input) => {
     try {
-      const response = await fetch(`/maps/autocomplete?q=${encodeURI(input)}`)
-      const json = await response.json()
+      const response = await axios.get(
+        `/maps/autocomplete?q=${encodeURI(input)}`
+      )
 
-      const {predictions} = json.json
+      const {predictions} = response.data.json
 
       const predictionsSorted = predictions.sort(
         (a, b) => b.structured_formatting.secondary_text === this.secondaryText
