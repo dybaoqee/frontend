@@ -85,10 +85,10 @@ export default class AddressAutoComplete extends React.Component {
     const {choosePlace} = this.props
     this.setState({place, predictions: [], loadingPlaceInfo: true, errors: []})
     try {
-      const response = await fetch(
+      const response = await axios.get(
         `/maps/placeDetail?q=${encodeURI(place.place_id)}`
       )
-      const json = await response.json()
+      const json = response.data
       this.complementInput.focus()
 
       const street_number = filterComponent(
