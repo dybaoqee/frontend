@@ -5,7 +5,7 @@ export const mobileMedia = `
 `
 
 export const headerMobileMedia = `
- only screen and (max-width: 725px)
+ only screen and (max-width: 825px)
 `
 
 export const footerMobileMedia = `

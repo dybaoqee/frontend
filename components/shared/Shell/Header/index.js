@@ -56,6 +56,11 @@ export default class Header extends Component {
           <Link href="/indique">
             <a>Indique e Ganhe</a>
           </Link>
+
+          <Link href="http://blog.emcasa.com">
+            <a>Blog</a>
+          </Link>
+
           {this.getUserHeader(authenticated)}
         </Nav>
       </Fragment>
