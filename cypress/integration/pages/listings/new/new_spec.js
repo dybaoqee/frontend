@@ -90,11 +90,42 @@ describe('Add Listing', () => {
 
       cy.wait(500).then(function() {
         const $input = Cypress.$('input[name=street]')
+
         $input
           .next()
           .children()[0]
           .click()
       })
     })
+
+    it('should be able to navigate to next page', () => {
+      const $advanceButton = Cypress.$('button:contains("Próximo")')
+      cy.wrap($advanceButton).not('have.prop', 'disbaled')
+      cy.wrap($advanceButton).click()
+    })
+
+    it('should display error if listing type is not defined', () => {
+      const $advanceButton = Cypress.$('button:contains("Próximo")')
+      cy.wrap($advanceButton).click()
+      let $select = Cypress.$('.Select, .type')
+
+      cy
+        .wrap($select)
+        .should(
+          'have.css',
+          'border',
+          `1px solid ${convertColor(colors.red.medium)}`
+        )
+    })
+
+    it('should be able to select listing type', () => {
+      cy
+        .get('div.Select-control input')
+        .first()
+        .type('Ap', {force: true})
+        .get('.Select-option:contains(Apartamento)')
+        .click()
+    })
+
   })
 })
