@@ -154,11 +154,5 @@ describe('Add Listing', () => {
       )
       cy.get('button:contains("Próximo")').click()
     })
-
-    it('should display listing created', () => {
-      cy.visit('/login')
-      cy.go('back')
-      cy.go('back')
-    })
   })
 })
