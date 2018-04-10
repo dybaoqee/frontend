@@ -7,7 +7,7 @@ describe('Header', () => {
   it('should render unauthenticated', () => {
     const header = shallow(<Header />)
 
-    expect(header.find(Link)).toHaveLength(6)
+    expect(header.find(Link)).toHaveLength(7)
 
     expect(
       header
@@ -39,6 +39,13 @@ describe('Header', () => {
         .text()
     ).toEqual('Indique e Ganhe')
 
+    expect(
+      header
+        .find('[href="http://blog.emcasa.com"]')
+        .find('a')
+        .text()
+    ).toEqual('Blog')
+
     expect(header.find('[href="/auth/logout"]').exists()).toEqual(false)
     expect(header.find('[href="/auth/login"]').exists()).toEqual(true)
     expect(header.find('[href="/auth/signup"]').exists()).toEqual(true)
@@ -48,7 +55,7 @@ describe('Header', () => {
   it('should render authenticated', () => {
     const header = shallow(<Header authenticated={true} isAdmin={true} />)
 
-    expect(header.find(Link)).toHaveLength(6)
+    expect(header.find(Link)).toHaveLength(7)
 
     expect(
       header
@@ -65,6 +72,13 @@ describe('Header', () => {
         .find('a')
         .text()
     ).toEqual('Indique e Ganhe')
+
+    expect(
+      header
+        .find('[href="http://blog.emcasa.com"]')
+        .find('a')
+        .text()
+    ).toEqual('Blog')
 
     expect(
       header
