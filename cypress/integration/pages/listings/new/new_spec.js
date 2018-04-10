@@ -51,8 +51,12 @@ describe('Add Listing', () => {
 
     it('should select the correct address', () => {
       cy.server()
+      cy.route(
+        'GET',
+        '/maps/placeDetail?q=*',
+        'fixture:maps/placedetail/place_detail.json'
+      )
       const input = cy.get('input[name=street]')
-      let correctAddress = 'Rua José Getúlio'
       cy
         .route(
           'GET',
@@ -68,6 +72,13 @@ describe('Add Listing', () => {
           .next()
           .children()[0]
           .click()
+
+        cy.route(
+          'GET',
+          '/maps/autocomplete?q=*',
+          'fixture:maps/autocomplete/address_complete.json'
+        )
+
         cy
           .get('input')
           .first()
