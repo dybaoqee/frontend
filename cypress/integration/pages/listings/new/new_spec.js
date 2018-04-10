@@ -127,5 +127,20 @@ describe('Add Listing', () => {
         .click()
     })
 
+    it('should be able to create listing', () => {
+      cy.server()
+      cy.route(
+        'POST',
+        `${Cypress.env('apiUrl')}/listings`,
+        'fixture:listings/new.json'
+      )
+      cy.get('button:contains("Próximo")').click()
+    })
+
+    it('should display listing created', () => {
+      cy.visit('/login')
+      cy.go('back')
+      cy.go('back')
+    })
   })
 })
