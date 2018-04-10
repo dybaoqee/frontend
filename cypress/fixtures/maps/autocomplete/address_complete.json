@@ -1,0 +1,83 @@
+{
+  "status": 200,
+  "headers": {
+    "content-type": "application/json; charset=UTF-8",
+    "date": "Tue, 10 Apr 2018 01:24:21 GMT",
+    "expires": "Tue, 10 Apr 2018 01:24:21 GMT",
+    "cache-control": "private, max-age=300",
+    "server": "scaffolding on HTTPServer2",
+    "x-xss-protection": "1; mode=block",
+    "x-frame-options": "SAMEORIGIN",
+    "alt-svc":
+      "hq=\":443\"; ma=2592000; quic=51303432; quic=51303431; quic=51303339; quic=51303335,quic=\":443\"; ma=2592000; v=\"42,41,39,35\"",
+    "accept-ranges": "none",
+    "vary": "Accept-Encoding",
+    "connection": "close"
+  },
+  "json": {
+    "predictions": [
+      {
+        "description":
+          "Rua José Getúlio, 217 - Liberdade, São Paulo - SP, Brasil",
+        "id": "059c059d9d3d289dbd2bf337508adad9705cb173",
+        "matched_substrings": [
+          {"length": 16, "offset": 0},
+          {"length": 3, "offset": 18}
+        ],
+        "place_id": "ChIJpV-Q36FZzpQR3MSek5tsJWg",
+        "reference":
+          "CmRUAAAAuLa3LYytmcnQ6Vf7jRNgR81RIg3HPmRrpv7uW_bgZ5sG6_RoAFouqlPY_D3hCPfyP_Dyr3nTlEk1ws3oPbQZan2Ou-nrfQP1P4rdSb0ytpfKzXhhoEdDZa7UXPtG2Jy9EhCVpJ9QUjPug9BjEXm21sORGhQJkez1xe-qqq9gdUYwvKV4PFIS8Q",
+        "structured_formatting": {
+          "main_text": "Rua José Getúlio, 217",
+          "main_text_matched_substrings": [
+            {"length": 16, "offset": 0},
+            {"length": 3, "offset": 18}
+          ],
+          "secondary_text": "Liberdade, São Paulo - SP, Brasil"
+        },
+        "terms": [
+          {"offset": 0, "value": "Rua José Getúlio"},
+          {"offset": 18, "value": "217"},
+          {"offset": 24, "value": "Liberdade"},
+          {"offset": 35, "value": "São Paulo"},
+          {"offset": 47, "value": "SP"},
+          {"offset": 51, "value": "Brasil"}
+        ],
+        "types": ["street_address", "geocode"]
+      },
+      {
+        "description":
+          "Rua Vereador José Getúlio, 217 - Eldorado, Itabira - MG, Brasil",
+        "id": "fef318bed068b7efabfe80784184aa858cb03d25",
+        "matched_substrings": [{"length": 30, "offset": 0}],
+        "place_id":
+          "EkFSdWEgVmVyZWFkb3IgSm9zw6kgR2V0w7psaW8sIDIxNyAtIEVsZG9yYWRvLCBJdGFiaXJhIC0gTUcsIEJyYXNpbA",
+        "reference":
+          "ClRFAAAAIsDODv5xjU8gJWU8Yyovowos6JRGEvvOjrc6X3BSyW-7oU3U-8J9Gf23B_7wuRGB-P7U1d_tbns9X_9ngsjepyRhgrtMWNVLEVxA26Zip2YSEDcYq8pk82LfsIeqN2fut3UaFDgtfSgKgLkZFNsk_4j9PSthB4jN",
+        "structured_formatting": {
+          "main_text": "Rua Vereador José Getúlio, 217",
+          "main_text_matched_substrings": [{"length": 30, "offset": 0}],
+          "secondary_text": "Eldorado, Itabira - MG, Brasil"
+        },
+        "terms": [
+          {"offset": 0, "value": "Rua Vereador José Getúlio, 217"},
+          {"offset": 33, "value": "Eldorado"},
+          {"offset": 43, "value": "Itabira"},
+          {"offset": 53, "value": "MG"},
+          {"offset": 57, "value": "Brasil"}
+        ],
+        "types": ["route", "geocode"]
+      }
+    ],
+    "status": "OK"
+  },
+  "requestUrl":
+    "https://maps.googleapis.com/maps/api/place/autocomplete/json?components=country%3Abr&input=Rua%20Jos%C3%A9%20Get%C3%BAlio%2C%20217&language=pt-BR&types=address&key=AIzaSyDmYQLTPwsDPtErGWTgiejz17QCw39MEVQ",
+  "query": {
+    "components": "country:br",
+    "input": "Rua José Getúlio, 217",
+    "language": "pt-BR",
+    "types": ["address"],
+    "key": "AIzaSyDmYQLTPwsDPtErGWTgiejz17QCw39MEVQ"
+  }
+}
