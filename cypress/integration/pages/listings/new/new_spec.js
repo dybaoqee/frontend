@@ -1,5 +1,22 @@
 import * as colors from 'constants/colors'
 import convertColor from 'utils/color_converter'
+import axios from 'axios'
+var listing = require('cypress/fixtures/listings/show.json')
+var related = require('cypress/fixtures/listings/related.json')
+
+export const mockListingCreated = function() {
+  const MockAdapter = require('axios-mock-adapter')
+  // This sets the mock adapter on the default instance
+  var mock = new MockAdapter(axios)
+
+  mock.onGet('/listings/1').reply(200, {
+    listing: {...listing.listing}
+  })
+
+  mock.onGet('/listings/1/related').reply(200, {
+    listings: related.listings
+  })
+}
 
 describe('Add Listing', () => {
   context('Unauthenticated', () => {
@@ -128,6 +145,7 @@ describe('Add Listing', () => {
     })
 
     it('should be able to create listing', () => {
+      mockListingCreated()
       cy.server()
       cy.route(
         'POST',
