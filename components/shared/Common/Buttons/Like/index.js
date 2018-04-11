@@ -24,7 +24,12 @@ const LikeButton = (props) => (
               }
             })
           } else {
-            setCookie('redirectTo', `/imoveis/${props.listing.id}?f`)
+            setCookie(
+              'redirectTo',
+              `/listings/show?id=${props.listing.id}&f#as#/imoveis/${
+                props.listing.id
+              }?f`
+            )
             Router.push({
               pathname: '/auth/login'
             })
