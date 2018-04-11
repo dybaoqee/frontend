@@ -21,13 +21,13 @@ export const mockListingCreated = function() {
 describe('Add Listing', () => {
   context('Unauthenticated', () => {
     it('should redirect to login page', () => {
-      cy.server()
-      cy.route('/auth/login').as('login')
-      cy.visit('/').then((resp) => {
+      cy.visit('/auth/login').then((resp) => {
         cy
           .get('a')
           .contains('Venda')
           .trigger('click')
+
+        expect(resp.location.pathname).to.include('/login')
       })
     })
   })
