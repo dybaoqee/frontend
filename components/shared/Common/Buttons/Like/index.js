@@ -22,6 +22,13 @@ const LikeButton = (props) => (
               variables: {
                 id: props.listing.id
               }
+            })
+          } else {
+            setCookie('redirectTo', `/imoveis/${props.listing.id}?f`)
+            Router.push({
+              pathname: '/auth/login'
+            })
+          }
         }}
       >
         <FontAwesomeIcon icon={faHeart} />
@@ -29,3 +36,5 @@ const LikeButton = (props) => (
     )}
   </Mutation>
 )
+
+export default LikeButton
