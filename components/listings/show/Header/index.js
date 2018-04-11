@@ -48,13 +48,13 @@ export default class ListingHeader extends Component {
             </Link>
           )}
 
-          {!favoritedListing.loading &&
-            currentUser.authenticated && (
-              <LikeButton
-                favorite={favoritedListing.favorite}
-                listing={listing}
-              />
-            )}
+          {!favoritedListing.loading && (
+            <LikeButton
+              favorite={favoritedListing.favorite}
+              listing={listing}
+              user={currentUser}
+            />
+          )}
         </div>
 
         <div className="bottom-right">

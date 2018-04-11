@@ -3,10 +3,12 @@ import ReactGA from 'react-ga'
 import withData from '/lib/apollo/withData'
 import {Query} from 'react-apollo'
 import {GET_FAVORITE_LISTINGS_IDS} from 'graphql/user/queries'
+import {Mutation} from 'react-apollo'
+import {FAVORITE_LISTING} from 'graphql/listings/mutations'
 import {isAuthenticated, isAdmin, getCurrentUserId, getJwt} from 'lib/auth'
 import {getListing, getRelatedListings} from 'services/listing-api'
 import {createInterest} from 'services/interest-api'
-
+import _ from 'lodash'
 import Layout from 'components/shared/Shell'
 import ListingHead from 'components/listings/show/Head'
 import ListingHeader from 'components/listings/show/Header'
@@ -22,6 +24,7 @@ import Link from 'next/link'
 import Warning from 'components/shared/Common/Warning'
 
 class Listing extends Component {
+  favMutated = false
   state = {
     interestForm: {
       name: '',
@@ -168,93 +171,115 @@ class Listing extends Component {
     } = this.state
 
     return (
-      <Query
-        query={GET_FAVORITE_LISTINGS_IDS}
-        skip={!currentUser.authenticated}
-      >
-        {({loading, error, data}) => {
-          const favorite =
-            !loading &&
-            !error &&
-            data &&
-            data.favoritedListings &&
-            data.favoritedListings.filter(
-              (listingSaved) =>
-                listingSaved.id.toString() === listing.id.toString()
-            ).length > 0
+      <Mutation mutation={FAVORITE_LISTING}>
+        {(favoriteListing) => (
+          <Query query={GET_FAVORITE_LISTINGS_IDS}>
+            {({loading, error, data}) => {
+              const favorite =
+                !loading &&
+                !error &&
+                data &&
+                data.favoritedListings &&
+                data.favoritedListings.filter(
+                  (listingSaved) =>
+                    listingSaved.id.toString() === listing.id.toString()
+                ).length > 0
 
-          return (
-            <Fragment>
-              {isImageGalleryVisible && (
-                <ImageGallery
-                  images={listing.images}
-                  imageIndex={imageIndex}
-                  handlePrevious={this.showNextImage}
-                  handleNext={this.showPreviousImage}
-                  handleClose={this.hideImageGallery}
-                />
-              )}
+              if (
+                !_.isUndefined(url.query.f) &&
+                !loading &&
+                !favorite &&
+                !this.favMutated
+              ) {
+                this.favMutated = true
+                favoriteListing({
+                  refetchQueries: [
+                    {
+                      query: GET_FAVORITE_LISTINGS_IDS
+                    }
+                  ],
+                  variables: {
+                    id: listing.id
+                  }
+                })
+              }
 
-              {is3DTourVisible && (
-                <Matterport
-                  matterport_code={listing.matterport_code}
-                  handleClose={this.hide3DTour}
-                />
-              )}
+              return (
+                <Fragment>
+                  {isImageGalleryVisible && (
+                    <ImageGallery
+                      images={listing.images}
+                      imageIndex={imageIndex}
+                      handlePrevious={this.showNextImage}
+                      handleNext={this.showPreviousImage}
+                      handleClose={this.hideImageGallery}
+                    />
+                  )}
 
-              <ListingHead listing={listing} />
+                  {is3DTourVisible && (
+                    <Matterport
+                      matterport_code={listing.matterport_code}
+                      handleClose={this.hide3DTour}
+                    />
+                  )}
 
-              <div>
-                <ListingHeader
-                  listing={listing}
-                  handleOpenPopup={this.openPopup}
-                  handleOpenImageGallery={this.showImageGallery}
-                  handleOpen3DTour={this.show3DTour}
-                  currentUser={currentUser}
-                  favoritedListing={{loading, favorite}}
-                />
-                {!is_active && (
-                  <Warning green={url.query.r}>
-                    {url.query.r ? (
-                      <p>
-                        <b>Pré-cadastro feito com sucesso.</b> Nossa equipe
-                        entrará em contato via email.
-                      </p>
-                    ) : (
-                      <p>
-                        Imóvel não está visível para o público pois está em fase
-                        de moderação.
-                      </p>
+                  <ListingHead listing={listing} />
+
+                  <div>
+                    <ListingHeader
+                      listing={listing}
+                      handleOpenPopup={this.openPopup}
+                      handleOpenImageGallery={this.showImageGallery}
+                      handleOpen3DTour={this.show3DTour}
+                      currentUser={currentUser}
+                      favoritedListing={{loading, favorite}}
+                    />
+                    {!is_active && (
+                      <Warning green={url.query.r}>
+                        {url.query.r ? (
+                          <p>
+                            <b>Pré-cadastro feito com sucesso.</b> Nossa equipe
+                            entrará em contato via email.
+                          </p>
+                        ) : (
+                          <p>
+                            Imóvel não está visível para o público pois está em
+                            fase de moderação.
+                          </p>
+                        )}
+                      </Warning>
                     )}
-                  </Warning>
-                )}
 
-                <ListingMainContent
-                  listing={listing}
-                  handleOpenPopup={this.openPopup}
-                />
+                    <ListingMainContent
+                      listing={listing}
+                      handleOpenPopup={this.openPopup}
+                    />
 
-                <ListingMap listing={listing} />
+                    <ListingMap listing={listing} />
 
-                <RelatedListings listings={related} />
+                    <RelatedListings listings={related} />
 
-                {isInterestPopupVisible && (
-                  <InterestForm
-                    data={interestForm}
-                    handleClose={this.closePopup}
-                    onChange={this.onChange}
-                    onSubmit={this.onSubmit}
-                  />
-                )}
+                    {isInterestPopupVisible && (
+                      <InterestForm
+                        data={interestForm}
+                        handleClose={this.closePopup}
+                        onChange={this.onChange}
+                        onSubmit={this.onSubmit}
+                      />
+                    )}
 
-                {isInterestSuccessPopupVisible && (
-                  <InterestPosted handleClose={this.closeSuccessPostPopup} />
-                )}
-              </div>
-            </Fragment>
-          )
-        }}
-      </Query>
+                    {isInterestSuccessPopupVisible && (
+                      <InterestPosted
+                        handleClose={this.closeSuccessPostPopup}
+                      />
+                    )}
+                  </div>
+                </Fragment>
+              )
+            }}
+          </Query>
+        )}
+      </Mutation>
     )
   }
 
