@@ -219,11 +219,8 @@ class ListingsIndex extends Component {
             {totalResults == 0 ? (
               <ListingsNotFound resetAllParams={this.onResetFilter} />
             ) : (
-              <Query
-                query={GET_FAVORITE_LISTINGS_IDS}
-                skip={!currentUser.authenticated}
-              >
-                {({data, loading}) => (
+              <Query query={GET_FAVORITE_LISTINGS_IDS}>
+                {({data, loading, error}) => (
                   <InfiniteScroll
                     currentPage={currentPage}
                     totalPages={totalPages}
@@ -240,7 +237,9 @@ class ListingsIndex extends Component {
                         currentUser={currentUser}
                         loading={loading}
                         favorited={
-                          !data.favoritedListings ? [] : data.favoritedListings
+                          error || !data.favoritedListings
+                            ? []
+                            : data.favoritedListings
                         }
                       />
                     )}
