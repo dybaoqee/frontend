@@ -4,9 +4,7 @@
     "npm": "5.6.0"
   },
   "jest": {
-    "setupFiles": [
-      "<rootDir>/shim.js"
-    ],
+    "setupFiles": ["<rootDir>/shim.js"],
     "setupTestFrameworkScriptFile": "<rootDir>config/setupTests.js"
   },
   "license": "UNLICENSED",
@@ -14,7 +12,8 @@
     "dev": "node server.js -p $PORT",
     "build": "next build",
     "start": "node server.js -p $PORT",
-    "test": "jest && TEST=cypress start-server-and-test dev http://localhost:3000/login cy:run",
+    "test":
+      "jest && TEST=cypress start-server-and-test dev http://localhost:3000/login cy:run",
     "heroku-postbuild": "npm run build",
     "cy:open": "cypress open",
     "cy:run": "cypress run"
