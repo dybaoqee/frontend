@@ -19,13 +19,14 @@ export const mockListingCreated = function() {
 }
 
 describe('Add Listing', () => {
+  Cypress.Cookies.debug(true, {verbose: false})
   context('Unauthenticated', () => {
     it('should redirect to login page', () => {
-      cy.visit('/auth/login').then((resp) => {
+      cy.visit('/imoveis/adicionar').then((resp) => {
         cy
           .get('a')
           .contains('Venda')
-          .trigger('click')
+          .click()
 
         expect(resp.location.pathname).to.include('/login')
       })
@@ -34,8 +35,9 @@ describe('Add Listing', () => {
 
   context('Authenticated', () => {
     it('should be redirected to listing creation after login', () => {
-      cy.wait(2000)
       cy.server() // enable response stubbing
+      //cy.route('/auth/login').as('login')
+
       cy.route(
         'POST',
         `${Cypress.env('apiUrl')}/users/login`,

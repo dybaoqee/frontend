@@ -21,6 +21,39 @@ const LikeButton = (props) => (
               ],
               variables: {
                 id: props.listing.id
+              },
+              optimisticResponse: {
+                __typename: 'Query',
+                [!props.favorite ? 'favoriteListing' : 'unfavoriteListing']: {
+                  __typename: 'ListingUser',
+                  listing: {
+                    __typename: 'Listing',
+                    id: props.listing.id
+                  }
+                }
+              },
+              update: (proxy) => {
+                // Read the data from our cache for this query.
+                let data = proxy.readQuery({
+                  query: GET_FAVORITE_LISTINGS_IDS
+                })
+
+                // Add our comment from the mutation to the end.
+                if (!props.favorite) {
+                  data.favoritedListings.push({
+                    id: props.listing.id.toString(),
+                    __typename: 'Listing'
+                  })
+                } else {
+                  const removed = data.favoritedListings.filter(
+                    (listing) =>
+                      listing.id.toString() !== props.listing.id.toString()
+                  )
+                  data.favoritedListings = removed
+                }
+
+                // Write our data back to the cache.
+                proxy.writeQuery({query: GET_FAVORITE_LISTINGS_IDS, data})
               }
             })
           } else {
