@@ -24,6 +24,7 @@ import Link from 'next/link'
 import Warning from 'components/shared/Common/Warning'
 
 class Listing extends Component {
+  favMutated = false
   state = {
     interestForm: {
       name: '',
