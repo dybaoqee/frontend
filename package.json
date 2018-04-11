@@ -16,7 +16,7 @@
       "jest && TEST=cypress start-server-and-test dev http://localhost:3000/login cy:run",
     "heroku-postbuild": "npm run build",
     "cy:open": "cypress open",
-    "cy:run": "cypress run --record --key cc8e33f0-d280-48fb-981e-34051f56acc0"
+    "cy:run": "cypress run"
   },
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.2",
