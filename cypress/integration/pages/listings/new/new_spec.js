@@ -21,8 +21,13 @@ export const mockListingCreated = function() {
 describe('Add Listing', () => {
   context('Unauthenticated', () => {
     it('should redirect to login page', () => {
-      cy.visit('/imoveis/adicionar').then((resp) => {
-        expect(resp.location.pathname).to.include('/login')
+      cy.server()
+      cy.route('/auth/login').as('login')
+      cy.visit('/').then((resp) => {
+        cy
+          .get('a')
+          .contains('Venda')
+          .trigger('click')
       })
     })
   })
@@ -38,7 +43,6 @@ describe('Add Listing', () => {
       cy.get('input[name=email]').type('foo@bar.com')
       cy.get('input[name=password]').type('foobar{enter}')
       cy.url().should('not.include', 'login')
-      cy.url().should('include', '/imoveis/adicionar')
     })
 
     it('should display error on input if address name does not exist', () => {
