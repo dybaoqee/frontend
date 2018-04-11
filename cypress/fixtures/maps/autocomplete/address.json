@@ -1,0 +1,146 @@
+{
+  "status": 200,
+  "stubbed": true,
+  "headers": {
+    "content-type": "application/json; charset=UTF-8",
+    "date": "Mon, 09 Apr 2018 22:03:16 GMT",
+    "expires": "Mon, 09 Apr 2018 22:03:16 GMT",
+    "cache-control": "private, max-age=300",
+    "server": "scaffolding on HTTPServer2",
+    "x-xss-protection": "1; mode=block",
+    "x-frame-options": "SAMEORIGIN",
+    "alt-svc":
+      "hq=\":443\"; ma=2592000; quic=51303432; quic=51303431; quic=51303339; quic=51303335,quic=\":443\"; ma=2592000; v=\"42,41,39,35\"",
+    "accept-ranges": "none",
+    "vary": "Accept-Encoding",
+    "connection": "close"
+  },
+  "json": {
+    "predictions": [
+      {
+        "description": "Rua José Getúlio - Liberdade, São Paulo - SP, Brasil",
+        "id": "f7be3f9cc49f41e62564d1391554d957841010df",
+        "matched_substrings": [{"length": 16, "offset": 0}],
+        "place_id":
+          "EjdSdWEgSm9zw6kgR2V0w7psaW8gLSBMaWJlcmRhZGUsIFPDo28gUGF1bG8gLSBTUCwgQnJhc2ls",
+        "reference":
+          "CkQ7AAAAVoJKzTEPAMVeb2s-zEMTdxPd6_2ampVgzqMfiNJq7IR6sD_6wbbRJynPZxOe7Eucq-2xpfL86SUdBV0AxNbwgBIQ1wC9kr2UcWo0Rs2Y_rXNRRoUXu_EsvdKS9tb9FTiqyAOz_BoRHE",
+        "structured_formatting": {
+          "main_text": "Rua José Getúlio",
+          "main_text_matched_substrings": [{"length": 16, "offset": 0}],
+          "secondary_text": "Liberdade, São Paulo - SP, Brasil"
+        },
+        "terms": [
+          {"offset": 0, "value": "Rua José Getúlio"},
+          {"offset": 19, "value": "Liberdade"},
+          {"offset": 30, "value": "São Paulo"},
+          {"offset": 42, "value": "SP"},
+          {"offset": 46, "value": "Brasil"}
+        ],
+        "types": ["route", "geocode"]
+      },
+      {
+        "description":
+          "Rua José Getúlio de Carvalho - Jardim Sao Jose, Caçapava - SP, Brasil",
+        "id": "b46a1366dea6c8d50938b0035cbed8372266ab35",
+        "matched_substrings": [{"length": 16, "offset": 0}],
+        "place_id":
+          "EkhSdWEgSm9zw6kgR2V0w7psaW8gZGUgQ2FydmFsaG8gLSBKYXJkaW0gU2FvIEpvc2UsIENhw6dhcGF2YSAtIFNQLCBCcmFzaWw",
+        "reference":
+          "ClRMAAAAKx9aoQ2D69nqlB1x5L54_M0kkgVwU6_ic_0o17jLcl9Pw49h83VoKCnnoxfrkIj1M00KHHCAA3qv2RJBLtM7G6bJWuEH7Mo3P--r7VXcF6kSELOVsRFTBD7hiSLAQuzY95caFFkaSiVOhP_ob1KZYcdJB5sS1JDr",
+        "structured_formatting": {
+          "main_text": "Rua José Getúlio de Carvalho",
+          "main_text_matched_substrings": [{"length": 16, "offset": 0}],
+          "secondary_text": "Jardim Sao Jose, Caçapava - SP, Brasil"
+        },
+        "terms": [
+          {"offset": 0, "value": "Rua José Getúlio de Carvalho"},
+          {"offset": 31, "value": "Jardim Sao Jose"},
+          {"offset": 48, "value": "Caçapava"},
+          {"offset": 59, "value": "SP"},
+          {"offset": 63, "value": "Brasil"}
+        ],
+        "types": ["route", "geocode"]
+      },
+      {
+        "description":
+          "Rua Vereador José Getúlio - Eldorado, Itabira - MG, Brasil",
+        "id": "fef318bed068b7efabfe80784184aa858cb03d25",
+        "matched_substrings": [{"length": 25, "offset": 0}],
+        "place_id":
+          "EjxSdWEgVmVyZWFkb3IgSm9zw6kgR2V0w7psaW8gLSBFbGRvcmFkbywgSXRhYmlyYSAtIE1HLCBCcmFzaWw",
+        "reference":
+          "CkRAAAAAM4XiugeafVz_w1EnuvIY5rJZHkBpHiiEmPL1zGuUmKbVMu7AnPr7-vWZxo13cQIRjfaSNy8-BmCnFawA7vnxYRIQMOSg4dT9YLvF6a6Vrgp9sRoUmdw1qBbc2T7aHsQZCrYm-gBdzso",
+        "structured_formatting": {
+          "main_text": "Rua Vereador José Getúlio",
+          "main_text_matched_substrings": [{"length": 25, "offset": 0}],
+          "secondary_text": "Eldorado, Itabira - MG, Brasil"
+        },
+        "terms": [
+          {"offset": 0, "value": "Rua Vereador José Getúlio"},
+          {"offset": 28, "value": "Eldorado"},
+          {"offset": 38, "value": "Itabira"},
+          {"offset": 48, "value": "MG"},
+          {"offset": 52, "value": "Brasil"}
+        ],
+        "types": ["route", "geocode"]
+      },
+      {
+        "description":
+          "Avenida Doutor José Getúlio Monteiro - Jardim da Luz, Taubaté - SP, Brasil",
+        "id": "c0a0fc22e07fe006f7c2b98330259f27d988c322",
+        "matched_substrings": [{"length": 36, "offset": 0}],
+        "place_id":
+          "Ek1BdmVuaWRhIERvdXRvciBKb3PDqSBHZXTDumxpbyBNb250ZWlybyAtIEphcmRpbSBkYSBMdXosIFRhdWJhdMOpIC0gU1AsIEJyYXNpbA",
+        "reference":
+          "CmRRAAAARWkE8n0CViDGgJatS6kFJqnWCRFjATGkoynLKouwyN883iQOa3bxYvnh-HQY8OLYT3i2_E8lk4416yRz08DU2XMgM9ec8LkCzslzobG1lOMLmCzSc0eT-jtfu9mOQNtWEhAv4EI8AWJu6yUOnb2u1CsyGhSckXGLQex-CL7Q6TlnQJyptOIQ_g",
+        "structured_formatting": {
+          "main_text": "Avenida Doutor José Getúlio Monteiro",
+          "main_text_matched_substrings": [{"length": 36, "offset": 0}],
+          "secondary_text": "Jardim da Luz, Taubaté - SP, Brasil"
+        },
+        "terms": [
+          {"offset": 0, "value": "Avenida Doutor José Getúlio Monteiro"},
+          {"offset": 39, "value": "Jardim da Luz"},
+          {"offset": 54, "value": "Taubaté"},
+          {"offset": 64, "value": "SP"},
+          {"offset": 68, "value": "Brasil"}
+        ],
+        "types": ["route", "geocode"]
+      },
+      {
+        "description":
+          "Alameda José Getúlio Soares - Eldorado, Itabira - MG, Brasil",
+        "id": "82caca99f735af8c192c276d6b5583adce46743d",
+        "matched_substrings": [{"length": 27, "offset": 0}],
+        "place_id":
+          "Ej5BbGFtZWRhIEpvc8OpIEdldMO6bGlvIFNvYXJlcyAtIEVsZG9yYWRvLCBJdGFiaXJhIC0gTUcsIEJyYXNpbA",
+        "reference":
+          "ClRCAAAAYIK-H1T5jIJyAfdGfOz-M3NmRkpWBphtQ7h864LDXdq_W3si7TqMAZ6zY6S9IHfyuiRkmqURvm-qZ99MdTWcEE0MB0vGOxH5pt-3wTNvO4wSEEElNhlBGA-iufYrelHUrT4aFLv-i1O3tpCMJ3aqRN2PzMj7G8dq",
+        "structured_formatting": {
+          "main_text": "Alameda José Getúlio Soares",
+          "main_text_matched_substrings": [{"length": 27, "offset": 0}],
+          "secondary_text": "Eldorado, Itabira - MG, Brasil"
+        },
+        "terms": [
+          {"offset": 0, "value": "Alameda José Getúlio Soares"},
+          {"offset": 30, "value": "Eldorado"},
+          {"offset": 40, "value": "Itabira"},
+          {"offset": 50, "value": "MG"},
+          {"offset": 54, "value": "Brasil"}
+        ],
+        "types": ["route", "geocode"]
+      }
+    ],
+    "status": "OK"
+  },
+  "requestUrl":
+    "https://maps.googleapis.com/maps/api/place/autocomplete/json?components=country%3Abr&input=Rua%20Jos%C3%A9%20Get%C3%BAlio&language=pt-BR&types=address&key=AIzaSyDmYQLTPwsDPtErGWTgiejz17QCw39MEVQ",
+  "query": {
+    "components": "country:br",
+    "input": "Rua José Getúlio",
+    "language": "pt-BR",
+    "types": ["address"],
+    "key": "AIzaSyDmYQLTPwsDPtErGWTgiejz17QCw39MEVQ"
+  }
+}

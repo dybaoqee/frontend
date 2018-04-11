@@ -1,0 +1,28 @@
+{
+  "status": 200,
+  "stubbed": true,
+  "headers": {
+    "content-type": "application/json; charset=UTF-8",
+    "date": "Mon, 09 Apr 2018 20:48:47 GMT",
+    "expires": "Mon, 09 Apr 2018 20:48:47 GMT",
+    "cache-control": "private, max-age=300",
+    "server": "scaffolding on HTTPServer2",
+    "x-xss-protection": "1; mode=block",
+    "x-frame-options": "SAMEORIGIN",
+    "alt-svc":
+      "hq=\":443\"; ma=2592000; quic=51303432; quic=51303431; quic=51303339; quic=51303335,quic=\":443\"; ma=2592000; v=\"42,41,39,35\"",
+    "accept-ranges": "none",
+    "vary": "Accept-Encoding",
+    "connection": "close"
+  },
+  "json": {"predictions": [], "status": "ZERO_RESULTS"},
+  "requestUrl":
+    "https://maps.googleapis.com/maps/api/place/autocomplete/json?components=country%3Abr&input=fabkjfsabkjfbksabfkjasf&language=pt-BR&types=address&key=AIzaSyDmYQLTPwsDPtErGWTgiejz17QCw39MEVQ",
+  "query": {
+    "components": "country:br",
+    "input": "fabkjfsabkjfbksabfkjasf",
+    "language": "pt-BR",
+    "types": ["address"],
+    "key": "AIzaSyDmYQLTPwsDPtErGWTgiejz17QCw39MEVQ"
+  }
+}

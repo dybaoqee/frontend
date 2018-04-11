@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 import {Title, Field} from 'components/listings/shared/styles'
 import {SearchResults, FieldContainer, SearchResult} from './styles'
 import {filterComponent} from 'services/google-maps-api'
@@ -28,10 +29,11 @@ export default class AddressAutoComplete extends React.Component {
 
   searchPlaces = async (input) => {
     try {
-      const response = await fetch(`/maps/autocomplete?q=${encodeURI(input)}`)
-      const json = await response.json()
+      const response = await axios.get(
+        `/maps/autocomplete?q=${encodeURI(input)}`
+      )
 
-      const {predictions} = json.json
+      const {predictions} = response.data.json
 
       const predictionsSorted = predictions.sort(
         (a, b) => b.structured_formatting.secondary_text === this.secondaryText
@@ -43,11 +45,11 @@ export default class AddressAutoComplete extends React.Component {
         predictionSelected: 0,
         errors:
           predictions.length === 0
-          ? [
-              ...this.state.errors,
-            'Não encontramos o endereço.Tente outros termos.',
-            ]
-          : []
+            ? [
+                ...this.state.errors,
+                'Não encontramos o endereço.Tente outros termos.'
+              ]
+            : []
       })
     } catch (e) {
       this.setState({
@@ -83,10 +85,10 @@ export default class AddressAutoComplete extends React.Component {
     const {choosePlace} = this.props
     this.setState({place, predictions: [], loadingPlaceInfo: true, errors: []})
     try {
-      const response = await fetch(
+      const response = await axios.get(
         `/maps/placeDetail?q=${encodeURI(place.place_id)}`
       )
-      const json = await response.json()
+      const json = response.data
       this.complementInput.focus()
 
       const street_number = filterComponent(

@@ -3,6 +3,7 @@ const next = require('next')
 const {parse} = require('url')
 const {join} = require('path')
 const sslRedirect = require('heroku-ssl-redirect')
+const checkPort = require('./lib/middlewares/checkPort')
 const buildSitemap = require('./lib/sitemap')
 const dev = process.env.NODE_ENV !== 'production'
 const port = process.env.PORT || 3000
@@ -173,5 +174,11 @@ const startServer = () => {
       process.exit(1)
     })
 }
-startServer()
+
+checkPort(port)
+  .then(() =>
+    console.log(`> Server already running on http://localhost:${port}`)
+  )
+  .catch(() => startServer())
+
 module.exports = startServer

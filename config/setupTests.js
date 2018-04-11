@@ -3,6 +3,10 @@ import chai from 'chai'
 import chaiEnzyme from 'chai-enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 
-configure({adapter: new Adapter()})
+export default function init() {
+  configure({adapter: new Adapter()})
 
-chai.use(chaiEnzyme())
+  chai.use(chaiEnzyme())
+}
+
+init()

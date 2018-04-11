@@ -1,0 +1,88 @@
+{
+  "status": 200,
+  "stubbed": true,
+  "headers": {
+    "content-type": "application/json; charset=UTF-8",
+    "date": "Tue, 10 Apr 2018 01:27:29 GMT",
+    "expires": "Tue, 10 Apr 2018 01:32:29 GMT",
+    "cache-control": "public, max-age=300",
+    "server": "scaffolding on HTTPServer2",
+    "x-xss-protection": "1; mode=block",
+    "x-frame-options": "SAMEORIGIN",
+    "alt-svc":
+      "hq=\":443\"; ma=2592000; quic=51303432; quic=51303431; quic=51303339; quic=51303335,quic=\":443\"; ma=2592000; v=\"42,41,39,35\"",
+    "accept-ranges": "none",
+    "vary": "Accept-Encoding",
+    "connection": "close"
+  },
+  "json": {
+    "html_attributions": [],
+    "result": {
+      "address_components": [
+        {"long_name": "217", "short_name": "217", "types": ["street_number"]},
+        {
+          "long_name": "Rua José Getúlio",
+          "short_name": "R. José Getúlio",
+          "types": ["route"]
+        },
+        {
+          "long_name": "Liberdade",
+          "short_name": "Liberdade",
+          "types": ["sublocality_level_1", "sublocality", "political"]
+        },
+        {
+          "long_name": "São Paulo",
+          "short_name": "São Paulo",
+          "types": ["administrative_area_level_2", "political"]
+        },
+        {
+          "long_name": "São Paulo",
+          "short_name": "SP",
+          "types": ["administrative_area_level_1", "political"]
+        },
+        {
+          "long_name": "Brasil",
+          "short_name": "BR",
+          "types": ["country", "political"]
+        },
+        {
+          "long_name": "01509-001",
+          "short_name": "01509-001",
+          "types": ["postal_code"]
+        }
+      ],
+      "adr_address":
+        "<span class=\"street-address\">R. José Getúlio, 217</span> - <span class=\"extended-address\">Liberdade</span>, <span class=\"locality\">São Paulo</span> - <span class=\"region\">SP</span>, <span class=\"postal-code\">01509-001</span>, <span class=\"country-name\">Brasil</span>",
+      "formatted_address":
+        "R. José Getúlio, 217 - Liberdade, São Paulo - SP, 01509-001, Brasil",
+      "geometry": {
+        "location": {"lat": -23.5675397, "lng": -46.63543199999999},
+        "viewport": {
+          "northeast": {"lat": -23.5662163197085, "lng": -46.63411221970849},
+          "southwest": {"lat": -23.5689142802915, "lng": -46.63681018029149}
+        }
+      },
+      "icon":
+        "https://maps.gstatic.com/mapfiles/place_api/icons/geocode-71.png",
+      "id": "059c059d9d3d289dbd2bf337508adad9705cb173",
+      "name": "R. José Getúlio, 217",
+      "place_id": "ChIJpV-Q36FZzpQR3MSek5tsJWg",
+      "reference":
+        "CmRbAAAAsNPKfDarhA8CLu2tEQnJPDVavSTGMO5VbKdh_bbLx2JRV8SdS4DRQ5oxkU_8i-XbHDC8kZl6MAnxbu9JeqVrJ9GIwtk0gVY1xvLrJNXFDJnM-9HvschrhD0Ozonf6ai0EhDtZMd2ROYxotl40T1fr9O1GhSX7b6JNePi3UnoI3mb0vZIWnsoGQ",
+      "scope": "GOOGLE",
+      "types": ["street_address"],
+      "url":
+        "https://maps.google.com/?q=R.+Jos%C3%A9+Get%C3%BAlio,+217+-+Liberdade,+S%C3%A3o+Paulo+-+SP,+01509-001,+Brasil&ftid=0x94ce59a1df905fa5:0x68256c9b939ec4dc",
+      "utc_offset": -180,
+      "vicinity": "Liberdade"
+    },
+    "status": "OK"
+  },
+  "requestUrl":
+    "https://maps.googleapis.com/maps/api/place/details/json?language=pt-BR&placeid=ChIJpV-Q36FZzpQR3MSek5tsJWg&key=AIzaSyDmYQLTPwsDPtErGWTgiejz17QCw39MEVQ",
+  "query": {
+    "language": "pt-BR",
+    "placeid": "ChIJpV-Q36FZzpQR3MSek5tsJWg",
+    "key": "AIzaSyDmYQLTPwsDPtErGWTgiejz17QCw39MEVQ"
+  }
+}
