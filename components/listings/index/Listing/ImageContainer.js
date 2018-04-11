@@ -15,12 +15,15 @@ class ImageContainer extends React.Component {
     }
     return (
       <div className="image-container" style={divStyle}>
-        {currentUser.authenticated &&
-          !loading && (
-            <LikeContainer>
-              <LikeButton favorite={favorite} listing={listing} />
-            </LikeContainer>
-          )}
+        {!loading && (
+          <LikeContainer>
+            <LikeButton
+              favorite={favorite}
+              listing={listing}
+              user={currentUser}
+            />
+          </LikeContainer>
+        )}
         <div>
           <span>
             <NumberFormat
