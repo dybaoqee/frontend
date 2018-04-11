@@ -34,6 +34,7 @@ describe('Add Listing', () => {
 
   context('Authenticated', () => {
     it('should be redirected to listing creation after login', () => {
+      cy.wait(2000)
       cy.server() // enable response stubbing
       cy.route(
         'POST',
