@@ -57,6 +57,10 @@ const startServer = () => {
         }
       })
 
+      server.get('/privacy_policy', (req, res) => {
+        return app.render(req, res, '/privacy_policy', req.query)
+      })
+
       server.get('/jobs', (req, res) => {
         return app.render(req, res, '/jobs', req.query)
       })
