@@ -42,7 +42,7 @@ export default class SellKnowMore extends Component {
         <Fragment>
           <Header>
             <img
-              src="https://res.cloudinary.com/emcasa/image/upload/f_auto/v1513818385/home-2018-04-03_cozxd9.jpg"
+              src="http://res.cloudinary.com/emcasa/image/upload/v1523560574/header-sell_tc02gl.png"
               alt="Venda seu imóvel na EmCasa"
             />
             <h1>Venda seu imóvel na EmCasa</h1>
