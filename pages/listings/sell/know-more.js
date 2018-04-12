@@ -1,18 +1,18 @@
-import {Component} from 'react'
+import {Component, Fragment} from 'react'
+import Link from 'next/link'
+import EmCasaButton from 'components/shared/Common/Buttons'
 import Head from 'next/head'
-import {isAuthenticated, isAdmin} from 'lib/auth'
 import Layout from 'components/shared/Shell'
 import Topics from 'components/shared/Common/Topics'
-import CallToAction from 'components/shared/Common/CallToAction'
+import Container, {
+  Header,
+  BenefitsContainer,
+  Benefit,
+  CardContainer,
+  Card
+} from './styles'
 
 export default class SellKnowMore extends Component {
-  static async getInitialProps(context) {
-    return {
-      authenticated: isAuthenticated(context),
-      isAdmin: isAdmin(context)
-    }
-  }
-
   render() {
     const {authenticated, isAdmin} = this.props
     const seoImg =
