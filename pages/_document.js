@@ -131,7 +131,9 @@ export default class AppDocument extends Document {
           />
           <link
             rel="shortcut icon"
-            href={`/static/${process.env.REACT_APP_FAVICON}`}
+            href={`http://res.cloudinary.com/emcasa/image/upload/v1523561414/${
+              process.env.REACT_APP_FAVICON
+            }`}
             key="favicon"
           />
         </Head>
