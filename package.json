@@ -4,7 +4,9 @@
     "npm": "5.6.0"
   },
   "jest": {
-    "setupFiles": ["<rootDir>/shim.js"],
+    "setupFiles": [
+      "<rootDir>/shim.js"
+    ],
     "setupTestFrameworkScriptFile": "<rootDir>config/setupTests.js"
   },
   "license": "UNLICENSED",
@@ -12,16 +14,18 @@
     "dev": "node server.js -p $PORT",
     "build": "next build",
     "start": "node server.js -p $PORT",
-    "test":
-      "jest && TEST=cypress start-server-and-test dev http://localhost:3000/login cy:run",
+    "test": "jest && TEST=cypress start-server-and-test dev http://localhost:3000/login cy:run",
     "heroku-postbuild": "npm run build",
     "cy:open": "cypress open",
     "cy:run": "cypress run"
   },
   "dependencies": {
-    "@fortawesome/fontawesome": "^1.1.2",
+    "@fortawesome/fontawesome": "^1.1.5",
     "@fortawesome/fontawesome-free-brands": "^5.0.4",
     "@fortawesome/fontawesome-free-solid": "^5.0.4",
+    "@fortawesome/fontawesome-pro-light": "^5.0.10",
+    "@fortawesome/fontawesome-pro-regular": "^5.0.10",
+    "@fortawesome/fontawesome-pro-solid": "^5.0.10",
     "@fortawesome/react-fontawesome": "^0.0.17",
     "@google/maps": "^0.4.5",
     "apollo-boost": "^0.1.4",
