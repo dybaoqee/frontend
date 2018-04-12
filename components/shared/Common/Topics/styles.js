@@ -1,10 +1,11 @@
 import styled from 'styled-components'
 import * as colors from 'constants/colors'
-import {mobileMedia} from 'constants/media'
+import {mobileMedia, headerMobileMedia} from 'constants/media'
 
 export default styled.div`
   max-width: 100vw;
   padding: 64px 0px 74px 0px;
+  position: relative;
 `
 
 export const Title = styled.h2`
@@ -20,19 +21,10 @@ export const TopicsContainer = styled.div`
   text-align: center;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  grid-gap: 30px;
   justify-content: center;
-  padding: 0 120px;
 
-  span {
-    height: 28px;
-    width: 100%;
-    color: ${colors.mediumGray};
-    font-family: 'Open Sans';
-    font-size: 14px;
-    line-height: 28px;
-    text-align: center;
-    display: block;
+  > * {
+    position: relative;
   }
 
   h2,
@@ -42,12 +34,43 @@ export const TopicsContainer = styled.div`
   h6 {
     box-sizing: border-box;
     font-weight: normal;
-    height: 28px;
     width: 100%;
     font-family: 'Open Sans';
-    font-size: 20px;
+    font-size: 18px;
     line-height: 28px;
     text-align: center;
+    padding: 0 20%;
+    font-weight: normal;
+  }
+
+  :before {
+    content: '';
+    width: 100%;
+    position: absolute;
+    top: 89px;
+    height: 3px;
+    background: ${colors.blue.light};
+    z-index: -1;
+
+    @media ${headerMobileMedia} {
+      display: none;
+    }
+  }
+
+  > *:not(:last-child):after {
+    content: '';
+    position: absolute;
+    top: 25px;
+    left: 50%;
+    width: 100%;
+    height: 3px;
+    background: ${colors.blue.medium};
+    display: block;
+    z-index: -1;
+
+    @media ${headerMobileMedia} {
+      display: none;
+    }
   }
 
   ${({numbers}) => {
@@ -59,16 +82,20 @@ export const TopicsContainer = styled.div`
           `> :nth-child(${index + 1}):before{
       content: "${number + 1}";
       font-size: 30px;
+      font-family: "Open Sans";
       font-weight: 500;
-      color: ${colors.blue.medium};
-      border: 2px solid ${colors.blue.medium};
-      width: 50px;
-      height: 50px;
+      background: ${colors.blue.medium};
+      color: white;
+      width: 56px;
+      height: 56px;
       border-radius: 100%;
-      left: calc(50% - 25px);
-      display: block;
       margin: auto;
       margin-bottom: 22px;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
 
   }\n`)
     )
