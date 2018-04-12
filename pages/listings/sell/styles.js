@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import {headerMobileMedia} from 'constants/media'
+import {headerMobileMedia, mobileMedia} from 'constants/media'
 import * as colors from 'constants/colors'
 
 export default styled.div`
@@ -41,6 +41,13 @@ export default styled.div`
   button {
     width: 384px;
     margin: auto;
+  }
+
+  svg {
+    width: 40px !important;
+    height: 40px;
+
+    transform: rotate(0.001deg);
   }
 
   p.warning {
@@ -93,29 +100,72 @@ export const Header = styled.div`
 export const BenefitsContainer = styled.div`
   margin-top: 60px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  justify-items: center;
-  grid-gap: 20px;
+  grid-template-columns: 240px 240px 240px;
+  justify-content: center;
+  grid-gap: 50px;
   margin: 0 120px 90px;
 
   @media ${headerMobileMedia} {
     margin: 0 40px 90px;
+    grid-gap: 80px;
+    grid-template-columns: 240px 240px;
+  }
+  @media ${mobileMedia} {
+    margin: 0 40px 90px;
+    grid-template-columns: 240px;
   }
 `
 export const Benefit = styled.div`
   width: 240px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  [data-icon='globe'] {
+    path {
+      color: ${colors.blue.medium};
+    }
+  }
+  [data-icon='gift'] {
+    path {
+      color: ${colors.red.medium};
+    }
+  }
+  [data-icon='bolt'] {
+    path {
+      color: ${colors.orange.medium};
+    }
+  }
+  [data-icon='usd-circle'] {
+    path {
+      color: ${colors.green.medium};
+    }
+  }
+  [data-icon='paste'] {
+    path {
+      color: ${colors.mediumGray};
+    }
+  }
+  [data-icon='gavel'] {
+    path {
+      color: ${colors.text};
+    }
+  }
   div {
     width: 78px;
     height: 78px;
     border-radius: 100%;
     background: ${colors.blue.light};
+    margin: auto;
   }
 
   p {
     width: 240px;
-    color: ${colors.mediumDarkGray};
-    font-size: 16px;
-    line-height: 28px;
+    font-size: 18px;
+    line-height: 30px;
+    text-align: center;
+    color: ${colors.gray4a};
   }
 `
 
