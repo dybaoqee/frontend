@@ -4,7 +4,7 @@ import {mobileMedia} from 'constants/media'
 
 export default styled.div`
   max-width: 100vw;
-  padding: 100px 0px 30px 0px;
+  padding: 64px 0px 74px 0px;
 `
 
 export const Title = styled.h2`
@@ -18,22 +18,36 @@ export const Title = styled.h2`
 
 export const TopicsContainer = styled.div`
   text-align: center;
-  margin-top: 100px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   grid-gap: 30px;
   justify-content: center;
   padding: 0 120px;
 
+  span {
+    height: 28px;
+    width: 100%;
+    color: ${colors.mediumGray};
+    font-family: 'Open Sans';
+    font-size: 14px;
+    line-height: 28px;
+    text-align: center;
+    display: block;
+  }
+
   h2,
   h3,
   h4,
   h5,
   h6 {
-    color: ${colors.blue.medium};
-    font-weight: 300;
-    font-size: 30px;
-    margin-top: 0;
+    box-sizing: border-box;
+    font-weight: normal;
+    height: 28px;
+    width: 100%;
+    font-family: 'Open Sans';
+    font-size: 20px;
+    line-height: 28px;
+    text-align: center;
   }
 
   ${({numbers}) => {
@@ -44,18 +58,17 @@ export const TopicsContainer = styled.div`
           numberRules +
           `> :nth-child(${index + 1}):before{
       content: "${number + 1}";
-      border: 1px solid blue;
       font-size: 30px;
-      font-weight: 300;
+      font-weight: 500;
       color: ${colors.blue.medium};
-      border: 1px solid ${colors.blue.medium};
+      border: 2px solid ${colors.blue.medium};
       width: 50px;
       height: 50px;
       border-radius: 100%;
       left: calc(50% - 25px);
       display: block;
       margin: auto;
-      margin-bottom: 24px;
+      margin-bottom: 22px;
 
   }\n`)
     )
