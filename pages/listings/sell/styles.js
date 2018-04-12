@@ -119,7 +119,6 @@ export const Benefit = styled.div`
   width: 240px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 
   [data-icon='globe'] {
