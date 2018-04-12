@@ -1,16 +1,17 @@
 import {Component, Fragment} from 'react'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import faGlobe from '@fortawesome/fontawesome-pro-light/faGlobe'
+import faGift from '@fortawesome/fontawesome-pro-light/faGift'
+import faBolt from '@fortawesome/fontawesome-pro-light/faBolt'
+import faCoin from '@fortawesome/fontawesome-pro-light/faUsdCircle'
+import faPaste from '@fortawesome/fontawesome-pro-light/faPaste'
+import faGavel from '@fortawesome/fontawesome-pro-light/faGavel'
 import Link from 'next/link'
 import EmCasaButton from 'components/shared/Common/Buttons'
 import Head from 'next/head'
 import Layout from 'components/shared/Shell'
 import Topics from 'components/shared/Common/Topics'
-import Container, {
-  Header,
-  BenefitsContainer,
-  Benefit,
-  CardContainer,
-  Card
-} from './styles'
+import Container, {Header, BenefitsContainer, Benefit} from './styles'
 
 export default class SellKnowMore extends Component {
   render() {
@@ -51,40 +52,32 @@ export default class SellKnowMore extends Component {
             <h2>Benefícios da EmCasa</h2>
             <BenefitsContainer>
               <Benefit>
-                <div />
-                <p>Anuncie e Venda seu Imóvel com a EmCasa.</p>
-              </Benefit>
-              <Benefit>
-                <div />
+                <FontAwesomeIcon icon={faGlobe} />
                 <p>Tenha acesso imediato à milhares de compradores.</p>
               </Benefit>
               <Benefit>
-                <div />
+                <FontAwesomeIcon icon={faGift} />
                 <p>
                   Ganhe um Tour Virtual em 3D e atraia mais atenção ao seu
                   imóvel.
                 </p>
               </Benefit>
               <Benefit>
-                <div />
+                <FontAwesomeIcon icon={faBolt} />
                 <p>
                   Economize tempo e evite visitas desnecessárias em sua casa.
                 </p>
               </Benefit>
               <Benefit>
-                <div />
+                <FontAwesomeIcon icon={faCoin} />
                 <p>Economize dinheiro com nossa comissão reduzida de 3%.</p>
               </Benefit>
               <Benefit>
-                <div />
-                <p>Receba um relatório de visitas e interesse do seu imóvel.</p>
-              </Benefit>
-              <Benefit>
-                <div />
+                <FontAwesomeIcon icon={faPaste} />
                 <p>Suporte em Financiamento e retirada de FGTS.</p>
               </Benefit>
               <Benefit>
-                <div />
+                <FontAwesomeIcon icon={faGavel} />
                 <p>Assistência jurídica grátis com documentação e processos.</p>
               </Benefit>
             </BenefitsContainer>
@@ -100,16 +93,20 @@ export default class SellKnowMore extends Component {
             </h3>
             <Topics showNumbers>
               <div>
-                <h4>Faça seu cadastro online</h4>
-              </div>
-              <div>
-                <h4>Envie as fotos do imóvel</h4>
+                <h4>
+                  Cadastre-se na plataforma e preencha as informações básicas do
+                  seu imóvel
+                </h4>
               </div>
               <div>
                 <h4>
-                  Envie os documentos<span>
-                    (Apenas para validação interna)
-                  </span>
+                  Envie as fotos do imóvel e agende o nosso Tour Virtual 3D
+                </h4>
+              </div>
+              <div>
+                <h4>
+                  Envie os documentos e receba uma avaliação gratuita do seu
+                  imóvel
                 </h4>
               </div>
             </Topics>
@@ -122,32 +119,6 @@ export default class SellKnowMore extends Component {
             <Link href={'/listings/new'} as={'/imoveis/adicionar'}>
               <EmCasaButton>Anuncie agora</EmCasaButton>
             </Link>
-          </Container>
-          <Container>
-            <h2>Aproveite também</h2>
-            <CardContainer>
-              <Card>
-                <div />
-                <div>
-                  <h5>Avaliação de imóvel gratuita</h5>
-                  <p>
-                    Responda um Questionário e faremos uma avaliação do valor de
-                    venda gratuitamente
-                  </p>
-                </div>
-              </Card>
-              <Card>
-                <div />
-                <div>
-                  <h5>Ganhe o Tour Virtual em 3D</h5>
-                  <p>
-                    Faça o agendamento online e receba nossa equipe uma visita
-                    de aprox. 45 min. Nesta visita tiraremos fotos profissionais
-                    e produziremos o Tour Virtual
-                  </p>
-                </div>
-              </Card>
-            </CardContainer>
           </Container>
         </Fragment>
       </Layout>
