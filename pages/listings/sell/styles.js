@@ -78,11 +78,11 @@ export const Header = styled.div`
   }
   h1 {
     position: absolute;
-    top: -3px;
+    top: -2px;
     z-index: 1;
     color: white;
     font-weight: 300;
-    font-size: 44px;
+    font-size: 36px;
     letter-spacing: -0.4px;
     line-height: 60px;
     text-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.4);
