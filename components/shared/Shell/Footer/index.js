@@ -28,6 +28,9 @@ const Footer = () => (
       <Link href="/jobs">
         <a>Trabalhe Conosco</a>
       </Link>
+      <Link href="/sitemap">
+        <a>Mapa do site</a>
+      </Link>
 
       <div className="icons">
         <a
