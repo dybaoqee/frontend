@@ -36,7 +36,7 @@ export const TopicsContainer = styled.div`
     font-weight: normal;
     width: 100%;
     font-family: 'Open Sans';
-    font-size: 18px;
+    font-size: 16px;
     line-height: 28px;
     text-align: center;
     padding: 0 20%;
