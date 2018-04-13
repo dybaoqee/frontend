@@ -36,7 +36,13 @@ describe('Add Listing', () => {
   context('Authenticated', () => {
     it('should be redirected to listing creation after login', () => {
       cy.server() // enable response stubbing
-      //cy.route('/auth/login').as('login')
+
+      cy.visit('/saiba-mais-para-vender').then((resp) => {
+        cy
+          .get('button')
+          .contains('Anuncie agora')
+          .click()
+      })
 
       cy.route(
         'POST',
