@@ -20,7 +20,12 @@ import PropertyGalleryEdit from 'components/listings/new/steps/PropertyGalleryEd
 import EmCasaButton from 'components/shared/Common/Buttons'
 import ErrorContainer from 'components/listings/new/shared/ErrorContainer'
 
-import {StepContainer, ButtonControls} from 'components/listings/shared/styles'
+import {
+  StepContainer,
+  ButtonControls,
+  Container
+} from 'components/listings/shared/styles'
+import SellingPoints from 'components/listings/new/SellingPoints'
 
 export default class ListingNew extends Component {
   constructor(props) {
@@ -267,28 +272,31 @@ export default class ListingNew extends Component {
 
     return (
       <Layout authenticated={authenticated} isAdmin={isAdmin}>
-        <StepContainer>
-          <h1>Adicionar Novo Imóvel</h1>
-          {this.renderContent()}
-          {showErrors && page > 1 && <ErrorContainer errors={errors} />}
-          <ButtonControls>
-            {page > 0 && (
+        <Container>
+          <StepContainer>
+            <h1>Adicionar Novo Imóvel</h1>
+            {this.renderContent()}
+            {showErrors && page > 1 && <ErrorContainer errors={errors} />}
+            <ButtonControls>
+              {page > 0 && (
+                <EmCasaButton
+                  light
+                  disabled={!canRegress}
+                  onClick={this.previousPage}
+                >
+                  Anterior
+                </EmCasaButton>
+              )}
               <EmCasaButton
-                light
-                disabled={!canRegress}
-                onClick={this.previousPage}
+                disabled={page > 1 || !canAdvance}
+                onClick={this.nextPage}
               >
-                Anterior
+                Próximo
               </EmCasaButton>
-            )}
-            <EmCasaButton
-              disabled={page > 1 || !canAdvance}
-              onClick={this.nextPage}
-            >
-              Próximo
-            </EmCasaButton>
-          </ButtonControls>
-        </StepContainer>
+            </ButtonControls>
+          </StepContainer>
+          <SellingPoints />
+        </Container>
       </Layout>
     )
   }
