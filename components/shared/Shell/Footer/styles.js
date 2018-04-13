@@ -55,7 +55,7 @@ export const EmCasaContact = styled.div`
   display: flex;
   a {
     align-self: center;
-    margin-left: 30px;
+    margin-left: 20px;
     &.icon {
       color: ${colors.blue.medium};
       top: 0;
@@ -76,6 +76,10 @@ export const EmCasaContact = styled.div`
     }
 
     a[href='/jobs'] {
+      display: none;
+    }
+
+    a[href='/sitemap'] {
       display: none;
     }
   }
