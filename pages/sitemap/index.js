@@ -55,7 +55,7 @@ export default class MyPage extends Component {
               </Link>
               <ul>
                 {search.neighborhoods.map((neighborhood) => (
-                  <li>
+                  <li key={neighborhood}>
                     <Link
                       href={`/listings/?bairros=${neighborhood}`}
                       as={`/imoveis?bairros=${neighborhood}`}
