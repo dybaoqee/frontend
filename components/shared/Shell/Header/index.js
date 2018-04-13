@@ -74,7 +74,7 @@ export default class Header extends Component {
   render() {
     return (
       <Container>
-        <Link href="/">
+        <Link href="/" prefetch>
           <a className="logo">
             <img
               src="/static/emcasa-imobiliaria-rio-de-janeiro.png"
