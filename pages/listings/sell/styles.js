@@ -44,8 +44,8 @@ export default styled.div`
   }
 
   svg {
-    width: 40px !important;
-    height: 40px;
+    width: 30px !important;
+    height: 30px;
 
     transform: rotate(0.001deg);
   }
@@ -66,7 +66,7 @@ export default styled.div`
 `
 
 export const Header = styled.div`
-  height: 262px;
+  height: 102px;
   position: relative;
   * {
     box-sizing: border-box;
@@ -78,7 +78,7 @@ export const Header = styled.div`
   }
   h1 {
     position: absolute;
-    top: 0;
+    top: -3px;
     z-index: 1;
     color: white;
     font-weight: 300;
@@ -98,12 +98,11 @@ export const Header = styled.div`
 `
 
 export const BenefitsContainer = styled.div`
-  margin-top: 60px;
   display: grid;
   grid-template-columns: 240px 240px 240px;
   justify-content: center;
-  grid-gap: 50px;
-  margin: 0 120px 90px;
+  grid-gap: 30px;
+  margin: 0 120px 50px;
 
   @media ${headerMobileMedia} {
     margin: 0 40px 90px;
@@ -161,7 +160,7 @@ export const Benefit = styled.div`
 
   p {
     width: 240px;
-    font-size: 18px;
+    font-size: 16px;
     line-height: 30px;
     text-align: center;
     color: ${colors.gray4a};
