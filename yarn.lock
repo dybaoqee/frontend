@@ -115,6 +115,10 @@
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.1.1.tgz#28c78607ffd2d246abfcc09bacd28490952280af"
 
+"@fortawesome/fontawesome-common-types@^0.1.3", "@fortawesome/fontawesome-common-types@^0.1.4":
+  version "0.1.4"
+  resolved "https://npm.fontawesome.com/B7CFEF0D-FBC4-491C-A30F-FED994A2CB16/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.1.4.tgz#1fbc66f0223646f23c5550c2c12e341078e2c262"
+
 "@fortawesome/fontawesome-free-brands@^5.0.4":
   version "5.0.4"
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free-brands/-/fontawesome-free-brands-5.0.4.tgz#764ceaefc44b5ec5ca5b549cfa51e8cc672f72b4"
@@ -127,11 +131,29 @@
   dependencies:
     "@fortawesome/fontawesome-common-types" "^0.1.1"
 
-"@fortawesome/fontawesome@^1.1.2":
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome/-/fontawesome-1.1.2.tgz#ddc83c2a747ebd83eb5970eaebfb257aa41c8bb4"
+"@fortawesome/fontawesome-pro-light@^5.0.10":
+  version "5.0.10"
+  resolved "https://npm.fontawesome.com/B7CFEF0D-FBC4-491C-A30F-FED994A2CB16/@fortawesome/fontawesome-pro-light/-/fontawesome-pro-light-5.0.10.tgz#6880ecdcfdc3dd23c9c9125502bf70697b74f715"
   dependencies:
-    "@fortawesome/fontawesome-common-types" "^0.1.1"
+    "@fortawesome/fontawesome-common-types" "^0.1.4"
+
+"@fortawesome/fontawesome-pro-regular@^5.0.10":
+  version "5.0.10"
+  resolved "https://npm.fontawesome.com/B7CFEF0D-FBC4-491C-A30F-FED994A2CB16/@fortawesome/fontawesome-pro-regular/-/fontawesome-pro-regular-5.0.10.tgz#0d2d878d3082c6272d87ed06da79d6c193913809"
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "^0.1.4"
+
+"@fortawesome/fontawesome-pro-solid@^5.0.10":
+  version "5.0.10"
+  resolved "https://npm.fontawesome.com/B7CFEF0D-FBC4-491C-A30F-FED994A2CB16/@fortawesome/fontawesome-pro-solid/-/fontawesome-pro-solid-5.0.10.tgz#b0b1c1cd13cd751148828f319fc756536bf72ef7"
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "^0.1.4"
+
+"@fortawesome/fontawesome@^1.1.5":
+  version "1.1.5"
+  resolved "https://npm.fontawesome.com/B7CFEF0D-FBC4-491C-A30F-FED994A2CB16/@fortawesome/fontawesome/-/fontawesome-1.1.5.tgz#c7cfafdd3364245626293cc670357f9fb8487170"
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "^0.1.3"
 
 "@fortawesome/react-fontawesome@^0.0.17":
   version "0.0.17"

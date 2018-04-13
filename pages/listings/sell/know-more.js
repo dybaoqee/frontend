@@ -1,18 +1,19 @@
-import {Component} from 'react'
+import {Component, Fragment} from 'react'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import faGlobe from '@fortawesome/fontawesome-pro-light/faGlobe'
+import faGift from '@fortawesome/fontawesome-pro-light/faGift'
+import faBolt from '@fortawesome/fontawesome-pro-light/faBolt'
+import faCoin from '@fortawesome/fontawesome-pro-light/faUsdCircle'
+import faPaste from '@fortawesome/fontawesome-pro-light/faPaste'
+import faGavel from '@fortawesome/fontawesome-pro-light/faGavel'
+import Link from 'next/link'
+import EmCasaButton from 'components/shared/Common/Buttons'
 import Head from 'next/head'
-import {isAuthenticated, isAdmin} from 'lib/auth'
 import Layout from 'components/shared/Shell'
 import Topics from 'components/shared/Common/Topics'
-import CallToAction from 'components/shared/Common/CallToAction'
+import Container, {Header, BenefitsContainer, Benefit} from './styles'
 
 export default class SellKnowMore extends Component {
-  static async getInitialProps(context) {
-    return {
-      authenticated: isAuthenticated(context),
-      isAdmin: isAdmin(context)
-    }
-  }
-
   render() {
     const {authenticated, isAdmin} = this.props
     const seoImg =
@@ -39,28 +40,85 @@ export default class SellKnowMore extends Component {
           <meta name="twitter:description" content={seoDescription} />
           <meta name="twitter:image" content={seoImg} />
         </Head>
-
-        <Topics title="Venda seu imóvel" showNumbers>
-          <p>
-            Anuncie seu imóvel por apenas 3% do valor da venda. Os clientes
-            EmCasa poupam, em média, R$20mil e a gente só recebe a comissão
-            quando você recebe o valor da venda.
-          </p>
-          <p>
-            O tour virtual permite fazer mais visitas, ocupando menos tempo e
-            com mais segurança. Venda seu imóvel mais rápido! - "Vendi meu
-            imóvel em 12 dias com a EmCasa" - Graciano
-          </p>
-          <p>
-            Tenha assistência jurídica no processo inteiro (documentação,
-            financiamento, FGTS) sem pagar mais por isso
-          </p>
-        </Topics>
-        <CallToAction
-          call="Vender imóvel"
-          href={'/listings/new'}
-          as={'/imoveis/adicionar'}
-        />
+        <Fragment>
+          <Header>
+            <img
+              src="http://res.cloudinary.com/emcasa/image/upload/v1523560574/header-sell_tc02gl.png"
+              alt="Venda seu imóvel na EmCasa"
+            />
+            <h1>Venda seu imóvel na EmCasa</h1>
+          </Header>
+          <Container>
+            <BenefitsContainer>
+              <Benefit>
+                <FontAwesomeIcon icon={faGlobe} />
+                <p>Tenha acesso imediato à milhares de compradores.</p>
+              </Benefit>
+              <Benefit>
+                <FontAwesomeIcon icon={faGift} />
+                <p>
+                  Ganhe um Tour Virtual em 3D e atraia mais atenção ao seu
+                  imóvel.
+                </p>
+              </Benefit>
+              <Benefit>
+                <FontAwesomeIcon icon={faBolt} />
+                <p>
+                  Economize tempo e evite visitas desnecessárias em sua casa.
+                </p>
+              </Benefit>
+              <Benefit>
+                <FontAwesomeIcon icon={faCoin} />
+                <p>Economize dinheiro com nossa comissão reduzida de 3%.</p>
+              </Benefit>
+              <Benefit>
+                <FontAwesomeIcon icon={faPaste} />
+                <p>Suporte em Financiamento e retirada de FGTS.</p>
+              </Benefit>
+              <Benefit>
+                <FontAwesomeIcon icon={faGavel} />
+                <p>Assistência jurídica grátis com documentação e processos.</p>
+              </Benefit>
+            </BenefitsContainer>
+            <Link href={'/listings/new'} as={'/imoveis/adicionar'}>
+              <EmCasaButton>Anuncie agora</EmCasaButton>
+            </Link>
+          </Container>
+          <Container>
+            <h3>
+              Faça um rápido cadastro e cadastre seu imóvel em menos de 5
+              minutos.
+            </h3>
+            <Topics showNumbers>
+              <div>
+                <h4>
+                  Cadastre-se na plataforma e preencha as informações básicas do
+                  seu imóvel
+                </h4>
+              </div>
+              <div>
+                <h4>
+                  Envie as fotos do imóvel e agende o nosso Tour Virtual 3D
+                </h4>
+              </div>
+              <div>
+                <h4>
+                  Envie os documentos e receba uma avaliação gratuita do seu
+                  imóvel
+                </h4>
+              </div>
+            </Topics>
+            <p className="warning">
+              <strong>Pronto!</strong> Seu imóvel estará no ar e nossa equipe
+              iniciará o processo de anuncio e venda de seu apartamento ou casa.
+              Agora é aguardar nosso contato para agendamento das visitas com os
+              interessados em comprar o seu imóvel
+            </p>
+            <Link href={'/listings/new'} as={'/imoveis/adicionar'}>
+              <EmCasaButton>Anuncie agora</EmCasaButton>
+            </Link>
+          </Container>
+        </Fragment>
       </Layout>
     )
   }
