@@ -66,7 +66,7 @@ export default styled.div`
 `
 
 export const Header = styled.div`
-  height: 300px;
+  height: 262px;
   position: relative;
   * {
     box-sizing: border-box;
