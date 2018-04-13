@@ -80,7 +80,7 @@ export default class SellKnowMore extends Component {
                 <p>Assistência jurídica grátis com documentação e processos.</p>
               </Benefit>
             </BenefitsContainer>
-            <Link href={'/listings/new'} as={'/imoveis/adicionar'}>
+            <Link href={'/listings/new'} as={'/imoveis/adicionar'} prefetch>
               <EmCasaButton light>Anuncie agora</EmCasaButton>
             </Link>
           </Container>
@@ -111,7 +111,7 @@ export default class SellKnowMore extends Component {
               Agora é aguardar nosso contato para agendamento das visitas com os
               interessados em comprar o seu imóvel.
             </p>
-            <Link href={'/listings/new'} as={'/imoveis/adicionar'}>
+            <Link href={'/listings/new'} as={'/imoveis/adicionar'} prefetch>
               <EmCasaButton light>Anuncie agora</EmCasaButton>
             </Link>
           </Container>

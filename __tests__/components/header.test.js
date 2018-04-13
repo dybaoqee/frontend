@@ -27,7 +27,7 @@ describe('Header', () => {
 
     expect(
       header
-        .find('[href="/listings/new"]')
+        .find('[href="/listings/sell/know-more"]')
         .find('a')
         .text()
     ).toEqual('Venda')
@@ -89,7 +89,7 @@ describe('Header', () => {
 
     expect(
       header
-        .find('[href="/listings/new"]')
+        .find('[href="/listings/sell/know-more"]')
         .find('a')
         .text()
     ).toEqual('Venda')
