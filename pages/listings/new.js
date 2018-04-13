@@ -23,7 +23,8 @@ import ErrorContainer from 'components/listings/new/shared/ErrorContainer'
 import {
   StepContainer,
   ButtonControls,
-  Container
+  Container,
+  Step
 } from 'components/listings/shared/styles'
 import SellingPoints from 'components/listings/new/SellingPoints'
 
@@ -274,26 +275,28 @@ export default class ListingNew extends Component {
       <Layout authenticated={authenticated} isAdmin={isAdmin}>
         <Container>
           <StepContainer>
-            <h1>Adicionar Novo Imóvel</h1>
-            {this.renderContent()}
-            {showErrors && page > 1 && <ErrorContainer errors={errors} />}
-            <ButtonControls>
-              {page > 0 && (
+            <Step>
+              <h1>Adicionar Novo Imóvel</h1>
+              {this.renderContent()}
+              {showErrors && page > 1 && <ErrorContainer errors={errors} />}
+              <ButtonControls>
+                {page > 0 && (
+                  <EmCasaButton
+                    light
+                    disabled={!canRegress}
+                    onClick={this.previousPage}
+                  >
+                    Anterior
+                  </EmCasaButton>
+                )}
                 <EmCasaButton
-                  light
-                  disabled={!canRegress}
-                  onClick={this.previousPage}
+                  disabled={page > 1 || !canAdvance}
+                  onClick={this.nextPage}
                 >
-                  Anterior
+                  Próximo
                 </EmCasaButton>
-              )}
-              <EmCasaButton
-                disabled={page > 1 || !canAdvance}
-                onClick={this.nextPage}
-              >
-                Próximo
-              </EmCasaButton>
-            </ButtonControls>
+              </ButtonControls>
+            </Step>
           </StepContainer>
           <SellingPoints />
         </Container>

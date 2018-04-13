@@ -29,7 +29,8 @@ import {
   StepContainer,
   ButtonControls,
   Header,
-  Container
+  Container,
+  Step
 } from 'components/listings/shared/styles'
 
 export default class ListingEditV2 extends Component {
@@ -322,36 +323,38 @@ export default class ListingEditV2 extends Component {
         ) : (
           <Container>
             <StepContainer>
-              <Header>
-                <h1>Editar Imóvel</h1>
-                {page < 2 && (
-                  <Link
-                    href={`/listings/images?listingId=${id}`}
-                    as={`/imoveis/${id}/imagens`}
-                  >
-                    <a>Editar Imagens</a>
-                  </Link>
-                )}
-              </Header>
-              {this.renderContent()}
-              {showErrors && page > 1 && <ErrorContainer errors={errors} />}
-              <ButtonControls>
-                {page > 0 && (
+              <Step>
+                <Header>
+                  <h1>Editar Imóvel</h1>
+                  {page < 2 && (
+                    <Link
+                      href={`/listings/images?listingId=${id}`}
+                      as={`/imoveis/${id}/imagens`}
+                    >
+                      <a>Editar Imagens</a>
+                    </Link>
+                  )}
+                </Header>
+                {this.renderContent()}
+                {showErrors && page > 1 && <ErrorContainer errors={errors} />}
+                <ButtonControls>
+                  {page > 0 && (
+                    <EmCasaButton
+                      light
+                      disabled={!canRegress}
+                      onClick={this.previousPage}
+                    >
+                      Anterior
+                    </EmCasaButton>
+                  )}
                   <EmCasaButton
-                    light
-                    disabled={!canRegress}
-                    onClick={this.previousPage}
+                    disabled={page > 1 || !canAdvance}
+                    onClick={this.nextPage}
                   >
-                    Anterior
+                    Próximo
                   </EmCasaButton>
-                )}
-                <EmCasaButton
-                  disabled={page > 1 || !canAdvance}
-                  onClick={this.nextPage}
-                >
-                  Próximo
-                </EmCasaButton>
-              </ButtonControls>
+                </ButtonControls>
+              </Step>
             </StepContainer>
           </Container>
         )}
