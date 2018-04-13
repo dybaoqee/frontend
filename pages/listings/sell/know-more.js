@@ -49,7 +49,6 @@ export default class SellKnowMore extends Component {
             <h1>Venda seu imóvel na EmCasa</h1>
           </Header>
           <Container>
-            <h2>Benefícios da EmCasa</h2>
             <BenefitsContainer>
               <Benefit>
                 <FontAwesomeIcon icon={faGlobe} />
@@ -86,7 +85,6 @@ export default class SellKnowMore extends Component {
             </Link>
           </Container>
           <Container>
-            <h2>Como funciona</h2>
             <h3>
               Faça um rápido cadastro e cadastre seu imóvel em menos de 5
               minutos.
