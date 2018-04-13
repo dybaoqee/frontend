@@ -52,12 +52,12 @@ export default class SellKnowMore extends Component {
             <BenefitsContainer>
               <Benefit>
                 <FontAwesomeIcon icon={faGlobe} />
-                <p>Tenha acesso imediato à milhares de compradores.</p>
+                <p>Tenha acesso imediato a milhares de compradores.</p>
               </Benefit>
               <Benefit>
                 <FontAwesomeIcon icon={faGift} />
                 <p>
-                  Ganhe um Tour Virtual em 3D e atraia mais atenção ao seu
+                  Ganhe um Tour Virtual em 3D e atraia mais atenção para o seu
                   imóvel.
                 </p>
               </Benefit>
@@ -73,7 +73,7 @@ export default class SellKnowMore extends Component {
               </Benefit>
               <Benefit>
                 <FontAwesomeIcon icon={faPaste} />
-                <p>Suporte em Financiamento e retirada de FGTS.</p>
+                <p>Suporte em financiamento e retirada de FGTS.</p>
               </Benefit>
               <Benefit>
                 <FontAwesomeIcon icon={faGavel} />
@@ -81,14 +81,11 @@ export default class SellKnowMore extends Component {
               </Benefit>
             </BenefitsContainer>
             <Link href={'/listings/new'} as={'/imoveis/adicionar'}>
-              <EmCasaButton>Anuncie agora</EmCasaButton>
+              <EmCasaButton light>Anuncie agora</EmCasaButton>
             </Link>
           </Container>
           <Container>
-            <h3>
-              Faça um rápido cadastro e cadastre seu imóvel em menos de 5
-              minutos.
-            </h3>
+            <h3>Cadastre seu imóvel em menos de 5 minutos</h3>
             <Topics showNumbers>
               <div>
                 <h4>
@@ -115,7 +112,7 @@ export default class SellKnowMore extends Component {
               interessados em comprar o seu imóvel
             </p>
             <Link href={'/listings/new'} as={'/imoveis/adicionar'}>
-              <EmCasaButton>Anuncie agora</EmCasaButton>
+              <EmCasaButton light>Anuncie agora</EmCasaButton>
             </Link>
           </Container>
         </Fragment>
