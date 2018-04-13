@@ -32,12 +32,11 @@ export const Field = styled.div`
 `
 
 export const StepContainer = styled.div`
+  margin: 0 40px;
   box-sizing: border-box;
   width: 700px;
-  margin: 0 auto 100px;
-  padding-top: 80px;
   width: 600px;
-  padding: 60px 10px;
+  padding: 0 10px;
 
   @media ${mobileMedia} {
     padding-top: 10px;
@@ -69,5 +68,17 @@ export const Header = styled.div`
   a {
     text-decoration: none;
     color: ${colors.blue.medium};
+  }
+`
+export const Container = styled.div`
+  box-sizing: border-box;
+  margin-top: 60px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: start;
+
+  @media ${mobileMedia} {
+    margin-top: 20px;
   }
 `
