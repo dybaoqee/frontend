@@ -107,7 +107,7 @@ export default class SellKnowMore extends Component {
             </Topics>
             <p className="warning">
               <strong>Pronto!</strong> Seu imóvel estará no ar e nossa equipe
-              iniciará o processo de anuncio e venda de seu apartamento ou casa.
+              iniciará o processo de anúncio e venda de seu apartamento ou casa.
               Agora é aguardar nosso contato para agendamento das visitas com os
               interessados em comprar o seu imóvel
             </p>
