@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import * as colors from 'constants/colors'
-import {mobileMedia} from 'constants/media'
+import {mobileMedia, headerMobileMedia} from 'constants/media'
 import MaskedInput from 'react-text-mask'
 
 export const Title = styled.h1`
@@ -32,16 +32,26 @@ export const Field = styled.div`
 `
 
 export const StepContainer = styled.div`
+  margin: 0 40px;
   box-sizing: border-box;
-  width: 700px;
-  margin: 0 auto 100px;
-  padding-top: 80px;
-  width: 600px;
-  padding: 60px 10px;
+  padding: 0 10px;
+  flex: 1;
 
   @media ${mobileMedia} {
     padding-top: 10px;
     width: 100vw;
+  }
+`
+
+export const Step = styled.div`
+  box-sizing: border-box;
+  min-width: 330px;
+  max-width: 600px;
+  margin: 40px auto 0;
+
+  @media ${mobileMedia} {
+    margin: 0;
+    min-width: 100%;
   }
 `
 export const Input = styled.input``
@@ -69,5 +79,17 @@ export const Header = styled.div`
   a {
     text-decoration: none;
     color: ${colors.blue.medium};
+  }
+`
+export const Container = styled.div`
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  @media ${headerMobileMedia} {
+    padding-top: 20px;
+    flex-direction: row;
   }
 `

@@ -39,8 +39,12 @@ export default styled.div`
   }
 
   button {
+    box-sizing: border-box;
     width: 384px;
     margin: auto;
+    @media ${mobileMedia} {
+      max-width: 80%;
+    }
   }
 
   svg {
