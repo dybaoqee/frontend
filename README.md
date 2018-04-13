@@ -8,8 +8,6 @@
 
 To run locally, download, install and run [the backend](https://github.com/em-casa/backend).
 
-Then, `yarn start`.
-
 ## FontAwesome
 
 To install font awesome pro packages you need to start the node process with `FA_TOKEN` env variable or
