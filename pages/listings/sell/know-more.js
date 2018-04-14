@@ -7,8 +7,10 @@ import faCoin from '@fortawesome/fontawesome-pro-light/faUsdCircle'
 import faPaste from '@fortawesome/fontawesome-pro-light/faPaste'
 import faGavel from '@fortawesome/fontawesome-pro-light/faGavel'
 import Link from 'next/link'
-import EmCasaButton from 'components/shared/Common/Buttons'
 import Head from 'next/head'
+
+import {imageUrl} from 'utils/image_url'
+import EmCasaButton from 'components/shared/Common/Buttons'
 import Layout from 'components/shared/Shell'
 import Topics from 'components/shared/Common/Topics'
 import Container, {Header, BenefitsContainer, Benefit} from './styles'
@@ -43,7 +45,7 @@ export default class SellKnowMore extends Component {
         <Fragment>
           <Header>
             <img
-              src="http://res.cloudinary.com/emcasa/image/upload/v1523560574/header-sell_tc02gl.png"
+              src={imageUrl('listings_new_header.png')}
               alt="Venda seu imóvel na EmCasa"
             />
             <h1>Venda seu imóvel na EmCasa</h1>
