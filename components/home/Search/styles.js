@@ -49,6 +49,7 @@ export const Search = styled.div`
   }
 
   @media ${mobileMedia} {
+    margin-top: 20px;
     width: calc(100% - 20px);
   }
 `
