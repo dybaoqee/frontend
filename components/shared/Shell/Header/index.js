@@ -51,7 +51,7 @@ export default class Header extends Component {
 
           <Link
             href="/listings/sell/know-more"
-            as="/imoveis/adicionar"
+            as="/saiba-mais-para-vender"
             prefetch
           >
             <a>Venda</a>
