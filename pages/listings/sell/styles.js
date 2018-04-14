@@ -43,7 +43,7 @@ export default styled.div`
     width: 384px;
     margin: auto;
     @media ${mobileMedia} {
-      max-width: 80%;
+      max-width: calc(100% - 40px);
     }
   }
 
@@ -88,7 +88,7 @@ export const Header = styled.div`
     font-weight: 300;
     font-size: 36px;
     letter-spacing: -0.4px;
-    line-height: 60px;
+    line-height: 1.4em;
     text-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.4);
     width: 100%;
     text-align: center;
@@ -98,6 +98,9 @@ export const Header = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    @media ${mobileMedia} {
+      font-size: 24px;
+    }
   }
 `
 
@@ -115,11 +118,12 @@ export const BenefitsContainer = styled.div`
   }
   @media ${mobileMedia} {
     margin: 0 40px 90px;
-    grid-template-columns: 240px;
+    grid-template-columns: calc(100% - 40px);
+    grid-gap: 40px;
   }
 `
 export const Benefit = styled.div`
-  width: 240px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
