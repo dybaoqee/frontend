@@ -49,7 +49,11 @@ export default class Header extends Component {
             <a>Compre</a>
           </Link>
 
-          <Link href="/listings/new" as="/imoveis/adicionar" prefetch>
+          <Link
+            href="/listings/sell/know-more"
+            as="/imoveis/adicionar"
+            prefetch
+          >
             <a>Venda</a>
           </Link>
 
