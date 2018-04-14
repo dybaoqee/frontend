@@ -167,8 +167,8 @@ export const NeighborhoodsOptions = styled.form`
 
     @media ${pickerMobileMedia} {
       position: absolute;
-      margin: 0;
-      top: 0;
+      margin: 0 0 -2px;
+      top: 3px;
       right: 0;
       width: 40vw;
       height: 62px;
@@ -183,7 +183,9 @@ export const NeighborhoodsOptions = styled.form`
 `
 
 export const Title = styled.div`
+  align-items: center;
   box-sizing: border-box;
+  display: flex;
   height: 62px;
   padding: 20px 24px;
   color: ${colors.mediumDarkGray};
@@ -191,6 +193,9 @@ export const Title = styled.div`
   font-size: 18px;
   line-height: 24px;
   text-align: left;
+  @media ${mobileMedia} {
+    padding: 20px 5px 20px 14px;
+  }
 `
 
 export const Magnifier = styled.div`

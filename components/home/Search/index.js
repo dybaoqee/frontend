@@ -128,7 +128,7 @@ export default class HomeSearch extends Component {
                     <FontAwesomeIcon icon={faCheck} />
                   </Neighborhood>
                 ))}
-                <EmCasaButton type="submit">Ver resultados</EmCasaButton>
+                <EmCasaButton type="submit">Enviar</EmCasaButton>
               </NeighborhoodsOptions>
             </Popup>
           )}
