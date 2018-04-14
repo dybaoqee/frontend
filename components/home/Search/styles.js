@@ -168,7 +168,7 @@ export const NeighborhoodsOptions = styled.form`
     @media ${pickerMobileMedia} {
       position: absolute;
       margin: 0 0 -2px;
-      top: 3px;
+      top: 2px;
       right: 0;
       width: 40vw;
       height: 62px;
