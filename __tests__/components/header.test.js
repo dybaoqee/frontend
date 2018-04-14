@@ -27,7 +27,7 @@ describe('Header', () => {
 
     expect(
       header
-        .find('[href="/listings/sell/know-more"]')
+        .find('[href="/listings/new"]')
         .find('a')
         .text()
     ).toEqual('Venda')
@@ -49,9 +49,7 @@ describe('Header', () => {
     expect(header.find('[href="/auth/logout"]').exists()).toEqual(false)
     expect(header.find('[href="/auth/login"]').exists()).toEqual(true)
     expect(header.find('[href="/auth/signup"]').exists()).toEqual(true)
-    expect(header.find('[href="/listings/sell/know-more"]').exists()).toEqual(
-      true
-    )
+    expect(header.find('[href="/listings/new"]').exists()).toEqual(true)
   })
 
   it('should render authenticated', () => {
@@ -91,7 +89,7 @@ describe('Header', () => {
 
     expect(
       header
-        .find('[href="/listings/sell/know-more"]')
+        .find('[href="/listings/new"]')
         .find('a')
         .text()
     ).toEqual('Venda')
