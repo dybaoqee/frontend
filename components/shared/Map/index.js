@@ -28,7 +28,7 @@ export default class MapContainer extends Component {
       if (!init) {
         map.fitBounds(bounds)
 
-        if (markers.length <= 3) {
+        if (markers.length === 1) {
           map.setZoom(15)
         }
       }
