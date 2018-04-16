@@ -57,7 +57,7 @@
     "number-abbreviate": "^2.0.0",
     "numeral": "^2.0.6",
     "postcss-nested": "^3.0.0",
-    "react": "^16.2.0",
+    "react": "^16.3.2",
     "react-apollo": "^2.1.2",
     "react-dnd": "^2.5.4",
     "react-dnd-html5-backend": "^2.5.4",
