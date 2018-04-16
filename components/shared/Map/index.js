@@ -15,7 +15,7 @@ export default class MapContainer extends Component {
     super(props)
   }
 
-  apiIsLoaded = (map, maps, markers, init) => {
+  apiIsLoaded = (map, maps, markers) => {
     if (map) {
       this.map = map
       this.maps = maps
@@ -25,12 +25,10 @@ export default class MapContainer extends Component {
       for (let i = 0, LtLgLen = LatLngList.length; i < LtLgLen; i++) {
         bounds.extend(LatLngList[i])
       }
-      if (!init) {
-        map.fitBounds(bounds)
+      map.fitBounds(bounds)
 
-        if (markers.length === 1) {
-          map.setZoom(15)
-        }
+      if (markers.length === 1) {
+        map.setZoom(15)
       }
     }
   }
