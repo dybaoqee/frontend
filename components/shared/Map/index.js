@@ -42,7 +42,7 @@ export default class MapContainer extends Component {
   }
 
   render() {
-    const {markers, center, zoom, onSelect} = this.props
+    const {markers, center, zoom, onSelect, highlight} = this.props
 
     return (
       <GoogleMapReact
@@ -56,6 +56,7 @@ export default class MapContainer extends Component {
       >
         {markers.map((marker) => {
           const {id, lat, lng, text} = marker
+          const highlightMarker = _.isEqual(highlight, {lat, lng})
           return (
             <MapMarker
               onSelect={onSelect}
@@ -64,6 +65,7 @@ export default class MapContainer extends Component {
               lat={lat}
               lng={lng}
               text={text}
+              highlight={highlightMarker}
             />
           )
         })}
