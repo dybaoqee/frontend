@@ -159,6 +159,15 @@ class ListingsIndex extends Component {
     return listing ? mainListingImage(listing.images) : null
   }
 
+  onHoverListing = (listing) => {
+    const {address: {lat, lng}} = listing
+    this.setState({highlight: {lat, lng}})
+  }
+
+  onLeaveListing = () => {
+    this.setState({highlight: {}})
+  }
+
   render() {
     const {params} = this
     const {neighborhoods, currentUser, query} = this.props
@@ -167,7 +176,8 @@ class ListingsIndex extends Component {
       totalPages,
       totalResults,
       listings,
-      remaining_count
+      remaining_count,
+      highlight
     } = this.state
     const seoImgSrc = this.seoImage
 
@@ -212,6 +222,7 @@ class ListingsIndex extends Component {
               zoom={13}
               onSelect={this.onSelectListing}
               listings={listings}
+              highlight={highlight}
             />
           </div>
 
@@ -231,6 +242,8 @@ class ListingsIndex extends Component {
                   >
                     {(listing) => (
                       <Listing
+                        onMouseEnter={this.onHoverListing}
+                        onMouseLeave={this.onLeaveListing}
                         key={listing.id}
                         id={`listing-${listing.id}`}
                         listing={listing}

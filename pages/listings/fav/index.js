@@ -143,8 +143,18 @@ class ListingsFav extends Component {
     )
   }
 
+  onHoverListing = (listing) => {
+    const {address: {lat, lng}} = listing
+    this.setState({highlight: {lat, lng}})
+  }
+
+  onLeaveListing = () => {
+    this.setState({highlight: {}})
+  }
+
   render() {
     const {params, filteredListings} = this
+    const {highlight} = this.state
     const {neighborhoods, currentUser, query} = this.props
     const seoImgSrc = this.seoImage
     return (
@@ -197,6 +207,7 @@ class ListingsFav extends Component {
                     zoom={13}
                     onSelect={this.onSelectListing}
                     listings={listings}
+                    highlight={highlight}
                   />
                 </div>
 
@@ -214,6 +225,8 @@ class ListingsFav extends Component {
                       {(listing) => (
                         <Listing
                           key={listing.id}
+                          onMouseEnter={this.onHoverListing}
+                          onMouseLeave={this.onLeaveListing}
                           id={`listing-${listing.id}`}
                           listing={listing}
                           currentUser={currentUser}
