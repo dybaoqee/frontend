@@ -1,12 +1,14 @@
 import React from 'react'
 import Router from 'next/router'
-
+import _ from 'lodash'
 import * as colors from 'constants/colors'
 import {mobileMedia} from 'constants/media'
 
 import ImageContainer from './ImageContainer'
 import TextContainer from './TextContainer'
 import humps from 'humps'
+
+import Container from './styles'
 
 class Listing extends React.Component {
   handleListingClick = (e) => {
