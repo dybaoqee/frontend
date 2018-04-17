@@ -79,11 +79,15 @@ class ListingsFav extends Component {
     this.setState({query})
   }
 
-  onSelectListing = (id) => {
-    const element = document.getElementById(`listing-${id}`)
-    const rect = element.getBoundingClientRect()
-    const top = rect.top - desktopHeaderHeight - desktopFilterHeight
-    window.scrollBy({top, behavior: 'smooth'})
+  onSelectListing = (id, position) => {
+    if (!position) {
+      const element = document.getElementById(`listing-${id}`)
+      const rect = element.getBoundingClientRect()
+      const top = rect.top - desktopHeaderHeight - desktopFilterHeight
+      window.scrollBy({top, behavior: 'smooth'})
+    } else {
+      this.setState({highlight: {...position}})
+    }
   }
 
   onChangeFilter = (name, value) => {
@@ -143,8 +147,18 @@ class ListingsFav extends Component {
     )
   }
 
+  onHoverListing = (listing) => {
+    const {address: {lat, lng}} = listing
+    this.setState({highlight: {lat, lng}})
+  }
+
+  onLeaveListing = () => {
+    this.setState({highlight: {}})
+  }
+
   render() {
     const {params, filteredListings} = this
+    const {highlight} = this.state
     const {neighborhoods, currentUser, query} = this.props
     const seoImgSrc = this.seoImage
     return (
@@ -197,6 +211,7 @@ class ListingsFav extends Component {
                     zoom={13}
                     onSelect={this.onSelectListing}
                     listings={listings}
+                    highlight={highlight}
                   />
                 </div>
 
@@ -214,6 +229,9 @@ class ListingsFav extends Component {
                       {(listing) => (
                         <Listing
                           key={listing.id}
+                          onMouseEnter={this.onHoverListing}
+                          onMouseLeave={this.onLeaveListing}
+                          highlight={highlight}
                           id={`listing-${listing.id}`}
                           listing={listing}
                           currentUser={currentUser}
