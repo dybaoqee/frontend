@@ -96,11 +96,6 @@ class ListingsIndex extends Component {
 
   componentDidMount() {
     require('utils/polyfills/smooth-scroll').load()
-    Router.onRouteChangeStart = this.onUpdateRoute
-  }
-
-  componentWillUnmount() {
-    Router.onRouteChangeStart = undefined
   }
 
   onLoadNextPage = async () => {
