@@ -27,11 +27,24 @@ class Listing extends React.Component {
   }
 
   render() {
-    let {id, listing, currentUser, favorited, loading} = this.props
+    let {
+      id,
+      listing,
+      currentUser,
+      favorited,
+      loading,
+      onMouseEnter,
+      onMouseLeave
+    } = this.props
     listing = humps.decamelizeKeys(listing)
 
     return (
-      <div id={id} onClick={this.handleListingClick}>
+      <div
+        id={id}
+        onClick={this.handleListingClick}
+        onMouseEnter={onMouseEnter && onMouseEnter.bind(this, listing)}
+        onMouseLeave={onMouseLeave && onMouseLeave.bind(this, listing)}
+      >
         <ImageContainer
           currentUser={currentUser}
           listing={listing}
