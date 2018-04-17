@@ -8,7 +8,7 @@ import faPaste from '@fortawesome/fontawesome-pro-light/faPaste'
 import faGavel from '@fortawesome/fontawesome-pro-light/faGavel'
 import Link from 'next/link'
 import Head from 'next/head'
-
+import {isAuthenticated} from 'lib/auth'
 import {imageUrl} from 'utils/image_url'
 import EmCasaButton from 'components/shared/Common/Buttons'
 import Layout from 'components/shared/Shell'
@@ -16,9 +16,17 @@ import Topics from 'components/shared/Common/Topics'
 import Container, {Header, BenefitsContainer, Benefit} from './styles'
 
 export default class SellKnowMore extends Component {
+  static async getInitialProps(context) {
+    return {
+      authenticated: isAuthenticated(context)
+    }
+  }
+
   render() {
     const {authenticated, isAdmin} = this.props
-    const seoImg = imageUrl('emcasa-saiba-mais-para-vender-share-centered-2.jpg')
+    const seoImg = imageUrl(
+      'emcasa-saiba-mais-para-vender-share-centered-2.jpg'
+    )
     const seoTitle = 'EmCasa | Venda seu imóvel com a EmCasa'
     const seoDescription =
       'Anuncie seu Apartamento ou Casa de forma simples e transparente'
