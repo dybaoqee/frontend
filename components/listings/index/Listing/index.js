@@ -34,18 +34,25 @@ class Listing extends React.Component {
       listing,
       currentUser,
       favorited,
+      highlight,
       loading,
       onMouseEnter,
       onMouseLeave
     } = this.props
     listing = humps.decamelizeKeys(listing)
 
+    const highlighListing = _.isEqual(highlight, {
+      lat: listing.address.lat,
+      lng: listing.address.lng
+    })
+
     return (
-      <div
+      <Container
         id={id}
         onClick={this.handleListingClick}
         onMouseEnter={onMouseEnter && onMouseEnter.bind(this, listing)}
         onMouseLeave={onMouseLeave && onMouseLeave.bind(this, listing)}
+        highlight={highlighListing}
       >
         <ImageContainer
           currentUser={currentUser}
