@@ -79,11 +79,15 @@ class ListingsFav extends Component {
     this.setState({query})
   }
 
-  onSelectListing = (id) => {
-    const element = document.getElementById(`listing-${id}`)
-    const rect = element.getBoundingClientRect()
-    const top = rect.top - desktopHeaderHeight - desktopFilterHeight
-    window.scrollBy({top, behavior: 'smooth'})
+  onSelectListing = (id, position) => {
+    if (!position) {
+      const element = document.getElementById(`listing-${id}`)
+      const rect = element.getBoundingClientRect()
+      const top = rect.top - desktopHeaderHeight - desktopFilterHeight
+      window.scrollBy({top, behavior: 'smooth'})
+    } else {
+      this.setState({highlight: {...position}})
+    }
   }
 
   onChangeFilter = (name, value) => {
@@ -227,6 +231,7 @@ class ListingsFav extends Component {
                           key={listing.id}
                           onMouseEnter={this.onHoverListing}
                           onMouseLeave={this.onLeaveListing}
+                          highlight={highlight}
                           id={`listing-${listing.id}`}
                           listing={listing}
                           currentUser={currentUser}

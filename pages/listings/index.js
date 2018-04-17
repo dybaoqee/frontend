@@ -121,11 +121,15 @@ class ListingsIndex extends Component {
     })
   }
 
-  onSelectListing = (id) => {
-    const element = document.getElementById(`listing-${id}`)
-    const rect = element.getBoundingClientRect()
-    const top = rect.top - desktopHeaderHeight - desktopFilterHeight
-    window.scrollBy({top, behavior: 'smooth'})
+  onSelectListing = (id, position) => {
+    if (!position) {
+      const element = document.getElementById(`listing-${id}`)
+      const rect = element.getBoundingClientRect()
+      const top = rect.top - desktopHeaderHeight - desktopFilterHeight
+      window.scrollBy({top, behavior: 'smooth'})
+    } else {
+      this.setState({highlight: {...position}})
+    }
   }
 
   onChangeFilter = (name, value) => {
@@ -244,6 +248,7 @@ class ListingsIndex extends Component {
                       <Listing
                         onMouseEnter={this.onHoverListing}
                         onMouseLeave={this.onLeaveListing}
+                        highlight={highlight}
                         key={listing.id}
                         id={`listing-${listing.id}`}
                         listing={listing}
