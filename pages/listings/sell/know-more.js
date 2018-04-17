@@ -18,7 +18,7 @@ import Container, {Header, BenefitsContainer, Benefit} from './styles'
 export default class SellKnowMore extends Component {
   render() {
     const {authenticated, isAdmin} = this.props
-    const seoImg = imageUrl('emcasa-saiba-mais-para-vender-share-square-centered.jpg')
+    const seoImg = imageUrl('emcasa-saiba-mais-para-vender-share-centered-2.jpg')
     const seoTitle = 'EmCasa | Venda seu imóvel com a EmCasa'
     const seoDescription =
       'Anuncie seu Apartamento ou Casa de forma simples e transparente'
