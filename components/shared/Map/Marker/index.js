@@ -4,10 +4,15 @@ import Container from './styles'
 
 export default class MapMarker extends Component {
   render() {
-    const {id, lat, lng, text, onSelect} = this.props
+    const {id, lat, lng, text, onSelect, highlight} = this.props
 
     return (
-      <Container onClick={() => onSelect(id)} lat={lat} lng={lng}>
+      <Container
+        onClick={() => onSelect(id)}
+        lat={lat}
+        lng={lng}
+        highlight={highlight}
+      >
         {text}
       </Container>
     )
