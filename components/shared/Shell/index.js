@@ -1,7 +1,7 @@
 import {Component, Fragment} from 'react'
 import ReactGA from 'react-ga'
 import Router from 'next/router'
-
+import NProgress from 'nprogress'
 import Header from './Header'
 import Footer from './Footer'
 
@@ -12,7 +12,13 @@ import Container, {Main} from './styles'
 Router.onRouteChangeComplete = () => {
   ReactGA.initialize(process.env.GOOGLE_ANALYTICS_TRACKING_ID)
   ReactGA.pageview(window.location.pathname)
+  NProgress.done()
 }
+
+Router.onRouteChangeStart = () => {
+  NProgress.start()
+}
+Router.onRouteChangeError = () => NProgress.done()
 
 export default class Layout extends Component {
   render() {
