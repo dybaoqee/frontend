@@ -18,11 +18,13 @@ export default styled.div`
   z-index: ${({highlight}) => (highlight ? 1 : 0)};
 
   &:hover {
-    background: ${colors.blue.dark};
+    background: white;
+    transform: scale(1);
     z-index: 1;
     cursor: pointer;
     &:after {
-      border-top: 8px solid ${colors.blue.dark};
+      border-top: 8px solid
+        ${({highlight}) => (highlight ? 'white' : colors.blue.medium)};
     }
   }
   &:after {
