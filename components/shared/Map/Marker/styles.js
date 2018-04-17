@@ -15,10 +15,11 @@ export default styled.div`
   transform: translate(-50%, -100%);
   transform: scale(${({highlight}) => (highlight ? 1.3 : 1)});
   transition: transform 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  z-index: ${({highlight}) => (highlight ? 2 : 1)};
+  z-index: ${({highlight}) => (highlight ? 1 : 0)};
+
   &:hover {
     background: ${colors.blue.dark};
-    z-index: 2;
+    z-index: 1;
     cursor: pointer;
     &:after {
       border-top: 8px solid ${colors.blue.dark};
