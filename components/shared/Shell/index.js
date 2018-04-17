@@ -10,15 +10,15 @@ import {mobileMedia} from 'constants/media'
 import * as colors from 'constants/colors'
 import Container, {Main} from './styles'
 
+Router.onRouteChangeStart = () => {
+  NProgress.start()
+}
 Router.onRouteChangeComplete = () => {
   ReactGA.initialize(process.env.GOOGLE_ANALYTICS_TRACKING_ID)
   ReactGA.pageview(window.location.pathname)
   NProgress.done()
 }
 
-Router.onRouteChangeStart = () => {
-  NProgress.start()
-}
 Router.onRouteChangeError = () => NProgress.done()
 
 export default class Layout extends Component {
@@ -27,6 +27,13 @@ export default class Layout extends Component {
 
     return (
       <Fragment>
+        <Head>
+          <link
+            rel="stylesheet"
+            type="text/css"
+            href="/static/styles/nprogress.css"
+          />
+        </Head>
         <Header
           errorCode={errorCode}
           authenticated={authenticated}
