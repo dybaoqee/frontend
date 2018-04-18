@@ -79,7 +79,7 @@ class ListingsIndex extends Component {
     const {data} = await getListings({
       ...query,
       page,
-      page_size: 50,
+      page_size: 400,
       excluded_listing_ids: query.excluded_listing_ids || []
     })
 
