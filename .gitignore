@@ -13,6 +13,8 @@ cypress/screenshots/*
 # production
 build
 /**/*.css
+!static/styles/nprogress.css
+
 
 # misc
 .DS_Store
