@@ -13,14 +13,11 @@ export default styled.div`
   color: #fff;
   border: 2px solid #fff;
   border-radius: 50%;
-  background-color: ${colors.blue.dark};
+  background-color: ${colors.blue.medium};
   box-shadow: 1px 3px 6px rgba(0, 0, 0, 0.3);
 
   :hover {
     cursor: pointer;
-
-    color: ${colors.blue.dark};
-    border: 2px solid ${colors.blue.dark};
-    background-color: white;
+    background-color: ${colors.blue.dark};
   }
 `
