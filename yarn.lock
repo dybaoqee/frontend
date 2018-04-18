@@ -5611,7 +5611,7 @@ lodash@4.17.4, lodash@^4.13.1, lodash@^4.14.0, lodash@^4.2.0, lodash@^4.2.1, lod
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
-lodash@4.17.5, lodash@^4.0.0, lodash@^4.15.0, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.6.1:
+lodash@4.17.5, lodash@^4.0.0, lodash@^4.1.0, lodash@^4.15.0, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.6.1:
   version "4.17.5"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.5.tgz#99a92d65c0272debe8c96b6057bc8fbfa3bed511"
 
@@ -6736,6 +6736,14 @@ pn@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/pn/-/pn-1.0.0.tgz#1cf5a30b0d806cd18f88fc41a6b5d4ad615b3ba9"
 
+points-cluster@^0.1.4:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/points-cluster/-/points-cluster-0.1.4.tgz#409bdbf1e0cc18b6ec80f0d357d40bafae69affc"
+  dependencies:
+    invariant "^2.2.0"
+    lodash "^4.1.0"
+    rbush "^1.4.1"
+
 posix-character-classes@^0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/posix-character-classes/-/posix-character-classes-0.1.1.tgz#01eac0fe3b5af71a2a6c02feabb8c1fef7e00eab"
@@ -7017,6 +7025,10 @@ raw-body@2.3.2:
     http-errors "1.6.2"
     iconv-lite "0.4.19"
     unpipe "1.0.0"
+
+rbush@^1.4.1:
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/rbush/-/rbush-1.4.3.tgz#7874e2d38911d2719ea27731d32445da5ec4394c"
 
 rc@^1.1.7:
   version "1.2.2"
