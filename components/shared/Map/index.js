@@ -131,6 +131,18 @@ export default class MapContainer extends Component {
               lat: item.points[0].lat,
               lng: item.points[0].lng
             })
+
+            if (hasAggregators) {
+              return (
+                <ClusterMarker
+                  key={item.id}
+                  lat={item.lat}
+                  lng={item.lng}
+                  points={item.points}
+                  onClick={this.frameMarkers.bind(this)}
+                />
+              )
+            }
             return (
               <MapMarker
                 onSelect={onSelect}
@@ -150,6 +162,7 @@ export default class MapContainer extends Component {
               lat={item.lat}
               lng={item.lng}
               points={item.points}
+              onClick={this.frameMarkers.bind(this)}
             />
           )
         })}
