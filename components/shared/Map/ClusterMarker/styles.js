@@ -15,4 +15,12 @@ export default styled.div`
   border-radius: 50%;
   background-color: ${colors.blue.dark};
   box-shadow: 1px 3px 6px rgba(0, 0, 0, 0.3);
+
+  :hover {
+    cursor: pointer;
+
+    color: ${colors.blue.dark};
+    border: 2px solid ${colors.blue.dark};
+    background-color: white;
+  }
 `
