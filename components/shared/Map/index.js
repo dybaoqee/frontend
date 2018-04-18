@@ -41,17 +41,20 @@ export default class MapContainer extends Component {
   }
 
   createClusters = () => {
-    const {markers} = this.props
+    const clusters = this.getClusters().map(({wx, wy, numPoints, points}) => ({
+      lat: wy,
+      lng: wx,
+      numPoints,
+      id: `${numPoints}_${points[0].id}`,
+      points
+    }))
     this.setState({
-      clusters: this.state.mapOptions.bounds
-        ? this.getClusters().map(({wx, wy, numPoints, points}) => ({
-            lat: wy,
-            lng: wx,
-            numPoints,
-            id: `${numPoints}_${points[0].id}`,
-            points
-          }))
-        : []
+      clusters: this.state.mapOptions.bounds ? clusters : [],
+      hasAggregators:
+        clusters.reduce(
+          (prevVal, elem) => (elem.numPoints > 1 ? prevVal + 1 : prevVal),
+          0
+        ) > 1
     })
   }
 
