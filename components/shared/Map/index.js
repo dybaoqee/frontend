@@ -99,8 +99,19 @@ export default class MapContainer extends Component {
     }
   }
 
+  frameMarkers(markers) {
+    const LatLngList = markers.map((m) => new this.maps.LatLng(m.lat, m.lng))
+
+    const bounds = new this.maps.LatLngBounds()
+    for (let i = 0, LtLgLen = LatLngList.length; i < LtLgLen; i++) {
+      bounds.extend(LatLngList[i])
+    }
+    this.map.fitBounds(bounds)
+  }
+
   render() {
     const {markers, onSelect, highlight} = this.props
+    const {hasAggregators} = this.state
 
     return (
       <GoogleMapReact
