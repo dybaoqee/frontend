@@ -10,8 +10,7 @@ import {mobileMedia} from 'constants/media'
 import * as colors from 'constants/colors'
 import Container, {Main} from './styles'
 
-Router.onRouteChangeStart = (url) => {
-  console.log(url)
+Router.onRouteChangeStart = () => {
   NProgress.start()
 }
 Router.onRouteChangeComplete = () => {
