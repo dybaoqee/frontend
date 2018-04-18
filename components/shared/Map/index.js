@@ -23,7 +23,8 @@ export default class MapContainer extends Component {
       mapOptions: {
         center: MAP.defaultCenter,
         zoom: MAP.defaultZoom
-      }
+      },
+      hasAggregators: false
     }
   }
 
