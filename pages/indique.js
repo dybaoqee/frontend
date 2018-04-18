@@ -8,7 +8,7 @@ import TextContainer from 'components/shared/TextContainer'
 export default class Indique extends Component {
   static async getInitialProps(context) {
     return {
-      authenticated: isAuthenticated(context),
+      authenticated: isAuthenticated(context)
     }
   }
 
