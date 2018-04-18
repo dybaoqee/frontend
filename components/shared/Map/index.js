@@ -1,18 +1,72 @@
 import {Component} from 'react'
 import GoogleMapReact from 'google-map-react'
+import supercluster from 'points-cluster'
 import _ from 'lodash'
 
 import MapMarker from 'components/shared/Map/Marker'
+import ClusterMarker from 'components/shared/Map/ClusterMarker'
+
+const MAP = {
+  defaultZoom: 8,
+  defaultCenter: {lat: -22.9608099, lng: -43.2096142},
+  options: {
+    maxZoom: 19
+  }
+}
 
 export default class MapContainer extends Component {
-  static defaultProps = {
-    center: {lat: -22.9608099, lng: -43.2096142},
-    zoom: 15,
-    markers: []
-  }
-
   constructor(props) {
     super(props)
+
+    this.state = {
+      clusters: [],
+      mapOptions: {
+        center: MAP.defaultCenter,
+        zoom: MAP.defaultZoom
+      }
+    }
+  }
+
+  getClusters = () => {
+    const {mapOptions} = this.state
+    const {markers} = this.props
+    const clusters = supercluster(markers, {
+      minZoom: 0,
+      maxZoom: 14,
+      radius: 60
+    })
+
+    return clusters(mapOptions)
+  }
+
+  createClusters = () => {
+    const {markers} = this.props
+    this.setState({
+      clusters: this.state.mapOptions.bounds
+        ? this.getClusters().map(({wx, wy, numPoints, points}) => ({
+            lat: wy,
+            lng: wx,
+            numPoints,
+            id: `${numPoints}_${points[0].id}`,
+            points
+          }))
+        : []
+    })
+  }
+
+  handleMapChange = ({center, zoom, bounds}) => {
+    this.setState(
+      {
+        mapOptions: {
+          center,
+          zoom,
+          bounds
+        }
+      },
+      () => {
+        this.createClusters(this.props)
+      }
+    )
   }
 
   apiIsLoaded = (map, maps, markers) => {
@@ -42,30 +96,45 @@ export default class MapContainer extends Component {
   }
 
   render() {
-    const {markers, center, zoom, onSelect, highlight} = this.props
+    const {markers, onSelect, highlight} = this.props
 
     return (
       <GoogleMapReact
         bootstrapURLKeys={{key: process.env.GOOGLE_MAPS_KEY}}
-        defaultCenter={center}
-        defaultZoom={zoom}
+        defaultZoom={MAP.defaultZoom}
+        defaultCenter={MAP.defaultCenter}
+        options={MAP.options}
         yesIWantToUseGoogleMapApiInternals
+        onChange={this.handleMapChange}
         onGoogleApiLoaded={({map, maps}) =>
           this.apiIsLoaded(map, maps, markers, true)
         }
       >
-        {markers.map((marker) => {
-          const {id, lat, lng, text} = marker
-          const highlightMarker = _.isEqual(highlight, {lat, lng})
+        {this.state.clusters.map((item) => {
+          if (item.numPoints === 1) {
+            const highlightMarker = _.isEqual(highlight, {
+              lat: item.points[0].lat,
+              lng: item.points[0].lng
+            })
+            return (
+              <MapMarker
+                onSelect={onSelect}
+                id={item.points[0].id}
+                key={item.points[0].id}
+                lat={item.points[0].lat}
+                lng={item.points[0].lng}
+                text={item.points[0].text}
+                highlight={highlightMarker}
+              />
+            )
+          }
+
           return (
-            <MapMarker
-              onSelect={onSelect}
-              id={id}
-              key={id}
-              lat={lat}
-              lng={lng}
-              text={text}
-              highlight={highlightMarker}
+            <ClusterMarker
+              key={item.id}
+              lat={item.lat}
+              lng={item.lng}
+              points={item.points}
             />
           )
         })}
