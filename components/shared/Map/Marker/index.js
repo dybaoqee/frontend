@@ -9,8 +9,8 @@ export default class MapMarker extends Component {
     return (
       <Container
         onClick={() => onSelect(id)}
-        onMouseEnter={() => onSelect(id, {lat, lng})}
-        onMouseLeave={() => onSelect(id, {})}
+        onMouseEnter={() => onSelect && onSelect(id, {lat, lng})}
+        onMouseLeave={() => onSelect && onSelect(id, {})}
         lat={lat}
         lng={lng}
         highlight={highlight}
