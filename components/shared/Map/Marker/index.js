@@ -1,5 +1,4 @@
 import {Component} from 'react'
-
 import Container from './styles'
 
 export default class MapMarker extends Component {
@@ -8,7 +7,7 @@ export default class MapMarker extends Component {
 
     return (
       <Container
-        onClick={() => onSelect(id)}
+        onClick={() => onSelect && onSelect(id)}
         onMouseEnter={() => onSelect && onSelect(id, {lat, lng})}
         onMouseLeave={() => onSelect && onSelect(id, {})}
         lat={lat}
