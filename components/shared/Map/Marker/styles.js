@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import _ from 'lodash'
 
 import * as colors from 'constants/colors'
 
@@ -28,9 +27,8 @@ export default styled.div`
       border-top: 8px solid white;
     }
   }
-
   ${({text}) =>
-    !_.isString(text)
+    typeof text !== 'string'
       ? `&:hover {cursor: grab;  background: ${
           colors.blue.medium
         }; color: white;
