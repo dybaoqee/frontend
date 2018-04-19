@@ -21,12 +21,12 @@ export const Topic = styled.div`
   }
 `
 export const Title = styled.div`
-  p{
-    padding: : 0;
+  p {
+    padding: 0;
     margin: 0;
   }
 
-  p:first-of-type{
+  p:first-of-type {
     font-size: 12px;
     font-weight: bold;
     line-height: 17px;
@@ -34,7 +34,7 @@ export const Title = styled.div`
     margin-bottom: 3px;
   }
 
-  p:last-of-type{
+  p:last-of-type {
     font-size: 14px;
     line-height: 19px;
   }
