@@ -88,6 +88,13 @@ export default class MapContainer extends Component {
       if (markers.length === 1) {
         map.setZoom(15)
       }
+
+      if (markers.length === 0) {
+        map.setCenter(
+          new maps.LatLng(MAP.defaultCenter.lat, MAP.defaultCenter.lng)
+        )
+        map.setZoom(13)
+      }
     }
   }
 
