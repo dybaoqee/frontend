@@ -17,8 +17,8 @@ export default styled.button`
 
     path {
       text-shadow: 2px 2px 3px #f00;
-      fill: ${({favorite}) => (favorite ? colors.red.medium : 'white')};
-      fill-opacity: ${({favorite}) => (favorite ? 1 : 0)};
+      fill: ${({favorite}) => (favorite ? colors.red.medium : 'black')};
+      fill-opacity: ${({favorite}) => (favorite ? 1 : 0.2)};
       stroke: white;
       stroke-width: 30;
     }

@@ -22,11 +22,21 @@ export default styled.div`
     transform: scale(1);
     z-index: 1;
     cursor: pointer;
+    color: ${colors.blue.medium};
     &:after {
-      border-top: 8px solid
-        ${({highlight}) => (highlight ? 'white' : colors.blue.medium)};
+      border-top: 8px solid white;
     }
   }
+  ${({text}) =>
+    typeof text !== 'string'
+      ? `&:hover {cursor: grab;  background: ${
+          colors.blue.medium
+        }; color: white;
+        &:after {
+          border-top: 8px solid ${colors.blue.medium};
+        }}`
+      : ''};
+
   &:after {
     bottom: -6px;
     content: '';
