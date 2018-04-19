@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import _ from 'lodash'
 
 import * as colors from 'constants/colors'
 
@@ -27,6 +28,17 @@ export default styled.div`
       border-top: 8px solid white;
     }
   }
+
+  ${({text}) =>
+    !_.isString(text)
+      ? `&:hover {cursor: grab;  background: ${
+          colors.blue.medium
+        }; color: white;
+        &:after {
+          border-top: 8px solid ${colors.blue.medium};
+        }}`
+      : ''};
+
   &:after {
     bottom: -6px;
     content: '';
