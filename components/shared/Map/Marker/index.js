@@ -13,6 +13,7 @@ export default class MapMarker extends Component {
         lat={lat}
         lng={lng}
         highlight={highlight}
+        text={text}
       >
         {text}
       </Container>
