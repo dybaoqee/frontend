@@ -15,16 +15,16 @@ export default class ListingMainContent extends React.Component {
           <p className="street">
             {street}, {neighborhood}
           </p>
-          <h6>O IMÓVEL</h6>
+          <h6>O imóvel</h6>
           <p className="description__text">{listing.description}</p>
           <ListingInfo>
             <div>
-              <h6>TIPO DO IMÓVEL</h6>
+              <h6>Tipo do imóvel</h6>
               <p>{listing.type}</p>
             </div>
             {listing.maintenance_fee && (
               <div>
-                <h6>CONDOMÍNIO</h6>
+                <h6>Condomínio</h6>
                 <p>
                   <NumberFormat
                     value={listing.maintenance_fee}
@@ -39,7 +39,7 @@ export default class ListingMainContent extends React.Component {
 
             {listing.property_tax && (
               <div>
-                <h6>IPTU</h6>
+                <h6>Iptu</h6>
                 <p>
                   <NumberFormat
                     value={listing.property_tax}
