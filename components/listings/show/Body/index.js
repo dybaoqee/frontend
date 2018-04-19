@@ -1,9 +1,8 @@
 import React from 'react'
-
-import {mobileMedia} from 'constants/media'
-import * as colors from 'constants/colors'
-
+import NumberFormat from 'react-number-format'
 import ListingCard from './Card'
+import Container, {CardWrapper, ListingInfo} from './styles'
+import Statistics from 'components/listings/show/Statistics'
 
 export default class ListingMainContent extends React.Component {
   render() {
@@ -11,83 +10,54 @@ export default class ListingMainContent extends React.Component {
     const {street, neighborhood} = listing.address
 
     return (
-      <div className="container">
-        <div>
-          <div className="description">
-            <p className="street">
-              {street}, {neighborhood}
-            </p>
+      <Container>
+        <div className="description">
+          <p className="street">
+            {street}, {neighborhood}
+          </p>
+          <h6>O IMÓVEL</h6>
+          <p className="description__text">{listing.description}</p>
+          <ListingInfo>
+            <div>
+              <h6>TIPO DO IMÓVEL</h6>
+              <p>{listing.type}</p>
+            </div>
+            {listing.maintenance_fee && (
+              <div>
+                <h6>CONDOMÍNIO</h6>
+                <p>
+                  <NumberFormat
+                    value={listing.maintenance_fee}
+                    displayType={'text'}
+                    thousandSeparator={'.'}
+                    prefix={'R$'}
+                    decimalSeparator={','}
+                  />
+                </p>
+              </div>
+            )}
 
-            <h6>{listing.type}</h6>
-            <p>{listing.description}</p>
-          </div>
+            {listing.property_tax && (
+              <div>
+                <h6>IPTU</h6>
+                <p>
+                  <NumberFormat
+                    value={listing.property_tax}
+                    displayType={'text'}
+                    thousandSeparator={'.'}
+                    prefix={'R$'}
+                    decimalSeparator={','}
+                  />
+                </p>
+              </div>
+            )}
+          </ListingInfo>
         </div>
-
-        <ListingCard listing={listing} handleOpenPopup={handleOpenPopup} />
-
-        <style jsx>{`
-          .container {
-            align-items: flex-start;
-            display: flex;
-            justify-content: space-between;
-            margin: 30px auto 40px;
-            max-width: 960px;
-            width: 100vw;
-          }
-
-          .container > div:first-of-type {
-            max-width: 100vw;
-            width: calc(100% - 380px);
-          }
-
-          .container > div:last-of-type {
-            max-width: 100vw;
-            width: 393px;
-          }
-
-          .container > div > div {
-            margin: 20px 20px 40px;
-          }
-
-          .description {
-            max-width: 100%;
-
-            h6 {
-              font-size: 12px;
-              text-transform: uppercase;
-            }
-
-            p {
-              color: ${colors.gray4a};
-              font-size: 20px;
-              font-weight: 300;
-              &.street {
-                font-weight: 400;
-                margin-bottom: 60px;
-              }
-            }
-          }
-
-          @media ${mobileMedia} {
-            .container {
-              flex-direction: column;
-              width: 100vw;
-            }
-
-            .container > div {
-              width: 100vw;
-            }
-
-            .container > div:first-of-type {
-              width: 100vw;
-            }
-
-            .description {
-              width: calc(100vw - 40px);
-            }
-          }
-        `}</style>
-      </div>
+        <CardWrapper>
+          <ListingCard listing={listing} handleOpenPopup={handleOpenPopup} />
+          <Statistics listing={listing} />
+        </CardWrapper>
+      </Container>
     )
   }
 }
