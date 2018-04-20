@@ -273,6 +273,7 @@ class Listing extends Component {
                     <ListingMainContent
                       listing={listing}
                       handleOpenPopup={this.openPopup}
+                      user={currentUser}
                     />
 
                     <ListingMap listing={listing} />

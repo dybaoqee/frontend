@@ -6,7 +6,7 @@ import Statistics from 'components/listings/show/Statistics'
 
 export default class ListingMainContent extends React.Component {
   render() {
-    const {listing, handleOpenPopup} = this.props
+    const {listing, handleOpenPopup, user} = this.props
     const {street, neighborhood} = listing.address
 
     return (
@@ -55,7 +55,7 @@ export default class ListingMainContent extends React.Component {
         </div>
         <CardWrapper>
           <ListingCard listing={listing} handleOpenPopup={handleOpenPopup} />
-          <Statistics listing={listing} />
+          {user.admin && <Statistics listing={listing} />}
         </CardWrapper>
       </Container>
     )
