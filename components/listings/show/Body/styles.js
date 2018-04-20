@@ -26,7 +26,8 @@ export default styled.div`
       text-transform: uppercase;
     }
 
-    p {
+    p,
+    h1 {
       color: ${colors.gray4a};
       font-size: 20px;
       font-weight: 300;
