@@ -41,6 +41,7 @@ export default class MapContainer extends Component {
   }
 
   createClusters = () => {
+    const {onChange} = this.props
     const clusters = this.getClusters().map(({wx, wy, numPoints, points}) => ({
       lat: wy,
       lng: wx,
@@ -48,6 +49,11 @@ export default class MapContainer extends Component {
       id: `${numPoints}_${points[0].id}`,
       points
     }))
+
+    const framedListings = _.flatten(
+      clusters.map((marker) => [...marker.points])
+    )
+    onChange && onChange(framedListings.map((listing) => listing.id))
     this.setState({
       clusters: this.state.mapOptions.bounds ? clusters : [],
       hasAggregators:
