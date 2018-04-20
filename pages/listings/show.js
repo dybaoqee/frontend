@@ -22,6 +22,7 @@ import RelatedListings from 'components/listings/show/RelatedListings'
 import Error from 'components/shared/Shell/Error'
 import Link from 'next/link'
 import Warning from 'components/shared/Common/Warning'
+import Breadcrumb from 'components/shared/Common/Breadcrumb'
 
 class Listing extends Component {
   favMutated = false
@@ -170,6 +171,20 @@ class Listing extends Component {
       interestForm
     } = this.state
 
+    const paths = [
+      {name: 'Comprar Imóvel', href: '/listings', as: '/imoveis'},
+      {
+        name: listing.address.neighborhood,
+        href: `/listings?bairros=${listing.address.neighborhood}`,
+        as: `/imoveis?bairros=${listing.address.neighborhood}`
+      },
+      {
+        name: `${listing.type} de ${listing.rooms} dormitórios`,
+        href: `${url.pathname}?id=${listing.id}`,
+        as: url.asPath
+      }
+    ]
+
     return (
       <Mutation mutation={FAVORITE_LISTING}>
         {(favoriteListing) => (
@@ -249,6 +264,7 @@ class Listing extends Component {
                         )}
                       </Warning>
                     )}
+                    <Breadcrumb paths={paths} />
 
                     <ListingMainContent
                       listing={listing}

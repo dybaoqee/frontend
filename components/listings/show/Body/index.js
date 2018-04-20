@@ -12,9 +12,9 @@ export default class ListingMainContent extends React.Component {
     return (
       <Container>
         <div className="description">
-          <p className="street">
+          <h1 className="street">
             {street}, {neighborhood}
-          </p>
+          </h1>
           <h6>O imóvel</h6>
           <p className="description__text">{listing.description}</p>
           <ListingInfo>

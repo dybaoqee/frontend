@@ -9,7 +9,8 @@ export const blue = {
 export const red = {
   light: '#fcf0f0',
   medium: '#e54848',
-  dark: '#902020'
+  dark: '#902020',
+  logo: '#AA2921'
 }
 
 export const orange = {
