@@ -133,6 +133,12 @@ export default class MapContainer extends Component {
         }
       >
         {this.state.clusters.map((item) => {
+          const highlightAggregator =
+            highlight &&
+            item.points.filter(
+              ({lat, lng}) => lat === highlight.lat && lng === highlight.lng
+            ).length > 0
+
           if (item.numPoints === 1) {
             const highlightMarker = _.isEqual(highlight, {
               lat: item.points[0].lat,
@@ -147,6 +153,7 @@ export default class MapContainer extends Component {
                   lng={item.lng}
                   points={item.points}
                   onClick={this.frameMarkers.bind(this)}
+                  highlight={highlightAggregator}
                 />
               )
             }
@@ -170,6 +177,7 @@ export default class MapContainer extends Component {
               lng={item.lng}
               points={item.points}
               onClick={this.frameMarkers.bind(this)}
+              highlight={highlightAggregator}
             />
           )
         })}
