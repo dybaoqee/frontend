@@ -11,7 +11,7 @@ export default class ListingHead extends Component {
     return (
       <Head>
         <title>
-          À venda: Apartamento - {listing.address.street} -{' '}
+          À venda: {listing.type} - {listing.address.street} -{' '}
           {listing.address.neighborhood}, {listing.address.city} | EmCasa
         </title>
         <meta name="description" content={listing.description} />
