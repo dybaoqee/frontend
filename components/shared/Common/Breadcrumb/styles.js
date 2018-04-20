@@ -21,8 +21,7 @@ export default styled.ul`
   }
 
   @media ${mobileMedia} {
-    flex-direction: column;
-    align-items: flex-start;
+    display: none;
   }
 
   a,
