@@ -185,7 +185,8 @@ class ListingsIndex extends Component {
       totalResults,
       listings,
       remaining_count,
-      highlight
+      highlight,
+      framedListings
     } = this.state
     const seoImgSrc = this.seoImage
 
@@ -244,7 +245,9 @@ class ListingsIndex extends Component {
                   <InfiniteScroll
                     currentPage={currentPage}
                     totalPages={totalPages}
-                    entries={listings}
+                    entries={
+                      framedListings.length > 0 ? framedListings : listings
+                    }
                     remaining_count={remaining_count}
                     onLoad={this.onLoadNextPage}
                     to={{pathname: '/imoveis', query}}
