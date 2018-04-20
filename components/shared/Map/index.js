@@ -41,6 +41,7 @@ export default class MapContainer extends Component {
   }
 
   createClusters = () => {
+    const {onChange} = this.props
     const clusters = this.getClusters().map(({wx, wy, numPoints, points}) => ({
       lat: wy,
       lng: wx,
@@ -48,6 +49,11 @@ export default class MapContainer extends Component {
       id: `${numPoints}_${points[0].id}`,
       points
     }))
+
+    const framedListings = _.flatten(
+      clusters.map((marker) => [...marker.points])
+    )
+    onChange && onChange(framedListings.map((listing) => listing.id))
     this.setState({
       clusters: this.state.mapOptions.bounds ? clusters : [],
       hasAggregators:
@@ -118,7 +124,7 @@ export default class MapContainer extends Component {
 
   render() {
     const {markers, onSelect, highlight} = this.props
-    const {hasAggregators} = this.state
+    const {hasAggregators, clusters} = this.state
 
     return (
       <GoogleMapReact
@@ -132,7 +138,7 @@ export default class MapContainer extends Component {
           this.apiIsLoaded(map, maps, markers, true)
         }
       >
-        {this.state.clusters.map((item) => {
+        {clusters.map((item) => {
           const highlightAggregator =
             highlight &&
             item.points.filter(

@@ -26,7 +26,8 @@ const getDerivedState = ({initialState}) => {
   const currentPage = initialState.currentPage || 1
   return {
     ...initialState,
-    currentPage
+    currentPage,
+    framedListings: []
   }
 }
 
@@ -167,6 +168,14 @@ class ListingsIndex extends Component {
     this.setState({highlight: {}})
   }
 
+  onChangeMap = (framedListings) => {
+    const {listings} = this.state
+    const framed = listings.filter((listing) =>
+      _.includes(framedListings, listing.id)
+    )
+    this.setState({framedListings: framed})
+  }
+
   render() {
     const {params} = this
     const {neighborhoods, currentUser, query} = this.props
@@ -176,7 +185,8 @@ class ListingsIndex extends Component {
       totalResults,
       listings,
       remaining_count,
-      highlight
+      highlight,
+      framedListings
     } = this.state
     const seoImgSrc = this.seoImage
 
@@ -222,6 +232,7 @@ class ListingsIndex extends Component {
               onSelect={this.onSelectListing}
               listings={listings}
               highlight={highlight}
+              onChange={this.onChangeMap}
             />
           </div>
 
@@ -234,7 +245,9 @@ class ListingsIndex extends Component {
                   <InfiniteScroll
                     currentPage={currentPage}
                     totalPages={totalPages}
-                    entries={listings}
+                    entries={
+                      framedListings.length > 0 ? framedListings : listings
+                    }
                     remaining_count={remaining_count}
                     onLoad={this.onLoadNextPage}
                     to={{pathname: '/imoveis', query}}
