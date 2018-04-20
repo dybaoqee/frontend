@@ -12,7 +12,7 @@ export default styled.ul`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  margin: 20px auto 0;
+  margin: 35px auto 0;
   padding-left: 20px;
   padding-right: 20px;
 
@@ -53,8 +53,10 @@ export const Path = styled.li`
 
   :not(:first-of-type) {
     :before {
-      content: '>';
-      margin: 0 3px;
+      content: '›';
+      font-size: 14px;
+      margin: 0 5px;
+      position: relative;
     }
   }
 `

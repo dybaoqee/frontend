@@ -171,6 +171,10 @@ class Listing extends Component {
       interestForm
     } = this.state
 
+    const roomInformationForPath = listing.rooms
+      ? ` de ${listing.rooms} dormitórios`
+      : ''
+
     const paths = [
       {name: 'Comprar Imóvel', href: '/listings', as: '/imoveis'},
       {
@@ -179,7 +183,7 @@ class Listing extends Component {
         as: `/imoveis?bairros=${listing.address.neighborhood}`
       },
       {
-        name: `${listing.type} de ${listing.rooms} dormitórios`,
+        name: listing.type + roomInformationForPath,
         href: `${url.pathname}?id=${listing.id}`,
         as: url.asPath
       }
