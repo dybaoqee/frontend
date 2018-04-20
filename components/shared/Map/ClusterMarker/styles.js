@@ -16,6 +16,12 @@ export default styled.div`
   background-color: ${colors.blue.medium};
   box-shadow: 1px 3px 6px rgba(0, 0, 0, 0.3);
 
+  ${({highlight}) =>
+    highlight
+      ? `background-color: white; color: ${
+          colors.blue.medium
+        }; border: 2px solid ${colors.blue.medium};`
+      : ''};
   :hover {
     cursor: pointer;
     background-color: ${colors.blue.dark};
