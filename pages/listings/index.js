@@ -26,7 +26,8 @@ const getDerivedState = ({initialState}) => {
   const currentPage = initialState.currentPage || 1
   return {
     ...initialState,
-    currentPage
+    currentPage,
+    framedListings: []
   }
 }
 
