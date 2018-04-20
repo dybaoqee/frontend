@@ -17,6 +17,8 @@ export default class ListingHead extends Component {
         <meta name="description" content={listing.description} />
         <meta property="og:description" content={listing.description} />
         <meta property="og:image" content={seoImgSrc} />
+        <meta property="og:image:width" content="1024" />
+        <meta property="og:image:height" content="768" />
       </Head>
     )
   }
