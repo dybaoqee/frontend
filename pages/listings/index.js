@@ -168,6 +168,14 @@ class ListingsIndex extends Component {
     this.setState({highlight: {}})
   }
 
+  onChangeMap = (framedListings) => {
+    const {listings} = this.state
+    const framed = listings.filter((listing) =>
+      _.includes(framedListings, listing.id)
+    )
+    this.setState({framedListings: framed})
+  }
+
   render() {
     const {params} = this
     const {neighborhoods, currentUser, query} = this.props
@@ -223,6 +231,7 @@ class ListingsIndex extends Component {
               onSelect={this.onSelectListing}
               listings={listings}
               highlight={highlight}
+              onChange={this.onChangeMap}
             />
           </div>
 
