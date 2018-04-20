@@ -118,7 +118,7 @@ export default class MapContainer extends Component {
 
   render() {
     const {markers, onSelect, highlight} = this.props
-    const {hasAggregators} = this.state
+    const {hasAggregators, clusters} = this.state
 
     return (
       <GoogleMapReact
@@ -132,7 +132,7 @@ export default class MapContainer extends Component {
           this.apiIsLoaded(map, maps, markers, true)
         }
       >
-        {this.state.clusters.map((item) => {
+        {clusters.map((item) => {
           const highlightAggregator =
             highlight &&
             item.points.filter(
