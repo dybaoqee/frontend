@@ -28,7 +28,7 @@ export default class Indique extends Component {
           />
           <meta
             property="og:image"
-            content="https://s3-sa-east-1.amazonaws.com/emcasa/listings/original/belisario-tavora.jpg"
+            content="https://res.cloudinary.com/emcasa/image/upload/f_auto/v1513818385/home-2018-04-03_cozxd9.jpg"
           />
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:title" content="Indique e Ganhe" />
@@ -38,7 +38,7 @@ export default class Indique extends Component {
           />
           <meta
             name="twitter:image"
-            content="https://s3-sa-east-1.amazonaws.com/emcasa/listings/original/belisario-tavora.jpg"
+            content="https://res.cloudinary.com/emcasa/image/upload/f_auto/v1513818385/home-2018-04-03_cozxd9.jpg"
           />
         </Head>
 
