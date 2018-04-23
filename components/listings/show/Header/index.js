@@ -4,6 +4,8 @@ import LikeButton from 'components/shared/Common/Buttons/Like'
 import Container from './styles'
 import {canEdit} from 'permissions/listings-permissions'
 import {mainListingImage} from 'utils/image_url'
+import {Mutation} from 'react-apollo'
+import {VISUALIZE_TOUR} from 'graphql/listings/mutations'
 
 export default class ListingHeader extends Component {
   render() {
