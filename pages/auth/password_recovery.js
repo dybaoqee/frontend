@@ -52,9 +52,10 @@ export default class PasswordRecovery extends Component {
         <Form onSubmit={this.handleSubmit}>
           {data.name ? (
             <Fragment>
-              <p>{`${_.capitalize(
-                data.name.split(' ')[0]
-              )}, enviamos um e-mail pra você com instruções para criar uma nova senha.`}</p>
+              <p>
+                Enviamos um e-mail pra você com instruções para criar uma nova
+                senha.
+              </p>
             </Fragment>
           ) : (
             <Fragment>
