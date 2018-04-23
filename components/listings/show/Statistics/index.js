@@ -5,9 +5,16 @@ import faClipboard from '@fortawesome/fontawesome-pro-light/faClipboardCheck'
 import faEye from '@fortawesome/fontawesome-pro-light/faEye'
 import faHeart from '@fortawesome/fontawesome-pro-light/faHeart'
 import faCalendar from '@fortawesome/fontawesome-pro-light/faCalendarAlt'
+import faHome from '@fortawesome/fontawesome-pro-light/faHomeHeart'
 
 export default ({
-  listing: {visualisations, favorite_count, interest_count, inserted_at}
+  listing: {
+    visualisations,
+    favorite_count,
+    interest_count,
+    inserted_at,
+    tour_visualisations
+  }
 }) => (
   <Container>
     <Topic>
@@ -22,6 +29,13 @@ export default ({
       <Title>
         <p>Visualizações</p>
         <p>{visualisations}</p>
+      </Title>
+    </Topic>
+    <Topic>
+      <FontAwesomeIcon icon={faHome} />
+      <Title>
+        <p>Visualizações Tour 3D</p>
+        <p>{tour_visualisations}</p>
       </Title>
     </Topic>
     <Topic>
