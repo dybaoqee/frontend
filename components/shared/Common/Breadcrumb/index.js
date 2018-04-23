@@ -12,9 +12,13 @@ export default ({paths}) => (
     </Path>
     {paths.map(({name, href, as}) => (
       <Path key={as}>
-        <Link href={href} as={as}>
-          {name}
-        </Link>
+        {href ? (
+          <Link href={href} as={as}>
+            {name}
+          </Link>
+        ) : (
+          <span>{name}</span>
+        )}
       </Path>
     ))}
   </Container>
