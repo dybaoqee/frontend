@@ -57,9 +57,7 @@ export default class Signup extends Component {
         <Form onSubmit={this.handleSubmit}>
           {data.name ? (
             <Fragment>
-              <p>{`${_.capitalize(
-                data.name.split(' ')[0]
-              )}, enviamos um e-mail para você confirmar seu cadastro.`}</p>
+              <p>Enviamos um e-mail para você confirmar seu cadastro.</p>
             </Fragment>
           ) : (
             <Fragment>
