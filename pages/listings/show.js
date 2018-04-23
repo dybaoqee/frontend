@@ -184,9 +184,14 @@ class Listing extends Component {
       },
       {
         name: listing.type + roomInformationForPath,
-        href: `${url.pathname}?id=${listing.id}`,
-        as: url.asPath
-      }
+        href: `/listings?bairros=${
+          listing.address.neighborhood
+        }&quartos_minimo=${listing.rooms}`,
+        as: `/imoveis?bairros=${listing.address.neighborhood}&quartos_minimo=${
+          listing.rooms
+        }&quartos_maximo=${listing.rooms}`
+      },
+      {name: 'Este imóvel'}
     ]
 
     return (
