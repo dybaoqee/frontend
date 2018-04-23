@@ -189,7 +189,7 @@ class Listing extends Component {
         }&quartos_minimo=${listing.rooms}`,
         as: `/imoveis?bairros=${listing.address.neighborhood}&quartos_minimo=${
           listing.rooms
-        }`
+        }&quartos_maximo=${listing.rooms}`
       },
       {name: 'Este imóvel'}
     ]
