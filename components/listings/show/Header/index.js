@@ -12,7 +12,6 @@ export default class ListingHeader extends Component {
     const {
       listing,
       currentUser,
-      handleOpenPopup,
       handleOpenImageGallery,
       handleOpen3DTour,
       favoritedListing
