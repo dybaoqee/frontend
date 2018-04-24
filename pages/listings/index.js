@@ -175,6 +175,11 @@ class ListingsIndex extends Component {
     this.setState({framedListings: framed})
   }
 
+  handleMap = () => {
+    const {mapOpened} = this.state
+    this.setState({mapOpened: !mapOpened})
+  }
+
   render() {
     const {params} = this
     const {neighborhoods, currentUser, query} = this.props
