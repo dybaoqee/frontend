@@ -28,9 +28,11 @@ export default class MapContainer extends Component {
 
     this.state = {
       clusters: [],
+      defaultCenter: {lat: -22.9608099, lng: -43.2096142},
+      defaultZoom: 8,
       mapOptions: {
-        center: MAP.defaultCenter,
-        zoom: MAP.defaultZoom
+        center: {lat: -22.9608099, lng: -43.2096142},
+        zoom: 8
       },
       hasAggregators: false
     }
@@ -104,9 +106,8 @@ export default class MapContainer extends Component {
       }
 
       if (markers.length === 0) {
-        map.setCenter(
-          new maps.LatLng(MAP.defaultCenter.lat, MAP.defaultCenter.lng)
-        )
+        const {mapOptions: {center}} = this.state
+        map.setCenter(new maps.LatLng(center.lat, center.lng))
         map.setZoom(13)
       }
     }
@@ -132,14 +133,18 @@ export default class MapContainer extends Component {
 
   render() {
     const {markers, onSelect, highlight} = this.props
-    const {hasAggregators, clusters} = this.state
+    const {hasAggregators, clusters, defaultCenter, defaultZoom} = this.state
 
     return (
       <GoogleMapReact
-        bootstrapURLKeys={{key: process.env.GOOGLE_MAPS_KEY}}
-        defaultZoom={MAP.defaultZoom}
-        defaultCenter={MAP.defaultCenter}
-        options={MAP.options}
+        bootstrapURLKeys={{
+          key: process.env.GOOGLE_MAPS_KEY,
+          language: 'pt-BR',
+          region: 'br'
+        }}
+        defaultZoom={defaultZoom}
+        defaultCenter={defaultCenter}
+        options={createMapOptions}
         yesIWantToUseGoogleMapApiInternals
         onChange={this.handleMapChange}
         onGoogleApiLoaded={({map, maps}) =>
