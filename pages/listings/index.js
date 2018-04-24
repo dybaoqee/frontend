@@ -222,15 +222,15 @@ class ListingsIndex extends Component {
           />
           <meta name="twitter:image" content={seoImgSrc} />
         </Head>
+        <Filter
+          params={params}
+          neighborhoods={neighborhoods}
+          onChange={this.onChangeFilter}
+          onReset={this.onResetFilter}
+        />
 
-        <div className="listings">
-          <Filter
-            params={params}
-            neighborhoods={neighborhoods}
-            onChange={this.onChangeFilter}
-            onReset={this.onResetFilter}
-          />
-
+        <Container opened={mapOpened}>
+          <MapButton opened={mapOpened} onClick={this.handleMap} />
           <div className="map">
             <MapContainer
               zoom={13}
@@ -279,45 +279,7 @@ class ListingsIndex extends Component {
               </Query>
             )}
           </div>
-        </div>
-
-        <style jsx>{`
-          .listings {
-            > div {
-              float: left;
-              width: 60%;
-              &.entries-container {
-                float: right;
-                margin-top: ${desktopFilterHeight}px;
-              }
-            }
-          }
-
-          .map {
-            background: white;
-            border-radius: 8px;
-            height: calc(100vh - 178px);
-            margin-left: 20px;
-            overflow: hidden;
-            position: fixed !important;
-            top: 158px;
-            width: calc(40% - 40px) !important;
-          }
-
-          @media ${mobileMedia} {
-            .listings > div:first-of-type {
-              display: none;
-            }
-
-            .listings > div.entries-container {
-              width: 100%;
-            }
-
-            .map {
-              display: none;
-            }
-          }
-        `}</style>
+        </Container>
       </Layout>
     )
   }
