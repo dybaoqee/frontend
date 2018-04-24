@@ -9,6 +9,8 @@ export default class ListingMainContent extends React.Component {
     const {listing, handleOpenPopup, user} = this.props
     const {street, neighborhood} = listing.address
 
+    const showStatistics = user.admin || listing.user_id.toString() === user.id
+
     return (
       <Container>
         <div className="description">
