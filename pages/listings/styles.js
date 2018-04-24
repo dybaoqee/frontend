@@ -11,6 +11,11 @@ export default styled.div`
     float: right;
   }
 
+  .gm-style-pbc {
+    z-index: 5 !important;
+    pointer-events: none;
+  }
+
   .map {
     background: white;
     border-radius: 8px;
