@@ -126,16 +126,14 @@ export default class InterestForm extends Component {
             required
           />
         )}
-        {interestType.value !== 3 && (
-          <input
-            type="text"
-            name="phone"
-            placeholder="Telefone"
-            value={phone}
-            onChange={onChange}
-            required
-          />
-        )}
+        <input
+          type="text"
+          name="phone"
+          placeholder="Telefone"
+          value={phone}
+          onChange={onChange}
+          required
+        />
         {interestType.value === 2 && (
           <Select
             className="type"
