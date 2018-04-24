@@ -34,7 +34,7 @@ export default class InterestForm extends Component {
     this.setState({fetching: true})
     try {
       const typesFetched = await getInterestTypes()
-      const interestTypes = typesFetched.data.data.map(({id, name}) => ({
+      let interestTypes = typesFetched.data.data.map(({id, name}) => ({
         label: name,
         value: id
       }))
@@ -49,6 +49,11 @@ export default class InterestForm extends Component {
 
   onChangeTypeSelect = (interestType) => {
     const {onChange} = this.props
+
+    if (interestType.label === 'Agendamento online') {
+      this.openCalendly()
+      return
+    }
     this.setState({interestType, showForm: true})
     onChange({
       target: {
@@ -120,16 +125,14 @@ export default class InterestForm extends Component {
             required
           />
         )}
-        {interestType.value !== 3 && (
-          <input
-            type="text"
-            name="phone"
-            placeholder="Telefone"
-            value={phone}
-            onChange={onChange}
-            required
-          />
-        )}
+        <input
+          type="text"
+          name="phone"
+          placeholder="Telefone"
+          value={phone}
+          onChange={onChange}
+          required
+        />
         {interestType.value === 2 && (
           <Select
             className="type"
@@ -188,21 +191,7 @@ export default class InterestForm extends Component {
 
         <Form onSubmit={onSubmit}>
           {this.getTypesSelect()}
-          {!showForm ? (
-            <Fragment>
-              <span>ou</span>
-              <EmCasaButton
-                type="button"
-                secondary
-                full
-                onClick={this.openCalendly}
-              >
-                Agendamento online
-              </EmCasaButton>
-            </Fragment>
-          ) : (
-            this.getForm()
-          )}
+          {showForm && this.getForm()}
         </Form>
       </Popup>
     )
