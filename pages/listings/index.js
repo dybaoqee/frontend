@@ -1,12 +1,11 @@
+import {Component} from 'react'
 import url from 'url'
 import _ from 'lodash'
-import {Component} from 'react'
 import Head from 'next/head'
 import Router from 'next/router'
 import withData from '/lib/apollo/withData'
 import {Query} from 'react-apollo'
 import {GET_FAVORITE_LISTINGS_IDS} from 'graphql/user/queries'
-
 import {treatParams} from 'utils/filter-params.js'
 import {mainListingImage} from 'utils/image_url'
 import {isAuthenticated, isAdmin, getCurrentUserId} from 'lib/auth'
@@ -18,16 +17,15 @@ import MapContainer from 'components/listings/index/Map'
 import Listing from 'components/listings/index/Listing'
 import ListingsNotFound from 'components/listings/index/NotFound'
 import Filter from 'components/listings/index/Search'
-
-import {mobileMedia} from 'constants/media'
+import Container, {MapButton} from './styles'
 import {desktopHeaderHeight, desktopFilterHeight} from 'constants/dimensions'
-
 const getDerivedState = ({initialState}) => {
   const currentPage = initialState.currentPage || 1
   return {
     ...initialState,
     currentPage,
-    framedListings: []
+    framedListings: [],
+    mapOpened: false
   }
 }
 
