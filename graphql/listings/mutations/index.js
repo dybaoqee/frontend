@@ -19,3 +19,11 @@ export const UNFAVORITE_LISTING = gql`
     }
   }
 `
+
+export const VISUALIZE_TOUR = gql`
+  mutation tourVisualized($id: ID!) {
+    tourVisualized(id: $id) {
+      id
+    }
+  }
+`
