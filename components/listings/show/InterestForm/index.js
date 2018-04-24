@@ -50,6 +50,11 @@ export default class InterestForm extends Component {
 
   onChangeTypeSelect = (interestType) => {
     const {onChange} = this.props
+
+    if (interestType.label === 'Agendamento online') {
+      this.openCalendly()
+      return
+    }
     this.setState({interestType, showForm: true})
     onChange({
       target: {
