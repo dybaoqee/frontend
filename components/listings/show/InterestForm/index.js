@@ -38,7 +38,6 @@ export default class InterestForm extends Component {
         label: name,
         value: id
       }))
-      interestTypes.push({label: 'Agendamento online', value: 5})
       this.setState({error: null, interestTypes, fetching: false})
     } catch (e) {
       this.setState({
