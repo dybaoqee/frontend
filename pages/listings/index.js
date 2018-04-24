@@ -190,7 +190,8 @@ class ListingsIndex extends Component {
       listings,
       remaining_count,
       highlight,
-      framedListings
+      framedListings,
+      mapOpened
     } = this.state
     const seoImgSrc = this.seoImage
 
