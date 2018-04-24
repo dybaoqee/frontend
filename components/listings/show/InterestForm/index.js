@@ -192,21 +192,7 @@ export default class InterestForm extends Component {
 
         <Form onSubmit={onSubmit}>
           {this.getTypesSelect()}
-          {!showForm ? (
-            <Fragment>
-              <span>ou</span>
-              <EmCasaButton
-                type="button"
-                secondary
-                full
-                onClick={this.openCalendly}
-              >
-                Agendamento online
-              </EmCasaButton>
-            </Fragment>
-          ) : (
-            this.getForm()
-          )}
+          {showForm && this.getForm()}
         </Form>
       </Popup>
     )
