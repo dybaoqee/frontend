@@ -6,11 +6,19 @@ import _ from 'lodash'
 import MapMarker from 'components/shared/Map/Marker'
 import ClusterMarker from 'components/shared/Map/ClusterMarker'
 
-const MAP = {
-  defaultZoom: 8,
-  defaultCenter: {lat: -22.9608099, lng: -43.2096142},
-  options: {
-    maxZoom: 19
+function createMapOptions(maps) {
+  return {
+    defaultZoom: 8,
+    defaultCenter: {lat: -22.9608099, lng: -43.2096142},
+    maxZoom: 19,
+    zoomControlOptions: {
+      position: maps.ControlPosition.RIGHT_TOP,
+      style: maps.ZoomControlStyle.SMALL
+    },
+    mapTypeControlOptions: {
+      position: maps.ControlPosition.TOP_RIGHT
+    },
+    mapTypeControl: true
   }
 }
 
