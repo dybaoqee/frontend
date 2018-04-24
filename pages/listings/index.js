@@ -115,17 +115,6 @@ class ListingsIndex extends Component {
     })
   }
 
-  onSelectListing = (id, position) => {
-    if (!position) {
-      const element = document.getElementById(`listing-${id}`)
-      const rect = element.getBoundingClientRect()
-      const top = rect.top - desktopHeaderHeight - desktopFilterHeight
-      window.scrollBy({top, behavior: 'smooth'})
-    } else {
-      this.setState({highlight: {...position}})
-    }
-  }
-
   onChangeFilter = (name, value) => {
     const params = treatParams({
       ...this.params,
@@ -155,6 +144,18 @@ class ListingsIndex extends Component {
   get seoImage() {
     const listing = this.state.listings[0]
     return listing ? mainListingImage(listing.images) : null
+  }
+
+  onSelectListing = (id, position) => {
+    if (!position) {
+      const element = document.getElementById(`listing-${id}`)
+      const rect = element.getBoundingClientRect()
+      const top = rect.top - desktopHeaderHeight - desktopFilterHeight
+      window.scrollBy({top, behavior: 'smooth'})
+      this.setState({mapOpened: false})
+    } else {
+      this.setState({highlight: {...position}})
+    }
   }
 
   onHoverListing = (listing) => {
