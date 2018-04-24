@@ -34,10 +34,11 @@ export default class InterestForm extends Component {
     this.setState({fetching: true})
     try {
       const typesFetched = await getInterestTypes()
-      const interestTypes = typesFetched.data.data.map(({id, name}) => ({
+      let interestTypes = typesFetched.data.data.map(({id, name}) => ({
         label: name,
         value: id
       }))
+      interestTypes.push({label: 'Agendamento online', value: 5})
       this.setState({error: null, interestTypes, fetching: false})
     } catch (e) {
       this.setState({
