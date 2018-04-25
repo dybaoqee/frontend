@@ -1,4 +1,4 @@
-import {Component} from 'react'
+import React, {Component} from 'react'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faUser from '@fortawesome/fontawesome-free-solid/faUserCircle'
 import Container, {Icon} from './styles'
@@ -8,15 +8,34 @@ export default class UserMenu extends Component {
     opened: false
   }
 
+  containerRef = (node) => {
+    this.container = node
+  }
+
+  componentDidMount() {
+    window.addEventListener('mousedown', this.handleClick)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('mousedown', this.handleClick)
+  }
+
   handleMenu = () => {
     const {opened} = this.state
     this.setState({opened: !opened})
   }
+
+  handleClick = (e) => {
+    if (!this.state.opened || this.container.contains(e.target)) return
+    this.setState({opened: false})
+    e.stopPropagation()
+  }
+
   render() {
     const {items} = this.props
     const {opened} = this.state
     return (
-      <Container opened={opened}>
+      <Container innerRef={this.containerRef} opened={opened}>
         <Icon onClick={this.handleMenu}>
           <FontAwesomeIcon icon={faUser} />
         </Icon>
