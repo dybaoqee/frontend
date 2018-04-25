@@ -1,12 +1,11 @@
+import {Component} from 'react'
 import url from 'url'
 import _ from 'lodash'
-import {Component} from 'react'
 import Head from 'next/head'
 import Router from 'next/router'
 import withData from '/lib/apollo/withData'
 import {Query} from 'react-apollo'
 import {GET_FAVORITE_LISTINGS_IDS} from 'graphql/user/queries'
-
 import {treatParams} from 'utils/filter-params.js'
 import {mainListingImage} from 'utils/image_url'
 import {isAuthenticated, isAdmin, getCurrentUserId} from 'lib/auth'
@@ -18,16 +17,15 @@ import MapContainer from 'components/listings/index/Map'
 import Listing from 'components/listings/index/Listing'
 import ListingsNotFound from 'components/listings/index/NotFound'
 import Filter from 'components/listings/index/Search'
-
-import {mobileMedia} from 'constants/media'
+import Container, {MapButton} from './styles'
 import {desktopHeaderHeight, desktopFilterHeight} from 'constants/dimensions'
-
 const getDerivedState = ({initialState}) => {
   const currentPage = initialState.currentPage || 1
   return {
     ...initialState,
     currentPage,
-    framedListings: []
+    framedListings: [],
+    mapOpened: false
   }
 }
 
@@ -117,17 +115,6 @@ class ListingsIndex extends Component {
     })
   }
 
-  onSelectListing = (id, position) => {
-    if (!position) {
-      const element = document.getElementById(`listing-${id}`)
-      const rect = element.getBoundingClientRect()
-      const top = rect.top - desktopHeaderHeight - desktopFilterHeight
-      window.scrollBy({top, behavior: 'smooth'})
-    } else {
-      this.setState({highlight: {...position}})
-    }
-  }
-
   onChangeFilter = (name, value) => {
     const params = treatParams({
       ...this.params,
@@ -159,6 +146,18 @@ class ListingsIndex extends Component {
     return listing ? mainListingImage(listing.images) : null
   }
 
+  onSelectListing = (id, position) => {
+    if (!position) {
+      const element = document.getElementById(`listing-${id}`)
+      const rect = element.getBoundingClientRect()
+      const top = rect.top - desktopHeaderHeight - desktopFilterHeight
+      window.scrollBy({top, behavior: 'smooth'})
+      this.setState({mapOpened: false})
+    } else {
+      this.setState({highlight: {...position}})
+    }
+  }
+
   onHoverListing = (listing) => {
     const {address: {lat, lng}} = listing
     this.setState({highlight: {lat, lng}})
@@ -176,6 +175,11 @@ class ListingsIndex extends Component {
     this.setState({framedListings: framed})
   }
 
+  handleMap = () => {
+    const {mapOpened} = this.state
+    this.setState({mapOpened: !mapOpened})
+  }
+
   render() {
     const {params} = this
     const {neighborhoods, currentUser, query} = this.props
@@ -186,7 +190,8 @@ class ListingsIndex extends Component {
       listings,
       remaining_count,
       highlight,
-      framedListings
+      framedListings,
+      mapOpened
     } = this.state
     const seoImgSrc = this.seoImage
 
@@ -217,15 +222,15 @@ class ListingsIndex extends Component {
           />
           <meta name="twitter:image" content={seoImgSrc} />
         </Head>
+        <Filter
+          params={params}
+          neighborhoods={neighborhoods}
+          onChange={this.onChangeFilter}
+          onReset={this.onResetFilter}
+        />
 
-        <div className="listings">
-          <Filter
-            params={params}
-            neighborhoods={neighborhoods}
-            onChange={this.onChangeFilter}
-            onReset={this.onResetFilter}
-          />
-
+        <Container opened={mapOpened}>
+          <MapButton opened={mapOpened} onClick={this.handleMap} />
           <div className="map">
             <MapContainer
               zoom={13}
@@ -274,45 +279,7 @@ class ListingsIndex extends Component {
               </Query>
             )}
           </div>
-        </div>
-
-        <style jsx>{`
-          .listings {
-            > div {
-              float: left;
-              width: 60%;
-              &.entries-container {
-                float: right;
-                margin-top: ${desktopFilterHeight}px;
-              }
-            }
-          }
-
-          .map {
-            background: white;
-            border-radius: 8px;
-            height: calc(100vh - 178px);
-            margin-left: 20px;
-            overflow: hidden;
-            position: fixed !important;
-            top: 158px;
-            width: calc(40% - 40px) !important;
-          }
-
-          @media ${mobileMedia} {
-            .listings > div:first-of-type {
-              display: none;
-            }
-
-            .listings > div.entries-container {
-              width: 100%;
-            }
-
-            .map {
-              display: none;
-            }
-          }
-        `}</style>
+        </Container>
       </Layout>
     )
   }
