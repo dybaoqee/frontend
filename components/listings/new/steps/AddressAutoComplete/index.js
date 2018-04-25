@@ -195,8 +195,9 @@ export default class AddressAutoComplete extends React.Component {
   }
 
   onBlur = (e) => {
+    const {listing} = this.props
     const {place} = this.state
-    if (place.id) return
+    if (place.id || listing.id) return
     e.target.focus()
   }
 
