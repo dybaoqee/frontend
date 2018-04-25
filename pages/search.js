@@ -33,13 +33,13 @@ export default class Search extends Component {
     const error = await searchText(searchString, jwt)
 
     this.setState({
-        listings: error.data.listings
+        results: error.data.results
     })
   }
 
   render() {
     const {jwt} = this.props
-    const {listings} = this.state
+    const {results} = this.state
 
     return (
       <Layout>
@@ -54,8 +54,8 @@ export default class Search extends Component {
             <button type="submit">Enviar</button>
           </Form>
           <div className="images-container">
-            {listings &&
-              listings.map((listing, l) => {
+            {results &&
+              results.map((listing, l) => {
                 return (
                   <div key={listing.id}>{listing.id}</div>
                 )
