@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import {headerMobileMedia} from 'constants/media'
+import {mobileMedia} from 'constants/media'
 import * as colors from 'constants/colors'
 
 export default styled.header`
@@ -10,7 +10,7 @@ export default styled.header`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 11px 20px;
+  padding: 11px 10px;
   position: fixed;
   top: 0;
   width: 100%;
@@ -22,8 +22,8 @@ export default styled.header`
     vertical-align: middle;
   }
 
-  @media ${headerMobileMedia} {
-    padding: 17px 20px;
+  @media ${mobileMedia} {
+    padding: 17px 20px 12px;
   }
 `
 
@@ -43,7 +43,7 @@ export const Button = styled.button`
     background: ${colors.offWhite};
     color: gray;
   }
-  @media ${headerMobileMedia} {
+  @media ${mobileMedia} {
     display: block;
   }
 `
@@ -53,7 +53,7 @@ export const Nav = styled.nav`
   margin-right: 10px;
   margin-top: 2px;
   display: flex;
-  align-items: baseline;
+  align-items: center;
   a {
     box-sizing: border-box;
     color: ${colors.blue.medium};
@@ -66,7 +66,7 @@ export const Nav = styled.nav`
   a:visited {
     color: ${colors.blue.medium};
   }
-  @media ${headerMobileMedia} {
+  @media ${mobileMedia} {
     display: ${(props) => (props.visible ? 'flex' : 'none')};
     flex: 0 0 calc(100% + 20px);
     flex-direction: column;
@@ -86,7 +86,7 @@ export const Nav = styled.nav`
 
 export const UserHeader = styled.div`
   margin-left: ${({authenticated}) => (authenticated ? 0 : 10)}px;
-  @media ${headerMobileMedia} {
+  @media ${mobileMedia} {
     min-width: 100%;
     margin-left: 0px;
     margin-top: 10px;

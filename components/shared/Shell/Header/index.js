@@ -1,6 +1,7 @@
 import {Component, Fragment} from 'react'
 import Link from 'next/link'
 import EmCasaButton from 'components/shared/Common/Buttons/Rounded'
+import UserMenu from './UserMenu'
 
 import Container, {Button, Nav, UserHeader} from './styles'
 
@@ -26,14 +27,16 @@ export default class Header extends Component {
         </Link>
       </UserHeader>
     ) : (
-      <Fragment>
-        <Link href="/listings/fav" as="/imoveis/favoritos">
-          <a>Favoritos</a>
-        </Link>
-        <Link href="/auth/logout">
-          <a>Sair</a>
-        </Link>
-      </Fragment>
+      <UserMenu
+        items={[
+          {
+            title: 'Imóveis favoritos',
+            href: '/listings/fav',
+            as: '/imoveis/favoritos'
+          },
+          {title: 'Sair', href: '/auth/logout'}
+        ]}
+      />
     )
   }
 
