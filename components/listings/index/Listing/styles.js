@@ -39,6 +39,14 @@ export const LikeContainer = styled.div`
   justify-content: flex-end;
   align-items: flex-start;
 
+  button {
+    border-radius: 8px;
+    padding: 15px 17px;
+    &:hover {
+      background: rgba(0, 0, 0, 0.3);
+    }
+  }
+
   @media ${mobileMedia} {
     justify-content: flex-start;
   }
