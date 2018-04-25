@@ -1,6 +1,7 @@
 /* eslint-env jest */
 import {shallow} from 'enzyme'
 import Header from 'components/shared/Shell/Header'
+import UserMenu from 'components/shared/Shell/Header/UserMenu'
 import Link from 'next/link'
 
 describe('Header', () => {
@@ -46,9 +47,7 @@ describe('Header', () => {
         .text()
     ).toEqual('Blog')
 
-    expect(header.find('[href="/auth/logout"]').exists()).toEqual(false)
-    expect(header.find('[href="/auth/login"]').exists()).toEqual(true)
-    expect(header.find('[href="/auth/signup"]').exists()).toEqual(true)
+    expect(header.find(UserMenu).exists()).toEqual(false)
     expect(header.find('[href="/listings/sell/know-more"]').exists()).toEqual(
       true
     )
@@ -56,8 +55,9 @@ describe('Header', () => {
 
   it('should render authenticated', () => {
     const header = shallow(<Header authenticated={true} isAdmin={true} />)
+    expect(header.find(Link)).toHaveLength(5)
 
-    expect(header.find(Link)).toHaveLength(7)
+    expect(header.find(UserMenu).exists()).toEqual(true)
 
     expect(
       header
@@ -84,20 +84,9 @@ describe('Header', () => {
 
     expect(
       header
-        .find('[href="/auth/logout"]')
-        .find('a')
-        .text()
-    ).toEqual('Sair')
-
-    expect(
-      header
         .find('[href="/listings/sell/know-more"]')
         .find('a')
         .text()
     ).toEqual('Venda')
-
-    expect(header.find('[href="/auth/logout"]').exists()).toEqual(true)
-    expect(header.find('[href="/login"]').exists()).toEqual(false)
-    expect(header.find('[href="/signup"]').exists()).toEqual(false)
   })
 })
