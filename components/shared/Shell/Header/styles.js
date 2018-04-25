@@ -53,7 +53,7 @@ export const Nav = styled.nav`
   margin-right: 10px;
   margin-top: 2px;
   display: flex;
-  align-items: baseline;
+  align-items: center;
   a {
     box-sizing: border-box;
     color: ${colors.blue.medium};
