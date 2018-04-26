@@ -18,7 +18,7 @@ export default styled.div`
     position: absolute;
     width: 290px;
     border: 1px solid ${colors.lightestGray};
-    border-radius: 6px 0 6px 6px;
+    border-radius: 0 0 6px 6px;
     background-color: white;
     box-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.1);
     left: -240px;
