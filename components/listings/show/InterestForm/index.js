@@ -51,7 +51,7 @@ export default class InterestForm extends Component {
     const {onChange} = this.props
 
     if (interestType.label === 'Agendamento online') {
-      this.openCalendly()
+      this.openCalendly(interestType.value)
       return
     }
     this.setState({interestType, showForm: true})
@@ -158,13 +158,14 @@ export default class InterestForm extends Component {
     )
   }
 
-  openCalendly = () => {
+  openCalendly = (id) => {
     const {onSubmit} = this.props
     Calendly.showPopupWidget('https://calendly.com/em-casa')
     onSubmit(undefined, {
       name: 'Calendly',
       message:
-        'Essa mensagem está sendo enviada porque algum usuário tentou agendar uma visita pelo Calendly neste imóvel'
+        'Essa mensagem está sendo enviada porque algum usuário tentou agendar uma visita pelo Calendly neste imóvel',
+      interest_type_id: id
     })
   }
 
