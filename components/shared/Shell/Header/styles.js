@@ -60,9 +60,6 @@ export const Nav = styled.nav`
     margin-left: 20px;
     text-decoration: none;
   }
-  a:hover {
-    text-decoration: underline;
-  }
   a:visited {
     color: ${colors.blue.medium};
   }
