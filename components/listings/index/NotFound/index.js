@@ -14,7 +14,7 @@ export default ({resetAllParams, filtered}) => {
   }
 
   return (
-    <Link href="/listings" as="/imoveis">
+    <Link href="/listings" as="/imoveis" prefetch>
       <Container>
         <div>
           <p>Você ainda não favoritou nenhum imóvel.</p>
