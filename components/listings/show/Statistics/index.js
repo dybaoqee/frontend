@@ -21,35 +21,35 @@ export default ({
       <FontAwesomeIcon icon={faClipboard} />
       <Title>
         <p>Data de criação</p>
-        <p>{moment(inserted_at).format('DD/MM/YYYY')}</p>
+        <span>{moment(inserted_at).format('DD/MM/YYYY')}</span>
       </Title>
     </Topic>
     <Topic>
       <FontAwesomeIcon icon={faEye} />
       <Title>
         <p>Visualizações</p>
-        <p>{visualisations}</p>
+        <span>{visualisations}</span>
       </Title>
     </Topic>
     <Topic>
       <FontAwesomeIcon icon={faHome} />
       <Title>
         <p>Visualizações Tour 3D</p>
-        <p>{tour_visualisations}</p>
+        <span>{tour_visualisations}</span>
       </Title>
     </Topic>
     <Topic>
       <FontAwesomeIcon icon={faHeart} />
       <Title>
         <p>Favoritado</p>
-        <p>{favorite_count}</p>
+        <span>{favorite_count}</span>
       </Title>
     </Topic>
     <Topic>
       <FontAwesomeIcon icon={faCalendar} />
       <Title>
         <p>Visitas Marcadas</p>
-        <p>{interest_count}</p>
+        <span>{interest_count}</span>
       </Title>
     </Topic>
   </Container>
