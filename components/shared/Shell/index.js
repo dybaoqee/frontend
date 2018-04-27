@@ -11,6 +11,8 @@ import {mobileMedia} from 'constants/media'
 import * as colors from 'constants/colors'
 import Container, {Main} from './styles'
 
+import {AuthConsumer, AuthProvider} from 'components/providers/Auth'
+
 Router.onRouteChangeStart = () => {
   NProgress.start()
 }
