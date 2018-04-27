@@ -230,6 +230,7 @@ class ListingsFav extends Component {
                     onSelect={this.onSelectListing}
                     listings={listings}
                     highlight={highlight}
+                    onChange={this.onChangeMap.bind(this, listings)}
                   />
                 </div>
 
