@@ -236,7 +236,10 @@ class ListingsFav extends Component {
 
                 <div className="entries-container">
                   {listings.length == 0 ? (
-                    <ListingsNotFound resetAllParams={this.onResetFilter} />
+                    <ListingsNotFound
+                      filtered={!_.isEmpty(url.query)}
+                      resetAllParams={this.onResetFilter}
+                    />
                   ) : (
                     <InfiniteScroll
                       title="Meus imóveis favoritos"
