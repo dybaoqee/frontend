@@ -117,8 +117,7 @@ class ListingsFav extends Component {
         quartos_maximo,
         bairros
       }
-    } = this.state
-
+    } = this.props.url
     return serverListings.filter(
       ({price, rooms, area, address: {neighborhood}}) => {
         let returnListing = true
