@@ -16,6 +16,7 @@ export default class Header extends Component {
   }
 
   getUserHeader = (authenticated) => {
+    const {user} = this.props
     return !authenticated ? (
       <UserHeader authenticated={authenticated}>
         <Link href="/auth/login" as="/login">
@@ -28,6 +29,7 @@ export default class Header extends Component {
       </UserHeader>
     ) : (
       <UserMenu
+        user={user}
         items={[
           {
             title: 'Imóveis favoritos',
