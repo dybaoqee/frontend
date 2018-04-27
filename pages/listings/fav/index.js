@@ -46,7 +46,8 @@ const getDerivedParams = (query) => ({
 
 class ListingsFav extends Component {
   state = {
-    query: {}
+    query: {},
+    framedListings: []
   }
   static async getInitialProps(context) {
     if (redirectIfNotAuthenticated(context)) {
