@@ -182,11 +182,10 @@ class ListingsIndex extends Component {
 
   render() {
     const {params} = this
-    const {neighborhoods, currentUser, query} = this.props
+    const {neighborhoods, currentUser, query, url} = this.props
     const {
       currentPage,
       totalPages,
-      totalResults,
       listings,
       remaining_count,
       highlight,
