@@ -94,7 +94,7 @@ const startServer = () => {
       })
 
       server.get('/imoveis', (req, res) => {
-        const actualPage = '/listings/index'
+        const actualPage = '/listings'
         app.render(req, res, actualPage, req.query)
       })
 

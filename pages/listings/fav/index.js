@@ -1,4 +1,5 @@
 import url from 'url'
+import _ from 'lodash'
 import {Component} from 'react'
 import Head from 'next/head'
 import Router from 'next/router'
@@ -45,7 +46,8 @@ const getDerivedParams = (query) => ({
 
 class ListingsFav extends Component {
   state = {
-    query: {}
+    query: {},
+    framedListings: []
   }
   static async getInitialProps(context) {
     if (redirectIfNotAuthenticated(context)) {
@@ -115,8 +117,7 @@ class ListingsFav extends Component {
         quartos_maximo,
         bairros
       }
-    } = this.state
-
+    } = this.props.url
     return serverListings.filter(
       ({price, rooms, area, address: {neighborhood}}) => {
         let returnListing = true
@@ -151,11 +152,33 @@ class ListingsFav extends Component {
     this.setState({highlight: {}})
   }
 
+  onHoverListing = (listing) => {
+    const {address: {lat, lng}} = listing
+    this.setState({highlight: {lat, lng}})
+  }
+
+  onLeaveListing = () => {
+    this.setState({highlight: {}})
+  }
+
+  onChangeMap = (listings, framedListings) => {
+    const framed = listings.filter((listing) =>
+      _.includes(framedListings, listing.id)
+    )
+    this.setState({framedListings: framed})
+  }
+
+  handleMap = () => {
+    const {mapOpened} = this.state
+    this.setState({mapOpened: !mapOpened})
+  }
+
   render() {
     const {params, filteredListings} = this
-    const {highlight} = this.state
-    const {neighborhoods, currentUser, query} = this.props
+    const {highlight, framedListings} = this.state
+    const {neighborhoods, currentUser, query, url} = this.props
     const seoImgSrc = this.seoImage
+
     return (
       <Layout
         authenticated={currentUser.authenticated}
@@ -207,18 +230,24 @@ class ListingsFav extends Component {
                     onSelect={this.onSelectListing}
                     listings={listings}
                     highlight={highlight}
+                    onChange={this.onChangeMap.bind(this, listings)}
                   />
                 </div>
 
                 <div className="entries-container">
                   {listings.length == 0 ? (
-                    <ListingsNotFound resetAllParams={this.onResetFilter} />
+                    <ListingsNotFound
+                      filtered={!_.isEmpty(url.query)}
+                      resetAllParams={this.onResetFilter}
+                    />
                   ) : (
                     <InfiniteScroll
                       title="Meus imóveis favoritos"
                       currentPage={1}
                       totalPages={1}
-                      entries={listings}
+                      entries={
+                        framedListings.length > 0 ? framedListings : listings
+                      }
                       to={{pathname: '/imoveis/favoritos', query}}
                     >
                       {(listing) => (
