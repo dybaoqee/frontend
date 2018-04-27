@@ -152,11 +152,33 @@ class ListingsFav extends Component {
     this.setState({highlight: {}})
   }
 
+  onHoverListing = (listing) => {
+    const {address: {lat, lng}} = listing
+    this.setState({highlight: {lat, lng}})
+  }
+
+  onLeaveListing = () => {
+    this.setState({highlight: {}})
+  }
+
+  onChangeMap = (listings, framedListings) => {
+    const framed = listings.filter((listing) =>
+      _.includes(framedListings, listing.id)
+    )
+    this.setState({framedListings: framed})
+  }
+
+  handleMap = () => {
+    const {mapOpened} = this.state
+    this.setState({mapOpened: !mapOpened})
+  }
+
   render() {
     const {params, filteredListings} = this
-    const {highlight} = this.state
-    const {neighborhoods, currentUser, query} = this.props
+    const {highlight, framedListings} = this.state
+    const {neighborhoods, currentUser, query, url} = this.props
     const seoImgSrc = this.seoImage
+
     return (
       <Layout
         authenticated={currentUser.authenticated}
