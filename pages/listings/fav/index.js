@@ -241,7 +241,9 @@ class ListingsFav extends Component {
                       title="Meus imóveis favoritos"
                       currentPage={1}
                       totalPages={1}
-                      entries={listings}
+                      entries={
+                        framedListings.length > 0 ? framedListings : listings
+                      }
                       to={{pathname: '/imoveis/favoritos', query}}
                     >
                       {(listing) => (
