@@ -241,8 +241,11 @@ class ListingsIndex extends Component {
           </div>
 
           <div className="entries-container">
-            {totalResults == 0 ? (
-              <ListingsNotFound resetAllParams={this.onResetFilter} />
+            {listings.length == 0 ? (
+              <ListingsNotFound
+                filtered={!_.isEmpty(url.query)}
+                resetAllParams={this.onResetFilter}
+              />
             ) : (
               <Query query={GET_FAVORITE_LISTINGS_IDS}>
                 {({data, loading, error}) => (
