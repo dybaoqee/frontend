@@ -1,4 +1,5 @@
 import {Component, Fragment} from 'react'
+import {withRouter} from 'next/router'
 import Head from 'next/head'
 import ReactGA from 'react-ga'
 import Router from 'next/router'
