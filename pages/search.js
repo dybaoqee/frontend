@@ -57,7 +57,12 @@ export default class Search extends Component {
             {results &&
               results.map((listing, l) => {
                 return (
-                  <div key={listing.id}>{listing.id}</div>
+                  <Link
+                    href={`/listings/id=${listing.id}`}
+                    as={`/imoveis/${listing.id}`}
+                  >
+                    <a className="btn gray cancel-listing-nav">{listing.id}</a>
+                  </Link>
                 )
               })}
           </div>
