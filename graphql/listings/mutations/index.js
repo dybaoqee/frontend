@@ -27,3 +27,19 @@ export const VISUALIZE_TOUR = gql`
     }
   }
 `
+
+export const ACTIVATE_LISTING = gql`
+  mutation activateListing($id: ID!) {
+    activateListing(id: $id) {
+      id
+    }
+  }
+`
+
+export const DEACTIVATE_LISTING = gql`
+  mutation deactivateListing($id: ID!) {
+    deactivateListing(id: $id) {
+      id
+    }
+  }
+`
