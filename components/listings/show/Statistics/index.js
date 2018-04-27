@@ -1,11 +1,13 @@
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import moment from 'moment'
-import Container, {Topic, Title} from './styles'
+import Container, {Topic, Title, Icon} from './styles'
 import faClipboard from '@fortawesome/fontawesome-pro-light/faClipboardCheck'
 import faEye from '@fortawesome/fontawesome-pro-light/faEye'
 import faHeart from '@fortawesome/fontawesome-pro-light/faHeart'
 import faCalendar from '@fortawesome/fontawesome-pro-light/faCalendarAlt'
+import faFlag from '@fortawesome/fontawesome-pro-light/faFlag'
 import faHome from '@fortawesome/fontawesome-pro-light/faHomeHeart'
+import ActivateListing from 'components/shared/Common/Buttons/Activate'
 
 export default ({
   listing: {
@@ -13,10 +15,25 @@ export default ({
     favorite_count,
     interest_count,
     inserted_at,
-    tour_visualisations
-  }
+    tour_visualisations,
+    id,
+    is_active
+  },
+  user
 }) => (
   <Container>
+    {user.admin && (
+      <Topic>
+        <Icon is_active={is_active}>
+          <FontAwesomeIcon icon={faFlag} />
+        </Icon>
+        <Title>
+          <p>Status</p>
+          <ActivateListing listing={{id, is_active}} />
+        </Title>
+      </Topic>
+    )}
+
     <Topic>
       <FontAwesomeIcon icon={faClipboard} />
       <Title>
