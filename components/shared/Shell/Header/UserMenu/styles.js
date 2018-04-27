@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {mobileMedia} from 'constants/media'
+import {headerMobileMedia} from 'constants/media'
 import * as colors from 'constants/colors'
 
 export default styled.div`
@@ -69,7 +69,7 @@ export default styled.div`
     }
   }
 
-  @media ${mobileMedia} {
+  @media ${headerMobileMedia} {
     justify-content: flex-start;
     width: 100%;
     margin-top: 14px;
