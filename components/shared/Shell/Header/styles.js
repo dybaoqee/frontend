@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import {mobileMedia} from 'constants/media'
+import {headerMobileMedia} from 'constants/media'
 import * as colors from 'constants/colors'
 
 export default styled.header`
@@ -22,7 +22,7 @@ export default styled.header`
     vertical-align: middle;
   }
 
-  @media ${mobileMedia} {
+  @media ${headerMobileMedia} {
     padding: 17px 20px 12px;
   }
 `
@@ -43,7 +43,7 @@ export const Button = styled.button`
     background: ${colors.offWhite};
     color: gray;
   }
-  @media ${mobileMedia} {
+  @media ${headerMobileMedia} {
     display: block;
   }
 `
@@ -63,7 +63,7 @@ export const Nav = styled.nav`
   a:visited {
     color: ${colors.blue.medium};
   }
-  @media ${mobileMedia} {
+  @media ${headerMobileMedia} {
     display: ${(props) => (props.visible ? 'flex' : 'none')};
     flex: 0 0 calc(100% + 20px);
     flex-direction: column;
@@ -83,7 +83,7 @@ export const Nav = styled.nav`
 
 export const UserHeader = styled.div`
   margin-left: ${({authenticated}) => (authenticated ? 0 : 10)}px;
-  @media ${mobileMedia} {
+  @media ${headerMobileMedia} {
     min-width: 100%;
     margin-left: 0px;
     margin-top: 10px;
