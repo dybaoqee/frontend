@@ -25,8 +25,6 @@ export default class ActivateListing extends Component {
     })
   }
 
-  onMutationSuccess
-
   render() {
     const {listing: {is_active, id}} = this.props
     const {values, status} = this.state
