@@ -44,7 +44,7 @@ export default class ListingCard extends React.Component {
           </div>
           <div>
             <span>N° Vagas</span>
-            <span>{garage_spots}</span>
+            <span>{garage_spots || 0}</span>
           </div>
           <div>
             <span>Andar</span>
