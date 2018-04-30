@@ -9,7 +9,7 @@ import {deleteListingImage} from 'services/listing-images-api'
 import DraggableTypes from 'constants/draggable_types'
 import {thumbnailUrl} from 'utils/image_url'
 
-import Container, {Image} from './styles'
+import Container, {Image, DraggableWrapper} from './styles'
 
 const imageSource = {
   beginDrag(props) {
@@ -117,29 +117,22 @@ export default class DraggableImage extends Component {
     const {image, isDragging, connectDragSource, connectDropTarget} = this.props
     const imgUrl = thumbnailUrl(image.filename)
 
-    return connectDragSource(
-      connectDropTarget(
-        <div className="draggable-wrapper">
-          <Container isDragging={isDragging}>
-            <Image img={`url(${imgUrl})`} />
-            <div className="trash" onClick={this.handleImageDelete}>
-              <FontAwesomeIcon icon={faTrash} />
-            </div>
-          </Container>
-          <style jsx>
-            {`
-              .draggable-wrapper {
-                box-sizing: border-box;
-                border: ${!isDragging ? 'none' : '2px dashed #bababa'};
-                border-radius: 4px;
-                background-color: #f0f0f0;
-                width: 100%;
-                height: 100%;
-              }
-            `}
-          </style>
-        </div>
-      )
+    return (
+      <DraggableWrapper
+        isDragging={isDragging}
+        innerRef={(instance) => {
+          const domNode = findDOMNode(instance)
+          connectDragSource(domNode)
+          connectDropTarget(domNode)
+        }}
+      >
+        <Container isDragging={isDragging}>
+          <Image img={`url(${imgUrl})`} />
+          <div className="trash" onClick={this.handleImageDelete}>
+            <FontAwesomeIcon icon={faTrash} />
+          </div>
+        </Container>
+      </DraggableWrapper>
     )
   }
 }

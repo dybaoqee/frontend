@@ -24,6 +24,15 @@ export default styled.div`
   }
 `
 
+export const DraggableWrapper = styled.div`
+  box-sizing: border-box;
+  border: ${({isDragging}) => (!isDragging ? 'none' : '2px dashed #bababa')};
+  border-radius: 4px;
+  background-color: #f0f0f0;
+  width: 100%;
+  height: 100%;
+`
+
 export const Image = styled.div`
   background-image: ${({img}) => img};
   background-position: center;
