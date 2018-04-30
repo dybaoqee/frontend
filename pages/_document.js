@@ -1,6 +1,6 @@
 import Document, {Head, Main, NextScript} from 'next/document'
 import {ServerStyleSheet} from 'styled-components'
-import flush from 'styled-jsx/server'
+import globalStyles from 'styles/global'
 
 export default class AppDocument extends Document {
   static getInitialProps({renderPage}) {
@@ -8,7 +8,7 @@ export default class AppDocument extends Document {
     const page = renderPage((App) => (props) =>
       sheet.collectStyles(<App {...props} />)
     )
-    const styleTags = [sheet.getStyleElement(), flush()]
+    const styleTags = [sheet.getStyleElement()]
     return {...page, styleTags}
   }
 
@@ -19,6 +19,7 @@ export default class AppDocument extends Document {
       <html>
         <Head>
           {styleTags}
+          {globalStyles}
           <link
             rel="stylesheet"
             href="https://s3.sa-east-1.amazonaws.com/emcasa/css/react-select.css"
