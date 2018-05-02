@@ -1,6 +1,6 @@
 import url from 'url'
 import _ from 'lodash'
-import {Component} from 'react'
+import {Component, Fragment} from 'react'
 import Head from 'next/head'
 import Router from 'next/router'
 import {withApollo, compose} from 'react-apollo'
@@ -23,8 +23,7 @@ import MapContainer from 'components/listings/index/Map'
 import Listing from 'components/listings/index/Listing'
 import ListingsNotFound from 'components/listings/index/NotFound'
 import Filter from 'components/listings/index/Search'
-
-import {mobileMedia} from 'constants/media'
+import Container, {MapButton} from '../styles'
 import {desktopHeaderHeight, desktopFilterHeight} from 'constants/dimensions'
 const splitParam = (param) => (param ? param.split('|') : [])
 
@@ -175,7 +174,7 @@ class ListingsFav extends Component {
 
   render() {
     const {params, filteredListings} = this
-    const {highlight, framedListings} = this.state
+    const {highlight, framedListings, mapOpened} = this.state
     const {neighborhoods, currentUser, query, url} = this.props
     const seoImgSrc = this.seoImage
 
@@ -192,7 +191,7 @@ class ListingsFav extends Component {
             const listings = filteredListings(data.favoritedListings || [])
 
             return (
-              <div className="listings">
+              <Fragment>
                 <Head>
                   <title>Imóveis favoritos | EmCasa</title>
                   <meta name="description" content="Meus imóveis favoritos" />
@@ -223,87 +222,52 @@ class ListingsFav extends Component {
                   onChange={this.onChangeFilter}
                   onReset={this.onResetFilter}
                 />
-
-                <div className="map">
-                  <MapContainer
-                    zoom={13}
-                    onSelect={this.onSelectListing}
-                    listings={listings}
-                    highlight={highlight}
-                    onChange={this.onChangeMap.bind(this, listings)}
-                  />
-                </div>
-
-                <div className="entries-container">
-                  {listings.length == 0 ? (
-                    <ListingsNotFound
-                      filtered={!_.isEmpty(url.query)}
-                      resetAllParams={this.onResetFilter}
+                <Container opened={mapOpened}>
+                  <MapButton opened={mapOpened} onClick={this.handleMap} />
+                  <div className="map">
+                    <MapContainer
+                      zoom={13}
+                      onSelect={this.onSelectListing}
+                      listings={listings}
+                      highlight={highlight}
+                      onChange={this.onChangeMap.bind(this, listings)}
                     />
-                  ) : (
-                    <InfiniteScroll
-                      title="Meus imóveis favoritos"
-                      currentPage={1}
-                      totalPages={1}
-                      entries={
-                        framedListings.length > 0 ? framedListings : listings
-                      }
-                      to={{pathname: '/imoveis/favoritos', query}}
-                    >
-                      {(listing) => (
-                        <Listing
-                          key={listing.id}
-                          onMouseEnter={this.onHoverListing}
-                          onMouseLeave={this.onLeaveListing}
-                          highlight={highlight}
-                          id={`listing-${listing.id}`}
-                          listing={listing}
-                          currentUser={currentUser}
-                          loading={loading}
-                          favorited={listings}
-                        />
-                      )}
-                    </InfiniteScroll>
-                  )}
-                </div>
-                <style jsx>{`
-                  .listings {
-                    > div {
-                      float: left;
-                      width: 60%;
-                      &.entries-container {
-                        float: right;
-                        margin-top: ${desktopFilterHeight}px;
-                      }
-                    }
-                  }
+                  </div>
 
-                  .map {
-                    background: white;
-                    border-radius: 8px;
-                    height: calc(100vh - 178px);
-                    margin-left: 20px;
-                    overflow: hidden;
-                    position: fixed !important;
-                    top: 158px;
-                    width: calc(40% - 40px) !important;
-                  }
-
-                  @media ${mobileMedia} {
-                    .listings > div:first-of-type {
-                      display: none;
-                    }
-
-                    .listings > div.entries-container {
-                      width: 100%;
-                    }
-
-                    .map {
-                      display: none;
-                    }
-                  }
-                `}</style>
-              </div>
+                  <div className="entries-container">
+                    {listings.length == 0 ? (
+                      <ListingsNotFound
+                        filtered={!_.isEmpty(url.query)}
+                        resetAllParams={this.onResetFilter}
+                      />
+                    ) : (
+                      <InfiniteScroll
+                        title="Meus imóveis favoritos"
+                        currentPage={1}
+                        totalPages={1}
+                        entries={
+                          framedListings.length > 0 ? framedListings : listings
+                        }
+                        to={{pathname: '/imoveis/favoritos', query}}
+                      >
+                        {(listing) => (
+                          <Listing
+                            key={listing.id}
+                            onMouseEnter={this.onHoverListing}
+                            onMouseLeave={this.onLeaveListing}
+                            highlight={highlight}
+                            id={`listing-${listing.id}`}
+                            listing={listing}
+                            currentUser={currentUser}
+                            loading={loading}
+                            favorited={listings}
+                          />
+                        )}
+                      </InfiniteScroll>
+                    )}
+                  </div>
+                </Container>
+              </Fragment>
             )
           }}
         </Query>

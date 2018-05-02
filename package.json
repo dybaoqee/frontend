@@ -75,7 +75,6 @@
     "smoothscroll-polyfill": "^0.4.0",
     "sniffr": "^1.1.4",
     "styled-components": "^3.1.6",
-    "styled-jsx-plugin-postcss": "^0.1.2",
     "superagent": "^3.8.2",
     "text-mask-addons": "^3.7.1",
     "xml-formatter": "^1.0.1"

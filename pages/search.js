@@ -1,15 +1,15 @@
-import { Component } from 'react'
+import {Component} from 'react'
 import Link from 'next/link'
 
 import Layout from 'components/shared/Shell'
 import Form from 'components/auth/Form'
 import {redirectIfNotAuthenticated, getJwt, isAuthenticated} from 'lib/auth'
-import { getCookie, removeCookie } from 'lib/session'
-import { searchText} from 'services/search-api'
+import {getCookie, removeCookie} from 'lib/session'
+import {searchText} from 'services/search-api'
 
 export default class Search extends Component {
   state = {
-    error: null,
+    error: null
   }
 
   static getInitialProps(ctx) {
@@ -33,7 +33,7 @@ export default class Search extends Component {
     const error = await searchText(searchString, jwt)
 
     this.setState({
-        results: error.data.results
+      results: error.data.results
     })
   }
 

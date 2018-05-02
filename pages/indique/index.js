@@ -4,6 +4,7 @@ import Head from 'next/head'
 import {isAuthenticated} from 'lib/auth'
 import Layout from 'components/shared/Shell'
 import TextContainer from 'components/shared/TextContainer'
+import Terms from './styles'
 
 export default class Indique extends Component {
   static async getInitialProps(context) {
@@ -62,7 +63,7 @@ export default class Indique extends Component {
             Indique pessoas agora
           </a>
 
-          <div className="termos-de-uso">
+          <Terms>
             <h1>Termos e Condições</h1>
 
             <p>
@@ -161,16 +162,8 @@ export default class Indique extends Component {
               internamente pela EmCasa. Qualquer questão ou dúvida pode ser
               enviada através do e-mail: contato@EmCasa.com.
             </p>
-          </div>
+          </Terms>
         </TextContainer>
-
-        <style jsx>{`
-          .termos-de-uso {
-            background: #f0f0f0;
-            margin-top: 60px;
-            padding: 10px 30px;
-          }
-        `}</style>
       </Layout>
     )
   }
