@@ -22,13 +22,16 @@ export default styled.div`
     related &&
     css`
       margin-top: 60px;
-      > :first-child ::before {
-        content: 'VEJA TAMBÉM:';
-        position: absolute;
-        font-size: 12px;
-        font-weight: bold;
-        text-transform: uppercase;
-        top: -45px;
+      > :first-child {
+        position: relative;
+        :before {
+          content: 'VEJA TAMBÉM:';
+          position: absolute;
+          font-size: 12px;
+          font-weight: bold;
+          text-transform: uppercase;
+          top: -45px;
+        }
       }
     `};
 `
