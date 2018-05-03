@@ -16,6 +16,11 @@ body {
   line-height: 1.5;
 }
 
+a.GTAG {
+  text-decoration: none;
+  color: inherit;
+}
+
 button,
 .btn {
   background-color: ${colors.blue.medium};
