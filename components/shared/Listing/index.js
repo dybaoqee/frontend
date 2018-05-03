@@ -12,26 +12,23 @@ export default class Listing extends Component {
     const imgStyle = {backgroundImage: `url(${imgUrl})`}
 
     return (
-      <Link
-        href={`/listings/show?id=${id}`}
-        as={`/imoveis/${id}`}
-        key={id}
-        prefetch
-      >
-        <Container>
-          <div className="image-container" style={imgStyle} />
-          <p className="price">
-            <NumberFormat
-              value={price}
-              displayType={'text'}
-              thousandSeparator={'.'}
-              prefix={'R$'}
-              decimalSeparator={','}
-            />
-          </p>
-          <p className="street">{address.street}</p>
-          <p className="neighborhood">{address.neighborhood}</p>
-        </Container>
+      <Link href={`/listings/show?id=${id}`} as={`/imoveis/${id}`} prefetch>
+        <a href={`/imoveis/${id}`} className="GTAG">
+          <Container className="featured">
+            <div className="image-container" style={imgStyle} />
+            <p className="price">
+              <NumberFormat
+                value={price}
+                displayType={'text'}
+                thousandSeparator={'.'}
+                prefix={'R$'}
+                decimalSeparator={','}
+              />
+            </p>
+            <p className="street">{address.street}</p>
+            <p className="neighborhood">{address.neighborhood}</p>
+          </Container>
+        </a>
       </Link>
     )
   }
