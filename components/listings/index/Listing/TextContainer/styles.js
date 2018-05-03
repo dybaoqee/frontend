@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import * as colors from 'constants/colors'
 import {mobileMedia} from 'constants/media'
 
 export default styled.div`
@@ -9,6 +10,15 @@ export default styled.div`
   div.description {
     font-size: 14px;
     margin: 20px 10px 0;
+    a {
+      color: ${colors.blue.medium};
+      display: inline-block;
+      font-weight: 600;
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 
   .link-container {
