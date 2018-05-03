@@ -9,24 +9,26 @@ export default class AppDocument extends Document {
       sheet.collectStyles(<App {...props} />)
     )
     const styleTags = [sheet.getStyleElement()]
-    return {...page, styleTags}
+    return {...page, styleTags, prod: process.env.NODE_ENV === 'production'}
   }
 
   render() {
-    const {styleTags} = this.props
+    const {styleTags, prod} = this.props
 
     return (
       <html>
         <Head>
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+          {prod && (
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
               new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
               j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
             })(window,document,'script','dataLayer','GTM-5ZF5DFW');`
-            }}
-          />
+              }}
+            />
+          )}
           {styleTags}
           {globalStyles}
           <link
@@ -71,14 +73,16 @@ export default class AppDocument extends Document {
           />
         </Head>
         <body>
-          <noscript>
-            <iframe
-              src="https://www.googletagmanager.com/ns.html?id=GTM-5ZF5DFW"
-              height="0"
-              width="0"
-              style={{display: 'none', visibility: 'hidden'}}
-            />
-          </noscript>
+          {prod && (
+            <noscript>
+              <iframe
+                src="https://www.googletagmanager.com/ns.html?id=GTM-5ZF5DFW"
+                height="0"
+                width="0"
+                style={{display: 'none', visibility: 'hidden'}}
+              />
+            </noscript>
+          )}
           <Main />
           <NextScript />
         </body>
