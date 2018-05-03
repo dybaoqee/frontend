@@ -1,14 +1,10 @@
 import {Component, Fragment} from 'react'
 import {withRouter} from 'next/router'
 import Head from 'next/head'
-import ReactGA from 'react-ga'
 import Router from 'next/router'
 import NProgress from 'nprogress'
 import Header from './Header'
 import Footer from './Footer'
-
-import {mobileMedia} from 'constants/media'
-import * as colors from 'constants/colors'
 import Container, {Main} from './styles'
 
 import {AuthConsumer, AuthProvider} from 'components/providers/Auth'
@@ -17,8 +13,6 @@ Router.onRouteChangeStart = () => {
   NProgress.start()
 }
 Router.onRouteChangeComplete = () => {
-  ReactGA.initialize(process.env.GOOGLE_ANALYTICS_TRACKING_ID)
-  ReactGA.pageview(window.location.pathname)
   NProgress.done()
 }
 

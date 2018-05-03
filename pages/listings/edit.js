@@ -1,13 +1,13 @@
 import React, {Component} from 'react'
 import Link from 'next/link'
 import Router from 'next/router'
-import ReactGA from 'react-ga'
 import Error from 'components/shared/Shell/Error'
 import _ from 'lodash'
 import {
   redirectIfNotAuthenticated,
   getJwt,
   isAuthenticated,
+  getCurrentUserId,
   isAdmin as isAdminUser
 } from 'lib/auth'
 import {
@@ -87,6 +87,7 @@ export default class ListingEditV2 extends Component {
       return {
         id: id,
         jwt: jwt,
+        userId: getCurrentUserId(context),
         listing: res.data.listing,
         isAuthenticated: isAuthenticated(context),
         isAdmin
@@ -104,11 +105,11 @@ export default class ListingEditV2 extends Component {
   }
 
   componentDidMount() {
-    ReactGA.initialize(process.env.GOOGLE_ANALYTICS_TRACKING_ID)
-    ReactGA.event({
-      category: 'Imoveis',
-      label: 'listingEdit',
-      action: 'User Opened Listing Edit page'
+    const {userId} = this.props
+    window.dataLayer.push({
+      action: 'Opened Listing Edit Page',
+      userId,
+      event: 'listing_edit_open'
     })
   }
 
@@ -136,13 +137,7 @@ export default class ListingEditV2 extends Component {
       return
     }
 
-    if (page === 0) {
-      ReactGA.event({
-        category: 'Imoveis',
-        label: 'listingEdit',
-        action: 'User has accessed Listing Details Page'
-      })
-    } else if (page === 1) {
+    if (page === 1) {
       this.editListing()
     }
 
@@ -271,10 +266,10 @@ export default class ListingEditV2 extends Component {
         return res
       }
 
-      ReactGA.event({
-        category: 'Imoveis',
-        label: 'listingEdit',
-        action: 'User Edited Listing'
+      window.dataLayer.push({
+        action: 'User Edited Listing',
+        listingId: id,
+        event: 'listing_edit_success'
       })
 
       const listingId = res.data.listing.id
@@ -284,12 +279,6 @@ export default class ListingEditV2 extends Component {
       ).then(() => window.scrollTo(0, 0))
       return null
     } catch (e) {
-      ReactGA.event({
-        category: 'Imoveis',
-        label: 'listingEdit',
-        action: 'User Received Error on Listing Edition'
-      })
-
       const errors = _.isArray(e)
         ? e
         : [e.data ? _.flattenDeep(Object.values(e.data.errors)) : e]

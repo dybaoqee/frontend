@@ -1,11 +1,9 @@
 import {Component} from 'react'
-import ReactGA from 'react-ga'
 import EmCasaButton from 'components/shared/Common/Buttons'
 import Popup from 'components/shared/Popup'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faSearch from '@fortawesome/fontawesome-free-solid/faSearch'
 import faCheck from '@fortawesome/fontawesome-free-solid/faCheck'
-import Link from 'next/link'
 import Router from 'next/router'
 import _ from 'lodash'
 import {pickerMobileMedia} from 'constants/media'
@@ -27,10 +25,6 @@ export default class HomeSearch extends Component {
     neighborhoods: []
   }
 
-  componentDidMount() {
-    ReactGA.initialize(process.env.GOOGLE_ANALYTICS_TRACKING_ID)
-  }
-
   neighborhoodChosen = (e) => {
     const {target: {value, checked}} = e
     const {neighborhoods: selected} = this.state
@@ -40,14 +34,19 @@ export default class HomeSearch extends Component {
     this.setState({neighborhoods})
   }
 
+  componentDidMount() {
+    Router.prefetch('/listings')
+  }
+
   searchListings = (e) => {
+    const {neighborhoods} = this.state
     const {href, as} = this.buildLink()
-    e.preventDefault()
-    ReactGA.event({
-      category: 'Search',
-      label: 'User search from Home',
-      action: 'homeSearch'
+    window.dataLayer.push({
+      action: 'User Search Home Page',
+      search: neighborhoods.join('|'),
+      event: 'search_home'
     })
+    e.preventDefault()
     Router.push(href, as)
   }
 
@@ -62,14 +61,6 @@ export default class HomeSearch extends Component {
     }
   }
 
-  handleClick = () => {
-    ReactGA.event({
-      category: 'Search',
-      label: 'User search from Home',
-      action: 'homeSearch'
-    })
-  }
-
   handlePopup = (open) => {
     this.setState({opened: open === false ? false : true})
   }
@@ -79,7 +70,6 @@ export default class HomeSearch extends Component {
     const neighborhoodOptions = filterOptions.neighborhoodOptions(
       this.props.neighborhoods
     )
-    const {href, as} = this.buildLink()
 
     return (
       <Container>
@@ -132,12 +122,9 @@ export default class HomeSearch extends Component {
               </NeighborhoodsOptions>
             </Popup>
           )}
-
-          <Link href={href} as={as} prefetch>
-            <Magnifier onClick={this.handleClick}>
-              <FontAwesomeIcon icon={faSearch} />
-            </Magnifier>
-          </Link>
+          <Magnifier onClick={this.searchListings}>
+            <FontAwesomeIcon icon={faSearch} />
+          </Magnifier>
         </Search>
       </Container>
     )

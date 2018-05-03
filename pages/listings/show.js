@@ -1,5 +1,4 @@
 import {Component, Fragment} from 'react'
-import ReactGA from 'react-ga'
 import withData from '/lib/apollo/withData'
 import {Query} from 'react-apollo'
 import {GET_FAVORITE_LISTINGS_IDS} from 'graphql/user/queries'
@@ -67,15 +66,6 @@ class Listing extends Component {
     }
   }
 
-  componentDidMount() {
-    ReactGA.initialize(process.env.GOOGLE_ANALYTICS_TRACKING_ID)
-    ReactGA.event({
-      category: 'Imoveis',
-      label: 'listingShow',
-      action: 'User Opened Listing'
-    })
-  }
-
   showImageGallery = () => {
     this.setState({isImageGalleryVisible: true})
   }
@@ -103,13 +93,6 @@ class Listing extends Component {
   }
 
   openPopup = () => {
-    ReactGA.initialize(process.env.GOOGLE_ANALYTICS_TRACKING_ID)
-    ReactGA.event({
-      category: 'Interest',
-      label: 'openInterestPopup',
-      action: 'User opened Popup to Book Visit'
-    })
-
     this.setState({isInterestPopupVisible: true})
   }
 
@@ -143,13 +126,6 @@ class Listing extends Component {
     if (!res.data) {
       return res
     }
-
-    ReactGA.initialize(process.env.GOOGLE_ANALYTICS_TRACKING_ID)
-    ReactGA.event({
-      category: 'Interest',
-      label: 'submitInterest',
-      action: 'User submitted Interest'
-    })
 
     !custom &&
       this.setState({

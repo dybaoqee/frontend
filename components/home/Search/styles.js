@@ -43,7 +43,7 @@ export const Search = styled.div`
 
   margin: 60px auto 0;
   width: 600px;
-  > div {
+  > * {
     align-items: center;
     height: 44px;
   }
@@ -62,10 +62,6 @@ export const Neighborhoods = styled.div`
   color: ${colors.mediumDarkGray};
   display: flex;
   padding: 10px;
-
-  &:last-of-type {
-    margin-bottom: 20px;
-  }
 
   @media ${mobileMedia} {
     border-radius: 8px;
@@ -167,7 +163,7 @@ export const NeighborhoodsOptions = styled.form`
 
     @media ${pickerMobileMedia} {
       position: absolute;
-      margin: 0 0 -2px;
+      margin: 0 20px -2px;
       top: 2px;
       right: 0;
       width: 40vw;
