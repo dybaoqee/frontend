@@ -1,11 +1,11 @@
 import React, {Component} from 'react'
 import Router from 'next/router'
-import ReactGA from 'react-ga'
 import _ from 'lodash'
 import {
   redirectIfNotAuthenticated,
   getJwt,
   isAuthenticated,
+  getCurrentUserId,
   isAdmin as isAdminUser
 } from 'lib/auth'
 import {createListing, formatListingData} from 'services/listing-api'
@@ -63,17 +63,18 @@ export default class ListingNew extends Component {
 
     return {
       jwt: jwt,
+      userId: getCurrentUserId(ctx),
       authenticated: isAuthenticated(ctx),
       isAdmin
     }
   }
 
   componentDidMount() {
-    ReactGA.initialize(process.env.GOOGLE_ANALYTICS_TRACKING_ID)
-    ReactGA.event({
-      category: 'Imoveis',
-      label: 'listingCreate',
-      action: 'User Opened Listing Creation page'
+    const {userId} = this.props
+    window.dataLayer.push({
+      action: 'Opened Listing Creation Page',
+      userId,
+      event: 'listing_creation_open'
     })
   }
 
@@ -102,10 +103,9 @@ export default class ListingNew extends Component {
     }
 
     if (page === 0) {
-      ReactGA.event({
-        category: 'Imoveis',
-        label: 'listingCreate',
-        action: 'User has accessed Listing Details Page'
+      window.dataLayer.push({
+        action: 'Opened Listing Creation (Details) Page',
+        event: 'listing_creation_details_open'
       })
     } else if (page === 1) {
       this.submitListing()
@@ -240,22 +240,16 @@ export default class ListingNew extends Component {
           `/imoveis/${listingId}/imagens`
         ).then(() => window.scrollTo(0, 0))
       } else {
-        ReactGA.event({
-          category: 'Imoveis',
-          label: 'listingCreate',
-          action: 'User Created Listing'
+        window.dataLayer.push({
+          action: 'User Created Listing',
+          listingId,
+          event: 'listing_creation_success'
         })
         window.location.replace(`/imoveis/${listingId}?r=1`)
       }
 
       return null
     } catch (e) {
-      ReactGA.event({
-        category: 'Imoveis',
-        label: 'listingCreate',
-        action: 'User Received Error on Listing Creation'
-      })
-
       const errors = _.isArray(e)
         ? e
         : [e.data ? _.flattenDeep(Object.values(e.data.errors)) : e]
