@@ -10,7 +10,8 @@ module.exports = {
   parser: 'babel-eslint',
   parserOptions: {
     ecmaFeatures: {
-      experimentalObjectRestSpread: true
+      experimentalObjectRestSpread: true,
+      jsx: true
     },
     sourceType: 'module'
   },
@@ -41,6 +42,7 @@ module.exports = {
     'linebreak-style': ['error', 'unix'],
     'object-curly-spacing': ['error', 'never'],
     quotes: ['error', 'single'],
+    'react/jsx-uses-vars': 1,
     semi: ['error', 'never']
   },
   globals: {
