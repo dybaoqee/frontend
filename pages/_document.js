@@ -18,7 +18,7 @@ export default class AppDocument extends Document {
     return (
       <html>
         <Head>
-          {prod && (
+          {prod ? (
             <script
               dangerouslySetInnerHTML={{
                 __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -26,6 +26,13 @@ export default class AppDocument extends Document {
               j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
             })(window,document,'script','dataLayer','GTM-5ZF5DFW');`
+              }}
+            />
+          ) : (
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+                window.dataLayer = window.dataLayer || []`
               }}
             />
           )}
