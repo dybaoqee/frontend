@@ -57,13 +57,14 @@ export default class InfiniteScroll extends Component {
       currentPage,
       title,
       remaining_count,
+      mapOpenedOnMobile,
       children: renderEntry
     } = this.props
     const query = to.query || {}
     return (
       <Wrapper title={title}>
         {title && <Title>{title}</Title>}
-        <Container>
+        <Container mapOpenedOnMobile={mapOpenedOnMobile}>
           {entries.map(renderEntry)}
           {remaining_count > 0 && (
             <Footer innerRef={this.footerRef}>
