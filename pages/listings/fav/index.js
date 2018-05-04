@@ -248,6 +248,7 @@ class ListingsFav extends Component {
                           framedListings.length > 0 ? framedListings : listings
                         }
                         to={{pathname: '/imoveis/favoritos', query}}
+                        mapOpenedOnMobile={mapOpened}
                       >
                         {(listing) => (
                           <Listing
@@ -256,6 +257,7 @@ class ListingsFav extends Component {
                             onMouseLeave={this.onLeaveListing}
                             highlight={highlight}
                             id={`listing-${listing.id}`}
+                            mapOpenedOnMobile={mapOpened}
                             listing={listing}
                             currentUser={currentUser}
                             loading={loading}
