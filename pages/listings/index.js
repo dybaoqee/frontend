@@ -256,6 +256,7 @@ class ListingsIndex extends Component {
                     remaining_count={remaining_count}
                     onLoad={this.onLoadNextPage}
                     to={{pathname: '/imoveis', query}}
+                    mapOpenedOnMobile={mapOpened}
                   >
                     {(listing) => (
                       <Listing
