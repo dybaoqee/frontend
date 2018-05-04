@@ -17,9 +17,8 @@ export default styled.div`
         position: absolute;
         bottom: 0;
         flex-direction: row;
-        height: 28vh;
+        height: 30vh;
         overflow: hidden;
-        margin-left: 20px;
       }
     `};
 `
