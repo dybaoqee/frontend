@@ -19,10 +19,21 @@ class Listing extends React.Component {
       e.target.getAttribute('class') &&
       e.target.getAttribute('class').indexOf('cancel-listing-nav') == -1
     ) {
-      Router.push(
-        `/listings/show?id=${listing.id}`,
-        `/imoveis/${listing.id}`
-      ).then(() => window.scrollTo(0, 0))
+      if (e.shiftKey || e.ctrlKey || e.metaKey) {
+        // Only trigger window.open if element clicked is not .btn
+        if (
+          e.target.getAttribute('class') &&
+          e.target.getAttribute('class').indexOf('btn') == -1
+        ) {
+          window.open(`/imoveis/${listing.id}`, '_blank')
+          return false
+        }
+      } else {
+        Router.push(
+          `/listings/show?id=${listing.id}`,
+          `/imoveis/${listing.id}`
+        ).then(() => window.scrollTo(0, 0))
+      }
     }
   }
 
