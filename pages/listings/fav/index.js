@@ -77,9 +77,9 @@ class ListingsFav extends Component {
   onSelectListing = (id, position) => {
     if (!position) {
       const element = document.getElementById(`listing-${id}`)
-      const rect = element.getBoundingClientRect()
-      const top = rect.top - desktopHeaderHeight - desktopFilterHeight
-      window.scrollBy({top, behavior: 'smooth'})
+      element.scrollIntoView({
+        behavior: 'smooth'
+      })
     } else {
       this.setState({highlight: {...position}})
     }
