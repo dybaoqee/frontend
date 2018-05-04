@@ -1,11 +1,27 @@
 import styled from 'styled-components'
-
+import {mobileMedia} from 'constants/media'
 import * as colors from 'constants/colors'
+import {desktopHeaderAndFilterHeight} from 'constants/dimensions'
 
-export default styled.ul`
+export default styled.div`
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  list-style: none;
+  display: flex;
+  flex-direction: column;
+
+  ${({mapOpenedOnMobile}) =>
+    mapOpenedOnMobile &&
+    `
+      @media ${mobileMedia} {
+        position: absolute;
+        bottom: 0;
+        flex-direction: row;
+        height: 28vh;
+        overflow: hidden;
+        margin-left: 20px;
+      }
+    `};
 `
 
 export const Footer = styled.footer`
@@ -35,6 +51,10 @@ export const Wrapper = styled.div`
       > :nth-child(2) {
       padding-top: 44px;
     }`};
+
+  @media ${mobileMedia} {
+    height: calc(100vh - ${desktopHeaderAndFilterHeight}px);
+  }
 `
 
 export const Title = styled.h1`
