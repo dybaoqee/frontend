@@ -24,7 +24,6 @@ import Listing from 'components/listings/index/Listing'
 import ListingsNotFound from 'components/listings/index/NotFound'
 import Filter from 'components/listings/index/Search'
 import Container, {MapButton} from '../styles'
-import {desktopHeaderHeight, desktopFilterHeight} from 'constants/dimensions'
 const splitParam = (param) => (param ? param.split('|') : [])
 
 const getDerivedParams = (query) => ({
