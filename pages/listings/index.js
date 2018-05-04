@@ -268,6 +268,7 @@ class ListingsIndex extends Component {
                         listing={listing}
                         currentUser={currentUser}
                         loading={loading}
+                        mapOpenedOnMobile={mapOpened}
                         favorited={
                           error || !data.favoritedListings
                             ? []
