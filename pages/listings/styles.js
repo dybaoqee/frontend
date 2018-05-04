@@ -1,12 +1,12 @@
 import styled from 'styled-components'
-import * as colors from 'constants/colors'
 import {mobileMedia} from 'constants/media'
 import {desktopFilterHeight} from 'constants/dimensions'
 
 export default styled.div`
-  position: relative;
   margin-top: ${desktopFilterHeight}px;
+  overflow: auto;
   .entries-container {
+    position: relative;
     width: 60%;
     float: right;
   }
@@ -15,7 +15,6 @@ export default styled.div`
     z-index: 5 !important;
     pointer-events: none;
   }
-
   .map {
     background: white;
     border-radius: 8px;
