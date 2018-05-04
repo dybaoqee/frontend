@@ -6,13 +6,13 @@ import Container from './styles'
 
 export default class TextContainer extends Component {
   truncateDescription = () => {
-    const {id, description} = this.props.listing
+    const {description} = this.props.listing
 
     if (!description) return
 
     var re = description.match(/^.{0,160}[\S]*/)
     var l = re[0].length
-    var re = re[0].replace(/\s$/, '')
+    re = re[0].replace(/\s$/, '')
     if (l < description.length) {
       re = re + '…'
     }
