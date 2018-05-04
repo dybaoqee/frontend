@@ -25,7 +25,6 @@ export default styled.div`
     position: fixed !important;
     width: calc(40% - 40px) !important;
     margin-top: 24px;
-    transition: all 0.5s;
   }
 
   @media ${mobileMedia} {
