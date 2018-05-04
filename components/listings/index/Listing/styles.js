@@ -38,9 +38,10 @@ export default styled.div`
     @media ${mobileMedia} {
       width: 85vw;
       padding: 0;
-      margin-right: 10px;
       height: 270px;
       border: 0;
+      padding-top: 10px;
+      padding-left: 10px;
 
       span.matterport {
         display: none;
