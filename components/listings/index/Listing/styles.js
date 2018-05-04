@@ -3,6 +3,7 @@ import {mobileMedia} from 'constants/media'
 import * as colors from 'constants/colors'
 
 export default styled.div`
+  box-sizing: border-box;
   background: ${({highlight}) => (highlight ? '#f5f5f5' : 'white')};
   border-bottom: 1px solid ${colors.lightGray};
   cursor: pointer;
@@ -30,7 +31,24 @@ export default styled.div`
     text-transform: uppercase;
     transform: rotate(45deg);
   }
+
+  ${({mapOpenedOnMobile}) =>
+    mapOpenedOnMobile &&
+    `
+    @media ${mobileMedia} {
+      width: 240px;
+      padding: 0;
+      margin-right: 10px;
+      height: 270px;
+      border: 0;
+
+      span.matterport {
+        display: none;
+      }
+    }
+  `};
 `
+
 export const LikeContainer = styled.div`
   box-sizing: border-box;
   width: 100%;
@@ -50,24 +68,14 @@ export const LikeContainer = styled.div`
   @media ${mobileMedia} {
     justify-content: flex-start;
   }
-`
 
-export const ImageContainer = styled.div`
-  box-sizing: border-box;
-  background-position: center;
-  background-size: cover;
-  border-radius: 8px;
-  float: left;
-  height: 200px;
-  margin-left: 10px;
-  position: relative;
-  width: 290px;
-  margin-top: 4px;
-
-  @media ${mobileMedia} {
-    width: calc(100% - 20px);
-    margin-top: 0;
-  }
+  ${({mapOpenedOnMobile}) =>
+    mapOpenedOnMobile &&
+    `
+    @media ${mobileMedia} {
+      justify-content: flex-end;
+    }
+  `};
 `
 
 export const ListingInfo = styled.div`
@@ -91,4 +99,68 @@ export const ListingInfo = styled.div`
   span.neighborhood {
     font-size: 10px;
   }
+
+  ${({mapOpenedOnMobile}) =>
+    mapOpenedOnMobile &&
+    `
+    @media ${mobileMedia} {
+      display: none;
+    }
+  `};
+`
+
+export const ListingInfoMobile = styled.div`
+  top: 104%;
+  position: absolute;
+  display: none;
+
+  span {
+    clear: both;
+    display: block;
+    font-size: 18px;
+    font-weight: 300;
+  }
+
+  span.address {
+    font-size: 13px;
+    margin-bottom: 1px;
+    margin-top: 3px;
+    font-weight: 400;
+  }
+
+  ${({mapOpenedOnMobile}) =>
+    mapOpenedOnMobile &&
+    `
+    @media ${mobileMedia} {
+      display: block;
+    }
+  `};
+`
+
+export const ImageContainer = styled.div`
+  box-sizing: border-box;
+  background-position: center;
+  background-size: cover;
+  border-radius: 8px;
+  float: left;
+  height: 200px;
+  margin-left: 10px;
+  position: relative;
+  width: 290px;
+  margin-top: 4px;
+
+  @media ${mobileMedia} {
+    width: calc(100% - 20px);
+    margin-top: 0;
+  }
+
+  ${({mapOpenedOnMobile}) =>
+    mapOpenedOnMobile &&
+    `
+    @media ${mobileMedia} {
+      height: 19vh;
+      width: 100%;
+      margin: 0;
+    }
+  `};
 `

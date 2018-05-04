@@ -35,7 +35,8 @@ class Listing extends React.Component {
       highlight,
       loading,
       onMouseEnter,
-      onMouseLeave
+      onMouseLeave,
+      mapOpenedOnMobile
     } = this.props
     listing = humps.decamelizeKeys(listing)
 
@@ -51,6 +52,7 @@ class Listing extends React.Component {
         onMouseEnter={onMouseEnter && onMouseEnter.bind(this, listing)}
         onMouseLeave={onMouseLeave && onMouseLeave.bind(this, listing)}
         highlight={highlighListing}
+        mapOpenedOnMobile={mapOpenedOnMobile}
       >
         <ImageContainer
           currentUser={currentUser}
@@ -61,8 +63,13 @@ class Listing extends React.Component {
             ).length > 0
           }
           loading={loading}
+          mapOpenedOnMobile={mapOpenedOnMobile}
         />
-        <TextContainer listing={listing} currentUser={currentUser} />
+        <TextContainer
+          listing={listing}
+          currentUser={currentUser}
+          mapOpenedOnMobile={mapOpenedOnMobile}
+        />
 
         {listing.matterport_code && (
           <span className="matterport">Tour Virtual</span>
