@@ -32,13 +32,14 @@ export default styled.div`
     }
 
     .map {
-      width: 100% !important;
+      box-sizing: border-box;
+      width: 100vw !important;
       border-radius: 0;
       margin: 0;
-      height: calc(100vh - 133px);
-      z-index: 1;
-      right: ${({opened}) => (opened ? 0 : '100%')};
-      opacity: ${({opened}) => (opened ? 1 : 0)};
+      height: 70vh;
+      z-index: 9998;
+      top: 0;
+      left: ${({opened}) => (opened ? 0 : '100%')};
     }
   }
 `
