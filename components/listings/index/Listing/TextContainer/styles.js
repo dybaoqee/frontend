@@ -37,5 +37,7 @@ export default styled.div`
     a.btn {
       margin: 10px 10px 30px;
     }
+
+    ${({mapOpenedOnMobile}) => mapOpenedOnMobile && 'display: none;'};
   }
 `

@@ -6,13 +6,13 @@ import Container from './styles'
 
 export default class TextContainer extends Component {
   truncateDescription = () => {
-    const {id, description} = this.props.listing
+    const {description} = this.props.listing
 
     if (!description) return
 
     var re = description.match(/^.{0,160}[\S]*/)
     var l = re[0].length
-    var re = re[0].replace(/\s$/, '')
+    re = re[0].replace(/\s$/, '')
     if (l < description.length) {
       re = re + '…'
     }
@@ -21,11 +21,11 @@ export default class TextContainer extends Component {
   }
 
   render() {
-    const {listing, currentUser} = this.props
+    const {listing, currentUser, mapOpenedOnMobile} = this.props
     const {id} = listing
 
     return (
-      <Container>
+      <Container mapOpenedOnMobile={mapOpenedOnMobile}>
         <div className="description">
           {this.truncateDescription()}{' '}
           <Link href={`/listings/show?id=${id}`} as={`/imoveis/${id}`}>
@@ -33,7 +33,7 @@ export default class TextContainer extends Component {
           </Link>
         </div>
 
-        <ListingTable listing={listing} />
+        <ListingTable listing={listing} mapOpenedOnMobile={mapOpenedOnMobile} />
 
         <div className="link-container">
           {canEdit(currentUser, listing) && (

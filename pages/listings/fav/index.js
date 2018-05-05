@@ -24,7 +24,6 @@ import Listing from 'components/listings/index/Listing'
 import ListingsNotFound from 'components/listings/index/NotFound'
 import Filter from 'components/listings/index/Search'
 import Container, {MapButton} from '../styles'
-import {desktopHeaderHeight, desktopFilterHeight} from 'constants/dimensions'
 const splitParam = (param) => (param ? param.split('|') : [])
 
 const getDerivedParams = (query) => ({
@@ -78,9 +77,9 @@ class ListingsFav extends Component {
   onSelectListing = (id, position) => {
     if (!position) {
       const element = document.getElementById(`listing-${id}`)
-      const rect = element.getBoundingClientRect()
-      const top = rect.top - desktopHeaderHeight - desktopFilterHeight
-      window.scrollBy({top, behavior: 'smooth'})
+      element.scrollIntoView({
+        behavior: 'smooth'
+      })
     } else {
       this.setState({highlight: {...position}})
     }
@@ -249,6 +248,7 @@ class ListingsFav extends Component {
                           framedListings.length > 0 ? framedListings : listings
                         }
                         to={{pathname: '/imoveis/favoritos', query}}
+                        mapOpenedOnMobile={mapOpened}
                       >
                         {(listing) => (
                           <Listing
@@ -257,6 +257,7 @@ class ListingsFav extends Component {
                             onMouseLeave={this.onLeaveListing}
                             highlight={highlight}
                             id={`listing-${listing.id}`}
+                            mapOpenedOnMobile={mapOpened}
                             listing={listing}
                             currentUser={currentUser}
                             loading={loading}
