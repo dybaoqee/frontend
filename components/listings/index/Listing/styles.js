@@ -40,8 +40,15 @@ export default styled.div`
       padding: 0;
       height: 270px;
       border: 0;
-      padding-top: 10px;
-      padding-left: 10px;
+      padding: 10px 5px 0;
+
+      &:first-of-type {
+        padding-left: 10px;
+      }
+
+      &:last-of-type {
+        padding-right: 10px;
+      }
 
       span.matterport {
         display: none;
