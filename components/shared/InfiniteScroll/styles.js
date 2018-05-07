@@ -14,11 +14,10 @@ export default styled.div`
     mapOpenedOnMobile &&
     `
       @media ${mobileMedia} {
-        position: absolute;
-        bottom: 0;
+        position: relative;
         flex-direction: row;
-        height: 30vh;
         overflow: hidden;
+        height: 100%;
       }
     `};
 `
@@ -54,6 +53,14 @@ export const Wrapper = styled.div`
   @media ${mobileMedia} {
     height: calc(100vh - ${desktopHeaderAndFilterHeight}px);
   }
+
+  ${({mapOpenedOnMobile}) =>
+    mapOpenedOnMobile &&
+    `
+    @media ${mobileMedia} {
+      max-height: 100%;
+    }
+  `};
 `
 
 export const Title = styled.h1`
