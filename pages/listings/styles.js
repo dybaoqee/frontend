@@ -53,6 +53,10 @@ export default styled.div`
         width: 100%;
         z-index: 9998;
 
+        body {
+          overflow: hidden;
+        }
+
       .entries-container {
         position: absolute;
         height: 30%;
