@@ -45,7 +45,7 @@ export default styled.div`
     opened &&
     `
     @media ${mobileMedia} {
-        position: absolute;
+        position: fixed;
         margin: 0;
         top: 0;
         box-sizing: border-box;
