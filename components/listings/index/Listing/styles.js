@@ -38,7 +38,7 @@ export default styled.div`
     @media ${mobileMedia} {
       width: 85vw;
       padding: 0;
-      height: 270px;
+      height: 100%;
       border: 0;
       padding: 10px 5px 0;
 
@@ -166,7 +166,7 @@ export const ImageContainer = styled.div`
     mapOpenedOnMobile &&
     `
     @media ${mobileMedia} {
-      height: 19vh;
+      height: 68%;
       width: 100%;
       margin: 0;
     }
