@@ -40,7 +40,11 @@ export default styled.div`
       padding: 0;
       height: 100%;
       border: 0;
-      padding: 10px 5px 0;
+      padding: 10px 5px 3px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
 
       &:first-of-type {
         padding-left: 10px;
