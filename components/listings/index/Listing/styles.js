@@ -122,12 +122,9 @@ export const ListingInfo = styled.div`
 `
 
 export const ListingInfoMobile = styled.div`
-  top: 104%;
-  position: absolute;
   display: none;
-
+  width: 100%;
   span {
-    clear: both;
     display: block;
     font-size: 18px;
     font-weight: 300;
@@ -135,8 +132,8 @@ export const ListingInfoMobile = styled.div`
 
   span.address {
     font-size: 13px;
-    margin-bottom: 1px;
-    margin-top: 3px;
+    margin: 3px 0 0;
+    padding: 0;
     font-weight: 400;
   }
 
@@ -144,7 +141,9 @@ export const ListingInfoMobile = styled.div`
     mapOpenedOnMobile &&
     `
     @media ${mobileMedia} {
-      display: block;
+
+      display: flex;
+      flex-direction: column;
     }
   `};
 `
@@ -170,8 +169,9 @@ export const ImageContainer = styled.div`
     mapOpenedOnMobile &&
     `
     @media ${mobileMedia} {
-      height: 68%;
       width: 100%;
+      height: auto;
+      flex: 1;
       margin: 0;
     }
   `};
