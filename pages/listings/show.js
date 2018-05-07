@@ -45,7 +45,8 @@ class Listing extends Component {
     const currentUser = {
       id: getCurrentUserId(context),
       admin: isAdmin(context),
-      authenticated: isAuthenticated(context)
+      authenticated: isAuthenticated(context),
+      jwt
     }
     try {
       const [listing, related] = await Promise.all([

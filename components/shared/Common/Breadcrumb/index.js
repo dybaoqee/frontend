@@ -11,7 +11,7 @@ export default ({paths}) => (
       </Link>
     </Path>
     {paths.map(({name, href, as}) => (
-      <Path key={as}>
+      <Path key={name}>
         {href ? (
           <Link href={href} as={as}>
             {name}
