@@ -14,7 +14,6 @@ export default styled.div`
     mapOpenedOnMobile &&
     `
       @media ${mobileMedia} {
-        position: relative;
         flex-direction: row;
         overflow: hidden;
         height: 100%;
@@ -58,7 +57,7 @@ export const Wrapper = styled.div`
     mapOpenedOnMobile &&
     `
     @media ${mobileMedia} {
-      max-height: 100%;
+      height: 100%;
     }
   `};
 `
