@@ -37,6 +37,7 @@ export default styled.div`
       border-radius: 0;
       margin: 0;
       left: ${({opened}) => (opened ? 0 : '100%')};
+      height: 70%;
     }
   }
 
