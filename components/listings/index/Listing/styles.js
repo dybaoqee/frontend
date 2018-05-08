@@ -36,7 +36,8 @@ export default styled.div`
     mapOpenedOnMobile &&
     `
     @media ${mobileMedia} {
-      width: 85vw;
+
+      width: 65vw;
       padding: 0;
       height: 100%;
       border: 0;
