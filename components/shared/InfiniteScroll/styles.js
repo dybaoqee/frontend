@@ -15,8 +15,9 @@ export default styled.div`
     `
       @media ${mobileMedia} {
         flex-direction: row;
-        overflow: hidden;
+        overflow-y: hidden;
         height: 100%;
+        max-height: 100%;
       }
     `};
 `
