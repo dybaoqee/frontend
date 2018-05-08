@@ -144,9 +144,10 @@ export const ListingInfoMobile = styled.div`
     mapOpenedOnMobile &&
     `
     @media ${mobileMedia} {
-
+      height: 30%;
       display: flex;
       flex-direction: column;
+      justify-content: space-evenly;
     }
   `};
 `
