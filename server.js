@@ -135,6 +135,10 @@ const startServer = () => {
         app.render(req, res, actualPage, queryParams)
       })
 
+      server.get('/meus-imoveis', (req, res) => {
+        return app.render(req, res, '/listings/user-listings', req.query)
+      })
+
       server.get('/busca', (req, res) => {
         return app.render(req, res, '/search', req.query)
       })

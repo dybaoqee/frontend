@@ -6,7 +6,7 @@ import Router from 'next/router'
 import {withApollo, compose} from 'react-apollo'
 import withData from '/lib/apollo/withData'
 import {Query} from 'react-apollo'
-import {GET_FAVORITE_LISTINGS} from 'graphql/user/queries'
+import {GET_USER_LISTINGS} from 'graphql/user/queries'
 
 import {treatParams} from 'utils/filter-params.js'
 import {mainListingImage} from 'utils/image_url'
@@ -92,13 +92,16 @@ class ListingsFav extends Component {
     })
 
     if (params) {
-      Router.replace(`/listings/fav?${params}`, `/imoveis/favoritos?${params}`)
+      Router.replace(
+        `/listings/user-listings?${params}`,
+        `/meus-imoveis?${params}`
+      )
     } else {
-      Router.replace('/listings/fav', '/imoveis/favoritos')
+      Router.replace('/listings/user-listings', '/meus-imoveis')
     }
   }
 
-  onResetFilter = () => Router.push('/listings/fav', '/imoveis/favoritos')
+  onResetFilter = () => Router.push('/listings/user-listings', '/meus-imoveis')
 
   get params() {
     return getDerivedParams(this.props.url.query)
@@ -182,22 +185,23 @@ class ListingsFav extends Component {
         authenticated={currentUser.authenticated}
         isAdmin={currentUser.admin}
       >
-        <Query query={GET_FAVORITE_LISTINGS} skip={!currentUser.authenticated}>
+        <Query
+          query={GET_USER_LISTINGS}
+          skip={!currentUser.authenticated}
+          fetchPolicy="network-only"
+        >
           {({data, loading, error}) => {
             if (loading) return ''
             if (error) return `Erro: ${error.message}`
 
-            const listings = filteredListings(data.favoritedListings || [])
+            const listings = filteredListings(data.userListings || [])
 
             return (
               <Fragment>
                 <Head>
-                  <title>Imóveis favoritos | EmCasa</title>
-                  <meta name="description" content="Meus imóveis favoritos" />
-                  <meta
-                    property="og:description"
-                    content="Meus imóveis favoritos"
-                  />
+                  <title>Meus Imóveis | EmCasa</title>
+                  <meta name="description" content="Meus imóveis" />
+                  <meta property="og:description" content="Meus imóveis" />
                   <meta
                     property="og:image"
                     content={
@@ -205,14 +209,8 @@ class ListingsFav extends Component {
                     }
                   />
                   <meta name="twitter:card" content="summary_large_image" />
-                  <meta
-                    name="twitter:title"
-                    content="Meus imóveis favoritos | EmCasa"
-                  />
-                  <meta
-                    name="twitter:description"
-                    content="Meus imóveis favoritos"
-                  />
+                  <meta name="twitter:title" content="Meus imóveis | EmCasa" />
+                  <meta name="twitter:description" content="Meus imóveis" />
                   <meta name="twitter:image" content={seoImgSrc} />
                 </Head>
                 <Filter
@@ -239,21 +237,21 @@ class ListingsFav extends Component {
                         filtered={!_.isEmpty(url.query)}
                         resetAllParams={this.onResetFilter}
                         messages={[
-                          'Você ainda não favoritou nenhum imóvel.',
-                          'Clique aqui para ver os imóveis disponíveis.'
+                          'Você ainda não cadastrou nenhum imóvel.',
+                          'Clique aqui para cadastrar um imóvel.'
                         ]}
-                        href="/listings"
-                        as="/imoveis"
+                        href="/sell/know-more"
+                        as="/saiba-mais-para-vender"
                       />
                     ) : (
                       <InfiniteScroll
-                        title="Meus imóveis favoritos"
+                        title="Meus imóveis"
                         currentPage={1}
                         totalPages={1}
                         entries={
                           framedListings.length > 0 ? framedListings : listings
                         }
-                        to={{pathname: '/imoveis/favoritos', query}}
+                        to={{pathname: '/meus-imoveis', query}}
                         mapOpenedOnMobile={mapOpened}
                       >
                         {(listing) => (

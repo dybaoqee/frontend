@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Container from './styles'
 
-export default ({resetAllParams, filtered}) => {
+export default ({resetAllParams, filtered, messages, href, as}) => {
   if (filtered) {
     return (
       <Container onClick={resetAllParams}>
@@ -14,12 +14,9 @@ export default ({resetAllParams, filtered}) => {
   }
 
   return (
-    <Link href="/listings" as="/imoveis" prefetch>
+    <Link href={href} as={as} prefetch>
       <Container>
-        <div>
-          <p>Você ainda não favoritou nenhum imóvel.</p>
-          <p>Clique aqui para ver os imóveis disponíveis.</p>
-        </div>
+        <div>{messages.map((message) => <p key={message}>{message}</p>)}</div>
       </Container>
     </Link>
   )
