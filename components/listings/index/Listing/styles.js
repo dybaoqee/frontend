@@ -171,8 +171,7 @@ export const ImageContainer = styled.div`
     `
     @media ${mobileMedia} {
       width: 100%;
-      height: auto;
-      flex: 1;
+      height: 70%;
       margin: 0;
     }
   `};
