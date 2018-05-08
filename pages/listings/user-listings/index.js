@@ -185,7 +185,11 @@ class ListingsFav extends Component {
         authenticated={currentUser.authenticated}
         isAdmin={currentUser.admin}
       >
-        <Query query={GET_USER_LISTINGS} skip={!currentUser.authenticated}>
+        <Query
+          query={GET_USER_LISTINGS}
+          skip={!currentUser.authenticated}
+          fetchPolicy="network-only"
+        >
           {({data, loading, error}) => {
             if (loading) return ''
             if (error) return `Erro: ${error.message}`
