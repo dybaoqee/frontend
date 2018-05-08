@@ -28,7 +28,7 @@ export default ({
             <td>Preço/m²</td>
             <td>
               <NumberFormat
-                value={price_per_square_meter}
+                value={price_per_square_meter || 0}
                 displayType={'text'}
                 thousandSeparator={'.'}
                 prefix={'R$'}
