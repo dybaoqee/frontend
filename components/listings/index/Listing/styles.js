@@ -127,12 +127,12 @@ export const ListingInfoMobile = styled.div`
   width: 100%;
   span {
     display: block;
-    font-size: 18px;
+    font-size: 1.1em;
     font-weight: 300;
   }
 
   span.address {
-    font-size: 13px;
+    font-size: 0.9em;
     margin: 3px 0 0;
     padding: 0;
     font-weight: 400;
