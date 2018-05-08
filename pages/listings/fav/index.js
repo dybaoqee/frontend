@@ -238,6 +238,12 @@ class ListingsFav extends Component {
                       <ListingsNotFound
                         filtered={!_.isEmpty(url.query)}
                         resetAllParams={this.onResetFilter}
+                        messages={[
+                          'Você ainda não favoritou nenhum imóvel.',
+                          'Clique aqui para ver os imóveis disponíveis.'
+                        ]}
+                        href="/listings"
+                        as="/imoveis"
                       />
                     ) : (
                       <InfiniteScroll
