@@ -6,7 +6,6 @@ export default styled.div`
   margin: 50px auto 30px;
   padding: 10px;
   width: ${({full}) => (full ? '100%' : '400px')};
-  box-sizing: border-box;
 
   @media ${mobileMedia} {
     width: calc(100vw - 40px);
