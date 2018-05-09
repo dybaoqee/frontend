@@ -32,6 +32,11 @@ export default class Header extends Component {
         user={user}
         items={[
           {
+            title: 'Meu perfil',
+            href: '/user/profile',
+            as: '/meu-perfil'
+          },
+          {
             title: 'Meus imóveis',
             href: '/listings/user-listings',
             as: '/meus-imoveis'
