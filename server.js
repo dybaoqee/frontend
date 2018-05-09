@@ -129,10 +129,8 @@ const startServer = () => {
         app.render(req, res, actualPage, queryParams)
       })
 
-      server.get('/user/:id', (req, res) => {
-        const actualPage = '/user'
-        const queryParams = {id: req.params.id}
-        app.render(req, res, actualPage, queryParams)
+      server.get('/meu-perfil', (req, res) => {
+        app.render(req, res, '/user/profile', req.query)
       })
 
       server.get('/busca', (req, res) => {
