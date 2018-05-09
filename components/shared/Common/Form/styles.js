@@ -94,17 +94,40 @@ export default styled.form`
           width: 100%;
           bottom: -12px;
           border-radius: 0 0 6px 6px;
-          z-index: -1;
+          z-index: 1;
           height: 25px;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
           font-size: 10px;
 
-
           @media ${mobileMedia} {
             bottom: -2px;
           }
-    }`
+        }`
     )};
+`
+export const Field = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-sizing: border-box;
+
+  margin-bottom: 15px;
+
+  label {
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    float: left;
+    margin: 0 0 10px 0;
+
+    span {
+      color: ${colors.red.medium};
+    }
+  }
+
+  @media ${mobileMedia} {
+    padding-bottom: 10px;
+  }
 `
