@@ -125,10 +125,9 @@ export const ListingInfo = styled.div`
 export const ListingInfoMobile = styled.div`
   display: none;
   width: 100%;
-  span {
+  > span {
     font-size: 1.1em;
     font-weight: 300;
-    overflow-y: hidden;
   }
 
   span.address {
@@ -138,6 +137,7 @@ export const ListingInfoMobile = styled.div`
     font-weight: 400;
     white-space: nowrap;
     width: 98%;
+    overflow-x: hidden;
   }
 
   ${({mapOpenedOnMobile}) =>
