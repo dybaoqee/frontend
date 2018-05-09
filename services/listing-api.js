@@ -1,4 +1,4 @@
-import {get, post, put} from 'lib/request'
+import {get, getFile, post, put} from 'lib/request'
 
 const buildPayload = (data) => {
   return {
@@ -121,6 +121,17 @@ export const getFeaturedListings = async () => {
 export const getListing = async (id, jwt) => {
   try {
     const response = await get('/listings/' + id, jwt)
+    return response
+  } catch (error) {
+    if (error.response && error.response.status === 422)
+      throw new Error('Unknown error. Please try again.', error)
+    else throw error
+  }
+}
+
+export const getListingImages = async (id, jwt) => {
+  try {
+    const response = await getFile('/listings/' + id + '/download_images', jwt)
     return response
   } catch (error) {
     if (error.response && error.response.status === 422)

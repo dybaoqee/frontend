@@ -33,15 +33,38 @@ export default styled.div`
 
     .map {
       box-sizing: border-box;
-      width: 100vw !important;
+      width: 100% !important;
       border-radius: 0;
       margin: 0;
-      height: 70vh;
-      z-index: 9998;
-      top: 0;
       left: ${({opened}) => (opened ? 0 : '100%')};
+      height: 70%;
     }
   }
+
+  ${({opened}) =>
+    opened &&
+    `
+    @media ${mobileMedia} {
+        position: fixed;
+        margin: 0;
+        top: 0;
+        box-sizing: border-box;
+        height: 100%;
+        width: 100%;
+        z-index: 9998;
+
+        body {
+          overflow: hidden;
+        }
+
+      .entries-container {
+        position: absolute;
+        height: 30%;
+        top: 70%;
+        width: auto;
+      }
+    }
+  `};
 `
 
 export const MapButton = styled.div`

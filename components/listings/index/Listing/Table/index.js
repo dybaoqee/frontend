@@ -4,7 +4,7 @@ import Container from './styles'
 export default ({
   listing: {price, area, rooms, garage_spots, bathrooms, floor}
 }) => {
-  const price_per_square_meter = Math.floor(price / area)
+  const price_per_square_meter = price && area ? Math.floor(price / area) : 0
 
   return (
     <Container>

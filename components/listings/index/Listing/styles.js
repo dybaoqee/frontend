@@ -36,11 +36,16 @@ export default styled.div`
     mapOpenedOnMobile &&
     `
     @media ${mobileMedia} {
-      width: 85vw;
+
+      width: 65vw;
       padding: 0;
-      height: 270px;
+      height: 100%;
       border: 0;
-      padding: 10px 5px 0;
+      padding: 10px 5px 3px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
 
       &:first-of-type {
         padding-left: 10px;
@@ -118,29 +123,31 @@ export const ListingInfo = styled.div`
 `
 
 export const ListingInfoMobile = styled.div`
-  top: 104%;
-  position: absolute;
   display: none;
-
+  width: 100%;
   span {
-    clear: both;
-    display: block;
-    font-size: 18px;
+    font-size: 1.1em;
     font-weight: 300;
+    overflow-y: hidden;
   }
 
   span.address {
-    font-size: 13px;
-    margin-bottom: 1px;
-    margin-top: 3px;
+    font-size: 0.9em;
+    margin: 3px 0 0;
+    padding: 0;
     font-weight: 400;
+    white-space: nowrap;
+    width: 98%;
   }
 
   ${({mapOpenedOnMobile}) =>
     mapOpenedOnMobile &&
     `
     @media ${mobileMedia} {
-      display: block;
+      height: 30%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
     }
   `};
 `
@@ -166,8 +173,8 @@ export const ImageContainer = styled.div`
     mapOpenedOnMobile &&
     `
     @media ${mobileMedia} {
-      height: 19vh;
       width: 100%;
+      height: 70%;
       margin: 0;
     }
   `};

@@ -1,5 +1,6 @@
 import * as colors from 'constants/colors'
 import styled from 'styled-components'
+import {mobileMedia} from 'constants/media'
 
 export default styled.header`
   height: 400px;
@@ -30,6 +31,18 @@ export default styled.header`
   & div.bottom-right {
     bottom: 20px;
     right: 20px;
+
+    @media ${mobileMedia} {
+      > * {
+        margin-bottom: 5px;
+      }
+      display: grid;
+      grid-template-columns: 130px 140px;
+
+      .download-images-btn {
+        grid-column: span 2;
+      }
+    }
   }
 
   & div.top-right {

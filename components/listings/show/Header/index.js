@@ -4,10 +4,29 @@ import LikeButton from 'components/shared/Common/Buttons/Like'
 import Container from './styles'
 import {canEdit} from 'permissions/listings-permissions'
 import {mainListingImage} from 'utils/image_url'
+import {getListingImages} from 'services/listing-api'
 import {Mutation} from 'react-apollo'
 import {VISUALIZE_TOUR} from 'graphql/listings/mutations'
+import {downloadBlob} from 'utils/file-utils'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import faDownload from '@fortawesome/fontawesome-free-solid/faDownload'
+import EmCasaButton from 'components/shared/Common/Buttons'
 
 export default class ListingHeader extends Component {
+  state = {
+    downloadingImages: false
+  }
+  downloadImages = async () => {
+    this.setState({downloadingImages: true})
+    const {currentUser: {jwt}, listing: {id}} = this.props
+
+    const response = await getListingImages(id, jwt)
+
+    const blob = await response.blob()
+    downloadBlob(blob, `${id}.zip`, 'application/zip')
+    this.setState({downloadingImages: false})
+  }
+
   render() {
     const {
       listing,
@@ -16,6 +35,8 @@ export default class ListingHeader extends Component {
       handleOpen3DTour,
       favoritedListing
     } = this.props
+
+    const {downloadingImages} = this.state
 
     const {matterport_code, images} = listing
     const src = `https://my.matterport.com/show/?m=${matterport_code}`
@@ -84,6 +105,18 @@ export default class ListingHeader extends Component {
                   Ver Fotos
                 </button>
               )}
+              {listing.images.length > 0 &&
+                currentUser.admin && (
+                  <EmCasaButton
+                    className="download-images-btn"
+                    secondary
+                    disabled={downloadingImages}
+                    onClick={this.downloadImages}
+                  >
+                    <FontAwesomeIcon icon={faDownload} />
+                    {downloadingImages ? 'Aguarde...' : 'Download fotos'}
+                  </EmCasaButton>
+                )}
             </div>
           </Container>
         )}
