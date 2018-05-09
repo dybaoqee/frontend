@@ -40,3 +40,14 @@ export const GET_FAVORITE_LISTINGS = gql`
     }
   }
 `
+
+export const GET_USER_INFO = gql`
+  query userProfile($id: ID!) {
+    userProfile(id: $id) {
+      id
+      name
+      email
+      phone
+    }
+  }
+`
