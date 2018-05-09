@@ -1,11 +1,11 @@
 import React from 'react'
 import Router from 'next/router'
 import _ from 'lodash'
-
+import NumberFormat from 'react-number-format'
 import ImageContainer from './ImageContainer'
 import TextContainer from './TextContainer'
 import humps from 'humps'
-
+import {ListingInfoMobile} from './styles'
 import Container from './styles'
 
 class Listing extends React.Component {
@@ -81,6 +81,18 @@ class Listing extends React.Component {
           currentUser={currentUser}
           mapOpenedOnMobile={mapOpenedOnMobile}
         />
+        <ListingInfoMobile mapOpenedOnMobile={mapOpenedOnMobile}>
+          <span className="address">{listing.address.street}</span>
+          <span>
+            <NumberFormat
+              value={listing.price}
+              displayType={'text'}
+              thousandSeparator={'.'}
+              prefix={'R$'}
+              decimalSeparator={','}
+            />
+          </span>
+        </ListingInfoMobile>
 
         {listing.matterport_code && (
           <span className="matterport">Tour Virtual</span>

@@ -62,7 +62,7 @@ export default class InfiniteScroll extends Component {
     } = this.props
     const query = to.query || {}
     return (
-      <Wrapper title={title}>
+      <Wrapper title={title} mapOpenedOnMobile={mapOpenedOnMobile}>
         {title && <Title>{title}</Title>}
         <Container mapOpenedOnMobile={mapOpenedOnMobile}>
           {entries.map(renderEntry)}
