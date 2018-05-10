@@ -77,19 +77,48 @@ class Listing extends React.Component {
         <ImageContainer
           currentUser={currentUser}
           listing={listing}
-          favorite={
-            favorited.filter(
-              (actual) => actual.id.toString() === listing.id.toString()
-            ).length > 0
-          }
           loading={loading}
+          favorite={favorite}
           mapOpenedOnMobile={mapOpenedOnMobile}
         />
         <TextContainer
+          loading={loading}
+          favorite={favorite}
           listing={listing}
           currentUser={currentUser}
           mapOpenedOnMobile={mapOpenedOnMobile}
         />
+        <div className="listing-info">
+          <ListingInfo mapOpenedOnMobile={mapOpenedOnMobile}>
+            <NumberFormat
+              value={listing.price}
+              displayType={'text'}
+              thousandSeparator={'.'}
+              decimalSeparator={','}
+            />
+          </ListingInfo>
+          <div className="link-container">
+            {canEdit(currentUser, listing) && (
+              <Link
+                href={`/listings/edit?id=${listing.id}`}
+                as={`/imoveis/${listing.id}/editar`}
+              >
+                <EmCasaButton className="cancel-listing-nav" secondary>
+                  Editar
+                </EmCasaButton>
+              </Link>
+            )}
+
+            <Link
+              href={`/listings/show?id=${listing.id}`}
+              as={`/imoveis/${listing.id}`}
+            >
+              <EmCasaButton className="cancel-listing-nav">
+                Ver Detalhes
+              </EmCasaButton>
+            </Link>
+          </div>
+        </div>
         <ListingInfoMobile mapOpenedOnMobile={mapOpenedOnMobile}>
           <span className="address">{listing.address.street}</span>
           <span>
