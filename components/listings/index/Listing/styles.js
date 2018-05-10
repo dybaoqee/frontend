@@ -15,14 +15,19 @@ export default styled.div`
 
   .listing-info {
     grid-column: span 3;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: auto 1fr;
     padding: 20px 20px 24px 0;
 
     .link-container {
       align-items: center;
       display: flex;
+      justify-content: flex-end;
+      width: 100%;
+
+      button {
+        padding: 8px;
+      }
 
       button:first-of-type {
         margin-right: 10px;
@@ -39,6 +44,10 @@ export default styled.div`
   :hover {
     background: #f5f5f5;
     cursor: pointer;
+
+    .listing-table:after {
+      background: #f5f5f5;
+    }
   }
 
   @media ${headerMobileMedia} {
@@ -50,7 +59,7 @@ export default styled.div`
     }
 
     .listing-info {
-      padding: 0px 20px 24px 0;
+      padding: 0px 10px 24px 0;
     }
   }
 
@@ -58,6 +67,10 @@ export default styled.div`
     display: flex;
     flex-direction: column;
     padding: 20px 10px 0;
+
+    .listing-info {
+      padding: 0px 0px 24px 0;
+    }
   }
 
   ${({mapOpenedOnMobile}) =>
@@ -119,9 +132,21 @@ export const ListingInfo = styled.div`
   margin: 0 10px 10px 0;
 
   span {
+    position: absolute;
+    top: 230px;
+    left: 10px;
     :before {
       content: 'R$';
       font-size: 14px;
+    }
+
+    @media ${headerMobileMedia} {
+      position: relative;
+      top: 0;
+    }
+
+    @media ${mobileMedia} {
+      left: 0;
     }
   }
 
