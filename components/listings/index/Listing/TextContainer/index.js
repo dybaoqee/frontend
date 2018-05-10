@@ -10,7 +10,7 @@ export default class TextContainer extends Component {
 
     if (!description) return
 
-    var re = description.match(/^.{0,300}[\S]*/)
+    var re = description.match(/^.{0,230}[S]*/)
     var l = re[0].length
     re = re[0].replace(/\s$/, '')
     if (l < description.length) {
