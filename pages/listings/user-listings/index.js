@@ -245,7 +245,7 @@ class ListingsFav extends Component {
                       />
                     ) : (
                       <InfiniteScroll
-                        title="Meus imóveis"
+                        title="Meus imóveis à venda"
                         currentPage={1}
                         totalPages={1}
                         entries={

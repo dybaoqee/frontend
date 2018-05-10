@@ -63,7 +63,7 @@ export default class InfiniteScroll extends Component {
     const query = to.query || {}
     return (
       <Wrapper title={title} mapOpenedOnMobile={mapOpenedOnMobile}>
-        {title && <Title>{title}</Title>}
+        {title && <Title mapOpenedOnMobile={mapOpenedOnMobile}>{title}</Title>}
         <Container mapOpenedOnMobile={mapOpenedOnMobile}>
           {entries.map(renderEntry)}
           {remaining_count > 0 && (

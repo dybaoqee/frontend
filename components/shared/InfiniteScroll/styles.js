@@ -43,13 +43,6 @@ export const Wrapper = styled.div`
   box-sizing: border-box;
   position: relative;
 
-  ${({title}) =>
-    title &&
-    `
-      > :nth-child(2) {
-      padding-top: 44px;
-    }`};
-
   @media ${mobileMedia} {
     height: calc(100vh - ${desktopHeaderAndFilterHeight}px);
   }
@@ -64,13 +57,21 @@ export const Wrapper = styled.div`
 `
 
 export const Title = styled.h1`
+  box-sizing: border-box;
   margin: 0;
-  font-weight: 600;
-  font-size: 16px;
-  position: fixed;
-  background: white;
+  font-weight: 400;
+  font-size: 24px;
   width: 100%;
   z-index: 1;
-  box-shadow: inset 0 -1px 0 0 ${colors.lightGray};
-  padding: 10px;
+  padding: 15px 10px 15px;
+  @media ${mobileMedia} {
+    font-size: 20px;
+  }
+  ${({mapOpenedOnMobile}) =>
+    mapOpenedOnMobile &&
+    `
+    @media ${mobileMedia} {
+      display: none;
+    }
+  `};
 `
