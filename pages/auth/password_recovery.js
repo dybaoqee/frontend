@@ -1,4 +1,5 @@
 import {Component, Fragment} from 'react'
+import Link from 'next/link'
 
 import Layout from 'components/shared/Shell'
 import Form from 'components/shared/Common/Form'
@@ -70,6 +71,11 @@ export default class PasswordRecovery extends Component {
                 {loading ? 'Aguarde...' : 'Enviar'}
               </EmCasaButton>
               <Errors errors={errors} />
+              <p>
+                <Link href="/auth/login" as="/login">
+                  <a>Voltar para login</a>
+                </Link>
+              </p>
             </Fragment>
           )}
         </Form>

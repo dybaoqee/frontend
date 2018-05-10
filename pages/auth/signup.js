@@ -1,4 +1,5 @@
 import {Component, Fragment} from 'react'
+import Link from 'next/link'
 
 import Layout from 'components/shared/Shell'
 import Form from 'components/shared/Common/Form'
@@ -51,6 +52,7 @@ export default class Signup extends Component {
 
   render() {
     const {errors, loading, data} = this.state
+    const {url} = this.props
 
     return (
       <Layout>
@@ -69,6 +71,20 @@ export default class Signup extends Component {
                 {loading ? 'Aguarde...' : 'Enviar'}
               </EmCasaButton>
               <Errors errors={errors} />
+              <p>
+                {'Já tem cadastro? '}
+                <Link
+                  href={{
+                    pathname: '/auth/login',
+                    query: url.query && url.query.r ? {r: url.query.r} : {}
+                  }}
+                  as={{
+                    pathname: '/login'
+                  }}
+                >
+                  <a>Faça login</a>
+                </Link>
+              </p>
             </Fragment>
           )}
         </Form>
