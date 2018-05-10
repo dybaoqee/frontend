@@ -160,16 +160,16 @@ export const ImageContainer = styled.div`
   box-sizing: border-box;
   background-position: center;
   background-size: cover;
-  border-radius: 8px;
-  float: left;
+  border-radius: 4px;
   height: 200px;
-  margin-left: 10px;
   position: relative;
-  width: 290px;
-  margin-top: 4px;
+  width: 100%;
+
+  > * {
+    display: none !important;
+  }
 
   @media ${mobileMedia} {
-    width: calc(100% - 20px);
     margin-top: 0;
   }
 
