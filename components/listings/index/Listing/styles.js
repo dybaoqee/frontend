@@ -55,7 +55,7 @@ export default styled.div`
         padding-right: 10px;
       }
 
-      span.matterport {
+      .listing-info{
         display: none;
       }
     }
