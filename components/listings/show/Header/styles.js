@@ -8,7 +8,7 @@ export default styled.header`
   width: 100%;
   background-color: ${colors.offWhite};
 
-  & div {
+  & > div {
     position: absolute;
   }
 
@@ -48,6 +48,12 @@ export default styled.header`
   & div.top-right {
     top: 20px;
     right: 20px;
+    display: flex;
+    align-items: center;
+
+    button {
+      margin-right: 20px;
+    }
   }
 
   & button {
