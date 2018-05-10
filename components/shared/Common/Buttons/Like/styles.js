@@ -20,7 +20,8 @@ export default styled.div`
       text-shadow: 2px 2px 3px #f00;
       fill: ${({favorite}) => (favorite ? colors.red.medium : 'white')};
       fill-opacity: ${({favorite}) => (favorite ? 1 : 0)};
-      stroke: ${({secondary}) => (secondary ? 'black' : 'white')};
+      stroke: ${({secondary, favorite}) =>
+        secondary ? (favorite ? colors.red.medium : 'black') : 'white'};
       stroke-width: 30;
     }
   }
