@@ -7,7 +7,7 @@ export default ({
   const price_per_square_meter = price && area ? Math.floor(price / area) : 0
 
   return (
-    <Container>
+    <Container className="listing-table">
       <Info>
         <span>Quartos</span>
         <span>{rooms}</span>
