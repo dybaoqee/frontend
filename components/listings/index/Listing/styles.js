@@ -110,36 +110,19 @@ export const LikeContainer = styled.div`
   @media ${mobileMedia} {
     justify-content: flex-start;
   }
-
-  ${({mapOpenedOnMobile}) =>
-    mapOpenedOnMobile &&
-    `
-    @media ${mobileMedia} {
-      justify-content: flex-end;
-    }
-  `};
 `
 
 export const ListingInfo = styled.div`
-  bottom: 10px;
-  color: white;
-  left: 10px;
-  position: absolute;
+  font-size: 22px;
+  font-weight: 400;
+  display: block;
+  margin: 0 10px 10px 0;
 
   span {
-    clear: both;
-    display: block;
-    font-size: 18px;
-  }
-
-  span.address {
-    font-size: 13px;
-    margin-bottom: 1px;
-    margin-top: 3px;
-  }
-
-  span.neighborhood {
-    font-size: 10px;
+    :before {
+      content: 'R$';
+      font-size: 14px;
+    }
   }
 
   ${({mapOpenedOnMobile}) =>
