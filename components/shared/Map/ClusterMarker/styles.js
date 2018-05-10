@@ -15,7 +15,7 @@ export default styled.div`
 
   > span {
     box-sizing: border-box;
-    padding: 2px 0 3px 0;
+    padding: 2px 0;
     height: 100%;
     width: 100%;
     display: flex;
