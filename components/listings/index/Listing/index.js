@@ -60,6 +60,11 @@ class Listing extends React.Component {
       lng: listing.address.lng
     })
 
+    const favorite =
+      favorited.filter(
+        (actual) => actual.id.toString() === listing.id.toString()
+      ).length > 0
+
     return (
       <Container
         id={id}
