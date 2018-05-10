@@ -8,28 +8,56 @@ export default styled.div`
   border-bottom: 1px solid ${colors.lightGray};
   cursor: pointer;
   overflow: hidden;
-  padding-bottom: 20px;
-  padding-top: 20px;
+  padding: 20px 0 0 10px;
   position: relative;
-  width: 100%;
+  display: grid;
+  grid-template-columns: 290px 1fr;
+
+  .listing-info {
+    grid-column: span 3;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 20px 20px 24px 0;
+
+    .link-container {
+      align-items: center;
+      display: flex;
+
+      button:first-of-type {
+        margin-right: 10px;
+      }
+    }
+
+    @media ${mobileMedia} {
+      padding-top: 0;
+      padding: 0px 10px 24px 0;
+      align-items: center;
+    }
+  }
 
   :hover {
     background: #f5f5f5;
     cursor: pointer;
   }
 
-  span.matterport {
-    background: rgba(240, 50, 50, 1);
-    color: white;
-    font-size: 9px;
-    font-stretch: condensed;
-    font-weight: bold;
-    padding: 4px 30px;
-    position: absolute;
-    right: -35px;
-    top: 24px;
-    text-transform: uppercase;
-    transform: rotate(45deg);
+  @media ${headerMobileMedia} {
+    grid-template-columns: 1fr;
+    grid-row-gap: 10px;
+    padding-right: 10px;
+    > :first-child {
+      grid-column: span 3;
+    }
+
+    .listing-info {
+      padding: 0px 20px 24px 0;
+    }
+  }
+
+  @media ${mobileMedia} {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 10px 0;
   }
 
   ${({mapOpenedOnMobile}) =>
