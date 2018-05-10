@@ -70,7 +70,8 @@ export const LikeContainer = styled.div`
   justify-content: flex-end;
   align-items: flex-start;
 
-  button {
+  > div {
+    width: 55px;
     border-radius: 8px;
     padding: 15px 17px;
     &:hover {
