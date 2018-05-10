@@ -2,11 +2,15 @@ import React from 'react'
 import Router from 'next/router'
 import _ from 'lodash'
 import NumberFormat from 'react-number-format'
+import {canEdit} from 'permissions/listings-permissions'
+import Link from 'next/link'
 import ImageContainer from './ImageContainer'
+import EmCasaButton from 'components/shared/Common/Buttons'
 import TextContainer from './TextContainer'
 import humps from 'humps'
 import {ListingInfoMobile} from './styles'
 import Container from './styles'
+import {ListingInfo} from './styles'
 
 class Listing extends React.Component {
   handleListingClick = (e) => {
