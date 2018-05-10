@@ -71,7 +71,6 @@ export default class Signup extends Component {
                 {loading ? 'Aguarde...' : 'Enviar'}
               </EmCasaButton>
               <Errors errors={errors} />
-
               <p>
                 {'Já tem cadastro? '}
                 <Link
