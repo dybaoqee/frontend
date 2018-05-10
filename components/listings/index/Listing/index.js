@@ -102,10 +102,6 @@ class Listing extends React.Component {
             />
           </span>
         </ListingInfoMobile>
-
-        {listing.matterport_code && (
-          <span className="matterport">Tour Virtual</span>
-        )}
       </Container>
     )
   }
