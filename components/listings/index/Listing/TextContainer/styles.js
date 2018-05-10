@@ -16,7 +16,6 @@ export default styled.div`
     margin: 14px 0 0;
     a {
       color: ${colors.blue.medium};
-      display: inline-block;
       text-decoration: none;
       font-weight: bold;
       &:hover {
@@ -35,7 +34,7 @@ export default styled.div`
     }
     span {
       text-transform: uppercase;
-      color: ${colors.mediumGray};
+      color: ${colors.mediumDarkGray};
       font-size: 11px;
       font-weight: bold;
       letter-spacing: 0.4px;
