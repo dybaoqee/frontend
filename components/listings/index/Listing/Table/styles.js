@@ -10,7 +10,7 @@ export default styled.div`
   position: relative;
 
   > * {
-    border-bottom: 1px solid ${colors.mediumGray};
+    border-bottom: 1px solid ${colors.lightestGray};
   }
 
   :after {
@@ -38,7 +38,7 @@ export const Info = styled.div`
 
   > span:first-of-type {
     text-transform: uppercase;
-    color: ${colors.mediumGray};
+    color: ${colors.mediumDarkGray};
     font-size: 11px;
     font-weight: bold;
     letter-spacing: 0.4px;
