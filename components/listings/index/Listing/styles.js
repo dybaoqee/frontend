@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {mobileMedia} from 'constants/media'
+import {mobileMedia, headerMobileMedia} from 'constants/media'
 import * as colors from 'constants/colors'
 
 export default styled.div`
