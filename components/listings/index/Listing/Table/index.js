@@ -1,5 +1,5 @@
 import NumberFormat from 'react-number-format'
-import Container from './styles'
+import Container, {Info} from './styles'
 
 export default ({
   listing: {price, area, rooms, garage_spots, bathrooms, floor}
@@ -8,36 +8,38 @@ export default ({
 
   return (
     <Container>
-      <table cellSpacing="0">
-        <tbody>
-          <tr>
-            <td>Quartos</td>
-            <td>{rooms}</td>
-            <td>Vagas Garagem</td>
-            <td>{garage_spots}</td>
-          </tr>
-          <tr>
-            <td>Banheiros</td>
-            <td>{bathrooms}</td>
-            <td>Andar</td>
-            <td>{floor}</td>
-          </tr>
-          <tr>
-            <td>Área</td>
-            <td>{area}</td>
-            <td>Preço/m²</td>
-            <td>
-              <NumberFormat
-                value={price_per_square_meter}
-                displayType={'text'}
-                thousandSeparator={'.'}
-                prefix={'R$'}
-                decimalSeparator={','}
-              />
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <Info>
+        <span>Quartos</span>
+        <span>{rooms}</span>
+      </Info>
+      <Info>
+        <span>N° Vagas</span>
+        <span>{garage_spots || 0}</span>
+      </Info>
+      <Info>
+        <span>Área</span>
+        <span>{area} m²</span>
+      </Info>
+      <Info>
+        <span>Banheiros</span>
+        <span>{bathrooms}</span>
+      </Info>
+      <Info>
+        <span>Andar</span>
+        <span>{floor}</span>
+      </Info>
+      <Info>
+        <span>Preço/m²</span>
+        <span>
+          <NumberFormat
+            value={price_per_square_meter}
+            displayType={'text'}
+            thousandSeparator={'.'}
+            prefix={'R$'}
+            decimalSeparator={','}
+          />
+        </span>
+      </Info>
     </Container>
   )
 }

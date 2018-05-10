@@ -1,31 +1,46 @@
 import styled from 'styled-components'
-import {mobileMedia} from 'constants/media'
+import * as colors from 'constants/colors'
 
 export default styled.div`
-  table {
-    border-bottom: 1px solid #eee;
-    font-size: 13px;
-    margin: 20px 0 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  box-sizing: border-box;
+  grid-column-gap: 24px;
+  margin-top: 15px;
+  position: relative;
+
+  > * {
+    border-bottom: 1px solid ${colors.mediumGray};
+  }
+
+  :after {
+    position: absolute;
+    content: '';
     width: 100%;
+    height: 2px;
+    background: white;
+    bottom: 0;
   }
+`
 
-  table tr td {
-    border-top: 1px solid #eee;
-    padding: 4px 10px;
-  }
+export const Info = styled.div`
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
 
-  table tr td:nth-of-type(2n) {
-    font-weight: bold;
+  span {
+    height: 19px;
+    font-size: 14px;
+    line-height: 19px;
     text-align: right;
   }
 
-  table tr td:nth-of-type(2n-1) {
-    color: #8c8c8c;
-  }
-
-  @media ${mobileMedia} {
-    table {
-      width: 100vw;
-    }
+  > span:first-of-type {
+    text-transform: uppercase;
+    color: ${colors.mediumGray};
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 0.4px;
   }
 `
