@@ -3,13 +3,14 @@ import NumberFormat from 'react-number-format'
 import ListingCard from './Card'
 import Container, {CardWrapper, ListingInfo} from './styles'
 import Statistics from 'components/listings/show/Statistics'
+import {getParagraphs} from 'utils/text-utils'
 
 export default class ListingMainContent extends React.Component {
   render() {
     const {listing, handleOpenPopup, user} = this.props
     const {street, neighborhood} = listing.address
     const showStatistics = user.admin || listing.user_id.toString() === user.id
-    const lineBreaks = listing.description.match(/^.*((\r\n|\n|\r)|$)/gm)
+    const paragraphs = getParagraphs(listing.description)
     return (
       <Container>
         <div className="description">
@@ -17,9 +18,9 @@ export default class ListingMainContent extends React.Component {
             {street}, {neighborhood}
           </h1>
           <h6>O imóvel</h6>
-          {lineBreaks.map((line, i) => (
+          {paragraphs.map((paragraph, i) => (
             <p key={i} className="description__text">
-              {line}
+              {paragraph}
             </p>
           ))}
 
