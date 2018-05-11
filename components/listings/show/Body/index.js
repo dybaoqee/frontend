@@ -18,11 +18,7 @@ export default class ListingMainContent extends React.Component {
             {street}, {neighborhood}
           </h1>
           <h6>O imóvel</h6>
-          {paragraphs.map((paragraph, i) => (
-            <p key={i} className="description__text">
-              {paragraph}
-            </p>
-          ))}
+          {paragraphs.map((paragraph, i) => <p key={i}>{paragraph}</p>)}
 
           <ListingInfo>
             <div>
