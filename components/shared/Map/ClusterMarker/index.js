@@ -5,6 +5,6 @@ export default ({points, onClick, highlight}) => (
     onClick={onClick && onClick.bind(null, points)}
     highlight={highlight}
   >
-    {points.length}
+    <span>{points.length}</span>
   </MarkerCounter>
 )
