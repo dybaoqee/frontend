@@ -3,6 +3,8 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faUser from '@fortawesome/fontawesome-free-solid/faUserCircle'
 import Container, {Icon} from './styles'
 import Link from 'next/link'
+import {headerMobileMedia} from 'constants/media'
+
 export default class UserMenu extends Component {
   state = {
     opened: false
@@ -12,7 +14,10 @@ export default class UserMenu extends Component {
     this.container = node
   }
 
+  isMobile = () => window.matchMedia(headerMobileMedia).matches
+
   componentDidMount() {
+    this.setState({opened: this.isMobile()})
     window.addEventListener('mousedown', this.handleClick)
   }
 
@@ -27,7 +32,7 @@ export default class UserMenu extends Component {
 
   handleClick = (e) => {
     if (!this.state.opened || this.container.contains(e.target)) return
-    this.setState({opened: false})
+    this.setState({opened: this.isMobile()})
     e.stopPropagation()
   }
 
@@ -35,8 +40,12 @@ export default class UserMenu extends Component {
     const {items} = this.props
     const {opened} = this.state
     return (
-      <Container innerRef={this.containerRef} opened={opened}>
-        <Icon onClick={this.handleMenu}>
+      <Container
+        innerRef={this.containerRef}
+        opened={opened}
+        onClick={this.handleMenu}
+      >
+        <Icon>
           <FontAwesomeIcon icon={faUser} />
         </Icon>
 
