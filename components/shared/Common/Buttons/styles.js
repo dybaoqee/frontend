@@ -7,7 +7,7 @@ export const BaseButton = styled.button`
   font-size: 14px;
   font-weight: 600;
   box-sizing: border-box;
-  box-shadow: 0px 4px 6px 0px rgba(38, 38, 38, 0.2);
+  box-shadow: 0px 2px 4px 0px rgba(38, 38, 38, 0.2);
   padding: 7px 12px 9px;
 `
 
