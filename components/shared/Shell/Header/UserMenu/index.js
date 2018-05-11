@@ -14,7 +14,10 @@ export default class UserMenu extends Component {
     this.container = node
   }
 
+  isMobile = () => window.matchMedia(headerMobileMedia).matches
+
   componentDidMount() {
+    this.setState({opened: this.isMobile()})
     window.addEventListener('mousedown', this.handleClick)
   }
 
