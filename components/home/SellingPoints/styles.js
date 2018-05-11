@@ -38,6 +38,8 @@ export default styled.div`
   [data-icon='file'] {
     path {
       color: ${colors.blue.medium};
+      stroke: ${colors.blue.darker};
+      stroke-width: 10;
     }
   }
   [data-icon='desktop'] {
