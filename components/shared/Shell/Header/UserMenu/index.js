@@ -3,6 +3,8 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faUser from '@fortawesome/fontawesome-free-solid/faUserCircle'
 import Container, {Icon} from './styles'
 import Link from 'next/link'
+import {headerMobileMedia} from 'constants/media'
+
 export default class UserMenu extends Component {
   state = {
     opened: false
