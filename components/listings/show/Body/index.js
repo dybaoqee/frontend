@@ -9,6 +9,7 @@ export default class ListingMainContent extends React.Component {
     const {listing, handleOpenPopup, user} = this.props
     const {street, neighborhood} = listing.address
     const showStatistics = user.admin || listing.user_id.toString() === user.id
+    const lineBreaks = listing.description.match(/^.*((\r\n|\n|\r)|$)/gm)
     return (
       <Container>
         <div className="description">
@@ -16,7 +17,12 @@ export default class ListingMainContent extends React.Component {
             {street}, {neighborhood}
           </h1>
           <h6>O imóvel</h6>
-          <p className="description__text">{listing.description}</p>
+          {lineBreaks.map((line, i) => (
+            <p key={i} className="description__text">
+              {line}
+            </p>
+          ))}
+
           <ListingInfo>
             <div>
               <h6>Tipo do imóvel</h6>
