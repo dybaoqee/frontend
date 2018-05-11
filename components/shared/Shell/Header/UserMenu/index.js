@@ -40,8 +40,12 @@ export default class UserMenu extends Component {
     const {items} = this.props
     const {opened} = this.state
     return (
-      <Container innerRef={this.containerRef} opened={opened}>
-        <Icon onClick={this.handleMenu}>
+      <Container
+        innerRef={this.containerRef}
+        opened={opened}
+        onClick={this.handleMenu}
+      >
+        <Icon>
           <FontAwesomeIcon icon={faUser} />
         </Icon>
 
