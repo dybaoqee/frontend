@@ -6,6 +6,7 @@ export default styled.div`
   margin-top: ${desktopFilterHeight}px;
   overflow: auto;
   .entries-container {
+    box-sizing: border-box;
     position: relative;
     width: 60%;
     float: right;
@@ -16,14 +17,14 @@ export default styled.div`
     pointer-events: none;
   }
   .map {
+    box-sizing: border-box;
     background: white;
-    border-radius: 8px;
+    border-radius: 4px;
     height: calc(100vh - 178px);
-    margin-left: 20px;
     overflow: hidden;
     position: fixed !important;
     width: calc(40% - 40px) !important;
-    margin-top: 24px;
+    margin: 20px 0 0 20px;
   }
 
   @media ${mobileMedia} {

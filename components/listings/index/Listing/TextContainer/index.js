@@ -1,8 +1,8 @@
 import {Component} from 'react'
 import Link from 'next/link'
-import {canEdit} from 'permissions/listings-permissions'
 import ListingTable from '../Table'
 import Container from './styles'
+import LikeButton from 'components/shared/Common/Buttons/Like'
 
 export default class TextContainer extends Component {
   truncateDescription = () => {
@@ -10,7 +10,7 @@ export default class TextContainer extends Component {
 
     if (!description) return
 
-    var re = description.match(/^.{0,160}[\S]*/)
+    var re = description.match(/^.{0,230}[S]*/)
     var l = re[0].length
     re = re[0].replace(/\s$/, '')
     if (l < description.length) {
@@ -21,11 +21,31 @@ export default class TextContainer extends Component {
   }
 
   render() {
-    const {listing, currentUser, mapOpenedOnMobile} = this.props
+    const {
+      listing,
+      mapOpenedOnMobile,
+      loading,
+      favorite,
+      currentUser
+    } = this.props
     const {id} = listing
 
     return (
       <Container mapOpenedOnMobile={mapOpenedOnMobile}>
+        <div className="header">
+          <div className="address">
+            <p>{listing.address.street}</p>
+            <span>{listing.address.neighborhood}</span>
+          </div>
+          {!loading && (
+            <LikeButton
+              favorite={favorite}
+              listing={listing}
+              user={currentUser}
+              secondary
+            />
+          )}
+        </div>
         <div className="description">
           {this.truncateDescription()}{' '}
           <Link href={`/listings/show?id=${id}`} as={`/imoveis/${id}`}>
@@ -34,18 +54,6 @@ export default class TextContainer extends Component {
         </div>
 
         <ListingTable listing={listing} mapOpenedOnMobile={mapOpenedOnMobile} />
-
-        <div className="link-container">
-          {canEdit(currentUser, listing) && (
-            <Link href={`/listings/edit?id=${id}`} as={`/imoveis/${id}/editar`}>
-              <a className="btn gray cancel-listing-nav">Editar</a>
-            </Link>
-          )}
-
-          <Link href={`/listings/show?id=${id}`} as={`/imoveis/${id}`}>
-            <a className="btn">Ver Detalhes</a>
-          </Link>
-        </div>
       </Container>
     )
   }

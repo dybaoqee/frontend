@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {mobileMedia} from 'constants/media'
+import {mobileMedia, headerMobileMedia} from 'constants/media'
 import * as colors from 'constants/colors'
 
 export default styled.div`
@@ -8,28 +8,69 @@ export default styled.div`
   border-bottom: 1px solid ${colors.lightGray};
   cursor: pointer;
   overflow: hidden;
-  padding-bottom: 20px;
-  padding-top: 20px;
+  padding: 20px 0 0 10px;
   position: relative;
-  width: 100%;
+  display: grid;
+  grid-template-columns: 290px 1fr;
+
+  .listing-info {
+    grid-column: span 3;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    padding: 20px 20px 24px 0;
+
+    .link-container {
+      align-items: center;
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
+
+      button {
+        padding: 8px;
+      }
+
+      button:first-of-type {
+        margin-right: 10px;
+      }
+    }
+
+    @media ${mobileMedia} {
+      padding-top: 0;
+      padding: 0px 10px 24px 0;
+      align-items: center;
+    }
+  }
 
   :hover {
     background: #f5f5f5;
     cursor: pointer;
+
+    .listing-table:after {
+      background: #f5f5f5;
+    }
   }
 
-  span.matterport {
-    background: rgba(240, 50, 50, 1);
-    color: white;
-    font-size: 9px;
-    font-stretch: condensed;
-    font-weight: bold;
-    padding: 4px 30px;
-    position: absolute;
-    right: -35px;
-    top: 24px;
-    text-transform: uppercase;
-    transform: rotate(45deg);
+  @media ${headerMobileMedia} {
+    grid-template-columns: 1fr;
+    grid-row-gap: 10px;
+    padding-right: 10px;
+    > :first-child {
+      grid-column: span 3;
+    }
+
+    .listing-info {
+      padding: 0px 10px 24px 0;
+    }
+  }
+
+  @media ${mobileMedia} {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 10px 0;
+
+    .listing-info {
+      padding: 0px 0px 24px 0;
+    }
   }
 
   ${({mapOpenedOnMobile}) =>
@@ -55,7 +96,7 @@ export default styled.div`
         padding-right: 10px;
       }
 
-      span.matterport {
+      .listing-info{
         display: none;
       }
     }
@@ -70,7 +111,8 @@ export const LikeContainer = styled.div`
   justify-content: flex-end;
   align-items: flex-start;
 
-  button {
+  > div {
+    width: 55px;
     border-radius: 8px;
     padding: 15px 17px;
     &:hover {
@@ -81,36 +123,31 @@ export const LikeContainer = styled.div`
   @media ${mobileMedia} {
     justify-content: flex-start;
   }
-
-  ${({mapOpenedOnMobile}) =>
-    mapOpenedOnMobile &&
-    `
-    @media ${mobileMedia} {
-      justify-content: flex-end;
-    }
-  `};
 `
 
 export const ListingInfo = styled.div`
-  bottom: 10px;
-  color: white;
-  left: 10px;
-  position: absolute;
+  font-size: 22px;
+  font-weight: 400;
+  display: block;
+  margin: 0 10px 10px 0;
 
   span {
-    clear: both;
-    display: block;
-    font-size: 18px;
-  }
+    position: absolute;
+    top: 230px;
+    left: 10px;
+    :before {
+      content: 'R$';
+      font-size: 14px;
+    }
 
-  span.address {
-    font-size: 13px;
-    margin-bottom: 1px;
-    margin-top: 3px;
-  }
+    @media ${headerMobileMedia} {
+      position: relative;
+      top: 0;
+    }
 
-  span.neighborhood {
-    font-size: 10px;
+    @media ${mobileMedia} {
+      left: 0;
+    }
   }
 
   ${({mapOpenedOnMobile}) =>
@@ -159,16 +196,16 @@ export const ImageContainer = styled.div`
   box-sizing: border-box;
   background-position: center;
   background-size: cover;
-  border-radius: 8px;
-  float: left;
+  border-radius: 4px;
   height: 200px;
-  margin-left: 10px;
   position: relative;
-  width: 290px;
-  margin-top: 4px;
+  width: 100%;
+
+  > * {
+    display: none !important;
+  }
 
   @media ${mobileMedia} {
-    width: calc(100% - 20px);
     margin-top: 0;
   }
 
@@ -179,6 +216,9 @@ export const ImageContainer = styled.div`
       width: 100%;
       height: 70%;
       margin: 0;
+      > * {
+        display: block !important;
+      }
     }
   `};
 `

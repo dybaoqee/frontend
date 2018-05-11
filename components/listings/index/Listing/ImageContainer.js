@@ -1,7 +1,6 @@
 import React from 'react'
-import {LikeContainer, ImageContainer as Image, ListingInfo} from './styles'
+import {LikeContainer, ImageContainer as Image} from './styles'
 import LikeButton from 'components/shared/Common/Buttons/Like'
-import NumberFormat from 'react-number-format'
 
 import {mainListingThumbnail} from 'utils/image_url'
 
@@ -29,21 +28,6 @@ class ImageContainer extends React.Component {
             />
           </LikeContainer>
         )}
-        <ListingInfo mapOpenedOnMobile={mapOpenedOnMobile}>
-          <span>
-            <NumberFormat
-              value={listing.price}
-              displayType={'text'}
-              thousandSeparator={'.'}
-              prefix={'R$'}
-              decimalSeparator={','}
-            />
-          </span>
-          <span className="address">{listing.address.street}</span>
-          <span className="neighborhood">
-            {listing.address.neighborhood}, {listing.address.city}
-          </span>
-        </ListingInfo>
       </Image>
     )
   }

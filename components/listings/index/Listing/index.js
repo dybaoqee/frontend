@@ -2,11 +2,15 @@ import React from 'react'
 import Router from 'next/router'
 import _ from 'lodash'
 import NumberFormat from 'react-number-format'
+import {canEdit} from 'permissions/listings-permissions'
+import Link from 'next/link'
 import ImageContainer from './ImageContainer'
+import EmCasaButton from 'components/shared/Common/Buttons'
 import TextContainer from './TextContainer'
 import humps from 'humps'
 import {ListingInfoMobile} from './styles'
 import Container from './styles'
+import {ListingInfo} from './styles'
 
 class Listing extends React.Component {
   handleListingClick = (e) => {
@@ -56,6 +60,11 @@ class Listing extends React.Component {
       lng: listing.address.lng
     })
 
+    const favorite =
+      favorited.filter(
+        (actual) => actual.id.toString() === listing.id.toString()
+      ).length > 0
+
     return (
       <Container
         id={id}
@@ -68,19 +77,48 @@ class Listing extends React.Component {
         <ImageContainer
           currentUser={currentUser}
           listing={listing}
-          favorite={
-            favorited.filter(
-              (actual) => actual.id.toString() === listing.id.toString()
-            ).length > 0
-          }
           loading={loading}
+          favorite={favorite}
           mapOpenedOnMobile={mapOpenedOnMobile}
         />
         <TextContainer
+          loading={loading}
+          favorite={favorite}
           listing={listing}
           currentUser={currentUser}
           mapOpenedOnMobile={mapOpenedOnMobile}
         />
+        <div className="listing-info">
+          <ListingInfo mapOpenedOnMobile={mapOpenedOnMobile}>
+            <NumberFormat
+              value={listing.price}
+              displayType={'text'}
+              thousandSeparator={'.'}
+              decimalSeparator={','}
+            />
+          </ListingInfo>
+          <div className="link-container">
+            {canEdit(currentUser, listing) && (
+              <Link
+                href={`/listings/edit?id=${listing.id}`}
+                as={`/imoveis/${listing.id}/editar`}
+              >
+                <EmCasaButton className="cancel-listing-nav" secondary>
+                  Editar
+                </EmCasaButton>
+              </Link>
+            )}
+
+            <Link
+              href={`/listings/show?id=${listing.id}`}
+              as={`/imoveis/${listing.id}`}
+            >
+              <EmCasaButton className="cancel-listing-nav">
+                Ver Detalhes
+              </EmCasaButton>
+            </Link>
+          </div>
+        </div>
         <ListingInfoMobile mapOpenedOnMobile={mapOpenedOnMobile}>
           <span className="address">{listing.address.street}</span>
           <span>
@@ -93,10 +131,6 @@ class Listing extends React.Component {
             />
           </span>
         </ListingInfoMobile>
-
-        {listing.matterport_code && (
-          <span className="matterport">Tour Virtual</span>
-        )}
       </Container>
     )
   }
