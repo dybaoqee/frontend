@@ -16,7 +16,10 @@ export default BaseButton.extend`
   width: ${({full}) => (full ? '100%' : '')};
 
   border: 1px solid
-    ${({secondary}) => (secondary ? colors.green.dark : colors.blue.darker)};
+    ${({secondary, light}) =>
+      secondary
+        ? colors.green.dark
+        : light ? colors.blue.medium : colors.blue.darker};
 
   &:hover {
     background-color: ${({light, secondary}) =>
