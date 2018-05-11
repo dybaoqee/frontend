@@ -2,7 +2,7 @@ import {Component} from 'react'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faDollarSign from '@fortawesome/fontawesome-free-solid/faDollarSign'
 import faDesktop from '@fortawesome/fontawesome-free-solid/faDesktop'
-import faFileAlt from '@fortawesome/fontawesome-free-solid/faFileAlt'
+import faFileAlt from '@fortawesome/fontawesome-pro-regular/faFileAlt'
 
 import Container from './styles'
 

@@ -33,8 +33,21 @@ export default styled.div`
     height: 70px;
     margin: 0 auto 30px;
     width: 70px !important;
+  }
+
+  [data-icon='file-alt'] {
     path {
-      fill: ${colors.mediumGray};
+      color: ${colors.blue.medium};
+    }
+  }
+  [data-icon='desktop'] {
+    path {
+      color: ${colors.orange.medium};
+    }
+  }
+  [data-icon='dollar-sign'] {
+    path {
+      color: ${colors.green.medium};
     }
   }
 
