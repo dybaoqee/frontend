@@ -17,7 +17,7 @@ export default styled.div`
     max-width: 100%;
 
     > p {
-      margin: 0;
+      margin: 0 0 20px;
       :last-of-type {
         padding-bottom: 36px;
         border-bottom: 1px solid ${colors.mediumGray};
