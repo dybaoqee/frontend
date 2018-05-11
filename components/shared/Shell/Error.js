@@ -31,7 +31,7 @@ export default styled.div`
   }
 
   > h2 {
-    font-weight: bold;
+    font-weight: 700;
     font-size: 90px;
     color: ${colors.mediumGray};
     position: absolute;

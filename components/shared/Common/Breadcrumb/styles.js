@@ -28,7 +28,7 @@ export default styled.ul`
   :visited {
     text-decoration: none;
     color: ${colors.blue.medium};
-    font-weight: bold;
+    font-weight: 700;
   }
 
   svg {

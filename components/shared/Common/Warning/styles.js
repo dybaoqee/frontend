@@ -19,7 +19,7 @@ export default styled.div`
   padding: 10px 120px;
 
   span {
-    font-weight: bold;
+    font-weight: 700;
   }
 
   @media ${mobileMedia} {

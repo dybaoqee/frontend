@@ -17,7 +17,7 @@ export default styled.div`
     a {
       color: ${colors.blue.medium};
       text-decoration: none;
-      font-weight: bold;
+      font-weight: 700;
       &:hover {
         text-decoration: underline;
       }
@@ -36,7 +36,7 @@ export default styled.div`
       text-transform: uppercase;
       color: ${colors.mediumDarkGray};
       font-size: 11px;
-      font-weight: bold;
+      font-weight: 700;
       letter-spacing: 0.4px;
       line-height: 15px;
     }

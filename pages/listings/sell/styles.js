@@ -18,7 +18,7 @@ export default styled.div`
     height: 17px;
     width: 100%;
     font-size: 12px;
-    font-weight: bold;
+    font-weight: 700;
     letter-spacing: 0.4px;
     line-height: 17px;
     text-align: center;

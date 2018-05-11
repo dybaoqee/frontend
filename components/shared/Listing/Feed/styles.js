@@ -28,7 +28,7 @@ export default styled.div`
           content: 'VEJA TAMBÉM:';
           position: absolute;
           font-size: 12px;
-          font-weight: bold;
+          font-weight: 700;
           text-transform: uppercase;
           top: -45px;
         }

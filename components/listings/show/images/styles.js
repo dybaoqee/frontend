@@ -38,7 +38,7 @@ export default styled.div`
       color: ${colors.blue.medium};
       content: 'FOTO DE CAPA';
       font-size: 12px;
-      font-weight: bold;
+      font-weight: 700;
       line-height: 17px;
       text-align: center;
       top: 0;
