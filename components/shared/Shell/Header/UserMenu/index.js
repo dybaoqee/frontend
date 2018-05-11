@@ -32,7 +32,7 @@ export default class UserMenu extends Component {
 
   handleClick = (e) => {
     if (!this.state.opened || this.container.contains(e.target)) return
-    this.setState({opened: false})
+    this.setState({opened: this.isMobile()})
     e.stopPropagation()
   }
 
