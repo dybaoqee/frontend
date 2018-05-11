@@ -41,7 +41,7 @@ export const Title = styled.div`
 
   p {
     font-size: 12px;
-    font-weight: bold;
+    font-weight: 700;
     line-height: 17px;
     text-transform: uppercase;
     margin-bottom: 3px;

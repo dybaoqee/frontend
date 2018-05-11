@@ -40,7 +40,7 @@ export const Info = styled.div`
     text-transform: uppercase;
     color: ${colors.mediumDarkGray};
     font-size: 11px;
-    font-weight: bold;
+    font-weight: 700;
     letter-spacing: 0.4px;
   }
 `

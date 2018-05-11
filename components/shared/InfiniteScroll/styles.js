@@ -24,7 +24,7 @@ export default styled.div`
 
 export const Footer = styled.footer`
   width: 100%;
-  font-weight: bold;
+  font-weight: 700;
   text-transform: uppercase;
   text-align: center;
   font-size: 0.7em;
