@@ -24,10 +24,8 @@ a.GTAG {
 button,
 .btn {
   background-color: ${colors.blue.medium};
-  border: 1px solid ${colors.blue.dark};
+  border: 1px solid ${colors.blue.darker};
   border-radius: 4px;
-  box-shadow: inset 0 2px 2px 0 rgba(255, 255, 255, 0.2),
-    0 4px 6px 0 rgba(38, 38, 38, 0.2);
   color: white;
   cursor: pointer;
   font-size: 16px;
