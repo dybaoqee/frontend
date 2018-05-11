@@ -35,14 +35,14 @@ export default styled.div`
     width: 70px !important;
   }
 
-  [data-icon='file-alt'] {
+  [data-icon='file'] {
     path {
-      color: ${colors.red.medium};
+      color: ${colors.blue.medium};
     }
   }
   [data-icon='desktop'] {
     path {
-      color: ${colors.blue.medium};
+      color: ${colors.orange.medium};
     }
   }
   [data-icon='dollar-sign'] {
