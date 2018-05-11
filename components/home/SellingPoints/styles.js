@@ -35,11 +35,9 @@ export default styled.div`
     width: 70px !important;
   }
 
-  [data-icon='file'] {
+  [data-icon='file-alt'] {
     path {
       color: ${colors.blue.medium};
-      stroke: ${colors.blue.darker};
-      stroke-width: 10;
     }
   }
   [data-icon='desktop'] {

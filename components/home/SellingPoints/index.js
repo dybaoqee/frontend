@@ -2,7 +2,7 @@ import {Component} from 'react'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faDollarSign from '@fortawesome/fontawesome-free-solid/faDollarSign'
 import faDesktop from '@fortawesome/fontawesome-free-solid/faDesktop'
-import faFile from '@fortawesome/fontawesome-free-solid/faFile'
+import faFileAlt from '@fortawesome/fontawesome-pro-regular/faFileAlt'
 
 import Container from './styles'
 
@@ -33,7 +33,7 @@ export default class HomeSellingPoints extends Component {
           </div>
 
           <div>
-            <FontAwesomeIcon icon={faFile} />
+            <FontAwesomeIcon icon={faFileAlt} />
             <p>
               Sabemos que comprar e vender um imóvel pode ser complicado, com
               contratos, propostas e tudo mais. Nós apoiamos compradores e
