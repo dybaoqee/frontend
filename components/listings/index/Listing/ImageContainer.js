@@ -15,7 +15,7 @@ class ImageContainer extends React.Component {
     } = this.props
     const bgImgUrl = mainListingThumbnail(listing.images || [])
     const divStyle = {
-      backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.0) 50%, rgba(0, 0, 0, 0.7) 80%), url(${bgImgUrl})`
+      backgroundImage: `url(${bgImgUrl})`
     }
     return (
       <Image style={divStyle} mapOpenedOnMobile={mapOpenedOnMobile}>
