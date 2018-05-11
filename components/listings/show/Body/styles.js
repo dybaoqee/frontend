@@ -16,7 +16,7 @@ export default styled.div`
     margin: 0 20px 40px;
     max-width: 100%;
 
-    .description__text {
+    > p {
       margin: 0;
       :last-of-type {
         padding-bottom: 36px;
