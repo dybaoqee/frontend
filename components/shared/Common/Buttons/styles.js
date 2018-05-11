@@ -2,11 +2,13 @@ import styled from 'styled-components'
 import * as colors from 'constants/colors'
 
 export const BaseButton = styled.button`
-  font-weight: 600;
   font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
     Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
   box-sizing: border-box;
   box-shadow: 0px 4px 6px 0px rgba(38, 38, 38, 0.2);
+  padding: 7px 12px 9px;
 `
 
 export default BaseButton.extend`

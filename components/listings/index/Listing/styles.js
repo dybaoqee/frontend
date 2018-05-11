@@ -26,7 +26,7 @@ export default styled.div`
       width: 100%;
 
       button {
-        padding: 8px;
+        padding: 7px 12px 9px;
       }
 
       button:first-of-type {
