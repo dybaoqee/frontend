@@ -17,8 +17,11 @@ export default styled.div`
     max-width: 100%;
 
     .description__text {
-      padding-bottom: 36px;
-      border-bottom: 1px solid ${colors.mediumGray};
+      margin: 0;
+      :last-of-type {
+        padding-bottom: 36px;
+        border-bottom: 1px solid ${colors.mediumGray};
+      }
     }
 
     h6 {
