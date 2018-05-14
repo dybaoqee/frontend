@@ -1,7 +1,7 @@
 import {Component} from 'react'
 import Head from 'next/head'
 
-import {isAuthenticated} from 'lib/auth'
+import {isAuthenticated, isAdmin} from 'lib/auth'
 import Layout from 'components/shared/Shell'
 import TextContainer from 'components/shared/TextContainer'
 import Terms from './styles'
@@ -9,14 +9,19 @@ import Terms from './styles'
 export default class Indique extends Component {
   static async getInitialProps(context) {
     return {
-      authenticated: isAuthenticated(context)
+      authenticated: isAuthenticated(context),
+      isAdmin: isAdmin(context)
     }
   }
 
   render() {
-    const {authenticated} = this.props
+    const {authenticated, isAdmin} = this.props
     return (
-      <Layout authenticated={authenticated} renderFooter={true}>
+      <Layout
+        authenticated={authenticated}
+        isAdmin={isAdmin}
+        renderFooter={true}
+      >
         <Head>
           <title>Indique e Ganhe | EmCasa</title>
           <meta

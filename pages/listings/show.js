@@ -288,10 +288,10 @@ class Listing extends Component {
 
   render() {
     const {currentUser, statusCode} = this.props
-    const {authenticated} = currentUser
+    const {authenticated, admin} = currentUser
 
     return (
-      <Layout authenticated={authenticated} renderFooter={true}>
+      <Layout authenticated={authenticated} isAdmin={admin} renderFooter={true}>
         {statusCode ? (
           <Error>
             <h1>Imóvel não encontrado</h1>

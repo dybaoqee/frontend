@@ -8,7 +8,7 @@ import faPaste from '@fortawesome/fontawesome-pro-light/faPaste'
 import faGavel from '@fortawesome/fontawesome-pro-light/faGavel'
 import Link from 'next/link'
 import Head from 'next/head'
-import {isAuthenticated} from 'lib/auth'
+import {isAuthenticated, isAdmin} from 'lib/auth'
 import {imageUrl} from 'utils/image_url'
 import EmCasaButton from 'components/shared/Common/Buttons'
 import Layout from 'components/shared/Shell'
@@ -18,7 +18,8 @@ import Container, {Header, BenefitsContainer, Benefit} from './styles'
 export default class SellKnowMore extends Component {
   static async getInitialProps(context) {
     return {
-      authenticated: isAuthenticated(context)
+      authenticated: isAuthenticated(context),
+      isAdmin: isAdmin(context)
     }
   }
 

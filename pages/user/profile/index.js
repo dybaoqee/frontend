@@ -8,6 +8,7 @@ import Tabs from 'components/shared/Common/Tabs'
 import {isEmailValid} from 'lib/validation'
 import {
   isAuthenticated,
+  isAdmin,
   getCurrentUserId,
   redirectIfNotAuthenticated
 } from 'lib/auth'
@@ -27,7 +28,8 @@ class UserProfile extends Component {
 
     const currentUser = {
       id: getCurrentUserId(context),
-      authenticated: isAuthenticated(context)
+      authenticated: isAuthenticated(context),
+      isAdmin: isAdmin(context)
     }
     try {
       return {
@@ -198,9 +200,13 @@ class UserProfile extends Component {
   }
 
   render() {
-    const {currentUser: {authenticated}} = this.props
+    const {currentUser: {authenticated, isAdmin}} = this.props
     return (
-      <Layout authenticated={authenticated} renderFooter={false}>
+      <Layout
+        authenticated={authenticated}
+        isAdmin={isAdmin}
+        renderFooter={false}
+      >
         <Tabs
           tabs={[
             {title: 'Perfil', component: this.getProfileForm},
