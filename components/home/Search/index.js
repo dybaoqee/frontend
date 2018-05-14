@@ -1,9 +1,11 @@
 import {Component} from 'react'
+import Link from 'next/link'
 import EmCasaButton from 'components/shared/Common/Buttons'
 import Popup from 'components/shared/Popup'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faSearch from '@fortawesome/fontawesome-pro-light/faSearch'
 import faCheck from '@fortawesome/fontawesome-free-solid/faCheck'
+import faArrow from '@fortawesome/fontawesome-pro-light/faArrowRight'
 import Router from 'next/router'
 import _ from 'lodash'
 import {pickerMobileMedia} from 'constants/media'
@@ -16,7 +18,8 @@ import Container, {
   Neighborhood,
   NeighborhoodsOptions,
   Magnifier,
-  Title
+  Title,
+  MapButton
 } from './styles'
 
 export default class HomeSearch extends Component {
@@ -127,6 +130,12 @@ export default class HomeSearch extends Component {
             <span>Buscar</span>
           </Magnifier>
         </Search>
+        <Link href="/listings" as="/imoveis">
+          <MapButton>
+            <span>Ver imóveis no mapa</span>
+            <FontAwesomeIcon icon={faArrow} />
+          </MapButton>
+        </Link>
       </Container>
     )
   }
