@@ -11,5 +11,9 @@ export const TabContainer = styled.div`
 
 export const ChartContainer = styled.div`
   width: 100%;
-  height: 600px;
+  height: 400px;
+
+  h3 {
+    margin-top: 0;
+  }
 `
