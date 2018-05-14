@@ -15,7 +15,7 @@ export default class Header extends Component {
     this.setState({isMobileNavVisible: newState})
   }
 
-  getUserHeader = (authenticated, admin) => {
+  getUserHeader = (authenticated) => {
     const {user} = this.props
     const userMenu = [
       {
@@ -35,13 +35,6 @@ export default class Header extends Component {
       },
       {title: 'Sair', href: '/auth/logout'}
     ]
-
-    if (admin)
-      userMenu.unshift({
-        title: 'Dashboard',
-        href: '/dashboard',
-        as: '/dashboard'
-      })
     return !authenticated ? (
       <UserHeader authenticated={authenticated}>
         <Link href="/auth/login" as="/login">
@@ -84,6 +77,12 @@ export default class Header extends Component {
           <Link href="http://blog.emcasa.com">
             <a>Blog</a>
           </Link>
+
+          {isAdmin && (
+            <Link href="/dashboard" as="/dashboard" prefetch>
+              <a>Dashboard</a>
+            </Link>
+          )}
 
           {this.getUserHeader(authenticated, isAdmin)}
         </Nav>
