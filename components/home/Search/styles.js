@@ -38,14 +38,15 @@ export default styled.div`
 export const Search = styled.div`
   background: white;
   border: 1px solid ${colors.lightestGray};
-  border-radius: 10px;
+  border-radius: 6px;
   display: flex;
+  position: relative;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2), 0 10px 30px 0 rgba(0, 0, 0, 0.7);
 
   margin: 60px auto 0;
   width: 600px;
   > * {
     align-items: center;
-    height: 44px;
   }
 
   @media ${mobileMedia} {
