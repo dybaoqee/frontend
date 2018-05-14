@@ -33,7 +33,7 @@ export default styled.div`
     width: 100vw;
     > h1 {
       font-weight: 400;
-      margin-top: 20px;
+      margin: 20px 0;
       max-width: calc(100vw - 60px);
     }
   }
@@ -228,6 +228,9 @@ export const Magnifier = styled.div`
   span {
     margin-left: 10px;
     font-weight: 600;
+    @media ${mobileMedia} {
+      margin-left: 5px;
+    }
   }
   svg {
     height: 18px;
@@ -239,7 +242,6 @@ export const Magnifier = styled.div`
 
   @media ${mobileMedia} {
     height: 50px;
-
     width: 100px;
   }
 `
@@ -258,6 +260,7 @@ export const MapButton = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-bottom: 2px;
 
   svg {
     margin-left: 10px;
