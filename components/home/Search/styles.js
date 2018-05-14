@@ -10,11 +10,15 @@ export default styled.div`
   background-size: cover;
   height: 400px;
   padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
   > h1 {
     color: white;
+    margin: 0 0 46px 0;
     font-weight: 300;
-    margin-top: 80px;
     text-align: center;
     text-shadow: 0px 1px rgba(0, 0, 0, 0.4), 0px -1px rgba(0, 0, 0, 0.2);
   }
@@ -41,9 +45,10 @@ export const Search = styled.div`
   border-radius: 6px;
   display: flex;
   position: relative;
+
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2), 0 10px 30px 0 rgba(0, 0, 0, 0.7);
 
-  margin: 60px auto 0;
+  margin: 0 auto 46px auto;
   width: 600px;
   > * {
     align-items: center;
@@ -227,5 +232,27 @@ export const Magnifier = styled.div`
   }
   svg path {
     fill: white;
+  }
+`
+
+export const MapButton = styled.div`
+  cursor: pointer;
+  user-select: none;
+  margin: 0 auto;
+  width: 240px;
+  height: 36px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.4);
+  font-weight: 600;
+  border-radius: 6px;
+  border: 1px solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  svg {
+    margin-left: 10px;
+    width: 15px !important;
+    height: 15px;
   }
 `
