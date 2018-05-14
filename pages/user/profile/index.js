@@ -201,7 +201,6 @@ class UserProfile extends Component {
 
   render() {
     const {currentUser: {authenticated, isAdmin}} = this.props
-    console.log(isAdmin)
     return (
       <Layout
         authenticated={authenticated}
