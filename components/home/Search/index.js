@@ -78,7 +78,7 @@ export default class HomeSearch extends Component {
         <Search>
           <Neighborhoods onClick={this.handlePopup}>
             {neighborhoods.length === 0
-              ? 'Bairros'
+              ? 'Selecione os bairros'
               : neighborhoods.length > 1
                 ? `${neighborhoods[0]} e mais ${neighborhoods.length - 1}`
                 : neighborhoods[0]}
