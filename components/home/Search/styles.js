@@ -197,20 +197,31 @@ export const Title = styled.div`
 
 export const Magnifier = styled.div`
   align-items: center;
+  box-sizing: border-box;
   background: ${colors.blue.medium};
-  border-bottom-right-radius: 9px;
-  border-top-right-radius: 9px;
+  border-bottom-right-radius: 6px;
+  border-top-right-radius: 6px;
   cursor: pointer;
   display: flex;
-  height: 44px;
+  height: 60px;
+  color: white;
   justify-content: center;
-  width: 60px;
+  width: 128px;
+  border: 1px solid ${colors.blue.darker};
+  position: absolute;
+  top: -1px;
+  right: -1px;
   &:hover {
     background: ${colors.blue.dark};
   }
+
+  span {
+    margin-left: 10px;
+    font-weight: 600;
+  }
   svg {
-    height: 20px;
-    width: 40px;
+    height: 18px;
+    width: 18px !important;
   }
   svg path {
     fill: white;
