@@ -17,6 +17,24 @@ export default class Header extends Component {
 
   getUserHeader = (authenticated) => {
     const {user} = this.props
+    const userMenu = [
+      {
+        title: 'Meu perfil',
+        href: '/user/profile',
+        as: '/meu-perfil'
+      },
+      {
+        title: 'Meus imóveis',
+        href: '/listings/user-listings',
+        as: '/meus-imoveis'
+      },
+      {
+        title: 'Imóveis favoritos',
+        href: '/listings/fav',
+        as: '/imoveis/favoritos'
+      },
+      {title: 'Sair', href: '/auth/logout'}
+    ]
     return !authenticated ? (
       <UserHeader authenticated={authenticated}>
         <Link href="/auth/login" as="/login">
@@ -28,32 +46,12 @@ export default class Header extends Component {
         </Link>
       </UserHeader>
     ) : (
-      <UserMenu
-        user={user}
-        items={[
-          {
-            title: 'Meu perfil',
-            href: '/user/profile',
-            as: '/meu-perfil'
-          },
-          {
-            title: 'Meus imóveis',
-            href: '/listings/user-listings',
-            as: '/meus-imoveis'
-          },
-          {
-            title: 'Imóveis favoritos',
-            href: '/listings/fav',
-            as: '/imoveis/favoritos'
-          },
-          {title: 'Sair', href: '/auth/logout'}
-        ]}
-      />
+      <UserMenu user={user} items={userMenu} />
     )
   }
 
   renderNav() {
-    const {authenticated} = this.props
+    const {authenticated, isAdmin} = this.props
     const {isMobileNavVisible} = this.state
     return (
       <Fragment>
@@ -80,7 +78,13 @@ export default class Header extends Component {
             <a>Blog</a>
           </Link>
 
-          {this.getUserHeader(authenticated)}
+          {isAdmin && (
+            <Link href="/dashboard" as="/dashboard" prefetch>
+              <a>Dashboard</a>
+            </Link>
+          )}
+
+          {this.getUserHeader(authenticated, isAdmin)}
         </Nav>
       </Fragment>
     )

@@ -40,7 +40,7 @@ export default class Tabs extends Component {
 
   render() {
     return (
-      <Container>
+      <Container {...this.props}>
         {this.getTabTitles()}
         {this.getCurrentTab()}
       </Container>
