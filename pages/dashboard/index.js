@@ -95,7 +95,7 @@ export default class Dashboard extends Component {
 
     return (
       <ChartContainer>
-        <h3>Informações disponívels nos imóveis</h3>
+        <h3>Informações disponíveis nos imóveis</h3>
         <ResponsiveContainer>
           <BarChart data={data}>
             <CartesianGrid strokeDasharray="3 3" />
