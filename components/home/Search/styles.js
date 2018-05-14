@@ -215,22 +215,3 @@ export const Magnifier = styled.div`
     fill: white;
   }
 `
-
-export const MobileMagnifier = styled.div`
-  display: none;
-
-  @media ${mobileMedia} {
-    align-items: center;
-    background: ${colors.blue.medium};
-    border-radius: 8px;
-    margin-top: 10px;
-    width: 100%;
-    color: white;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    &:hover {
-      background: ${colors.blue.dark};
-    }
-  }
-`
