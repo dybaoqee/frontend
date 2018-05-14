@@ -55,7 +55,7 @@ describe('Header', () => {
 
   it('should render authenticated', () => {
     const header = shallow(<Header authenticated={true} isAdmin={true} />)
-    expect(header.find(Link)).toHaveLength(5)
+    expect(header.find(Link)).toHaveLength(6)
 
     expect(header.find(UserMenu).exists()).toEqual(true)
 
@@ -81,6 +81,13 @@ describe('Header', () => {
         .find('a')
         .text()
     ).toEqual('Blog')
+
+    expect(
+      header
+        .find('[href="/dashboard"]')
+        .find('a')
+        .text()
+    ).toEqual('Dashboard')
 
     expect(
       header
