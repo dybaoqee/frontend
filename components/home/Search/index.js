@@ -1,9 +1,11 @@
 import {Component} from 'react'
+import Link from 'next/link'
 import EmCasaButton from 'components/shared/Common/Buttons'
 import Popup from 'components/shared/Popup'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
-import faSearch from '@fortawesome/fontawesome-free-solid/faSearch'
+import faSearch from '@fortawesome/fontawesome-pro-light/faSearch'
 import faCheck from '@fortawesome/fontawesome-free-solid/faCheck'
+import faArrow from '@fortawesome/fontawesome-pro-light/faArrowRight'
 import Router from 'next/router'
 import _ from 'lodash'
 import {pickerMobileMedia} from 'constants/media'
@@ -16,7 +18,8 @@ import Container, {
   Neighborhood,
   NeighborhoodsOptions,
   Magnifier,
-  Title
+  Title,
+  MapButton
 } from './styles'
 
 export default class HomeSearch extends Component {
@@ -78,7 +81,7 @@ export default class HomeSearch extends Component {
         <Search>
           <Neighborhoods onClick={this.handlePopup}>
             {neighborhoods.length === 0
-              ? 'Bairros'
+              ? 'Selecione os bairros'
               : neighborhoods.length > 1
                 ? `${neighborhoods[0]} e mais ${neighborhoods.length - 1}`
                 : neighborhoods[0]}
@@ -124,8 +127,15 @@ export default class HomeSearch extends Component {
           )}
           <Magnifier onClick={this.searchListings}>
             <FontAwesomeIcon icon={faSearch} />
+            <span>Buscar</span>
           </Magnifier>
         </Search>
+        <Link href="/listings" as="/imoveis">
+          <MapButton>
+            <span>Ver imóveis no mapa</span>
+            <FontAwesomeIcon icon={faArrow} />
+          </MapButton>
+        </Link>
       </Container>
     )
   }
