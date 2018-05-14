@@ -62,10 +62,12 @@ export const Neighborhoods = styled.div`
   user-select: none;
   color: ${colors.mediumDarkGray};
   display: flex;
-  padding: 10px;
+  padding: 10px 10px 10px 20px;
+  height: 58px;
+  font-size: 18px;
 
   @media ${mobileMedia} {
-    border-radius: 8px;
+    border-radius: 6px;
     width: 100%;
   }
 `
