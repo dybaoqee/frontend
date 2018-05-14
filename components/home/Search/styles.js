@@ -72,8 +72,11 @@ export const Neighborhoods = styled.div`
   font-size: 18px;
 
   @media ${mobileMedia} {
+    height: 48px;
+    padding: 0 0 0 10px;
     border-radius: 6px;
     width: 100%;
+    font-size: 15px;
   }
 `
 
@@ -232,6 +235,12 @@ export const Magnifier = styled.div`
   }
   svg path {
     fill: white;
+  }
+
+  @media ${mobileMedia} {
+    height: 50px;
+
+    width: 100px;
   }
 `
 
