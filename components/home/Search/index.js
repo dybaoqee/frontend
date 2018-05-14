@@ -124,6 +124,7 @@ export default class HomeSearch extends Component {
           )}
           <Magnifier onClick={this.searchListings}>
             <FontAwesomeIcon icon={faSearch} />
+            <span>Buscar</span>
           </Magnifier>
         </Search>
       </Container>
