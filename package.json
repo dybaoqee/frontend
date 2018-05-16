@@ -12,12 +12,15 @@
     "dev": "node server.js -p $PORT",
     "build": "next build",
     "start": "node server.js -p $PORT",
-    "test": "jest && TEST=cypress start-server-and-test dev http://localhost:3000/login cy:run",
+    "test":
+      "jest && TEST=cypress start-server-and-test dev http://localhost:3000/login cy:run",
     "heroku-postbuild": "npm run build",
     "cy:open": "cypress open",
     "cy:run": "cypress run"
   },
   "dependencies": {
+    "babel-core": "7.0.0-bridge.0",
+    "babel-jest": "22.4.3",
     "@fortawesome/fontawesome": "^1.1.5",
     "@fortawesome/fontawesome-free-brands": "^5.0.4",
     "@fortawesome/fontawesome-free-solid": "^5.0.4",
