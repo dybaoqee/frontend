@@ -2,6 +2,8 @@ import {Component, Fragment} from 'react'
 import Link from 'next/link'
 import EmCasaButton from 'components/shared/Common/Buttons/Rounded'
 import UserMenu from './UserMenu'
+import {Subscription} from 'react-apollo'
+import {MESSAGE_SENT} from 'graphql/messenger/subscriptions'
 
 import Container, {Button, Nav, UserHeader} from './styles'
 
@@ -101,6 +103,11 @@ export default class Header extends Component {
             />
           </a>
         </Link>
+        <Subscription subscription={MESSAGE_SENT}>
+          {({data, loading}) => (
+            <h4>Nova mensagem: {!loading && JSON.stringify(data)}</h4>
+          )}
+        </Subscription>
         {this.renderNav()}
       </Container>
     )
