@@ -1,7 +1,5 @@
-import {Component} from 'react'
+import {Component, Fragment} from 'react'
 import Link from 'next/link'
-
-import Layout from 'components/shared/Shell'
 import Form from 'components/auth/Form'
 import {redirectIfNotAuthenticated, getJwt, isAuthenticated} from 'lib/auth'
 import {getCookie, removeCookie} from 'lib/session'
@@ -42,7 +40,7 @@ export default class Search extends Component {
     const {results} = this.state
 
     return (
-      <Layout>
+      <Fragment>
         <div>
           <Form handleSubmit={this.handleSubmit}>
             <h1>Busca</h1>
@@ -67,7 +65,7 @@ export default class Search extends Component {
               })}
           </div>
         </div>
-      </Layout>
+      </Fragment>
     )
   }
 }

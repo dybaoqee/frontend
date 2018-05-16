@@ -1,4 +1,4 @@
-import {Component} from 'react'
+import {Component, Fragment} from 'react'
 import withData from '/lib/apollo/withData'
 import {Query} from 'react-apollo'
 import {GET_USER_INFO} from 'graphql/user/queries'
@@ -6,13 +6,7 @@ import {Mutation} from 'react-apollo'
 import {EDIT_PROFILE, EDIT_EMAIL, EDIT_PASSWORD} from 'graphql/user/mutations'
 import Tabs from 'components/shared/Common/Tabs'
 import {isEmailValid} from 'lib/validation'
-import {
-  isAuthenticated,
-  isAdmin,
-  getCurrentUserId,
-  redirectIfNotAuthenticated
-} from 'lib/auth'
-import Layout from 'components/shared/Shell'
+import {getCurrentUserId, redirectIfNotAuthenticated} from 'lib/auth'
 import EmCasaButton from 'components/shared/Common/Buttons'
 import Form, {Field} from 'components/shared/Common/Form/styles'
 
@@ -27,13 +21,12 @@ class UserProfile extends Component {
     }
 
     const currentUser = {
-      id: getCurrentUserId(context),
-      authenticated: isAuthenticated(context),
-      isAdmin: isAdmin(context)
+      id: getCurrentUserId(context)
     }
     try {
       return {
-        currentUser
+        currentUser,
+        renderFooter: false
       }
     } catch (e) {
       return {
@@ -200,20 +193,15 @@ class UserProfile extends Component {
   }
 
   render() {
-    const {currentUser: {authenticated, isAdmin}} = this.props
     return (
-      <Layout
-        authenticated={authenticated}
-        isAdmin={isAdmin}
-        renderFooter={false}
-      >
+      <Fragment>
         <Tabs
           tabs={[
             {title: 'Perfil', component: this.getProfileForm},
             {title: 'Senha', component: this.getPasswordForm}
           ]}
         />
-      </Layout>
+      </Fragment>
     )
   }
 }

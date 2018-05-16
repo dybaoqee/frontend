@@ -17,7 +17,6 @@ import {
   redirectIfNotAuthenticated
 } from 'lib/auth'
 import {getNeighborhoods} from 'services/neighborhood-api'
-import Layout from 'components/shared/Shell'
 import InfiniteScroll from 'components/shared/InfiniteScroll'
 import MapContainer from 'components/listings/index/Map'
 import Listing from 'components/listings/index/Listing'
@@ -61,7 +60,8 @@ class ListingsFav extends Component {
         id: getCurrentUserId(context),
         admin: isAdmin(context),
         authenticated: isAuthenticated(context)
-      }
+      },
+      renderFooter: false
     }
   }
 
@@ -181,10 +181,7 @@ class ListingsFav extends Component {
     const seoImgSrc = this.seoImage
 
     return (
-      <Layout
-        authenticated={currentUser.authenticated}
-        isAdmin={currentUser.admin}
-      >
+      <Fragment>
         <Query
           query={GET_USER_LISTINGS}
           skip={!currentUser.authenticated}
@@ -276,7 +273,7 @@ class ListingsFav extends Component {
             )
           }}
         </Query>
-      </Layout>
+      </Fragment>
     )
   }
 }

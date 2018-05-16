@@ -1,16 +1,14 @@
-import React, {Component} from 'react'
+import React, {Component, Fragment} from 'react'
 import Router from 'next/router'
 import _ from 'lodash'
 import {
   redirectIfNotAuthenticated,
   getJwt,
-  isAuthenticated,
   getCurrentUserId,
   isAdmin as isAdminUser
 } from 'lib/auth'
 import {createListing, formatListingData} from 'services/listing-api'
 import {filterComponent} from 'services/google-maps-api'
-import Layout from 'components/shared/Shell'
 
 import AddressAutoComplete from 'components/listings/new/steps/AddressAutoComplete'
 import PropertyInfo from 'components/listings/new/steps/PropertyInfo'
@@ -64,7 +62,6 @@ export default class ListingNew extends Component {
     return {
       jwt: jwt,
       userId: getCurrentUserId(ctx),
-      authenticated: isAuthenticated(ctx),
       isAdmin
     }
   }
@@ -262,11 +259,10 @@ export default class ListingNew extends Component {
   }
 
   render() {
-    const {authenticated, isAdmin} = this.props
     const {page, canAdvance, canRegress, errors, showErrors} = this.state
 
     return (
-      <Layout authenticated={authenticated} isAdmin={isAdmin}>
+      <Fragment>
         <Container>
           <StepContainer>
             <Step>
@@ -294,7 +290,7 @@ export default class ListingNew extends Component {
           </StepContainer>
           <SellingPoints />
         </Container>
-      </Layout>
+      </Fragment>
     )
   }
 }

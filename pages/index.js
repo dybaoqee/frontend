@@ -1,9 +1,7 @@
-import {Component} from 'react'
+import {Component, Fragment} from 'react'
 import Head from 'next/head'
 import {getFeaturedListings} from 'services/listing-api'
 import {getNeighborhoods} from 'services/neighborhood-api'
-import {isAuthenticated, isAdmin} from 'lib/auth'
-import Layout from 'components/shared/Shell'
 import HomeSearch from 'components/home/Search'
 import HomeListings from 'components/shared/Listing/Feed'
 import HomeTour from 'components/home/Tour'
@@ -21,14 +19,12 @@ export default class MyPage extends Component {
 
     return {
       feed,
-      search,
-      authenticated: isAuthenticated(context),
-      isAdmin: isAdmin(context)
+      search
     }
   }
 
   render() {
-    const {authenticated, feed, search, isAdmin, url} = this.props
+    const {feed, search, url} = this.props
     const seoImg =
       'https://res.cloudinary.com/emcasa/image/upload/f_auto/v1513818385/home-2018-04-03_cozxd9.jpg'
     const seoTitle =
@@ -37,11 +33,7 @@ export default class MyPage extends Component {
       'Encontre Apartamentos, Casas e Imóveis à Venda no Rio de Janeiro em Ipanema, Leblon, Copacabana, Botafogo, Flamengo, Lagoa e toda Zona Sul com a Emcasa, a Imobiliária Digital com exclusivo sistema de Tour Virtual em 3D, assistência jurídica, comissões reduzidas e atendimento personalizado!'
 
     return (
-      <Layout
-        authenticated={authenticated}
-        isAdmin={isAdmin}
-        renderFooter={true}
-      >
+      <Fragment>
         <Head>
           <title>{seoTitle}</title>
           <meta name="description" content={seoDescription} />
@@ -71,7 +63,7 @@ export default class MyPage extends Component {
         <HomeTour />
         <HomeSellingPoints />
         <HomeBuySell />
-      </Layout>
+      </Fragment>
     )
   }
 }

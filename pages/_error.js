@@ -1,19 +1,15 @@
-import {Component} from 'react'
-
-import {isAuthenticated} from 'lib/auth'
-import Layout from 'components/shared/Shell'
+import {Component, Fragment} from 'react'
 import Error from 'components/shared/Shell/Error'
 import Link from 'next/link'
 
 export default class ErrorPage extends Component {
-  static getInitialProps({err, res, ...ctx}) {
+  static getInitialProps({err, res}) {
     if (err && err.response) {
       res.statusCode = err.response.status
     }
     return {
       err,
-      statusCode: res.statusCode,
-      authenticated: isAuthenticated(ctx)
+      statusCode: res.statusCode
     }
   }
 
@@ -42,9 +38,9 @@ export default class ErrorPage extends Component {
   }
 
   render() {
-    const {authenticated, statusCode} = this.props
+    const {statusCode} = this.props
     return (
-      <Layout errorCode={statusCode} authenticated={authenticated}>
+      <Fragment>
         <Error>
           <h1>{this.title}</h1>
           <h2>{statusCode}</h2>
@@ -54,7 +50,7 @@ export default class ErrorPage extends Component {
             <Link href="mailto:contato@emcasa.com">contato</Link> com a gente
           </p>
         </Error>
-      </Layout>
+      </Fragment>
     )
   }
 }

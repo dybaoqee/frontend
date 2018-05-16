@@ -9,9 +9,7 @@ import {
 import {DragDropContext} from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 
-import {redirectIfNotAuthenticated, getJwt, isAuthenticated} from 'lib/auth'
-
-import Layout from 'components/shared/Shell'
+import {redirectIfNotAuthenticated, getJwt} from 'lib/auth'
 import TextContainer from 'components/shared/TextContainer'
 import DraggableImage from 'components/listings/show/images/DraggableImage'
 import ImageUpload from 'components/listings/show/images/Upload'
@@ -51,7 +49,7 @@ export default class ListingImages extends Component {
       listingId,
       jwt,
       images: res.data.images,
-      authenticated: isAuthenticated(context)
+      renderFooter: false
     }
   }
 
@@ -118,11 +116,11 @@ export default class ListingImages extends Component {
   }
 
   render() {
-    const {listingId, authenticated, jwt} = this.props
+    const {listingId, jwt} = this.props
     const {images} = this.state
 
     return (
-      <Layout authenticated={authenticated}>
+      <Fragment>
         <TextContainer>
           <Header>
             <h1>Editar Imagens</h1>
@@ -164,7 +162,7 @@ export default class ListingImages extends Component {
             </Fragment>
           )}
         </TextContainer>
-      </Layout>
+      </Fragment>
     )
   }
 }

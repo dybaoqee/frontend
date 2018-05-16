@@ -1,27 +1,12 @@
-import {Component} from 'react'
+import {Component, Fragment} from 'react'
 import Head from 'next/head'
-
-import {isAuthenticated, isAdmin} from 'lib/auth'
-import Layout from 'components/shared/Shell'
 import TextContainer from 'components/shared/TextContainer'
 import Terms from './styles'
 
 export default class Indique extends Component {
-  static async getInitialProps(context) {
-    return {
-      authenticated: isAuthenticated(context),
-      isAdmin: isAdmin(context)
-    }
-  }
-
   render() {
-    const {authenticated, isAdmin} = this.props
     return (
-      <Layout
-        authenticated={authenticated}
-        isAdmin={isAdmin}
-        renderFooter={true}
-      >
+      <Fragment>
         <Head>
           <title>Indique e Ganhe | EmCasa</title>
           <meta
@@ -169,7 +154,7 @@ export default class Indique extends Component {
             </p>
           </Terms>
         </TextContainer>
-      </Layout>
+      </Fragment>
     )
   }
 }

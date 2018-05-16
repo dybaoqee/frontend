@@ -1,7 +1,5 @@
-import {Component} from 'react'
-import Layout from 'components/shared/Shell'
+import {Component, Fragment} from 'react'
 import Errors from 'components/shared/Common/Errors'
-import _ from 'lodash'
 import {confirm} from 'lib/auth'
 import Container from 'components/shared/Common/Container'
 import Router from 'next/router'
@@ -43,7 +41,7 @@ export default class Confirm extends Component {
     const {error} = this.props
 
     return (
-      <Layout>
+      <Fragment>
         <Container>
           {error ? (
             <Errors errors={[error]} />
@@ -53,7 +51,7 @@ export default class Confirm extends Component {
             </div>
           )}
         </Container>
-      </Layout>
+      </Fragment>
     )
   }
 }

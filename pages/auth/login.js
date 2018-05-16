@@ -1,14 +1,11 @@
-import {Component} from 'react'
+import {Component, Fragment} from 'react'
 import Link from 'next/link'
-
-import Layout from 'components/shared/Shell'
 import Form from 'components/shared/Common/Form'
 import Errors from 'components/shared/Common/Errors'
 import EmCasaButton from 'components/shared/Common/Buttons'
 import {getCookie, removeCookie} from 'lib/session'
 import {signIn, redirectIfAuthenticated} from 'lib/auth'
 import _ from 'lodash'
-import {AuthConsumer} from 'components/providers/Auth'
 export default class Login extends Component {
   state = {
     errors: [],
@@ -25,12 +22,13 @@ export default class Login extends Component {
         removeCookie('success')
       }
       return {
-        success
+        success,
+        renderFooter: false
       }
     }
   }
 
-  handleSubmit = async (e, setUser) => {
+  handleSubmit = async (e) => {
     e.preventDefault()
     this.setState({errors: [], loading: true})
     const {url} = this.props
@@ -39,7 +37,6 @@ export default class Login extends Component {
     const password = e.target.elements.password.value
     try {
       const user = await signIn(email, password, url)
-      setUser(user)
     } catch (e) {
       const errors = _.isArray(e)
         ? e
@@ -53,40 +50,36 @@ export default class Login extends Component {
     const {url} = this.props
 
     return (
-      <Layout>
-        <AuthConsumer>
-          {({setUser}) => (
-            <Form onSubmit={(e) => this.handleSubmit(e, setUser)}>
-              <h1>Login</h1>
-              <input type="email" placeholder="Email" name="email" />
-              <input type="password" placeholder="Senha" name="password" />
-              <EmCasaButton disabled={loading} full type="submit">
-                {loading ? 'Aguarde...' : 'Enviar'}
-              </EmCasaButton>
-              <Errors errors={errors} />
-              <p>
-                <Link href="/auth/password_recovery" as="/lembrar_senha">
-                  <a>Esqueci minha senha</a>
-                </Link>
-              </p>
-              <p>
-                {'Não tem cadastro? '}
-                <Link
-                  href={{
-                    pathname: '/auth/signup',
-                    query: url.query && url.query.r ? {r: url.query.r} : {}
-                  }}
-                  as={{
-                    pathname: '/signup'
-                  }}
-                >
-                  <a>Cadastre-se</a>
-                </Link>
-              </p>
-            </Form>
-          )}
-        </AuthConsumer>
-      </Layout>
+      <Fragment>
+        <Form onSubmit={(e) => this.handleSubmit(e)}>
+          <h1>Login</h1>
+          <input type="email" placeholder="Email" name="email" />
+          <input type="password" placeholder="Senha" name="password" />
+          <EmCasaButton disabled={loading} full type="submit">
+            {loading ? 'Aguarde...' : 'Enviar'}
+          </EmCasaButton>
+          <Errors errors={errors} />
+          <p>
+            <Link href="/auth/password_recovery" as="/lembrar_senha">
+              <a>Esqueci minha senha</a>
+            </Link>
+          </p>
+          <p>
+            {'Não tem cadastro? '}
+            <Link
+              href={{
+                pathname: '/auth/signup',
+                query: url.query && url.query.r ? {r: url.query.r} : {}
+              }}
+              as={{
+                pathname: '/signup'
+              }}
+            >
+              <a>Cadastre-se</a>
+            </Link>
+          </p>
+        </Form>
+      </Fragment>
     )
   }
 }
