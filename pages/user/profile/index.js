@@ -206,4 +206,4 @@ class UserProfile extends Component {
   }
 }
 
-export default withData(UserProfile)
+export default UserProfile
