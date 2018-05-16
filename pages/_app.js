@@ -2,7 +2,8 @@ import App, {Container} from 'next/app'
 import _ from 'lodash'
 import Layout from 'components/shared/Shell'
 import {isAuthenticated, isAdmin} from 'lib/auth'
-export default class MyApp extends App {
+import withData from 'lib/apollo/withData'
+class MyApp extends App {
   static async getInitialProps({Component, router, ctx}) {
     let pageProps = {}
 
@@ -37,3 +38,5 @@ export default class MyApp extends App {
     )
   }
 }
+
+export default withData(MyApp)
