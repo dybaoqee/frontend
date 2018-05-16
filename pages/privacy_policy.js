@@ -1,21 +1,11 @@
-import {Component} from 'react'
+import {Component, Fragment} from 'react'
 import Head from 'next/head'
-
-import {isAuthenticated} from 'lib/auth'
-import Layout from 'components/shared/Shell'
 import TextContainer from 'components/shared/TextContainer'
 
 export default class Indique extends Component {
-  static async getInitialProps(context) {
-    return {
-      authenticated: isAuthenticated(context)
-    }
-  }
-
   render() {
-    const {authenticated} = this.props
     return (
-      <Layout authenticated={authenticated} renderFooter={true}>
+      <Fragment>
         <Head>
           <title>Privacy Policy | EmCasa</title>
         </Head>
@@ -173,7 +163,7 @@ export default class Indique extends Component {
             do not hesitate to contact us.
           </p>
         </TextContainer>
-      </Layout>
+      </Fragment>
     )
   }
 }

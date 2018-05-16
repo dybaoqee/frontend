@@ -4,6 +4,11 @@ import {withApollo, compose} from 'react-apollo'
 import withData from '/lib/apollo/withData'
 
 class Logout extends Component {
+  static async getInitialProps() {
+    return {
+      renderFooter: false
+    }
+  }
   componentDidMount() {
     const {client} = this.props
 

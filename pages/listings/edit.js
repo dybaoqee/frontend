@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, Fragment} from 'react'
 import Link from 'next/link'
 import Router from 'next/router'
 import Error from 'components/shared/Shell/Error'
@@ -15,7 +15,6 @@ import {
   updateListing,
   formatListingData
 } from 'services/listing-api'
-import Layout from 'components/shared/Shell'
 import {filterComponent} from 'services/google-maps-api'
 
 import AddressAutoComplete from 'components/listings/new/steps/AddressAutoComplete'
@@ -90,7 +89,8 @@ export default class ListingEditV2 extends Component {
         userId: getCurrentUserId(context),
         listing: res.data.listing,
         isAuthenticated: isAuthenticated(context),
-        isAdmin
+        isAdmin,
+        renderFooter: false
       }
     } catch (e) {
       const statusCode = e.response.status
@@ -99,7 +99,8 @@ export default class ListingEditV2 extends Component {
         id: id,
         jwt: jwt,
         isAuthenticated: isAuthenticated(context),
-        isAdmin: isAdminUser(context)
+        isAdmin: isAdminUser(context),
+        renderFooter: false
       }
     }
   }
@@ -291,10 +292,10 @@ export default class ListingEditV2 extends Component {
   }
 
   render() {
-    const {isAuthenticated, id, isAdmin, statusCode} = this.props
+    const {id, statusCode} = this.props
     const {page, canAdvance, canRegress, errors, showErrors} = this.state
     return (
-      <Layout authenticated={isAuthenticated} isAdmin={isAdmin}>
+      <Fragment>
         {statusCode ? (
           <Error>
             <h1>
@@ -347,7 +348,7 @@ export default class ListingEditV2 extends Component {
             </StepContainer>
           </Container>
         )}
-      </Layout>
+      </Fragment>
     )
   }
 }

@@ -1,34 +1,26 @@
-import {Component} from 'react'
+import {Component, Fragment} from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import {getNeighborhoods} from 'services/neighborhood-api'
-import {isAuthenticated, isAdmin} from 'lib/auth'
-import Layout from 'components/shared/Shell'
 import Container from './styles'
 
 export default class MyPage extends Component {
-  static async getInitialProps(context) {
+  static async getInitialProps() {
     const search = await getNeighborhoods().then(({data}) => data)
 
     return {
-      search,
-      authenticated: isAuthenticated(context),
-      isAdmin: isAdmin(context)
+      search
     }
   }
 
   render() {
-    const {authenticated, search, isAdmin} = this.props
+    const {search} = this.props
     const seoImg =
       'https://res.cloudinary.com/emcasa/image/upload/f_auto/v1513818385/home-2018-04-03_cozxd9.jpg'
     const seoTitle = 'EmCasa | Mapa do Site'
     const seoDescription = 'EmCasa | Mapa do Site'
     return (
-      <Layout
-        authenticated={authenticated}
-        isAdmin={isAdmin}
-        renderFooter={true}
-      >
+      <Fragment>
         <Head>
           <title>{seoTitle}</title>
           <meta name="description" content={seoDescription} />
@@ -100,7 +92,7 @@ export default class MyPage extends Component {
             </li>
           </ul>
         </Container>
-      </Layout>
+      </Fragment>
     )
   }
 }

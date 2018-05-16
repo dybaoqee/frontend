@@ -1,4 +1,4 @@
-import {Component} from 'react'
+import {Component, Fragment} from 'react'
 import url from 'url'
 import _ from 'lodash'
 import Head from 'next/head'
@@ -8,10 +8,9 @@ import {Query} from 'react-apollo'
 import {GET_FAVORITE_LISTINGS_IDS} from 'graphql/user/queries'
 import {treatParams} from 'utils/filter-params.js'
 import {mainListingImage} from 'utils/image_url'
-import {isAuthenticated, isAdmin, getCurrentUserId} from 'lib/auth'
+import {getCurrentUserId, isAuthenticated} from 'lib/auth'
 import {getListings} from 'services/listing-api'
 import {getNeighborhoods} from 'services/neighborhood-api'
-import Layout from 'components/shared/Shell'
 import InfiniteScroll from 'components/shared/InfiniteScroll'
 import MapContainer from 'components/listings/index/Map'
 import Listing from 'components/listings/index/Listing'
@@ -64,10 +63,10 @@ class ListingsIndex extends Component {
       neighborhoods,
       currentUser: {
         id: getCurrentUserId(context),
-        admin: isAdmin(context),
         authenticated: isAuthenticated(context)
       },
-      query: context.query
+      query: context.query,
+      renderFooter: false
     }
   }
 
@@ -193,10 +192,7 @@ class ListingsIndex extends Component {
     const seoImgSrc = this.seoImage
 
     return (
-      <Layout
-        authenticated={currentUser.authenticated}
-        isAdmin={currentUser.admin}
-      >
+      <Fragment>
         <Head>
           <title>Apartamentos à venda no Rio de Janeiro | EmCasa</title>
           <meta
@@ -282,7 +278,7 @@ class ListingsIndex extends Component {
             )}
           </div>
         </Container>
-      </Layout>
+      </Fragment>
     )
   }
 }

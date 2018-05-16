@@ -10,7 +10,7 @@ export const mockListingCreated = function() {
   var mock = new MockAdapter(axios)
 
   mock.onGet('/listings/1').reply(200, {
-    listing: {...listing.listing}
+    listing: listing.listing
   })
 
   mock.onGet('/listings/1/related').reply(200, {
@@ -37,7 +37,7 @@ describe('Add Listing', () => {
     it('should be redirected to listing creation after login', () => {
       cy.server() // enable response stubbing
 
-      cy.visit('/saiba-mais-para-vender').then((resp) => {
+      cy.visit('/saiba-mais-para-vender').then(() => {
         cy
           .get('button')
           .contains('Anuncie agora')

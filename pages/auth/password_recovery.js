@@ -1,7 +1,5 @@
 import {Component, Fragment} from 'react'
 import Link from 'next/link'
-
-import Layout from 'components/shared/Shell'
 import Form from 'components/shared/Common/Form'
 import Errors from 'components/shared/Common/Errors'
 import EmCasaButton from 'components/shared/Common/Buttons'
@@ -26,7 +24,8 @@ export default class PasswordRecovery extends Component {
         removeCookie('success')
       }
       return {
-        success
+        success,
+        renderFooter: false
       }
     }
   }
@@ -49,7 +48,7 @@ export default class PasswordRecovery extends Component {
   render() {
     const {errors, loading, data} = this.state
     return (
-      <Layout>
+      <Fragment>
         <Form onSubmit={this.handleSubmit}>
           {data.name ? (
             <Fragment>
@@ -79,7 +78,7 @@ export default class PasswordRecovery extends Component {
             </Fragment>
           )}
         </Form>
-      </Layout>
+      </Fragment>
     )
   }
 }

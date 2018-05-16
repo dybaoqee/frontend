@@ -1,8 +1,7 @@
-import {Component} from 'react'
+import {Component, Fragment} from 'react'
 import Head from 'next/head'
-import {getJwt, redirectIfNotAdmin, getCurrentUserId} from 'lib/auth'
+import {redirectIfNotAdmin} from 'lib/auth'
 import {getListings} from 'services/listing-api'
-import Layout from 'components/shared/Shell'
 import _ from 'lodash'
 import Tabs from 'components/shared/Common/Tabs'
 import {
@@ -15,7 +14,6 @@ import {
   ResponsiveContainer
 } from 'recharts'
 import * as colors from 'constants/colors'
-import {isAuthenticated, isAdmin} from 'lib/auth'
 import Container, {TabContainer, ChartContainer} from './styles'
 
 export default class Dashboard extends Component {
@@ -32,14 +30,9 @@ export default class Dashboard extends Component {
       excluded_listing_ids: []
     })
 
-    const jwt = getJwt(ctx)
-
     return {
       listings: listings.data.listings,
-      jwt: jwt,
-      userId: getCurrentUserId(ctx),
-      isAuthenticated: isAuthenticated(ctx),
-      isAdmin: isAdmin(ctx)
+      renderFooter: false
     }
   }
 
@@ -110,14 +103,13 @@ export default class Dashboard extends Component {
   }
 
   render() {
-    const {isAdmin, isAuthenticated} = this.props
     const seoImg =
       'https://res.cloudinary.com/emcasa/image/upload/f_auto/v1513818385/home-2018-04-03_cozxd9.jpg'
     const seoTitle = 'EmCasa | Dashboard'
     const seoDescription = 'Painel de administração'
 
     return (
-      <Layout authenticated={isAuthenticated} isAdmin={isAdmin}>
+      <Fragment>
         <Head>
           <title>{seoTitle}</title>
           <meta name="description" content={seoDescription} />
@@ -139,7 +131,7 @@ export default class Dashboard extends Component {
             ]}
           />
         </Container>
-      </Layout>
+      </Fragment>
     )
   }
 }

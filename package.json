@@ -4,9 +4,7 @@
     "npm": "5.6.0"
   },
   "jest": {
-    "setupFiles": [
-      "<rootDir>/shim.js"
-    ],
+    "setupFiles": ["<rootDir>/shim.js"],
     "setupTestFrameworkScriptFile": "<rootDir>config/setupTests.js"
   },
   "license": "UNLICENSED",
@@ -14,12 +12,15 @@
     "dev": "node server.js -p $PORT",
     "build": "next build",
     "start": "node server.js -p $PORT",
-    "test": "jest && TEST=cypress start-server-and-test dev http://localhost:3000/login cy:run",
+    "test":
+      "jest && TEST=cypress start-server-and-test dev http://localhost:3000/login cy:run",
     "heroku-postbuild": "npm run build",
     "cy:open": "cypress open",
     "cy:run": "cypress run"
   },
   "dependencies": {
+    "babel-core": "7.0.0-bridge.0",
+    "babel-jest": "22.4.3",
     "@fortawesome/fontawesome": "^1.1.5",
     "@fortawesome/fontawesome-free-brands": "^5.0.4",
     "@fortawesome/fontawesome-free-solid": "^5.0.4",
@@ -54,7 +55,7 @@
     "js-cookie": "^2.2.0",
     "lodash": "^4.17.5",
     "moment": "^2.22.1",
-    "next": "^5.1.0",
+    "next": "^6.0.2",
     "nprogress": "^0.2.0",
     "number-abbreviate": "^2.0.0",
     "numeral": "^2.0.6",

@@ -8,7 +8,6 @@ import {isAuthenticated, isAdmin, getCurrentUserId, getJwt} from 'lib/auth'
 import {getListing, getRelatedListings} from 'services/listing-api'
 import {createInterest} from 'services/interest-api'
 import _ from 'lodash'
-import Layout from 'components/shared/Shell'
 import ListingHead from 'components/listings/show/Head'
 import ListingHeader from 'components/listings/show/Header'
 import ImageGallery from 'components/listings/show/ImageGallery'
@@ -287,11 +286,10 @@ class Listing extends Component {
   }
 
   render() {
-    const {currentUser, statusCode} = this.props
-    const {authenticated, admin} = currentUser
+    const {statusCode} = this.props
 
     return (
-      <Layout authenticated={authenticated} isAdmin={admin} renderFooter={true}>
+      <Fragment>
         {statusCode ? (
           <Error>
             <h1>Imóvel não encontrado</h1>
@@ -305,7 +303,7 @@ class Listing extends Component {
         ) : (
           this.showListing()
         )}
-      </Layout>
+      </Fragment>
     )
   }
 }

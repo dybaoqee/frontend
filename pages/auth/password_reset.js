@@ -1,6 +1,4 @@
-import {Component} from 'react'
-
-import Layout from 'components/shared/Shell'
+import {Component, Fragment} from 'react'
 import Form from 'components/shared/Common/Form'
 import Errors from 'components/shared/Common/Errors'
 import EmCasaButton from 'components/shared/Common/Buttons'
@@ -26,7 +24,8 @@ export default class PasswordReset extends Component {
       }
       return {
         success,
-        token
+        token,
+        renderFooter: false
       }
     }
   }
@@ -51,7 +50,7 @@ export default class PasswordReset extends Component {
   render() {
     const {errors, loading} = this.state
     return (
-      <Layout>
+      <Fragment>
         <Form onSubmit={this.handleSubmit}>
           <h1>Resetar Senha</h1>
           <p>Digite abaixo sua senha nova.</p>
@@ -67,7 +66,7 @@ export default class PasswordReset extends Component {
           </EmCasaButton>
           <Errors errors={errors} />
         </Form>
-      </Layout>
+      </Fragment>
     )
   }
 }

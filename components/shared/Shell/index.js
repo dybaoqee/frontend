@@ -7,8 +7,6 @@ import Header from './Header'
 import Footer from './Footer'
 import Container, {Main} from './styles'
 
-import {AuthConsumer, AuthProvider} from 'components/providers/Auth'
-
 Router.onRouteChangeStart = () => {
   NProgress.start()
 }
@@ -23,33 +21,24 @@ class Layout extends Component {
     const {authenticated, isAdmin, errorCode, renderFooter} = this.props
 
     return (
-      <AuthProvider>
-        <AuthConsumer>
-          {({user}) => {
-            return (
-              <Fragment>
-                <Head>
-                  <link
-                    rel="stylesheet"
-                    type="text/css"
-                    href="/static/styles/nprogress.css"
-                  />
-                </Head>
-                <Header
-                  errorCode={errorCode}
-                  authenticated={authenticated}
-                  isAdmin={isAdmin}
-                  user={user}
-                />
-                <Container>
-                  <Main>{this.props.children}</Main>
-                  {renderFooter && <Footer />}
-                </Container>
-              </Fragment>
-            )
-          }}
-        </AuthConsumer>
-      </AuthProvider>
+      <Fragment>
+        <Head>
+          <link
+            rel="stylesheet"
+            type="text/css"
+            href="/static/styles/nprogress.css"
+          />
+        </Head>
+        <Header
+          errorCode={errorCode}
+          authenticated={authenticated}
+          isAdmin={isAdmin}
+        />
+        <Container>
+          <Main>{this.props.children}</Main>
+          {renderFooter && <Footer />}
+        </Container>
+      </Fragment>
     )
   }
 }
