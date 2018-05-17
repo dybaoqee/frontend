@@ -1,5 +1,4 @@
 import {Component, Fragment} from 'react'
-import withData from '/lib/apollo/withData'
 import {Query} from 'react-apollo'
 import {GET_USER_INFO} from 'graphql/user/queries'
 import {Mutation} from 'react-apollo'
