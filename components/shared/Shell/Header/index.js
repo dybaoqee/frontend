@@ -107,7 +107,6 @@ export default class Header extends Component {
           {({data, loading, error}) => (
             <div>
               <div>
-                {console.log(loading)}
                 <p>Carregando: {loading.toString()}</p>
                 {error && <p>Erro: {error.toString()}</p>}
                 <p>{JSON.stringify(data)}</p>
