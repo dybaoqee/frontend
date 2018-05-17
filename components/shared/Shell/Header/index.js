@@ -104,7 +104,17 @@ export default class Header extends Component {
           </a>
         </Link>
         <Subscription subscription={MESSAGE_SENT}>
-          {({data, loading}) => <h4> {!loading && JSON.stringify(data)}</h4>}
+          {({data, loading, error}) => (
+            <div>
+              <div>
+                {console.log(loading)}
+                <p>Carregando: {loading.toString()}</p>
+                {error && <p>Erro: {error.toString()}</p>}
+                <p>{JSON.stringify(data)}</p>
+              </div>
+              <h4> {!loading && JSON.stringify(data)}</h4>
+            </div>
+          )}
         </Subscription>
         {this.renderNav()}
       </Container>
