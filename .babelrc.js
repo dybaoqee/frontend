@@ -12,7 +12,7 @@ module.exports = {
       plugins
     },
 
-    production: {
+    prod: {
       presets: [['@babel/preset-env', {modules: 'commonjs'}], 'next/babel'],
       plugins
     }
