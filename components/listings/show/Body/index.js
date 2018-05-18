@@ -9,7 +9,7 @@ import {canEdit} from 'permissions/listings-permissions'
 export default class ListingMainContent extends React.Component {
   render() {
     const {listing, handleOpenPopup, user} = this.props
-    const {street, neighborhood} = listing.address
+    const {street, neighborhood, street_number} = listing.address
     const showStatistics = user.admin || listing.user_id.toString() === user.id
     const paragraphs = getParagraphs(listing.description)
     return (
