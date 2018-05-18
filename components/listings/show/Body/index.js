@@ -4,6 +4,7 @@ import ListingCard from './Card'
 import Container, {CardWrapper, ListingInfo} from './styles'
 import Statistics from 'components/listings/show/Statistics'
 import {getParagraphs} from 'utils/text-utils'
+import {canEdit} from 'permissions/listings-permissions'
 
 export default class ListingMainContent extends React.Component {
   render() {
