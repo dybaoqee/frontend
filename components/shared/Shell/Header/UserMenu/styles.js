@@ -147,8 +147,10 @@ export const Notifications = styled.div`
   display: ${({notifications}) => (notifications > 0 ? 'block' : 'none')};
 
   > span {
+    box-sizing: border-box;
     flex: 1;
     display: flex;
     justify-content: center;
+    align-items: center;
   }
 `
