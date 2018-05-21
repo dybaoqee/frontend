@@ -8,8 +8,15 @@ import {MESSAGE_SENT} from 'graphql/messenger/subscriptions'
 import Container, {Button, Nav, UserHeader} from './styles'
 
 export default class Header extends Component {
-  state = {
-    isMobileNavVisible: false
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      isMobileNavVisible: false,
+      messagesNotification: 0
+    }
+
+    this.notifications = 0
   }
 
   toggleMobileNavVisibility = () => {
@@ -17,8 +24,12 @@ export default class Header extends Component {
     this.setState({isMobileNavVisible: newState})
   }
 
-  getUserHeader = (authenticated) => {
+  getUserHeader = (authenticated, isAdmin, newMessage) => {
     const {user} = this.props
+    const {messagesNotification} = this.state
+    if (newMessage) {
+      this.notifications++
+    }
     const userMenu = [
       {
         title: 'Meu perfil',
@@ -48,11 +59,15 @@ export default class Header extends Component {
         </Link>
       </UserHeader>
     ) : (
-      <UserMenu user={user} items={userMenu} />
+      <UserMenu
+        notifications={this.notifications}
+        user={user}
+        items={userMenu}
+      />
     )
   }
 
-  renderNav() {
+  renderNav(messagesSubscription) {
     const {authenticated, isAdmin} = this.props
     const {isMobileNavVisible} = this.state
     return (
@@ -86,7 +101,7 @@ export default class Header extends Component {
             </Link>
           )}
 
-          {this.getUserHeader(authenticated, isAdmin)}
+          {this.getUserHeader(authenticated, isAdmin, messagesSubscription)}
         </Nav>
       </Fragment>
     )
@@ -104,18 +119,8 @@ export default class Header extends Component {
           </a>
         </Link>
         <Subscription subscription={MESSAGE_SENT}>
-          {({data, loading, error}) => (
-            <div>
-              <div>
-                <p>Carregando: {loading.toString()}</p>
-                {error && <p>Erro: {error.toString()}</p>}
-                <p>{JSON.stringify(data)}</p>
-              </div>
-              <h4> {!loading && JSON.stringify(data)}</h4>
-            </div>
-          )}
+          {({data, loading, error}) => this.renderNav(data)}
         </Subscription>
-        {this.renderNav()}
       </Container>
     )
   }
