@@ -1,6 +1,6 @@
 import {Component, Fragment} from 'react'
 import Head from 'next/head'
-import {redirectIfNotAdmin} from 'lib/auth'
+import {redirectIfNotAdmin, getJwt} from 'lib/auth'
 import {getListings} from 'services/listing-api'
 import _ from 'lodash'
 import Tabs from 'components/shared/Common/Tabs'
@@ -25,7 +25,9 @@ export default class Dashboard extends Component {
     if (redirectIfNotAdmin(ctx)) {
       return {}
     }
-    const listings = await getListings({
+    const jwt = getJwt(ctx)
+
+    const listings = await getListings(jwt, {
       page_size: 400,
       excluded_listing_ids: []
     })

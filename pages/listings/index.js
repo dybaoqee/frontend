@@ -73,7 +73,7 @@ class ListingsIndex extends Component {
   static async getState(query) {
     const page = query.page || 1
 
-    const {data} = await getListings({
+    const {data} = await getListings(null, {
       ...query,
       page,
       page_size: 400,

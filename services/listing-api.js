@@ -81,12 +81,12 @@ const splitParam = function(param, key) {
   return param
 }
 
-export const getListings = async (query) => {
+export const getListings = async (jwt, query) => {
   const endpoint = '/listings'
   const params = buildGetParams(query)
 
   try {
-    return await get(endpoint, null, params)
+    return await get(endpoint, jwt, params)
   } catch (error) {
     if (error.response && error.response.status === 422)
       throw new Error('Unknown error. Please try again.', error)
