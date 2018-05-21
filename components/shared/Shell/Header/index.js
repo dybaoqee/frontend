@@ -2,8 +2,6 @@ import {Component, Fragment} from 'react'
 import Link from 'next/link'
 import EmCasaButton from 'components/shared/Common/Buttons/Rounded'
 import UserMenu from './UserMenu'
-import {Subscription} from 'react-apollo'
-import {MESSAGE_SENT} from 'graphql/messenger/subscriptions'
 
 import Container, {Button, Nav, UserHeader} from './styles'
 
@@ -14,8 +12,6 @@ export default class Header extends Component {
     this.state = {
       isMobileNavVisible: false
     }
-
-    this.notifications = 0
   }
 
   toggleMobileNavVisibility = () => {
@@ -23,11 +19,8 @@ export default class Header extends Component {
     this.setState({isMobileNavVisible: newState})
   }
 
-  getUserHeader = (authenticated, isAdmin, newMessage) => {
-    const {user} = this.props
-    if (newMessage) {
-      this.notifications++
-    }
+  getUserHeader = (authenticated) => {
+    const {user, notifications} = this.props
     const userMenu = [
       {
         title: 'Meu perfil',
@@ -57,15 +50,11 @@ export default class Header extends Component {
         </Link>
       </UserHeader>
     ) : (
-      <UserMenu
-        notifications={this.notifications}
-        user={user}
-        items={userMenu}
-      />
+      <UserMenu notifications={notifications} user={user} items={userMenu} />
     )
   }
 
-  renderNav(messagesSubscription) {
+  renderNav() {
     const {authenticated, isAdmin} = this.props
     const {isMobileNavVisible} = this.state
     return (
@@ -99,7 +88,7 @@ export default class Header extends Component {
             </Link>
           )}
 
-          {this.getUserHeader(authenticated, isAdmin, messagesSubscription)}
+          {this.getUserHeader(authenticated, isAdmin)}
         </Nav>
       </Fragment>
     )
@@ -116,9 +105,7 @@ export default class Header extends Component {
             />
           </a>
         </Link>
-        <Subscription subscription={MESSAGE_SENT}>
-          {({data, loading, error}) => this.renderNav(data)}
-        </Subscription>
+        {this.renderNav()}
       </Container>
     )
   }
