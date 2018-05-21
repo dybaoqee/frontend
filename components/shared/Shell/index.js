@@ -23,6 +23,10 @@ class Layout extends Component {
     super(props)
     this.notifications = 0
   }
+
+  updateNotifications() {
+    this.notifications++
+  }
   render() {
     const {authenticated, isAdmin, errorCode, renderFooter} = this.props
 
@@ -30,7 +34,7 @@ class Layout extends Component {
       <Subscription subscription={MESSAGE_SENT}>
         {({data, loading, error}) => (
           <Fragment>
-            {data && this.notifications++}
+            {data && this.updateNotifications()}
             <Head>
               <link
                 rel="stylesheet"
