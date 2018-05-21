@@ -127,3 +127,30 @@ export const Icon = styled.div`
     }
   }
 `
+
+export const Notifications = styled.div`
+  width: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid ${colors.blue.darker};
+  height: 20px;
+  position: absolute;
+  right: -5px;
+  top: -5px;
+  color: white;
+  background: ${colors.blue.medium};
+  border-radius: 100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: ${({notifications}) => (notifications > 0 ? 'block' : 'none')};
+
+  > span {
+    box-sizing: border-box;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+`

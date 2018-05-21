@@ -3,7 +3,6 @@ import url from 'url'
 import _ from 'lodash'
 import Head from 'next/head'
 import Router from 'next/router'
-import withData from '/lib/apollo/withData'
 import {Query} from 'react-apollo'
 import {GET_FAVORITE_LISTINGS_IDS} from 'graphql/user/queries'
 import {treatParams} from 'utils/filter-params.js'
@@ -283,4 +282,4 @@ class ListingsIndex extends Component {
   }
 }
 
-export default withData(ListingsIndex)
+export default ListingsIndex

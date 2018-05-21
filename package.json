@@ -4,7 +4,9 @@
     "npm": "5.6.0"
   },
   "jest": {
-    "setupFiles": ["<rootDir>/shim.js"],
+    "setupFiles": [
+      "<rootDir>/shim.js"
+    ],
     "setupTestFrameworkScriptFile": "<rootDir>config/setupTests.js"
   },
   "license": "UNLICENSED",
@@ -12,15 +14,13 @@
     "dev": "node server.js -p $PORT",
     "build": "next build",
     "start": "node server.js -p $PORT",
-    "test":
-      "jest && TEST=cypress start-server-and-test dev http://localhost:3000/login cy:run",
+    "test": "jest && TEST=cypress start-server-and-test dev http://localhost:3000/login cy:run",
     "heroku-postbuild": "npm run build",
     "cy:open": "cypress open",
     "cy:run": "cypress run"
   },
   "dependencies": {
-    "babel-core": "7.0.0-bridge.0",
-    "babel-jest": "22.4.3",
+    "@absinthe/socket-apollo-link": "^0.1.11",
     "@fortawesome/fontawesome": "^1.1.5",
     "@fortawesome/fontawesome-free-brands": "^5.0.4",
     "@fortawesome/fontawesome-free-solid": "^5.0.4",
@@ -29,8 +29,15 @@
     "@fortawesome/fontawesome-pro-solid": "^5.0.10",
     "@fortawesome/react-fontawesome": "^0.0.17",
     "@google/maps": "^0.4.5",
-    "apollo-boost": "^0.1.4",
+    "apollo-cache-inmemory": "^1.2.1",
+    "apollo-client": "^2.3.1",
+    "apollo-link": "^1.2.2",
+    "apollo-link-error": "^1.0.9",
+    "apollo-link-http": "^1.5.4",
+    "apollo-link-state": "^0.4.1",
     "axios": "^0.17.1",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-jest": "22.4.3",
     "babel-plugin-inline-import": "^2.0.6",
     "babel-plugin-lodash": "^3.3.2",
     "babel-plugin-module-resolver": "^3.0.0",
@@ -55,7 +62,7 @@
     "js-cookie": "^2.2.0",
     "lodash": "^4.17.5",
     "moment": "^2.22.1",
-    "next": "^6.0.2",
+    "next": "^6.0.3",
     "nprogress": "^0.2.0",
     "number-abbreviate": "^2.0.0",
     "numeral": "^2.0.6",

@@ -1,5 +1,4 @@
 import {Component, Fragment} from 'react'
-import withData from '/lib/apollo/withData'
 import {Query} from 'react-apollo'
 import {GET_FAVORITE_LISTINGS_IDS} from 'graphql/user/queries'
 import {Mutation} from 'react-apollo'
@@ -308,4 +307,4 @@ class Listing extends Component {
   }
 }
 
-export default withData(Listing)
+export default Listing

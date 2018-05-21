@@ -1,7 +1,6 @@
 import {Component} from 'react'
 import {signOut} from 'lib/auth'
-import {withApollo, compose} from 'react-apollo'
-import withData from '/lib/apollo/withData'
+import {withApollo} from 'react-apollo'
 
 class Logout extends Component {
   static async getInitialProps() {
@@ -26,9 +25,4 @@ class Logout extends Component {
   }
 }
 
-export default compose(
-  // withData gives us server-side graphql queries before rendering
-  withData,
-  // withApollo exposes `this.props.client` used when logging out
-  withApollo
-)(Logout)
+export default withApollo(Logout)

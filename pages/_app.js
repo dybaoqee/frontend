@@ -2,7 +2,9 @@ import App, {Container} from 'next/app'
 import _ from 'lodash'
 import Layout from 'components/shared/Shell'
 import {isAuthenticated, isAdmin} from 'lib/auth'
-export default class MyApp extends App {
+import withApolloClient from 'lib/apollo/withApolloClient'
+import {ApolloProvider} from 'react-apollo'
+class MyApp extends App {
   static async getInitialProps({Component, router, ctx}) {
     let pageProps = {}
 
@@ -23,17 +25,28 @@ export default class MyApp extends App {
   }
 
   render() {
-    const {Component, pageProps, url, authenticated, isAdmin} = this.props
+    const {
+      Component,
+      pageProps,
+      url,
+      authenticated,
+      isAdmin,
+      apolloClient
+    } = this.props
     return (
       <Container>
-        <Layout
-          authenticated={authenticated}
-          isAdmin={isAdmin}
-          renderFooter={_.isUndefined(pageProps.renderFooter) ? true : false}
-        >
-          <Component {...pageProps} url={url} />
-        </Layout>
+        <ApolloProvider client={apolloClient}>
+          <Layout
+            authenticated={authenticated}
+            isAdmin={isAdmin}
+            renderFooter={_.isUndefined(pageProps.renderFooter) ? true : false}
+          >
+            <Component {...pageProps} url={url} />
+          </Layout>
+        </ApolloProvider>
       </Container>
     )
   }
 }
+
+export default withApolloClient(MyApp)

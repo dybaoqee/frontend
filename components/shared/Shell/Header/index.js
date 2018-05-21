@@ -6,8 +6,12 @@ import UserMenu from './UserMenu'
 import Container, {Button, Nav, UserHeader} from './styles'
 
 export default class Header extends Component {
-  state = {
-    isMobileNavVisible: false
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      isMobileNavVisible: false
+    }
   }
 
   toggleMobileNavVisibility = () => {
@@ -16,7 +20,7 @@ export default class Header extends Component {
   }
 
   getUserHeader = (authenticated) => {
-    const {user} = this.props
+    const {user, notifications} = this.props
     const userMenu = [
       {
         title: 'Meu perfil',
@@ -46,7 +50,7 @@ export default class Header extends Component {
         </Link>
       </UserHeader>
     ) : (
-      <UserMenu user={user} items={userMenu} />
+      <UserMenu notifications={notifications} user={user} items={userMenu} />
     )
   }
 

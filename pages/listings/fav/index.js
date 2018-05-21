@@ -3,8 +3,6 @@ import _ from 'lodash'
 import {Component, Fragment} from 'react'
 import Head from 'next/head'
 import Router from 'next/router'
-import {withApollo, compose} from 'react-apollo'
-import withData from '/lib/apollo/withData'
 import {Query} from 'react-apollo'
 import {GET_FAVORITE_LISTINGS} from 'graphql/user/queries'
 
@@ -280,9 +278,4 @@ class ListingsFav extends Component {
   }
 }
 
-export default compose(
-  // withData gives us server-side graphql queries before rendering
-  withData,
-  // withApollo exposes `this.props.client` used when logging out
-  withApollo
-)(ListingsFav)
+export default ListingsFav

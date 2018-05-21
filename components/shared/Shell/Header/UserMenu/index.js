@@ -1,7 +1,7 @@
 import {Component} from 'react'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faUser from '@fortawesome/fontawesome-free-solid/faUserCircle'
-import Container, {Icon} from './styles'
+import Container, {Icon, Notifications} from './styles'
 import Link from 'next/link'
 import {headerMobileMedia} from 'constants/media'
 
@@ -37,7 +37,7 @@ export default class UserMenu extends Component {
   }
 
   render() {
-    const {items} = this.props
+    const {items, notifications} = this.props
     const {opened} = this.state
     return (
       <Container
@@ -46,6 +46,9 @@ export default class UserMenu extends Component {
         onClick={this.handleMenu}
       >
         <Icon>
+          <Notifications notifications={notifications}>
+            <span>{notifications}</span>
+          </Notifications>
           <FontAwesomeIcon icon={faUser} />
         </Icon>
 
