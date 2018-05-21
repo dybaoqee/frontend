@@ -12,8 +12,7 @@ export default class Header extends Component {
     super(props)
 
     this.state = {
-      isMobileNavVisible: false,
-      messagesNotification: 0
+      isMobileNavVisible: false
     }
 
     this.notifications = 0
@@ -26,7 +25,6 @@ export default class Header extends Component {
 
   getUserHeader = (authenticated, isAdmin, newMessage) => {
     const {user} = this.props
-    const {messagesNotification} = this.state
     if (newMessage) {
       this.notifications++
     }
