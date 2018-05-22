@@ -5,7 +5,7 @@ export default () => (
     <p className="desktop">
       Entre em contato por Telefone/Whatsapp no
       <span>
-        <a href="tel:21 99609-5399"> (21) 9 9609-5399 </a>
+        <a href="tel:+55 21 99609-5399"> (21) 9 9609-5399 </a>
       </span>
       ou através do e-mail
       <span>
@@ -14,7 +14,7 @@ export default () => (
     </p>
     <p className="mobile">
       <span>
-        <a href="tel:21 99609-5399"> (21) 9 9609-5399 </a>
+        <a href="tel:+55 21 99609-5399"> (21) 9 9609-5399 </a>
       </span>
 
       <span>
