@@ -29,6 +29,7 @@ class MyApp extends App {
       Component,
       pageProps,
       url,
+      router,
       authenticated,
       isAdmin,
       apolloClient
@@ -41,8 +42,9 @@ class MyApp extends App {
             isAdmin={isAdmin}
             renderFooter={_.isUndefined(pageProps.renderFooter) ? true : false}
             pageProps={pageProps}
+            router={router}
           >
-            <Component {...pageProps} url={url} />
+            <Component {...pageProps} url={url} router={router} />
           </Layout>
         </ApolloProvider>
       </Container>

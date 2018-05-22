@@ -11,11 +11,9 @@ export default styled.header`
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 11px 10px;
-  position: fixed;
-  top: 0;
   width: 100%;
   min-height: 76px;
-  z-index: 5;
+
   box-shadow: inset 0 -1px 0 0 ${colors.lightGray};
   img {
     width: 110px;
@@ -95,3 +93,11 @@ export const Error = styled(({children, ...props}) => (
     <span>{children}</span>
   </div>
 ))
+
+export const Wrapper = styled.div`
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  z-index: 5;
+  width: 100vw;
+`

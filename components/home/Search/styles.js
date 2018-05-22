@@ -9,7 +9,7 @@ export default styled.div`
   background-position: center;
   background-size: cover;
   height: 400px;
-  padding-top: 20px;
+  padding-top: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
