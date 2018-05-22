@@ -28,7 +28,13 @@ class Layout extends Component {
     this.notifications++
   }
   render() {
-    const {authenticated, isAdmin, errorCode, renderFooter} = this.props
+    const {
+      authenticated,
+      isAdmin,
+      errorCode,
+      renderFooter,
+      pageProps
+    } = this.props
 
     return (
       <Subscription subscription={MESSAGE_SENT}>
@@ -50,7 +56,9 @@ class Layout extends Component {
             />
             <Container>
               <Main>{this.props.children}</Main>
-              {renderFooter && <Footer />}
+              {renderFooter && (
+                <Footer neighborhoods={pageProps.search.neighborhoods} />
+              )}
             </Container>
           </Fragment>
         )}
