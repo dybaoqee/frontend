@@ -56,9 +56,7 @@ class Layout extends Component {
             />
             <Container>
               <Main>{this.props.children}</Main>
-              {renderFooter && (
-                <Footer neighborhoods={pageProps.search.neighborhoods} />
-              )}
+              {renderFooter && <Footer />}
             </Container>
           </Fragment>
         )}
