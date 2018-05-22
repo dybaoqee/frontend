@@ -40,6 +40,7 @@ class MyApp extends App {
             authenticated={authenticated}
             isAdmin={isAdmin}
             renderFooter={_.isUndefined(pageProps.renderFooter) ? true : false}
+            pageProps={pageProps}
           >
             <Component {...pageProps} url={url} />
           </Layout>
