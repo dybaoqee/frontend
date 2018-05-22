@@ -11,9 +11,9 @@ import {
 import Container, {EmCasaInfo, EmCasaContact} from './styles'
 import PreFooter from 'components/shared/Shell/Footer/PreFooter'
 
-const Footer = () => (
+const Footer = ({neighborhoods}) => (
   <Fragment>
-    <PreFooter />
+    <PreFooter neighborhoods={neighborhoods} />
     <Container>
       <EmCasaInfo>
         <Link href="/">

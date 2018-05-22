@@ -3,7 +3,7 @@ import Container from './styles'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faPhone from '@fortawesome/fontawesome-free-brands/faWhatsapp'
 import faMail from '@fortawesome/fontawesome-pro-light/faEnvelope'
-export default () => (
+export default ({neighborhoods}) => (
   <Container>
     <div>
       <h4>EmCasa</h4>
@@ -27,12 +27,24 @@ export default () => (
       <h4>Suporte</h4>
       <div>
         <FontAwesomeIcon icon={faPhone} />
-        <span>21 99609-5399</span>
+        <a href="tel:21 99609-5399">21 99609-5399</a>
       </div>
       <div>
         <FontAwesomeIcon icon={faMail} />
         <a href="mailto:contato@emcasa.com">Fale com a gente</a>
       </div>
+    </div>
+    <div className="neighborhoods">
+      <h4>Imóveis à venda no Rio de Janeiro</h4>
+      {neighborhoods.map((neighborhood) => (
+        <Link
+          key={neighborhood}
+          href={`/listings/?bairros=${neighborhood}`}
+          as={`/imoveis?bairros=${neighborhood}`}
+        >
+          <a title={`Comprar imóvel: ${neighborhood}`}>{neighborhood}</a>
+        </Link>
+      ))}
     </div>
   </Container>
 )
