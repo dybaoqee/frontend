@@ -9,6 +9,7 @@ import {
 } from '@fortawesome/fontawesome-free-brands'
 
 import Container, {EmCasaInfo, EmCasaContact} from './styles'
+import PreFooter from 'components/shared/Shell/Footer/PreFooter'
 
 const Footer = () => (
   <Container>
