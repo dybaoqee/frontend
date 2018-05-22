@@ -6,7 +6,7 @@ export default styled.div`
   box-sizing: border-box;
   padding: 70px 120px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   grid-column-gap: 24px;
   border-top: 1px solid ${colors.lightGray};
 
@@ -19,20 +19,19 @@ export default styled.div`
     }
   }
 
+  a,
+  span {
+    text-decoration: none;
+    color: ${colors.mediumDarkGray};
+    font-size: 14px;
+  }
+
   > div {
     box-sizing: border-box;
     width: 100%;
 
     > * {
-      width: 100% !important;
       display: block;
-    }
-
-    a,
-    span {
-      text-decoration: none;
-      font-size: 14px;
-      color: ${colors.mediumDarkGray};
       margin-bottom: 14px;
     }
   }
@@ -40,8 +39,18 @@ export default styled.div`
   h4 {
     font-weight: 600;
     font-size: 16px;
-    color: ${colors.blue.medium};
+    color: ${colors.gray4a};
     margin: 16px 0;
+  }
+
+  div.neighborhoods {
+    display: grid;
+    box-sizing: border-box;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+
+    > h4 {
+      grid-column: -1 / 1;
+    }
   }
 
   @media ${mobileMedia} {
