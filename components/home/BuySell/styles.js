@@ -5,7 +5,6 @@ import styled from 'styled-components'
 export default styled.div`
   box-sizing: border-box;
   border-top: 1px solid ${colors.lightGray};
-  border-bottom: 1px solid ${colors.lightGray};
   display: grid;
   grid-template-columns: repeat(2, auto);
   > div {
