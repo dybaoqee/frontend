@@ -11,7 +11,8 @@ export default styled.footer`
   padding: 20px;
   flex-wrap: wrap;
 
-  a {
+  a,
+  span {
     color: ${colors.mediumDarkGray};
     font-size: 16px;
     text-decoration: none;
@@ -30,7 +31,8 @@ export default styled.footer`
       width: 100px;
     }
 
-    a {
+    a,
+    span {
       font-size: 12px;
     }
   }
@@ -53,7 +55,8 @@ export const EmCasaInfo = styled.div`
 
 export const EmCasaContact = styled.div`
   display: flex;
-  a {
+  a,
+  span {
     align-self: center;
     margin-left: 20px;
     &.icon {
@@ -75,6 +78,10 @@ export const EmCasaContact = styled.div`
       margin-left: 16px;
     }
 
+    span {
+      order: 1;
+    }
+
     a[href='/jobs'] {
       display: none;
     }
@@ -89,7 +96,8 @@ export const EmCasaContact = styled.div`
       justify-content: space-evenly;
     }
 
-    a {
+    a,
+    span {
       margin-left: 0px;
     }
   }
