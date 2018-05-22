@@ -42,6 +42,18 @@ export default styled.div`
     font-weight: 300;
   }
 
+  .phone {
+    border-top: 1px solid ${colors.lightestGray};
+    color: ${colors.mediumDarkGray};
+    margin: 20px 0 0 0;
+    padding-top: 15px;
+    font-size: 14px;
+    a {
+      text-decoration: none;
+      color: ${colors.blue.medium};
+    }
+  }
+
   button {
     margin-top: 30px;
     width: 100%;
