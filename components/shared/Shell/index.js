@@ -33,7 +33,9 @@ class Layout extends Component {
       isAdmin,
       errorCode,
       renderFooter,
-      pageProps
+      pageProps,
+      url,
+      router
     } = this.props
 
     return (
@@ -53,6 +55,7 @@ class Layout extends Component {
               authenticated={authenticated}
               isAdmin={isAdmin}
               notifications={this.notifications}
+              router={router}
             />
             <Container>
               <Main>{this.props.children}</Main>
