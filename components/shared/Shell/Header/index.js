@@ -78,10 +78,6 @@ export default class Header extends Component {
             <a>Indique e Ganhe</a>
           </Link>
 
-          <Link href="http://blog.emcasa.com">
-            <a>Blog</a>
-          </Link>
-
           {isAdmin && (
             <Link href="/dashboard" as="/dashboard" prefetch>
               <a>Dashboard</a>
