@@ -2,8 +2,8 @@ import {Component, Fragment} from 'react'
 import Link from 'next/link'
 import EmCasaButton from 'components/shared/Common/Buttons/Rounded'
 import UserMenu from './UserMenu'
-
-import Container, {Button, Nav, UserHeader} from './styles'
+import PhoneHeader from 'components/shared/Shell/Header/PhoneHeader'
+import Container, {Button, Nav, UserHeader, Wrapper} from './styles'
 
 export default class Header extends Component {
   constructor(props) {
@@ -91,18 +91,22 @@ export default class Header extends Component {
   }
 
   render() {
+    const {router} = this.props
     return (
-      <Container>
-        <Link href="/" prefetch>
-          <a className="logo">
-            <img
-              src="/static/emcasa-imobiliaria-rio-de-janeiro.png"
-              alt="Emcasa Imobiliária no Rio de Janeiro"
-            />
-          </a>
-        </Link>
-        {this.renderNav()}
-      </Container>
+      <Wrapper>
+        {router.asPath === '/' && <PhoneHeader />}
+        <Container>
+          <Link href="/" prefetch>
+            <a className="logo">
+              <img
+                src="/static/emcasa-imobiliaria-rio-de-janeiro.png"
+                alt="Emcasa Imobiliária no Rio de Janeiro"
+              />
+            </a>
+          </Link>
+          {this.renderNav()}
+        </Container>
+      </Wrapper>
     )
   }
 }
