@@ -18,6 +18,15 @@ export const mockListingCreated = function() {
   })
 }
 
+Cypress.on('uncaught:exception', (err, runnable) => {
+  // returning false here prevents Cypress from
+  // failing the test on absinthe socket errors
+
+  if (err.message.indexOf('_observer') > -1) {
+    return false
+  }
+})
+
 describe('Add Listing', () => {
   Cypress.Cookies.debug(true, {verbose: false})
   context('Unauthenticated', () => {
