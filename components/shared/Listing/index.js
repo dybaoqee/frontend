@@ -17,8 +17,9 @@ export default class Listing extends Component {
         href={`/listings/show?id=${id}`}
         as={buildSlug(this.props.listing)}
         prefetch
+        passHref
       >
-        <a href={`/imoveis/${id}`} className="GTAG">
+        <a className="GTAG">
           <Container className="featured">
             <div className="image-container" style={imgStyle} />
             <p className="price">
