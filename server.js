@@ -118,7 +118,7 @@ const startServer = () => {
       })
 
       server.get(
-        '/imoveis/:state/:city/:zone/:neighborhood/:streetwithId',
+        '/imoveis/:state/:city/:neighborhood/:streetwithId',
         (req, res) => {
           const actualPage = '/listings/show'
           app.render(req, res, actualPage, req.query)
