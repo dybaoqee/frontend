@@ -11,6 +11,7 @@ import humps from 'humps'
 import {ListingInfoMobile} from './styles'
 import Container from './styles'
 import {ListingInfo} from './styles'
+import {buildSlug} from 'lib/listings'
 
 class Listing extends React.Component {
   handleListingClick = (e) => {
@@ -33,10 +34,9 @@ class Listing extends React.Component {
           return false
         }
       } else {
-        Router.push(
-          `/listings/show?id=${listing.id}`,
-          `/imoveis/${listing.id}`
-        ).then(() => window.scrollTo(0, 0))
+        Router.push(`/listings/show?id=${listing.id}`, buildSlug(listing)).then(
+          () => window.scrollTo(0, 0)
+        )
       }
     }
   }
@@ -111,7 +111,7 @@ class Listing extends React.Component {
 
             <Link
               href={`/listings/show?id=${listing.id}`}
-              as={`/imoveis/${listing.id}`}
+              as={buildSlug(listing)}
             >
               <EmCasaButton className="cancel-listing-nav">
                 Ver Detalhes

@@ -4,15 +4,20 @@ import NumberFormat from 'react-number-format'
 
 import {mainListingThumbnail} from 'utils/image_url'
 import Container from './styles'
+import {buildSlug} from 'lib/listings'
 
 export default class Listing extends Component {
   render() {
-    const {id, images, price, address} = this.props
+    const {id, images, price, address} = this.props.listing
     const imgUrl = mainListingThumbnail(images)
     const imgStyle = {backgroundImage: `url(${imgUrl})`}
 
     return (
-      <Link href={`/listings/show?id=${id}`} as={`/imoveis/${id}`} prefetch>
+      <Link
+        href={`/listings/show?id=${id}`}
+        as={buildSlug(this.props.listing)}
+        prefetch
+      >
         <a href={`/imoveis/${id}`} className="GTAG">
           <Container className="featured">
             <div className="image-container" style={imgStyle} />
