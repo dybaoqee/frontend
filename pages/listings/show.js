@@ -20,6 +20,7 @@ import Error from 'components/shared/Shell/Error'
 import Link from 'next/link'
 import Warning from 'components/shared/Common/Warning'
 import Breadcrumb from 'components/shared/Common/Breadcrumb'
+import {parseSlug, buildSlug} from 'lib/listings'
 
 class Listing extends Component {
   favMutated = false
@@ -38,8 +39,8 @@ class Listing extends Component {
   }
 
   static async getInitialProps(context) {
+    const id = context.query.id || parseSlug(context.req.params).id
     const jwt = getJwt(context)
-    const {id} = context.query
     const currentUser = {
       id: getCurrentUserId(context),
       admin: isAdmin(context),
@@ -51,6 +52,12 @@ class Listing extends Component {
         getListing(id, jwt).then(({data}) => data.listing),
         getRelatedListings(id).then(({data}) => data.listings)
       ])
+
+      const urlParams = context.asPath.split('/').length
+      //If client is trying to access old slugs then redirect
+      if (urlParams <= 3) {
+        context.res.redirect(301, buildSlug(listing))
+      }
 
       return {
         listing,
