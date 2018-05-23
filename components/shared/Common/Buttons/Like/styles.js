@@ -6,6 +6,7 @@ export default styled.div`
   border: none;
   box-shadow: none;
   box-sizing: border-box;
+  pointer-events: all;
 
   &:hover {
     background: none;

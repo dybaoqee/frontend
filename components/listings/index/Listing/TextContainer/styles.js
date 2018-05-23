@@ -5,6 +5,7 @@ import {mobileMedia, headerMobileMedia} from 'constants/media'
 export default styled.div`
   padding: 0 20px;
   box-sizing: border-box;
+  pointer-events: none;
 
   div.header {
     display: flex;
@@ -17,6 +18,7 @@ export default styled.div`
     a {
       color: ${colors.blue.medium};
       text-decoration: none;
+      pointer-events: all;
       font-weight: 700;
       &:hover {
         text-decoration: underline;
