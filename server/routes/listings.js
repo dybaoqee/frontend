@@ -1,4 +1,5 @@
 const express = require('express')
+const _ = require('lodash')
 const router = express.Router()
 
 router.get('/:listingId/imagens', (req, res) => {
@@ -25,6 +26,12 @@ router.get('/:id(\\d+)', (req, res) => {
 router.get('/:state/:city/:neighborhood/:streetwithId', (req, res) => {
   const actualPage = '/listings/show'
   res.locals.app.render(req, res, actualPage, req.query)
+})
+
+router.get('/:state/:city/:neighborhood/', (req, res) => {
+  const actualPage = '/listings'
+  const queryParams = {bairros: _.capitalize(req.params.neighborhood)}
+  res.locals.app.render(req, res, actualPage, queryParams)
 })
 
 router.get('/:id(\\d+)/editar', (req, res) => {
