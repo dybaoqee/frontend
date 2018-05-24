@@ -3,13 +3,14 @@ const next = require('next')
 const {parse} = require('url')
 const {join} = require('path')
 const sslRedirect = require('heroku-ssl-redirect')
-const checkPort = require('./lib/middlewares/checkPort')
-const buildSitemap = require('./lib/sitemap')
+const checkPort = require('../lib/middlewares/checkPort')
+const buildSitemap = require('../lib/sitemap')
 const dev = process.env.NODE_ENV !== 'production'
 const port = process.env.PORT || 3000
 const app = next({dir: '.', dev})
 const handle = app.getRequestHandler()
-const MapsService = require('./services/google-maps-api')
+const MapsService = require('../services/google-maps-api')
+const listingsRouter = require('./routes/listings')
 
 const startServer = () => {
   app
@@ -25,6 +26,13 @@ const startServer = () => {
           res.redirect(301, `https://www.${req.headers.host}${req.url}`)
         })
       }
+
+      server.use(function(req, res, next) {
+        res.locals.app = app
+        next()
+      })
+
+      server.use('/imoveis', listingsRouter)
 
       server.get('/maps/autocomplete', async (req, res) => {
         const {q} = req.query
@@ -93,48 +101,8 @@ const startServer = () => {
         app.render(req, res, '/auth/confirm', req.query)
       })
 
-      server.get('/imoveis', (req, res) => {
-        const actualPage = '/listings'
-        app.render(req, res, actualPage, req.query)
-      })
-
       server.get('/saiba-mais-para-vender', (req, res) => {
         return app.render(req, res, '/listings/sell/know-more', req.query)
-      })
-
-      server.get('/imoveis/adicionar', (req, res) => {
-        const actualPage = '/listings/new'
-        app.render(req, res, actualPage)
-      })
-
-      server.get('/imoveis/favoritos', (req, res) => {
-        return app.render(req, res, '/listings/fav', req.query)
-      })
-
-      server.get('/imoveis/:id', (req, res) => {
-        const actualPage = '/listings/show'
-        const queryParams = {id: req.params.id, ...req.query}
-        app.render(req, res, actualPage, queryParams)
-      })
-
-      server.get(
-        '/imoveis/:state/:city/:neighborhood/:streetwithId',
-        (req, res) => {
-          const actualPage = '/listings/show'
-          app.render(req, res, actualPage, req.query)
-        }
-      )
-
-      server.get('/imoveis/:id/editar', (req, res) => {
-        const actualPage = '/listings/edit'
-        const queryParams = {id: req.params.id}
-        app.render(req, res, actualPage, queryParams)
-      })
-
-      server.get('/imoveis/:listingId/imagens', (req, res) => {
-        const actualPage = '/listings/images'
-        const queryParams = {listingId: req.params.listingId}
-        app.render(req, res, actualPage, queryParams)
       })
 
       server.get('/meu-perfil', (req, res) => {
