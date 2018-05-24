@@ -50,7 +50,10 @@ export default class MyPage extends Component {
                   <li key={neighborhood}>
                     <Link
                       href={`/listings/?bairros=${neighborhood}`}
-                      as={`/imoveis/rj/rio-de-janeiro/${neighborhood.toLowerCase()}`}
+                      as={`/imoveis/rj/rio-de-janeiro/${neighborhood
+                        .split(' ')
+                        .join('-')
+                        .toLowerCase()}`}
                     >
                       <a title={`Comprar imóvel: ${neighborhood}`}>
                         {neighborhood}
