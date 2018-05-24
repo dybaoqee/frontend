@@ -6,6 +6,7 @@ import {FAVORITE_LISTING, UNFAVORITE_LISTING} from 'graphql/listings/mutations'
 import {GET_FAVORITE_LISTINGS_IDS} from 'graphql/user/queries'
 import Router from 'next/router'
 import {setCookie} from 'lib/session'
+import {buildSlug} from 'lib/listings'
 const LikeButton = (props) => (
   <Mutation mutation={!props.favorite ? FAVORITE_LISTING : UNFAVORITE_LISTING}>
     {(favoriteListing) => (
@@ -59,9 +60,9 @@ const LikeButton = (props) => (
           } else {
             setCookie(
               'redirectTo',
-              `/listings/show?id=${props.listing.id}&f#as#/imoveis/${
-                props.listing.id
-              }?f`
+              `/listings/show?id=${props.listing.id}&f#as#${buildSlug(
+                props.listing
+              )}&f`
             )
             Router.push({
               pathname: '/auth/login'
