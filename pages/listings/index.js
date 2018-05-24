@@ -178,7 +178,7 @@ class ListingsIndex extends Component {
 
   render() {
     const {params} = this
-    const {neighborhoods, currentUser, query, url} = this.props
+    const {neighborhoods, currentUser, query, url, user} = this.props
     const {
       currentPage,
       totalPages,
@@ -189,7 +189,6 @@ class ListingsIndex extends Component {
       mapOpened
     } = this.state
     const seoImgSrc = this.seoImage
-
     return (
       <Fragment>
         <Head>
@@ -261,7 +260,7 @@ class ListingsIndex extends Component {
                         key={listing.id}
                         id={`listing-${listing.id}`}
                         listing={listing}
-                        currentUser={currentUser}
+                        currentUser={user}
                         loading={loading}
                         mapOpenedOnMobile={mapOpened}
                         favorited={

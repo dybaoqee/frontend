@@ -8,7 +8,9 @@ export default class ListingFeed extends Component {
 
     return (
       <Container related={related}>
-        {listings.map((listing) => <Listing key={listing.id} {...listing} />)}
+        {listings.map((listing) => (
+          <Listing key={listing.id} listing={listing} />
+        ))}
       </Container>
     )
   }

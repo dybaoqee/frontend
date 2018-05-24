@@ -23,6 +23,7 @@ import PropertyGallery from 'components/listings/new/steps/PropertyGallery'
 
 import EmCasaButton from 'components/shared/Common/Buttons'
 import ErrorContainer from 'components/listings/new/shared/ErrorContainer'
+import {buildSlug} from 'lib/listings'
 
 import {
   StepContainer,
@@ -276,7 +277,7 @@ export default class ListingEditV2 extends Component {
       const listingId = res.data.listing.id
       Router.replace(
         `/listings/show?id=${listingId}`,
-        `/imoveis/${listingId}`
+        buildSlug(res.data.listing)
       ).then(() => window.scrollTo(0, 0))
       return null
     } catch (e) {

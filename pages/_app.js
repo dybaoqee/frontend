@@ -1,7 +1,7 @@
 import App, {Container} from 'next/app'
 import _ from 'lodash'
 import Layout from 'components/shared/Shell'
-import {isAuthenticated, isAdmin} from 'lib/auth'
+import {isAuthenticated, isAdmin, getCurrentUserId} from 'lib/auth'
 import withApolloClient from 'lib/apollo/withApolloClient'
 import {ApolloProvider} from 'react-apollo'
 class MyApp extends App {
@@ -20,6 +20,11 @@ class MyApp extends App {
         asPath: router.asPath
       },
       authenticated: isAuthenticated(ctx),
+      currentUser: {
+        id: getCurrentUserId(ctx),
+        authenticated: isAuthenticated(ctx),
+        admin: isAdmin(ctx)
+      },
       isAdmin: isAdmin(ctx)
     }
   }
@@ -32,7 +37,8 @@ class MyApp extends App {
       router,
       authenticated,
       isAdmin,
-      apolloClient
+      apolloClient,
+      currentUser
     } = this.props
     return (
       <Container>
@@ -44,7 +50,12 @@ class MyApp extends App {
             pageProps={pageProps}
             router={router}
           >
-            <Component {...pageProps} url={url} router={router} />
+            <Component
+              {...pageProps}
+              url={url}
+              router={router}
+              user={currentUser}
+            />
           </Layout>
         </ApolloProvider>
       </Container>

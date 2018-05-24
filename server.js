@@ -117,6 +117,14 @@ const startServer = () => {
         app.render(req, res, actualPage, queryParams)
       })
 
+      server.get(
+        '/imoveis/:state/:city/:neighborhood/:streetwithId',
+        (req, res) => {
+          const actualPage = '/listings/show'
+          app.render(req, res, actualPage, req.query)
+        }
+      )
+
       server.get('/imoveis/:id/editar', (req, res) => {
         const actualPage = '/listings/edit'
         const queryParams = {id: req.params.id}

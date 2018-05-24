@@ -3,6 +3,7 @@ import Link from 'next/link'
 import ListingTable from '../Table'
 import Container from './styles'
 import LikeButton from 'components/shared/Common/Buttons/Like'
+import {buildSlug} from 'lib/listings'
 
 export default class TextContainer extends Component {
   truncateDescription = () => {
@@ -48,7 +49,7 @@ export default class TextContainer extends Component {
         </div>
         <div className="description">
           {this.truncateDescription()}{' '}
-          <Link href={`/listings/show?id=${id}`} as={`/imoveis/${id}`}>
+          <Link href={`/listings/show?id=${id}`} as={buildSlug(listing)}>
             Saiba Mais →
           </Link>
         </div>
