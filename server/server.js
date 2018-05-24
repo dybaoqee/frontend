@@ -2,6 +2,7 @@ const express = require('express')
 const next = require('next')
 const {parse} = require('url')
 const {join} = require('path')
+const path = require('path')
 const sslRedirect = require('heroku-ssl-redirect')
 const checkPort = require('../lib/middlewares/checkPort')
 const buildSitemap = require('../lib/sitemap')
@@ -125,8 +126,13 @@ const startServer = () => {
             buildSitemap()
               .then((response) => {
                 console.log(response)
-                const path = join(__dirname, 'static', parsedUrl.pathname)
-                app.serveStatic(req, res, path)
+
+                const pathToSitemap = path.join(
+                  process.cwd(),
+                  'static',
+                  'sitemap.xml'
+                )
+                app.serveStatic(req, res, pathToSitemap)
               })
               .catch((e) => {
                 console.log(
