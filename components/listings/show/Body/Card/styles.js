@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 export default styled.div`
   border: 1px solid ${colors.lightestGray};
-  border-radius: 12px;
+  border-radius: 6px;
   box-shadow: 0 6px 16px 0 rgba(38, 38, 38, 0.15);
   float: right;
   padding: 24px;
