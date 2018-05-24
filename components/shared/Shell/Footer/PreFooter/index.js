@@ -63,7 +63,7 @@ export default class PreFooter extends Component {
             <Link
               key={neighborhood}
               href={`/listings/?bairros=${neighborhood}`}
-              as={`/imoveis?bairros=${neighborhood}`}
+              as={`/imoveis/rj/rio-de-janeiro/${neighborhood.toLowerCase()}`}
             >
               <a title={`Comprar imóvel: ${neighborhood}`}>{neighborhood}</a>
             </Link>
