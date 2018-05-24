@@ -30,7 +30,12 @@ router.get('/:state/:city/:neighborhood/:streetwithId', (req, res) => {
 
 router.get('/:state/:city/:neighborhood/', (req, res) => {
   const actualPage = '/listings'
-  const queryParams = {bairros: _.capitalize(req.params.neighborhood)}
+  const neighborhood = req.params.neighborhood
+  const formattedNeighborhood = neighborhood
+    .split('-')
+    .map((word) => _.upperFirst(word))
+    .join(' ')
+  const queryParams = {bairros: formattedNeighborhood}
   res.locals.app.render(req, res, actualPage, queryParams)
 })
 
