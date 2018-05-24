@@ -2,3 +2,4 @@
         res.locals.app = app
         next()
       })
+      server.use('/imoveis', listingsRouter)
