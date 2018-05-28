@@ -8,7 +8,11 @@ export default ({message: {message, sender, insertedAt}, currentUser}) => (
     <UserAvatar user={sender} />
     <MessageContainer sender={sender.id == currentUser.id}>
       <p>{message}</p>
-      <span>{moment(insertedAt).format('h:mm:ss a, DD MMM YYYY')}</span>
+      <span>
+        {moment(insertedAt)
+          .subtract(3, 'hours')
+          .format('h:mm:ss a, DD MMM YYYY')}
+      </span>
     </MessageContainer>
   </Container>
 )
