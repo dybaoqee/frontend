@@ -81,6 +81,7 @@ export const GET_USER_INFO = gql`
       name
       email
       phone
+      role
     }
   }
 `
