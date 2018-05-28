@@ -12,6 +12,8 @@ export const SEND_MESSAGE = gql`
       insertedAt
       sender {
         id
+        role
+        name
       }
     }
   }
