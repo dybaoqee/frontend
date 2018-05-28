@@ -8,6 +8,7 @@ export const GET_LISTING_MESSAGES = gql`
         name
         email
         phone
+        role
       }
       messages {
         id
@@ -15,6 +16,8 @@ export const GET_LISTING_MESSAGES = gql`
         insertedAt
         sender {
           id
+          role
+          name
         }
       }
     }
