@@ -15,6 +15,7 @@ export const ConversationContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr auto;
   grid-gap: 20px;
+  width: 100%;
 
   @media ${headerMobileMedia} {
     display: flex;
