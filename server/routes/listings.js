@@ -2,6 +2,7 @@ const express = require('express')
 const _ = require('lodash')
 const router = express.Router()
 
+const adminMessengerId = process.env.ADMIN_MESSENGER_ID
 router.get('/:listingId(\\d+)/mensagens/:userId(\\d+)', (req, res) => {
   const actualPage = '/listings/messages'
   const queryParams = {id: req.params.listingId, userId: req.params.userId}
@@ -10,7 +11,7 @@ router.get('/:listingId(\\d+)/mensagens/:userId(\\d+)', (req, res) => {
 
 router.get('/:listingId(\\d+)/mensagens', (req, res) => {
   const actualPage = '/listings/messages'
-  const queryParams = {id: req.params.listingId, userId: 30}
+  const queryParams = {id: req.params.listingId, userId: adminMessengerId}
   res.locals.app.render(req, res, actualPage, queryParams)
 })
 
