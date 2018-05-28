@@ -34,11 +34,11 @@ export default ({listing, receiver}) => (
         </p>
         <div className="user-detail">
           <FontAwesomeIcon icon={faPhone} />
-          <span>{receiver.phone || 'Não informado'}</span>
+          <span>{receiver.phone || 'Não disponível'}</span>
         </div>
         <div className="user-detail">
           <FontAwesomeIcon icon={faMail} />
-          <span>{receiver.email}</span>
+          <span>{receiver.email || 'Não disponível'}</span>
         </div>
       </ReceiverInfo>
     )}
