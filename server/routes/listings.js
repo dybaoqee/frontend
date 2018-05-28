@@ -2,6 +2,18 @@ const express = require('express')
 const _ = require('lodash')
 const router = express.Router()
 
+router.get('/:listingId(\\d+)/mensagens/:userId(\\d+)', (req, res) => {
+  const actualPage = '/listings/messages'
+  const queryParams = {id: req.params.listingId, userId: req.params.userId}
+  res.locals.app.render(req, res, actualPage, queryParams)
+})
+
+router.get('/:listingId(\\d+)/mensagens', (req, res) => {
+  const actualPage = '/listings/messages'
+  const queryParams = {id: req.params.listingId, userId: 30}
+  res.locals.app.render(req, res, actualPage, queryParams)
+})
+
 router.get('/:listingId/imagens', (req, res) => {
   const actualPage = '/listings/images'
   const queryParams = {listingId: req.params.listingId}
