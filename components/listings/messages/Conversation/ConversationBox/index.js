@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import moment from 'moment'
 import EmCasaButton from 'components/shared/Common/Buttons'
 import Container from './styles'
 import {Mutation} from 'react-apollo'
@@ -19,8 +18,9 @@ export default class ConversationBox extends Component {
   onChangeMessage = (e) => this.setState({messageToBeSent: e.target.value})
 
   render() {
-    const {listing: {id}, receiver, currentUser} = this.props
+    const {listing: {id}, receiver} = this.props
     const {messageToBeSent} = this.state
+
     return (
       <Mutation mutation={SEND_MESSAGE}>
         {(sendMessage) => (
@@ -37,19 +37,6 @@ export default class ConversationBox extends Component {
                       receiverId: receiver,
                       message: messageToBeSent
                     },
-                    optimisticResponse: {
-                      __typename: 'Query',
-                      sendMessage: {
-                        __typename: 'Message',
-                        id: 0,
-                        message: messageToBeSent,
-                        insertedAt: moment().format(),
-                        sender: {
-                          id: currentUser.id,
-                          __typename: 'User'
-                        }
-                      }
-                    },
                     update: (proxy, {data: {sendMessage}}) => {
                       // Read the data from our cache for this query.
                       let data = proxy.readQuery({
@@ -61,7 +48,14 @@ export default class ConversationBox extends Component {
                       })
                       data.listingUserMessages.messages.push(sendMessage)
 
-                      proxy.writeQuery({query: GET_LISTING_MESSAGES, data})
+                      proxy.writeQuery({
+                        query: GET_LISTING_MESSAGES,
+                        data,
+                        variables: {
+                          listingId: id,
+                          senderId: receiver
+                        }
+                      })
                     }
                   })
                   this.textAreaRef.current.value = ''
