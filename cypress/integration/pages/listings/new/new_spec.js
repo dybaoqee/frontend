@@ -46,6 +46,18 @@ describe('Add Listing', () => {
     it('should be redirected to listing creation after login', () => {
       cy.server() // enable response stubbing
 
+      cy.route(
+        'GET',
+        `${Cypress.env('apiUrl')}/neighborhoods`,
+        'fixture:listings/neighborhoods.json'
+      )
+
+      cy.route(
+        'POST',
+        `${Cypress.env('apiUrl')}/users/login`,
+        'fixture:users/login.json'
+      )
+
       cy.visit('/saiba-mais-para-vender').then(() => {
         cy
           .get('button')
@@ -53,11 +65,6 @@ describe('Add Listing', () => {
           .click()
       })
 
-      cy.route(
-        'POST',
-        `${Cypress.env('apiUrl')}/users/login`,
-        'fixture:users/login.json'
-      )
       cy.get('input[name=email]').type('foo@bar.com')
       cy.get('input[name=password]').type('foobar{enter}')
       cy.url().should('not.include', 'login')
