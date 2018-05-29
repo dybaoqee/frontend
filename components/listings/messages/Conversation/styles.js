@@ -18,7 +18,7 @@ export const ConversationContainer = styled.div`
   width: 100%;
 
   @media ${headerMobileMedia} {
-    display: flex;
+    display: block;
     > :last-child {
       display: none;
     }
@@ -37,5 +37,9 @@ export default styled.div`
     display: flex;
     flex-direction: column;
     flex: 1;
+
+    ${MessagesContainer} {
+      margin: 0;
+    }
   }
 `
