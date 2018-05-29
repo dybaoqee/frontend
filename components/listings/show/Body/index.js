@@ -1,6 +1,7 @@
 import React from 'react'
 import NumberFormat from 'react-number-format'
 import ListingCard from './Card'
+import MessagesButton from './MessagesButton'
 import Container, {CardWrapper, ListingInfo} from './styles'
 import Statistics from 'components/listings/show/Statistics'
 import {getParagraphs} from 'utils/text-utils'
@@ -64,7 +65,10 @@ export default class ListingMainContent extends React.Component {
             )}
           </ListingInfo>
         </div>
+
         <CardWrapper>
+          {/* {user.authenticated &&
+            !user.admin && <MessagesButton listing={listing} />} */}
           <ListingCard listing={listing} handleOpenPopup={handleOpenPopup} />
           {showStatistics && <Statistics listing={listing} user={user} />}
         </CardWrapper>

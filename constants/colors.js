@@ -2,6 +2,7 @@ export const text = '#262626'
 
 export const blue = {
   light: '#e1f7ff',
+  light2: '#9ed2e5',
   medium: '#227ea2',
   dark: '#1d6c8b',
   darker: '#094156;'

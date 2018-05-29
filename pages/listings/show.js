@@ -47,16 +47,19 @@ class Listing extends Component {
       authenticated: isAuthenticated(context),
       jwt
     }
+
     try {
       const [listing, related] = await Promise.all([
         getListing(id, jwt).then(({data}) => data.listing),
         getRelatedListings(id).then(({data}) => data.listings)
       ])
 
-      const urlParams = context.asPath.split('/').length
-      //If client is trying to access old slugs then redirect
-      if (urlParams <= 3) {
-        context.res.redirect(301, buildSlug(listing))
+      if (context.asPath && context.res) {
+        const urlParams = context.asPath.split('/').length
+        //If client is trying to access old slugs then redirect
+        if (urlParams <= 3) {
+          context.res.redirect(301, buildSlug(listing))
+        }
       }
 
       return {
@@ -141,7 +144,7 @@ class Listing extends Component {
   }
 
   showListing = () => {
-    const {currentUser, listing, related, url} = this.props
+    const {currentUser, listing, related, url, router} = this.props
     const {is_active} = listing
 
     const {
@@ -192,7 +195,7 @@ class Listing extends Component {
                 ).length > 0
 
               if (
-                !_.isUndefined(url.query.f) &&
+                !_.isUndefined(router.query.f) &&
                 !loading &&
                 !favorite &&
                 !this.favMutated
