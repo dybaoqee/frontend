@@ -67,8 +67,17 @@ export const ListingInfo = styled.div`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  > * {
+    margin-right: 20px;
+  }
 
   p {
     margin: 0;
+  }
+
+  @media ${mobileMedia} {
+    h6 {
+      margin: 15px 0;
+    }
   }
 `
