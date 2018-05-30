@@ -40,6 +40,11 @@ export default class Signup extends Component {
     const password = e.target.elements.password.value
     try {
       let data = await signUp(name, email, password, url)
+      window.dataLayer.push({
+        action: 'User Signed up',
+        userId: data.id,
+        event: 'user_signed_up'
+      })
       this.setState({data})
     } catch (e) {
       const errors = _.isArray(e)
