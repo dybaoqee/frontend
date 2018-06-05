@@ -23,3 +23,35 @@ export const GET_LISTING_MESSAGES = gql`
     }
   }
 `
+
+export const GET_USER_CONVERSATIONS = gql`
+  query {
+    userChannels {
+      id
+      listing {
+        id
+        address {
+          street
+          neighborhood
+        }
+      }
+      lastMessage {
+        id
+        message
+        insertedAt
+      }
+      participant1 {
+        id
+        name
+        email
+        role
+      }
+      participant2 {
+        id
+        name
+        email
+        role
+      }
+    }
+  }
+`
