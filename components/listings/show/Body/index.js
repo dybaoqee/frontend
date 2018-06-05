@@ -67,8 +67,8 @@ export default class ListingMainContent extends React.Component {
         </div>
 
         <CardWrapper>
-          {/* {user.authenticated &&
-            !user.admin && <MessagesButton listing={listing} />} */}
+          {user.authenticated &&
+            !user.admin && <MessagesButton listing={listing} />}
           <ListingCard listing={listing} handleOpenPopup={handleOpenPopup} />
           {showStatistics && <Statistics listing={listing} user={user} />}
         </CardWrapper>
