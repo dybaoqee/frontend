@@ -34,7 +34,7 @@ describe('Add Listing', () => {
       cy.visit('/imoveis/adicionar').then((resp) => {
         cy
           .get('a')
-          .contains('Venda')
+          .contains('Anunciar')
           .click()
 
         expect(resp.location.pathname).to.include('/login')

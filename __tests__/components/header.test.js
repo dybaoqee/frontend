@@ -8,7 +8,7 @@ describe('Header', () => {
   it('should render unauthenticated', () => {
     const header = shallow(<Header />)
 
-    expect(header.find(Link)).toHaveLength(6)
+    expect(header.find(Link)).toHaveLength(5)
 
     expect(
       header
@@ -22,23 +22,16 @@ describe('Header', () => {
     expect(
       header
         .find('[href="/listings"]')
-        .find('a')
+        .find('span')
         .text()
-    ).toEqual('Compre')
+    ).toEqual('Buscar Imóveis')
 
     expect(
       header
         .find('[href="/listings/sell/know-more"]')
-        .find('a')
+        .find('span')
         .text()
-    ).toEqual('Venda')
-
-    expect(
-      header
-        .find('[href="/indique"]')
-        .find('a')
-        .text()
-    ).toEqual('Indique e Ganhe')
+    ).toEqual('Anunciar')
 
     expect(header.find(UserMenu).exists()).toEqual(false)
     expect(header.find('[href="/listings/sell/know-more"]').exists()).toEqual(
@@ -48,7 +41,7 @@ describe('Header', () => {
 
   it('should render authenticated', () => {
     const header = shallow(<Header authenticated={true} isAdmin={true} />)
-    expect(header.find(Link)).toHaveLength(5)
+    expect(header.find(Link)).toHaveLength(6)
 
     expect(header.find(UserMenu).exists()).toEqual(true)
 
@@ -63,23 +56,21 @@ describe('Header', () => {
 
     expect(
       header
-        .find('[href="/indique"]')
-        .find('a')
-        .text()
-    ).toEqual('Indique e Ganhe')
-
-    expect(
-      header
         .find('[href="/dashboard"]')
-        .find('a')
+        .find('span')
         .text()
-    ).toEqual('Dashboard')
-
+    ).toEqual('Painel')
     expect(
       header
-        .find('[href="/listings/sell/know-more"]')
-        .find('a')
+        .find('[href="/user/messages"]')
+        .find('span')
         .text()
-    ).toEqual('Venda')
+    ).toEqual('Mensagens')
+    expect(
+      header
+        .find('[href="/listings/fav"]')
+        .find('span')
+        .text()
+    ).toEqual('Favoritos')
   })
 })
