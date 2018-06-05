@@ -107,7 +107,7 @@ export default class Header extends Component {
               return (
                 <Link href={href} as={as} prefetch key={title}>
                   <a>
-                    <MenuItem active={href === router.route}>
+                    <MenuItem active={router && href === router.route}>
                       <FontAwesomeIcon icon={icon} />
                       <span>{title}</span>
                     </MenuItem>
