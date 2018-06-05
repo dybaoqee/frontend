@@ -118,6 +118,10 @@ const startServer = () => {
         return app.render(req, res, '/search', req.query)
       })
 
+      server.get('/mensagens', (req, res) => {
+        return app.render(req, res, '/user/messages', req.query)
+      })
+
       server.get('*', (req, res) => {
         const parsedUrl = parse(req.url, true)
         const rootStaticFiles = ['/robots.txt', '/sitemap.xml']

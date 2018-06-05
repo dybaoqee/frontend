@@ -3,7 +3,13 @@ import Link from 'next/link'
 import EmCasaButton from 'components/shared/Common/Buttons/Rounded'
 import UserMenu from './UserMenu'
 import PhoneHeader from 'components/shared/Shell/Header/PhoneHeader'
-import Container, {Button, Nav, UserHeader, Wrapper} from './styles'
+import Container, {Button, Nav, UserHeader, Wrapper, MenuItem} from './styles'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import faSearch from '@fortawesome/fontawesome-pro-light/faSearch'
+import faTag from '@fortawesome/fontawesome-pro-light/faTag'
+import faHeart from '@fortawesome/fontawesome-pro-light/faHeart'
+import faEnvelope from '@fortawesome/fontawesome-pro-light/faEnvelope'
+import faChart from '@fortawesome/fontawesome-pro-light/faChartBar'
 
 export default class Header extends Component {
   constructor(props) {
@@ -32,11 +38,6 @@ export default class Header extends Component {
         href: '/listings/user-listings',
         as: '/meus-imoveis'
       },
-      {
-        title: 'Imóveis favoritos',
-        href: '/listings/fav',
-        as: '/imoveis/favoritos'
-      },
       {title: 'Sair', href: '/auth/logout'}
     ]
     return !authenticated ? (
@@ -55,34 +56,66 @@ export default class Header extends Component {
   }
 
   renderNav() {
-    const {authenticated, isAdmin} = this.props
+    const {authenticated, isAdmin, router} = this.props
     const {isMobileNavVisible} = this.state
+    const menuItems = [
+      {
+        href: '/listings',
+        as: '/imoveis',
+        icon: faSearch,
+        title: 'Buscar Imóveis'
+      },
+      {
+        href: '/listings/sell/know-more',
+        as: '/saiba-mais-para-vender',
+        icon: faTag,
+        title: 'Anunciar'
+      },
+      {
+        href: '/listings/fav',
+        as: '/imoveis/favoritos',
+        icon: faHeart,
+        title: 'Favoritos',
+        auth: true
+      },
+      {
+        href: '/user/messages',
+        as: '/mensagens',
+        icon: faEnvelope,
+        title: 'Mensagens',
+        auth: true
+      },
+      {
+        href: '/dashboard',
+        as: '/dashboard',
+        icon: faChart,
+        title: 'Painel',
+        admin: true
+      }
+    ]
     return (
       <Fragment>
         <Button onClick={this.toggleMobileNavVisibility}>☰</Button>
 
         <Nav visible={isMobileNavVisible}>
-          <Link href="/listings" as="/imoveis" prefetch>
-            <a>Compre</a>
-          </Link>
-
-          <Link
-            href="/listings/sell/know-more"
-            as="/saiba-mais-para-vender"
-            prefetch
-          >
-            <a>Venda</a>
-          </Link>
-
-          <Link href="/indique">
-            <a>Indique e Ganhe</a>
-          </Link>
-
-          {isAdmin && (
-            <Link href="/dashboard" as="/dashboard" prefetch>
-              <a>Dashboard</a>
-            </Link>
-          )}
+          {menuItems.map(({href, as, icon, title, auth, admin}) => {
+            if (
+              (auth && authenticated) ||
+              (admin && isAdmin) ||
+              (!auth && !admin)
+            ) {
+              return (
+                <Link href={href} as={as} prefetch key={title}>
+                  <a>
+                    <MenuItem active={router && href === router.route}>
+                      <FontAwesomeIcon icon={icon} />
+                      <span>{title}</span>
+                    </MenuItem>
+                  </a>
+                </Link>
+              )
+            }
+          })}
 
           {this.getUserHeader(authenticated, isAdmin)}
         </Nav>

@@ -65,6 +65,11 @@ export const EmCasaContact = styled.div`
     }
   }
 
+  svg {
+    width: 18px !important;
+    height: 18px;
+  }
+
   @media ${headerMobileMedia} {
     flex-direction: column;
 

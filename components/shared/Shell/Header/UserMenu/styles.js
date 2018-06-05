@@ -5,10 +5,9 @@ import * as colors from 'constants/colors'
 export default styled.div`
   position: relative;
   cursor: pointer;
-  margin-left: 14px;
-  width: 50px;
   display: flex;
   justify-content: center;
+  align-items: center;
 
   ul {
     box-sizing: border-box;
@@ -21,8 +20,8 @@ export default styled.div`
     border-radius: 0 0 6px 6px;
     background-color: white;
     box-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.1);
-    left: -240px;
-    top: calc(100% + 18px);
+    left: -255px;
+    top: 100%;
     display: ${({opened}) => (opened ? 'block' : 'none')};
 
     li {
@@ -58,16 +57,6 @@ export default styled.div`
       }
     }
   }
-  :hover {
-    :after {
-      content: '';
-      width: 100%;
-      height: 3px;
-      background: ${colors.blue.dark};
-      position: absolute;
-      top: calc(100% + 15px);
-    }
-  }
 
   @media ${headerMobileMedia} {
     justify-content: flex-start;
@@ -85,6 +74,7 @@ export default styled.div`
 
       li {
         height: 46px;
+        border-bottom: 1px solid ${colors.offWhite};
 
         a {
           border: none;

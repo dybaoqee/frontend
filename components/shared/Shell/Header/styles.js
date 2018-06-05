@@ -10,9 +10,10 @@ export default styled.header`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 11px 10px;
+  padding: 0px 24px;
   width: 100%;
-  min-height: 76px;
+  max-height: 76px;
+  height: 76px;
 
   box-shadow: inset 0 -1px 0 0 ${colors.lightGray};
   img {
@@ -47,44 +48,74 @@ export const Button = styled.button`
 `
 
 export const Nav = styled.nav`
-  float: right;
-  margin-right: 10px;
-  margin-top: 2px;
+  flex: 1;
+  min-height: 100%;
+  box-sizing: border-box;
   display: flex;
-  align-items: center;
+  justify-content: flex-end;
   a {
     box-sizing: border-box;
-    color: ${colors.blue.medium};
-    margin-left: 20px;
     text-decoration: none;
+    color: ${colors.blue.medium};
   }
   a:visited {
     color: ${colors.blue.medium};
   }
+
+  > :nth-child(n + 2) {
+    margin-left: 20px;
+  }
+
+  > * {
+    position: relative;
+    width: auto;
+    :hover {
+      :after {
+        content: '';
+        width: 100%;
+        height: 3px;
+        background: ${colors.blue.dark};
+        position: absolute;
+        top: calc(100% - 3px);
+      }
+    }
+  }
+
   @media ${headerMobileMedia} {
     display: ${(props) => (props.visible ? 'flex' : 'none')};
-    flex: 0 0 calc(100% + 20px);
     flex-direction: column;
-    margin-left: -10px;
-    a:first-of-type {
-      border-top: 1px solid ${colors.offWhite};
-      margin-top: 5px;
+    background: white;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 100%;
+    border-bottom: 1px solid ${colors.lightGray};
+
+    button {
+      margin: 0 10px 0 0;
     }
-    a {
+
+    > * {
+      box-sizing: border-box;
       border-bottom: 1px solid ${colors.offWhite};
-      margin: 0;
       padding: 10px;
-      min-width: 100%;
+      margin: 0 10px !important;
+
+      :hover {
+        :after {
+          display: none;
+        }
+      }
     }
   }
 `
 
 export const UserHeader = styled.div`
-  margin-left: ${({authenticated}) => (authenticated ? 0 : 10)}px;
+  display: flex;
+  align-items: center;
+
   @media ${headerMobileMedia} {
-    min-width: 100%;
-    margin-left: 0px;
-    margin-top: 10px;
+    margin: 0;
   }
 `
 
@@ -100,4 +131,32 @@ export const Wrapper = styled.div`
   top: 0;
   z-index: 5;
   width: 100vw;
+`
+
+export const MenuItem = styled.div`
+  box-sizing: border-box;
+  color: ${({active}) => (active ? colors.gray4a : colors.blue.medium)};
+  :after {
+    content: '';
+    display: ${({active}) => (active ? 'block' : 'none')};
+    width: 100%;
+    height: 3px;
+    background: ${colors.blue.dark};
+    position: absolute;
+    top: calc(100% - 3px);
+  }
+
+  font-size: 16px;
+  line-height: 22px;
+  display: flex;
+
+  min-height: 100%;
+  align-items: center;
+
+  svg {
+    font-weight: 300;
+    width: 18px !important;
+    height: 18px;
+    margin-right: 5px;
+  }
 `
