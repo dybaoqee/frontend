@@ -9,7 +9,7 @@ export default class ErrorPage extends Component {
     }
     return {
       err,
-      statusCode: res.statusCode
+      statusCode: res ? res.statusCode : 404
     }
   }
 
