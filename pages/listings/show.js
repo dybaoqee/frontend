@@ -39,7 +39,9 @@ class Listing extends Component {
   }
 
   static async getInitialProps(context) {
-    const id = context.query.id || parseSlug(context.req.params).id
+    const id = context.req
+      ? context.query.id || parseSlug(context.req.params).id
+      : context.asPath.match(/\d+/g).join([])
     const jwt = getJwt(context)
     const currentUser = {
       id: getCurrentUserId(context),
