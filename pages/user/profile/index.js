@@ -8,6 +8,8 @@ import {isEmailValid} from 'lib/validation'
 import {getCurrentUserId, redirectIfNotAuthenticated} from 'lib/auth'
 import EmCasaButton from 'components/shared/Common/Buttons'
 import Form, {Field} from 'components/shared/Common/Form/styles'
+import _ from 'lodash'
+import Head from 'next/head'
 
 class UserProfile extends Component {
   state = {
