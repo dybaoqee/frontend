@@ -37,7 +37,7 @@ router.get('/:id(\\d+)', (req, res) => {
 })
 
 router.get(
-  '/:state/:city/:neighborhood/:listingId(id-\\d+)/:street',
+  '/:state/:city/:neighborhood/:street/:listingId(id-\\d+)',
   (req, res) => {
     const actualPage = '/listings/show'
     res.locals.app.render(req, res, actualPage, req.query)
