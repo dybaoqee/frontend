@@ -159,4 +159,10 @@ export const MenuItem = styled.div`
     height: 18px;
     margin-right: 5px;
   }
+
+  @media ${headerMobileMedia} {
+    :after {
+      width: ${({active}) => (active ? '96%' : 0)};
+    }
+  }
 `
