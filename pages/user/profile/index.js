@@ -36,7 +36,18 @@ class UserProfile extends Component {
     }
   }
 
-  handleProfileUpdate = async (e, editProfile, editEmail) => {
+  checkComparison = (objValue, othValue) => {
+    if (objValue === othValue || (_.isNull(objValue) && othValue === '')) {
+      return true
+    }
+  }
+
+  handleProfileUpdate = async (e, editProfile, editEmail, userProfile) => {
+    const {
+      name: actualName,
+      email: actualEmail,
+      phone: actualPhone
+    } = userProfile
     e.preventDefault()
     const {currentUser: {id}} = this.props
 
@@ -51,18 +62,39 @@ class UserProfile extends Component {
 
     this.setState({errors: {}})
 
-    editProfile({
-      variables: {id, name, phone},
-      refetchQueries: [{query: GET_USER_INFO, variables: {id}}]
-    })
+    const attributesToBeChanged = {
+      name: _.isEqualWith(actualName, name, this.checkComparison)
+        ? undefined
+        : name,
+      email: _.isEqualWith(actualEmail, email, this.checkComparison)
+        ? undefined
+        : email,
+      phone: _.isEqualWith(actualPhone, phone, this.checkComparison)
+        ? undefined
+        : phone
+    }
 
-    editEmail({
-      variables: {id, email}
-    }).catch(() => {
-      this.setState({
-        errors: {email: 'Esse e-mail já está em uso'}
+    const attributesChanged = _.pickBy(
+      attributesToBeChanged,
+      (val) => !_.isUndefined(val)
+    )
+
+    if (attributesChanged.name || attributesChanged.phone) {
+      editProfile({
+        variables: {id, ...attributesChanged},
+        refetchQueries: [{query: GET_USER_INFO, variables: {id}}]
       })
-    })
+    }
+
+    if (attributesChanged.email) {
+      editEmail({
+        variables: {id, email}
+      }).catch(() => {
+        this.setState({
+          errors: {email: 'Esse e-mail já está em uso'}
+        })
+      })
+    }
   }
 
   handlePasswordUpdate = async (e, editPassword) => {
@@ -118,7 +150,12 @@ class UserProfile extends Component {
                   return (
                     <Form
                       onSubmit={(e) =>
-                        this.handleProfileUpdate(e, editProfile, editEmail)
+                        this.handleProfileUpdate(
+                          e,
+                          editProfile,
+                          editEmail,
+                          userProfile
+                        )
                       }
                       errors={errors}
                     >
@@ -194,8 +231,13 @@ class UserProfile extends Component {
   }
 
   render() {
+    const seoTitle = 'EmCasa | Meu Perfil'
     return (
       <Fragment>
+        <Head>
+          <title>{seoTitle}</title>
+          <meta name="twitter:title" content={seoTitle} />
+        </Head>
         <Tabs
           tabs={[
             {title: 'Perfil', component: this.getProfileForm},
