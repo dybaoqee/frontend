@@ -20,9 +20,14 @@ export default class Header extends Component {
     }
   }
 
+  static getDerivedStateFromProps = () => ({
+    isMobileNavVisible: false
+  })
+
   toggleMobileNavVisibility = () => {
-    const newState = !this.state.isMobileNavVisible
-    this.setState({isMobileNavVisible: newState})
+    this.setState(({isMobileNavVisible}) => ({
+      isMobileNavVisible: !isMobileNavVisible
+    }))
   }
 
   getUserHeader = (authenticated) => {
