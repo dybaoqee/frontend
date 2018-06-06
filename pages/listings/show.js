@@ -39,7 +39,9 @@ class Listing extends Component {
   }
 
   static async getInitialProps(context) {
-    const id = context.query.id || parseSlug(context.req.params).id
+    const id = context.req
+      ? context.query.id || parseSlug(context.req.params).id
+      : context.asPath.match(/\d+/g).join([])
     const jwt = getJwt(context)
     const currentUser = {
       id: getCurrentUserId(context),
@@ -57,7 +59,7 @@ class Listing extends Component {
       if (context.asPath && context.res) {
         const urlParams = context.asPath.split('/').length
         //If client is trying to access old slugs then redirect
-        if (urlParams <= 3) {
+        if (urlParams <= 3 || urlParams === 5) {
           context.res.redirect(301, buildSlug(listing))
         }
       }
