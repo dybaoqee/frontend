@@ -1,7 +1,7 @@
 import {Component, Fragment} from 'react'
 import Head from 'next/head'
 import {redirectIfNotAdmin, getJwt} from 'lib/auth'
-import {getListings} from 'services/listing-api'
+import {getDashboardListings} from 'services/listing-api'
 import _ from 'lodash'
 import Tabs from 'components/shared/Common/Tabs'
 import {
@@ -27,10 +27,7 @@ export default class Dashboard extends Component {
     }
     const jwt = getJwt(ctx)
 
-    const listings = await getListings(jwt, {
-      page_size: 400,
-      excluded_listing_ids: []
-    })
+    const listings = await getDashboardListings(jwt)
 
     return {
       listings: listings.data.listings,
