@@ -1,5 +1,4 @@
 import {get, getFile, post, put} from 'lib/request'
-const slugify = require('slug')
 
 const buildPayload = (data) => {
   return {
@@ -26,8 +25,7 @@ const buildPayload = (data) => {
       state: data.state,
       postal_code: data.postalCode || data.postal_code,
       lat: data.lat,
-      lng: data.lng,
-      neighborhood_slug: slugify(data.neighborhood.toLowerCase())
+      lng: data.lng
     }
   }
 }
