@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import {getNeighborhoods} from 'services/neighborhood-api'
 import Container from './styles'
+const slugify = require('slug')
 
 export default class MyPage extends Component {
   static async getInitialProps() {
@@ -50,10 +51,9 @@ export default class MyPage extends Component {
                   <li key={neighborhood}>
                     <Link
                       href={`/listings/?bairros=${neighborhood}`}
-                      as={`/imoveis/rj/rio-de-janeiro/${neighborhood
-                        .split(' ')
-                        .join('-')
-                        .toLowerCase()}`}
+                      as={`/imoveis/rj/rio-de-janeiro/${slugify(
+                        neighborhood.toLowerCase()
+                      )}`}
                     >
                       <a title={`Comprar imóvel: ${neighborhood}`}>
                         {neighborhood}

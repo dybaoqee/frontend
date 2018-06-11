@@ -1,5 +1,6 @@
 import {Component, Fragment} from 'react'
 import url from 'url'
+import slugify from 'slug'
 import _ from 'lodash'
 import Head from 'next/head'
 import Router from 'next/router'
@@ -52,10 +53,17 @@ class ListingsIndex extends Component {
   }
 
   static async getInitialProps(context) {
-    const [initialState, neighborhoods] = await Promise.all([
-      this.getState(context.query),
-      getNeighborhoods().then(({data}) => data.neighborhoods)
-    ])
+    const neighborhoods = await getNeighborhoods().then(
+      ({data}) => data.neighborhoods
+    )
+    if (context.query.neighborhoodSlug) {
+      context.query.bairros = neighborhoods.filter(
+        (neighborhood) =>
+          slugify(neighborhood).toLowerCase() === context.query.neighborhoodSlug
+      )[0]
+      delete context.query.neighborhoodSlug
+    }
+    const initialState = await this.getState(context.query)
 
     return {
       initialState,

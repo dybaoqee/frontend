@@ -5,6 +5,7 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faPhone from '@fortawesome/fontawesome-free-brands/faWhatsapp'
 import faMail from '@fortawesome/fontawesome-pro-light/faEnvelope'
 import {getNeighborhoods} from 'services/neighborhood-api'
+import slug from 'slug'
 
 export default class PreFooter extends Component {
   constructor(props) {
@@ -63,10 +64,9 @@ export default class PreFooter extends Component {
             <Link
               key={neighborhood}
               href={`/listings/?bairros=${neighborhood}`}
-              as={`/imoveis/rj/rio-de-janeiro/${neighborhood
-                .split(' ')
-                .join('-')
-                .toLowerCase()}`}
+              as={`/imoveis/rj/rio-de-janeiro/${slug(
+                neighborhood.toLowerCase()
+              )}`}
             >
               <a title={`Comprar imóvel: ${neighborhood}`}>{neighborhood}</a>
             </Link>
