@@ -1,5 +1,6 @@
 import {Component, Fragment} from 'react'
 import url from 'url'
+import slugify from 'slug'
 import _ from 'lodash'
 import Head from 'next/head'
 import Router from 'next/router'
@@ -56,6 +57,13 @@ class ListingsIndex extends Component {
       this.getState(context.query),
       getNeighborhoods().then(({data}) => data.neighborhoods)
     ])
+
+    if (context.query.neighborhoodSlug) {
+      context.query.bairros = neighborhoods.filter(
+        (neighborhood) =>
+          slugify(neighborhood).toLowerCase() === context.query.neighborhoodSlug
+      )[0]
+    }
 
     return {
       initialState,
