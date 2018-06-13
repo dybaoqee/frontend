@@ -8,10 +8,27 @@ export default styled.div`
   box-sizing: border-box;
   pointer-events: all;
 
-  &:hover {
-    background: none;
-  }
+  ${({buttonStyle}) =>
+    buttonStyle &&
+    `
+      font-size: 14px;
+      font-weight: 600;
+      border: 1px solid ${colors.mediumDarkGray};
+      width: 90px;
+      height: 37px;
+      border-radius: 4px;
+      background: white;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      padding: 7px 12px 9px;
 
+      svg {
+        margin-right: 5px;
+      }
+
+
+  `};
   svg {
     width: 15px;
     text-shadow: 2px 2px 3px #f00;

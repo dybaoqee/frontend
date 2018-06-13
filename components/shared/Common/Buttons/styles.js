@@ -30,7 +30,6 @@ export default BaseButton.extend`
   }
 
   svg {
-    margin-right: 5px;
     width: 15px;
   }
 
