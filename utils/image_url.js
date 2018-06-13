@@ -16,10 +16,10 @@ export const imageUrl = (filename) => {
   )
 }
 
-export const thumbnailUrl = (filename) => {
+export const thumbnailUrl = (filename, width = 600, height = 400) => {
   return (
     process.env.REACT_APP_CLOUDINARY_BASE_URL +
-    '/f_auto,c_fit,h_400,w_600/v1513818385/' +
+    `/f_auto,c_fit,h_${height},w_${width}/v1513818385/` +
     filename
   )
 }
