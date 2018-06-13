@@ -9,8 +9,6 @@ import {createInterest} from 'services/interest-api'
 import _ from 'lodash'
 import ListingHead from 'components/listings/show/Head'
 import ListingHeader from 'components/listings/show/Header'
-import ImageGallery from 'components/listings/show/ImageGallery'
-import Matterport from 'components/listings/show/Matterport'
 import ListingMainContent from 'components/listings/show/Body'
 import ListingMap from 'components/listings/show/Map'
 import InterestForm from 'components/listings/show/InterestForm'
@@ -150,9 +148,6 @@ class Listing extends Component {
     const {is_active} = listing
 
     const {
-      imageIndex,
-      is3DTourVisible,
-      isImageGalleryVisible,
       isInterestPopupVisible,
       isInterestSuccessPopupVisible,
       interestForm
@@ -217,23 +212,6 @@ class Listing extends Component {
 
               return (
                 <Fragment>
-                  {isImageGalleryVisible && (
-                    <ImageGallery
-                      images={listing.images}
-                      imageIndex={imageIndex}
-                      handlePrevious={this.showNextImage}
-                      handleNext={this.showPreviousImage}
-                      handleClose={this.hideImageGallery}
-                    />
-                  )}
-
-                  {is3DTourVisible && (
-                    <Matterport
-                      matterport_code={listing.matterport_code}
-                      handleClose={this.hide3DTour}
-                    />
-                  )}
-
                   <ListingHead listing={listing} />
 
                   <div>
