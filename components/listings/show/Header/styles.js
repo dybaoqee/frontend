@@ -55,7 +55,6 @@ export const SliderImage = styled.div`
   cursor: pointer;
   max-height: 343px;
   height: 343px;
-  background-color: ${colors.lightestGray};
   z-index: 2;
   position: relative;
 `
@@ -240,7 +239,9 @@ export default styled.div`
   position: relative;
   width: 100vw;
   max-width: 100vw;
-  background-color: ${colors.lightestGray};
+  background-color: ${({isFullScreen}) =>
+    isFullScreen ? 'rgba(0, 0, 0, 0.9)' : colors.lightestGray};
+
   box-sizing: border-box;
 
   min-height: 150px;
