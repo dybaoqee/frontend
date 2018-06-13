@@ -1,21 +1,74 @@
-import {Component} from 'react'
+import {Component, Fragment} from 'react'
 import Link from 'next/link'
 import LikeButton from 'components/shared/Common/Buttons/Like'
-import Container from './styles'
+import Container, {
+  Thumb,
+  SliderImage,
+  Content,
+  Arrow,
+  TourWrapper,
+  SliderNavigation,
+  BottomRight
+} from './styles'
+import Matterport from 'components/listings/show/Matterport'
 import {canEdit} from 'permissions/listings-permissions'
-import {mainListingImage} from 'utils/image_url'
 import {getListingImages} from 'services/listing-api'
 import {Mutation} from 'react-apollo'
 import {VISUALIZE_TOUR} from 'graphql/listings/mutations'
 import {downloadBlob} from 'utils/file-utils'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
-import faDownload from '@fortawesome/fontawesome-free-solid/faDownload'
+import faFileAlt from '@fortawesome/fontawesome-free-solid/faDownload'
 import EmCasaButton from 'components/shared/Common/Buttons'
+import Carousel from 'react-slick'
+import {thumbnailUrl} from 'utils/image_url'
+import faAngleRight from '@fortawesome/fontawesome-pro-regular/faAngleRight'
+import faAngleLeft from '@fortawesome/fontawesome-pro-regular/faAngleLeft'
+import faCube from '@fortawesome/fontawesome-pro-light/faCube'
+import faExpand from '@fortawesome/fontawesome-pro-light/faExpandArrows'
+import faMinimize from '@fortawesome/fontawesome-pro-light/faCompressAlt'
+import {mobileMedia} from 'constants/media'
 
 export default class ListingHeader extends Component {
   state = {
-    downloadingImages: false
+    downloadingImages: false,
+    nav1: null,
+    nav2: null,
+    show3DTour: false,
+    isFullScreen: false,
+    slidesToShow: 10
   }
+
+  componentDidMount() {
+    this.setState({
+      nav1: this.slider1,
+      nav2: this.slider2
+    })
+    window.focus()
+
+    if (window.matchMedia(mobileMedia).matches) this.setState({slidesToShow: 4})
+
+    this.keyListener = window.addEventListener('keyup', (event) => {
+      if (event.defaultPrevented) {
+        return
+      }
+      switch (event.keyCode) {
+        case 27:
+          this.setState({isFullScreen: false})
+          break
+        case 39:
+          this.slider1.slickNext()
+          break
+        case 37:
+          this.slider1.slickPrev()
+          break
+      }
+    })
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keyup', this.keyListener)
+  }
+
   downloadImages = async () => {
     this.setState({downloadingImages: true})
     const {currentUser: {jwt}, listing: {id}} = this.props
@@ -27,100 +80,206 @@ export default class ListingHeader extends Component {
     this.setState({downloadingImages: false})
   }
 
-  render() {
-    const {
-      listing,
-      currentUser,
-      handleOpenImageGallery,
-      handleOpen3DTour,
-      favoritedListing
-    } = this.props
+  hide3DTour = () => this.setState({show3DTour: false})
+  toggleFullScreen = () =>
+    this.setState(({isFullScreen}) => ({isFullScreen: !isFullScreen}))
 
-    const {downloadingImages} = this.state
+  getSliderImages = () =>
+    this.props.listing.images.map(({filename}) => (
+      <SliderImage
+        key={filename}
+        src={thumbnailUrl(filename, 1920, 1080)}
+        alt={`Imagem do apartamento ID ${this.props.listing.id}`}
+        innerRef={(currentImage) => (this[filename] = currentImage)}
+        loaded={this[filename]}
+      />
+    ))
 
-    const {matterport_code, images} = listing
+  getSliderContent = (visualizeTour) => {
+    const {listing: {matterport_code, id}} = this.props
     const src = `https://my.matterport.com/show/?m=${matterport_code}`
+    const sliderContent = this.getSliderImages()
+    if (matterport_code) {
+      sliderContent.unshift(
+        <TourWrapper isFullScreen={this.state.isFullScreen}>
+          <iframe
+            width="100%"
+            height="400px"
+            src={src}
+            frameBorder="0"
+            allowFullScreen
+          />
+          <div
+            className="overlay"
+            onClick={() => {
+              visualizeTour({variables: {id}})
+              this.setState({show3DTour: true})
+            }}
+          />
+        </TourWrapper>
+      )
+    }
+
+    return sliderContent
+  }
+
+  getSliderNavigation = () => {
+    const {listing: {images, matterport_code}} = this.props
+    const settings = {
+      infinite: true,
+      className: 'thumb-slider',
+      speed: 500,
+      slidesToShow: this.state.slidesToShow,
+      slidesToScroll: 1,
+      swipeToSlide: true,
+      nextArrow: <SliderArrow icon={faAngleRight} />,
+      prevArrow: <SliderArrow icon={faAngleLeft} left={true} />,
+      centerMode: true,
+      focusOnSelect: true
+    }
+    return (
+      <div className="container">
+        <Carousel
+          {...settings}
+          asNavFor={this.state.nav2}
+          ref={(slider) => (this.slider1 = slider)}
+        >
+          {matterport_code && (
+            <Thumb key={'tour'} alwaysVisible>
+              <FontAwesomeIcon icon={faCube} />
+              <span>Tour 3D</span>
+            </Thumb>
+          )}
+          {images.map(({filename}) => (
+            <Thumb
+              key={filename}
+              background={thumbnailUrl(filename, 180, 100)}
+            />
+          ))}
+        </Carousel>
+      </div>
+    )
+  }
+
+  render() {
+    const {listing, currentUser, favoritedListing} = this.props
+    const {downloadingImages, show3DTour, isFullScreen} = this.state
+
+    const settings = {
+      dots: false,
+      className: 'images-slider',
+      infinite: true,
+      slidesToShow: isFullScreen ? 1 : 3,
+      slidesToScroll: isFullScreen ? 1 : 3,
+      centerMode: false,
+      speed: 500,
+
+      focusOnSelect: true,
+      lazyLoad: true,
+      swipeToSlide: true,
+      responsive: [
+        {
+          breakpoint: 1200,
+          settings: {
+            slidesToShow: isFullScreen ? 1 : 2,
+            slidesToScroll: isFullScreen ? 1 : 2
+          }
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: isFullScreen ? 1 : 1
+          }
+        }
+      ],
+      adaptiveHeight: false,
+      nextArrow: <SliderArrow icon={faAngleRight} />,
+      prevArrow: <SliderArrow icon={faAngleLeft} left={true} />
+    }
+
     return (
       <Mutation mutation={VISUALIZE_TOUR}>
         {(visualizeTour) => (
-          <Container>
-            {matterport_code && (
-              <div
-                className="overlay"
-                onClick={() => {
-                  visualizeTour({variables: {id: listing.id}})
-                  handleOpen3DTour()
-                }}
-              />
-            )}
-            {matterport_code ? (
-              <iframe
-                width="100%"
-                height="400px"
-                src={src}
-                frameBorder="0"
-                allowFullScreen
-              />
-            ) : (
-              <div
-                className="image"
-                style={{backgroundImage: `url(${mainListingImage(images)})`}}
-                onClick={handleOpenImageGallery}
-              />
-            )}
-            <div className="top-right">
-              {canEdit(currentUser, listing) && (
-                <Link
-                  href={`/listings/edit?id=${listing.id}`}
-                  as={`/imoveis/${listing.id}/editar`}
-                >
-                  <button>Editar</button>
-                </Link>
-              )}
-
-              {!favoritedListing.loading && (
-                <LikeButton
-                  favorite={favoritedListing.favorite}
-                  listing={listing}
-                  user={currentUser}
+          <Fragment>
+            <Container isFullScreen={isFullScreen}>
+              {show3DTour && (
+                <Matterport
+                  matterport_code={listing.matterport_code}
+                  handleClose={this.hide3DTour}
                 />
               )}
-            </div>
+              <Carousel
+                {...settings}
+                asNavFor={this.state.nav1}
+                ref={(slider) => (this.slider2 = slider)}
+              >
+                {this.getSliderContent(visualizeTour).map((content, id) => (
+                  <Content key={content.key || id}>{content}</Content>
+                ))}
+              </Carousel>
 
-            <div className="bottom-right">
-              {listing.matterport_code && (
-                <button
-                  className="white"
-                  onClick={() => {
-                    visualizeTour({variables: {id: listing.id}})
-                    handleOpen3DTour()
-                  }}
-                >
-                  Ver Tour
-                </button>
-              )}
+              <SliderNavigation show={isFullScreen}>
+                {this.getSliderNavigation()}
+              </SliderNavigation>
 
-              {listing.images.length > 0 && (
-                <button className="white" onClick={handleOpenImageGallery}>
-                  Ver Fotos
-                </button>
-              )}
-              {listing.images.length > 0 &&
-                currentUser.admin && (
-                  <EmCasaButton
-                    className="download-images-btn"
-                    secondary
-                    disabled={downloadingImages}
-                    onClick={this.downloadImages}
-                  >
-                    <FontAwesomeIcon icon={faDownload} />
-                    {downloadingImages ? 'Aguarde...' : 'Download fotos'}
+              <div className="top-right">
+                {!favoritedListing.loading &&
+                  !isFullScreen && (
+                    <LikeButton
+                      buttonStyle
+                      secondary
+                      favorite={favoritedListing.favorite}
+                      listing={listing}
+                      user={currentUser}
+                    />
+                  )}
+
+                {listing.images.length > 0 && (
+                  <EmCasaButton onClick={this.toggleFullScreen} light>
+                    <FontAwesomeIcon
+                      icon={isFullScreen ? faMinimize : faExpand}
+                    />
                   </EmCasaButton>
                 )}
-            </div>
-          </Container>
+              </div>
+
+              {!isFullScreen && (
+                <BottomRight>
+                  {canEdit(currentUser, listing) && (
+                    <Link
+                      href={`/listings/edit?id=${listing.id}`}
+                      as={`/imoveis/${listing.id}/editar`}
+                    >
+                      <EmCasaButton>Editar</EmCasaButton>
+                    </Link>
+                  )}
+                  {listing.images.length > 0 &&
+                    currentUser.admin && (
+                      <EmCasaButton
+                        className="download-images-btn"
+                        secondary
+                        disabled={downloadingImages}
+                        onClick={this.downloadImages}
+                      >
+                        <FontAwesomeIcon icon={faFileAlt} />
+                        {downloadingImages ? 'Aguarde...' : 'Download fotos'}
+                      </EmCasaButton>
+                    )}
+                </BottomRight>
+              )}
+            </Container>
+          </Fragment>
         )}
       </Mutation>
     )
   }
+}
+
+function SliderArrow({onClick, icon, left}) {
+  return (
+    <Arrow onClick={onClick} left={left}>
+      <FontAwesomeIcon icon={icon} />
+    </Arrow>
+  )
 }
