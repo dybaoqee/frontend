@@ -28,7 +28,7 @@ export default class MyPage extends Component {
     const seoImg =
       'https://res.cloudinary.com/emcasa/image/upload/f_auto/v1513818385/home-2018-04-03_cozxd9.jpg'
     const seoTitle =
-      'EmCasa | Apartamentos, Casas e Imóveis à Venda no Rio de Janeiro'
+      'Apartamentos, Casas e Imóveis à Venda no Rio de Janeiro | EmCasa'
     const seoDescription =
       'Encontre Apartamentos, Casas e Imóveis à Venda no Rio de Janeiro em Ipanema, Leblon, Copacabana, Botafogo, Flamengo, Lagoa e toda Zona Sul com a Emcasa, a Imobiliária Digital com exclusivo sistema de Tour Virtual em 3D, assistência jurídica, comissões reduzidas e atendimento personalizado!'
 
