@@ -60,14 +60,15 @@ export const SliderImage = styled.div`
 `
 
 export const Content = styled.div`
-  max-height: 340px;
-  min-height: 340px;
+  max-height: 343px;
+  min-height: 343px;
   cursor: pointer;
   outline: none;
   box-sizing: border-box;
   position: relative;
 
   padding-right: 5px !important;
+  background: ${colors.lightestGray};
 
   .spinner {
     content: '';
@@ -240,7 +241,7 @@ export default styled.div`
   width: 100vw;
   max-width: 100vw;
   background-color: ${({isFullScreen}) =>
-    isFullScreen ? 'rgba(0, 0, 0, 0.9)' : colors.lightestGray};
+    isFullScreen ? 'rgba(0, 0, 0, 0.9)' : 'white'};
 
   box-sizing: border-box;
 
@@ -289,6 +290,7 @@ export default styled.div`
       `min-height: 100%;
        max-height: 100%;
         height: 100%;
+        background: none;
         display: flex !important;
          iframe {
 
