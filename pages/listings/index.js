@@ -61,7 +61,6 @@ class ListingsIndex extends Component {
         (neighborhood) =>
           slugify(neighborhood).toLowerCase() === context.query.neighborhoodSlug
       )[0]
-      delete context.query.neighborhoodSlug
     }
     const initialState = await this.getState(context.query)
 
@@ -187,6 +186,19 @@ class ListingsIndex extends Component {
   render() {
     const {params} = this
     const {neighborhoods, currentUser, query, url, user} = this.props
+    const title = !query.neighborhoodSlug
+      ? 'Apartamentos e Casas à venda na Zona Sul do Rio de Janeiro | EmCasa'
+      : `Apartamentos e Casas à venda - ${
+          query.bairros
+        }, Rio de Janeiro | EmCasa`
+    const description = !query.neighborhoodSlug
+      ? 'Conheça em Compre Apartamentos e Casas à venda na Zona Sul do Rio de Janeiro com o sistema exclusivo de Tour 3D da EmCasa'
+      : `Conheça em Compre Apartamentos e Casas à venda - ${
+          query.bairros
+        }, Zona Sul do Rio de Janeiro com o sistema exclusivo de Tour 3D da EmCasa`
+    const h1Content = !query.neighborhoodSlug
+      ? 'Apartamentos e Casas à venda na Zona Sul do Rio de Janeiro'
+      : `Apartamentos e Casas à venda - ${query.bairros}, Rio de Janeiro`
     const {
       currentPage,
       totalPages,
@@ -200,25 +212,13 @@ class ListingsIndex extends Component {
     return (
       <Fragment>
         <Head>
-          <title>Apartamentos à venda no Rio de Janeiro | EmCasa</title>
-          <meta
-            name="description"
-            content="Compre seu Imóvel na Zona Sul do Rio de Janeiro"
-          />
-          <meta
-            property="og:description"
-            content="Compre seu Imóvel na Zona Sul do Rio de Janeiro"
-          />
+          <title>{title}</title>
+          <meta name="description" content={description} />
+          <meta property="og:description" content={description} />
           <meta property="og:image" content={seoImgSrc} />
           <meta name="twitter:card" content="summary_large_image" />
-          <meta
-            name="twitter:title"
-            content="Apartamentos à venda no Rio de Janeiro | EmCasa"
-          />
-          <meta
-            name="twitter:description"
-            content="Compre seu Imóvel na Zona Sul do Rio de Janeiro"
-          />
+          <meta name="twitter:title" content={title} />
+          <meta name="twitter:description" content={description} />
           <meta name="twitter:image" content={seoImgSrc} />
         </Head>
         <Filter
@@ -252,6 +252,7 @@ class ListingsIndex extends Component {
                   <InfiniteScroll
                     currentPage={currentPage}
                     totalPages={totalPages}
+                    title={h1Content}
                     entries={
                       framedListings.length > 0 ? framedListings : listings
                     }
