@@ -8,11 +8,26 @@ export default class ListingHead extends Component {
     const {listing} = this.props
     const seoImgSrc = mainListingImage(listing.images)
 
+    const description = `Conheça ${
+      listing.matterport_code ? 'com Tour Virtual 3D' : ''
+    } ${listing.type.charAt(listing.type.length - 1)} ${listing.type} na ${
+      listing.address.street
+    }, ${listing.address.neighborhood}, ${listing.address.city} - ${
+      listing.rooms
+    } dormitórios, ${
+      listing.area
+    } metros quadrados, R$ ${listing.price.toLocaleString('pt-BR')},00, ID${
+      listing.id
+    }`
+
     return (
       <Head>
         <title>
-          À venda: {listing.type} - {listing.address.street} -{' '}
-          {listing.address.neighborhood}, {listing.address.city} | EmCasa
+          {listing.type} à venda na {listing.address.street} -
+          {listing.address.neighborhood}, {listing.address.city} - ID{
+            listing.id
+          }{' '}
+          | EmCasa
         </title>
         <link
           rel="stylesheet"
