@@ -18,9 +18,9 @@ export default class SellKnowMore extends Component {
     const seoImg = imageUrl(
       'emcasa-saiba-mais-para-vender-share-centered-2.jpg'
     )
-    const seoTitle = 'EmCasa | Venda seu imóvel com a EmCasa'
+    const seoTitle = 'Anuncie e Venda seu imóvel no Rio de Janeiro | EmCasa'
     const seoDescription =
-      'Anuncie seu Apartamento ou Casa de forma simples e transparente'
+      'Anuncie e venda seu imóvel no Rio de Janeiro de forma simples e transparente com a EmCasa que tem sistema exclusivo de Tour Virtual 3D para aumentar suas chances de venda'
 
     return (
       <Fragment>
@@ -42,7 +42,7 @@ export default class SellKnowMore extends Component {
               src={imageUrl('listings_new_header.png')}
               alt="Venda seu imóvel na EmCasa"
             />
-            <h1>Venda seu imóvel na EmCasa</h1>
+            <h1>Anuncie e Venda seu imóvel no Rio de Janeiro com a EmCasa</h1>
           </Header>
           <Container>
             <BenefitsContainer>
