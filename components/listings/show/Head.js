@@ -14,6 +14,17 @@ export default class ListingHead extends Component {
           À venda: {listing.type} - {listing.address.street} -{' '}
           {listing.address.neighborhood}, {listing.address.city} | EmCasa
         </title>
+        <link
+          rel="stylesheet"
+          type="text/css"
+          charset="UTF-8"
+          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+        />
+        <link
+          rel="stylesheet"
+          type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
+        />
         <meta name="description" content={listing.description} />
         <meta property="og:description" content={listing.description} />
         <meta property="og:image" content={seoImgSrc} />
