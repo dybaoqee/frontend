@@ -8,11 +8,26 @@ export default class ListingHead extends Component {
     const {listing} = this.props
     const seoImgSrc = mainListingImage(listing.images)
 
+    const description = `Conheça ${
+      listing.matterport_code ? 'com Tour Virtual 3D' : ''
+    } ${listing.type.charAt(listing.type.length - 1)} ${listing.type} na ${
+      listing.address.street
+    }, ${listing.address.neighborhood}, ${listing.address.city} - ${
+      listing.rooms
+    } dormitórios, ${
+      listing.area
+    } metros quadrados, R$ ${listing.price.toLocaleString('pt-BR')},00 - ID${
+      listing.id
+    }`
+
     return (
       <Head>
         <title>
-          À venda: {listing.type} - {listing.address.street} -{' '}
-          {listing.address.neighborhood}, {listing.address.city} | EmCasa
+          {listing.type} à venda na {listing.address.street} -{' '}
+          {listing.address.neighborhood}, {listing.address.city} - ID{
+            listing.id
+          }{' '}
+          | EmCasa
         </title>
         <link
           rel="stylesheet"
@@ -25,8 +40,8 @@ export default class ListingHead extends Component {
           type="text/css"
           href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
         />
-        <meta name="description" content={listing.description} />
-        <meta property="og:description" content={listing.description} />
+        <meta name="description" content={description} />
+        <meta property="og:description" content={description} />
         <meta property="og:image" content={seoImgSrc} />
         <meta property="og:image:width" content="1024" />
         <meta property="og:image:height" content="768" />

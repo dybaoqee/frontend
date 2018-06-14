@@ -15,16 +15,17 @@ export default class ListingMainContent extends React.Component {
     const paragraphs = getParagraphs(listing.description)
     const ownerOrAdmin = canEdit(user, listing)
     const listingInfo = ownerOrAdmin
-      ? `${street}, ${street_number} - ${
-          listing.complement
-            ? `${listing.complement}, ${neighborhood}`
-            : neighborhood
-        } `
-      : `${street}, ${neighborhood}`
+      ? `${street}, ${street_number} ${
+          listing.complement ? `- ${listing.complement}` : ''
+        }`
+      : `${street}`
     return (
       <Container>
         <div className="description">
-          <h1 className="street">{listingInfo}</h1>
+          <h1 className="street">
+            {listing.type} na {listingInfo}, {listing.address.neighborhood},{' '}
+            {listing.address.city}
+          </h1>
           <h6>O imóvel</h6>
           {paragraphs &&
             paragraphs.map((paragraph, i) => <p key={i}>{paragraph}</p>)}
