@@ -16,7 +16,7 @@ export default class ListingHead extends Component {
       listing.rooms
     } dormitórios, ${
       listing.area
-    } metros quadrados, R$ ${listing.price.toLocaleString('pt-BR')},00, ID${
+    } metros quadrados, R$ ${listing.price.toLocaleString('pt-BR')},00 - ID${
       listing.id
     }`
 
