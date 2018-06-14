@@ -71,11 +71,6 @@ const LikeButton = (props) => (
         }}
       >
         <FontAwesomeIcon icon={faHeart} />
-        {props.buttonStyle ? (
-          <span>{props.favorite ? 'Salvo' : 'Salvar'}</span>
-        ) : (
-          ''
-        )}
       </Button>
     )}
   </Mutation>
