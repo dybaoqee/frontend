@@ -23,7 +23,7 @@ export default class ListingHead extends Component {
     return (
       <Head>
         <title>
-          {listing.type} à venda na {listing.address.street} -
+          {listing.type} à venda na {listing.address.street} -{' '}
           {listing.address.neighborhood}, {listing.address.city} - ID{
             listing.id
           }{' '}
