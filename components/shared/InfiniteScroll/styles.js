@@ -63,7 +63,7 @@ export const Title = styled.h1`
   font-size: 24px;
   width: 100%;
   z-index: 1;
-  padding: 15px 10px 15px;
+  padding: 15px 10px 0px 10px;
   @media ${mobileMedia} {
     font-size: 20px;
   }
