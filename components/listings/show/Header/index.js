@@ -215,7 +215,10 @@ export default class ListingHeader extends Component {
                 ref={(slider) => (this.slider2 = slider)}
               >
                 {this.getSliderContent(visualizeTour).map((content, id) => (
-                  <Content key={content.key || id}>{content}</Content>
+                  <Content key={content.key || id}>
+                    <div className="spinner" />
+                    {content}
+                  </Content>
                 ))}
               </Carousel>
 
