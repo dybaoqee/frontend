@@ -72,16 +72,22 @@ export const Content = styled.div`
 
   .spinner {
     content: '';
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     border: 6px solid ${colors.blue.medium};
     border-left-color: ${colors.blue.light};
     border-radius: 50%;
-    z-index: 3;
+    z-index: 1;
     top: calc(50% - 20px);
     left: calc(50% - 20px);
     position: absolute;
     animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
   }
 `
 
@@ -107,6 +113,7 @@ export const TourWrapper = styled.div`
   height: 100%;
 
   iframe {
+    z-index: 2;
     box-sizing: border-box;
     width: 100%;
     height: ${({isFullScreen}) =>
@@ -145,7 +152,7 @@ export const TourWrapper = styled.div`
     color: white;
     left: calc(50% - 100px);
     animation: highlight 1s cubic-bezier(0.19, 1, 0.22, 1);
-    animation-delay: 2s;
+    animation-delay: 1s;
     animation-fill-mode: forwards;
     pointer-events: none;
     font-size: ${({isFullScreen}) => (isFullScreen ? 24 : 16)}px;
