@@ -273,6 +273,7 @@ export default styled.div`
   .slick-list,
   .slick-track {
     height: 100%;
+    min-height: 100%;
   }
 
   .slick-slide > div {
@@ -289,7 +290,7 @@ export default styled.div`
       isFullScreen &&
       `min-height: 100%;
        max-height: 100%;
-        height: 100%;
+        height: calc(100vh - 70px);
         background: none;
         display: flex !important;
          iframe {
