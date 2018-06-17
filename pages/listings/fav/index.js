@@ -59,7 +59,8 @@ class ListingsFav extends Component {
         admin: isAdmin(context),
         authenticated: isAuthenticated(context)
       },
-      renderFooter: false
+      renderFooter: false,
+      query: context.query
     }
   }
 
