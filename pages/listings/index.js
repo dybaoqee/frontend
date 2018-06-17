@@ -1,15 +1,16 @@
 import {Component, Fragment} from 'react'
-import url from 'url'
 import slugify from 'slug'
 import _ from 'lodash'
 import Head from 'next/head'
 import Router from 'next/router'
 import {Query} from 'react-apollo'
 import {GET_FAVORITE_LISTINGS_IDS} from 'graphql/user/queries'
-import {treatParams} from 'utils/filter-params.js'
-import {mainListingImage} from 'utils/image_url'
-import {getCurrentUserId, isAuthenticated} from 'lib/auth'
-import {getListings} from 'services/listing-api'
+import {GET_LISTINGS, GET_LISTINGS_COORDINATES} from 'graphql/listings/queries'
+import {
+  treatParams,
+  getDerivedParams,
+  getFiltersForGraphQL
+} from 'utils/filter-params.js'
 import {getNeighborhoods} from 'services/neighborhood-api'
 import InfiniteScroll from 'components/shared/InfiniteScroll'
 import MapContainer from 'components/listings/index/Map'
@@ -17,83 +18,158 @@ import Listing from 'components/listings/index/Listing'
 import ListingsNotFound from 'components/listings/index/NotFound'
 import Filter from 'components/listings/index/Search'
 import Container, {MapButton} from './styles'
-const getDerivedState = ({initialState}) => {
-  const currentPage = initialState.currentPage || 1
-  return {
-    ...initialState,
-    currentPage,
-    framedListings: [],
-    mapOpened: false
+
+class Listings extends Component {
+  constructor(props) {
+    super(props)
+
+    this.pagination = {
+      pageSize: 20,
+      excludedListingIds: []
+    }
+
+    this.filters = getFiltersForGraphQL(props.query)
+  }
+  getListings = (loadingListings, result, fetchMore) => {
+    const {user, query, mapOpenedOnMobile, resetFilters, filters} = this.props
+
+    const h1Content = !query.neighborhoodSlug
+      ? 'Apartamentos e Casas à venda na Zona Sul do Rio de Janeiro'
+      : `Apartamentos e Casas à venda - ${query.bairros}, Rio de Janeiro`
+
+    if (result && result.listings.length > 0) {
+      return (
+        <Query query={GET_FAVORITE_LISTINGS_IDS} skip={!user.authenticated}>
+          {({data, loading, error}) => {
+            return (
+              <Fragment>
+                <InfiniteScroll
+                  title={h1Content}
+                  entries={result.listings}
+                  remaining_count={result.remainingCount}
+                  loading={loadingListings}
+                  onLoad={() =>
+                    fetchMore({
+                      variables: {
+                        pagination: {
+                          ...this.pagination,
+                          excludedListingIds: _.map(result.listings, 'id')
+                        }
+                      },
+                      updateQuery: (
+                        prev,
+                        {fetchMoreResult, variables: {pagination}}
+                      ) => {
+                        if (!fetchMoreResult) return prev
+                        this.pagination = pagination
+                        const result = {
+                          ...prev,
+                          listings: {
+                            ...prev.listings,
+                            remainingCount:
+                              fetchMoreResult.listings.remainingCount,
+                            listings: [
+                              ...prev.listings.listings,
+                              ...fetchMoreResult.listings.listings
+                            ]
+                          }
+                        }
+                        return result
+                      }
+                    })
+                  }
+                  mapOpenedOnMobile={mapOpenedOnMobile}
+                >
+                  {(listing) => (
+                    <Listing
+                      // onMouseEnter={this.onHoverListing}
+                      // onMouseLeave={this.onLeaveListing}
+                      //highlight={highlight}
+                      key={listing.id}
+                      id={`listing-${listing.id}`}
+                      listing={listing}
+                      currentUser={user}
+                      loading={loading}
+                      mapOpenedOnMobile={mapOpenedOnMobile}
+                      favorited={
+                        error || !data.favoritedListings
+                          ? []
+                          : data.favoritedListings
+                      }
+                    />
+                  )}
+                </InfiniteScroll>
+              </Fragment>
+            )
+          }}
+        </Query>
+      )
+    } else {
+      return (
+        <ListingsNotFound
+          filtered={!_.isEmpty(filters)}
+          resetAllParams={resetFilters}
+        />
+      )
+    }
+  }
+
+  render() {
+    const {pagination, neighborhoods, query, mapOpened, filters} = this.props
+
+    return (
+      <Query
+        query={GET_LISTINGS}
+        variables={{pagination: this.pagination, filters}}
+        fetchPolicy="cache-and-network"
+      >
+        {({data: {listings}, loading, fetchMore}) => {
+          return (
+            <div className="entries-container">
+              {this.getListings(loading, listings, fetchMore)}
+            </div>
+          )
+        }}
+      </Query>
+    )
   }
 }
-
-const splitParam = (param) => (param ? param.split('|') : [])
-
-const getDerivedParams = ({query}) => ({
-  price: {
-    min: query.preco_minimo,
-    max: query.preco_maximo
-  },
-  area: {
-    min: query.area_minima,
-    max: query.area_maxima
-  },
-  rooms: {
-    min: query.quartos_minimo,
-    max: query.quartos_maximo
-  },
-  neighborhoods: splitParam(query.bairros)
-})
 
 class ListingsIndex extends Component {
   constructor(props) {
     super(props)
 
-    this.state = getDerivedState(props)
+    this.state = {
+      mapOpened: false,
+      filters: getFiltersForGraphQL(props.query),
+      pageSize: 3
+    }
+
+    this.filters = getFiltersForGraphQL(props.query)
   }
 
   static async getInitialProps(context) {
-    const neighborhoods = await getNeighborhoods().then(
-      ({data}) => data.neighborhoods
-    )
-    if (context.query.neighborhoodSlug) {
-      context.query.bairros = neighborhoods.filter(
-        (neighborhood) =>
-          slugify(neighborhood).toLowerCase() === context.query.neighborhoodSlug
-      )[0]
+    let neighborhoods = []
+
+    if (context.req) {
+      neighborhoods = await getNeighborhoods().then(
+        ({data}) => data.neighborhoods
+      )
+      if (context.query.neighborhoodSlug) {
+        context.query.bairros = neighborhoods.filter(
+          (neighborhood) =>
+            slugify(neighborhood).toLowerCase() ===
+            context.query.neighborhoodSlug
+        )[0]
+      }
+    } else {
+      neighborhoods = window.__NEXT_DATA__.props.pageProps.neighborhoods
     }
-    const initialState = await this.getState(context.query)
 
     return {
-      initialState,
       neighborhoods,
-      currentUser: {
-        id: getCurrentUserId(context),
-        authenticated: isAuthenticated(context)
-      },
       query: context.query,
       renderFooter: false
-    }
-  }
-
-  static async getState(query) {
-    const page = query.page || 1
-
-    const {data} = await getListings(null, {
-      ...query,
-      page,
-      page_size: 400,
-      excluded_listing_ids: query.excluded_listing_ids || []
-    })
-
-    return {
-      ...data
-    }
-  }
-
-  componentWillReceiveProps(props) {
-    if (!_.isEqual(props.initialState, this.props.initialState)) {
-      this.setState(getDerivedState(props))
     }
   }
 
@@ -101,53 +177,29 @@ class ListingsIndex extends Component {
     require('utils/polyfills/smooth-scroll').load()
   }
 
-  onLoadNextPage = async () => {
-    const {currentPage, totalPages} = this.state
-    const excluded_listing_ids = this.state.listings.map(
-      (actualListing) => actualListing.id
-    )
-    if (currentPage >= totalPages) return
-    const {listings, ...state} = await this.constructor.getState({
-      ...this.params,
-      page: currentPage + 1,
-      excluded_listing_ids
-    })
-
-    await this.setState({
-      ...state,
-      listings: [...this.state.listings, ...listings]
-    })
-  }
-
   onChangeFilter = (name, value) => {
+    const {query} = this.props
+    const filters = getDerivedParams(query)
+
     const params = treatParams({
-      ...this.params,
+      ...filters,
       [name]: value
     })
 
+    const newUrl = `/listings/index?${params}`
     if (params) {
-      Router.push(`/listings/index?${params}`, `/imoveis?${params}`)
+      Router.push(newUrl, `/imoveis?${params}`, {
+        shallow: true
+      })
     } else {
-      Router.push('/listings/index', '/imoveis')
+      Router.push('/listings/index', '/imoveis', {
+        shallow: true
+      })
     }
   }
 
-  onResetFilter = () => Router.push('/listings/index', '/imoveis')
-
-  onUpdateRoute = (requestPath) => {
-    const {query} = url.parse(requestPath, true)
-    this.setState(
-      getDerivedState({initialState: this.constructor.getState(query)})
-    )
-  }
-
-  get params() {
-    return getDerivedParams(this.props)
-  }
-
-  get seoImage() {
-    const listing = this.state.listings[0]
-    return listing ? mainListingImage(listing.images) : null
+  onResetFilter = () => {
+    Router.push('/listings/index', '/imoveis')
   }
 
   onSelectListing = (id, position) => {
@@ -170,12 +222,17 @@ class ListingsIndex extends Component {
     this.setState({highlight: {}})
   }
 
-  onChangeMap = (framedListings) => {
-    const {listings} = this.state
-    const framed = listings.filter((listing) =>
-      _.includes(framedListings, listing.id)
-    )
-    this.setState({framedListings: framed})
+  onChangeMap = (listings, refetch, framedListings, bounds) => {
+    this.setState({
+      filters: {
+        ...this.state.filters,
+        minLat: bounds.sw.lat,
+        minLng: bounds.sw.lng,
+        maxLat: bounds.ne.lat,
+        maxLng: bounds.ne.lng
+      },
+      pageSize: listings.length > 0 ? listings.length : 3
+    })
   }
 
   handleMap = () => {
@@ -183,9 +240,10 @@ class ListingsIndex extends Component {
     this.setState({mapOpened: !mapOpened})
   }
 
-  render() {
-    const {params} = this
-    const {neighborhoods, currentUser, query, url, user} = this.props
+  getHead = () => {
+    const {query} = this.props
+    const seoImgSrc =
+      'https://res.cloudinary.com/emcasa/image/upload/f_auto/v1513818385/home-2018-04-03_cozxd9.jpg'
     const title = !query.neighborhoodSlug
       ? 'Apartamentos e Casas à venda na Zona Sul do Rio de Janeiro | EmCasa'
       : `Apartamentos e Casas à venda - ${
@@ -196,94 +254,82 @@ class ListingsIndex extends Component {
       : `Conheça em Compre Apartamentos e Casas à venda - ${
           query.bairros
         }, Zona Sul do Rio de Janeiro com o sistema exclusivo de Tour 3D da EmCasa`
-    const h1Content = !query.neighborhoodSlug
-      ? 'Apartamentos e Casas à venda na Zona Sul do Rio de Janeiro'
-      : `Apartamentos e Casas à venda - ${query.bairros}, Rio de Janeiro`
-    const {
-      currentPage,
-      totalPages,
-      listings,
-      remaining_count,
-      highlight,
-      framedListings,
-      mapOpened
-    } = this.state
-    const seoImgSrc = this.seoImage
+
+    return (
+      <Head>
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={seoImgSrc} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={seoImgSrc} />
+      </Head>
+    )
+  }
+
+  getMap = () => {
+    const {highlight, mapOpened} = this.state
+    return (
+      <Query query={GET_LISTINGS_COORDINATES}>
+        {({data: {listings: mapListings}}) => (
+          <Fragment>
+            {this.getHead()}
+            <MapButton opened={mapOpened} onClick={this.handleMap} />
+            <div className="map">
+              <MapContainer
+                zoom={13}
+                onSelect={this.onSelectListing}
+                listings={mapListings ? mapListings.listings : []}
+                highlight={highlight}
+                onChange={this.onChangeMap.bind(null, [], () => {})}
+              />
+            </div>
+          </Fragment>
+        )}
+      </Query>
+    )
+  }
+
+  // componentWillUpdate(nextProps, nextState) {
+  //   console.log('ATUALIZANDO')
+  //   for (const index in nextProps) {
+  //     if (nextProps[index] !== this.props[index]) {
+  //       console.log(index, this.props[index], '-PROS->', nextProps[index])
+  //     }
+  //   }
+  //
+  //   for (const indice in nextState) {
+  //     if (nextState[indice] !== this.state[indice]) {
+  //       console.log(indice, this.state[indice], '-STATE->', nextState[indice])
+  //     }
+  //   }
+  // }
+
+  render() {
+    const {pagination} = this
+    const {neighborhoods, query, user} = this.props
+    const {mapOpened, filters, pageSize} = this.state
+
     return (
       <Fragment>
-        <Head>
-          <title>{title}</title>
-          <meta name="description" content={description} />
-          <meta property="og:description" content={description} />
-          <meta property="og:image" content={seoImgSrc} />
-          <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:title" content={title} />
-          <meta name="twitter:description" content={description} />
-          <meta name="twitter:image" content={seoImgSrc} />
-        </Head>
         <Filter
-          params={params}
+          params={getDerivedParams(query)}
           neighborhoods={neighborhoods}
           onChange={this.onChangeFilter}
           onReset={this.onResetFilter}
         />
-
         <Container opened={mapOpened}>
-          <MapButton opened={mapOpened} onClick={this.handleMap} />
-          <div className="map">
-            <MapContainer
-              zoom={13}
-              onSelect={this.onSelectListing}
-              listings={listings}
-              highlight={highlight}
-              onChange={this.onChangeMap}
-            />
-          </div>
-
-          <div className="entries-container">
-            {listings.length == 0 ? (
-              <ListingsNotFound
-                filtered={!_.isEmpty(url.query)}
-                resetAllParams={this.onResetFilter}
-              />
-            ) : (
-              <Query query={GET_FAVORITE_LISTINGS_IDS}>
-                {({data, loading, error}) => (
-                  <InfiniteScroll
-                    currentPage={currentPage}
-                    totalPages={totalPages}
-                    title={h1Content}
-                    entries={
-                      framedListings.length > 0 ? framedListings : listings
-                    }
-                    remaining_count={remaining_count}
-                    onLoad={this.onLoadNextPage}
-                    to={{pathname: '/imoveis', query}}
-                    mapOpenedOnMobile={mapOpened}
-                  >
-                    {(listing) => (
-                      <Listing
-                        onMouseEnter={this.onHoverListing}
-                        onMouseLeave={this.onLeaveListing}
-                        highlight={highlight}
-                        key={listing.id}
-                        id={`listing-${listing.id}`}
-                        listing={listing}
-                        currentUser={user}
-                        loading={loading}
-                        mapOpenedOnMobile={mapOpened}
-                        favorited={
-                          error || !data.favoritedListings
-                            ? []
-                            : data.favoritedListings
-                        }
-                      />
-                    )}
-                  </InfiniteScroll>
-                )}
-              </Query>
-            )}
-          </div>
+          {this.getMap()}
+          <Listings
+            query={query}
+            user={user}
+            filters={filters}
+            pagination={pagination}
+            resetFilters={this.onResetFilter}
+            pageSize={pageSize}
+          />
         </Container>
       </Fragment>
     )
