@@ -86,30 +86,28 @@ class ListingsFav extends Component {
     })
 
     if (params) {
-      Router.replace(`/listings/fav?${params}`, `/imoveis/favoritos?${params}`)
+      Router.push(`/listings/fav?${params}`, `/imoveis/favoritos?${params}`)
     } else {
-      Router.replace('/listings/fav', '/imoveis/favoritos')
+      Router.push('/listings/fav', '/imoveis/favoritos')
     }
   }
 
   onResetFilter = () => Router.push('/listings/fav', '/imoveis/favoritos')
 
   get params() {
-    return getDerivedParams(this.props.url.query)
+    return getDerivedParams(this.props.query)
   }
 
   filteredListings = (serverListings) => {
     const {
-      query: {
-        preco_minimo,
-        preco_maximo,
-        area_minima,
-        area_maxima,
-        quartos_minimo,
-        quartos_maximo,
-        bairros
-      }
-    } = this.props.url
+      preco_minimo,
+      preco_maximo,
+      area_minima,
+      area_maxima,
+      quartos_minimo,
+      quartos_maximo,
+      bairros
+    } = this.props.query
     return serverListings.filter(
       ({price, rooms, area, address: {neighborhood}}) => {
         let returnListing = true
