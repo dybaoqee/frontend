@@ -62,9 +62,11 @@ export default class MapContainer extends Component {
     }))
 
     const framedListings = _.flatten(
-      clusters.map((marker) => [...marker.points])
+      clusters
+        .filter((cluster) => cluster.numPoints === 1)
+        .map((marker) => [...marker.points])
     )
-    onChange && onChange(framedListings.map((listing) => listing.id))
+    onChange && onChange(framedListings.map((listing) => listing.id), bounds)
     this.setState({
       clusters: this.state.mapOptions.bounds ? clusters : [],
       hasAggregators:
@@ -85,7 +87,7 @@ export default class MapContainer extends Component {
         }
       },
       () => {
-        this.createClusters(this.props)
+        this.createClusters(bounds)
       }
     )
   }
