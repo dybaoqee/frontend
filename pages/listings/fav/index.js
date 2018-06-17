@@ -67,11 +67,6 @@ class ListingsFav extends Component {
     require('utils/polyfills/smooth-scroll').load()
   }
 
-  onUpdateRoute = (requestPath) => {
-    const {query} = url.parse(requestPath, true)
-    this.setState({query})
-  }
-
   onSelectListing = (id, position) => {
     if (!position) {
       const element = document.getElementById(`listing-${id}`)
