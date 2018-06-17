@@ -11,6 +11,7 @@ function createMapOptions(maps) {
     defaultZoom: 8,
     defaultCenter: {lat: -22.9608099, lng: -43.2096142},
     maxZoom: 19,
+    minZoom: 5,
     zoomControlOptions: {
       position: maps.ControlPosition.RIGHT_TOP,
       style: maps.ZoomControlStyle.SMALL
@@ -42,15 +43,15 @@ export default class MapContainer extends Component {
     const {mapOptions} = this.state
     const {markers} = this.props
     const clusters = supercluster(markers, {
-      minZoom: 0,
-      maxZoom: 14,
-      radius: 60
+      minZoom: 5,
+      maxZoom: 16,
+      radius: 80
     })
 
     return clusters(mapOptions)
   }
 
-  createClusters = () => {
+  createClusters = (bounds) => {
     const {onChange} = this.props
     const clusters = this.getClusters().map(({wx, wy, numPoints, points}) => ({
       lat: wy,
