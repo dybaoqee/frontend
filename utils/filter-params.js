@@ -65,3 +65,39 @@ export function treatParams(params) {
     .filter((n) => n)
     .join('&')
 }
+
+const splitParam = (param) => (param ? param.split('|') : [])
+
+export const getFiltersForGraphQL = ({
+  preco_minimo,
+  preco_maximo,
+  area_minima,
+  area_maxima,
+  quartos_minimo,
+  quartos_maximo,
+  bairros
+}) => ({
+  minPrice: parseInt(preco_minimo),
+  maxPrice: parseInt(preco_maximo),
+  minArea: parseInt(area_minima),
+  maxArea: parseInt(area_maxima),
+  minRooms: parseInt(quartos_minimo),
+  maxRooms: parseInt(quartos_maximo),
+  neighborhoods: splitParam(bairros)
+})
+
+export const getDerivedParams = (query) => ({
+  price: {
+    min: query.preco_minimo,
+    max: query.preco_maximo
+  },
+  area: {
+    min: query.area_minima,
+    max: query.area_maxima
+  },
+  rooms: {
+    min: query.quartos_minimo,
+    max: query.quartos_maximo
+  },
+  neighborhoods: splitParam(query.bairros)
+})
