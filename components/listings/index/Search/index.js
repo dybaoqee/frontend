@@ -1,8 +1,5 @@
 import {Component} from 'react'
 
-import * as colors from 'constants/colors'
-import {mobileMedia} from 'constants/media'
-
 import FilterHeader from './Header'
 import PriceFilter from './Price'
 import AreaFilter from './Area'
