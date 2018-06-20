@@ -4,7 +4,7 @@ import {desktopFilterHeight} from 'constants/dimensions'
 
 export default styled.div`
   margin-top: ${desktopFilterHeight}px;
-  overflow: auto;
+
   .entries-container {
     box-sizing: border-box;
     position: relative;
@@ -23,7 +23,7 @@ export default styled.div`
     height: calc(100vh - 178px);
     overflow: hidden;
     position: fixed !important;
-    width: calc(40% - 40px) !important;
+    width: calc(40% - 40px); !important;
     margin: 20px 0 0 20px;
   }
 
@@ -46,17 +46,14 @@ export default styled.div`
     opened &&
     `
     @media ${mobileMedia} {
-        position: fixed;
+      overflow-x: auto;
+
         margin: 0;
         top: 0;
         box-sizing: border-box;
         height: 100%;
         width: 100%;
         z-index: 9998;
-
-        body {
-          overflow: hidden;
-        }
 
       .entries-container {
         position: absolute;

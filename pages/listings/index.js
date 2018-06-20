@@ -1,139 +1,25 @@
 import {Component, Fragment} from 'react'
 import slugify from 'slug'
-import _ from 'lodash'
 import Head from 'next/head'
 import Router from 'next/router'
 import {Query} from 'react-apollo'
-import {GET_FAVORITE_LISTINGS_IDS} from 'graphql/user/queries'
-import {GET_LISTINGS, GET_LISTINGS_COORDINATES} from 'graphql/listings/queries'
+import scrollIntoView from 'scroll-into-view'
+
+import {
+  GET_LISTINGS,
+  GET_LISTING,
+  GET_LISTINGS_COORDINATES
+} from 'graphql/listings/queries'
 import {
   treatParams,
   getDerivedParams,
   getFiltersForGraphQL
 } from 'utils/filter-params.js'
 import {getNeighborhoods} from 'services/neighborhood-api'
-import InfiniteScroll from 'components/shared/InfiniteScroll'
 import MapContainer from 'components/listings/index/Map'
-import Listing from 'components/listings/index/Listing'
-import ListingsNotFound from 'components/listings/index/NotFound'
 import Filter from 'components/listings/index/Search'
+import Listings from 'components/listings/index/Listings'
 import Container, {MapButton} from './styles'
-
-class Listings extends Component {
-  constructor(props) {
-    super(props)
-
-    this.pagination = {
-      pageSize: 20,
-      excludedListingIds: []
-    }
-
-    this.filters = getFiltersForGraphQL(props.query)
-  }
-  getListings = (loadingListings, result, fetchMore) => {
-    const {user, query, mapOpenedOnMobile, resetFilters, filters} = this.props
-
-    const h1Content = !query.neighborhoodSlug
-      ? 'Apartamentos e Casas à venda na Zona Sul do Rio de Janeiro'
-      : `Apartamentos e Casas à venda - ${query.bairros}, Rio de Janeiro`
-
-    if (result && result.listings.length > 0) {
-      return (
-        <Query query={GET_FAVORITE_LISTINGS_IDS} skip={!user.authenticated}>
-          {({data, loading, error}) => {
-            return (
-              <Fragment>
-                <InfiniteScroll
-                  title={h1Content}
-                  entries={result.listings}
-                  remaining_count={result.remainingCount}
-                  loading={loadingListings}
-                  onLoad={() =>
-                    fetchMore({
-                      variables: {
-                        pagination: {
-                          ...this.pagination,
-                          excludedListingIds: _.map(result.listings, 'id')
-                        }
-                      },
-                      updateQuery: (
-                        prev,
-                        {fetchMoreResult, variables: {pagination}}
-                      ) => {
-                        if (!fetchMoreResult) return prev
-                        this.pagination = pagination
-                        const result = {
-                          ...prev,
-                          listings: {
-                            ...prev.listings,
-                            remainingCount:
-                              fetchMoreResult.listings.remainingCount,
-                            listings: [
-                              ...prev.listings.listings,
-                              ...fetchMoreResult.listings.listings
-                            ]
-                          }
-                        }
-                        return result
-                      }
-                    })
-                  }
-                  mapOpenedOnMobile={mapOpenedOnMobile}
-                >
-                  {(listing) => (
-                    <Listing
-                      // onMouseEnter={this.onHoverListing}
-                      // onMouseLeave={this.onLeaveListing}
-                      //highlight={highlight}
-                      key={listing.id}
-                      id={`listing-${listing.id}`}
-                      listing={listing}
-                      currentUser={user}
-                      loading={loading}
-                      mapOpenedOnMobile={mapOpenedOnMobile}
-                      favorited={
-                        error || !data.favoritedListings
-                          ? []
-                          : data.favoritedListings
-                      }
-                    />
-                  )}
-                </InfiniteScroll>
-              </Fragment>
-            )
-          }}
-        </Query>
-      )
-    } else {
-      return (
-        <ListingsNotFound
-          filtered={!_.isEmpty(filters)}
-          resetAllParams={resetFilters}
-        />
-      )
-    }
-  }
-
-  render() {
-    const {pagination, neighborhoods, query, mapOpened, filters} = this.props
-
-    return (
-      <Query
-        query={GET_LISTINGS}
-        variables={{pagination: this.pagination, filters}}
-        fetchPolicy="cache-and-network"
-      >
-        {({data: {listings}, loading, fetchMore}) => {
-          return (
-            <div className="entries-container">
-              {this.getListings(loading, listings, fetchMore)}
-            </div>
-          )
-        }}
-      </Query>
-    )
-  }
-}
 
 class ListingsIndex extends Component {
   constructor(props) {
@@ -141,29 +27,21 @@ class ListingsIndex extends Component {
 
     this.state = {
       mapOpened: false,
-      filters: getFiltersForGraphQL(props.query),
-      pageSize: 3
+      filters: getFiltersForGraphQL(props.query)
     }
-
-    this.filters = getFiltersForGraphQL(props.query)
+    this.listingsLoaded = []
   }
 
   static async getInitialProps(context) {
     let neighborhoods = []
-
-    if (context.req) {
-      neighborhoods = await getNeighborhoods().then(
-        ({data}) => data.neighborhoods
-      )
-      if (context.query.neighborhoodSlug) {
-        context.query.bairros = neighborhoods.filter(
-          (neighborhood) =>
-            slugify(neighborhood).toLowerCase() ===
-            context.query.neighborhoodSlug
-        )[0]
-      }
-    } else {
-      neighborhoods = window.__NEXT_DATA__.props.pageProps.neighborhoods
+    neighborhoods = await getNeighborhoods().then(
+      ({data}) => data.neighborhoods
+    )
+    if (context.query.neighborhoodSlug) {
+      context.query.bairros = neighborhoods.filter(
+        (neighborhood) =>
+          slugify(neighborhood).toLowerCase() === context.query.neighborhoodSlug
+      )[0]
     }
 
     return {
@@ -186,27 +64,112 @@ class ListingsIndex extends Component {
       [name]: value
     })
 
-    const newUrl = `/listings/index?${params}`
+    const newUrl = '/listings'
     if (params) {
-      Router.push(newUrl, `/imoveis?${params}`, {
-        shallow: true
+      const splittedParams = params.split('&')
+      const newQuery = splittedParams.reduce((prev, atual) => {
+        const value = atual.split('=')
+        prev[value[0]] = value[1]
+        return prev
+      }, {})
+
+      Router.push({
+        pathname: newUrl,
+        asPath: '/imoveis',
+        shallow: true,
+        query: newQuery
       })
+
+      this.setState({filters: getFiltersForGraphQL(newQuery)})
     } else {
-      Router.push('/listings/index', '/imoveis', {
-        shallow: true
-      })
+      this.onResetFilter()
     }
   }
 
   onResetFilter = () => {
-    Router.push('/listings/index', '/imoveis')
+    this.setState({filters: getFiltersForGraphQL({})})
+    Router.push('/listings', '/imoveis')
+  }
+
+  loadListing = async (id) => {
+    const {client} = this.props
+
+    this.listings.updateLoadingState(true)
+
+    const footer = document.querySelector('.infinite-scroll-footer')
+
+    scrollIntoView(footer, {
+      time: 500,
+      align: {
+        top: 1,
+        left: 1
+      }
+    })
+
+    const loadedListings = client.readQuery({
+      query: GET_LISTINGS,
+      variables: {
+        pagination: this.pagination,
+        filters: this.state.filters
+      }
+    })
+    const {data} = await client.query({
+      query: GET_LISTING,
+      variables: {
+        id
+      }
+    })
+
+    const updatedQueryResult = {
+      ...loadedListings,
+      listings: {
+        ...loadedListings.listings,
+        remainingCount: loadedListings.listings.remainingCount - 1,
+        listings: [...loadedListings.listings.listings, data.listing]
+      }
+    }
+
+    client.writeQuery({
+      query: GET_LISTINGS,
+      variables: {
+        pagination: this.pagination,
+        filters: this.state.filters
+      },
+      data: updatedQueryResult
+    })
+    this.listingsLoaded.push(data.listing.id)
+    const element = document.getElementById(`listing-${data.listing.id}`)
+
+    scrollIntoView(
+      element,
+      {
+        time: 500,
+        align: {
+          top: 1,
+          left: 1
+        }
+      },
+      () => {
+        this.listings.updateLoadingState(false)
+      }
+    )
   }
 
   onSelectListing = (id, position) => {
     if (!position) {
       const element = document.getElementById(`listing-${id}`)
-      element.scrollIntoView({
-        behavior: 'smooth'
+
+      if (!element) {
+        this.loadListing(id)
+        return
+      }
+
+      scrollIntoView(element, {
+        time: 500,
+        align: {
+          top: 1,
+          left: 1
+        }
       })
     } else {
       this.setState({highlight: {...position}})
@@ -222,16 +185,15 @@ class ListingsIndex extends Component {
     this.setState({highlight: {}})
   }
 
-  onChangeMap = (listings, refetch, framedListings, bounds) => {
+  onChangeMap = (framedListings, {sw, ne}) => {
     this.setState({
       filters: {
         ...this.state.filters,
-        minLat: bounds.sw.lat,
-        minLng: bounds.sw.lng,
-        maxLat: bounds.ne.lat,
-        maxLng: bounds.ne.lng
-      },
-      pageSize: listings.length > 0 ? listings.length : 3
+        minLat: sw.lat,
+        minLng: sw.lng,
+        maxLat: ne.lat,
+        maxLng: ne.lng
+      }
     })
   }
 
@@ -270,12 +232,11 @@ class ListingsIndex extends Component {
   }
 
   getMap = () => {
-    const {highlight, mapOpened} = this.state
+    const {highlight, mapOpened, filters} = this.state
     return (
-      <Query query={GET_LISTINGS_COORDINATES}>
+      <Query query={GET_LISTINGS_COORDINATES} variables={{filters}}>
         {({data: {listings: mapListings}}) => (
           <Fragment>
-            {this.getHead()}
             <MapButton opened={mapOpened} onClick={this.handleMap} />
             <div className="map">
               <MapContainer
@@ -283,7 +244,8 @@ class ListingsIndex extends Component {
                 onSelect={this.onSelectListing}
                 listings={mapListings ? mapListings.listings : []}
                 highlight={highlight}
-                onChange={this.onChangeMap.bind(null, [], () => {})}
+                onChange={this.onChangeMap}
+                updateAfterApiCall
               />
             </div>
           </Fragment>
@@ -292,28 +254,18 @@ class ListingsIndex extends Component {
     )
   }
 
-  // componentWillUpdate(nextProps, nextState) {
-  //   console.log('ATUALIZANDO')
-  //   for (const index in nextProps) {
-  //     if (nextProps[index] !== this.props[index]) {
-  //       console.log(index, this.props[index], '-PROS->', nextProps[index])
-  //     }
-  //   }
-  //
-  //   for (const indice in nextState) {
-  //     if (nextState[indice] !== this.state[indice]) {
-  //       console.log(indice, this.state[indice], '-STATE->', nextState[indice])
-  //     }
-  //   }
-  // }
+  loadedListings = (listingsLoaded, pagination) => {
+    this.listingsLoaded = listingsLoaded
+    this.pagination = pagination
+  }
 
   render() {
-    const {pagination} = this
     const {neighborhoods, query, user} = this.props
-    const {mapOpened, filters, pageSize} = this.state
+    const {mapOpened, filters, highlight} = this.state
 
     return (
       <Fragment>
+        {this.getHead()}
         <Filter
           params={getDerivedParams(query)}
           neighborhoods={neighborhoods}
@@ -326,9 +278,11 @@ class ListingsIndex extends Component {
             query={query}
             user={user}
             filters={filters}
-            pagination={pagination}
             resetFilters={this.onResetFilter}
-            pageSize={pageSize}
+            onLoadListings={this.loadedListings}
+            mapOpenedOnMobile={mapOpened}
+            highlight={highlight}
+            ref={(listings) => (this.listings = listings)}
           />
         </Container>
       </Fragment>
