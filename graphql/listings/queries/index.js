@@ -30,9 +30,36 @@ export const GET_LISTINGS = gql`
   }
 `
 
+export const GET_LISTING = gql`
+  query listing($id: ID!) {
+    listing(id: $id) {
+      id
+      area
+      rooms
+      floor
+      garageSpots
+      area
+      bathrooms
+      price
+      description
+      images(limit: 1) {
+        filename
+      }
+      address {
+        street
+        neighborhood
+        state
+        city
+        lat
+        lng
+      }
+    }
+  }
+`
+
 export const GET_LISTINGS_COORDINATES = gql`
-  query listings {
-    listings {
+  query listings_coordinates($filters: ListingFilter) {
+    listings(filters: $filters) {
       listings {
         id
         price
