@@ -37,6 +37,8 @@ export default class MapContainer extends Component {
       },
       hasAggregators: false
     }
+
+    this.firstLoad = true
   }
 
   getClusters = () => {
@@ -45,14 +47,14 @@ export default class MapContainer extends Component {
     const clusters = supercluster(markers, {
       minZoom: 5,
       maxZoom: 16,
-      radius: 80
+      radius: 60
     })
 
     return clusters(mapOptions)
   }
 
   createClusters = (bounds) => {
-    const {onChange} = this.props
+    const {onChange, updateAfterApiCall} = this.props
     const clusters = this.getClusters().map(({wx, wy, numPoints, points}) => ({
       lat: wy,
       lng: wx,
@@ -66,7 +68,10 @@ export default class MapContainer extends Component {
         .filter((cluster) => cluster.numPoints === 1)
         .map((marker) => [...marker.points])
     )
-    onChange && onChange(framedListings.map((listing) => listing.id), bounds)
+
+    onChange &&
+      !updateAfterApiCall &&
+      onChange(framedListings.map((listing) => listing.id), bounds)
     this.setState({
       clusters: this.state.mapOptions.bounds ? clusters : [],
       hasAggregators:
@@ -92,8 +97,46 @@ export default class MapContainer extends Component {
     )
   }
 
+  onChangeListener = _.throttle(() => {
+    const {onChange} = this.props
+    const map = this.map
+    const swLat = map
+      .getBounds()
+      .getSouthWest()
+      .lat()
+    const swLng = map
+      .getBounds()
+      .getSouthWest()
+      .lng()
+    const neLat = map
+      .getBounds()
+      .getNorthEast()
+      .lat()
+    const neLng = map
+      .getBounds()
+      .getNorthEast()
+      .lng()
+
+    const bounds = {
+      sw: {
+        lat: swLat,
+        lng: swLng
+      },
+      ne: {
+        lat: neLat,
+        lng: neLng
+      }
+    }
+    onChange([], bounds)
+  }, 500)
+
   apiIsLoaded = (map, maps, markers) => {
+    const {onChange, updateAfterApiCall} = this.props
     if (map) {
+      if (!this.map && updateAfterApiCall && onChange) {
+        this.firstLoad = false
+        this.changeListener = map.addListener('idle', this.onChangeListener)
+      }
       this.map = map
       this.maps = maps
       const LatLngList = markers.map((m) => new maps.LatLng(m.lat, m.lng))
@@ -134,6 +177,12 @@ export default class MapContainer extends Component {
     this.map.fitBounds(bounds)
   }
 
+  resetMapView = () => {
+    const {mapOptions: {center}} = this.state
+    this.map.setCenter(new this.maps.LatLng(center.lat, center.lng))
+    this.map.setZoom(13)
+  }
+
   render() {
     const {markers, onSelect, highlight} = this.props
     const {hasAggregators, clusters, defaultCenter, defaultZoom} = this.state
@@ -151,7 +200,7 @@ export default class MapContainer extends Component {
         yesIWantToUseGoogleMapApiInternals
         onChange={this.handleMapChange}
         onGoogleApiLoaded={({map, maps}) =>
-          this.apiIsLoaded(map, maps, markers, true)
+          this.apiIsLoaded(map, maps, markers)
         }
       >
         {clusters.map((item) => {
