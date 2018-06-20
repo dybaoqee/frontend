@@ -4,7 +4,11 @@ import Container, {Footer, Title, Wrapper} from './styles'
 import {getY, getX} from 'utils/polyfills/bounding-rect'
 export default class InfiniteScroll extends Component {
   static defaultProps = {
-    threshold: 10
+    threshold: -35
+  }
+
+  state = {
+    loading: false
   }
 
   footerRef = (el) => {
@@ -56,9 +60,7 @@ export default class InfiniteScroll extends Component {
       title,
       remaining_count,
       mapOpenedOnMobile,
-      children: renderEntry,
-      onLoad,
-      loading
+      children: renderEntry
     } = this.props
     return (
       <Wrapper
