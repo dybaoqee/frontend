@@ -64,11 +64,12 @@ export default class InfiniteScroll extends Component {
         </Container>
         {remaining_count > 0 && (
           <Footer
+            className="infinite-scroll-footer"
             innerRef={this.footerRef}
             mapOpenedOnMobile={mapOpenedOnMobile}
           >
             <a
-              onClick={() => !loading && onLoad && onLoad()}
+              onClick={() => !this.state.loading && this.loadMore()}
               title="Próxima página"
             >
               Carregando...
