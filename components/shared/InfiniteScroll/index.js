@@ -12,11 +12,11 @@ export default class InfiniteScroll extends Component {
   }
 
   componentDidMount() {
-    this.wrapper.addEventListener('wheel', this.onScroll)
+    document.addEventListener('scroll', this.onScroll)
   }
 
   componentWillUnmount() {
-    this.wrapper.removeEventListener('wheel', this.onScroll)
+    document.removeEventListener('scroll', this.onScroll)
   }
 
   // Distance from the bottom of the viewport to the footer element
