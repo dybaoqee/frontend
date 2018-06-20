@@ -38,6 +38,7 @@ export const Footer = styled.footer`
     padding: 25px;
     color: inherit;
     text-decoration: none;
+    box-sizing: border-box;
   }
 
   ${({mapOpenedOnMobile}) =>
@@ -45,10 +46,14 @@ export const Footer = styled.footer`
     `
       @media ${mobileMedia} {
         width: auto;
-        height: auto;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        height: 100%;
+
+        a{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
         background-color: white;
       }
     `};
