@@ -1,12 +1,15 @@
 import gql from 'graphql-tag'
 
 export const EDIT_PROFILE = gql`
-  mutation editUserProfile($id: ID!, $name: String, $phone: String) {
-    editUserProfile(id: $id, name: $name, phone: $phone) {
+  mutation editUserProfile($id: ID!, $name: String, $phone: String, $emailPreference: Boolean) {
+    editUserProfile(id: $id, name: $name, phone: $phone, notificationPreferences: {email: $emailPreference}) {
       id
       name
       phone
       email
+      notificationPreferences {
+        email
+      }
     }
   }
 `

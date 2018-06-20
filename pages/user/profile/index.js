@@ -46,7 +46,8 @@ class UserProfile extends Component {
     const {
       name: actualName,
       email: actualEmail,
-      phone: actualPhone
+      phone: actualPhone,
+      notificationPreferences: {email: actualEmailPreference}
     } = userProfile
     e.preventDefault()
     const {currentUser: {id}} = this.props
@@ -54,6 +55,7 @@ class UserProfile extends Component {
     const name = e.target.elements.name.value
     const email = e.target.elements.email.value
     const phone = e.target.elements.phone.value
+    const emailPreference = e.target.elements.emailPreference.checked
 
     if (!isEmailValid(email)) {
       this.setState({errors: {email: 'Digite um e-mail válido'}})
@@ -71,7 +73,10 @@ class UserProfile extends Component {
         : email,
       phone: _.isEqualWith(actualPhone, phone, this.checkComparison)
         ? undefined
-        : phone
+        : phone,
+      emailPreference: _.isEqualWith(actualEmailPreference, emailPreference, this.checkComparison)
+        ? undefined
+        : emailPreference
     }
 
     const attributesChanged = _.pickBy(
@@ -79,7 +84,7 @@ class UserProfile extends Component {
       (val) => !_.isUndefined(val)
     )
 
-    if (attributesChanged.name || attributesChanged.phone) {
+    if (attributesChanged.name === undefined || attributesChanged.phone === undefined || attributesChanged.emailPreference === undefined) {
       editProfile({
         variables: {id, ...attributesChanged},
         refetchQueries: [{query: GET_USER_INFO, variables: {id}}]
@@ -181,6 +186,14 @@ class UserProfile extends Component {
                           name="phone"
                           type="tel"
                           defaultValue={userProfile.phone}
+                        />
+                      </Field>
+                      <Field>
+                        <label htmlFor="emailPreference">Notificações por e-mail</label>
+                        <input
+                          name="emailPreference"
+                          type="checkbox"
+                          defaultChecked={userProfile.notificationPreferences.email}
                         />
                       </Field>
 
