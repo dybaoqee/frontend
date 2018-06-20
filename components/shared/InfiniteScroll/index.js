@@ -33,13 +33,21 @@ export default class InfiniteScroll extends Component {
     return !isNaN(distance) && distance <= threshold
   }
 
+  loadMore = async () => {
+    const {onLoad} = this.props
+    this.setState({loading: true})
+    const loadedValues = await onLoad()
+    this.setState({loading: false})
+  }
+
   onScroll = _.throttle(() => {
-    const {onLoad, remaining_count} = this.props
-    if (this.shouldTriggerLoad()) {
-      !_.isUndefined(remaining_count)
-        ? remaining_count > 0 && onLoad && onLoad()
-        : onLoad && onLoad()
-    }
+    const {remaining_count} = this.props
+    const {loading} = this.state
+    const {onLoad, loading: loadingExternal} = this.props
+
+    if (loadingExternal) return
+    if (this.shouldTriggerLoad() && remaining_count > 0 && !loading && onLoad)
+      this.loadMore()
   }, 500)
 
   render() {
