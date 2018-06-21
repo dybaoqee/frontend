@@ -63,8 +63,6 @@ class ListingsIndex extends Component {
       ...filters,
       [name]: value
     })
-
-    const newUrl = '/listings'
     if (params) {
       const splittedParams = params.split('&')
       const newQuery = splittedParams.reduce((prev, atual) => {
@@ -74,7 +72,7 @@ class ListingsIndex extends Component {
       }, {})
 
       Router.push({
-        pathname: newUrl,
+        pathname: '/listings',
         asPath: '/imoveis',
         shallow: true,
         query: newQuery
@@ -186,15 +184,15 @@ class ListingsIndex extends Component {
   }
 
   onChangeMap = (framedListings, {sw, ne}) => {
-    this.setState({
-      filters: {
-        ...this.state.filters,
-        minLat: sw.lat,
-        minLng: sw.lng,
-        maxLat: ne.lat,
-        maxLng: ne.lng
-      }
-    })
+    const filters = {
+      ...this.state.filters,
+      minLat: sw.lat,
+      minLng: sw.lng,
+      maxLat: ne.lat,
+      maxLng: ne.lng
+    }
+
+    this.setState({filters})
   }
 
   handleMap = () => {
