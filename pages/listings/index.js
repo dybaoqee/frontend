@@ -57,30 +57,18 @@ class ListingsIndex extends Component {
 
   onChangeFilter = (name, value) => {
     const {query} = this.props
-    const filters = getDerivedParams(query)
 
     const params = treatParams({
-      ...filters,
+      ...getDerivedParams(query),
       [name]: value
     })
+
     if (params) {
-      const splittedParams = params.split('&')
-      const newQuery = splittedParams.reduce((prev, atual) => {
-        const value = atual.split('=')
-        prev[value[0]] = value[1]
-        return prev
-      }, {})
-
-      Router.push({
-        pathname: '/listings',
-        asPath: '/imoveis',
-        shallow: true,
-        query: newQuery
+      Router.push(`/listings/index?${params}`, `/imoveis?${params}`, {
+        shallow: true
       })
-
-      this.setState({filters: getFiltersForGraphQL(newQuery)})
     } else {
-      this.onResetFilter()
+      Router.push('/listings/index', '/imoveis')
     }
   }
 
