@@ -69,9 +69,10 @@ export default class MapContainer extends Component {
         .map((marker) => [...marker.points])
     )
 
-    onChange &&
-      !updateAfterApiCall &&
+    if (onChange && !updateAfterApiCall) {
       onChange(framedListings.map((listing) => listing.id), bounds)
+    }
+
     this.setState({
       clusters: this.state.mapOptions.bounds ? clusters : [],
       hasAggregators:
@@ -131,12 +132,8 @@ export default class MapContainer extends Component {
   }, 500)
 
   apiIsLoaded = (map, maps, markers) => {
-    const {onChange, updateAfterApiCall} = this.props
+    const {updateAfterApiCall, onChange} = this.props
     if (map) {
-      if (!this.map && updateAfterApiCall && onChange) {
-        this.firstLoad = false
-        this.changeListener = map.addListener('idle', this.onChangeListener)
-      }
       this.map = map
       this.maps = maps
       const LatLngList = markers.map((m) => new maps.LatLng(m.lat, m.lng))
