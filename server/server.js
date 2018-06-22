@@ -1,6 +1,7 @@
 const express = require('express')
 const next = require('next')
 const {parse} = require('url')
+const compression = require('compression')
 const {join} = require('path')
 const path = require('path')
 const sslRedirect = require('heroku-ssl-redirect')
@@ -18,6 +19,7 @@ const startServer = () => {
     .prepare()
     .then(() => {
       const server = express()
+      server.use(compression())
       server.use(sslRedirect(['production'], 301))
 
       if (process.env.NODE_ENV === 'production') {
