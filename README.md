@@ -16,6 +16,11 @@ Then, `yarn start`.
 
 If you want to open Cypress UI to run end to end tests manually, watch the process and use debugging tools run `yarn cy:open`.
 
+## Bundle Analyzer
+
+Run `yarn analyze` to build the app and run the bundle analyzer tool
+Outuput file with bundle sizes will be created at .next/stats.txt
+
 ## Contribute
 
 Feel free to open issues and PRs.
