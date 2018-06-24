@@ -18,8 +18,8 @@ If you want to open Cypress UI to run end to end tests manually, watch the proce
 
 ## Bundle Analyzer
 
-Run `yarn analyze` to build the app and run the bundle analyzer tool
-Outuput file with bundle sizes will be created at .next/stats.txt
+`yarn analyze` to build the app and run the bundle analyzer tool.
+Output file with bundle sizes will be created at .next/stats.txt
 
 ## Contribute
 
