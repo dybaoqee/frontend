@@ -82,6 +82,9 @@ export const GET_USER_INFO = gql`
       email
       phone
       role
+      notificationPreferences {
+        email
+      }
     }
   }
 `
