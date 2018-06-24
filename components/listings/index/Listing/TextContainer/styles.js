@@ -15,7 +15,7 @@ export default styled.div`
   div.description {
     font-size: 14px;
     margin: 14px 0 0;
-    a {
+    span {
       color: ${colors.blue.medium};
       text-decoration: none;
       pointer-events: all;
