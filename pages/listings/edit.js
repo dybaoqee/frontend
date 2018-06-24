@@ -2,6 +2,7 @@ import React, {Component, Fragment} from 'react'
 import Link from 'next/link'
 import Router from 'next/router'
 import Error from 'components/shared/Shell/Error'
+import Head from 'next/head'
 import _ from 'lodash'
 import {
   redirectIfNotAuthenticated,
@@ -297,6 +298,9 @@ export default class ListingEditV2 extends Component {
     const {page, canAdvance, canRegress, errors, showErrors} = this.state
     return (
       <Fragment>
+        <Head>
+          <title>Editar Imóvel</title>
+        </Head>
         {statusCode ? (
           <Error>
             <h1>
