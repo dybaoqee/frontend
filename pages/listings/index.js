@@ -42,6 +42,10 @@ const getDerivedParams = ({query}) => ({
     min: query.quartos_minimo,
     max: query.quartos_maximo
   },
+  garageSpots: {
+    min: query.vagas_minimo,
+    max: query.vagas_maximo
+  },
   neighborhoods: splitParam(query.bairros)
 })
 
