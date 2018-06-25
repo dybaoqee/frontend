@@ -1,12 +1,10 @@
 import {Component} from 'react'
 
-import * as colors from 'constants/colors'
-import {mobileMedia} from 'constants/media'
-
 import FilterHeader from './Header'
 import PriceFilter from './Price'
 import AreaFilter from './Area'
 import RoomFilter from './Rooms'
+import GarageSpotsFilter from './GarageSpots'
 import NeighborhoodFilter from './Neighborhoods'
 
 export default class Filter extends Component {
@@ -20,6 +18,7 @@ export default class Filter extends Component {
   onChangeRooms = this.onChange('rooms')
   onChangePrice = this.onChange('price')
   onChangeNeighborhoods = this.onChange('neighborhoods')
+  onChangeGarageSpots = this.onChange('garageSpots')
 
   onToggle = (prop) => () =>
     this.setState({visible: this.isVisible(prop) ? [] : [prop]})
@@ -32,6 +31,7 @@ export default class Filter extends Component {
   onToggleRooms = this.onToggle('rooms')
   onTogglePrice = this.onToggle('price')
   onToggleNeighborhoods = this.onToggle('neighborhoods')
+  onToggleGarageSpots = this.onToggle('garageSpots')
 
   onClose = () => this.setState({visible: []})
 
@@ -86,6 +86,14 @@ export default class Filter extends Component {
           visible={this.isVisible('rooms')}
           onChange={this.onChangeRooms}
           onToggle={this.onToggleRooms}
+          onClose={this.onClose}
+        />
+
+        <GarageSpotsFilter
+          value={params.garageSpots}
+          visible={this.isVisible('garageSpots')}
+          onChange={this.onChangeGarageSpots}
+          onToggle={this.onToggleGarageSpots}
           onClose={this.onClose}
         />
 

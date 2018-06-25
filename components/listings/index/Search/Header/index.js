@@ -17,6 +17,7 @@ export default class FilterHeader extends Component {
   isAreaActive = () => this.isActiveRange('area')
   isPriceActive = () => this.isActiveRange('price')
   isRoomsActive = () => this.isActiveRange('rooms')
+  isGarageSpotsActive = () => this.isActiveRange('garageSpots')
   isNeighborhoodsActive = () => this.isActiveList('neighborhoods')
   isOtherActive = () =>
     this.isActiveRange('rooms') || this.isActiveRange('area')
@@ -52,7 +53,7 @@ export default class FilterHeader extends Component {
             className={
               'mobile-filter-toggler ' + (this.isOtherActive() ? 'active' : '')
             }
-            onClick={onToggle('rooms', 'area')}
+            onClick={onToggle('rooms', 'area', 'garageSpots')}
           >
             Outros
           </button>

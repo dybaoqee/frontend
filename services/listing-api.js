@@ -39,7 +39,9 @@ const translatedKeys = {
   preco_maximo: 'max_price',
   preco_minimo: 'min_price',
   quartos_maximo: 'max_rooms',
-  quartos_minimo: 'min_rooms'
+  quartos_minimo: 'min_rooms',
+  vagas_maximo: 'max_garage_spots',
+  vagas_minimo: 'min_garage_spots'
 }
 
 // Transforms something like
