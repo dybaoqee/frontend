@@ -5,6 +5,13 @@ export const roomNumberOptions = [
   {value: '4', label: '4 quartos'}
 ]
 
+export const garageSpotsNumberOptions = [
+  {value: '1', label: '1 vaga'},
+  {value: '2', label: '2 vagas'},
+  {value: '3', label: '3 vagas'},
+  {value: '4', label: '4 vagas'}
+]
+
 export const minPriceOptions = [
   {value: 750000, label: 'R$750.000'},
   {value: 1000000, label: 'R$1.000.000'},
