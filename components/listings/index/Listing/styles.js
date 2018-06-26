@@ -3,43 +3,100 @@ import {mobileMedia, headerMobileMedia} from 'constants/media'
 import * as colors from 'constants/colors'
 
 export default styled.div`
-  box-sizing: border-box;
-  background: ${({highlight}) => (highlight ? '#f5f5f5' : 'white')};
-  border-bottom: 1px solid ${colors.lightGray};
-  cursor: pointer;
-  overflow: hidden;
-  padding: 20px 0 0 10px;
   position: relative;
+  cursor: pointer;
+`
+
+export const ListingActions = styled.div`
+  width: auto;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
   display: grid;
-  grid-template-columns: 290px 1fr;
+  grid-template-columns: auto auto;
+  grid-gap: 10px;
+  box-sizing: border-box;
 
-  .listing-info {
-    grid-column: span 3;
-    display: grid;
-    grid-template-columns: auto 1fr;
-    padding: 20px 20px 24px 0;
+  @media ${headerMobileMedia} {
+    right: 10px;
+  }
 
-    .link-container {
-      align-items: center;
-      display: flex;
-      justify-content: flex-end;
-      width: 100%;
+  @media ${mobileMedia} {
+    max-width: 55%;
 
-      button {
-        padding: 7px 12px 9px;
-      }
+    button {
+      font-size: 12px;
+    }
+  }
 
-      button:first-of-type {
-        margin-right: 10px;
-      }
+  ${({mapOpenedOnMobile}) =>
+    mapOpenedOnMobile &&
+    `
+    @media ${mobileMedia} {
+      display: none;
+    }
+  `};
+`
+
+export const ListingInfo = styled.div`
+  font-size: 22px;
+  font-weight: 400;
+  display: block;
+  margin: 0 10px 10px 0;
+
+  grid-column: span 3;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  padding: 20px 20px 24px 0;
+
+  @media ${headerMobileMedia} {
+    padding: 10px 10px 10px 0;
+    margin: 0;
+  }
+
+  @media ${mobileMedia} {
+    padding: 10px 10px 24px 0;
+    align-items: center;
+  }
+
+  span {
+    position: absolute;
+    top: 230px;
+    left: 10px;
+    :before {
+      content: 'R$';
+      font-size: 14px;
+    }
+
+    @media ${headerMobileMedia} {
+      position: relative;
+      top: 0;
     }
 
     @media ${mobileMedia} {
-      padding-top: 0;
-      padding: 0px 10px 24px 0;
-      align-items: center;
+      left: 0;
     }
   }
+
+  ${({mapOpenedOnMobile}) =>
+    mapOpenedOnMobile &&
+    `
+    @media ${mobileMedia} {
+      display: none;
+    }
+  `};
+`
+
+export const ListingContainer = styled.div`
+  box-sizing: border-box;
+  background: ${({highlight}) => (highlight ? '#f5f5f5' : 'white')};
+  border-bottom: 1px solid ${colors.lightGray};
+
+  overflow: hidden;
+  padding: 20px 0 10px 10px;
+  position: relative;
+  display: grid;
+  grid-template-columns: 290px 1fr;
 
   :hover {
     background: #f5f5f5;
@@ -57,20 +114,12 @@ export default styled.div`
     > :first-child {
       grid-column: span 3;
     }
-
-    .listing-info {
-      padding: 0px 10px 24px 0;
-    }
   }
 
   @media ${mobileMedia} {
     display: flex;
     flex-direction: column;
     padding: 20px 10px 0;
-
-    .listing-info {
-      padding: 0px 0px 24px 0;
-    }
   }
 
   ${({mapOpenedOnMobile}) =>
@@ -123,40 +172,6 @@ export const LikeContainer = styled.div`
   @media ${mobileMedia} {
     justify-content: flex-start;
   }
-`
-
-export const ListingInfo = styled.div`
-  font-size: 22px;
-  font-weight: 400;
-  display: block;
-  margin: 0 10px 10px 0;
-
-  span {
-    position: absolute;
-    top: 230px;
-    left: 10px;
-    :before {
-      content: 'R$';
-      font-size: 14px;
-    }
-
-    @media ${headerMobileMedia} {
-      position: relative;
-      top: 0;
-    }
-
-    @media ${mobileMedia} {
-      left: 0;
-    }
-  }
-
-  ${({mapOpenedOnMobile}) =>
-    mapOpenedOnMobile &&
-    `
-    @media ${mobileMedia} {
-      display: none;
-    }
-  `};
 `
 
 export const ListingInfoMobile = styled.div`
