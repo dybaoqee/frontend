@@ -14,12 +14,20 @@ export default class Slider extends Component {
   constructor(props) {
     super(props)
 
+    const {min, max} = props
+
     this.rail = React.createRef()
     this.minThumb = React.createRef()
     this.maxThumb = React.createRef()
     this.thumbs = [this.minThumb, this.maxThumb]
 
-    this.railBorderWidth = 1
+    this.state = {
+      values: {
+        minValue: min,
+        maxValue: max
+      },
+      used: false
+    }
 
     this.keyCode = Object.freeze({
       left: 37,
@@ -79,7 +87,7 @@ export default class Slider extends Component {
   }
 
   moveSliderTo = (value, element) => {
-    const {min, max, isRange} = this.props
+    const {min, max, isRange, onChange} = this.props
 
     const left = element.getAttribute('aria-label') === 'min'
 
@@ -102,6 +110,15 @@ export default class Slider extends Component {
     } else {
       element.style.left = pos + (isRange ? width : 0) + 'px'
     }
+
+    const newValues = {
+      ...this.state.values,
+      [left ? 'minValue' : 'maxValue']: value
+    }
+
+    this.setState({values: newValues})
+
+    onChange && onChange(newValues)
   }
 
   handleMouseDown = (mouseDownEvent) => {
