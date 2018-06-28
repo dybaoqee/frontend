@@ -139,12 +139,14 @@ export default class Slider extends Component {
       document.removeEventListener('mouseup', handleMouseUp)
     }
 
-    document.addEventListener('mousemove', handleMouseMove)
-    document.addEventListener('mouseup', handleMouseUp)
+    if (target === this.minThumb.current || target === this.maxThumb.current) {
+      this.setState({used: true})
+      document.addEventListener('mousemove', handleMouseMove)
+      document.addEventListener('mouseup', handleMouseUp)
+    }
 
     mouseDownEvent.preventDefault()
     event.stopPropagation()
-    target.focus()
   }
 
   componentDidMount() {
