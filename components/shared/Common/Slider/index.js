@@ -146,17 +146,53 @@ export default class Slider extends Component {
     }
   }
   render() {
-    const {isRange, showValue} = this.props
+    const {
+      isRange,
+      showValue,
+      showTutorial,
+      valuesFormatter,
+      min,
+      max
+    } = this.props
+
+    const {values: {minValue, maxValue}, used} = this.state
     return (
       <Container>
-        <Rail innerRef={this.rail}>
+        <Rail
+          innerRef={this.rail}
+          showValues={valuesFormatter}
+          min={valuesFormatter(min)}
+          max={valuesFormatter(max)}
+        >
           {isRange && (
             <Thumb aria-label="min" innerRef={this.minThumb} tabIndex="0">
-              {showValue && <Tip>R$ 1.400.00</Tip>}
+              {showTutorial &&
+                !used && (
+                  <Tutorial>
+                    <Icon left>
+                      <FontAwesomeIcon icon={faAngleLeft} />
+                    </Icon>
+                    <Icon>
+                      <FontAwesomeIcon icon={faAngleRight} />
+                    </Icon>
+                  </Tutorial>
+                )}
+              {showValue && <Tip>R$ {minValue.toLocaleString('pt-BR')}</Tip>}
             </Thumb>
           )}
           <Thumb aria-label="max" innerRef={this.maxThumb} tabIndex="0">
-            {showValue && <Tip>R$ 4.400.00</Tip>}
+            {showTutorial &&
+              !used && (
+                <Tutorial>
+                  <Icon left>
+                    <FontAwesomeIcon icon={faAngleLeft} />
+                  </Icon>
+                  <Icon>
+                    <FontAwesomeIcon icon={faAngleRight} />
+                  </Icon>
+                </Tutorial>
+              )}
+            {showValue && <Tip>R$ {maxValue.toLocaleString('pt-BR')}</Tip>}
           </Thumb>
         </Rail>
       </Container>
