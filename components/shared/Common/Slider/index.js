@@ -1,5 +1,8 @@
 import React, {Component} from 'react'
-import Container, {Rail, Thumb, Tip} from './styles'
+import Container, {Rail, Thumb, Tip, Tutorial, Icon} from './styles'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import faAngleRight from '@fortawesome/fontawesome-pro-regular/faAngleRight'
+import faAngleLeft from '@fortawesome/fontawesome-pro-regular/faAngleLeft'
 
 export default class Slider extends Component {
   static defaultProps = {
