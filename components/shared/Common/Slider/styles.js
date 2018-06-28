@@ -36,3 +36,31 @@ export const Rail = styled.div`
   background-color: ${colors.lightestGray};
   box-shadow: inset 0 1px 0 0 rgba(0, 0, 0, 0.2);
 `
+
+export const Tip = styled.div`
+  box-sizing: border-box;
+  position: absolute;
+  top: -70px;
+  border-radius: 3px;
+  background-color: ${colors.blue.light};
+  box-shadow: 0 4px 8px 0 rgba(9, 58, 77, 0.3);
+  color: ${colors.blue.medium};
+  font-size: 20px;
+  letter-spacing: -0.2px;
+  line-height: 27px;
+  padding: 5px;
+  width: 120px;
+  left: -40px;
+  display: flex;
+
+  justify-content: center;
+
+  :after {
+    width: 0;
+    height: 0;
+    border: 0 solid transparent;
+    border-left-width: 100px;
+    border-right-width: 100px;
+    border-top: 100px solid black;
+  }
+`

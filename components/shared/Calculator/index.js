@@ -46,7 +46,7 @@ export default () => (
       </Info>
     </InfoContainer>
     <SliderContainer>
-      <Slider min={400000} max={4000000} />
+      <Slider min={400000} max={4000000} showValue />
     </SliderContainer>
     <Description>
       Ajuste conforme o valor do seu imóvel e confira a <br />

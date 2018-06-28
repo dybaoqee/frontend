@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import Container, {Rail, Thumb} from './styles'
+import Container, {Rail, Thumb, Tip} from './styles'
 
 export default class Slider extends Component {
   static defaultProps = {
@@ -143,14 +143,18 @@ export default class Slider extends Component {
     }
   }
   render() {
-    const {isRange} = this.props
+    const {isRange, showValue} = this.props
     return (
       <Container>
         <Rail innerRef={this.rail}>
           {isRange && (
-            <Thumb aria-label="min" innerRef={this.minThumb} tabIndex="0" />
+            <Thumb aria-label="min" innerRef={this.minThumb} tabIndex="0">
+              {showValue && <Tip>R$ 1.400.00</Tip>}
+            </Thumb>
           )}
-          <Thumb aria-label="max" innerRef={this.maxThumb} tabIndex="0" />
+          <Thumb aria-label="max" innerRef={this.maxThumb} tabIndex="0">
+            {showValue && <Tip>R$ 4.400.00</Tip>}
+          </Thumb>
         </Rail>
       </Container>
     )
