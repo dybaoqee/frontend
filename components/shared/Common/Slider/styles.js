@@ -6,6 +6,41 @@ export default styled.div`
   box-sizing: border-box;
 `
 
+export const Rail = styled.div`
+  box-sizing: border-box;
+  position: relative;
+  height: 4px;
+  border-radius: 6px;
+  background-color: ${colors.lightestGray};
+  box-shadow: inset 0 1px 0 0 rgba(0, 0, 0, 0.2);
+
+  :before {
+    box-sizing: border-box;
+    content: '${({min}) => min}';
+    display: ${({showValues}) => (showValues ? 'flex' : 'none')};
+    color: ${colors.mediumGray};
+    font-size: 18px;
+    letter-spacing: -0.2px;
+    line-height: 24px;
+    position: absolute;
+    transform: translate(-50%, 0);
+    top: -40px;
+  }
+
+  :after {
+    box-sizing: border-box;
+    content: '${({max}) => max}';
+    display: ${({showValues}) => (showValues ? 'flex' : 'none')};
+    color: ${colors.mediumGray};
+    font-size: 18px;
+    letter-spacing: -0.2px;
+    position: absolute;
+    right: 0;
+    top: -40px;
+    transform: translate(50%, 0);
+  }
+`
+
 export const Thumb = styled.div`
   box-sizing: border-box;
   position: absolute;
