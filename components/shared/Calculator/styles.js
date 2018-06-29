@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {mobileMedia} from 'constants/media'
+import {mobileMedia, calculator, headerMobileMedia} from 'constants/media'
 import * as colors from 'constants/colors'
 
 export default styled.div`
@@ -11,6 +11,10 @@ export default styled.div`
 export const SliderContainer = styled.div`
   width: 792px;
   margin: 50px 20px;
+
+  @media ${calculator} {
+    width: 60%;
+  }
 `
 
 export const Description = styled.p`
@@ -24,7 +28,7 @@ export const Description = styled.p`
 
 export const InfoContainer = styled.div`
   padding: 15px 60px;
-  height: 122px;
+  height: auto;
   border-radius: 10px;
   margin: 20px 20px 40px 20px;
   display: flex;
@@ -70,19 +74,8 @@ export const Info = styled.div`
   }
 `
 
-export const Table = styled.div`
-  box-sizing: border-box;
-  display: flex;
-  margin: 40px 0;
-  padding: 0 40px;
-  border: 1px solid ${colors.lightestGray};
-  border-radius: 10px;
-  box-shadow: inset 0 2px 2px 0 #ffffff, 0 4px 10px 0 rgba(38, 38, 38, 0.15);
-  position: relative;
-  min-width: 1050px;
-  justify-content: space-between;
-`
 export const Column = styled.div`
+  box-sizing: border-box;
   padding: 0 30px;
   display: flex;
   flex-direction: column;
@@ -109,7 +102,7 @@ export const Column = styled.div`
   ${({secondary}) =>
     secondary &&
     `
-      min-width: 300px;
+      width: 300px;
       margin: 0 30px;
       border: 1px solid ${colors.blue.light2};
       border-radius: 12px;
@@ -137,6 +130,81 @@ export const Column = styled.div`
       font-size: 12px;
       color: ${colors.mediumDarkGray};
     }
+  }
+
+  @media ${calculator} {
+    padding: 0 20px;
+
+    ${({secondary}) =>
+      secondary &&
+      `
+        top: 0;
+        left: 0;
+        margin: 0;
+        border: 1px solid ${colors.blue.light2};
+        border-radius: 12px;
+        background-color: ${colors.blue.light};
+        box-shadow: none;
+        position: relative;
+        width: auto;
+        border-radius: 0;
+
+        :after{
+          bottom: -60px;
+        }
+        `};
+
+    h4 {
+      font-size: 16px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+    }
+
+    p {
+      height: 80px;
+      padding: 10px 0;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      text-align: left;
+    }
+  }
+
+  @media ${headerMobileMedia} {
+    h4 {
+      font-size: 14px;
+    }
+    p {
+      font-size: 14px;
+    }
+  }
+
+  @media ${mobileMedia} {
+    padding: 0 10px;
+    p {
+      height: 80px;
+      font-size: 12px !important;
+    }
+  }
+`
+
+export const Table = styled.div`
+  box-sizing: border-box;
+  display: flex;
+  margin: 40px 0 100px 0;
+  padding: 0 40px;
+  border: 1px solid ${colors.lightestGray};
+  border-radius: 10px;
+  box-shadow: inset 0 2px 2px 0 #ffffff, 0 4px 10px 0 rgba(38, 38, 38, 0.15);
+  position: relative;
+  width: 1050px;
+  justify-content: space-between;
+
+  @media ${calculator} {
+    min-width: auto;
+    margin: 40px 20px 100px 20px;
+    padding: 0;
   }
 `
 
