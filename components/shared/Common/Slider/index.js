@@ -28,62 +28,6 @@ export default class Slider extends Component {
       },
       used: false
     }
-
-    this.keyCode = Object.freeze({
-      left: 37,
-      up: 38,
-      right: 39,
-      down: 40,
-      pageUp: 33,
-      pageDown: 34,
-      end: 35,
-      home: 36
-    })
-  }
-  handleKeyDown = (event) => {
-    var flag = false
-
-    switch (event.keyCode) {
-      case this.keyCode.left:
-      case this.keyCode.down:
-        this.moveSliderTo(this.valueNow - 1)
-        flag = true
-        break
-
-      case this.keyCode.right:
-      case this.keyCode.up:
-        this.moveSliderTo(this.valueNow + 1)
-        flag = true
-        break
-
-      case this.keyCode.pageDown:
-        this.moveSliderTo(this.valueNow - 10)
-        flag = true
-        break
-
-      case this.keyCode.pageUp:
-        this.moveSliderTo(this.valueNow + 10)
-        flag = true
-        break
-
-      case this.keyCode.home:
-        this.moveSliderTo(this.railMin)
-        flag = true
-        break
-
-      case this.keyCode.end:
-        this.moveSliderTo(this.railMax)
-        flag = true
-        break
-
-      default:
-        break
-    }
-
-    if (flag) {
-      event.preventDefault()
-      event.stopPropagation()
-    }
   }
 
   moveSliderTo = (value, element) => {
@@ -121,39 +65,47 @@ export default class Slider extends Component {
     onChange && onChange(newValues)
   }
 
+  get railWidth() {
+    return this.rail.current.clientWidth
+  }
+
   handleMouseDown = (mouseDownEvent) => {
     const {min, max} = this.props
     const {target} = mouseDownEvent
 
     const handleMouseMove = (event) => {
-      var diffX = event.pageX - this.rail.current.offsetLeft
+      var diffX =
+        (event.touches ? event.touches[0].pageX : event.pageX) -
+        this.rail.current.offsetLeft
       const newValue = min + parseInt((max - min) * diffX / this.railWidth)
       this.moveSliderTo(newValue, target)
 
-      event.preventDefault()
       event.stopPropagation()
     }
 
     const handleMouseUp = () => {
+      document.removeEventListener('touchmove', handleMouseMove)
+      document.removeEventListener('touchend', handleMouseUp)
       document.removeEventListener('mousemove', handleMouseMove)
       document.removeEventListener('mouseup', handleMouseUp)
     }
 
     if (target === this.minThumb.current || target === this.maxThumb.current) {
       this.setState({used: true})
+      document.addEventListener('touchmove', handleMouseMove)
+      document.addEventListener('touchend', handleMouseUp)
       document.addEventListener('mousemove', handleMouseMove)
       document.addEventListener('mouseup', handleMouseUp)
     }
 
     mouseDownEvent.preventDefault()
-    event.stopPropagation()
   }
 
   componentDidMount() {
     const {isRange, min, max} = this.props
-    this.railWidth = this.rail.current.clientWidth
     this.thumbs.filter((thumb) => thumb.current).forEach((thumb) => {
-      thumb.current.addEventListener('keydown', this.handleKeyDown)
+      //thumb.current.addEventListener('keydown', this.handleKeyDown)
+      thumb.current.addEventListener('touchstart', this.handleMouseDown)
       thumb.current.addEventListener('mousedown', this.handleMouseDown)
     })
 
