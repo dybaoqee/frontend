@@ -16,6 +16,10 @@ export const listingFeed = `
  only screen and (max-width: 1230px)
 `
 
+export const calculator = `
+ only screen and (max-width: 1100px)
+`
+
 export const pickerMobileMedia = `
  only screen and (max-width: 820px)
 `
