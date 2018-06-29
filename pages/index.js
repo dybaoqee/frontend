@@ -9,6 +9,7 @@ import HomeSellingPoints from 'components/home/SellingPoints'
 import HomeBuySell from 'components/home/BuySell'
 import Warning from 'components/shared/Common/Warning'
 import CallToAction from 'components/shared/Common/CallToAction'
+import Calculator from 'components/shared/Calculator'
 
 export default class MyPage extends Component {
   static async getInitialProps(context) {
@@ -60,6 +61,7 @@ export default class MyPage extends Component {
           href={'/listings/index'}
           as={'/imoveis'}
         />
+        <Calculator />
         <HomeTour />
         <HomeSellingPoints />
         <HomeBuySell />
