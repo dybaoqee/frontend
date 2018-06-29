@@ -30,7 +30,7 @@ export default class Slider extends Component {
     }
   }
 
-  moveSliderTo = (value, element) => {
+  moveSliderTo = (value, element, userClicked) => {
     const {min, max, isRange, onChange} = this.props
 
     const left = element.getAttribute('aria-label') === 'min'
@@ -62,7 +62,7 @@ export default class Slider extends Component {
 
     this.setState({values: newValues})
 
-    onChange && onChange(newValues)
+    onChange && onChange(newValues, userClicked)
   }
 
   get railWidth() {
@@ -78,7 +78,7 @@ export default class Slider extends Component {
         (event.touches ? event.touches[0].pageX : event.pageX) -
         this.rail.current.offsetLeft
       const newValue = min + parseInt((max - min) * diffX / this.railWidth)
-      this.moveSliderTo(newValue, target)
+      this.moveSliderTo(newValue, target, true)
 
       event.stopPropagation()
     }
@@ -104,7 +104,6 @@ export default class Slider extends Component {
   componentDidMount() {
     const {isRange, min, max} = this.props
     this.thumbs.filter((thumb) => thumb.current).forEach((thumb) => {
-      //thumb.current.addEventListener('keydown', this.handleKeyDown)
       thumb.current.addEventListener('touchstart', this.handleMouseDown)
       thumb.current.addEventListener('mousedown', this.handleMouseDown)
     })

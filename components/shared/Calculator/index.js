@@ -15,10 +15,19 @@ import EmCasaButton from 'components/shared/Common/Buttons'
 
 export default class Calculator extends Component {
   state = {
-    listingValue: 400
+    listingValue: 400,
+    used: false
   }
-  sliderChanged = ({maxValue}) => {
-    this.setState({listingValue: maxValue})
+  sliderChanged = ({maxValue}, userClicked) => {
+    const {used} = this.state
+    this.setState({listingValue: maxValue, used: userClicked})
+
+    if (!used && userClicked) {
+      window.dataLayer.push({
+        action: 'User used calculator',
+        event: 'user_used_calculator'
+      })
+    }
   }
 
   getSellerEconomy = () => {
