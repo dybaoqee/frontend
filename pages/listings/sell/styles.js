@@ -38,7 +38,7 @@ export default styled.div`
     margin-bottom: 20px;
   }
 
-  button {
+  > button {
     box-sizing: border-box;
     width: 384px;
     margin: auto;
