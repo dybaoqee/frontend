@@ -141,9 +141,6 @@ export const Column = styled.div`
         top: 0;
         left: 0;
         margin: 0;
-        border: 1px solid ${colors.blue.light2};
-        border-radius: 12px;
-        background-color: ${colors.blue.light};
         box-shadow: none;
         position: relative;
         width: auto;
@@ -202,7 +199,8 @@ export const Table = styled.div`
   justify-content: space-between;
 
   @media ${calculator} {
-    min-width: auto;
+    justify-content: center;
+    width: auto;
     margin: 40px 20px 100px 20px;
     padding: 0;
   }
@@ -216,5 +214,17 @@ export const DescriptionColumn = Column.extend`
   }
   p {
     font-size: 14px;
+  }
+`
+
+export const Buttons = styled.div`
+  margin: 0 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  > button {
+    width: 190px !important;
+    box-sizing: border-box;
+    margin: 10px !important;
   }
 `

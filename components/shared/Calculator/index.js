@@ -8,10 +8,12 @@ import Container, {
   Info,
   Table,
   DescriptionColumn,
-  Column
+  Column,
+  Buttons
 } from './styles'
 import Link from 'next/link'
 import EmCasaButton from 'components/shared/Common/Buttons'
+import ContactButton from 'components/shared/Common/Contact'
 
 export default class Calculator extends Component {
   state = {
@@ -134,9 +136,12 @@ export default class Calculator extends Component {
             </p>
           </Column>
         </Table>
-        <Link href="/listings/new" as="/imoveis/adicionar" prefetch>
-          <EmCasaButton light>Anuncie agora</EmCasaButton>
-        </Link>
+        <Buttons>
+          <Link href="/listings/new" as="/imoveis/adicionar" prefetch>
+            <EmCasaButton light>Anuncie agora</EmCasaButton>
+          </Link>
+          <ContactButton />
+        </Buttons>
       </Container>
     )
   }
