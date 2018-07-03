@@ -4,13 +4,18 @@ import Layout from 'components/shared/Shell'
 import {isAuthenticated, isAdmin, getCurrentUserId} from 'lib/auth'
 import withApolloClient from 'lib/apollo/withApolloClient'
 import {ApolloProvider} from 'react-apollo'
+import {getJwt} from 'lib/auth'
 class MyApp extends App {
-  static async getInitialProps({Component, router, ctx}) {
+  static async getInitialProps(ctx) {
     let pageProps = {}
 
+    const {Component, router, ctx: context} = ctx
+
     if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(ctx)
+      pageProps = await Component.getInitialProps(context)
     }
+
+    const authenticated = isAuthenticated(context)
 
     return {
       pageProps,
@@ -19,13 +24,14 @@ class MyApp extends App {
         pathname: router.pathname,
         asPath: router.asPath
       },
-      authenticated: isAuthenticated(ctx),
+      authenticated,
       currentUser: {
-        id: getCurrentUserId(ctx),
-        authenticated: isAuthenticated(ctx),
-        admin: isAdmin(ctx)
+        id: getCurrentUserId(context),
+        authenticated,
+        admin: isAdmin(context),
+        jwt: getJwt(context)
       },
-      isAdmin: isAdmin(ctx)
+      isAdmin: isAdmin(context)
     }
   }
 
