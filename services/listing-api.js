@@ -39,7 +39,9 @@ const translatedKeys = {
   preco_maximo: 'max_price',
   preco_minimo: 'min_price',
   quartos_maximo: 'max_rooms',
-  quartos_minimo: 'min_rooms'
+  quartos_minimo: 'min_rooms',
+  vagas_maximo: 'max_garage_spots',
+  vagas_minimo: 'min_garage_spots'
 }
 
 // Transforms something like
@@ -108,15 +110,28 @@ export const getDashboardListings = async (jwt) => {
   }
 }
 
+export const getListing = async (id, jwt) => {
+  try {
+    const response = await get('/listings/' + id, jwt)
+    return response
+  } catch (error) {
+    throw {
+      message: error.message,
+      status: error.response ? error.response.status : 500
+    }
+  }
+}
+
 export const getRelatedListings = async (id) => {
   const endpoint = `/listings/${id}/related`
 
   try {
     return await get(endpoint, null, {page_size: 4})
   } catch (error) {
-    if (error.response && error.response.status === 422)
-      throw new Error('Unknown error. Please try again.', error)
-    else throw error
+    throw {
+      message: error.message,
+      status: error.response ? error.response.status : 500
+    }
   }
 }
 
@@ -125,17 +140,6 @@ export const getFeaturedListings = async () => {
 
   try {
     return await get(endpoint, null)
-  } catch (error) {
-    if (error.response && error.response.status === 422)
-      throw new Error('Unknown error. Please try again.', error)
-    else throw error
-  }
-}
-
-export const getListing = async (id, jwt) => {
-  try {
-    const response = await get('/listings/' + id, jwt)
-    return response
   } catch (error) {
     if (error.response && error.response.status === 422)
       throw new Error('Unknown error. Please try again.', error)

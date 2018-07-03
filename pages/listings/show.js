@@ -69,7 +69,7 @@ class Listing extends Component {
       }
     } catch (e) {
       return {
-        statusCode: 404,
+        statusCode: e.status,
         currentUser
       }
     }
@@ -179,7 +179,10 @@ class Listing extends Component {
     return (
       <Mutation mutation={FAVORITE_LISTING}>
         {(favoriteListing) => (
-          <Query query={GET_FAVORITE_LISTINGS_IDS}>
+          <Query
+            query={GET_FAVORITE_LISTINGS_IDS}
+            skip={!currentUser.authenticated}
+          >
             {({loading, error, data}) => {
               const favorite =
                 !loading &&
@@ -274,6 +277,19 @@ class Listing extends Component {
     )
   }
 
+  get error() {
+    const {statusCode} = this.props
+
+    switch (statusCode) {
+      case 404:
+        return 'Página não encontrada'
+      case 500:
+        return 'Internal Server Error'
+      default:
+        return 'Erro desconhecido'
+    }
+  }
+
   render() {
     const {statusCode} = this.props
 
@@ -281,7 +297,7 @@ class Listing extends Component {
       <Fragment>
         {statusCode ? (
           <Error>
-            <h1>Imóvel não encontrado</h1>
+            <h1>{this.error}</h1>
             <h2>{statusCode}</h2>
             <p>
               Visite nossa <Link href="/">página inicial</Link> ou entre

@@ -46,6 +46,18 @@ function treatMaxRooms(params) {
   }
 }
 
+function treatMinGarageSpots(params) {
+  if (params.garageSpots.min) {
+    return `vagas_minimo=${params.garageSpots.min}`
+  }
+}
+
+function treatMaxGarageSpots(params) {
+  if (params.garageSpots.max) {
+    return `vagas_maximo=${params.garageSpots.max}`
+  }
+}
+
 function treatNeighborhoods(params) {
   if (params.neighborhoods.length > 0) {
     return `bairros=${joinParam(params.neighborhoods)}`
@@ -60,6 +72,8 @@ export function treatParams(params) {
     treatMaxArea(params),
     treatMinRooms(params),
     treatMaxRooms(params),
+    treatMinGarageSpots(params),
+    treatMaxGarageSpots(params),
     treatNeighborhoods(params)
   ]
     .filter((n) => n)

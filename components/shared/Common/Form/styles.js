@@ -36,6 +36,7 @@ export default styled.form`
   input[type='text'],
   input[type='email'],
   input[type='password'],
+  input[type='tel'],
   textarea {
     border: 1px solid ${colors.lightGray};
     border-radius: 6px;

@@ -1,9 +1,7 @@
 import {Component} from 'react'
-import Link from 'next/link'
 import ListingTable from '../Table'
 import Container from './styles'
 import LikeButton from 'components/shared/Common/Buttons/Like'
-import {buildSlug} from 'lib/listings'
 
 export default class TextContainer extends Component {
   truncateDescription = () => {
@@ -29,7 +27,6 @@ export default class TextContainer extends Component {
       favorite,
       currentUser
     } = this.props
-    const {id} = listing
 
     return (
       <Container mapOpenedOnMobile={mapOpenedOnMobile}>
@@ -48,10 +45,8 @@ export default class TextContainer extends Component {
           )}
         </div>
         <div className="description">
-          {this.truncateDescription()}{' '}
-          <Link href={`/listings/show?id=${id}`} as={buildSlug(listing)}>
-            Saiba Mais →
-          </Link>
+          {this.truncateDescription()}
+          <span>Saiba Mais →</span>
         </div>
 
         <ListingTable listing={listing} mapOpenedOnMobile={mapOpenedOnMobile} />
