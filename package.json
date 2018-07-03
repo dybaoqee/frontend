@@ -11,7 +11,8 @@
   "scripts": {
     "dev": "node server/server.js -p $PORT",
     "build": "next build",
-    "start": "node server/server.js -p $PORT",
+    "start": "yarn clear-cache && node server/server.js -p $PORT",
+    "clear-cache": "rm -rf node_modules/.cache/babel-loader",
     "test":
       "jest && TEST=cypress start-server-and-test dev http://localhost:3000/login cy:run",
     "heroku-postbuild": "npm run build",
