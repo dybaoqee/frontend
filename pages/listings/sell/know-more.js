@@ -13,6 +13,8 @@ import EmCasaButton from 'components/shared/Common/Buttons'
 import Topics from 'components/shared/Common/Topics'
 import Container, {Header, BenefitsContainer, Benefit} from './styles'
 
+import Calculator from 'components/shared/Calculator'
+
 export default class SellKnowMore extends Component {
   render() {
     const seoImg = imageUrl(
@@ -79,6 +81,9 @@ export default class SellKnowMore extends Component {
             <Link href="/listings/new" as="/imoveis/adicionar" prefetch>
               <EmCasaButton light>Anuncie agora</EmCasaButton>
             </Link>
+          </Container>
+          <Container>
+            <Calculator />
           </Container>
           <Container>
             <h3>Cadastre seu imóvel em menos de 5 minutos</h3>
