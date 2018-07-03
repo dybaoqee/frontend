@@ -6,6 +6,19 @@ export default styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+
+  h3 {
+    box-sizing: border-box;
+    width: 100%;
+    font-size: 32px;
+    font-weight: 300;
+    letter-spacing: -0.3px;
+    line-height: 48px;
+    text-align: center;
+    margin: auto;
+    padding: 0 40px;
+    margin-bottom: 20px;
+  }
 `
 
 export const SliderContainer = styled.div`
