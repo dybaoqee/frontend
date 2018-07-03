@@ -65,7 +65,7 @@
     "js-cookie": "^2.2.0",
     "lodash": "^4.17.5",
     "moment": "^2.22.1",
-    "next": "^6.0.3",
+    "next": "^6.1.1",
     "nprogress": "^0.2.0",
     "number-abbreviate": "^2.0.0",
     "numeral": "^2.0.6",
