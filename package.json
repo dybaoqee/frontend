@@ -4,7 +4,9 @@
     "npm": "5.6.0"
   },
   "jest": {
-    "setupFiles": ["<rootDir>/shim.js"],
+    "setupFiles": [
+      "<rootDir>/shim.js"
+    ],
     "setupTestFrameworkScriptFile": "<rootDir>config/setupTests.js"
   },
   "license": "UNLICENSED",
@@ -13,8 +15,7 @@
     "build": "next build",
     "start": "yarn clear-cache && node server/server.js -p $PORT",
     "clear-cache": "rm -rf node_modules/.cache/babel-loader",
-    "test":
-      "jest && TEST=cypress start-server-and-test dev http://localhost:3000/login cy:run",
+    "test": "jest && TEST=cypress start-server-and-test dev http://localhost:3000/login cy:run",
     "heroku-postbuild": "npm run build",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
@@ -89,9 +90,9 @@
     "styled-components": "^3.1.6",
     "superagent": "^3.8.2",
     "text-mask-addons": "^3.7.1",
-    "xml-formatter": "^1.0.1",
     "webpack-bundle-analyzer": "^2.13.1",
-    "webpack-bundle-size-analyzer": "^2.7.0"
+    "webpack-bundle-size-analyzer": "^2.7.0",
+    "xml-formatter": "^1.0.1"
   },
   "postcss": {
     "plugins": {
