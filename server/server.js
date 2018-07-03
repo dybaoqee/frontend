@@ -13,7 +13,7 @@ const app = next({dir: '.', dev})
 const handle = app.getRequestHandler()
 const MapsService = require('../services/google-maps-api')
 const listingsRouter = require('./routes/listings')
-const timber = require('timber');
+const timber = require('timber')
 
 timber.config.append_metadata = true
 

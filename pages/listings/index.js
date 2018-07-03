@@ -251,7 +251,10 @@ class ListingsIndex extends Component {
                 resetAllParams={this.onResetFilter}
               />
             ) : (
-              <Query query={GET_FAVORITE_LISTINGS_IDS}>
+              <Query
+                query={GET_FAVORITE_LISTINGS_IDS}
+                skip={!currentUser.authenticated}
+              >
                 {({data, loading, error}) => (
                   <InfiniteScroll
                     currentPage={currentPage}

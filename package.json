@@ -4,17 +4,17 @@
     "npm": "5.6.0"
   },
   "jest": {
-    "setupFiles": [
-      "<rootDir>/shim.js"
-    ],
+    "setupFiles": ["<rootDir>/shim.js"],
     "setupTestFrameworkScriptFile": "<rootDir>config/setupTests.js"
   },
   "license": "UNLICENSED",
   "scripts": {
     "dev": "node server/server.js -p $PORT",
     "build": "next build",
-    "start": "node server/server.js -p $PORT",
-    "test": "jest && TEST=cypress start-server-and-test dev http://localhost:3000/login cy:run",
+    "start": "yarn clear-cache && node server/server.js -p $PORT",
+    "clear-cache": "rm -rf node_modules/.cache/babel-loader",
+    "test":
+      "jest && TEST=cypress start-server-and-test dev http://localhost:3000/login cy:run",
     "heroku-postbuild": "npm run build",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
@@ -64,7 +64,7 @@
     "js-cookie": "^2.2.0",
     "lodash": "^4.17.5",
     "moment": "^2.22.1",
-    "next": "^6.0.3",
+    "next": "^6.1.1",
     "nprogress": "^0.2.0",
     "number-abbreviate": "^2.0.0",
     "numeral": "^2.0.6",
