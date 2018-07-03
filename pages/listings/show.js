@@ -179,7 +179,10 @@ class Listing extends Component {
     return (
       <Mutation mutation={FAVORITE_LISTING}>
         {(favoriteListing) => (
-          <Query query={GET_FAVORITE_LISTINGS_IDS}>
+          <Query
+            query={GET_FAVORITE_LISTINGS_IDS}
+            skip={!currentUser.authenticated}
+          >
             {({loading, error, data}) => {
               const favorite =
                 !loading &&
