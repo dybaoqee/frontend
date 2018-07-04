@@ -37,6 +37,16 @@ class MyApp extends App {
     }
   }
 
+  componentDidMount() {
+    if (getCookie('resetAuth')) {
+      removeCookie('jwt')
+      removeCookie('currentUserId')
+      removeCookie('userRole')
+      removeCookie('resetAuth')
+      Router.push('/auth/login')
+    }
+  }
+
   render() {
     const {
       Component,
