@@ -5,11 +5,13 @@ import {isAuthenticated, isAdmin, getCurrentUserId} from 'lib/auth'
 import withApolloClient from 'lib/apollo/withApolloClient'
 import {ApolloProvider} from 'react-apollo'
 import {getJwt} from 'lib/auth'
+import {getCookie, removeCookie} from 'lib/session'
+import Router from 'next/router'
 class MyApp extends App {
   static async getInitialProps(ctx) {
-    let pageProps = {}
-
     const {Component, router, ctx: context} = ctx
+    global.res = context.res
+    let pageProps = {}
 
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(context)
@@ -32,6 +34,16 @@ class MyApp extends App {
         jwt: getJwt(context)
       },
       isAdmin: isAdmin(context)
+    }
+  }
+
+  componentDidMount() {
+    if (getCookie('resetAuth')) {
+      removeCookie('jwt')
+      removeCookie('currentUserId')
+      removeCookie('userRole')
+      removeCookie('resetAuth')
+      Router.push('/auth/login')
     }
   }
 
