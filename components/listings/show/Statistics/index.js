@@ -6,7 +6,8 @@ import faEye from '@fortawesome/fontawesome-pro-light/faEye'
 import faHeart from '@fortawesome/fontawesome-pro-light/faHeart'
 import faCalendar from '@fortawesome/fontawesome-pro-light/faCalendarAlt'
 import faFlag from '@fortawesome/fontawesome-pro-light/faFlag'
-import faHome from '@fortawesome/fontawesome-pro-light/faHomeHeart'
+import faHomeHeart from '@fortawesome/fontawesome-pro-light/faHomeHeart'
+import faHome from '@fortawesome/fontawesome-pro-light/faHome'
 import ActivateListing from 'components/shared/Common/Buttons/Activate'
 
 export default ({
@@ -17,6 +18,7 @@ export default ({
     inserted_at,
     tour_visualisations,
     id,
+    in_person_visit_count,
     is_active
   },
   user
@@ -49,7 +51,7 @@ export default ({
       </Title>
     </Topic>
     <Topic>
-      <FontAwesomeIcon icon={faHome} />
+      <FontAwesomeIcon icon={faHomeHeart} />
       <Title>
         <p>Visualizações Tour 3D</p>
         <span>{tour_visualisations}</span>
@@ -67,6 +69,13 @@ export default ({
       <Title>
         <p>Visitas Marcadas</p>
         <span>{interest_count}</span>
+      </Title>
+    </Topic>
+    <Topic>
+      <FontAwesomeIcon icon={faHome} />
+      <Title>
+        <p>Visitas Realizadas</p>
+        <span>{in_person_visit_count}</span>
       </Title>
     </Topic>
   </Container>
