@@ -1,9 +1,8 @@
-import {Component, Fragment} from 'react'
+import React, {Component, Fragment} from 'react'
 import slugify from 'slug'
 import Head from 'next/head'
 import Router from 'next/router'
 import {Query} from 'react-apollo'
-import scrollIntoView from 'scroll-into-view'
 
 import {
   GET_LISTINGS,
@@ -25,9 +24,12 @@ class ListingsIndex extends Component {
   constructor(props) {
     super(props)
 
+    const filters = getDerivedParams(props.query)
+    const filtersForGraphQL = getFiltersForGraphQL(filters)
+
     this.state = {
       mapOpened: false,
-      filters: getFiltersForGraphQL(props.query)
+      filters: filtersForGraphQL
     }
     this.listingsLoaded = []
   }
@@ -55,16 +57,20 @@ class ListingsIndex extends Component {
     require('utils/polyfills/smooth-scroll').load()
   }
 
-  onChangeFilter = (name, value) => {
-    const {query} = this.props
+  onChangeFilter = (filters) => {
+    const newQuery = treatParams(filters)
 
-    const params = treatParams({
-      ...getDerivedParams(query),
-      [name]: value
-    })
+    const newFilters = {
+      ...this.state.filters,
+      ...getFiltersForGraphQL(filters)
+    }
 
-    if (params) {
-      Router.push(`/listings/index?${params}`, `/imoveis?${params}`, {
+    window.scrollTo(0, 0)
+
+    this.setState({filters: newFilters})
+
+    if (newQuery.length) {
+      Router.push(`/listings/index?${newQuery}`, `/imoveis?${newQuery}`, {
         shallow: true
       })
     } else {
@@ -79,26 +85,13 @@ class ListingsIndex extends Component {
 
   loadListing = async (id) => {
     const {client} = this.props
-
-    this.listings.updateLoadingState(true)
-
     const footer = document.querySelector('.infinite-scroll-footer')
-
-    scrollIntoView(footer, {
-      time: 500,
-      align: {
-        top: 1,
-        left: 1
-      }
-    })
+    footer.scrollIntoView({block: 'end', behavior: 'smooth'})
 
     const loadedListings = client.readQuery({
-      query: GET_LISTINGS,
-      variables: {
-        pagination: this.pagination,
-        filters: this.state.filters
-      }
+      query: GET_LISTINGS
     })
+
     const {data} = await client.query({
       query: GET_LISTING,
       variables: {
@@ -117,48 +110,24 @@ class ListingsIndex extends Component {
 
     client.writeQuery({
       query: GET_LISTINGS,
-      variables: {
-        pagination: this.pagination,
-        filters: this.state.filters
-      },
       data: updatedQueryResult
     })
-    this.listingsLoaded.push(data.listing.id)
-    const element = document.getElementById(`listing-${data.listing.id}`)
-
-    scrollIntoView(
-      element,
-      {
-        time: 500,
-        align: {
-          top: 1,
-          left: 1
-        }
-      },
-      () => {
-        this.listings.updateLoadingState(false)
-      }
+    const element = document.querySelector(
+      `[aria-label=listing-${data.listing.id}]`
     )
+    element.scrollIntoView({block: 'end', behavior: 'smooth'})
   }
 
   onSelectListing = (id, position) => {
     if (!position) {
-      const element = document.getElementById(`listing-${id}`)
+      const element = document.querySelector(`[aria-label=listing-${id}]`)
 
       if (!element) {
         this.loadListing(id)
         return
       }
 
-      scrollIntoView(element, {
-        time: 500,
-        align: {
-          top: 1,
-          left: 1
-        }
-      })
-    } else {
-      this.setState({highlight: {...position}})
+      element.scrollIntoView({block: 'end', behavior: 'smooth'})
     }
   }
 
@@ -219,6 +188,7 @@ class ListingsIndex extends Component {
 
   getMap = () => {
     const {highlight, mapOpened, filters} = this.state
+
     return (
       <Query query={GET_LISTINGS_COORDINATES} variables={{filters}}>
         {({data: {listings: mapListings}}) => (
@@ -240,11 +210,6 @@ class ListingsIndex extends Component {
     )
   }
 
-  loadedListings = (listingsLoaded, pagination) => {
-    this.listingsLoaded = listingsLoaded
-    this.pagination = pagination
-  }
-
   render() {
     const {neighborhoods, query, user} = this.props
     const {mapOpened, filters, highlight} = this.state
@@ -253,10 +218,10 @@ class ListingsIndex extends Component {
       <Fragment>
         {this.getHead()}
         <Filter
-          params={getDerivedParams(query)}
           neighborhoods={neighborhoods}
           onChange={this.onChangeFilter}
           onReset={this.onResetFilter}
+          initialFilters={getDerivedParams(query)}
         />
         <Container opened={mapOpened}>
           {this.getMap()}
@@ -265,10 +230,8 @@ class ListingsIndex extends Component {
             user={user}
             filters={filters}
             resetFilters={this.onResetFilter}
-            onLoadListings={this.loadedListings}
             mapOpenedOnMobile={mapOpened}
             highlight={highlight}
-            ref={(listings) => (this.listings = listings)}
           />
         </Container>
       </Fragment>

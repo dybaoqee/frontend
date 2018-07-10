@@ -4,6 +4,7 @@ import {desktopFilterHeight} from 'constants/dimensions'
 
 export default styled.div`
   margin-top: ${desktopFilterHeight}px;
+    box-sizing: border-box;
 
   .entries-container {
     box-sizing: border-box;
@@ -46,11 +47,12 @@ export default styled.div`
     opened &&
     `
     @media ${mobileMedia} {
+      position: fixed;
       overflow-x: auto;
 
         margin: 0;
         top: 0;
-        box-sizing: border-box;
+
         height: 100%;
         width: 100%;
         z-index: 9998;
