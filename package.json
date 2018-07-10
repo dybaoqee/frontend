@@ -4,7 +4,9 @@
     "npm": "5.6.0"
   },
   "jest": {
-    "setupFiles": ["<rootDir>/shim.js"],
+    "setupFiles": [
+      "<rootDir>/shim.js"
+    ],
     "setupTestFrameworkScriptFile": "<rootDir>config/setupTests.js"
   },
   "license": "UNLICENSED",
@@ -13,8 +15,7 @@
     "build": "next build",
     "start": "yarn clear-cache && node server/server.js -p $PORT",
     "clear-cache": "rm -rf node_modules/.cache/babel-loader",
-    "test":
-      "jest && TEST=cypress start-server-and-test dev http://localhost:3000/login cy:run",
+    "test": "jest && TEST=cypress start-server-and-test dev http://localhost:3000/login cy:run",
     "heroku-postbuild": "npm run build",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
@@ -83,7 +84,6 @@
     "react-slick": "^0.23.1",
     "react-text-mask": "^5.1.0",
     "recharts": "^1.0.0-beta.10",
-    "scroll-into-view": "^1.9.3",
     "slug": "^0.9.1",
     "smoothscroll-polyfill": "^0.4.0",
     "sniffr": "^1.1.4",
