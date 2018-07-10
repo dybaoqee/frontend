@@ -4,6 +4,7 @@ import * as colors from 'constants/colors'
 
 export default styled.div`
   box-sizing: border-box;
+  padding: 0 14px;
 `
 
 export const Rail = styled.div`
@@ -132,4 +133,18 @@ export const Icon = styled.div`
     width: 40px !important;
     height: 40px;
   }
+`
+
+export const RangeValues = styled.p`
+  box-sizing: border-box;
+  text-align: center;
+  margin: 0 10px 20px 10px;
+  color: ${colors.mediumDarkGray};
+`
+
+export const Bar = styled.div`
+  height: 4px;
+  background: ${colors.blue.medium};
+  width: 100%;
+  position: absolute;
 `
