@@ -3,3 +3,9 @@
 export const getY = (rect) => rect.y || rect.bottom
 
 export const getX = (rect) => rect.x || rect.right
+
+export const getWindowHeight = () =>
+  process.browser &&
+  (window.innerHeight ||
+    document.documentElement.clientHeight ||
+    document.body.clientHeight)
