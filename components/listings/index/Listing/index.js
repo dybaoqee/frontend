@@ -22,32 +22,6 @@ class Listing extends React.Component {
     Router.push(`/listings/show?id=${listing.id}`, buildSlug(listing)).then(
       () => window.scrollTo(0, 0)
     )
-
-    return
-
-    // We have admin links inside a "link"
-    // (each listing is fully clickable)
-    // This function prevents double link attribution,
-    // which breaks back button behaviour.
-    if (
-      e.target.getAttribute('class') &&
-      e.target.getAttribute('class').indexOf('cancel-listing-nav') == -1
-    ) {
-      if (e.shiftKey || e.ctrlKey || e.metaKey) {
-        // Only trigger window.open if element clicked is not .btn
-        if (
-          e.target.getAttribute('class') &&
-          e.target.getAttribute('class').indexOf('btn') == -1
-        ) {
-          window.open(`/imoveis/${listing.id}`, '_blank')
-          return false
-        }
-      } else {
-        Router.push(`/listings/show?id=${listing.id}`, buildSlug(listing)).then(
-          () => window.scrollTo(0, 0)
-        )
-      }
-    }
   }
 
   render() {
@@ -74,7 +48,7 @@ class Listing extends React.Component {
       ).length > 0
 
     return (
-      <ListingWrapper>
+      <ListingWrapper aria-label={`listing-${listing.id}`}>
         <Link
           href={`/listings/show?id=${listing.id}`}
           as={buildSlug(listing)}
