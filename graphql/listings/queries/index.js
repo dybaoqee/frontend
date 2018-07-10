@@ -2,7 +2,8 @@ import gql from 'graphql-tag'
 
 export const GET_LISTINGS = gql`
   query listings($filters: ListingFilter, $pagination: ListingPagination) {
-    listings(filters: $filters, pagination: $pagination) {
+    listings(filters: $filters, pagination: $pagination)
+      @connection(key: "listingsFetched") {
       remainingCount
       listings {
         id
