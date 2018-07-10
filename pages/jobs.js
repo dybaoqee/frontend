@@ -79,6 +79,28 @@ class Jobs extends Component {
 
           <br />
 
+          <h2>UX/UI Designer</h2>
+          <h4>Remoto</h4>
+
+          <p>
+            O designer irá focar na experiência do usuário para trabalhar com nossas equipes de
+            marketing, produto e desenvolvimento na prototipagem de interfaces do produto, criação de
+            landing pages e ilustrações para campanhas online e offline.
+          </p>
+
+          <a
+            href="https://www.linkedin.com/jobs/view/758970535/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn"
+          >
+            Cadastre-se
+          </a>
+
+          <br />
+          <br />
+          <br />
+
           <h2>Engenheiro Backend Elixir / Phoenix</h2>
           <h4>Remoto</h4>
 
