@@ -1,121 +1,326 @@
-import {Component} from 'react'
-
-import FilterHeader from './Header'
-import PriceFilter from './Price'
-import AreaFilter from './Area'
-import RoomFilter from './Rooms'
-import GarageSpotsFilter from './GarageSpots'
-import NeighborhoodFilter from './Neighborhoods'
+import {Component, Fragment} from 'react'
+import numeral from 'numeral'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import faFilter from '@fortawesome/fontawesome-pro-light/faFilter'
+import faBuilding from '@fortawesome/fontawesome-pro-light/faBuilding'
+import faHome from '@fortawesome/fontawesome-pro-light/faHome'
+import faAngleUp from '@fortawesome/fontawesome-pro-light/faAngleUp'
+import faAngleDown from '@fortawesome/fontawesome-pro-light/faAngleDown'
+import faTrash from '@fortawesome/fontawesome-pro-light/faTrash'
+import faRemove from '@fortawesome/fontawesome-pro-light/faTimesCircle'
+import _ from 'lodash'
+import Container, {
+  FiltersApplied,
+  FiltersAppliedContainer,
+  FilterApplied,
+  Overlay,
+  FilterButton,
+  Filters,
+  FilterContainer,
+  PropertyTypes,
+  PropertyType,
+  FiltersWrapper
+} from './styles'
+import Slider from 'components/shared/Common/Slider'
+import Select from 'react-select'
+import EmCasaButton from 'components/shared/Common/Buttons'
+import {neighborhoodOptions} from 'constants/listing-filter-options'
 
 export default class Filter extends Component {
-  state = {
-    visible: []
+  constructor(props) {
+    super(props)
+
+    const initialValues = {...props.initialFilters}
+
+    if (props.initialFilters.neighborhoods) {
+      initialValues.neighborhoods = props.initialFilters.neighborhoods.map(
+        (neighborhood) => ({
+          value: neighborhood,
+          label: neighborhood
+        })
+      )
+    }
+
+    this.state = {
+      active: false,
+      values: initialValues
+    }
   }
 
-  onChange = (prop) => (value) => this.props.onChange(prop, value)
+  onClose = () => this.setState({active: false})
 
-  onChangeArea = this.onChange('area')
-  onChangeRooms = this.onChange('rooms')
-  onChangePrice = this.onChange('price')
-  onChangeNeighborhoods = this.onChange('neighborhoods')
-  onChangeGarageSpots = this.onChange('garageSpots')
-
-  onToggle = (prop) => () =>
-    this.setState({visible: this.isVisible(prop) ? [] : [prop]})
-
-  // Toggle multiple items at once on mobile
-  onToggleList = (...props) => () =>
-    this.setState({visible: this.isVisible(props[0]) ? [] : props})
-
-  onToggleArea = this.onToggle('area')
-  onToggleRooms = this.onToggle('rooms')
-  onTogglePrice = this.onToggle('price')
-  onToggleNeighborhoods = this.onToggle('neighborhoods')
-  onToggleGarageSpots = this.onToggle('garageSpots')
-
-  onClose = () => this.setState({visible: []})
-
-  isVisible(prop) {
-    const {visible} = this.state
-    if (!prop) return visible.length !== 0
-    return visible.indexOf(prop) !== -1
+  onToggle = () => {
+    const {active} = this.state
+    this.setState({active: !active})
   }
 
-  get active() {
-    return this.state.visible.length !== 0
+  sliderChanged = (value, {minValue, maxValue}, userClicked) => {
+    if (userClicked) {
+      const {values} = this.state
+      const {onChange} = this.props
+      let updatedValues = values
+      if (!updatedValues[value]) {
+        updatedValues[value] = {}
+      }
+      updatedValues[value].min = minValue
+      updatedValues[value].max = maxValue
+      this.setState({values: updatedValues})
+      onChange(updatedValues)
+    }
+  }
+
+  neighborhoodChanged = (neighborhoods) => {
+    const {values} = this.state
+    const {onChange} = this.props
+    let updatedValues = values
+    updatedValues.neighborhoods = neighborhoods
+    onChange(updatedValues)
+    this.setState({values: updatedValues})
+  }
+
+  onChaneListingType = ({currentTarget}) => {
+    const {values} = this.state
+    const {onChange} = this.props
+    const listingType = currentTarget.getAttribute('aria-label')
+
+    let updatedValues = values
+    updatedValues.types = updatedValues.types || []
+
+    if (!_.includes(updatedValues.types, listingType)) {
+      updatedValues.types.push(listingType)
+    } else {
+      _.remove(updatedValues.types, (item) => item === listingType)
+    }
+    onChange(updatedValues)
+    this.setState({values: updatedValues})
+  }
+
+  resetFilter = (filter) => {
+    const {onChange} = this.props
+    const {values} = this.state
+    let updatedValues = values
+    delete updatedValues[filter]
+    this.setState({values: updatedValues})
+    onChange(updatedValues)
+  }
+
+  resetFilters = () => {
+    const {onReset} = this.props
+    this.setState({values: {}})
+
+    onReset && onReset()
+  }
+
+  get activeFilters() {
+    const {
+      values: {types, price, neighborhoods, rooms, garageSpots, area}
+    } = this.state
+
+    const propertyTypes = types && types.join(', ')
+    const rangePrice =
+      price &&
+      `R$${numeral(price.min).format('0.00a')} - R$${numeral(price.max).format(
+        '0.00a'
+      )}`
+
+    const rangeRooms = rooms && `${rooms.min} - ${rooms.max} quartos`
+    const rangeGarageSpots =
+      garageSpots && `${garageSpots.min} - ${garageSpots.max} vagas`
+
+    const rangeArea = area && `${area.min} - ${area.max} m²`
+
+    const rangeNeighborhoods =
+      neighborhoods &&
+      neighborhoods.length > 0 &&
+      `${neighborhoods[0].value}${
+        neighborhoods.length > 1 ? ` e mais ${neighborhoods.length - 1}` : ''
+      }`
+
+    const filters = [
+      {filter: 'types', value: propertyTypes},
+      {filter: 'neighborhoods', value: rangeNeighborhoods},
+      {filter: 'price', value: rangePrice},
+      {filter: 'rooms', value: rangeRooms},
+      {filter: 'garageSpots', value: rangeGarageSpots},
+      {filter: 'area', value: rangeArea}
+    ].filter((filter) => filter.value)
+
+    return filters.map(({filter, value}) => (
+      <FilterApplied key={filter}>
+        <span onClick={this.onToggle}>{value}</span>
+        <FontAwesomeIcon
+          icon={faRemove}
+          onClick={this.resetFilter.bind(this, filter)}
+        />
+      </FilterApplied>
+    ))
   }
 
   render() {
-    const {active} = this
-    const {visible} = this.state
-    const {params, onReset, neighborhoods} = this.props
-    let className = 'listings-filter-container'
-    if (active) className += ' filter-open'
+    const {
+      active,
+      values: {
+        area,
+        price,
+        garageSpots,
+        rooms,
+        types,
+        neighborhoods: selectedNeighborhoods
+      }
+    } = this.state
 
+    const anyFilterApplied = Object.keys(this.state.values).length > 0
+    const {onChaneListingType, onToggle, activeFilters, resetFilter} = this
+    const {neighborhoods} = this.props
+    const neighborhoodsOptions = neighborhoodOptions(neighborhoods)
     return (
-      <div className={className}>
-        {active && (
-          <div className="active-filter-overlay" onClick={this.onClose} />
-        )}
-
-        <FilterHeader
-          params={params}
-          visible={visible}
-          onToggle={this.onToggleList}
-          onReset={onReset}
-        />
-
-        <PriceFilter
-          value={params.price}
-          visible={this.isVisible('price')}
-          onChange={this.onChangePrice}
-          onToggle={this.onTogglePrice}
-          onClose={this.onClose}
-        />
-
-        <AreaFilter
-          value={params.area}
-          visible={this.isVisible('area')}
-          onChange={this.onChangeArea}
-          onToggle={this.onToggleArea}
-          onClose={this.onClose}
-        />
-
-        <RoomFilter
-          value={params.rooms}
-          visible={this.isVisible('rooms')}
-          onChange={this.onChangeRooms}
-          onToggle={this.onToggleRooms}
-          onClose={this.onClose}
-        />
-
-        <GarageSpotsFilter
-          value={params.garageSpots}
-          visible={this.isVisible('garageSpots')}
-          onChange={this.onChangeGarageSpots}
-          onToggle={this.onToggleGarageSpots}
-          onClose={this.onClose}
-        />
-
-        <NeighborhoodFilter
-          value={params.neighborhoods}
-          visible={this.isVisible('neighborhoods')}
-          neighborhoods={neighborhoods}
-          onChange={this.onChangeNeighborhoods}
-          onToggle={this.onToggleNeighborhoods}
-          onClose={this.onClose}
-        />
-
-        {active && (
-          <button className="close-mobile-filters" onClick={this.onClose}>
-            Ver Resultados
-          </button>
-        )}
-
-        <span className="remove-all-filters" onClick={onReset}>
-          Limpar Filtros
-        </span>
-      </div>
+      <Container>
+        <FiltersApplied>
+          <FilterButton onClick={onToggle}>
+            <FontAwesomeIcon icon={faFilter} />
+            <span>Filtrar imóveis</span>
+            <FontAwesomeIcon icon={active ? faAngleUp : faAngleDown} />
+          </FilterButton>
+          <FiltersAppliedContainer>
+            {anyFilterApplied ? (
+              activeFilters
+            ) : (
+              <p onClick={onToggle}>Sem filtros aplicados</p>
+            )}
+          </FiltersAppliedContainer>
+          <FilterButton onClick={this.resetFilters}>
+            <FontAwesomeIcon icon={faTrash} />
+            <span>Limpar filtros</span>
+          </FilterButton>
+        </FiltersApplied>
+        <FiltersWrapper active={active}>
+          <Overlay onClick={this.onClose} />
+          <Filters>
+            <div>
+              <FilterContainer>
+                <h4>
+                  Tipo de Imóvel
+                  <FontAwesomeIcon
+                    icon={faTrash}
+                    onClick={resetFilter.bind(this, 'types')}
+                  />
+                </h4>
+                <PropertyTypes activeTypes={types}>
+                  <PropertyType
+                    aria-label="Apartamento"
+                    onClick={onChaneListingType}
+                  >
+                    <FontAwesomeIcon icon={faBuilding} />
+                    <span>Apartamento</span>
+                  </PropertyType>
+                  <PropertyType aria-label="Casa" onClick={onChaneListingType}>
+                    <FontAwesomeIcon icon={faHome} />
+                    <span>Casa</span>
+                  </PropertyType>
+                  <PropertyType
+                    aria-label="Cobertura"
+                    onClick={onChaneListingType}
+                  >
+                    <FontAwesomeIcon icon={faBuilding} />
+                    <span>Cobertura</span>
+                  </PropertyType>
+                </PropertyTypes>
+              </FilterContainer>
+              <FilterContainer>
+                <h4>
+                  Bairros
+                  <FontAwesomeIcon
+                    icon={faTrash}
+                    onClick={resetFilter.bind(this, 'neighborhoods')}
+                  />
+                </h4>
+                <Select
+                  name="form-field-name"
+                  arrowRenderer={null}
+                  placeholder="Selecione"
+                  multi={true}
+                  value={selectedNeighborhoods || []}
+                  onChange={this.neighborhoodChanged}
+                  options={neighborhoodsOptions}
+                  noResultsText="Resultado Não Encontrado"
+                />
+              </FilterContainer>
+              <FilterContainer>
+                <h4>
+                  Preço
+                  <FontAwesomeIcon
+                    icon={faTrash}
+                    onClick={resetFilter.bind(this, 'price')}
+                  />
+                </h4>
+                <Slider
+                  min={650000}
+                  max={10000000}
+                  values={price}
+                  isRange
+                  onChange={this.sliderChanged.bind(this, 'price')}
+                  valuesRounder={(value) => Math.ceil(value / 10000) * 10000}
+                  valuesFormatter={(value) =>
+                    ` R$ ${value.toLocaleString('pt-BR')}`
+                  }
+                />
+              </FilterContainer>
+              <FilterContainer>
+                <h4>
+                  Área
+                  <FontAwesomeIcon
+                    icon={faTrash}
+                    onClick={resetFilter.bind(this, 'area')}
+                  />
+                </h4>
+                <Slider
+                  min={35}
+                  values={area}
+                  max={500}
+                  isRange
+                  onChange={this.sliderChanged.bind(this, 'area')}
+                  valuesFormatter={(value) => `${value} m²`}
+                />
+              </FilterContainer>
+              <FilterContainer>
+                <h4>
+                  Quartos
+                  <FontAwesomeIcon
+                    icon={faTrash}
+                    onClick={resetFilter.bind(this, 'rooms')}
+                  />
+                </h4>
+                <Slider
+                  values={rooms}
+                  min={1}
+                  max={8}
+                  isRange
+                  onChange={this.sliderChanged.bind(this, 'rooms')}
+                />
+              </FilterContainer>
+              <FilterContainer>
+                <h4>
+                  Vagas
+                  <FontAwesomeIcon
+                    icon={faTrash}
+                    onClick={resetFilter.bind(this, 'garageSpots')}
+                  />
+                </h4>
+                <Slider
+                  min={0}
+                  values={garageSpots}
+                  max={8}
+                  isRange
+                  onChange={this.sliderChanged.bind(this, 'garageSpots')}
+                />
+              </FilterContainer>
+            </div>
+            <EmCasaButton full light onClick={this.onClose}>
+              Ver resultados
+            </EmCasaButton>
+          </Filters>
+        </FiltersWrapper>
+      </Container>
     )
   }
 }
