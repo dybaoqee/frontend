@@ -16,11 +16,13 @@ export default class InfiniteScroll extends Component {
   }
 
   componentDidMount() {
-    document.addEventListener('scroll', this.onScroll)
+    document.addEventListener('mousewheel', this.onScroll)
+    document.addEventListener('touchmove', this.onScroll)
   }
 
   componentWillUnmount() {
-    document.removeEventListener('scroll', this.onScroll)
+    document.removeEventListener('mousewheel', this.onScroll)
+    document.removeEventListener('touchmove', this.onScroll)
   }
 
   // Distance from the bottom of the viewport to the footer element
@@ -47,9 +49,7 @@ export default class InfiniteScroll extends Component {
   onScroll = _.throttle(() => {
     const {remaining_count} = this.props
     const {loading} = this.state
-    const {onLoad, loading: loadingExternal} = this.props
-
-    if (loadingExternal) return
+    const {onLoad} = this.props
     if (this.shouldTriggerLoad() && remaining_count > 0 && !loading && onLoad)
       this.loadMore()
   }, 500)
