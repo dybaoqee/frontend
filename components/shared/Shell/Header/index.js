@@ -132,7 +132,7 @@ export default class Header extends Component {
     const {router} = this.props
     return (
       <Wrapper>
-        {router && router.asPath === '/' && <PhoneHeader />}
+        {router && router.route === '/' && <PhoneHeader />}
         <Container>
           <Link href="/" prefetch>
             <a className="logo">

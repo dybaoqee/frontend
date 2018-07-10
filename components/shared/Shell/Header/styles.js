@@ -14,8 +14,7 @@ export default styled.header`
   width: 100%;
   max-height: 76px;
   height: 76px;
-
-  box-shadow: inset 0 -1px 0 0 ${colors.lightGray};
+  border-bottom: 1px solid ${colors.lightGray};
   img {
     width: 110px;
     vertical-align: middle;
