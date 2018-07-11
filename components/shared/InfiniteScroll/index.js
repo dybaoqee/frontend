@@ -27,10 +27,10 @@ export default class InfiniteScroll extends Component {
 
   // Distance from the bottom of the viewport to the footer element
   get footerViewportDistance() {
-    const {mapOpenedOnMobile} = this.props
+    const {horizontal} = this.props
     if (!this.footer) return null
     const rect = this.footer.getBoundingClientRect()
-    return (mapOpenedOnMobile ? getX(rect) : getY(rect)) - window.innerHeight
+    return (horizontal ? getX(rect) : getY(rect)) - window.innerHeight
   }
 
   shouldTriggerLoad = () => {
@@ -59,24 +59,24 @@ export default class InfiniteScroll extends Component {
       entries,
       title,
       remaining_count,
-      mapOpenedOnMobile,
+      horizontal,
       children: renderEntry
     } = this.props
     return (
       <Wrapper
         title={title}
-        mapOpenedOnMobile={mapOpenedOnMobile}
+        horizontal={horizontal}
         innerRef={(wrapper) => (this.wrapper = wrapper)}
       >
-        {title && <Title mapOpenedOnMobile={mapOpenedOnMobile}>{title}</Title>}
-        <Container mapOpenedOnMobile={mapOpenedOnMobile}>
+        {title && <Title horizontal={horizontal}>{title}</Title>}
+        <Container horizontal={horizontal}>
           {entries.map(renderEntry)}
         </Container>
         {remaining_count > 0 && (
           <Footer
             className="infinite-scroll-footer"
             innerRef={this.footerRef}
-            mapOpenedOnMobile={mapOpenedOnMobile}
+            horizontal={horizontal}
           >
             <a
               onClick={() => !this.state.loading && this.loadMore()}

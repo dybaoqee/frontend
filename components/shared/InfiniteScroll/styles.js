@@ -10,14 +10,13 @@ export default styled.div`
   display: flex;
   flex-direction: column;
 
-  ${({mapOpenedOnMobile}) =>
-    mapOpenedOnMobile &&
+  ${({horizontal}) =>
+    horizontal &&
     `
       @media ${mobileMedia} {
         flex-direction: row;
         overflow-y: hidden;
         height: 100%;
-        max-height: 100%;
       }
     `};
 `
@@ -41,8 +40,8 @@ export const Footer = styled.footer`
     box-sizing: border-box;
   }
 
-  ${({mapOpenedOnMobile}) =>
-    mapOpenedOnMobile &&
+  ${({horizontal}) =>
+    horizontal &&
     `
       @media ${mobileMedia} {
         width: auto;
@@ -67,8 +66,8 @@ export const Wrapper = styled.div`
     height: calc(100vh - ${desktopHeaderAndFilterHeight}px);
   }
 
-  ${({mapOpenedOnMobile}) =>
-    mapOpenedOnMobile &&
+  ${({horizontal}) =>
+    horizontal &&
     `
     @media ${mobileMedia} {
       height: 100%;
@@ -89,8 +88,8 @@ export const Title = styled.h1`
   @media ${mobileMedia} {
     font-size: 20px;
   }
-  ${({mapOpenedOnMobile}) =>
-    mapOpenedOnMobile &&
+  ${({horizontal}) =>
+    horizontal &&
     `
     @media ${mobileMedia} {
       display: none;
