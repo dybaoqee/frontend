@@ -115,12 +115,13 @@ export default class Listings extends Component {
   }
 
   loadListing = async (id) => {
-    const {apolloClient} = this.props
+    const {apolloClient, filters} = this.props
     const footer = document.querySelector('.infinite-scroll-footer')
     footer.scrollIntoView({block: 'end', behavior: 'smooth'})
 
     const loadedListings = apolloClient.readQuery({
-      query: GET_LISTINGS
+      query: GET_LISTINGS,
+      variables: {pagination: this.pagination, filters}
     })
 
     const {data} = await apolloClient.query({
@@ -141,6 +142,7 @@ export default class Listings extends Component {
 
     apolloClient.writeQuery({
       query: GET_LISTINGS,
+      variables: {pagination: this.pagination, filters},
       data: updatedQueryResult
     })
     const element = document.querySelector(
