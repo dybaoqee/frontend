@@ -1,9 +1,9 @@
 import {Component, Fragment} from 'react'
 import Head from 'next/head'
-import {redirectIfNotAdmin, getJwt} from 'lib/auth'
-import {getDashboardListings} from 'services/listing-api'
-import _ from 'lodash'
+import {redirectIfNotAdmin} from 'lib/auth'
 import Tabs from 'components/shared/Common/Tabs'
+import {Query} from 'react-apollo'
+import {GET_DASHBOARD_STATS} from 'graphql/admin/queries'
 import {
   BarChart,
   Bar,
@@ -25,64 +25,56 @@ export default class Dashboard extends Component {
     if (redirectIfNotAdmin(ctx)) {
       return {}
     }
-    const jwt = getJwt(ctx)
-
-    const listings = await getDashboardListings(jwt)
 
     return {
-      listings: listings.data.listings,
       renderFooter: false
     }
   }
 
-  filterListings = (property) =>
-    this.props.listings.filter((listing) => !_.isNull(listing[property])).length
-
-  countProperty = (property) =>
-    this.props.listings.reduce((prevVal, elem) => prevVal + elem[property], 0)
-
-  getActiveListings = () => {
-    const {listings} = this.props
-    const total_favorite = this.countProperty('favorite_count')
-    const total_visualizations = this.countProperty('visualisations')
-    const total_visualizations_tour = this.countProperty('tour_visualisations')
+  getActiveListings = ({
+    activeListingCount,
+    favoriteCount,
+    tourVisualizationCount,
+    visualizationCount
+  }) => {
     return (
       <TabContainer>
         <p>
-          <span className="highlight">{listings.length}</span> imóveis ativos
+          <span className="highlight">{activeListingCount}</span> imóveis ativos
         </p>
         <p>
-          <span className="highlight">{total_favorite}</span> ações de favoritar
+          <span className="highlight">{favoriteCount}</span> ações de favoritar
           no total
         </p>
         <p>
-          <span className="highlight">{total_visualizations} </span>
+          <span className="highlight">{visualizationCount} </span>
           visualizações no total
         </p>
         <p>
-          <span className="highlight">{total_visualizations_tour} </span>
+          <span className="highlight">{tourVisualizationCount} </span>
           visualizações de Tour 3D no total
         </p>
       </TabContainer>
     )
   }
-  getListingsData = () => {
-    const listingsWithMaintenanceFee = this.filterListings('maintenance_fee')
-    const listingsWithMatterportCode = this.filterListings('matterport_code')
-    const listingsWithPropertyTax = this.filterListings('property_tax')
-    const listingsWithArea = this.filterListings('area')
-
+  getListingsData = ({
+    activeListingCount,
+    areaCount,
+    maintenanceFeeCount,
+    propertyTaxCount,
+    tourCount
+  }) => {
     const data = [
       {
         name: 'Condomínio',
-        total: listingsWithMaintenanceFee
+        total: maintenanceFeeCount
       },
-      {name: 'IPTU', total: listingsWithPropertyTax},
+      {name: 'IPTU', total: propertyTaxCount},
       {
         name: 'Tour Virtual',
-        total: listingsWithMatterportCode
+        total: tourCount
       },
-      {name: 'Área', total: listingsWithArea}
+      {name: 'Área', total: areaCount}
     ]
 
     return (
@@ -92,7 +84,7 @@ export default class Dashboard extends Component {
           <BarChart data={data}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name" />
-            <YAxis type="number" domain={[0, this.props.listings.length]} /> />
+            <YAxis type="number" domain={[0, activeListingCount]} /> />
             <Tooltip />
             <Bar dataKey="total" fill={colors.blue.medium} />
           </BarChart>
@@ -121,15 +113,33 @@ export default class Dashboard extends Component {
           <meta name="twitter:description" content={seoDescription} />
           <meta name="twitter:image" content={seoImg} />
         </Head>
-        <Container>
-          <Tabs
-            full
-            tabs={[
-              {title: 'Estatísticas', component: this.getActiveListings},
-              {title: 'Imóveis', component: this.getListingsData}
-            ]}
-          />
-        </Container>
+        <Query query={GET_DASHBOARD_STATS}>
+          {({data: {dashboard}, loading}) => {
+            if (loading)
+              return (
+                <Container>
+                  <p>Carregando...</p>
+                </Container>
+              )
+            return (
+              <Container>
+                <Tabs
+                  full
+                  tabs={[
+                    {
+                      title: 'Estatísticas',
+                      component: this.getActiveListings.bind(this, dashboard)
+                    },
+                    {
+                      title: 'Imóveis',
+                      component: this.getListingsData.bind(this, dashboard)
+                    }
+                  ]}
+                />
+              </Container>
+            )
+          }}
+        </Query>
       </Fragment>
     )
   }
