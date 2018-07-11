@@ -134,11 +134,15 @@ export const getFiltersFromFilters = ({
     maxGarageSpots: garageSpots && parseInt(garageSpots.max),
     neighborhoods:
       neighborhoods &&
+      neighborhoods.length > 0 &&
       neighborhoods.map(
         (neighborhood) =>
           neighborhood.value ? neighborhood.value : neighborhood
       ),
-    types: types && types.map((type) => (type.value ? type.value : type))
+    types:
+      types &&
+      types.length > 0 &&
+      types.map((type) => (type.value ? type.value : type))
   }
 
   return _.pickBy(filters, _.identity)
