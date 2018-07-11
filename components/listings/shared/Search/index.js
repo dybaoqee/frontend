@@ -1,4 +1,4 @@
-import {Component, Fragment} from 'react'
+import {Component} from 'react'
 import numeral from 'numeral'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faFilter from '@fortawesome/fontawesome-pro-light/faFilter'
@@ -107,8 +107,11 @@ export default class Filter extends Component {
   resetFilters = () => {
     const {onReset} = this.props
     this.setState({values: {}})
-
     onReset && onReset()
+  }
+
+  removeFilters = () => {
+    this.setState({values: {}})
   }
 
   get activeFilters() {

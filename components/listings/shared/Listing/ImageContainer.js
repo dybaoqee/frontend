@@ -6,21 +6,15 @@ import {mainListingThumbnail} from 'utils/image_url'
 
 class ImageContainer extends React.Component {
   render() {
-    const {
-      listing,
-      favorite,
-      currentUser,
-      loading,
-      mapOpenedOnMobile
-    } = this.props
+    const {listing, favorite, currentUser, loading, resumedInfo} = this.props
     const bgImgUrl = mainListingThumbnail(listing.images || [])
     const divStyle = {
       backgroundImage: `url(${bgImgUrl})`
     }
     return (
-      <Image style={divStyle} mapOpenedOnMobile={mapOpenedOnMobile}>
+      <Image style={divStyle} resumedInfo={resumedInfo}>
         {!loading && (
-          <LikeContainer mapOpenedOnMobile={mapOpenedOnMobile}>
+          <LikeContainer resumedInfo={resumedInfo}>
             <LikeButton
               favorite={favorite}
               listing={listing}

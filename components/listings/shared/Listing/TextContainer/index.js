@@ -20,16 +20,10 @@ export default class TextContainer extends Component {
   }
 
   render() {
-    const {
-      listing,
-      mapOpenedOnMobile,
-      loading,
-      favorite,
-      currentUser
-    } = this.props
+    const {listing, resumedInfo, loading, favorite, currentUser} = this.props
 
     return (
-      <Container mapOpenedOnMobile={mapOpenedOnMobile}>
+      <Container resumedInfo={resumedInfo}>
         <div className="header">
           <div className="address">
             <p>{listing.address.street}</p>
@@ -49,7 +43,7 @@ export default class TextContainer extends Component {
           <span>Saiba Mais →</span>
         </div>
 
-        <ListingTable listing={listing} mapOpenedOnMobile={mapOpenedOnMobile} />
+        <ListingTable listing={listing} resumedInfo={resumedInfo} />
       </Container>
     )
   }

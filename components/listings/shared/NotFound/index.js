@@ -1,7 +1,13 @@
 import Link from 'next/link'
 import Container from './styles'
 
-export default ({resetAllParams, filtered, messages, href, as}) => {
+export default ({
+  resetAllParams,
+  filtered,
+  messages,
+  href = '/listings',
+  as = '/imoveis'
+}) => {
   if (filtered) {
     return (
       <Container onClick={resetAllParams}>
@@ -14,9 +20,12 @@ export default ({resetAllParams, filtered, messages, href, as}) => {
   }
 
   return (
-    <Link href={href} as={as} prefetch>
+    <Link href={href} as={as}>
       <Container>
-        <div>{messages.map((message) => <p key={message}>{message}</p>)}</div>
+        <div>
+          {messages &&
+            messages.map((message) => <p key={message}>{message}</p>)}
+        </div>
       </Container>
     </Link>
   )

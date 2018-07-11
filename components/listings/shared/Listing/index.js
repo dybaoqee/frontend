@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react'
+import React from 'react'
 import Router from 'next/router'
 import _ from 'lodash'
 import NumberFormat from 'react-number-format'
@@ -17,7 +17,7 @@ import ListingWrapper, {
 import {buildSlug} from 'lib/listings'
 
 class Listing extends React.Component {
-  handleListingClick = (e) => {
+  handleListingClick = () => {
     const {listing} = this.props
     Router.push(`/listings/show?id=${listing.id}`, buildSlug(listing)).then(
       () => window.scrollTo(0, 0)
@@ -28,12 +28,12 @@ class Listing extends React.Component {
     let {
       listing,
       currentUser,
-      favorited,
+      favorited: favoritedListings,
       highlight,
       loading,
       onMouseEnter,
       onMouseLeave,
-      mapOpenedOnMobile
+      resumedInfo
     } = this.props
     listing = humps.decamelizeKeys(listing)
 
@@ -42,8 +42,8 @@ class Listing extends React.Component {
       lng: listing.address.lng
     })
 
-    const favorite =
-      favorited.filter(
+    const favorited =
+      favoritedListings.filter(
         (actual) => actual.id.toString() === listing.id.toString()
       ).length > 0
 
@@ -59,24 +59,24 @@ class Listing extends React.Component {
               onMouseEnter={onMouseEnter && onMouseEnter.bind(this, listing)}
               onMouseLeave={onMouseLeave && onMouseLeave.bind(this, listing)}
               highlight={highlighListing}
-              mapOpenedOnMobile={mapOpenedOnMobile}
+              resumedInfo={resumedInfo}
             >
               <ImageContainer
                 currentUser={currentUser}
                 listing={listing}
                 loading={loading}
-                favorite={favorite}
-                mapOpenedOnMobile={mapOpenedOnMobile}
+                favorite={favorited}
+                resumedInfo={resumedInfo}
               />
               <TextContainer
                 loading={loading}
-                favorite={favorite}
+                favorite={favorited}
                 listing={listing}
                 currentUser={currentUser}
-                mapOpenedOnMobile={mapOpenedOnMobile}
+                resumedInfo={resumedInfo}
               />
 
-              <ListingInfo mapOpenedOnMobile={mapOpenedOnMobile}>
+              <ListingInfo resumedInfo={resumedInfo}>
                 <NumberFormat
                   value={listing.price}
                   displayType={'text'}
@@ -84,7 +84,7 @@ class Listing extends React.Component {
                   decimalSeparator={','}
                 />
               </ListingInfo>
-              <ListingInfoMobile mapOpenedOnMobile={mapOpenedOnMobile}>
+              <ListingInfoMobile resumedInfo={resumedInfo}>
                 <span className="address">{listing.address.street}</span>
                 <span>
                   <NumberFormat
@@ -99,7 +99,7 @@ class Listing extends React.Component {
             </ListingContainer>
           </a>
         </Link>
-        <ListingActions mapOpenedOnMobile={mapOpenedOnMobile}>
+        <ListingActions resumedInfo={resumedInfo}>
           {canEdit(currentUser, listing) && (
             <Link
               href={`/listings/edit?id=${listing.id}`}

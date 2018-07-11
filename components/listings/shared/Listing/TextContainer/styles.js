@@ -53,6 +53,6 @@ export default styled.div`
     width: 100%;
     margin: 10px 0;
 
-    ${({mapOpenedOnMobile}) => mapOpenedOnMobile && 'display: none;'};
+    ${({resumedInfo}) => resumedInfo && 'display: none;'};
   }
 `
