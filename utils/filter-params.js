@@ -81,31 +81,68 @@ export function treatParams({
 
 const splitParam = (param) => (param ? param.split('|') : [])
 
-export const getFiltersForGraphQL = ({
+export const getFiltersFromQuery = ({
+  preco_minimo,
+  preco_maximo,
+  area_minima,
+  area_maxima,
+  vagas_minimo,
+  vagas_maximo,
+  quartos_minimo,
+  quartos_maximo,
+  bairros,
+  tipos
+}) => {
+  const filters = {
+    minPrice: parseInt(preco_minimo),
+    maxPrice: parseInt(preco_maximo),
+    minArea: parseInt(area_minima),
+    maxArea: parseInt(area_maxima),
+    minRooms: parseInt(quartos_minimo),
+    maxRooms: parseInt(quartos_maximo),
+    minGarageSpots: parseInt(vagas_minimo),
+    maxGarageSpots: parseInt(vagas_maximo),
+    neighborhoods:
+      bairros &&
+      splitParam(bairros).map(
+        (neighborhood) =>
+          neighborhood.value ? neighborhood.value : neighborhood
+      ),
+    types:
+      tipos && splitParam(tipos).map((type) => (type.value ? type.value : type))
+  }
+
+  return _.pickBy(filters, _.identity)
+}
+
+export const getFiltersFromFilters = ({
   price,
   area,
-  rooms,
   garageSpots,
+  rooms,
   neighborhoods,
   types
-}) =>
-  filterValid({
-    minPrice: price && price.min,
-    maxPrice: price && price.max,
-    minArea: area && area.min,
-    maxArea: area && area.max,
-    minRooms: rooms && rooms.min,
-    maxRooms: rooms && rooms.max,
-    minGarageSpots: garageSpots && garageSpots.min,
-    maxGarageSpots: garageSpots && garageSpots.max,
+}) => {
+  const filters = {
+    minPrice: price && parseInt(price.min),
+    maxPrice: price && parseInt(price.max),
+    minArea: area && parseInt(area.min),
+    maxArea: area && parseInt(area.max),
+    minRooms: rooms && parseInt(rooms.min),
+    maxRooms: rooms && parseInt(rooms.max),
+    minGarageSpots: garageSpots && parseInt(garageSpots.min),
+    maxGarageSpots: garageSpots && parseInt(garageSpots.max),
     neighborhoods:
       neighborhoods &&
       neighborhoods.map(
         (neighborhood) =>
           neighborhood.value ? neighborhood.value : neighborhood
       ),
-    types: types && types
-  })
+    types: types && types.map((type) => (type.value ? type.value : type))
+  }
+
+  return _.pickBy(filters, _.identity)
+}
 
 export const getDerivedParams = ({
   preco_minimo,
