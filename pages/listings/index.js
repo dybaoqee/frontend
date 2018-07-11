@@ -1,37 +1,27 @@
-import React, {Component, Fragment} from 'react'
+import {Component, Fragment} from 'react'
 import slugify from 'slug'
 import Head from 'next/head'
 import Router from 'next/router'
-import {Query} from 'react-apollo'
-
-import {
-  GET_LISTINGS,
-  GET_LISTING,
-  GET_LISTINGS_COORDINATES
-} from 'graphql/listings/queries'
 import {
   treatParams,
   getDerivedParams,
-  getFiltersForGraphQL
+  getFiltersFromFilters,
+  getFiltersFromQuery
 } from 'utils/filter-params.js'
 import {getNeighborhoods} from 'services/neighborhood-api'
-import MapContainer from 'components/listings/index/Map'
-import Filter from 'components/listings/index/Search'
-import Listings from 'components/listings/index/Listings'
-import Container, {MapButton} from './styles'
+import Filter from 'components/listings/shared/Search'
+import Listings from 'components/listings/shared/Listings'
 
 class ListingsIndex extends Component {
   constructor(props) {
     super(props)
 
-    const filters = getDerivedParams(props.query)
-    const filtersForGraphQL = getFiltersForGraphQL(filters)
+    const filters = getFiltersFromQuery(props.query)
 
     this.state = {
       mapOpened: false,
-      filters: filtersForGraphQL
+      filters
     }
-    this.listingsLoaded = []
   }
 
   static async getInitialProps(context) {
@@ -59,102 +49,17 @@ class ListingsIndex extends Component {
 
   onChangeFilter = (filters) => {
     const newQuery = treatParams(filters)
-
-    const newFilters = {
-      ...this.state.filters,
-      ...getFiltersForGraphQL(filters)
-    }
-
+    this.setState({filters: getFiltersFromFilters(filters)})
+    const query = newQuery.length > 0 ? `?${newQuery}` : ''
+    Router.push('/listings', `/imoveis${query}`, {shallow: true})
     window.scrollTo(0, 0)
-
-    this.setState({filters: newFilters})
-
-    if (newQuery.length) {
-      Router.push(`/listings/index?${newQuery}`, `/imoveis?${newQuery}`, {
-        shallow: true
-      })
-    } else {
-      Router.push('/listings/index', '/imoveis')
-    }
   }
 
   onResetFilter = () => {
-    this.setState({filters: getFiltersForGraphQL({})})
-    Router.push('/listings', '/imoveis')
-  }
-
-  loadListing = async (id) => {
-    const {client} = this.props
-    const footer = document.querySelector('.infinite-scroll-footer')
-    footer.scrollIntoView({block: 'end', behavior: 'smooth'})
-
-    const loadedListings = client.readQuery({
-      query: GET_LISTINGS
-    })
-
-    const {data} = await client.query({
-      query: GET_LISTING,
-      variables: {
-        id
-      }
-    })
-
-    const updatedQueryResult = {
-      ...loadedListings,
-      listings: {
-        ...loadedListings.listings,
-        remainingCount: loadedListings.listings.remainingCount - 1,
-        listings: [...loadedListings.listings.listings, data.listing]
-      }
-    }
-
-    client.writeQuery({
-      query: GET_LISTINGS,
-      data: updatedQueryResult
-    })
-    const element = document.querySelector(
-      `[aria-label=listing-${data.listing.id}]`
-    )
-    element.scrollIntoView({block: 'end', behavior: 'smooth'})
-  }
-
-  onSelectListing = (id, position) => {
-    if (!position) {
-      const element = document.querySelector(`[aria-label=listing-${id}]`)
-
-      if (!element) {
-        this.loadListing(id)
-        return
-      }
-
-      element.scrollIntoView({block: 'end', behavior: 'smooth'})
-    }
-  }
-
-  onHoverListing = (listing) => {
-    const {address: {lat, lng}} = listing
-    this.setState({highlight: {lat, lng}})
-  }
-
-  onLeaveListing = () => {
-    this.setState({highlight: {}})
-  }
-
-  onChangeMap = (framedListings, {sw, ne}) => {
-    const filters = {
-      ...this.state.filters,
-      minLat: sw.lat,
-      minLng: sw.lng,
-      maxLat: ne.lat,
-      maxLng: ne.lng
-    }
-
-    this.setState({filters})
-  }
-
-  handleMap = () => {
-    const {mapOpened} = this.state
-    this.setState({mapOpened: !mapOpened})
+    window.scrollTo(0, 0)
+    this.setState({filters: {}})
+    this.filter.removeFilters()
+    Router.push('/listings', '/imoveis', {shallow: true})
   }
 
   getHead = () => {
@@ -186,33 +91,9 @@ class ListingsIndex extends Component {
     )
   }
 
-  getMap = () => {
-    const {highlight, mapOpened, filters} = this.state
-
-    return (
-      <Query query={GET_LISTINGS_COORDINATES} variables={{filters}}>
-        {({data: {listings: mapListings}}) => (
-          <Fragment>
-            <MapButton opened={mapOpened} onClick={this.handleMap} />
-            <div className="map">
-              <MapContainer
-                zoom={13}
-                onSelect={this.onSelectListing}
-                listings={mapListings ? mapListings.listings : []}
-                highlight={highlight}
-                onChange={this.onChangeMap}
-                updateAfterApiCall
-              />
-            </div>
-          </Fragment>
-        )}
-      </Query>
-    )
-  }
-
   render() {
-    const {neighborhoods, query, user} = this.props
-    const {mapOpened, filters, highlight} = this.state
+    const {neighborhoods, query, user, client} = this.props
+    const {filters} = this.state
 
     return (
       <Fragment>
@@ -222,18 +103,15 @@ class ListingsIndex extends Component {
           onChange={this.onChangeFilter}
           onReset={this.onResetFilter}
           initialFilters={getDerivedParams(query)}
+          ref={(filter) => (this.filter = filter)}
         />
-        <Container opened={mapOpened}>
-          {this.getMap()}
-          <Listings
-            query={query}
-            user={user}
-            filters={filters}
-            resetFilters={this.onResetFilter}
-            mapOpenedOnMobile={mapOpened}
-            highlight={highlight}
-          />
-        </Container>
+        <Listings
+          query={query}
+          user={user}
+          resetFilters={this.onResetFilter}
+          filters={filters}
+          apolloClient={client}
+        />
       </Fragment>
     )
   }
