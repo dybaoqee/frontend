@@ -10,33 +10,52 @@ export default styled.div`
   display: flex;
   flex-direction: column;
 
-  ${({mapOpenedOnMobile}) =>
-    mapOpenedOnMobile &&
+  ${({horizontal}) =>
+    horizontal &&
     `
       @media ${mobileMedia} {
         flex-direction: row;
         overflow-y: hidden;
         height: 100%;
-        max-height: 100%;
       }
     `};
 `
 
 export const Footer = styled.footer`
   width: 100%;
+  box-sizing: border-box;
   font-weight: 700;
   text-transform: uppercase;
   text-align: center;
   font-size: 0.7em;
   background-color: ${colors.offWhite};
+  cursor: pointer;
   a {
     display: block;
     width: 100%;
     height: 100%;
-    padding: 25px 0;
+    padding: 25px;
     color: inherit;
     text-decoration: none;
+    box-sizing: border-box;
   }
+
+  ${({horizontal}) =>
+    horizontal &&
+    `
+      @media ${mobileMedia} {
+        width: auto;
+        height: 100%;
+
+        a{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        background-color: white;
+      }
+    `};
 `
 
 export const Wrapper = styled.div`
@@ -47,11 +66,13 @@ export const Wrapper = styled.div`
     height: calc(100vh - ${desktopHeaderAndFilterHeight}px);
   }
 
-  ${({mapOpenedOnMobile}) =>
-    mapOpenedOnMobile &&
+  ${({horizontal}) =>
+    horizontal &&
     `
     @media ${mobileMedia} {
       height: 100%;
+      display: flex;
+      align-items: center;
     }
   `};
 `
@@ -63,12 +84,12 @@ export const Title = styled.h1`
   font-size: 24px;
   width: 100%;
   z-index: 1;
-  padding: 15px 10px 0px 10px;
+  padding: 15px 10px 15px 10px;
   @media ${mobileMedia} {
     font-size: 20px;
   }
-  ${({mapOpenedOnMobile}) =>
-    mapOpenedOnMobile &&
+  ${({horizontal}) =>
+    horizontal &&
     `
     @media ${mobileMedia} {
       display: none;

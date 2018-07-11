@@ -4,7 +4,9 @@
     "npm": "5.6.0"
   },
   "jest": {
-    "setupFiles": ["<rootDir>/shim.js"],
+    "setupFiles": [
+      "<rootDir>/shim.js"
+    ],
     "setupTestFrameworkScriptFile": "<rootDir>config/setupTests.js"
   },
   "license": "UNLICENSED",
@@ -13,8 +15,7 @@
     "build": "next build",
     "start": "yarn clear-cache && node server/server.js -p $PORT",
     "clear-cache": "rm -rf node_modules/.cache/babel-loader",
-    "test":
-      "jest && TEST=cypress start-server-and-test dev http://localhost:3000/login cy:run",
+    "test": "jest && TEST=cypress start-server-and-test dev http://localhost:3000/login cy:run",
     "heroku-postbuild": "npm run build",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
@@ -31,7 +32,7 @@
     "@fortawesome/react-fontawesome": "^0.0.17",
     "@google/maps": "^0.4.5",
     "apollo-cache-inmemory": "^1.2.1",
-    "apollo-client": "^2.3.1",
+    "apollo-client": "^2.3.4",
     "apollo-link": "^1.2.2",
     "apollo-link-error": "^1.0.9",
     "apollo-link-http": "^1.5.4",

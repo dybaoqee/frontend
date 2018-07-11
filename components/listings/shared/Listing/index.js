@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react'
+import React from 'react'
 import Router from 'next/router'
 import _ from 'lodash'
 import NumberFormat from 'react-number-format'
@@ -17,49 +17,23 @@ import ListingWrapper, {
 import {buildSlug} from 'lib/listings'
 
 class Listing extends React.Component {
-  handleListingClick = (e) => {
+  handleListingClick = () => {
     const {listing} = this.props
     Router.push(`/listings/show?id=${listing.id}`, buildSlug(listing)).then(
       () => window.scrollTo(0, 0)
     )
-
-    return
-
-    // We have admin links inside a "link"
-    // (each listing is fully clickable)
-    // This function prevents double link attribution,
-    // which breaks back button behaviour.
-    if (
-      e.target.getAttribute('class') &&
-      e.target.getAttribute('class').indexOf('cancel-listing-nav') == -1
-    ) {
-      if (e.shiftKey || e.ctrlKey || e.metaKey) {
-        // Only trigger window.open if element clicked is not .btn
-        if (
-          e.target.getAttribute('class') &&
-          e.target.getAttribute('class').indexOf('btn') == -1
-        ) {
-          window.open(`/imoveis/${listing.id}`, '_blank')
-          return false
-        }
-      } else {
-        Router.push(`/listings/show?id=${listing.id}`, buildSlug(listing)).then(
-          () => window.scrollTo(0, 0)
-        )
-      }
-    }
   }
 
   render() {
     let {
       listing,
       currentUser,
-      favorited,
+      favorited: favoritedListings,
       highlight,
       loading,
       onMouseEnter,
       onMouseLeave,
-      mapOpenedOnMobile
+      resumedInfo
     } = this.props
     listing = humps.decamelizeKeys(listing)
 
@@ -68,13 +42,13 @@ class Listing extends React.Component {
       lng: listing.address.lng
     })
 
-    const favorite =
-      favorited.filter(
+    const favorited =
+      favoritedListings.filter(
         (actual) => actual.id.toString() === listing.id.toString()
       ).length > 0
 
     return (
-      <ListingWrapper>
+      <ListingWrapper aria-label={`listing-${listing.id}`}>
         <Link
           href={`/listings/show?id=${listing.id}`}
           as={buildSlug(listing)}
@@ -85,24 +59,24 @@ class Listing extends React.Component {
               onMouseEnter={onMouseEnter && onMouseEnter.bind(this, listing)}
               onMouseLeave={onMouseLeave && onMouseLeave.bind(this, listing)}
               highlight={highlighListing}
-              mapOpenedOnMobile={mapOpenedOnMobile}
+              resumedInfo={resumedInfo}
             >
               <ImageContainer
                 currentUser={currentUser}
                 listing={listing}
                 loading={loading}
-                favorite={favorite}
-                mapOpenedOnMobile={mapOpenedOnMobile}
+                favorite={favorited}
+                resumedInfo={resumedInfo}
               />
               <TextContainer
                 loading={loading}
-                favorite={favorite}
+                favorite={favorited}
                 listing={listing}
                 currentUser={currentUser}
-                mapOpenedOnMobile={mapOpenedOnMobile}
+                resumedInfo={resumedInfo}
               />
 
-              <ListingInfo mapOpenedOnMobile={mapOpenedOnMobile}>
+              <ListingInfo resumedInfo={resumedInfo}>
                 <NumberFormat
                   value={listing.price}
                   displayType={'text'}
@@ -110,7 +84,7 @@ class Listing extends React.Component {
                   decimalSeparator={','}
                 />
               </ListingInfo>
-              <ListingInfoMobile mapOpenedOnMobile={mapOpenedOnMobile}>
+              <ListingInfoMobile resumedInfo={resumedInfo}>
                 <span className="address">{listing.address.street}</span>
                 <span>
                   <NumberFormat
@@ -125,7 +99,7 @@ class Listing extends React.Component {
             </ListingContainer>
           </a>
         </Link>
-        <ListingActions mapOpenedOnMobile={mapOpenedOnMobile}>
+        <ListingActions resumedInfo={resumedInfo}>
           {canEdit(currentUser, listing) && (
             <Link
               href={`/listings/edit?id=${listing.id}`}

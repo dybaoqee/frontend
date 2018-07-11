@@ -5,6 +5,14 @@ import * as colors from 'constants/colors'
 export default styled.div`
   position: relative;
   cursor: pointer;
+
+  ${({resumedInfo}) =>
+    resumedInfo &&
+    `
+    @media ${mobileMedia} {
+      min-height: 100%;
+    }
+  `};
 `
 
 export const ListingActions = styled.div`
@@ -29,8 +37,8 @@ export const ListingActions = styled.div`
     }
   }
 
-  ${({mapOpenedOnMobile}) =>
-    mapOpenedOnMobile &&
+  ${({resumedInfo}) =>
+    resumedInfo &&
     `
     @media ${mobileMedia} {
       display: none;
@@ -78,8 +86,8 @@ export const ListingInfo = styled.div`
     }
   }
 
-  ${({mapOpenedOnMobile}) =>
-    mapOpenedOnMobile &&
+  ${({resumedInfo}) =>
+    resumedInfo &&
     `
     @media ${mobileMedia} {
       display: none;
@@ -122,8 +130,8 @@ export const ListingContainer = styled.div`
     padding: 20px 10px 0;
   }
 
-  ${({mapOpenedOnMobile}) =>
-    mapOpenedOnMobile &&
+  ${({resumedInfo}) =>
+    resumedInfo &&
     `
     @media ${mobileMedia} {
 
@@ -195,8 +203,8 @@ export const ListingInfoMobile = styled.div`
     font-size: 1.8vh;
   }
 
-  ${({mapOpenedOnMobile}) =>
-    mapOpenedOnMobile &&
+  ${({resumedInfo}) =>
+    resumedInfo &&
     `
     @media ${mobileMedia} {
       height: 30%;
@@ -224,8 +232,8 @@ export const ImageContainer = styled.div`
     margin-top: 0;
   }
 
-  ${({mapOpenedOnMobile}) =>
-    mapOpenedOnMobile &&
+  ${({resumedInfo}) =>
+    resumedInfo &&
     `
     @media ${mobileMedia} {
       width: 100%;

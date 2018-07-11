@@ -1,79 +1,91 @@
-import _ from 'lodash'
 import {Component} from 'react'
-import Link from 'next/link'
-
+import _ from 'lodash'
 import Container, {Footer, Title, Wrapper} from './styles'
-import {withRouter} from 'next/router'
-import {getY} from 'utils/polyfills/bounding-rect'
-
-@withRouter
+import {getY, getX} from 'utils/polyfills/bounding-rect'
 export default class InfiniteScroll extends Component {
   static defaultProps = {
-    threshold: 2000,
-    to: {}
+    threshold: -35
   }
 
-  componentDidMount() {
-    window.addEventListener('scroll', this.onScroll)
+  state = {
+    loading: false
   }
-
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.onScroll)
-  }
-
-  // Distance from the bottom of the viewport to the footer element
-  get footerViewportDistance() {
-    if (!this.footer) return null
-    const rect = this.footer.getBoundingClientRect()
-    return getY(rect) - window.innerHeight
-  }
-
-  shouldTriggerLoad = () => {
-    const {threshold} = this.props
-    const distance = this.footerViewportDistance
-    return !isNaN(distance) && Math.abs(distance) <= threshold
-  }
-
-  onScroll = _.throttle(() => {
-    const {onLoad, remaining_count} = this.props
-
-    if (this.shouldTriggerLoad()) {
-      !_.isUndefined(remaining_count)
-        ? remaining_count > 0 && onLoad && onLoad()
-        : onLoad && onLoad()
-    }
-  }, 500)
 
   footerRef = (el) => {
     this.footer = el
   }
 
-  get nextPageHref() {}
+  componentDidMount() {
+    document.addEventListener('mousewheel', this.onScroll)
+    document.addEventListener('touchmove', this.onScroll)
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousewheel', this.onScroll)
+    document.removeEventListener('touchmove', this.onScroll)
+  }
+
+  // Distance from the bottom of the viewport to the footer element
+  get footerViewportDistance() {
+    const {horizontal} = this.props
+    if (!this.footer) return null
+    const rect = this.footer.getBoundingClientRect()
+    return (horizontal ? getX(rect) : getY(rect)) - window.innerHeight
+  }
+
+  shouldTriggerLoad = () => {
+    const {threshold} = this.props
+    const distance = this.footerViewportDistance
+    return !isNaN(distance) && distance <= threshold
+  }
+
+  loadMore = async () => {
+    const {onLoad} = this.props
+    this.setState({loading: true})
+    const loadedValues = await onLoad()
+    this.setState({loading: false})
+  }
+
+  onScroll = _.throttle(() => {
+    const {remaining_count} = this.props
+    const {loading} = this.state
+    const {onLoad} = this.props
+    if (this.shouldTriggerLoad() && remaining_count > 0 && !loading && onLoad)
+      this.loadMore()
+  }, 500)
 
   render() {
     const {
-      to,
       entries,
-      currentPage,
       title,
       remaining_count,
-      mapOpenedOnMobile,
+      horizontal,
       children: renderEntry
     } = this.props
-    const query = to.query || {}
     return (
-      <Wrapper title={title} mapOpenedOnMobile={mapOpenedOnMobile}>
-        {title && <Title mapOpenedOnMobile={mapOpenedOnMobile}>{title}</Title>}
-        <Container mapOpenedOnMobile={mapOpenedOnMobile}>
+      <Wrapper
+        title={title}
+        horizontal={horizontal}
+        innerRef={(wrapper) => (this.wrapper = wrapper)}
+      >
+        {title && <Title horizontal={horizontal}>{title}</Title>}
+        <Container horizontal={horizontal}>
           {entries.map(renderEntry)}
-          {remaining_count > 0 && (
-            <Footer innerRef={this.footerRef}>
-              <Link href={{...to, query: {...query, page: currentPage + 1}}}>
-                <a title="Próxima página">Carregando...</a>
-              </Link>
-            </Footer>
-          )}
         </Container>
+        {remaining_count > 0 && (
+          <Footer
+            className="infinite-scroll-footer"
+            innerRef={this.footerRef}
+            horizontal={horizontal}
+          >
+            <a
+              onClick={() => !this.state.loading && this.loadMore()}
+              title="Próxima página"
+            >
+              Carregando...
+            </a>
+          </Footer>
+        )}
       </Wrapper>
     )
   }

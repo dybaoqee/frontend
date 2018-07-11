@@ -12,30 +12,38 @@ export const GET_FAVORITE_LISTINGS = gql`
   {
     favoritedListings {
       id
-      price
-      matterportCode
       area
-      isActive
-      bathrooms
-      garageSpots
-      hasElevator
-      propertyTax
-      maintenanceFee
-      description
-      floor
       rooms
-      images {
+      floor
+      garageSpots
+      area
+      bathrooms
+      price
+      type
+      description
+      images(limit: 1) {
         filename
       }
       address {
+        street
+        neighborhood
+        state
         city
         lat
         lng
-        neighborhood
-        postalCode
-        state
-        street
-        streetNumber
+      }
+    }
+  }
+`
+
+export const GET_FAVORITE_LISTINGS_COORDINATES = gql`
+  {
+    favoritedListings {
+      id
+      price
+      address {
+        lat
+        lng
       }
     }
   }
@@ -53,6 +61,7 @@ export const GET_USER_LISTINGS = gql`
       garageSpots
       hasElevator
       propertyTax
+      type
       maintenanceFee
       description
       floor

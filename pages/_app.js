@@ -73,6 +73,7 @@ class MyApp extends App {
               url={url}
               router={router}
               user={currentUser}
+              client={apolloClient}
             />
           </Layout>
         </ApolloProvider>
