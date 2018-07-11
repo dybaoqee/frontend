@@ -3,6 +3,7 @@ import numeral from 'numeral'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faFilter from '@fortawesome/fontawesome-pro-light/faFilter'
 import faBuilding from '@fortawesome/fontawesome-pro-light/faBuilding'
+import faRoof from '@fortawesome/fontawesome-pro-light/faWarehouse'
 import faHome from '@fortawesome/fontawesome-pro-light/faHome'
 import faAngleUp from '@fortawesome/fontawesome-pro-light/faAngleUp'
 import faAngleDown from '@fortawesome/fontawesome-pro-light/faAngleDown'
@@ -224,7 +225,7 @@ export default class Filter extends Component {
                     aria-label="Cobertura"
                     onClick={onChaneListingType}
                   >
-                    <FontAwesomeIcon icon={faBuilding} />
+                    <FontAwesomeIcon icon={faRoof} />
                     <span>Cobertura</span>
                   </PropertyType>
                 </PropertyTypes>
