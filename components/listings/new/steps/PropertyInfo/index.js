@@ -146,7 +146,8 @@ export default class PropertyInfo extends Component {
   }
 
   render() {
-    const {onChange, listing, isAdmin, errors} = this.props
+    const {onChange, listing, isAdmin, errors, user, apolloClient} = this.props
+    const {userPhone} = this.state
     const {
       type: propertyType,
       floor,
@@ -162,8 +163,17 @@ export default class PropertyInfo extends Component {
     return (
       <Form full errors={errors}>
         <Title>Dados principais do imóvel</Title>
+
         <FieldContainer>
-          <Field>
+          {!isAdmin && (
+            <PhoneField
+              user={user}
+              phone={userPhone}
+              onChange={this.onChangePhone}
+              apolloClient={apolloClient}
+            />
+          )}
+          <Field aria-label="type">
             <label htmlFor="type">
               Tipo do imóvel <span>(Obrigatório)</span>
             </label>
