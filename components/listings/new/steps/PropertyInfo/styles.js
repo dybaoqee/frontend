@@ -9,28 +9,33 @@ const FieldContainer = styled.div`
   grid-template-columns: repeat(6, minmax(50px, 1fr));
   grid-gap: 20px;
 
-  > ${Field}:nth-child(1) {
-    grid-column: span 4;
-  }
-
-  > ${Field}:nth-child(2) {
-    grid-column: span 2;
-  }
-
-  > ${Field}:nth-child(n + 3):not(:nth-child(n + 6)) {
-    grid-column: span 2;
-  }
-
-  > ${Field}:nth-child(n + 6):not(:nth-child(n + 9)) {
-    grid-column: span 2;
-  }
-
-  > ${Field}:nth-child(9) {
+  [aria-label='phone'] {
     grid-column: span 6;
   }
 
-  > ${Field}:nth-child(n + 10) {
+  [aria-label='type'] {
+    grid-column: span 4;
+  }
+
+  [aria-label='floor'] {
     grid-column: span 2;
+  }
+
+  [aria-label='property_tax'],
+  [aria-label='maintenance_fee'],
+  [aria-label='area'],
+  [aria-label='rooms'],
+  [aria-label='bathrooms'],
+  [aria-label='garage_spots'],
+  [aria-label='price'],
+  [aria-label='matterport_code'],
+  [aria-label='score'] {
+    grid-column: span 2;
+  }
+
+  [aria-label='description'],
+  [aria-label='phone'] {
+    grid-column: span 6;
   }
 
   @media ${mobileMedia} {

@@ -190,7 +190,9 @@ export default class ListingEditV2 extends Component {
       onChange: this.onFieldChange,
       isAdmin: this.props.isAdmin,
       resetListing: this.resetListing,
-      errors: showErrors ? errors : []
+      errors: showErrors ? errors : [],
+      user: this.props.user,
+      apolloClient: this.props.client
     })
   }
 

@@ -5,6 +5,8 @@ import {FieldContainer, TextArea, SuggestionList} from './styles'
 import Counter from 'components/shared/Common/Counter'
 import Select from 'react-select'
 import createNumberMask from 'text-mask-addons/dist/createNumberMask'
+import PhoneField from 'components/listings/shared/PhoneField'
+import {GET_USER_INFO} from 'graphql/user/queries'
 
 const priceMask = createNumberMask({
   prefix: '',
@@ -31,6 +33,8 @@ export default class PropertyInfo extends Component {
       !listing.type ? 'Selecione o tipo do imóvel' : undefined
     )
 
+    this.checkUserPhone()
+
     isAdmin &&
       setTimeout(
         () =>
@@ -40,6 +44,26 @@ export default class PropertyInfo extends Component {
           ),
         100
       )
+
+    this.state = {
+      userPhone: ''
+    }
+  }
+
+  checkUserPhone = async () => {
+    const {apolloClient, user} = this.props
+
+    if (user.admin) return
+    const {data} = await apolloClient.query({
+      query: GET_USER_INFO,
+      variables: {
+        id: user.id
+      }
+    })
+
+    this.onChangePhone({target: {name: 'phone', value: data.userProfile.phone}})
+
+    this.setState({userPhone: data ? data.userProfile.phone : ''})
   }
 
   onChangeSelect = (...args) => {
@@ -68,12 +92,18 @@ export default class PropertyInfo extends Component {
     onChange && onChange(e, errorMessage)
   }
 
+  onChangePhone = (e) => {
+    const {onChange} = this.props
+    const errorMessage = e.target.value ? undefined : 'Digite seu telefone'
+    onChange && onChange(e, errorMessage)
+  }
+
   showAdminFields = () => {
     const {onChange, listing} = this.props
     const {price, matterport_code, score} = listing
     return (
       <Fragment>
-        <Field>
+        <Field aria-label="price">
           <label htmlFor="price">Preço</label>
           <InputWithMask
             value={price && price.toString().length > 0 ? price : ''}
@@ -84,7 +114,7 @@ export default class PropertyInfo extends Component {
             onChange={this.onChangePrice}
           />
         </Field>
-        <Field>
+        <Field aria-label="matterport_code">
           <label htmlFor="floor">Código do Matterport</label>
           <input
             type="text"
@@ -94,7 +124,7 @@ export default class PropertyInfo extends Component {
             onChange={onChange}
           />
         </Field>
-        <Field>
+        <Field aria-label="score">
           <label htmlFor="score">Farol</label>
           <Select
             clearable={false}
@@ -105,7 +135,7 @@ export default class PropertyInfo extends Component {
               {value: 4, label: 'Verde'},
               {value: 3, label: 'Amarelo'},
               {value: 2, label: 'Vermelho'},
-              {value: 1, label: 'Preto'},
+              {value: 1, label: 'Preto'}
             ]}
             value={score || ''}
             onChange={this.onChangeSelect.bind(null, 'score')}
@@ -116,7 +146,8 @@ export default class PropertyInfo extends Component {
   }
 
   render() {
-    const {onChange, listing, isAdmin, errors} = this.props
+    const {onChange, listing, isAdmin, errors, user, apolloClient} = this.props
+    const {userPhone} = this.state
     const {
       type: propertyType,
       floor,
@@ -132,8 +163,17 @@ export default class PropertyInfo extends Component {
     return (
       <Form full errors={errors}>
         <Title>Dados principais do imóvel</Title>
+
         <FieldContainer>
-          <Field>
+          {!isAdmin && (
+            <PhoneField
+              user={user}
+              phone={userPhone}
+              onChange={this.onChangePhone}
+              apolloClient={apolloClient}
+            />
+          )}
+          <Field aria-label="type">
             <label htmlFor="type">
               Tipo do imóvel <span>(Obrigatório)</span>
             </label>
@@ -151,7 +191,7 @@ export default class PropertyInfo extends Component {
               onChange={this.onChangeSelect.bind(null, 'type')}
             />
           </Field>
-          <Field>
+          <Field aria-label="floor">
             <label htmlFor="floor">Andar</label>
             <input
               type="text"
@@ -161,7 +201,7 @@ export default class PropertyInfo extends Component {
               onChange={onChange}
             />
           </Field>
-          <Field>
+          <Field aria-label="maintenance_fee">
             <label htmlFor="maintenance_fee">Condomínio (R$)</label>
             <InputWithMask
               type="text"
@@ -172,7 +212,7 @@ export default class PropertyInfo extends Component {
               onChange={onChange}
             />
           </Field>
-          <Field>
+          <Field aria-label="property_tax">
             <label htmlFor="property_tax">IPTU (R$)</label>
             <InputWithMask
               type="text"
@@ -183,7 +223,7 @@ export default class PropertyInfo extends Component {
               onChange={onChange}
             />
           </Field>
-          <Field>
+          <Field aria-label="area">
             <label htmlFor="area">Área (em m²)</label>
             <InputWithMask
               value={area}
@@ -195,11 +235,11 @@ export default class PropertyInfo extends Component {
               onChange={onChange}
             />
           </Field>
-          <Field>
+          <Field aria-label="rooms">
             <label>Nᵒ quartos</label>
             <Counter onChange={onChange} defaultValue={rooms} name="rooms" />
           </Field>
-          <Field>
+          <Field aria-label="bathrooms">
             <label>Nᵒ banheiros</label>
             <Counter
               onChange={onChange}
@@ -207,7 +247,7 @@ export default class PropertyInfo extends Component {
               name="bathrooms"
             />
           </Field>
-          <Field>
+          <Field aria-label="garage_spots">
             <label>Nᵒ vagas garagem</label>
             <Counter
               onChange={onChange}
@@ -215,7 +255,7 @@ export default class PropertyInfo extends Component {
               name="garage_spots"
             />
           </Field>
-          <Field>
+          <Field aria-label="description">
             <label>Descrição</label>
             <TextArea
               lang="pt-BR"
@@ -244,6 +284,7 @@ export default class PropertyInfo extends Component {
               </SuggestionList>
             )}
           </Field>
+
           {isAdmin && this.showAdminFields()}
         </FieldContainer>
       </Form>
