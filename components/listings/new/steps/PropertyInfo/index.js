@@ -5,6 +5,8 @@ import {FieldContainer, TextArea, SuggestionList} from './styles'
 import Counter from 'components/shared/Common/Counter'
 import Select from 'react-select'
 import createNumberMask from 'text-mask-addons/dist/createNumberMask'
+import PhoneField from 'components/listings/shared/PhoneField'
+import {GET_USER_INFO} from 'graphql/user/queries'
 
 const priceMask = createNumberMask({
   prefix: '',
