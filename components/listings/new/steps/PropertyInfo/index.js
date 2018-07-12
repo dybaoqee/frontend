@@ -92,12 +92,18 @@ export default class PropertyInfo extends Component {
     onChange && onChange(e, errorMessage)
   }
 
+  onChangePhone = (e) => {
+    const {onChange} = this.props
+    const errorMessage = e.target.value ? undefined : 'Digite seu telefone'
+    onChange && onChange(e, errorMessage)
+  }
+
   showAdminFields = () => {
     const {onChange, listing} = this.props
     const {price, matterport_code, score} = listing
     return (
       <Fragment>
-        <Field>
+        <Field aria-label="price">
           <label htmlFor="price">Preço</label>
           <InputWithMask
             value={price && price.toString().length > 0 ? price : ''}
