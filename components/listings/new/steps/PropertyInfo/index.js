@@ -114,7 +114,7 @@ export default class PropertyInfo extends Component {
             onChange={this.onChangePrice}
           />
         </Field>
-        <Field>
+        <Field aria-label="matterport_code">
           <label htmlFor="floor">Código do Matterport</label>
           <input
             type="text"
@@ -124,7 +124,7 @@ export default class PropertyInfo extends Component {
             onChange={onChange}
           />
         </Field>
-        <Field>
+        <Field aria-label="score">
           <label htmlFor="score">Farol</label>
           <Select
             clearable={false}
@@ -135,7 +135,7 @@ export default class PropertyInfo extends Component {
               {value: 4, label: 'Verde'},
               {value: 3, label: 'Amarelo'},
               {value: 2, label: 'Vermelho'},
-              {value: 1, label: 'Preto'},
+              {value: 1, label: 'Preto'}
             ]}
             value={score || ''}
             onChange={this.onChangeSelect.bind(null, 'score')}
@@ -181,7 +181,7 @@ export default class PropertyInfo extends Component {
               onChange={this.onChangeSelect.bind(null, 'type')}
             />
           </Field>
-          <Field>
+          <Field aria-label="floor">
             <label htmlFor="floor">Andar</label>
             <input
               type="text"
@@ -191,7 +191,7 @@ export default class PropertyInfo extends Component {
               onChange={onChange}
             />
           </Field>
-          <Field>
+          <Field aria-label="maintenance_fee">
             <label htmlFor="maintenance_fee">Condomínio (R$)</label>
             <InputWithMask
               type="text"
@@ -202,7 +202,7 @@ export default class PropertyInfo extends Component {
               onChange={onChange}
             />
           </Field>
-          <Field>
+          <Field aria-label="property_tax">
             <label htmlFor="property_tax">IPTU (R$)</label>
             <InputWithMask
               type="text"
@@ -213,7 +213,7 @@ export default class PropertyInfo extends Component {
               onChange={onChange}
             />
           </Field>
-          <Field>
+          <Field aria-label="area">
             <label htmlFor="area">Área (em m²)</label>
             <InputWithMask
               value={area}
@@ -225,11 +225,11 @@ export default class PropertyInfo extends Component {
               onChange={onChange}
             />
           </Field>
-          <Field>
+          <Field aria-label="rooms">
             <label>Nᵒ quartos</label>
             <Counter onChange={onChange} defaultValue={rooms} name="rooms" />
           </Field>
-          <Field>
+          <Field aria-label="bathrooms">
             <label>Nᵒ banheiros</label>
             <Counter
               onChange={onChange}
@@ -237,7 +237,7 @@ export default class PropertyInfo extends Component {
               name="bathrooms"
             />
           </Field>
-          <Field>
+          <Field aria-label="garage_spots">
             <label>Nᵒ vagas garagem</label>
             <Counter
               onChange={onChange}
@@ -245,7 +245,7 @@ export default class PropertyInfo extends Component {
               name="garage_spots"
             />
           </Field>
-          <Field>
+          <Field aria-label="description">
             <label>Descrição</label>
             <TextArea
               lang="pt-BR"
@@ -274,6 +274,7 @@ export default class PropertyInfo extends Component {
               </SuggestionList>
             )}
           </Field>
+
           {isAdmin && this.showAdminFields()}
         </FieldContainer>
       </Form>
