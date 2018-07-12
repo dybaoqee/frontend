@@ -31,6 +31,8 @@ export default class PropertyInfo extends Component {
       !listing.type ? 'Selecione o tipo do imóvel' : undefined
     )
 
+    this.checkUserPhone()
+
     isAdmin &&
       setTimeout(
         () =>
@@ -40,6 +42,26 @@ export default class PropertyInfo extends Component {
           ),
         100
       )
+
+    this.state = {
+      userPhone: ''
+    }
+  }
+
+  checkUserPhone = async () => {
+    const {apolloClient, user} = this.props
+
+    if (user.admin) return
+    const {data} = await apolloClient.query({
+      query: GET_USER_INFO,
+      variables: {
+        id: user.id
+      }
+    })
+
+    this.onChangePhone({target: {name: 'phone', value: data.userProfile.phone}})
+
+    this.setState({userPhone: data ? data.userProfile.phone : ''})
   }
 
   onChangeSelect = (...args) => {
