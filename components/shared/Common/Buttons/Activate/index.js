@@ -12,7 +12,7 @@ export default class ActivateListing extends Component {
 
     this.state = {
       values: options,
-      status: props.listing.is_active ? options[0] : options[1]
+      status: props.listing.isActive ? options[0] : options[1]
     }
   }
 
@@ -26,11 +26,11 @@ export default class ActivateListing extends Component {
   }
 
   render() {
-    const {listing: {is_active, id}} = this.props
+    const {listing: {isActive, id}} = this.props
     const {values, status} = this.state
     return (
       <Mutation
-        mutation={!is_active ? ACTIVATE_LISTING : DEACTIVATE_LISTING}
+        mutation={!isActive ? ACTIVATE_LISTING : DEACTIVATE_LISTING}
         onCompleted={() => Router.push(`/imoveis/${id}`)}
       >
         {(activateListing) => (
