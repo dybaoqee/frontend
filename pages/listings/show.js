@@ -1,10 +1,13 @@
 import {Component, Fragment} from 'react'
 import {Query} from 'react-apollo'
 import {GET_FAVORITE_LISTINGS_IDS} from 'graphql/user/queries'
+import {GET_FULL_LISTING} from 'graphql/listings/queries'
 import {Mutation} from 'react-apollo'
 import {FAVORITE_LISTING} from 'graphql/listings/mutations'
 import {isAuthenticated, isAdmin, getCurrentUserId, getJwt} from 'lib/auth'
-import {getListing, getRelatedListings} from 'services/listing-api'
+import Error from 'components/shared/Shell/Error'
+import {getRelatedListings} from 'services/listing-api'
+import Link from 'next/link'
 import {createInterest} from 'services/interest-api'
 import _ from 'lodash'
 import ListingHead from 'components/listings/show/Head'
@@ -14,11 +17,10 @@ import ListingMap from 'components/listings/show/Map'
 import InterestForm from 'components/listings/show/InterestForm'
 import InterestPosted from 'components/listings/show/InterestForm/interest_posted'
 import RelatedListings from 'components/listings/show/RelatedListings'
-import Error from 'components/shared/Shell/Error'
-import Link from 'next/link'
 import Warning from 'components/shared/Common/Warning'
 import Breadcrumb from 'components/shared/Common/Breadcrumb'
 import {parseSlug, buildSlug} from 'lib/listings'
+import Head from 'next/head'
 
 class Listing extends Component {
   favMutated = false
@@ -50,7 +52,14 @@ class Listing extends Component {
 
     try {
       const [listing, related] = await Promise.all([
-        getListing(id, jwt).then(({data}) => data.listing),
+        global.apolloClient
+          .query({
+            query: GET_FULL_LISTING,
+            variables: {
+              id
+            }
+          })
+          .then(({data}) => data.listing),
         getRelatedListings(id).then(({data}) => data.listings)
       ])
 
@@ -65,11 +74,12 @@ class Listing extends Component {
       return {
         listing,
         related,
-        currentUser
+        currentUser,
+        id
       }
     } catch (e) {
       return {
-        statusCode: e.status,
+        error: e.graphQLErrors ? e.graphQLErrors[0] : e,
         currentUser
       }
     }
@@ -144,8 +154,8 @@ class Listing extends Component {
   }
 
   showListing = () => {
-    const {currentUser, listing, related, url, router} = this.props
-    const {is_active} = listing
+    const {currentUser, related, url, listing, router} = this.props
+    const {isActive} = listing
 
     const {
       isInterestPopupVisible,
@@ -226,7 +236,7 @@ class Listing extends Component {
                       currentUser={currentUser}
                       favoritedListing={{loading, favorite}}
                     />
-                    {!is_active && (
+                    {!isActive && (
                       <Warning green={url.query.r}>
                         {url.query.r ? (
                           <p>
@@ -278,11 +288,11 @@ class Listing extends Component {
   }
 
   get error() {
-    const {statusCode} = this.props
+    const {error} = this.props
 
-    switch (statusCode) {
+    switch (error.code || error.statusCode) {
       case 404:
-        return 'Página não encontrada'
+        return 'Imóvel não encontrado'
       case 500:
         return 'Internal Server Error'
       default:
@@ -291,24 +301,23 @@ class Listing extends Component {
   }
 
   render() {
-    const {statusCode} = this.props
-
-    return (
+    const {error} = this.props
+    return error ? (
       <Fragment>
-        {statusCode ? (
-          <Error>
-            <h1>{this.error}</h1>
-            <h2>{statusCode}</h2>
-            <p>
-              Visite nossa <Link href="/">página inicial</Link> ou entre
-              em&nbsp;
-              <Link href="mailto:contato@emcasa.com">contato</Link> com a gente
-            </p>
-          </Error>
-        ) : (
-          this.showListing()
-        )}
+        <Head>
+          <title>EmCasa</title>
+        </Head>
+        <Error>
+          <h1>{this.error}</h1>
+          <h2>{error.code || error.statusCode}</h2>
+          <p>
+            Visite nossa <Link href="/">página inicial</Link> ou entre em&nbsp;
+            <Link href="mailto:contato@emcasa.com">contato</Link> com a gente
+          </p>
+        </Error>
       </Fragment>
+    ) : (
+      this.showListing()
     )
   }
 }
