@@ -96,10 +96,10 @@ export default class ListingHeader extends Component {
     ))
 
   getSliderContent = (visualizeTour) => {
-    const {listing: {matterport_code, id}} = this.props
-    const src = `https://my.matterport.com/show/?m=${matterport_code}`
+    const {listing: {matterportCode, id}} = this.props
+    const src = `https://my.matterport.com/show/?m=${matterportCode}`
     const sliderContent = this.getSliderImages()
-    if (matterport_code) {
+    if (matterportCode) {
       sliderContent.unshift(
         <TourWrapper isFullScreen={this.state.isFullScreen}>
           <iframe
@@ -124,7 +124,7 @@ export default class ListingHeader extends Component {
   }
 
   getSliderNavigation = () => {
-    const {listing: {images, matterport_code}} = this.props
+    const {listing: {images, matterportCode}} = this.props
     const settings = {
       infinite: true,
       className: 'thumb-slider',
@@ -144,7 +144,7 @@ export default class ListingHeader extends Component {
           asNavFor={this.state.nav2}
           ref={(slider) => (this.slider1 = slider)}
         >
-          {matterport_code && (
+          {matterportCode && (
             <Thumb key={'tour'} alwaysVisible>
               <FontAwesomeIcon icon={faCube} />
               <span>Tour 3D</span>
@@ -205,7 +205,7 @@ export default class ListingHeader extends Component {
             <Container isFullScreen={isFullScreen}>
               {show3DTour && (
                 <Matterport
-                  matterport_code={listing.matterport_code}
+                  matterport_code={listing.matterportCode}
                   handleClose={this.hide3DTour}
                 />
               )}

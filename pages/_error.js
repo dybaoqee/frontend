@@ -1,12 +1,14 @@
 import {Component, Fragment} from 'react'
 import Error from 'components/shared/Shell/Error'
 import Link from 'next/link'
+import codes from 'constants/statusCodes'
 
 export default class ErrorPage extends Component {
   static getInitialProps({err, res}) {
     if (err && err.response) {
       res.statusCode = err.response.status
     }
+
     return {
       err,
       statusCode: res ? res.statusCode : 404
@@ -14,16 +16,9 @@ export default class ErrorPage extends Component {
   }
 
   get title() {
-    const {err, statusCode} = this.props
+    const {statusCode} = this.props
 
-    switch (statusCode) {
-      case 404:
-        return 'Página não encontrada'
-      case 500:
-        return 'Internal Server Error'
-      default:
-        return err ? err.message : ''
-    }
+    return codes[statusCode]
   }
 
   get message() {
@@ -39,6 +34,7 @@ export default class ErrorPage extends Component {
 
   render() {
     const {statusCode} = this.props
+
     return (
       <Fragment>
         <Error>

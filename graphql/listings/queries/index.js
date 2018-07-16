@@ -58,6 +58,59 @@ export const GET_LISTING = gql`
   }
 `
 
+export const GET_FULL_LISTING = gql`
+  query listing($id: ID!) {
+    listing(id: $id) {
+      id
+      address {
+        city
+        citySlug
+        lat
+        lng
+        neighborhood
+        neighborhoodSlug
+        postalCode
+        state
+        stateSlug
+        street
+        streetNumber
+        streetSlug
+      }
+      area
+      balconies
+      bathrooms
+      complement
+      dependencies
+      description
+      insertedAt
+      floor
+      garageSpots
+      hasElevator
+      images {
+        id
+        filename
+      }
+      inPersonVisitCount
+      interestCount
+      isActive
+      listingFavoriteCount
+      listingVisualisationCount
+      maintenanceFee
+      matterportCode
+      owner {
+        id
+      }
+      price
+      propertyTax
+      restrooms
+      rooms
+      tourVisualisationCount
+      type
+      suggestedPrice
+    }
+  }
+`
+
 export const GET_LISTINGS_COORDINATES = gql`
   query listings_coordinates($filters: ListingFilter) {
     listings(filters: $filters) {

@@ -9,7 +9,7 @@ export default class ListingHead extends Component {
     const seoImgSrc = mainListingImage(listing.images)
 
     const description = `Conheça ${
-      listing.matterport_code ? 'com Tour Virtual 3D' : ''
+      listing.matterportCode ? 'com Tour Virtual 3D' : ''
     } ${listing.type.charAt(listing.type.length - 1)} ${listing.type} na ${
       listing.address.street
     }, ${listing.address.neighborhood}, ${listing.address.city} - ${

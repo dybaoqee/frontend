@@ -10,20 +10,21 @@ import {canEdit} from 'permissions/listings-permissions'
 export default class ListingMainContent extends React.Component {
   render() {
     const {listing, handleOpenPopup, user} = this.props
-    const {street, neighborhood, street_number} = listing.address
-    const showStatistics = user.admin || listing.user_id.toString() === user.id
+    const {street, neighborhood, streetNumber} = listing.address
+    const showStatistics = user.admin || listing.owner
     const paragraphs = getParagraphs(listing.description)
     const ownerOrAdmin = canEdit(user, listing)
     const listingInfo = ownerOrAdmin
-      ? `${street}, ${street_number} ${
+      ? `${street}, ${streetNumber} ${
           listing.complement ? `- ${listing.complement}` : ''
         }`
       : `${street}`
+
     return (
       <Container>
         <div className="description">
           <h1 className="street">
-            {listing.type} na {listingInfo}, {listing.address.neighborhood},{' '}
+            {listing.type} na {listingInfo}, {neighborhood},{' '}
             {listing.address.city}
           </h1>
           <h6>O imóvel</h6>
@@ -35,12 +36,12 @@ export default class ListingMainContent extends React.Component {
               <h6>Tipo do imóvel</h6>
               <p>{listing.type}</p>
             </div>
-            {listing.maintenance_fee && (
+            {listing.maintenanceFee && (
               <div>
                 <h6>Condomínio</h6>
                 <p>
                   <NumberFormat
-                    value={listing.maintenance_fee}
+                    value={listing.maintenanceFee}
                     displayType={'text'}
                     thousandSeparator={'.'}
                     prefix={'R$'}
@@ -50,12 +51,12 @@ export default class ListingMainContent extends React.Component {
               </div>
             )}
 
-            {listing.property_tax && (
+            {listing.propertyTax && (
               <div>
                 <h6>Iptu</h6>
                 <p>
                   <NumberFormat
-                    value={listing.property_tax}
+                    value={listing.propertyTax}
                     displayType={'text'}
                     thousandSeparator={'.'}
                     prefix={'R$'}
@@ -69,7 +70,11 @@ export default class ListingMainContent extends React.Component {
 
         <CardWrapper>
           {user.authenticated && <MessagesButton listing={listing} />}
-          <ListingCard listing={listing} handleOpenPopup={handleOpenPopup} />
+          <ListingCard
+            listing={listing}
+            handleOpenPopup={handleOpenPopup}
+            user={user}
+          />
           {showStatistics && <Statistics listing={listing} user={user} />}
         </CardWrapper>
       </Container>

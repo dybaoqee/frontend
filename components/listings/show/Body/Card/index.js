@@ -1,18 +1,18 @@
 import React from 'react'
 import NumberFormat from 'react-number-format'
-import Container from './styles'
+import Container, {SuggestedPrice} from './styles'
 
 export default class ListingCard extends React.Component {
   render() {
-    const {handleOpenPopup} = this.props
-
+    const {handleOpenPopup, user} = this.props
     const {
       price,
       rooms,
       bathrooms,
-      garage_spots,
+      garageSpots,
       floor,
-      area
+      area,
+      suggestedPrice
     } = this.props.listing
 
     const price_per_square_meter = Math.floor(price / area)
@@ -33,6 +33,20 @@ export default class ListingCard extends React.Component {
           )}
         </span>
 
+        {user.admin &&
+          suggestedPrice && (
+            <SuggestedPrice>
+              <p>Preço sugerido:</p>
+              <NumberFormat
+                value={suggestedPrice}
+                displayType={'text'}
+                thousandSeparator={'.'}
+                prefix={'R$'}
+                decimalSeparator={','}
+              />
+            </SuggestedPrice>
+          )}
+
         <div>
           <div>
             <span>Dormitórios</span>
@@ -44,7 +58,7 @@ export default class ListingCard extends React.Component {
           </div>
           <div>
             <span>N° Vagas</span>
-            <span>{garage_spots || 0}</span>
+            <span>{garageSpots || 0}</span>
           </div>
           <div>
             <span>Andar</span>

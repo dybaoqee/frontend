@@ -63,3 +63,15 @@ export default styled.div`
     margin: 0 auto;
   }
 `
+
+export const SuggestedPrice = styled.div`
+  display: flex;
+  font-size: 14px;
+  color: ${colors.mediumDarkGray};
+  p {
+    margin: 0;
+  }
+  span {
+    margin-left: 5px;
+  }
+`
