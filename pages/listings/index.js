@@ -11,6 +11,7 @@ import {
 import {getNeighborhoods} from 'services/neighborhood-api'
 import Filter from 'components/listings/shared/Search'
 import Listings from 'components/listings/shared/Listings'
+import {getUrlVars} from 'utils/text-utils'
 
 class ListingsIndex extends Component {
   constructor(props) {
@@ -45,13 +46,31 @@ class ListingsIndex extends Component {
 
   componentDidMount() {
     require('utils/polyfills/smooth-scroll').load()
+
+    window.onpopstate = (event) => {
+      const newQuery = getUrlVars(event.state.url)
+      this.setState({
+        filters: getFiltersFromQuery(newQuery)
+      })
+
+      this.filter.setFilters(getDerivedParams(newQuery))
+    }
+  }
+
+  componentWillUnmount() {
+    window.onpopstate = null
   }
 
   onChangeFilter = (filters) => {
     const newQuery = treatParams(filters)
-    this.setState({filters: getFiltersFromFilters(filters)})
+
     const query = newQuery.length > 0 ? `?${newQuery}` : ''
-    Router.push('/listings', `/imoveis${query}`, {shallow: true})
+    Router.push(`/listings${query}`, `/imoveis${query}`, {
+      shallow: true
+    })
+    this.setState({
+      filters: getFiltersFromFilters(filters)
+    })
     window.scrollTo(0, 0)
   }
 
@@ -98,6 +117,7 @@ class ListingsIndex extends Component {
     return (
       <Fragment>
         {this.getHead()}
+
         <Filter
           neighborhoods={neighborhoods}
           onChange={this.onChangeFilter}

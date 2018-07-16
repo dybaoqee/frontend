@@ -30,7 +30,6 @@ import {neighborhoodOptions} from 'constants/listing-filter-options'
 export default class Filter extends Component {
   constructor(props) {
     super(props)
-
     const initialValues = {...props.initialFilters}
 
     if (props.initialFilters.neighborhoods) {
@@ -53,6 +52,21 @@ export default class Filter extends Component {
   onToggle = () => {
     const {active} = this.state
     this.setState({active: !active})
+  }
+
+  setFilters = (filters) => {
+    const updatedValues = {...filters}
+
+    if (filters.neighborhoods) {
+      updatedValues.neighborhoods = filters.neighborhoods.map(
+        (neighborhood) => ({
+          value: neighborhood,
+          label: neighborhood
+        })
+      )
+    }
+
+    this.setState({values: updatedValues})
   }
 
   sliderChanged = (value, {minValue, maxValue}, userClicked) => {
@@ -79,7 +93,7 @@ export default class Filter extends Component {
     this.setState({values: updatedValues})
   }
 
-  onChaneListingType = ({currentTarget}) => {
+  onChangeListingType = ({currentTarget}) => {
     const {values} = this.state
     const {onChange} = this.props
     const listingType = currentTarget.getAttribute('aria-label')
@@ -174,7 +188,7 @@ export default class Filter extends Component {
     } = this.state
 
     const anyFilterApplied = Object.keys(this.state.values).length > 0
-    const {onChaneListingType, onToggle, activeFilters, resetFilter} = this
+    const {onChangeListingType, onToggle, activeFilters, resetFilter} = this
     const {neighborhoods} = this.props
     const neighborhoodsOptions = neighborhoodOptions(neighborhoods)
     return (
@@ -212,18 +226,18 @@ export default class Filter extends Component {
                 <PropertyTypes activeTypes={types}>
                   <PropertyType
                     aria-label="Apartamento"
-                    onClick={onChaneListingType}
+                    onClick={onChangeListingType}
                   >
                     <FontAwesomeIcon icon={faBuilding} />
                     <span>Apartamento</span>
                   </PropertyType>
-                  <PropertyType aria-label="Casa" onClick={onChaneListingType}>
+                  <PropertyType aria-label="Casa" onClick={onChangeListingType}>
                     <FontAwesomeIcon icon={faHome} />
                     <span>Casa</span>
                   </PropertyType>
                   <PropertyType
                     aria-label="Cobertura"
-                    onClick={onChaneListingType}
+                    onClick={onChangeListingType}
                   >
                     <FontAwesomeIcon icon={faRoof} />
                     <span>Cobertura</span>
