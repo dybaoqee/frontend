@@ -129,40 +129,6 @@ export const TourWrapper = styled.div`
     z-index: 2;
     opacity: 0;
   }
-
-  :after {
-    box-sizing: border-box;
-    content: 'Clique para navegar no Tour 3D';
-    position: absolute;
-    background: red;
-    width: 200px;
-    height: ${({isFullScreen}) => (isFullScreen ? 180 : 110)}px;
-    padding: 10px 30px;
-    z-index: 10;
-    bottom: 110%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 600;
-    text-align: center;
-    border-radius: 6px;
-    border: 1px solid ${colors.blue.darker};
-    box-shadow: 2px 2px 20px 5px rgba(0, 0, 0, 0.61);
-    background: ${colors.blue.medium};
-    color: white;
-    left: calc(50% - 100px);
-    animation: highlight 1s cubic-bezier(0.19, 1, 0.22, 1);
-    animation-delay: 1s;
-    animation-fill-mode: forwards;
-    pointer-events: none;
-    font-size: ${({isFullScreen}) => (isFullScreen ? 24 : 16)}px;
-  }
-
-  @keyframes highlight {
-    to {
-      bottom: ${({isFullScreen}) => (isFullScreen ? 40 : 33)}%;
-    }
-  }
 `
 
 export const SliderNavigation = styled.div`
