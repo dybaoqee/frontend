@@ -12,26 +12,26 @@ import ActivateListing from 'components/shared/Common/Buttons/Activate'
 
 export default ({
   listing: {
-    visualisations,
-    favorite_count,
-    interest_count,
-    inserted_at,
-    tour_visualisations,
+    listingVisualisationCount,
+    listingFavoriteCount,
+    interestCount,
+    insertedAt,
+    tourVisualisationCount,
     id,
-    in_person_visit_count,
-    is_active
+    inPersonVisitCount,
+    isActive
   },
   user
 }) => (
   <Container>
     {user.admin && (
       <Topic>
-        <Icon is_active={is_active}>
+        <Icon is_active={isActive}>
           <FontAwesomeIcon icon={faFlag} />
         </Icon>
         <Title>
           <p>Status</p>
-          <ActivateListing listing={{id, is_active}} />
+          <ActivateListing listing={{id, isActive}} />
         </Title>
       </Topic>
     )}
@@ -40,42 +40,42 @@ export default ({
       <FontAwesomeIcon icon={faClipboard} />
       <Title>
         <p>Data de criação</p>
-        <span>{moment(inserted_at).format('DD/MM/YYYY')}</span>
+        <span>{moment(insertedAt).format('DD/MM/YYYY')}</span>
       </Title>
     </Topic>
     <Topic>
       <FontAwesomeIcon icon={faEye} />
       <Title>
         <p>Visualizações</p>
-        <span>{visualisations}</span>
+        <span>{listingVisualisationCount}</span>
       </Title>
     </Topic>
     <Topic>
       <FontAwesomeIcon icon={faHomeHeart} />
       <Title>
         <p>Visualizações Tour 3D</p>
-        <span>{tour_visualisations}</span>
+        <span>{tourVisualisationCount}</span>
       </Title>
     </Topic>
     <Topic>
       <FontAwesomeIcon icon={faHeart} />
       <Title>
         <p>Favoritado</p>
-        <span>{favorite_count}</span>
+        <span>{listingFavoriteCount}</span>
       </Title>
     </Topic>
     <Topic>
       <FontAwesomeIcon icon={faCalendar} />
       <Title>
         <p>Visitas Marcadas</p>
-        <span>{interest_count}</span>
+        <span>{interestCount}</span>
       </Title>
     </Topic>
     <Topic>
       <FontAwesomeIcon icon={faHome} />
       <Title>
         <p>Visitas Realizadas</p>
-        <span>{in_person_visit_count}</span>
+        <span>{inPersonVisitCount}</span>
       </Title>
     </Topic>
   </Container>
