@@ -38,7 +38,7 @@ export default class ListingCard extends React.Component {
             <SuggestedPrice>
               <p>Preço sugerido:</p>
               <NumberFormat
-                value={price}
+                value={suggestedPrice}
                 displayType={'text'}
                 thousandSeparator={'.'}
                 prefix={'R$'}
