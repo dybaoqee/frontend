@@ -1,4 +1,6 @@
+import {Fragment} from 'react'
 import App, {Container} from 'next/app'
+import Head from 'next/head'
 import _ from 'lodash'
 import Layout from 'components/shared/Shell'
 import {isAuthenticated, isAdmin, getCurrentUserId} from 'lib/auth'
@@ -7,6 +9,10 @@ import {ApolloProvider} from 'react-apollo'
 import {getJwt} from 'lib/auth'
 import {getCookie, removeCookie} from 'lib/session'
 import Router from 'next/router'
+import Link from 'next/link'
+import Error from 'components/shared/Shell/Error'
+import codes from 'constants/statusCodes'
+
 class MyApp extends App {
   static async getInitialProps(ctx) {
     const {Component, router, ctx: context} = ctx
@@ -56,8 +62,10 @@ class MyApp extends App {
       authenticated,
       isAdmin,
       apolloClient,
-      currentUser
+      currentUser,
+      error
     } = this.props
+
     return (
       <Container>
         <ApolloProvider client={apolloClient}>
@@ -68,13 +76,31 @@ class MyApp extends App {
             pageProps={pageProps}
             router={router}
           >
-            <Component
-              {...pageProps}
-              url={url}
-              router={router}
-              user={currentUser}
-              client={apolloClient}
-            />
+            {error ? (
+              <Fragment>
+                <Head>
+                  <title>EmCasa</title>
+                </Head>
+                <Error>
+                  <h1>{codes[error.code] || 'Erro não identificado'}</h1>
+                  <h2>{error.code}</h2>
+                  <p>
+                    Visite nossa <Link href="/">página inicial</Link> ou entre
+                    em&nbsp;
+                    <Link href="mailto:contato@emcasa.com">contato</Link> com a
+                    gente
+                  </p>
+                </Error>
+              </Fragment>
+            ) : (
+              <Component
+                {...pageProps}
+                url={url}
+                router={router}
+                user={currentUser}
+                client={apolloClient}
+              />
+            )}
           </Layout>
         </ApolloProvider>
       </Container>
