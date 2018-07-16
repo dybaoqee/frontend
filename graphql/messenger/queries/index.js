@@ -35,7 +35,7 @@ export const GET_USER_CONVERSATIONS = gql`
           neighborhood
         }
       }
-      lastMessage {
+      messages(limit: 1) {
         id
         message
         insertedAt

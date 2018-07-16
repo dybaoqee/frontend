@@ -29,7 +29,7 @@ class ListingMessages extends Component {
     }
 
     return conversations.map(
-      ({id, participant1, participant2, listing, lastMessage}) => (
+      ({id, participant1, participant2, listing, messages}) => (
         <Link
           key={id}
           href={
@@ -66,8 +66,8 @@ class ListingMessages extends Component {
               </div>
               <div>
                 <span>
-                  {lastMessage
-                    ? moment(lastMessage.insertedAt)
+                  {messages
+                    ? moment(messages[0].insertedAt)
                         .subtract(3, 'hours')
                         .format('h:mm:ss a, DD MMM YYYY')
                     : ''}
@@ -75,8 +75,8 @@ class ListingMessages extends Component {
               </div>
               <div>
                 <p>
-                  {lastMessage
-                    ? _.truncate(lastMessage.message, {length: 80})
+                  {messages
+                    ? _.truncate(messages[0].message, {length: 80})
                     : ''}
                 </p>
               </div>
@@ -90,6 +90,7 @@ class ListingMessages extends Component {
   render() {
     const {user} = this.props
     const seoTitle = 'EmCasa | Minhas Mensagens'
+
     return (
       <Query
         query={GET_USER_INFO}
