@@ -55,6 +55,21 @@ export default class Filter extends Component {
     this.setState({active: !active})
   }
 
+  setFilters = (filters) => {
+    const updatedValues = {...filters}
+
+    if (filters.neighborhoods) {
+      updatedValues.neighborhoods = filters.neighborhoods.map(
+        (neighborhood) => ({
+          value: neighborhood,
+          label: neighborhood
+        })
+      )
+    }
+
+    this.setState({values: updatedValues})
+  }
+
   sliderChanged = (value, {minValue, maxValue}, userClicked) => {
     if (userClicked) {
       const {values} = this.state
