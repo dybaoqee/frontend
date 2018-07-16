@@ -216,7 +216,7 @@ export default class ListingHeader extends Component {
               >
                 {this.getSliderContent(visualizeTour).map((content, id) => (
                   <Content key={content.key || id}>
-                    <div className="spinner" />
+                    {content.props.src && <div className="spinner" />}
                     {content}
                   </Content>
                 ))}
