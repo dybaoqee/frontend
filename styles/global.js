@@ -16,6 +16,10 @@ body {
   line-height: 1.5;
 }
 
+main {
+  justify-content: flex-start;
+}
+
 a.GTAG {
   text-decoration: none;
   color: inherit;
