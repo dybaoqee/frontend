@@ -10,11 +10,11 @@ import {DragDropContext} from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 
 import {redirectIfNotAuthenticated, getJwt} from 'lib/auth'
-import TextContainer from 'components/shared/TextContainer'
 import DraggableImage from 'components/listings/show/images/DraggableImage'
 import ImageUpload from 'components/listings/show/images/Upload'
 import ImagesContainer, {
-  ImagePlaceholder
+  ImagePlaceholder,
+  Container
 } from 'components/listings/show/images/styles'
 
 import {Header} from 'components/listings/shared/styles'
@@ -71,7 +71,6 @@ export default class ListingImages extends Component {
     })
 
     const res = await reorderImages(listingId, orderForApi, jwt)
-
     if (res.data.errors) {
       this.setState({errors: res.data.errors})
       return {}
@@ -120,49 +119,47 @@ export default class ListingImages extends Component {
     const {images} = this.state
 
     return (
-      <Fragment>
-        <TextContainer>
-          <Header>
-            <h1>Editar Imagens</h1>
-            <Link
-              href={`/listings/edit?id=${listingId}`}
-              as={`/imoveis/${listingId}/editar`}
-            >
-              <a>Editar Imóvel</a>
-            </Link>
-          </Header>
+      <Container>
+        <Header>
+          <h1>Editar Imagens</h1>
+          <Link
+            href={`/listings/edit?id=${listingId}`}
+            as={`/imoveis/${listingId}/editar`}
+          >
+            <a>Editar Imóvel</a>
+          </Link>
+        </Header>
 
-          {images.length === 0 ? (
-            <ImageUpload onImageUploaded={this.onImageUploaded} />
-          ) : (
-            <Fragment>
-              <p>Clique e arraste para reordenar as imagens</p>
-              <ImagesContainer>
-                <ImageUpload onImageUploaded={this.onImageUploaded}>
-                  <ImagePlaceholder>
-                    <span>+</span>
-                    <p>Adicionar foto</p>
-                  </ImagePlaceholder>
-                </ImageUpload>
-                {images &&
-                  images.map((image, i) => {
-                    return (
-                      <DraggableImage
-                        listingId={listingId}
-                        image={image}
-                        key={image.id}
-                        index={i}
-                        jwt={jwt}
-                        onImageDeleted={this.onImageDeleted}
-                        moveImage={this.moveImage}
-                      />
-                    )
-                  })}
-              </ImagesContainer>
-            </Fragment>
-          )}
-        </TextContainer>
-      </Fragment>
+        {images.length === 0 ? (
+          <ImageUpload onImageUploaded={this.onImageUploaded} />
+        ) : (
+          <Fragment>
+            <p>Clique e arraste para reordenar as imagens do imóvel</p>
+            <ImageUpload onImageUploaded={this.onImageUploaded}>
+              <ImagePlaceholder>
+                <span>+</span>
+                <p>Adicionar fotos</p>
+              </ImagePlaceholder>
+            </ImageUpload>
+            <ImagesContainer>
+              {images &&
+                images.map((image, i) => {
+                  return (
+                    <DraggableImage
+                      listingId={listingId}
+                      image={image}
+                      key={image.id}
+                      index={i}
+                      jwt={jwt}
+                      onImageDeleted={this.onImageDeleted}
+                      moveImage={this.moveImage}
+                    />
+                  )
+                })}
+            </ImagesContainer>
+          </Fragment>
+        )}
+      </Container>
     )
   }
 }
