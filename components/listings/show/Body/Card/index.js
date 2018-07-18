@@ -17,6 +17,13 @@ export default class ListingCard extends React.Component {
 
     const price_per_square_meter = Math.floor(price / area)
 
+    const currencyStyle = {
+      style: 'currency',
+      currency: 'BRL',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }
+
     return (
       <Container>
         <span className="price">
@@ -37,13 +44,9 @@ export default class ListingCard extends React.Component {
           suggestedPrice && (
             <SuggestedPrice>
               <p>Preço sugerido:</p>
-              <NumberFormat
-                value={suggestedPrice}
-                displayType={'text'}
-                thousandSeparator={'.'}
-                prefix={'R$'}
-                decimalSeparator={','}
-              />
+              <span>
+                {suggestedPrice.toLocaleString('pt-BR', currencyStyle)}
+              </span>
             </SuggestedPrice>
           )}
 
