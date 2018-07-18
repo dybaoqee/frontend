@@ -15,8 +15,9 @@ export const GET_LISTINGS = gql`
         bathrooms
         price
         description
-        images(limit: 1) {
+        images(limit: 30, isActive: true) {
           filename
+          position
         }
         address {
           street
@@ -43,7 +44,7 @@ export const GET_LISTING = gql`
       bathrooms
       price
       description
-      images(limit: 1) {
+      images(limit: 1, isActive: true) {
         filename
       }
       address {
@@ -86,7 +87,7 @@ export const GET_FULL_LISTING = gql`
       floor
       garageSpots
       hasElevator
-      images {
+      images(isActive: true) {
         id
         filename
       }

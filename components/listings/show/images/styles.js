@@ -3,29 +3,22 @@ import {mobileMedia} from 'constants/media'
 import * as colors from 'constants/colors'
 
 export default styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-  justify-items: center;
-  grid-gap: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
 
-  @media ${mobileMedia} {
-    display: block;
-
-    > div {
-      margin-bottom: 10px;
-    }
-  }
-
-  > :first-child {
-    grid-row: 2 / 2;
-  }
-
-  > div:nth-child(2) {
-    grid-column: span 2;
-    justify-self: stretch;
-    height: 227px;
+  > div {
+    width: 200px;
+    min-width: 200px;
+    height: 180px;
+    box-sizing: border-box;
+    margin: 5px;
     position: relative;
+    flex-grow: 1;
+    max-width: 435px;
+  }
 
+  > div:nth-child(1) {
     :after {
       position: absolute;
       display: flex;
@@ -36,7 +29,7 @@ export default styled.div`
       border-radius: 0 4px 0 4px;
       background-color: ${colors.blue.light};
       color: ${colors.blue.medium};
-      content: 'FOTO DE CAPA';
+      content: 'FOTO PRINCIPAL';
       font-size: 12px;
       font-weight: 700;
       line-height: 17px;
@@ -55,15 +48,13 @@ export default styled.div`
 export const ImagePlaceholder = styled.div`
   color: ${colors.mediumDarkGray};
   box-sizing: border-box;
-  min-height: 100%;
-  min-width: 100%;
-  height: 190px;
   border: 2px dashed ${colors.lightGray};
   border-radius: 4px;
-  display: grid;
-  grid-template-columns: 1fr;
-  justify-items: center;
-  align-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
 
   > span {
     font-weight: 200;
@@ -74,12 +65,21 @@ export const ImagePlaceholder = styled.div`
   > p {
     font-weight: normal;
     font-size: 18px;
-    align-self: end;
     padding: 0;
     margin: 0;
   }
+`
 
-  > p:last-child {
-    align-self: start;
+export const Container = styled.div`
+  margin: 0 auto;
+  padding: 40px;
+  max-width: 1200px;
+  width: auto;
+  box-sizing: border-box;
+  min-width: 90%;
+
+  @media ${mobileMedia} {
+    padding: 20px;
+    min-width: 100%;
   }
 `

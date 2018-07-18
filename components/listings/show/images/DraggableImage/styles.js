@@ -2,7 +2,6 @@ import styled from 'styled-components'
 
 export default styled.div`
   min-width: 100%;
-  height: 190px;
   margin-bottom: 2px;
   border-radius: 4px;
   overflow: hidden;
@@ -10,6 +9,7 @@ export default styled.div`
   box-shadow: inset 0 2px 2px 0 #ffffff, 0 4px 30px 0 rgba(38, 38, 38, 0.3);
   opacity: ${({isDragging}) => (isDragging ? 0 : 1)};
   cursor: ${({isDragging}) => (isDragging ? 'grabbing' : 'grab')};
+  flex: 1;
 
   > div.trash {
     position: absolute;
@@ -31,6 +31,7 @@ export const DraggableWrapper = styled.div`
   background-color: #f0f0f0;
   width: 100%;
   height: 100%;
+  display: flex;
 `
 
 export const Image = styled.div`

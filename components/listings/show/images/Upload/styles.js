@@ -20,6 +20,7 @@ export const ContainerDropZone = styled.div`
   cursor: pointer;
   min-width: 100%;
   position: relative;
+  margin-bottom: 20px;
   > div {
     box-sizing: inherit;
     border: none !important;

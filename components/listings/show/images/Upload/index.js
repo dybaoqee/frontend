@@ -66,7 +66,7 @@ export default class ImageUpload extends Component {
               </Tiles>
               <EmCasaButton secondary>
                 Clique aqui ou arraste suas fotos
-              </EmCasaButton>{' '}
+              </EmCasaButton>
             </Container>
           )}
         </Dropzone>
