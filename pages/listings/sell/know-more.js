@@ -14,6 +14,7 @@ import Topics from 'components/shared/Common/Topics'
 import Container, {Header, BenefitsContainer, Benefit} from './styles'
 
 import Calculator from 'components/shared/Calculator'
+import PriceEstimate from 'components/shared/PriceEstimate'
 
 export default class SellKnowMore extends Component {
   render() {
@@ -81,6 +82,9 @@ export default class SellKnowMore extends Component {
             <Link href="/listings/new" as="/imoveis/adicionar" prefetch>
               <EmCasaButton light>Anuncie agora</EmCasaButton>
             </Link>
+          </Container>
+          <Container>
+            <PriceEstimate />
           </Container>
           <Container>
             <Calculator />
