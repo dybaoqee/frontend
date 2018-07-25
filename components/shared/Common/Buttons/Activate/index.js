@@ -31,7 +31,7 @@ export default class ActivateListing extends Component {
     return (
       <Mutation
         mutation={!isActive ? ACTIVATE_LISTING : DEACTIVATE_LISTING}
-        onCompleted={() => Router.push(`/imoveis/${id}`)}
+        onCompleted={() => Router.replace(`/imoveis/${id}`)}
       >
         {(activateListing) => (
           <Container>
