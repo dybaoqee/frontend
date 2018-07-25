@@ -43,3 +43,27 @@ export const DEACTIVATE_LISTING = gql`
     }
   }
 `
+
+export const ESTIMATE_PRICE = gql`
+  mutation requestPriceSuggestion(
+    $address: AddressInput!
+    $area: Int!
+    $bathrooms: Int!
+    $email: String!
+    $garageSpots: Int!
+    $name: String!
+    $rooms: Int!
+  ) {
+    requestPriceSuggestion(
+      address: $address
+      area: $area
+      bathrooms: $bathrooms
+      email: $email
+      garageSpots: $garageSpots
+      name: $name
+      rooms: $rooms
+    ) {
+      suggestedPrice
+    }
+  }
+`
