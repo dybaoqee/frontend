@@ -14,7 +14,7 @@ const priceMask = createNumberMask({
   integerLimit: 12
 })
 
-const minPrice = 650000
+const minPrice = 550000
 const maxPrice = 100000000
 const currencyStyle = {
   style: 'currency',

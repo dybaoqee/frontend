@@ -272,7 +272,7 @@ export default class Filter extends Component {
                   />
                 </h4>
                 <Slider
-                  min={650000}
+                  min={550000}
                   max={10000000}
                   values={price}
                   isRange
