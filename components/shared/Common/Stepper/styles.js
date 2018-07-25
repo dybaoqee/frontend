@@ -5,8 +5,8 @@ import styled from 'styled-components'
 export default styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   box-sizing: border-box;
-  border: 1px solid red;
   width: 100%;
   max-width: 280px;
 `
@@ -22,5 +22,13 @@ export const Step = styled.div`
   align-items: center;
   font-weight: 600;
 
-  opacity: ${({current}) => (current ? 1 : 0.5)};
+  opacity: ${({active}) => (active ? 1 : 0.6)};
+`
+
+export const Divider = styled.div`
+  background: ${blue.medium};
+  color: white;
+  height: 3px;
+  flex: 1;
+  opacity: ${({active}) => (active ? 1 : 0.6)};
 `
