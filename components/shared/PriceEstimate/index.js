@@ -83,6 +83,9 @@ export default class PriceEstimate extends Component {
     ]
   }
 
+  getStep = (Component) =>
+    _.findIndex(this.steps, (step) => step.type === <Component />.type) + 1
+
   getStepContent = (page) => {
     const {listing} = this.state
     const Current = this.steps[page]
