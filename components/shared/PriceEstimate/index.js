@@ -13,6 +13,7 @@ import {isEmailValid} from 'lib/validation'
 import {Mutation} from 'react-apollo'
 import {ESTIMATE_PRICE} from 'graphql/listings/mutations'
 import {getNeighborhoods} from 'services/neighborhood-api'
+import _ from 'lodash'
 
 export default class PriceEstimate extends Component {
   state = {
@@ -111,7 +112,7 @@ export default class PriceEstimate extends Component {
     } else {
       if (neighborhoods.indexOf(address.neighborhood) === -1) {
         this.setState({
-          step: 5,
+          step: this.getStep(OutOfService),
           canAdvance: false
         })
 
@@ -121,7 +122,9 @@ export default class PriceEstimate extends Component {
         variables: {address, name, email, area, rooms, garageSpots, bathrooms}
       })
 
-      const nextStep = requestPriceSuggestion.suggestedPrice ? 4 : 6
+      const nextStep = requestPriceSuggestion.suggestedPrice
+        ? this.getStep(EstimateSuccess)
+        : this.getStep(EstimateFail)
 
       this.setState({
         listing: {
