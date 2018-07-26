@@ -23,10 +23,6 @@ export default class AddressAutoComplete extends React.Component {
     this.secondaryText = undefined
   }
 
-  componentDidMount() {
-    this.searchInput.focus()
-  }
-
   searchPlaces = async (input) => {
     try {
       const response = await axios.get(

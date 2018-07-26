@@ -110,21 +110,24 @@ export default class PriceEstimate extends Component {
         canAdvance: false
       })
     } else {
-      if (neighborhoods.indexOf(address.neighborhood) === -1) {
-        this.setState({
-          step: this.getStep(OutOfService),
-          canAdvance: false
-        })
+      const isCovered = neighborhoods.indexOf(address.neighborhood) > -1
 
-        return
-      }
       const {data: {requestPriceSuggestion}} = await getSuggestedPrice({
-        variables: {address, name, email, area, rooms, garageSpots, bathrooms}
+        variables: {
+          address,
+          name,
+          email,
+          area,
+          rooms,
+          garageSpots,
+          bathrooms,
+          isCovered
+        }
       })
 
       const nextStep = requestPriceSuggestion.suggestedPrice
         ? this.getStep(EstimateSuccess)
-        : this.getStep(EstimateFail)
+        : isCovered ? this.getStep(EstimateFail) : this.getStep(OutOfService)
 
       this.setState({
         listing: {
@@ -162,6 +165,7 @@ export default class PriceEstimate extends Component {
         {(getSuggestedPrice, {loading}) => (
           <Container>
             <h3>Quer saber quanto vale seu imóvel?</h3>
+            <h4>Avalie grátis seu imóvel ONLINE agora</h4>
             <Stepper steps={4} current={step <= 4 ? step : 4} />
             <StepContainer>{getStepContent(step - 1)}</StepContainer>
             {step < 4 && (

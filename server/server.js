@@ -112,6 +112,10 @@ const startServer = () => {
         return app.render(req, res, '/listings/sell/know-more', req.query)
       })
 
+      server.get('/avaliacao-imovel', (req, res) => {
+        return app.render(req, res, '/listings/estimate-price', req.query)
+      })
+
       server.get('/meu-perfil', (req, res) => {
         app.render(req, res, '/user/profile', req.query)
       })
