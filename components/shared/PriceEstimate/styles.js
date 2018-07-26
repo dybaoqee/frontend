@@ -13,7 +13,7 @@ export default styled.div`
     font-size: 32px;
     font-weight: 300;
     letter-spacing: -0.3px;
-    line-height: 20px;
+    line-height: 48px;
     text-align: center;
     margin: auto;
     padding: 0 20px;
@@ -26,7 +26,7 @@ export default styled.div`
     font-size: 20px;
     font-weight: 300;
     letter-spacing: -0.3px;
-    line-height: 48px;
+    line-height: 22px;
     text-align: center;
     margin: auto;
     padding: 0 40px;
