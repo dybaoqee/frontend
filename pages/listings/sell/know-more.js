@@ -83,7 +83,7 @@ export default class SellKnowMore extends Component {
               <EmCasaButton light>Anuncie agora</EmCasaButton>
             </Link>
           </Container>
-          <Container>
+          <Container id="precificador">
             <PriceEstimate />
           </Container>
           <Container>
