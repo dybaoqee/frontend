@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {gray4a} from 'constants/colors'
+import {gray4a, blue} from 'constants/colors'
 
 export default styled.div``
 
@@ -26,5 +26,10 @@ export const Description = styled.div`
     margin: 0;
     font-size: 16px;
     font-weight: 700;
+  }
+
+  a {
+    text-decoration: none;
+    color: ${blue.medium};
   }
 `
