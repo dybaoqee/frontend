@@ -53,6 +53,7 @@ export const ESTIMATE_PRICE = gql`
     $garageSpots: Int!
     $name: String!
     $rooms: Int!
+    $isCovered: Boolean!
   ) {
     requestPriceSuggestion(
       address: $address
@@ -62,6 +63,7 @@ export const ESTIMATE_PRICE = gql`
       garageSpots: $garageSpots
       name: $name
       rooms: $rooms
+      isCovered: $isCovered
     ) {
       suggestedPrice
     }
