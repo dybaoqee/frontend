@@ -1,21 +1,19 @@
 import Container, {Title, Description} from './styles'
-import EmCasaButton from 'components/shared/Common/Buttons'
-import Link from 'next/link'
 
 export default () => (
   <Container>
-    <Title>Hmm, é melhor fazer uma avaliação presencial</Title>
+    <Title>Entre em contato conosco</Title>
     <Description>
       <p>
         Nossas estimativas são calculadas com base em mais de 20.000 imóveis à
         venda no Rio de Janeiro, mas infelizmente não temos dados suficientes
         para gerar uma avaliação de qualidade neste endereço.
       </p>
-      <Link href="/listings/new" as="/imoveis/adicionar" prefetch>
-        <EmCasaButton full light>
-          Anuncie seu imóvel em 5 minutos
-        </EmCasaButton>
-      </Link>
+      <p>
+        Entre em contato conosco através do e-mail{' '}
+        <a href="mailto:contato@emcasa.com">contato@emcasa.com</a> ou do
+        telefone <a href="tel:+55 21 99609-5399"> (21) 9 9609-5399 </a>
+      </p>
     </Description>
   </Container>
 )
