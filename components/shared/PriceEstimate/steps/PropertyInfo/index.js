@@ -9,7 +9,7 @@ export default class PropertyInfo extends Component {
     const {onChange, errors} = this.props
 
     return (
-      <Form full errors={errors}>
+      <Form onSubmit={(e) => e.preventDefault()} full errors={errors}>
         <FieldContainer>
           <Field aria-label="area">
             <label htmlFor="area">Área (em m²)</label>

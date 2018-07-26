@@ -1,13 +1,14 @@
 import {Component} from 'react'
-import {Field} from 'components/listings/shared/styles'
+import {InputWithMask, Field} from 'components/listings/shared/styles'
 import Form from 'components/shared/Common/Form'
 import {FieldContainer} from './styles'
+import emailMask from 'text-mask-addons/dist/emailMask'
 
 export default class PropertyInfo extends Component {
   render() {
     const {onChange} = this.props
     return (
-      <Form full>
+      <Form onSubmit={(e) => e.preventDefault()} full>
         <FieldContainer>
           <Field aria-label="name">
             <label htmlFor="name">Nome completo</label>
@@ -20,11 +21,13 @@ export default class PropertyInfo extends Component {
           </Field>
           <Field aria-label="email">
             <label htmlFor="email">Email</label>
-            <input
+            <InputWithMask
               type="text"
               name="email"
-              onChange={onChange}
               autoComplete="off"
+              mask={emailMask}
+              guide={true}
+              onChange={onChange}
             />
           </Field>
         </FieldContainer>
