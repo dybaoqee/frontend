@@ -150,7 +150,7 @@ export default class PriceEstimate extends Component {
       canAdvance =
         newListing.area > 0 && newListing.bathrooms > 0 && newListing.rooms > 0
     } else if (step == 3) {
-      canAdvance = newListing.name.length > 5 && isEmailValid(newListing.email)
+      canAdvance = newListing.name.length > 3 && isEmailValid(newListing.email)
     }
 
     this.setState({listing: newListing, canAdvance})
