@@ -28,7 +28,11 @@ class ListingMessages extends Component {
       return <div>Você não possui mensagens.</div>
     }
 
-    return conversations.map(
+    const filteredConversations = conversations.filter(
+      (conversation) => conversation.listing
+    )
+
+    return filteredConversations.map(
       ({id, participant1, participant2, listing, messages}) => (
         <Link
           key={id}
