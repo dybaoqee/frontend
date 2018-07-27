@@ -15,7 +15,7 @@ export const GET_LISTINGS = gql`
         bathrooms
         price
         description
-        images(limit: 30, isActive: true) {
+        images(limit: 1, isActive: true) {
           filename
           position
         }
@@ -46,6 +46,7 @@ export const GET_LISTING = gql`
       description
       images(limit: 1, isActive: true) {
         filename
+        position
       }
       address {
         street
