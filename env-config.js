@@ -21,7 +21,7 @@ module.exports = {
     ? process.env.GOOGLE_ANALYTICS_TRACKING_ID
     : null,
   'process.env.GOOGLE_MAPS_KEY':
-    process.env.GOOGLE_MAPS_KEY || 'AIzaSyDmYQLTPwsDPtErGWTgiejz17QCw39MEVQ',
+    process.env.GOOGLE_MAPS_KEY || 'AIzaSyBZoa6AHssbg7GvCXYqmPN_PYfA4Xs0rmY',
   'process.env.TEST': process.env.TEST === 'cypress' ? 'cypress' : 'jest',
   'process.env.ADMIN_MESSENGER_ID': process.env.ADMIN_MESSENGER_ID || 30
 }
