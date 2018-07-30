@@ -31,7 +31,7 @@ describe('Header', () => {
         .find('[href="/listings/sell/know-more"]')
         .find('span')
         .text()
-    ).toEqual('Anunciar')
+    ).toEqual('Quero anunciar')
 
     expect(header.find(UserMenu).exists()).toEqual(false)
     expect(header.find('[href="/listings/sell/know-more"]').exists()).toEqual(
