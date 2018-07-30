@@ -304,7 +304,7 @@ export default class ListingNew extends Component {
               )}
             </Step>
           </StepContainer>
-          <SellingPoints />
+          {!listingId && <SellingPoints />}
         </Container>
       </Fragment>
     )
