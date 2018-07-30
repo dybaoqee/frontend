@@ -20,7 +20,7 @@ import {filterComponent} from 'services/google-maps-api'
 
 import AddressAutoComplete from 'components/listings/new/steps/AddressAutoComplete'
 import PropertyInfo from 'components/listings/new/steps/PropertyInfo'
-import PropertyGallery from 'components/listings/new/steps/PropertyGallery'
+import UploadStatus from 'components/listings/new/steps/UploadStatus'
 
 import EmCasaButton from 'components/shared/Common/Buttons'
 import ErrorContainer from 'components/listings/new/shared/ErrorContainer'
@@ -58,11 +58,7 @@ export default class ListingEditV2 extends Component {
             ...listing.address
           }
     }
-    this.steps = [
-      <AddressAutoComplete />,
-      <PropertyInfo />,
-      <PropertyGallery />
-    ]
+    this.steps = [<AddressAutoComplete />, <PropertyInfo />, <UploadStatus />]
   }
 
   static async getInitialProps(context) {
@@ -131,6 +127,7 @@ export default class ListingEditV2 extends Component {
 
   nextPage = () => {
     const {page, errors} = this.state
+    let submitting = false
 
     if (Object.keys(errors).length > 0) {
       this.setState({
@@ -147,6 +144,7 @@ export default class ListingEditV2 extends Component {
     this.setState({
       page: page + 1,
       canRegress: true,
+      submitting,
       canAdvance: page < 1
     })
   }
@@ -183,7 +181,7 @@ export default class ListingEditV2 extends Component {
 
   getStepContent(page) {
     const Current = this.steps[page]
-    const {listing, showErrors, errors} = this.state
+    const {listing, showErrors, errors, submitting} = this.state
     return React.cloneElement(Current, {
       choosePlace: this.setChosenPlace,
       listing,
@@ -192,7 +190,9 @@ export default class ListingEditV2 extends Component {
       resetListing: this.resetListing,
       errors: showErrors ? errors : [],
       user: this.props.user,
-      apolloClient: this.props.client
+      apolloClient: this.props.client,
+      submitting,
+      editing: true
     })
   }
 
