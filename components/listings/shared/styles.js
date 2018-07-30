@@ -4,8 +4,8 @@ import {mobileMedia, headerMobileMedia} from 'constants/media'
 import MaskedInput from 'react-text-mask'
 
 export const Title = styled.h1`
-  font-weight: normal;
-  font-size: 22px;
+  font-weight: 700;
+  font-size: 24px;
 `
 
 export const Field = styled.div`
@@ -91,5 +91,13 @@ export const Container = styled.div`
   @media ${headerMobileMedia} {
     padding-top: 20px;
     flex-direction: row;
+  }
+`
+
+export const EditButtons = styled.div`
+  box-sizing: border-box;
+
+  > :first-child {
+    margin-right: 10px;
   }
 `

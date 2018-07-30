@@ -16,8 +16,8 @@ import ImagesContainer, {
   ImagePlaceholder,
   Container
 } from 'components/listings/show/images/styles'
-
-import {Header} from 'components/listings/shared/styles'
+import EmCasaButton from 'components/shared/Common/Buttons'
+import {Header, EditButtons} from 'components/listings/shared/styles'
 
 @DragDropContext(HTML5Backend)
 export default class ListingImages extends Component {
@@ -122,12 +122,17 @@ export default class ListingImages extends Component {
       <Container>
         <Header>
           <h1>Editar Imagens</h1>
-          <Link
-            href={`/listings/edit?id=${listingId}`}
-            as={`/imoveis/${listingId}/editar`}
-          >
-            <a>Editar Imóvel</a>
-          </Link>
+          <EditButtons>
+            <Link
+              href={`/listings/edit?id=${listingId}`}
+              as={`/imoveis/${listingId}/editar`}
+            >
+              <EmCasaButton>Editar Imóvel</EmCasaButton>
+            </Link>
+            <a href={`/imoveis/${listingId}`}>
+              <EmCasaButton light>Visualizar anúncio</EmCasaButton>
+            </a>
+          </EditButtons>
         </Header>
 
         {images.length === 0 ? (
