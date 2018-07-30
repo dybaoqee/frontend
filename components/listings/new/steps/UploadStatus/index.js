@@ -2,6 +2,7 @@ import {Fragment} from 'react'
 import Container from './styles'
 import EmCasaButton from 'components/shared/Common/Buttons'
 import Link from 'next/link'
+import Calculator from 'components/shared/Calculator'
 export default ({submitting, listingId, editing}) => (
   <Container>
     {submitting || editing ? (
@@ -27,13 +28,7 @@ export default ({submitting, listingId, editing}) => (
         >
           <EmCasaButton secondary>Adicionar fotos</EmCasaButton>
         </Link>
-        <Link
-          href="/listings/sell/know-more"
-          as="/saiba-mais-para-vender"
-          prefetch
-        >
-          <a>Veja o quanto você pode economizar com a EmCasa</a>
-        </Link>
+        <Calculator />
       </Fragment>
     )}
   </Container>

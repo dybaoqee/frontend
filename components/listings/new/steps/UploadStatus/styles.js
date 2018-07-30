@@ -7,6 +7,7 @@ export default styled.div`
   flex-direction: column;
   justify-content: center;
   text-align: center;
+  padding: 0 0 20px 0;
 
   h3 {
     margin: 0;
@@ -16,7 +17,7 @@ export default styled.div`
     margin: 10px;
   }
 
-  button {
+  > button {
     width: 200px;
     margin: 20px auto;
   }
