@@ -74,7 +74,7 @@ export default class Header extends Component {
         href: '/listings/sell/know-more',
         as: '/saiba-mais-para-vender',
         icon: faTag,
-        title: 'Anunciar'
+        title: 'Quero anunciar'
       },
       {
         href: '/listings/fav',
