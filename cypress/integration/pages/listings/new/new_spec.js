@@ -32,11 +32,6 @@ describe('Add Listing', () => {
   context('Unauthenticated', () => {
     it('should redirect to login page', () => {
       cy.visit('/imoveis/adicionar').then((resp) => {
-        cy
-          .get('a')
-          .contains('Anunciar')
-          .click()
-
         expect(resp.location.pathname).to.include('/login')
       })
     })

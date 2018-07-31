@@ -1,12 +1,13 @@
 import {post, get} from 'lib/request'
 
-export const createUser = async (name, email, password) => {
+export const createUser = async (name, email, password, phone) => {
   try {
     const response = await post('/users/register', {
       user: {
         name,
         email,
-        password
+        password,
+        phone
       }
     })
     return response

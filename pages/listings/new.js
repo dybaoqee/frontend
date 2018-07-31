@@ -12,7 +12,7 @@ import {filterComponent} from 'services/google-maps-api'
 
 import AddressAutoComplete from 'components/listings/new/steps/AddressAutoComplete'
 import PropertyInfo from 'components/listings/new/steps/PropertyInfo'
-import PropertyGallery from 'components/listings/new/steps/PropertyGallery'
+import UploadStatus from 'components/listings/new/steps/UploadStatus'
 import PropertyGalleryEdit from 'components/listings/new/steps/PropertyGalleryEdit'
 
 import EmCasaButton from 'components/shared/Common/Buttons'
@@ -45,7 +45,7 @@ export default class ListingNew extends Component {
     this.steps = [
       <AddressAutoComplete />,
       <PropertyInfo />,
-      <PropertyGallery />,
+      <UploadStatus />,
       <PropertyGalleryEdit />
     ]
   }
@@ -90,6 +90,7 @@ export default class ListingNew extends Component {
 
   nextPage = () => {
     const {page, errors} = this.state
+    let submitting = false
 
     if (Object.keys(errors).length > 0) {
       this.setState({
@@ -105,13 +106,15 @@ export default class ListingNew extends Component {
         event: 'listing_creation_details_open'
       })
     } else if (page === 1) {
+      submitting = true
       this.submitListing()
     }
 
     this.setState({
       page: page + 1,
       canRegress: true,
-      canAdvance: page < 1
+      canAdvance: page < 1,
+      submitting
     })
   }
 
@@ -159,7 +162,7 @@ export default class ListingNew extends Component {
 
   getStepContent(page) {
     const Current = this.steps[page]
-    const {listing, showErrors, errors} = this.state
+    const {listing, showErrors, errors, submitting, listingId} = this.state
     return React.cloneElement(Current, {
       choosePlace: this.setChosenPlace,
       listing,
@@ -168,7 +171,9 @@ export default class ListingNew extends Component {
       resetListing: this.resetListing,
       errors: showErrors ? errors : [],
       user: this.props.user,
-      apolloClient: this.props.client
+      apolloClient: this.props.client,
+      submitting,
+      listingId
     })
   }
 
@@ -233,6 +238,8 @@ export default class ListingNew extends Component {
       }
       const listingId = res.data.listing.id
 
+      this.setState({listingId, submitting: false})
+
       if (isAdmin) {
         Router.replace(
           `/listings/images?listingId=${listingId}`,
@@ -244,7 +251,6 @@ export default class ListingNew extends Component {
           listingId,
           event: 'listing_creation_success'
         })
-        window.location.replace(`/imoveis/${listingId}?r=1`)
       }
 
       return null
@@ -261,36 +267,44 @@ export default class ListingNew extends Component {
   }
 
   render() {
-    const {page, canAdvance, canRegress, errors, showErrors} = this.state
+    const {
+      page,
+      canAdvance,
+      canRegress,
+      errors,
+      showErrors,
+      listingId
+    } = this.state
 
     return (
       <Fragment>
         <Container>
           <StepContainer>
             <Step>
-              <h1>Adicionar Novo Imóvel</h1>
               {this.renderContent()}
               {showErrors && page > 1 && <ErrorContainer errors={errors} />}
-              <ButtonControls>
-                {page > 0 && (
+              {!listingId && (
+                <ButtonControls>
+                  {page > 0 && (
+                    <EmCasaButton
+                      light
+                      disabled={!canRegress}
+                      onClick={this.previousPage}
+                    >
+                      Anterior
+                    </EmCasaButton>
+                  )}
                   <EmCasaButton
-                    light
-                    disabled={!canRegress}
-                    onClick={this.previousPage}
+                    disabled={page > 1 || !canAdvance}
+                    onClick={this.nextPage}
                   >
-                    Anterior
+                    Próximo
                   </EmCasaButton>
-                )}
-                <EmCasaButton
-                  disabled={page > 1 || !canAdvance}
-                  onClick={this.nextPage}
-                >
-                  Próximo
-                </EmCasaButton>
-              </ButtonControls>
+                </ButtonControls>
+              )}
             </Step>
           </StepContainer>
-          <SellingPoints />
+          {!listingId && <SellingPoints />}
         </Container>
       </Fragment>
     )

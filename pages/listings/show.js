@@ -55,6 +55,7 @@ class Listing extends Component {
         global.apolloClient
           .query({
             query: GET_FULL_LISTING,
+            fetchPolicy: 'network-only',
             variables: {
               id
             }

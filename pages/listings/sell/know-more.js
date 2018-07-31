@@ -86,7 +86,7 @@ export default class SellKnowMore extends Component {
           <Container id="precificador">
             <PriceEstimate />
           </Container>
-          <Container>
+          <Container id="calculadora">
             <Calculator />
           </Container>
           <Container>

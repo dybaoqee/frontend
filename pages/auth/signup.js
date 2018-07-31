@@ -38,8 +38,9 @@ export default class Signup extends Component {
     const name = e.target.elements.name.value
     const email = e.target.elements.email.value
     const password = e.target.elements.password.value
+    const phone = e.target.elements.phone.value
     try {
-      let data = await signUp(name, email, password, url)
+      let data = await signUp(name, email, password, url, phone)
       window.dataLayer.push({
         action: 'User Signed up',
         userId: data.id,
@@ -67,9 +68,10 @@ export default class Signup extends Component {
             </Fragment>
           ) : (
             <Fragment>
-              <h1>Cadastre-se</h1>
+              <h1>Conecte-se com um agente</h1>
               <input type="text" placeholder="Nome" name="name" />
               <input type="email" placeholder="Email" name="email" />
+              <input type="text" placeholder="Telefone" name="phone" />
               <input type="password" placeholder="Senha" name="password" />
               <EmCasaButton disabled={loading} full type="submit">
                 {loading ? 'Aguarde...' : 'Enviar'}

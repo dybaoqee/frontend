@@ -1,24 +1,29 @@
-import Link from 'next/link'
 import Container from './styles'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faCheck from '@fortawesome/fontawesome-free-solid/faCheckCircle'
 export default () => (
   <Container>
     <h6>Uma imobiliária nova de verdade</h6>
+
     <div>
       <FontAwesomeIcon icon={faCheck} />
-      <span>Melhores condições de mercado</span>
+      <span>
+        Aproveite nossa redução de 40% em corretagem e economize milhares de
+        reais
+      </span>
     </div>
     <div>
       <FontAwesomeIcon icon={faCheck} />
-      <span>Serviço especializado e de confiança</span>
+      <span>
+        A EmCasa conta com o apoio de Harvard e fundos de investimento nacionais
+        e internacionais
+      </span>
     </div>
     <div>
       <FontAwesomeIcon icon={faCheck} />
-      <span>Assistência jurídica e financeira</span>
+      <span>
+        Receba assistência jurídica e financeira do início ao fim do processo.
+      </span>
     </div>
-    <Link href="/listings/sell/know-more" as="/saiba-mais-para-vender">
-      <a title="Saiba mais para vender">Quer saber ainda mais?</a>
-    </Link>
   </Container>
 )
