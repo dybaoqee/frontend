@@ -1,22 +1,12 @@
 const plugins = require('./config/babel-setup').plugins
+const isTest = String(process.env.NODE_ENV) === 'test'
 
 module.exports = {
-  env: {
-    test: {
-      presets: [['next/babel', {'preset-env': {modules: 'commonjs'}}]],
-      plugins
-    },
-
-    development: {
-      presets: [['@babel/preset-env', {modules: 'commonjs'}], 'next/babel'],
-      plugins
-    },
-
-    production: {
-      presets: [['@babel/preset-env', {modules: 'commonjs'}], 'next/babel'],
-      plugins
-    }
-  }
+  presets: [
+    ['@babel/preset-env', {modules: isTest ? 'commonjs' : false}],
+    'next/babel'
+  ],
+  plugins
 }
 
 exports.plugins = plugins
