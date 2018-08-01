@@ -41,6 +41,15 @@ const startServer = () => {
 
       server.use('/imoveis', listingsRouter)
 
+      server.get(
+        '/:state/:city/:neighborhood/:street/:listingId(id-\\d+)',
+        (req, res) => {
+          const actualPage = '/listings/show'
+          const queryParams = {id: req.params.id, ...req.query}
+          res.locals.app.render(req, res, actualPage, queryParams)
+        }
+      )
+
       server.get('/maps/autocomplete', async (req, res) => {
         const {q} = req.query
         try {
