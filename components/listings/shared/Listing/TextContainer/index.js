@@ -20,7 +20,7 @@ export default class TextContainer extends Component {
   }
 
   render() {
-    const {listing, resumedInfo, loading, favorite, currentUser} = this.props
+    const {listing, resumedInfo} = this.props
 
     return (
       <Container resumedInfo={resumedInfo}>
@@ -29,14 +29,6 @@ export default class TextContainer extends Component {
             <p>{listing.address.street}</p>
             <span>{listing.address.neighborhood}</span>
           </div>
-          {!loading && (
-            <LikeButton
-              favorite={favorite}
-              listing={listing}
-              user={currentUser}
-              secondary
-            />
-          )}
         </div>
         <div className="description">
           {this.truncateDescription()}
