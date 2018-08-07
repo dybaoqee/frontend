@@ -89,10 +89,6 @@ const startServer = () => {
         return app.render(req, res, '/jobs', req.query)
       })
 
-      server.get('/indique', (req, res) => {
-        return app.render(req, res, '/indique', req.query)
-      })
-
       server.get('/logout', (req, res) => {
         return app.render(req, res, '/auth/logout', req.query)
       })
