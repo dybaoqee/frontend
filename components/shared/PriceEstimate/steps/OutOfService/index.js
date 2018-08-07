@@ -13,11 +13,6 @@ export default () => (
         estimar o valor deste imóvel no momento. <br /> <br /> Conhece alguém
         vendendo um imóvel na zona sul do Rio de Janeiro?
       </p>
-      <Link href="/indique" as="/indique" prefetch>
-        <EmCasaButton full light>
-          Indique e ganhe R$ 1000!
-        </EmCasaButton>
-      </Link>
     </Description>
   </Container>
 )
