@@ -46,6 +46,27 @@ export const ListingActions = styled.div`
   `};
 `
 
+export const LikeButtonContainer = styled.div`
+  width: auto;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+
+  @media ${headerMobileMedia} {
+    top: 230px;
+    right: 15px;
+  }
+
+  ${({resumedInfo}) =>
+    resumedInfo &&
+    `
+    @media ${mobileMedia} {
+    right: 20px;
+    top: 20px;
+    }
+  `};
+`
+
 export const ListingInfo = styled.div`
   font-size: 22px;
   font-weight: 400;

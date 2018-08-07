@@ -12,9 +12,11 @@ import ListingWrapper, {
   ListingInfo,
   ListingInfoMobile,
   ListingContainer,
-  ListingActions
+  ListingActions,
+  LikeButtonContainer
 } from './styles'
 import {buildSlug} from 'lib/listings'
+import LikeButton from 'components/shared/Common/Buttons/Like'
 
 class Listing extends React.Component {
   handleListingClick = () => {
@@ -99,6 +101,17 @@ class Listing extends React.Component {
             </ListingContainer>
           </a>
         </Link>
+        {!loading && (
+          <LikeButtonContainer resumedInfo={resumedInfo}>
+            <LikeButton
+              favorite={favorited}
+              listing={listing}
+              user={currentUser}
+              secondary
+            />
+          </LikeButtonContainer>
+        )}
+
         <ListingActions resumedInfo={resumedInfo}>
           {canEdit(currentUser, listing) && (
             <Link
