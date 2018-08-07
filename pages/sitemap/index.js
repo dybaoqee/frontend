@@ -79,11 +79,6 @@ export default class MyPage extends Component {
               </ul>
             </li>
             <li>
-              <Link href="/indique">
-                <a title="Indique e Ganhe">Indique e Ganhe</a>
-              </Link>
-            </li>
-            <li>
               <Link href="http://blog.emcasa.com">
                 <a title="Blog">Blog</a>
               </Link>
