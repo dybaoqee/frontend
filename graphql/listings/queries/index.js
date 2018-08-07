@@ -1,7 +1,7 @@
 import gql from 'graphql-tag'
 
 export const GET_LISTINGS = gql`
-  query listings($filters: ListingFilter, $pagination: ListingPagination) {
+  query listings($filters: ListingFilterInput, $pagination: ListingPagination) {
     listings(filters: $filters, pagination: $pagination)
       @connection(key: "listingsFetched", filter: ["filters"]) {
       remainingCount
@@ -114,7 +114,7 @@ export const GET_FULL_LISTING = gql`
 `
 
 export const GET_LISTINGS_COORDINATES = gql`
-  query listings_coordinates($filters: ListingFilter) {
+  query listings_coordinates($filters: ListingFilterInput) {
     listings(filters: $filters) {
       listings {
         id

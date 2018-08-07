@@ -78,6 +78,7 @@ export default class Calculator extends Component {
             onChange={this.sliderChanged}
             showTutorial
             valuesFormatter={(value) => ` R$ ${value.toLocaleString('pt-BR')}`}
+            valuesRounder={(value) => Math.ceil(value / 10000) * 10000}
           />
         </SliderContainer>
         <Description>
