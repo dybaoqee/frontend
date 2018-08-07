@@ -17,7 +17,7 @@ export default class Listings extends Component {
     super(props)
 
     this.pagination = {
-      pageSize: 10,
+      pageSize: 400,
       excludedListingIds: []
     }
 
@@ -26,7 +26,7 @@ export default class Listings extends Component {
     }
   }
 
-  getListings = (result, fetchMore) => {
+  getListings = (result, userProf, fetchMore) => {
     const {
       user,
       resetFilters,
@@ -43,7 +43,7 @@ export default class Listings extends Component {
     if (result && result.length > 0) {
       return (
         <Query query={GET_FAVORITE_LISTINGS_IDS} skip={!user.authenticated}>
-          {({data: {favoritedListings}}) => {
+          {({data: {userProfile}}) => {
             return (
               <InfiniteScroll
                 title={h1Content}
@@ -54,7 +54,7 @@ export default class Listings extends Component {
                     variables: {
                       pagination: {
                         ...this.pagination,
-                        excludedListingIds: _.map(result.listings, 'id')
+                        excludedListingIds: _.map(result, 'id')
                       }
                     },
                     updateQuery: (
@@ -93,7 +93,8 @@ export default class Listings extends Component {
                     currentUser={user}
                     loading={this.loading}
                     resumedInfo={mapOpened}
-                    favorited={favoritedListings || []}
+                    favorited={result || []}
+                    blacklists={userProf.blacklists || []}
                   />
                 )}
               </InfiniteScroll>
@@ -221,17 +222,17 @@ export default class Listings extends Component {
         variables={{pagination: this.pagination, filters}}
         fetchPolicy="cache-and-network"
       >
-        {({data: {favoritedListings}, fetchMore}) => {
+        {({data: {userProfile}, fetchMore}) => {
           const filtered = !_.isEmpty(filters)
           const listings = filtered
-            ? filterListings(favoritedListings, filters)
-            : favoritedListings
+            ? filterListings(userProfile.favorites, filters)
+            : userProfile.favorites
 
           return (
             <Container opened={mapOpened}>
               {this.getMap(listings)}
               <ListingsContainer opened={mapOpened}>
-                {this.getListings(listings, fetchMore)}
+                {this.getListings(listings, userProfile, fetchMore)}
               </ListingsContainer>
             </Container>
           )

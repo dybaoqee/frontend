@@ -17,6 +17,7 @@ import ListingWrapper, {
 } from './styles'
 import {buildSlug} from 'lib/listings'
 import LikeButton from 'components/shared/Common/Buttons/Like'
+import BlacklistButton from 'components/shared/Common/Buttons/Blacklist'
 
 class Listing extends React.Component {
   handleListingClick = () => {
@@ -31,6 +32,7 @@ class Listing extends React.Component {
       listing,
       currentUser,
       favorited: favoritedListings,
+      blacklists,
       highlight,
       loading,
       onMouseEnter,
@@ -46,6 +48,11 @@ class Listing extends React.Component {
 
     const favorited =
       favoritedListings.filter(
+        (actual) => actual.id.toString() === listing.id.toString()
+      ).length > 0
+
+    const blacklisted =
+      blacklists.filter(
         (actual) => actual.id.toString() === listing.id.toString()
       ).length > 0
 
@@ -105,6 +112,12 @@ class Listing extends React.Component {
           <LikeButtonContainer resumedInfo={resumedInfo}>
             <LikeButton
               favorite={favorited}
+              listing={listing}
+              user={currentUser}
+              secondary
+            />
+            <BlacklistButton
+              blacklisted={blacklisted}
               listing={listing}
               user={currentUser}
               secondary
