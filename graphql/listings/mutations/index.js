@@ -69,3 +69,23 @@ export const ESTIMATE_PRICE = gql`
     }
   }
 `
+
+export const BLACKLIST_LISTING = gql`
+  mutation listingBlacklist($id: ID!) {
+    listingBlacklist(id: $id) {
+      listing {
+        id
+      }
+    }
+  }
+`
+
+export const UNBLACKLIST_LISTING = gql`
+  mutation listingUnblacklist($id: ID!) {
+    listingUnblacklist(id: $id) {
+      listing {
+        id
+      }
+    }
+  }
+`
