@@ -7,6 +7,7 @@ export default styled.div`
   box-shadow: none;
   box-sizing: border-box;
   pointer-events: all;
+  cursor: pointer;
 
   svg {
     width: 15px;
