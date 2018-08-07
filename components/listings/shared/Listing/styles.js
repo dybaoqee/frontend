@@ -51,6 +51,11 @@ export const LikeButtonContainer = styled.div`
   position: absolute;
   right: 20px;
   top: 20px;
+  display: flex;
+
+  > :first-child {
+    margin-right: 5px;
+  }
 
   @media ${headerMobileMedia} {
     top: 230px;
