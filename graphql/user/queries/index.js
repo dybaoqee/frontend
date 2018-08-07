@@ -8,29 +8,80 @@ export const GET_FAVORITE_LISTINGS_IDS = gql`
   }
 `
 
+export const GET_USER_LISTINGS_ACTIONS = gql`
+  {
+    userProfile {
+      blacklists(pagination: {pageSize: 400}, filters: {}) {
+        id
+      }
+      favorites(pagination: {pageSize: 400}, filters: {}) {
+        id
+      }
+    }
+  }
+`
+
 export const GET_FAVORITE_LISTINGS = gql`
   {
-    favoritedListings {
-      id
-      area
-      rooms
-      floor
-      garageSpots
-      area
-      bathrooms
-      price
-      type
-      description
-      images(limit: 1) {
-        filename
+    userProfile {
+      blacklists(pagination: {pageSize: 400}, filters: {}) {
+        id
       }
-      address {
-        street
-        neighborhood
-        state
-        city
-        lat
-        lng
+      favorites(pagination: {pageSize: 400}, filters: {}) {
+        id
+        area
+        rooms
+        floor
+        garageSpots
+        area
+        bathrooms
+        price
+        type
+        description
+        images(limit: 1) {
+          filename
+        }
+        address {
+          street
+          neighborhood
+          state
+          city
+          lat
+          lng
+        }
+      }
+    }
+  }
+`
+
+export const GET_BLACKLIST_LISTINGS = gql`
+  {
+    userProfile {
+      favorites(pagination: {pageSize: 400}, filters: {}) {
+        id
+      }
+      blacklists(pagination: {pageSize: 400}, filters: {}) {
+        id
+        area
+        rooms
+        floor
+        garageSpots
+        area
+        bathrooms
+        price
+        type
+        description
+        images(limit: 1) {
+          filename
+        }
+        address {
+          street
+          neighborhood
+          state
+          city
+          lat
+          lng
+        }
       }
     }
   }
@@ -38,12 +89,14 @@ export const GET_FAVORITE_LISTINGS = gql`
 
 export const GET_FAVORITE_LISTINGS_COORDINATES = gql`
   {
-    favoritedListings {
-      id
-      price
-      address {
-        lat
-        lng
+    userProfile {
+      favorites(pagination: {pageSize: 400}, filters: {}) {
+        id
+        price
+        address {
+          lat
+          lng
+        }
       }
     }
   }
@@ -51,33 +104,41 @@ export const GET_FAVORITE_LISTINGS_COORDINATES = gql`
 
 export const GET_USER_LISTINGS = gql`
   {
-    userListings {
-      id
-      price
-      matterportCode
-      area
-      isActive
-      bathrooms
-      garageSpots
-      hasElevator
-      propertyTax
-      type
-      maintenanceFee
-      description
-      floor
-      rooms
-      images {
-        filename
+    userProfile {
+      listings(pagination: {pageSize: 400}, filters: {}) {
+        id
+        price
+        matterportCode
+        area
+        isActive
+        bathrooms
+        garageSpots
+        hasElevator
+        propertyTax
+        type
+        maintenanceFee
+        description
+        floor
+        rooms
+        images {
+          filename
+        }
+        address {
+          city
+          lat
+          lng
+          neighborhood
+          postalCode
+          state
+          street
+          streetNumber
+        }
       }
-      address {
-        city
-        lat
-        lng
-        neighborhood
-        postalCode
-        state
-        street
-        streetNumber
+      favorites(pagination: {pageSize: 400}, filters: {}) {
+        id
+      }
+      blacklists(pagination: {pageSize: 400}, filters: {}) {
+        id
       }
     }
   }
