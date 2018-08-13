@@ -36,7 +36,6 @@ export default class Listings extends Component {
       onLeaveListing,
       highlight
     } = this.props
-
     const {mapOpened} = this.state
 
     const h1Content = !query.neighborhoodSlug
@@ -47,10 +46,15 @@ export default class Listings extends Component {
       return (
         <Query query={GET_USER_LISTINGS_ACTIONS} skip={!user.authenticated}>
           {({data: {userProfile}, loading}) => {
+            var filteredListings = _.differenceBy(
+              result.listings,
+              userProfile.blacklists,
+              'id'
+            )
             return (
               <InfiniteScroll
                 title={h1Content}
-                entries={result.listings}
+                entries={filteredListings}
                 remaining_count={result.remainingCount}
                 onLoad={async () => {
                   const loadedListings = await fetchMore({
