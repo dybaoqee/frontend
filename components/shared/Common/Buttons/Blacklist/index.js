@@ -9,18 +9,16 @@ import {
 } from 'graphql/listings/mutations'
 import {GET_USER_LISTINGS_ACTIONS} from 'graphql/user/queries'
 import Router from 'next/router'
-import {setCookie} from 'lib/session'
-import {buildSlug} from 'lib/listings'
 const BlacklistButton = (props) => (
   <Mutation
     mutation={!props.blacklisted ? BLACKLIST_LISTING : UNBLACKLIST_LISTING}
   >
-    {(favoriteListing) => (
+    {(blacklist) => (
       <Button
         {...props}
         onClick={() => {
           if (props.user && props.user.authenticated) {
-            favoriteListing({
+            blacklist({
               refetchQueries: [
                 {
                   query: GET_USER_LISTINGS_ACTIONS
@@ -40,39 +38,9 @@ const BlacklistButton = (props) => (
                     id: props.listing.id
                   }
                 }
-              },
-              update: (proxy) => {
-                // Read the data from our cache for this query.
-                let data = proxy.readQuery({
-                  query: GET_USER_LISTINGS_ACTIONS
-                })
-                if (!props.favorite) {
-                  data.userProfile.blacklists.push({
-                    id: props.listing.id.toString(),
-                    __typename: 'Listing'
-                  })
-                } else {
-                  const removed = data.userProfile.blacklists.filter(
-                    (listing) =>
-                      listing.id.toString() !== props.listing.id.toString()
-                  )
-                  data.userProfile.blacklists = removed
-                }
-
-                // Write our data back to the cache.
-                proxy.writeQuery({
-                  query: GET_USER_LISTINGS_ACTIONS,
-                  data
-                })
               }
             })
           } else {
-            setCookie(
-              'redirectTo',
-              `/listings/show?id=${props.listing.id}&f#as#${buildSlug(
-                props.listing
-              )}&b`
-            )
             Router.push({
               pathname: '/auth/login'
             })
