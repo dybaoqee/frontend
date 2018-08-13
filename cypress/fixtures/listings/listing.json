@@ -1,0 +1,144 @@
+{
+  "operation": "listing",
+  "response": {
+    "data": {
+      "listing": {
+        "id": "8",
+        "address": {
+          "city": "Rio de Janeiro",
+          "citySlug": "rio-de-janeiro",
+          "lat": -22.9830535,
+          "lng": -43.21074709999999,
+          "neighborhood": "Ipanema",
+          "neighborhoodSlug": "ipanema",
+          "postalCode": "22411-000",
+          "state": "RJ",
+          "stateSlug": "rj",
+          "street": "Rua Barão da Torre",
+          "streetNumber": "571",
+          "streetSlug": "rua-barao-da-torre",
+          "__typename": "Address"
+        },
+        "area": 144,
+        "balconies": null,
+        "bathrooms": 3,
+        "complement": "201",
+        "dependencies": null,
+        "description":
+          "Apartamento pequeno em ótimo estado com 3 quartos (1 suíte) próximo dos melhores restaurantes do bairro. A 5 minutos da praia (posto 10) e a 8 minutos do metrô.",
+        "insertedAt": "2017-11-13T21:30:53.647038",
+        "floor": "2",
+        "garageSpots": 1,
+        "hasElevator": null,
+        "images": [
+          {
+            "id": "1001",
+            "filename": "mvnih1simhvdj6lb1b5d.jpg",
+            "__typename": "Image"
+          },
+          {
+            "id": "1003",
+            "filename": "x9yq4q1qsoosn4jglk4h.jpg",
+            "__typename": "Image"
+          },
+          {
+            "id": "1002",
+            "filename": "x3sgmzlvagu40rfbyccm.jpg",
+            "__typename": "Image"
+          },
+          {
+            "id": "1027",
+            "filename": "fb8lgsutsbqqgi5p3wjx.jpg",
+            "__typename": "Image"
+          },
+          {
+            "id": "1023",
+            "filename": "a212koyf3orktqjwkwnl.jpg",
+            "__typename": "Image"
+          },
+          {
+            "id": "1020",
+            "filename": "evipvrdijwbhbzytxfrq.jpg",
+            "__typename": "Image"
+          },
+          {
+            "id": "1019",
+            "filename": "pwhppdyo3lflp8wrfis7.jpg",
+            "__typename": "Image"
+          },
+          {
+            "id": "1018",
+            "filename": "f4uzy81nxhfraeiaiarx.jpg",
+            "__typename": "Image"
+          },
+          {
+            "id": "1017",
+            "filename": "vuw5tmlbkudif9bncwqe.jpg",
+            "__typename": "Image"
+          },
+          {
+            "id": "1016",
+            "filename": "cxgx0ihc6kag2klnjlcw.jpg",
+            "__typename": "Image"
+          },
+          {
+            "id": "1015",
+            "filename": "aad7fjbk55xr8netuof2.jpg",
+            "__typename": "Image"
+          },
+          {
+            "id": "1014",
+            "filename": "esz0j9tpec69ezrsnuoo.jpg",
+            "__typename": "Image"
+          },
+          {
+            "id": "1011",
+            "filename": "zlpzfrwwz8twsqyfz2nu.jpg",
+            "__typename": "Image"
+          },
+          {
+            "id": "1010",
+            "filename": "im0yyxccxyuvl9btzpfl.jpg",
+            "__typename": "Image"
+          },
+          {
+            "id": "1008",
+            "filename": "pwra0trfojpwtj00vthm.jpg",
+            "__typename": "Image"
+          },
+          {
+            "id": "1006",
+            "filename": "vswjg1b2udrbwbraqxag.jpg",
+            "__typename": "Image"
+          },
+          {
+            "id": "1000",
+            "filename": "tystr0ztfsilgri5uwsu.jpg",
+            "__typename": "Image"
+          },
+          {
+            "id": "999",
+            "filename": "im6eimlhtezyjbq6zzbo.jpg",
+            "__typename": "Image"
+          }
+        ],
+        "inPersonVisitCount": 1,
+        "interestCount": 2,
+        "isActive": true,
+        "listingFavoriteCount": 0,
+        "listingVisualisationCount": 904,
+        "maintenanceFee": null,
+        "matterportCode": "x92LpvLE49y",
+        "owner": {"id": "3", "__typename": "User"},
+        "price": 2250000,
+        "propertyTax": null,
+        "restrooms": null,
+        "rooms": 3,
+        "tourVisualisationCount": 73,
+        "type": "Apartamento",
+        "suggestedPrice": 1434041.7570260258,
+        "__typename": "Listing"
+      }
+    }
+  }
+}
