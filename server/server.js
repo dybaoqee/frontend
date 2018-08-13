@@ -85,6 +85,10 @@ const startServer = () => {
         return app.render(req, res, '/privacy_policy', req.query)
       })
 
+      server.get('/vender-imovel', (req, res) => {
+        res.redirect(301, '/saiba-mais-para-vender')
+      })
+
       server.get('/jobs', (req, res) => {
         return app.render(req, res, '/jobs', req.query)
       })
