@@ -40,7 +40,7 @@ export default class AppDocument extends Document {
           {globalStyles}
           <link
             rel="stylesheet"
-            href="https://s3.sa-east-1.amazonaws.com/emcasa/css/react-select.css"
+            href="/static/styles/react-select.css"
             type="text/css"
           />
           <link
