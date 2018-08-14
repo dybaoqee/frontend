@@ -33,13 +33,7 @@ class Layout extends Component {
 
     return (
       <Fragment>
-        <Head>
-          <link
-            rel="stylesheet"
-            type="text/css"
-            href="/static/styles/nprogress.css"
-          />
-        </Head>
+        <Head />
         <Header
           errorCode={errorCode}
           authenticated={authenticated}

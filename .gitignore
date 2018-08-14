@@ -13,7 +13,7 @@ cypress/screenshots/*
 # production
 build
 /**/*.css
-!static/styles/nprogress.css
+!static/styles/*.css
 
 
 # misc

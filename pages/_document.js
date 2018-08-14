@@ -40,12 +40,13 @@ export default class AppDocument extends Document {
           {globalStyles}
           <link
             rel="stylesheet"
-            href="https://s3.sa-east-1.amazonaws.com/emcasa/css/react-select.css"
-            rel="stylesheet"
+            href="/static/styles/react-select.css"
+            type="text/css"
           />
           <link
-            href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
+            href="/static/styles/nprogress.css"
             rel="stylesheet"
+            type="text/css"
           />
 
           {/* Start code for Google AdWords */}

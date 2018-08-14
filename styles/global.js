@@ -6,12 +6,19 @@ html {
   color: ${colors.text};
   font-size: 100%;
   -webkit-font-smoothing: antialiased;
+  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Helvetica, Arial, sans-serif;
 }
+
+html.wf-active {
+  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Helvetica, Arial, sans-serif;
+}
+
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Helvetica, Arial, sans-serif;
+
   font-size: 1rem;
   line-height: 1.5;
 }
