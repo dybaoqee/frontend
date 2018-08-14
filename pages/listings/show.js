@@ -51,18 +51,15 @@ class Listing extends Component {
     }
 
     try {
-      const [listing, related] = await Promise.all([
-        global.apolloClient
-          .query({
-            query: GET_FULL_LISTING,
-            fetchPolicy: 'network-only',
-            variables: {
-              id
-            }
-          })
-          .then(({data}) => data.listing),
-        getRelatedListings(id).then(({data}) => data.listings)
-      ])
+      const listing = await global.apolloClient
+        .query({
+          query: GET_FULL_LISTING,
+          fetchPolicy: 'network-only',
+          variables: {
+            id
+          }
+        })
+        .then(({data}) => data.listing)
 
       if (context.asPath && context.res) {
         const urlParams = context.asPath.split('/').length
@@ -74,7 +71,6 @@ class Listing extends Component {
 
       return {
         listing,
-        related,
         currentUser,
         id
       }
@@ -154,8 +150,15 @@ class Listing extends Component {
       })
   }
 
+  async componentDidMount() {
+    const {listing: {id}} = this.props
+    const related = await getRelatedListings(id).then(({data}) => data.listings)
+    this.setState({related})
+  }
+
   showListing = () => {
-    const {currentUser, related, url, listing, router} = this.props
+    const {currentUser, url, listing, router} = this.props
+    const {related} = this.state
     const {isActive} = listing
 
     const {
@@ -262,7 +265,7 @@ class Listing extends Component {
 
                     <ListingMap listing={listing} />
 
-                    <RelatedListings listings={related} />
+                    <RelatedListings listings={related || []} />
 
                     {isInterestPopupVisible && (
                       <InterestForm
