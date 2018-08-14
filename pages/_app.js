@@ -51,6 +51,16 @@ class MyApp extends App {
       removeCookie('resetAuth')
       Router.push('/auth/login')
     }
+
+    if (!document.documentElement.classList.contains('wf-active')) {
+      import('webfontloader').then((WebFont) =>
+        WebFont.load({
+          google: {
+            families: ['Open+Sans:300,400,600,700']
+          }
+        })
+      )
+    }
   }
 
   render() {
