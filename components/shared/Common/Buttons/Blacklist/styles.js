@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import * as colors from 'constants/colors'
+import {blue} from 'constants/colors'
 
 export default styled.div`
   background: none;
@@ -16,11 +16,6 @@ export default styled.div`
 
     path {
       text-shadow: 2px 2px 3px #f00;
-      fill: ${({favorite}) => (favorite ? colors.red.medium : 'white')};
-      fill-opacity: ${({favorite}) => (favorite ? 1 : 0)};
-      stroke: ${({secondary, favorite}) =>
-        secondary ? (favorite ? colors.red.medium : 'black') : 'white'};
-      stroke-width: 30;
     }
   }
 
@@ -31,7 +26,7 @@ export default styled.div`
     `
       font-size: 14px;
       font-weight: 600;
-      border: 1px solid ${colors.blue.medium};
+      border: 1px solid ${blue.medium};
       width: 40px;
       height: 37px;
       border-radius: 4px;
@@ -42,7 +37,7 @@ export default styled.div`
       padding: 7px 12px 9px;
 
       svg path{
-        stroke: ${colors.blue.darker};
+        stroke: ${blue.darker};
       }
 
 

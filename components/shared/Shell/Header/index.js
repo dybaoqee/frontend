@@ -43,6 +43,11 @@ export default class Header extends Component {
         href: '/listings/user-listings',
         as: '/meus-imoveis'
       },
+      {
+        title: 'Imóveis ocultados',
+        href: '/listings/blacklisted',
+        as: '/imoveis-ocultados'
+      },
       {title: 'Sair', href: '/auth/logout'}
     ]
     return !authenticated ? (

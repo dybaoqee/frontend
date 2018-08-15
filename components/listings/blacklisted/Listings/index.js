@@ -1,6 +1,6 @@
 import {Component, Fragment} from 'react'
 import {Query} from 'react-apollo'
-import {GET_USER_LISTINGS} from 'graphql/user/queries'
+import {GET_BLACKLIST_LISTINGS} from 'graphql/user/queries'
 import {GET_LISTINGS, GET_LISTING} from 'graphql/listings/queries'
 import _ from 'lodash'
 import InfiniteScroll from 'components/shared/InfiniteScroll'
@@ -14,7 +14,7 @@ export default class Listings extends Component {
     super(props)
 
     this.pagination = {
-      pageSize: 10,
+      pageSize: 400,
       excludedListingIds: []
     }
 
@@ -23,7 +23,7 @@ export default class Listings extends Component {
     }
   }
 
-  getListings = (result, userProfile, fetchMore) => {
+  getListings = (result, userProf, fetchMore) => {
     const {
       user,
       resetFilters,
@@ -35,7 +35,8 @@ export default class Listings extends Component {
 
     const {mapOpened} = this.state
 
-    const h1Content = 'Meus imóveis'
+    const h1Content = 'Meus imóveis ocultados'
+
     if (result && result.length > 0) {
       return (
         <InfiniteScroll
@@ -47,7 +48,7 @@ export default class Listings extends Component {
               variables: {
                 pagination: {
                   ...this.pagination,
-                  excludedListingIds: _.map(result.listings, 'id')
+                  excludedListingIds: _.map(result, 'id')
                 }
               },
               updateQuery: (
@@ -85,8 +86,8 @@ export default class Listings extends Component {
               currentUser={user}
               loading={this.loading}
               resumedInfo={mapOpened}
-              favorited={userProfile.favorites || []}
-              blacklists={userProfile.blacklists || []}
+              favorited={userProf.favorites || []}
+              blacklists={userProf.blacklists || []}
             />
           )}
         </InfiniteScroll>
@@ -207,15 +208,15 @@ export default class Listings extends Component {
 
     return (
       <Query
-        query={GET_USER_LISTINGS}
+        query={GET_BLACKLIST_LISTINGS}
         variables={{pagination: this.pagination, filters}}
         fetchPolicy="cache-and-network"
       >
         {({data: {userProfile}, fetchMore}) => {
           const filtered = !_.isEmpty(filters)
           const listings = filtered
-            ? filterListings(userProfile.listings, filters)
-            : userProfile.listings
+            ? filterListings(userProfile.blacklists, filters)
+            : userProfile.blacklists
 
           return (
             <Container opened={mapOpened}>

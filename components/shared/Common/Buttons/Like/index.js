@@ -3,7 +3,7 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faHeart from '@fortawesome/fontawesome-free-solid/faHeart'
 import {Mutation} from 'react-apollo'
 import {FAVORITE_LISTING, UNFAVORITE_LISTING} from 'graphql/listings/mutations'
-import {GET_FAVORITE_LISTINGS_IDS} from 'graphql/user/queries'
+import {GET_USER_LISTINGS_ACTIONS} from 'graphql/user/queries'
 import Router from 'next/router'
 import {setCookie} from 'lib/session'
 import {buildSlug} from 'lib/listings'
@@ -17,7 +17,7 @@ const LikeButton = (props) => (
             favoriteListing({
               refetchQueries: [
                 {
-                  query: GET_FAVORITE_LISTINGS_IDS
+                  query: GET_USER_LISTINGS_ACTIONS
                 }
               ],
               variables: {
@@ -36,25 +36,26 @@ const LikeButton = (props) => (
               update: (proxy) => {
                 // Read the data from our cache for this query.
                 let data = proxy.readQuery({
-                  query: GET_FAVORITE_LISTINGS_IDS
+                  query: GET_USER_LISTINGS_ACTIONS
                 })
-
-                // Add our comment from the mutation to the end.
                 if (!props.favorite) {
-                  data.favoritedListings.push({
+                  data.userProfile.favorites.push({
                     id: props.listing.id.toString(),
                     __typename: 'Listing'
                   })
                 } else {
-                  const removed = data.favoritedListings.filter(
+                  const removed = data.userProfile.favorites.filter(
                     (listing) =>
                       listing.id.toString() !== props.listing.id.toString()
                   )
-                  data.favoritedListings = removed
+                  data.userProfile.favorites = removed
                 }
 
                 // Write our data back to the cache.
-                proxy.writeQuery({query: GET_FAVORITE_LISTINGS_IDS, data})
+                proxy.writeQuery({
+                  query: GET_USER_LISTINGS_ACTIONS,
+                  data
+                })
               }
             })
           } else {

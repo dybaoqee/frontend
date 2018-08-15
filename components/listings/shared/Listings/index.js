@@ -1,6 +1,6 @@
 import {Component, Fragment} from 'react'
 import {Query} from 'react-apollo'
-import {GET_FAVORITE_LISTINGS_IDS} from 'graphql/user/queries'
+import {GET_USER_LISTINGS_ACTIONS} from 'graphql/user/queries'
 import {
   GET_LISTINGS,
   GET_LISTING,
@@ -36,7 +36,6 @@ export default class Listings extends Component {
       onLeaveListing,
       highlight
     } = this.props
-
     const {mapOpened} = this.state
 
     const h1Content = !query.neighborhoodSlug
@@ -45,12 +44,17 @@ export default class Listings extends Component {
 
     if (result && result.listings.length > 0) {
       return (
-        <Query query={GET_FAVORITE_LISTINGS_IDS} skip={!user.authenticated}>
-          {({data: {favoritedListings}}) => {
+        <Query query={GET_USER_LISTINGS_ACTIONS} skip={!user.authenticated}>
+          {({data: {userProfile}, loading}) => {
+            var filteredListings = _.differenceBy(
+              result.listings,
+              userProfile.blacklists,
+              'id'
+            )
             return (
               <InfiniteScroll
                 title={h1Content}
-                entries={result.listings}
+                entries={filteredListings}
                 remaining_count={result.remainingCount}
                 onLoad={async () => {
                   const loadedListings = await fetchMore({
@@ -94,9 +98,10 @@ export default class Listings extends Component {
                     key={listing.id}
                     listing={listing}
                     currentUser={user}
-                    loading={this.loading}
+                    loading={loading}
                     resumedInfo={mapOpened}
-                    favorited={favoritedListings || []}
+                    favorited={userProfile.favorites || []}
+                    blacklists={userProfile.blacklists || []}
                   />
                 )}
               </InfiniteScroll>
