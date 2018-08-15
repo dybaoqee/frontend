@@ -73,12 +73,10 @@ class Listing extends React.Component {
               <ImageContainer
                 currentUser={currentUser}
                 listing={listing}
-                loading={loading}
                 favorite={favorited}
                 resumedInfo={resumedInfo}
               />
               <TextContainer
-                loading={loading}
                 favorite={favorited}
                 listing={listing}
                 currentUser={currentUser}
@@ -108,22 +106,20 @@ class Listing extends React.Component {
             </ListingContainer>
           </a>
         </Link>
-        {!loading && (
-          <LikeButtonContainer resumedInfo={resumedInfo}>
-            <LikeButton
-              favorite={favorited}
-              listing={listing}
-              user={currentUser}
-              secondary
-            />
-            <BlacklistButton
-              blacklisted={blacklisted}
-              listing={listing}
-              user={currentUser}
-              secondary
-            />
-          </LikeButtonContainer>
-        )}
+        <LikeButtonContainer resumedInfo={resumedInfo}>
+          <LikeButton
+            favorite={favorited}
+            listing={listing}
+            user={currentUser}
+            secondary
+          />
+          <BlacklistButton
+            blacklisted={blacklisted}
+            listing={listing}
+            user={currentUser}
+            secondary
+          />
+        </LikeButtonContainer>
 
         <ListingActions resumedInfo={resumedInfo}>
           {canEdit(currentUser, listing) && (
