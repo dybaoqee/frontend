@@ -38,16 +38,6 @@ export default class AppDocument extends Document {
           )}
           {styleTags}
           {globalStyles}
-          <link
-            rel="stylesheet"
-            href="/static/styles/react-select.css"
-            type="text/css"
-          />
-          <link
-            href="/static/styles/nprogress.css"
-            rel="stylesheet"
-            type="text/css"
-          />
 
           {/* Start code for Google AdWords */}
           <script

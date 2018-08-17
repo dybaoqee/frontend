@@ -74,7 +74,7 @@ const imageTarget = {
   connectDragSource: connect.dragSource(),
   isDragging: monitor.isDragging()
 }))
-export default class DraggableImage extends Component {
+class DraggableImage extends Component {
   static PropTypes = {
     connectDragSource: PropTypes.func.isRequired,
     connectDropTarget: PropTypes.func.isRequired,
@@ -136,3 +136,5 @@ export default class DraggableImage extends Component {
     )
   }
 }
+
+export default DraggableImage

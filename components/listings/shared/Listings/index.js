@@ -46,9 +46,11 @@ export default class Listings extends Component {
       return (
         <Query query={GET_USER_LISTINGS_ACTIONS} skip={!user.authenticated}>
           {({data: {userProfile}, loading}) => {
-            var filteredListings = _.differenceBy(
+            const blacklists = userProfile ? userProfile.blacklists : []
+            const favorites = userProfile ? userProfile.favorites : []
+            const filteredListings = _.differenceBy(
               result.listings,
-              userProfile.blacklists,
+              blacklists || [],
               'id'
             )
             return (
@@ -100,8 +102,8 @@ export default class Listings extends Component {
                     currentUser={user}
                     loading={loading}
                     resumedInfo={mapOpened}
-                    favorited={userProfile.favorites || []}
-                    blacklists={userProfile.blacklists || []}
+                    favorited={favorites || []}
+                    blacklists={blacklists || []}
                   />
                 )}
               </InfiniteScroll>

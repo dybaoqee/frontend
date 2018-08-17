@@ -5,12 +5,6 @@ const plugins = [
   ['transform-define', env],
   ['transform-decorators-legacy'],
   [
-    'inline-import',
-    {
-      extensions: ['.css']
-    }
-  ],
-  [
     'module-resolver',
     {
       root: ['./'],
