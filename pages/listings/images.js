@@ -20,7 +20,7 @@ import EmCasaButton from 'components/shared/Common/Buttons'
 import {Header, EditButtons} from 'components/listings/shared/styles'
 
 @DragDropContext(HTML5Backend)
-export default class ListingImages extends Component {
+class ListingImages extends Component {
   constructor(props) {
     super(props)
     this.state = {images: this.props.images}
@@ -168,3 +168,5 @@ export default class ListingImages extends Component {
     )
   }
 }
+
+export default ListingImages
