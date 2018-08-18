@@ -2,7 +2,7 @@ const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer')
 const {
   WebpackBundleSizeAnalyzerPlugin
 } = require('webpack-bundle-size-analyzer')
-const {ANALYZE} = process.env
+const {ANALYZE, BUILD} = process.env
 
 module.exports = {
   webpack: function(config, {isServer}) {
@@ -15,6 +15,10 @@ module.exports = {
           openAnalyzer: true
         })
       )
+    }
+
+    if (BUILD) {
+      config.mode = 'production'
     }
 
     return config
