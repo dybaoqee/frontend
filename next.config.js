@@ -1,4 +1,5 @@
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer')
+const webpack = require('webpack')
 const {
   WebpackBundleSizeAnalyzerPlugin
 } = require('webpack-bundle-size-analyzer')
@@ -16,6 +17,10 @@ module.exports = {
         })
       )
     }
+    config.plugins.push(
+      new webpack.IgnorePlugin(/unicode\/category\/So/, /node_modules/)
+    )
+    config.plugins.push(new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/))
 
     if (BUILD) {
       config.mode = 'production'
