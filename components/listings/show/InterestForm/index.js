@@ -1,7 +1,7 @@
 /*global Calendly:true*/
 import {Component, Fragment} from 'react'
 import Head from 'next/head'
-import _ from 'lodash'
+import range from 'lodash/range'
 
 import {getInterestTypes} from 'services/interest-api'
 
@@ -14,7 +14,7 @@ export default class InterestForm extends Component {
   constructor(props) {
     super(props)
 
-    const hours = _.range(8, 20).map((hour) => ({
+    const hours = range(8, 20).map((hour) => ({
       value: hour,
       label: `${hour < 10 ? '0' : ''}${hour}:00h`
     }))

@@ -1,9 +1,9 @@
 import {Component} from 'react'
-import _ from 'lodash'
+import debounce from 'lodash/debounce'
 import {Field} from 'components/listings/shared/styles'
 import {EDIT_PROFILE} from 'graphql/user/mutations'
 export default class PhoneField extends Component {
-  delayedCallback = _.debounce(async (e) => {
+  delayedCallback = debounce(async (e) => {
     const {user, onChange, apolloClient} = this.props
 
     const {data} = await apolloClient.mutate({

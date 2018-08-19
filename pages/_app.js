@@ -1,7 +1,7 @@
 import {Fragment} from 'react'
 import App, {Container} from 'next/app'
 import Head from 'next/head'
-import _ from 'lodash'
+import isUndefined from 'lodash/isUndefined'
 import Layout from 'components/shared/Shell'
 import {isAuthenticated, isAdmin, getCurrentUserId} from 'lib/auth'
 import withApolloClient from 'lib/apollo/withApolloClient'
@@ -82,7 +82,7 @@ class MyApp extends App {
           <Layout
             authenticated={authenticated}
             isAdmin={isAdmin}
-            renderFooter={_.isUndefined(pageProps.renderFooter) ? true : false}
+            renderFooter={isUndefined(pageProps.renderFooter) ? true : false}
             pageProps={pageProps}
             router={router}
           >

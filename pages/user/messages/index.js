@@ -10,7 +10,7 @@ import UserAvatar from 'components/shared/User/Avatar'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faLocation from '@fortawesome/fontawesome-pro-light/faMapMarkerAlt'
 import moment from 'moment'
-import _ from 'lodash'
+import truncate from 'lodash/truncate'
 
 class ListingMessages extends Component {
   static async getInitialProps(context) {
@@ -79,9 +79,7 @@ class ListingMessages extends Component {
               </div>
               <div>
                 <p>
-                  {messages
-                    ? _.truncate(messages[0].message, {length: 80})
-                    : ''}
+                  {messages ? truncate(messages[0].message, {length: 80}) : ''}
                 </p>
               </div>
             </Conversation>

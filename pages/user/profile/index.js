@@ -9,7 +9,10 @@ import {getCurrentUserId, redirectIfNotAuthenticated} from 'lib/auth'
 import EmCasaButton from 'components/shared/Common/Buttons'
 import Form, {Field} from 'components/shared/Common/Form/styles'
 import CheckBox from 'components/shared/Common/Form/CheckBox'
-import _ from 'lodash'
+import isNull from 'lodash/isNull'
+import isUndefined from 'lodash/isUndefined'
+import isEqualWith from 'lodash/isEqualWith'
+import pickBy from 'lodash/pickBy'
 import Head from 'next/head'
 
 class UserProfile extends Component {
@@ -38,7 +41,7 @@ class UserProfile extends Component {
   }
 
   checkComparison = (objValue, othValue) => {
-    if (objValue === othValue || (_.isNull(objValue) && othValue === '')) {
+    if (objValue === othValue || (isNull(objValue) && othValue === '')) {
       return true
     }
   }
@@ -66,16 +69,16 @@ class UserProfile extends Component {
     this.setState({errors: {}})
 
     const attributesToBeChanged = {
-      name: _.isEqualWith(actualName, name, this.checkComparison)
+      name: isEqualWith(actualName, name, this.checkComparison)
         ? undefined
         : name,
-      email: _.isEqualWith(actualEmail, email, this.checkComparison)
+      email: isEqualWith(actualEmail, email, this.checkComparison)
         ? undefined
         : email,
-      phone: _.isEqualWith(actualPhone, phone, this.checkComparison)
+      phone: isEqualWith(actualPhone, phone, this.checkComparison)
         ? undefined
         : phone,
-      emailPreference: _.isEqualWith(
+      emailPreference: isEqualWith(
         actualEmailPreference,
         emailPreference,
         this.checkComparison
@@ -84,9 +87,9 @@ class UserProfile extends Component {
         : emailPreference
     }
 
-    const attributesChanged = _.pickBy(
+    const attributesChanged = pickBy(
       attributesToBeChanged,
-      (val) => !_.isUndefined(val)
+      (val) => !isUndefined(val)
     )
 
     if (

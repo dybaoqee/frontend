@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import join from 'lodash/join'
 export default (c, a) => {
   // RGBA to Hex
   if (Array.isArray(c) || (typeof c === 'string' && /,/.test(c))) {
@@ -23,6 +23,6 @@ export default (c, a) => {
     const g = (c >> 8) & 255
     const b = (c >> 0) & 255
 
-    return `rgb${a ? 'a' : ''}(${_.join([r, g, b], ', ')})`
+    return `rgb${a ? 'a' : ''}(${join([r, g, b], ', ')})`
   }
 }

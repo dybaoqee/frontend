@@ -6,7 +6,9 @@ import {
   GET_LISTING,
   GET_LISTINGS_COORDINATES
 } from 'graphql/listings/queries'
-import _ from 'lodash'
+import differenceBy from 'lodash/differenceBy'
+import map from 'lodash/map'
+import isEmpty from 'lodash/isEmpty'
 import InfiniteScroll from 'components/shared/InfiniteScroll'
 import Listing from 'components/listings/shared/Listing'
 import Map from 'components/listings/shared/Map'
@@ -48,7 +50,7 @@ export default class Listings extends Component {
           {({data: {userProfile}, loading}) => {
             const blacklists = userProfile ? userProfile.blacklists : []
             const favorites = userProfile ? userProfile.favorites : []
-            const filteredListings = _.differenceBy(
+            const filteredListings = differenceBy(
               result.listings,
               blacklists || [],
               'id'
@@ -63,7 +65,7 @@ export default class Listings extends Component {
                     variables: {
                       pagination: {
                         ...this.pagination,
-                        excludedListingIds: _.map(result.listings, 'id')
+                        excludedListingIds: map(result.listings, 'id')
                       }
                     },
                     updateQuery: (
@@ -114,7 +116,7 @@ export default class Listings extends Component {
     } else {
       return (
         <ListingsNotFound
-          filtered={!_.isEmpty(filters)}
+          filtered={!isEmpty(filters)}
           resetAllParams={resetFilters}
         />
       )

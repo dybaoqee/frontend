@@ -9,7 +9,7 @@ import Error from 'components/shared/Shell/Error'
 import {getRelatedListings} from 'services/listing-api'
 import Link from 'next/link'
 import {createInterest} from 'services/interest-api'
-import _ from 'lodash'
+import isUndefined from 'lodash/isUndefined'
 import ListingHead from 'components/listings/show/Head'
 import ListingHeader from 'components/listings/show/Header'
 import ListingMainContent from 'components/listings/show/Body'
@@ -209,7 +209,7 @@ class Listing extends Component {
                 ).length > 0
 
               if (
-                !_.isUndefined(router.query.f) &&
+                !isUndefined(router.query.f) &&
                 !loading &&
                 !favorite &&
                 !this.favMutated

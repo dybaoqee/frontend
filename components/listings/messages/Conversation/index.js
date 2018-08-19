@@ -1,5 +1,5 @@
 import {Component, Fragment} from 'react'
-import _ from 'lodash'
+import orderBy from 'lodash/orderBy'
 
 import Container, {
   ConversationContainer,
@@ -35,7 +35,7 @@ export default class Conversation extends Component {
 
           <MessagesContainer>
             {messages &&
-              _.orderBy(messages, ['insertedAt'], ['desc']).map((message) => (
+              orderBy(messages, ['insertedAt'], ['desc']).map((message) => (
                 <Message
                   key={message.insertedAt}
                   message={message}

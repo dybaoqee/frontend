@@ -13,7 +13,7 @@ import {isEmailValid} from 'lib/validation'
 import {Mutation} from 'react-apollo'
 import {ESTIMATE_PRICE} from 'graphql/listings/mutations'
 import {getNeighborhoods} from 'services/neighborhood-api'
-import _ from 'lodash'
+import findIndex from 'lodash/findIndex'
 
 export default class PriceEstimate extends Component {
   state = {
@@ -85,7 +85,7 @@ export default class PriceEstimate extends Component {
   }
 
   getStep = (Component) =>
-    _.findIndex(this.steps, (step) => step.type === <Component />.type) + 1
+    findIndex(this.steps, (step) => step.type === <Component />.type) + 1
 
   getStepContent = (page) => {
     const {listing} = this.state
