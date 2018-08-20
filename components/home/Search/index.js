@@ -7,7 +7,9 @@ import faSearch from '@fortawesome/fontawesome-pro-light/faSearch'
 import faCheck from '@fortawesome/fontawesome-free-solid/faCheck'
 import faArrow from '@fortawesome/fontawesome-pro-light/faArrowRight'
 import Router from 'next/router'
-import _ from 'lodash'
+import union from 'lodash/union'
+import remove from 'lodash/remove'
+import filter from 'lodash/filter'
 import {pickerMobileMedia} from 'constants/media'
 
 import * as filterOptions from 'constants/listing-filter-options'
@@ -32,8 +34,8 @@ export default class HomeSearch extends Component {
     const {target: {value, checked}} = e
     const {neighborhoods: selected} = this.state
     const neighborhoods = checked
-      ? _.union([value], selected)
-      : _.remove(selected, (actualValue) => actualValue !== value)
+      ? union([value], selected)
+      : remove(selected, (actualValue) => actualValue !== value)
     this.setState({neighborhoods})
   }
 
@@ -99,7 +101,7 @@ export default class HomeSearch extends Component {
                   <Neighborhood
                     key={value}
                     checked={
-                      _.filter(
+                      filter(
                         neighborhoods,
                         (neighborhood) => neighborhood === value
                       ).length > 0
@@ -108,7 +110,7 @@ export default class HomeSearch extends Component {
                     <label>{label}</label>
                     <input
                       checked={
-                        _.filter(
+                        filter(
                           neighborhoods,
                           (neighborhood) => neighborhood === value
                         ).length > 0

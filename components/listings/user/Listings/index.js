@@ -2,7 +2,8 @@ import {Component, Fragment} from 'react'
 import {Query} from 'react-apollo'
 import {GET_USER_LISTINGS} from 'graphql/user/queries'
 import {GET_LISTINGS, GET_LISTING} from 'graphql/listings/queries'
-import _ from 'lodash'
+import map from 'lodash/map'
+import isEmpty from 'lodash/isEmpty'
 import InfiniteScroll from 'components/shared/InfiniteScroll'
 import Listing from 'components/listings/shared/Listing'
 import Map from 'components/listings/shared/Map'
@@ -47,7 +48,7 @@ export default class Listings extends Component {
               variables: {
                 pagination: {
                   ...this.pagination,
-                  excludedListingIds: _.map(result.listings, 'id')
+                  excludedListingIds: map(result.listings, 'id')
                 }
               },
               updateQuery: (
@@ -94,7 +95,7 @@ export default class Listings extends Component {
     } else {
       return (
         <ListingsNotFound
-          filtered={!_.isEmpty(filters)}
+          filtered={!isEmpty(filters)}
           resetAllParams={resetFilters}
           messages={[
             'Nenhum imóvel encontrado.',

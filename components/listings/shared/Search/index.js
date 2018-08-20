@@ -9,7 +9,8 @@ import faAngleUp from '@fortawesome/fontawesome-pro-light/faAngleUp'
 import faAngleDown from '@fortawesome/fontawesome-pro-light/faAngleDown'
 import faTrash from '@fortawesome/fontawesome-pro-light/faTrash'
 import faRemove from '@fortawesome/fontawesome-pro-light/faTimesCircle'
-import _ from 'lodash'
+import includes from 'lodash/includes'
+import remove from 'lodash/remove'
 import Container, {
   FiltersApplied,
   FiltersAppliedContainer,
@@ -101,10 +102,10 @@ export default class Filter extends Component {
     let updatedValues = values
     updatedValues.types = updatedValues.types || []
 
-    if (!_.includes(updatedValues.types, listingType)) {
+    if (!includes(updatedValues.types, listingType)) {
       updatedValues.types.push(listingType)
     } else {
-      _.remove(updatedValues.types, (item) => item === listingType)
+      remove(updatedValues.types, (item) => item === listingType)
     }
     onChange(updatedValues)
     this.setState({values: updatedValues})

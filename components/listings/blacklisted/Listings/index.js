@@ -2,7 +2,8 @@ import {Component, Fragment} from 'react'
 import {Query} from 'react-apollo'
 import {GET_BLACKLIST_LISTINGS} from 'graphql/user/queries'
 import {GET_LISTINGS, GET_LISTING} from 'graphql/listings/queries'
-import _ from 'lodash'
+import map from 'lodash/map'
+import isEmpty from 'lodash/isEmpty'
 import InfiniteScroll from 'components/shared/InfiniteScroll'
 import Listing from 'components/listings/shared/Listing'
 import Map from 'components/listings/shared/Map'
@@ -48,7 +49,7 @@ export default class Listings extends Component {
               variables: {
                 pagination: {
                   ...this.pagination,
-                  excludedListingIds: _.map(result, 'id')
+                  excludedListingIds: map(result, 'id')
                 }
               },
               updateQuery: (
@@ -95,7 +96,7 @@ export default class Listings extends Component {
     } else {
       return (
         <ListingsNotFound
-          filtered={!_.isEmpty(filters)}
+          filtered={!isEmpty(filters)}
           resetAllParams={resetFilters}
           messages={[
             'Nenhum imóvel encontrado.',
@@ -213,7 +214,7 @@ export default class Listings extends Component {
         fetchPolicy="cache-and-network"
       >
         {({data: {userProfile}, fetchMore}) => {
-          const filtered = !_.isEmpty(filters)
+          const filtered = !isEmpty(filters)
           const listings = filtered
             ? filterListings(userProfile.blacklists, filters)
             : userProfile.blacklists

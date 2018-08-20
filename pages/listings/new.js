@@ -1,6 +1,7 @@
 import React, {Component, Fragment} from 'react'
 import Router from 'next/router'
-import _ from 'lodash'
+import isArray from 'lodash/isArray'
+import flattenDeep from 'lodash/flattenDeep'
 import {
   redirectIfNotAuthenticated,
   getJwt,
@@ -255,9 +256,9 @@ export default class ListingNew extends Component {
 
       return null
     } catch (e) {
-      const errors = _.isArray(e)
+      const errors = isArray(e)
         ? e
-        : [e.data ? _.flattenDeep(Object.values(e.data.errors)) : e]
+        : [e.data ? flattenDeep(Object.values(e.data.errors)) : e]
       this.setState({
         showErrors: true,
         canRegress: true,

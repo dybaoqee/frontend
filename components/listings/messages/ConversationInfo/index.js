@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import upperFirst from 'lodash/upperFirst'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faLocation from '@fortawesome/fontawesome-pro-light/faMapMarkerAlt'
 import faPhone from '@fortawesome/fontawesome-pro-light/faMobileAndroid'
@@ -29,7 +29,7 @@ export default ({listing, receiver}) => (
         <p>
           {receiver.name
             .split(' ')
-            .map((name) => _.upperFirst(name))
+            .map((name) => upperFirst(name))
             .join(' ')}
         </p>
         <div className="user-detail">

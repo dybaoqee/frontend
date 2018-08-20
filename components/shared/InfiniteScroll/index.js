@@ -1,5 +1,5 @@
 import {Component} from 'react'
-import _ from 'lodash'
+import throttle from 'lodash/throttle'
 import Container, {Footer, Title, Wrapper} from './styles'
 import {getY, getX} from 'utils/polyfills/bounding-rect'
 export default class InfiniteScroll extends Component {
@@ -46,7 +46,7 @@ export default class InfiniteScroll extends Component {
     this.setState({loading: false})
   }
 
-  onScroll = _.throttle(() => {
+  onScroll = throttle(() => {
     const {remaining_count} = this.props
     const {loading} = this.state
     const {onLoad} = this.props

@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import _ from 'lodash'
+import pick from 'lodash/pick'
 const AuthContext = React.createContext()
 
 export const AuthConsumer = AuthContext.Consumer
@@ -17,7 +17,7 @@ export class AuthProvider extends Component {
     this.setState({user})
     localStorage.setItem(
       'user',
-      JSON.stringify(_.pick(user, ['token', 'role', 'name', 'id']))
+      JSON.stringify(pick(user, ['token', 'role', 'name', 'id']))
     )
   }
 
@@ -25,7 +25,7 @@ export class AuthProvider extends Component {
     const user = localStorage.getItem('user')
     if (user) {
       const parsedUser = JSON.parse(user)
-      this.setState({user: _.pick(parsedUser, ['token', 'role', 'name', 'id'])})
+      this.setState({user: pick(parsedUser, ['token', 'role', 'name', 'id'])})
     }
   }
 

@@ -1,6 +1,8 @@
-import _ from 'lodash'
+import omit from 'lodash/omit'
+import pickBy from 'lodash/pickBy'
+import identity from 'lodash/identity'
 
-const filterValid = (object) => _.omit(object, [undefined])
+const filterValid = (object) => omit(object, [undefined])
 
 function joinParam(param) {
   return param
@@ -112,7 +114,7 @@ export const getFiltersFromQuery = ({
       tipos && splitParam(tipos).map((type) => (type.value ? type.value : type))
   }
 
-  return _.pickBy(filters, _.identity)
+  return pickBy(filters, identity)
 }
 
 export const getFiltersFromFilters = ({
@@ -145,7 +147,7 @@ export const getFiltersFromFilters = ({
       types.map((type) => (type.value ? type.value : type))
   }
 
-  return _.pickBy(filters, _.identity)
+  return pickBy(filters, identity)
 }
 
 export const getDerivedParams = ({

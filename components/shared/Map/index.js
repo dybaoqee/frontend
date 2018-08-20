@@ -1,8 +1,9 @@
 import {Component} from 'react'
 import GoogleMapReact from 'google-map-react'
 import supercluster from 'points-cluster'
-import _ from 'lodash'
-
+import flatten from 'lodash/flatten'
+import throttle from 'lodash/throttle'
+import isEqual from 'lodash/isEqual'
 import MapMarker from 'components/shared/Map/Marker'
 import ClusterMarker from 'components/shared/Map/ClusterMarker'
 
@@ -61,7 +62,7 @@ export default class MapContainer extends Component {
       points
     }))
 
-    const framedListings = _.flatten(
+    const framedListings = flatten(
       clusters
         .filter((cluster) => cluster.numPoints === 1)
         .map((marker) => [...marker.points])
@@ -96,7 +97,7 @@ export default class MapContainer extends Component {
     )
   }
 
-  onChangeListener = _.throttle(() => {
+  onChangeListener = throttle(() => {
     const {onChange} = this.props
     const map = this.map
     const swLat = map
@@ -161,7 +162,7 @@ export default class MapContainer extends Component {
   componentWillReceiveProps(nextProps) {
     const {markers} = nextProps
     const {markers: prevMarkers} = this.props
-    if (!_.isEqual(markers, prevMarkers)) {
+    if (!isEqual(markers, prevMarkers)) {
       this.fitMap(markers)
     }
   }
@@ -210,7 +211,7 @@ export default class MapContainer extends Component {
             ).length > 0
 
           if (item.numPoints === 1) {
-            const highlightMarker = _.isEqual(highlight, {
+            const highlightMarker = isEqual(highlight, {
               lat: item.points[0].lat,
               lng: item.points[0].lng
             })

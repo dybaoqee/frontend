@@ -1,6 +1,6 @@
 import React from 'react'
 import Router from 'next/router'
-import _ from 'lodash'
+import isEqual from 'lodash/isEqual'
 import NumberFormat from 'react-number-format'
 import {canEdit} from 'permissions/listings-permissions'
 import Link from 'next/link'
@@ -41,7 +41,7 @@ class Listing extends React.Component {
     } = this.props
     listing = humps.decamelizeKeys(listing)
 
-    const highlighListing = _.isEqual(highlight, {
+    const highlighListing = isEqual(highlight, {
       lat: listing.address.lat,
       lng: listing.address.lng
     })

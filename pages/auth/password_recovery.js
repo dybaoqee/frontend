@@ -5,7 +5,8 @@ import Errors from 'components/shared/Common/Errors'
 import EmCasaButton from 'components/shared/Common/Buttons'
 import {getCookie, removeCookie} from 'lib/session'
 import {redefinePassword, redirectIfAuthenticated} from 'lib/auth'
-import _ from 'lodash'
+import isArray from 'lodash/isArray'
+import flattenDeep from 'lodash/flattenDeep'
 
 export default class PasswordRecovery extends Component {
   state = {
@@ -38,9 +39,9 @@ export default class PasswordRecovery extends Component {
       let data = await redefinePassword(email)
       this.setState({data, loading: false})
     } catch (e) {
-      const errors = _.isArray(e)
+      const errors = isArray(e)
         ? e
-        : [e.data ? _.flattenDeep(Object.values(e.data.errors)) : e]
+        : [e.data ? flattenDeep(Object.values(e.data.errors)) : e]
       this.setState({errors, loading: false})
     }
   }

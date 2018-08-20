@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import {mobileMedia} from 'constants/media'
-import * as colors from 'constants/colors'
+import {text, mediumGray, blue} from 'constants/colors'
 
 export default styled.div`
   box-sizing: border-box;
@@ -28,11 +28,11 @@ export const TabTitle = styled.div`
   line-height: 22px;
   text-align: center;
   padding: 0px 5px;
-  color: ${({active}) => (active ? colors.textColor : colors.mediumGray)};
+  color: ${({active}) => (active ? text : mediumGray)};
   transition: all 0.3s;
 
   ${({active}) =>
     active
-      ? `border-bottom: 3px solid ${colors.blue.medium};`
-      : `border-bottom: 1px solid ${colors.mediumGray};`};
+      ? `border-bottom: 3px solid ${blue.medium};`
+      : `border-bottom: 1px solid ${mediumGray};`};
 `

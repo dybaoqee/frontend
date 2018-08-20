@@ -3,7 +3,9 @@ import Link from 'next/link'
 import Router from 'next/router'
 import Error from 'components/shared/Shell/Error'
 import Head from 'next/head'
-import _ from 'lodash'
+import pickBy from 'lodash/pickBy'
+import isArray from 'lodash/isArray'
+import flattenDeep from 'lodash/flattenDeep'
 import {
   redirectIfNotAuthenticated,
   getJwt,
@@ -39,7 +41,7 @@ export default class ListingEditV2 extends Component {
     super(props)
     let {listing} = props
 
-    var listingFiltered = _.pickBy(listing, function(value, key) {
+    var listingFiltered = pickBy(listing, function(value, key) {
       return key !== 'address'
     })
     this.state = {
@@ -284,9 +286,9 @@ export default class ListingEditV2 extends Component {
       ).then(() => window.scrollTo(0, 0))
       return null
     } catch (e) {
-      const errors = _.isArray(e)
+      const errors = isArray(e)
         ? e
-        : [e.data ? _.flattenDeep(Object.values(e.data.errors)) : e]
+        : [e.data ? flattenDeep(Object.values(e.data.errors)) : e]
       this.setState({
         showErrors: true,
         canRegress: true,
