@@ -19,8 +19,9 @@ import InterestPosted from 'components/listings/show/InterestForm/interest_poste
 import RelatedListings from 'components/listings/show/RelatedListings'
 import Warning from 'components/shared/Common/Warning'
 import Breadcrumb from 'components/shared/Common/Breadcrumb'
-import {parseSlug, buildSlug} from 'lib/listings'
+import {buildSlug} from 'lib/listings'
 import Head from 'next/head'
+import getApolloClient from 'lib/apollo/initApollo'
 
 class Listing extends Component {
   favMutated = false
@@ -39,18 +40,19 @@ class Listing extends Component {
   }
 
   static async getInitialProps(context) {
-    const id = context.req
-      ? context.query.id || parseSlug(context.req.params).id
-      : context.asPath.match(/\d+/g).join([])
-    const jwt = getJwt(context)
+    const {asPath, res} = context
+    const id = asPath.match(/\d+/g).join([])
+
     const currentUser = {
       id: getCurrentUserId(context),
       admin: isAdmin(context),
       authenticated: isAuthenticated(context),
-      jwt
+      jwt: getJwt(context)
     }
+
+    const apolloClient = getApolloClient(undefined, getJwt(context))
     try {
-      const listing = await global.apolloClient
+      const listing = await apolloClient
         .query({
           query: GET_FULL_LISTING,
           fetchPolicy: 'network-only',
@@ -60,22 +62,21 @@ class Listing extends Component {
         })
         .then(({data}) => data.listing)
 
-      if (context.asPath && context.res) {
-        const urlParams = context.asPath.split('/').length
+      if (asPath && res) {
+        const urlParams = asPath.split('/').length
         //If client is trying to access old slugs then redirect
         if (urlParams <= 3 || urlParams === 5) {
-          context.res.redirect(301, buildSlug(listing))
+          res.redirect(301, buildSlug(listing))
         }
       }
 
       return {
         listing,
-        currentUser,
-        id
+        currentUser
       }
     } catch (e) {
       return {
-        error: e.graphQLErrors ? e.graphQLErrors[0] : e,
+        listingFetchError: e.graphQLErrors ? e.graphQLErrors[0] : e,
         currentUser
       }
     }
@@ -291,9 +292,9 @@ class Listing extends Component {
   }
 
   get error() {
-    const {error} = this.props
+    const {listingFetchError} = this.props
 
-    switch (error.code || error.statusCode) {
+    switch (listingFetchError.code || listingFetchError.statusCode) {
       case 404:
         return 'Imóvel não encontrado'
       case 500:
@@ -304,15 +305,16 @@ class Listing extends Component {
   }
 
   render() {
-    const {error} = this.props
-    return error ? (
+    const {listingFetchError} = this.props
+
+    return listingFetchError ? (
       <Fragment>
         <Head>
           <title>EmCasa</title>
         </Head>
         <Error>
           <h1>{this.error}</h1>
-          <h2>{error.code || error.statusCode}</h2>
+          <h2>{listingFetchError.code || listingFetchError.statusCode}</h2>
           <p>
             Visite nossa <Link href="/">página inicial</Link> ou entre em&nbsp;
             <Link href="mailto:contato@emcasa.com">contato</Link> com a gente
