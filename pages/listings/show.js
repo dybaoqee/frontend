@@ -1,6 +1,6 @@
 import {Component, Fragment} from 'react'
 import {Query} from 'react-apollo'
-import {GET_FAVORITE_LISTINGS_IDS} from 'graphql/user/queries'
+import {GET_USER_LISTINGS_ACTIONS} from 'graphql/user/queries'
 import {GET_FULL_LISTING} from 'graphql/listings/queries'
 import {Mutation} from 'react-apollo'
 import {FAVORITE_LISTING} from 'graphql/listings/mutations'
@@ -49,7 +49,6 @@ class Listing extends Component {
       authenticated: isAuthenticated(context),
       jwt
     }
-
     try {
       const listing = await global.apolloClient
         .query({
@@ -194,16 +193,16 @@ class Listing extends Component {
       <Mutation mutation={FAVORITE_LISTING}>
         {(favoriteListing) => (
           <Query
-            query={GET_FAVORITE_LISTINGS_IDS}
+            query={GET_USER_LISTINGS_ACTIONS}
             skip={!currentUser.authenticated}
           >
-            {({loading, error, data}) => {
+            {({data: {userProfile}, loading, error}) => {
               const favorite =
                 !loading &&
                 !error &&
-                data &&
-                data.favoritedListings &&
-                data.favoritedListings.filter(
+                userProfile &&
+                userProfile.favorites &&
+                userProfile.favorites.filter(
                   (listingSaved) =>
                     listingSaved.id.toString() === listing.id.toString()
                 ).length > 0
@@ -218,7 +217,7 @@ class Listing extends Component {
                 favoriteListing({
                   refetchQueries: [
                     {
-                      query: GET_FAVORITE_LISTINGS_IDS
+                      query: GET_USER_LISTINGS_ACTIONS
                     }
                   ],
                   variables: {
