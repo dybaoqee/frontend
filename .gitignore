@@ -19,6 +19,7 @@ build
 # misc
 .DS_Store
 .env
+.idea
 sitemap.xml
 npm-debug.log
 package-lock.json

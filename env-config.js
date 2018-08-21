@@ -1,10 +1,11 @@
 const prod = process.env.NODE_ENV === 'production'
+const staging = process.env.IS_STAGING === 'true'
 
 let favicon
 
 if (!prod) {
   favicon = 'favicon-dev.png'
-} else if (process.env.IS_STAGING === 'true') {
+} else if (staging) {
   favicon = 'favicon-staging.png'
 } else {
   favicon = 'favicon.png'
