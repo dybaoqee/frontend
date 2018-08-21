@@ -1,9 +1,9 @@
 import React from 'react'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faHome from '@fortawesome/fontawesome-free-solid/faHome'
-
 import Container from './styles'
-import Map from 'components/shared/Map'
+import GoogleMapReact from 'google-map-react'
+import MapMarker from 'components/shared/Map/Marker'
 
 export default class ListingMap extends React.Component {
   render() {
@@ -13,7 +13,17 @@ export default class ListingMap extends React.Component {
 
     return (
       <Container>
-        <Map center={{lat, lng}} markers={[{lat, lng, text}]} />
+        <GoogleMapReact
+          bootstrapURLKeys={{
+            key: process.env.GOOGLE_MAPS_KEY,
+            language: 'pt-BR',
+            region: 'br'
+          }}
+          zoom={16}
+          center={{lat, lng}}
+        >
+          <MapMarker lat={lat} lng={lng} text={text} />
+        </GoogleMapReact>
       </Container>
     )
   }
