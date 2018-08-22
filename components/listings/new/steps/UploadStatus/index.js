@@ -24,7 +24,6 @@ export default ({submitting, listingId, editing}) => (
         <Link
           href={`/listings/images?listingId=${listingId}`}
           as={`/imoveis/${listingId}/imagens`}
-          prefetch
         >
           <EmCasaButton secondary>Adicionar fotos</EmCasaButton>
         </Link>

@@ -115,7 +115,7 @@ export default class Header extends Component {
               (!auth && !admin)
             ) {
               return (
-                <Link href={href} as={as} prefetch key={title}>
+                <Link href={href} as={as} key={title}>
                   <a>
                     <MenuItem active={router && href === router.route}>
                       <FontAwesomeIcon icon={icon} />
@@ -139,7 +139,7 @@ export default class Header extends Component {
       <Wrapper>
         {router && router.route === '/' && <PhoneHeader />}
         <Container>
-          <Link href="/" prefetch>
+          <Link href="/">
             <a className="logo">
               <img
                 src="/static/emcasa-imobiliaria-rio-de-janeiro.png"

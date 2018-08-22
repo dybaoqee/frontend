@@ -138,7 +138,7 @@ export default class Calculator extends Component {
           </Column>
         </Table>
         <Buttons>
-          <Link href="/listings/new" as="/imoveis/adicionar" prefetch>
+          <Link href="/listings/new" as="/imoveis/adicionar">
             <EmCasaButton light>Anuncie agora</EmCasaButton>
           </Link>
           <ContactButton />

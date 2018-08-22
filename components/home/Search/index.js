@@ -39,10 +39,6 @@ export default class HomeSearch extends Component {
     this.setState({neighborhoods})
   }
 
-  componentDidMount() {
-    Router.prefetch('/listings')
-  }
-
   searchListings = (e) => {
     const {neighborhoods} = this.state
     const {href, as} = this.buildLink()
