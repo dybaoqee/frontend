@@ -11,7 +11,7 @@ const client = s3.createClient({
 })
 
 const params = {
-  localDir: '.next/static',
+  localDir: '.next/gzip/static',
   deleteRemoved: false,
   s3Params: {
     Bucket: process.env.AWS_S3_BUCKET_NAME,
