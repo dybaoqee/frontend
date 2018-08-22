@@ -11,7 +11,8 @@
     "clear-cache": "rm -rf node_modules/.cache/babel-loader",
     "test": "NODE_ENV=test jest && TEST=cypress start-server-and-test dev http://localhost:3000/login cy:run",
     "test-unit:watch": "NODE_ENV=testjest --watch",
-    "heroku-postbuild": "npm run build",
+    "heroku-postbuild": "npm run build && npm run s3:sync",
+    "s3:sync": "node deploy/s3-sync.js",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
     "analyze": "ANALYZE=1 next build && cat .next/stats.txt"
@@ -110,6 +111,7 @@
     "eslint-plugin-react": "^7.6.0",
     "jest-styled-components": "^5.0.0",
     "prettier": "1.10.2",
+    "s3": "^4.4.0",
     "start-server-and-test": "^1.1.0"
   }
 }
