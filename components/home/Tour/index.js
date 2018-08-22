@@ -1,5 +1,5 @@
 import {Component} from 'react'
-
+import Matterport from 'components/shared/Matterport'
 import Container from './styles'
 
 export default class HomeBuySell extends Component {
@@ -13,14 +13,7 @@ export default class HomeBuySell extends Component {
           proprietários a atraírem mais atenção e venderem seus imóveis mais
           rapidamente.
         </p>
-
-        <iframe
-          width="100%"
-          height="480"
-          src="https://my.matterport.com/show/?m=ZFZ3x24RbHP"
-          frameBorder="0"
-          allowFullScreen
-        />
+        <Matterport code={'ZFZ3x24RbHP'} />
       </Container>
     )
   }
