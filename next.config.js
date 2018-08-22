@@ -1,12 +1,13 @@
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer')
 const webpack = require('webpack')
+const isEmpty = require('lodash').isEmpty
 const {
   WebpackBundleSizeAnalyzerPlugin
 } = require('webpack-bundle-size-analyzer')
 
 const {ANALYZE, BUILD, AWS_DEFAULT_REGION, AWS_S3_BUCKET_NAME} = process.env
 const s3URL = `https://s3-${AWS_DEFAULT_REGION}.amazonaws.com/${AWS_S3_BUCKET_NAME}`
-const shouldUseAssetPrefix = AWS_S3_BUCKET_NAME !== ''
+const shouldUseAssetPrefix = !isEmpty(AWS_S3_BUCKET_NAME)
 
 module.exports = {
   assetPrefix: shouldUseAssetPrefix ? s3URL : '',
