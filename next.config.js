@@ -1,4 +1,5 @@
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer')
+const CompressionPlugin = require('compression-webpack-plugin')
 const webpack = require('webpack')
 const isEmpty = require('lodash').isEmpty
 const {
@@ -28,6 +29,16 @@ module.exports = {
       new webpack.IgnorePlugin(/unicode\/category\/So/, /node_modules/)
     )
     config.plugins.push(new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/))
+
+    config.plugins.push(
+      new CompressionPlugin({
+        asset: '[path].gz[query]',
+        algorithm: 'gzip',
+        test: /\.js$|\.css$|\.html$/,
+        threshold: 10240,
+        minRatio: 0.8
+      })
+    )
 
     if (BUILD) {
       config.mode = 'production'
