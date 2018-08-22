@@ -36,10 +36,9 @@ module.exports = {
       if (shouldUseAssetPrefix) {
         config.plugins.push(
           new CompressionPlugin({
-            asset: '[path].gz[query]',
+            asset: '[path][query]',
             algorithm: 'gzip',
-            test: /\.js$|\.css$|\.html$/,
-            deleteOriginalAssets: true
+            test: /\.js$|\.css$|\.html$/
           })
         )
       }

@@ -1,5 +1,7 @@
 const s3 = require('s3')
 
+const CACHE_MAX_AGE = 315360000
+
 const client = s3.createClient({
   s3Options: {
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -16,7 +18,11 @@ const params = {
     Prefix: '_next/static'
   },
   getS3Params: function(localFile, stat, callback) {
-    callback(null, {ACL: 'public-read'})
+    callback(null, {
+      ACL: 'public-read',
+      ContentEncoding: 'gzip',
+      CacheControl: `max-age=${CACHE_MAX_AGE}`
+    })
   }
 }
 
