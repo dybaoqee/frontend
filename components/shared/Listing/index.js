@@ -16,7 +16,6 @@ export default class Listing extends Component {
       <Link
         href={`/listings/show?id=${id}`}
         as={buildSlug(this.props.listing)}
-        prefetch
         passHref
       >
         <a className="GTAG">
