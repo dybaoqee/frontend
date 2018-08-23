@@ -127,3 +127,27 @@ export const GET_LISTINGS_COORDINATES = gql`
     }
   }
 `
+
+export const GET_FEATURED_LISTINGS = gql`
+  {
+    featuredListings {
+      id
+      price
+      address {
+        street
+        neighborhood
+        city
+        state
+      }
+      images(limit: 1, isActive: true) {
+        filename
+      }
+    }
+  }
+`
+
+export const GET_NEIGHBORHOODS = gql`
+  {
+    neighborhoods
+  }
+`
