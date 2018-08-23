@@ -1,7 +1,5 @@
 import {Component, Fragment} from 'react'
 import Head from 'next/head'
-import {getFeaturedListings} from 'services/listing-api'
-import {getNeighborhoods} from 'services/neighborhood-api'
 import HomeSearch from 'components/home/Search'
 import HomeListings from 'components/shared/Listing/Feed'
 import HomeTour from 'components/home/Tour'
@@ -10,22 +8,15 @@ import HomeBuySell from 'components/home/BuySell'
 import Warning from 'components/shared/Common/Warning'
 import CallToAction from 'components/shared/Common/CallToAction'
 import Calculator from 'components/shared/Calculator'
+import {Query} from 'react-apollo'
+import {
+  GET_FEATURED_LISTINGS,
+  GET_NEIGHBORHOODS
+} from 'graphql/listings/queries'
 
-export default class MyPage extends Component {
-  static async getInitialProps(context) {
-    const [feed, search] = await Promise.all([
-      getFeaturedListings(context.query).then(({data}) => data),
-      getNeighborhoods().then(({data}) => data)
-    ])
-
-    return {
-      feed,
-      search
-    }
-  }
-
+export default class Index extends Component {
   render() {
-    const {feed, search, url} = this.props
+    const {url} = this.props
     const seoImg =
       'https://res.cloudinary.com/emcasa/image/upload/f_auto/v1513818385/home-2018-04-03_cozxd9.jpg'
     const seoTitle =
@@ -54,8 +45,16 @@ export default class MyPage extends Component {
             </p>
           </Warning>
         )}
-        <HomeSearch {...search} />
-        <HomeListings {...feed} />
+        <Query query={GET_NEIGHBORHOODS}>
+          {({data: {neighborhoods}}) => (
+            <HomeSearch neighborhoods={neighborhoods || []} />
+          )}
+        </Query>
+        <Query query={GET_FEATURED_LISTINGS}>
+          {({data: {featuredListings}, loading}) =>
+            loading ? '' : <HomeListings listings={featuredListings} />
+          }
+        </Query>
         <CallToAction
           call="Ver mais imóveis"
           href={'/listings/index'}
