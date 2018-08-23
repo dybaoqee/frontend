@@ -4,29 +4,12 @@ import Container from './styles'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faPhone from '@fortawesome/fontawesome-free-brands/faWhatsapp'
 import faMail from '@fortawesome/fontawesome-pro-light/faEnvelope'
-import {getNeighborhoods} from 'services/neighborhood-api'
 import slug from 'slug'
+import {Query} from 'react-apollo'
+import {GET_NEIGHBORHOODS} from 'graphql/listings/queries'
 
 export default class PreFooter extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      neighborhoods: []
-    }
-  }
-  async componentDidMount() {
-    try {
-      const neighborhoods = await getNeighborhoods().then(
-        ({data}) => data.neighborhoods
-      )
-      this.setState({neighborhoods})
-    } catch (e) {
-      this.setState({neighborhoods: []})
-    }
-  }
-
   render() {
-    const {neighborhoods} = this.state
     return (
       <Container>
         <div>
@@ -57,17 +40,27 @@ export default class PreFooter extends Component {
         </div>
         <div className="neighborhoods">
           <h4>Imóveis à venda no Rio de Janeiro</h4>
-          {neighborhoods.map((neighborhood) => (
-            <Link
-              key={neighborhood}
-              href={`/listings/?bairros=${neighborhood}`}
-              as={`/imoveis/rj/rio-de-janeiro/${slug(
-                neighborhood.toLowerCase()
-              )}`}
-            >
-              <a title={`Comprar imóvel: ${neighborhood}`}>{neighborhood}</a>
-            </Link>
-          ))}
+          <Query query={GET_NEIGHBORHOODS}>
+            {({data: {neighborhoods}, loading}) =>
+              loading ? (
+                <div />
+              ) : (
+                neighborhoods.map((neighborhood) => (
+                  <Link
+                    key={neighborhood}
+                    href={`/listings/?bairros=${neighborhood}`}
+                    as={`/imoveis/rj/rio-de-janeiro/${slug(
+                      neighborhood.toLowerCase()
+                    )}`}
+                  >
+                    <a title={`Comprar imóvel: ${neighborhood}`}>
+                      {neighborhood}
+                    </a>
+                  </Link>
+                ))
+              )
+            }
+          </Query>
         </div>
       </Container>
     )
