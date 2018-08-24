@@ -51,17 +51,20 @@ class Listing extends Component {
     }
 
     const apolloClient = getApolloClient(undefined, getJwt(context))
-    try {
-      const listing = await apolloClient
-        .query({
-          query: GET_FULL_LISTING,
-          fetchPolicy: 'network-only',
-          variables: {
-            id
-          }
-        })
-        .then(({data}) => data.listing)
 
+    const serverResponse = await apolloClient.query({
+      query: GET_FULL_LISTING,
+      fetchPolicy: 'network-only',
+      errorPolicy: 'all',
+      variables: {
+        id
+      }
+    })
+
+    const listing = serverResponse.data.listing
+    const errors = serverResponse.errors
+
+    if (listing) {
       if (asPath && res) {
         const urlParams = asPath.split('/').length
         //If client is trying to access old slugs then redirect
@@ -74,9 +77,9 @@ class Listing extends Component {
         listing,
         currentUser
       }
-    } catch (e) {
+    } else {
       return {
-        listingFetchError: e.graphQLErrors ? e.graphQLErrors[0] : e,
+        listingFetchError: errors[0],
         currentUser
       }
     }
