@@ -5,29 +5,24 @@ import {mainListingImage} from 'utils/image_url'
 
 export default class ListingHead extends Component {
   render() {
-    const {listing} = this.props
-    const seoImgSrc = mainListingImage(listing.images)
+    const {
+      listing: {matterportCode, type, images, address, rooms, area, price, id}
+    } = this.props
+    const seoImgSrc = mainListingImage(images)
 
     const description = `Conheça ${
-      listing.matterportCode ? 'com Tour Virtual 3D' : ''
-    } ${listing.type.charAt(listing.type.length - 1)} ${listing.type} na ${
-      listing.address.street
-    }, ${listing.address.neighborhood}, ${listing.address.city} - ${
-      listing.rooms
-    } dormitórios, ${
-      listing.area
-    } metros quadrados, R$ ${listing.price.toLocaleString('pt-BR')},00 - ID${
-      listing.id
-    }`
+      matterportCode ? 'com Tour Virtual 3D' : ''
+    } ${type.charAt(type.length - 1)} ${type} na ${address.street}, ${
+      address.neighborhood
+    }, ${address.city} - ${rooms} dormitórios, ${area} metros quadrados, R$ ${
+      price ? price.toLocaleString('pt-BR') : 0
+    },00 - ID${id}`
 
     return (
       <Head>
         <title>
-          {listing.type} à venda na {listing.address.street} -{' '}
-          {listing.address.neighborhood}, {listing.address.city} - ID{
-            listing.id
-          }{' '}
-          | EmCasa
+          {type} à venda na {address.street} - {address.neighborhood},{' '}
+          {address.city} - ID{id} | EmCasa
         </title>
         <link
           rel="stylesheet"
