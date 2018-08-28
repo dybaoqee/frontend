@@ -1,0 +1,491 @@
+schema {
+  query: RootQueryType
+  mutation: RootMutationType
+  subscription: RootSubscriptionType
+}
+
+type Address {
+  city: String
+  citySlug: String
+  id: ID
+  lat: Float
+  lng: Float
+  neighborhood: String
+  neighborhoodSlug: String
+  postalCode: String
+  state: String
+  stateSlug: String
+  street: String
+  streetNumber: String
+  streetSlug: String
+}
+
+input AddressInput {
+  city: String!
+  lat: Float!
+  lng: Float!
+  neighborhood: String!
+  postalCode: String!
+  state: String!
+  street: String!
+  streetNumber: String!
+}
+
+type Channel {
+  id: ID
+  listing: Listing
+  messages(limit: Int, offset: Int): [Message]
+  participant1: User
+  participant2: User
+  unreadCount: Int
+}
+
+type Contact {
+  email: String
+  id: ID
+  message: String
+  name: String
+  phone: String
+  user: User
+}
+
+type Credentials {
+  jwt: String
+  user: User
+}
+
+type Dashboard {
+  activeListingCount: Int
+  areaCount: Int
+  favoriteCount: Int
+  maintenanceFeeCount: Int
+  propertyTaxCount: Int
+  tourCount: Int
+  tourVisualizationCount: Int
+  visualizationCount: Int
+}
+
+scalar DateTime
+
+type Image {
+  description: String
+  filename: String
+  id: ID
+  isActive: Boolean
+  position: Int
+}
+
+input ImageInsertInput {
+  description: String
+  filename: String!
+  isActive: Boolean
+  listingId: ID!
+}
+
+input ImageUpdateInput {
+  description: String
+  id: ID!
+  position: Int
+}
+
+type InterestType {
+  id: ID
+  name: String
+}
+
+type Listing {
+  matterportCode: String
+  listingFavoriteCount: Int
+  type: String
+  id: ID
+  complement: String
+  address: Address
+  isExclusive: Boolean
+  related(
+    filters: ListingFilterInput!
+    pagination: ListingPagination!
+  ): ListingIndex
+  maintenanceFee: Float
+  tourVisualisationCount: Int
+  hasElevator: Boolean
+  suites: Int
+  inPersonVisitCount: Int
+  garageSpots: Int
+  propertyTax: Float
+  restrooms: Int
+  rooms: Int
+  area: Int
+  images(isActive: Boolean, limit: Int): [Image]
+  isActive: Boolean
+  listingVisualisationCount: Int
+  dependencies: Int
+  isRelease: Boolean
+  floor: String
+  description: String
+  price: Int
+  owner: User
+  suggestedPrice: Float
+  previousPrices: [PriceHistory]
+  insertedAt: DateTime
+  priceRecentlyReduced: Boolean
+  interestCount: Int
+  bathrooms: Int
+  balconies: Int
+}
+
+type ListingFilter {
+  maxArea: Int
+  maxGarageSpots: Int
+  maxLat: Float
+  maxLng: Float
+  maxPrice: Int
+  maxRooms: Int
+  minArea: Int
+  minGarageSpots: Int
+  minLat: Float
+  minLng: Float
+  minPrice: Int
+  minRooms: Int
+  neighborhoods: [String]
+  neighborhoodsSlugs: [String]
+  types: [String]
+}
+
+input ListingFilterInput {
+  maxArea: Int
+  maxGarageSpots: Int
+  maxLat: Float
+  maxLng: Float
+  maxPrice: Int
+  maxRooms: Int
+  minArea: Int
+  minGarageSpots: Int
+  minLat: Float
+  minLng: Float
+  minPrice: Int
+  minRooms: Int
+  neighborhoods: [String]
+  neighborhoodsSlugs: [String]
+  types: [String]
+}
+
+type ListingIndex {
+  filters: ListingFilter
+  listings: [Listing]
+  remainingCount: Int
+}
+
+input ListingInput {
+  address: AddressInput
+  addressId: ID
+  area: Int
+  balconies: Int
+  bathrooms: Int
+  complement: String
+  dependencies: Int
+  description: String
+  floor: String
+  garageSpots: Int
+  hasElevator: Boolean
+  isExclusive: Boolean
+  isRelease: Boolean
+  maintenanceFee: Float
+  matterportCode: String
+  phone: String
+  price: Int
+  propertyTax: Float
+  restrooms: Int
+  rooms: Int
+  suites: Int
+  type: String!
+}
+
+input ListingPagination {
+  excludedListingIds: [ID]
+  pageSize: Int
+}
+
+type ListingUser {
+  listing: Listing
+  user: User
+}
+
+type Message {
+  id: ID
+  insertedAt: DateTime
+  listing: Listing
+  message: String
+  notified: Boolean
+  read: Boolean
+  receiver: User
+  sender: User
+}
+
+type NotificationPreferences {
+  app: Boolean
+  email: Boolean
+}
+
+input NotificationPreferencesInput {
+  app: Boolean
+  email: Boolean
+}
+
+enum OrderableField {
+  AREA
+  BALCONIES
+  BATHROOMS
+  DEPENDENCIES
+  GARAGE_SPOTS
+  ID
+  MAINTENANCE_FEE
+  PRICE
+  PROPERTY_TAX
+  RESTROOMS
+  ROOMS
+  SUITES
+}
+
+input OrderBy {
+  field: OrderableField
+  type: OrderType
+}
+
+enum OrderType {
+  ASC
+  DESC
+}
+
+type PriceHistory {
+  insertedAt: DateTime
+  price: Int
+}
+
+type PriceRequest {
+  address: Address
+  area: Int
+  bathrooms: Int
+  email: String
+  garageSpots: Int
+  id: ID
+  isCovered: Boolean
+  name: String
+  rooms: Int
+  suggestedPrice: Float
+  user: User
+}
+
+type RootMutationType {
+  # Activate listing
+  activateListing(id: ID!): Listing
+
+  # Insert address
+  addressInsert(input: AddressInput!): Address
+
+  # Change email
+  changeEmail(email: String, id: ID!): User
+
+  # Change password
+  changePassword(currentPassword: String, id: ID!, newPassword: String): User
+
+  # Confirm registration
+  confirm(token: String!): Credentials
+
+  # Deactivate listing
+  deactivateListing(id: ID!): Listing
+
+  # Edit user profile
+  editUserProfile(
+    deviceToken: String
+    id: ID!
+    name: String
+    notificationPreferences: NotificationPreferencesInput
+    phone: String
+  ): User
+
+  # Favorite listing
+  favoriteListing(id: ID!): ListingUser
+
+  # Inser image
+  insertImage(input: ImageInsertInput!): Image
+
+  # Insert listing
+  insertListing(input: ListingInput!): Listing
+
+  # Blacklist listing
+  listingBlacklist(id: ID!): ListingUser
+
+  # Unblacklist listing
+  listingUnblacklist(id: ID!): ListingUser
+
+  # Mark message as read
+  markAsRead(id: ID!): Message
+
+  # Request password redefinition
+  redefinePassword(newPassword: String!, resetToken: String!): User
+
+  # Register
+  register(
+    deviceToken: String
+    email: String!
+    name: String!
+    password: String!
+    phone: String
+  ): Credentials
+
+  # Request contact
+  requestContact(
+    email: String
+    message: String
+    name: String
+    phone: String
+  ): Contact
+
+  # Request price suggestion
+  requestPriceSuggestion(
+    address: AddressInput!
+    area: Int!
+    bathrooms: Int!
+    email: String!
+    garageSpots: Int!
+    isCovered: Boolean!
+    name: String!
+    rooms: Int!
+  ): PriceRequest
+
+  # Request password reset
+  resetPassword(email: String!): User
+
+  # Send message
+  sendMessage(listingId: ID!, message: String, receiverId: ID!): Message
+
+  # Sign in
+  signIn(email: String!, password: String!): Credentials
+
+  # Tour visualization
+  tourVisualized(id: ID!): Listing
+
+  # Unfavorite listing
+  unfavoriteListing(id: ID!): ListingUser
+
+  # Update images
+  updateImages(input: [ImageUpdateInput!]!): [Image]
+
+  # Update listing
+  updateListing(id: ID!, input: ListingInput!): Listing
+  uploadFactorsCsv(factors: Upload!): String
+}
+
+type RootQueryType {
+  # Get dashboard stats
+  dashboard: Dashboard
+
+  # Get favorited listings
+  favoritedListings: [Listing]
+
+  # Featured listings
+  featuredListings: [Listing]
+
+  # Interest types
+  interestTypes: [InterestType]
+
+  # Show listing
+  listing(id: ID!): Listing
+
+  # List user messages, optionally by listing
+  listingUserMessages(listingId: ID, senderId: ID): UserMessages
+
+  # Listings index
+  listings(
+    filters: ListingFilterInput
+    orderBy: [OrderBy]
+    pagination: ListingPagination
+  ): ListingIndex
+
+  # Get all neighborhoods
+  neighborhoods: [String]
+
+  # Get listings with relaxed filters
+  relaxedListings(
+    filters: ListingFilterInput
+    orderBy: [OrderBy]
+    pagination: ListingPagination
+  ): ListingIndex
+
+  # Get favorited users
+  showFavoritedUsers(id: ID!): [User]
+
+  # Get user channels
+  userChannels(listingId: ID, otherParticipantId: ID): [Channel]
+
+  # List user listings
+  userListings: [Listing]
+
+  # Get user profile
+  userProfile(id: ID): User
+}
+
+type RootSubscriptionType {
+  # Subscribe to email change
+  contactRequested: Contact
+
+  # Subscribe to email change
+  emailChanged: Listing
+
+  # Subscribe to listing activation
+  listingActivated: Listing
+
+  # Subscribe to listing deactivation
+  listingDeactivated: Listing
+
+  # Subscribe to listing show
+  listingInserted: Listing
+
+  # Subscribe to your messages
+  messageSent: Message
+
+  # Send e-mail notification for new messages
+  messageSentAdmin: Message
+
+  # Subscribe to password reset
+  passwordResetRequested: User
+
+  # Subscribe to price suggestion requests
+  priceSuggestionRequested: PriceRequest
+
+  # Subscribe to user confirmation
+  userConfirmed: Credentials
+
+  # Subscribe to user registration
+  userRegistered: Credentials
+}
+
+# Represents an uploaded file.
+#
+scalar Upload
+
+type User {
+  blacklists(
+    filters: ListingFilterInput!
+    pagination: ListingPagination!
+  ): [Listing]
+  email: String
+  favorites(
+    filters: ListingFilterInput!
+    pagination: ListingPagination!
+  ): [Listing]
+  id: ID
+  listings(
+    filters: ListingFilterInput!
+    pagination: ListingPagination!
+  ): [Listing]
+  name: String
+  notificationPreferences: NotificationPreferences
+  phone: String
+  role: String
+}
+
+type UserMessages {
+  messages: [Message]
+  user: User
+}
