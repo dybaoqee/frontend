@@ -5,7 +5,7 @@ import UserMenu from 'components/shared/Shell/Header/UserMenu'
 import Link from 'next/link'
 
 describe('Header', () => {
-  it('should render unauthenticated', () => {
+  it.only('should render unauthenticated', () => {
     const header = shallow(<Header />)
 
     expect(header.find(Link)).toHaveLength(5)
@@ -13,11 +13,10 @@ describe('Header', () => {
     expect(
       header
         .find(Link)
-        .find(
-          '[href="/"] a img [src="/static/emcasa-imobiliaria-rio-de-janeiro.png"]'
-        )
-        .exists()
-    ).toEqual(true)
+        .first()
+        .find('img')
+        .prop('src')
+    ).toEqual('/static/emcasa-imobiliaria-rio-de-janeiro.png')
 
     expect(
       header
