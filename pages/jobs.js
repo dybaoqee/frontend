@@ -24,7 +24,7 @@ class Jobs extends Component {
           <meta name="twitter:title" content="Trabalhe conosco | EmCasa" />
           <meta
             name="twitter:description"
-            content="Procuramos desenvolvedores excepcionais em Elixir e React / React Native. Cadastre-se!"
+            content="Procuramos desenvolvedores excepcionais em React / React Native. Cadastre-se!"
           />
           <meta
             name="twitter:image"
@@ -83,9 +83,10 @@ class Jobs extends Component {
           <h4>Remoto</h4>
 
           <p>
-            O designer irá focar na experiência do usuário para trabalhar com nossas equipes de
-            marketing, produto e desenvolvimento na prototipagem de interfaces do produto, criação de
-            landing pages e ilustrações para campanhas online e offline.
+            O designer irá focar na experiência do usuário para trabalhar com
+            nossas equipes de marketing, produto e desenvolvimento na
+            prototipagem de interfaces do produto, criação de landing pages e
+            ilustrações para campanhas online e offline.
           </p>
 
           <a
@@ -134,7 +135,7 @@ class Jobs extends Component {
           </p>
 
           <a
-            href="https://docs.google.com/forms/d/1FIoJIqPfMLbh9qVj8ODJUNK08_yX_DbfhrRtF9oOWwA"
+            href="http://bit.ly/emcasafrontend"
             target="_blank"
             rel="noopener noreferrer"
             className="btn"
