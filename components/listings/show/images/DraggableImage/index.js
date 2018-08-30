@@ -67,13 +67,17 @@ const imageTarget = {
   }
 }
 
-@DropTarget(DraggableTypes.IMAGE, imageTarget, (connect) => ({
+const Target = DropTarget(DraggableTypes.IMAGE, imageTarget, (connect) => ({
   connectDropTarget: connect.dropTarget()
 }))
-@DragSource(DraggableTypes.IMAGE, imageSource, (connect, monitor) => ({
-  connectDragSource: connect.dragSource(),
-  isDragging: monitor.isDragging()
-}))
+const Source = DragSource(
+  DraggableTypes.IMAGE,
+  imageSource,
+  (connect, monitor) => ({
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging()
+  })
+)
 class DraggableImage extends Component {
   static PropTypes = {
     connectDragSource: PropTypes.func.isRequired,
@@ -121,9 +125,8 @@ class DraggableImage extends Component {
       <DraggableWrapper
         isDragging={isDragging}
         innerRef={(instance) => {
-          const domNode = findDOMNode(instance)
-          connectDragSource(domNode)
-          connectDropTarget(domNode)
+          connectDragSource(instance)
+          connectDropTarget(instance)
         }}
       >
         <Container isDragging={isDragging}>
@@ -137,4 +140,4 @@ class DraggableImage extends Component {
   }
 }
 
-export default DraggableImage
+export default Target(Source(DraggableImage))
