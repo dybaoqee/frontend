@@ -58,6 +58,7 @@ export default class InfiniteScroll extends Component {
     const {
       entries,
       title,
+      titleComponent,
       remaining_count,
       horizontal,
       children: renderEntry
@@ -69,6 +70,7 @@ export default class InfiniteScroll extends Component {
         innerRef={(wrapper) => (this.wrapper = wrapper)}
       >
         {title && <Title horizontal={horizontal}>{title}</Title>}
+        {titleComponent && !horizontal && titleComponent}
         <Container horizontal={horizontal}>
           {entries.map(renderEntry)}
         </Container>

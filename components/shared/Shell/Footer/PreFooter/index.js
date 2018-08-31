@@ -48,10 +48,14 @@ export default class PreFooter extends Component {
                 neighborhoods.map((neighborhood) => (
                   <Link
                     key={neighborhood}
-                    href={`/listings/?bairros=${neighborhood}`}
-                    as={`/imoveis/rj/rio-de-janeiro/${slug(
-                      neighborhood.toLowerCase()
-                    )}`}
+                    href={{
+                      pathname: `/imoveis/rj/rio-de-janeiro/${slug(
+                        neighborhood.toLowerCase()
+                      )}`,
+                      asPath: `/imoveis/rj/rio-de-janeiro/${slug(
+                        neighborhood.toLowerCase()
+                      )}`
+                    }}
                   >
                     <a title={`Comprar imóvel: ${neighborhood}`}>
                       {neighborhood}

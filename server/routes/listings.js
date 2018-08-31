@@ -52,7 +52,11 @@ router.get('/:state/:city/:neighborhood/:streetwithId', (req, res) => {
 router.get('/:state/:city/:neighborhood/', (req, res) => {
   const actualPage = '/listings'
   const neighborhood = req.params.neighborhood
-  const queryParams = {neighborhoodSlug: neighborhood}
+  const queryParams = {
+    neighborhoodSlug: neighborhood,
+    state: req.params.state,
+    city: req.params.city
+  }
   res.locals.app.render(req, res, actualPage, queryParams)
 })
 

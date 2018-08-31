@@ -13,6 +13,7 @@ import InfiniteScroll from 'components/shared/InfiniteScroll'
 import Listing from 'components/listings/shared/Listing'
 import Map from 'components/listings/shared/Map'
 import ListingsNotFound from 'components/listings/shared/NotFound'
+import Neighborhood from 'components/listings/shared/Neighborhood'
 import Container, {MapButton, MapContainer, ListingsContainer} from './styles'
 export default class Listings extends Component {
   constructor(props) {
@@ -58,6 +59,15 @@ export default class Listings extends Component {
             return (
               <InfiniteScroll
                 title={h1Content}
+                titleComponent={
+                  query.neighborhoodSlug && (
+                    <Neighborhood
+                      neighborhood={query.neighborhoodSlug}
+                      state={query.state}
+                      city={query.city}
+                    />
+                  )
+                }
                 entries={filteredListings}
                 remaining_count={result.remainingCount}
                 onLoad={async () => {
@@ -238,6 +248,7 @@ export default class Listings extends Component {
           return (
             <Container opened={mapOpened}>
               {this.getMap()}
+
               <ListingsContainer opened={mapOpened}>
                 {this.getListings(listings, fetchMore)}
               </ListingsContainer>
