@@ -20,7 +20,14 @@ export const Title = styled.div`
   color: ${blue.medium};
   font-size: 14px;
   width: auto;
-  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  user-select: none;
+
+  svg {
+    width: 20px !important;
+    height: 20px;
+  }
 `
 
 export const Info = styled.p`
