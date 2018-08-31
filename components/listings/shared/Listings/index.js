@@ -61,7 +61,11 @@ export default class Listings extends Component {
                 title={h1Content}
                 titleComponent={
                   query.neighborhoodSlug && (
-                    <Neighborhood neighborhood={query.bairros} />
+                    <Neighborhood
+                      neighborhood={query.neighborhoodSlug}
+                      state={query.state}
+                      city={query.city}
+                    />
                   )
                 }
                 entries={filteredListings}
