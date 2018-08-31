@@ -151,3 +151,12 @@ export const GET_NEIGHBORHOODS = gql`
     neighborhoods
   }
 `
+
+export const GET_NEIGHBORHOODS_DESCRIPTION = gql`
+  {
+    districts {
+      name
+      description
+    }
+  }
+`
