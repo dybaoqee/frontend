@@ -92,11 +92,7 @@ export const GET_FULL_LISTING = gql`
         id
         filename
       }
-      inPersonVisitCount
-      interestCount
       isActive
-      listingFavoriteCount
-      listingVisualisationCount
       maintenanceFee
       matterportCode
       owner {
@@ -106,9 +102,20 @@ export const GET_FULL_LISTING = gql`
       propertyTax
       restrooms
       rooms
-      tourVisualisationCount
       type
       suggestedPrice
+    }
+  }
+`
+
+export const GET_LISTING_STATS = gql`
+  query listing($id: ID!) {
+    listing(id: $id) {
+      inPersonVisitCount
+      interestCount
+      listingFavoriteCount
+      listingVisualisationCount
+      tourVisualisationCount
     }
   }
 `
