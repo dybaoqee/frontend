@@ -2,6 +2,9 @@ import {Component} from 'react'
 import Container, {Title, Info} from './styles'
 import {Query} from 'react-apollo'
 import {GET_NEIGHBORHOOD_DESCRIPTION} from 'graphql/listings/queries'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import faArrowDown from '@fortawesome/fontawesome-pro-regular/faArrowDown'
+import faArrowUp from '@fortawesome/fontawesome-pro-regular/faArrowUp'
 
 export default class Neighborhood extends Component {
   state = {
@@ -31,6 +34,7 @@ export default class Neighborhood extends Component {
                 {!opened
                   ? 'Quer saber mais sobre esse bairro?'
                   : 'Fechar informações'}
+                <FontAwesomeIcon icon={opened ? faArrowUp : faArrowDown} />
               </Title>
               <Info opened={opened} onClick={this.changeState}>
                 {data.district.description}
