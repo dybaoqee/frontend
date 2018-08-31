@@ -1,3 +1,5 @@
+import {Query} from 'react-apollo'
+import {GET_LISTING_STATS} from 'graphql/listings/queries'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import moment from 'moment'
 import Container, {Topic, Title, Icon} from './styles'
@@ -12,71 +14,81 @@ import ActivateListing from 'components/shared/Common/Buttons/Activate'
 
 export default ({
   listing: {
-    listingVisualisationCount,
-    listingFavoriteCount,
-    interestCount,
     insertedAt,
-    tourVisualisationCount,
     id,
-    inPersonVisitCount,
     isActive
   },
   user
 }) => (
-  <Container>
-    {user.admin && (
-      <Topic>
-        <Icon is_active={isActive}>
-          <FontAwesomeIcon icon={faFlag} />
-        </Icon>
-        <Title>
-          <p>Status</p>
-          <ActivateListing listing={{id, isActive}} />
-        </Title>
-      </Topic>
-    )}
+  <Query query={GET_LISTING_STATS} variables={{id}} ssr={false}>
+    {({loading, error, data}) => {
+      if (loading || error) return null
+      const {
+        listingVisualisationCount,
+        tourVisualisationCount,
+        listingFavoriteCount,
+        interestCount,
+        inPersonVisitCount
+      } = data
 
-    <Topic>
-      <FontAwesomeIcon icon={faClipboard} />
-      <Title>
-        <p>Data de criação</p>
-        <span>{moment(insertedAt).format('DD/MM/YYYY')}</span>
-      </Title>
-    </Topic>
-    <Topic>
-      <FontAwesomeIcon icon={faEye} />
-      <Title>
-        <p>Visualizações</p>
-        <span>{listingVisualisationCount}</span>
-      </Title>
-    </Topic>
-    <Topic>
-      <FontAwesomeIcon icon={faHomeHeart} />
-      <Title>
-        <p>Visualizações Tour 3D</p>
-        <span>{tourVisualisationCount}</span>
-      </Title>
-    </Topic>
-    <Topic>
-      <FontAwesomeIcon icon={faHeart} />
-      <Title>
-        <p>Favoritado</p>
-        <span>{listingFavoriteCount}</span>
-      </Title>
-    </Topic>
-    <Topic>
-      <FontAwesomeIcon icon={faCalendar} />
-      <Title>
-        <p>Visitas Marcadas</p>
-        <span>{interestCount}</span>
-      </Title>
-    </Topic>
-    <Topic>
-      <FontAwesomeIcon icon={faHome} />
-      <Title>
-        <p>Visitas Realizadas</p>
-        <span>{inPersonVisitCount}</span>
-      </Title>
-    </Topic>
-  </Container>
+      return (
+        <Container>
+          {user.admin && (
+            <Topic>
+              <Icon is_active={isActive}>
+                <FontAwesomeIcon icon={faFlag}/>
+              </Icon>
+              <Title>
+                <p>Status</p>
+                <ActivateListing listing={{id, isActive}}/>
+              </Title>
+            </Topic>
+          )}
+
+          <Topic>
+            <FontAwesomeIcon icon={faClipboard}/>
+            <Title>
+              <p>Data de criação</p>
+              <span>{moment(insertedAt).format('DD/MM/YYYY')}</span>
+            </Title>
+          </Topic>
+          <Topic>
+            <FontAwesomeIcon icon={faEye}/>
+            <Title>
+              <p>Visualizações</p>
+              <span>{listingVisualisationCount}</span>
+            </Title>
+          </Topic>
+          <Topic>
+            <FontAwesomeIcon icon={faHomeHeart}/>
+            <Title>
+              <p>Visualizações Tour 3D</p>
+              <span>{tourVisualisationCount}</span>
+            </Title>
+          </Topic>
+          <Topic>
+            <FontAwesomeIcon icon={faHeart}/>
+            <Title>
+              <p>Favoritado</p>
+              <span>{listingFavoriteCount}</span>
+            </Title>
+          </Topic>
+          <Topic>
+            <FontAwesomeIcon icon={faCalendar}/>
+            <Title>
+              <p>Visitas Marcadas</p>
+              <span>{interestCount}</span>
+            </Title>
+          </Topic>
+          <Topic>
+            <FontAwesomeIcon icon={faHome}/>
+            <Title>
+              <p>Visitas Realizadas</p>
+              <span>{inPersonVisitCount}</span>
+            </Title>
+          </Topic>
+        </Container>
+      )
+    }}
+  </Query>
 )
