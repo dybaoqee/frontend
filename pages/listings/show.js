@@ -160,7 +160,7 @@ class Listing extends Component {
   }
 
   showListing = () => {
-    const {currentUser, url, listing, router} = this.props
+    const {user: currentUser, url, listing, router} = this.props
     const {related} = this.state
     const {isActive} = listing
 
