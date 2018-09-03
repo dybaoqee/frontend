@@ -12,14 +12,7 @@ import faHomeHeart from '@fortawesome/fontawesome-pro-light/faHomeHeart'
 import faHome from '@fortawesome/fontawesome-pro-light/faHome'
 import ActivateListing from 'components/shared/Common/Buttons/Activate'
 
-export default ({
-  listing: {
-    insertedAt,
-    id,
-    isActive
-  },
-  user
-}) => (
+export default ({listing: {insertedAt, id, isActive}, user}) => (
   <Query query={GET_LISTING_STATS} variables={{id}} ssr={false}>
     {({loading, error, data}) => {
       if (loading || error) return null
@@ -29,59 +22,59 @@ export default ({
         listingFavoriteCount,
         interestCount,
         inPersonVisitCount
-      } = data
+      } = data.listing
 
       return (
         <Container>
           {user.admin && (
             <Topic>
               <Icon is_active={isActive}>
-                <FontAwesomeIcon icon={faFlag}/>
+                <FontAwesomeIcon icon={faFlag} />
               </Icon>
               <Title>
                 <p>Status</p>
-                <ActivateListing listing={{id, isActive}}/>
+                <ActivateListing listing={{id, isActive}} />
               </Title>
             </Topic>
           )}
 
           <Topic>
-            <FontAwesomeIcon icon={faClipboard}/>
+            <FontAwesomeIcon icon={faClipboard} />
             <Title>
               <p>Data de criação</p>
               <span>{moment(insertedAt).format('DD/MM/YYYY')}</span>
             </Title>
           </Topic>
           <Topic>
-            <FontAwesomeIcon icon={faEye}/>
+            <FontAwesomeIcon icon={faEye} />
             <Title>
               <p>Visualizações</p>
               <span>{listingVisualisationCount}</span>
             </Title>
           </Topic>
           <Topic>
-            <FontAwesomeIcon icon={faHomeHeart}/>
+            <FontAwesomeIcon icon={faHomeHeart} />
             <Title>
               <p>Visualizações Tour 3D</p>
               <span>{tourVisualisationCount}</span>
             </Title>
           </Topic>
           <Topic>
-            <FontAwesomeIcon icon={faHeart}/>
+            <FontAwesomeIcon icon={faHeart} />
             <Title>
               <p>Favoritado</p>
               <span>{listingFavoriteCount}</span>
             </Title>
           </Topic>
           <Topic>
-            <FontAwesomeIcon icon={faCalendar}/>
+            <FontAwesomeIcon icon={faCalendar} />
             <Title>
               <p>Visitas Marcadas</p>
               <span>{interestCount}</span>
             </Title>
           </Topic>
           <Topic>
-            <FontAwesomeIcon icon={faHome}/>
+            <FontAwesomeIcon icon={faHome} />
             <Title>
               <p>Visitas Realizadas</p>
               <span>{inPersonVisitCount}</span>
