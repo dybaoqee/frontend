@@ -62,7 +62,7 @@ export const GET_LISTING = gql`
 
 export const GET_FULL_LISTING = gql`
   query listing($id: ID!) {
-    listing(id: $id) @connection(key: "listingFetched") {
+    listing(id: $id) {
       id
       address {
         city
@@ -110,7 +110,7 @@ export const GET_FULL_LISTING = gql`
 
 export const GET_LISTING_STATS = gql`
   query listing($id: ID!) {
-    listing(id: $id) @connection(key: "listingFetched") {
+    listing(id: $id) {
       id
       inPersonVisitCount
       interestCount
