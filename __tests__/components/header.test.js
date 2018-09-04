@@ -40,7 +40,7 @@ describe('Header', () => {
 
   it('should render authenticated', () => {
     const header = shallow(<Header authenticated={true} isAdmin={true} />)
-    expect(header.find(Link)).toHaveLength(6)
+    expect(header.find(Link)).toHaveLength(5)
 
     expect(header.find(UserMenu).exists()).toEqual(true)
 
@@ -59,12 +59,6 @@ describe('Header', () => {
         .find('span')
         .text()
     ).toEqual('Painel')
-    expect(
-      header
-        .find('[href="/user/messages"]')
-        .find('span')
-        .text()
-    ).toEqual('Mensagens')
     expect(
       header
         .find('[href="/listings/fav"]')
