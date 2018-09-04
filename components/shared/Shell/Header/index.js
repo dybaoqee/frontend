@@ -8,7 +8,6 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faSearch from '@fortawesome/fontawesome-pro-light/faSearch'
 import faTag from '@fortawesome/fontawesome-pro-light/faTag'
 import faHeart from '@fortawesome/fontawesome-pro-light/faHeart'
-import faEnvelope from '@fortawesome/fontawesome-pro-light/faEnvelope'
 import faChart from '@fortawesome/fontawesome-pro-light/faChartBar'
 
 export default class Header extends Component {
@@ -86,13 +85,6 @@ export default class Header extends Component {
         as: '/imoveis/favoritos',
         icon: faHeart,
         title: 'Favoritos',
-        auth: true
-      },
-      {
-        href: '/user/messages',
-        as: '/mensagens',
-        icon: faEnvelope,
-        title: 'Mensagens',
         auth: true
       },
       {
