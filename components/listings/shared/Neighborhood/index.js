@@ -32,7 +32,9 @@ export default class Neighborhood extends Component {
             <Container>
               <Title onClick={this.changeState}>
                 {!opened
-                  ? 'Quer saber mais sobre esse bairro?'
+                  ? `${
+                      data.district.name
+                    } -  Quer saber mais sobre esse bairro?`
                   : 'Fechar informações'}
                 <FontAwesomeIcon icon={opened ? faArrowUp : faArrowDown} />
               </Title>
