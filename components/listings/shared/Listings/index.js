@@ -14,7 +14,12 @@ import Listing from 'components/listings/shared/Listing'
 import Map from 'components/listings/shared/Map'
 import ListingsNotFound from 'components/listings/shared/NotFound'
 import Neighborhood from 'components/listings/shared/Neighborhood'
-import Container, {MapButton, MapContainer, ListingsContainer} from './styles'
+import Container, {
+  MapButton,
+  MapContainer,
+  ListingsContainer,
+  Loading
+} from './styles'
 export default class Listings extends Component {
   constructor(props) {
     super(props)
@@ -41,9 +46,8 @@ export default class Listings extends Component {
     } = this.props
     const {mapOpened} = this.state
 
-    const h1Content = !query.neighborhoodSlug
-      ? 'Apartamentos e Casas à venda na Zona Sul do Rio de Janeiro'
-      : `Apartamentos e Casas à venda - ${query.bairros}, Rio de Janeiro`
+    const h1Content =
+      'Apartamentos e Casas à venda na Zona Sul do Rio de Janeiro'
 
     if (result && result.listings.length > 0) {
       return (
@@ -219,14 +223,18 @@ export default class Listings extends Component {
           <Fragment>
             <MapButton opened={mapOpened} onClick={this.handleMap} />
             <MapContainer opened={mapOpened}>
-              <Map
-                zoom={13}
-                onSelect={this.onSelectListing}
-                listings={mapListings.listings}
-                highlight={highlight}
-                onChange={this.onChangeMap}
-                updateAfterApiCall
-              />
+              {process.browser ? (
+                <Map
+                  zoom={13}
+                  onSelect={this.onSelectListing}
+                  listings={mapListings.listings}
+                  highlight={highlight}
+                  onChange={this.onChangeMap}
+                  updateAfterApiCall
+                />
+              ) : (
+                <Loading>Carregando mapa...</Loading>
+              )}
             </MapContainer>
           </Fragment>
         )}

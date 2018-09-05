@@ -1,5 +1,4 @@
 import {Component, Fragment} from 'react'
-import slugify from 'slug'
 import Head from 'next/head'
 import Router from 'next/router'
 import {
@@ -8,7 +7,6 @@ import {
   getFiltersFromFilters,
   getFiltersFromQuery
 } from 'utils/filter-params.js'
-import {getNeighborhoods} from 'services/neighborhood-api'
 import Filter from 'components/listings/shared/Search'
 import Listings from 'components/listings/shared/Listings'
 import {getUrlVars} from 'utils/text-utils'
@@ -26,19 +24,7 @@ class ListingsIndex extends Component {
   }
 
   static async getInitialProps(context) {
-    let neighborhoods = []
-    neighborhoods = await getNeighborhoods().then(
-      ({data}) => data.neighborhoods
-    )
-    if (context.query.neighborhoodSlug) {
-      context.query.bairros = neighborhoods.filter(
-        (neighborhood) =>
-          slugify(neighborhood).toLowerCase() === context.query.neighborhoodSlug
-      )[0]
-    }
-
     return {
-      neighborhoods,
       query: context.query,
       renderFooter: false
     }
