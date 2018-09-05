@@ -27,6 +27,8 @@ import Slider from 'components/shared/Common/Slider'
 import Select from 'react-select'
 import EmCasaButton from 'components/shared/Common/Buttons'
 import {neighborhoodOptions} from 'constants/listing-filter-options'
+import {Query} from 'react-apollo'
+import {GET_NEIGHBORHOODS} from 'graphql/listings/queries'
 
 export default class Filter extends Component {
   constructor(props) {
@@ -190,156 +192,167 @@ export default class Filter extends Component {
 
     const anyFilterApplied = Object.keys(this.state.values).length > 0
     const {onChangeListingType, onToggle, activeFilters, resetFilter} = this
-    const {neighborhoods} = this.props
-    const neighborhoodsOptions = neighborhoodOptions(neighborhoods)
+
     return (
-      <Container>
-        <FiltersApplied>
-          <FilterButton onClick={onToggle}>
-            <FontAwesomeIcon icon={faFilter} />
-            <span>Filtrar imóveis</span>
-            <FontAwesomeIcon icon={active ? faAngleUp : faAngleDown} />
-          </FilterButton>
-          <FiltersAppliedContainer>
-            {anyFilterApplied ? (
-              activeFilters
-            ) : (
-              <p onClick={onToggle}>Sem filtros aplicados</p>
-            )}
-          </FiltersAppliedContainer>
-          <FilterButton onClick={this.resetFilters}>
-            <FontAwesomeIcon icon={faTrash} />
-            <span>Limpar filtros</span>
-          </FilterButton>
-        </FiltersApplied>
-        <FiltersWrapper active={active}>
-          <Overlay onClick={this.onClose} />
-          <Filters>
-            <div>
-              <FilterContainer>
-                <h4>
-                  Tipo de Imóvel
-                  <FontAwesomeIcon
-                    icon={faTrash}
-                    onClick={resetFilter.bind(this, 'types')}
-                  />
-                </h4>
-                <PropertyTypes activeTypes={types}>
-                  <PropertyType
-                    aria-label="Apartamento"
-                    onClick={onChangeListingType}
-                  >
-                    <FontAwesomeIcon icon={faBuilding} />
-                    <span>Apartamento</span>
-                  </PropertyType>
-                  <PropertyType aria-label="Casa" onClick={onChangeListingType}>
-                    <FontAwesomeIcon icon={faHome} />
-                    <span>Casa</span>
-                  </PropertyType>
-                  <PropertyType
-                    aria-label="Cobertura"
-                    onClick={onChangeListingType}
-                  >
-                    <FontAwesomeIcon icon={faRoof} />
-                    <span>Cobertura</span>
-                  </PropertyType>
-                </PropertyTypes>
-              </FilterContainer>
-              <FilterContainer>
-                <h4>
-                  Bairros
-                  <FontAwesomeIcon
-                    icon={faTrash}
-                    onClick={resetFilter.bind(this, 'neighborhoods')}
-                  />
-                </h4>
-                <Select
-                  name="form-field-name"
-                  arrowRenderer={null}
-                  placeholder="Selecione"
-                  multi={true}
-                  value={selectedNeighborhoods || []}
-                  onChange={this.neighborhoodChanged}
-                  options={neighborhoodsOptions}
-                  noResultsText="Resultado Não Encontrado"
-                />
-              </FilterContainer>
-              <FilterContainer>
-                <h4>
-                  Preço
-                  <FontAwesomeIcon
-                    icon={faTrash}
-                    onClick={resetFilter.bind(this, 'price')}
-                  />
-                </h4>
-                <Slider
-                  min={550000}
-                  max={10000000}
-                  values={price}
-                  isRange
-                  onChange={this.sliderChanged.bind(this, 'price')}
-                  valuesRounder={(value) => Math.ceil(value / 10000) * 10000}
-                  valuesFormatter={(value) =>
-                    ` R$ ${value.toLocaleString('pt-BR')}`
-                  }
-                />
-              </FilterContainer>
-              <FilterContainer>
-                <h4>
-                  Área
-                  <FontAwesomeIcon
-                    icon={faTrash}
-                    onClick={resetFilter.bind(this, 'area')}
-                  />
-                </h4>
-                <Slider
-                  min={35}
-                  values={area}
-                  max={500}
-                  isRange
-                  onChange={this.sliderChanged.bind(this, 'area')}
-                  valuesFormatter={(value) => `${value} m²`}
-                />
-              </FilterContainer>
-              <FilterContainer>
-                <h4>
-                  Quartos
-                  <FontAwesomeIcon
-                    icon={faTrash}
-                    onClick={resetFilter.bind(this, 'rooms')}
-                  />
-                </h4>
-                <Slider
-                  values={rooms}
-                  min={1}
-                  max={8}
-                  isRange
-                  onChange={this.sliderChanged.bind(this, 'rooms')}
-                />
-              </FilterContainer>
-              <FilterContainer>
-                <h4>
-                  Vagas
-                  <FontAwesomeIcon
-                    icon={faTrash}
-                    onClick={resetFilter.bind(this, 'garageSpots')}
-                  />
-                </h4>
-                <Slider
-                  min={0}
-                  values={garageSpots}
-                  max={8}
-                  isRange
-                  onChange={this.sliderChanged.bind(this, 'garageSpots')}
-                />
-              </FilterContainer>
-            </div>
-            <EmCasaButton full light onClick={this.onClose}>
-              Ver resultados
-            </EmCasaButton>
-          </Filters>
-        </FiltersWrapper>
-      </Container>
+      <Query query={GET_NEIGHBORHOODS} ssr={false}>
+        {({data: {neighborhoods = []}}) => {
+          const neighborhoodsOptions = neighborhoodOptions(neighborhoods)
+          return (
+            <Container>
+              <FiltersApplied>
+                <FilterButton onClick={onToggle}>
+                  <FontAwesomeIcon icon={faFilter} />
+                  <span>Filtrar imóveis</span>
+                  <FontAwesomeIcon icon={active ? faAngleUp : faAngleDown} />
+                </FilterButton>
+                <FiltersAppliedContainer>
+                  {anyFilterApplied ? (
+                    activeFilters
+                  ) : (
+                    <p onClick={onToggle}>Sem filtros aplicados</p>
+                  )}
+                </FiltersAppliedContainer>
+                <FilterButton onClick={this.resetFilters}>
+                  <FontAwesomeIcon icon={faTrash} />
+                  <span>Limpar filtros</span>
+                </FilterButton>
+              </FiltersApplied>
+              <FiltersWrapper active={active}>
+                <Overlay onClick={this.onClose} />
+                <Filters>
+                  <div>
+                    <FilterContainer>
+                      <h4>
+                        Tipo de Imóvel
+                        <FontAwesomeIcon
+                          icon={faTrash}
+                          onClick={resetFilter.bind(this, 'types')}
+                        />
+                      </h4>
+                      <PropertyTypes activeTypes={types}>
+                        <PropertyType
+                          aria-label="Apartamento"
+                          onClick={onChangeListingType}
+                        >
+                          <FontAwesomeIcon icon={faBuilding} />
+                          <span>Apartamento</span>
+                        </PropertyType>
+                        <PropertyType
+                          aria-label="Casa"
+                          onClick={onChangeListingType}
+                        >
+                          <FontAwesomeIcon icon={faHome} />
+                          <span>Casa</span>
+                        </PropertyType>
+                        <PropertyType
+                          aria-label="Cobertura"
+                          onClick={onChangeListingType}
+                        >
+                          <FontAwesomeIcon icon={faRoof} />
+                          <span>Cobertura</span>
+                        </PropertyType>
+                      </PropertyTypes>
+                    </FilterContainer>
+                    <FilterContainer>
+                      <h4>
+                        Bairros
+                        <FontAwesomeIcon
+                          icon={faTrash}
+                          onClick={resetFilter.bind(this, 'neighborhoods')}
+                        />
+                      </h4>
+                      <Select
+                        name="form-field-name"
+                        arrowRenderer={null}
+                        placeholder="Selecione"
+                        multi={true}
+                        value={selectedNeighborhoods || []}
+                        onChange={this.neighborhoodChanged}
+                        options={neighborhoodsOptions}
+                        noResultsText="Resultado Não Encontrado"
+                      />
+                    </FilterContainer>
+                    <FilterContainer>
+                      <h4>
+                        Preço
+                        <FontAwesomeIcon
+                          icon={faTrash}
+                          onClick={resetFilter.bind(this, 'price')}
+                        />
+                      </h4>
+                      <Slider
+                        min={550000}
+                        max={10000000}
+                        values={price}
+                        isRange
+                        onChange={this.sliderChanged.bind(this, 'price')}
+                        valuesRounder={(value) =>
+                          Math.ceil(value / 10000) * 10000
+                        }
+                        valuesFormatter={(value) =>
+                          ` R$ ${value.toLocaleString('pt-BR')}`
+                        }
+                      />
+                    </FilterContainer>
+                    <FilterContainer>
+                      <h4>
+                        Área
+                        <FontAwesomeIcon
+                          icon={faTrash}
+                          onClick={resetFilter.bind(this, 'area')}
+                        />
+                      </h4>
+                      <Slider
+                        min={35}
+                        values={area}
+                        max={500}
+                        isRange
+                        onChange={this.sliderChanged.bind(this, 'area')}
+                        valuesFormatter={(value) => `${value} m²`}
+                      />
+                    </FilterContainer>
+                    <FilterContainer>
+                      <h4>
+                        Quartos
+                        <FontAwesomeIcon
+                          icon={faTrash}
+                          onClick={resetFilter.bind(this, 'rooms')}
+                        />
+                      </h4>
+                      <Slider
+                        values={rooms}
+                        min={1}
+                        max={8}
+                        isRange
+                        onChange={this.sliderChanged.bind(this, 'rooms')}
+                      />
+                    </FilterContainer>
+                    <FilterContainer>
+                      <h4>
+                        Vagas
+                        <FontAwesomeIcon
+                          icon={faTrash}
+                          onClick={resetFilter.bind(this, 'garageSpots')}
+                        />
+                      </h4>
+                      <Slider
+                        min={0}
+                        values={garageSpots}
+                        max={8}
+                        isRange
+                        onChange={this.sliderChanged.bind(this, 'garageSpots')}
+                      />
+                    </FilterContainer>
+                  </div>
+                  <EmCasaButton full light onClick={this.onClose}>
+                    Ver resultados
+                  </EmCasaButton>
+                </Filters>
+              </FiltersWrapper>
+            </Container>
+          )
+        }}
+      </Query>
     )
   }
 }

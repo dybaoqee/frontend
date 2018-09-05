@@ -211,59 +211,55 @@ export default class MapContainer extends Component {
           this.apiIsLoaded(map, maps, markers)
         }
       >
-        {loaded ? (
-          clusters.map((item) => {
-            const highlightAggregator =
-              highlight &&
-              item.points.filter(
-                ({lat, lng}) => lat === highlight.lat && lng === highlight.lng
-              ).length > 0
+        {clusters.map((item) => {
+          const highlightAggregator =
+            highlight &&
+            item.points.filter(
+              ({lat, lng}) => lat === highlight.lat && lng === highlight.lng
+            ).length > 0
 
-            if (item.numPoints === 1) {
-              const highlightMarker = isEqual(highlight, {
-                lat: item.points[0].lat,
-                lng: item.points[0].lng
-              })
+          if (item.numPoints === 1) {
+            const highlightMarker = isEqual(highlight, {
+              lat: item.points[0].lat,
+              lng: item.points[0].lng
+            })
 
-              if (hasAggregators) {
-                return (
-                  <ClusterMarker
-                    key={item.id}
-                    lat={item.lat}
-                    lng={item.lng}
-                    points={item.points}
-                    onClick={this.frameMarkers.bind(this)}
-                    highlight={highlightAggregator}
-                  />
-                )
-              }
+            if (hasAggregators) {
               return (
-                <MapMarker
-                  onSelect={onSelect}
-                  id={item.points[0].id}
-                  key={item.points[0].id}
-                  lat={item.points[0].lat}
-                  lng={item.points[0].lng}
-                  text={item.points[0].text}
-                  highlight={highlightMarker}
+                <ClusterMarker
+                  key={item.id}
+                  lat={item.lat}
+                  lng={item.lng}
+                  points={item.points}
+                  onClick={this.frameMarkers.bind(this)}
+                  highlight={highlightAggregator}
                 />
               )
             }
-
             return (
-              <ClusterMarker
-                key={item.id}
-                lat={item.lat}
-                lng={item.lng}
-                points={item.points}
-                onClick={this.frameMarkers.bind(this)}
-                highlight={highlightAggregator}
+              <MapMarker
+                onSelect={onSelect}
+                id={item.points[0].id}
+                key={item.points[0].id}
+                lat={item.points[0].lat}
+                lng={item.points[0].lng}
+                text={item.points[0].text}
+                highlight={highlightMarker}
               />
             )
-          })
-        ) : (
-          <div>Carregando...</div>
-        )}
+          }
+
+          return (
+            <ClusterMarker
+              key={item.id}
+              lat={item.lat}
+              lng={item.lng}
+              points={item.points}
+              onClick={this.frameMarkers.bind(this)}
+              highlight={highlightAggregator}
+            />
+          )
+        })}
       </GoogleMapReact>
     )
   }
