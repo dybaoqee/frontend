@@ -29,7 +29,7 @@ class AccountKit extends Component {
       state: csrf,
       version,
       fbAppEventsEnabled: true,
-      debug: true
+      display: 'modal'
     })
   }
 
