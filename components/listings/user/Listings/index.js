@@ -213,7 +213,7 @@ export default class Listings extends Component {
         fetchPolicy="cache-and-network"
       >
         {({data: {userProfile}, fetchMore}) => {
-          const filtered = !_.isEmpty(filters)
+          const filtered = !isEmpty(filters)
           const listings = filtered
             ? filterListings(userProfile.listings, filters)
             : userProfile.listings
