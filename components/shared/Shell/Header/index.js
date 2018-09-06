@@ -19,14 +19,9 @@ export default class Header extends Component {
     }
   }
 
-  static getDerivedStateFromProps = () => ({
-    isMobileNavVisible: false
-  })
-
   toggleMobileNavVisibility = () => {
-    this.setState(({isMobileNavVisible}) => ({
-      isMobileNavVisible: !isMobileNavVisible
-    }))
+    const {isMobileNavVisible} = this.state
+    this.setState({isMobileNavVisible: !isMobileNavVisible})
   }
 
   getUserHeader = (authenticated) => {
@@ -67,6 +62,7 @@ export default class Header extends Component {
   renderNav() {
     const {authenticated, isAdmin, router} = this.props
     const {isMobileNavVisible} = this.state
+
     const menuItems = [
       {
         href: '/listings',
