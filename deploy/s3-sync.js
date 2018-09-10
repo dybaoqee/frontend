@@ -26,6 +26,11 @@ const params = {
   }
 }
 
+if (!process.AWS_ACCESS_KEY_ID) {
+  console.log('No AWS_ACCESS_KEY_ID defined, ignoring S3 upload');
+  process.exit(0);
+}
+
 const uploader = client.uploadDir(params)
 
 uploader.on('error', function(err) {
