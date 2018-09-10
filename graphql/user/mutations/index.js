@@ -1,8 +1,18 @@
 import gql from 'graphql-tag'
 
 export const EDIT_PROFILE = gql`
-  mutation editUserProfile($id: ID!, $name: String, $phone: String, $emailPreference: Boolean) {
-    editUserProfile(id: $id, name: $name, phone: $phone, notificationPreferences: {email: $emailPreference}) {
+  mutation editUserProfile(
+    $id: ID!
+    $name: String
+    $phone: String
+    $emailPreference: Boolean
+  ) {
+    editUserProfile(
+      id: $id
+      name: $name
+      phone: $phone
+      notificationPreferences: {email: $emailPreference}
+    ) {
       id
       name
       phone
@@ -40,6 +50,20 @@ export const EDIT_PASSWORD = gql`
       name
       phone
       email
+    }
+  }
+`
+
+export const SIGN_IN_ACCOUNT_KIT = gql`
+  mutation accountKitSignIn($accessToken: String!) {
+    accountKitSignIn(accessToken: $accessToken) {
+      jwt
+      user {
+        name
+        id
+        email
+        phone
+      }
     }
   }
 `
