@@ -1,18 +1,26 @@
 import {Component, Fragment} from 'react'
 import Link from 'next/link'
 import Form from 'components/shared/Common/Form'
+import Container from 'components/shared/Common/Container'
+import Hr from 'components/shared/Common/Hr'
 import Errors from 'components/shared/Common/Errors'
 import EmCasaButton from 'components/shared/Common/Buttons'
 import {getCookie, removeCookie} from 'lib/session'
 import {signUp, redirectIfAuthenticated} from 'lib/auth'
 import isArray from 'lodash/isArray'
 import flattenDeep from 'lodash/flattenDeep'
+import AccountKit from 'components/shared/Auth/AccountKit'
+import UserInfo from 'components/shared/Auth/AccountKit/UserInfo'
 
 export default class Signup extends Component {
   state = {
     errors: [],
     loading: false,
     data: {}
+  }
+
+  onSuccess = (userInfo) => {
+    this.setState({userInfo})
   }
 
   static getInitialProps(ctx) {
@@ -26,7 +34,9 @@ export default class Signup extends Component {
       }
       return {
         success,
-        renderFooter: false
+        renderFooter: false,
+        appId: process.env.FACEBOOK_APP_ID,
+        appSecret: process.env.ACCOUNT_KIT_APP_SECRET
       }
     }
   }
@@ -56,9 +66,9 @@ export default class Signup extends Component {
     }
   }
 
-  render() {
+  getDefaultLogin = () => {
     const {errors, loading, data} = this.state
-    const {url} = this.props
+    const {url, appId, appSecret} = this.props
 
     return (
       <Fragment>
@@ -78,24 +88,49 @@ export default class Signup extends Component {
                 {loading ? 'Aguarde...' : 'Enviar'}
               </EmCasaButton>
               <Errors errors={errors} />
-              <p>
-                {'Já tem cadastro? '}
-                <Link
-                  href={{
-                    pathname: '/auth/login',
-                    query: url.query && url.query.r ? {r: url.query.r} : {}
-                  }}
-                  as={{
-                    pathname: '/login'
-                  }}
-                >
-                  <a>Faça login</a>
-                </Link>
-              </p>
             </Fragment>
           )}
         </Form>
+        <Container>
+          <Hr text="ou" />
+          <AccountKit
+            appId={appId}
+            appSecret={appSecret}
+            version="v1.0"
+            onSuccess={this.onSuccess}
+          >
+            {({signIn}) => (
+              <EmCasaButton onClick={signIn} secondary>
+                Cadastre-se pelo celular
+              </EmCasaButton>
+            )}
+          </AccountKit>
+          <p>
+            {'Já tem cadastro? '}
+            <Link
+              href={{
+                pathname: '/auth/login',
+                query: url.query && url.query.r ? {r: url.query.r} : {}
+              }}
+              as={{
+                pathname: '/login'
+              }}
+            >
+              <a>Faça login</a>
+            </Link>
+          </p>
+        </Container>
       </Fragment>
     )
+  }
+
+  getPhoneLogin = () => {
+    const {userInfo} = this.state
+    return <UserInfo userInfo={userInfo} />
+  }
+
+  render() {
+    const {userInfo} = this.state
+    return userInfo ? this.getPhoneLogin() : this.getDefaultLogin()
   }
 }
