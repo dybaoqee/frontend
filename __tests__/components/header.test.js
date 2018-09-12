@@ -8,7 +8,7 @@ describe('Header', () => {
   it.only('should render unauthenticated', () => {
     const header = shallow(<Header />)
 
-    expect(header.find(Link)).toHaveLength(5)
+    expect(header.find(Link)).toHaveLength(3)
 
     expect(
       header
@@ -40,7 +40,7 @@ describe('Header', () => {
 
   it('should render authenticated', () => {
     const header = shallow(<Header authenticated={true} isAdmin={true} />)
-    expect(header.find(Link)).toHaveLength(5)
+    expect(header.find(Link)).toHaveLength(3)
 
     expect(header.find(UserMenu).exists()).toEqual(true)
 
