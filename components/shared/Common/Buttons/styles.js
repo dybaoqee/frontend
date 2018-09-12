@@ -30,7 +30,8 @@ export default BaseButton.extend`
   }
 
   svg {
-    width: 15px;
+    width: 15px !important;
+    height: 15px;
   }
 
   cursor: ${(props) => (props.disabled ? 'default' : 'pointer')};
