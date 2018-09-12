@@ -2,15 +2,21 @@ import {Component, Fragment} from 'react'
 import PropTypes from 'prop-types'
 import {Mutation} from 'react-apollo'
 import {SIGN_IN_ACCOUNT_KIT} from 'graphql/user/mutations'
+import UserInfo from 'components/shared/Auth/AccountKit/UserInfo'
+import redirect from 'lib/redirect'
+import {getCookie} from 'lib/session'
+import {signUpUser} from 'lib/auth'
 
 class AccountKit extends Component {
   state = {
     canSignIn: false,
-    signingIn: false
+    signingIn: false,
+    loading: false
   }
   setAccountKit = () => (window.AccountKit_OnInteractive = this.onLoad)
 
   componentDidMount() {
+    const {autoLogin} = this.props
     if (!window.AccountKit) {
       const {language} = this.props
       const tag = document.createElement('script')
