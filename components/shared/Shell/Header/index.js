@@ -9,6 +9,7 @@ import faSearch from '@fortawesome/fontawesome-pro-light/faSearch'
 import faTag from '@fortawesome/fontawesome-pro-light/faTag'
 import faHeart from '@fortawesome/fontawesome-pro-light/faHeart'
 import faChart from '@fortawesome/fontawesome-pro-light/faChartBar'
+import AccountKit from 'components/shared/Auth/AccountKit'
 
 export default class Header extends Component {
   constructor(props) {
@@ -46,13 +47,17 @@ export default class Header extends Component {
     ]
     return !authenticated ? (
       <UserHeader authenticated={authenticated}>
-        <Link href="/auth/login" as="/login">
-          <EmCasaButton light>Entrar</EmCasaButton>
-        </Link>
-
-        <Link href="/auth/signup" as="/signup">
-          <EmCasaButton>Criar conta</EmCasaButton>
-        </Link>
+        <AccountKit
+          appId={process.env.FACEBOOK_APP_ID}
+          appSecret={process.env.ACCOUNT_KIT_APP_SECRET}
+          version="v1.0"
+        >
+          {({signIn, loading}) => (
+            <EmCasaButton onClick={signIn} disabled={loading}>
+              Entrar
+            </EmCasaButton>
+          )}
+        </AccountKit>
       </UserHeader>
     ) : (
       <UserMenu notifications={notifications} user={user} items={userMenu} />
