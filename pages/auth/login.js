@@ -1,19 +1,11 @@
-import {Component, Fragment} from 'react'
-import Link from 'next/link'
-import Form from 'components/shared/Common/Form'
-import Errors from 'components/shared/Common/Errors'
-import EmCasaButton from 'components/shared/Common/Buttons'
+import {Component} from 'react'
 import {getCookie, removeCookie} from 'lib/session'
-import {signIn, redirectIfAuthenticated} from 'lib/auth'
-import isArray from 'lodash/isArray'
-import flattenDeep from 'lodash/flatMapDeep'
+import {redirectIfAuthenticated} from 'lib/auth'
 import Head from 'next/head'
-export default class Login extends Component {
-  state = {
-    errors: [],
-    loading: false
-  }
+import AccountKit from 'components/shared/Auth/AccountKit'
+import Container from 'components/shared/Common/Container'
 
+export default class Login extends Component {
   static getInitialProps(ctx) {
     if (redirectIfAuthenticated(ctx)) {
       return {}
@@ -30,29 +22,9 @@ export default class Login extends Component {
     }
   }
 
-  handleSubmit = async (e) => {
-    e.preventDefault()
-    this.setState({errors: [], loading: true})
-    const {url} = this.props
-
-    const email = e.target.elements.email.value
-    const password = e.target.elements.password.value
-    try {
-      const user = await signIn(email, password, url)
-    } catch (e) {
-      const errors = isArray(e)
-        ? e
-        : [e.data ? flattenDeep(Object.values(e.data.errors)) : e]
-      this.setState({errors, loading: false})
-    }
-  }
-
   render() {
-    const {errors, loading} = this.state
-    const {url} = this.props
-
     return (
-      <Fragment>
+      <Container>
         <Head>
           <title>Login | EmCasa</title>
           <meta name="description" content="Login | EmCasa" />
@@ -61,35 +33,16 @@ export default class Login extends Component {
           <meta name="twitter:title" content="Login | EmCasa" />
           <meta name="twitter:description" content="Faça seu login" />
         </Head>
-        <Form onSubmit={(e) => this.handleSubmit(e)}>
-          <h1>Login</h1>
-          <input type="email" placeholder="Email" name="email" />
-          <input type="password" placeholder="Senha" name="password" />
-          <EmCasaButton disabled={loading} full type="submit">
-            {loading ? 'Aguarde...' : 'Enviar'}
-          </EmCasaButton>
-          <Errors errors={errors} />
-          <p>
-            <Link href="/auth/password_recovery" as="/lembrar_senha">
-              <a>Esqueci minha senha</a>
-            </Link>
-          </p>
-          <p>
-            {'Não tem cadastro? '}
-            <Link
-              href={{
-                pathname: '/auth/signup',
-                query: url.query && url.query.r ? {r: url.query.r} : {}
-              }}
-              as={{
-                pathname: '/signup'
-              }}
-            >
-              <a>Cadastre-se</a>
-            </Link>
-          </p>
-        </Form>
-      </Fragment>
+
+        <AccountKit
+          appId={process.env.FACEBOOK_APP_ID}
+          appSecret={process.env.ACCOUNT_KIT_APP_SECRET}
+          version="v1.0"
+          autoLogin={true}
+        >
+          {() => null}
+        </AccountKit>
+      </Container>
     )
   }
 }
