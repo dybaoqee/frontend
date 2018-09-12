@@ -65,9 +65,10 @@ class AccountKit extends Component {
 
   onSuccess = async (resp) => {
     const {code} = resp
-    const {onSuccess, appId, appSecret} = this.props
+    const {appId, appSecret} = this.props
 
     if (code) {
+      this.setState({loading: true})
       const data = await fetch(
         `https://graph.accountkit.com/v1.0/access_token?grant_type=authorization_code&code=${code}&
         access_token=AA%7C${appId}%7C${appSecret}`
@@ -81,25 +82,43 @@ class AccountKit extends Component {
         }
       })
 
-      onSuccess && onSuccess(userInfo.data)
+      if (
+        userInfo.data.accountKitSignIn.user.email &&
+        userInfo.data.accountKitSignIn.user.name
+      ) {
+        const user = {
+          jwt: userInfo.data.accountKitSignIn.jwt,
+          id: parseInt(userInfo.data.accountKitSignIn.user.id),
+          role: userInfo.data.accountKitSignIn.user.role
+        }
+        signUpUser(user)
+        this.setState({loading: false})
+        redirect(getCookie('redirectTo') || '/')
+      } else {
+        this.setState({userInfo: userInfo.data, loading: false})
+      }
     }
   }
 
   render() {
     const {signIn} = this
     const {children} = this.props
+    const {userInfo, loading} = this.state
 
     return (
-      <Mutation mutation={SIGN_IN_ACCOUNT_KIT}>
-        {(serverSignIn, {data, loading}) => {
-          this.serverSignIn = serverSignIn
-          return children({
-            signIn,
-            signingIn: loading,
-            userInfo: data ? data.accountKitSignIn : null
-          })
-        }}
-      </Mutation>
+      <Fragment>
+        <Mutation mutation={SIGN_IN_ACCOUNT_KIT}>
+          {(serverSignIn, {data, loading: signingIn}) => {
+            this.serverSignIn = serverSignIn
+            return children({
+              signIn,
+              loading: signingIn || loading,
+              userInfo: data ? data.accountKitSignIn : null
+            })
+          }}
+        </Mutation>
+        {userInfo && <UserInfo userInfo={userInfo} />}
+      </Fragment>
     )
   }
 }
@@ -115,7 +134,8 @@ AccountKit.propTypes = {
   language: PropTypes.string,
   countryCode: PropTypes.string,
   phoneNumber: PropTypes.string,
-  emailAddress: PropTypes.string
+  emailAddress: PropTypes.string,
+  autoLogin: PropTypes.boolean
 }
 
 AccountKit.defaultProps = {
