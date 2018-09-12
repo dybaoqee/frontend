@@ -25,11 +25,15 @@ class AccountKit extends Component {
       tag.setAttribute('type', 'text/javascript')
       tag.onload = this.setAccountKit
       document.head.appendChild(tag)
+    } else {
+      if (autoLogin) {
+        this.signIn()
+      }
     }
   }
 
   onLoad = () => {
-    const {appId, csrf, version} = this.props
+    const {appId, csrf, version, autoLogin} = this.props
     window.AccountKit.init({
       appId,
       state: csrf,
@@ -37,6 +41,9 @@ class AccountKit extends Component {
       fbAppEventsEnabled: true,
       display: 'modal'
     })
+    if (autoLogin) {
+      this.signIn()
+    }
   }
 
   signIn = () => {
