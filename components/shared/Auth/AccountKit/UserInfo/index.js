@@ -2,8 +2,8 @@ import {Component} from 'react'
 import Form from 'components/shared/Common/Form'
 import Errors from 'components/shared/Common/Errors'
 import EmCasaButton from 'components/shared/Common/Buttons'
-import {getCookie} from 'lib/session'
-import {validateUser} from 'lib/validation'
+import {getCookie, removeCookie} from 'lib/session'
+import {validateName, validateEmail} from 'lib/validation'
 import isArray from 'lodash/isArray'
 import flattenDeep from 'lodash/flattenDeep'
 import {Mutation} from 'react-apollo'
@@ -23,7 +23,7 @@ export default class UserInfo extends Component {
     const {userInfo: {accountKitSignIn: userInfo}} = this.props
 
     const user = {
-      jwt: userInfo.jwt,
+      jwt: this.props.userInfo.jwt,
       id: parseInt(userInfo.user.id),
       role: userInfo.user.role
     }
@@ -35,12 +35,9 @@ export default class UserInfo extends Component {
     const email = e.target.elements.email.value
 
     try {
-      validateUser(name, email)
-      signUpUser(user)
+      validateName(name)
 
-      const emailEdit = await editEmail({
-        variables: {email, id: user.id}
-      })
+      signUpUser(user)
 
       const profileEdit = await editProfile({
         variables: {
@@ -49,11 +46,19 @@ export default class UserInfo extends Component {
         }
       })
 
+      if (email && email.length > 0) {
+        validateEmail(email)
+        const emailEdit = await editEmail({
+          variables: {email, id: user.id}
+        })
+      }
+
       window.dataLayer.push({
         action: 'User Signed up',
         userId: user.id,
         event: 'user_signed_up'
       })
+      removeCookie('accountkitinit')
 
       redirect(getCookie('redirectTo') || '/')
     } catch (error) {
