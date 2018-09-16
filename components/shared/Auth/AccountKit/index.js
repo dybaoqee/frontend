@@ -38,8 +38,6 @@ class AccountKit extends Component {
       const id = getCookie('currentUserId')
       const role = getCookie('userRole')
 
-      console.log('UEEE', jwt)
-
       const userInfo = {
         jwt,
         accountKitSignIn: {
