@@ -10,6 +10,7 @@ import faTag from '@fortawesome/fontawesome-pro-light/faTag'
 import faHeart from '@fortawesome/fontawesome-pro-light/faHeart'
 import faChart from '@fortawesome/fontawesome-pro-light/faChartBar'
 import AccountKit from 'components/shared/Auth/AccountKit'
+import {getCookie, setCookie} from 'lib/session'
 
 export default class Header extends Component {
   constructor(props) {
@@ -25,8 +26,15 @@ export default class Header extends Component {
     this.setState({isMobileNavVisible: !isMobileNavVisible})
   }
 
+  componentDidMount() {
+    const accountkitinit = getCookie('accountkitinit')
+    this.setState({accountkitinit})
+  }
+
   getUserHeader = (authenticated) => {
     const {user, notifications} = this.props
+    const {accountkitinit} = this.state
+
     const userMenu = [
       {
         title: 'Meu perfil',
@@ -45,7 +53,7 @@ export default class Header extends Component {
       },
       {title: 'Sair', href: '/auth/logout'}
     ]
-    return !authenticated ? (
+    return !authenticated || accountkitinit ? (
       <UserHeader authenticated={authenticated}>
         <AccountKit
           appId={process.env.FACEBOOK_APP_ID}
