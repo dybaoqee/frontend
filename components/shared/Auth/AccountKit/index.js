@@ -4,7 +4,7 @@ import {Mutation} from 'react-apollo'
 import {SIGN_IN_ACCOUNT_KIT} from 'graphql/user/mutations'
 import UserInfo from 'components/shared/Auth/AccountKit/UserInfo'
 import redirect from 'lib/redirect'
-import {getCookie} from 'lib/session'
+import {getCookie, setCookie} from 'lib/session'
 import {signUpUser} from 'lib/auth'
 
 class AccountKit extends Component {
@@ -29,6 +29,28 @@ class AccountKit extends Component {
       if (autoLogin) {
         this.signIn()
       }
+    }
+
+    const accountkitinit = getCookie('accountkitinit')
+
+    if (accountkitinit) {
+      const jwt = getCookie('jwt')
+      const id = getCookie('currentUserId')
+      const role = getCookie('userRole')
+
+      console.log('UEEE', jwt)
+
+      const userInfo = {
+        jwt,
+        accountKitSignIn: {
+          user: {
+            id,
+            role
+          }
+        }
+      }
+
+      this.setState({userInfo, loading: false})
     }
   }
 
@@ -82,20 +104,23 @@ class AccountKit extends Component {
         }
       })
 
+      const user = {
+        jwt: userInfo.data.accountKitSignIn.jwt,
+        id: parseInt(userInfo.data.accountKitSignIn.user.id),
+        role: userInfo.data.accountKitSignIn.user.role
+      }
+
+      signUpUser(user)
+
       if (
         userInfo.data.accountKitSignIn.user.email &&
         userInfo.data.accountKitSignIn.user.name
       ) {
-        const user = {
-          jwt: userInfo.data.accountKitSignIn.jwt,
-          id: parseInt(userInfo.data.accountKitSignIn.user.id),
-          role: userInfo.data.accountKitSignIn.user.role
-        }
-        signUpUser(user)
         this.setState({loading: false})
         redirect(getCookie('redirectTo') || '/')
       } else {
         this.setState({userInfo: userInfo.data, loading: false})
+        setCookie('accountkitinit', 1)
       }
     }
   }
