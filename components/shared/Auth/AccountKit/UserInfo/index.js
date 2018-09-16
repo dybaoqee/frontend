@@ -11,6 +11,7 @@ import {EDIT_PROFILE, EDIT_EMAIL} from 'graphql/user/mutations'
 import {signUpUser} from 'lib/auth'
 import redirect from 'lib/redirect'
 import Container from './styles'
+import Router from 'next/router'
 
 export default class UserInfo extends Component {
   state = {
@@ -23,7 +24,7 @@ export default class UserInfo extends Component {
     const {userInfo: {accountKitSignIn: userInfo}} = this.props
 
     const user = {
-      jwt: this.props.userInfo.jwt,
+      jwt: this.props.userInfo.jwt || userInfo.jwt,
       id: parseInt(userInfo.user.id),
       role: userInfo.user.role
     }
@@ -60,7 +61,9 @@ export default class UserInfo extends Component {
       })
       removeCookie('accountkitinit')
 
-      redirect(getCookie('redirectTo') || '/')
+      getCookie('redirectTo')
+        ? redirect(getCookie('redirectTo') || '/')
+        : Router.replace('/')
     } catch (error) {
       if (error.graphQLErrors) {
         this.setState({errors: ['E-mail já está em uso'], loading: false})
