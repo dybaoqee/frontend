@@ -3,9 +3,11 @@ import * as colors from 'constants/colors'
 import {mobileMedia} from 'constants/media'
 
 export default styled.div`
-  margin: 0 auto 100px;
-  padding-top: 40px;
+  margin: 40px auto 100px;
   width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   @media ${mobileMedia} {
     width: calc(100vw - 40px);

@@ -63,6 +63,7 @@ export const SIGN_IN_ACCOUNT_KIT = gql`
         id
         email
         phone
+        role
       }
     }
   }

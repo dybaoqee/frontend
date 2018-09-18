@@ -195,6 +195,7 @@ class UserProfile extends Component {
                       <Field>
                         <label htmlFor="phone">Telefone</label>
                         <input
+                          disabled
                           name="phone"
                           type="tel"
                           defaultValue={userProfile.phone}
