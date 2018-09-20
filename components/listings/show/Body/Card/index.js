@@ -91,7 +91,7 @@ export default class ListingCard extends React.Component {
           </button>
           <p className="phone">
             Se preferir, entre em contato por ligação ou Whatsapp:
-            <a href="tel:+55 21 99609-5399"> (21) 9 9609-5399 </a>
+            <a href="https://wa.me/5521996095399"> (21) 9 9609-5399 </a>
           </p>
         </div>
       </Container>
