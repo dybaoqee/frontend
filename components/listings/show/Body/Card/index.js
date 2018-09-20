@@ -1,6 +1,12 @@
 import React from 'react'
 import NumberFormat from 'react-number-format'
+import NoSSR from 'react-no-ssr'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import faWhatsApp from '@fortawesome/fontawesome-free-brands/faWhatsapp'
+import faPhone from '@fortawesome/fontawesome-pro-light/faPhone'
 import Container, {SuggestedPrice} from './styles'
+
+const Space = () => ' '
 
 export default class ListingCard extends React.Component {
   render() {
@@ -90,8 +96,25 @@ export default class ListingCard extends React.Component {
             Marcar Visita
           </button>
           <p className="phone">
-            Se preferir, entre em contato por ligação ou Whatsapp:
-            <a href="https://wa.me/5521996095399"> (21) 9 9609-5399 </a>
+            Se preferir, entre em contato por<br />
+            <a href="https://wa.me/5521996095399">
+              <Space />
+              <NoSSR>
+                <FontAwesomeIcon icon={faWhatsApp} />
+              </NoSSR>
+              <Space />
+              WhatsApp
+            </a>
+            <Space />
+            ou
+            <a href="tel:+552131956541">
+              <Space />
+              <NoSSR>
+                <FontAwesomeIcon icon={faPhone} />
+              </NoSSR>
+              <Space />
+              (21) 3195-6541
+            </a>
           </p>
         </div>
       </Container>

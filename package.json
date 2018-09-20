@@ -11,8 +11,7 @@
     "clear-cache": "rm -rf node_modules/.cache/babel-loader",
     "test_server": "NODE_ENV=test babel-node __e2e__/server/run.js &",
     "test": "NODE_ENV=test jest",
-    "test:e2e":
-      "yarn test_server && TEST=cypress start-server-and-test dev http://localhost:3000/login cy:run",
+    "test:e2e": "yarn test_server && TEST=cypress start-server-and-test dev http://localhost:3000/login cy:run",
     "test-unit:watch": "NODE_ENV=test jest --watch",
     "heroku-postbuild": "npm run build && npm run s3:sync",
     "s3:sync": "node deploy/s3-sync.js",
@@ -69,6 +68,7 @@
     "react-dom": "^16.4.2",
     "react-dropzone": "^5.0.1",
     "react-form": "^2.15.0",
+    "react-no-ssr": "^1.1.0",
     "react-number-format": "^3.1.2",
     "react-responsive": "^4.0.3",
     "react-select": "^1.2.0",

@@ -2,7 +2,8 @@ import {Component} from 'react'
 import Link from 'next/link'
 import Container from './styles'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
-import faPhone from '@fortawesome/fontawesome-free-brands/faWhatsapp'
+import faPhone from '@fortawesome/fontawesome-pro-light/faPhone'
+import faWhatsApp from '@fortawesome/fontawesome-free-brands/faWhatsapp'
 import faMail from '@fortawesome/fontawesome-pro-light/faEnvelope'
 import slug from 'slug'
 import {Query} from 'react-apollo'
@@ -31,7 +32,11 @@ export default class PreFooter extends Component {
           <h4>Suporte</h4>
           <div>
             <FontAwesomeIcon icon={faPhone} />
-            <a href="https://wa.me/5521996095399">21 99609-5399</a>
+            <a href="tel:+552131956541"> (21) 3195-6541 </a>
+          </div>
+          <div>
+            <FontAwesomeIcon icon={faWhatsApp} />
+            <a href="https://wa.me/5521996095399">WhatsApp</a>
           </div>
           <div>
             <FontAwesomeIcon icon={faMail} />

@@ -11,8 +11,8 @@ export default () => (
       </p>
       <p>
         Entre em contato conosco através do e-mail{' '}
-        <a href="mailto:contato@emcasa.com">contato@emcasa.com</a> ou do
-        telefone <a href="https://wa.me/5521996095399"> (21) 9 9609-5399 </a>
+        <a href="mailto:contato@emcasa.com">contato@emcasa.com</a> ou por
+        <a href="https://wa.me/5521996095399"> WhatsApp </a>
       </p>
     </Description>
   </Container>
