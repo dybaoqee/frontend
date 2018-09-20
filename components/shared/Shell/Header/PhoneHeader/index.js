@@ -1,24 +1,44 @@
+import NoSSR from 'react-no-ssr'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import faPhone from '@fortawesome/fontawesome-free-brands/faWhatsapp'
 import Container from './styles'
+
+const Space = () => ' '
 
 export default () => (
   <Container>
     <p className="desktop">
-      Entre em contato por Telefone/Whatsapp no
+      Entre em contato por
       <span>
-        <a href="https://wa.me/5521996095399"> (21) 9 9609-5399 </a>
+        <a href="https://wa.me/5521996095399">
+          <Space />
+          <NoSSR>
+            <FontAwesomeIcon icon={faPhone} />
+          </NoSSR>
+          <Space />
+          WhatsApp
+          <Space />
+        </a>
       </span>
-      ou através do e-mail
+      ou pelo telefone
       <span>
-        <a href="mailto:contato@emcasa.com"> contato@emcasa.com </a>
+        <a href="tel:+552131956541"> (21) 3195-6541 </a>
       </span>
     </p>
     <p className="mobile">
       <span>
-        <a href="https://wa.me/5521996095399"> (21) 9 9609-5399 </a>
+        <a href="https://wa.me/5521996095399">
+          <NoSSR>
+            <FontAwesomeIcon icon={faPhone} />
+          </NoSSR>
+          <Space />
+          WhatsApp
+          <Space />
+        </a>
       </span>
 
       <span>
-        <a href="mailto:contato@emcasa.com"> contato@emcasa.com </a>
+        <a href="tel:+552131956541"> (21) 3195-6541 </a>
       </span>
     </p>
   </Container>
