@@ -84,7 +84,7 @@ export default class MyPage extends Component {
               </Link>
             </li>
             <li>
-              <Link href="/jobs">
+              <Link href="https://jobs.emcasa.com/">
                 <a title="Trabalhe Conosco">Trabalhe Conosco</a>
               </Link>
             </li>

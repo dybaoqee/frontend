@@ -90,7 +90,7 @@ const startServer = () => {
       })
 
       server.get('/jobs', (req, res) => {
-        return app.render(req, res, '/jobs', req.query)
+        res.redirect(301, 'https://jobs.emcasa.com/')
       })
 
       server.get('/logout', (req, res) => {

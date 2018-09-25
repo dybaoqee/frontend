@@ -24,7 +24,7 @@ export default class PreFooter extends Component {
           <Link href="http://blog.emcasa.com">
             <a>Blog</a>
           </Link>
-          <Link href="/jobs">
+          <Link href="https://jobs.emcasa.com/">
             <a>Trabalhe Conosco</a>
           </Link>
         </div>
