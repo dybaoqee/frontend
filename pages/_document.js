@@ -20,6 +20,7 @@ export default class AppDocument extends Document {
         <Head>
           {prod ? (
             <script
+              key="gtm-head"
               dangerouslySetInnerHTML={{
                 __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
               new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -38,25 +39,6 @@ export default class AppDocument extends Document {
           )}
           {styleTags}
           {globalStyles}
-
-          {/* Start code for Google AdWords */}
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
-                /* <![CDATA[ */
-                var google_conversion_id = 830164609;
-                var google_custom_params = window.google_tag_params;
-                var google_remarketing_only = true;
-                /* ]]> */
-              `
-            }}
-          />
-
-          <script
-            type="text/javascript"
-            src="//www.googleadservices.com/pagead/conversion.js"
-          />
-
           <meta
             name="viewport"
             content="initial-scale=1.0, width=device-width"
@@ -72,8 +54,9 @@ export default class AppDocument extends Document {
         </Head>
         <body>
           {prod && (
-            <noscript>
+            <noscript key="gtm-body">
               <iframe
+                key="gtm-body-iframe"
                 src="https://www.googletagmanager.com/ns.html?id=GTM-5ZF5DFW"
                 height="0"
                 width="0"
