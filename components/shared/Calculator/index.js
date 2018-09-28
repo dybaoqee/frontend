@@ -97,7 +97,7 @@ export default class Calculator extends Component {
             <p>Destaques nos portais de imóveis</p>
             <p>Destaque no Facebook e Google</p>
             <p>Assessoria jurídica e de documentação</p>
-            <p>Suporte à financiamente e retirada de FGTS</p>
+            <p>Suporte em financiamento e retirada de FGTS</p>
             <p>Valor recebido pelo proprietário</p>
           </DescriptionColumn>
           <Column secondary>
