@@ -42,7 +42,8 @@ export default class Listings extends Component {
       filters,
       onHoverListing,
       onLeaveListing,
-      highlight
+      highlight,
+      neighborhoodListener
     } = this.props
     const {mapOpened} = this.state
 
@@ -69,6 +70,7 @@ export default class Listings extends Component {
                       neighborhood={query.neighborhoodSlug}
                       state={query.state}
                       city={query.city}
+                      neighborhoodListener={neighborhoodListener}
                     />
                   )
                 }

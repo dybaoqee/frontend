@@ -6,6 +6,9 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faArrowDown from '@fortawesome/fontawesome-pro-regular/faArrowDown'
 import faArrowUp from '@fortawesome/fontawesome-pro-regular/faArrowUp'
 
+/**
+ * Dropdown with neighborhood information.
+ */
 export default class Neighborhood extends Component {
   state = {
     opened: false
@@ -20,6 +23,7 @@ export default class Neighborhood extends Component {
       state: stateSlug,
       city: citySlug
     } = this.props
+    const {neighborhoodListener} = this.props
     return (
       <Query
         query={GET_NEIGHBORHOOD_DESCRIPTION}
@@ -27,6 +31,7 @@ export default class Neighborhood extends Component {
       >
         {({data}) => {
           if (!data.district) return null
+          neighborhoodListener(data.district.name)
 
           return (
             <Container>
