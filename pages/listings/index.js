@@ -73,10 +73,10 @@ class ListingsIndex extends Component {
     const {neighborhood} = this.state
     const seoImgSrc =
       'https://res.cloudinary.com/emcasa/image/upload/f_auto/v1513818385/home-2018-04-03_cozxd9.jpg'
-    const title = !query.neighborhoodSlug
+    const title = !neighborhood
       ? 'Apartamentos e Casas à venda na Zona Sul do Rio de Janeiro | EmCasa'
       : `Apartamentos e Casas à venda - ${neighborhood}, Rio de Janeiro | EmCasa`
-    const description = !query.neighborhoodSlug
+    const description = !neighborhood
       ? 'Conheça em Compre Apartamentos e Casas à venda na Zona Sul do Rio de Janeiro com o sistema exclusivo de Tour 3D da EmCasa'
       : `Conheça em Compre Apartamentos e Casas à venda - ${neighborhood}, Zona Sul do Rio de Janeiro com o sistema exclusivo de Tour 3D da EmCasa`
 
