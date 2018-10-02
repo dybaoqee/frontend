@@ -6,9 +6,9 @@
 
 ## Run
 
-To run locally, download, install and run [the backend](https://github.com/em-casa/backend).
-
-Then, `yarn start`.
+1. Make sure you have our [backend](https://github.com/em-casa/backend) up and running.
+1. Then, go to your AccountKit settings and get both your App Id and App Secret.
+1. Run `FACEBOOK_APP_ID=yourAppId ACCOUNT_KIT_APP_SECRET=yourAppSecret yarn start`
 
 ## Tests
 
