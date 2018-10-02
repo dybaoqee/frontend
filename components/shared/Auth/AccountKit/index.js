@@ -148,17 +148,17 @@ class AccountKit extends Component {
 
 AccountKit.propTypes = {
   csrf: PropTypes.string.isRequired,
-  appId: PropTypes.string.isRequired,
-  appSecret: PropTypes.string.isRequired,
+  appId: PropTypes.string,
+  appSecret: PropTypes.string,
   version: PropTypes.string.isRequired,
   children: PropTypes.func.isRequired,
-  onSuccess: PropTypes.func.isRequired,
+  onSuccess: PropTypes.func,
   loginType: PropTypes.oneOf(['PHONE', 'EMAIL']),
   language: PropTypes.string,
   countryCode: PropTypes.string,
   phoneNumber: PropTypes.string,
   emailAddress: PropTypes.string,
-  autoLogin: PropTypes.boolean
+  autoLogin: PropTypes.bool
 }
 
 AccountKit.defaultProps = {
