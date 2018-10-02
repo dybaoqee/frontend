@@ -98,6 +98,11 @@ class ListingsIndex extends Component {
     const {neighborhoods, query, user, client} = this.props
     const {filters} = this.state
 
+    const hasFilters = Object.keys(filters).length > 0
+    if (!hasFilters && query.neighborhoodSlug) {
+      filters.neighborhoodsSlugs = [query.neighborhoodSlug]
+    }
+
     return (
       <Fragment>
         {this.getHead()}
