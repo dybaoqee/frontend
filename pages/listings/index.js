@@ -19,7 +19,8 @@ class ListingsIndex extends Component {
 
     this.state = {
       mapOpened: false,
-      filters
+      filters,
+      neighborhood: null
     }
   }
 
@@ -69,18 +70,15 @@ class ListingsIndex extends Component {
 
   getHead = () => {
     const {query} = this.props
+    const {neighborhood} = this.state
     const seoImgSrc =
       'https://res.cloudinary.com/emcasa/image/upload/f_auto/v1513818385/home-2018-04-03_cozxd9.jpg'
     const title = !query.neighborhoodSlug
       ? 'Apartamentos e Casas à venda na Zona Sul do Rio de Janeiro | EmCasa'
-      : `Apartamentos e Casas à venda - ${
-          query.bairros
-        }, Rio de Janeiro | EmCasa`
+      : `Apartamentos e Casas à venda - ${neighborhood}, Rio de Janeiro | EmCasa`
     const description = !query.neighborhoodSlug
       ? 'Conheça em Compre Apartamentos e Casas à venda na Zona Sul do Rio de Janeiro com o sistema exclusivo de Tour 3D da EmCasa'
-      : `Conheça em Compre Apartamentos e Casas à venda - ${
-          query.bairros
-        }, Zona Sul do Rio de Janeiro com o sistema exclusivo de Tour 3D da EmCasa`
+      : `Conheça em Compre Apartamentos e Casas à venda - ${neighborhood}, Zona Sul do Rio de Janeiro com o sistema exclusivo de Tour 3D da EmCasa`
 
     return (
       <Head>
@@ -117,6 +115,11 @@ class ListingsIndex extends Component {
           resetFilters={this.onResetFilter}
           filters={filters}
           apolloClient={client}
+          neighborhoodListener={(neighborhood) => {
+            if (!this.state.neighborhood) {
+              this.setState({neighborhood: neighborhood})
+            }
+          }}
         />
       </Fragment>
     )
