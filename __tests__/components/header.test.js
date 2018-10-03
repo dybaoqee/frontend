@@ -2,6 +2,7 @@
 import {shallow} from 'enzyme'
 import Header from 'components/shared/Shell/Header'
 import UserMenu from 'components/shared/Shell/Header/UserMenu'
+import { Logo } from 'components/shared/Shell/Header/styles'
 import Link from 'next/link'
 
 describe('Header', () => {
@@ -12,11 +13,9 @@ describe('Header', () => {
 
     expect(
       header
-        .find(Link)
-        .first()
-        .find('img')
-        .prop('src')
-    ).toEqual('/static/emcasa-imobiliaria-rio-de-janeiro.png')
+        .find(Logo)
+        .exists()
+    ).toEqual(true)
 
     expect(
       header
@@ -46,10 +45,7 @@ describe('Header', () => {
 
     expect(
       header
-        .find(Link)
-        .find(
-          '[href="/"] a img [src="/static/emcasa-imobiliaria-rio-de-janeiro.png"]'
-        )
+        .find(Logo)
         .exists()
     ).toEqual(true)
 
