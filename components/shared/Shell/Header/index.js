@@ -3,7 +3,7 @@ import Link from 'next/link'
 import EmCasaButton from 'components/shared/Common/Buttons/Rounded'
 import UserMenu from './UserMenu'
 import PhoneHeader from 'components/shared/Shell/Header/PhoneHeader'
-import Container, {Button, Nav, UserHeader, Wrapper, MenuItem} from './styles'
+import Container, {Button, Nav, UserHeader, Wrapper, MenuItem, Logo} from './styles'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faSearch from '@fortawesome/fontawesome-pro-light/faSearch'
 import faTag from '@fortawesome/fontawesome-pro-light/faTag'
@@ -141,11 +141,8 @@ export default class Header extends Component {
         {router && router.route === '/' && <PhoneHeader />}
         <Container>
           <Link href="/">
-            <a className="logo">
-              <img
-                src="/static/emcasa-imobiliaria-rio-de-janeiro.png"
-                alt="Emcasa Imobiliária no Rio de Janeiro"
-              />
+            <a>
+              <Logo alt="Emcasa Imobiliária no Rio de Janeiro" />
             </a>
           </Link>
           {this.renderNav()}
