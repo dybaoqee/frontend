@@ -27,7 +27,6 @@ class Layout extends Component {
       errorCode,
       renderFooter,
       pageProps,
-      url,
       router
     } = this.props
 
@@ -40,6 +39,7 @@ class Layout extends Component {
           isAdmin={isAdmin}
           notifications={this.notifications}
           router={router}
+          hideSeparator={pageProps.hideSeparator}
         />
         <Container>
           <Main>{this.props.children}</Main>

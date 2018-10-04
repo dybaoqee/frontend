@@ -1920,7 +1920,7 @@
   dependencies:
     lodash.once "^4.1.1"
 
-"@emcasa/ui-dom@0.1.1":
+"@emcasa/ui-dom@^0.1.1":
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/@emcasa/ui-dom/-/ui-dom-0.1.1.tgz#6daa43725420be6aba94742bdb06f188eea2ba62"
   dependencies:
