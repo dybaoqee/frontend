@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-class Sell extends Component {
+class NewListing extends Component {
   static async getInitialProps(context) {
     return {
       shortLogo: true,
@@ -16,4 +16,4 @@ class Sell extends Component {
   }
 }
 
-export default Sell
+export default NewListing

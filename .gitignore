@@ -15,7 +15,6 @@ build
 /**/*.css
 !static/styles/*.css
 
-
 # misc
 .DS_Store
 .env
@@ -23,3 +22,5 @@ build
 sitemap.xml
 npm-debug.log
 package-lock.json
+yarn-error.log
+
