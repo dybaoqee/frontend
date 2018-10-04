@@ -135,14 +135,22 @@ export default class Header extends Component {
   }
 
   render() {
-    const {router, hideSeparator} = this.props
+    const {
+      router,
+      hideSeparator,
+      shortLogo
+    } = this.props
+
     return (
       <Wrapper>
         {router && router.route === '/' && <PhoneHeader />}
         <Container hideSeparator={hideSeparator}>
           <Link href="/">
             <a>
-              <Logo alt="Emcasa Imobiliária no Rio de Janeiro" />
+              <Logo
+                shortLogo={shortLogo}
+                alt="Emcasa Imobiliária no Rio de Janeiro"
+              />
             </a>
           </Link>
           {this.renderNav()}
