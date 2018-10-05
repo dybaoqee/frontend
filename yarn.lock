@@ -1920,22 +1920,19 @@
   dependencies:
     lodash.once "^4.1.1"
 
-"@emcasa/ui-dom@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@emcasa/ui-dom/-/ui-dom-0.1.1.tgz#6daa43725420be6aba94742bdb06f188eea2ba62"
+"@emcasa/ui-dom@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@emcasa/ui-dom/-/ui-dom-0.2.1.tgz#d18c4fe3701d149ff9a504cfd7ea0b829afabe96"
   dependencies:
-    "@emcasa/ui" "^0.1.1"
+    "@emcasa/ui" "^0.2.1"
     "@rebass/grid" "6.0.0-4"
-    react "16.5.2"
-    react-dom "16.5.2"
+
+"@emcasa/ui@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@emcasa/ui/-/ui-0.2.1.tgz#90531d0d6d28f759fe6b4c7118f3b0e8fb144f17"
+  dependencies:
     styled-components "3.4.9"
     styled-icons "3.0.0"
-    styled-system "3.1.6"
-
-"@emcasa/ui@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@emcasa/ui/-/ui-0.1.1.tgz#930766d29d0fa7a6e6b54b22c5e010abe79629b9"
-  dependencies:
     styled-system "3.1.6"
 
 "@emotion/cache@^0.8.8":
@@ -10167,7 +10164,7 @@ react-docgen@^3.0.0-rc.1:
     node-dir "^0.1.10"
     recast "^0.15.0"
 
-react-dom@16.5.2:
+react-dom@^16.5.2:
   version "16.5.2"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.5.2.tgz#b69ee47aa20bab5327b2b9d7c1fe2a30f2cfa9d7"
   dependencies:
@@ -10175,15 +10172,6 @@ react-dom@16.5.2:
     object-assign "^4.1.1"
     prop-types "^15.6.2"
     schedule "^0.5.0"
-
-react-dom@^16.4.2:
-  version "16.4.2"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.4.2.tgz#4afed569689f2c561d2b8da0b819669c38a0bda4"
-  dependencies:
-    fbjs "^0.8.16"
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
-    prop-types "^15.6.0"
 
 react-dropzone@^5.0.1:
   version "5.0.1"
@@ -10393,7 +10381,7 @@ react-treebeard@^3.1.0:
     shallowequal "^1.1.0"
     velocity-react "^1.4.1"
 
-react@16.5.2:
+react@^16.5.2:
   version "16.5.2"
   resolved "https://registry.yarnpkg.com/react/-/react-16.5.2.tgz#19f6b444ed139baa45609eee6dc3d318b3895d42"
   dependencies:
@@ -10401,15 +10389,6 @@ react@16.5.2:
     object-assign "^4.1.1"
     prop-types "^15.6.2"
     schedule "^0.5.0"
-
-react@^16.4.2:
-  version "16.4.2"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.4.2.tgz#2cd90154e3a9d9dd8da2991149fdca3c260e129f"
-  dependencies:
-    fbjs "^0.8.16"
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
-    prop-types "^15.6.0"
 
 read-only-stream@^2.0.0:
   version "2.0.0"
