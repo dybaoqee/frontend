@@ -1,10 +1,8 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import NewListing from '../pages/listings/new-listing'
 
-storiesOf('Example', module)
-  .add('basic example', () => (
-    <button>Hello Button</button>
+storiesOf('Seller Onboarding', module)
+  .add('intro', () => (
+    <NewListing />
   ))
-  .add('with some emoji', () => (
-    <button><span role="img" aria-label="so cool">😀 😎 👍 💯</span></button>
-  ));

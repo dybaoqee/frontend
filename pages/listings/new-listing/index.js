@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import React, { Component } from 'react'
 import Button from '@emcasa/ui-dom/components/button'
 import { ThemeProvider } from 'styled-components'
 import theme from '@emcasa/ui'
