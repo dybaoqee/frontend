@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import * as constants from 'constants/dimensions'
 
 export default styled.div`

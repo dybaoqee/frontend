@@ -29,7 +29,6 @@ class Layout extends Component {
       pageProps,
       router
     } = this.props
-
     return (
       <Fragment>
         <Head />
