@@ -4,11 +4,9 @@ import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
-import Icon from '@emcasa/ui-dom/components/Icon'
+import Arrow from 'components/listings/new/shared/Arrow'
 
 class Intro extends Component {
-  icon = () => <Icon type="circle-right" color="blue" mr={2} style={{verticalAlign: 'sub'}} />
-
   render() {
     return (
       <Row justifyContent="center">
@@ -23,19 +21,19 @@ class Intro extends Component {
           </Text>
           <Text color="grey">Venda seu imóvel do jeito fácil e seguro.</Text>
           <View>
-            {this.icon()}<Text inline>Cadastre seu imóvel no nosso site</Text>
+            <Arrow /><Text inline>Cadastre seu imóvel no nosso site</Text>
           </View>
           <View>
-            {this.icon()}<Text inline>Agende grátis um Tour Virtual 3D e uma sessão de fotos do seu imóvel</Text>
+            <Arrow /><Text inline>Agende grátis um Tour Virtual 3D e uma sessão de fotos do seu imóvel</Text>
           </View>
           <View>
-            {this.icon()}<Text inline>Economize tempo e dinheiro anunciando seu imóvel com a gente</Text>
+            <Arrow /><Text inline>Economize tempo e dinheiro anunciando seu imóvel com a gente</Text>
           </View>
           <View>
-            {this.icon()}<Text inline>Pré avaliação grátis do seu imóvel</Text>
+            <Arrow /><Text inline>Pré avaliação grátis do seu imóvel</Text>
           </View>
           <View>
-            {this.icon()}<Text inline>Assistência jurídica grátis</Text>
+            <Arrow /><Text inline>Assistência jurídica grátis</Text>
           </View>
         </View>
         <Row justifyContent="center">
