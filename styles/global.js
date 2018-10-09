@@ -1,6 +1,7 @@
 import {injectGlobal} from 'styled-components'
 import {mobileMedia} from 'constants/media'
 import * as colors from 'constants/colors'
+
 export default injectGlobal`
 html {
   color: ${colors.text};
@@ -45,10 +46,6 @@ button,
   text-decoration: none;
   transition: background-color 0.1s ease;
   transform: 0.25;
-  &:hover {
-    background-color: ${colors.blue.dark};
-    text-decoration: none;
-  }
 }
 button.gray {
   background: ${colors.lightGray};
