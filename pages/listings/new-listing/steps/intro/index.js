@@ -7,9 +7,8 @@ import Text from '@emcasa/ui-dom/components/Text'
 import Icon from '@emcasa/ui-dom/components/Icon'
 
 class Intro extends Component {
-  icon = () => {
-    return (<Icon type="circle-right" color="blue" mr={2} style={{verticalAlign: 'sub'}} />)
-  }
+  icon = () => <Icon type="circle-right" color="blue" mr={2} style={{verticalAlign: 'sub'}} />
+
   render() {
     return (
       <Row justifyContent="center">
