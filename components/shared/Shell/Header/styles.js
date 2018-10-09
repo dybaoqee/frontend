@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 import {headerMobileMedia} from 'constants/media'
 import * as colors from 'constants/colors'
@@ -14,7 +14,7 @@ export default styled.header`
   width: 100%;
   max-height: 76px;
   height: 76px;
-  border-bottom: 1px solid ${colors.lightGray};
+  ${props => !props.hideSeparator && css`border-bottom: 1px solid ${colors.lightGray}`};
   img {
     width: 110px;
     vertical-align: middle;
@@ -164,4 +164,14 @@ export const MenuItem = styled.div`
       width: ${({active}) => (active ? '96%' : 0)};
     }
   }
+`
+
+export const Logo = styled.img`
+  content: url(/static/emcasa-imobiliaria-rio-de-janeiro.png);
+  max-width: 118px;
+
+  ${props => props.shortLogo && css`
+    content: url(https://s3.amazonaws.com/emcasa-ui/logo/symbol.svg);
+    max-width: 32px;
+  `}
 `
