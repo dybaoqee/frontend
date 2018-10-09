@@ -49,7 +49,7 @@ export default class Search extends Component {
               <input type="text" placeholder="Busque" name="searchString" />
             </div>
 
-            <button type="submit">Enviar</button>
+            <button className="btn" type="submit">Enviar</button>
           </Form>
           <div className="images-container">
             {results &&

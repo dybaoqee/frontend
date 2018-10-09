@@ -33,7 +33,6 @@ a.GTAG {
   color: inherit;
 }
 
-button,
 .btn {
   background-color: ${colors.blue.medium};
   border: 1px solid ${colors.blue.darker};
@@ -46,6 +45,10 @@ button,
   text-decoration: none;
   transition: background-color 0.1s ease;
   transform: 0.25;
+  &:hover {
+    background-color: ${colors.blue.dark};
+    text-decoration: none;
+  }
 }
 button.gray {
   background: ${colors.lightGray};
