@@ -7,7 +7,7 @@ export default class Lightbox extends React.Component {
 
     return (
       <Container>
-        <button onClick={handleClose}>×</button>
+        <button className="btn" onClick={handleClose}>×</button>
         {this.props.children}
       </Container>
     )

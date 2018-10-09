@@ -15,7 +15,7 @@ export default class InterestPosted extends Component {
             Entraremos em contato o mais rápido possível para agendarmos uma
             visita!
           </p>
-          <button onClick={handleClose}>Fechar</button>
+          <button className="btn" onClick={handleClose}>Fechar</button>
         </Container>
       </Popup>
     )

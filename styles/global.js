@@ -1,6 +1,7 @@
 import {injectGlobal} from 'styled-components'
 import {mobileMedia} from 'constants/media'
 import * as colors from 'constants/colors'
+
 export default injectGlobal`
 html {
   color: ${colors.text};
@@ -32,7 +33,6 @@ a.GTAG {
   color: inherit;
 }
 
-button,
 .btn {
   background-color: ${colors.blue.medium};
   border: 1px solid ${colors.blue.darker};

@@ -1920,16 +1920,17 @@
   dependencies:
     lodash.once "^4.1.1"
 
-"@emcasa/ui-dom@0.2.6":
-  version "0.2.6"
-  resolved "https://registry.yarnpkg.com/@emcasa/ui-dom/-/ui-dom-0.2.6.tgz#e213f8d72a376d0c62963078170d1b6d1f1eac3d"
+"@emcasa/ui-dom@0.3.3":
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/@emcasa/ui-dom/-/ui-dom-0.3.3.tgz#5443b7e48468bc08c2111aaa8d3ba42d7826d99f"
   dependencies:
-    "@emcasa/ui" "^0.2.6"
+    "@emcasa/ui" "^0.3.3"
     "@rebass/grid" "6.0.0-4"
+    styled-icons "^3.0.0"
 
-"@emcasa/ui@^0.2.6":
-  version "0.2.6"
-  resolved "https://registry.yarnpkg.com/@emcasa/ui/-/ui-0.2.6.tgz#b2f0c5e3060f6cc96c640009841bc87a8fc39211"
+"@emcasa/ui@^0.3.3":
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/@emcasa/ui/-/ui-0.3.3.tgz#1ec069e7dd700a5a7e37cf586a8122a28fefce02"
   dependencies:
     styled-components "3.4.9"
     styled-icons "3.0.0"
@@ -11639,7 +11640,7 @@ styled-components@^3.1.6:
     stylis-rule-sheet "^0.0.10"
     supports-color "^3.2.3"
 
-styled-icons@3.0.0:
+styled-icons@3.0.0, styled-icons@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/styled-icons/-/styled-icons-3.0.0.tgz#2140f7bfc08cfeb98981e29fabd4d7c2ac1ed876"
 

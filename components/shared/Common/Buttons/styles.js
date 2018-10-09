@@ -1,7 +1,25 @@
 import styled from 'styled-components'
 import * as colors from 'constants/colors'
 
-export const BaseButton = styled.button`
+const LegacyButton = styled.button`
+  background-color: ${colors.blue.medium};
+  border: 1px solid ${colors.blue.darker};
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  outline: none;
+  padding: 10px 20px 12px;
+  text-decoration: none;
+  transition: background-color 0.1s ease;
+  transform: 0.25;
+  &:hover {
+    background-color: ${colors.blue.dark};
+    text-decoration: none;
+  }
+`
+
+export const BaseButton = LegacyButton.extend`
   font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
     Helvetica, Arial, sans-serif;
   font-size: 14px;
