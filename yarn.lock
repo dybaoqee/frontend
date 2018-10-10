@@ -1920,17 +1920,17 @@
   dependencies:
     lodash.once "^4.1.1"
 
-"@emcasa/ui-dom@0.3.3":
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/@emcasa/ui-dom/-/ui-dom-0.3.3.tgz#5443b7e48468bc08c2111aaa8d3ba42d7826d99f"
+"@emcasa/ui-dom@0.3.4":
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/@emcasa/ui-dom/-/ui-dom-0.3.4.tgz#1b9a8e59893f66a45f63cb0c77e5701ffa58f6f3"
   dependencies:
-    "@emcasa/ui" "^0.3.3"
+    "@emcasa/ui" "^0.3.4"
     "@rebass/grid" "6.0.0-4"
     styled-icons "^3.0.0"
 
-"@emcasa/ui@^0.3.3":
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/@emcasa/ui/-/ui-0.3.3.tgz#1ec069e7dd700a5a7e37cf586a8122a28fefce02"
+"@emcasa/ui@^0.3.4":
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/@emcasa/ui/-/ui-0.3.4.tgz#db30fcb5334198b8c98b226425a638b206247937"
   dependencies:
     styled-components "3.4.9"
     styled-icons "3.0.0"
