@@ -124,7 +124,7 @@ const startServer = () => {
       server.get('/anuncie', (req, res) => {
         return app.render(req, res, '/listings/new-listing', req.query)
       })
-
+      
       server.get('/avaliacao-imovel', (req, res) => {
         return app.render(req, res, '/listings/estimate-price', req.query)
       })

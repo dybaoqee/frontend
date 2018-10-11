@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Link from 'next/link'
 import Button from '@emcasa/ui-dom/components/Button'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
@@ -43,7 +42,8 @@ class Intro extends Component {
               <Button
                 fluid
                 active
-                height="tall">Quero Anunciar</Button>
+                height="tall"
+                onClick={this.props.nextStep}>Quero Anunciar</Button>
             </View>
           </Col>
         </Row>
