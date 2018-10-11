@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
+import Link from 'next/link'
 import Button from '@emcasa/ui-dom/components/Button'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
-import Arrow from 'components/listings/new/shared/Arrow'
+import Arrow from 'components/listings/new-listing/shared/Arrow'
 
 class Intro extends Component {
   render() {
@@ -39,7 +40,10 @@ class Intro extends Component {
         <Row justifyContent="center">
           <Col width={[1, 1/2]}>
             <View bottom p={4}>
-              <Button fluid active height="tall">Quero Anunciar</Button>
+              <Button
+                fluid
+                active
+                height="tall">Quero Anunciar</Button>
             </View>
           </Col>
         </Row>

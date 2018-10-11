@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { ThemeProvider } from 'styled-components'
 import injectGlobal from '@emcasa/ui-dom/components/global-styles'
-import Intro from './steps/intro'
+import Intro from 'components/listings/new-listing/steps/intro'
 import theme from '@emcasa/ui'
 
 class NewListing extends Component {
