@@ -74,6 +74,7 @@
     "react-form": "^2.15.0",
     "react-no-ssr": "^1.1.0",
     "react-number-format": "^3.1.2",
+    "react-pose": "^3.3.6",
     "react-responsive": "^4.0.3",
     "react-select": "^1.2.0",
     "react-slick": "^0.23.1",

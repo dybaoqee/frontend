@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
 import Router from 'next/router'
+import { PoseGroup } from 'react-pose'
 import { ThemeProvider } from 'styled-components'
+
 import injectGlobal from '@emcasa/ui-dom/components/global-styles'
+import theme from '@emcasa/ui'
 import Intro from 'components/listings/new-listing/steps/Intro'
 import AddressInput from 'components/listings/new-listing/steps/AddressInput'
-import theme from '@emcasa/ui'
+import { getAnimatedScreen } from './animation'
 
 const steps = [
   Intro,
@@ -55,8 +58,10 @@ class NewListing extends Component {
 
   getScreen(step) {
     const Screen = steps[step]
+    const AnimatedScreen = getAnimatedScreen(Screen)
     return (
-      <Screen
+      <AnimatedScreen
+        key={step}
         nextStep={this.nextStep}
         previousStep={this.previousStep}
       />
@@ -66,7 +71,9 @@ class NewListing extends Component {
   render() {
     return (
       <ThemeProvider theme={theme}>
-        {this.getScreen(this.state.step)}
+        <PoseGroup>
+          {this.getScreen(this.state.step)}
+        </PoseGroup>
       </ThemeProvider>
     )
   }

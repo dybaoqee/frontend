@@ -9,7 +9,8 @@ import Arrow from 'components/listings/new-listing/shared/Arrow'
 class Intro extends Component {
   render() {
     return (
-      <Row justifyContent="center">
+      <div ref={this.props.hostRef}>
+      <Row justifyContent="center" ref={this.props.hostRef}>
         <Col width={[1, 1/2]}>
         <View body p={4}>
           <Text
@@ -49,6 +50,7 @@ class Intro extends Component {
         </Row>
         </Col>
       </Row>
+      </div>
     )
   }
 }
