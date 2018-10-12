@@ -20,7 +20,7 @@ class AddressInput extends Component {
               >
                 Qual o endereço do seu imóvel?
               </Text>
-              <Col width={1} mb={4} style={{width: '100%'}}>
+              <Col width={1} mb={4}>
                 <Input placeholder="Endereço e número*" />
               </Col>
               <Col width={1}>

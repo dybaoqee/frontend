@@ -1626,17 +1626,17 @@
   dependencies:
     lodash.once "^4.1.1"
 
-"@emcasa/ui-dom@0.3.4":
-  version "0.3.4"
-  resolved "https://registry.yarnpkg.com/@emcasa/ui-dom/-/ui-dom-0.3.4.tgz#1b9a8e59893f66a45f63cb0c77e5701ffa58f6f3"
+"@emcasa/ui-dom@0.3.5":
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/@emcasa/ui-dom/-/ui-dom-0.3.5.tgz#bba89911215870bbac0e129919d41927921640f5"
   dependencies:
-    "@emcasa/ui" "^0.3.4"
+    "@emcasa/ui" "^0.3.5"
     "@rebass/grid" "6.0.0-4"
     styled-icons "^3.0.0"
 
-"@emcasa/ui@^0.3.4":
-  version "0.3.4"
-  resolved "https://registry.yarnpkg.com/@emcasa/ui/-/ui-0.3.4.tgz#db30fcb5334198b8c98b226425a638b206247937"
+"@emcasa/ui@^0.3.5":
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/@emcasa/ui/-/ui-0.3.5.tgz#6df563fcc0cd06e177954d7411d300430daae0a7"
   dependencies:
     styled-components "3.4.9"
     styled-icons "3.0.0"
