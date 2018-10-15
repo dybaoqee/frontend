@@ -2,6 +2,7 @@ import { getAnimatedScreen } from './animation'
 
 import Intro from 'components/listings/new-listing/steps/Intro'
 import AddressInput from 'components/listings/new-listing/steps/AddressInput'
+import HomeDetails from 'components/listings/new-listing/steps/HomeDetails'
 
 // Navigation steps
 const steps = {
@@ -10,7 +11,11 @@ const steps = {
     canPushTo: ['addressInput'],
   },
   addressInput: {
-    component: AddressInput
+    component: AddressInput,
+    canPushTo: ['homeDetails']
+  },
+  homeDetails: {
+    component: HomeDetails
   }
 }
 

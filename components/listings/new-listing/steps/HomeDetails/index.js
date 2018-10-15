@@ -1,36 +1,24 @@
 import React, { Component } from 'react'
-import { Formik, Field } from 'formik'
-
 import Button from '@emcasa/ui-dom/components/Button'
+import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
-import Input from '@emcasa/ui-dom/components/Input'
 
-class AddressInput extends Component {
+class HomeDetails extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      valid: false
-    }
     this.nextStep = this.nextStep.bind(this)
     this.previousStep = this.previousStep.bind(this)
-    this.validateAddress = this.validateAddress.bind(this)
   }
 
   nextStep() {
-    this.props.nextStep('homeDetails')
+    this.props.nextStep('addressInput')
   }
 
   previousStep() {
-    this.props.previousStep('intro')
-  }
-
-  validateAddress(value) {
-    const valid = !!value
-    this.setState({ valid: valid })
-    return valid
+    this.props.previousStep('addressInput')
   }
 
   render() {
@@ -44,25 +32,30 @@ class AddressInput extends Component {
                 fontWeight="bold"
                 textAlign="center"
               >
-                Qual o endereço do seu imóvel?
+                Por favor, informe os detalhes do seu imóvel
               </Text>
-              <Formik
-                render={(props) => (
-                  <>
-                    <Col mb={4} mr={4}>
-                      <Field
-                        name="complement"
-                        validate={this.validateAddress}
-                        render={({field}) => (
-                        <Input {...field} placeholder="Endereço e número*" />
-                        )}/>
-                    </Col>
-                    <Col mr={4}>
-                      <Input placeholder="Complemento" />
-                    </Col>
-                  </>
-                )}
-              />
+              <Text color="grey">Com base nos detalhes do seu imóvel, calcularemos um valor médio de venda.</Text>
+              <Row>
+                <Col width={1} mb={4}>
+                  <Input placeholder="Tipo do Imóvel*" />
+                </Col>
+              </Row>
+              <Row>
+                <Col mb={4} mr={2}>
+                  <Input placeholder="Nº andar" />
+                </Col>
+                <Col ml={2}>
+                  <Input label="Área conforme IPTU*" placeholder="Área (m²)*"/>
+                </Col>
+              </Row>
+              <Row>
+                <Col mb={4} mr={2}>
+                  <Input placeholder="Cond (R$)" />
+                </Col>
+                <Col ml={2}>
+                  <Input placeholder="IPTU (R$/ano)*"/>
+                </Col>
+              </Row>
             </View>
             <View bottom p={4}>
               <Row justifyContent="space-between">
@@ -76,7 +69,6 @@ class AddressInput extends Component {
                   <Button
                     fluid
                     height="tall"
-                    disabled={!this.state.valid}
                     onClick={this.nextStep}>Avançar</Button>
                 </Col>
               </Row>
@@ -88,4 +80,4 @@ class AddressInput extends Component {
   }
 }
 
-export default AddressInput
+export default HomeDetails
