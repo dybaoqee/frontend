@@ -92,7 +92,7 @@ export default class ListingCard extends React.Component {
             ''
           )}
 
-          <button className="green" onClick={handleOpenPopup}>
+          <button className="btn green" onClick={handleOpenPopup}>
             Marcar Visita
           </button>
           <p className="phone">
