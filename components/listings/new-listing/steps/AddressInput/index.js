@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { Formik, Field } from 'formik'
+
 import Button from '@emcasa/ui-dom/components/Button'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
@@ -9,8 +11,12 @@ import Input from '@emcasa/ui-dom/components/Input'
 class AddressInput extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      valid: false
+    }
     this.nextStep = this.nextStep.bind(this)
     this.previousStep = this.previousStep.bind(this)
+    this.validateAddress = this.validateAddress.bind(this)
   }
 
   nextStep() {
@@ -19,6 +25,12 @@ class AddressInput extends Component {
 
   previousStep() {
     this.props.previousStep('intro')
+  }
+
+  validateAddress(value) {
+    const valid = !!value
+    this.setState({ valid: valid })
+    return valid
   }
 
   render() {
@@ -34,12 +46,23 @@ class AddressInput extends Component {
               >
                 Qual o endereço do seu imóvel?
               </Text>
-              <Col mb={4} mr={4}>
-                <Input placeholder="Endereço e número*" />
-              </Col>
-              <Col mr={4}>
-                <Input placeholder="Complemento" />
-              </Col>
+              <Formik
+                render={(props) => (
+                  <>
+                    <Col mb={4} mr={4}>
+                      <Field
+                        name="complement"
+                        validate={this.validateAddress}
+                        render={({field}) => (
+                        <Input {...field} placeholder="Endereço e número*" />
+                        )}/>
+                    </Col>
+                    <Col mr={4}>
+                      <Input placeholder="Complemento" />
+                    </Col>
+                  </>
+                )}
+              />
             </View>
             <View bottom p={4}>
               <Row justifyContent="space-between">
@@ -53,7 +76,7 @@ class AddressInput extends Component {
                   <Button
                     fluid
                     height="tall"
-                    disabled
+                    disabled={!this.state.valid}
                     onClick={this.nextStep}>Avançar</Button>
                 </Col>
               </Row>
