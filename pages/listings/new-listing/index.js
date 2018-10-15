@@ -15,6 +15,8 @@ class NewListing extends Component {
     }
     this.nextStep = this.nextStep.bind(this)
     this.previousStep = this.previousStep.bind(this)
+    this.resetNavigation = this.resetNavigation.bind(this)
+    this.navigate = this.navigate.bind(this)
   }
 
   static async getInitialProps(context) {
@@ -39,10 +41,7 @@ class NewListing extends Component {
     if (!nextKey) {
       throw Error('Navigation key ' + key + ' not found in ' + this.state.step)
     }
-
-    this.setState({ step: nextKey }, () => {
-      Router.push('/anuncie', `/anuncie#${nextKey}`, { shallow: true })
-    })
+    this.navigate(nextKey)
   }
 
   previousStep(key) {
@@ -50,15 +49,16 @@ class NewListing extends Component {
       this.resetNavigation()
       return
     }
-
-    this.setState({ step: key }, () => {
-      Router.push('/anuncie', `/anuncie#${key}`, { shallow: true })
-    })
+    this.navigate(key)
   }
 
   resetNavigation() {
-    this.setState({ step: 'intro' }, () => {
-      Router.push('/anuncie', `/anuncie#intro`, { shallow: true })
+    this.navigate('intro')
+  }
+
+  navigate(key) {
+    this.setState({ step: key }, () => {
+      Router.push('/anuncie', `/anuncie#${key}`, { shallow: true })
     })
   }
 
