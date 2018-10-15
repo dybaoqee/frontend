@@ -2,27 +2,19 @@ import React, { Component } from 'react'
 import Router from 'next/router'
 import { PoseGroup } from 'react-pose'
 import { ThemeProvider } from 'styled-components'
-
 import injectGlobal from '@emcasa/ui-dom/components/global-styles'
 import theme from '@emcasa/ui'
-import Intro from 'components/listings/new-listing/steps/Intro'
-import AddressInput from 'components/listings/new-listing/steps/AddressInput'
-import { getAnimatedScreen } from './animation'
 
-const steps = [
-  Intro,
-  AddressInput
-]
+import { getScreen, getStepEntry } from './navigation'
 
 class NewListing extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      step: 0
+      step: 'intro'
     }
     this.nextStep = this.nextStep.bind(this)
     this.previousStep = this.previousStep.bind(this)
-    this.getScreen = this.getScreen.bind(this)
   }
 
   static async getInitialProps(context) {
@@ -35,44 +27,46 @@ class NewListing extends Component {
 
   componentDidMount() {
     Router.beforePopState(({ url, as, options }) => {
-      this.previousStep()
+      const key = as.split('#')[1]
+      this.previousStep(key)
       return false
     });
   }
 
-  nextStep() {
-    const nextStep = this.state.step + 1
-    this.setState({ step: nextStep }, () => {
-      Router.push('/anuncie', `/anuncie#${nextStep}`, {shallow: true})
+  nextStep(key) {
+    const stepEntry = getStepEntry(this.state.step)
+    const nextKey = stepEntry.canPushTo.find((item) => item === key)
+    if (!nextKey) {
+      throw Error('Navigation key ' + key + ' not found in ' + this.state.step)
+    }
+
+    this.setState({ step: nextKey }, () => {
+      Router.push('/anuncie', `/anuncie#${nextKey}`, { shallow: true })
     })
   }
 
-  previousStep() {
-    const previousStep = this.state.step - 1
-    if (previousStep >= 0) {
-      this.setState({ step: previousStep }, () => {
-        Router.push('/anuncie', `/anuncie#${previousStep}`, {shallow: true})
-      })
+  previousStep(key) {
+    if (!key) {
+      this.resetNavigation()
+      return
     }
+
+    this.setState({ step: key }, () => {
+      Router.push('/anuncie', `/anuncie#${key}`, { shallow: true })
+    })
   }
 
-  getScreen(step) {
-    const Screen = steps[step]
-    const AnimatedScreen = getAnimatedScreen(Screen)
-    return (
-      <AnimatedScreen
-        key={step}
-        nextStep={this.nextStep}
-        previousStep={this.previousStep}
-      />
-    )
+  resetNavigation() {
+    this.setState({ step: 'intro' }, () => {
+      Router.push('/anuncie', `/anuncie#intro`, { shallow: true })
+    })
   }
 
   render() {
     return (
       <ThemeProvider theme={theme}>
         <PoseGroup>
-          {this.getScreen(this.state.step)}
+          {getScreen(this.state.step, this.nextStep, this.previousStep)}
         </PoseGroup>
       </ThemeProvider>
     )

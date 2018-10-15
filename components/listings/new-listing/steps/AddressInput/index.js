@@ -7,6 +7,20 @@ import Text from '@emcasa/ui-dom/components/Text'
 import Input from '@emcasa/ui-dom/components/Input'
 
 class AddressInput extends Component {
+  constructor(props) {
+    super(props)
+    this.nextStep = this.nextStep.bind(this)
+    this.previousStep = this.previousStep.bind(this)
+  }
+
+  nextStep() {
+
+  }
+
+  previousStep() {
+    this.props.previousStep('intro')
+  }
+
   render() {
     return (
       <div ref={this.props.hostRef}>
@@ -33,14 +47,14 @@ class AddressInput extends Component {
                   <Button
                     fluid
                     height="tall"
-                    onClick={this.props.previousStep}>Cancelar</Button>
+                    onClick={this.previousStep}>Cancelar</Button>
                 </Col>
                 <Col width={5/12}>
                   <Button
                     fluid
                     height="tall"
                     disabled
-                    onClick={this.props.nextStep}>Avançar</Button>
+                    onClick={this.nextStep}>Avançar</Button>
                 </Col>
               </Row>
             </View>

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import Button from '@emcasa/ui-dom/components/Button'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
@@ -6,7 +6,16 @@ import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import Arrow from 'components/listings/new-listing/shared/Arrow'
 
-class Intro extends Component {
+class Intro extends PureComponent {
+  constructor(props) {
+    super(props)
+    this.nextStep = this.nextStep.bind(this)
+  }
+
+  nextStep() {
+    this.props.nextStep('addressInput')
+  }
+
   render() {
     return (
       <div ref={this.props.hostRef}>
@@ -44,7 +53,7 @@ class Intro extends Component {
                     fluid
                     active
                     height="tall"
-                    onClick={this.props.nextStep}>Quero Anunciar</Button>
+                    onClick={this.nextStep}>Quero Anunciar</Button>
                 </View>
               </Col>
             </Row>
