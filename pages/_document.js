@@ -2,6 +2,9 @@ import Document, {Head, Main, NextScript} from 'next/document'
 import {ServerStyleSheet} from 'styled-components'
 import globalStyles from 'styles/global'
 
+const RD_STATION_SCRIPT =
+  'https://d335luupugsy2.cloudfront.net/js/loader-scripts/10ac8a83-57de-4007-b3e7-532ac8ee60ac-loader.js'
+
 export default class AppDocument extends Document {
   static getInitialProps({renderPage}) {
     const sheet = new ServerStyleSheet()
@@ -66,6 +69,9 @@ export default class AppDocument extends Document {
           )}
           <Main />
           <NextScript />
+          {prod && (
+            <script async type="text/javascript" src={RD_STATION_SCRIPT} />
+          )}
         </body>
       </html>
     )
