@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Router from 'next/router'
+import { connect } from 'react-redux'
 import { PoseGroup } from 'react-pose'
 import { ThemeProvider } from 'styled-components'
 import injectGlobal from '@emcasa/ui-dom/components/global-styles'
@@ -73,4 +74,4 @@ class NewListing extends Component {
   }
 }
 
-export default NewListing
+export default connect()(NewListing)

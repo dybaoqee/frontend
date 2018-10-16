@@ -1,4 +1,6 @@
 import {Fragment} from 'react'
+import {Provider} from 'react-redux'
+import withRedux from 'next-redux-wrapper'
 import App, {Container} from 'next/app'
 import Head from 'next/head'
 import isUndefined from 'lodash/isUndefined'
@@ -12,6 +14,7 @@ import Router from 'next/router'
 import Link from 'next/link'
 import Error from 'components/shared/Shell/Error'
 import codes from 'constants/statusCodes'
+import makeStore from 'redux/store'
 
 class MyApp extends App {
   static async getInitialProps(ctx) {
@@ -73,49 +76,54 @@ class MyApp extends App {
       isAdmin,
       apolloClient,
       currentUser,
-      error
+      error,
+      store
     } = this.props
 
     return (
       <Container>
         <ApolloProvider client={apolloClient}>
-          <Layout
-            authenticated={authenticated}
-            isAdmin={isAdmin}
-            renderFooter={isUndefined(pageProps.renderFooter) ? true : false}
-            pageProps={pageProps}
-            router={router}
-          >
-            {error ? (
-              <Fragment>
-                <Head>
-                  <title>EmCasa</title>
-                </Head>
-                <Error>
-                  <h1>{codes[error.code] || 'Erro não identificado'}</h1>
-                  <h2>{error.code}</h2>
-                  <p>
-                    Visite nossa <Link href="/">página inicial</Link> ou entre
-                    em&nbsp;
-                    <Link href="mailto:contato@emcasa.com">contato</Link> com a
-                    gente
-                  </p>
-                </Error>
-              </Fragment>
-            ) : (
-              <Component
-                {...pageProps}
-                url={url}
-                router={router}
-                user={currentUser}
-                client={apolloClient}
-              />
-            )}
-          </Layout>
+          <Provider store={store}>
+            <Layout
+              authenticated={authenticated}
+              isAdmin={isAdmin}
+              renderFooter={isUndefined(pageProps.renderFooter) ? true : false}
+              pageProps={pageProps}
+              router={router}
+            >
+              {error ? (
+                <Fragment>
+                  <Head>
+                    <title>EmCasa</title>
+                  </Head>
+                  <Error>
+                    <h1>{codes[error.code] || 'Erro não identificado'}</h1>
+                    <h2>{error.code}</h2>
+                    <p>
+                      Visite nossa <Link href="/">página inicial</Link> ou entre
+                      em&nbsp;
+                      <Link href="mailto:contato@emcasa.com">contato</Link> com a
+                      gente
+                    </p>
+                  </Error>
+                </Fragment>
+              ) : (
+                <Component
+                  {...pageProps}
+                  url={url}
+                  router={router}
+                  user={currentUser}
+                  client={apolloClient}
+                />
+              )}
+            </Layout>
+          </Provider>
         </ApolloProvider>
       </Container>
     )
   }
 }
 
-export default withApolloClient(MyApp)
+export default withApolloClient(
+  withRedux(makeStore)(MyApp)
+)
