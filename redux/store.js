@@ -1,15 +1,5 @@
-import { createStore } from "redux";
-
-const initialState = {
-  step: 'intro'
-}
-
-const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    default:
-      return state
-  }
-};
+import { createStore } from 'redux'
+import reducer from './reducers'
 
 /**
 * @param {object} initialState
@@ -21,6 +11,6 @@ const reducer = (state = initialState, action) => {
 */
 const makeStore = (initialState, options) => {
   return createStore(reducer, initialState);
-};
+}
 
 export default makeStore
