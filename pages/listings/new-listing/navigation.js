@@ -9,7 +9,7 @@ import HomeDetails from 'components/listings/new-listing/steps/HomeDetails'
 const steps = {
   intro: {
     component: Intro,
-    canNavigateTo: ['intro', 'addressInput'],
+    canNavigateTo: []
   },
   addressInput: {
     component: AddressInput,

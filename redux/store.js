@@ -19,7 +19,7 @@ const persistedReducer = persistReducer(persistConfig, reducer)
 * @param {string} options.storeKey This key will be used to preserve store in global namespace for safe HMR 
 */
 const makeStore = (initialState, options) => {
-  const store = createStore(persistedReducer, initialState)
+  const store = createStore(persistedReducer)
   if (!options.isServer) {
     persistStore(store)
   }

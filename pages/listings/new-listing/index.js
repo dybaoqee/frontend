@@ -3,7 +3,6 @@ import Router from 'next/router'
 import { connect } from 'react-redux'
 import { PoseGroup } from 'react-pose'
 import { navigateTo } from 'redux/actions'
-import { persistor } from 'redux/store'
 import { ThemeProvider } from 'styled-components'
 import injectGlobal from '@emcasa/ui-dom/components/global-styles'
 import theme from '@emcasa/ui'
@@ -42,7 +41,7 @@ class NewListing extends PureComponent {
     const currentStep = this.props.step
     const stepEntry = getStepEntry(currentStep)
     const nextKey = stepEntry.canNavigateTo.find((item) => item === nextStep)
-    if (!nextKey) {
+    if (!nextKey && currentStep !== 'intro') {
       throw Error('Navigation key ' + nextStep + ' not found in ' + currentStep)
     }
     Router.push('/anuncie', `/anuncie#${nextStep}`, { shallow: true })
