@@ -1,21 +1,17 @@
-import React, { Component } from 'react'
+import React, { Component, PureComponent } from 'react'
 import Router from 'next/router'
+import { connect } from 'react-redux'
 import { PoseGroup } from 'react-pose'
+import { navigateTo } from 'redux/actions'
 import { ThemeProvider } from 'styled-components'
 import injectGlobal from '@emcasa/ui-dom/components/global-styles'
 import theme from '@emcasa/ui'
 
 import { getScreen, getStepEntry } from './navigation'
 
-class NewListing extends Component {
+class NewListing extends PureComponent {
   constructor(props) {
     super(props)
-    this.state = {
-      step: 'intro'
-    }
-    this.nextStep = this.nextStep.bind(this)
-    this.previousStep = this.previousStep.bind(this)
-    this.resetNavigation = this.resetNavigation.bind(this)
     this.navigate = this.navigate.bind(this)
   }
 
@@ -29,48 +25,53 @@ class NewListing extends Component {
 
   componentDidMount() {
     Router.beforePopState(({ url, as, options }) => {
+      const { navigateTo } = this.props
       const key = as.split('#')[1]
-      this.previousStep(key)
+      navigateTo(key ? key : 'intro')
       return false
     });
   }
 
-  nextStep(key) {
-    const stepEntry = getStepEntry(this.state.step)
-    const nextKey = stepEntry.canPushTo.find((item) => item === key)
-    if (!nextKey) {
-      throw Error('Navigation key ' + key + ' not found in ' + this.state.step)
+  componentWillReceiveProps(props) {
+    const nextStep = props.step
+    this.navigate(nextStep)
+  }
+
+  navigate(nextStep) {
+    const currentStep = this.props.step
+    const stepEntry = getStepEntry(currentStep)
+    const nextKey = stepEntry.canNavigateTo.find((item) => item === nextStep)
+    if (!nextKey && currentStep !== 'intro') {
+      throw Error('Navigation key ' + nextStep + ' not found in ' + currentStep)
     }
-    this.navigate(nextKey)
-  }
-
-  previousStep(key) {
-    if (!key) {
-      this.resetNavigation()
-      return
-    }
-    this.navigate(key)
-  }
-
-  resetNavigation() {
-    this.navigate('intro')
-  }
-
-  navigate(key) {
-    this.setState({ step: key }, () => {
-      Router.push('/anuncie', `/anuncie#${key}`, { shallow: true })
-    })
+    Router.push('/anuncie', `/anuncie#${nextStep}`, { shallow: true })
   }
 
   render() {
+    const step = this.props.step || 'intro'
     return (
       <ThemeProvider theme={theme}>
         <PoseGroup>
-          {getScreen(this.state.step, this.nextStep, this.previousStep)}
+          {getScreen(step, this.nextStep, this.previousStep)}
         </PoseGroup>
       </ThemeProvider>
     )
   }
 }
 
-export default NewListing
+const mapStateToProps = state => {
+  return state
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    navigateTo: step => {
+      dispatch(navigateTo(step))
+    }
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(NewListing)

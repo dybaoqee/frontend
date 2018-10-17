@@ -17,11 +17,13 @@ class AddressInput extends PureComponent {
   }
 
   nextStep() {
-    this.props.nextStep('homeDetails')
+    const { navigateTo } = this.props
+    navigateTo('homeDetails')
   }
 
   previousStep() {
-    this.props.previousStep('intro')
+    const { navigateTo } = this.props
+    navigateTo('intro')
   }
 
   validateAddress(value) {

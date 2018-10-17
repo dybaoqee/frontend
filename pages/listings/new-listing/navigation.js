@@ -1,5 +1,6 @@
+import { connect } from 'react-redux'
 import { getAnimatedScreen } from './animation'
-
+import { navigateTo } from 'redux/actions'
 import Intro from 'components/listings/new-listing/steps/Intro'
 import AddressInput from 'components/listings/new-listing/steps/AddressInput'
 import HomeDetails from 'components/listings/new-listing/steps/HomeDetails'
@@ -8,14 +9,27 @@ import HomeDetails from 'components/listings/new-listing/steps/HomeDetails'
 const steps = {
   intro: {
     component: Intro,
-    canPushTo: ['addressInput'],
+    canNavigateTo: []
   },
   addressInput: {
     component: AddressInput,
-    canPushTo: ['homeDetails']
+    canNavigateTo: ['homeDetails', 'intro']
   },
   homeDetails: {
-    component: HomeDetails
+    component: HomeDetails,
+    canNavigateTo: ['addressInput']
+  }
+}
+
+const mapStateToProps = state => {
+  return state
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    navigateTo: step => {
+      dispatch(navigateTo(step))
+    }
   }
 }
 
@@ -35,8 +49,9 @@ const getScreen = (key, nextStep, previousStep) => {
   const entry = getStepEntry(key)
   const Screen = entry.component
   const AnimatedScreen = getAnimatedScreen(Screen)
+  const ConnectedScreen = connect(mapStateToProps, mapDispatchToProps)(AnimatedScreen)
   return (
-    <AnimatedScreen
+    <ConnectedScreen
       key={key}
       nextStep={nextStep}
       previousStep={previousStep}
