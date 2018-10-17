@@ -1,15 +1,16 @@
-import React, { Component } from 'react'
+import React, { Component, PureComponent } from 'react'
 import Router from 'next/router'
 import { connect } from 'react-redux'
 import { PoseGroup } from 'react-pose'
 import { navigateTo } from 'redux/actions'
+import { persistor } from 'redux/store'
 import { ThemeProvider } from 'styled-components'
 import injectGlobal from '@emcasa/ui-dom/components/global-styles'
 import theme from '@emcasa/ui'
 
 import { getScreen, getStepEntry } from './navigation'
 
-class NewListing extends Component {
+class NewListing extends PureComponent {
   constructor(props) {
     super(props)
     this.navigate = this.navigate.bind(this)

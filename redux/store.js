@@ -1,5 +1,14 @@
 import { createStore } from 'redux'
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
 import reducer from './reducers'
+
+const persistConfig = {
+  key: 'step',
+  storage
+}
+
+const persistedReducer = persistReducer(persistConfig, reducer)
 
 /**
 * @param {object} initialState
@@ -10,7 +19,11 @@ import reducer from './reducers'
 * @param {string} options.storeKey This key will be used to preserve store in global namespace for safe HMR 
 */
 const makeStore = (initialState, options) => {
-  return createStore(reducer, initialState);
+  const store = createStore(persistedReducer, initialState)
+  if (!options.isServer) {
+    persistStore(store)
+  }
+  return store
 }
 
 export default makeStore
