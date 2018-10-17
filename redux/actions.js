@@ -10,5 +10,6 @@ const navigateTo = (step) => {
 }
 
 export {
+  NAVIGATE,
   navigateTo
 }

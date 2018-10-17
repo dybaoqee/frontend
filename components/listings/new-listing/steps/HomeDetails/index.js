@@ -14,11 +14,12 @@ class HomeDetails extends Component {
   }
 
   nextStep() {
-    this.props.nextStep('addressInput')
+    
   }
 
   previousStep() {
-    this.props.previousStep('addressInput')
+    const { navigateTo } = this.props
+    navigateTo('addressInput')
   }
 
   render() {
