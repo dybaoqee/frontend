@@ -13,7 +13,8 @@ class Intro extends PureComponent {
   }
 
   nextStep() {
-    this.props.nextStep('addressInput')
+    const { navigateTo } = this.props
+    navigateTo('addressInput')
   }
 
   render() {
