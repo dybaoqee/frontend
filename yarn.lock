@@ -1626,18 +1626,18 @@
   dependencies:
     lodash.once "^4.1.1"
 
-"@emcasa/ui-dom@0.4.2":
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/@emcasa/ui-dom/-/ui-dom-0.4.2.tgz#1c158a493f3e0c5c1a0b0e7a59717a90b2659aef"
+"@emcasa/ui-dom@0.4.3":
+  version "0.4.3"
+  resolved "https://registry.yarnpkg.com/@emcasa/ui-dom/-/ui-dom-0.4.3.tgz#e3ee6825299b31fd5e7587375e665147ea713f26"
   dependencies:
-    "@emcasa/ui" "^0.4.1"
+    "@emcasa/ui" "^0.4.3"
     "@rebass/grid" "6.0.0-4"
     styled-icons "^3.0.0"
     styled-system "3.1.6"
 
-"@emcasa/ui@^0.4.1":
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/@emcasa/ui/-/ui-0.4.1.tgz#d69fd3791b1b403b17675216480bef9b3ee5b92a"
+"@emcasa/ui@^0.4.3":
+  version "0.4.3"
+  resolved "https://registry.yarnpkg.com/@emcasa/ui/-/ui-0.4.3.tgz#d8255d774097839eac3a14830d193999eb45dc3e"
   dependencies:
     "@fortawesome/free-solid-svg-icons" "^5.4.1"
     styled-components "3.4.9"

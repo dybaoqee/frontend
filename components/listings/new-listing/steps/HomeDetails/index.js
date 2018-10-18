@@ -36,24 +36,22 @@ class HomeDetails extends Component {
                 Por favor, informe os detalhes do seu imóvel
               </Text>
               <Text color="grey">Com base nos detalhes do seu imóvel, calcularemos um valor médio de venda.</Text>
-              <Row>
-                <Col width={1} mb={4}>
-                  <Input placeholder="Tipo do Imóvel*" />
-                </Col>
-              </Row>
-              <Row>
-                <Col mb={4} mr={2}>
+              <Col mb={4} mr={4}>
+                <Input placeholder="Tipo do Imóvel*" />
+              </Col>
+              <Row mb={4}>
+                <Col width={1/2} mr={4}>
                   <Input placeholder="Nº andar" />
                 </Col>
-                <Col ml={2}>
+                <Col width={1/2} ml={2} mr={4}>
                   <Input label="Área conforme IPTU*" placeholder="Área (m²)*"/>
                 </Col>
               </Row>
-              <Row>
-                <Col mb={4} mr={2}>
+              <Row mb={4}>
+                <Col width={1/2} mr={4}>
                   <Input placeholder="Cond (R$)" />
                 </Col>
-                <Col ml={2}>
+                <Col width={1/2} ml={2} mr={4}>
                   <Input placeholder="IPTU (R$/ano)*"/>
                 </Col>
               </Row>
@@ -64,7 +62,7 @@ class HomeDetails extends Component {
                   <Button
                     fluid
                     height="tall"
-                    onClick={this.previousStep}>Cancelar</Button>
+                    onClick={this.previousStep}>Voltar</Button>
                 </Col>
                 <Col width={5/12}>
                   <Button

@@ -66,7 +66,7 @@ class AddressInput extends PureComponent {
                         <Button
                           fluid
                           height="tall"
-                          onClick={this.previousStep}>Cancelar</Button>
+                          onClick={this.previousStep}>Voltar</Button>
                       </Col>
                       <Col width={5/12}>
                         <Button
