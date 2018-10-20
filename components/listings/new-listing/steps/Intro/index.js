@@ -31,19 +31,19 @@ class Intro extends PureComponent {
                 Como funciona anunciar aqui na EmCasa?
               </Text>
               <Text color="grey">Venda seu imóvel do jeito fácil e seguro.</Text>
-              <View>
+              <View mb={2}>
                 <Arrow /><Text inline>Cadastre seu imóvel no nosso site</Text>
               </View>
-              <View>
+              <View mb={2}>
                 <Arrow /><Text inline>Agende grátis um Tour Virtual 3D e uma sessão de fotos do seu imóvel</Text>
               </View>
-              <View>
+              <View mb={2}>
                 <Arrow /><Text inline>Economize tempo e dinheiro anunciando seu imóvel com a gente</Text>
               </View>
-              <View>
+              <View mb={2}>
                 <Arrow /><Text inline>Pré avaliação grátis do seu imóvel</Text>
               </View>
-              <View>
+              <View mb={2}>
                 <Arrow /><Text inline>Assistência jurídica grátis</Text>
               </View>
             </View>
