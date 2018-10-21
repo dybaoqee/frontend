@@ -38,7 +38,7 @@ class Bedrooms extends Component {
   }
 
   validateBedroom(value) {
-    if (typeof value !== 'number') {
+    if (!value) {
       return 'É necessário informar o número de quartos.'
     }
   }
@@ -50,20 +50,31 @@ class Bedrooms extends Component {
   }
 
   validateBathroom(value) {
-    if (typeof value !== 'number') {
+    if (!value) {
       return 'É necessário informar o número de banheiros.'
     }
   }
 
-  bedroomSelection() {
+  bedroomSelection(setFieldValue) {
     const { bedrooms } = this.props
     if (this.state.enterMoreBedrooms) {
       return (
-        <Input placeholder="Número de quartos" type="number" onBlur={(e) => {this.rooms.bedrooms = e.target.value}} defaultValue={bedrooms} />
+        <Input placeholder="Número de quartos" type="number" onBlur={(e) => {
+          const { value } = e.target
+          this.rooms.bedrooms = value
+          setFieldValue('bedroom', value)
+        }} defaultValue={bedrooms} />
       )
     }
     return (
-      <Button.Group initialValue={bedrooms} onChange={(value) => {value === 'more' ? this.setState({enterMoreBedrooms: true}) : this.rooms.bedrooms = value}}>
+      <Button.Group initialValue={bedrooms} onChange={(value) => {
+          if (value === 'more') {
+            this.setState({enterMoreBedrooms: true})
+          } else {
+            this.rooms.bedrooms = value
+            setFieldValue('bedroom', value)
+          }
+        }}>
         <Button name="1" mr={2} value={1} height="tall">1</Button>
         <Button name="2" mr={2} value={2} height="tall">2</Button>
         <Button name="3" mr={2} value={3} height="tall">3</Button>
@@ -74,15 +85,26 @@ class Bedrooms extends Component {
     )
   }
 
-  bathroomSelection() {
+  bathroomSelection(setFieldValue) {
     const { bathrooms } = this.props
     if (this.state.enterMoreBathrooms) {
       return (
-        <Input placeholder="Número de banheiros" type="number" onBlur={(e) => {this.rooms.bathrooms = e.target.value}} defaultValue={bathrooms} />
+        <Input placeholder="Número de banheiros" type="number" onBlur={(e) => {
+          const { value } = e.target
+          this.rooms.bathrooms = value
+          setFieldValue('bathroom', value)
+        }} defaultValue={bathrooms} />
       )
     }
     return (
-      <Button.Group initialValue={bathrooms} onChange={(value) => {value === 'more' ? this.setState({enterMoreBathrooms: true}) : this.rooms.bathrooms = value}}>
+      <Button.Group initialValue={bathrooms} onChange={(value) => {
+          if (value === 'more') {
+            this.setState({enterMoreBathrooms: true})
+          } else {
+            this.rooms.bathrooms = value
+            setFieldValue('bathroom', value)
+          }
+        }}>
         <Button mr={2} value={1} height="tall">1</Button>
         <Button mr={2} value={2} height="tall">2</Button>
         <Button mr={2} value={3} height="tall">3</Button>
