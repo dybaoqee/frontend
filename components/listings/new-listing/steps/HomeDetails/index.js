@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import { Formik, Field } from 'formik'
 
 import Button from '@emcasa/ui-dom/components/Button'
@@ -9,7 +9,7 @@ import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import Select from '@emcasa/ui-dom/components/Select'
 
-class HomeDetails extends PureComponent {
+class HomeDetails extends Component {
   constructor(props) {
     super(props)
     this.nextStep = this.nextStep.bind(this)
@@ -17,10 +17,41 @@ class HomeDetails extends PureComponent {
     this.validateArea = this.validateArea.bind(this)
     this.validateIptu = this.validateIptu.bind(this)
     this.validateHomeType = this.validateHomeType.bind(this)
+    this.updateStateFromProps = this.updateStateFromProps.bind(this)
+  }
+
+  state = {
+    homeType: null,
+    floor: null,
+    area: null,
+    cond: null,
+    iptu: null
+  }
+
+  componentDidMount() {
+    this.updateStateFromProps(this.props)
+  }
+
+  componentWillReceiveProps(props) {
+    this.updateStateFromProps(props)
+  }
+
+  updateStateFromProps(props) {
+    const { homeDetails } = props
+    if (homeDetails) {
+      this.setState({
+        homeType: homeDetails.homeType,
+        floor: homeDetails.floor,
+        area: homeDetails.area,
+        cond: homeDetails.cond,
+        iptu: homeDetails.iptu
+      })
+    }
   }
 
   nextStep() {
-    const { navigateTo } = this.props
+    const { navigateTo, updateHomeDetails } = this.props
+    updateHomeDetails(this.state)
     navigateTo('bedrooms')
   }
 
@@ -48,12 +79,28 @@ class HomeDetails extends PureComponent {
   }
 
   render() {
+    const { homeDetails } = this.props
+    let homeType, floor, area, cond, iptu
+    if (homeDetails) {
+      homeType = homeDetails.homeType
+      floor = homeDetails.floor
+      area = homeDetails.area
+      cond = homeDetails.cond
+      iptu = homeDetails.iptu
+    }
     return (
       <div ref={this.props.hostRef}>
         <Row justifyContent="center">
           <Col width={[1, 1/2]}>
             <Formik
-              render={({isValid}) => (
+              initialValues={{
+                homeType: homeType,
+                floor: floor,
+                area: area,
+                cond: cond,
+                iptu: iptu
+              }}
+              render={({isValid, dirty, setFieldValue, errors}) => (
                 <>
                   <View body p={4}>
                     <Text
@@ -69,7 +116,14 @@ class HomeDetails extends PureComponent {
                         name="homeType"
                         validate={this.validateHomeType}
                         render={({field}) => (
-                          <Select defaultValue="_placeholder" {...field}>
+                          <Select
+                            defaultValue={homeType || '_placeholder'}
+                            error={errors.homeType}
+                            onChange={(e) => {
+                              const { value } = e.target
+                              setFieldValue('homeType', value)
+                              this.setState({homeType: value})
+                            }}>
                             <option value="_placeholder" disabled>Tipo do Imóvel*</option>
                             <option value="house">Casa</option>
                             <option value="apartment">Apartamento</option>
@@ -80,20 +134,37 @@ class HomeDetails extends PureComponent {
                       <Col width={1/2} mr={4}>
                         <Field
                           name="floor"
-                          render={({field}) => (
-                            <Input {...field} placeholder="Nº andar" type="number" />
+                          render={() => (
+                            <Input
+                              placeholder="Nº andar"
+                              type="number"
+                              error={errors.floor}
+                              defaultValue={floor}
+                              onChange={(e) => {
+                                const { value } = e.target
+                                setFieldValue('floor', value)
+                                this.setState({floor: value})
+                              }}
+                            />
                           )}/>
                       </Col>
                       <Col width={1/2} ml={2} mr={4}>
                         <Field
                           name="area"
                           validate={this.validateArea}
-                          render={({field}) => (
+                          render={() => (
                             <Input
                               label="Área conforme IPTU*"
                               placeholder="Área (m²)*"
                               type="number"
-                              {...field} />
+                              error={errors.area}
+                              defaultValue={area}
+                              onChange={(e) => {
+                                const { value } = e.target
+                                setFieldValue('area', value)
+                                this.setState({area: value})
+                              }}
+                              />
                           )}/>
                       </Col>
                     </Row>
@@ -101,18 +172,32 @@ class HomeDetails extends PureComponent {
                       <Col width={1/2} mr={4}>
                         <Field
                           name="cond"
-                          render={({field}) => (
-                            <Input {...field} placeholder="Cond (R$)" />
+                          render={() => (
+                            <Input
+                              placeholder="Cond (R$)"
+                              error={errors.cond}
+                              defaultValue={cond}
+                              onChange={(e) => {
+                                const { value } = e.target
+                                setFieldValue('cond', value)
+                                this.setState({cond: value})
+                              }}/>
                           )}/>
                       </Col>
                       <Col width={1/2} ml={2} mr={4}>
                         <Field
                           name="iptu"
                           validate={this.validateIptu}
-                          render={({field}) => (
+                          render={() => (
                             <Input
                               placeholder="IPTU (R$/ano)*"
-                              {...field}/>
+                              error={errors.iptu}
+                              defaultValue={iptu}
+                              onChange={(e) => {
+                                const { value } = e.target
+                                setFieldValue('iptu', value)
+                                this.setState({iptu: value})
+                              }}/>
                           )}/>
                       </Col>
                     </Row>
@@ -129,7 +214,7 @@ class HomeDetails extends PureComponent {
                         <Button
                           fluid
                           height="tall"
-                          disabled={!isValid}
+                          disabled={dirty && !isValid}
                           onClick={this.nextStep}>Avançar</Button>
                       </Col>
                     </Row>

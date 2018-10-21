@@ -1,6 +1,7 @@
 // Action Types
 const NAVIGATE = 'NAVIGATE'
 const UPDATE_LOCATION = 'UPDATE_LOCATION'
+const UPDATE_HOME_DETAILS = 'UPDATE_HOME_DETAILS'
 const UPDATE_ROOMS = 'UPDATE_ROOMS'
 
 // Action creators
@@ -18,6 +19,13 @@ const updateLocation = (value) => {
   }
 }
 
+const updateHomeDetails = (value) => {
+  return {
+    type: UPDATE_HOME_DETAILS,
+    value: value
+  }
+}
+
 const updateRooms = (value) => {
   return {
     type: UPDATE_ROOMS,
@@ -27,10 +35,12 @@ const updateRooms = (value) => {
 
 export {
   NAVIGATE,
-  UPDATE_ROOMS,
   UPDATE_LOCATION,
+  UPDATE_HOME_DETAILS,
+  UPDATE_ROOMS, 
 
   navigateTo,
-  updateRooms,
-  updateLocation
+  updateLocation,
+  updateHomeDetails,
+  updateRooms
 }

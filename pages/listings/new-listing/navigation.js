@@ -2,8 +2,9 @@ import { connect } from 'react-redux'
 import { getAnimatedScreen } from './animation'
 import {
   navigateTo,
-  updateRooms,
-  updateLocation
+  updateLocation,
+  updateHomeDetails,
+  updateRooms
 } from 'redux/actions'
 import Intro from 'components/listings/new-listing/steps/Intro'
 import AddressInput from 'components/listings/new-listing/steps/AddressInput'
@@ -39,11 +40,14 @@ const mapDispatchToProps = dispatch => {
     navigateTo: step => {
       dispatch(navigateTo(step))
     },
-    updateRooms: value => {
-      dispatch(updateRooms(value))
-    },
     updateLocation: value => {
       dispatch(updateLocation(value))
+    },
+    updateHomeDetails: value => {
+      dispatch(updateHomeDetails(value))
+    },
+    updateRooms: value => {
+      dispatch(updateRooms(value))
     }
   }
 }

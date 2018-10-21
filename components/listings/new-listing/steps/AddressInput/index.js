@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import { Formik, Field } from 'formik'
 
 import Button from '@emcasa/ui-dom/components/Button'
@@ -8,7 +8,7 @@ import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import Input from '@emcasa/ui-dom/components/Input'
 
-class AddressInput extends PureComponent {
+class AddressInput extends Component {
   constructor(props) {
     super(props)
     this.nextStep = this.nextStep.bind(this)
@@ -73,7 +73,7 @@ class AddressInput extends PureComponent {
                 address: address,
                 complement: complement
               }}
-              render={({isValid, dirty, setFieldValue}) => (
+              render={({isValid, dirty, setFieldValue, errors}) => (
                 <>
                   <View body p={4}>
                     <Text
@@ -87,7 +87,7 @@ class AddressInput extends PureComponent {
                         name="address"
                         validate={this.validateAddress}
                         render={() => (
-                          <Input placeholder="Endereço e número*" onChange={(e) => {
+                          <Input placeholder="Endereço e número*" error={errors['address']} onChange={(e) => {
                             const { value } = e.target
                             setFieldValue('address', value)
                             this.setState({address: value})

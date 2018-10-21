@@ -1,7 +1,8 @@
 import {
   NAVIGATE,
   UPDATE_LOCATION,
-  UPDATE_ROOMS
+  UPDATE_HOME_DETAILS,
+  UPDATE_ROOMS,
 } from './actions'
 
 const initialState = {
@@ -9,6 +10,13 @@ const initialState = {
   location: {
     address: null,
     complement: null
+  },
+  homeDetails: {
+    homeType: null,
+    floor: null,
+    area: null,
+    cond: null,
+    iptu: null
   },
   rooms: {
     bedrooms: null,
@@ -30,6 +38,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         location: action.value
+      }
+    case UPDATE_HOME_DETAILS:
+      return {
+        ...state,
+        homeDetails: action.value
       }
     case UPDATE_ROOMS:
       return {
