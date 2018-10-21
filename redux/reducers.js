@@ -1,10 +1,6 @@
 import {
   NAVIGATE,
-  SELECT_BEDROOMS,
-  SELECT_MORE_BEDROOMS,
-  SELECT_SUITES,
-  SELECT_BATHROOMS,
-  SELECT_MORE_BATHROOMS
+  UPDATE_ROOMS
 } from './actions'
 
 const initialState = {
@@ -18,30 +14,10 @@ const reducer = (state = initialState, action) => {
         ...state,
         step: action.step
       }
-    case SELECT_BEDROOMS:
+    case UPDATE_ROOMS:
       return {
         ...state,
-        bedrooms: action.value
-      }
-    case SELECT_MORE_BEDROOMS:
-      return {
-        ...state,
-        inputBedrooms: true
-      }
-    case SELECT_SUITES:
-      return {
-        ...state,
-        suites: action.value
-      }
-    case SELECT_BATHROOMS:
-      return {
-        ...state,
-        bathrooms: action.value
-      }
-    case SELECT_MORE_BATHROOMS:
-      return {
-        ...state,
-        inputBathrooms: true
+        rooms: action.value
       }
     default:
       return state
