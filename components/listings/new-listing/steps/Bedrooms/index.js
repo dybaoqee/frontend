@@ -76,18 +76,20 @@ class Bedrooms extends Component {
     }
   }
 
-  bedroomSelection(setFieldValue) {
+  bedroomSelection(setFieldValue, error) {
     const { rooms } = this.props
     let bedrooms
     if (rooms) bedrooms = rooms.bedrooms
     if (this.state.enterMoreBedrooms) {
       return (
-        <Input placeholder="Número de quartos" type="number" onBlur={(e) => {
-          const { value } = e.target
-          const intValue = parseInt(value)
-          setFieldValue('bedroom', intValue)
-          this.setState({bedrooms: intValue})
-        }} defaultValue={bedrooms} />
+        <Col width={3/4}>
+          <Input fluid hideLabelView placeholder="Número de quartos" type="number" error={error} onChange={(e) => {
+            const { value } = e.target
+            const intValue = parseInt(value)
+            setFieldValue('bedroom', intValue)
+            this.setState({bedrooms: intValue})
+          }} defaultValue={bedrooms} />
+        </Col>
       )
     }
     return (
@@ -110,18 +112,20 @@ class Bedrooms extends Component {
     )
   }
 
-  bathroomSelection(setFieldValue) {
+  bathroomSelection(setFieldValue, error) {
     const { rooms } = this.props
     let bathrooms
     if (rooms) bathrooms = rooms.bathrooms
     if (this.state.enterMoreBathrooms) {
       return (
-        <Input placeholder="Número de banheiros" type="number" onBlur={(e) => {
-          const { value } = e.target
-          const intValue = parseInt(value)
-          setFieldValue('bathroom', intValue)
-          this.setState({bathrooms: intValue})
-        }} defaultValue={bathrooms} />
+        <Col width={3/4}>
+          <Input fluid hideLabelView placeholder="Número de banheiros" type="number" error={error} onChange={(e) => {
+            const { value } = e.target
+            const intValue = parseInt(value)
+            setFieldValue('bathroom', intValue)
+            this.setState({bathrooms: intValue})
+          }} defaultValue={bathrooms} />
+        </Col>
       )
     }
     return (
@@ -162,7 +166,7 @@ class Bedrooms extends Component {
                 suite: suites,
                 bathroom: bathrooms
               }}
-              render={({isValid, dirty, setFieldValue}) => (
+              render={({isValid, dirty, setFieldValue, errors}) => (
                 <>
                   <View body p={4}>
                     <Text
@@ -176,7 +180,7 @@ class Bedrooms extends Component {
                       <Field
                         name="bedroom"
                         validate={this.validateBedroom}
-                        render={() => this.bedroomSelection(setFieldValue)} />
+                        render={() => this.bedroomSelection(setFieldValue, errors['bedroom'])} />
                     </Row>
                     <Text color="grey">Algum deles é suíte? Quantos?</Text>
                     <Row mb={4}>
@@ -201,7 +205,7 @@ class Bedrooms extends Component {
                       <Field
                         name="bathroom"
                         validate={this.validateBathroom}
-                        render={() => this.bathroomSelection(setFieldValue)} />
+                        render={() => this.bathroomSelection(setFieldValue, errors['bathroom'])} />
                     </Row>
                   </View>
                   <View bottom p={4}>
