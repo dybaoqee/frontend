@@ -4,7 +4,14 @@ import {
 } from './actions'
 
 const initialState = {
-  step: 'intro'
+  step: 'intro',
+  rooms: {
+    bedrooms: null,
+    suites: null,
+    bathrooms: null,
+    enterMoreBedrooms: false,
+    enterMoreBathrooms: false
+  }
 }
 
 const reducer = (state = initialState, action) => {

@@ -16,20 +16,41 @@ class Bedrooms extends Component {
     this.validateBedroom = this.validateBedroom.bind(this)
     this.validateSuite = this.validateSuite.bind(this)
     this.validateBathroom = this.validateBathroom.bind(this)
-    this.rooms = {
-      bedrooms: 0,
-      suites: 0,
-      bathrooms: 0
-    }
+    this.updateStateFromProps = this.updateStateFromProps.bind(this)
   }
 
   state = {
+    bedrooms: 0,
+    suites: 0,
+    bathrooms: 0,
     enterMoreBedrooms: false,
     enterMoreBathrooms: false
   }
 
+  componentDidMount() {
+    this.updateStateFromProps(this.props)
+  }
+
+  componentWillReceiveProps(props) {
+    this.updateStateFromProps(props)
+  }
+
+  updateStateFromProps(props) {
+    const { rooms } = props
+    if (rooms) {
+      this.setState({
+        bedrooms: rooms.bedrooms,
+        suites: rooms.suites,
+        bathrooms: rooms.bathrooms,
+        enterMoreBedrooms: rooms.enterMoreBedrooms,
+        enterMoreBathrooms: rooms.enterMoreBathrooms
+      })
+    }
+  }
+
   nextStep() {
-    
+    const { updateRooms } = this.props
+    updateRooms(this.state)
   }
 
   previousStep() {
@@ -56,13 +77,16 @@ class Bedrooms extends Component {
   }
 
   bedroomSelection(setFieldValue) {
-    const { bedrooms } = this.props
+    const { rooms } = this.props
+    let bedrooms
+    if (rooms) bedrooms = rooms.bedrooms
     if (this.state.enterMoreBedrooms) {
       return (
         <Input placeholder="Número de quartos" type="number" onBlur={(e) => {
           const { value } = e.target
-          this.rooms.bedrooms = value
-          setFieldValue('bedroom', value)
+          const intValue = parseInt(value)
+          setFieldValue('bedroom', intValue)
+          this.setState({bedrooms: intValue})
         }} defaultValue={bedrooms} />
       )
     }
@@ -71,8 +95,9 @@ class Bedrooms extends Component {
           if (value === 'more') {
             this.setState({enterMoreBedrooms: true})
           } else {
-            this.rooms.bedrooms = value
-            setFieldValue('bedroom', value)
+            const intValue = parseInt(value)
+            setFieldValue('bedroom', intValue)
+            this.setState({bedrooms: intValue})
           }
         }}>
         <Button name="1" mr={2} value={1} height="tall">1</Button>
@@ -86,13 +111,16 @@ class Bedrooms extends Component {
   }
 
   bathroomSelection(setFieldValue) {
-    const { bathrooms } = this.props
+    const { rooms } = this.props
+    let bathrooms
+    if (rooms) bathrooms = rooms.bathrooms
     if (this.state.enterMoreBathrooms) {
       return (
         <Input placeholder="Número de banheiros" type="number" onBlur={(e) => {
           const { value } = e.target
-          this.rooms.bathrooms = value
-          setFieldValue('bathroom', value)
+          const intValue = parseInt(value)
+          setFieldValue('bathroom', intValue)
+          this.setState({bathrooms: intValue})
         }} defaultValue={bathrooms} />
       )
     }
@@ -101,8 +129,9 @@ class Bedrooms extends Component {
           if (value === 'more') {
             this.setState({enterMoreBathrooms: true})
           } else {
-            this.rooms.bathrooms = value
-            setFieldValue('bathroom', value)
+            const intValue = parseInt(value)
+            setFieldValue('bathroom', intValue)
+            this.setState({bathrooms: intValue})
           }
         }}>
         <Button mr={2} value={1} height="tall">1</Button>
@@ -116,7 +145,13 @@ class Bedrooms extends Component {
   }
 
   render() {
-    const { bedrooms, bathrooms, suites } = this.props
+    const { rooms } = this.props
+    let bedrooms, bathrooms, suites
+    if (rooms) {
+      bedrooms = rooms.bedrooms
+      bathrooms = rooms.bathrooms
+      suites = rooms.suites
+    }
     return (
       <div ref={this.props.hostRef}>
         <Row justifyContent="center">
@@ -127,7 +162,7 @@ class Bedrooms extends Component {
                 suite: suites,
                 bathroom: bathrooms
               }}
-              render={({isValid, setFieldValue}) => (
+              render={({isValid, dirty, setFieldValue}) => (
                 <>
                   <View body p={4}>
                     <Text
@@ -181,7 +216,7 @@ class Bedrooms extends Component {
                         <Button
                           fluid
                           height="tall"
-                          disabled={!isValid}
+                          disabled={dirty && !isValid}
                           onClick={this.nextStep}>Avançar</Button>
                       </Col>
                     </Row>
