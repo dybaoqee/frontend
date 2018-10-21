@@ -20,7 +20,8 @@ class HomeDetails extends PureComponent {
   }
 
   nextStep() {
-    
+    const { navigateTo } = this.props
+    navigateTo('bedrooms')
   }
 
   previousStep() {

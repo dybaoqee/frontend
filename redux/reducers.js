@@ -1,9 +1,17 @@
 import {
-  NAVIGATE
+  NAVIGATE,
+  UPDATE_ROOMS
 } from './actions'
 
 const initialState = {
-  step: 'intro'
+  step: 'intro',
+  rooms: {
+    bedrooms: null,
+    suites: null,
+    bathrooms: null,
+    enterMoreBedrooms: false,
+    enterMoreBathrooms: false
+  }
 }
 
 const reducer = (state = initialState, action) => {
@@ -12,6 +20,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         step: action.step
+      }
+    case UPDATE_ROOMS:
+      return {
+        ...state,
+        rooms: action.value
       }
     default:
       return state

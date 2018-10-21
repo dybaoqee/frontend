@@ -1,5 +1,6 @@
 // Action Types
 const NAVIGATE = 'NAVIGATE'
+const UPDATE_ROOMS = 'UPDATE_ROOMS'
 
 // Action creators
 const navigateTo = (step) => {
@@ -9,7 +10,17 @@ const navigateTo = (step) => {
   }
 }
 
+const updateRooms = (value) => {
+  return {
+    type: UPDATE_ROOMS,
+    value: value
+  }
+}
+
 export {
   NAVIGATE,
-  navigateTo
+  UPDATE_ROOMS,
+
+  navigateTo,
+  updateRooms
 }

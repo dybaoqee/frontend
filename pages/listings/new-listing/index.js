@@ -34,7 +34,9 @@ class NewListing extends PureComponent {
 
   componentWillReceiveProps(props) {
     const nextStep = props.step
-    this.navigate(nextStep)
+    if (this.props.step !== nextStep) {
+      this.navigate(nextStep)
+    }    
   }
 
   navigate(nextStep) {
@@ -52,7 +54,7 @@ class NewListing extends PureComponent {
     return (
       <ThemeProvider theme={theme}>
         <PoseGroup>
-          {getScreen(step, this.nextStep, this.previousStep)}
+          {getScreen(step)}
         </PoseGroup>
       </ThemeProvider>
     )
