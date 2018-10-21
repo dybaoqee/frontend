@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react'
-import { PoseGroup } from 'react-pose'
 import { Formik, Field } from 'formik'
 
 import Button from '@emcasa/ui-dom/components/Button'
@@ -8,17 +7,15 @@ import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
-import { getAnimatedComponent } from './animation'
 
 class Bedrooms extends PureComponent {
   constructor(props) {
     super(props)
     this.nextStep = this.nextStep.bind(this)
     this.previousStep = this.previousStep.bind(this)
-    this.validateBedrooms = this.validateBedrooms.bind(this)
-    this.validateSuites = this.validateSuites.bind(this)
-    this.validateBathrooms = this.validateBathrooms.bind(this)
-    this.bedroomSelection = this.bedroomSelection.bind(this)
+    this.validateBedroom = this.validateBedroom.bind(this)
+    this.validateSuite = this.validateSuite.bind(this)
+    this.validateBathroom = this.validateBathroom.bind(this)
   }
 
   nextStep() {
@@ -30,16 +27,22 @@ class Bedrooms extends PureComponent {
     navigateTo('homeDetails')
   }
 
-  validateBedrooms(value) {
-    
+  validateBedroom(value) {
+    if (!value) {
+      return 'É necessário informar o número de quartos.'
+    }
   }
 
-  validateSuites(value) {
-    
+  validateSuite(value) {
+    if (!value) {
+      return 'É necessário informar o número de suítes.'
+    }
   }
 
-  validateBathrooms(value) {
-    
+  validateBathroom(value) {
+    if (!value) {
+      return 'É necessário informar o número de banheiros.'
+    }
   }
 
   bedroomSelection() {
@@ -83,13 +86,18 @@ class Bedrooms extends PureComponent {
   }
 
   render() {
-    const { suites } = this.props
+    const { bedrooms, bathrooms, suites, selectSuites } = this.props
     return (
       <div ref={this.props.hostRef}>
         <Row justifyContent="center">
           <Col width={[1, 1/2]}>
             <Formik
-              render={({isValid}) => (
+              initialValues={{
+                bedroom: bedrooms,
+                suite: suites,
+                bathroom: bathrooms
+              }}
+              render={({isValid, validateForm}) => (
                 <>
                   <View body p={4}>
                     <Text
@@ -101,21 +109,34 @@ class Bedrooms extends PureComponent {
                     </Text>
                     <Text color="grey">Quantos quartos tem no seu imóvel?</Text>
                     <Row mb={4}>
-                      {this.bedroomSelection()}
+                      <Field
+                        name="bedroom"
+                        validate={this.validateBedroom}
+                        render={() =>
+                          this.bedroomSelection()
+                        }/>
                     </Row>
                     <Text color="grey">Algum deles é suíte? Quantos?</Text>
                     <Row mb={4}>
-                      <Button.Group initialValue={suites} onChange={this.props.selectSuites}>
-                        <Button mr={2} value={0} height="tall">Sem suíte</Button>
-                        <Button mr={2} value={1} height="tall">1</Button>
-                        <Button mr={2} value={2} height="tall">2</Button>
-                        <Button mr={2} value={3} height="tall">3</Button>
-                        <Button mr={2} value={4} height="tall">4</Button>
-                      </Button.Group>
+                      <Field
+                        name="suite"
+                        validate={this.validateSuite}
+                        render={() =>
+                          <Button.Group initialValue={suites} onChange={selectSuites}>
+                            <Button mr={2} value={0} height="tall">Sem suíte</Button>
+                            <Button mr={2} value={1} height="tall">1</Button>
+                            <Button mr={2} value={2} height="tall">2</Button>
+                            <Button mr={2} value={3} height="tall">3</Button>
+                            <Button mr={2} value={4} height="tall">4</Button>
+                          </Button.Group>
+                        }/>
                     </Row>
                     <Text color="grey">Quantos banheiros? (Sem contar os lavabos)</Text>
                     <Row mb={4}>
-                      {this.bathroomSelection()}
+                      <Field
+                        name="bathroom"
+                        validate={this.validateBathroom}
+                        render={() => this.bathroomSelection()} />
                     </Row>
                   </View>
                   <View bottom p={4}>
