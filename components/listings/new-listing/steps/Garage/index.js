@@ -42,8 +42,9 @@ class Garage extends Component {
   }
 
   nextStep() {
-    const { updateGarage } = this.props
+    const { navigateTo, updateGarage } = this.props
     updateGarage(this.state)
+    navigateTo('differential')
   }
 
   previousStep() {

@@ -12,6 +12,7 @@ import AddressInput from 'components/listings/new-listing/steps/AddressInput'
 import HomeDetails from 'components/listings/new-listing/steps/HomeDetails'
 import Bedrooms from 'components/listings/new-listing/steps/Bedrooms'
 import Garage from 'components/listings/new-listing/steps/Garage'
+import Differential from 'components/listings/new-listing/steps/Differential'
 
 // Navigation steps
 const steps = {
@@ -33,7 +34,11 @@ const steps = {
   },
   garage: {
     component: Garage,
-    canNavigateTo: ['bedrooms']
+    canNavigateTo: ['bedrooms', 'differential']
+  },
+  differential: {
+    component: Differential,
+    canNavigateTo: ['garage']
   }
 }
 
