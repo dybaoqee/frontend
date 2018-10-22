@@ -73,7 +73,10 @@ class AddressInput extends Component {
                 address: address,
                 complement: complement
               }}
-              render={({isValid, dirty, setFieldValue, errors}) => (
+              isInitialValid={() => {
+                return address !== null
+              }}
+              render={({isValid, setFieldValue, errors}) => (
                 <>
                   <View body p={4}>
                     <Text
@@ -87,7 +90,7 @@ class AddressInput extends Component {
                         name="address"
                         validate={this.validateAddress}
                         render={() => (
-                          <Input placeholder="Endereço e número*" error={errors['address']} onChange={(e) => {
+                          <Input placeholder="Endereço e número*" error={errors.address} onChange={(e) => {
                             const { value } = e.target
                             setFieldValue('address', value)
                             this.setState({address: value})
@@ -97,7 +100,6 @@ class AddressInput extends Component {
                     <Col mr={4}>
                     <Field
                       name="complement"
-                      validate={this.validateAddress}
                       render={() => (
                         <Input placeholder="Complemento" onChange={(e) => {
                           const { value } = e.target
@@ -119,7 +121,7 @@ class AddressInput extends Component {
                         <Button
                           fluid
                           height="tall"
-                          disabled={dirty && !isValid}
+                          disabled={!isValid}
                           onClick={this.nextStep}>Avançar</Button>
                       </Col>
                     </Row>
