@@ -76,17 +76,18 @@ class Bedrooms extends Component {
     }
   }
 
-  bedroomSelection(setFieldValue, error) {
+  bedroomSelection(setFieldTouched, setFieldValue, error, touched) {
     const { rooms } = this.props
     let bedrooms
     if (rooms) bedrooms = rooms.bedrooms
     if (this.state.enterMoreBedrooms) {
       return (
         <Col width={3/4}>
-          <Input fluid hideLabelView placeholder="Número de quartos" type="number" error={error} onChange={(e) => {
+          <Input fluid hideLabelView placeholder="Número de quartos" type="number" error={touched ? error : null} onChange={(e) => {
             const { value } = e.target
             const intValue = parseInt(value)
             setFieldValue('bedroom', intValue)
+            setFieldTouched('bedroom')
             this.setState({bedrooms: intValue})
           }} defaultValue={bedrooms} />
         </Col>
@@ -99,6 +100,7 @@ class Bedrooms extends Component {
           } else {
             const intValue = parseInt(value)
             setFieldValue('bedroom', intValue)
+            setFieldTouched('bedroom')
             this.setState({bedrooms: intValue})
           }
         }}>
@@ -112,17 +114,18 @@ class Bedrooms extends Component {
     )
   }
 
-  bathroomSelection(setFieldValue, error) {
+  bathroomSelection(setFieldTouched, setFieldValue, error, touched) {
     const { rooms } = this.props
     let bathrooms
     if (rooms) bathrooms = rooms.bathrooms
     if (this.state.enterMoreBathrooms) {
       return (
         <Col width={3/4}>
-          <Input fluid hideLabelView placeholder="Número de banheiros" type="number" error={error} onChange={(e) => {
+          <Input fluid hideLabelView placeholder="Número de banheiros" type="number" error={touched ? error : null} onChange={(e) => {
             const { value } = e.target
             const intValue = parseInt(value)
             setFieldValue('bathroom', intValue)
+            setFieldTouched('bathroom')
             this.setState({bathrooms: intValue})
           }} defaultValue={bathrooms} />
         </Col>
@@ -135,6 +138,7 @@ class Bedrooms extends Component {
           } else {
             const intValue = parseInt(value)
             setFieldValue('bathroom', intValue)
+            setFieldTouched('bathroom')
             this.setState({bathrooms: intValue})
           }
         }}>
@@ -166,7 +170,10 @@ class Bedrooms extends Component {
                 suite: suites,
                 bathroom: bathrooms
               }}
-              render={({isValid, dirty, setFieldValue, errors}) => (
+              isInitialValid={() => {
+                return !(this.validateBedroom(bedrooms) && this.validateSuite(suites) && this.validateBathroom(bathrooms))
+              }}
+              render={({isValid, setFieldTouched, setFieldValue, errors}) => (
                 <>
                   <View body p={4}>
                     <Text
@@ -180,7 +187,7 @@ class Bedrooms extends Component {
                       <Field
                         name="bedroom"
                         validate={this.validateBedroom}
-                        render={() => this.bedroomSelection(setFieldValue, errors['bedroom'])} />
+                        render={({form}) => this.bedroomSelection(setFieldTouched, setFieldValue, errors.bedroom, form.touched.bedroom)} />
                     </Row>
                     <Text color="grey">Algum deles é suíte? Quantos?</Text>
                     <Row mb={4}>
@@ -190,6 +197,7 @@ class Bedrooms extends Component {
                         render={() =>
                           <Button.Group initialValue={suites} onChange={(value) => {
                             setFieldValue('suite', value)
+                            setFieldTouched('suite')
                             this.setState({suites: value})
                             }}>
                             <Button mr={2} value={0} height="tall">Sem suíte</Button>
@@ -205,7 +213,7 @@ class Bedrooms extends Component {
                       <Field
                         name="bathroom"
                         validate={this.validateBathroom}
-                        render={() => this.bathroomSelection(setFieldValue, errors['bathroom'])} />
+                        render={({form}) => this.bathroomSelection(setFieldTouched, setFieldValue, errors.bathroom, form.touched.bathroom)} />
                     </Row>
                   </View>
                   <View bottom p={4}>
@@ -220,7 +228,7 @@ class Bedrooms extends Component {
                         <Button
                           fluid
                           height="tall"
-                          disabled={dirty && !isValid}
+                          disabled={!isValid}
                           onClick={this.nextStep}>Avançar</Button>
                       </Col>
                     </Row>
