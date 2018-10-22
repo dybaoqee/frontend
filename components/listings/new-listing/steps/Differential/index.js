@@ -7,7 +7,6 @@ import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
-import Select from '@emcasa/ui-dom/components/Select'
 
 class Differential extends Component {
   constructor(props) {
@@ -42,6 +41,7 @@ class Differential extends Component {
   nextStep() {
     const { navigateTo, updateDifferential } = this.props
     updateDifferential(this.state)
+    navigateTo('phone')
   }
 
   previousStep() {
