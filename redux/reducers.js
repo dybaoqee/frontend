@@ -5,7 +5,8 @@ import {
   UPDATE_ROOMS,
   UPDATE_GARAGE,
   UPDATE_DIFFERENTIAL,
-  UPDATE_PHONE
+  UPDATE_PHONE,
+  UPDATE_PERSONAL
 } from './actions'
 
 const initialState = {
@@ -39,6 +40,10 @@ const initialState = {
     internationalCode: null,
     localAreaCode: null,
     number: null
+  },
+  personal: {
+    name: null,
+    email: null
   }
 }
 
@@ -78,6 +83,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         phone: action.value
+      }
+    case UPDATE_PERSONAL:
+      return {
+        ...state,
+        personal: action.value
       }
     default:
       return state
