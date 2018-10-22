@@ -52,11 +52,15 @@ class Garage extends Component {
   }
 
   validateSpots(spots) {
-
+    if (typeof spots !== 'number') {
+      return "É necessário informar o número de vagas"
+    }
   }
 
   validateSpotType(spotType) {
-
+    if (!spotType) {
+      return "É necessário informar o tipo de vaga"
+    }
   }
 
   render() {
@@ -76,7 +80,7 @@ class Garage extends Component {
                 spotType: spotType
               }}
               isInitialValid={() => {
-                return this.validateSpots(spots) && this.validateSpotType(spotType)
+                return !(this.validateSpots(spots) && this.validateSpotType(spotType))
               }}
               render={({isValid, setFieldTouched, setFieldValue, errors}) => (
                 <>
