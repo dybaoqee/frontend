@@ -3,6 +3,7 @@ import {
   UPDATE_LOCATION,
   UPDATE_HOME_DETAILS,
   UPDATE_ROOMS,
+  UPDATE_GARAGE
 } from './actions'
 
 const initialState = {
@@ -52,6 +53,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         rooms: action.value
+      }
+    case UPDATE_GARAGE:
+      return {
+        ...state,
+        garage: action.value
       }
     default:
       return state

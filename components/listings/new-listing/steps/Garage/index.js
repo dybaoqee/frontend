@@ -116,12 +116,14 @@ class Garage extends Component {
                         <Field
                           name="spotType"
                           validate={this.validateSpotType}
-                          render={({form}) => (
-                            <RadioButton.Group onChange={(value) => {
-                              setFieldValue('spotType', value)
-                              setFieldTouched('spotType')
-                              this.setState({spotType: value})
-                            }}>
+                          render={() => (
+                            <RadioButton.Group
+                              selectedValue={this.state.spotType}
+                              onChange={(value) => {
+                                setFieldValue('spotType', value)
+                                setFieldTouched('spotType')
+                                this.setState({spotType: value})
+                              }}>
                               <RadioButton label="Vagas na Escritura" value="deed"/>
                               <View mb={2}></View>
                               <RadioButton label="Vagas no Condomínio" value="condominium" />
