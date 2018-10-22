@@ -3,6 +3,7 @@ const NAVIGATE = 'NAVIGATE'
 const UPDATE_LOCATION = 'UPDATE_LOCATION'
 const UPDATE_HOME_DETAILS = 'UPDATE_HOME_DETAILS'
 const UPDATE_ROOMS = 'UPDATE_ROOMS'
+const UPDATE_GARAGE = 'UPDATE_GARAGE'
 
 // Action creators
 const navigateTo = (step) => {
@@ -33,14 +34,23 @@ const updateRooms = (value) => {
   }
 }
 
+const updateGarage = (value) => {
+  return {
+    type: UPDATE_GARAGE,
+    value: value
+  }
+}
+
 export {
   NAVIGATE,
   UPDATE_LOCATION,
   UPDATE_HOME_DETAILS,
-  UPDATE_ROOMS, 
+  UPDATE_ROOMS,
+  UPDATE_GARAGE,
 
   navigateTo,
   updateLocation,
   updateHomeDetails,
-  updateRooms
+  updateRooms,
+  updateGarage
 }

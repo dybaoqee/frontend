@@ -49,8 +49,9 @@ class Bedrooms extends Component {
   }
 
   nextStep() {
-    const { updateRooms } = this.props
+    const { navigateTo, updateRooms } = this.props
     updateRooms(this.state)
+    navigateTo('garage')
   }
 
   previousStep() {

@@ -24,6 +24,10 @@ const initialState = {
     bathrooms: null,
     enterMoreBedrooms: false,
     enterMoreBathrooms: false
+  },
+  garage: {
+    spots: null,
+    spotType: null
   }
 }
 

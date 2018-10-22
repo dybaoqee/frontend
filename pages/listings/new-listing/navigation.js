@@ -4,12 +4,14 @@ import {
   navigateTo,
   updateLocation,
   updateHomeDetails,
-  updateRooms
+  updateRooms,
+  updateGarage
 } from 'redux/actions'
 import Intro from 'components/listings/new-listing/steps/Intro'
 import AddressInput from 'components/listings/new-listing/steps/AddressInput'
 import HomeDetails from 'components/listings/new-listing/steps/HomeDetails'
 import Bedrooms from 'components/listings/new-listing/steps/Bedrooms'
+import Garage from 'components/listings/new-listing/steps/Garage'
 
 // Navigation steps
 const steps = {
@@ -27,7 +29,11 @@ const steps = {
   },
   bedrooms: {
     component: Bedrooms,
-    canNavigateTo: ['homeDetails']
+    canNavigateTo: ['homeDetails', 'garage']
+  },
+  garage: {
+    component: Garage,
+    canNavigateTo: ['bedrooms']
   }
 }
 
@@ -48,6 +54,9 @@ const mapDispatchToProps = dispatch => {
     },
     updateRooms: value => {
       dispatch(updateRooms(value))
+    },
+    updateGarage: value => {
+      dispatch(updateGarage(value))
     }
   }
 }
