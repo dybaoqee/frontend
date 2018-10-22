@@ -5,13 +5,17 @@ import {
   updateLocation,
   updateHomeDetails,
   updateRooms,
-  updateGarage
+  updateGarage,
+  updateDifferential,
+  updatePhone
 } from 'redux/actions'
 import Intro from 'components/listings/new-listing/steps/Intro'
 import AddressInput from 'components/listings/new-listing/steps/AddressInput'
 import HomeDetails from 'components/listings/new-listing/steps/HomeDetails'
 import Bedrooms from 'components/listings/new-listing/steps/Bedrooms'
 import Garage from 'components/listings/new-listing/steps/Garage'
+import Differential from 'components/listings/new-listing/steps/Differential'
+import Phone from 'components/listings/new-listing/steps/Phone'
 
 // Navigation steps
 const steps = {
@@ -33,7 +37,15 @@ const steps = {
   },
   garage: {
     component: Garage,
-    canNavigateTo: ['bedrooms']
+    canNavigateTo: ['bedrooms', 'differential']
+  },
+  differential: {
+    component: Differential,
+    canNavigateTo: ['garage', 'phone']
+  },
+  phone: {
+    component: Phone,
+    canNavigateTo: ['differential']
   }
 }
 
@@ -57,6 +69,12 @@ const mapDispatchToProps = dispatch => {
     },
     updateGarage: value => {
       dispatch(updateGarage(value))
+    },
+    updateDifferential: value => {
+      dispatch(updateDifferential(value))
+    },
+    updatePhone: value => {
+      dispatch(updatePhone(value))
     }
   }
 }
