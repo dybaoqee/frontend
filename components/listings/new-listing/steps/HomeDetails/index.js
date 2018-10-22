@@ -100,7 +100,10 @@ class HomeDetails extends Component {
                 cond: cond,
                 iptu: iptu
               }}
-              render={({isValid, dirty, setFieldValue, errors}) => (
+              isInitialValid={() => {
+                return area !== null && iptu !== null
+              }}
+              render={({isValid, setFieldTouched, setFieldValue, errors}) => (
                 <>
                   <View body p={4}>
                     <Text
@@ -115,13 +118,14 @@ class HomeDetails extends Component {
                       <Field
                         name="homeType"
                         validate={this.validateHomeType}
-                        render={({field}) => (
+                        render={() => (
                           <Select
                             defaultValue={homeType || '_placeholder'}
                             error={errors.homeType}
                             onChange={(e) => {
                               const { value } = e.target
                               setFieldValue('homeType', value)
+                              setFieldTouched('homeType')
                               this.setState({homeType: value})
                             }}>
                             <option value="_placeholder" disabled>Tipo do Imóvel*</option>
@@ -152,16 +156,17 @@ class HomeDetails extends Component {
                         <Field
                           name="area"
                           validate={this.validateArea}
-                          render={() => (
+                          render={({form}) => (
                             <Input
                               label="Área conforme IPTU*"
                               placeholder="Área (m²)*"
                               type="number"
-                              error={errors.area}
+                              error={form.touched.area ? errors.area : null}
                               defaultValue={area}
                               onChange={(e) => {
                                 const { value } = e.target
                                 setFieldValue('area', value)
+                                setFieldTouched('area')
                                 this.setState({area: value})
                               }}
                               />
@@ -175,6 +180,7 @@ class HomeDetails extends Component {
                           render={() => (
                             <Input
                               placeholder="Cond (R$)"
+                              hideLabelView
                               error={errors.cond}
                               defaultValue={cond}
                               onChange={(e) => {
@@ -188,14 +194,16 @@ class HomeDetails extends Component {
                         <Field
                           name="iptu"
                           validate={this.validateIptu}
-                          render={() => (
+                          render={({form}) => (
                             <Input
                               placeholder="IPTU (R$/ano)*"
-                              error={errors.iptu}
+                              hideLabelView
+                              error={form.touched.iptu ? errors.iptu : null}
                               defaultValue={iptu}
                               onChange={(e) => {
                                 const { value } = e.target
                                 setFieldValue('iptu', value)
+                                setFieldTouched('iptu')
                                 this.setState({iptu: value})
                               }}/>
                           )}/>
@@ -214,7 +222,7 @@ class HomeDetails extends Component {
                         <Button
                           fluid
                           height="tall"
-                          disabled={dirty && !isValid}
+                          disabled={!isValid}
                           onClick={this.nextStep}>Avançar</Button>
                       </Col>
                     </Row>
