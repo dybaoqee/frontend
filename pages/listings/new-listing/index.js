@@ -36,7 +36,7 @@ class NewListing extends PureComponent {
     const nextStep = props.step
     if (this.props.step !== nextStep) {
       this.navigate(nextStep)
-    }    
+    }
   }
 
   navigate(nextStep) {
@@ -46,7 +46,6 @@ class NewListing extends PureComponent {
     if (!nextKey && currentStep !== 'intro') {
       throw Error('Navigation key ' + nextStep + ' not found in ' + currentStep)
     }
-    Router.push('/anuncie', `/anuncie#${nextStep}`, { shallow: true })
   }
 
   render() {
