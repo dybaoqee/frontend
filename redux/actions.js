@@ -4,6 +4,7 @@ const UPDATE_LOCATION = 'UPDATE_LOCATION'
 const UPDATE_HOME_DETAILS = 'UPDATE_HOME_DETAILS'
 const UPDATE_ROOMS = 'UPDATE_ROOMS'
 const UPDATE_GARAGE = 'UPDATE_GARAGE'
+const UPDATE_DIFFERENTIAL = 'UPDATE_DIFFERENTIAL'
 
 // Action creators
 const navigateTo = (step) => {
@@ -41,16 +42,25 @@ const updateGarage = (value) => {
   }
 }
 
+const updateDifferential = (value) => {
+  return {
+    type: UPDATE_DIFFERENTIAL,
+    value: value
+  }
+}
+
 export {
   NAVIGATE,
   UPDATE_LOCATION,
   UPDATE_HOME_DETAILS,
   UPDATE_ROOMS,
   UPDATE_GARAGE,
+  UPDATE_DIFFERENTIAL,
 
   navigateTo,
   updateLocation,
   updateHomeDetails,
   updateRooms,
-  updateGarage
+  updateGarage,
+  updateDifferential
 }

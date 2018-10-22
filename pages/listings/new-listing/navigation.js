@@ -5,7 +5,8 @@ import {
   updateLocation,
   updateHomeDetails,
   updateRooms,
-  updateGarage
+  updateGarage,
+  updateDifferential
 } from 'redux/actions'
 import Intro from 'components/listings/new-listing/steps/Intro'
 import AddressInput from 'components/listings/new-listing/steps/AddressInput'
@@ -62,6 +63,9 @@ const mapDispatchToProps = dispatch => {
     },
     updateGarage: value => {
       dispatch(updateGarage(value))
+    },
+    updateDifferential: value => {
+      dispatch(updateDifferential(value))
     }
   }
 }

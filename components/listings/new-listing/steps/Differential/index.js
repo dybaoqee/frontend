@@ -86,12 +86,13 @@ class Differential extends Component {
                       <Col width={1} mr={4}>
                         <Field
                           name="text"
-                          render={() => (
+                          validate={this.validateText}
+                          render={({form}) => (
                             <Input
                               area
                               hideLabelView
                               placeholder="Diferenciais do imóvel"
-                              error={errors.text}
+                              error={form.touched.text ? errors.text : null}
                               defaultValue={text}
                               style={{height: 150}}
                               onChange={(e) => {

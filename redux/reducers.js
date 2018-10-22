@@ -3,7 +3,8 @@ import {
   UPDATE_LOCATION,
   UPDATE_HOME_DETAILS,
   UPDATE_ROOMS,
-  UPDATE_GARAGE
+  UPDATE_GARAGE,
+  UPDATE_DIFFERENTIAL
 } from './actions'
 
 const initialState = {
@@ -29,6 +30,9 @@ const initialState = {
   garage: {
     spots: null,
     spotType: null
+  },
+  differential: {
+    text: null
   }
 }
 
@@ -58,6 +62,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         garage: action.value
+      }
+    case UPDATE_DIFFERENTIAL:
+      return {
+        ...state,
+        differential: action.value
       }
     default:
       return state
