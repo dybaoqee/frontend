@@ -52,6 +52,12 @@ class NewListing extends Component {
         resuming: true,
         checkedProgress: true
       })
+    } else {
+      // Keep navigation state
+      const nextStep = props.step
+      if (this.props.step !== nextStep) {
+        this.navigate(nextStep)
+      }
     }
   }
 
