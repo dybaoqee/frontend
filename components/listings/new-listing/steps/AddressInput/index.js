@@ -7,6 +7,7 @@ import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import Input from '@emcasa/ui-dom/components/Input'
+import AddressAutoComplete from 'components/listings/new-listing/shared/AddressAutoComplete'
 
 class AddressInput extends Component {
   constructor(props) {
@@ -90,11 +91,13 @@ class AddressInput extends Component {
                         name="address"
                         validate={this.validateAddress}
                         render={() => (
-                          <Input placeholder="Endereço e número*" error={errors.address} onChange={(e) => {
-                            const { value } = e.target
-                            setFieldValue('address', value)
-                            this.setState({address: value})
-                          }} defaultValue={address} />
+                          <AddressAutoComplete
+                            defaultValue={address}
+                            onSelectAddress={(value) => {
+                              setFieldValue('address', value)
+                              this.setState({address: value})
+                            }}
+                          />
                         )}/>
                     </Col>
                     <Col mr={4}>
