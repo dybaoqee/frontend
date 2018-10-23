@@ -47,6 +47,7 @@ class Phone extends Component {
   nextStep() {
     const { navigateTo, updatePhone } = this.props
     updatePhone(this.state)
+    navigateTo('personal')
   }
 
   previousStep() {
