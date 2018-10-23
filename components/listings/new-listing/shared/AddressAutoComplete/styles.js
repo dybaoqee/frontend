@@ -18,13 +18,13 @@ const SearchResultItem = styled(View)`
   }
 `
 
-// TODO: use styled system breakpoints
+const MARGIN_RIGHT = '38px'
 const SearchResultContainer = styled(Row)`
   position: absolute;
   z-index: 1;
-  width: calc(50vw - 38px);
-  @media only screen and (max-width: 600px) {
-    width: calc(100vw - 38px);
+  width: calc(50vw - ${MARGIN_RIGHT});
+  @media only screen and (max-width: ${themeGet('breakpoints.0')}) {
+    width: calc(100vw - ${MARGIN_RIGHT});
   }
 `
 
