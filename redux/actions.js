@@ -7,6 +7,7 @@ const UPDATE_GARAGE = 'UPDATE_GARAGE'
 const UPDATE_DIFFERENTIAL = 'UPDATE_DIFFERENTIAL'
 const UPDATE_PHONE = 'UPDATE_PHONE'
 const UPDATE_PERSONAL = 'UPDATE_PERSONAL'
+const RESET_STORE = 'RESET_STORE'
 
 // Action creators
 const navigateTo = (step) => {
@@ -65,6 +66,12 @@ const updatePersonal = (value) => {
   }
 }
 
+const resetStore = () => {
+  return {
+    type: RESET_STORE
+  }
+}
+
 export {
   NAVIGATE,
   UPDATE_LOCATION,
@@ -74,6 +81,7 @@ export {
   UPDATE_DIFFERENTIAL,
   UPDATE_PHONE,
   UPDATE_PERSONAL,
+  RESET_STORE,
 
   navigateTo,
   updateLocation,
@@ -82,5 +90,6 @@ export {
   updateGarage,
   updateDifferential,
   updatePhone,
-  updatePersonal
+  updatePersonal,
+  resetStore
 }

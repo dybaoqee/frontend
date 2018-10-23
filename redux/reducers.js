@@ -6,7 +6,8 @@ import {
   UPDATE_GARAGE,
   UPDATE_DIFFERENTIAL,
   UPDATE_PHONE,
-  UPDATE_PERSONAL
+  UPDATE_PERSONAL,
+  RESET_STORE
 } from './actions'
 
 const initialState = {
@@ -89,6 +90,8 @@ const reducer = (state = initialState, action) => {
         ...state,
         personal: action.value
       }
+    case RESET_STORE:
+      return initialState
     default:
       return state
   }
