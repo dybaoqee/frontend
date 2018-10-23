@@ -1,5 +1,7 @@
 // Action Types
 const NAVIGATE = 'NAVIGATE'
+const START = 'START'
+const RESET_STORE = 'RESET_STORE'
 const UPDATE_LOCATION = 'UPDATE_LOCATION'
 const UPDATE_HOME_DETAILS = 'UPDATE_HOME_DETAILS'
 const UPDATE_ROOMS = 'UPDATE_ROOMS'
@@ -7,13 +9,25 @@ const UPDATE_GARAGE = 'UPDATE_GARAGE'
 const UPDATE_DIFFERENTIAL = 'UPDATE_DIFFERENTIAL'
 const UPDATE_PHONE = 'UPDATE_PHONE'
 const UPDATE_PERSONAL = 'UPDATE_PERSONAL'
-const RESET_STORE = 'RESET_STORE'
 
 // Action creators
 const navigateTo = (step) => {
   return {
     type: NAVIGATE,
     step: step
+  }
+}
+
+const start = (timestamp) => {
+  return {
+    type: START,
+    value: timestamp
+  }
+}
+
+const resetStore = () => {
+  return {
+    type: RESET_STORE
   }
 }
 
@@ -66,14 +80,10 @@ const updatePersonal = (value) => {
   }
 }
 
-const resetStore = () => {
-  return {
-    type: RESET_STORE
-  }
-}
-
 export {
   NAVIGATE,
+  START,
+  RESET_STORE,
   UPDATE_LOCATION,
   UPDATE_HOME_DETAILS,
   UPDATE_ROOMS,
@@ -81,15 +91,15 @@ export {
   UPDATE_DIFFERENTIAL,
   UPDATE_PHONE,
   UPDATE_PERSONAL,
-  RESET_STORE,
 
   navigateTo,
+  start,
+  resetStore,
   updateLocation,
   updateHomeDetails,
   updateRooms,
   updateGarage,
   updateDifferential,
   updatePhone,
-  updatePersonal,
-  resetStore
+  updatePersonal
 }

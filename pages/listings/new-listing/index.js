@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { PoseGroup } from 'react-pose'
 import {
   navigateTo,
+  start,
   resetStore
 } from 'redux/actions'
 import { ThemeProvider } from 'styled-components'
@@ -30,6 +31,7 @@ class NewListing extends Component {
   }
 
   state = {
+    startedAt: Date.now(),
     checkedProgress: false,
     resuming: false
   }
@@ -45,19 +47,25 @@ class NewListing extends Component {
   }
 
   componentWillReceiveProps(props) {
-    // Resume from where the user left off
-    const hasProgress = this.props.location && this.props.location.address !== null
+    // Check for previous progress
+    const { startedAt } = this.props
+    const hasProgress = startedAt && startedAt !== this.state.startedAt
     if (hasProgress && !this.state.checkedProgress) {
       this.setState({
         resuming: true,
         checkedProgress: true
       })
-    } else {
-      // Keep navigation state
-      const nextStep = props.step
-      if (this.props.step !== nextStep) {
-        this.navigate(nextStep)
-      }
+    }
+
+    if (!hasProgress) {
+      const { start } = this.props
+      start(this.state.startedAt)
+    }
+
+    // Keep navigation state
+    const nextStep = props.step
+    if (this.props.step !== nextStep) {
+      this.navigate(nextStep)
     }
   }
 
@@ -115,6 +123,9 @@ const mapDispatchToProps = dispatch => {
     },
     resetStore: () => {
       dispatch(resetStore())
+    },
+    start: timestamp => {
+      dispatch(start(timestamp))
     }
   }
 }
