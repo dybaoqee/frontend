@@ -1,5 +1,7 @@
 // Action Types
 const NAVIGATE = 'NAVIGATE'
+const START = 'START'
+const RESET_STORE = 'RESET_STORE'
 const UPDATE_LOCATION = 'UPDATE_LOCATION'
 const UPDATE_HOME_DETAILS = 'UPDATE_HOME_DETAILS'
 const UPDATE_ROOMS = 'UPDATE_ROOMS'
@@ -13,6 +15,19 @@ const navigateTo = (step) => {
   return {
     type: NAVIGATE,
     step: step
+  }
+}
+
+const start = (timestamp) => {
+  return {
+    type: START,
+    value: timestamp
+  }
+}
+
+const resetStore = () => {
+  return {
+    type: RESET_STORE
   }
 }
 
@@ -67,6 +82,8 @@ const updatePersonal = (value) => {
 
 export {
   NAVIGATE,
+  START,
+  RESET_STORE,
   UPDATE_LOCATION,
   UPDATE_HOME_DETAILS,
   UPDATE_ROOMS,
@@ -76,6 +93,8 @@ export {
   UPDATE_PERSONAL,
 
   navigateTo,
+  start,
+  resetStore,
   updateLocation,
   updateHomeDetails,
   updateRooms,

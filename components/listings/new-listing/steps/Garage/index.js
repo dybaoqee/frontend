@@ -98,7 +98,7 @@ class Garage extends Component {
                         name="spots"
                         validate={this.validateSpots}
                         render={() =>
-                          <Button.Group initialValue={spots} onChange={(value) => {
+                          <Button.Group flexWrap="wrap" initialValue={spots} onChange={(value) => {
                             setFieldValue('spots', value)
                             setFieldTouched('spots')
                             this.setState({spots: value})

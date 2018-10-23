@@ -6,11 +6,14 @@ import {
   UPDATE_GARAGE,
   UPDATE_DIFFERENTIAL,
   UPDATE_PHONE,
-  UPDATE_PERSONAL
+  UPDATE_PERSONAL,
+  RESET_STORE,
+  START
 } from './actions'
 
 const initialState = {
   step: 'intro',
+  startedAt: null,
   location: {
     address: null,
     complement: null
@@ -54,6 +57,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         step: action.step
       }
+    case START:
+      return {
+        ...state,
+        startedAt: action.value
+      }
     case UPDATE_LOCATION:
       return {
         ...state,
@@ -89,6 +97,8 @@ const reducer = (state = initialState, action) => {
         ...state,
         personal: action.value
       }
+    case RESET_STORE:
+      return initialState
     default:
       return state
   }

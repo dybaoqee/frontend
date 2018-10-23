@@ -95,7 +95,7 @@ class Bedrooms extends Component {
       )
     }
     return (
-      <Button.Group initialValue={bedrooms} onChange={(value) => {
+      <Button.Group flexWrap="wrap" initialValue={bedrooms} onChange={(value) => {
           if (value === 'more') {
             this.setState({enterMoreBedrooms: true})
           } else {
@@ -133,7 +133,7 @@ class Bedrooms extends Component {
       )
     }
     return (
-      <Button.Group initialValue={bathrooms} onChange={(value) => {
+      <Button.Group flexWrap="wrap" initialValue={bathrooms} onChange={(value) => {
           if (value === 'more') {
             this.setState({enterMoreBathrooms: true})
           } else {
@@ -184,19 +184,19 @@ class Bedrooms extends Component {
                       Quantos quartos?
                     </Text>
                     <Text color="grey">Quantos quartos tem no seu imóvel?</Text>
-                    <Row mb={4}>
+                    <Row mb={4} flexWrap="wrap">
                       <Field
                         name="bedroom"
                         validate={this.validateBedroom}
                         render={({form}) => this.bedroomSelection(setFieldTouched, setFieldValue, errors.bedroom, form.touched.bedroom)} />
                     </Row>
                     <Text color="grey">Algum deles é suíte? Quantos?</Text>
-                    <Row mb={4}>
+                    <Row mb={4} flexWrap="wrap">
                       <Field
                         name="suite"
                         validate={this.validateSuite}
                         render={() =>
-                          <Button.Group initialValue={suites} onChange={(value) => {
+                          <Button.Group flexWrap="wrap" initialValue={suites} onChange={(value) => {
                             setFieldValue('suite', value)
                             setFieldTouched('suite')
                             this.setState({suites: value})
