@@ -21,6 +21,7 @@ class Phone extends Component {
     this.updateStateFromProps = this.updateStateFromProps.bind(this)
 
     this.dddField = React.createRef()
+    this.phoneNumberField = React.createRef()
   }
 
   state = {
@@ -145,6 +146,9 @@ class Phone extends Component {
                                 setFieldValue('localAreaCode', value)
                                 setFieldTouched('localAreaCode')
                                 this.setState({localAreaCode: value})
+                                if (value.length === 2) {
+                                  this.phoneNumberField.current.focus()
+                                }
                               }}
                             />
                           )}/>
@@ -156,6 +160,7 @@ class Phone extends Component {
                           render={({form}) => (
                             <Input
                               hideLabelView
+                              ref={this.phoneNumberField}
                               placeholder="Celular*"
                               error={form.touched.number ? errors.number : null}
                               defaultValue={number}

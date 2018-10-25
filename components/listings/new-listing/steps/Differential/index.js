@@ -14,6 +14,7 @@ class Differential extends Component {
     this.nextStep = this.nextStep.bind(this)
     this.previousStep = this.previousStep.bind(this)
     this.updateStateFromProps = this.updateStateFromProps.bind(this)
+    this.textInput = React.createRef()
   }
 
   state = {
@@ -22,6 +23,7 @@ class Differential extends Component {
 
   componentDidMount() {
     this.updateStateFromProps(this.props)
+    this.textInput.current.focus()
   }
 
   componentWillReceiveProps(props) {
@@ -77,10 +79,11 @@ class Differential extends Component {
                       <Col width={1} mr={4}>
                         <Field
                           name="text"
-                          render={({form}) => (
+                          render={() => (
                             <Input
                               area
                               hideLabelView
+                              ref={this.textInput}
                               placeholder="Diferenciais do imóvel"
                               defaultValue={text}
                               style={{height: 150}}

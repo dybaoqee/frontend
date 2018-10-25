@@ -37,6 +37,10 @@ export default class AddressAutoComplete extends Component {
     onSelectAddress: null
   }
 
+  componentDidMount() {
+    this.searchInput.current.focus()
+  }
+
   searchPlaces = async (input) => {
     if (!input) {
       return

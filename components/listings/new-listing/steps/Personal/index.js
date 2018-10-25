@@ -16,6 +16,7 @@ class Personal extends Component {
     this.validateName = this.validateName.bind(this)
     this.validateEmail = this.validateEmail.bind(this)
     this.updateStateFromProps = this.updateStateFromProps.bind(this)
+    this.nameField = React.createRef()
   }
 
   state = {
@@ -25,6 +26,7 @@ class Personal extends Component {
 
   componentDidMount() {
     this.updateStateFromProps(this.props)
+    this.nameField.current.focus()
   }
 
   componentWillReceiveProps(props) {
@@ -106,6 +108,7 @@ class Personal extends Component {
                           render={({form}) => (
                             <Input
                               hideLabelView
+                              ref={this.nameField}
                               placeholder="Nome*"
                               error={form.touched.name ? errors.name : null}
                               defaultValue={name}
