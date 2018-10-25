@@ -86,7 +86,7 @@ class Personal extends Component {
                 email: email
               }}
               isInitialValid={() => {
-                return !(this.validateName(name) && this.validateEmail(email))
+                return !(this.validateName(name) || this.validateEmail(email))
               }}
               render={({isValid, setFieldTouched, setFieldValue, errors}) => (
                 <>

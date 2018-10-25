@@ -97,7 +97,7 @@ class Phone extends Component {
                 number: number
               }}
               isInitialValid={() => {
-                return !(this.validateInternationalCode(internationalCode) && this.validateLocalAreaCode(localAreaCode) && this.validateNumber(number))
+                return !(this.validateInternationalCode(internationalCode) || this.validateLocalAreaCode(localAreaCode) || this.validateNumber(number))
               }}
               render={({isValid, setFieldTouched, setFieldValue, errors}) => (
                 <>
