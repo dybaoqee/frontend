@@ -132,6 +132,7 @@ class HomeDetails extends Component {
                             <option value="_placeholder" disabled>Tipo do Imóvel*</option>
                             <option value="house">Casa</option>
                             <option value="apartment">Apartamento</option>
+                            <option value="penthouse">Cobertura</option>
                           </Select>
                         )}/>
                     </Col>
@@ -145,6 +146,7 @@ class HomeDetails extends Component {
                               type="number"
                               error={errors.floor}
                               defaultValue={floor}
+                              disabled={this.state.homeType === 'house'}
                               onChange={(e) => {
                                 const { value } = e.target
                                 setFieldValue('floor', value)
