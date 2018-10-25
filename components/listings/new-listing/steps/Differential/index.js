@@ -13,7 +13,6 @@ class Differential extends Component {
     super(props)
     this.nextStep = this.nextStep.bind(this)
     this.previousStep = this.previousStep.bind(this)
-    this.validateText = this.validateText.bind(this)
     this.updateStateFromProps = this.updateStateFromProps.bind(this)
   }
 
@@ -49,12 +48,6 @@ class Differential extends Component {
     navigateTo('garage')
   }
 
-  validateText(value) {
-    if (!value) {
-      return "Conte-nos mais sobre seu imóvel."
-    }
-  }
-
   render() {
     const { differential } = this.props
     let text
@@ -69,9 +62,7 @@ class Differential extends Component {
               initialValues={{
                 text: text
               }}
-              isInitialValid={() => {
-                return !(this.validateText(text))
-              }}
+              isInitialValid={() => true}
               render={({isValid, setFieldTouched, setFieldValue, errors}) => (
                 <>
                   <View body p={4}>
@@ -86,13 +77,11 @@ class Differential extends Component {
                       <Col width={1} mr={4}>
                         <Field
                           name="text"
-                          validate={this.validateText}
                           render={({form}) => (
                             <Input
                               area
                               hideLabelView
                               placeholder="Diferenciais do imóvel"
-                              error={form.touched.text ? errors.text : null}
                               defaultValue={text}
                               style={{height: 150}}
                               onChange={(e) => {
