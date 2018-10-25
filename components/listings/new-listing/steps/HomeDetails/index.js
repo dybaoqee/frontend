@@ -8,6 +8,7 @@ import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import Select from '@emcasa/ui-dom/components/Select'
+import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 
 class HomeDetails extends Component {
   constructor(props) {
@@ -211,21 +212,11 @@ class HomeDetails extends Component {
                     </Row>
                   </View>
                   <View bottom p={4}>
-                    <Row justifyContent="space-between">
-                      <Col width={5/12}>
-                        <Button
-                          fluid
-                          height="tall"
-                          onClick={this.previousStep}>Voltar</Button>
-                      </Col>
-                      <Col width={5/12}>
-                        <Button
-                          fluid
-                          height="tall"
-                          disabled={!isValid}
-                          onClick={this.nextStep}>Avançar</Button>
-                      </Col>
-                    </Row>
+                    <NavButtons
+                      previousStep={this.previousStep}
+                      nextStep={this.nextStep}
+                      nextEnabled={isValid}
+                    />
                   </View>
                 </>
               )}

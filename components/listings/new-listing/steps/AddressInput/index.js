@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Formik, Field } from 'formik'
 
-import Button from '@emcasa/ui-dom/components/Button'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
@@ -9,6 +8,7 @@ import Text from '@emcasa/ui-dom/components/Text'
 import Input from '@emcasa/ui-dom/components/Input'
 import AddressAutoComplete from 'components/listings/new-listing/shared/AddressAutoComplete'
 import StaticMap from 'components/listings/new-listing/shared/StaticMap'
+import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 
 class AddressInput extends Component {
   constructor(props) {
@@ -123,21 +123,11 @@ class AddressInput extends Component {
                     </Col>
                   </View>
                   <View bottom p={4}>
-                    <Row justifyContent="space-between">
-                      <Col width={5/12}>
-                        <Button
-                          fluid
-                          height="tall"
-                          onClick={this.previousStep}>Voltar</Button>
-                      </Col>
-                      <Col width={5/12}>
-                        <Button
-                          fluid
-                          height="tall"
-                          disabled={!isValid}
-                          onClick={this.nextStep}>Avançar</Button>
-                      </Col>
-                    </Row>
+                    <NavButtons
+                      previousStep={this.previousStep}
+                      nextStep={this.nextStep}
+                      nextEnabled={isValid}
+                    />
                   </View>
                 </>
               )}

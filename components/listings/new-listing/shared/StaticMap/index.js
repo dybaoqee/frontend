@@ -18,7 +18,7 @@ class StaticMap extends PureComponent {
     const mapHeight = mapWidth < parseInt(breakpoints) ? HEIGHT_MOBILE : HEIGHT_DESKTOP
     const { geometry: { location: { lat, lng }}} = addressData
     const params = `zoom=${ZOOM}&size=${mapWidth}x${mapHeight}&scale=2&maptype=roadmap&markers=color:red%7C${lat},${lng}&style=feature:water%7Ccolor:0xa0d5ff&style=feature:`
-    const endpoint = `https://maps.googleapis.com/maps/api/staticmap?${params}&key=${key}`
+    const endpoint = `https://maps.googleapis.com/maps/api/staticmap?${params}&key=AIzaSyAxgyVJYcA8NjH3Qvr32agv8VQPLjSNrk4`
     return <StyledImage src={endpoint} />
   }
 }
