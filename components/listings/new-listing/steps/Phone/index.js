@@ -8,6 +8,8 @@ import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 
+const BRAZIL_CODE = '55'
+
 class Phone extends Component {
   constructor(props) {
     super(props)
@@ -17,6 +19,8 @@ class Phone extends Component {
     this.validateLocalAreaCode = this.validateLocalAreaCode.bind(this)
     this.validateNumber = this.validateNumber.bind(this)
     this.updateStateFromProps = this.updateStateFromProps.bind(this)
+
+    this.dddField = React.createRef()
   }
 
   state = {
@@ -27,6 +31,7 @@ class Phone extends Component {
 
   componentDidMount() {
     this.updateStateFromProps(this.props)
+    this.dddField.current.focus()
   }
 
   componentWillReceiveProps(props) {
@@ -77,7 +82,7 @@ class Phone extends Component {
     const { phone } = this.props
     let internationalCode, localAreaCode, number
     if (phone) {
-      internationalCode = phone.internationalCode
+      internationalCode = phone.internationalCode || BRAZIL_CODE
       localAreaCode = phone.localAreaCode
       number = phone.number
     }
@@ -131,6 +136,7 @@ class Phone extends Component {
                           render={({form}) => (
                             <Input
                               hideLabelView
+                              ref={this.dddField}
                               placeholder="DDD*"
                               error={form.touched.localAreaCode ? errors.localAreaCode : null}
                               defaultValue={localAreaCode}
