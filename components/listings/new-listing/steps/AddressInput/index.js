@@ -7,6 +7,7 @@ import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import Input from '@emcasa/ui-dom/components/Input'
+import AddressAutoComplete from 'components/listings/new-listing/shared/AddressAutoComplete'
 
 class AddressInput extends Component {
   constructor(props) {
@@ -19,7 +20,8 @@ class AddressInput extends Component {
 
   state = {
     address: null,
-    complement: null
+    complement: null,
+    addressData: null
   }
 
   componentDidMount() {
@@ -35,7 +37,8 @@ class AddressInput extends Component {
     if (location) {
       this.setState({
         address: location.address,
-        complement: location.complement
+        complement: location.complement,
+        addressData: location.addressData,
       })
     }
   }
@@ -59,10 +62,11 @@ class AddressInput extends Component {
 
   render() {
     const { location } = this.props
-    let address, complement
+    let address, complement, addressData
     if (location) {
       address = location.address
       complement = location.complement
+      addressData = location.addressData
     }
     return (
       <div ref={this.props.hostRef}>
@@ -74,7 +78,7 @@ class AddressInput extends Component {
                 complement: complement
               }}
               isInitialValid={() => {
-                return address !== null
+                return !(this.validateAddress(address))
               }}
               render={({isValid, setFieldValue, errors}) => (
                 <>
@@ -90,11 +94,16 @@ class AddressInput extends Component {
                         name="address"
                         validate={this.validateAddress}
                         render={() => (
-                          <Input placeholder="Endereço e número*" error={errors.address} onChange={(e) => {
-                            const { value } = e.target
-                            setFieldValue('address', value)
-                            this.setState({address: value})
-                          }} defaultValue={address} />
+                          <AddressAutoComplete
+                            defaultValue={address}
+                            onSelectAddress={(addressFormatted, addressData) => {
+                              setFieldValue('address', addressFormatted)
+                              this.setState({
+                                address: addressFormatted,
+                                addressData: addressData
+                              })
+                            }}
+                          />
                         )}/>
                     </Col>
                     <Col mr={4}>

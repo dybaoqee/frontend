@@ -16,7 +16,8 @@ const initialState = {
   startedAt: null,
   location: {
     address: null,
-    complement: null
+    complement: null,
+    addressData: null
   },
   homeDetails: {
     homeType: null,
