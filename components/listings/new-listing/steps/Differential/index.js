@@ -1,20 +1,20 @@
 import React, { Component } from 'react'
 import { Formik, Field } from 'formik'
 
-import Button from '@emcasa/ui-dom/components/Button'
 import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
+import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 
 class Differential extends Component {
   constructor(props) {
     super(props)
     this.nextStep = this.nextStep.bind(this)
     this.previousStep = this.previousStep.bind(this)
-    this.validateText = this.validateText.bind(this)
     this.updateStateFromProps = this.updateStateFromProps.bind(this)
+    this.textInput = React.createRef()
   }
 
   state = {
@@ -23,6 +23,7 @@ class Differential extends Component {
 
   componentDidMount() {
     this.updateStateFromProps(this.props)
+    this.textInput.current.focus()
   }
 
   componentWillReceiveProps(props) {
@@ -49,12 +50,6 @@ class Differential extends Component {
     navigateTo('garage')
   }
 
-  validateText(value) {
-    if (!value) {
-      return "Conte-nos mais sobre seu imóvel."
-    }
-  }
-
   render() {
     const { differential } = this.props
     let text
@@ -69,9 +64,7 @@ class Differential extends Component {
               initialValues={{
                 text: text
               }}
-              isInitialValid={() => {
-                return !(this.validateText(text))
-              }}
+              isInitialValid={() => true}
               render={({isValid, setFieldTouched, setFieldValue, errors}) => (
                 <>
                   <View body p={4}>
@@ -86,13 +79,12 @@ class Differential extends Component {
                       <Col width={1} mr={4}>
                         <Field
                           name="text"
-                          validate={this.validateText}
-                          render={({form}) => (
+                          render={() => (
                             <Input
                               area
                               hideLabelView
+                              ref={this.textInput}
                               placeholder="Diferenciais do imóvel"
-                              error={form.touched.text ? errors.text : null}
                               defaultValue={text}
                               style={{height: 150}}
                               onChange={(e) => {
@@ -107,21 +99,11 @@ class Differential extends Component {
                     </Row>
                   </View>
                   <View bottom p={4}>
-                    <Row justifyContent="space-between">
-                      <Col width={5/12}>
-                        <Button
-                          fluid
-                          height="tall"
-                          onClick={this.previousStep}>Voltar</Button>
-                      </Col>
-                      <Col width={5/12}>
-                        <Button
-                          fluid
-                          height="tall"
-                          disabled={!isValid}
-                          onClick={this.nextStep}>Avançar</Button>
-                      </Col>
-                    </Row>
+                    <NavButtons
+                      previousStep={this.previousStep}
+                      nextStep={this.nextStep}
+                      nextEnabled={isValid}
+                    />
                   </View>
                 </>
               )}

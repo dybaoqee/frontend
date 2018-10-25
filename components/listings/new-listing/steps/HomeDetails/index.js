@@ -1,13 +1,19 @@
 import React, { Component } from 'react'
 import { Formik, Field } from 'formik'
 
-import Button from '@emcasa/ui-dom/components/Button'
 import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import Select from '@emcasa/ui-dom/components/Select'
+import NavButtons from 'components/listings/new-listing/shared/NavButtons'
+
+const HOME_TYPES = {
+  house: 'house',
+  apartment: 'apartment',
+  penthouse: 'penthouse'
+}
 
 class HomeDetails extends Component {
   constructor(props) {
@@ -109,8 +115,7 @@ class HomeDetails extends Component {
                     <Text
                       fontSize="large"
                       fontWeight="bold"
-                      textAlign="center"
-                    >
+                      textAlign="center">
                       Por favor, informe os detalhes do seu imóvel
                     </Text>
                     <Text color="grey">Com base nos detalhes do seu imóvel, calcularemos um valor médio de venda.</Text>
@@ -129,8 +134,9 @@ class HomeDetails extends Component {
                               this.setState({homeType: value})
                             }}>
                             <option value="_placeholder" disabled>Tipo do Imóvel*</option>
-                            <option value="house">Casa</option>
-                            <option value="apartment">Apartamento</option>
+                            <option value={HOME_TYPES.house}>Casa</option>
+                            <option value={HOME_TYPES.apartment}>Apartamento</option>
+                            <option value={HOME_TYPES.penthouse}>Cobertura</option>
                           </Select>
                         )}/>
                     </Col>
@@ -144,6 +150,7 @@ class HomeDetails extends Component {
                               type="number"
                               error={errors.floor}
                               defaultValue={floor}
+                              disabled={this.state.homeType === HOME_TYPES.house}
                               onChange={(e) => {
                                 const { value } = e.target
                                 setFieldValue('floor', value)
@@ -211,21 +218,11 @@ class HomeDetails extends Component {
                     </Row>
                   </View>
                   <View bottom p={4}>
-                    <Row justifyContent="space-between">
-                      <Col width={5/12}>
-                        <Button
-                          fluid
-                          height="tall"
-                          onClick={this.previousStep}>Voltar</Button>
-                      </Col>
-                      <Col width={5/12}>
-                        <Button
-                          fluid
-                          height="tall"
-                          disabled={!isValid}
-                          onClick={this.nextStep}>Avançar</Button>
-                      </Col>
-                    </Row>
+                    <NavButtons
+                      previousStep={this.previousStep}
+                      nextStep={this.nextStep}
+                      nextEnabled={isValid}
+                    />
                   </View>
                 </>
               )}

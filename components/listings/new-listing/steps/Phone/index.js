@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import { Formik, Field } from 'formik'
 
-import Button from '@emcasa/ui-dom/components/Button'
 import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
+import NavButtons from 'components/listings/new-listing/shared/NavButtons'
+
+const BRAZIL_CODE = '55'
 
 class Phone extends Component {
   constructor(props) {
@@ -17,6 +19,9 @@ class Phone extends Component {
     this.validateLocalAreaCode = this.validateLocalAreaCode.bind(this)
     this.validateNumber = this.validateNumber.bind(this)
     this.updateStateFromProps = this.updateStateFromProps.bind(this)
+
+    this.dddField = React.createRef()
+    this.phoneNumberField = React.createRef()
   }
 
   state = {
@@ -27,6 +32,7 @@ class Phone extends Component {
 
   componentDidMount() {
     this.updateStateFromProps(this.props)
+    this.dddField.current.focus()
   }
 
   componentWillReceiveProps(props) {
@@ -77,7 +83,7 @@ class Phone extends Component {
     const { phone } = this.props
     let internationalCode, localAreaCode, number
     if (phone) {
-      internationalCode = phone.internationalCode
+      internationalCode = phone.internationalCode || BRAZIL_CODE
       localAreaCode = phone.localAreaCode
       number = phone.number
     }
@@ -92,7 +98,7 @@ class Phone extends Component {
                 number: number
               }}
               isInitialValid={() => {
-                return !(this.validateInternationalCode(internationalCode) && this.validateLocalAreaCode(localAreaCode) && this.validateNumber(number))
+                return !(this.validateInternationalCode(internationalCode) || this.validateLocalAreaCode(localAreaCode) || this.validateNumber(number))
               }}
               render={({isValid, setFieldTouched, setFieldValue, errors}) => (
                 <>
@@ -131,6 +137,7 @@ class Phone extends Component {
                           render={({form}) => (
                             <Input
                               hideLabelView
+                              ref={this.dddField}
                               placeholder="DDD*"
                               error={form.touched.localAreaCode ? errors.localAreaCode : null}
                               defaultValue={localAreaCode}
@@ -139,6 +146,9 @@ class Phone extends Component {
                                 setFieldValue('localAreaCode', value)
                                 setFieldTouched('localAreaCode')
                                 this.setState({localAreaCode: value})
+                                if (value.length === 2) {
+                                  this.phoneNumberField.current.focus()
+                                }
                               }}
                             />
                           )}/>
@@ -150,6 +160,7 @@ class Phone extends Component {
                           render={({form}) => (
                             <Input
                               hideLabelView
+                              ref={this.phoneNumberField}
                               placeholder="Celular*"
                               error={form.touched.number ? errors.number : null}
                               defaultValue={number}
@@ -165,21 +176,11 @@ class Phone extends Component {
                     </Row>
                   </View>
                   <View bottom p={4}>
-                    <Row justifyContent="space-between">
-                      <Col width={5/12}>
-                        <Button
-                          fluid
-                          height="tall"
-                          onClick={this.previousStep}>Voltar</Button>
-                      </Col>
-                      <Col width={5/12}>
-                        <Button
-                          fluid
-                          height="tall"
-                          disabled={!isValid}
-                          onClick={this.nextStep}>Avançar</Button>
-                      </Col>
-                    </Row>
+                    <NavButtons
+                      previousStep={this.previousStep}
+                      nextStep={this.nextStep}
+                      nextEnabled={isValid}
+                    />
                   </View>
                 </>
               )}

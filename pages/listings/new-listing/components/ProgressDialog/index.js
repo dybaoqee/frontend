@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import Button from '@emcasa/ui-dom/components/Button'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
@@ -10,7 +11,7 @@ class ProgressDialog extends Component {
       <Row m={4} justifyContent="center">
         <Col width={[1, 1/2]}>
           <Row>
-            <Text>Você já estava cadastrando seu imóvel anteriormente. Gostaria de continuar de onde parou?</Text>
+            <Text>Você já estava cadastrando seu imóvel da {this.props.address}. Gostaria de continuar de onde parou?</Text>
           </Row>
           <Row justifyContent="space-between">
             <Col width={[1/3, 5/12]}>
@@ -23,6 +24,18 @@ class ProgressDialog extends Component {
         </Col>
       </Row>
     )
+  }
+
+  static propTypes = {
+    address: PropTypes.string.isRequired,
+    onReset: PropTypes.func.isRequired,
+    onResume: PropTypes.func.isRequired
+  }
+
+  static defaultProps = {
+    address: null,
+    onReset: null,
+    onResume: null
   }
 }
 
