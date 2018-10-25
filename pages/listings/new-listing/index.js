@@ -48,8 +48,8 @@ class NewListing extends Component {
 
   componentWillReceiveProps(props) {
     // Check for previous progress
-    const { startedAt } = this.props
-    const hasProgress = startedAt && startedAt !== this.state.startedAt
+    const { startedAt, location: { address } } = this.props
+    const hasProgress = startedAt && startedAt !== this.state.startedAt && address !== null
     if (hasProgress && !this.state.checkedProgress) {
       this.setState({
         resuming: true,
@@ -95,10 +95,12 @@ class NewListing extends Component {
 
   render() {
     const step = this.props.step || 'intro'
+    const { address } = this.props.location
     return (
       <ThemeProvider theme={theme}>
         {this.state.resuming ?
           <ProgressDialog
+            address={address}
             onReset={this.onReset}
             onResume={this.onResume}
           />
