@@ -13,9 +13,10 @@ Usage:
           }
         )
  */
-const key = process.env.GOOGLE_MAPS_KEY
+const key = process.env.GOOGLE_MAPS_KEY || 'AIzaSyDmYQLTPwsDPtErGWTgiejz17QCw39MEVQ'
+
 const googleMapsClient = require('@google/maps').createClient({
-  key: key || 'AIzaSyDmYQLTPwsDPtErGWTgiejz17QCw39MEVQ',
+  key: key,
   language: 'pt-BR',
   Promise: Promise
 })
@@ -44,5 +45,6 @@ module.exports = {
   place,
   places,
   placesAutoComplete,
-  filterComponent
+  filterComponent,
+  key
 }
