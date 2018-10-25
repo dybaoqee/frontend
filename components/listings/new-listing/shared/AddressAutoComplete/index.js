@@ -4,8 +4,6 @@ import axios from 'axios'
 import { SearchResultContainer, SearchResultItem } from './styles'
 import { filterComponent } from 'services/google-maps-api'
 import Input from '@emcasa/ui-dom/components/Input'
-import View from '@emcasa/ui-dom/components/View'
-import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
 
@@ -13,19 +11,20 @@ export default class AddressAutoComplete extends Component {
   constructor(props) {
     super(props)
     this.timer = null
-    this.state = {
-      predictions: [],
-      predictionSelected: 0,
-      showPredictions: false,
-      place: {},
-      search: '',
-      errors: [],
-      loadingPlaceInfo: false
-    }
-
     this.searchInput = React.createRef()
     this.predictionsIds = []
     this.secondaryText = undefined
+  }
+
+  state = {
+    dirty: false,
+    predictions: [],
+    predictionSelected: 0,
+    showPredictions: false,
+    place: {},
+    search: '',
+    errors: [],
+    loadingPlaceInfo: false
   }
 
   static propTypes = {
@@ -104,12 +103,13 @@ export default class AddressAutoComplete extends Component {
       )
 
       const json = response.data
+      const addressData = json.json.result
       const street_number = filterComponent(
-        json.json.result.address_components,
+        addressData.address_components,
         'street_number'
       ).long_name
       const postal_code = filterComponent(
-        json.json.result.address_components,
+        addressData.address_components,
         'postal_code'
       ).long_name
 
@@ -125,9 +125,11 @@ export default class AddressAutoComplete extends Component {
         throw {reason: 'Não encontramos um endereço válido com esse número.'}
       }
 
-      onSelectAddress(json.json.result)
+      const addressFormatted = structured_formatting.main_text + ' - ' + structured_formatting.secondary_text
+      onSelectAddress(addressFormatted, addressData)
 
     } catch (e) {
+      console.log(e)
       this.setState({
         errors: [
           ...this.state.errors,
@@ -219,20 +221,26 @@ export default class AddressAutoComplete extends Component {
 
   onChange = (e) => {
     const {value} = e.target
-    this.setState({search: value, place: {}, errors: []})
+    this.setState({
+      dirty: true,
+      search: value,
+      place: {},
+      errors: []
+    })
     clearTimeout(this.timer)
     this.timer = setTimeout(this.searchPlaces.bind(null, value), 300)
   }
 
   render() {
     const {
+      dirty,
       place,
       search,
       loadingPlaceInfo,
       showPredictions,
       errors
     } = this.state
-
+    const value = place.description || search
     return (
       <>
         <Input
@@ -242,7 +250,7 @@ export default class AddressAutoComplete extends Component {
           type="text"
           name="street"
           ref={this.searchInput}
-          value={place.description || search}
+          value={dirty ? value : this.props.defaultValue}
           placeholder="Endereço e número*"
           onChange={this.onChange}
           autoComplete="off"

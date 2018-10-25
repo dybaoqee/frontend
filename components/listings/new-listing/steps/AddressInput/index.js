@@ -20,7 +20,8 @@ class AddressInput extends Component {
 
   state = {
     address: null,
-    complement: null
+    complement: null,
+    addressData: null
   }
 
   componentDidMount() {
@@ -36,7 +37,8 @@ class AddressInput extends Component {
     if (location) {
       this.setState({
         address: location.address,
-        complement: location.complement
+        complement: location.complement,
+        addressData: location.addressData,
       })
     }
   }
@@ -60,10 +62,11 @@ class AddressInput extends Component {
 
   render() {
     const { location } = this.props
-    let address, complement
+    let address, complement, addressData
     if (location) {
       address = location.address
       complement = location.complement
+      addressData = location.addressData
     }
     return (
       <div ref={this.props.hostRef}>
@@ -75,7 +78,7 @@ class AddressInput extends Component {
                 complement: complement
               }}
               isInitialValid={() => {
-                return address !== null
+                return !(this.validateAddress(address))
               }}
               render={({isValid, setFieldValue, errors}) => (
                 <>
@@ -93,9 +96,12 @@ class AddressInput extends Component {
                         render={() => (
                           <AddressAutoComplete
                             defaultValue={address}
-                            onSelectAddress={(value) => {
-                              setFieldValue('address', value)
-                              this.setState({address: value})
+                            onSelectAddress={(addressFormatted, addressData) => {
+                              setFieldValue('address', addressFormatted)
+                              this.setState({
+                                address: addressFormatted,
+                                addressData: addressData
+                              })
                             }}
                           />
                         )}/>
