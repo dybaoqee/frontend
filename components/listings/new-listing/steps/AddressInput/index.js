@@ -8,6 +8,7 @@ import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import Input from '@emcasa/ui-dom/components/Input'
 import AddressAutoComplete from 'components/listings/new-listing/shared/AddressAutoComplete'
+import StaticMap from 'components/listings/new-listing/shared/StaticMap'
 
 class AddressInput extends Component {
   constructor(props) {
@@ -89,6 +90,9 @@ class AddressInput extends Component {
                       textAlign="center">
                       Qual o endereço do seu imóvel?
                     </Text>
+                    <Col>
+                      <StaticMap addressData={this.state.addressData} />
+                    </Col>
                     <Col mb={4} mr={4}>
                       <Field
                         name="address"
@@ -110,7 +114,7 @@ class AddressInput extends Component {
                     <Field
                       name="complement"
                       render={() => (
-                        <Input placeholder="Complemento" onChange={(e) => {
+                        <Input hideLabelView placeholder="Complemento" onChange={(e) => {
                           const { value } = e.target
                           setFieldValue('complement', value)
                           this.setState({complement: value})
