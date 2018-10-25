@@ -1626,9 +1626,9 @@
   dependencies:
     lodash.once "^4.1.1"
 
-"@emcasa/ui-dom@0.6.3":
-  version "0.6.3"
-  resolved "https://registry.yarnpkg.com/@emcasa/ui-dom/-/ui-dom-0.6.3.tgz#0c3227fb1a00cc76c1a18211aee1f9228e3da4d7"
+"@emcasa/ui-dom@0.6.4":
+  version "0.6.4"
+  resolved "https://registry.yarnpkg.com/@emcasa/ui-dom/-/ui-dom-0.6.4.tgz#2e6c4eaf5e9f8a939ca35f70e8729ca9c64073d5"
   dependencies:
     "@emcasa/ui" "^0.6.3"
     "@rebass/grid" "6.0.0-4"

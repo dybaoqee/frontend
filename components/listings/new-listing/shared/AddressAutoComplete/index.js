@@ -23,6 +23,7 @@ export default class AddressAutoComplete extends Component {
       loadingPlaceInfo: false
     }
 
+    this.searchInput = React.createRef()
     this.predictionsIds = []
     this.secondaryText = undefined
   }
@@ -73,10 +74,10 @@ export default class AddressAutoComplete extends Component {
 
   positionCursor = () => {
     const searchWord = 'número'
-    const input = this.searchInput
-    const startPosition = this.searchInput.value.indexOf(searchWord)
+    const input = this.searchInput.current
+    const startPosition = input.value.indexOf(searchWord)
 
-    input.setSelectionRange(startPosition, this.searchInput.value.length)
+    input.setSelectionRange(startPosition, input.value.length)
     input.focus()
   }
 
@@ -237,7 +238,7 @@ export default class AddressAutoComplete extends Component {
           onBlur={this.onBlur}
           type="text"
           name="street"
-          ref={(input) => this.searchInput = input}
+          ref={this.searchInput}
           value={place.description || search}
           placeholder="Endereço e número*"
           onChange={this.onChange}
