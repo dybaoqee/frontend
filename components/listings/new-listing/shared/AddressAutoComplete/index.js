@@ -96,14 +96,14 @@ export default class AddressAutoComplete extends Component {
       )
       return
     }
-    const {choosePlace} = this.props
+    const { onSelectAddress } = this.props
     this.setState({place, predictions: [], loadingPlaceInfo: true, errors: []})
     try {
       const response = await axios.get(
         `/maps/placeDetail?q=${encodeURI(place.place_id)}`
       )
-      const json = response.data
 
+      const json = response.data
       const street_number = filterComponent(
         json.json.result.address_components,
         'street_number'
@@ -112,6 +112,7 @@ export default class AddressAutoComplete extends Component {
         json.json.result.address_components,
         'postal_code'
       ).long_name
+
       if (!street_number || !postal_code) {
         this.setState(
           {
@@ -123,7 +124,9 @@ export default class AddressAutoComplete extends Component {
         )
         throw {reason: 'Não encontramos um endereço válido com esse número.'}
       }
-      choosePlace(json.json.result)
+
+      onSelectAddress(json.json.result)
+
     } catch (e) {
       this.setState({
         errors: [
