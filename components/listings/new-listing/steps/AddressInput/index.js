@@ -90,7 +90,7 @@ class AddressInput extends Component {
                       textAlign="center">
                       Qual o endereço do seu imóvel?
                     </Text>
-                    <Col mb={4}>
+                    <Col>
                       <StaticMap addressData={this.state.addressData} />
                     </Col>
                     <Col mb={4} mr={4}>
@@ -114,7 +114,7 @@ class AddressInput extends Component {
                     <Field
                       name="complement"
                       render={() => (
-                        <Input placeholder="Complemento" onChange={(e) => {
+                        <Input hideLabelView placeholder="Complemento" onChange={(e) => {
                           const { value } = e.target
                           setFieldValue('complement', value)
                           this.setState({complement: value})
