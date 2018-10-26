@@ -15,14 +15,19 @@ class Pricing extends Component {
     this.nextStep = this.nextStep.bind(this)
     this.previousStep = this.previousStep.bind(this)
     this.updateStateFromProps = this.updateStateFromProps.bind(this)
+    this.priceSuggestion = this.priceSuggestion.bind(this)
+    this.noPriceSuggestion = this.noPriceSuggestion.bind(this)
+
+    this.userPriceInput = React.createRef()
   }
 
   state = {
-    price: null
+    userPrice: null
   }
 
   componentDidMount() {
     this.updateStateFromProps(this.props)
+    this.userPriceInput.current.focus()
   }
 
   componentWillReceiveProps(props) {
@@ -33,7 +38,7 @@ class Pricing extends Component {
     const { pricing } = props
     if (pricing) {
       this.setState({
-        price: pricing.price
+        userPrice: pricing.userPrice
       })
     }
   }
@@ -49,28 +54,50 @@ class Pricing extends Component {
   }
 
   priceSuggestion() {
+    const { pricing } = this.props
     return (
-      <>
-        <Text>Seu imóvel foi avaliado por:</Text>
-        <Text>Recomendamos anunciar por:</Text>
-        <Text>Não gostou da nossa avaliação? Não tem problema. É só editar o valor do seu imóvel.</Text>
-      </>
+      <Col>
+        <Text color="grey">Seu imóvel foi avaliado por:</Text>
+        <Text fontSize="large" fontWeight="bold" textAlign="center">{pricing.suggestedPrice}</Text>
+        <Text color="grey">Recomendamos anunciar por:</Text>
+        <Text fontSize="large" fontWeight="bold" textAlign="center">{pricing.suggestedPrice}</Text>
+        <Text color="grey">Não gostou da nossa avaliação? Não tem problema. É só editar o valor do seu imóvel.</Text>
+        <Row>
+          <Col width={[1, 1/2]} mr={4}>
+            <Input hideLabelView ref={this.userPriceInput} placeholder="R$ 000.000" />
+          </Col>
+        </Row>
+      </Col>
     )
   }
 
   noPriceSuggestion() {
     return (
       <>
-        <Text>Seu imóvel será avaliado por um de nossos agentes, mas conte pra gente por quanto você gostaria de vender seu imóvel.</Text>
+        <Row>
+          <Col>
+            <Text color="grey">Seu imóvel será avaliado por um de nossos agentes, mas conte pra gente por quanto você gostaria de vender seu imóvel.</Text>
+          </Col>
+        </Row>
+        <Row>
+          <Col width={[1, 1/2]} mr={4}>
+            <Input hideLabelView ref={this.userPriceInput} placeholder="R$ 000.000" />
+          </Col>
+        </Row>
       </>
     )
   }
 
+  validateUserPrice(value) {
+    
+  }
+
   render() {
     const { pricing, location } = this.props
-    let price, addressData
+    let suggestedPrice, userPrice, addressData
     if (pricing && location) {
-      price = pricing.price
+      suggestedPrice = pricing.suggestedPrice
+      userPrice = pricing.userPrice
       addressData = location.addressData
     }
     return (
@@ -79,7 +106,7 @@ class Pricing extends Component {
           <Col width={[1, 1/2]}>
             <Formik
               initialValues={{
-                price: price
+                userPrice: userPrice
               }}
               isInitialValid={() => {
                 return true // TODO: validate initial pricing
@@ -96,6 +123,7 @@ class Pricing extends Component {
                     <Col>
                       <StaticMap addressData={addressData} />
                     </Col>
+                    {suggestedPrice ? this.priceSuggestion() : this.noPriceSuggestion()}
                   </View>
                   <View bottom p={4}>
                     <NavButtons
