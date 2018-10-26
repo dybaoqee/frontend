@@ -94,6 +94,7 @@ class NewListing extends Component {
   }
 
   render() {
+    const { client } = this.props
     const step = this.props.step || 'intro'
     const { address } = this.props.location
     return (
@@ -106,7 +107,7 @@ class NewListing extends Component {
           />
         :
           <PoseGroup>
-            {getScreen(step)}
+            {getScreen(step, client)}
           </PoseGroup>
         }
       </ThemeProvider>
