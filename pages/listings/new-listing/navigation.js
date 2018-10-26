@@ -18,6 +18,7 @@ import Garage from 'components/listings/new-listing/steps/Garage'
 import Differential from 'components/listings/new-listing/steps/Differential'
 import Phone from 'components/listings/new-listing/steps/Phone'
 import Personal from 'components/listings/new-listing/steps/Personal'
+import Pricing from 'components/listings/new-listing/steps/Pricing'
 
 // Navigation steps
 const steps = {
@@ -51,7 +52,11 @@ const steps = {
   },
   personal: {
     component: Personal,
-    canNavigateTo: ['phone']
+    canNavigateTo: ['phone', 'pricing']
+  },
+  pricing: {
+    component: Pricing,
+    canNavigateTo: ['personal']
   }
 }
 

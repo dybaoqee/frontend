@@ -48,6 +48,9 @@ const initialState = {
   personal: {
     name: null,
     email: null
+  },
+  pricing: {
+    price: null
   }
 }
 

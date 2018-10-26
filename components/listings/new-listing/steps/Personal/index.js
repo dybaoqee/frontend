@@ -46,6 +46,7 @@ class Personal extends Component {
   nextStep() {
     const { navigateTo, updatePersonal } = this.props
     updatePersonal(this.state)
+    navigateTo('pricing')
   }
 
   previousStep() {
