@@ -9,7 +9,10 @@ import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import StaticMap from 'components/listings/new-listing/shared/StaticMap'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
-import { currencyInputMask } from 'utils/text-utils'
+import {
+  currencyInputMask,
+  currencyStyle
+} from 'utils/text-utils'
 
 class Pricing extends Component {
   constructor(props) {
@@ -69,12 +72,13 @@ class Pricing extends Component {
 
   priceSuggestion() {
     const { pricing } = this.props
+    const formattedSuggestedPrice = pricing.suggestedPrice.toLocaleString('pt-BR', currencyStyle)
     return (
       <Col>
         <Text color="grey">Seu imóvel foi avaliado por:</Text>
-        <Text fontSize="large" fontWeight="bold" textAlign="center">{pricing.suggestedPrice}</Text>
+        <Text fontSize="large" fontWeight="bold" textAlign="center">{formattedSuggestedPrice}</Text>
         <Text color="grey">Recomendamos anunciar por:</Text>
-        <Text fontSize="large" fontWeight="bold" textAlign="center">{pricing.suggestedPrice}</Text>
+        <Text fontSize="large" fontWeight="bold" textAlign="center">{formattedSuggestedPrice}</Text>
         <Text color="grey">Não gostou da nossa avaliação? Não tem problema. É só editar o valor do seu imóvel.</Text>
         <Row>
           <Col width={[1, 1/2]} mr={4}>

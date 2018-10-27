@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Formik, Field } from 'formik'
+import MaskedInput from 'react-text-mask'
 
 import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
@@ -8,6 +9,7 @@ import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import Select from '@emcasa/ui-dom/components/Select'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
+import { currencyInputMask } from 'utils/text-utils'
 
 const HOME_TYPES = {
   house: 'house',
@@ -185,16 +187,24 @@ class HomeDetails extends Component {
                         <Field
                           name="cond"
                           render={() => (
-                            <Input
-                              placeholder="Cond (R$)"
-                              hideLabelView
-                              error={errors.cond}
-                              defaultValue={cond}
-                              onChange={(e) => {
-                                const { value } = e.target
-                                setFieldValue('cond', value)
-                                this.setState({cond: value})
-                              }}/>
+                            <MaskedInput
+                              mask={currencyInputMask}
+                              render={(ref, props) =>
+                                <Input
+                                  {...props}
+                                  hideLabelView
+                                  placeholder="Cond (R$)"
+                                  error={errors.cond}
+                                  defaultValue={cond}
+                                  onChange={(e) => {
+                                    const { value } = e.target
+                                    setFieldValue('cond', value)
+                                    this.setState({cond: value})
+                                  }}
+                                  ref={(input) => ref(input)}
+                                />
+                              }
+                            />
                           )}/>
                       </Col>
                       <Col width={1/2} ml={2} mr={4}>
@@ -202,17 +212,25 @@ class HomeDetails extends Component {
                           name="iptu"
                           validate={this.validateIptu}
                           render={({form}) => (
-                            <Input
-                              placeholder="IPTU (R$/ano)*"
-                              hideLabelView
-                              error={form.touched.iptu ? errors.iptu : null}
-                              defaultValue={iptu}
-                              onChange={(e) => {
-                                const { value } = e.target
-                                setFieldValue('iptu', value)
-                                setFieldTouched('iptu')
-                                this.setState({iptu: value})
-                              }}/>
+                            <MaskedInput
+                              mask={currencyInputMask}
+                              render={(ref, props) =>
+                                <Input
+                                  {...props}
+                                  hideLabelView
+                                  placeholder="IPTU (R$/ano)*"
+                                  error={form.touched.iptu ? errors.iptu : null}
+                                  defaultValue={iptu}
+                                  onChange={(e) => {
+                                    const { value } = e.target
+                                    setFieldValue('iptu', value)
+                                    setFieldTouched('iptu')
+                                    this.setState({iptu: value})
+                                  }}
+                                  ref={(input) => ref(input)}
+                                />
+                              }
+                            />
                           )}/>
                       </Col>
                     </Row>
