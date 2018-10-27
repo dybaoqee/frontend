@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Formik, Field } from 'formik'
 import MaskedInput from 'react-text-mask'
 
+import Icon from '@emcasa/ui-dom/components/Icon'
+import Button from '@emcasa/ui-dom/components/Button'
 import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
@@ -27,12 +29,15 @@ class Pricing extends Component {
   }
 
   state = {
-    userPrice: null
+    userPrice: null,
+    editingPrice: false
   }
 
   componentDidMount() {
     this.updateStateFromProps(this.props)
-    this.userPriceInput.focus()
+    if (this.userPriceInput !== null) {
+      this.userPriceInput.focus()
+    }
   }
 
   componentWillReceiveProps(props) {
@@ -50,7 +55,6 @@ class Pricing extends Component {
 
   nextStep() {
     const { navigateTo, updatePricing } = this.props
-    updatePricing(this.state)
   }
 
   previousStep() {
@@ -62,10 +66,18 @@ class Pricing extends Component {
     return (
       <MaskedInput
         mask={currencyInputMask}
-        render={(ref, props) => <Input hideLabelView ref={(input) => {
-          this.userPriceInput = input
-          return ref(input)
-        }} placeholder="R$ 000.000" {...props} />}
+        render={(ref, props) =>
+          <Input
+            {...props}
+            hideLabelView
+            hideErrorView
+            placeholder="R$ 000.000"
+            ref={(input) => {
+              this.userPriceInput = input
+              return ref(input)
+            }}
+          />
+        }
       />
     )
   }
@@ -78,13 +90,23 @@ class Pricing extends Component {
         <Text color="grey">Seu imóvel foi avaliado por:</Text>
         <Text fontSize="large" fontWeight="bold" textAlign="center">{formattedSuggestedPrice}</Text>
         <Text color="grey">Recomendamos anunciar por:</Text>
-        <Text fontSize="large" fontWeight="bold" textAlign="center">{formattedSuggestedPrice}</Text>
-        <Text color="grey">Não gostou da nossa avaliação? Não tem problema. É só editar o valor do seu imóvel.</Text>
         <Row>
-          <Col width={[1, 1/2]} mr={4}>
-            {this.currencyInput()}
-          </Col>
+            {this.state.editingPrice ?
+              <Col width={[1, 1/2]} mr={4}>
+                {this.currencyInput()}
+              </Col>
+              :
+              <Row width={1} justifyContent="center">
+                <Text inline fontSize="large" fontWeight="bold" textAlign="center">{formattedSuggestedPrice}</Text>
+                <Col ml={4}>
+                  <Button onClick={() => this.setState({editingPrice: true})}>
+                    <Icon name="pen" color="dark" />
+                  </Button>
+                </Col>
+              </Row>
+            }
         </Row>
+        <Text color="grey">Não gostou da nossa avaliação? Não tem problema. É só editar o valor do seu imóvel.</Text>
       </Col>
     )
   }
