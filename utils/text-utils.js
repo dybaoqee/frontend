@@ -1,13 +1,35 @@
-export const getParagraphs = (text) => {
+import createNumberMask from 'text-mask-addons/dist/createNumberMask'
+
+const getParagraphs = (text) => {
   if (text) {
     return text.match(/^.*((\r\n|\n|\r)|$)/gm)
   }
 }
 
-export const getUrlVars = (url) => {
+const getUrlVars = (url) => {
   const vars = {}
   url.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => {
     vars[key] = value
   })
   return vars
+}
+
+const currencyStyle = {
+  style: 'currency',
+  currency: 'BRL',
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 0
+}
+
+const currencyInputMask = createNumberMask({
+  prefix: 'R$ ',
+  thousandsSeparatorSymbol: '.',
+  integerLimit: 12
+})
+
+export {
+  getParagraphs,
+  getUrlVars,
+  currencyStyle,
+  currencyInputMask
 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Formik, Field } from 'formik'
+import MaskedInput from 'react-text-mask'
 
 import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
@@ -8,6 +9,7 @@ import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import StaticMap from 'components/listings/new-listing/shared/StaticMap'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
+import { currencyInputMask } from 'utils/text-utils'
 
 class Pricing extends Component {
   constructor(props) {
@@ -18,7 +20,7 @@ class Pricing extends Component {
     this.priceSuggestion = this.priceSuggestion.bind(this)
     this.noPriceSuggestion = this.noPriceSuggestion.bind(this)
 
-    this.userPriceInput = React.createRef()
+    this.userPriceInput = null
   }
 
   state = {
@@ -27,7 +29,7 @@ class Pricing extends Component {
 
   componentDidMount() {
     this.updateStateFromProps(this.props)
-    this.userPriceInput.current.focus()
+    this.userPriceInput.focus()
   }
 
   componentWillReceiveProps(props) {
@@ -53,6 +55,18 @@ class Pricing extends Component {
     navigateTo('personal')
   }
 
+  currencyInput() {
+    return (
+      <MaskedInput
+        mask={currencyInputMask}
+        render={(ref, props) => <Input hideLabelView ref={(input) => {
+          this.userPriceInput = input
+          return ref(input)
+        }} placeholder="R$ 000.000" {...props} />}
+      />
+    )
+  }
+
   priceSuggestion() {
     const { pricing } = this.props
     return (
@@ -64,7 +78,7 @@ class Pricing extends Component {
         <Text color="grey">Não gostou da nossa avaliação? Não tem problema. É só editar o valor do seu imóvel.</Text>
         <Row>
           <Col width={[1, 1/2]} mr={4}>
-            <Input hideLabelView ref={this.userPriceInput} placeholder="R$ 000.000" />
+            {this.currencyInput()}
           </Col>
         </Row>
       </Col>
@@ -81,7 +95,7 @@ class Pricing extends Component {
         </Row>
         <Row>
           <Col width={[1, 1/2]} mr={4}>
-            <Input hideLabelView ref={this.userPriceInput} placeholder="R$ 000.000" />
+            {this.currencyInput()}
           </Col>
         </Row>
       </>
