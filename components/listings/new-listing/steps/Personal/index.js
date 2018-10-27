@@ -26,7 +26,8 @@ class Personal extends Component {
   state = {
     name: null,
     email: null,
-    loading: false
+    loading: false,
+    error: null
   }
 
   componentDidMount() {
@@ -95,26 +96,33 @@ class Personal extends Component {
     const rooms = props.rooms.bedrooms
     const isCovered = false // TODO
 
-    const { data } = await apolloClient.mutate({
-      mutation: ESTIMATE_PRICE,
-      variables: {
-        address,
-        area,
-        bathrooms,
-        name,
-        email,
-        garageSpots,
-        rooms,
-        isCovered
-      }
-    })
+    try {
+      const { data } = await apolloClient.mutate({
+        mutation: ESTIMATE_PRICE,
+        variables: {
+          address,
+          area,
+          bathrooms,
+          name,
+          email,
+          garageSpots,
+          rooms,
+          isCovered
+        }
+      })
 
-    if (data && data.requestPriceSuggestion) {
-      const { suggestedPrice } = data.requestPriceSuggestion
-      this.setState({loading: false})
-      const { updatePricing } = this.props
-      updatePricing({suggestedPrice})
-      this.nextStep()
+      if (data && data.requestPriceSuggestion) {
+        const { suggestedPrice } = data.requestPriceSuggestion
+        const { updatePricing } = this.props
+        this.setState({loading: false})
+        updatePricing({suggestedPrice})
+        this.nextStep()
+      }
+    } catch (e) {
+      this.setState({
+        loading: false,
+        error: 'Ocorreu um erro. Por favor, tente novamente.'
+      })
     }
   }
 
@@ -210,12 +218,14 @@ class Personal extends Component {
                     </Row>
                   </View>
                   <View bottom p={4}>
+                    <Text color="red">{this.state.error}</Text>
                     <NavButtons
                       previousStep={this.previousStep}
                       nextStep={() => {
                         this.estimatePrice()
                       }}
                       nextEnabled={isValid}
+                      loading={this.state.loading}
                     />
                   </View>
                 </>

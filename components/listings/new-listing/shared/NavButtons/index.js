@@ -19,9 +19,11 @@ class NavButtons extends PureComponent {
           <Button
             fluid
             height="tall"
-            active
-            disabled={!this.props.nextEnabled}
-            onClick={this.props.nextStep}>Avançar</Button>
+            active={!this.props.loading}
+            disabled={!this.props.nextEnabled || this.props.loading}
+            onClick={this.props.nextStep}>
+            {this.props.loading ? 'Aguarde...' : 'Avançar'}
+          </Button>
         </Col>
       </Row>
     )
@@ -30,13 +32,15 @@ class NavButtons extends PureComponent {
   static propTypes = {
     previousStep: PropTypes.func,
     nextStep: PropTypes.func,
-    nextEnabled: PropTypes.bool.isRequired
+    nextEnabled: PropTypes.bool.isRequired,
+    loading: PropTypes.bool
   }
 
   static defaultProps = {
     previousStep: null,
     nextStep: null,
-    nextEnabled: false
+    nextEnabled: false,
+    loading: false
   }
 }
 
