@@ -62,27 +62,41 @@ class Pricing extends Component {
     navigateTo('personal')
   }
 
-  currencyInput() {
+  currencyInput(errors, setFieldValue, setFieldTouched) {
+    const { userPrice } = this.props.pricing
     return (
-      <MaskedInput
-        mask={currencyInputMask}
-        render={(ref, props) =>
-          <Input
-            {...props}
-            hideLabelView
-            hideErrorView
-            placeholder="R$ 000.000"
-            ref={(input) => {
-              this.userPriceInput = input
-              return ref(input)
-            }}
+      <Field
+        name="userPrice"
+        validate={this.validateUserPrice}
+        render={({form}) => (
+          <MaskedInput
+            mask={currencyInputMask}
+            render={(ref, props) =>
+              <Input
+                {...props}
+                hideLabelView
+                error={form.touched.userPrice ? errors.userPrice : null}
+                placeholder="R$ 000.000"
+                defaultValue={userPrice}
+                onChange={(e) => {
+                  const { value } = e.target
+                  setFieldValue('userPrice', value)
+                  setFieldTouched('userPrice')
+                  this.setState({userPrice: value})
+                }}
+                ref={(input) => {
+                  this.userPriceInput = input
+                  return ref(input)
+                }}
+              />
+            }
           />
-        }
+        )}
       />
     )
   }
 
-  priceSuggestion() {
+  priceSuggestion(errors, setFieldValue, setFieldTouched) {
     const { pricing } = this.props
     const formattedSuggestedPrice = pricing.suggestedPrice.toLocaleString('pt-BR', currencyStyle)
     return (
@@ -93,7 +107,7 @@ class Pricing extends Component {
         <Row>
             {this.state.editingPrice ?
               <Col width={[1, 1/2]} mr={4}>
-                {this.currencyInput()}
+                {this.currencyInput(errors, setFieldValue, setFieldTouched)}
               </Col>
               :
               <Row width={1} justifyContent="center">
@@ -111,7 +125,7 @@ class Pricing extends Component {
     )
   }
 
-  noPriceSuggestion() {
+  noPriceSuggestion(errors, setFieldValue, setFieldTouched) {
     return (
       <>
         <Row>
@@ -121,7 +135,7 @@ class Pricing extends Component {
         </Row>
         <Row>
           <Col width={[1, 1/2]} mr={4}>
-            {this.currencyInput()}
+            {this.currencyInput(errors, setFieldValue, setFieldTouched)}
           </Col>
         </Row>
       </>
@@ -129,7 +143,9 @@ class Pricing extends Component {
   }
 
   validateUserPrice(value) {
-    
+    if (!value || value === 'R$ ') {
+      return 'É necessário informar um preço de venda.'
+    }
   }
 
   render() {
@@ -149,7 +165,7 @@ class Pricing extends Component {
                 userPrice: userPrice
               }}
               isInitialValid={() => {
-                return true // TODO: validate initial pricing
+                return true
               }}
               render={({isValid, setFieldTouched, setFieldValue, errors}) => (
                 <>
@@ -163,7 +179,11 @@ class Pricing extends Component {
                     <Col>
                       <StaticMap addressData={addressData} />
                     </Col>
-                    {suggestedPrice ? this.priceSuggestion() : this.noPriceSuggestion()}
+                    {suggestedPrice ?
+                      this.priceSuggestion(errors, setFieldValue, setFieldTouched)
+                    :
+                      this.noPriceSuggestion(errors, setFieldValue, setFieldTouched)
+                    }
                   </View>
                   <View bottom p={4}>
                     <NavButtons
