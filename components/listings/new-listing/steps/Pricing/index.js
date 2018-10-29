@@ -60,8 +60,8 @@ class Pricing extends Component {
       ...this.state,
       suggestedPrice: pricing.suggestedPrice
     }
-    console.log(newPricing)
     updatePricing(newPricing)
+    navigateTo('services')
   }
 
   previousStep() {

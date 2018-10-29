@@ -1,115 +1,97 @@
 // Action Types
-const NAVIGATE = 'NAVIGATE'
-const START = 'START'
-const RESET_STORE = 'RESET_STORE'
-const UPDATE_LOCATION = 'UPDATE_LOCATION'
-const UPDATE_HOME_DETAILS = 'UPDATE_HOME_DETAILS'
-const UPDATE_ROOMS = 'UPDATE_ROOMS'
-const UPDATE_GARAGE = 'UPDATE_GARAGE'
-const UPDATE_DIFFERENTIAL = 'UPDATE_DIFFERENTIAL'
-const UPDATE_PHONE = 'UPDATE_PHONE'
-const UPDATE_PERSONAL = 'UPDATE_PERSONAL'
-const UPDATE_PRICING = 'UPDATE_PRICING'
+export const NAVIGATE = 'NAVIGATE'
+export const START = 'START'
+export const RESET_STORE = 'RESET_STORE'
+export const UPDATE_LOCATION = 'UPDATE_LOCATION'
+export const UPDATE_HOME_DETAILS = 'UPDATE_HOME_DETAILS'
+export const UPDATE_ROOMS = 'UPDATE_ROOMS'
+export const UPDATE_GARAGE = 'UPDATE_GARAGE'
+export const UPDATE_DIFFERENTIAL = 'UPDATE_DIFFERENTIAL'
+export const UPDATE_PHONE = 'UPDATE_PHONE'
+export const UPDATE_PERSONAL = 'UPDATE_PERSONAL'
+export const UPDATE_PRICING = 'UPDATE_PRICING'
+export const UPDATE_SERVICES = 'UPDATE_SERVICES'
 
 // Action creators
-const navigateTo = (step) => {
+export const navigateTo = (step) => {
   return {
     type: NAVIGATE,
     step: step
   }
 }
 
-const start = (timestamp) => {
+export const start = (timestamp) => {
   return {
     type: START,
     value: timestamp
   }
 }
 
-const resetStore = () => {
+export const resetStore = () => {
   return {
     type: RESET_STORE
   }
 }
 
-const updateLocation = (value) => {
+export const updateLocation = (value) => {
   return {
     type: UPDATE_LOCATION,
     value: value
   }
 }
 
-const updateHomeDetails = (value) => {
+export const updateHomeDetails = (value) => {
   return {
     type: UPDATE_HOME_DETAILS,
     value: value
   }
 }
 
-const updateRooms = (value) => {
+export const updateRooms = (value) => {
   return {
     type: UPDATE_ROOMS,
     value: value
   }
 }
 
-const updateGarage = (value) => {
+export const updateGarage = (value) => {
   return {
     type: UPDATE_GARAGE,
     value: value
   }
 }
 
-const updateDifferential = (value) => {
+export const updateDifferential = (value) => {
   return {
     type: UPDATE_DIFFERENTIAL,
     value: value
   }
 }
 
-const updatePhone = (value) => {
+export const updatePhone = (value) => {
   return {
     type: UPDATE_PHONE,
     value: value
   }
 }
 
-const updatePersonal = (value) => {
+export const updatePersonal = (value) => {
   return {
     type: UPDATE_PERSONAL,
     value: value
   }
 }
 
-const updatePricing = (value) => {
+export const updatePricing = (value) => {
   return {
     type: UPDATE_PRICING,
     value: value
   }
 }
 
-export {
-  NAVIGATE,
-  START,
-  RESET_STORE,
-  UPDATE_LOCATION,
-  UPDATE_HOME_DETAILS,
-  UPDATE_ROOMS,
-  UPDATE_GARAGE,
-  UPDATE_DIFFERENTIAL,
-  UPDATE_PHONE,
-  UPDATE_PERSONAL,
-  UPDATE_PRICING,
-
-  navigateTo,
-  start,
-  resetStore,
-  updateLocation,
-  updateHomeDetails,
-  updateRooms,
-  updateGarage,
-  updateDifferential,
-  updatePhone,
-  updatePersonal,
-  updatePricing
+export const updateServices = (value) => {
+  return {
+    type: UPDATE_SERVICES,
+    value: value
+  }
 }
