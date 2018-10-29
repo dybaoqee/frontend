@@ -44,6 +44,18 @@ export const DEACTIVATE_LISTING = gql`
   }
 `
 
+export const ADDRESS_INSERT = gql`
+  mutation addressInsert(
+    $input: AddressInput!
+  ) {
+    addressInsert(
+      input: $input
+    ) {
+      isCovered
+    }
+  }
+`
+
 export const ESTIMATE_PRICE = gql`
   mutation requestPriceSuggestion(
     $address: AddressInput!
