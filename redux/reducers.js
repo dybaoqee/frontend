@@ -7,6 +7,7 @@ import {
   UPDATE_DIFFERENTIAL,
   UPDATE_PHONE,
   UPDATE_PERSONAL,
+  UPDATE_PRICING,
   RESET_STORE,
   START
 } from './actions'
@@ -48,6 +49,11 @@ const initialState = {
   personal: {
     name: null,
     email: null
+  },
+  pricing: {
+    suggestedPrice: null,
+    userPrice: null,
+    editingPrice: null
   }
 }
 
@@ -97,6 +103,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         personal: action.value
+      }
+    case UPDATE_PRICING:
+      return {
+        ...state,
+        pricing: action.value
       }
     case RESET_STORE:
       return initialState

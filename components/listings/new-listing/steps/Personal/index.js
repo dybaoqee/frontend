@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Formik, Field } from 'formik'
 
+import { filterComponent } from 'services/google-maps-api'
+import { ESTIMATE_PRICE } from 'graphql/listings/mutations'
 import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
@@ -15,13 +17,17 @@ class Personal extends Component {
     this.previousStep = this.previousStep.bind(this)
     this.validateName = this.validateName.bind(this)
     this.validateEmail = this.validateEmail.bind(this)
+    this.estimatePrice = this.estimatePrice.bind(this)
+    this.getAddressInput = this.getAddressInput.bind(this)
     this.updateStateFromProps = this.updateStateFromProps.bind(this)
     this.nameField = React.createRef()
   }
 
   state = {
     name: null,
-    email: null
+    email: null,
+    loading: false,
+    error: null
   }
 
   componentDidMount() {
@@ -45,12 +51,82 @@ class Personal extends Component {
 
   nextStep() {
     const { navigateTo, updatePersonal } = this.props
-    updatePersonal(this.state)
+    updatePersonal({
+      name: this.state.name,
+      email: this.state.email
+    })
+    navigateTo('pricing')
   }
 
   previousStep() {
     const { navigateTo } = this.props
     navigateTo('phone')
+  }
+
+  getAddressInput(addressData) {
+    const {address_components: components} = addressData
+    const neighborhood = filterComponent(components, 'sublocality_level_1').long_name
+    const street = filterComponent(components, 'route').long_name
+    const streetNumber = filterComponent(components, 'street_number').long_name
+    const state = filterComponent(components, 'administrative_area_level_1').short_name
+    const city = filterComponent(components, 'administrative_area_level_2').long_name
+    const postalCode = filterComponent(components, 'postal_code').long_name
+
+    return {
+      city,
+      lat: addressData.geometry.location.lat,
+      lng: addressData.geometry.location.lng,
+      neighborhood,
+      postalCode,
+      street,
+      streetNumber,
+      state
+    }
+  }
+
+  async estimatePrice() {
+    this.setState({loading: true})
+
+    const { props } = this
+    const address = this.getAddressInput(props.location.addressData)
+    const area = parseInt(props.homeDetails.area)
+    const { bathrooms } = props.rooms
+    const { name, email } = this.state
+    const garageSpots = props.garage.spots
+    const rooms = props.rooms.bedrooms
+    const isCovered = false // TODO
+
+    try {
+      const { data } = await apolloClient.mutate({
+        mutation: ESTIMATE_PRICE,
+        variables: {
+          address,
+          area,
+          bathrooms,
+          name,
+          email,
+          garageSpots,
+          rooms,
+          isCovered
+        }
+      })
+
+      if (data && data.requestPriceSuggestion) {
+        const { suggestedPrice } = data.requestPriceSuggestion
+        const { updatePricing, pricing } = this.props
+        this.setState({loading: false})
+        updatePricing({
+          ...pricing,
+          suggestedPrice: suggestedPrice
+        })
+        this.nextStep()
+      }
+    } catch (e) {
+      this.setState({
+        loading: false,
+        error: 'Ocorreu um erro. Por favor, tente novamente.'
+      })
+    }
   }
 
   validateName(value) {
@@ -145,10 +221,14 @@ class Personal extends Component {
                     </Row>
                   </View>
                   <View bottom p={4}>
+                    <Text color="red">{this.state.error}</Text>
                     <NavButtons
                       previousStep={this.previousStep}
-                      nextStep={this.nextStep}
+                      nextStep={() => {
+                        this.estimatePrice()
+                      }}
                       nextEnabled={isValid}
+                      loading={this.state.loading}
                     />
                   </View>
                 </>

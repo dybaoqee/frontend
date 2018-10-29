@@ -8,7 +8,8 @@ import {
   updateGarage,
   updateDifferential,
   updatePhone,
-  updatePersonal
+  updatePersonal,
+  updatePricing
 } from 'redux/actions'
 import Intro from 'components/listings/new-listing/steps/Intro'
 import AddressInput from 'components/listings/new-listing/steps/AddressInput'
@@ -18,6 +19,7 @@ import Garage from 'components/listings/new-listing/steps/Garage'
 import Differential from 'components/listings/new-listing/steps/Differential'
 import Phone from 'components/listings/new-listing/steps/Phone'
 import Personal from 'components/listings/new-listing/steps/Personal'
+import Pricing from 'components/listings/new-listing/steps/Pricing'
 
 // Navigation steps
 const steps = {
@@ -51,7 +53,11 @@ const steps = {
   },
   personal: {
     component: Personal,
-    canNavigateTo: ['phone']
+    canNavigateTo: ['phone', 'pricing']
+  },
+  pricing: {
+    component: Pricing,
+    canNavigateTo: ['personal']
   }
 }
 
@@ -84,6 +90,9 @@ const mapDispatchToProps = dispatch => {
     },
     updatePersonal: value => {
       dispatch(updatePersonal(value))
+    },
+    updatePricing: value => {
+      dispatch(updatePricing(value))
     }
   }
 }
@@ -100,13 +109,13 @@ const getStepEntry = (key) => {
 /**
  * Returns the Screen Component with the given key.
  */
-const getScreen = (key) => {
+const getScreen = (key, client) => {
   const entry = getStepEntry(key)
   const Screen = entry.component
   const AnimatedScreen = getAnimatedScreen(Screen)
   const ConnectedScreen = connect(mapStateToProps, mapDispatchToProps)(AnimatedScreen)
   return (
-    <ConnectedScreen key={key} />
+    <ConnectedScreen key={key} client={client} />
   )
 }
 
