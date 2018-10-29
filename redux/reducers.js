@@ -52,7 +52,8 @@ const initialState = {
   },
   pricing: {
     suggestedPrice: null,
-    userPrice: null
+    userPrice: null,
+    editingPrice: null
   }
 }
 

@@ -48,13 +48,20 @@ class Pricing extends Component {
     const { pricing } = props
     if (pricing) {
       this.setState({
-        userPrice: pricing.userPrice
+        userPrice: pricing.userPrice,
+        editingPrice: pricing.editingPrice
       })
     }
   }
 
   nextStep() {
-    const { navigateTo, updatePricing } = this.props
+    const { navigateTo, updatePricing, pricing } = this.props
+    const newPricing = {
+      ...this.state,
+      suggestedPrice: pricing.suggestedPrice
+    }
+    console.log(newPricing)
+    updatePricing(newPricing)
   }
 
   previousStep() {

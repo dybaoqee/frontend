@@ -113,9 +113,12 @@ class Personal extends Component {
 
       if (data && data.requestPriceSuggestion) {
         const { suggestedPrice } = data.requestPriceSuggestion
-        const { updatePricing } = this.props
+        const { updatePricing, pricing } = this.props
         this.setState({loading: false})
-        updatePricing({suggestedPrice})
+        updatePricing({
+          ...pricing,
+          suggestedPrice: suggestedPrice
+        })
         this.nextStep()
       }
     } catch (e) {
