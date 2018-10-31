@@ -60,7 +60,9 @@ class Services extends Component {
   }
 
   validateScheduling(value) {
-
+    if (!value) {
+      return true
+    }
   }
 
   render() {
@@ -97,10 +99,18 @@ class Services extends Component {
                       <SelectCard
                         image="tour"
                         text="Quero o Tour Virtual 3D"
+                        checked={this.state.tour}
+                        onClick={() => {
+                          this.setState({tour: !this.state.tour})
+                        }}
                       />
                       <SelectCard
                         image="camera"
                         text="Quero Fotos Profissionais"
+                        checked={this.state.photos}
+                        onClick={() => {
+                          this.setState({photos: !this.state.photos})
+                        }}
                       />
                     </Row>
                   </View>

@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import Row from '@emcasa/ui-dom/components/Row'
-import Col from '@emcasa/ui-dom/components/Col'
 
 import {
   Container,
@@ -21,9 +19,9 @@ const IMAGES = {
 
 class SelectCard extends Component {
   render() {
-    const { checked, text, image } = this.props
+    const { checked, text, image, onClick } = this.props
     return (
-      <Container>
+      <Container onClick={onClick}>
         {checked ?
           <CheckMark name="check-circle" color="pink" size={20} />
         :
@@ -43,13 +41,15 @@ class SelectCard extends Component {
 SelectCard.propTypes = {
   checked: PropTypes.bool.isRequired,
   text: PropTypes.string.isRequired,
-  image: PropTypes.string.isRequired
+  image: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired
 }
 
 SelectCard.defaultProps = {
   checked: false,
   text: null,
-  image: 'tour'
+  image: 'tour',
+  onClick: null
 }
 
 export default SelectCard
