@@ -96,6 +96,7 @@ class HomeDetails extends Component {
       cond = homeDetails.cond
       iptu = homeDetails.iptu
     }
+    const isHouse = this.state.homeType === HOME_TYPES.house
     return (
       <div ref={this.props.hostRef}>
         <Row justifyContent="center">
@@ -143,7 +144,7 @@ class HomeDetails extends Component {
                         )}/>
                     </Col>
                     <Row mb={4}>
-                      <Col width={1/2} mr={4}>
+                      {!isHouse && <Col width={1/2} mr={4}>
                         <Field
                           name="floor"
                           render={() => (
@@ -161,7 +162,8 @@ class HomeDetails extends Component {
                             />
                           )}/>
                       </Col>
-                      <Col width={1/2} ml={2} mr={4}>
+                      }
+                      <Col width={1/2} ml={isHouse ? 0 : 2} mr={4}>
                         <Field
                           name="area"
                           validate={this.validateArea}
@@ -181,6 +183,7 @@ class HomeDetails extends Component {
                               />
                           )}/>
                       </Col>
+                      {isHouse && <Col width={1/2} ml={2} mr={4}></Col>}
                     </Row>
                     <Row mb={4}>
                       <Col width={1/2} mr={4}>
