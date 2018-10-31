@@ -23,6 +23,7 @@ import Personal from 'components/listings/new-listing/steps/Personal'
 import Pricing from 'components/listings/new-listing/steps/Pricing'
 import Services from 'components/listings/new-listing/steps/Services'
 import Summary from 'components/listings/new-listing/steps/Summary'
+import NotifyCoverage from 'components/listings/new-listing/steps/NotifyCoverage'
 
 // Navigation steps
 const steps = {
@@ -32,7 +33,11 @@ const steps = {
   },
   addressInput: {
     component: AddressInput,
-    canNavigateTo: ['homeDetails', 'intro']
+    canNavigateTo: ['homeDetails', 'intro', 'notifyCoverage']
+  },
+  notifyCoverage: {
+    component: NotifyCoverage,
+    canNavigateTo: ['addressInput']
   },
   homeDetails: {
     component: HomeDetails,
