@@ -57,7 +57,7 @@ class Pricing extends Component {
       this.setState({
         userPrice: pricing.userPrice,
         suggestedPrice: pricing.suggestedPrice,
-        editingPrice: pricing.editingPrice
+        editingPrice: pricing.editingPrice || !pricing.suggestedPrice
       })
     }
   }
@@ -220,8 +220,8 @@ class Pricing extends Component {
                   <View bottom p={4}>
                     <NavButtons
                       previousStep={this.previousStep}
-                      nextStep={this.nextStep}
-                      nextEnabled={isValid}
+                      onSubmit={this.nextStep}
+                      submitEnabled={isValid}
                     />
                   </View>
                 </>

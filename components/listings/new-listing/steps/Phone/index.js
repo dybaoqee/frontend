@@ -178,8 +178,8 @@ class Phone extends Component {
                   <View bottom p={4}>
                     <NavButtons
                       previousStep={this.previousStep}
-                      nextStep={this.nextStep}
-                      nextEnabled={isValid}
+                      onSubmit={this.nextStep}
+                      submitEnabled={isValid}
                     />
                   </View>
                 </>

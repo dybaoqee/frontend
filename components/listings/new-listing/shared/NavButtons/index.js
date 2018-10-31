@@ -6,6 +6,26 @@ import Col from '@emcasa/ui-dom/components/Col'
 import Button from '@emcasa/ui-dom/components/Button'
 
 class NavButtons extends PureComponent {
+  constructor(props) {
+    super(props)
+    this.onPressEnter = this.onPressEnter.bind(this)
+  }
+
+  onPressEnter(e) {
+    if (e.key !== 'Enter') return
+    if (this.props.submitEnabled) {
+      this.props.onSubmit()
+    }
+  }
+
+  componentDidMount() {
+    document.addEventListener('keypress', this.onPressEnter)
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keypress', this.onPressEnter)
+  }
+
   render() {
     return (
       <Row justifyContent="space-between">
@@ -20,8 +40,8 @@ class NavButtons extends PureComponent {
             fluid
             height="tall"
             active={!this.props.loading}
-            disabled={!this.props.nextEnabled || this.props.loading}
-            onClick={this.props.nextStep}>
+            disabled={!this.props.submitEnabled || this.props.loading}
+            onClick={this.props.onSubmit}>
             {this.props.loading ? 'Aguarde...' : 'Avançar'}
           </Button>
         </Col>
@@ -31,15 +51,15 @@ class NavButtons extends PureComponent {
 
   static propTypes = {
     previousStep: PropTypes.func,
-    nextStep: PropTypes.func,
-    nextEnabled: PropTypes.bool.isRequired,
+    onSubmit: PropTypes.func,
+    submitEnabled: PropTypes.bool.isRequired,
     loading: PropTypes.bool
   }
 
   static defaultProps = {
     previousStep: null,
-    nextStep: null,
-    nextEnabled: false,
+    onSubmit: null,
+    submitEnabled: false,
     loading: false
   }
 }

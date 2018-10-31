@@ -202,10 +202,10 @@ class Personal extends Component {
                     <Text color="red">{this.state.error}</Text>
                     <NavButtons
                       previousStep={this.previousStep}
-                      nextStep={() => {
+                      onSubmit={() => {
                         this.estimatePrice()
                       }}
-                      nextEnabled={isValid}
+                      submitEnabled={isValid}
                       loading={this.state.loading}
                     />
                   </View>

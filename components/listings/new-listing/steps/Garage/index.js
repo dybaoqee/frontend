@@ -60,7 +60,7 @@ class Garage extends Component {
   }
 
   validateSpotType(spotType) {
-    if (!spotType) {
+    if (this.state.spots > 0 && !spotType) {
       return "É necessário informar o tipo de vaga"
     }
   }
@@ -82,7 +82,7 @@ class Garage extends Component {
                 spotType: spotType
               }}
               isInitialValid={() => {
-                return !(this.validateSpots(spots) && this.validateSpotType(spotType))
+                return !(this.validateSpots(spots) || this.validateSpotType(spotType))
               }}
               render={({isValid, setFieldTouched, setFieldValue, errors}) => (
                 <>
@@ -112,33 +112,35 @@ class Garage extends Component {
                           </Button.Group>
                         }/>
                     </Row>
-                    <Text color="grey">As vagas estão na Escritura do imóvel ou são do Condomínio?</Text>
-                    <Row mb={4}>
-                      <Col width={1}>
-                        <Field
-                          name="spotType"
-                          validate={this.validateSpotType}
-                          render={() => (
-                            <RadioButton.Group
-                              selectedValue={this.state.spotType}
-                              onChange={(value) => {
-                                setFieldValue('spotType', value)
-                                setFieldTouched('spotType')
-                                this.setState({spotType: value})
-                              }}>
-                              <RadioButton label="Vagas na Escritura" value="deed"/>
-                              <View mb={2}></View>
-                              <RadioButton label="Vagas no Condomínio" value="condominium" />
-                            </RadioButton.Group>
-                          )} />
-                      </Col>
-                    </Row>
+                    {this.state.spots > 0 && <>
+                      <Text color="grey">As vagas estão na Escritura do imóvel ou são do Condomínio?</Text>
+                      <Row mb={4}>
+                        <Col width={1}>
+                          <Field
+                            name="spotType"
+                            validate={this.validateSpotType}
+                            render={() => (
+                              <RadioButton.Group
+                                selectedValue={this.state.spotType}
+                                onChange={(value) => {
+                                  setFieldValue('spotType', value)
+                                  setFieldTouched('spotType')
+                                  this.setState({spotType: value})
+                                }}>
+                                <RadioButton label="Vagas na Escritura" value="deed"/>
+                                <View mb={2}></View>
+                                <RadioButton label="Vagas no Condomínio" value="condominium" />
+                              </RadioButton.Group>
+                            )} />
+                        </Col>
+                      </Row>
+                    </>}
                   </View>
                   <View bottom p={4}>
                     <NavButtons
                       previousStep={this.previousStep}
-                      nextStep={this.nextStep}
-                      nextEnabled={isValid}
+                      onSubmit={this.nextStep}
+                      submitEnabled={isValid}
                     />
                   </View>
                 </>

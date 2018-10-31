@@ -155,10 +155,10 @@ class AddressInput extends Component {
                   <View bottom p={4}>
                     <NavButtons
                       previousStep={this.previousStep}
-                      nextStep={() => {
+                      onSubmit={() => {
                         this.nextStep()
                       }}
-                      nextEnabled={isValid}
+                      submitEnabled={isValid}
                       loading={this.state.loading}
                     />
                   </View>

@@ -39,7 +39,7 @@ class Summary extends PureComponent {
     const { location, pricing } = this.props
     const { suggestedPrice, userPrice } = pricing
 
-    const formattedSuggestedPrice = suggestedPrice.toLocaleString('pt-BR', currencyStyle)
+    const formattedSuggestedPrice = suggestedPrice ? suggestedPrice.toLocaleString('pt-BR', currencyStyle) : null
     const formattedUserPrice = userPrice.toLocaleString('pt-BR', currencyStyle)
     const address = location.addressData.name
 
@@ -58,10 +58,19 @@ class Summary extends PureComponent {
                 <StaticMap addressData={location.addressData} />
               </Col>
               <Col>
-                <Text color="grey">Seu imóvel da <Text inline fontWeight="bold" color="grey">{address}</Text> foi avaliado por:</Text>
-                <Text fontSize="large" fontWeight="bold" textAlign="center">{formattedSuggestedPrice}</Text>
-                <Text color="grey">Será anunciado por:</Text>
-                <Text fontSize="large" fontWeight="bold" textAlign="center">{formattedUserPrice}</Text>
+                {suggestedPrice ?
+                  <>
+                    <Text color="grey">Seu imóvel da <Text inline fontWeight="bold" color="grey">{address}</Text> foi avaliado por:</Text>
+                    <Text fontSize="large" fontWeight="bold" textAlign="center">{formattedSuggestedPrice}</Text>
+                    <Text color="grey">Será anunciado por:</Text>
+                    <Text fontSize="large" fontWeight="bold" textAlign="center">{formattedUserPrice}</Text>
+                  </>
+                :
+                  <>
+                    <Text color="grey">Seu imóvel da <Text inline fontWeight="bold" color="grey">{address}</Text> será anunciado por:</Text>
+                    <Text fontSize="large" fontWeight="bold" textAlign="center">{formattedUserPrice}</Text>
+                  </>
+                }
                 {this.getServicesText()}
               </Col>
             </View>
