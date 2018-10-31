@@ -27,6 +27,7 @@ class Pricing extends Component {
     this.nextStep = this.nextStep.bind(this)
     this.previousStep = this.previousStep.bind(this)
     this.updateStateFromProps = this.updateStateFromProps.bind(this)
+    this.validateUserPrice = this.validateUserPrice.bind(this)
     this.priceSuggestion = this.priceSuggestion.bind(this)
     this.noPriceSuggestion = this.noPriceSuggestion.bind(this)
 
@@ -62,6 +63,9 @@ class Pricing extends Component {
   }
 
   parseUserPrice(userPrice) {
+    if (!userPrice) {
+      return parseInt(this.state.suggestedPrice)
+    }
     const cleanUserPrice = userPrice.replace(PREFIX, '').replace(THOUSANDS_SEPARATOR_SYMBOL, '')
     return parseInt(cleanUserPrice)
   }
@@ -168,6 +172,9 @@ class Pricing extends Component {
   }
 
   validateUserPrice(value) {
+    if (!this.state.editingPrice) {
+      return
+    }
     if (!value || value === 'R$ ') {
       return 'É necessário informar um preço de venda.'
     }
@@ -190,7 +197,7 @@ class Pricing extends Component {
                 userPrice: userPrice
               }}
               isInitialValid={() => {
-                return true
+                return !this.validateUserPrice(userPrice)
               }}
               render={({isValid, setFieldTouched, setFieldValue, errors}) => (
                 <>
