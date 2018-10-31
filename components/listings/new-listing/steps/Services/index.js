@@ -7,7 +7,7 @@ import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
-import NavButtons from 'components/listings/new-listing/shared/NavButtons'
+import SelectCard from 'components/listings/new-listing/shared/SelectCard'
 
 class Services extends Component {
   constructor(props) {
@@ -93,6 +93,16 @@ class Services extends Component {
                       Quer impulsionar seu imóvel?
                     </Text>
                     <Text color="grey">Fazemos um Tour Virtual 3D do seu imóvel e também tiramos fotos com qualidade profissional sem custo nenhum. Diga-nos aqui qual o melhor horário pra você:</Text>
+                    <Row justifyContent="space-around" flexWrap="wrap">
+                      <SelectCard
+                        image="tour"
+                        text="Quero o Tour Virtual 3D"
+                      />
+                      <SelectCard
+                        image="camera"
+                        text="Quero Fotos Profissionais"
+                      />
+                    </Row>
                   </View>
                   <View bottom p={4}>
                     <Row justifyContent="space-between">
