@@ -101,3 +101,11 @@ export const UNBLACKLIST_LISTING = gql`
     }
   }
 `
+
+export const NOTIFY_WHEN_COVERED = gql`
+  mutation notifyWhenCovered($addressId: ID!, $email: String, $message: String, $name: String, $phone: String) {
+    notifyWhenCovered(addressId: $addressId, email: $email, message: $message, name: $name, phone: $phone) {
+      name
+    }
+  }
+`

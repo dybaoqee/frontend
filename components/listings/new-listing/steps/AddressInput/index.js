@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Formik, Field } from 'formik'
 
-import { ADDRESS_INSERT } from 'graphql/listings/mutations'
+import { ADDRESS_IS_COVERED } from 'graphql/listings/queries'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
@@ -17,6 +17,7 @@ class AddressInput extends Component {
     super(props)
     this.nextStep = this.nextStep.bind(this)
     this.previousStep = this.previousStep.bind(this)
+    this.updateLocation = this.updateLocation.bind(this)
     this.checkAddressCoverage = this.checkAddressCoverage.bind(this)
     this.validateAddress = this.validateAddress.bind(this)
     this.updateStateFromProps = this.updateStateFromProps.bind(this)
@@ -49,13 +50,17 @@ class AddressInput extends Component {
     }
   }
 
-  nextStep() {
-    const { navigateTo, updateLocation } = this.props
+  updateLocation() {
+    const { updateLocation } = this.props
     updateLocation({
       address: this.state.address,
       complement: this.state.complement,
       addressData: this.state.addressData
     })
+  }
+
+  nextStep() {
+    const { navigateTo } = this.props
     navigateTo('homeDetails')
   }
 
@@ -69,14 +74,25 @@ class AddressInput extends Component {
 
     const input = getAddressInput(this.state.addressData)
     try {
-      const { data } = await apolloClient.mutate({
-        mutation: ADDRESS_INSERT,
+      const { data } = await apolloClient.query({
+        query: ADDRESS_IS_COVERED,
         variables: {
-          input
+          city: input.city,
+          neighborhood: input.neighborhood,
+          state: input.state
         }
       })
 
       this.setState({loading: false})
+      this.updateLocation()
+      const { addressIsCovered } = data
+      if (addressIsCovered) {
+        this.nextStep()
+      } else {
+        const { navigateTo } = this.props
+        navigateTo('notifyCoverage')
+      }
+
     } catch (e) {
       this.setState({
         loading: false,
@@ -156,7 +172,7 @@ class AddressInput extends Component {
                     <NavButtons
                       previousStep={this.previousStep}
                       onSubmit={() => {
-                        this.nextStep()
+                        this.checkAddressCoverage()
                       }}
                       submitEnabled={isValid}
                       loading={this.state.loading}
