@@ -156,7 +156,7 @@ class AddressInput extends Component {
                     <NavButtons
                       previousStep={this.previousStep}
                       nextStep={() => {
-                        this.checkAddressCoverage()
+                        this.nextStep()
                       }}
                       nextEnabled={isValid}
                       loading={this.state.loading}
