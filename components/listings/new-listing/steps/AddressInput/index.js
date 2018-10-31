@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Formik, Field } from 'formik'
 
+import { ADDRESS_INSERT } from 'graphql/listings/mutations'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
@@ -9,12 +10,14 @@ import Input from '@emcasa/ui-dom/components/Input'
 import AddressAutoComplete from 'components/listings/new-listing/shared/AddressAutoComplete'
 import StaticMap from 'components/listings/new-listing/shared/StaticMap'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
+import { getAddressInput } from 'components/listings/new-listing/shared/AddressAutoComplete/address-input'
 
 class AddressInput extends Component {
   constructor(props) {
     super(props)
     this.nextStep = this.nextStep.bind(this)
     this.previousStep = this.previousStep.bind(this)
+    this.checkAddressCoverage = this.checkAddressCoverage.bind(this)
     this.validateAddress = this.validateAddress.bind(this)
     this.updateStateFromProps = this.updateStateFromProps.bind(this)
   }
@@ -22,7 +25,9 @@ class AddressInput extends Component {
   state = {
     address: null,
     complement: null,
-    addressData: null
+    addressData: null,
+    loading: false,
+    error: null
   }
 
   componentDidMount() {
@@ -46,13 +51,38 @@ class AddressInput extends Component {
 
   nextStep() {
     const { navigateTo, updateLocation } = this.props
-    updateLocation(this.state)
+    updateLocation({
+      address: this.state.address,
+      complement: this.state.complement,
+      addressData: this.state.addressData
+    })
     navigateTo('homeDetails')
   }
 
   previousStep() {
     const { navigateTo } = this.props
     navigateTo('intro')
+  }
+
+  async checkAddressCoverage() {
+    this.setState({loading: true})
+
+    const input = getAddressInput(this.state.addressData)
+    try {
+      const { data } = await apolloClient.mutate({
+        mutation: ADDRESS_INSERT,
+        variables: {
+          input
+        }
+      })
+
+      this.setState({loading: false})
+    } catch (e) {
+      this.setState({
+        loading: false,
+        error: 'Ocorreu um erro ao validar o endereço. Por favor, tente novamente.'
+      })
+    }
   }
 
   validateAddress(value) {
@@ -125,8 +155,11 @@ class AddressInput extends Component {
                   <View bottom p={4}>
                     <NavButtons
                       previousStep={this.previousStep}
-                      nextStep={this.nextStep}
+                      nextStep={() => {
+                        this.checkAddressCoverage()
+                      }}
                       nextEnabled={isValid}
+                      loading={this.state.loading}
                     />
                   </View>
                 </>

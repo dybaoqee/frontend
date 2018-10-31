@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Formik, Field } from 'formik'
 
-import { filterComponent } from 'services/google-maps-api'
 import { ESTIMATE_PRICE } from 'graphql/listings/mutations'
 import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
@@ -9,6 +8,7 @@ import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
+import { getAddressInput } from 'components/listings/new-listing/shared/AddressAutoComplete/address-input'
 
 class Personal extends Component {
   constructor(props) {
@@ -18,7 +18,6 @@ class Personal extends Component {
     this.validateName = this.validateName.bind(this)
     this.validateEmail = this.validateEmail.bind(this)
     this.estimatePrice = this.estimatePrice.bind(this)
-    this.getAddressInput = this.getAddressInput.bind(this)
     this.updateStateFromProps = this.updateStateFromProps.bind(this)
     this.nameField = React.createRef()
   }
@@ -63,32 +62,11 @@ class Personal extends Component {
     navigateTo('phone')
   }
 
-  getAddressInput(addressData) {
-    const {address_components: components} = addressData
-    const neighborhood = filterComponent(components, 'sublocality_level_1').long_name
-    const street = filterComponent(components, 'route').long_name
-    const streetNumber = filterComponent(components, 'street_number').long_name
-    const state = filterComponent(components, 'administrative_area_level_1').short_name
-    const city = filterComponent(components, 'administrative_area_level_2').long_name
-    const postalCode = filterComponent(components, 'postal_code').long_name
-
-    return {
-      city,
-      lat: addressData.geometry.location.lat,
-      lng: addressData.geometry.location.lng,
-      neighborhood,
-      postalCode,
-      street,
-      streetNumber,
-      state
-    }
-  }
-
   async estimatePrice() {
     this.setState({loading: true})
 
     const { props } = this
-    const address = this.getAddressInput(props.location.addressData)
+    const address = getAddressInput(props.location.addressData)
     const area = parseInt(props.homeDetails.area)
     const { bathrooms } = props.rooms
     const { name, email } = this.state
