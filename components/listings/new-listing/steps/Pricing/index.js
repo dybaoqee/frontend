@@ -13,7 +13,9 @@ import StaticMap from 'components/listings/new-listing/shared/StaticMap'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import {
   currencyInputMask,
-  currencyStyle
+  currencyStyle,
+  PREFIX,
+  THOUSANDS_SEPARATOR_SYMBOL
 } from 'utils/text-utils'
 
 class Pricing extends Component {
@@ -30,6 +32,7 @@ class Pricing extends Component {
 
   state = {
     userPrice: null,
+    suggestedPrice: null,
     editingPrice: false
   }
 
@@ -49,16 +52,25 @@ class Pricing extends Component {
     if (pricing) {
       this.setState({
         userPrice: pricing.userPrice,
+        suggestedPrice: pricing.suggestedPrice,
         editingPrice: pricing.editingPrice
       })
     }
   }
 
+  parseUserPrice(userPrice) {
+    const cleanUserPrice = userPrice.replace(PREFIX, '').replace(THOUSANDS_SEPARATOR_SYMBOL, '')
+    return parseInt(cleanUserPrice)
+  }
+
   nextStep() {
-    const { navigateTo, updatePricing, pricing } = this.props
+    const { navigateTo, updatePricing } = this.props
+    const intUserPrice = this.parseUserPrice(this.state.userPrice)
+    const intSuggestedPrice = parseInt(this.state.suggestedPrice)
     const newPricing = {
-      ...this.state,
-      suggestedPrice: pricing.suggestedPrice
+      userPrice: intUserPrice,
+      suggestedPrice: intSuggestedPrice,
+      editingPrice: this.state.editingPrice
     }
     updatePricing(newPricing)
     navigateTo('services')
@@ -111,22 +123,25 @@ class Pricing extends Component {
         <Text color="grey">Seu imóvel foi avaliado por:</Text>
         <Text fontSize="large" fontWeight="bold" textAlign="center">{formattedSuggestedPrice}</Text>
         <Text color="grey">Recomendamos anunciar por:</Text>
-        <Row>
             {this.state.editingPrice ?
               <Col width={[1, 1/2]} mr={4}>
                 {this.currencyInput(errors, setFieldValue, setFieldTouched)}
               </Col>
               :
-              <Row width={1} justifyContent="center">
-                <Text inline fontSize="large" fontWeight="bold" textAlign="center">{formattedSuggestedPrice}</Text>
-                <Col ml={4}>
-                  <Button onClick={() => this.setState({editingPrice: true})}>
-                    <Icon name="pen" color="dark" />
-                  </Button>
-                </Col>
-              </Row>
+              <>
+                <Row justifyContent="center">
+                  <Col style={{width: 100}}></Col>
+                  <Col>
+                    <Text inline fontSize="large" fontWeight="bold" textAlign="center">{formattedSuggestedPrice}</Text>
+                  </Col>
+                  <Col style={{width: 100}}>
+                    <Button onClick={() => this.setState({editingPrice: true})} style={{marginLeft: 20}}>
+                      <Icon name="pen" color="dark" />
+                    </Button>
+                  </Col>
+                </Row>
+              </>
             }
-        </Row>
         <Text color="grey">Não gostou da nossa avaliação? Não tem problema. É só editar o valor do seu imóvel.</Text>
       </Col>
     )

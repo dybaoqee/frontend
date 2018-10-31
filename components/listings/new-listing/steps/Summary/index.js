@@ -23,13 +23,26 @@ class Summary extends PureComponent {
   }
 
   getServicesText() {
+    const { services: { tour, photos }} = this.props
+    if (!tour && !photos) {
+      return null
+    }
+    
     return (
-      null
+      <>
+        <Text></Text>
+      </>
     )
   }
 
   render() {
-    const { location, pricing, services } = this.props
+    const { location, pricing } = this.props
+    const { suggestedPrice, userPrice } = pricing
+
+    const formattedSuggestedPrice = suggestedPrice.toLocaleString('pt-BR', currencyStyle)
+    const formattedUserPrice = userPrice.toLocaleString('pt-BR', currencyStyle)
+    const address = location.addressData.name
+
     return (
       <div ref={this.props.hostRef}>
         <Row justifyContent="center">
@@ -44,10 +57,16 @@ class Summary extends PureComponent {
               <Col>
                 <StaticMap addressData={location.addressData} />
               </Col>
-              {services.tour && this.getServicesText()}
+              <Col>
+                <Text color="grey">Seu imóvel da <Text inline fontWeight="bold" color="grey">{address}</Text> foi avaliado por:</Text>
+                <Text fontSize="large" fontWeight="bold" textAlign="center">{formattedSuggestedPrice}</Text>
+                <Text color="grey">Será anunciado por:</Text>
+                <Text fontSize="large" fontWeight="bold" textAlign="center">{formattedUserPrice}</Text>
+                {this.getServicesText()}
+              </Col>
             </View>
             <View bottom p={4}>
-              <Button active>
+              <Button active fluid height="tall">
                 Vender meu imóvel
               </Button>
             </View>

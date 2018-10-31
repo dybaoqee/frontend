@@ -21,9 +21,12 @@ const currencyStyle = {
   maximumFractionDigits: 0
 }
 
+const PREFIX = 'R$ '
+const THOUSANDS_SEPARATOR_SYMBOL = '.'
+
 const currencyInputMask = createNumberMask({
-  prefix: 'R$ ',
-  thousandsSeparatorSymbol: '.',
+  prefix: PREFIX,
+  thousandsSeparatorSymbol: THOUSANDS_SEPARATOR_SYMBOL,
   integerLimit: 12
 })
 
@@ -31,5 +34,8 @@ export {
   getParagraphs,
   getUrlVars,
   currencyStyle,
-  currencyInputMask
+  currencyInputMask,
+
+  PREFIX,
+  THOUSANDS_SEPARATOR_SYMBOL
 }
