@@ -64,11 +64,11 @@ const steps = {
   },
   services: {
     component: Services,
-    canNavigateTo: ['scheduling', 'summary']
+    canNavigateTo: ['pricing', 'scheduling', 'summary']
   },
   summary: {
     component: Summary,
-    canNavigateTo: ['']
+    canNavigateTo: ['services']
   }
 }
 

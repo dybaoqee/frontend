@@ -3,7 +3,6 @@ import { Formik, Field } from 'formik'
 import MaskedInput from 'react-text-mask'
 
 import Icon from '@emcasa/ui-dom/components/Icon'
-import Button from '@emcasa/ui-dom/components/Button'
 import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
@@ -11,6 +10,10 @@ import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import StaticMap from 'components/listings/new-listing/shared/StaticMap'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
+import {
+  UserPriceCol,
+  EditPriceButton
+ } from './styles'
 import {
   currencyInputMask,
   currencyStyle,
@@ -130,15 +133,15 @@ class Pricing extends Component {
               :
               <>
                 <Row justifyContent="center">
-                  <Col style={{width: 100}}></Col>
+                  <UserPriceCol />
                   <Col>
                     <Text inline fontSize="large" fontWeight="bold" textAlign="center">{formattedSuggestedPrice}</Text>
                   </Col>
-                  <Col style={{width: 100}}>
-                    <Button onClick={() => this.setState({editingPrice: true})} style={{marginLeft: 20}}>
+                  <UserPriceCol>
+                    <EditPriceButton onClick={() => this.setState({editingPrice: true})} style={{marginLeft: 20}}>
                       <Icon name="pen" color="dark" />
-                    </Button>
-                  </Col>
+                    </EditPriceButton>
+                  </UserPriceCol>
                 </Row>
               </>
             }
