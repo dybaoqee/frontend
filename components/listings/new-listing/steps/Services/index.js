@@ -50,7 +50,8 @@ class Services extends Component {
   }
 
   skipStep() {
-
+    const { navigateTo } = this.props
+    navigateTo('summary')
   }
 
   schedule() {
@@ -120,7 +121,7 @@ class Services extends Component {
                         <Button
                           fluid
                           height="tall"
-                          onClick={this.props.skipStep}>Não quero</Button>
+                          onClick={this.skipStep}>Não quero</Button>
                       </Col>
                       <Col width={5/12}>
                         <Button
@@ -128,7 +129,7 @@ class Services extends Component {
                           height="tall"
                           active
                           disabled={!isValid}
-                          onClick={this.props.nextStep}>
+                          onClick={this.nextStep}>
                           Agendar
                         </Button>
                       </Col>

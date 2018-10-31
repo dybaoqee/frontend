@@ -3,7 +3,6 @@ import { Formik, Field } from 'formik'
 import MaskedInput from 'react-text-mask'
 
 import Icon from '@emcasa/ui-dom/components/Icon'
-import Button from '@emcasa/ui-dom/components/Button'
 import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
@@ -12,8 +11,14 @@ import Text from '@emcasa/ui-dom/components/Text'
 import StaticMap from 'components/listings/new-listing/shared/StaticMap'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import {
+  UserPriceCol,
+  EditPriceButton
+ } from './styles'
+import {
   currencyInputMask,
-  currencyStyle
+  currencyStyle,
+  PREFIX,
+  THOUSANDS_SEPARATOR_SYMBOL
 } from 'utils/text-utils'
 
 class Pricing extends Component {
@@ -22,6 +27,7 @@ class Pricing extends Component {
     this.nextStep = this.nextStep.bind(this)
     this.previousStep = this.previousStep.bind(this)
     this.updateStateFromProps = this.updateStateFromProps.bind(this)
+    this.validateUserPrice = this.validateUserPrice.bind(this)
     this.priceSuggestion = this.priceSuggestion.bind(this)
     this.noPriceSuggestion = this.noPriceSuggestion.bind(this)
 
@@ -30,6 +36,7 @@ class Pricing extends Component {
 
   state = {
     userPrice: null,
+    suggestedPrice: null,
     editingPrice: false
   }
 
@@ -49,16 +56,28 @@ class Pricing extends Component {
     if (pricing) {
       this.setState({
         userPrice: pricing.userPrice,
+        suggestedPrice: pricing.suggestedPrice,
         editingPrice: pricing.editingPrice
       })
     }
   }
 
+  parseUserPrice(userPrice) {
+    if (!userPrice) {
+      return parseInt(this.state.suggestedPrice)
+    }
+    const cleanUserPrice = userPrice.replace(PREFIX, '').replace(THOUSANDS_SEPARATOR_SYMBOL, '')
+    return parseInt(cleanUserPrice)
+  }
+
   nextStep() {
-    const { navigateTo, updatePricing, pricing } = this.props
+    const { navigateTo, updatePricing } = this.props
+    const intUserPrice = this.parseUserPrice(this.state.userPrice)
+    const intSuggestedPrice = parseInt(this.state.suggestedPrice)
     const newPricing = {
-      ...this.state,
-      suggestedPrice: pricing.suggestedPrice
+      userPrice: intUserPrice,
+      suggestedPrice: intSuggestedPrice,
+      editingPrice: this.state.editingPrice
     }
     updatePricing(newPricing)
     navigateTo('services')
@@ -111,22 +130,25 @@ class Pricing extends Component {
         <Text color="grey">Seu imóvel foi avaliado por:</Text>
         <Text fontSize="large" fontWeight="bold" textAlign="center">{formattedSuggestedPrice}</Text>
         <Text color="grey">Recomendamos anunciar por:</Text>
-        <Row>
             {this.state.editingPrice ?
               <Col width={[1, 1/2]} mr={4}>
                 {this.currencyInput(errors, setFieldValue, setFieldTouched)}
               </Col>
               :
-              <Row width={1} justifyContent="center">
-                <Text inline fontSize="large" fontWeight="bold" textAlign="center">{formattedSuggestedPrice}</Text>
-                <Col ml={4}>
-                  <Button onClick={() => this.setState({editingPrice: true})}>
-                    <Icon name="pen" color="dark" />
-                  </Button>
-                </Col>
-              </Row>
+              <>
+                <Row justifyContent="center">
+                  <UserPriceCol />
+                  <Col>
+                    <Text inline fontSize="large" fontWeight="bold" textAlign="center">{formattedSuggestedPrice}</Text>
+                  </Col>
+                  <UserPriceCol>
+                    <EditPriceButton onClick={() => this.setState({editingPrice: true})} style={{marginLeft: 20}}>
+                      <Icon name="pen" color="dark" />
+                    </EditPriceButton>
+                  </UserPriceCol>
+                </Row>
+              </>
             }
-        </Row>
         <Text color="grey">Não gostou da nossa avaliação? Não tem problema. É só editar o valor do seu imóvel.</Text>
       </Col>
     )
@@ -150,6 +172,9 @@ class Pricing extends Component {
   }
 
   validateUserPrice(value) {
+    if (!this.state.editingPrice) {
+      return
+    }
     if (!value || value === 'R$ ') {
       return 'É necessário informar um preço de venda.'
     }
@@ -172,7 +197,7 @@ class Pricing extends Component {
                 userPrice: userPrice
               }}
               isInitialValid={() => {
-                return true
+                return !this.validateUserPrice(userPrice)
               }}
               render={({isValid, setFieldTouched, setFieldValue, errors}) => (
                 <>
