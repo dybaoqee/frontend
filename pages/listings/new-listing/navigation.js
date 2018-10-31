@@ -22,6 +22,7 @@ import Phone from 'components/listings/new-listing/steps/Phone'
 import Personal from 'components/listings/new-listing/steps/Personal'
 import Pricing from 'components/listings/new-listing/steps/Pricing'
 import Services from 'components/listings/new-listing/steps/Services'
+import Summary from 'components/listings/new-listing/steps/Summary'
 
 // Navigation steps
 const steps = {
@@ -63,7 +64,11 @@ const steps = {
   },
   services: {
     component: Services,
-    canNavigateTo: ['scheduling']
+    canNavigateTo: ['scheduling', 'summary']
+  },
+  summary: {
+    component: Summary,
+    canNavigateTo: ['']
   }
 }
 
