@@ -13,8 +13,8 @@ class NavButtons extends PureComponent {
 
   onPressEnter(e) {
     if (e.key !== 'Enter') return
-    if (this.props.nextEnabled) {
-      this.props.nextStep()
+    if (this.props.submitEnabled) {
+      this.props.onSubmit()
     }
   }
 
@@ -40,8 +40,8 @@ class NavButtons extends PureComponent {
             fluid
             height="tall"
             active={!this.props.loading}
-            disabled={!this.props.nextEnabled || this.props.loading}
-            onClick={this.props.nextStep}>
+            disabled={!this.props.submitEnabled || this.props.loading}
+            onClick={this.props.onSubmit}>
             {this.props.loading ? 'Aguarde...' : 'Avançar'}
           </Button>
         </Col>
@@ -51,15 +51,15 @@ class NavButtons extends PureComponent {
 
   static propTypes = {
     previousStep: PropTypes.func,
-    nextStep: PropTypes.func,
-    nextEnabled: PropTypes.bool.isRequired,
+    onSubmit: PropTypes.func,
+    submitEnabled: PropTypes.bool.isRequired,
     loading: PropTypes.bool
   }
 
   static defaultProps = {
     previousStep: null,
-    nextStep: null,
-    nextEnabled: false,
+    onSubmit: null,
+    submitEnabled: false,
     loading: false
   }
 }
