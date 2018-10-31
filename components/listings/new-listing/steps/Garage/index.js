@@ -82,7 +82,7 @@ class Garage extends Component {
                 spotType: spotType
               }}
               isInitialValid={() => {
-                return !(this.validateSpots(spots) && this.validateSpotType(spotType))
+                return !(this.validateSpots(spots) || this.validateSpotType(spotType))
               }}
               render={({isValid, setFieldTouched, setFieldValue, errors}) => (
                 <>
