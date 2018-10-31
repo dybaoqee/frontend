@@ -39,7 +39,7 @@ class Summary extends PureComponent {
     const { location, pricing } = this.props
     const { suggestedPrice, userPrice } = pricing
 
-    const formattedSuggestedPrice = suggestedPrice.toLocaleString('pt-BR', currencyStyle)
+    const formattedSuggestedPrice = suggestedPrice ? suggestedPrice.toLocaleString('pt-BR', currencyStyle) : null
     const formattedUserPrice = userPrice.toLocaleString('pt-BR', currencyStyle)
     const address = location.addressData.name
 

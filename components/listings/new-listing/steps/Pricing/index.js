@@ -57,7 +57,7 @@ class Pricing extends Component {
       this.setState({
         userPrice: pricing.userPrice,
         suggestedPrice: pricing.suggestedPrice,
-        editingPrice: pricing.editingPrice
+        editingPrice: pricing.editingPrice || !pricing.suggestedPrice
       })
     }
   }
