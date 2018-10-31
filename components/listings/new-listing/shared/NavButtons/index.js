@@ -6,6 +6,26 @@ import Col from '@emcasa/ui-dom/components/Col'
 import Button from '@emcasa/ui-dom/components/Button'
 
 class NavButtons extends PureComponent {
+  constructor(props) {
+    super(props)
+    this.onPressEnter = this.onPressEnter.bind(this)
+  }
+
+  onPressEnter(e) {
+    if (e.key !== 'Enter') return
+    if (this.props.nextEnabled) {
+      this.props.nextStep()
+    }
+  }
+
+  componentDidMount() {
+    document.addEventListener('keypress', this.onPressEnter)
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keypress', this.onPressEnter)
+  }
+
   render() {
     return (
       <Row justifyContent="space-between">
