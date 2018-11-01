@@ -1,24 +1,21 @@
 import React, { Component } from 'react'
 import { Formik, Field } from 'formik'
 
-import { ESTIMATE_PRICE } from 'graphql/listings/mutations'
+import { NOTIFY_WHEN_COVERED } from 'graphql/listings/mutations'
 import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
-import { getAddressInput } from 'components/listings/new-listing/shared/AddressAutoComplete/address-input'
 
-class Personal extends Component {
+class NotifyCoverage extends Component {
   constructor(props) {
     super(props)
-    this.nextStep = this.nextStep.bind(this)
-    this.previousStep = this.previousStep.bind(this)
+    this.exit = this.exit.bind(this)
+    this.submit = this.submit.bind(this)
     this.validateName = this.validateName.bind(this)
     this.validateEmail = this.validateEmail.bind(this)
-    this.estimatePrice = this.estimatePrice.bind(this)
-    this.updateStateFromProps = this.updateStateFromProps.bind(this)
     this.nameField = React.createRef()
   }
 
@@ -30,76 +27,27 @@ class Personal extends Component {
   }
 
   componentDidMount() {
-    this.updateStateFromProps(this.props)
     this.nameField.current.focus()
   }
 
-  componentWillReceiveProps(props) {
-    this.updateStateFromProps(props)
-  }
-
-  updateStateFromProps(props) {
-    const { personal, location } = props
-    
-    if (personal) {
-      this.setState({
-        name: personal.name,
-        email: personal.email
-      })
-    }
-  }
-
-  nextStep() {
-    const { navigateTo, updatePersonal } = this.props
-    updatePersonal({
-      name: this.state.name,
-      email: this.state.email
-    })
-    navigateTo('pricing')
-  }
-
-  previousStep() {
+  exit() {
     const { navigateTo } = this.props
-    navigateTo('phone')
+    navigateTo('addressInput')
   }
 
-  async estimatePrice() {
+  async submit() {
     this.setState({loading: true})
-
-    const { props } = this
-    const address = getAddressInput(props.location.addressData)
-    const area = parseInt(props.homeDetails.area)
-    const { bathrooms } = props.rooms
     const { name, email } = this.state
-    const garageSpots = props.garage.spots
-    const rooms = props.rooms.bedrooms
-    const isCovered = true
-
     try {
-      const { data } = await apolloClient.mutate({
-        mutation: ESTIMATE_PRICE,
+      const response = await apolloClient.mutate({
+        mutation: NOTIFY_WHEN_COVERED,
         variables: {
-          address,
-          area,
-          bathrooms,
+          addressId: null,
           name,
-          email,
-          garageSpots,
-          rooms,
-          isCovered
+          email
         }
       })
-
-      if (data && data.requestPriceSuggestion) {
-        const { suggestedPrice } = data.requestPriceSuggestion
-        const { updatePricing, pricing } = this.props
-        this.setState({loading: false})
-        updatePricing({
-          ...pricing,
-          suggestedPrice: suggestedPrice
-        })
-        this.nextStep()
-      }
+      
     } catch (e) {
       this.setState({
         loading: false,
@@ -115,35 +63,20 @@ class Personal extends Component {
   }
 
   validateEmail(value) {
-    if (!value) {
-      // It's ok if the user doesn't inform an e-mail
-      return null
-    }
     const regex = /\S+@\S+\.\S+/
-    if (!value.match(regex)) {
-      // But if they do, it has to be a valid one
+    if (!value || !value.match(regex)) {
       return "Informe um e-mail válido."
     }
   }
 
   render() {
-    const { personal } = this.props
-    let name, email
-    if (personal) {
-      name = personal.name
-      email = personal.email
-    }
     return (
       <div ref={this.props.hostRef}>
         <Row justifyContent="center">
           <Col width={[1, 1/2]}>
             <Formik
-              initialValues={{
-                name: name,
-                email: email
-              }}
               isInitialValid={() => {
-                return !(this.validateName(name) || this.validateEmail(email))
+                return false
               }}
               render={({isValid, setFieldTouched, setFieldValue, errors}) => (
                 <>
@@ -152,9 +85,9 @@ class Personal extends Component {
                       fontSize="large"
                       fontWeight="bold"
                       textAlign="center">
-                      Qual seu nome e e-mail?
+                      Infelizmente ainda não atendemos essa região
                     </Text>
-                    <Text color="grey">Não se preocupe, não vamos encher sua caixa de spam.</Text>
+                    <Text color="grey">Gostaria de ser notificado quando atendermos a sua área?</Text>
                     <Row>
                       <Col width={1} mr={4}>
                         <Field
@@ -166,7 +99,6 @@ class Personal extends Component {
                               ref={this.nameField}
                               placeholder="Nome*"
                               error={form.touched.name ? errors.name : null}
-                              defaultValue={name}
                               onChange={(e) => {
                                 const { value } = e.target
                                 setFieldValue('name', value)
@@ -185,9 +117,8 @@ class Personal extends Component {
                           render={({form}) => (
                             <Input
                               hideLabelView
-                              placeholder="E-mail"
+                              placeholder="E-mail*"
                               error={form.touched.email ? errors.email : null}
-                              defaultValue={email}
                               onChange={(e) => {
                                 const { value } = e.target
                                 setFieldValue('email', value)
@@ -202,9 +133,9 @@ class Personal extends Component {
                   <View bottom p={4}>
                     <Text color="red">{this.state.error}</Text>
                     <NavButtons
-                      previousStep={this.previousStep}
+                      previousStep={this.exit}
                       onSubmit={() => {
-                        this.estimatePrice()
+                        this.submit()
                       }}
                       submitEnabled={isValid}
                       loading={this.state.loading}
@@ -220,4 +151,4 @@ class Personal extends Component {
   }
 }
 
-export default Personal
+export default NotifyCoverage

@@ -168,3 +168,9 @@ export const GET_NEIGHBORHOOD_DESCRIPTION = gql`
     }
   }
 `
+
+export const ADDRESS_IS_COVERED = gql`
+  query addressIsCovered($city: String!, $neighborhood: String!, $state: String!) {
+    addressIsCovered(city: $city, neighborhood: $neighborhood, state: $state)
+  }
+`
