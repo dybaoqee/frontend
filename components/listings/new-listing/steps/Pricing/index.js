@@ -66,7 +66,7 @@ class Pricing extends Component {
     if (!userPrice) {
       return parseInt(this.state.suggestedPrice)
     }
-    const cleanUserPrice = userPrice.replace(PREFIX, '').replace(THOUSANDS_SEPARATOR_SYMBOL, '')
+    const cleanUserPrice = userPrice.toString().replace(PREFIX, '').replace(THOUSANDS_SEPARATOR_SYMBOL, '')
     return parseInt(cleanUserPrice)
   }
 
