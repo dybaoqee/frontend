@@ -160,11 +160,17 @@ class AddressInput extends Component {
                     <Field
                       name="complement"
                       render={() => (
-                        <Input hideLabelView placeholder="Complemento" onChange={(e) => {
-                          const { value } = e.target
-                          setFieldValue('complement', value)
-                          this.setState({complement: value})
-                        }} defaultValue={complement} />
+                        <Input
+                          hideLabelView
+                          hideErrorView
+                          placeholder="Complemento"
+                          defaultValue={complement}
+                          onChange={(e) => {
+                            const { value } = e.target
+                            setFieldValue('complement', value)
+                            this.setState({complement: value})
+                          }}
+                        />
                       )} />
                     </Col>
                   </View>

@@ -103,9 +103,9 @@ export const UNBLACKLIST_LISTING = gql`
 `
 
 export const NOTIFY_WHEN_COVERED = gql`
-  mutation notifyWhenCovered($addressId: ID!, $email: String, $message: String, $name: String, $phone: String) {
-    notifyWhenCovered(addressId: $addressId, email: $email, message: $message, name: $name, phone: $phone) {
-      name
+  mutation notifyWhenCovered($city: String!, $email: String, $message: String, $name: String, $neighborhood: String!, $phone: String, $state: String!) {
+    notifyWhenCovered(city: $city, email: $email, message: $message, name: $name, neighborhood: $neighborhood, phone: $phone, state: $state) {
+      id
     }
   }
 `
