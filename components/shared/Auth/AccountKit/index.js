@@ -67,7 +67,7 @@ class AccountKit extends Component {
   }
 
   signIn = () => {
-    const {loginType, countryCode, phoneNumber, emailAddress} = this.props
+    const {loginType, countryCode, phoneNumber, emailAddress, onSuccess} = this.props
 
     const options = {}
     if (countryCode) {
@@ -80,7 +80,7 @@ class AccountKit extends Component {
       options.emailAddress = emailAddress
     }
 
-    window.AccountKit.login(loginType, options, (resp) => this.onSuccess(resp))
+    window.AccountKit.login(loginType, options, (resp) => onSuccess ? onSuccess(resp) : this.onSuccess(resp))
   }
 
   onSuccess = async (resp) => {

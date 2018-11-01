@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Formik, Field } from 'formik'
 
+import AccountKit from 'components/shared/Auth/AccountKit'
 import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
@@ -87,6 +88,7 @@ class Phone extends Component {
       localAreaCode = phone.localAreaCode
       number = phone.number
     }
+    const { authenticated } = this.props
     return (
       <div ref={this.props.hostRef}>
         <Row justifyContent="center">
@@ -176,11 +178,21 @@ class Phone extends Component {
                     </Row>
                   </View>
                   <View bottom p={4}>
-                    <NavButtons
-                      previousStep={this.previousStep}
-                      onSubmit={this.nextStep}
-                      submitEnabled={isValid}
-                    />
+                  <AccountKit
+                    appId={process.env.FACEBOOK_APP_ID}
+                    appSecret={process.env.ACCOUNT_KIT_APP_SECRET}
+                    phoneNumber={this.state.localAreaCode + this.state.number}
+                    onSuccess={this.nextStep}
+                    version="v1.0"
+                  >
+                    {({signIn, loading}) => (
+                      <NavButtons
+                        previousStep={this.previousStep}
+                        onSubmit={authenticated ? this.nextStep : signIn}
+                        submitEnabled={isValid}
+                      />
+                    )}
+                  </AccountKit>
                   </View>
                 </>
               )}
