@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 import { getAnimatedScreen } from './animation'
 import {
   navigateTo,
+  resetStore,
   updateLocation,
   updateHomeDetails,
   updateRooms,
@@ -24,6 +25,7 @@ import Pricing from 'components/listings/new-listing/steps/Pricing'
 import Services from 'components/listings/new-listing/steps/Services'
 import Summary from 'components/listings/new-listing/steps/Summary'
 import NotifyCoverage from 'components/listings/new-listing/steps/NotifyCoverage'
+import NotifyCoverageSuccess from 'components/listings/new-listing/steps/NotifyCoverageSuccess'
 
 // Navigation steps
 const steps = {
@@ -37,7 +39,11 @@ const steps = {
   },
   notifyCoverage: {
     component: NotifyCoverage,
-    canNavigateTo: ['addressInput']
+    canNavigateTo: ['addressInput', 'notifyCoverageSuccess']
+  },
+  notifyCoverageSuccess: {
+    component: NotifyCoverageSuccess,
+    canNavigateTo: ['']
   },
   homeDetails: {
     component: HomeDetails,
@@ -112,6 +118,9 @@ const mapDispatchToProps = dispatch => {
     },
     updateServices: value => {
       dispatch(updateServices(value))
+    },
+    resetStore: () => {
+      dispatch(resetStore())
     }
   }
 }

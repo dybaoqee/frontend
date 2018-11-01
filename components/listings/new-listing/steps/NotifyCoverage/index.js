@@ -8,12 +8,14 @@ import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
+import { getAddressInput } from 'components/listings/new-listing/shared/AddressAutoComplete/address-input'
 
 class NotifyCoverage extends Component {
   constructor(props) {
     super(props)
-    this.exit = this.exit.bind(this)
+    this.previousStep = this.previousStep.bind(this)
     this.submit = this.submit.bind(this)
+    this.nextStep = this.nextStep.bind(this)
     this.validateName = this.validateName.bind(this)
     this.validateEmail = this.validateEmail.bind(this)
     this.nameField = React.createRef()
@@ -30,24 +32,38 @@ class NotifyCoverage extends Component {
     this.nameField.current.focus()
   }
 
-  exit() {
+  previousStep() {
     const { navigateTo } = this.props
     navigateTo('addressInput')
   }
 
+  nextStep() {
+    const { navigateTo } = this.props
+    navigateTo('notifyCoverageSuccess')
+  }
+
   async submit() {
     this.setState({loading: true})
+
     const { name, email } = this.state
+    const { addressData } = this.props.location
+    const { state, city, neighborhood } = getAddressInput(addressData)
     try {
-      const response = await apolloClient.mutate({
+      const { data } = await apolloClient.mutate({
         mutation: NOTIFY_WHEN_COVERED,
         variables: {
-          addressId: null,
+          state,
+          city,
+          neighborhood,
           name,
           email
         }
       })
-      
+
+      if (data) {
+        this.setState({loading: false})
+        this.nextStep()
+      }
     } catch (e) {
       this.setState({
         loading: false,
@@ -133,7 +149,7 @@ class NotifyCoverage extends Component {
                   <View bottom p={4}>
                     <Text color="red">{this.state.error}</Text>
                     <NavButtons
-                      previousStep={this.exit}
+                      previousStep={this.previousStep}
                       onSubmit={() => {
                         this.submit()
                       }}
