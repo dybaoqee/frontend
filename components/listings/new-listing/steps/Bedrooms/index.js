@@ -25,7 +25,9 @@ class Bedrooms extends Component {
     suites: 0,
     bathrooms: 0,
     enterMoreBedrooms: false,
-    enterMoreBathrooms: false
+    enterMoreBathrooms: false,
+    showSuites: false,
+    showBathrooms: false
   }
 
   componentDidMount() {
@@ -39,13 +41,7 @@ class Bedrooms extends Component {
   updateStateFromProps(props) {
     const { rooms } = props
     if (rooms) {
-      this.setState({
-        bedrooms: rooms.bedrooms,
-        suites: rooms.suites,
-        bathrooms: rooms.bathrooms,
-        enterMoreBedrooms: rooms.enterMoreBedrooms,
-        enterMoreBathrooms: rooms.enterMoreBathrooms
-      })
+      this.setState(rooms)
     }
   }
 
@@ -90,7 +86,7 @@ class Bedrooms extends Component {
             const intValue = parseInt(value)
             setFieldValue('bedroom', intValue)
             setFieldTouched('bedroom')
-            this.setState({bedrooms: intValue})
+            this.setState({bedrooms: intValue, showSuites: true})
           }} defaultValue={bedrooms} />
         </Col>
       )
@@ -103,7 +99,7 @@ class Bedrooms extends Component {
             const intValue = parseInt(value)
             setFieldValue('bedroom', intValue)
             setFieldTouched('bedroom')
-            this.setState({bedrooms: intValue})
+            this.setState({bedrooms: intValue, showSuites: true})
           }
         }}>
         <Button name="1" mr={2} value={1} height="tall">1</Button>
@@ -191,32 +187,35 @@ class Bedrooms extends Component {
                         validate={this.validateBedroom}
                         render={({form}) => this.bedroomSelection(setFieldTouched, setFieldValue, errors.bedroom, form.touched.bedroom)} />
                     </Row>
-                    <Text color="grey">Algum deles é suíte? Quantos?</Text>
-                    <Row mb={4} flexWrap="wrap">
-                      <Field
-                        name="suite"
-                        validate={this.validateSuite}
-                        render={() =>
-                          <Button.Group flexWrap="wrap" initialValue={suites} onChange={(value) => {
-                            setFieldValue('suite', value)
-                            setFieldTouched('suite')
-                            this.setState({suites: value})
-                            }}>
-                            <Button mr={2} value={0} height="tall">Sem suíte</Button>
-                            <Button mr={2} value={1} height="tall">1</Button>
-                            <Button mr={2} value={2} height="tall">2</Button>
-                            <Button mr={2} value={3} height="tall">3</Button>
-                            <Button mr={2} value={4} height="tall">4</Button>
-                          </Button.Group>
-                        }/>
-                    </Row>
-                    <Text color="grey">Quantos banheiros? (Sem contar os lavabos)</Text>
-                    <Row mb={4}>
-                      <Field
-                        name="bathroom"
-                        validate={this.validateBathroom}
-                        render={({form}) => this.bathroomSelection(setFieldTouched, setFieldValue, errors.bathroom, form.touched.bathroom)} />
-                    </Row>
+                    {this.state.showSuites && <> <Text color="grey">Algum deles é suíte? Quantos?</Text>
+                      <Row mb={4} flexWrap="wrap">
+                        <Field
+                          name="suite"
+                          validate={this.validateSuite}
+                          render={() =>
+                            <Button.Group flexWrap="wrap" initialValue={suites} onChange={(value) => {
+                              setFieldValue('suite', value)
+                              setFieldTouched('suite')
+                              this.setState({suites: value, showBathrooms: true})
+                              }}>
+                              <Button mr={2} value={0} height="tall">Sem suíte</Button>
+                              <Button mr={2} value={1} height="tall">1</Button>
+                              <Button mr={2} value={2} height="tall">2</Button>
+                              <Button mr={2} value={3} height="tall">3</Button>
+                              <Button mr={2} value={4} height="tall">4</Button>
+                            </Button.Group>
+                          }/>
+                      </Row>
+                    </>}
+                    {this.state.showBathrooms && <>
+                      <Text color="grey">Quantos banheiros? (Sem contar os lavabos)</Text>
+                      <Row mb={4}>
+                        <Field
+                          name="bathroom"
+                          validate={this.validateBathroom}
+                          render={({form}) => this.bathroomSelection(setFieldTouched, setFieldValue, errors.bathroom, form.touched.bathroom)} />
+                      </Row>
+                    </>}
                   </View>
                   <View bottom p={4}>
                     <NavButtons
