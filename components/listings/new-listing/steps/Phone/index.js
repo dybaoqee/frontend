@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Router from 'next/router'
 import { Formik, Field } from 'formik'
 
 import AccountKit from 'components/shared/Auth/AccountKit'
@@ -34,6 +35,13 @@ class Phone extends Component {
   componentDidMount() {
     this.updateStateFromProps(this.props)
     this.dddField.current.focus()
+
+    Router.events.on('routeChangeStart', (url) => {
+      if (url === '/anuncie') {
+        this.nextStep()
+      }
+      return true
+    })
   }
 
   componentWillReceiveProps(props) {
@@ -174,7 +182,7 @@ class Phone extends Component {
                               }}
                             />
                           )}/>
-                      </Col>                      
+                      </Col>
                     </Row>
                   </View>
                   <View bottom p={4}>
@@ -182,8 +190,11 @@ class Phone extends Component {
                     appId={process.env.FACEBOOK_APP_ID}
                     appSecret={process.env.ACCOUNT_KIT_APP_SECRET}
                     phoneNumber={this.state.localAreaCode + this.state.number}
-                    onSuccess={this.nextStep}
                     version="v1.0"
+                    skipRedirect
+                    onSuccess={() => {
+                      Router.push('/anuncie')
+                    }}
                   >
                     {({signIn, loading}) => (
                       <NavButtons

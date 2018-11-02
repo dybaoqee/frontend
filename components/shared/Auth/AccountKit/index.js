@@ -80,12 +80,17 @@ class AccountKit extends Component {
       options.emailAddress = emailAddress
     }
 
-    window.AccountKit.login(loginType, options, (resp) => onSuccess ? onSuccess(resp) : this.onSuccess(resp))
+    window.AccountKit.login(loginType, options, async (resp) => {
+      await this.onSuccess(resp)
+      if (onSuccess) {
+        onSuccess()
+      }
+    })
   }
 
   onSuccess = async (resp) => {
     const {code} = resp
-    const {appId, appSecret} = this.props
+    const {appId, appSecret, skipRedirect} = this.props
 
     if (code) {
       this.setState({loading: true})
@@ -109,6 +114,10 @@ class AccountKit extends Component {
       }
 
       signUpUser(user)
+
+      if (skipRedirect) {
+        return
+      }
 
       if (
         userInfo.data.accountKitSignIn.user.email &&
@@ -158,7 +167,8 @@ AccountKit.propTypes = {
   countryCode: PropTypes.string,
   phoneNumber: PropTypes.string,
   emailAddress: PropTypes.string,
-  autoLogin: PropTypes.bool
+  autoLogin: PropTypes.bool,
+  skipRedirect: PropTypes.bool
 }
 
 AccountKit.defaultProps = {
