@@ -64,10 +64,9 @@ class Phone extends Component {
     navigateTo(step)
   }
 
-  onSignIn(userInfo) {
+  onSignIn() {
     this.updatePhone()
-    const nextStep = userInfo.data.accountKitSignIn.user.name ? 'pricing' : 'personal'
-    this.navigateTo(nextStep)
+    this.navigateTo('pricing')
   }
 
   previousStep() {
@@ -196,10 +195,8 @@ class Phone extends Component {
                     appSecret={process.env.ACCOUNT_KIT_APP_SECRET}
                     phoneNumber={this.state.localAreaCode + this.state.number}
                     version="v1.0"
-                    skipRedirect
-                    onSuccess={(userInfo) => {
-                      this.onSignIn(userInfo)
-                    }}
+                    redirectPath='/anuncie'
+                    onSuccess={this.onSignIn}
                   >
                     {({signIn}) => (
                       <NavButtons
