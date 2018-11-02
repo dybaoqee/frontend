@@ -15,7 +15,9 @@ const BRAZIL_CODE = '55'
 class Phone extends Component {
   constructor(props) {
     super(props)
-    this.nextStep = this.nextStep.bind(this)
+    this.updatePhone = this.updatePhone.bind(this)
+    this.onSignIn = this.onSignIn.bind(this)
+    this.navigateTo = this.navigateTo.bind(this)
     this.previousStep = this.previousStep.bind(this)
     this.validateInternationalCode = this.validateInternationalCode.bind(this)
     this.validateLocalAreaCode = this.validateLocalAreaCode.bind(this)
@@ -35,13 +37,6 @@ class Phone extends Component {
   componentDidMount() {
     this.updateStateFromProps(this.props)
     this.dddField.current.focus()
-
-    Router.events.on('routeChangeStart', (url) => {
-      if (url === '/anuncie') {
-        this.nextStep()
-      }
-      return true
-    })
   }
 
   componentWillReceiveProps(props) {
@@ -59,10 +54,20 @@ class Phone extends Component {
     }
   }
 
-  nextStep() {
-    const { navigateTo, updatePhone } = this.props
+  updatePhone() {
+    const { updatePhone } = this.props
     updatePhone(this.state)
-    navigateTo('personal')
+  }
+
+  navigateTo(step) {
+    const { navigateTo } = this.props
+    navigateTo(step)
+  }
+
+  onSignIn(userInfo) {
+    this.updatePhone()
+    const nextStep = userInfo.data.accountKitSignIn.user.name ? 'pricing' : 'personal'
+    this.navigateTo(nextStep)
   }
 
   previousStep() {
@@ -192,14 +197,20 @@ class Phone extends Component {
                     phoneNumber={this.state.localAreaCode + this.state.number}
                     version="v1.0"
                     skipRedirect
-                    onSuccess={() => {
-                      Router.push('/anuncie')
+                    onSuccess={(userInfo) => {
+                      this.onSignIn(userInfo)
                     }}
                   >
-                    {({signIn, loading}) => (
+                    {({signIn}) => (
                       <NavButtons
                         previousStep={this.previousStep}
-                        onSubmit={authenticated ? this.nextStep : signIn}
+                        onSubmit={() => {
+                          if (authenticated) {
+                            this.navigateTo('pricing')
+                          } else {
+                            signIn()
+                          }
+                        }}
                         submitEnabled={isValid}
                       />
                     )}

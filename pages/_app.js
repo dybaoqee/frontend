@@ -79,7 +79,6 @@ class MyApp extends App {
       error,
       store
     } = this.props
-
     return (
       <Container>
         <ApolloProvider client={apolloClient}>

@@ -81,9 +81,9 @@ class AccountKit extends Component {
     }
 
     window.AccountKit.login(loginType, options, async (resp) => {
-      await this.onSuccess(resp)
-      if (onSuccess) {
-        onSuccess()
+      const userInfo = await this.onSuccess(resp)
+      if (onSuccess && userInfo) {
+        onSuccess(userInfo)
       }
     })
   }
@@ -116,7 +116,8 @@ class AccountKit extends Component {
       signUpUser(user)
 
       if (skipRedirect) {
-        return
+        this.setState({loading: false})
+        return userInfo
       }
 
       if (
