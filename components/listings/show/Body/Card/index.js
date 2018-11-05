@@ -97,7 +97,7 @@ export default class ListingCard extends React.Component {
           </button>
           <p className="phone">
             Se preferir, entre em contato por<br />
-            <a href="https://wa.me/5521996095399">
+            <a href="https://wa.me/5521994771868">
               <Space />
               <NoSSR>
                 <FontAwesomeIcon icon={faWhatsApp} />
@@ -107,13 +107,13 @@ export default class ListingCard extends React.Component {
             </a>
             <Space />
             ou
-            <a href="tel:+552131956541">
+            <a href="tel:+5521994771868">
               <Space />
               <NoSSR>
                 <FontAwesomeIcon icon={faPhone} />
               </NoSSR>
               <Space />
-              (21) 3195-6541
+              (21) 99477-1868
             </a>
           </p>
         </div>
