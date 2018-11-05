@@ -15,9 +15,7 @@ const BRAZIL_CODE = '55'
 class Phone extends Component {
   constructor(props) {
     super(props)
-    this.updatePhone = this.updatePhone.bind(this)
-    this.onSignIn = this.onSignIn.bind(this)
-    this.navigateTo = this.navigateTo.bind(this)
+    this.nextStep = this.nextStep.bind(this)
     this.previousStep = this.previousStep.bind(this)
     this.validateInternationalCode = this.validateInternationalCode.bind(this)
     this.validateLocalAreaCode = this.validateLocalAreaCode.bind(this)
@@ -54,19 +52,10 @@ class Phone extends Component {
     }
   }
 
-  updatePhone() {
-    const { updatePhone } = this.props
+  nextStep() {
+    const { updatePhone, navigateTo } = this.props
     updatePhone(this.state)
-  }
-
-  navigateTo(step) {
-    const { navigateTo } = this.props
-    navigateTo(step)
-  }
-
-  onSignIn() {
-    this.updatePhone()
-    this.navigateTo('pricing')
+    navigateTo('personal')
   }
 
   previousStep() {
@@ -196,14 +185,14 @@ class Phone extends Component {
                     phoneNumber={this.state.localAreaCode + this.state.number}
                     version="v1.0"
                     redirectPath='/anuncie'
-                    onSuccess={this.onSignIn}
+                    onSuccess={this.nextStep}
                   >
                     {({signIn}) => (
                       <NavButtons
                         previousStep={this.previousStep}
                         onSubmit={() => {
                           if (authenticated) {
-                            this.navigateTo('pricing')
+                            this.nextStep()
                           } else {
                             signIn()
                           }
