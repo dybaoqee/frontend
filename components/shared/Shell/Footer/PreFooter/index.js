@@ -32,7 +32,7 @@ export default class PreFooter extends Component {
           <h4>Suporte</h4>
           <div>
             <FontAwesomeIcon icon={faPhone} />
-            <a href="tel:+552131956541"> (21) 3195-6541 </a>
+            <a href="tel:+5521994771868"> (21) 99477-1868 </a>
           </div>
           <div>
             <FontAwesomeIcon icon={faWhatsApp} />

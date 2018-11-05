@@ -22,7 +22,7 @@ export default () => (
       </span>
       ou pelo telefone
       <span>
-        <a href="tel:+552131956541"> (21) 3195-6541 </a>
+        <a href="tel:+5521994771868"> (21) 99477-1868 </a>
       </span>
     </p>
     <p className="mobile">
@@ -38,7 +38,7 @@ export default () => (
       </span>
 
       <span>
-        <a href="tel:+552131956541"> (21) 3195-6541 </a>
+        <a href="tel:+5521994771868"> (21) 99477-1868 </a>
       </span>
     </p>
   </Container>
