@@ -58,8 +58,9 @@ const initialState = {
     editingPrice: null
   },
   services: {
-    tour: false,
-    photos: false
+    wantsTour: false,
+    wantsPhotos: false,
+    availableTimes: null
   },
   tour: {
     date: null,

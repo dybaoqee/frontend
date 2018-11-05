@@ -17,7 +17,8 @@ class Tour extends Component {
   }
 
   state = {
-    date: null,
+    month: null,
+    day: null,
     time: null
   }
 
@@ -51,7 +52,7 @@ class Tour extends Component {
   }
 
   render() {
-    const { tour } = this.props
+    const { tour, services } = this.props
     let date, time
     if (tour) {
       date = tour.date

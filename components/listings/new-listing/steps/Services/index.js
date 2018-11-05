@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Formik, Field } from 'formik'
 
+import { TOUR_OPTIONS } from 'graphql/listings/queries'
 import Button from '@emcasa/ui-dom/components/Button'
 import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
@@ -15,16 +16,19 @@ class Services extends Component {
     super(props)
     this.nextStep = this.nextStep.bind(this)
     this.skipStep = this.skipStep.bind(this)
-    this.schedule = this.schedule.bind(this)
     this.updateStateFromProps = this.updateStateFromProps.bind(this)
 
+    this.getAvailableTimes = this.getAvailableTimes.bind(this)
     this.validateScheduling = this.validateScheduling.bind(this)
   }
 
   state = {
-    tour: false,
-    photos: false,
-    when: null
+    wantsTour: false,
+    wantsPictures: false,
+    availableTimes: null,
+    when: null,
+    loading: false,
+    error: null
   }
 
   componentDidMount() {
@@ -39,27 +43,44 @@ class Services extends Component {
     const { services } = props
     if (services) {
       this.setState({
-        tour: services.tour,
-        photos: services.photos
+        wantsTour: services.wantsTour,
+        wantsPictures: services.wantsPictures
       })
     }
   }
 
-  nextStep() {
+  async getAvailableTimes() {
+    this.setState({loading: true})
+    try {
+      const { data } = await apolloClient.query({
+        query: TOUR_OPTIONS
+      })
+      this.setState({
+        loading: false,
+        error: null
+      })
+      this.nextStep(data)
+    } catch (e) {
+      this.setState({
+        loading: false,
+        error: 'Ocorreu um erro. Por favor, tente novamente.'
+      })
+    }
+  }
+
+  nextStep(data) {
     const { navigateTo, updateServices } = this.props
-    updateServices(this.state)
+    updateServices({
+      wantsTour: this.state.wantsTour,
+      wantsPictures: this.state.wantsPictures,
+      availableTimes: data
+    })
     navigateTo('tour')
   }
 
   skipStep() {
     const { navigateTo } = this.props
     navigateTo('summary')
-  }
-
-  schedule() {
-    const { navigateTo, updateServices } = this.props
-    updateServices(this.state)
-    navigateTo('scheduling')
   }
 
   validateScheduling(value) {
@@ -70,10 +91,10 @@ class Services extends Component {
 
   render() {
     const { services, scheduling } = this.props
-    let tour, photos, when
+    let wantsTour, wantsPictures, when
     if (services && scheduling) {
-      tour = services.tour
-      photos = services.photos
+      wantsTour = services.wantsTour
+      wantsPictures = services.wantsPictures
       when = scheduling.when
     }
     return (
@@ -82,8 +103,8 @@ class Services extends Component {
           <Col width={[1, 1/2]}>
             <Formik
               initialValues={{
-                tour,
-                photos
+                wantsTour,
+                wantsPictures
               }}
               isInitialValid={() => {
                 return !(this.validateScheduling(when))
@@ -102,29 +123,30 @@ class Services extends Component {
                       <SelectCard
                         image="tour"
                         text="Quero o Tour Virtual 3D"
-                        checked={this.state.tour}
+                        checked={this.state.wantsTour}
                         onClick={() => {
-                          this.setState({tour: !this.state.tour})
+                          this.setState({wantsTour: !this.state.wantsTour})
                         }}
                       />
                       <SelectCard
                         image="camera"
                         text="Quero Fotos Profissionais"
-                        checked={this.state.photos}
+                        checked={this.state.wantsPictures}
                         onClick={() => {
-                          this.setState({photos: !this.state.photos})
+                          this.setState({wantsPictures: !this.state.wantsPictures})
                         }}
                       />
                     </Row>
-                    {(this.state.tour || this.state.photos) &&
+                    {(this.state.wantsTour || this.state.wantsPictures) &&
                       <>
                         <View><Text inline fontSize="small">Quando?</Text></View>
                         <SchedulingButton
                           fluid
-                          onClick={this.nextStep}
+                          onClick={this.getAvailableTimes}
                         >
                         00/00/0000 - entre 00h e 00h
                         </SchedulingButton>
+                        <View><Text inline color="red">{this.state.error}</Text></View>
                       </>
                     }
                   </View>

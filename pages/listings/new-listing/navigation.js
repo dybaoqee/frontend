@@ -85,7 +85,7 @@ const steps = {
   },
   summary: {
     component: Summary,
-    canNavigateTo: ['services']
+    canNavigateTo: ['tour', 'services']
   }
 }
 
