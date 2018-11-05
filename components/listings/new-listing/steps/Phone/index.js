@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
+import Router from 'next/router'
 import { Formik, Field } from 'formik'
 
+import AccountKit from 'components/shared/Auth/AccountKit'
 import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
@@ -13,7 +15,9 @@ const BRAZIL_CODE = '55'
 class Phone extends Component {
   constructor(props) {
     super(props)
-    this.nextStep = this.nextStep.bind(this)
+    this.updatePhone = this.updatePhone.bind(this)
+    this.onSignIn = this.onSignIn.bind(this)
+    this.navigateTo = this.navigateTo.bind(this)
     this.previousStep = this.previousStep.bind(this)
     this.validateInternationalCode = this.validateInternationalCode.bind(this)
     this.validateLocalAreaCode = this.validateLocalAreaCode.bind(this)
@@ -50,10 +54,19 @@ class Phone extends Component {
     }
   }
 
-  nextStep() {
-    const { navigateTo, updatePhone } = this.props
+  updatePhone() {
+    const { updatePhone } = this.props
     updatePhone(this.state)
-    navigateTo('personal')
+  }
+
+  navigateTo(step) {
+    const { navigateTo } = this.props
+    navigateTo(step)
+  }
+
+  onSignIn() {
+    this.updatePhone()
+    this.navigateTo('pricing')
   }
 
   previousStep() {
@@ -87,6 +100,7 @@ class Phone extends Component {
       localAreaCode = phone.localAreaCode
       number = phone.number
     }
+    const { authenticated } = this.props
     return (
       <div ref={this.props.hostRef}>
         <Row justifyContent="center">
@@ -172,15 +186,32 @@ class Phone extends Component {
                               }}
                             />
                           )}/>
-                      </Col>                      
+                      </Col>
                     </Row>
                   </View>
                   <View bottom p={4}>
-                    <NavButtons
-                      previousStep={this.previousStep}
-                      onSubmit={this.nextStep}
-                      submitEnabled={isValid}
-                    />
+                  <AccountKit
+                    appId={process.env.FACEBOOK_APP_ID}
+                    appSecret={process.env.ACCOUNT_KIT_APP_SECRET}
+                    phoneNumber={this.state.localAreaCode + this.state.number}
+                    version="v1.0"
+                    redirectPath='/anuncie'
+                    onSuccess={this.onSignIn}
+                  >
+                    {({signIn}) => (
+                      <NavButtons
+                        previousStep={this.previousStep}
+                        onSubmit={() => {
+                          if (authenticated) {
+                            this.navigateTo('pricing')
+                          } else {
+                            signIn()
+                          }
+                        }}
+                        submitEnabled={isValid}
+                      />
+                    )}
+                  </AccountKit>
                   </View>
                 </>
               )}

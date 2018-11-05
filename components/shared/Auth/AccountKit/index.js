@@ -67,7 +67,7 @@ class AccountKit extends Component {
   }
 
   signIn = () => {
-    const {loginType, countryCode, phoneNumber, emailAddress} = this.props
+    const {loginType, countryCode, phoneNumber, emailAddress, onSuccess} = this.props
 
     const options = {}
     if (countryCode) {
@@ -80,12 +80,17 @@ class AccountKit extends Component {
       options.emailAddress = emailAddress
     }
 
-    window.AccountKit.login(loginType, options, (resp) => this.onSuccess(resp))
+    window.AccountKit.login(loginType, options, async (resp) => {
+      await this.onSuccess(resp)
+      if (onSuccess) {
+        onSuccess()
+      }
+    })
   }
 
   onSuccess = async (resp) => {
     const {code} = resp
-    const {appId, appSecret} = this.props
+    const {appId, appSecret, redirectPath} = this.props
 
     if (code) {
       this.setState({loading: true})
@@ -115,7 +120,11 @@ class AccountKit extends Component {
         userInfo.data.accountKitSignIn.user.name
       ) {
         this.setState({loading: false})
-        redirect(getCookie('redirectTo') || '/')
+        if (redirectPath) {
+          redirect(redirectPath)
+        } else {
+          redirect(getCookie('redirectTo') || '/')
+        }
       } else {
         this.setState({userInfo: userInfo.data, loading: false})
         setCookie('accountkitinit', 1)
@@ -158,7 +167,8 @@ AccountKit.propTypes = {
   countryCode: PropTypes.string,
   phoneNumber: PropTypes.string,
   emailAddress: PropTypes.string,
-  autoLogin: PropTypes.bool
+  autoLogin: PropTypes.bool,
+  redirectPath: PropTypes.string
 }
 
 AccountKit.defaultProps = {

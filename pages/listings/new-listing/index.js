@@ -97,6 +97,12 @@ class NewListing extends Component {
     const { client } = this.props
     const step = this.props.step || 'intro'
     const { address } = this.props.location
+    const { authenticated } = this.props.user
+    const screenProps = {
+      step,
+      client,
+      authenticated
+    }
     return (
       <ThemeProvider theme={theme}>
         {this.state.resuming ?
@@ -107,7 +113,7 @@ class NewListing extends Component {
           />
         :
           <PoseGroup>
-            {getScreen(step, client)}
+            {getScreen(screenProps)}
           </PoseGroup>
         }
       </ThemeProvider>

@@ -63,7 +63,7 @@ const steps = {
   },
   phone: {
     component: Phone,
-    canNavigateTo: ['differential', 'personal']
+    canNavigateTo: ['differential', 'personal', 'pricing']
   },
   personal: {
     component: Personal,
@@ -71,7 +71,7 @@ const steps = {
   },
   pricing: {
     component: Pricing,
-    canNavigateTo: ['personal', 'services']
+    canNavigateTo: ['personal', 'services', 'phone']
   },
   services: {
     component: Services,
@@ -137,13 +137,18 @@ const getStepEntry = (key) => {
 /**
  * Returns the Screen Component with the given key.
  */
-const getScreen = (key, client) => {
-  const entry = getStepEntry(key)
+const getScreen = (screenProps) => {
+  const { step, client, authenticated } = screenProps
+  const entry = getStepEntry(step)
   const Screen = entry.component
   const AnimatedScreen = getAnimatedScreen(Screen)
   const ConnectedScreen = connect(mapStateToProps, mapDispatchToProps)(AnimatedScreen)
   return (
-    <ConnectedScreen key={key} client={client} />
+    <ConnectedScreen
+      key={step}
+      client={client}
+      authenticated={authenticated}
+    />
   )
 }
 
