@@ -8,6 +8,7 @@ import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import SelectCard from 'components/listings/new-listing/shared/SelectCard'
+import { SchedulingButton } from './styles'
 
 class Services extends Component {
   constructor(props) {
@@ -47,6 +48,7 @@ class Services extends Component {
   nextStep() {
     const { navigateTo, updateServices } = this.props
     updateServices(this.state)
+    navigateTo('tour')
   }
 
   skipStep() {
@@ -114,6 +116,17 @@ class Services extends Component {
                         }}
                       />
                     </Row>
+                    {(this.state.tour || this.state.photos) &&
+                      <>
+                        <View><Text inline fontSize="small">Quando?</Text></View>
+                        <SchedulingButton
+                          fluid
+                          onClick={this.nextStep}
+                        >
+                        00/00/0000 - entre 00h e 00h
+                        </SchedulingButton>
+                      </>
+                    }
                   </View>
                   <View bottom p={4}>
                     <Row justifyContent="space-between">

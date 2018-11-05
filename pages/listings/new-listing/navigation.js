@@ -11,7 +11,8 @@ import {
   updatePhone,
   updatePersonal,
   updatePricing,
-  updateServices
+  updateServices,
+  updateTour
 } from 'redux/actions'
 import Intro from 'components/listings/new-listing/steps/Intro'
 import AddressInput from 'components/listings/new-listing/steps/AddressInput'
@@ -26,6 +27,7 @@ import Services from 'components/listings/new-listing/steps/Services'
 import Summary from 'components/listings/new-listing/steps/Summary'
 import NotifyCoverage from 'components/listings/new-listing/steps/NotifyCoverage'
 import NotifyCoverageSuccess from 'components/listings/new-listing/steps/NotifyCoverageSuccess'
+import Tour from 'components/listings/new-listing/steps/Tour'
 
 // Navigation steps
 const steps = {
@@ -75,7 +77,11 @@ const steps = {
   },
   services: {
     component: Services,
-    canNavigateTo: ['pricing', 'scheduling', 'summary']
+    canNavigateTo: ['pricing', 'scheduling', 'summary', 'tour']
+  },
+  tour: {
+    component: Tour,
+    canNavigateTo: ['services', 'summary']
   },
   summary: {
     component: Summary,
@@ -118,6 +124,9 @@ const mapDispatchToProps = dispatch => {
     },
     updateServices: value => {
       dispatch(updateServices(value))
+    },
+    updateTour: value => {
+      dispatch(updateTour(value))
     },
     resetStore: () => {
       dispatch(resetStore())

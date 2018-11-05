@@ -9,6 +9,7 @@ import {
   UPDATE_PERSONAL,
   UPDATE_PRICING,
   UPDATE_SERVICES,
+  UPDATE_TOUR,
   RESET_STORE,
   START
 } from './actions'
@@ -59,6 +60,10 @@ const initialState = {
   services: {
     tour: false,
     photos: false
+  },
+  tour: {
+    date: null,
+    time: null
   }
 }
 
@@ -118,6 +123,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         services: action.value
+      }
+    case UPDATE_TOUR:
+      return {
+        ...state,
+        tour: action.value
       }
     case RESET_STORE:
       return initialState

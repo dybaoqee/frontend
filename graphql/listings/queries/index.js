@@ -174,3 +174,9 @@ export const ADDRESS_IS_COVERED = gql`
     addressIsCovered(city: $city, neighborhood: $neighborhood, state: $state)
   }
 `
+
+export const TOUR_OPTIONS = gql`
+  {
+    tourOptions
+  }
+`
