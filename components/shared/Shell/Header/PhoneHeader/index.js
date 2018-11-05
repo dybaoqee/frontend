@@ -10,7 +10,7 @@ export default () => (
     <p className="desktop">
       Entre em contato por
       <span>
-        <a href="https://wa.me/5521996095399">
+        <a href="https://wa.me/5521994771868">
           <Space />
           <NoSSR>
             <FontAwesomeIcon icon={faPhone} />
@@ -22,12 +22,12 @@ export default () => (
       </span>
       ou pelo telefone
       <span>
-        <a href="tel:+552131956541"> (21) 3195-6541 </a>
+        <a href="tel:+5521994771868"> (21) 99477-1868 </a>
       </span>
     </p>
     <p className="mobile">
       <span>
-        <a href="https://wa.me/5521996095399">
+        <a href="https://wa.me/5521994771868">
           <NoSSR>
             <FontAwesomeIcon icon={faPhone} />
           </NoSSR>
@@ -38,7 +38,7 @@ export default () => (
       </span>
 
       <span>
-        <a href="tel:+552131956541"> (21) 3195-6541 </a>
+        <a href="tel:+5521994771868"> (21) 99477-1868 </a>
       </span>
     </p>
   </Container>

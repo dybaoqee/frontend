@@ -12,7 +12,7 @@ export default () => (
       <p>
         Entre em contato conosco através do e-mail{' '}
         <a href="mailto:contato@emcasa.com">contato@emcasa.com</a> ou por
-        <a href="https://wa.me/5521996095399"> WhatsApp </a>
+        <a href="https://wa.me/5521994771868"> WhatsApp </a>
       </p>
     </Description>
   </Container>

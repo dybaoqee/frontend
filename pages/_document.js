@@ -69,9 +69,6 @@ export default class AppDocument extends Document {
           )}
           <Main />
           <NextScript />
-          {prod && (
-            <script async type="text/javascript" src={RD_STATION_SCRIPT} />
-          )}
         </body>
       </html>
     )
