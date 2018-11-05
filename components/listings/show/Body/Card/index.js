@@ -97,7 +97,7 @@ export default class ListingCard extends React.Component {
           </button>
           <p className="phone">
             Se preferir, entre em contato por<br />
-            <a href="https://wa.me/5521996095399">
+            <a href="https://wa.me/5521994771868">
               <Space />
               <NoSSR>
                 <FontAwesomeIcon icon={faWhatsApp} />

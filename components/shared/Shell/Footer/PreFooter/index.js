@@ -36,7 +36,7 @@ export default class PreFooter extends Component {
           </div>
           <div>
             <FontAwesomeIcon icon={faWhatsApp} />
-            <a href="https://wa.me/5521996095399">WhatsApp</a>
+            <a href="https://wa.me/5521994771868">WhatsApp</a>
           </div>
           <div>
             <FontAwesomeIcon icon={faMail} />

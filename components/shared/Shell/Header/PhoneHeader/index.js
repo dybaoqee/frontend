@@ -10,7 +10,7 @@ export default () => (
     <p className="desktop">
       Entre em contato por
       <span>
-        <a href="https://wa.me/5521996095399">
+        <a href="https://wa.me/5521994771868">
           <Space />
           <NoSSR>
             <FontAwesomeIcon icon={faPhone} />
@@ -27,7 +27,7 @@ export default () => (
     </p>
     <p className="mobile">
       <span>
-        <a href="https://wa.me/5521996095399">
+        <a href="https://wa.me/5521994771868">
           <NoSSR>
             <FontAwesomeIcon icon={faPhone} />
           </NoSSR>
