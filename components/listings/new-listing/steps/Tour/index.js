@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Formik, Field } from 'formik'
 
-import Button from '@emcasa/ui-dom/components/Button'
 import RadioButton from '@emcasa/ui-dom/components/RadioButton'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
@@ -14,9 +13,16 @@ import {
   getTourDays,
   getTourHours
 } from './times'
-
-const MAX_MONTHS_TO_DISPLAY = 1
-const MAX_DAYS_TO_DISPLAY = 3
+import {
+  NEXT,
+  PREVIOUS,
+  MAX_MONTHS_TO_DISPLAY,
+  MAX_DAYS_TO_DISPLAY,
+  EARLY,
+  LATE,
+  EARLY_DISPLAY,
+  LATE_DISPLAY
+} from './constants'
 
 class Tour extends Component {
   constructor(props) {
@@ -27,10 +33,8 @@ class Tour extends Component {
     this.getTourMonths = this.getTourMonths.bind(this)
     this.getTourDays = this.getTourDays.bind(this)
 
-    this.previousMonth = this.previousMonth.bind(this)
-    this.nextMonth = this.nextMonth.bind(this)
-    this.previousDay = this.previousDay.bind(this)
-    this.nextDay = this.nextDay.bind(this)
+    this.changeMonth = this.changeMonth.bind(this)
+    this.selectDay = this.selectDay.bind(this)
   }
 
   state = {
@@ -114,6 +118,7 @@ class Tour extends Component {
         i++
         return (
           <Slider.Button
+            onClick={() => {this.setState({date: item.key})}}
             key={item.key}
             {...item} />
         )
@@ -121,9 +126,9 @@ class Tour extends Component {
     })
   }
 
-  nextMonth() {
+  changeMonth(direction) {
     const { services: { tourOptions } } = this.props
-    const monthOffset = this.state.monthOffset + 1
+    const monthOffset = this.state.monthOffset + direction
     this.setState({
       monthOffset,
       dayOffset: 0,
@@ -131,22 +136,17 @@ class Tour extends Component {
     })
   }
 
-  previousMonth() {
-    const { services: { tourOptions } } = this.props
-    const monthOffset = this.state.monthOffset - 1
-    this.setState({
-      monthOffset,
-      dayOffset: 0,
-      month: getTourMonths(tourOptions)[monthOffset].date.getMonth()
-    })
+  selectDay(direction) {
+    this.setState({dayOffset: this.state.dayOffset + direction})
   }
 
-  nextDay() {
-    this.setState({dayOffset: this.state.dayOffset + 1})
-  }
-
-  previousDay() {
-    this.setState({dayOffset: this.state.dayOffset - 1})
+  getTimeDisplay(time) {
+    if (time === EARLY) {
+      return EARLY_DISPLAY
+    } else if (time === LATE) {
+      return LATE_DISPLAY
+    }
+    return time
   }
 
   render() {
@@ -191,27 +191,48 @@ class Tour extends Component {
                           <Slider
                             previousDisabled={previousMonthDisabled}
                             nextDisabled={nextMonthDisabled}
-                            onPrevious={this.previousMonth}
-                            onNext={this.nextMonth}
+                            onPrevious={() => {this.changeMonth(PREVIOUS)}}
+                            onNext={() => {this.changeMonth(NEXT)}}
                           >
                             {this.getTourMonths()}
                           </Slider>
                         }/>
-                      </Row>
-                      <Row mb={4}>
-                        <Field
-                          name="date"
-                          render={() =>
-                            <Slider
-                              previousDisabled={previousDayDisabled}
-                              nextDisabled={nextDayDisabled}
-                              onPrevious={this.previousDay}
-                              onNext={this.nextDay}
-                            >
-                              {this.getTourDays()}
-                            </Slider>
-                          }/>
-                      </Row>
+                    </Row>
+                    <Row mb={4}>
+                      <Field
+                        name="date"
+                        render={() =>
+                          <Slider
+                            previousDisabled={previousDayDisabled}
+                            nextDisabled={nextDayDisabled}
+                            onPrevious={() => {this.selectDay(PREVIOUS)}}
+                            onNext={() => {this.selectDay(NEXT)}}
+                          >
+                            {this.getTourDays()}
+                          </Slider>
+                        }/>
+                    </Row>
+                    <Row mb={4}>
+                      <Field
+                        name="time"
+                        render={() =>
+                          <Col width={1}>
+                            <RadioButton.Group>
+                              {tourHours.map((item) => {
+                                return (
+                                  <>
+                                    <RadioButton
+                                      label={this.getTimeDisplay(item)}
+                                      value={item}
+                                    />
+                                    <View mb={2} />
+                                  </>
+                                )
+                              })}
+                            </RadioButton.Group>
+                          </Col>
+                        }/>
+                    </Row>
                   </View>
                   <View bottom p={4}>
                     <NavButtons
