@@ -8,6 +8,7 @@ import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
+import { getTourOptions } from './times'
 
 class Tour extends Component {
   constructor(props) {
