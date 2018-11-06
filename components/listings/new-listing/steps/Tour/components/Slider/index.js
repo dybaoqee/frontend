@@ -25,15 +25,24 @@ class Slider extends PureComponent {
   }
 
   render() {
-    const { children } = this.props
+    const {
+      children,
+      previousDisabled,
+      onPrevious,
+      nextDisabled,
+      onNext
+    } = this.props
     return (
       <Row
         width={1}
         alignItems="center"
         justifyContent="space-between">
         <Col>
-          <PageButton>
-            <Icon name="caret-left" />
+          <PageButton
+            disabled={previousDisabled}
+            onClick={onPrevious}
+          >
+            <Icon name="caret-left" color={previousDisabled ? 'grey' : 'dark'} />
           </PageButton>
         </Col>
         <Col>
@@ -44,8 +53,11 @@ class Slider extends PureComponent {
           </Row>
         </Col>
         <Col>
-          <PageButton>
-            <Icon name="caret-right" />
+          <PageButton
+            disabled={nextDisabled}
+            onClick={onNext}
+          >
+            <Icon name="caret-right" color={nextDisabled ? 'grey' : 'dark'} />
           </PageButton>
         </Col>
       </Row>
@@ -53,7 +65,14 @@ class Slider extends PureComponent {
   }
 }
 
-Slider.Button = ({dayOfWeek, day}) => {
+Slider.propTypes = {
+  nextDisabled: PropTypes.bool.isRequired,
+  previousDisabled: PropTypes.bool.isRequired,
+  onNext: PropTypes.func.isRequired,
+  onPrevious: PropTypes.func.isRequired
+}
+
+Slider.Button = ({day, dayOfWeek}) => {
   return (
     <SliderButton
       mx={1}
@@ -61,9 +80,9 @@ Slider.Button = ({dayOfWeek, day}) => {
     >
     <Row alignItems="center" justifyContent="center">
     <Col>
-      <Text inline fontSize="large">{dayOfWeek}</Text>
+      <Text inline fontSize="large">{day}</Text>
       {' '}
-      <Text inline>{day}</Text>
+      <Text inline>{dayOfWeek}</Text>
       </Col>
       </Row>
     </SliderButton>
