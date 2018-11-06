@@ -9,7 +9,11 @@ import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import Slider from './components/Slider'
-import { getTourOptions } from './times'
+import {
+  getTourMonths,
+  getTourDays,
+  getTourHours
+} from './times'
 import { SliderButton } from './components/Slider/styles'
 
 class Tour extends Component {
@@ -63,6 +67,10 @@ class Tour extends Component {
       day = tour.day
       time = tour.time
     }
+    const { tourOptions } = services
+    const tourMonths = getTourMonths(tourOptions)
+    const tourDays = getTourDays(tourOptions, 10)
+    const tourHours = getTourHours(tourOptions, '2018-11-16')
     return (
       <div ref={this.props.hostRef}>
         <Row justifyContent="center">
@@ -84,7 +92,7 @@ class Tour extends Component {
                         name="month"
                         render={() =>
                           <Slider maxItemsToDisplay={1}>
-                            <SliderButton noBorder>Novembro de 2018</SliderButton>
+                            <Text noBorder>Novembro de 2018</Text>
                           </Slider>
                         }/>
                       </Row>
@@ -93,9 +101,9 @@ class Tour extends Component {
                           name="day"
                           render={() =>
                             <Slider maxItemsToDisplay={3}>
-                              <SliderButton>11</SliderButton>
-                              <SliderButton>12</SliderButton>
-                              <SliderButton>13</SliderButton>
+                              <SliderButton mx={1} height="extraTall">11</SliderButton>
+                              <SliderButton mx={1} height="extraTall">12</SliderButton>
+                              <SliderButton mx={1} height="extraTall">13</SliderButton>
                             </Slider>
                           }/>
                       </Row>

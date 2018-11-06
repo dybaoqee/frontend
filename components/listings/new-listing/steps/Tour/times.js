@@ -1,29 +1,58 @@
 import moment from 'moment'
 
-const getTourOptions = (timeList) => {
-  const tourOptions = {}
+const MONTH_KEY_FORMAT = 'YYYY-MM'
+const DAY_KEY_FORMAT = 'YYYY-MM-DD'
+
+const getTourMonths = (timeList) => {
+  const tourMonths = {}
   timeList.forEach((item) => {
     const parser = moment(item)
-    const date = parser.format('DD/MM/YYYY')
-    const day = parser.format('DD')
-    const dayOfWeek = parser.format('ddd')
-    const hour = parser.format('HH')
+    const display = parser.format('MMMM [de] YYYY')
+    const key = parser.format(MONTH_KEY_FORMAT)
 
-    if (!tourOptions[date]) {
-      tourOptions[date] = {
-        day,
-        dayOfWeek
+    if (!tourMonths[key]) {
+      tourMonths[key] = {
+        date: new Date(item),
+        display: display
       }
     }
-
-    if (!tourOptions[date].times) {
-      tourOptions[date].times = []
-    }
-    tourOptions[date].times.push(hour)
   })
-  return tourOptions
+  return tourMonths
+}
+
+const getTourDays = (timeList, month) => {
+  const tourDays = {}
+  timeList.forEach((item) => {
+    const date = new Date(item)
+    if (date.getMonth() !== month) return
+
+    const parser = moment(item)
+    const key = parser.format(DAY_KEY_FORMAT)
+
+    if (!tourDays[key]) {
+      tourDays[key] = {
+        date,
+        day: parser.format('DD'),
+        dayOfWeek: parser.format('ddd')
+      }
+    }
+  })
+  return tourDays
+}
+
+const getTourHours = (timeList, date) => {
+  const tourHours = []
+  timeList.forEach((item) => {
+    const parser = moment(item)
+    const itemDate = parser.format(DAY_KEY_FORMAT)
+    if (date !== itemDate) return
+    tourHours.push(parser.format('HH'))
+  })
+  return tourHours
 }
 
 export {
-  getTourOptions
+  getTourMonths,
+  getTourDays,
+  getTourHours
 }

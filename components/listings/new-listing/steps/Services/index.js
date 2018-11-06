@@ -59,7 +59,7 @@ class Services extends Component {
         loading: false,
         error: null
       })
-      this.nextStep(data)
+      this.nextStep(data.tourOptions)
     } catch (e) {
       this.setState({
         loading: false,
@@ -73,7 +73,7 @@ class Services extends Component {
     updateServices({
       wantsTour: this.state.wantsTour,
       wantsPictures: this.state.wantsPictures,
-      availableTimes: data
+      tourOptions: data
     })
     navigateTo('tour')
   }

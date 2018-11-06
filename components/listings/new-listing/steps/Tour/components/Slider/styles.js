@@ -12,6 +12,7 @@ const PageButton = styled(Button)`
 
 const SliderButton = styled(Button)`
   ${({noBorder}) => noBorder && 'border: none;'}
+  ${({height}) => height === 'extraTall' && 'width: 75px; height: 84px;'}
 `
 
 export {

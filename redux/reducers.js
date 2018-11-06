@@ -60,7 +60,7 @@ const initialState = {
   services: {
     wantsTour: false,
     wantsPhotos: false,
-    availableTimes: null
+    tourOptions: null
   },
   tour: {
     date: null,
