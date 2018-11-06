@@ -14,7 +14,6 @@ import {
   getTourDays,
   getTourHours
 } from './times'
-import { SliderButton } from './components/Slider/styles'
 
 class Tour extends Component {
   constructor(props) {
@@ -91,8 +90,16 @@ class Tour extends Component {
                       <Field
                         name="month"
                         render={() =>
-                          <Slider maxItemsToDisplay={1}>
-                            <Text noBorder>Novembro de 2018</Text>
+                          <Slider>
+                            {tourMonths.map((item) =>
+                              <Text
+                                key={item.key}
+                                data={item}
+                                noBorder
+                              >
+                                {item.display}
+                              </Text>
+                            )}
                           </Slider>
                         }/>
                       </Row>
@@ -100,10 +107,12 @@ class Tour extends Component {
                         <Field
                           name="day"
                           render={() =>
-                            <Slider maxItemsToDisplay={3}>
-                              <SliderButton mx={1} height="extraTall">11</SliderButton>
-                              <SliderButton mx={1} height="extraTall">12</SliderButton>
-                              <SliderButton mx={1} height="extraTall">13</SliderButton>
+                            <Slider>
+                              {tourDays.map((item) =>
+                                <Slider.Button
+                                  key={item.key}
+                                  {...item} />
+                              )}
                             </Slider>
                           }/>
                       </Row>

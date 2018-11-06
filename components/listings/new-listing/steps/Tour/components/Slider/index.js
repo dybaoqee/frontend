@@ -1,12 +1,14 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
+import Text from '@emcasa/ui-dom/components/Text'
 import Icon from '@emcasa/ui-dom/components/Icon'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 
 import {
-  PageButton
+  PageButton,
+  SliderButton
 } from './styles'
 
 class Slider extends PureComponent {
@@ -51,12 +53,21 @@ class Slider extends PureComponent {
   }
 }
 
-Slider.propTypes = {
-  maxItemsToDisplay: PropTypes.number
-}
-
-Slider.defaultProps = {
-  maxItemsToDisplay: 1
+Slider.Button = ({dayOfWeek, day}) => {
+  return (
+    <SliderButton
+      mx={1}
+      height="extraTall"
+    >
+    <Row alignItems="center" justifyContent="center">
+    <Col>
+      <Text inline fontSize="large">{dayOfWeek}</Text>
+      {' '}
+      <Text inline>{day}</Text>
+      </Col>
+      </Row>
+    </SliderButton>
+  )
 }
 
 export default Slider

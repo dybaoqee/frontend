@@ -12,12 +12,13 @@ const getTourMonths = (timeList) => {
 
     if (!tourMonths[key]) {
       tourMonths[key] = {
+        key,
         date: new Date(item),
         display: display
       }
     }
   })
-  return tourMonths
+  return Object.values(tourMonths)
 }
 
 const getTourDays = (timeList, month) => {
@@ -31,13 +32,14 @@ const getTourDays = (timeList, month) => {
 
     if (!tourDays[key]) {
       tourDays[key] = {
+        key,
         date,
         day: parser.format('DD'),
         dayOfWeek: parser.format('ddd')
       }
     }
   })
-  return tourDays
+  return Object.values(tourDays)
 }
 
 const getTourHours = (timeList, date) => {

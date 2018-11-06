@@ -20,12 +20,12 @@ const fullList = [
 describe('Tour dates', () => {
   it('should return a list of unique tour months', () => {
     const tourMonths = getTourMonths(fullList)
-    expect(Object.keys(tourMonths).length).toBe(1)
+    expect(tourMonths.length).toBe(1)
   })
 
   it('should return a list of unique days of the given month', () => {
     const tourDays = getTourDays(fullList, 10)
-    expect(Object.keys(tourDays).length).toBe(5)
+    expect(tourDays.length).toBe(5)
   })
 
   it('should return a list of tour times of a given date', () => {
