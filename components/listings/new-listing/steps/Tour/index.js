@@ -8,7 +8,9 @@ import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
+import Slider from './components/Slider'
 import { getTourOptions } from './times'
+import { SliderButton } from './components/Slider/styles'
 
 class Tour extends Component {
   constructor(props) {
@@ -35,7 +37,8 @@ class Tour extends Component {
     const { tour } = props
     if (tour) {
       this.setState({
-        date: tour.date,
+        month: tour.month,
+        day: tour.day,
         time: tour.time
       })
     }
@@ -54,9 +57,10 @@ class Tour extends Component {
 
   render() {
     const { tour, services } = this.props
-    let date, time
+    let month, day, time
     if (tour) {
-      date = tour.date
+      month = tour.month
+      day = tour.day
       time = tour.time
     }
     return (
@@ -65,7 +69,8 @@ class Tour extends Component {
           <Col width={[1, 1/2]}>
             <Formik
               initialValues={{
-                date,
+                month,
+                day,
                 time
               }}
               isInitialValid={() => {
@@ -76,22 +81,24 @@ class Tour extends Component {
                   <View body p={4}>
                     <Row mb={4}>
                       <Field
-                        name="date"
-                        
+                        name="month"
                         render={() =>
-                          <Button.Group flexWrap="wrap" initialValue={date} onChange={(value) => {
-                            setFieldValue('date', value)
-                            setFieldTouched('date')
-                            this.setState({date: value})
-                            }}>
-                            <Button mr={2} value={0} height="tall">0</Button>
-                            <Button mr={2} value={1} height="tall">1</Button>
-                            <Button mr={2} value={2} height="tall">2</Button>
-                            <Button mr={2} value={3} height="tall">3</Button>
-                            <Button mr={2} value={4} height="tall">4</Button>
-                          </Button.Group>
+                          <Slider maxItemsToDisplay={1}>
+                            <SliderButton noBorder>Novembro de 2018</SliderButton>
+                          </Slider>
                         }/>
-                    </Row>
+                      </Row>
+                      <Row mb={4}>
+                        <Field
+                          name="day"
+                          render={() =>
+                            <Slider maxItemsToDisplay={3}>
+                              <SliderButton>11</SliderButton>
+                              <SliderButton>12</SliderButton>
+                              <SliderButton>13</SliderButton>
+                            </Slider>
+                          }/>
+                      </Row>
                   </View>
                   <View bottom p={4}>
                     <NavButtons
