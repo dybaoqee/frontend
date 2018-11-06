@@ -50,7 +50,7 @@ const getTourHours = (timeList, date) => {
     if (date !== itemDate) return
     tourHours.push(parser.format('HH'))
   })
-  return tourHours
+  return tourHours.reverse()
 }
 
 export {

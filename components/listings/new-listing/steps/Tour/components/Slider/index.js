@@ -72,12 +72,13 @@ Slider.propTypes = {
   onPrevious: PropTypes.func.isRequired
 }
 
-Slider.Button = ({day, dayOfWeek, onClick}) => {
+Slider.Button = ({day, dayOfWeek, onClick, selected}) => {
   return (
     <SliderButton
       mx={1}
       height="extraTall"
       onClick={onClick}
+      selected={selected}
     >
     <Row alignItems="center" justifyContent="center">
     <Col>

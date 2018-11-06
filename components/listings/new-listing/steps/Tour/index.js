@@ -33,8 +33,10 @@ class Tour extends Component {
     this.getTourMonths = this.getTourMonths.bind(this)
     this.getTourDays = this.getTourDays.bind(this)
 
-    this.changeMonth = this.changeMonth.bind(this)
+    this.scrollMonth = this.scrollMonth.bind(this)
+    this.scrollDay = this.scrollDay.bind(this)
     this.selectDay = this.selectDay.bind(this)
+    this.selectTime = this.selectTime.bind(this)
   }
 
   state = {
@@ -118,15 +120,16 @@ class Tour extends Component {
         i++
         return (
           <Slider.Button
-            onClick={() => {this.setState({date: item.key})}}
+            onClick={() => {this.selectDay(item)}}
             key={item.key}
+            selected={this.state.date === item.key}
             {...item} />
         )
       }
     })
   }
 
-  changeMonth(direction) {
+  scrollMonth(direction) {
     const { services: { tourOptions } } = this.props
     const monthOffset = this.state.monthOffset + direction
     this.setState({
@@ -136,8 +139,19 @@ class Tour extends Component {
     })
   }
 
-  selectDay(direction) {
+  scrollDay(direction) {
     this.setState({dayOffset: this.state.dayOffset + direction})
+  }
+
+  selectDay(value) {
+    this.setState({
+      date: value.key,
+      time: null
+    })
+  }
+
+  selectTime(value) {
+    this.setState({time: value})
   }
 
   getTimeDisplay(time) {
@@ -191,8 +205,8 @@ class Tour extends Component {
                           <Slider
                             previousDisabled={previousMonthDisabled}
                             nextDisabled={nextMonthDisabled}
-                            onPrevious={() => {this.changeMonth(PREVIOUS)}}
-                            onNext={() => {this.changeMonth(NEXT)}}
+                            onPrevious={() => {this.scrollMonth(PREVIOUS)}}
+                            onNext={() => {this.scrollMonth(NEXT)}}
                           >
                             {this.getTourMonths()}
                           </Slider>
@@ -205,8 +219,8 @@ class Tour extends Component {
                           <Slider
                             previousDisabled={previousDayDisabled}
                             nextDisabled={nextDayDisabled}
-                            onPrevious={() => {this.selectDay(PREVIOUS)}}
-                            onNext={() => {this.selectDay(NEXT)}}
+                            onPrevious={() => {this.scrollDay(PREVIOUS)}}
+                            onNext={() => {this.scrollDay(NEXT)}}
                           >
                             {this.getTourDays()}
                           </Slider>
@@ -224,6 +238,8 @@ class Tour extends Component {
                                     <RadioButton
                                       label={this.getTimeDisplay(item)}
                                       value={item}
+                                      checked={this.state.time === item}
+                                      onClick={() => {this.selectTime(item)}}
                                     />
                                     <View mb={2} />
                                   </>

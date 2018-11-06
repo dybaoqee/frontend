@@ -11,7 +11,15 @@ const PageButton = styled(Button)`
 `
 
 const SliderButton = styled(Button)`
-  ${({noBorder}) => noBorder && 'border: none;'}
+  ${({noBorder, selected}) => {
+    if (noBorder) {
+      return 'border: none;'
+    }
+    if (selected) {
+      return `border: 1px solid ${themeGet('colors.pink')}`
+    }
+    return `border: 1px solid ${themeGet('colors.grey')}`
+  }}
   ${({height}) => height === 'extraTall' && 'width: 75px; height: 84px;'}
 `
 
