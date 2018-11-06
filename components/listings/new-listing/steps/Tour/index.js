@@ -35,7 +35,7 @@ class Tour extends Component {
 
   state = {
     month: null,
-    day: null,
+    date: null,
     time: null,
     dayOffset: 0,
     monthOffset: 0
@@ -50,11 +50,15 @@ class Tour extends Component {
   }
 
   updateStateFromProps(props) {
-    const { tour } = props
+    const { tour, services } = props
+    let firstAvailableMonth
+    if (services) {
+      firstAvailableMonth = getTourMonths(services.tourOptions)[0]
+    }
     if (tour) {
       this.setState({
-        month: tour.month,
-        day: tour.day,
+        month: tour.month || firstAvailableMonth.date.getMonth(),
+        date: tour.date,
         time: tour.time
       })
     }
@@ -72,13 +76,34 @@ class Tour extends Component {
   }
 
   getTourMonths() {
-
+    const { services: { tourOptions } } = this.props
+    const { monthOffset } = this.state
+    const tourMonths = getTourMonths(tourOptions)
+    let i = 0
+    return tourMonths.map((item) => {
+      if (i < monthOffset) {
+        i++
+        return
+      }
+      if (i < MAX_MONTHS_TO_DISPLAY + monthOffset) {
+        i++
+        return (
+          <Text
+            key={item.key}
+            data={item}
+            noBorder
+          >
+            {item.display}
+          </Text>
+        )
+      }
+    })
   }
 
   getTourDays() {
     const { services: { tourOptions } } = this.props
-    const { dayOffset } = this.state
-    const tourDays = getTourDays(tourOptions, 10)
+    const { dayOffset, month } = this.state
+    const tourDays = getTourDays(tourOptions, month)
     let i = 0
     return tourDays.map((item) => {
       if (i < dayOffset) {
@@ -97,11 +122,23 @@ class Tour extends Component {
   }
 
   nextMonth() {
-    this.setState({monthOffset: this.state.monthOffset + 1})
+    const { services: { tourOptions } } = this.props
+    const monthOffset = this.state.monthOffset + 1
+    this.setState({
+      monthOffset,
+      dayOffset: 0,
+      month: getTourMonths(tourOptions)[monthOffset].date.getMonth()
+    })
   }
 
   previousMonth() {
-    this.setState({monthOffset: this.state.monthOffset - 1})
+    const { services: { tourOptions } } = this.props
+    const monthOffset = this.state.monthOffset - 1
+    this.setState({
+      monthOffset,
+      dayOffset: 0,
+      month: getTourMonths(tourOptions)[monthOffset].date.getMonth()
+    })
   }
 
   nextDay() {
@@ -114,22 +151,22 @@ class Tour extends Component {
 
   render() {
     const { tour, services } = this.props
-    let month, day, time
+    let month, date, time
     if (tour) {
       month = tour.month
-      day = tour.day
+      date = tour.date
       time = tour.time
     }
     const { tourOptions } = services
-    const tourMonths = getTourMonths(tourOptions)
-    const tourDays = getTourDays(tourOptions, 10)
-    const tourHours = getTourHours(tourOptions, '2018-11-16')
-
     const { monthOffset, dayOffset } = this.state
+    const tourMonths = getTourMonths(tourOptions)
+    const tourDays = getTourDays(tourOptions, this.state.month)
+    const tourHours = getTourHours(tourOptions, this.state.date)
+
     const previousMonthDisabled = monthOffset === 0
     const nextMonthDisabled = monthOffset === tourMonths.length - MAX_MONTHS_TO_DISPLAY
     const previousDayDisabled = dayOffset === 0
-    const nextDayDisabled = dayOffset === tourDays.length - MAX_DAYS_TO_DISPLAY
+    const nextDayDisabled = dayOffset === tourDays.length - MAX_DAYS_TO_DISPLAY || tourDays.length <= MAX_DAYS_TO_DISPLAY
 
     return (
       <div ref={this.props.hostRef}>
@@ -138,7 +175,7 @@ class Tour extends Component {
             <Formik
               initialValues={{
                 month,
-                day,
+                date,
                 time
               }}
               isInitialValid={() => {
@@ -157,21 +194,13 @@ class Tour extends Component {
                             onPrevious={this.previousMonth}
                             onNext={this.nextMonth}
                           >
-                            {tourMonths.map((item) =>
-                              <Text
-                                key={item.key}
-                                data={item}
-                                noBorder
-                              >
-                                {item.display}
-                              </Text>
-                            )}
+                            {this.getTourMonths()}
                           </Slider>
                         }/>
                       </Row>
                       <Row mb={4}>
                         <Field
-                          name="day"
+                          name="date"
                           render={() =>
                             <Slider
                               previousDisabled={previousDayDisabled}
