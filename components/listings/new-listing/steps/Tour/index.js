@@ -180,6 +180,9 @@ class Tour extends Component {
   }
 
   hasCustomTime(tourHours) {
+    if (tourHours.length === 0) {
+      return false
+    }
     return !(tourHours.includes(EARLY) && tourHours.includes(LATE) && tourHours.length === 2)
   }
 

@@ -16,17 +16,6 @@ const Container = styled(View)`
   cursor: pointer;
 `
 
-const Bullet = styled.div`
-  position: absolute;
-  box-sizing: border-box;
-  margin-top: 10px;
-  margin-left: 10px;
-  border-radius: 50%;
-  border: 2px solid ${themeGet('colors.grey')};
-  width: 20px;
-  height: 20px;
-`
-
 const CheckMark = styled(Icon)`
   position: absolute;
   box-sizing: border-box;
@@ -53,7 +42,6 @@ const Photos = styled.div`
 
 export {
   Container,
-  Bullet,
   CheckMark,
   Tour,
   Photos

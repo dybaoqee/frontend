@@ -2,12 +2,15 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
 import RadioButton from '@emcasa/ui-dom/components/RadioButton'
+import Col from '@emcasa/ui-dom/components/Col'
 import Row from '@emcasa/ui-dom/components/Row'
 import View from '@emcasa/ui-dom/components/View'
 import Icon from '@emcasa/ui-dom/components/Icon'
 import Text from '@emcasa/ui-dom/components/Text'
+
 import {
   Title,
+  StyledBullet,
   StyledCustomTime,
   StyledCustomTimeItem
 } from './styles'
@@ -20,13 +23,24 @@ class CustomTime extends PureComponent {
         onClick={onClick}
         selected={selected}
       >
-        <Title>
-          <View mr={3}><Icon name="check-circle" color={selected ? 'pink' : 'grey'} /></View>
-          <Text inline>Escolher horário específico</Text>
-        </Title>
-        {selected && <Row flexWrap="wrap" justifyContent="space-between">
-          {this.props.children}
-        </Row>}
+      <Col width={1}>
+        <Row>
+          <Col width={1}>
+            <Title>
+              <View mr={3}>
+                {selected ?
+                  <Icon name="dot-circle" color="pink" />
+                :
+                  <StyledBullet />}
+              </View>
+              <Text inline>Escolher horário específico</Text>
+            </Title>
+          </Col>
+        </Row>
+        <Row flexWrap="wrap" justifyContent="space-between">
+          {selected && this.props.children}
+        </Row>
+        </Col>
       </StyledCustomTime>
     )
   }
