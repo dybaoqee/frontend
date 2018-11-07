@@ -8,6 +8,7 @@ import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import Slider from './components/Slider'
+import CustomTime from './components/CustomTime'
 import {
   getTourMonths,
   getTourDays,
@@ -37,12 +38,15 @@ class Tour extends Component {
     this.scrollDay = this.scrollDay.bind(this)
     this.selectDay = this.selectDay.bind(this)
     this.selectTime = this.selectTime.bind(this)
+    this.hasCustomTime = this.hasCustomTime.bind(this)
+    this.selectCustomTime = this.selectCustomTime.bind(this)
   }
 
   state = {
     month: null,
     day: null,
     time: null,
+    customTime: false,
     dayOffset: 0,
     monthOffset: 0
   }
@@ -63,7 +67,7 @@ class Tour extends Component {
     }
     if (tour) {
       this.setState({
-        month: tour.month || firstAvailableMonth.day.getMonth(),
+        month: tour.month || firstAvailableMonth.date.getMonth(),
         day: tour.day,
         time: tour.time,
         dayOffset: tour.dayOffset,
@@ -160,19 +164,34 @@ class Tour extends Component {
     this.setState({time: value})
   }
 
-  getTimeDisplay(time) {
-    if (time === EARLY) {
+  getTimeDisplay(time, longText) {
+    if (time === EARLY && longText) {
       return EARLY_DISPLAY
-    } else if (time === LATE) {
+    } else if (time === LATE && longText) {
       return LATE_DISPLAY
     }
-    return time
+    return `${time}:00`
   }
 
   validateTime(value) {
     if (!value) {
       return 'É necessário selecionar um horário.'
     }
+  }
+
+  hasCustomTime(tourHours) {
+    return !(tourHours.includes(EARLY) && tourHours.includes(LATE) && tourHours.length === 2)
+  }
+
+  selectCustomTime() {
+    if (!this.state.customTime) {
+      this.setState({
+        time: null
+      })
+    }
+    this.setState({
+      customTime: true
+    })
   }
 
   render() {
@@ -246,15 +265,19 @@ class Tour extends Component {
                           <Col width={1}>
                             <RadioButton.Group>
                               {tourHours.map((item) => {
+                                if (item !== EARLY && item !== LATE) {
+                                  return null
+                                }
                                 return (
                                   <>
                                     <RadioButton
-                                      label={this.getTimeDisplay(item)}
+                                      label={this.getTimeDisplay(item, true)}
                                       value={item}
-                                      checked={this.state.time === item}
+                                      checked={this.state.time === item && !this.state.customTime}
                                       onClick={() => {
                                         setFieldValue('time', item)
                                         setFieldTouched('time')
+                                        this.setState({customTime: false})
                                         this.selectTime(item)
                                       }}
                                     />
@@ -263,6 +286,30 @@ class Tour extends Component {
                                 )
                               })}
                             </RadioButton.Group>
+                            {this.hasCustomTime(tourHours) &&
+                              <CustomTime
+                                onClick={this.selectCustomTime}
+                                selected={this.state.customTime}
+                              >
+                                {tourHours.map((item) => {
+                                  return (
+                                    <>
+                                      <CustomTime.Item
+                                        label={this.getTimeDisplay(item, false)}
+                                        value={item}
+                                        checked={this.state.time === item}
+                                        height="small"
+                                        onClick={() => {
+                                          setFieldValue('time', item)
+                                          setFieldTouched('time')
+                                          this.selectTime(item)
+                                        }}
+                                      />
+                                      <View mb={2} />
+                                    </>
+                                  )
+                                })}
+                              </CustomTime>}
                           </Col>
                         }/>
                     </Row>

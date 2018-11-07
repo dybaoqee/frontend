@@ -18,7 +18,7 @@ const getTourMonths = (timeList) => {
       }
     }
   })
-  return Object.values(tourMonths)
+  return Object.values(tourMonths).reverse()
 }
 
 const getTourDays = (timeList, month) => {

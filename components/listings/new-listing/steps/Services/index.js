@@ -62,7 +62,6 @@ class Services extends Component {
       const tourOptions = data.tourOptions.slice()
       this.nextStep(tourOptions.reverse())
     } catch (e) {
-      console.log(e)
       this.setState({
         loading: false,
         error: 'Ocorreu um erro. Por favor, tente novamente.'
