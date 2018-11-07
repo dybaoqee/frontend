@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 
 import Text from '@emcasa/ui-dom/components/Text'
 import Row from '@emcasa/ui-dom/components/Row'
+import Bullet from 'components/listings/new-listing/shared/Bullet'
 
 import {
   Container,
-  Bullet,
   CheckMark,
   Tour,
   Photos
