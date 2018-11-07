@@ -5,20 +5,16 @@ import RadioButton from '@emcasa/ui-dom/components/RadioButton'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
-import Text from '@emcasa/ui-dom/components/Text'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
-import Slider from './components/Slider'
 import CustomTime from './components/CustomTime'
+import TourMonths from './components/TourMonths'
+import TourDays from './components/TourDays'
 import {
-  getTourMonths,
   getTourDays,
+  getTourMonths,
   getTourHours
 } from './times'
 import {
-  NEXT,
-  PREVIOUS,
-  MAX_MONTHS_TO_DISPLAY,
-  MAX_DAYS_TO_DISPLAY,
   EARLY,
   LATE,
   EARLY_DISPLAY,
@@ -31,12 +27,9 @@ class Tour extends Component {
     this.nextStep = this.nextStep.bind(this)
     this.previousStep = this.previousStep.bind(this)
 
-    this.getTourMonths = this.getTourMonths.bind(this)
-    this.getTourDays = this.getTourDays.bind(this)
+    this.onMonthChanged = this.onMonthChanged.bind(this)
+    this.onDaySelected = this.onDaySelected.bind(this)
 
-    this.scrollMonth = this.scrollMonth.bind(this)
-    this.scrollDay = this.scrollDay.bind(this)
-    this.selectDay = this.selectDay.bind(this)
     this.selectTime = this.selectTime.bind(this)
     this.hasCustomTime = this.hasCustomTime.bind(this)
     this.selectCustomTime = this.selectCustomTime.bind(this)
@@ -47,8 +40,8 @@ class Tour extends Component {
     day: null,
     time: null,
     customTime: false,
-    dayOffset: 0,
-    monthOffset: 0
+    monthOffset: 0,
+    dayOffset: 0
   }
 
   componentDidMount() {
@@ -70,6 +63,7 @@ class Tour extends Component {
         month: tour.month || firstAvailableMonth.date.getMonth(),
         day: tour.day,
         time: tour.time,
+        customTime: tour.customTime,
         dayOffset: tour.dayOffset,
         monthOffset: tour.monthOffset
       })
@@ -87,75 +81,19 @@ class Tour extends Component {
     navigateTo('services')
   }
 
-  getTourMonths() {
-    const { services: { tourOptions } } = this.props
-    const { monthOffset } = this.state
-    const tourMonths = getTourMonths(tourOptions)
-    let i = 0
-    return tourMonths.map((item) => {
-      if (i < monthOffset) {
-        i++
-        return
-      }
-      if (i < MAX_MONTHS_TO_DISPLAY + monthOffset) {
-        i++
-        return (
-          <Text
-            key={item.key}
-            data={item}
-            noBorder
-          >
-            {item.display}
-          </Text>
-        )
-      }
-    })
-  }
-
-  getTourDays(setFieldTouched, setFieldValue) {
-    const { services: { tourOptions } } = this.props
-    const { dayOffset, month } = this.state
-    const tourDays = getTourDays(tourOptions, month)
-    let i = 0
-    return tourDays.map((item) => {
-      if (i < dayOffset) {
-        i++
-        return
-      }
-      if (i < MAX_DAYS_TO_DISPLAY + dayOffset) {
-        i++
-        return (
-          <Slider.Button
-            onClick={() => {
-              this.selectDay(item, setFieldTouched, setFieldValue)
-            }}
-            key={item.key}
-            selected={this.state.day === item.key}
-            {...item} />
-        )
-      }
-    })
-  }
-
-  scrollMonth(direction) {
-    const { services: { tourOptions } } = this.props
-    const monthOffset = this.state.monthOffset + direction
+  onMonthChanged(month, monthOffset) {
     this.setState({
-      monthOffset,
-      dayOffset: 0,
-      month: getTourMonths(tourOptions)[monthOffset].date.getMonth()
+      month,
+      monthOffset
     })
   }
 
-  scrollDay(direction) {
-    this.setState({dayOffset: this.state.dayOffset + direction})
-  }
-
-  selectDay(value, setFieldTouched, setFieldValue) {
+  onDaySelected(day, dayOffset, setFieldTouched, setFieldValue) {
     setFieldValue('time', null)
     setFieldTouched('time')
     this.setState({
-      day: value.key,
+      day,
+      dayOffset,
       time: null
     })
   }
@@ -199,22 +137,18 @@ class Tour extends Component {
 
   render() {
     const { tour, services } = this.props
-    let month, day, time
+    let month, day, time, monthOffset, dayOffset
     if (tour) {
       month = tour.month
       day = tour.day
       time = tour.time
+      monthOffset = tour.monthOffset
+      dayOffset = tour.dayOffset
     }
     const { tourOptions } = services
-    const { monthOffset, dayOffset } = this.state
-    const tourMonths = getTourMonths(tourOptions)
     const tourDays = getTourDays(tourOptions, this.state.month)
+    const tourMonths = getTourMonths(tourOptions)
     const tourHours = getTourHours(tourOptions, this.state.day)
-
-    const previousMonthDisabled = monthOffset === 0
-    const nextMonthDisabled = monthOffset === tourMonths.length - MAX_MONTHS_TO_DISPLAY
-    const previousDayDisabled = dayOffset === 0
-    const nextDayDisabled = dayOffset === tourDays.length - MAX_DAYS_TO_DISPLAY || tourDays.length <= MAX_DAYS_TO_DISPLAY
 
     return (
       <div ref={this.props.hostRef}>
@@ -236,28 +170,26 @@ class Tour extends Component {
                       <Field
                         name="month"
                         render={() =>
-                          <Slider
-                            previousDisabled={previousMonthDisabled}
-                            nextDisabled={nextMonthDisabled}
-                            onPrevious={() => {this.scrollMonth(PREVIOUS)}}
-                            onNext={() => {this.scrollMonth(NEXT)}}
-                          >
-                            {this.getTourMonths()}
-                          </Slider>
+                          <TourMonths
+                            initialMonthOffset={monthOffset}
+                            tourMonths={tourMonths}
+                            onMonthChanged={this.onMonthChanged}
+                          />
                         }/>
                     </Row>
                     <Row mb={4}>
                       <Field
                         name="day"
                         render={() =>
-                          <Slider
-                            previousDisabled={previousDayDisabled}
-                            nextDisabled={nextDayDisabled}
-                            onPrevious={() => {this.scrollDay(PREVIOUS)}}
-                            onNext={() => {this.scrollDay(NEXT)}}
-                          >
-                            {this.getTourDays(setFieldTouched, setFieldValue)}
-                          </Slider>
+                          <TourDays
+                            month={month}
+                            initialDayOffset={dayOffset || this.state.dayOffset}
+                            initialDay={day}
+                            tourDays={tourDays}
+                            onDaySelected={(day, dayOffset) => {
+                              this.onDaySelected(day, dayOffset, setFieldTouched, setFieldValue)
+                            }}
+                          />
                         }/>
                     </Row>
                     <Row mb={4}>
