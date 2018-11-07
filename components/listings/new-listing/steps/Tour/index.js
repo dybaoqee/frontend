@@ -41,7 +41,7 @@ class Tour extends Component {
 
   state = {
     month: null,
-    date: null,
+    day: null,
     time: null,
     dayOffset: 0,
     monthOffset: 0
@@ -63,9 +63,11 @@ class Tour extends Component {
     }
     if (tour) {
       this.setState({
-        month: tour.month || firstAvailableMonth.date.getMonth(),
-        date: tour.date,
-        time: tour.time
+        month: tour.month || firstAvailableMonth.day.getMonth(),
+        day: tour.day,
+        time: tour.time,
+        dayOffset: tour.dayOffset,
+        monthOffset: tour.monthOffset
       })
     }
   }
@@ -106,7 +108,7 @@ class Tour extends Component {
     })
   }
 
-  getTourDays() {
+  getTourDays(setFieldTouched, setFieldValue) {
     const { services: { tourOptions } } = this.props
     const { dayOffset, month } = this.state
     const tourDays = getTourDays(tourOptions, month)
@@ -120,9 +122,11 @@ class Tour extends Component {
         i++
         return (
           <Slider.Button
-            onClick={() => {this.selectDay(item)}}
+            onClick={() => {
+              this.selectDay(item, setFieldTouched, setFieldValue)
+            }}
             key={item.key}
-            selected={this.state.date === item.key}
+            selected={this.state.day === item.key}
             {...item} />
         )
       }
@@ -143,9 +147,11 @@ class Tour extends Component {
     this.setState({dayOffset: this.state.dayOffset + direction})
   }
 
-  selectDay(value) {
+  selectDay(value, setFieldTouched, setFieldValue) {
+    setFieldValue('time', null)
+    setFieldTouched('time')
     this.setState({
-      date: value.key,
+      day: value.key,
       time: null
     })
   }
@@ -163,19 +169,25 @@ class Tour extends Component {
     return time
   }
 
+  validateTime(value) {
+    if (!value) {
+      return 'É necessário selecionar um horário.'
+    }
+  }
+
   render() {
     const { tour, services } = this.props
-    let month, date, time
+    let month, day, time
     if (tour) {
       month = tour.month
-      date = tour.date
+      day = tour.day
       time = tour.time
     }
     const { tourOptions } = services
     const { monthOffset, dayOffset } = this.state
     const tourMonths = getTourMonths(tourOptions)
     const tourDays = getTourDays(tourOptions, this.state.month)
-    const tourHours = getTourHours(tourOptions, this.state.date)
+    const tourHours = getTourHours(tourOptions, this.state.day)
 
     const previousMonthDisabled = monthOffset === 0
     const nextMonthDisabled = monthOffset === tourMonths.length - MAX_MONTHS_TO_DISPLAY
@@ -189,11 +201,11 @@ class Tour extends Component {
             <Formik
               initialValues={{
                 month,
-                date,
+                day,
                 time
               }}
               isInitialValid={() => {
-                return true
+                return !this.validateTime(time)
               }}
               render={({isValid, setFieldTouched, setFieldValue, errors}) => (
                 <>
@@ -214,7 +226,7 @@ class Tour extends Component {
                     </Row>
                     <Row mb={4}>
                       <Field
-                        name="date"
+                        name="day"
                         render={() =>
                           <Slider
                             previousDisabled={previousDayDisabled}
@@ -222,13 +234,14 @@ class Tour extends Component {
                             onPrevious={() => {this.scrollDay(PREVIOUS)}}
                             onNext={() => {this.scrollDay(NEXT)}}
                           >
-                            {this.getTourDays()}
+                            {this.getTourDays(setFieldTouched, setFieldValue)}
                           </Slider>
                         }/>
                     </Row>
                     <Row mb={4}>
                       <Field
                         name="time"
+                        validate={this.validateTime}
                         render={() =>
                           <Col width={1}>
                             <RadioButton.Group>
@@ -239,7 +252,11 @@ class Tour extends Component {
                                       label={this.getTimeDisplay(item)}
                                       value={item}
                                       checked={this.state.time === item}
-                                      onClick={() => {this.selectTime(item)}}
+                                      onClick={() => {
+                                        setFieldValue('time', item)
+                                        setFieldTouched('time')
+                                        this.selectTime(item)
+                                      }}
                                     />
                                     <View mb={2} />
                                   </>

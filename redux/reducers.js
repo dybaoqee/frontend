@@ -65,7 +65,9 @@ const initialState = {
   tour: {
     month: null,
     date: null,
-    time: null
+    time: null,
+    monthOffset: 0,
+    dayOffset: 0
   }
 }
 
