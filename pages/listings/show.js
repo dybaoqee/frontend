@@ -19,9 +19,10 @@ import InterestPosted from 'components/listings/show/InterestForm/interest_poste
 import RelatedListings from 'components/listings/show/RelatedListings'
 import Warning from 'components/shared/Common/Warning'
 import Breadcrumb from 'components/shared/Common/Breadcrumb'
-import {buildSlug} from 'lib/listings'
+import {buildSlug, getListingId} from 'lib/listings'
 import Head from 'next/head'
 import getApolloClient from 'lib/apollo/initApollo'
+
 
 class Listing extends Component {
   favMutated = false
@@ -41,7 +42,7 @@ class Listing extends Component {
 
   static async getInitialProps(context) {
     const {asPath, res} = context
-    const id = asPath.match(/[0-9]+/)[0]
+    const id = getListingId(asPath)
 
     const currentUser = {
       id: getCurrentUserId(context),
