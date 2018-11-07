@@ -41,7 +41,7 @@ class Listing extends Component {
 
   static async getInitialProps(context) {
     const {asPath, res} = context
-    const id = asPath.match(/[0-9]+/)[0]
+    let [, id] = asPath.match(/id-(\d+)/) || asPath.match(/(\d+)/)
 
     const currentUser = {
       id: getCurrentUserId(context),
