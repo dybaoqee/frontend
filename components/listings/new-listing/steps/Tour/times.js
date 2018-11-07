@@ -1,4 +1,6 @@
 import moment from 'moment'
+import 'moment/locale/pt-br'
+moment.locale('pt-br')
 
 const MONTH_KEY_FORMAT = 'YYYY-MM'
 const DAY_KEY_FORMAT = 'YYYY-MM-DD'
@@ -8,13 +10,14 @@ const getTourMonths = (timeList) => {
   timeList.forEach((item) => {
     const parser = moment(item)
     const display = parser.format('MMMM [de] YYYY')
+    const upperCaseDisplay = display.charAt(0).toUpperCase() + display.slice(1)
     const key = parser.format(MONTH_KEY_FORMAT)
 
     if (!tourMonths[key]) {
       tourMonths[key] = {
         key,
         date: new Date(item),
-        display: display
+        display: upperCaseDisplay
       }
     }
   })
