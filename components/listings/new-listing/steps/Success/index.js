@@ -9,19 +9,21 @@ import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
 
 const ROUTE_HOME = '/'
-const ROUTE_MY_LISTINGS = '/meus-imoveis'
+const ROUTE_MY_LISTINGS = '/listings/user-listings'
 
 class Success extends PureComponent {
-  componentDidMount() {
-    this.props.resetStore()
+  constructor(props) {
+    super(props)
+    this.viewMyListings = this.viewMyListings.bind(this)
+    this.goHome = this.goHome.bind(this)
   }
 
   viewMyListings() {
-    Router.push(ROUTE_HOME)
+    Router.push(ROUTE_MY_LISTINGS)
   }
 
   goHome() {
-    Router.push(ROUTE_MY_LISTINGS)
+    Router.push(ROUTE_HOME)
   }
 
   render() {
@@ -30,14 +32,12 @@ class Success extends PureComponent {
         <Row justifyContent="center">
           <Col width={[1, 1/2]}>
             <View body p={4}>
-              <Row>
-                <Text
-                  fontSize="large"
-                  fontWeight="bold"
-                  textAlign="center">
-                  Parabéns, seu imóvel foi salvo com sucesso!
-                </Text>
-              </Row>
+              <Text
+                fontSize="large"
+                fontWeight="bold"
+                textAlign="center">
+                Parabéns, seu imóvel foi salvo com sucesso!
+              </Text>
               <Row justifyContent="center" my={4}>
                 <Icon name="check-circle" color="green" size={60} />
               </Row>
@@ -47,10 +47,12 @@ class Success extends PureComponent {
             </View>
             <View bottom p={4}>
               <Row>
-                <Col width={1}>
+                <Col width={1} mb={2}>
                   <Button active fluid height="tall" onClick={this.viewMyListings}>Ver Meus Imóveis</Button>
                 </Col>
-                <Col>
+              </Row>
+              <Row>
+                <Col width={1}>
                   <Button fluid height="tall" onClick={this.goHome}>Ir para Home</Button>
                 </Col>
               </Row>

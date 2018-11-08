@@ -12,9 +12,9 @@ import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import { currencyInputMask } from 'utils/text-utils'
 
 const HOME_TYPES = {
-  house: 'house',
-  apartment: 'apartment',
-  penthouse: 'penthouse'
+  house: 'Casa',
+  apartment: 'Apartamento',
+  penthouse: 'Cobertura'
 }
 
 class HomeDetails extends Component {
@@ -23,17 +23,17 @@ class HomeDetails extends Component {
     this.nextStep = this.nextStep.bind(this)
     this.previousStep = this.previousStep.bind(this)
     this.validateArea = this.validateArea.bind(this)
-    this.validateIptu = this.validateIptu.bind(this)
-    this.validateHomeType = this.validateHomeType.bind(this)
+    this.validatePropertyTax = this.validatePropertyTax.bind(this)
+    this.validateType = this.validateType.bind(this)
     this.updateStateFromProps = this.updateStateFromProps.bind(this)
   }
 
   state = {
-    homeType: null,
+    type: null,
     floor: null,
     area: null,
-    cond: null,
-    iptu: null
+    maintenanceFee: null,
+    propertyTax: null
   }
 
   componentDidMount() {
@@ -48,11 +48,11 @@ class HomeDetails extends Component {
     const { homeDetails } = props
     if (homeDetails) {
       this.setState({
-        homeType: homeDetails.homeType,
+        type: homeDetails.type,
         floor: homeDetails.floor,
         area: homeDetails.area,
-        cond: homeDetails.cond,
-        iptu: homeDetails.iptu
+        maintenanceFee: homeDetails.maintenanceFee,
+        propertyTax: homeDetails.propertyTax
       })
     }
   }
@@ -74,13 +74,13 @@ class HomeDetails extends Component {
     }
   }
 
-  validateIptu(value) {
+  validatePropertyTax(value) {
     if (!value) {
       return "É necessário informar o valor do IPTU do imóvel."
     }
   }
 
-  validateHomeType(value) {
+  validateType(value) {
     if (!value || value === '_placeholder') {
       return "É necessário informar o tipo do imóvel."
     }
@@ -88,29 +88,29 @@ class HomeDetails extends Component {
 
   render() {
     const { homeDetails } = this.props
-    let homeType, floor, area, cond, iptu
+    let type, floor, area, maintenanceFee, propertyTax
     if (homeDetails) {
-      homeType = homeDetails.homeType
+      type = homeDetails.type
       floor = homeDetails.floor
       area = homeDetails.area
-      cond = homeDetails.cond
-      iptu = homeDetails.iptu
+      maintenanceFee = homeDetails.maintenanceFee
+      propertyTax = homeDetails.propertyTax
     }
-    const isHouse = this.state.homeType === HOME_TYPES.house
+    const isHouse = this.state.type === HOME_TYPES.house
     return (
       <div ref={this.props.hostRef}>
         <Row justifyContent="center">
           <Col width={[1, 1/2]}>
             <Formik
               initialValues={{
-                homeType: homeType,
+                type: type,
                 floor: floor,
                 area: area,
-                cond: cond,
-                iptu: iptu
+                maintenanceFee: maintenanceFee,
+                propertyTax: propertyTax
               }}
               isInitialValid={() => {
-                return area !== null && iptu !== null
+                return area !== null && propertyTax !== null
               }}
               render={({isValid, setFieldTouched, setFieldValue, errors}) => (
                 <>
@@ -124,17 +124,17 @@ class HomeDetails extends Component {
                     <Text color="grey">Com base nos detalhes do seu imóvel, calcularemos um valor médio de venda.</Text>
                     <Col mb={4}>
                       <Field
-                        name="homeType"
-                        validate={this.validateHomeType}
+                        name="type"
+                        validate={this.validateType}
                         render={() => (
                           <Select
-                            defaultValue={homeType || '_placeholder'}
-                            error={errors.homeType}
+                            defaultValue={type || '_placeholder'}
+                            error={errors.type}
                             onChange={(e) => {
                               const { value } = e.target
-                              setFieldValue('homeType', value)
-                              setFieldTouched('homeType')
-                              this.setState({homeType: value})
+                              setFieldValue('type', value)
+                              setFieldTouched('type')
+                              this.setState({type: value})
                             }}>
                             <option value="_placeholder" disabled>Tipo do Imóvel*</option>
                             <option value={HOME_TYPES.house}>Casa</option>
@@ -153,7 +153,7 @@ class HomeDetails extends Component {
                               type="number"
                               error={errors.floor}
                               defaultValue={floor}
-                              disabled={this.state.homeType === HOME_TYPES.house}
+                              disabled={this.state.type === HOME_TYPES.house}
                               onChange={(e) => {
                                 const { value } = e.target
                                 setFieldValue('floor', value)
@@ -188,7 +188,7 @@ class HomeDetails extends Component {
                     <Row mb={4}>
                       <Col width={1/2} mr={4}>
                         <Field
-                          name="cond"
+                          name="maintenanceFee"
                           render={() => (
                             <MaskedInput
                               mask={currencyInputMask}
@@ -197,12 +197,12 @@ class HomeDetails extends Component {
                                   {...props}
                                   hideLabelView
                                   placeholder="Cond (R$)"
-                                  error={errors.cond}
-                                  defaultValue={cond}
+                                  error={errors.maintenanceFee}
+                                  defaultValue={maintenanceFee}
                                   onChange={(e) => {
                                     const { value } = e.target
-                                    setFieldValue('cond', value)
-                                    this.setState({cond: value})
+                                    setFieldValue('maintenanceFee', value)
+                                    this.setState({maintenanceFee: value})
                                   }}
                                   ref={(input) => ref(input)}
                                 />
@@ -212,8 +212,8 @@ class HomeDetails extends Component {
                       </Col>
                       <Col width={1/2} ml={2} mr={4}>
                         <Field
-                          name="iptu"
-                          validate={this.validateIptu}
+                          name="propertyTax"
+                          validate={this.validatePropertyTax}
                           render={({form}) => (
                             <MaskedInput
                               mask={currencyInputMask}
@@ -222,13 +222,13 @@ class HomeDetails extends Component {
                                   {...props}
                                   hideLabelView
                                   placeholder="IPTU (R$/ano)*"
-                                  error={form.touched.iptu ? errors.iptu : null}
-                                  defaultValue={iptu}
+                                  error={form.touched.propertyTax ? errors.propertyTax : null}
+                                  defaultValue={propertyTax}
                                   onChange={(e) => {
                                     const { value } = e.target
-                                    setFieldValue('iptu', value)
-                                    setFieldTouched('iptu')
-                                    this.setState({iptu: value})
+                                    setFieldValue('propertyTax', value)
+                                    setFieldTouched('propertyTax')
+                                    this.setState({propertyTax: value})
                                   }}
                                   ref={(input) => ref(input)}
                                 />

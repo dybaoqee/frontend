@@ -10,10 +10,7 @@ import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import StaticMap from 'components/listings/new-listing/shared/StaticMap'
 import { getAddressInput } from 'components/listings/new-listing/shared/AddressAutoComplete/address-input'
-import {
-  currencyInputMask,
-  currencyStyle
-} from 'utils/text-utils'
+import { currencyStyle } from 'utils/text-utils'
 import ServicesDisplay from './components/ServicesDisplay'
 
 class Summary extends PureComponent {
@@ -30,6 +27,7 @@ class Summary extends PureComponent {
     loading: false,
     error: null,
     listingCreated: false,
+    listingId: null,
     tourCreated: false
   }
 
@@ -37,14 +35,29 @@ class Summary extends PureComponent {
     const { location, homeDetails, rooms, garage, differential, phone, pricing } = this.props
     
     const { addressData, complement } = location
-    const { area, floor, homeType, cond, iptu } = homeDetails
+    const { area, floor, type, maintenanceFee, propertyTax } = homeDetails
     const { bathrooms, bedrooms, suites } = rooms
     const { spots } = garage
     const { userPrice } = pricing
+    const { text } = differential
+    const { internationalCode, localAreaCode, number } = phone
 
     const address = getAddressInput(addressData)
     return {
-      
+      address,
+      area: parseInt(area),
+      bathrooms,
+      complement,
+      description: text,
+      floor,
+      garageSpots: spots,
+      maintenanceFee: parseInt(maintenanceFee),
+      phone: internationalCode + localAreaCode + number,
+      price: userPrice,
+      propertyTax: parseInt(propertyTax),
+      rooms: bedrooms,
+      suites,
+      type
     }
   }
 
@@ -61,10 +74,12 @@ class Summary extends PureComponent {
       })
 
       if (data) {
-        this.setState({listingCreated: true})
+        this.setState({
+          listingCreated: true,
+          listingId: data.insertListing.id
+        })
       }
     } catch (e) {
-      console.log(e)
       this.setState({
         loading: false,
         error: 'Ocorreu um erro. Por favor, tente novamente.'
@@ -76,17 +91,22 @@ class Summary extends PureComponent {
     this.setState({loading: true})
 
     try {
-      const { day, time } = this.props.tour
+      const { tour, services } = this.props
+      const { day, time } = tour
+      const { wantsTour, wantsPictures } = services
+
       const datetime = moment(day + time, 'YYYY-MM-DD HH').toDate()
       const { data } = await apolloClient.mutate({
         mutation: TOUR_SCHEDULE,
         variables: {
-          listingId: null,
-          options: {
-            datetime
-          },
-          wantsTour: null,
-          wantsPictures: null
+          input: {
+            listingId: this.state.listingId,
+            options: {
+              datetime
+            },
+            wantsTour,
+            wantsPictures
+          }
         }
       })
 
@@ -94,7 +114,6 @@ class Summary extends PureComponent {
         this.setState({tourCreated: true})
       }
     } catch (e) {
-      console.log(e)
       this.setState({
         loading: false,
         error: 'Ocorreu um erro. Por favor, tente novamente.'
@@ -103,33 +122,35 @@ class Summary extends PureComponent {
   }
 
   async save() {
-    const { listingCreated, tourCreated } = this.state
-    if (!listingCreated) {
-      console.log('listing not created, creating...')
+    const { services: { wantsTour, wantsPictures } } = this.props
+    const wantsServices = wantsTour || wantsPictures
+    
+    if (!this.state.listingCreated) {
       await this.createListing()
     }
-    if (listingCreated && !tourCreated) {
-      console.log('tour not created, creating...')
+    if (this.state.listingCreated && !this.state.tourCreated && wantsServices) {
       await this.createTour()
     }
-    if (listingCreated && tourCreated) {
-      console.log('everything created. going to next step')
+    if (this.state.listingCreated && this.state.tourCreated || (this.state.listingCreated && !wantsServices)) {
       this.nextStep()
     }
   }
 
   nextStep() {
-    const { navigateTo } = this.props
+    const { navigateTo, resetStoreExceptStep } = this.props
+    resetStoreExceptStep()
     navigateTo('success')
   }
 
   render() {
     const { location, pricing, services, tour } = this.props
     const { suggestedPrice, userPrice } = pricing
+    const { addressData } = location
+    const { wantsTour, wantsPictures } = services
 
     const formattedSuggestedPrice = suggestedPrice ? suggestedPrice.toLocaleString('pt-BR', currencyStyle) : null
-    const formattedUserPrice = userPrice.toLocaleString('pt-BR', currencyStyle)
-    const address = location.addressData.name
+    const formattedUserPrice = userPrice ? userPrice.toLocaleString('pt-BR', currencyStyle) : null
+    const address = addressData ? addressData.name : null
 
     return (
       <div ref={this.props.hostRef}>
@@ -159,17 +180,20 @@ class Summary extends PureComponent {
                     <Text fontSize="large" fontWeight="bold" textAlign="center">{formattedUserPrice}</Text>
                   </>
                 }
-                <ServicesDisplay
-                  services={services}
-                  tour={tour}
-                />
+                {(wantsTour || wantsPictures) &&
+                  <ServicesDisplay
+                    services={services}
+                    tour={tour}
+                  />
+                }
               </Col>
             </View>
             <View bottom p={4}>
               <Button
-                active
+                active={!this.state.loading}
                 fluid
                 height="tall"
+                disabled={this.state.loading}
                 onClick={this.save}
               >
                 Vender meu imóvel

@@ -11,6 +11,7 @@ import {
   UPDATE_SERVICES,
   UPDATE_TOUR,
   RESET_STORE,
+  RESET_STORE_EXCEPT_STEP,
   START
 } from './actions'
 
@@ -23,11 +24,11 @@ const initialState = {
     addressData: null
   },
   homeDetails: {
-    homeType: null,
+    type: null,
     floor: null,
     area: null,
-    cond: null,
-    iptu: null
+    maintenanceFee: null,
+    propertyTax: null
   },
   rooms: {
     bedrooms: null,
@@ -59,7 +60,7 @@ const initialState = {
   },
   services: {
     wantsTour: false,
-    wantsPhotos: false,
+    wantsPictures: false,
     tourOptions: null
   },
   tour: {
@@ -135,6 +136,10 @@ const reducer = (state = initialState, action) => {
       }
     case RESET_STORE:
       return initialState
+    case RESET_STORE_EXCEPT_STEP:
+      const newState = initialState
+      newState.step = state.step
+      return newState
     default:
       return state
   }

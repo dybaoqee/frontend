@@ -3,6 +3,7 @@ import { getAnimatedScreen } from './animation'
 import {
   navigateTo,
   resetStore,
+  resetStoreExceptStep,
   updateLocation,
   updateHomeDetails,
   updateRooms,
@@ -90,7 +91,7 @@ const steps = {
   },
   success: {
     component: Success,
-    canNavigateTo: []
+    canNavigateTo: ['summary']
   }
 }
 
@@ -135,6 +136,9 @@ const mapDispatchToProps = dispatch => {
     },
     resetStore: () => {
       dispatch(resetStore())
+    },
+    resetStoreExceptStep: () => {
+      dispatch(resetStoreExceptStep())
     }
   }
 }

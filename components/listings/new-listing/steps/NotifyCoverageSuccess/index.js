@@ -33,14 +33,12 @@ class NotifyCoverageSuccess extends PureComponent {
         <Row justifyContent="center">
           <Col width={[1, 1/2]}>
             <View body p={4}>
-              <Row>
-                <Text
-                  fontSize="large"
-                  fontWeight="bold"
-                  textAlign="center">
-                  Seu e-mail foi salvo com sucesso!
-                </Text>
-              </Row>
+              <Text
+                fontSize="large"
+                fontWeight="bold"
+                textAlign="center">
+                Seu e-mail foi salvo com sucesso!
+              </Text>
               <Row justifyContent="center" my={4}>
                 <Icon name="check-circle" color="green" size={60} />
               </Row>
