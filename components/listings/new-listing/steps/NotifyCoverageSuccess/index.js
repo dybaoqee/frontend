@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import Router from 'next/router'
+import routerEvents from 'next-router-events'
 
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
@@ -15,7 +16,7 @@ class NotifyCoverageSuccess extends PureComponent {
   }
 
   componentDidMount() {
-    Router.events.on('routeChangeComplete', (url) => {
+    routerEvents.once('routeChangeComplete', (url) => {
       if (url === '/') {
         this.props.resetStore()
       }
