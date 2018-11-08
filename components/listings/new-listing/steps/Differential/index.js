@@ -40,9 +40,9 @@ class Differential extends Component {
   }
 
   nextStep() {
-    const { navigateTo, updateDifferential } = this.props
+    const { navigateTo, updateDifferential, authenticated } = this.props
     updateDifferential(this.state)
-    navigateTo('phone')
+    navigateTo(authenticated ? 'pricing' : 'phone')
   }
 
   previousStep() {
