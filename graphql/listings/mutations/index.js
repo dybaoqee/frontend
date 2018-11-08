@@ -109,3 +109,19 @@ export const NOTIFY_WHEN_COVERED = gql`
     }
   }
 `
+
+export const INSERT_LISTING = gql`
+  mutation insertListing($input: ListingInput!) {
+    insertListing(input: $input) {
+      id
+    }
+  }
+`
+
+export const TOUR_SCHEDULE = gql`
+  mutation tourSchedule($input: TourScheduleInput!) {
+    tourSchedule(input: $input) {
+      id
+    }
+  }
+`

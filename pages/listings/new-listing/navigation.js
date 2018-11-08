@@ -28,6 +28,7 @@ import Summary from 'components/listings/new-listing/steps/Summary'
 import NotifyCoverage from 'components/listings/new-listing/steps/NotifyCoverage'
 import NotifyCoverageSuccess from 'components/listings/new-listing/steps/NotifyCoverageSuccess'
 import Tour from 'components/listings/new-listing/steps/Tour'
+import Success from 'components/listings/new-listing/steps/Success'
 
 // Navigation steps
 const steps = {
@@ -85,7 +86,11 @@ const steps = {
   },
   summary: {
     component: Summary,
-    canNavigateTo: ['tour', 'services']
+    canNavigateTo: ['tour', 'services', 'success']
+  },
+  success: {
+    component: Success,
+    canNavigateTo: []
   }
 }
 

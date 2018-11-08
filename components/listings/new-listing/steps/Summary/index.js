@@ -2,68 +2,130 @@ import React, { PureComponent } from 'react'
 import MaskedInput from 'react-text-mask'
 import moment from 'moment'
 
+import { INSERT_LISTING, TOUR_SCHEDULE } from 'graphql/listings/mutations'
 import Button from '@emcasa/ui-dom/components/Button'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import StaticMap from 'components/listings/new-listing/shared/StaticMap'
+import { getAddressInput } from 'components/listings/new-listing/shared/AddressAutoComplete/address-input'
 import {
   currencyInputMask,
   currencyStyle
 } from 'utils/text-utils'
-
-const TOUR_TEXT = 'o Tour Virtual'
-const PICTURES_TEXT = 'as Fotos'
+import ServicesDisplay from './components/ServicesDisplay'
 
 class Summary extends PureComponent {
   constructor(props) {
     super(props)
-    this.finish = this.finish.bind(this)
-    this.getListing = this.getListing.bind(this)
+    this.getListingInput = this.getListingInput.bind(this)
+    this.createListing = this.createListing.bind(this)
+    this.createTour = this.createTour.bind(this)
+    this.save = this.save.bind(this)
+    this.nextStep = this.nextStep.bind(this)
   }
 
   state = {
     loading: false,
-    error: null
+    error: null,
+    listingCreated: false,
+    tourCreated: false
   }
 
-  finish() {
+  getListingInput() {
+    const { location, homeDetails, rooms, garage, differential, phone, pricing } = this.props
     
+    const { addressData, complement } = location
+    const { area, floor, homeType, cond, iptu } = homeDetails
+    const { bathrooms, bedrooms, suites } = rooms
+    const { spots } = garage
+    const { userPrice } = pricing
+
+    const address = getAddressInput(addressData)
+    return {
+      
+    }
   }
 
-  getServicesText() {
-    const { services: { wantsTour, wantsPictures }, tour: { day }} = this.props
-    if (!wantsTour && !wantsPictures) {
-      return null
-    }
+  async createListing() {
+    this.setState({loading: true})
 
-    const dateAndTime = moment(day).format('DD/MM/YYYY')
-    if (wantsTour && wantsPictures) {
-      return (
-        <>
-          <Text color="grey">Seu melhor horário para {TOUR_TEXT} e {PICTURES_TEXT}:</Text>
-          <Text fontSize="large" fontWeight="bold" textAlign="center">{dateAndTime}</Text>
-        </>
-      )
+    try {
+      const input = this.getListingInput()
+      const { data } = await apolloClient.mutate({
+        mutation: INSERT_LISTING,
+        variables: {
+          input
+        }
+      })
+
+      if (data) {
+        this.setState({listingCreated: true})
+      }
+    } catch (e) {
+      console.log(e)
+      this.setState({
+        loading: false,
+        error: 'Ocorreu um erro. Por favor, tente novamente.'
+      })
     }
-    
-    return (
-      <>
-        <Text color="grey">Seu melhor horário para {wantsTour && TOUR_TEXT}{wantsPictures && PICTURES_TEXT}:</Text>
-        <Text fontSize="large" fontWeight="bold" textAlign="center">{dateAndTime}</Text>
-      </>
-    )
   }
 
-  getListing() {
+  async createTour() {
+    this.setState({loading: true})
 
+    try {
+      const { day, time } = this.props.tour
+      const datetime = moment(day + time, 'YYYY-MM-DD HH').toDate()
+      const { data } = await apolloClient.mutate({
+        mutation: TOUR_SCHEDULE,
+        variables: {
+          listingId: null,
+          options: {
+            datetime
+          },
+          wantsTour: null,
+          wantsPictures: null
+        }
+      })
+
+      if (data) {
+        this.setState({tourCreated: true})
+      }
+    } catch (e) {
+      console.log(e)
+      this.setState({
+        loading: false,
+        error: 'Ocorreu um erro. Por favor, tente novamente.'
+      })
+    }
+  }
+
+  async save() {
+    const { listingCreated, tourCreated } = this.state
+    if (!listingCreated) {
+      console.log('listing not created, creating...')
+      await this.createListing()
+    }
+    if (listingCreated && !tourCreated) {
+      console.log('tour not created, creating...')
+      await this.createTour()
+    }
+    if (listingCreated && tourCreated) {
+      console.log('everything created. going to next step')
+      this.nextStep()
+    }
+  }
+
+  nextStep() {
+    const { navigateTo } = this.props
+    navigateTo('success')
   }
 
   render() {
     const { location, pricing, services, tour } = this.props
     const { suggestedPrice, userPrice } = pricing
-    const { wantsTour, wantsPictures } = services
 
     const formattedSuggestedPrice = suggestedPrice ? suggestedPrice.toLocaleString('pt-BR', currencyStyle) : null
     const formattedUserPrice = userPrice.toLocaleString('pt-BR', currencyStyle)
@@ -97,11 +159,19 @@ class Summary extends PureComponent {
                     <Text fontSize="large" fontWeight="bold" textAlign="center">{formattedUserPrice}</Text>
                   </>
                 }
-                {this.getServicesText()}
+                <ServicesDisplay
+                  services={services}
+                  tour={tour}
+                />
               </Col>
             </View>
             <View bottom p={4}>
-              <Button active fluid height="tall">
+              <Button
+                active
+                fluid
+                height="tall"
+                onClick={this.save}
+              >
                 Vender meu imóvel
               </Button>
             </View>
