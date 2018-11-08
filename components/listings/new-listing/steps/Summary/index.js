@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react'
-import MaskedInput from 'react-text-mask'
 import moment from 'moment'
 
 import { INSERT_LISTING, TOUR_SCHEDULE } from 'graphql/listings/mutations'
@@ -138,8 +137,8 @@ class Summary extends PureComponent {
 
   nextStep() {
     const { navigateTo, resetStoreExceptStep } = this.props
-    resetStoreExceptStep()
     navigateTo('success')
+    resetStoreExceptStep()
   }
 
   render() {

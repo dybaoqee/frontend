@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react'
 import Router from 'next/router'
-import routerEvents from 'next-router-events'
 
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
@@ -19,18 +18,13 @@ class Success extends PureComponent {
     this.goHome = this.goHome.bind(this)
   }
 
-  componentDidMount() {
-    routerEvents.once('routeChangeComplete', () => {
-      this.props.resetStore()
-      return true
-    })
-  }
-
   viewMyListings() {
+    this.props.resetStore()
     Router.push(ROUTE_MY_LISTINGS)
   }
 
   goHome() {
+    this.props.resetStore()
     Router.push(ROUTE_HOME)
   }
 
