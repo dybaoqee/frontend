@@ -9,7 +9,7 @@ import Text from '@emcasa/ui-dom/components/Text'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import { getAddressInput } from 'lib/address'
 import { estimatePricing, getPricingInput } from 'lib/listings/get-pricing'
-import { getUserInfo } from 'lib/user'
+import { getUserInfo, getPhoneParts } from 'lib/user'
 
 class Differential extends Component {
   constructor(props) {
@@ -79,6 +79,15 @@ class Differential extends Component {
         userInfo,
         error: null,
         hasPrice: false
+      }, () => {
+        // Update user info in redux
+        const { updatePhone, updatePersonal } = this.props
+        const fullPhoneNumber = getPhoneParts(userInfo.phone)
+        updatePhone(fullPhoneNumber)
+        updatePersonal({
+          name: userInfo.name,
+          email: userInfo.email
+        })
       })
     } else {
       this.setState({
