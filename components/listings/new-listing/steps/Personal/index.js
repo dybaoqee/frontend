@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Formik, Field } from 'formik'
 
-import { ESTIMATE_PRICE } from 'graphql/listings/mutations'
+
 import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
@@ -9,7 +9,7 @@ import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import { getAddressInput } from 'lib/address'
-import { getPricingInput } from 'lib/listings/get-pricing'
+import { estimatePricing, getPricingInput } from 'lib/listings/get-pricing'
 
 class Personal extends Component {
   constructor(props) {
@@ -69,32 +69,28 @@ class Personal extends Component {
   async estimatePrice() {
     this.setState({loading: true})
 
+    // Prepare input
     const { name, email } = this.state
     const { homeDetails, rooms, garage, location } = this.props
     const addressInput = getAddressInput(location.addressData)
     const pricingInput = getPricingInput(addressInput, homeDetails, rooms, garage, name, email)
 
-    try {
-      const { data } = await apolloClient.mutate({
-        mutation: ESTIMATE_PRICE,
-        variables: pricingInput
-      })
+    // Run mutation
+    const response = await estimatePricing(apolloClient, pricingInput)
+    this.setState({
+      loading: false,
+      error: response.error
+    })
 
-      if (data && data.requestPriceSuggestion) {
-        const { suggestedPrice } = data.requestPriceSuggestion
-        const { updatePricing, pricing } = this.props
-        this.setState({loading: false})
-        updatePricing({
-          ...pricing,
-          suggestedPrice: suggestedPrice
-        })
-        this.nextStep()
-      }
-    } catch (e) {
-      this.setState({
-        loading: false,
-        error: 'Ocorreu um erro. Por favor, tente novamente.'
+    // Handle result
+    if (response.result) {
+      const suggestedPrice = response.result
+      const { updatePricing, pricing } = this.props
+      updatePricing({
+        ...pricing,
+        suggestedPrice
       })
+      this.nextStep()
     }
   }
 
