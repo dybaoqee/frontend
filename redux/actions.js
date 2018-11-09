@@ -2,6 +2,7 @@
 export const NAVIGATE = 'NAVIGATE'
 export const START = 'START'
 export const RESET_STORE = 'RESET_STORE'
+export const RESET_STORE_EXCEPT_STEP = 'RESET_STORE_EXCEPT_STEP'
 export const UPDATE_LOCATION = 'UPDATE_LOCATION'
 export const UPDATE_HOME_DETAILS = 'UPDATE_HOME_DETAILS'
 export const UPDATE_ROOMS = 'UPDATE_ROOMS'
@@ -31,6 +32,12 @@ export const start = (timestamp) => {
 export const resetStore = () => {
   return {
     type: RESET_STORE
+  }
+}
+
+export const resetStoreExceptStep = () => {
+  return {
+    type: RESET_STORE_EXCEPT_STEP
   }
 }
 

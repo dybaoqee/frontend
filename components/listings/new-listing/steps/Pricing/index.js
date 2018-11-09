@@ -84,8 +84,8 @@ class Pricing extends Component {
   }
 
   previousStep() {
-    const { navigateTo } = this.props
-    navigateTo('personal')
+    const { navigateTo, authenticated } = this.props
+    navigateTo(authenticated ? 'differential' : 'personal')
   }
 
   currencyInput(errors, setFieldValue, setFieldTouched) {

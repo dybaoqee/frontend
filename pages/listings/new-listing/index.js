@@ -36,16 +36,6 @@ class NewListing extends Component {
     resuming: false
   }
 
-  componentDidMount() {
-    // Browser back button
-    Router.beforePopState(({ url, as, options }) => {
-      const { navigateTo } = this.props
-      const key = as.split('#')[1]
-      navigateTo(key ? key : 'intro')
-      return false
-    });
-  }
-
   componentWillReceiveProps(props) {
     // Check for previous progress
     const { startedAt, location: { address } } = this.props
@@ -60,12 +50,6 @@ class NewListing extends Component {
     if (!hasProgress) {
       const { start } = this.props
       start(this.state.startedAt)
-    }
-
-    // Keep navigation state
-    const nextStep = props.step
-    if (this.props.step !== nextStep) {
-      this.navigate(nextStep)
     }
   }
 
@@ -90,7 +74,7 @@ class NewListing extends Component {
     if (!nextKey && currentStep !== 'intro' && nextStep !== 'intro') {
       throw Error('Navigation key ' + nextStep + ' not found in ' + currentStep)
     }
-    Router.push('/anuncie', `/anuncie#${nextStep}`, { shallow: true })
+    Router.push('/anuncie', `/anuncie`, { shallow: true })
   }
 
   render() {

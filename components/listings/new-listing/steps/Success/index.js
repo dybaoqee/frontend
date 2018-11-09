@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react'
 import Router from 'next/router'
-import routerEvents from 'next-router-events'
 
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
@@ -9,23 +8,24 @@ import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
 
-class NotifyCoverageSuccess extends PureComponent {
+const ROUTE_HOME = '/'
+const ROUTE_MY_LISTINGS = '/listings/user-listings'
+
+class Success extends PureComponent {
   constructor(props) {
     super(props)
-    this.finish = this.finish.bind(this)
+    this.viewMyListings = this.viewMyListings.bind(this)
+    this.goHome = this.goHome.bind(this)
   }
 
-  componentDidMount() {
-    routerEvents.once('routeChangeComplete', (url) => {
-      if (url === '/') {
-        this.props.resetStore()
-      }
-      return true
-    })
+  viewMyListings() {
+    this.props.resetStore()
+    Router.push(ROUTE_MY_LISTINGS)
   }
 
-  finish() {
-    Router.push('/')
+  goHome() {
+    this.props.resetStore()
+    Router.push(ROUTE_HOME)
   }
 
   render() {
@@ -38,17 +38,26 @@ class NotifyCoverageSuccess extends PureComponent {
                 fontSize="large"
                 fontWeight="bold"
                 textAlign="center">
-                Seu e-mail foi salvo com sucesso!
+                Parabéns, seu imóvel foi salvo com sucesso!
               </Text>
               <Row justifyContent="center" my={4}>
                 <Icon name="check-circle" color="green" size={60} />
               </Row>
               <Row>
-                <Text color="grey">Você receberá uma notificação quando atendermos a sua região.</Text>
+                <Text color="grey">Muito obrigado por confiar na EmCasa! Enviaremos um SMS assim que seu imóvel estiver publicado.</Text>
               </Row>
             </View>
             <View bottom p={4}>
-              <Button active fluid height="tall" onClick={this.finish}>OK</Button>
+              <Row>
+                <Col width={1} mb={2}>
+                  <Button active fluid height="tall" onClick={this.viewMyListings}>Ver Meus Imóveis</Button>
+                </Col>
+              </Row>
+              <Row>
+                <Col width={1}>
+                  <Button fluid height="tall" onClick={this.goHome}>Ir para Home</Button>
+                </Col>
+              </Row>
             </View>
           </Col>
         </Row>
@@ -57,4 +66,4 @@ class NotifyCoverageSuccess extends PureComponent {
   }
 }
 
-export default NotifyCoverageSuccess
+export default Success

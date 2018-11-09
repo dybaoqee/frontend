@@ -60,6 +60,7 @@
     "moment": "^2.22.2",
     "next": "^7.0.0-canary.0",
     "next-redux-wrapper": "^2.0.0",
+    "next-router-events": "^2.1.0",
     "nprogress": "^0.2.0",
     "number-abbreviate": "^2.0.0",
     "numeral": "^2.0.6",

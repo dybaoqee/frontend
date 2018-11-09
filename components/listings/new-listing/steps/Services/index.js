@@ -80,7 +80,11 @@ class Services extends Component {
   }
 
   skipStep() {
-    const { navigateTo } = this.props
+    const { navigateTo, updateServices } = this.props
+    updateServices({
+      wantsTour: false,
+      wantsPictures: false
+    })
     navigateTo('summary')
   }
 

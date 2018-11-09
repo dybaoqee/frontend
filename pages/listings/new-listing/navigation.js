@@ -3,6 +3,7 @@ import { getAnimatedScreen } from './animation'
 import {
   navigateTo,
   resetStore,
+  resetStoreExceptStep,
   updateLocation,
   updateHomeDetails,
   updateRooms,
@@ -28,6 +29,7 @@ import Summary from 'components/listings/new-listing/steps/Summary'
 import NotifyCoverage from 'components/listings/new-listing/steps/NotifyCoverage'
 import NotifyCoverageSuccess from 'components/listings/new-listing/steps/NotifyCoverageSuccess'
 import Tour from 'components/listings/new-listing/steps/Tour'
+import Success from 'components/listings/new-listing/steps/Success'
 
 // Navigation steps
 const steps = {
@@ -61,7 +63,7 @@ const steps = {
   },
   differential: {
     component: Differential,
-    canNavigateTo: ['garage', 'phone']
+    canNavigateTo: ['garage', 'phone', 'pricing']
   },
   phone: {
     component: Phone,
@@ -73,7 +75,7 @@ const steps = {
   },
   pricing: {
     component: Pricing,
-    canNavigateTo: ['personal', 'services']
+    canNavigateTo: ['personal', 'services', 'differential']
   },
   services: {
     component: Services,
@@ -85,7 +87,11 @@ const steps = {
   },
   summary: {
     component: Summary,
-    canNavigateTo: ['tour', 'services']
+    canNavigateTo: ['tour', 'services', 'success']
+  },
+  success: {
+    component: Success,
+    canNavigateTo: ['summary']
   }
 }
 
@@ -130,6 +136,9 @@ const mapDispatchToProps = dispatch => {
     },
     resetStore: () => {
       dispatch(resetStore())
+    },
+    resetStoreExceptStep: () => {
+      dispatch(resetStoreExceptStep())
     }
   }
 }
