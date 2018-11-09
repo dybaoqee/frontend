@@ -9,6 +9,7 @@ import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import { getAddressInput } from 'lib/address'
+import { getPricingInput } from 'lib/listings/get-pricing'
 
 class Personal extends Component {
   constructor(props) {
@@ -31,7 +32,9 @@ class Personal extends Component {
 
   componentDidMount() {
     this.updateStateFromProps(this.props)
-    this.nameField.current.focus()
+    if (this.nameField.current) {
+      this.nameField.current.focus()
+    }
   }
 
   componentWillReceiveProps(props) {
@@ -66,28 +69,15 @@ class Personal extends Component {
   async estimatePrice() {
     this.setState({loading: true})
 
-    const { props } = this
-    const address = getAddressInput(props.location.addressData)
-    const area = parseInt(props.homeDetails.area)
-    const { bathrooms } = props.rooms
     const { name, email } = this.state
-    const garageSpots = props.garage.spots
-    const rooms = props.rooms.bedrooms
-    const isCovered = true
+    const { homeDetails, rooms, garage, location } = this.props
+    const addressInput = getAddressInput(location.addressData)
+    const pricingInput = getPricingInput(addressInput, homeDetails, rooms, garage, name, email)
 
     try {
       const { data } = await apolloClient.mutate({
         mutation: ESTIMATE_PRICE,
-        variables: {
-          address,
-          area,
-          bathrooms,
-          name,
-          email,
-          garageSpots,
-          rooms,
-          isCovered
-        }
+        variables: pricingInput
       })
 
       if (data && data.requestPriceSuggestion) {
