@@ -1,0 +1,343 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c9 {
+  outline: none;
+  display: block;
+  cursor: pointer;
+  padding: 0 20px 0 20px;
+  border-radius: 4px;
+  border: 1px solid;
+  border-color: #f50057;
+  background-color: #f50057;
+  width: 100%;
+  height: 60px;
+  color: #ffffff;
+  font-family: FaktSoftPro-Normal;
+  font-size: 18px;
+  -webkit-font-smoothing: antialiased;
+  border-color: #e0e6ed;
+}
+
+.c9 :hover {
+  background-color: #f50057;
+}
+
+.c1 {
+  width: 100%;
+}
+
+.c2 {
+  padding: 20px;
+}
+
+.c5 {
+  margin-bottom: 10px;
+}
+
+.c8 {
+  padding: 20px;
+}
+
+.c3 {
+  -webkit-font-smoothing: antialiased;
+  font-family: FaktSoftPro-Normal;
+  color: #3c4858;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.c4 {
+  -webkit-font-smoothing: antialiased;
+  font-family: FaktSoftPro-Normal;
+  color: #979797;
+  font-size: 18px;
+}
+
+.c7 {
+  -webkit-font-smoothing: antialiased;
+  font-family: FaktSoftPro-Normal;
+  color: #3c4858;
+  font-size: 18px;
+}
+
+.c6 {
+  margin-right: 10px;
+}
+
+@media screen and (min-width:640px) {
+  .c1 {
+    width: 50%;
+  }
+}
+
+@media only screen and (max-device-width:600px) {
+  .c2 {
+    margin-bottom: 80px;
+  }
+}
+
+@media only screen and (max-device-width:600px) {
+  .c8 {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #ffffff;
+  }
+}
+
+<div>
+  <div
+    className="c0"
+  >
+    <div
+      className="c1"
+      width={
+        Array [
+          1,
+          0.5,
+        ]
+      }
+    >
+      <div
+        className="c2"
+      >
+        <p
+          className="c3"
+          color="dark"
+          fontSize="large"
+          fontWeight="bold"
+        >
+          Como funciona anunciar aqui na EmCasa?
+        </p>
+        <p
+          className="c4"
+          color="grey"
+          fontSize="default"
+        >
+          Venda seu imóvel do jeito fácil e seguro.
+        </p>
+        <div
+          className="c5"
+        >
+          <div
+            className="c6"
+            style={
+              Object {
+                "display": "inline",
+                "verticalAlign": "sub",
+              }
+            }
+          >
+            <svg
+              height={20}
+              version="1.1"
+              viewBox="0 0 512 512"
+              x={0}
+              y={0}
+            >
+              <path
+                d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm113.9 231L234.4 103.5c-9.4-9.4-24.6-9.4-33.9 0l-17 17c-9.4 9.4-9.4 24.6 0 33.9L285.1 256 183.5 357.6c-9.4 9.4-9.4 24.6 0 33.9l17 17c9.4 9.4 24.6 9.4 33.9 0L369.9 273c9.4-9.4 9.4-24.6 0-34z"
+                fill="#1fb6ff"
+                mr={2}
+                name="chevron-circle-right"
+                type="default"
+              />
+            </svg>
+          </div>
+          <span
+            className="c7"
+            color="dark"
+            fontSize="default"
+          >
+            Cadastre seu imóvel no nosso site
+          </span>
+        </div>
+        <div
+          className="c5"
+        >
+          <div
+            className="c6"
+            style={
+              Object {
+                "display": "inline",
+                "verticalAlign": "sub",
+              }
+            }
+          >
+            <svg
+              height={20}
+              version="1.1"
+              viewBox="0 0 512 512"
+              x={0}
+              y={0}
+            >
+              <path
+                d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm113.9 231L234.4 103.5c-9.4-9.4-24.6-9.4-33.9 0l-17 17c-9.4 9.4-9.4 24.6 0 33.9L285.1 256 183.5 357.6c-9.4 9.4-9.4 24.6 0 33.9l17 17c9.4 9.4 24.6 9.4 33.9 0L369.9 273c9.4-9.4 9.4-24.6 0-34z"
+                fill="#1fb6ff"
+                mr={2}
+                name="chevron-circle-right"
+                type="default"
+              />
+            </svg>
+          </div>
+          <span
+            className="c7"
+            color="dark"
+            fontSize="default"
+          >
+            Agende grátis um Tour Virtual 3D e uma sessão de fotos do seu imóvel
+          </span>
+        </div>
+        <div
+          className="c5"
+        >
+          <div
+            className="c6"
+            style={
+              Object {
+                "display": "inline",
+                "verticalAlign": "sub",
+              }
+            }
+          >
+            <svg
+              height={20}
+              version="1.1"
+              viewBox="0 0 512 512"
+              x={0}
+              y={0}
+            >
+              <path
+                d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm113.9 231L234.4 103.5c-9.4-9.4-24.6-9.4-33.9 0l-17 17c-9.4 9.4-9.4 24.6 0 33.9L285.1 256 183.5 357.6c-9.4 9.4-9.4 24.6 0 33.9l17 17c9.4 9.4 24.6 9.4 33.9 0L369.9 273c9.4-9.4 9.4-24.6 0-34z"
+                fill="#1fb6ff"
+                mr={2}
+                name="chevron-circle-right"
+                type="default"
+              />
+            </svg>
+          </div>
+          <span
+            className="c7"
+            color="dark"
+            fontSize="default"
+          >
+            Economize tempo e dinheiro anunciando seu imóvel com a gente
+          </span>
+        </div>
+        <div
+          className="c5"
+        >
+          <div
+            className="c6"
+            style={
+              Object {
+                "display": "inline",
+                "verticalAlign": "sub",
+              }
+            }
+          >
+            <svg
+              height={20}
+              version="1.1"
+              viewBox="0 0 512 512"
+              x={0}
+              y={0}
+            >
+              <path
+                d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm113.9 231L234.4 103.5c-9.4-9.4-24.6-9.4-33.9 0l-17 17c-9.4 9.4-9.4 24.6 0 33.9L285.1 256 183.5 357.6c-9.4 9.4-9.4 24.6 0 33.9l17 17c9.4 9.4 24.6 9.4 33.9 0L369.9 273c9.4-9.4 9.4-24.6 0-34z"
+                fill="#1fb6ff"
+                mr={2}
+                name="chevron-circle-right"
+                type="default"
+              />
+            </svg>
+          </div>
+          <span
+            className="c7"
+            color="dark"
+            fontSize="default"
+          >
+            Pré avaliação grátis do seu imóvel
+          </span>
+        </div>
+        <div
+          className="c5"
+        >
+          <div
+            className="c6"
+            style={
+              Object {
+                "display": "inline",
+                "verticalAlign": "sub",
+              }
+            }
+          >
+            <svg
+              height={20}
+              version="1.1"
+              viewBox="0 0 512 512"
+              x={0}
+              y={0}
+            >
+              <path
+                d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm113.9 231L234.4 103.5c-9.4-9.4-24.6-9.4-33.9 0l-17 17c-9.4 9.4-9.4 24.6 0 33.9L285.1 256 183.5 357.6c-9.4 9.4-9.4 24.6 0 33.9l17 17c9.4 9.4 24.6 9.4 33.9 0L369.9 273c9.4-9.4 9.4-24.6 0-34z"
+                fill="#1fb6ff"
+                mr={2}
+                name="chevron-circle-right"
+                type="default"
+              />
+            </svg>
+          </div>
+          <span
+            className="c7"
+            color="dark"
+            fontSize="default"
+          >
+            Assistência jurídica grátis
+          </span>
+        </div>
+      </div>
+      <div
+        className="c0"
+      >
+        <div
+          className="c1"
+          width={
+            Array [
+              1,
+              0.5,
+            ]
+          }
+        >
+          <div
+            className="c8"
+          >
+            <button
+              className="c9"
+              fontSize="default"
+              height="tall"
+              onClick={[Function]}
+            >
+              Quero Anunciar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
