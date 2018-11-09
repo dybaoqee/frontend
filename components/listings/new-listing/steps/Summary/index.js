@@ -8,7 +8,7 @@ import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import StaticMap from 'components/listings/new-listing/shared/StaticMap'
-import { getAddressInput } from 'components/listings/new-listing/shared/AddressAutoComplete/address-input'
+import { getAddressInput } from 'lib/address'
 import { currencyStyle } from 'utils/text-utils'
 import ServicesDisplay from './components/ServicesDisplay'
 

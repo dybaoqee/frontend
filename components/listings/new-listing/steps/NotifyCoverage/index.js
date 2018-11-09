@@ -8,7 +8,7 @@ import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
-import { getAddressInput } from 'components/listings/new-listing/shared/AddressAutoComplete/address-input'
+import { getAddressInput } from 'lib/address'
 
 class NotifyCoverage extends Component {
   constructor(props) {

@@ -10,7 +10,7 @@ import Input from '@emcasa/ui-dom/components/Input'
 import AddressAutoComplete from 'components/listings/new-listing/shared/AddressAutoComplete'
 import StaticMap from 'components/listings/new-listing/shared/StaticMap'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
-import { getAddressInput } from 'components/listings/new-listing/shared/AddressAutoComplete/address-input'
+import { getAddressInput } from 'lib/address'
 
 class AddressInput extends Component {
   constructor(props) {

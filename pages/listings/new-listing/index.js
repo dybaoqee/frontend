@@ -78,14 +78,13 @@ class NewListing extends Component {
   }
 
   render() {
-    const { client } = this.props
+    const { client, user } = this.props
     const step = this.props.step || 'intro'
     const { address } = this.props.location
-    const { authenticated } = this.props.user
     const screenProps = {
       step,
       client,
-      authenticated
+      user
     }
     return (
       <ThemeProvider theme={theme}>

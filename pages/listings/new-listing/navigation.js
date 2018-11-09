@@ -156,7 +156,7 @@ const getStepEntry = (key) => {
  * Returns the Screen Component with the given key.
  */
 const getScreen = (screenProps) => {
-  const { step, client, authenticated } = screenProps
+  const { step, client, user } = screenProps
   const entry = getStepEntry(step)
   const Screen = entry.component
   const AnimatedScreen = getAnimatedScreen(Screen)
@@ -165,7 +165,7 @@ const getScreen = (screenProps) => {
     <ConnectedScreen
       key={step}
       client={client}
-      authenticated={authenticated}
+      user={user}
     />
   )
 }

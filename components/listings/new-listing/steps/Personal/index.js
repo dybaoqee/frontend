@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import { Formik, Field } from 'formik'
 
-import { ESTIMATE_PRICE } from 'graphql/listings/mutations'
+
 import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
-import { getAddressInput } from 'components/listings/new-listing/shared/AddressAutoComplete/address-input'
+import { getAddressInput } from 'lib/address'
+import { estimatePricing, getPricingInput } from 'lib/listings/get-pricing'
 
 class Personal extends Component {
   constructor(props) {
@@ -31,7 +32,9 @@ class Personal extends Component {
 
   componentDidMount() {
     this.updateStateFromProps(this.props)
-    this.nameField.current.focus()
+    if (this.nameField.current) {
+      this.nameField.current.focus()
+    }
   }
 
   componentWillReceiveProps(props) {
@@ -66,45 +69,28 @@ class Personal extends Component {
   async estimatePrice() {
     this.setState({loading: true})
 
-    const { props } = this
-    const address = getAddressInput(props.location.addressData)
-    const area = parseInt(props.homeDetails.area)
-    const { bathrooms } = props.rooms
+    // Prepare input
     const { name, email } = this.state
-    const garageSpots = props.garage.spots
-    const rooms = props.rooms.bedrooms
-    const isCovered = true
+    const { homeDetails, rooms, garage, location } = this.props
+    const addressInput = getAddressInput(location.addressData)
+    const pricingInput = getPricingInput(addressInput, homeDetails, rooms, garage, name, email)
 
-    try {
-      const { data } = await apolloClient.mutate({
-        mutation: ESTIMATE_PRICE,
-        variables: {
-          address,
-          area,
-          bathrooms,
-          name,
-          email,
-          garageSpots,
-          rooms,
-          isCovered
-        }
-      })
+    // Run mutation
+    const response = await estimatePricing(apolloClient, pricingInput)
+    this.setState({
+      loading: false,
+      error: response.error
+    })
 
-      if (data && data.requestPriceSuggestion) {
-        const { suggestedPrice } = data.requestPriceSuggestion
-        const { updatePricing, pricing } = this.props
-        this.setState({loading: false})
-        updatePricing({
-          ...pricing,
-          suggestedPrice: suggestedPrice
-        })
-        this.nextStep()
-      }
-    } catch (e) {
-      this.setState({
-        loading: false,
-        error: 'Ocorreu um erro. Por favor, tente novamente.'
+    // Handle result
+    if (response.result) {
+      const suggestedPrice = response.result
+      const { updatePricing, pricing } = this.props
+      updatePricing({
+        ...pricing,
+        suggestedPrice
       })
+      this.nextStep()
     }
   }
 

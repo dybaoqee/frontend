@@ -54,7 +54,11 @@ class Phone extends Component {
 
   nextStep() {
     const { updatePhone, navigateTo } = this.props
-    updatePhone(this.state)
+    updatePhone({
+      internationalCode: this.state.internationalCode || BRAZIL_CODE,
+      localAreaCode: this.state.localAreaCode,
+      number: this.state.number
+    })
     navigateTo('personal')
   }
 
@@ -89,7 +93,8 @@ class Phone extends Component {
       localAreaCode = phone.localAreaCode
       number = phone.number
     }
-    const { authenticated } = this.props
+    const { user } = this.props
+    const authenticated = user && user.authenticated
     return (
       <div ref={this.props.hostRef}>
         <Row justifyContent="center">
