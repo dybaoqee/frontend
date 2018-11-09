@@ -54,7 +54,11 @@ class Phone extends Component {
 
   nextStep() {
     const { updatePhone, navigateTo } = this.props
-    updatePhone(this.state)
+    updatePhone({
+      internationalCode: this.state.internationalCode || BRAZIL_CODE,
+      localAreaCode: this.state.localAreaCode,
+      number: this.state.number
+    })
     navigateTo('personal')
   }
 
