@@ -188,6 +188,7 @@ class Summary extends PureComponent {
               </Col>
             </View>
             <View bottom p={4}>
+              <Text color="red">{this.state.error}</Text>
               <Button
                 active={!this.state.loading}
                 fluid
