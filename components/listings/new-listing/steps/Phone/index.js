@@ -89,7 +89,8 @@ class Phone extends Component {
       localAreaCode = phone.localAreaCode
       number = phone.number
     }
-    const { authenticated } = this.props
+    const { user } = this.props
+    const authenticated = user && user.authenticated
     return (
       <div ref={this.props.hostRef}>
         <Row justifyContent="center">

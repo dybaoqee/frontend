@@ -84,7 +84,8 @@ class Pricing extends Component {
   }
 
   previousStep() {
-    const { navigateTo, authenticated } = this.props
+    const { navigateTo, user } = this.props
+    const authenticated = user && user.authenticated
     navigateTo(authenticated ? 'differential' : 'personal')
   }
 

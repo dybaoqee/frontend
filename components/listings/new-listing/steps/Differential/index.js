@@ -7,6 +7,9 @@ import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
+import { getAddressInput } from 'lib/address'
+import { estimatePricing, getPricingInput } from 'lib/listings/get-pricing'
+import { getUserInfo } from 'lib/user'
 
 class Differential extends Component {
   constructor(props) {
@@ -14,11 +17,18 @@ class Differential extends Component {
     this.nextStep = this.nextStep.bind(this)
     this.previousStep = this.previousStep.bind(this)
     this.updateStateFromProps = this.updateStateFromProps.bind(this)
+    this.getUser = this.getUser.bind(this)
+    this.estimatePrice = this.estimatePrice.bind(this)
+
     this.textInput = React.createRef()
   }
 
   state = {
-    text: null
+    loading: false,
+    error: null,
+    text: null,
+    userInfo: null,
+    hasPrice: false
   }
 
   componentDidMount() {
@@ -39,15 +49,71 @@ class Differential extends Component {
     }
   }
 
-  nextStep() {
-    const { navigateTo, updateDifferential, authenticated } = this.props
-    updateDifferential(this.state)
-    navigateTo(authenticated ? 'pricing' : 'phone')
+  async nextStep() {
+    const { navigateTo, updateDifferential, user } = this.props
+    const authenticated = user && user.authenticated
+    if (authenticated) {
+      if (!this.state.userInfo) {
+        await this.getUser()
+      }
+      if (this.state.userInfo && !this.state.hasPrice) {
+        await this.estimatePrice()
+      }
+    } else {
+      updateDifferential({text: this.state.text})
+      navigateTo('phone')
+    }
   }
 
   previousStep() {
     const { navigateTo } = this.props
     navigateTo('garage')
+  }
+
+  async getUser() {
+    this.setState({loading: true})
+
+    const userInfo = await getUserInfo(this.props.user.id)
+    if (userInfo && !userInfo.error) {
+      this.setState({
+        userInfo,
+        error: null,
+        hasPrice: false
+      })
+    } else {
+      this.setState({
+        loading: false,
+        error: userInfo.error,
+        userInfo: null,
+        hasPrice: false
+      })
+    }
+  }
+
+  async estimatePrice() {
+    // Prepare input
+    const { name, email } = this.state.userInfo
+    const { homeDetails, rooms, garage, location } = this.props
+    const addressInput = getAddressInput(location.addressData)
+    const pricingInput = getPricingInput(addressInput, homeDetails, rooms, garage, name, email)
+
+    // Run mutation
+    const response = await estimatePricing(apolloClient, pricingInput)
+    this.setState({
+      loading: false,
+      error: response.error
+    })
+
+    // Handle result
+    if (response.result) {
+      const suggestedPrice = response.result
+      const { navigateTo, updatePricing, pricing } = this.props
+      updatePricing({
+        ...pricing,
+        suggestedPrice
+      })
+      navigateTo('pricing')
+    }
   }
 
   render() {
@@ -99,7 +165,9 @@ class Differential extends Component {
                     </Row>
                   </View>
                   <View bottom p={4}>
+                    <Text color="red">{this.state.error}</Text>
                     <NavButtons
+                      loading={this.state.loading}
                       previousStep={this.previousStep}
                       onSubmit={this.nextStep}
                       submitEnabled={isValid}
