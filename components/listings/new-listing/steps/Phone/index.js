@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Router from 'next/router'
 import { Formik, Field } from 'formik'
+import { get } from 'lodash'
 
 import AccountKit from 'components/shared/Auth/AccountKit'
 import Input from '@emcasa/ui-dom/components/Input'
@@ -21,6 +22,7 @@ class Phone extends Component {
     this.validateLocalAreaCode = this.validateLocalAreaCode.bind(this)
     this.validateNumber = this.validateNumber.bind(this)
     this.updateStateFromProps = this.updateStateFromProps.bind(this)
+    this.onLoginSuccess = this.onLoginSuccess.bind(this)
 
     this.dddField = React.createRef()
     this.phoneNumberField = React.createRef()
@@ -49,6 +51,26 @@ class Phone extends Component {
         localAreaCode: phone.localAreaCode,
         number: phone.number
       })
+    }
+  }
+
+  onLoginSuccess(userInfo) {
+    const name = get(userInfo, 'data.accountKitSignIn.user.name', null)
+    const email = get(userInfo, 'data.accountKitSignIn.user.email', null)
+    if (name && email) {
+      const { updatePhone, updatePersonal, navigateTo } = this.props
+      updatePhone({
+        internationalCode: this.state.internationalCode || BRAZIL_CODE,
+        localAreaCode: this.state.localAreaCode,
+        number: this.state.number
+      })
+      updatePersonal({
+        name,
+        email
+      })
+      navigateTo('pricing')
+    } else {
+      this.nextStep()
     }
   }
 
@@ -185,12 +207,12 @@ class Phone extends Component {
                   </View>
                   <View bottom p={4}>
                   <AccountKit
+                    skipRedirect
                     appId={process.env.FACEBOOK_APP_ID}
                     appSecret={process.env.ACCOUNT_KIT_APP_SECRET}
                     phoneNumber={this.state.localAreaCode + this.state.number}
                     version="v1.0"
-                    redirectPath='/anuncie'
-                    onSuccess={this.nextStep}
+                    onSuccess={this.onLoginSuccess}
                   >
                     {({signIn}) => (
                       <NavButtons

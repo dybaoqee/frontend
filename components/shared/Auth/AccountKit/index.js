@@ -81,16 +81,16 @@ class AccountKit extends Component {
     }
 
     window.AccountKit.login(loginType, options, async (resp) => {
-      await this.onSuccess(resp)
+      const userInfo = await this.onSuccess(resp)
       if (onSuccess) {
-        onSuccess()
+        onSuccess(userInfo)
       }
     })
   }
 
   onSuccess = async (resp) => {
     const {code} = resp
-    const {appId, appSecret, redirectPath} = this.props
+    const {appId, appSecret, skipRedirect} = this.props
 
     if (code) {
       this.setState({loading: true})
@@ -115,16 +115,16 @@ class AccountKit extends Component {
 
       signUpUser(user)
 
+      if (skipRedirect) {
+        return userInfo
+      }
+
       if (
         userInfo.data.accountKitSignIn.user.email &&
         userInfo.data.accountKitSignIn.user.name
       ) {
         this.setState({loading: false})
-        if (redirectPath) {
-          redirect(redirectPath)
-        } else {
-          redirect(getCookie('redirectTo') || '/')
-        }
+        redirect(getCookie('redirectTo') || '/')
       } else {
         this.setState({userInfo: userInfo.data, loading: false})
         setCookie('accountkitinit', 1)
@@ -168,7 +168,7 @@ AccountKit.propTypes = {
   phoneNumber: PropTypes.string,
   emailAddress: PropTypes.string,
   autoLogin: PropTypes.bool,
-  redirectPath: PropTypes.string
+  skipRedirect: PropTypes.bool
 }
 
 AccountKit.defaultProps = {
@@ -176,7 +176,8 @@ AccountKit.defaultProps = {
   loginType: 'PHONE',
   countryCode: '+55',
   phoneNumber: '',
-  csrf: 'RANDOMCSRF'
+  csrf: 'RANDOMCSRF',
+  skipRedirect: false
 }
 
 export default AccountKit
