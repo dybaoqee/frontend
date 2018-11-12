@@ -21,6 +21,7 @@ class AddressInput extends Component {
     this.checkAddressCoverage = this.checkAddressCoverage.bind(this)
     this.validateAddress = this.validateAddress.bind(this)
     this.updateStateFromProps = this.updateStateFromProps.bind(this)
+    this.onClearInput = this.onClearInput.bind(this)
   }
 
   state = {
@@ -56,6 +57,13 @@ class AddressInput extends Component {
       address: this.state.address,
       complement: this.state.complement,
       addressData: this.state.addressData
+    })
+  }
+
+  onClearInput() {
+    this.setState({
+      address: null,
+      addressData: null
     })
   }
 
@@ -146,6 +154,7 @@ class AddressInput extends Component {
                         render={() => (
                           <AddressAutoComplete
                             defaultValue={address}
+                            onClearInput={this.onClearInput}
                             onSelectAddress={(addressFormatted, addressData) => {
                               setFieldValue('address', addressFormatted)
                               this.setState({

@@ -29,12 +29,12 @@ export default class AddressAutoComplete extends Component {
 
   static propTypes = {
     defaultValue: PropTypes.string,
-    onSelectAddress: PropTypes.func
+    onSelectAddress: PropTypes.func.isRequired,
+    onClearInput: PropTypes.func.isRequired
   }
 
   static defaultProps = {
-    defaultValue: null,
-    onSelectAddress: null
+    defaultValue: null
   }
 
   componentDidMount() {
@@ -235,6 +235,10 @@ export default class AddressAutoComplete extends Component {
     })
     clearTimeout(this.timer)
     this.timer = setTimeout(this.searchPlaces.bind(null, value), 300)
+
+    if (!value || value === '') {
+      this.props.onClearInput()
+    }
   }
 
   render() {
