@@ -23,6 +23,7 @@ class Phone extends Component {
     this.validateNumber = this.validateNumber.bind(this)
     this.updateStateFromProps = this.updateStateFromProps.bind(this)
     this.onLoginSuccess = this.onLoginSuccess.bind(this)
+    this.estimatePrice = this.estimatePrice.bind(this)
 
     this.dddField = React.createRef()
     this.phoneNumberField = React.createRef()
@@ -59,6 +60,7 @@ class Phone extends Component {
     const email = get(userInfo, 'data.accountKitSignIn.user.email', null)
     if (name && email) {
       const { updatePhone, updatePersonal, navigateTo } = this.props
+      this.setState({hasNameAndEmail: true})
       updatePhone({
         internationalCode: this.state.internationalCode || BRAZIL_CODE,
         localAreaCode: this.state.localAreaCode,
@@ -70,6 +72,34 @@ class Phone extends Component {
       })
       navigateTo('pricing')
     } else {
+      this.nextStep()
+    }
+  }
+
+  async estimatePrice() {
+    this.setState({loading: true})
+
+    // Prepare input
+    const { name, email } = this.state
+    const { homeDetails, rooms, garage, location } = this.props
+    const addressInput = getAddressInput(location.addressData)
+    const pricingInput = getPricingInput(addressInput, homeDetails, rooms, garage, name, email)
+
+    // Run mutation
+    const response = await estimatePricing(apolloClient, pricingInput)
+    this.setState({
+      loading: false,
+      error: response.error
+    })
+
+    // Handle result
+    if (response.result) {
+      const suggestedPrice = response.result
+      const { updatePricing, pricing } = this.props
+      updatePricing({
+        ...pricing,
+        suggestedPrice
+      })
       this.nextStep()
     }
   }
