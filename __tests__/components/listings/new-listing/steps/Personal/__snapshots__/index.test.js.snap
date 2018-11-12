@@ -2,14 +2,6 @@
 
 exports[`renders correctly 1`] = `
 .c2 {
-  padding: 20px;
-}
-
-.c11 {
-  padding: 20px;
-}
-
-.c3 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
   color: #3c4858;
@@ -18,28 +10,28 @@ exports[`renders correctly 1`] = `
   text-align: center;
 }
 
-.c4 {
+.c3 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
   color: #979797;
   font-size: 18px;
 }
 
-.c10 {
+.c9 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
   color: #3c4858;
   font-size: 14px;
 }
 
-.c12 {
+.c10 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
   color: #ff4949;
   font-size: 18px;
 }
 
-.c7 {
+.c6 {
   -webkit-font-smoothing: antialiased;
   display: block;
   width: 100%;
@@ -58,7 +50,7 @@ exports[`renders correctly 1`] = `
   letter-spacing: 2px;
 }
 
-.c7:focus {
+.c6:focus {
   border-radius: 4px;
   border: 1px solid;
   border-color: #1fb6ff;
@@ -66,27 +58,27 @@ exports[`renders correctly 1`] = `
   height: 60px;
 }
 
-.c7::-webkit-input-placeholder {
+.c6::-webkit-input-placeholder {
   color: #8492a6;
 }
 
-.c7::-moz-placeholder {
+.c6::-moz-placeholder {
   color: #8492a6;
 }
 
-.c7:-ms-input-placeholder {
+.c6:-ms-input-placeholder {
   color: #8492a6;
 }
 
-.c7::placeholder {
+.c6::placeholder {
   color: #8492a6;
 }
 
-.c8 {
+.c7 {
   height: 25px;
 }
 
-.c9 {
+.c8 {
   display: inline;
   color: #ff4949;
   font-family: FaktSoftPro-Normal;
@@ -98,24 +90,26 @@ exports[`renders correctly 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  padding: 20px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
 }
 
-.c5 {
+.c4 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
 }
 
-.c13 {
+.c11 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  margin-top: 20px;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
@@ -126,16 +120,16 @@ exports[`renders correctly 1`] = `
   width: 100%;
 }
 
-.c6 {
+.c5 {
   margin-right: 20px;
   width: 100%;
 }
 
-.c14 {
+.c12 {
   width: 41.66666666666667%;
 }
 
-.c15 {
+.c13 {
   outline: none;
   display: block;
   cursor: pointer;
@@ -153,11 +147,11 @@ exports[`renders correctly 1`] = `
   border-color: #e0e6ed;
 }
 
-.c15 :hover {
+.c13 :hover {
   background-color: #ffffff;
 }
 
-.c16 {
+.c14 {
   outline: none;
   display: block;
   cursor: default;
@@ -175,24 +169,8 @@ exports[`renders correctly 1`] = `
   border-color: #e0e6ed;
 }
 
-.c16 :hover {
+.c14 :hover {
   background-color: #ffffff;
-}
-
-@media only screen and (max-device-width:600px) {
-  .c2 {
-    margin-bottom: 80px;
-  }
-}
-
-@media only screen and (max-device-width:600px) {
-  .c11 {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: #ffffff;
-  }
 }
 
 @media screen and (min-width:640px) {
@@ -214,131 +192,123 @@ exports[`renders correctly 1`] = `
         ]
       }
     >
-      <div
+      <p
         className="c2"
+        color="dark"
+        fontSize="large"
+        fontWeight="bold"
       >
-        <p
-          className="c3"
-          color="dark"
-          fontSize="large"
-          fontWeight="bold"
-        >
-          Qual seu nome e e-mail?
-        </p>
-        <p
-          className="c4"
-          color="grey"
-          fontSize="default"
-        >
-          Não se preocupe, não vamos encher sua caixa de spam.
-        </p>
+        Qual seu nome e e-mail?
+      </p>
+      <p
+        className="c3"
+        color="grey"
+        fontSize="default"
+      >
+        Não se preocupe, não vamos encher sua caixa de spam.
+      </p>
+      <div
+        className="c4"
+      >
         <div
           className="c5"
+          width={1}
         >
           <div
-            className="c6"
-            width={1}
+            className=""
           >
+            <input
+              className="c6"
+              error={null}
+              fluid={true}
+              fontSize="default"
+              height="tall"
+              hideErrorView={false}
+              hideLabelView={true}
+              letterSpacing="default"
+              onChange={[Function]}
+              placeholder="Nome*"
+            />
             <div
-              className=""
+              className="c7 "
             >
-              <input
-                className="c7"
-                error={null}
-                fluid={true}
-                fontSize="default"
-                height="tall"
-                hideErrorView={false}
-                hideLabelView={true}
-                letterSpacing="default"
-                onChange={[Function]}
-                placeholder="Nome*"
+              <span
+                className="c8 c9"
+                color="dark"
+                fontSize="small"
               />
-              <div
-                className="c8 "
-              >
-                <span
-                  className="c9 c10"
-                  color="dark"
-                  fontSize="small"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="c5"
-        >
-          <div
-            className="c6"
-            width={1}
-          >
-            <div
-              className=""
-            >
-              <input
-                className="c7"
-                error={null}
-                fluid={true}
-                fontSize="default"
-                height="tall"
-                hideErrorView={false}
-                hideLabelView={true}
-                letterSpacing="default"
-                onChange={[Function]}
-                placeholder="E-mail"
-              />
-              <div
-                className="c8 "
-              >
-                <span
-                  className="c9 c10"
-                  color="dark"
-                  fontSize="small"
-                />
-              </div>
             </div>
           </div>
         </div>
       </div>
       <div
-        className="c11"
+        className="c4"
       >
-        <p
-          className="c12"
-          color="red"
-          fontSize="default"
-        />
         <div
-          className="c13"
+          className="c5"
+          width={1}
         >
           <div
-            className="c14"
-            width={0.4166666666666667}
+            className=""
           >
-            <button
-              className="c15"
+            <input
+              className="c6"
+              error={null}
+              fluid={true}
               fontSize="default"
               height="tall"
-              onClick={[Function]}
+              hideErrorView={false}
+              hideLabelView={true}
+              letterSpacing="default"
+              onChange={[Function]}
+              placeholder="E-mail"
+            />
+            <div
+              className="c7 "
             >
-              Voltar
-            </button>
+              <span
+                className="c8 c9"
+                color="dark"
+                fontSize="small"
+              />
+            </div>
           </div>
-          <div
-            className="c14"
-            width={0.4166666666666667}
+        </div>
+      </div>
+      <p
+        className="c10"
+        color="red"
+        fontSize="default"
+      />
+      <div
+        className="c11"
+      >
+        <div
+          className="c12"
+          width={0.4166666666666667}
+        >
+          <button
+            className="c13"
+            fontSize="default"
+            height="tall"
+            onClick={[Function]}
           >
-            <button
-              className="c16"
-              disabled={true}
-              fontSize="default"
-              height="tall"
-              onClick={[Function]}
-            >
-              Avançar
-            </button>
-          </div>
+            Voltar
+          </button>
+        </div>
+        <div
+          className="c12"
+          width={0.4166666666666667}
+        >
+          <button
+            className="c14"
+            disabled={true}
+            fontSize="default"
+            height="tall"
+            onClick={[Function]}
+          >
+            Avançar
+          </button>
         </div>
       </div>
     </div>
