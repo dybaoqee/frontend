@@ -282,7 +282,7 @@ export default class Filter extends Component {
                       </h4>
                       <Slider
                         min={550000}
-                        max={10000000}
+                        max={12000000}
                         values={price}
                         isRange
                         onChange={this.sliderChanged.bind(this, 'price')}
