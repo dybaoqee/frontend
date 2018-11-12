@@ -32,7 +32,8 @@ class Phone extends Component {
   state = {
     internationalCode: null,
     localAreaCode: null,
-    number: null
+    number: null,
+    userInfo: null
   }
 
   componentDidMount() {
@@ -56,16 +57,18 @@ class Phone extends Component {
   }
 
   onLoginSuccess(userInfo) {
+    updatePhone({
+      internationalCode: this.state.internationalCode || BRAZIL_CODE,
+      localAreaCode: this.state.localAreaCode,
+      number: this.state.number
+    })
+
     const name = get(userInfo, 'data.accountKitSignIn.user.name', null)
     const email = get(userInfo, 'data.accountKitSignIn.user.email', null)
+
     if (name && email) {
-      const { updatePhone, updatePersonal, navigateTo } = this.props
+      const { updatePersonal, navigateTo } = this.props
       this.setState({hasNameAndEmail: true})
-      updatePhone({
-        internationalCode: this.state.internationalCode || BRAZIL_CODE,
-        localAreaCode: this.state.localAreaCode,
-        number: this.state.number
-      })
       updatePersonal({
         name,
         email

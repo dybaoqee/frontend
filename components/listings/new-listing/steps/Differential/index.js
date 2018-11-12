@@ -4,12 +4,12 @@ import { Formik, Field } from 'formik'
 import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
-import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import { getAddressInput } from 'lib/address'
 import { estimatePricing, getPricingInput } from 'lib/listings/get-pricing'
 import { getUserInfo, getPhoneParts } from 'lib/user'
+import { isAuthenticated } from 'components/listings/new-listing/lib/auth'
 
 class Differential extends Component {
   constructor(props) {
@@ -52,7 +52,7 @@ class Differential extends Component {
   async nextStep() {
     const { navigateTo, updateDifferential, user } = this.props
     const authenticated = user && user.authenticated
-    if (authenticated) {
+    if (isAuthenticated(authenticated)) {
       if (!this.state.userInfo) {
         await this.getUser()
       }
