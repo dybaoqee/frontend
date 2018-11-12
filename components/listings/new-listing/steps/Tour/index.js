@@ -152,7 +152,7 @@ class Tour extends Component {
 
     return (
       <div ref={this.props.hostRef}>
-        <Row justifyContent="center">
+        <Row justifyContent="center" p={4}>
           <Col width={[1, 1/2]}>
             <Formik
               initialValues={{
@@ -165,54 +165,77 @@ class Tour extends Component {
               }}
               render={({isValid, setFieldTouched, setFieldValue, errors}) => (
                 <>
-                  <View body p={4}>
-                    <Row mb={4}>
-                      <Field
-                        name="month"
-                        render={() =>
-                          <TourMonths
-                            initialMonthOffset={monthOffset}
-                            tourMonths={tourMonths}
-                            onMonthChanged={this.onMonthChanged}
-                          />
-                        }/>
-                    </Row>
-                    <Row mb={4}>
-                      <Field
-                        name="day"
-                        render={() =>
-                          <TourDays
-                            month={month}
-                            initialDayOffset={dayOffset || this.state.dayOffset}
-                            initialDay={day}
-                            tourDays={tourDays}
-                            onDaySelected={(day, dayOffset) => {
-                              this.onDaySelected(day, dayOffset, setFieldTouched, setFieldValue)
-                            }}
-                          />
-                        }/>
-                    </Row>
-                    <Row mb={4}>
-                      <Field
-                        name="time"
-                        validate={this.validateTime}
-                        render={() =>
-                          <Col width={1}>
-                            <RadioButton.Group>
+                  <Row mb={4}>
+                    <Field
+                      name="month"
+                      render={() =>
+                        <TourMonths
+                          initialMonthOffset={monthOffset}
+                          tourMonths={tourMonths}
+                          onMonthChanged={this.onMonthChanged}
+                        />
+                      }/>
+                  </Row>
+                  <Row mb={4}>
+                    <Field
+                      name="day"
+                      render={() =>
+                        <TourDays
+                          month={month}
+                          initialDayOffset={dayOffset || this.state.dayOffset}
+                          initialDay={day}
+                          tourDays={tourDays}
+                          onDaySelected={(day, dayOffset) => {
+                            this.onDaySelected(day, dayOffset, setFieldTouched, setFieldValue)
+                          }}
+                        />
+                      }/>
+                  </Row>
+                  <Row mb={4}>
+                    <Field
+                      name="time"
+                      validate={this.validateTime}
+                      render={() =>
+                        <Col width={1}>
+                          <RadioButton.Group>
+                            {tourHours.map((item) => {
+                              if (item !== EARLY && item !== LATE) {
+                                return null
+                              }
+                              return (
+                                <>
+                                  <RadioButton
+                                    label={this.getTimeDisplay(item, true)}
+                                    value={item}
+                                    checked={this.state.time === item && !this.state.customTime}
+                                    onClick={() => {
+                                      setFieldValue('time', item)
+                                      setFieldTouched('time')
+                                      this.setState({customTime: false})
+                                      this.selectTime(item)
+                                    }}
+                                  />
+                                  <View mb={2} />
+                                </>
+                              )
+                            })}
+                          </RadioButton.Group>
+                          {this.hasCustomTime(tourHours) &&
+                            <CustomTime
+                              onClick={this.selectCustomTime}
+                              selected={this.state.customTime}
+                            >
                               {tourHours.map((item) => {
-                                if (item !== EARLY && item !== LATE) {
-                                  return null
-                                }
                                 return (
                                   <>
-                                    <RadioButton
-                                      label={this.getTimeDisplay(item, true)}
+                                    <CustomTime.Item
+                                      label={this.getTimeDisplay(item, false)}
                                       value={item}
-                                      checked={this.state.time === item && !this.state.customTime}
+                                      checked={this.state.time === item}
+                                      height="small"
                                       onClick={() => {
                                         setFieldValue('time', item)
                                         setFieldTouched('time')
-                                        this.setState({customTime: false})
                                         this.selectTime(item)
                                       }}
                                     />
@@ -220,42 +243,15 @@ class Tour extends Component {
                                   </>
                                 )
                               })}
-                            </RadioButton.Group>
-                            {this.hasCustomTime(tourHours) &&
-                              <CustomTime
-                                onClick={this.selectCustomTime}
-                                selected={this.state.customTime}
-                              >
-                                {tourHours.map((item) => {
-                                  return (
-                                    <>
-                                      <CustomTime.Item
-                                        label={this.getTimeDisplay(item, false)}
-                                        value={item}
-                                        checked={this.state.time === item}
-                                        height="small"
-                                        onClick={() => {
-                                          setFieldValue('time', item)
-                                          setFieldTouched('time')
-                                          this.selectTime(item)
-                                        }}
-                                      />
-                                      <View mb={2} />
-                                    </>
-                                  )
-                                })}
-                              </CustomTime>}
-                          </Col>
-                        }/>
-                    </Row>
-                  </View>
-                  <View bottom p={4}>
-                    <NavButtons
-                      previousStep={this.previousStep}
-                      onSubmit={this.nextStep}
-                      submitEnabled={isValid}
-                    />
-                  </View>
+                            </CustomTime>}
+                        </Col>
+                      }/>
+                  </Row>
+                  <NavButtons
+                    previousStep={this.previousStep}
+                    onSubmit={this.nextStep}
+                    submitEnabled={isValid}
+                  />
                 </>
               )}
             />

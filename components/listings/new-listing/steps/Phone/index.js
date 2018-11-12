@@ -119,7 +119,7 @@ class Phone extends Component {
     const authenticated = user && user.authenticated
     return (
       <div ref={this.props.hostRef}>
-        <Row justifyContent="center">
+        <Row justifyContent="center" p={4}>
           <Col width={[1, 1/2]}>
             <Formik
               initialValues={{
@@ -132,80 +132,77 @@ class Phone extends Component {
               }}
               render={({isValid, setFieldTouched, setFieldValue, errors}) => (
                 <>
-                  <View body p={4}>
-                    <Text
-                      fontSize="large"
-                      fontWeight="bold"
-                      textAlign="center">
-                      Qual o número do seu celular?
-                    </Text>
-                    <Text color="grey">Fique tranquilo(a), seu celular não será divulgado.</Text>
-                    <Row>
-                      <Col width={3/12} mr={5}>
-                        <Field
-                          name="internationalCode"
-                          validate={this.validateInternationalCode}
-                          render={({form}) => (
-                            <Input
-                              hideLabelView
-                              placeholder="DDI*"
-                              error={form.touched.internationalCode ? errors.internationalCode : null}
-                              defaultValue={internationalCode}
-                              onChange={(e) => {
-                                const { value } = e.target
-                                setFieldValue('internationalCode', value)
-                                setFieldTouched('internationalCode')
-                                this.setState({internationalCode: value})
-                              }}
-                            />
-                          )}/>
-                      </Col>
-                      <Col width={3/12} mr={5}>
-                        <Field
-                          name="localAreaCode"
-                          validate={this.validateLocalAreaCode}
-                          render={({form}) => (
-                            <Input
-                              hideLabelView
-                              ref={this.dddField}
-                              placeholder="DDD*"
-                              error={form.touched.localAreaCode ? errors.localAreaCode : null}
-                              defaultValue={localAreaCode}
-                              onChange={(e) => {
-                                const { value } = e.target
-                                setFieldValue('localAreaCode', value)
-                                setFieldTouched('localAreaCode')
-                                this.setState({localAreaCode: value})
-                                if (value.length === 2) {
-                                  this.phoneNumberField.current.focus()
-                                }
-                              }}
-                            />
-                          )}/>
-                      </Col>
-                      <Col width={6/12} mr={4}>
-                        <Field
-                          name="number"
-                          validate={this.validateNumber}
-                          render={({form}) => (
-                            <Input
-                              hideLabelView
-                              ref={this.phoneNumberField}
-                              placeholder="Celular*"
-                              error={form.touched.number ? errors.number : null}
-                              defaultValue={number}
-                              onChange={(e) => {
-                                const { value } = e.target
-                                setFieldValue('number', value)
-                                setFieldTouched('number')
-                                this.setState({number: value})
-                              }}
-                            />
-                          )}/>
-                      </Col>
-                    </Row>
-                  </View>
-                  <View bottom p={4}>
+                  <Text
+                    fontSize="large"
+                    fontWeight="bold"
+                    textAlign="center">
+                    Qual o número do seu celular?
+                  </Text>
+                  <Text color="grey">Fique tranquilo(a), seu celular não será divulgado.</Text>
+                  <Row>
+                    <Col width={3/12} mr={5}>
+                      <Field
+                        name="internationalCode"
+                        validate={this.validateInternationalCode}
+                        render={({form}) => (
+                          <Input
+                            hideLabelView
+                            placeholder="DDI*"
+                            error={form.touched.internationalCode ? errors.internationalCode : null}
+                            defaultValue={internationalCode}
+                            onChange={(e) => {
+                              const { value } = e.target
+                              setFieldValue('internationalCode', value)
+                              setFieldTouched('internationalCode')
+                              this.setState({internationalCode: value})
+                            }}
+                          />
+                        )}/>
+                    </Col>
+                    <Col width={3/12} mr={5}>
+                      <Field
+                        name="localAreaCode"
+                        validate={this.validateLocalAreaCode}
+                        render={({form}) => (
+                          <Input
+                            hideLabelView
+                            ref={this.dddField}
+                            placeholder="DDD*"
+                            error={form.touched.localAreaCode ? errors.localAreaCode : null}
+                            defaultValue={localAreaCode}
+                            onChange={(e) => {
+                              const { value } = e.target
+                              setFieldValue('localAreaCode', value)
+                              setFieldTouched('localAreaCode')
+                              this.setState({localAreaCode: value})
+                              if (value.length === 2) {
+                                this.phoneNumberField.current.focus()
+                              }
+                            }}
+                          />
+                        )}/>
+                    </Col>
+                    <Col width={6/12} mr={4}>
+                      <Field
+                        name="number"
+                        validate={this.validateNumber}
+                        render={({form}) => (
+                          <Input
+                            hideLabelView
+                            ref={this.phoneNumberField}
+                            placeholder="Celular*"
+                            error={form.touched.number ? errors.number : null}
+                            defaultValue={number}
+                            onChange={(e) => {
+                              const { value } = e.target
+                              setFieldValue('number', value)
+                              setFieldTouched('number')
+                              this.setState({number: value})
+                            }}
+                          />
+                        )}/>
+                    </Col>
+                  </Row>
                   <AccountKit
                     skipRedirect
                     appId={process.env.FACEBOOK_APP_ID}
@@ -228,7 +225,6 @@ class Phone extends Component {
                       />
                     )}
                   </AccountKit>
-                  </View>
                 </>
               )}
             />

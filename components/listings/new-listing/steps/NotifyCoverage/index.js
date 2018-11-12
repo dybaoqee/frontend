@@ -88,7 +88,7 @@ class NotifyCoverage extends Component {
   render() {
     return (
       <div ref={this.props.hostRef}>
-        <Row justifyContent="center">
+        <Row justifyContent="center" p={4}>
           <Col width={[1, 1/2]}>
             <Formik
               isInitialValid={() => {
@@ -96,67 +96,63 @@ class NotifyCoverage extends Component {
               }}
               render={({isValid, setFieldTouched, setFieldValue, errors}) => (
                 <>
-                  <View body p={4}>
-                    <Text
-                      fontSize="large"
-                      fontWeight="bold"
-                      textAlign="center">
-                      Infelizmente ainda não atendemos essa região
-                    </Text>
-                    <Text color="grey">Gostaria de ser notificado quando atendermos a sua área?</Text>
-                    <Row>
-                      <Col width={1} mr={4}>
-                        <Field
-                          name="name"
-                          validate={this.validateName}
-                          render={({form}) => (
-                            <Input
-                              hideLabelView
-                              ref={this.nameField}
-                              placeholder="Nome*"
-                              error={form.touched.name ? errors.name : null}
-                              onChange={(e) => {
-                                const { value } = e.target
-                                setFieldValue('name', value)
-                                setFieldTouched('name')
-                                this.setState({name: value})
-                              }}
-                            />
-                          )}/>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col width={1} mr={4}>
-                        <Field
-                          name="email"
-                          validate={this.validateEmail}
-                          render={({form}) => (
-                            <Input
-                              hideLabelView
-                              placeholder="E-mail*"
-                              error={form.touched.email ? errors.email : null}
-                              onChange={(e) => {
-                                const { value } = e.target
-                                setFieldValue('email', value)
-                                setFieldTouched('email')
-                                this.setState({email: value})
-                              }}
-                            />
-                          )}/>
-                      </Col>
-                    </Row>
-                  </View>
-                  <View bottom p={4}>
-                    <Text color="red">{this.state.error}</Text>
-                    <NavButtons
-                      previousStep={this.previousStep}
-                      onSubmit={() => {
-                        this.submit()
-                      }}
-                      submitEnabled={isValid}
-                      loading={this.state.loading}
-                    />
-                  </View>
+                  <Text
+                    fontSize="large"
+                    fontWeight="bold"
+                    textAlign="center">
+                    Infelizmente ainda não atendemos essa região
+                  </Text>
+                  <Text color="grey">Gostaria de ser notificado quando atendermos a sua área?</Text>
+                  <Row>
+                    <Col width={1} mr={4}>
+                      <Field
+                        name="name"
+                        validate={this.validateName}
+                        render={({form}) => (
+                          <Input
+                            hideLabelView
+                            ref={this.nameField}
+                            placeholder="Nome*"
+                            error={form.touched.name ? errors.name : null}
+                            onChange={(e) => {
+                              const { value } = e.target
+                              setFieldValue('name', value)
+                              setFieldTouched('name')
+                              this.setState({name: value})
+                            }}
+                          />
+                        )}/>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col width={1} mr={4}>
+                      <Field
+                        name="email"
+                        validate={this.validateEmail}
+                        render={({form}) => (
+                          <Input
+                            hideLabelView
+                            placeholder="E-mail*"
+                            error={form.touched.email ? errors.email : null}
+                            onChange={(e) => {
+                              const { value } = e.target
+                              setFieldValue('email', value)
+                              setFieldTouched('email')
+                              this.setState({email: value})
+                            }}
+                          />
+                        )}/>
+                    </Col>
+                  </Row>
+                  <Text color="red">{this.state.error}</Text>
+                  <NavButtons
+                    previousStep={this.previousStep}
+                    onSubmit={() => {
+                      this.submit()
+                    }}
+                    submitEnabled={isValid}
+                    loading={this.state.loading}
+                  />
                 </>
               )}
             />

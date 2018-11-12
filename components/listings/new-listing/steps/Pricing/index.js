@@ -191,7 +191,7 @@ class Pricing extends Component {
     }
     return (
       <div ref={this.props.hostRef}>
-        <Row justifyContent="center">
+        <Row justifyContent="center" p={4}>
           <Col width={[1, 1/2]}>
             <Formik
               initialValues={{
@@ -202,29 +202,25 @@ class Pricing extends Component {
               }}
               render={({isValid, setFieldTouched, setFieldValue, errors}) => (
                 <>
-                  <View body p={4}>
-                    <Text
-                      fontSize="large"
-                      fontWeight="bold"
-                      textAlign="center">
-                      Qual o valor do seu imóvel?
-                    </Text>
-                    <Col>
-                      <StaticMap addressData={addressData} />
-                    </Col>
-                    {suggestedPrice ?
-                      this.priceSuggestion(errors, setFieldValue, setFieldTouched)
-                    :
-                      this.noPriceSuggestion(errors, setFieldValue, setFieldTouched)
-                    }
-                  </View>
-                  <View bottom p={4}>
-                    <NavButtons
-                      previousStep={this.previousStep}
-                      onSubmit={this.nextStep}
-                      submitEnabled={isValid}
-                    />
-                  </View>
+                  <Text
+                    fontSize="large"
+                    fontWeight="bold"
+                    textAlign="center">
+                    Qual o valor do seu imóvel?
+                  </Text>
+                  <Col>
+                    <StaticMap addressData={addressData} />
+                  </Col>
+                  {suggestedPrice ?
+                    this.priceSuggestion(errors, setFieldValue, setFieldTouched)
+                  :
+                    this.noPriceSuggestion(errors, setFieldValue, setFieldTouched)
+                  }
+                  <NavButtons
+                    previousStep={this.previousStep}
+                    onSubmit={this.nextStep}
+                    submitEnabled={isValid}
+                  />
                 </>
               )}
             />

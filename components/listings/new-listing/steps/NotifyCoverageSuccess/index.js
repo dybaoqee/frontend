@@ -31,25 +31,21 @@ class NotifyCoverageSuccess extends PureComponent {
   render() {
     return (
       <div ref={this.props.hostRef}>
-        <Row justifyContent="center">
+        <Row justifyContent="center" p={4}>
           <Col width={[1, 1/2]}>
-            <View body p={4}>
-              <Text
-                fontSize="large"
-                fontWeight="bold"
-                textAlign="center">
-                Seu e-mail foi salvo com sucesso!
-              </Text>
-              <Row justifyContent="center" my={4}>
-                <Icon name="check-circle" color="green" size={60} />
-              </Row>
-              <Row>
-                <Text color="grey">Você receberá uma notificação quando atendermos a sua região.</Text>
-              </Row>
-            </View>
-            <View bottom p={4}>
-              <Button active fluid height="tall" onClick={this.finish}>OK</Button>
-            </View>
+            <Text
+              fontSize="large"
+              fontWeight="bold"
+              textAlign="center">
+              Seu e-mail foi salvo com sucesso!
+            </Text>
+            <Row justifyContent="center" my={4}>
+              <Icon name="check-circle" color="green" size={60} />
+            </Row>
+            <Row>
+              <Text color="grey">Você receberá uma notificação quando atendermos a sua região.</Text>
+            </Row>
+            <Button active fluid height="tall" onClick={this.finish}>OK</Button>
           </Col>
         </Row>
       </div>

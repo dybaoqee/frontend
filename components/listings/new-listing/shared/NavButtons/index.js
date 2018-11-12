@@ -28,7 +28,7 @@ class NavButtons extends PureComponent {
 
   render() {
     return (
-      <Row justifyContent="space-between">
+      <Row justifyContent="space-between" mt={4}>
         <Col width={5/12}>
           <Button
             fluid

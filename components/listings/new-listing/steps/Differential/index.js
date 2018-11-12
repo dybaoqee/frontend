@@ -116,11 +116,12 @@ class Differential extends Component {
     // Handle result
     if (response.result) {
       const suggestedPrice = response.result
-      const { navigateTo, updatePricing, pricing } = this.props
+      const { navigateTo, updatePricing, updateDifferential, pricing } = this.props
       updatePricing({
         ...pricing,
         suggestedPrice
       })
+      updateDifferential({text: this.state.text})
       navigateTo('pricing')
     }
   }
@@ -133,7 +134,7 @@ class Differential extends Component {
     }
     return (
       <div ref={this.props.hostRef}>
-        <Row justifyContent="center">
+        <Row justifyContent="center" p={4}>
           <Col width={[1, 1/2]}>
             <Formik
               initialValues={{
@@ -142,46 +143,43 @@ class Differential extends Component {
               isInitialValid={() => true}
               render={({isValid, setFieldTouched, setFieldValue, errors}) => (
                 <>
-                  <View body p={4}>
-                    <Text
-                      fontSize="large"
-                      fontWeight="bold"
-                      textAlign="center">
-                      Seu imóvel tem algum diferencial?
-                    </Text>
-                    <Text color="grey">Conte pra gente algum diferencial do seu imóvel.</Text>
-                    <Row mb={4}>
-                      <Col width={1} mr={4}>
-                        <Field
-                          name="text"
-                          render={() => (
-                            <Input
-                              area
-                              hideLabelView
-                              ref={this.textInput}
-                              placeholder="Diferenciais do imóvel"
-                              defaultValue={text}
-                              style={{height: 150}}
-                              onChange={(e) => {
-                                const { value } = e.target
-                                setFieldValue('text', value)
-                                setFieldTouched('text')
-                                this.setState({text: value})
-                              }}
-                            />
-                          )}/>
-                      </Col>
-                    </Row>
-                  </View>
-                  <View bottom p={4}>
-                    <Text color="red">{this.state.error}</Text>
-                    <NavButtons
-                      loading={this.state.loading}
-                      previousStep={this.previousStep}
-                      onSubmit={this.nextStep}
-                      submitEnabled={isValid}
-                    />
-                  </View>
+                  <Text
+                    fontSize="large"
+                    fontWeight="bold"
+                    textAlign="center">
+                    Seu imóvel tem algum diferencial?
+                  </Text>
+                  <Text color="grey">Conte pra gente algum diferencial do seu imóvel.</Text>
+                  <Row mb={4}>
+                    <Col width={1} mr={4}>
+                      <Field
+                        name="text"
+                        render={() => (
+                          <Input
+                            area
+                            hideLabelView
+                            hideErrorView
+                            ref={this.textInput}
+                            placeholder="Diferenciais do imóvel"
+                            defaultValue={text}
+                            style={{height: 150}}
+                            onChange={(e) => {
+                              const { value } = e.target
+                              setFieldValue('text', value)
+                              setFieldTouched('text')
+                              this.setState({text: value})
+                            }}
+                          />
+                        )}/>
+                    </Col>
+                  </Row>
+                  <Text color="red">{this.state.error}</Text>
+                  <NavButtons
+                    loading={this.state.loading}
+                    previousStep={this.previousStep}
+                    onSubmit={this.nextStep}
+                    submitEnabled={isValid}
+                  />
                 </>
               )}
             />
