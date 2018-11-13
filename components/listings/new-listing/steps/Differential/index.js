@@ -33,7 +33,9 @@ class Differential extends Component {
 
   componentDidMount() {
     this.updateStateFromProps(this.props)
-    this.textInput.current.focus()
+    if (this.textInput.current) {
+      this.textInput.current.focus()
+    }
   }
 
   componentWillReceiveProps(props) {

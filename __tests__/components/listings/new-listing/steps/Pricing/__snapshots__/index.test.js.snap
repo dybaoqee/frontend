@@ -1,0 +1,286 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders an empty state 1`] = `
+.c2 {
+  -webkit-font-smoothing: antialiased;
+  font-family: FaktSoftPro-Normal;
+  color: #3c4858;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.c3 {
+  -webkit-font-smoothing: antialiased;
+  font-family: FaktSoftPro-Normal;
+  color: #979797;
+  font-size: 18px;
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 20px;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c8 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 20px;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.c1 {
+  width: 100%;
+}
+
+.c9 {
+  width: 41.66666666666667%;
+}
+
+.c7 {
+  outline: none;
+  cursor: pointer;
+  padding: 0 20px 0 20px;
+  border-radius: 4px;
+  border: 1px solid;
+  border-color: #e0e6ed;
+  background-color: #ffffff;
+  width: auto;
+  height: 40px;
+  color: #3c4858;
+  font-family: FaktSoftPro-Normal;
+  font-size: 18px;
+  -webkit-font-smoothing: antialiased;
+  border-color: #e0e6ed;
+}
+
+.c7 :hover {
+  background-color: #ffffff;
+}
+
+.c10 {
+  outline: none;
+  display: block;
+  cursor: pointer;
+  padding: 0 20px 0 20px;
+  border-radius: 4px;
+  border: 1px solid;
+  border-color: #e0e6ed;
+  background-color: #ffffff;
+  width: 100%;
+  height: 60px;
+  color: #3c4858;
+  font-family: FaktSoftPro-Normal;
+  font-size: 18px;
+  -webkit-font-smoothing: antialiased;
+  border-color: #e0e6ed;
+}
+
+.c10 :hover {
+  background-color: #ffffff;
+}
+
+.c11 {
+  outline: none;
+  display: block;
+  cursor: pointer;
+  padding: 0 20px 0 20px;
+  border-radius: 4px;
+  border: 1px solid;
+  border-color: #f50057;
+  background-color: #f50057;
+  width: 100%;
+  height: 60px;
+  color: #ffffff;
+  font-family: FaktSoftPro-Normal;
+  font-size: 18px;
+  -webkit-font-smoothing: antialiased;
+  border-color: #e0e6ed;
+}
+
+.c11 :hover {
+  background-color: #f50057;
+}
+
+.c5 {
+  width: 100px;
+}
+
+.c6 {
+  margin-left: 20px;
+}
+
+@media screen and (min-width:640px) {
+  .c1 {
+    width: 50%;
+  }
+}
+
+<div>
+  <div
+    className="c0"
+  >
+    <div
+      className="c1"
+      width={
+        Array [
+          1,
+          0.5,
+        ]
+      }
+    >
+      <p
+        className="c2"
+        color="dark"
+        fontSize="large"
+        fontWeight="bold"
+      >
+        Qual o valor do seu imóvel?
+      </p>
+      <div
+        className=""
+      />
+      <div
+        className=""
+      >
+        <p
+          className="c3"
+          color="grey"
+          fontSize="default"
+        >
+          Seu imóvel foi avaliado por:
+        </p>
+        <p
+          className="c2"
+          color="dark"
+          fontSize="large"
+          fontWeight="bold"
+        >
+          1000
+        </p>
+        <p
+          className="c3"
+          color="grey"
+          fontSize="default"
+        >
+          Recomendamos anunciar por:
+        </p>
+        <div
+          className="c4"
+        >
+          <div
+            className="c5 "
+          />
+          <div
+            className=""
+          >
+            <span
+              className="c2"
+              color="dark"
+              fontSize="large"
+              fontWeight="bold"
+            >
+              1000
+            </span>
+          </div>
+          <div
+            className="c5 "
+          >
+            <button
+              className="c6 c7"
+              fontSize="default"
+              height="medium"
+              onClick={[Function]}
+              style={
+                Object {
+                  "marginLeft": 20,
+                }
+              }
+            >
+              <div
+                className=""
+              >
+                <svg
+                  height={20}
+                  version="1.1"
+                  viewBox="0 0 512 512"
+                  x={0}
+                  y={0}
+                >
+                  <path
+                    d="M290.74 93.24l128.02 128.02-277.99 277.99-114.14 12.6C11.35 513.54-1.56 500.62.14 485.34l12.7-114.22 277.9-277.88zm207.2-19.06l-60.11-60.11c-18.75-18.75-49.16-18.75-67.91 0l-56.55 56.55 128.02 128.02 56.55-56.55c18.75-18.76 18.75-49.16 0-67.91z"
+                    fill="#3c4858"
+                    name="pen"
+                    type="default"
+                  />
+                </svg>
+              </div>
+            </button>
+          </div>
+        </div>
+        <p
+          className="c3"
+          color="grey"
+          fontSize="default"
+        >
+          Não gostou da nossa avaliação? Não tem problema. É só editar o valor do seu imóvel.
+        </p>
+      </div>
+      <div
+        className="c8"
+      >
+        <div
+          className="c9"
+          width={0.4166666666666667}
+        >
+          <button
+            className="c10"
+            fontSize="default"
+            height="tall"
+            onClick={[Function]}
+          >
+            Voltar
+          </button>
+        </div>
+        <div
+          className="c9"
+          width={0.4166666666666667}
+        >
+          <button
+            className="c11"
+            disabled={false}
+            fontSize="default"
+            height="tall"
+            onClick={[Function]}
+          >
+            Avançar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

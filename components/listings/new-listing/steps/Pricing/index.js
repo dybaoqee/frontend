@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { Formik, Field } from 'formik'
 import MaskedInput from 'react-text-mask'
 
@@ -228,6 +229,10 @@ class Pricing extends Component {
       </div>
     )
   }
+}
+
+Pricing.propTypes = {
+  pricing: PropTypes.object
 }
 
 export default Pricing
