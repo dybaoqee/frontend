@@ -1,0 +1,219 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders editing price state 1`] = `
+.c2 {
+  -webkit-font-smoothing: antialiased;
+  font-family: FaktSoftPro-Normal;
+  color: #3c4858;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.c3 {
+  -webkit-font-smoothing: antialiased;
+  font-family: FaktSoftPro-Normal;
+  color: #979797;
+  font-size: 18px;
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 20px;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 20px;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.c1 {
+  width: 100%;
+}
+
+.c6 {
+  width: 41.66666666666667%;
+}
+
+.c4 {
+  margin-right: 20px;
+  width: 100%;
+}
+
+.c7 {
+  outline: none;
+  display: block;
+  cursor: pointer;
+  padding: 0 20px 0 20px;
+  border-radius: 4px;
+  border: 1px solid;
+  border-color: #e0e6ed;
+  background-color: #ffffff;
+  width: 100%;
+  height: 60px;
+  color: #3c4858;
+  font-family: FaktSoftPro-Normal;
+  font-size: 18px;
+  -webkit-font-smoothing: antialiased;
+  border-color: #e0e6ed;
+}
+
+.c7 :hover {
+  background-color: #ffffff;
+}
+
+.c8 {
+  outline: none;
+  display: block;
+  cursor: pointer;
+  padding: 0 20px 0 20px;
+  border-radius: 4px;
+  border: 1px solid;
+  border-color: #f50057;
+  background-color: #f50057;
+  width: 100%;
+  height: 60px;
+  color: #ffffff;
+  font-family: FaktSoftPro-Normal;
+  font-size: 18px;
+  -webkit-font-smoothing: antialiased;
+  border-color: #e0e6ed;
+}
+
+.c8 :hover {
+  background-color: #f50057;
+}
+
+@media screen and (min-width:640px) {
+  .c1 {
+    width: 50%;
+  }
+}
+
+@media screen and (min-width:640px) {
+  .c4 {
+    width: 50%;
+  }
+}
+
+<div>
+  <div
+    className="c0"
+  >
+    <div
+      className="c1"
+      width={
+        Array [
+          1,
+          0.5,
+        ]
+      }
+    >
+      <p
+        className="c2"
+        color="dark"
+        fontSize="large"
+        fontWeight="bold"
+      >
+        Qual o valor do seu imóvel?
+      </p>
+      <div
+        className=""
+      />
+      <div
+        className=""
+      >
+        <p
+          className="c3"
+          color="grey"
+          fontSize="default"
+        >
+          Seu imóvel foi avaliado por:
+        </p>
+        <p
+          className="c2"
+          color="dark"
+          fontSize="large"
+          fontWeight="bold"
+        >
+          R$1,000
+        </p>
+        <p
+          className="c3"
+          color="grey"
+          fontSize="default"
+        >
+          Recomendamos anunciar por:
+        </p>
+        <div
+          className="c4"
+          width={
+            Array [
+              1,
+              0.5,
+            ]
+          }
+        >
+          <input
+            mask={[Function]}
+            render={[Function]}
+            type="text"
+          />
+        </div>
+        <p
+          className="c3"
+          color="grey"
+          fontSize="default"
+        >
+          Não gostou da nossa avaliação? Não tem problema. É só editar o valor do seu imóvel.
+        </p>
+      </div>
+      <div
+        className="c5"
+      >
+        <div
+          className="c6"
+          width={0.4166666666666667}
+        >
+          <button
+            className="c7"
+            fontSize="default"
+            height="tall"
+            onClick={[Function]}
+          >
+            Voltar
+          </button>
+        </div>
+        <div
+          className="c6"
+          width={0.4166666666666667}
+        >
+          <button
+            className="c8"
+            disabled={false}
+            fontSize="default"
+            height="tall"
+            onClick={[Function]}
+          >
+            Avançar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
