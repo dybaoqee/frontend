@@ -57,6 +57,7 @@ class Phone extends Component {
   }
 
   onLoginSuccess(userInfo) {
+    const { updatePhone } = this.props
     updatePhone({
       internationalCode: this.state.internationalCode || BRAZIL_CODE,
       localAreaCode: this.state.localAreaCode,
