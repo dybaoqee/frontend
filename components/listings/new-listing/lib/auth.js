@@ -1,20 +1,33 @@
-const isAuthenticated = (authenticated, userInfo) => {
-  if (authenticated) {
-    return true
+import { getUserInfo, getPhoneParts } from 'lib/user'
+
+const getUser = async (id, updatePhone, updatePersonal) => {
+  const userInfo = await getUserInfo(id)
+  if (userInfo && !userInfo.error) {
+    // Update user info in redux
+    const fullPhoneNumber = getPhoneParts(userInfo.phone)
+    updatePhone(fullPhoneNumber)
+    updatePersonal({
+      name: userInfo.name,
+      email: userInfo.email
+    })
   }
 
-  if (userInfo && userInfo.phone) {
-    return true
-  }
-
-  return false
+  return userInfo
 }
 
-const isNewUser = (userInfo) => {
-  return userInfo.name !== null
+const hasPhoneNumber = (phone) => {
+  if (!phone) {
+    return false
+  }
+  const { internationalCode, localAreaCode, number } = phone
+  return (
+    internationalCode !== null &&
+    localAreaCode !== null &&
+    number !== null
+  )
 }
 
 export {
-  isAuthenticated,
-  isNewUser
+  getUser,
+  hasPhoneNumber
 }

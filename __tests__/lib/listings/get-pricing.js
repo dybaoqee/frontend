@@ -1,6 +1,6 @@
 import ApolloClient from 'apollo-client'
 jest.mock('apollo-client')
-import { estimatePricing, getPricingInput } from 'lib/listings/get-pricing'
+import { estimatePricing, getPricingInput } from 'lib/listings/pricing'
 
 describe('pricing functions', () => {
   it('should create the correct input for the pricing query', () => {

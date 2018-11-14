@@ -21,8 +21,7 @@ const persistedReducer = persistReducer(persistConfig, reducer)
 */
 const makeStore = (initialState, options) => {
   const store = createStore(
-    persistedReducer,
-    devToolsEnhancer()
+    persistedReducer
   )
   if (!options.isServer) {
     persistStore(store)

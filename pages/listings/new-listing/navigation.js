@@ -63,7 +63,7 @@ const steps = {
   },
   differential: {
     component: Differential,
-    canNavigateTo: ['garage', 'phone', 'pricing']
+    canNavigateTo: ['garage', 'phone', 'personal', 'pricing']
   },
   phone: {
     component: Phone,
@@ -71,7 +71,7 @@ const steps = {
   },
   personal: {
     component: Personal,
-    canNavigateTo: ['phone', 'pricing']
+    canNavigateTo: ['differential', 'pricing']
   },
   pricing: {
     component: Pricing,

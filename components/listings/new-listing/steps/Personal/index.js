@@ -5,11 +5,10 @@ import { Formik, Field } from 'formik'
 import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
-import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import { getAddressInput } from 'lib/address'
-import { estimatePricing, getPricingInput } from 'lib/listings/get-pricing'
+import { estimatePrice, getPricingInput } from 'lib/listings/pricing'
 
 class Personal extends Component {
   constructor(props) {
@@ -63,7 +62,7 @@ class Personal extends Component {
 
   previousStep() {
     const { navigateTo } = this.props
-    navigateTo('phone')
+    navigateTo('differential')
   }
 
   async estimatePrice() {
@@ -76,7 +75,7 @@ class Personal extends Component {
     const pricingInput = getPricingInput(addressInput, homeDetails, rooms, garage, name, email)
 
     // Run mutation
-    const response = await estimatePricing(apolloClient, pricingInput)
+    const response = await estimatePrice(apolloClient, pricingInput)
     this.setState({
       loading: false,
       error: response.error
