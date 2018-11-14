@@ -5,10 +5,15 @@ import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Button from '@emcasa/ui-dom/components/Button'
 
+const NEXT_LABEL = 'Avançar'
+const LOADING_LABEL = 'Aguarde...'
+const PREVIOUS_LABEL = 'Voltar'
+
 class NavButtons extends PureComponent {
   constructor(props) {
     super(props)
     this.onPressEnter = this.onPressEnter.bind(this)
+    this.getNextLabel = this.getNextLabel.bind(this)
   }
 
   onPressEnter(e) {
@@ -24,6 +29,19 @@ class NavButtons extends PureComponent {
 
   componentWillUnmount() {
     document.removeEventListener('keypress', this.onPressEnter)
+  }
+
+  getNextLabel() {
+    const { nextLabel, loading } = this.props
+    if (nextLabel) {
+      return nextLabel
+    }
+    return loading ? LOADING_LABEL : NEXT_LABEL
+  }
+
+  getPreviousLabel() {
+    const { previousLabel } = this.props
+    return previousLabel ? previousLabel : PREVIOUS_LABEL
   }
 
   render() {
@@ -42,7 +60,7 @@ class NavButtons extends PureComponent {
             active={!this.props.loading}
             disabled={!this.props.submitEnabled || this.props.loading}
             onClick={this.props.onSubmit}>
-            {this.props.loading ? 'Aguarde...' : 'Avançar'}
+            {this.getNextLabel()}
           </Button>
         </Col>
       </Row>
@@ -50,6 +68,8 @@ class NavButtons extends PureComponent {
   }
 
   static propTypes = {
+    previousLabel: PropTypes.string,
+    nextLabel: PropTypes.string,
     previousStep: PropTypes.func,
     onSubmit: PropTypes.func,
     submitEnabled: PropTypes.bool.isRequired,

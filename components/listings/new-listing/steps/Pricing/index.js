@@ -90,6 +90,14 @@ class Pricing extends Component {
   }
 
   previousStep() {
+    if (this.state.editingPrice) {
+      this.setState({
+        editingPrice: false,
+        userPrice: null
+      })
+      return
+    }
+
     const { navigateTo } = this.props
     navigateTo('differential')
   }
@@ -222,6 +230,8 @@ class Pricing extends Component {
                     this.noPriceSuggestion(errors, setFieldValue, setFieldTouched)
                   }
                   <NavButtons
+                    nextLabel={this.state.editingPrice ? 'OK' : 'Avançar'}
+                    previousLabel={this.state.editingPrice ? 'Cancelar' : 'Voltar'}
                     previousStep={this.previousStep}
                     onSubmit={this.nextStep}
                     submitEnabled={isValid}
