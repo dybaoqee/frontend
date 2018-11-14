@@ -7,7 +7,6 @@ import Icon from '@emcasa/ui-dom/components/Icon'
 import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
-import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import StaticMap from 'components/listings/new-listing/shared/StaticMap'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
@@ -21,6 +20,8 @@ import {
   PREFIX,
   THOUSANDS_SEPARATOR_SYMBOL
 } from 'utils/text-utils'
+
+const SUGGESTED_PRICE_MULTIPLIER = 1.05
 
 class Pricing extends Component {
   constructor(props) {
@@ -125,11 +126,12 @@ class Pricing extends Component {
 
   priceSuggestion(errors, setFieldValue, setFieldTouched) {
     const { pricing } = this.props
-    const formattedSuggestedPrice = pricing.suggestedPrice.toLocaleString('pt-BR', currencyStyle)
+    const basePrice = pricing.suggestedPrice.toLocaleString('pt-BR', currencyStyle)
+    const suggestedPrice = (pricing.suggestedPrice * SUGGESTED_PRICE_MULTIPLIER).toLocaleString('pt-BR', currencyStyle)
     return (
       <Col>
         <Text color="grey">Seu imóvel foi avaliado por:</Text>
-        <Text fontSize="large" fontWeight="bold" textAlign="center">{formattedSuggestedPrice}</Text>
+        <Text fontSize="large" fontWeight="bold" textAlign="center">{basePrice}</Text>
         <Text color="grey">Recomendamos anunciar por:</Text>
             {this.state.editingPrice ?
               <Col width={[1, 1/2]} mr={4}>
@@ -140,7 +142,7 @@ class Pricing extends Component {
                 <Row justifyContent="center">
                   <UserPriceCol />
                   <Col>
-                    <Text inline fontSize="large" fontWeight="bold" textAlign="center">{formattedSuggestedPrice}</Text>
+                    <Text inline fontSize="large" fontWeight="bold" textAlign="center">{suggestedPrice}</Text>
                   </Col>
                   <UserPriceCol>
                     <EditPriceButton onClick={() => this.setState({editingPrice: true})} style={{marginLeft: 20}}>
