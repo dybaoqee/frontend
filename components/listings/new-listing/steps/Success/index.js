@@ -19,11 +19,9 @@ class Success extends PureComponent {
   }
 
   componentDidMount() {
-    routerEvents.once('routeChangeComplete', (url) => {
-      if (url === ROUTE_HOME || url === ROUTE_MY_LISTINGS) {
-        this.props.resetStore()
-        this.props.navigateTo('intro')
-      }
+    routerEvents.once('routeChangeComplete', () => {
+      this.props.resetStore()
+      this.props.navigateTo('intro')
       return true
     })
   }

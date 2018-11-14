@@ -129,7 +129,7 @@ class Pricing extends Component {
 
   priceSuggestion(errors, setFieldValue, setFieldTouched) {
     const { pricing } = this.props
-    const basePrice = pricing.suggestedPrice.toLocaleString('pt-BR', currencyStyle)
+    const basePrice = parseInt(pricing.suggestedPrice).toLocaleString('pt-BR', currencyStyle)
     const suggestedPrice = (pricing.suggestedPrice * SUGGESTED_PRICE_MULTIPLIER).toLocaleString('pt-BR', currencyStyle)
 
     const { userPrice } = this.state

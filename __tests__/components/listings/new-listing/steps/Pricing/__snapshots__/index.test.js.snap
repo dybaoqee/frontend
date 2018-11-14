@@ -179,7 +179,7 @@ exports[`renders an empty state 1`] = `
           fontSize="large"
           fontWeight="bold"
         >
-          1000
+          R$1,000
         </p>
         <p
           className="c3"
@@ -203,7 +203,7 @@ exports[`renders an empty state 1`] = `
               fontSize="large"
               fontWeight="bold"
             >
-              R$1,050
+              R$1,100
             </span>
           </div>
           <div
