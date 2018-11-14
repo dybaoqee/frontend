@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Formik, Field } from 'formik'
 
-
 import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
@@ -69,10 +68,13 @@ class Personal extends Component {
     this.setState({loading: true})
 
     // Prepare input
-    const { name, email } = this.state
+    const personal = {
+      name: this.state.name,
+      email: this.state.email
+    }
     const { homeDetails, rooms, garage, location } = this.props
     const addressInput = getAddressInput(location.addressData)
-    const pricingInput = getPricingInput(addressInput, homeDetails, rooms, garage, name, email)
+    const pricingInput = getPricingInput(addressInput, homeDetails, rooms, garage, personal)
 
     // Run mutation
     const response = await estimatePrice(apolloClient, pricingInput)
