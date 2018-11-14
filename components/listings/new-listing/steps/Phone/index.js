@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Router from 'next/router'
 import { Formik, Field } from 'formik'
 import { get } from 'lodash'
 
@@ -7,9 +6,10 @@ import AccountKit from 'components/shared/Auth/AccountKit'
 import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
-import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
+import { getAddressInput } from 'lib/address'
+import { estimatePrice, getPricingInput } from 'lib/listings/pricing'
 
 const BRAZIL_CODE = '55'
 
@@ -68,29 +68,26 @@ class Phone extends Component {
     const email = get(userInfo, 'data.accountKitSignIn.user.email', null)
 
     if (name && email) {
-      const { updatePersonal, navigateTo } = this.props
+      const { updatePersonal } = this.props
       this.setState({hasNameAndEmail: true})
       updatePersonal({
         name,
         email
       })
-      navigateTo('pricing')
+      this.estimatePrice({name, email})
     } else {
       this.nextStep()
     }
   }
 
-  async estimatePrice() {
-    this.setState({loading: true})
-
+  async estimatePrice(userInfo) {
     // Prepare input
-    const { name, email } = this.state
-    const { homeDetails, rooms, garage, location } = this.props
+    const { personal, homeDetails, rooms, garage, location } = this.props
     const addressInput = getAddressInput(location.addressData)
-    const pricingInput = getPricingInput(addressInput, homeDetails, rooms, garage, name, email)
+    const pricingInput = getPricingInput(addressInput, homeDetails, rooms, garage, personal, userInfo)
 
     // Run mutation
-    const response = await estimatePricing(apolloClient, pricingInput)
+    const response = await estimatePrice(apolloClient, pricingInput)
     this.setState({
       loading: false,
       error: response.error
@@ -99,12 +96,13 @@ class Phone extends Component {
     // Handle result
     if (response.result) {
       const suggestedPrice = response.result
-      const { updatePricing, pricing } = this.props
+      const { navigateTo, updatePricing, updateDifferential, pricing } = this.props
       updatePricing({
         ...pricing,
         suggestedPrice
       })
-      this.nextStep()
+      updateDifferential({text: this.state.text})
+      navigateTo('pricing')
     }
   }
 
@@ -149,8 +147,6 @@ class Phone extends Component {
       localAreaCode = phone.localAreaCode
       number = phone.number
     }
-    const { user } = this.props
-    const authenticated = user && user.authenticated
     return (
       <div ref={this.props.hostRef}>
         <Row justifyContent="center" p={4}>
@@ -248,13 +244,7 @@ class Phone extends Component {
                     {({signIn}) => (
                       <NavButtons
                         previousStep={this.previousStep}
-                        onSubmit={() => {
-                          if (authenticated) {
-                            this.nextStep()
-                          } else {
-                            signIn()
-                          }
-                        }}
+                        onSubmit={signIn}
                         submitEnabled={isValid}
                       />
                     )}
