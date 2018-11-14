@@ -4,20 +4,19 @@ import { Formik, Field } from 'formik'
 import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
-import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import { getAddressInput } from 'lib/address'
-import { estimatePricing, getPricingInput } from 'lib/listings/get-pricing'
-import { getUserInfo, getPhoneParts } from 'lib/user'
+import { estimatePrice, getPricingInput } from 'lib/listings/pricing'
+import { getUser, hasPhoneNumber } from 'components/listings/new-listing/lib/auth'
 
 class Differential extends Component {
   constructor(props) {
     super(props)
-    this.nextStep = this.nextStep.bind(this)
     this.previousStep = this.previousStep.bind(this)
     this.updateStateFromProps = this.updateStateFromProps.bind(this)
-    this.getUser = this.getUser.bind(this)
+
+    this.checkUserInfo = this.checkUserInfo.bind(this)
     this.estimatePrice = this.estimatePrice.bind(this)
 
     this.textInput = React.createRef()
@@ -27,13 +26,14 @@ class Differential extends Component {
     loading: false,
     error: null,
     text: null,
-    userInfo: null,
     hasPrice: false
   }
 
   componentDidMount() {
     this.updateStateFromProps(this.props)
-    this.textInput.current.focus()
+    if (this.textInput.current) {
+      this.textInput.current.focus()
+    }
   }
 
   componentWillReceiveProps(props) {
@@ -49,65 +49,58 @@ class Differential extends Component {
     }
   }
 
-  async nextStep() {
-    const { navigateTo, updateDifferential, user } = this.props
-    const authenticated = user && user.authenticated
-    if (authenticated) {
-      if (!this.state.userInfo) {
-        await this.getUser()
-      }
-      if (this.state.userInfo && !this.state.hasPrice) {
-        await this.estimatePrice()
-      }
-    } else {
-      updateDifferential({text: this.state.text})
-      navigateTo('phone')
-    }
-  }
-
   previousStep() {
     const { navigateTo } = this.props
     navigateTo('garage')
   }
 
-  async getUser() {
-    this.setState({loading: true})
+  async checkUserInfo() {
+    const { updateDifferential, user } = this.props
+    updateDifferential({text: this.state.text})
+    const authenticated = user && user.authenticated
 
-    const userInfo = await getUserInfo(this.props.user.id)
-    if (userInfo && !userInfo.error) {
-      this.setState({
-        userInfo,
-        error: null,
-        hasPrice: false
-      }, () => {
-        // Update user info in redux
-        const { updatePhone, updatePersonal } = this.props
-        const fullPhoneNumber = getPhoneParts(userInfo.phone)
-        updatePhone(fullPhoneNumber)
-        updatePersonal({
-          name: userInfo.name,
-          email: userInfo.email
+    // Old site auth
+    if (authenticated) {
+      const { updatePhone, updatePersonal } = this.props
+      this.setState({loading: true})
+      const userInfo = await getUser(user.id, updatePhone, updatePersonal)
+      if (userInfo.error) {
+        this.setState({
+          loading: false,
+          error: userInfo.error
         })
-      })
-    } else {
-      this.setState({
-        loading: false,
-        error: userInfo.error,
-        userInfo: null,
-        hasPrice: false
-      })
+        return
+      }
+
+      await this.estimatePrice(userInfo)
+      return
     }
+
+    // User has already input phone number
+    const { phone } = this.props
+    if (hasPhoneNumber(phone)) {
+      const { personal } = this.props
+      if (personal && personal.name) {
+        this.setState({loading: true})
+        await this.estimatePrice()
+        return
+      } else {
+        this.props.navigateTo('personal')
+        return
+      }
+    }
+
+    this.props.navigateTo('phone')
   }
 
-  async estimatePrice() {
+  async estimatePrice(userInfo) {
     // Prepare input
-    const { name, email } = this.state.userInfo
-    const { homeDetails, rooms, garage, location } = this.props
+    const { personal, homeDetails, rooms, garage, location } = this.props
     const addressInput = getAddressInput(location.addressData)
-    const pricingInput = getPricingInput(addressInput, homeDetails, rooms, garage, name, email)
+    const pricingInput = getPricingInput(addressInput, homeDetails, rooms, garage, personal, userInfo)
 
     // Run mutation
-    const response = await estimatePricing(apolloClient, pricingInput)
+    const response = await estimatePrice(apolloClient, pricingInput)
     this.setState({
       loading: false,
       error: response.error
@@ -116,11 +109,12 @@ class Differential extends Component {
     // Handle result
     if (response.result) {
       const suggestedPrice = response.result
-      const { navigateTo, updatePricing, pricing } = this.props
+      const { navigateTo, updatePricing, updateDifferential, pricing } = this.props
       updatePricing({
         ...pricing,
         suggestedPrice
       })
+      updateDifferential({text: this.state.text})
       navigateTo('pricing')
     }
   }
@@ -133,7 +127,7 @@ class Differential extends Component {
     }
     return (
       <div ref={this.props.hostRef}>
-        <Row justifyContent="center">
+        <Row justifyContent="center" p={4}>
           <Col width={[1, 1/2]}>
             <Formik
               initialValues={{
@@ -142,46 +136,43 @@ class Differential extends Component {
               isInitialValid={() => true}
               render={({isValid, setFieldTouched, setFieldValue, errors}) => (
                 <>
-                  <View body p={4}>
-                    <Text
-                      fontSize="large"
-                      fontWeight="bold"
-                      textAlign="center">
-                      Seu imóvel tem algum diferencial?
-                    </Text>
-                    <Text color="grey">Conte pra gente algum diferencial do seu imóvel.</Text>
-                    <Row mb={4}>
-                      <Col width={1} mr={4}>
-                        <Field
-                          name="text"
-                          render={() => (
-                            <Input
-                              area
-                              hideLabelView
-                              ref={this.textInput}
-                              placeholder="Diferenciais do imóvel"
-                              defaultValue={text}
-                              style={{height: 150}}
-                              onChange={(e) => {
-                                const { value } = e.target
-                                setFieldValue('text', value)
-                                setFieldTouched('text')
-                                this.setState({text: value})
-                              }}
-                            />
-                          )}/>
-                      </Col>
-                    </Row>
-                  </View>
-                  <View bottom p={4}>
-                    <Text color="red">{this.state.error}</Text>
-                    <NavButtons
-                      loading={this.state.loading}
-                      previousStep={this.previousStep}
-                      onSubmit={this.nextStep}
-                      submitEnabled={isValid}
-                    />
-                  </View>
+                  <Text
+                    fontSize="large"
+                    fontWeight="bold"
+                    textAlign="center">
+                    Seu imóvel tem algum diferencial?
+                  </Text>
+                  <Text color="grey">Conte pra gente algum diferencial do seu imóvel.</Text>
+                  <Row mb={4}>
+                    <Col width={1} mr={4}>
+                      <Field
+                        name="text"
+                        render={() => (
+                          <Input
+                            area
+                            hideLabelView
+                            hideErrorView
+                            ref={this.textInput}
+                            placeholder="Diferenciais do imóvel"
+                            defaultValue={text}
+                            style={{height: 150}}
+                            onChange={(e) => {
+                              const { value } = e.target
+                              setFieldValue('text', value)
+                              setFieldTouched('text')
+                              this.setState({text: value})
+                            }}
+                          />
+                        )}/>
+                    </Col>
+                  </Row>
+                  <Text color="red">{this.state.error}</Text>
+                  <NavButtons
+                    loading={this.state.loading}
+                    previousStep={this.previousStep}
+                    onSubmit={async () => {this.checkUserInfo()}}
+                    submitEnabled={isValid}
+                  />
                 </>
               )}
             />

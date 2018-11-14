@@ -21,6 +21,7 @@ class AddressInput extends Component {
     this.checkAddressCoverage = this.checkAddressCoverage.bind(this)
     this.validateAddress = this.validateAddress.bind(this)
     this.updateStateFromProps = this.updateStateFromProps.bind(this)
+    this.onClearInput = this.onClearInput.bind(this)
   }
 
   state = {
@@ -56,6 +57,13 @@ class AddressInput extends Component {
       address: this.state.address,
       complement: this.state.complement,
       addressData: this.state.addressData
+    })
+  }
+
+  onClearInput() {
+    this.setState({
+      address: null,
+      addressData: null
     })
   }
 
@@ -117,7 +125,7 @@ class AddressInput extends Component {
     }
     return (
       <div ref={this.props.hostRef}>
-        <Row justifyContent="center">
+        <Row justifyContent="center" p={4}>
           <Col width={[1, 1/2]}>
             <Formik
               initialValues={{
@@ -129,61 +137,58 @@ class AddressInput extends Component {
               }}
               render={({isValid, setFieldValue, errors}) => (
                 <>
-                  <View body p={4}>
-                    <Text
-                      fontSize="large"
-                      fontWeight="bold"
-                      textAlign="center">
-                      Qual o endereço do seu imóvel?
-                    </Text>
-                    <Col>
-                      <StaticMap addressData={this.state.addressData} />
-                    </Col>
-                    <Col mb={4} mr={4}>
-                      <Field
-                        name="address"
-                        validate={this.validateAddress}
-                        render={() => (
-                          <AddressAutoComplete
-                            defaultValue={address}
-                            onSelectAddress={(addressFormatted, addressData) => {
-                              setFieldValue('address', addressFormatted)
-                              this.setState({
-                                address: addressFormatted,
-                                addressData: addressData
-                              })
-                            }}
-                          />
-                        )}/>
-                    </Col>
-                    <Col mr={4}>
+                  <Text
+                    fontSize="large"
+                    fontWeight="bold"
+                    textAlign="center">
+                    Qual o endereço do seu imóvel?
+                  </Text>
+                  <Col>
+                    <StaticMap addressData={this.state.addressData} />
+                  </Col>
+                  <Col mb={4} mr={4}>
                     <Field
-                      name="complement"
+                      name="address"
+                      validate={this.validateAddress}
                       render={() => (
-                        <Input
-                          hideLabelView
-                          hideErrorView
-                          placeholder="Complemento"
-                          defaultValue={complement}
-                          onChange={(e) => {
-                            const { value } = e.target
-                            setFieldValue('complement', value)
-                            this.setState({complement: value})
+                        <AddressAutoComplete
+                          defaultValue={address}
+                          onClearInput={this.onClearInput}
+                          onSelectAddress={(addressFormatted, addressData) => {
+                            setFieldValue('address', addressFormatted)
+                            this.setState({
+                              address: addressFormatted,
+                              addressData: addressData
+                            })
                           }}
                         />
-                      )} />
-                    </Col>
-                  </View>
-                  <View bottom p={4}>
-                    <NavButtons
-                      previousStep={this.previousStep}
-                      onSubmit={() => {
-                        this.checkAddressCoverage()
-                      }}
-                      submitEnabled={isValid}
-                      loading={this.state.loading}
-                    />
-                  </View>
+                      )}/>
+                  </Col>
+                  <Col mr={4}>
+                  <Field
+                    name="complement"
+                    render={() => (
+                      <Input
+                        hideLabelView
+                        hideErrorView
+                        placeholder="Complemento"
+                        defaultValue={complement}
+                        onChange={(e) => {
+                          const { value } = e.target
+                          setFieldValue('complement', value)
+                          this.setState({complement: value})
+                        }}
+                      />
+                    )} />
+                  </Col>
+                  <NavButtons
+                    previousStep={this.previousStep}
+                    onSubmit={() => {
+                      this.checkAddressCoverage()
+                    }}
+                    submitEnabled={isValid}
+                    loading={this.state.loading}
+                  />
                 </>
               )}
             />

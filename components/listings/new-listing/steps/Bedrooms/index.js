@@ -160,7 +160,7 @@ class Bedrooms extends Component {
     }
     return (
       <div ref={this.props.hostRef}>
-        <Row justifyContent="center">
+        <Row justifyContent="center" p={4}>
           <Col width={[1, 1/2]}>
             <Formik
               initialValues={{
@@ -173,57 +173,53 @@ class Bedrooms extends Component {
               }}
               render={({isValid, setFieldTouched, setFieldValue, errors}) => (
                 <>
-                  <View body p={4}>
-                    <Text
-                      fontSize="large"
-                      fontWeight="bold"
-                      textAlign="center">
-                      Quantos quartos?
-                    </Text>
-                    <Text color="grey">Quantos quartos tem no seu imóvel?</Text>
+                  <Text
+                    fontSize="large"
+                    fontWeight="bold"
+                    textAlign="center">
+                    Quantos quartos?
+                  </Text>
+                  <Text color="grey">Quantos quartos tem no seu imóvel?</Text>
+                  <Row mb={4} flexWrap="wrap">
+                    <Field
+                      name="bedroom"
+                      validate={this.validateBedroom}
+                      render={({form}) => this.bedroomSelection(setFieldTouched, setFieldValue, errors.bedroom, form.touched.bedroom)} />
+                  </Row>
+                  {this.state.showSuites && <> <Text color="grey">Algum deles é suíte? Quantos?</Text>
                     <Row mb={4} flexWrap="wrap">
                       <Field
-                        name="bedroom"
-                        validate={this.validateBedroom}
-                        render={({form}) => this.bedroomSelection(setFieldTouched, setFieldValue, errors.bedroom, form.touched.bedroom)} />
+                        name="suite"
+                        validate={this.validateSuite}
+                        render={() =>
+                          <Button.Group flexWrap="wrap" initialValue={suites} onChange={(value) => {
+                            setFieldValue('suite', value)
+                            setFieldTouched('suite')
+                            this.setState({suites: value, showBathrooms: true})
+                            }}>
+                            <Button mr={2} value={0} height="tall">Sem suíte</Button>
+                            <Button mr={2} value={1} height="tall">1</Button>
+                            <Button mr={2} value={2} height="tall">2</Button>
+                            <Button mr={2} value={3} height="tall">3</Button>
+                            <Button mr={2} value={4} height="tall">4</Button>
+                          </Button.Group>
+                        }/>
                     </Row>
-                    {this.state.showSuites && <> <Text color="grey">Algum deles é suíte? Quantos?</Text>
-                      <Row mb={4} flexWrap="wrap">
-                        <Field
-                          name="suite"
-                          validate={this.validateSuite}
-                          render={() =>
-                            <Button.Group flexWrap="wrap" initialValue={suites} onChange={(value) => {
-                              setFieldValue('suite', value)
-                              setFieldTouched('suite')
-                              this.setState({suites: value, showBathrooms: true})
-                              }}>
-                              <Button mr={2} value={0} height="tall">Sem suíte</Button>
-                              <Button mr={2} value={1} height="tall">1</Button>
-                              <Button mr={2} value={2} height="tall">2</Button>
-                              <Button mr={2} value={3} height="tall">3</Button>
-                              <Button mr={2} value={4} height="tall">4</Button>
-                            </Button.Group>
-                          }/>
-                      </Row>
-                    </>}
-                    {this.state.showBathrooms && <>
-                      <Text color="grey">Quantos banheiros? (Sem contar os lavabos)</Text>
-                      <Row mb={4}>
-                        <Field
-                          name="bathroom"
-                          validate={this.validateBathroom}
-                          render={({form}) => this.bathroomSelection(setFieldTouched, setFieldValue, errors.bathroom, form.touched.bathroom)} />
-                      </Row>
-                    </>}
-                  </View>
-                  <View bottom p={4}>
-                    <NavButtons
-                      previousStep={this.previousStep}
-                      onSubmit={this.nextStep}
-                      submitEnabled={isValid}
-                    />
-                  </View>
+                  </>}
+                  {this.state.showBathrooms && <>
+                    <Text color="grey">Quantos banheiros? (Sem contar os lavabos)</Text>
+                    <Row mb={4}>
+                      <Field
+                        name="bathroom"
+                        validate={this.validateBathroom}
+                        render={({form}) => this.bathroomSelection(setFieldTouched, setFieldValue, errors.bathroom, form.touched.bathroom)} />
+                    </Row>
+                  </>}
+                  <NavButtons
+                    previousStep={this.previousStep}
+                    onSubmit={this.nextStep}
+                    submitEnabled={isValid}
+                  />
                 </>
               )}
             />

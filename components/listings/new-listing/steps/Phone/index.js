@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
-import Router from 'next/router'
 import { Formik, Field } from 'formik'
+import { get } from 'lodash'
 
 import AccountKit from 'components/shared/Auth/AccountKit'
 import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
-import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
+import { getAddressInput } from 'lib/address'
+import { estimatePrice, getPricingInput } from 'lib/listings/pricing'
 
 const BRAZIL_CODE = '55'
 
@@ -21,6 +22,8 @@ class Phone extends Component {
     this.validateLocalAreaCode = this.validateLocalAreaCode.bind(this)
     this.validateNumber = this.validateNumber.bind(this)
     this.updateStateFromProps = this.updateStateFromProps.bind(this)
+    this.onLoginSuccess = this.onLoginSuccess.bind(this)
+    this.estimatePrice = this.estimatePrice.bind(this)
 
     this.dddField = React.createRef()
     this.phoneNumberField = React.createRef()
@@ -29,7 +32,8 @@ class Phone extends Component {
   state = {
     internationalCode: null,
     localAreaCode: null,
-    number: null
+    number: null,
+    userInfo: null
   }
 
   componentDidMount() {
@@ -49,6 +53,56 @@ class Phone extends Component {
         localAreaCode: phone.localAreaCode,
         number: phone.number
       })
+    }
+  }
+
+  onLoginSuccess(userInfo) {
+    const { updatePhone } = this.props
+    updatePhone({
+      internationalCode: this.state.internationalCode || BRAZIL_CODE,
+      localAreaCode: this.state.localAreaCode,
+      number: this.state.number
+    })
+
+    const name = get(userInfo, 'data.accountKitSignIn.user.name', null)
+    const email = get(userInfo, 'data.accountKitSignIn.user.email', null)
+
+    if (name && email) {
+      const { updatePersonal } = this.props
+      this.setState({hasNameAndEmail: true})
+      updatePersonal({
+        name,
+        email
+      })
+      this.estimatePrice({name, email})
+    } else {
+      this.nextStep()
+    }
+  }
+
+  async estimatePrice(userInfo) {
+    // Prepare input
+    const { personal, homeDetails, rooms, garage, location } = this.props
+    const addressInput = getAddressInput(location.addressData)
+    const pricingInput = getPricingInput(addressInput, homeDetails, rooms, garage, personal, userInfo)
+
+    // Run mutation
+    const response = await estimatePrice(apolloClient, pricingInput)
+    this.setState({
+      loading: false,
+      error: response.error
+    })
+
+    // Handle result
+    if (response.result) {
+      const suggestedPrice = response.result
+      const { navigateTo, updatePricing, updateDifferential, pricing } = this.props
+      updatePricing({
+        ...pricing,
+        suggestedPrice
+      })
+      updateDifferential({text: this.state.text})
+      navigateTo('pricing')
     }
   }
 
@@ -93,11 +147,9 @@ class Phone extends Component {
       localAreaCode = phone.localAreaCode
       number = phone.number
     }
-    const { user } = this.props
-    const authenticated = user && user.authenticated
     return (
       <div ref={this.props.hostRef}>
-        <Row justifyContent="center">
+        <Row justifyContent="center" p={4}>
           <Col width={[1, 1/2]}>
             <Formik
               initialValues={{
@@ -110,103 +162,93 @@ class Phone extends Component {
               }}
               render={({isValid, setFieldTouched, setFieldValue, errors}) => (
                 <>
-                  <View body p={4}>
-                    <Text
-                      fontSize="large"
-                      fontWeight="bold"
-                      textAlign="center">
-                      Qual o número do seu celular?
-                    </Text>
-                    <Text color="grey">Fique tranquilo(a), seu celular não será divulgado.</Text>
-                    <Row>
-                      <Col width={3/12} mr={5}>
-                        <Field
-                          name="internationalCode"
-                          validate={this.validateInternationalCode}
-                          render={({form}) => (
-                            <Input
-                              hideLabelView
-                              placeholder="DDI*"
-                              error={form.touched.internationalCode ? errors.internationalCode : null}
-                              defaultValue={internationalCode}
-                              onChange={(e) => {
-                                const { value } = e.target
-                                setFieldValue('internationalCode', value)
-                                setFieldTouched('internationalCode')
-                                this.setState({internationalCode: value})
-                              }}
-                            />
-                          )}/>
-                      </Col>
-                      <Col width={3/12} mr={5}>
-                        <Field
-                          name="localAreaCode"
-                          validate={this.validateLocalAreaCode}
-                          render={({form}) => (
-                            <Input
-                              hideLabelView
-                              ref={this.dddField}
-                              placeholder="DDD*"
-                              error={form.touched.localAreaCode ? errors.localAreaCode : null}
-                              defaultValue={localAreaCode}
-                              onChange={(e) => {
-                                const { value } = e.target
-                                setFieldValue('localAreaCode', value)
-                                setFieldTouched('localAreaCode')
-                                this.setState({localAreaCode: value})
-                                if (value.length === 2) {
-                                  this.phoneNumberField.current.focus()
-                                }
-                              }}
-                            />
-                          )}/>
-                      </Col>
-                      <Col width={6/12} mr={4}>
-                        <Field
-                          name="number"
-                          validate={this.validateNumber}
-                          render={({form}) => (
-                            <Input
-                              hideLabelView
-                              ref={this.phoneNumberField}
-                              placeholder="Celular*"
-                              error={form.touched.number ? errors.number : null}
-                              defaultValue={number}
-                              onChange={(e) => {
-                                const { value } = e.target
-                                setFieldValue('number', value)
-                                setFieldTouched('number')
-                                this.setState({number: value})
-                              }}
-                            />
-                          )}/>
-                      </Col>
-                    </Row>
-                  </View>
-                  <View bottom p={4}>
+                  <Text
+                    fontSize="large"
+                    fontWeight="bold"
+                    textAlign="center">
+                    Qual o número do seu celular?
+                  </Text>
+                  <Text color="grey">Fique tranquilo(a), seu celular não será divulgado.</Text>
+                  <Row>
+                    <Col width={3/12} mr={5}>
+                      <Field
+                        name="internationalCode"
+                        validate={this.validateInternationalCode}
+                        render={({form}) => (
+                          <Input
+                            hideLabelView
+                            placeholder="DDI*"
+                            error={form.touched.internationalCode ? errors.internationalCode : null}
+                            defaultValue={internationalCode}
+                            onChange={(e) => {
+                              const { value } = e.target
+                              setFieldValue('internationalCode', value)
+                              setFieldTouched('internationalCode')
+                              this.setState({internationalCode: value})
+                            }}
+                          />
+                        )}/>
+                    </Col>
+                    <Col width={3/12} mr={5}>
+                      <Field
+                        name="localAreaCode"
+                        validate={this.validateLocalAreaCode}
+                        render={({form}) => (
+                          <Input
+                            hideLabelView
+                            ref={this.dddField}
+                            placeholder="DDD*"
+                            error={form.touched.localAreaCode ? errors.localAreaCode : null}
+                            defaultValue={localAreaCode}
+                            onChange={(e) => {
+                              const { value } = e.target
+                              setFieldValue('localAreaCode', value)
+                              setFieldTouched('localAreaCode')
+                              this.setState({localAreaCode: value})
+                              if (value.length === 2) {
+                                this.phoneNumberField.current.focus()
+                              }
+                            }}
+                          />
+                        )}/>
+                    </Col>
+                    <Col width={6/12} mr={4}>
+                      <Field
+                        name="number"
+                        validate={this.validateNumber}
+                        render={({form}) => (
+                          <Input
+                            hideLabelView
+                            ref={this.phoneNumberField}
+                            placeholder="Celular*"
+                            error={form.touched.number ? errors.number : null}
+                            defaultValue={number}
+                            onChange={(e) => {
+                              const { value } = e.target
+                              setFieldValue('number', value)
+                              setFieldTouched('number')
+                              this.setState({number: value})
+                            }}
+                          />
+                        )}/>
+                    </Col>
+                  </Row>
                   <AccountKit
+                    skipRedirect
                     appId={process.env.FACEBOOK_APP_ID}
                     appSecret={process.env.ACCOUNT_KIT_APP_SECRET}
                     phoneNumber={this.state.localAreaCode + this.state.number}
                     version="v1.0"
-                    redirectPath='/anuncie'
-                    onSuccess={this.nextStep}
+                    onSuccess={this.onLoginSuccess}
                   >
                     {({signIn}) => (
                       <NavButtons
                         previousStep={this.previousStep}
-                        onSubmit={() => {
-                          if (authenticated) {
-                            this.nextStep()
-                          } else {
-                            signIn()
-                          }
-                        }}
+                        onSubmit={signIn}
                         submitEnabled={isValid}
                       />
                     )}
                   </AccountKit>
-                  </View>
                 </>
               )}
             />

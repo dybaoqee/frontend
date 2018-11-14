@@ -153,52 +153,48 @@ class Summary extends PureComponent {
 
     return (
       <div ref={this.props.hostRef}>
-        <Row justifyContent="center">
+        <Row justifyContent="center" p={4}>
           <Col width={[1, 1/2]}>
-            <View body p={4}>
-              <Text
-                fontSize="large"
-                fontWeight="bold"
-                textAlign="center">
-                Resumo do seu imóvel
-              </Text>
-              <Col>
-                <StaticMap addressData={location.addressData} />
-              </Col>
-              <Col>
-                {suggestedPrice ?
-                  <>
-                    <Text color="grey">Seu imóvel da <Text inline fontWeight="bold" color="grey">{address}</Text> foi avaliado por:</Text>
-                    <Text fontSize="large" fontWeight="bold" textAlign="center">{formattedSuggestedPrice}</Text>
-                    <Text color="grey">Será anunciado por:</Text>
-                    <Text fontSize="large" fontWeight="bold" textAlign="center">{formattedUserPrice}</Text>
-                  </>
-                :
-                  <>
-                    <Text color="grey">Seu imóvel da <Text inline fontWeight="bold" color="grey">{address}</Text> será anunciado por:</Text>
-                    <Text fontSize="large" fontWeight="bold" textAlign="center">{formattedUserPrice}</Text>
-                  </>
-                }
-                {(wantsTour || wantsPictures) &&
-                  <ServicesDisplay
-                    services={services}
-                    tour={tour}
-                  />
-                }
-              </Col>
-            </View>
-            <View bottom p={4}>
-              <Text color="red">{this.state.error}</Text>
-              <Button
-                active={!this.state.loading}
-                fluid
-                height="tall"
-                disabled={this.state.loading}
-                onClick={this.save}
-              >
-                Vender meu imóvel
-              </Button>
-            </View>
+            <Text
+              fontSize="large"
+              fontWeight="bold"
+              textAlign="center">
+              Resumo do seu imóvel
+            </Text>
+            <Col>
+              <StaticMap addressData={location.addressData} />
+            </Col>
+            <Col>
+              {suggestedPrice ?
+                <>
+                  <Text color="grey">Seu imóvel da <Text inline fontWeight="bold" color="grey">{address}</Text> foi avaliado por:</Text>
+                  <Text fontSize="large" fontWeight="bold" textAlign="center">{formattedSuggestedPrice}</Text>
+                  <Text color="grey">Será anunciado por:</Text>
+                  <Text fontSize="large" fontWeight="bold" textAlign="center">{formattedUserPrice}</Text>
+                </>
+              :
+                <>
+                  <Text color="grey">Seu imóvel da <Text inline fontWeight="bold" color="grey">{address}</Text> será anunciado por:</Text>
+                  <Text fontSize="large" fontWeight="bold" textAlign="center">{formattedUserPrice}</Text>
+                </>
+              }
+              {(wantsTour || wantsPictures) &&
+                <ServicesDisplay
+                  services={services}
+                  tour={tour}
+                />
+              }
+            </Col>
+            <Text color="red">{this.state.error}</Text>
+            <Button
+              active={!this.state.loading}
+              fluid
+              height="tall"
+              disabled={this.state.loading}
+              onClick={this.save}
+            >
+              Vender meu imóvel
+            </Button>
           </Col>
         </Row>
       </div>

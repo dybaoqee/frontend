@@ -5,7 +5,6 @@ import routerEvents from 'next-router-events'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Icon from '@emcasa/ui-dom/components/Icon'
-import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
 
@@ -21,7 +20,10 @@ class Success extends PureComponent {
 
   componentDidMount() {
     routerEvents.once('routeChangeComplete', (url) => {
-      this.props.resetStore()
+      if (url === ROUTE_HOME || url === ROUTE_MY_LISTINGS) {
+        this.props.resetStore()
+        this.props.navigateTo('intro')
+      }
       return true
     })
   }
@@ -37,34 +39,30 @@ class Success extends PureComponent {
   render() {
     return (
       <div ref={this.props.hostRef}>
-        <Row justifyContent="center">
+        <Row justifyContent="center" p={4}>
           <Col width={[1, 1/2]}>
-            <View body p={4}>
-              <Text
-                fontSize="large"
-                fontWeight="bold"
-                textAlign="center">
-                Parabéns, seu imóvel foi salvo com sucesso!
-              </Text>
-              <Row justifyContent="center" my={4}>
-                <Icon name="check-circle" color="green" size={60} />
-              </Row>
-              <Row>
-                <Text color="grey">Muito obrigado por confiar na EmCasa! Enviaremos um SMS assim que seu imóvel estiver publicado.</Text>
-              </Row>
-            </View>
-            <View bottom p={4}>
-              <Row>
-                <Col width={1} mb={2}>
-                  <Button active fluid height="tall" onClick={this.viewMyListings}>Ver Meus Imóveis</Button>
-                </Col>
-              </Row>
-              <Row>
-                <Col width={1}>
-                  <Button fluid height="tall" onClick={this.goHome}>Ir para Home</Button>
-                </Col>
-              </Row>
-            </View>
+            <Text
+              fontSize="large"
+              fontWeight="bold"
+              textAlign="center">
+              Parabéns, seu imóvel foi salvo com sucesso!
+            </Text>
+            <Row justifyContent="center" my={4}>
+              <Icon name="check-circle" color="green" size={60} />
+            </Row>
+            <Row>
+              <Text color="grey">Muito obrigado por confiar na EmCasa! Enviaremos um SMS assim que seu imóvel estiver publicado.</Text>
+            </Row>
+            <Row>
+              <Col width={1} mb={2}>
+                <Button active fluid height="tall" onClick={this.viewMyListings}>Ver Meus Imóveis</Button>
+              </Col>
+            </Row>
+            <Row>
+              <Col width={1}>
+                <Button fluid height="tall" onClick={this.goHome}>Ir para Home</Button>
+              </Col>
+            </Row>
           </Col>
         </Row>
       </div>

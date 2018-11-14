@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { Formik, Field } from 'formik'
 import MaskedInput from 'react-text-mask'
 
@@ -84,9 +85,8 @@ class Pricing extends Component {
   }
 
   previousStep() {
-    const { navigateTo, user } = this.props
-    const authenticated = user && user.authenticated
-    navigateTo(authenticated ? 'differential' : 'personal')
+    const { navigateTo } = this.props
+    navigateTo('differential')
   }
 
   currencyInput(errors, setFieldValue, setFieldTouched) {
@@ -191,7 +191,7 @@ class Pricing extends Component {
     }
     return (
       <div ref={this.props.hostRef}>
-        <Row justifyContent="center">
+        <Row justifyContent="center" p={4}>
           <Col width={[1, 1/2]}>
             <Formik
               initialValues={{
@@ -202,29 +202,25 @@ class Pricing extends Component {
               }}
               render={({isValid, setFieldTouched, setFieldValue, errors}) => (
                 <>
-                  <View body p={4}>
-                    <Text
-                      fontSize="large"
-                      fontWeight="bold"
-                      textAlign="center">
-                      Qual o valor do seu imóvel?
-                    </Text>
-                    <Col>
-                      <StaticMap addressData={addressData} />
-                    </Col>
-                    {suggestedPrice ?
-                      this.priceSuggestion(errors, setFieldValue, setFieldTouched)
-                    :
-                      this.noPriceSuggestion(errors, setFieldValue, setFieldTouched)
-                    }
-                  </View>
-                  <View bottom p={4}>
-                    <NavButtons
-                      previousStep={this.previousStep}
-                      onSubmit={this.nextStep}
-                      submitEnabled={isValid}
-                    />
-                  </View>
+                  <Text
+                    fontSize="large"
+                    fontWeight="bold"
+                    textAlign="center">
+                    Qual o valor do seu imóvel?
+                  </Text>
+                  <Col>
+                    <StaticMap addressData={addressData} />
+                  </Col>
+                  {suggestedPrice ?
+                    this.priceSuggestion(errors, setFieldValue, setFieldTouched)
+                  :
+                    this.noPriceSuggestion(errors, setFieldValue, setFieldTouched)
+                  }
+                  <NavButtons
+                    previousStep={this.previousStep}
+                    onSubmit={this.nextStep}
+                    submitEnabled={isValid}
+                  />
                 </>
               )}
             />
@@ -233,6 +229,10 @@ class Pricing extends Component {
       </div>
     )
   }
+}
+
+Pricing.propTypes = {
+  pricing: PropTypes.object
 }
 
 export default Pricing

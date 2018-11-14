@@ -17,14 +17,7 @@ exports[`renders correctly 1`] = `
   font-size: 18px;
 }
 
-.c9 {
-  -webkit-font-smoothing: antialiased;
-  font-family: FaktSoftPro-Normal;
-  color: #3c4858;
-  font-size: 14px;
-}
-
-.c10 {
+.c7 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
   color: #ff4949;
@@ -39,7 +32,7 @@ exports[`renders correctly 1`] = `
   border-radius: 4px;
   border: 1px solid;
   border-color: #e0e6ed;
-  padding: 0px 10px 0px 10px;
+  padding: 10px 10px 10px 10px;
   height: 60px;
   color: #3c4858;
   font-family: FaktSoftPro-Normal;
@@ -54,7 +47,7 @@ exports[`renders correctly 1`] = `
   border-radius: 4px;
   border: 1px solid;
   border-color: #1fb6ff;
-  padding: 0px 10px 0px 10px;
+  padding: 10px 10px 10px 10px;
   height: 60px;
 }
 
@@ -74,17 +67,6 @@ exports[`renders correctly 1`] = `
   color: #8492a6;
 }
 
-.c7 {
-  height: 25px;
-}
-
-.c8 {
-  display: inline;
-  color: #ff4949;
-  font-family: FaktSoftPro-Normal;
-  font-size: 14px;
-}
-
 .c0 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -102,9 +84,10 @@ exports[`renders correctly 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  margin-bottom: 20px;
 }
 
-.c11 {
+.c8 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -125,11 +108,11 @@ exports[`renders correctly 1`] = `
   width: 100%;
 }
 
-.c12 {
+.c9 {
   width: 41.66666666666667%;
 }
 
-.c13 {
+.c10 {
   outline: none;
   display: block;
   cursor: pointer;
@@ -147,30 +130,30 @@ exports[`renders correctly 1`] = `
   border-color: #e0e6ed;
 }
 
-.c13 :hover {
+.c10 :hover {
   background-color: #ffffff;
 }
 
-.c14 {
+.c11 {
   outline: none;
   display: block;
-  cursor: default;
+  cursor: pointer;
   padding: 0 20px 0 20px;
   border-radius: 4px;
   border: 1px solid;
-  border-color: #e0e6ed;
-  background-color: #ffffff;
+  border-color: #f50057;
+  background-color: #f50057;
   width: 100%;
   height: 60px;
-  color: #8492a6;
+  color: #ffffff;
   font-family: FaktSoftPro-Normal;
   font-size: 18px;
   -webkit-font-smoothing: antialiased;
   border-color: #e0e6ed;
 }
 
-.c14 :hover {
-  background-color: #ffffff;
+.c11 :hover {
+  background-color: #f50057;
 }
 
 @media screen and (min-width:640px) {
@@ -198,14 +181,14 @@ exports[`renders correctly 1`] = `
         fontSize="large"
         fontWeight="bold"
       >
-        Qual seu nome e e-mail?
+        Seu imóvel tem algum diferencial?
       </p>
       <p
         className="c3"
         color="grey"
         fontSize="default"
       >
-        Não se preocupe, não vamos encher sua caixa de spam.
+        Conte pra gente algum diferencial do seu imóvel.
       </p>
       <div
         className="c4"
@@ -217,78 +200,40 @@ exports[`renders correctly 1`] = `
           <div
             className=""
           >
-            <input
+            <textarea
+              area={true}
               className="c6"
-              error={null}
               fluid={true}
               fontSize="default"
               height="tall"
-              hideErrorView={false}
+              hideErrorView={true}
               hideLabelView={true}
               letterSpacing="default"
               onChange={[Function]}
-              placeholder="Nome*"
+              placeholder="Diferenciais do imóvel"
+              style={
+                Object {
+                  "height": 150,
+                }
+              }
             />
-            <div
-              className="c7 "
-            >
-              <span
-                className="c8 c9"
-                color="dark"
-                fontSize="small"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="c4"
-      >
-        <div
-          className="c5"
-          width={1}
-        >
-          <div
-            className=""
-          >
-            <input
-              className="c6"
-              error={null}
-              fluid={true}
-              fontSize="default"
-              height="tall"
-              hideErrorView={false}
-              hideLabelView={true}
-              letterSpacing="default"
-              onChange={[Function]}
-              placeholder="E-mail"
-            />
-            <div
-              className="c7 "
-            >
-              <span
-                className="c8 c9"
-                color="dark"
-                fontSize="small"
-              />
-            </div>
           </div>
         </div>
       </div>
       <p
-        className="c10"
+        className="c7"
         color="red"
         fontSize="default"
       />
       <div
-        className="c11"
+        className="c8"
       >
         <div
-          className="c12"
+          className="c9"
           width={0.4166666666666667}
         >
           <button
-            className="c13"
+            className="c10"
             fontSize="default"
             height="tall"
             onClick={[Function]}
@@ -297,12 +242,12 @@ exports[`renders correctly 1`] = `
           </button>
         </div>
         <div
-          className="c12"
+          className="c9"
           width={0.4166666666666667}
         >
           <button
-            className="c14"
-            disabled={true}
+            className="c11"
+            disabled={false}
             fontSize="default"
             height="tall"
             onClick={[Function]}

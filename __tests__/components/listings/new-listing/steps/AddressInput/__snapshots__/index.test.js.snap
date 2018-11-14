@@ -6,17 +6,19 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  padding: 20px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
 }
 
-.c11 {
+.c9 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  margin-top: 20px;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
@@ -27,28 +29,20 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   width: 100%;
 }
 
-.c4 {
+.c3 {
   margin-bottom: 20px;
   margin-right: 20px;
 }
 
-.c9 {
+.c8 {
   margin-right: 20px;
 }
 
-.c12 {
+.c10 {
   width: 41.66666666666667%;
 }
 
 .c2 {
-  padding: 20px;
-}
-
-.c10 {
-  padding: 20px;
-}
-
-.c3 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
   color: #3c4858;
@@ -57,14 +51,14 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   text-align: center;
 }
 
-.c6 {
+.c5 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
   color: #3c4858;
   font-size: 14px;
 }
 
-.c7 {
+.c6 {
   -webkit-font-smoothing: antialiased;
   display: block;
   width: 100%;
@@ -83,7 +77,7 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   letter-spacing: 2px;
 }
 
-.c7:focus {
+.c6:focus {
   border-radius: 4px;
   border: 1px solid;
   border-color: #1fb6ff;
@@ -91,34 +85,34 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   height: 60px;
 }
 
-.c7::-webkit-input-placeholder {
+.c6::-webkit-input-placeholder {
   color: #8492a6;
 }
 
-.c7::-moz-placeholder {
+.c6::-moz-placeholder {
   color: #8492a6;
 }
 
-.c7:-ms-input-placeholder {
+.c6:-ms-input-placeholder {
   color: #8492a6;
 }
 
-.c7::placeholder {
+.c6::placeholder {
   color: #8492a6;
 }
 
-.c5 {
+.c4 {
   height: 25px;
 }
 
-.c8 {
+.c7 {
   display: inline;
   color: #ff4949;
   font-family: FaktSoftPro-Normal;
   font-size: 14px;
 }
 
-.c13 {
+.c11 {
   outline: none;
   display: block;
   cursor: pointer;
@@ -136,11 +130,11 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   border-color: #e0e6ed;
 }
 
-.c13 :hover {
+.c11 :hover {
   background-color: #ffffff;
 }
 
-.c14 {
+.c12 {
   outline: none;
   display: block;
   cursor: default;
@@ -158,29 +152,13 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   border-color: #e0e6ed;
 }
 
-.c14 :hover {
+.c12 :hover {
   background-color: #ffffff;
 }
 
 @media screen and (min-width:640px) {
   .c1 {
     width: 50%;
-  }
-}
-
-@media only screen and (max-device-width:600px) {
-  .c2 {
-    margin-bottom: 80px;
-  }
-}
-
-@media only screen and (max-device-width:600px) {
-  .c10 {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: #ffffff;
   }
 }
 
@@ -197,117 +175,109 @@ exports[`<AddressInput/> should render a clean page 1`] = `
         ]
       }
     >
-      <div
+      <p
         className="c2"
+        color="dark"
+        fontSize="large"
+        fontWeight="bold"
       >
-        <p
-          className="c3"
-          color="dark"
-          fontSize="large"
-          fontWeight="bold"
-        >
-          Qual o endereço do seu imóvel?
-        </p>
+        Qual o endereço do seu imóvel?
+      </p>
+      <div
+        className=""
+      />
+      <div
+        className="c3"
+      >
         <div
           className=""
-        />
-        <div
-          className="c4"
         >
           <div
-            className=""
+            className="c4 "
           >
-            <div
-              className="c5 "
-            >
-              <span
-                className="c6"
-                color="dark"
-                fontSize="small"
-              />
-            </div>
-            <input
-              autoComplete="off"
-              className="c7"
-              error={null}
-              fluid={true}
-              fontSize="default"
-              height="tall"
-              hideErrorView={false}
-              hideLabelView={false}
-              letterSpacing="default"
-              name="street"
-              onBlur={[Function]}
-              onChange={[Function]}
-              onKeyDown={[Function]}
-              placeholder="Endereço e número*"
-              type="text"
-              value={null}
+            <span
+              className="c5"
+              color="dark"
+              fontSize="small"
             />
-            <div
-              className="c5 "
-            >
-              <span
-                className="c8 c6"
-                color="dark"
-                fontSize="small"
-              />
-            </div>
           </div>
-        </div>
-        <div
-          className="c9"
-        >
+          <input
+            autoComplete="off"
+            className="c6"
+            error={null}
+            fluid={true}
+            fontSize="default"
+            height="tall"
+            hideErrorView={false}
+            hideLabelView={false}
+            letterSpacing="default"
+            name="street"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onKeyDown={[Function]}
+            placeholder="Endereço e número*"
+            type="text"
+            value={null}
+          />
           <div
-            className=""
+            className="c4 "
           >
-            <input
-              className="c7"
-              fluid={true}
-              fontSize="default"
-              height="tall"
-              hideErrorView={true}
-              hideLabelView={true}
-              letterSpacing="default"
-              onChange={[Function]}
-              placeholder="Complemento"
+            <span
+              className="c7 c5"
+              color="dark"
+              fontSize="small"
             />
           </div>
         </div>
       </div>
       <div
-        className="c10"
+        className="c8"
       >
         <div
-          className="c11"
+          className=""
         >
-          <div
-            className="c12"
-            width={0.4166666666666667}
+          <input
+            className="c6"
+            fluid={true}
+            fontSize="default"
+            height="tall"
+            hideErrorView={true}
+            hideLabelView={true}
+            letterSpacing="default"
+            onChange={[Function]}
+            placeholder="Complemento"
+          />
+        </div>
+      </div>
+      <div
+        className="c9"
+      >
+        <div
+          className="c10"
+          width={0.4166666666666667}
+        >
+          <button
+            className="c11"
+            fontSize="default"
+            height="tall"
+            onClick={[Function]}
           >
-            <button
-              className="c13"
-              fontSize="default"
-              height="tall"
-              onClick={[Function]}
-            >
-              Voltar
-            </button>
-          </div>
-          <div
+            Voltar
+          </button>
+        </div>
+        <div
+          className="c10"
+          width={0.4166666666666667}
+        >
+          <button
             className="c12"
-            width={0.4166666666666667}
+            disabled={true}
+            fontSize="default"
+            height="tall"
+            onClick={[Function]}
           >
-            <button
-              className="c14"
-              disabled={true}
-              fontSize="default"
-              height="tall"
-              onClick={[Function]}
-            >
-              Avançar
-            </button>
-          </div>
+            Avançar
+          </button>
         </div>
       </div>
     </div>

@@ -74,7 +74,7 @@ class Garage extends Component {
     }
     return (
       <div ref={this.props.hostRef}>
-        <Row justifyContent="center">
+        <Row justifyContent="center" p={4}>
           <Col width={[1, 1/2]}>
             <Formik
               initialValues={{
@@ -86,63 +86,59 @@ class Garage extends Component {
               }}
               render={({isValid, setFieldTouched, setFieldValue, errors}) => (
                 <>
-                  <View body p={4}>
-                    <Text
-                      fontSize="large"
-                      fontWeight="bold"
-                      textAlign="center">
-                      Tem vagas de garagem?
-                    </Text>
-                    <Text color="grey">Seu imóvel tem vagas de garagem?</Text>
+                  <Text
+                    fontSize="large"
+                    fontWeight="bold"
+                    textAlign="center">
+                    Tem vagas de garagem?
+                  </Text>
+                  <Text color="grey">Seu imóvel tem vagas de garagem?</Text>
+                  <Row mb={4}>
+                    <Field
+                      name="spots"
+                      validate={this.validateSpots}
+                      render={() =>
+                        <Button.Group flexWrap="wrap" initialValue={spots} onChange={(value) => {
+                          setFieldValue('spots', value)
+                          setFieldTouched('spots')
+                          this.setState({spots: value})
+                          }}>
+                          <Button mr={2} value={0} height="tall">Não tem</Button>
+                          <Button mr={2} value={1} height="tall">1</Button>
+                          <Button mr={2} value={2} height="tall">2</Button>
+                          <Button mr={2} value={3} height="tall">3</Button>
+                          <Button mr={2} value={4} height="tall">4</Button>
+                        </Button.Group>
+                      }/>
+                  </Row>
+                  {this.state.spots > 0 && <>
+                    <Text color="grey">As vagas estão na Escritura do imóvel ou são do Condomínio?</Text>
                     <Row mb={4}>
-                      <Field
-                        name="spots"
-                        validate={this.validateSpots}
-                        render={() =>
-                          <Button.Group flexWrap="wrap" initialValue={spots} onChange={(value) => {
-                            setFieldValue('spots', value)
-                            setFieldTouched('spots')
-                            this.setState({spots: value})
-                            }}>
-                            <Button mr={2} value={0} height="tall">Não tem</Button>
-                            <Button mr={2} value={1} height="tall">1</Button>
-                            <Button mr={2} value={2} height="tall">2</Button>
-                            <Button mr={2} value={3} height="tall">3</Button>
-                            <Button mr={2} value={4} height="tall">4</Button>
-                          </Button.Group>
-                        }/>
+                      <Col width={1}>
+                        <Field
+                          name="spotType"
+                          validate={this.validateSpotType}
+                          render={() => (
+                            <RadioButton.Group
+                              selectedValue={this.state.spotType}
+                              onChange={(value) => {
+                                setFieldValue('spotType', value)
+                                setFieldTouched('spotType')
+                                this.setState({spotType: value})
+                              }}>
+                              <RadioButton label="Vagas na Escritura" value="deed"/>
+                              <View mb={2}></View>
+                              <RadioButton label="Vagas no Condomínio" value="condominium" />
+                            </RadioButton.Group>
+                          )} />
+                      </Col>
                     </Row>
-                    {this.state.spots > 0 && <>
-                      <Text color="grey">As vagas estão na Escritura do imóvel ou são do Condomínio?</Text>
-                      <Row mb={4}>
-                        <Col width={1}>
-                          <Field
-                            name="spotType"
-                            validate={this.validateSpotType}
-                            render={() => (
-                              <RadioButton.Group
-                                selectedValue={this.state.spotType}
-                                onChange={(value) => {
-                                  setFieldValue('spotType', value)
-                                  setFieldTouched('spotType')
-                                  this.setState({spotType: value})
-                                }}>
-                                <RadioButton label="Vagas na Escritura" value="deed"/>
-                                <View mb={2}></View>
-                                <RadioButton label="Vagas no Condomínio" value="condominium" />
-                              </RadioButton.Group>
-                            )} />
-                        </Col>
-                      </Row>
-                    </>}
-                  </View>
-                  <View bottom p={4}>
-                    <NavButtons
-                      previousStep={this.previousStep}
-                      onSubmit={this.nextStep}
-                      submitEnabled={isValid}
-                    />
-                  </View>
+                  </>}
+                  <NavButtons
+                    previousStep={this.previousStep}
+                    onSubmit={this.nextStep}
+                    submitEnabled={isValid}
+                  />
                 </>
               )}
             />
