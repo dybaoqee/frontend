@@ -103,11 +103,11 @@ class Garage extends Component {
                           setFieldTouched('spots')
                           this.setState({spots: value})
                           }}>
-                          <Button mr={2} value={0} height="tall">Não tem</Button>
-                          <Button mr={2} value={1} height="tall">1</Button>
-                          <Button mr={2} value={2} height="tall">2</Button>
-                          <Button mr={2} value={3} height="tall">3</Button>
-                          <Button mr={2} value={4} height="tall">4</Button>
+                          <Button mr={2} px={3} value={0} height="tall">Não tem</Button>
+                          <Button mr={2} px={3} value={1} height="tall">1</Button>
+                          <Button mr={2} px={3} value={2} height="tall">2</Button>
+                          <Button mr={2} px={3} value={3} height="tall">3</Button>
+                          <Button mr={2} px={3} value={4} height="tall">4</Button>
                         </Button.Group>
                       }/>
                   </Row>
