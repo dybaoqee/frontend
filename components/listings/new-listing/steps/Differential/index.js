@@ -72,7 +72,7 @@ class Differential extends Component {
         return
       }
 
-      await this.estimatePrice()
+      await this.estimatePrice(userInfo)
       return
     }
 
@@ -93,11 +93,11 @@ class Differential extends Component {
     this.props.navigateTo('phone')
   }
 
-  async estimatePrice() {
+  async estimatePrice(userInfo) {
     // Prepare input
     const { personal, homeDetails, rooms, garage, location } = this.props
     const addressInput = getAddressInput(location.addressData)
-    const pricingInput = getPricingInput(addressInput, homeDetails, rooms, garage, personal)
+    const pricingInput = getPricingInput(addressInput, homeDetails, rooms, garage, personal, userInfo)
 
     // Run mutation
     const response = await estimatePrice(apolloClient, pricingInput)
@@ -110,13 +110,11 @@ class Differential extends Component {
     if (response.result) {
       const suggestedPrice = response.result
       const { navigateTo, updatePricing, updateDifferential, pricing } = this.props
-      console.log('got pricing')
       updatePricing({
         ...pricing,
         suggestedPrice
       })
       updateDifferential({text: this.state.text})
-      console.log('going to pricing')
       navigateTo('pricing')
     }
   }
