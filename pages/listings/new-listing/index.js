@@ -62,15 +62,20 @@ class NewListing extends Component {
       })
     }
 
+    if (!hasProgress && !this.state.checkedProgress) {
+      this.setState({
+        checkedProgress: true
+      })
+      const { resetStore, start } = this.props
+      resetStore()
+      start(this.state.startedAt)
+      return
+    }
+
     // Keep navigation state
     const nextStep = props.step
     if (this.props.step !== nextStep) {
       this.navigate(nextStep)
-    }
-
-    if (!hasProgress) {
-      const { start } = this.props
-      start(this.state.startedAt)
     }
   }
 

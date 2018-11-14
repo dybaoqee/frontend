@@ -278,7 +278,7 @@ exports[`renders editing price state 1`] = `
             height="tall"
             onClick={[Function]}
           >
-            Voltar
+            Cancelar
           </button>
         </div>
         <div

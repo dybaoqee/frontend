@@ -85,11 +85,12 @@ class Personal extends Component {
 
     // Handle result
     if (response.result) {
-      const suggestedPrice = response.result
+      const { suggestedPrice, userPrice } = response.result
       const { updatePricing, pricing } = this.props
       updatePricing({
         ...pricing,
-        suggestedPrice
+        suggestedPrice,
+        userPrice
       })
       this.nextStep()
     }

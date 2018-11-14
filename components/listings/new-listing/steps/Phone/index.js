@@ -95,11 +95,12 @@ class Phone extends Component {
 
     // Handle result
     if (response.result) {
-      const suggestedPrice = response.result
+      const { suggestedPrice, userPrice } = response.result
       const { navigateTo, updatePricing, updateDifferential, pricing } = this.props
       updatePricing({
         ...pricing,
-        suggestedPrice
+        suggestedPrice,
+        userPrice
       })
       updateDifferential({text: this.state.text})
       navigateTo('pricing')

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Formik, Field } from 'formik'
-import MaskedInput from 'react-text-mask'
 
 import Icon from '@emcasa/ui-dom/components/Icon'
 import Input from '@emcasa/ui-dom/components/Input'
@@ -20,8 +19,6 @@ import {
   PREFIX,
   THOUSANDS_SEPARATOR_SYMBOL
 } from 'utils/text-utils'
-
-const SUGGESTED_PRICE_MULTIPLIER = 1.05
 
 class Pricing extends Component {
   constructor(props) {
@@ -64,21 +61,13 @@ class Pricing extends Component {
     }
   }
 
-  parseUserPrice(userPrice) {
-    if (!userPrice) {
-      return parseInt(this.state.suggestedPrice)
-    }
-    const cleanUserPrice = userPrice.toString().replace(PREFIX, '').replace(THOUSANDS_SEPARATOR_SYMBOL, '')
-    return parseInt(cleanUserPrice)
-  }
-
   nextStep() {
     if (this.state.editingPrice) {
       this.setState({editingPrice: false})
       return
     }
     const { navigateTo, updatePricing } = this.props
-    const intUserPrice = this.parseUserPrice(this.state.userPrice)
+    const intUserPrice = parseInt(this.state.userPrice)
     const intSuggestedPrice = parseInt(this.state.suggestedPrice)
     const newPricing = {
       userPrice: intUserPrice,
@@ -93,7 +82,7 @@ class Pricing extends Component {
     if (this.state.editingPrice) {
       this.setState({
         editingPrice: false,
-        userPrice: null
+        userPrice: this.props.pricing.userPrice
       })
       return
     }
@@ -130,7 +119,7 @@ class Pricing extends Component {
   priceSuggestion(errors, setFieldValue, setFieldTouched) {
     const { pricing } = this.props
     const basePrice = parseInt(pricing.suggestedPrice).toLocaleString('pt-BR', currencyStyle)
-    const suggestedPrice = (pricing.suggestedPrice * SUGGESTED_PRICE_MULTIPLIER).toLocaleString('pt-BR', currencyStyle)
+    const suggestedPrice = pricing.suggestedPrice.toLocaleString('pt-BR', currencyStyle)
 
     const { userPrice } = this.state
     const formattedUserPrice = userPrice ? parseInt(userPrice).toLocaleString('pt-BR', currencyStyle) : null
