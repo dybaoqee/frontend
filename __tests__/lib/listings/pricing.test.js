@@ -1,6 +1,6 @@
 import ApolloClient from 'apollo-client'
 jest.mock('apollo-client')
-import { estimatePricing, getPricingInput } from 'lib/listings/pricing'
+import { estimatePrice, getPricingInput } from 'lib/listings/pricing'
 
 describe('pricing functions', () => {
   it('should create the correct input for the pricing query', () => {
@@ -8,10 +8,9 @@ describe('pricing functions', () => {
     const homeDetails = {area: 100}
     const homeRooms = {bathrooms: 2, bedrooms: 3}
     const garage = {spots: 1}
-    const userName = 'name'
-    const userEmail = 'email@email.com'
+    const personal = {name: 'name', email: 'email@email.com'}
 
-    const pricingInput = getPricingInput(addressInput, homeDetails, homeRooms, garage, userName, userEmail)
+    const pricingInput = getPricingInput(addressInput, homeDetails, homeRooms, garage, personal)
     const { address, area, bathrooms, rooms, name, email, garageSpots, isCovered } = pricingInput
 
     expect(address).toEqual({})
@@ -35,7 +34,7 @@ describe('pricing functions', () => {
       }
     })
     const apolloClient = new ApolloClient()
-    const { result, error } = await estimatePricing(apolloClient, {})
+    const { result, error } = await estimatePrice(apolloClient, {})
     expect(result).toBe(1000000)
     expect(error).toEqual(null)
   })
@@ -47,7 +46,7 @@ describe('pricing functions', () => {
       }
     })
     const apolloClient = new ApolloClient()
-    const { result, error } = await estimatePricing(apolloClient, {})
+    const { result, error } = await estimatePrice(apolloClient, {})
     expect(result).toEqual(null)
     expect(error).toBe('Ocorreu um erro. Por favor, tente novamente.')
   })
