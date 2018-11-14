@@ -73,6 +73,10 @@ class Pricing extends Component {
   }
 
   nextStep() {
+    if (this.state.editingPrice) {
+      this.setState({editingPrice: false})
+      return
+    }
     const { navigateTo, updatePricing } = this.props
     const intUserPrice = this.parseUserPrice(this.state.userPrice)
     const intSuggestedPrice = parseInt(this.state.suggestedPrice)
@@ -86,6 +90,14 @@ class Pricing extends Component {
   }
 
   previousStep() {
+    if (this.state.editingPrice) {
+      this.setState({
+        editingPrice: false,
+        userPrice: null
+      })
+      return
+    }
+
     const { navigateTo } = this.props
     navigateTo('differential')
   }
@@ -97,27 +109,18 @@ class Pricing extends Component {
         name="userPrice"
         validate={this.validateUserPrice}
         render={({form}) => (
-          <MaskedInput
-            mask={currencyInputMask}
-            render={(ref, props) =>
-              <Input
-                {...props}
-                hideLabelView
-                error={form.touched.userPrice ? errors.userPrice : null}
-                placeholder="R$ 000.000"
-                defaultValue={userPrice}
-                onChange={(e) => {
-                  const { value } = e.target
-                  setFieldValue('userPrice', value)
-                  setFieldTouched('userPrice')
-                  this.setState({userPrice: value})
-                }}
-                ref={(input) => {
-                  this.userPriceInput = input
-                  return ref(input)
-                }}
-              />
-            }
+          <Input
+            type="number"
+            hideLabelView
+            error={form.touched.userPrice ? errors.userPrice : null}
+            placeholder="R$ 000.000"
+            defaultValue={userPrice}
+            onChange={(e) => {
+              const { value } = e.target
+              setFieldValue('userPrice', value)
+              setFieldTouched('userPrice')
+              this.setState({userPrice: value})
+            }}
           />
         )}
       />
@@ -126,8 +129,11 @@ class Pricing extends Component {
 
   priceSuggestion(errors, setFieldValue, setFieldTouched) {
     const { pricing } = this.props
-    const basePrice = pricing.suggestedPrice.toLocaleString('pt-BR', currencyStyle)
+    const basePrice = parseInt(pricing.suggestedPrice).toLocaleString('pt-BR', currencyStyle)
     const suggestedPrice = (pricing.suggestedPrice * SUGGESTED_PRICE_MULTIPLIER).toLocaleString('pt-BR', currencyStyle)
+
+    const { userPrice } = this.state
+    const formattedUserPrice = userPrice ? parseInt(userPrice).toLocaleString('pt-BR', currencyStyle) : null
     return (
       <Col>
         <Text color="grey">Seu imóvel foi avaliado por:</Text>
@@ -142,7 +148,12 @@ class Pricing extends Component {
                 <Row justifyContent="center">
                   <UserPriceCol />
                   <Col>
-                    <Text inline fontSize="large" fontWeight="bold" textAlign="center">{suggestedPrice}</Text>
+                    <Text
+                      inline
+                      fontSize="large"
+                      fontWeight="bold"
+                      textAlign="center"
+                    >{formattedUserPrice ? formattedUserPrice : suggestedPrice}</Text>
                   </Col>
                   <UserPriceCol>
                     <EditPriceButton onClick={() => this.setState({editingPrice: true})} style={{marginLeft: 20}}>
@@ -219,6 +230,8 @@ class Pricing extends Component {
                     this.noPriceSuggestion(errors, setFieldValue, setFieldTouched)
                   }
                   <NavButtons
+                    nextLabel={this.state.editingPrice ? 'OK' : 'Avançar'}
+                    previousLabel={this.state.editingPrice ? 'Cancelar' : 'Voltar'}
                     previousStep={this.previousStep}
                     onSubmit={this.nextStep}
                     submitEnabled={isValid}

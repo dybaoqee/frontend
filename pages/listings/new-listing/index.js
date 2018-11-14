@@ -10,8 +10,12 @@ import {
 import { ThemeProvider } from 'styled-components'
 import injectGlobal from '@emcasa/ui-dom/components/global-styles'
 import theme from '@emcasa/ui'
-
-import { getScreen, getStepEntry } from './navigation'
+import {
+  getScreen,
+  getStepEntry,
+  getStepDisplay,
+  getKeyFromDisplay
+} from './navigation'
 import ProgressDialog from './components/ProgressDialog'
 
 class NewListing extends Component {
@@ -36,6 +40,17 @@ class NewListing extends Component {
     resuming: false
   }
 
+  componentDidMount() {
+    // Browser back button
+    Router.beforePopState(({ url, as, options }) => {
+      const { navigateTo } = this.props
+      const display = as.split('#')[1]
+      const key = getKeyFromDisplay(display)
+      navigateTo(key ? key : 'intro')
+      return false
+    })
+  }
+
   componentWillReceiveProps(props) {
     // Check for previous progress
     const { startedAt, location: { address } } = this.props
@@ -45,6 +60,12 @@ class NewListing extends Component {
         resuming: true,
         checkedProgress: true
       })
+    }
+
+    // Keep navigation state
+    const nextStep = props.step
+    if (this.props.step !== nextStep) {
+      this.navigate(nextStep)
     }
 
     if (!hasProgress) {
@@ -74,7 +95,8 @@ class NewListing extends Component {
     if (!nextKey && currentStep !== 'intro' && nextStep !== 'intro') {
       throw Error('Navigation key ' + nextStep + ' not found in ' + currentStep)
     }
-    Router.push('/anuncie', `/anuncie`, { shallow: true })
+    const stepDisplay = getStepDisplay(nextStep)
+    Router.push('/anuncie', `/anuncie#${stepDisplay}`, { shallow: true })
   }
 
   render() {

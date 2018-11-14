@@ -35,63 +35,78 @@ import Success from 'components/listings/new-listing/steps/Success'
 const steps = {
   intro: {
     component: Intro,
-    canNavigateTo: []
+    canNavigateTo: [],
+    display: 'bem-vindo'
   },
   addressInput: {
     component: AddressInput,
-    canNavigateTo: ['homeDetails', 'intro', 'notifyCoverage']
+    canNavigateTo: ['homeDetails', 'intro', 'notifyCoverage'],
+    display: 'endereco'
   },
   notifyCoverage: {
     component: NotifyCoverage,
-    canNavigateTo: ['addressInput', 'notifyCoverageSuccess']
+    canNavigateTo: ['addressInput', 'notifyCoverageSuccess'],
+    display: 'notificar'
   },
   notifyCoverageSuccess: {
     component: NotifyCoverageSuccess,
-    canNavigateTo: ['']
+    canNavigateTo: [],
+    display: 'notificacao-sucesso'
   },
   homeDetails: {
     component: HomeDetails,
-    canNavigateTo: ['addressInput', 'bedrooms']
+    canNavigateTo: ['addressInput', 'bedrooms'],
+    display: 'detalhes'
   },
   bedrooms: {
     component: Bedrooms,
-    canNavigateTo: ['homeDetails', 'garage']
+    canNavigateTo: ['homeDetails', 'garage'],
+    display: 'quartos'
   },
   garage: {
     component: Garage,
-    canNavigateTo: ['bedrooms', 'differential']
+    canNavigateTo: ['bedrooms', 'differential'],
+    display: 'vagas'
   },
   differential: {
     component: Differential,
-    canNavigateTo: ['garage', 'phone', 'personal', 'pricing']
+    canNavigateTo: ['garage', 'phone', 'personal', 'pricing'],
+    display: 'diferencial'
   },
   phone: {
     component: Phone,
-    canNavigateTo: ['differential', 'personal', 'pricing']
+    canNavigateTo: ['differential', 'personal', 'pricing'],
+    display: 'telefone'
   },
   personal: {
     component: Personal,
-    canNavigateTo: ['differential', 'pricing']
+    canNavigateTo: ['differential', 'pricing'],
+    display: 'pessoal'
   },
   pricing: {
     component: Pricing,
-    canNavigateTo: ['personal', 'services', 'differential']
+    canNavigateTo: ['services', 'differential'],
+    display: 'preco'
   },
   services: {
     component: Services,
-    canNavigateTo: ['pricing', 'scheduling', 'summary', 'tour']
+    canNavigateTo: ['pricing', 'scheduling', 'summary', 'tour'],
+    display: 'servicos'
   },
   tour: {
     component: Tour,
-    canNavigateTo: ['services', 'summary']
+    canNavigateTo: ['services', 'summary'],
+    display: 'tour'
   },
   summary: {
     component: Summary,
-    canNavigateTo: ['tour', 'services', 'success']
+    canNavigateTo: ['tour', 'services', 'success'],
+    display: 'resumo'
   },
   success: {
     component: Success,
-    canNavigateTo: ['summary']
+    canNavigateTo: ['summary'],
+    display: 'sucesso'
   }
 }
 
@@ -170,7 +185,25 @@ const getScreen = (screenProps) => {
   )
 }
 
+const getStepDisplay = (key) => {
+  const step = steps[key]
+  if (!step) {
+    throw `No step found with key ${key}`
+  }
+  return step.display
+}
+
+const getKeyFromDisplay = (display) => {
+  return Object.entries(steps).find((step) => {
+    if(step[1].display === display) {
+      return step[0]
+    }
+  })[0]
+}
+
 export {
   getStepEntry,
-  getScreen
+  getScreen,
+  getStepDisplay,
+  getKeyFromDisplay
 }
