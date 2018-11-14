@@ -102,12 +102,12 @@ class Bedrooms extends Component {
             this.setState({bedrooms: intValue, showSuites: true})
           }
         }}>
-        <Button name="1" mr={2} value={1} height="tall">1</Button>
-        <Button name="2" mr={2} value={2} height="tall">2</Button>
-        <Button name="3" mr={2} value={3} height="tall">3</Button>
-        <Button name="4" mr={2} value={4} height="tall">4</Button>
-        <Button name="5" mr={2} value={5} height="tall">5</Button>
-        <Button name="more" mr={2} value="more" height="tall">+</Button>
+        <Button name="1" px={3} mr={2} value={1} height="tall">1</Button>
+        <Button name="2" px={3} mr={2} value={2} height="tall">2</Button>
+        <Button name="3" px={3} mr={2} value={3} height="tall">3</Button>
+        <Button name="4" px={3} mr={2} value={4} height="tall">4</Button>
+        <Button name="5" px={3} mr={2} value={5} height="tall">5</Button>
+        <Button name="more" px={3} mr={2} value="more" height="tall">+</Button>
       </Button.Group>
     )
   }
@@ -140,12 +140,12 @@ class Bedrooms extends Component {
             this.setState({bathrooms: intValue})
           }
         }}>
-        <Button mr={2} value={1} height="tall">1</Button>
-        <Button mr={2} value={2} height="tall">2</Button>
-        <Button mr={2} value={3} height="tall">3</Button>
-        <Button mr={2} value={4} height="tall">4</Button>
-        <Button mr={2} value={5} height="tall">5</Button>
-        <Button mr={2} value="more" height="tall">+</Button>
+        <Button mr={2} px={2} value={1} height="tall">1</Button>
+        <Button mr={2} px={3} value={2} height="tall">2</Button>
+        <Button mr={2} px={3} value={3} height="tall">3</Button>
+        <Button mr={2} px={3} value={4} height="tall">4</Button>
+        <Button mr={2} px={3} value={5} height="tall">5</Button>
+        <Button mr={2} px={3} value="more" height="tall">+</Button>
       </Button.Group>
     )
   }
@@ -197,11 +197,11 @@ class Bedrooms extends Component {
                             setFieldTouched('suite')
                             this.setState({suites: value, showBathrooms: true})
                             }}>
-                            <Button mr={2} value={0} height="tall">Sem suíte</Button>
-                            <Button mr={2} value={1} height="tall">1</Button>
-                            <Button mr={2} value={2} height="tall">2</Button>
-                            <Button mr={2} value={3} height="tall">3</Button>
-                            <Button mr={2} value={4} height="tall">4</Button>
+                            <Button mr={2} px={3} value={0} height="tall">Sem suíte</Button>
+                            <Button mr={2} px={3} value={1} height="tall">1</Button>
+                            <Button mr={2} px={3} value={2} height="tall">2</Button>
+                            <Button mr={2} px={3} value={3} height="tall">3</Button>
+                            <Button mr={2} px={3} value={4} height="tall">4</Button>
                           </Button.Group>
                         }/>
                     </Row>
