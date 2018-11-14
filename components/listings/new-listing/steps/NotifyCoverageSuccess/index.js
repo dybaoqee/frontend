@@ -5,7 +5,6 @@ import routerEvents from 'next-router-events'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Icon from '@emcasa/ui-dom/components/Icon'
-import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
 

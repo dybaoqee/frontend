@@ -5,7 +5,6 @@ import routerEvents from 'next-router-events'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Icon from '@emcasa/ui-dom/components/Icon'
-import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
 
@@ -21,7 +20,10 @@ class Success extends PureComponent {
 
   componentDidMount() {
     routerEvents.once('routeChangeComplete', (url) => {
-      this.props.resetStore()
+      if (url === ROUTE_HOME || url === ROUTE_MY_LISTINGS) {
+        this.props.resetStore()
+        this.props.navigateTo('intro')
+      }
       return true
     })
   }
