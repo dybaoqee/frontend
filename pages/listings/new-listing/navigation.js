@@ -194,11 +194,15 @@ const getStepDisplay = (key) => {
 }
 
 const getKeyFromDisplay = (display) => {
-  return Object.entries(steps).find((step) => {
+  const key = Object.entries(steps).find((step) => {
     if(step[1].display === display) {
       return step[0]
     }
-  })[0]
+  })
+  if (key) {
+    return key[0]
+  }
+  return 'intro'
 }
 
 export {

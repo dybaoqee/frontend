@@ -20,8 +20,8 @@ class Success extends PureComponent {
 
   componentDidMount() {
     routerEvents.once('routeChangeComplete', () => {
-      this.props.resetStore()
       this.props.navigateTo('intro')
+      this.props.resetStore()      
       return true
     })
   }

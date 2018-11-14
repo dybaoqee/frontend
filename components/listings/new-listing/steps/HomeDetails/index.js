@@ -1,15 +1,12 @@
 import React, { Component } from 'react'
 import { Formik, Field } from 'formik'
-import MaskedInput from 'react-text-mask'
 
 import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
-import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import Select from '@emcasa/ui-dom/components/Select'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
-import { currencyInputMask } from 'utils/text-utils'
 
 const HOME_TYPES = {
   house: 'Casa',
@@ -189,23 +186,16 @@ class HomeDetails extends Component {
                       <Field
                         name="maintenanceFee"
                         render={() => (
-                          <MaskedInput
-                            mask={currencyInputMask}
-                            render={(ref, props) =>
-                              <Input
-                                {...props}
-                                hideLabelView
-                                placeholder="Cond (R$)"
-                                error={errors.maintenanceFee}
-                                defaultValue={maintenanceFee}
-                                onChange={(e) => {
-                                  const { value } = e.target
-                                  setFieldValue('maintenanceFee', value)
-                                  this.setState({maintenanceFee: value})
-                                }}
-                                ref={(input) => ref(input)}
-                              />
-                            }
+                          <Input
+                            hideLabelView
+                            placeholder="Cond (R$)"
+                            error={errors.maintenanceFee}
+                            defaultValue={maintenanceFee}
+                            onChange={(e) => {
+                              const { value } = e.target
+                              setFieldValue('maintenanceFee', value)
+                              this.setState({maintenanceFee: value})
+                            }}
                           />
                         )}/>
                     </Col>
@@ -214,24 +204,17 @@ class HomeDetails extends Component {
                         name="propertyTax"
                         validate={this.validatePropertyTax}
                         render={({form}) => (
-                          <MaskedInput
-                            mask={currencyInputMask}
-                            render={(ref, props) =>
-                              <Input
-                                {...props}
-                                hideLabelView
-                                placeholder="IPTU (R$/ano)*"
-                                error={form.touched.propertyTax ? errors.propertyTax : null}
-                                defaultValue={propertyTax}
-                                onChange={(e) => {
-                                  const { value } = e.target
-                                  setFieldValue('propertyTax', value)
-                                  setFieldTouched('propertyTax')
-                                  this.setState({propertyTax: value})
-                                }}
-                                ref={(input) => ref(input)}
-                              />
-                            }
+                          <Input
+                            hideLabelView
+                            placeholder="IPTU (R$/ano)*"
+                            error={form.touched.propertyTax ? errors.propertyTax : null}
+                            defaultValue={propertyTax}
+                            onChange={(e) => {
+                              const { value } = e.target
+                              setFieldValue('propertyTax', value)
+                              setFieldTouched('propertyTax')
+                              this.setState({propertyTax: value})
+                            }}
                           />
                         )}/>
                     </Col>

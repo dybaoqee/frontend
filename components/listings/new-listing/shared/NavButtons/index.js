@@ -13,6 +13,7 @@ class NavButtons extends PureComponent {
   constructor(props) {
     super(props)
     this.onPressEnter = this.onPressEnter.bind(this)
+    this.getPreviousLabel = this.getPreviousLabel.bind(this)
     this.getNextLabel = this.getNextLabel.bind(this)
   }
 
@@ -51,7 +52,7 @@ class NavButtons extends PureComponent {
           <Button
             fluid
             height="tall"
-            onClick={this.props.previousStep}>Voltar</Button>
+            onClick={this.props.previousStep}>{this.getPreviousLabel()}</Button>
         </Col>
         <Col width={5/12}>
           <Button

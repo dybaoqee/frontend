@@ -254,6 +254,7 @@ export default class AddressAutoComplete extends Component {
     return (
       <>
         <Input
+          hideErrorView={errors.length === 0}
           error={errors.length ? errors[0] : null}
           onKeyDown={this.onKeyPress}
           onBlur={this.onBlur}
