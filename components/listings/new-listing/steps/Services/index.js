@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { Formik, Field } from 'formik'
+import moment from 'moment'
 
 import { TOUR_OPTIONS } from 'graphql/listings/queries'
 import Button from '@emcasa/ui-dom/components/Button'
-import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
@@ -14,8 +14,9 @@ import { SchedulingButton } from './styles'
 class Services extends Component {
   constructor(props) {
     super(props)
-    this.nextStep = this.nextStep.bind(this)
+    this.tourStep = this.tourStep.bind(this)
     this.skipStep = this.skipStep.bind(this)
+    this.nextStep = this.nextStep.bind(this)
     this.updateStateFromProps = this.updateStateFromProps.bind(this)
 
     this.getAvailableTimes = this.getAvailableTimes.bind(this)
@@ -26,7 +27,6 @@ class Services extends Component {
     wantsTour: false,
     wantsPictures: false,
     availableTimes: null,
-    when: null,
     loading: false,
     error: null
   }
@@ -60,7 +60,7 @@ class Services extends Component {
         error: null
       })
       const tourOptions = data.tourOptions.slice()
-      this.nextStep(tourOptions.reverse())
+      this.tourStep(tourOptions.reverse())
     } catch (e) {
       this.setState({
         loading: false,
@@ -69,7 +69,7 @@ class Services extends Component {
     }
   }
 
-  nextStep(data) {
+  tourStep(data) {
     const { navigateTo, updateServices } = this.props
     updateServices({
       wantsTour: this.state.wantsTour,
@@ -88,19 +88,28 @@ class Services extends Component {
     navigateTo('summary')
   }
 
+  nextStep() {
+    this.props.navigateTo('summary')
+  }
+
   validateScheduling(value) {
-    if (!value) {
-      return true
+    if (value && (this.state.wantsPictures ||  this.state.wantsTour)) {
+      return false
     }
+    return true
   }
 
   render() {
-    const { services, scheduling } = this.props
-    let wantsTour, wantsPictures, when
-    if (services && scheduling) {
+    const { services, tour } = this.props
+    let wantsTour, wantsPictures
+    if (services) {
       wantsTour = services.wantsTour
       wantsPictures = services.wantsPictures
-      when = scheduling.when
+    }
+    let when
+    if (tour && tour.day && tour.time) {
+      const date = moment(tour.day).format('DD/MM/YYYY')
+      when = `${date} - às ${tour.time}h`
     }
     return (
       <div ref={this.props.hostRef}>
@@ -114,7 +123,7 @@ class Services extends Component {
               isInitialValid={() => {
                 return !(this.validateScheduling(when))
               }}
-              render={({isValid, setFieldTouched, setFieldValue, errors}) => (
+              render={({isValid}) => (
                 <>
                   <Text
                     fontSize="large"
@@ -147,8 +156,9 @@ class Services extends Component {
                       <SchedulingButton
                         fluid
                         onClick={this.getAvailableTimes}
+                        color={when ? 'dark' : 'grey'}
                       >
-                      00/00/0000 - entre 00h e 00h
+                      {when ? when : '00/00/0000 - entre 00h e 00h'}
                       </SchedulingButton>
                       <View><Text inline color="red">{this.state.error}</Text></View>
                     </>

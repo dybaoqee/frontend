@@ -24,7 +24,7 @@ import {
 class Tour extends Component {
   constructor(props) {
     super(props)
-    this.nextStep = this.nextStep.bind(this)
+    this.done = this.done.bind(this)
     this.previousStep = this.previousStep.bind(this)
 
     this.onMonthChanged = this.onMonthChanged.bind(this)
@@ -70,15 +70,14 @@ class Tour extends Component {
     }
   }
 
-  nextStep() {
+  done() {
     const { navigateTo, updateTour } = this.props
     updateTour(this.state)
-    navigateTo('summary')
+    navigateTo('services')
   }
 
   previousStep() {
-    const { navigateTo } = this.props
-    navigateTo('services')
+    this.props.navigateTo('services')
   }
 
   onMonthChanged(month, monthOffset) {
@@ -163,7 +162,7 @@ class Tour extends Component {
               isInitialValid={() => {
                 return !this.validateTime(time)
               }}
-              render={({isValid, setFieldTouched, setFieldValue, errors}) => (
+              render={({isValid, setFieldTouched, setFieldValue}) => (
                 <>
                   <Row mb={4}>
                     <Field
@@ -249,7 +248,7 @@ class Tour extends Component {
                   </Row>
                   <NavButtons
                     previousStep={this.previousStep}
-                    onSubmit={this.nextStep}
+                    onSubmit={this.done}
                     submitEnabled={isValid}
                   />
                 </>
