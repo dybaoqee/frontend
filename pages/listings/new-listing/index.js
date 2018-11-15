@@ -14,7 +14,8 @@ import {
   getScreen,
   getStepEntry,
   getStepDisplay,
-  getKeyFromDisplay
+  getKeyFromDisplay,
+  FINAL_STEPS
 } from './navigation'
 import ProgressDialog from './components/ProgressDialog'
 
@@ -24,6 +25,7 @@ class NewListing extends Component {
     this.navigate = this.navigate.bind(this)
     this.onReset = this.onReset.bind(this)
     this.onResume = this.onResume.bind(this)
+    this.hasProgress = this.hasProgress.bind(this)
   }
 
   static async getInitialProps(context) {
@@ -46,6 +48,14 @@ class NewListing extends Component {
       const { navigateTo } = this.props
       const display = as.split('#')[1]
       const key = getKeyFromDisplay(display)
+
+      if (!this.hasProgress() && FINAL_STEPS.includes(key)) {
+        this.props.resetStore()
+        this.props.navigateTo('intro')
+        Router.replace('/anuncie')
+        return
+      }
+
       navigateTo(key ? key : 'intro')
       return false
     })
@@ -53,9 +63,7 @@ class NewListing extends Component {
 
   componentWillReceiveProps(props) {
     // Check for previous progress
-    const { startedAt, location: { address } } = this.props
-    const hasProgress = startedAt && startedAt !== this.state.startedAt && address !== null
-    if (hasProgress && !this.state.checkedProgress) {
+    if (this.hasProgress() && !this.state.checkedProgress) {
       this.setState({
         resuming: true,
         checkedProgress: true
@@ -68,10 +76,15 @@ class NewListing extends Component {
       this.navigate(nextStep)
     }
 
-    if (!hasProgress) {
+    if (!this.hasProgress()) {
       const { start } = this.props
       start(this.state.startedAt)
     }
+  }
+
+  hasProgress() {
+    const { startedAt, location: { address } } = this.props
+    return startedAt && startedAt !== this.state.startedAt && address !== null
   }
 
   /**
