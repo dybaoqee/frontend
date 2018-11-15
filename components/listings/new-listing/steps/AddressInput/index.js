@@ -129,11 +129,10 @@ class AddressInput extends Component {
 
   render() {
     const { location } = this.props
-    let address, complement, addressData
+    let address, complement
     if (location) {
       address = location.address
       complement = location.complement
-      addressData = location.addressData
     }
     return (
       <div ref={this.props.hostRef}>
@@ -164,7 +163,8 @@ class AddressInput extends Component {
                         fluid
                         height="tall"
                         onClick={this.openMobileAddressInput}
-                      >Endereço e número*</MobileAddressButton>
+                        hasAddress={address !== null}
+                      >{address ? address : 'Endereço e número*'}</MobileAddressButton>
                     </Col>
                   :
                     <Col mb={4} mr={4}>
@@ -176,7 +176,6 @@ class AddressInput extends Component {
                             defaultValue={address}
                             onClearInput={this.onClearInput}
                             onSelectAddress={(addressFormatted, addressData) => {
-                              setFieldValue('address', addressFormatted)
                               this.setState({
                                 address: addressFormatted,
                                 addressData: addressData

@@ -13,8 +13,19 @@ class AddressInputMobile extends Component {
     this.close = this.close.bind(this)
   }
 
-  selectAddress() {
-    // TODO: save selected addressData in redux
+  state = {
+    address: null
+  }
+
+  componentDidMount() {
+    // TODO: hide header
+  }
+
+  selectAddress(addressFormatted, addressData) {
+    this.props.updateLocation({
+      address: addressFormatted,
+      addressData
+    })
     this.close()
   }
 
@@ -27,8 +38,17 @@ class AddressInputMobile extends Component {
     return (
       <div ref={this.props.hostRef}>
         <Row justifyContent="center" p={4}>
-          <Col width={[1, 1/2]}>
-            <Text>hey</Text>
+          <Col width={[1, 1/2]} mr={4}>
+            <AddressAutoComplete
+              defaultValue={this.state.address}
+              onClearInput={this.onClearInput}
+              onSelectAddress={(addressFormatted, addressData) => {
+                this.setState({
+                  address: addressFormatted
+                })
+                this.selectAddress(addressFormatted, addressData)
+              }}
+            />
           </Col>
         </Row>
       </div>
