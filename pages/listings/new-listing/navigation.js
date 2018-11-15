@@ -110,6 +110,13 @@ const steps = {
   }
 }
 
+const FINAL_STEPS = [
+  'success',
+  'summary',
+  'notifyCoverageSuccess',
+  'notifyCoverage'
+]
+
 const mapStateToProps = state => {
   return state
 }
@@ -209,5 +216,6 @@ export {
   getStepEntry,
   getScreen,
   getStepDisplay,
-  getKeyFromDisplay
+  getKeyFromDisplay,
+  FINAL_STEPS
 }

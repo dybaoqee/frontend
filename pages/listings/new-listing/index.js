@@ -14,7 +14,8 @@ import {
   getScreen,
   getStepEntry,
   getStepDisplay,
-  getKeyFromDisplay
+  getKeyFromDisplay,
+  FINAL_STEPS
 } from './navigation'
 import ProgressDialog from './components/ProgressDialog'
 
@@ -48,7 +49,7 @@ class NewListing extends Component {
       const display = as.split('#')[1]
       const key = getKeyFromDisplay(display)
 
-      if (!this.hasProgress() && (key === 'success' || key === 'summary')) {
+      if (!this.hasProgress() && FINAL_STEPS.includes(key)) {
         this.props.resetStore()
         this.props.navigateTo('intro')
         Router.replace('/anuncie')
