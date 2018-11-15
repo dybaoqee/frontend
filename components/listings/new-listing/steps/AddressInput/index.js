@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Formik, Field } from 'formik'
+import theme from '@emcasa/ui'
 
 import { ADDRESS_IS_COVERED } from 'graphql/listings/queries'
 import Row from '@emcasa/ui-dom/components/Row'
@@ -10,6 +11,7 @@ import AddressAutoComplete from 'components/listings/new-listing/shared/AddressA
 import StaticMap from 'components/listings/new-listing/shared/StaticMap'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import { getAddressInput } from 'lib/address'
+import { MobileAddressButton } from './styles'
 
 class AddressInput extends Component {
   constructor(props) {
@@ -21,6 +23,8 @@ class AddressInput extends Component {
     this.validateAddress = this.validateAddress.bind(this)
     this.updateStateFromProps = this.updateStateFromProps.bind(this)
     this.onClearInput = this.onClearInput.bind(this)
+    this.isMobile = this.isMobile.bind(this)
+    this.openMobileAddressInput = this.openMobileAddressInput.bind(this)
   }
 
   state = {
@@ -114,6 +118,15 @@ class AddressInput extends Component {
     }
   }
 
+  isMobile() {
+    const breakpoint = parseInt(theme.breakpoints[0])
+    return window.innerWidth <= breakpoint
+  }
+
+  openMobileAddressInput() {
+    this.props.navigateTo('addressInputMobile')
+  }
+
   render() {
     const { location } = this.props
     let address, complement, addressData
@@ -145,24 +158,35 @@ class AddressInput extends Component {
                   <Col>
                     <StaticMap addressData={this.state.addressData} />
                   </Col>
-                  <Col mb={4} mr={4}>
-                    <Field
-                      name="address"
-                      validate={this.validateAddress}
-                      render={() => (
-                        <AddressAutoComplete
-                          defaultValue={address}
-                          onClearInput={this.onClearInput}
-                          onSelectAddress={(addressFormatted, addressData) => {
-                            setFieldValue('address', addressFormatted)
-                            this.setState({
-                              address: addressFormatted,
-                              addressData: addressData
-                            })
-                          }}
-                        />
-                      )}/>
-                  </Col>
+                  {this.isMobile() ?
+                    <Col mb={4}>
+                      <MobileAddressButton
+                        fluid
+                        height="tall"
+                        onClick={this.openMobileAddressInput}
+                      >Endereço e número*</MobileAddressButton>
+                    </Col>
+                  :
+                    <Col mb={4} mr={4}>
+                      <Field
+                        name="address"
+                        validate={this.validateAddress}
+                        render={() => (
+                          <AddressAutoComplete
+                            defaultValue={address}
+                            onClearInput={this.onClearInput}
+                            onSelectAddress={(addressFormatted, addressData) => {
+                              setFieldValue('address', addressFormatted)
+                              this.setState({
+                                address: addressFormatted,
+                                addressData: addressData
+                              })
+                            }}
+                          />
+                        )}
+                      />
+                    </Col>
+                  }
                   <Col mr={4}>
                   <Field
                     name="complement"

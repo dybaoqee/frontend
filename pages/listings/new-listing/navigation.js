@@ -17,6 +17,7 @@ import {
 } from 'redux/actions'
 import Intro from 'components/listings/new-listing/steps/Intro'
 import AddressInput from 'components/listings/new-listing/steps/AddressInput'
+import AddressInputMobile from 'components/listings/new-listing/steps/AddressInputMobile'
 import HomeDetails from 'components/listings/new-listing/steps/HomeDetails'
 import Bedrooms from 'components/listings/new-listing/steps/Bedrooms'
 import Garage from 'components/listings/new-listing/steps/Garage'
@@ -40,8 +41,13 @@ const steps = {
   },
   addressInput: {
     component: AddressInput,
-    canNavigateTo: ['homeDetails', 'intro', 'notifyCoverage'],
+    canNavigateTo: ['homeDetails', 'intro', 'notifyCoverage', 'addressInputMobile'],
     display: 'endereco'
+  },
+  addressInputMobile: {
+    component: AddressInputMobile,
+    canNavigateTo: ['addressInput'],
+    display: 'endereco-mobile'
   },
   notifyCoverage: {
     component: NotifyCoverage,
