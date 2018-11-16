@@ -30,7 +30,7 @@ export default class AddressAutoComplete extends Component {
   static propTypes = {
     defaultValue: PropTypes.string,
     onSelectAddress: PropTypes.func.isRequired,
-    onClearInput: PropTypes.func.isRequired
+    onClearInput: PropTypes.func
   }
 
   static defaultProps = {
@@ -236,8 +236,9 @@ export default class AddressAutoComplete extends Component {
     clearTimeout(this.timer)
     this.timer = setTimeout(this.searchPlaces.bind(null, value), 300)
 
-    if (!value || value === '') {
-      this.props.onClearInput()
+    const { onClearInput } = this.props
+    if (!value || value === '' && (onClearInput)) {
+      onClearInput()
     }
   }
 
@@ -254,6 +255,7 @@ export default class AddressAutoComplete extends Component {
     return (
       <>
         <Input
+          hideLabelView
           hideErrorView={errors.length === 0}
           error={errors.length ? errors[0] : null}
           onKeyDown={this.onKeyPress}
