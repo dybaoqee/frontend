@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
-import Text from '@emcasa/ui-dom/components/Text'
-import Input from '@emcasa/ui-dom/components/Input'
 import AddressAutoComplete from 'components/listings/new-listing/shared/AddressAutoComplete'
+import {
+  MobieTypeaheadContainer
+} from './styles'
 
 class AddressInputMobile extends Component {
   constructor(props) {
@@ -37,8 +38,8 @@ class AddressInputMobile extends Component {
   render() {
     return (
       <div ref={this.props.hostRef}>
-        <Row justifyContent="center" p={4}>
-          <Col width={[1, 1/2]} mr={4}>
+        <MobieTypeaheadContainer justifyContent="center" p={4}>
+          <Col width={1} mr={4}>
             <AddressAutoComplete
               defaultValue={this.state.address}
               onClearInput={this.onClearInput}
@@ -50,7 +51,7 @@ class AddressInputMobile extends Component {
               }}
             />
           </Col>
-        </Row>
+        </MobieTypeaheadContainer>
       </div>
     )
   }
