@@ -183,6 +183,7 @@ class AddressInput extends Component {
                             defaultValue={address}
                             onClearInput={this.onClearInput}
                             onSelectAddress={(addressFormatted, addressData) => {
+                              setFieldValue('address', addressFormatted)
                               this.setState({
                                 address: addressFormatted,
                                 addressData: addressData
