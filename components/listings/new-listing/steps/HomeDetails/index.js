@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Formik, Field } from 'formik'
+import MaskedInput from 'react-text-mask'
 
 import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
@@ -7,6 +8,10 @@ import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
 import Select from '@emcasa/ui-dom/components/Select'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
+import {
+  currencyInputMask,
+  displayPriceToInt
+} from 'utils/text-utils'
 
 const HOME_TYPES = {
   house: 'Casa',
@@ -95,6 +100,7 @@ class HomeDetails extends Component {
       propertyTax = homeDetails.propertyTax
     }
     const selectedHomeType = this.state.type !== null && this.state.type !== HOME_TYPES.placeholder
+    console.log(homeDetails)
     return (
       <div ref={this.props.hostRef}>
         <Row justifyContent="center" p={4}>
@@ -154,7 +160,7 @@ class HomeDetails extends Component {
                                 defaultValue={floor}
                                 disabled={this.state.type === HOME_TYPES.house}
                                 onChange={(e) => {
-                                  const { value } = e.target
+                                  const value = parseInt(e.target.value)
                                   setFieldValue('floor', value)
                                   this.setState({floor: value})
                                 }}
@@ -173,7 +179,7 @@ class HomeDetails extends Component {
                                 error={form.touched.area ? errors.area : null}
                                 defaultValue={area}
                                 onChange={(e) => {
-                                  const { value } = e.target
+                                  const value = parseInt(e.target.value)
                                   setFieldValue('area', value)
                                   setFieldTouched('area')
                                   this.setState({area: value})
@@ -186,38 +192,54 @@ class HomeDetails extends Component {
                         <Col width={1/2} mr={4}>
                           <Field
                             name="maintenanceFee"
-                            render={() => (
-                              <Input
-                                hideLabelView
-                                placeholder="Cond (R$)"
-                                error={errors.maintenanceFee}
-                                defaultValue={maintenanceFee}
-                                onChange={(e) => {
-                                  const { value } = e.target
-                                  setFieldValue('maintenanceFee', value)
-                                  this.setState({maintenanceFee: value})
-                                }}
+                            render={() =>
+                              <MaskedInput
+                                mask={currencyInputMask}
+                                render={(ref, props) =>
+                                  <Input
+                                    {...props}
+                                    hideLabelView
+                                    placeholder="Cond (R$)"
+                                    error={errors.maintenanceFee}
+                                    defaultValue={maintenanceFee}
+                                    type="tel"
+                                    ref={(input) => ref(input)}
+                                    onChange={(e) => {
+                                      const value = displayPriceToInt(e.target.value)
+                                      setFieldValue('maintenanceFee', value)
+                                      this.setState({maintenanceFee: value})
+                                    }}
+                                  />
+                                }
                               />
-                            )}/>
+                            }/>
                         </Col>
                         <Col width={1/2} ml={2} mr={4}>
                           <Field
                             name="propertyTax"
                             validate={this.validatePropertyTax}
-                            render={({form}) => (
-                              <Input
-                                hideLabelView
-                                placeholder="IPTU (R$/ano)*"
-                                error={form.touched.propertyTax ? errors.propertyTax : null}
-                                defaultValue={propertyTax}
-                                onChange={(e) => {
-                                  const { value } = e.target
-                                  setFieldValue('propertyTax', value)
-                                  setFieldTouched('propertyTax')
-                                  this.setState({propertyTax: value})
-                                }}
+                            render={({form}) =>
+                              <MaskedInput
+                                mask={currencyInputMask}
+                                render={(ref, props) =>
+                                  <Input
+                                    {...props}
+                                    hideLabelView
+                                    placeholder="IPTU (R$/ano)*"
+                                    error={form.touched.propertyTax ? errors.propertyTax : null}
+                                    defaultValue={propertyTax}
+                                    type="tel"
+                                    ref={(input) => ref(input)}
+                                    onChange={(e) => {
+                                      const value = displayPriceToInt(e.target.value)
+                                      setFieldValue('propertyTax', value)
+                                      setFieldTouched('propertyTax')
+                                      this.setState({propertyTax: value})
+                                    }}
+                                  />
+                                }
                               />
-                            )}/>
+                            }/>
                         </Col>
                       </Row>
                     </>

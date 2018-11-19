@@ -14,6 +14,12 @@ const getUrlVars = (url) => {
   return vars
 }
 
+const displayPriceToInt = (displayPrice) => {
+  const cleanPrice = displayPrice.replace(PREFIX, '').replace(THOUSANDS_SEPARATOR_SYMBOL, '')
+  const intPrice = parseInt(cleanPrice)
+  return intPrice
+}
+
 const currencyStyle = {
   style: 'currency',
   currency: 'BRL',
@@ -35,6 +41,7 @@ export {
   getUrlVars,
   currencyStyle,
   currencyInputMask,
+  displayPriceToInt,
 
   PREFIX,
   THOUSANDS_SEPARATOR_SYMBOL

@@ -178,6 +178,7 @@ class Phone extends Component {
                         render={({form}) => (
                           <Input
                             hideLabelView
+                            type="tel"
                             placeholder="DDI*"
                             error={form.touched.internationalCode ? errors.internationalCode : null}
                             defaultValue={internationalCode}
@@ -197,6 +198,7 @@ class Phone extends Component {
                         render={({form}) => (
                           <Input
                             hideLabelView
+                            type="tel"
                             ref={this.dddField}
                             placeholder="DDD*"
                             error={form.touched.localAreaCode ? errors.localAreaCode : null}
@@ -220,6 +222,7 @@ class Phone extends Component {
                         render={({form}) => (
                           <Input
                             hideLabelView
+                            type="tel"
                             ref={this.phoneNumberField}
                             placeholder="Celular*"
                             error={form.touched.number ? errors.number : null}

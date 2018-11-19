@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Formik, Field } from 'formik'
+import MaskedInput from 'react-text-mask'
 
 import Icon from '@emcasa/ui-dom/components/Icon'
 import Input from '@emcasa/ui-dom/components/Input'
@@ -16,6 +17,7 @@ import {
 import {
   currencyInputMask,
   currencyStyle,
+  displayPriceToInt,
   PREFIX,
   THOUSANDS_SEPARATOR_SYMBOL
 } from 'utils/text-utils'
@@ -61,6 +63,13 @@ class Pricing extends Component {
     }
   }
 
+  displayPrice(price) {
+    const cleanPrice = price.replace(PREFIX, '').replace(THOUSANDS_SEPARATOR_SYMBOL, '')
+    const intPrice = parseInt(cleanPrice)
+    const displayPrice = intPrice.toLocaleString('pt-BR', currencyStyle)
+    return displayPrice
+  }
+
   nextStep() {
     if (this.state.editingPrice) {
       this.setState({editingPrice: false})
@@ -94,35 +103,47 @@ class Pricing extends Component {
   currencyInput(errors, setFieldValue, setFieldTouched) {
     const { userPrice } = this.props.pricing
     return (
-      <Field
-        name="userPrice"
-        validate={this.validateUserPrice}
-        render={({form}) => (
-          <Input
-            type="number"
-            hideLabelView
-            error={form.touched.userPrice ? errors.userPrice : null}
-            placeholder="R$ 000.000"
-            defaultValue={userPrice}
-            onChange={(e) => {
-              const { value } = e.target
-              setFieldValue('userPrice', value)
-              setFieldTouched('userPrice')
-              this.setState({userPrice: value})
-            }}
-          />
-        )}
-      />
+      <Col mr={4}>
+        <Field
+          name="userPrice"
+          validate={this.validateUserPrice}
+          render={({form}) =>
+            <MaskedInput
+              mask={currencyInputMask}
+              render={(ref, props) =>
+                <Input
+                  {...props}
+                  type="number"
+                  hideLabelView
+                  error={form.touched.userPrice ? errors.userPrice : null}
+                  placeholder="R$ 000.000"
+                  defaultValue={userPrice}
+                  type="tel"
+                  ref={(input) => ref(input)}
+                  onChange={(e) => {
+                    const { value } = e.target
+                    setFieldValue('userPrice', value)
+                    setFieldTouched('userPrice')
+                    this.setState({userPrice: value})
+                  }}
+                />
+              }
+            />
+          }
+        />
+      </Col>
     )
   }
 
   priceSuggestion(errors, setFieldValue, setFieldTouched) {
     const { pricing } = this.props
-    const basePrice = parseInt(pricing.suggestedPrice).toLocaleString('pt-BR', currencyStyle)
+    const basePrice = pricing.suggestedPrice.toLocaleString('pt-BR', currencyStyle)
     const suggestedPrice = pricing.suggestedPrice.toLocaleString('pt-BR', currencyStyle)
-
+    console.log(this.props)
     const { userPrice } = this.state
-    const formattedUserPrice = userPrice ? parseInt(userPrice).toLocaleString('pt-BR', currencyStyle) : null
+    console.log('user price:', userPrice)
+    const formattedUserPrice = userPrice ? userPrice.toLocaleString('pt-BR', currencyStyle) : null
+    console.log('formatted:', formattedUserPrice)
     return (
       <Col>
         <Text color="grey">Seu imóvel foi avaliado por:</Text>

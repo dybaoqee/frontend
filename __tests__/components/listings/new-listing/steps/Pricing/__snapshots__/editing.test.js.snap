@@ -17,67 +17,6 @@ exports[`renders editing price state 1`] = `
   font-size: 18px;
 }
 
-.c8 {
-  -webkit-font-smoothing: antialiased;
-  font-family: FaktSoftPro-Normal;
-  color: #3c4858;
-  font-size: 14px;
-}
-
-.c5 {
-  -webkit-font-smoothing: antialiased;
-  display: block;
-  width: 100%;
-  outline: none;
-  border-radius: 4px;
-  border: 1px solid;
-  border-color: #e0e6ed;
-  padding: 0px 10px 0px 10px;
-  height: 60px;
-  color: #3c4858;
-  font-family: FaktSoftPro-Normal;
-  font-size: 18px;
-  -webkit-letter-spacing: 2px;
-  -moz-letter-spacing: 2px;
-  -ms-letter-spacing: 2px;
-  letter-spacing: 2px;
-}
-
-.c5:focus {
-  border-radius: 4px;
-  border: 1px solid;
-  border-color: #1fb6ff;
-  padding: 0px 10px 0px 10px;
-  height: 60px;
-}
-
-.c5::-webkit-input-placeholder {
-  color: #8492a6;
-}
-
-.c5::-moz-placeholder {
-  color: #8492a6;
-}
-
-.c5:-ms-input-placeholder {
-  color: #8492a6;
-}
-
-.c5::placeholder {
-  color: #8492a6;
-}
-
-.c6 {
-  height: 25px;
-}
-
-.c7 {
-  display: inline;
-  color: #ff4949;
-  font-family: FaktSoftPro-Normal;
-  font-size: 14px;
-}
-
 .c0 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -90,7 +29,7 @@ exports[`renders editing price state 1`] = `
   justify-content: center;
 }
 
-.c9 {
+.c6 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -106,7 +45,7 @@ exports[`renders editing price state 1`] = `
   width: 100%;
 }
 
-.c10 {
+.c7 {
   width: 41.66666666666667%;
 }
 
@@ -115,7 +54,11 @@ exports[`renders editing price state 1`] = `
   width: 100%;
 }
 
-.c11 {
+.c5 {
+  margin-right: 20px;
+}
+
+.c8 {
   outline: none;
   display: block;
   cursor: pointer;
@@ -133,11 +76,11 @@ exports[`renders editing price state 1`] = `
   border-color: #e0e6ed;
 }
 
-.c11 :hover {
+.c8 :hover {
   background-color: #ffffff;
 }
 
-.c12 {
+.c9 {
   outline: none;
   display: block;
   cursor: pointer;
@@ -155,7 +98,7 @@ exports[`renders editing price state 1`] = `
   border-color: #e0e6ed;
 }
 
-.c12 :hover {
+.c9 :hover {
   background-color: #f50057;
 }
 
@@ -230,31 +173,13 @@ exports[`renders editing price state 1`] = `
           }
         >
           <div
-            className=""
+            className="c5"
           >
             <input
-              className="c5"
-              defaultValue={1100}
-              error={null}
-              fluid={true}
-              fontSize="default"
-              height="tall"
-              hideErrorView={false}
-              hideLabelView={true}
-              letterSpacing="default"
-              onChange={[Function]}
-              placeholder="R$ 000.000"
-              type="number"
+              mask={[Function]}
+              render={[Function]}
+              type="text"
             />
-            <div
-              className="c6 "
-            >
-              <span
-                className="c7 c8"
-                color="dark"
-                fontSize="small"
-              />
-            </div>
           </div>
         </div>
         <p
@@ -266,14 +191,14 @@ exports[`renders editing price state 1`] = `
         </p>
       </div>
       <div
-        className="c9"
+        className="c6"
       >
         <div
-          className="c10"
+          className="c7"
           width={0.4166666666666667}
         >
           <button
-            className="c11"
+            className="c8"
             fontSize="default"
             height="tall"
             onClick={[Function]}
@@ -282,11 +207,11 @@ exports[`renders editing price state 1`] = `
           </button>
         </div>
         <div
-          className="c10"
+          className="c7"
           width={0.4166666666666667}
         >
           <button
-            className="c12"
+            className="c9"
             disabled={false}
             fontSize="default"
             height="tall"
