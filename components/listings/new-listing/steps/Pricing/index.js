@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Formik, Field } from 'formik'
+import MaskedInput from 'react-text-mask'
 
 import Icon from '@emcasa/ui-dom/components/Icon'
 import Input from '@emcasa/ui-dom/components/Input'
@@ -16,8 +17,8 @@ import {
 import {
   currencyInputMask,
   currencyStyle,
-  PREFIX,
-  THOUSANDS_SEPARATOR_SYMBOL
+  currencyToInt,
+  intToCurrency
 } from 'utils/text-utils'
 
 class Pricing extends Component {
@@ -94,39 +95,47 @@ class Pricing extends Component {
   currencyInput(errors, setFieldValue, setFieldTouched) {
     const { userPrice } = this.props.pricing
     return (
-      <Field
-        name="userPrice"
-        validate={this.validateUserPrice}
-        render={({form}) => (
-          <Input
-            type="number"
-            hideLabelView
-            error={form.touched.userPrice ? errors.userPrice : null}
-            placeholder="R$ 000.000"
-            defaultValue={userPrice}
-            onChange={(e) => {
-              const { value } = e.target
-              setFieldValue('userPrice', value)
-              setFieldTouched('userPrice')
-              this.setState({userPrice: value})
-            }}
-          />
-        )}
-      />
+      <Col mr={4}>
+        <Field
+          name="userPrice"
+          validate={this.validateUserPrice}
+          render={({form}) =>
+            <MaskedInput
+              mask={currencyInputMask}
+              render={(ref, props) =>
+                <Input
+                  {...props}
+                  type="number"
+                  hideLabelView
+                  error={form.touched.userPrice ? errors.userPrice : null}
+                  placeholder="R$ 000.000"
+                  defaultValue={userPrice}
+                  type="tel"
+                  ref={(input) => ref(input)}
+                  onChange={(e) => {
+                    const value = currencyToInt(e.target.value)
+                    setFieldValue('userPrice', value)
+                    setFieldTouched('userPrice')
+                    this.setState({userPrice: value})
+                  }}
+                />
+              }
+            />
+          }
+        />
+      </Col>
     )
   }
 
   priceSuggestion(errors, setFieldValue, setFieldTouched) {
     const { pricing } = this.props
-    const basePrice = parseInt(pricing.suggestedPrice).toLocaleString('pt-BR', currencyStyle)
-    const suggestedPrice = pricing.suggestedPrice.toLocaleString('pt-BR', currencyStyle)
-
+    const suggestedPrice = intToCurrency(pricing.suggestedPrice)
     const { userPrice } = this.state
-    const formattedUserPrice = userPrice ? parseInt(userPrice).toLocaleString('pt-BR', currencyStyle) : null
+    const formattedUserPrice = userPrice ? intToCurrency(userPrice) : null
     return (
       <Col>
         <Text color="grey">Seu imóvel foi avaliado por:</Text>
-        <Text fontSize="large" fontWeight="bold" textAlign="center">{basePrice}</Text>
+        <Text fontSize="large" fontWeight="bold" textAlign="center">{suggestedPrice}</Text>
         <Text color="grey">Recomendamos anunciar por:</Text>
             {this.state.editingPrice ?
               <Col width={[1, 1/2]} mr={4}>

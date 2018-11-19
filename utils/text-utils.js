@@ -14,6 +14,17 @@ const getUrlVars = (url) => {
   return vars
 }
 
+const currencyToInt = (displayPrice) => {
+  const cleanPrice = displayPrice.replace(PREFIX, '').replace(THOUSANDS_SEPARATOR_SYMBOL, '')
+  const intPrice = parseInt(cleanPrice)
+  return intPrice
+}
+
+const intToCurrency = (value) => {
+  const currencyValue = value.toLocaleString('pt-BR', currencyStyle)
+  return currencyValue
+}
+
 const currencyStyle = {
   style: 'currency',
   currency: 'BRL',
@@ -35,6 +46,8 @@ export {
   getUrlVars,
   currencyStyle,
   currencyInputMask,
+  currencyToInt,
+  intToCurrency,
 
   PREFIX,
   THOUSANDS_SEPARATOR_SYMBOL

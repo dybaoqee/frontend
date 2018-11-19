@@ -7,8 +7,8 @@ import { ThemeProvider } from 'styled-components'
 
 it('renders an empty state', () => {
   const pricing = {
-    suggestedPrice: '1000',
-    userPrice: '1100',
+    suggestedPrice: 1000,
+    userPrice: 1100,
     editingPrice: null
   }
 
