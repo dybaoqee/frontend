@@ -1,9 +1,11 @@
-import { displayPriceToInt } from 'utils/text-utils'
+import {
+  currencyToInt
+} from 'utils/text-utils'
 
 describe('text utils', () => {
-  it('should transform display currency value into an integer', () =>{
-    const displayPrice = 'R$ 200.000'
-    const intPrice = displayPriceToInt(displayPrice)
-    expect(intPrice).toBe(200000)
+  it('should transform currency display value into an integer', () =>{
+    const displayValue = 'R$ 200.000'
+    const intValue = currencyToInt(displayValue)
+    expect(intValue).toBe(200000)
   })
 })

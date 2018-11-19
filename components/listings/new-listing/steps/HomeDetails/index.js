@@ -10,7 +10,7 @@ import Select from '@emcasa/ui-dom/components/Select'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import {
   currencyInputMask,
-  displayPriceToInt
+  currencyToInt
 } from 'utils/text-utils'
 
 const HOME_TYPES = {
@@ -205,7 +205,7 @@ class HomeDetails extends Component {
                                     type="tel"
                                     ref={(input) => ref(input)}
                                     onChange={(e) => {
-                                      const value = displayPriceToInt(e.target.value)
+                                      const value = currencyToInt(e.target.value)
                                       setFieldValue('maintenanceFee', value)
                                       this.setState({maintenanceFee: value})
                                     }}
@@ -231,7 +231,7 @@ class HomeDetails extends Component {
                                     type="tel"
                                     ref={(input) => ref(input)}
                                     onChange={(e) => {
-                                      const value = displayPriceToInt(e.target.value)
+                                      const value = currencyToInt(e.target.value)
                                       setFieldValue('propertyTax', value)
                                       setFieldTouched('propertyTax')
                                       this.setState({propertyTax: value})

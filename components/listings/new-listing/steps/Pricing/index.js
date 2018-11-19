@@ -17,9 +17,8 @@ import {
 import {
   currencyInputMask,
   currencyStyle,
-  displayPriceToInt,
-  PREFIX,
-  THOUSANDS_SEPARATOR_SYMBOL
+  currencyToInt,
+  intToCurrency
 } from 'utils/text-utils'
 
 class Pricing extends Component {
@@ -61,13 +60,6 @@ class Pricing extends Component {
         editingPrice: pricing.editingPrice || !pricing.suggestedPrice
       })
     }
-  }
-
-  displayPrice(price) {
-    const cleanPrice = price.replace(PREFIX, '').replace(THOUSANDS_SEPARATOR_SYMBOL, '')
-    const intPrice = parseInt(cleanPrice)
-    const displayPrice = intPrice.toLocaleString('pt-BR', currencyStyle)
-    return displayPrice
   }
 
   nextStep() {
@@ -121,7 +113,7 @@ class Pricing extends Component {
                   type="tel"
                   ref={(input) => ref(input)}
                   onChange={(e) => {
-                    const { value } = e.target
+                    const value = currencyToInt(e.target.value)
                     setFieldValue('userPrice', value)
                     setFieldTouched('userPrice')
                     this.setState({userPrice: value})
@@ -137,17 +129,13 @@ class Pricing extends Component {
 
   priceSuggestion(errors, setFieldValue, setFieldTouched) {
     const { pricing } = this.props
-    const basePrice = pricing.suggestedPrice.toLocaleString('pt-BR', currencyStyle)
-    const suggestedPrice = pricing.suggestedPrice.toLocaleString('pt-BR', currencyStyle)
-    console.log(this.props)
+    const suggestedPrice = intToCurrency(pricing.suggestedPrice)
     const { userPrice } = this.state
-    console.log('user price:', userPrice)
-    const formattedUserPrice = userPrice ? userPrice.toLocaleString('pt-BR', currencyStyle) : null
-    console.log('formatted:', formattedUserPrice)
+    const formattedUserPrice = userPrice ? intToCurrency(userPrice) : null
     return (
       <Col>
         <Text color="grey">Seu imóvel foi avaliado por:</Text>
-        <Text fontSize="large" fontWeight="bold" textAlign="center">{basePrice}</Text>
+        <Text fontSize="large" fontWeight="bold" textAlign="center">{suggestedPrice}</Text>
         <Text color="grey">Recomendamos anunciar por:</Text>
             {this.state.editingPrice ?
               <Col width={[1, 1/2]} mr={4}>
