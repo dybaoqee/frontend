@@ -59,7 +59,7 @@ class NavButtons extends PureComponent {
             fluid
             height="tall"
             active={!this.props.loading}
-            disabled={!this.props.submitEnabled || this.props.loading}
+            disabled={this.props.loading || !this.props.submitEnabled}
             onClick={this.props.onSubmit}>
             {this.getNextLabel()}
           </Button>
