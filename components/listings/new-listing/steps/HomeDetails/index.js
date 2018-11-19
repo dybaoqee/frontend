@@ -100,7 +100,6 @@ class HomeDetails extends Component {
       propertyTax = homeDetails.propertyTax
     }
     const selectedHomeType = this.state.type !== null && this.state.type !== HOME_TYPES.placeholder
-    console.log(homeDetails)
     return (
       <div ref={this.props.hostRef}>
         <Row justifyContent="center" p={4}>
