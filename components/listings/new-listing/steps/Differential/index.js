@@ -18,6 +18,7 @@ class Differential extends Component {
 
     this.checkUserInfo = this.checkUserInfo.bind(this)
     this.estimatePrice = this.estimatePrice.bind(this)
+    this.submit = this.submit.bind(this)
 
     this.textInput = React.createRef()
   }
@@ -25,8 +26,7 @@ class Differential extends Component {
   state = {
     loading: false,
     error: null,
-    text: null,
-    hasPrice: false
+    text: null
   }
 
   componentDidMount() {
@@ -62,7 +62,6 @@ class Differential extends Component {
     // Old site auth
     if (authenticated) {
       const { updatePhone, updatePersonal } = this.props
-      this.setState({loading: true})
       const userInfo = await getUser(user.id, updatePhone, updatePersonal)
       if (userInfo.error) {
         this.setState({
@@ -81,7 +80,6 @@ class Differential extends Component {
     if (hasPhoneNumber(phone)) {
       const { personal } = this.props
       if (personal && personal.name) {
-        this.setState({loading: true})
         await this.estimatePrice()
         return
       } else {
@@ -101,10 +99,12 @@ class Differential extends Component {
 
     // Run mutation
     const response = await estimatePrice(apolloClient, pricingInput)
-    this.setState({
-      loading: false,
-      error: response.error
-    })
+    if (response.error) {
+      this.setState({
+        loading: false,
+        error: response.error
+      })
+    }
 
     // Handle result
     if (response.result) {
@@ -116,8 +116,17 @@ class Differential extends Component {
         userPrice
       })
       updateDifferential({text: this.state.text})
+      this.setState({
+        loading: false,
+        error: null
+      })
       navigateTo('pricing')
     }
+  }
+
+  submit() {
+    this.setState({loading: true})
+    this.checkUserInfo()
   }
 
   render() {
@@ -135,7 +144,7 @@ class Differential extends Component {
                 text: text
               }}
               isInitialValid={() => true}
-              render={({isValid, setFieldTouched, setFieldValue, errors}) => (
+              render={({setFieldTouched, setFieldValue}) => (
                 <>
                   <Text
                     fontSize="large"
@@ -169,10 +178,10 @@ class Differential extends Component {
                   </Row>
                   <Text color="red">{this.state.error}</Text>
                   <NavButtons
+                    submitEnabled={!this.state.loading}
                     loading={this.state.loading}
                     previousStep={this.previousStep}
-                    onSubmit={async () => {this.checkUserInfo()}}
-                    submitEnabled={isValid}
+                    onSubmit={this.submit}
                   />
                 </>
               )}

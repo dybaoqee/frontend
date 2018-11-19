@@ -153,13 +153,14 @@ class HomeDetails extends Component {
                             name="floor"
                             render={() => (
                               <Input
+                                label="Nº andar"
                                 placeholder="Nº andar"
                                 type="number"
                                 error={errors.floor}
                                 defaultValue={floor}
                                 disabled={this.state.type === HOME_TYPES.house}
                                 onChange={(e) => {
-                                  const value = parseInt(e.target.value)
+                                  const { value } = e.target
                                   setFieldValue('floor', value)
                                   this.setState({floor: value})
                                 }}
@@ -172,7 +173,7 @@ class HomeDetails extends Component {
                             validate={this.validateArea}
                             render={({form}) => (
                               <Input
-                                label="Área conforme IPTU*"
+                                label="Área conforme IPTU"
                                 placeholder="Área (m²)*"
                                 type="number"
                                 error={form.touched.area ? errors.area : null}
@@ -197,7 +198,7 @@ class HomeDetails extends Component {
                                 render={(ref, props) =>
                                   <Input
                                     {...props}
-                                    hideLabelView
+                                    label="Valor do condomínio"
                                     placeholder="Cond (R$)"
                                     error={errors.maintenanceFee}
                                     defaultValue={maintenanceFee}
@@ -223,7 +224,7 @@ class HomeDetails extends Component {
                                 render={(ref, props) =>
                                   <Input
                                     {...props}
-                                    hideLabelView
+                                    label="Valor do IPTU anual"
                                     placeholder="IPTU (R$/ano)*"
                                     error={form.touched.propertyTax ? errors.propertyTax : null}
                                     defaultValue={propertyTax}
