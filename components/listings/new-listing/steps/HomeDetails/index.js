@@ -11,7 +11,8 @@ import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 const HOME_TYPES = {
   house: 'Casa',
   apartment: 'Apartamento',
-  penthouse: 'Cobertura'
+  penthouse: 'Cobertura',
+  placeholder: '_placeholder'
 }
 
 class HomeDetails extends Component {
@@ -78,7 +79,7 @@ class HomeDetails extends Component {
   }
 
   validateType(value) {
-    if (!value || value === '_placeholder') {
+    if (!value || value === HOME_TYPES.placeholder) {
       return "É necessário informar o tipo do imóvel."
     }
   }
@@ -93,7 +94,7 @@ class HomeDetails extends Component {
       maintenanceFee = homeDetails.maintenanceFee
       propertyTax = homeDetails.propertyTax
     }
-    const isHouse = this.state.type === HOME_TYPES.house
+    const selectedHomeType = this.state.type !== null && this.state.type !== HOME_TYPES.placeholder
     return (
       <div ref={this.props.hostRef}>
         <Row justifyContent="center" p={4}>
@@ -124,7 +125,7 @@ class HomeDetails extends Component {
                       validate={this.validateType}
                       render={() => (
                         <Select
-                          defaultValue={type || '_placeholder'}
+                          defaultValue={type || HOME_TYPES.placeholder}
                           error={errors.type}
                           onChange={(e) => {
                             const { value } = e.target
@@ -132,93 +133,95 @@ class HomeDetails extends Component {
                             setFieldTouched('type')
                             this.setState({type: value})
                           }}>
-                          <option value="_placeholder" disabled>Tipo do Imóvel*</option>
+                          <option value={HOME_TYPES.placeholder} disabled>Tipo do Imóvel*</option>
                           <option value={HOME_TYPES.house}>Casa</option>
                           <option value={HOME_TYPES.apartment}>Apartamento</option>
                           <option value={HOME_TYPES.penthouse}>Cobertura</option>
                         </Select>
                       )}/>
                   </Col>
-                  <Row mb={4}>
-                    {!isHouse && <Col width={1/2} mr={4}>
-                      <Field
-                        name="floor"
-                        render={() => (
-                          <Input
-                            placeholder="Nº andar"
-                            type="number"
-                            error={errors.floor}
-                            defaultValue={floor}
-                            disabled={this.state.type === HOME_TYPES.house}
-                            onChange={(e) => {
-                              const { value } = e.target
-                              setFieldValue('floor', value)
-                              this.setState({floor: value})
-                            }}
-                          />
-                        )}/>
-                    </Col>
-                    }
-                    <Col width={1/2} ml={isHouse ? 0 : 2} mr={4}>
-                      <Field
-                        name="area"
-                        validate={this.validateArea}
-                        render={({form}) => (
-                          <Input
-                            label="Área conforme IPTU*"
-                            placeholder="Área (m²)*"
-                            type="number"
-                            error={form.touched.area ? errors.area : null}
-                            defaultValue={area}
-                            onChange={(e) => {
-                              const { value } = e.target
-                              setFieldValue('area', value)
-                              setFieldTouched('area')
-                              this.setState({area: value})
-                            }}
-                            />
-                        )}/>
-                    </Col>
-                    {isHouse && <Col width={1/2} ml={2} mr={4}></Col>}
-                  </Row>
-                  <Row mb={4}>
-                    <Col width={1/2} mr={4}>
-                      <Field
-                        name="maintenanceFee"
-                        render={() => (
-                          <Input
-                            hideLabelView
-                            placeholder="Cond (R$)"
-                            error={errors.maintenanceFee}
-                            defaultValue={maintenanceFee}
-                            onChange={(e) => {
-                              const { value } = e.target
-                              setFieldValue('maintenanceFee', value)
-                              this.setState({maintenanceFee: value})
-                            }}
-                          />
-                        )}/>
-                    </Col>
-                    <Col width={1/2} ml={2} mr={4}>
-                      <Field
-                        name="propertyTax"
-                        validate={this.validatePropertyTax}
-                        render={({form}) => (
-                          <Input
-                            hideLabelView
-                            placeholder="IPTU (R$/ano)*"
-                            error={form.touched.propertyTax ? errors.propertyTax : null}
-                            defaultValue={propertyTax}
-                            onChange={(e) => {
-                              const { value } = e.target
-                              setFieldValue('propertyTax', value)
-                              setFieldTouched('propertyTax')
-                              this.setState({propertyTax: value})
-                            }}
-                          />
-                        )}/>
-                    </Col>
-                  </Row>
+                  {selectedHomeType &&
+                    <>
+                      <Row mb={4}>
+                        <Col width={1/2} mr={4}>
+                          <Field
+                            name="floor"
+                            render={() => (
+                              <Input
+                                placeholder="Nº andar"
+                                type="number"
+                                error={errors.floor}
+                                defaultValue={floor}
+                                disabled={this.state.type === HOME_TYPES.house}
+                                onChange={(e) => {
+                                  const { value } = e.target
+                                  setFieldValue('floor', value)
+                                  this.setState({floor: value})
+                                }}
+                              />
+                            )}/>
+                        </Col>
+                        <Col width={1/2} ml={2} mr={4}>
+                          <Field
+                            name="area"
+                            validate={this.validateArea}
+                            render={({form}) => (
+                              <Input
+                                label="Área conforme IPTU*"
+                                placeholder="Área (m²)*"
+                                type="number"
+                                error={form.touched.area ? errors.area : null}
+                                defaultValue={area}
+                                onChange={(e) => {
+                                  const { value } = e.target
+                                  setFieldValue('area', value)
+                                  setFieldTouched('area')
+                                  this.setState({area: value})
+                                }}
+                                />
+                            )}/>
+                        </Col>
+                      </Row>
+                      <Row mb={4}>
+                        <Col width={1/2} mr={4}>
+                          <Field
+                            name="maintenanceFee"
+                            render={() => (
+                              <Input
+                                hideLabelView
+                                placeholder="Cond (R$)"
+                                error={errors.maintenanceFee}
+                                defaultValue={maintenanceFee}
+                                onChange={(e) => {
+                                  const { value } = e.target
+                                  setFieldValue('maintenanceFee', value)
+                                  this.setState({maintenanceFee: value})
+                                }}
+                              />
+                            )}/>
+                        </Col>
+                        <Col width={1/2} ml={2} mr={4}>
+                          <Field
+                            name="propertyTax"
+                            validate={this.validatePropertyTax}
+                            render={({form}) => (
+                              <Input
+                                hideLabelView
+                                placeholder="IPTU (R$/ano)*"
+                                error={form.touched.propertyTax ? errors.propertyTax : null}
+                                defaultValue={propertyTax}
+                                onChange={(e) => {
+                                  const { value } = e.target
+                                  setFieldValue('propertyTax', value)
+                                  setFieldTouched('propertyTax')
+                                  this.setState({propertyTax: value})
+                                }}
+                              />
+                            )}/>
+                        </Col>
+                      </Row>
+                    </>
+                  }
                   <NavButtons
                     previousStep={this.previousStep}
                     onSubmit={this.nextStep}
