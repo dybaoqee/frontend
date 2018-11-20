@@ -3,7 +3,6 @@ import Head from 'next/head'
 import {imageUrl} from 'utils/image_url'
 import Container, {Header} from './styles'
 
-import Calculator from 'components/shared/Calculator'
 import PriceEstimate from 'components/shared/PriceEstimate'
 
 export default class EstimatePrice extends Component {
@@ -40,9 +39,6 @@ export default class EstimatePrice extends Component {
 
           <Container id="precificador">
             <PriceEstimate />
-          </Container>
-          <Container>
-            <Calculator />
           </Container>
         </Fragment>
       </Fragment>

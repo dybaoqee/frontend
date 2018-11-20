@@ -13,7 +13,6 @@ import EmCasaButton from 'components/shared/Common/Buttons'
 import Topics from 'components/shared/Common/Topics'
 import Container, {Header, BenefitsContainer, Benefit} from './styles'
 
-import Calculator from 'components/shared/Calculator'
 import PriceEstimate from 'components/shared/PriceEstimate'
 
 export default class SellKnowMore extends Component {
@@ -63,12 +62,12 @@ export default class SellKnowMore extends Component {
               <Benefit>
                 <FontAwesomeIcon icon={faBolt} />
                 <p>
-                  Economize tempo e evite visitas desnecessárias em sua casa.
+                  Evite visitas desnecessárias em sua casa.
                 </p>
               </Benefit>
               <Benefit>
                 <FontAwesomeIcon icon={faCoin} />
-                <p>Economize dinheiro com nossa comissão reduzida de 3%.</p>
+                <p>Assistência jurídica grátis com documentação e processos.</p>
               </Benefit>
               <Benefit>
                 <FontAwesomeIcon icon={faPaste} />
@@ -76,7 +75,7 @@ export default class SellKnowMore extends Component {
               </Benefit>
               <Benefit>
                 <FontAwesomeIcon icon={faGavel} />
-                <p>Assistência jurídica grátis com documentação e processos.</p>
+                <p>Economize tempo e venda seu imóvel mais rápido.</p>
               </Benefit>
             </BenefitsContainer>
             <Link href="/listings/new" as="/imoveis/adicionar">
@@ -85,9 +84,6 @@ export default class SellKnowMore extends Component {
           </Container>
           <Container id="precificador">
             <PriceEstimate />
-          </Container>
-          <Container id="calculadora">
-            <Calculator />
           </Container>
           <Container>
             <h3>Cadastre seu imóvel em menos de 5 minutos</h3>
