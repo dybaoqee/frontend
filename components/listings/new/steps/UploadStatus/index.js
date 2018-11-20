@@ -2,7 +2,6 @@ import {Fragment} from 'react'
 import Container from './styles'
 import EmCasaButton from 'components/shared/Common/Buttons'
 import Link from 'next/link'
-import Calculator from 'components/shared/Calculator'
 export default ({submitting, listingId, editing}) => (
   <Container>
     {submitting || editing ? (
@@ -27,7 +26,6 @@ export default ({submitting, listingId, editing}) => (
         >
           <EmCasaButton secondary>Adicionar fotos</EmCasaButton>
         </Link>
-        <Calculator />
       </Fragment>
     )}
   </Container>
