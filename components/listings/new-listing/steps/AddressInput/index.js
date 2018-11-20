@@ -159,7 +159,7 @@ class AddressInput extends Component {
                     Qual o endereço do seu imóvel?
                   </Text>
                   <Col>
-                    <StaticMap addressData={this.state.addressData} />
+                    <StaticMap animated={true} addressData={this.state.addressData} />
                   </Col>
                   {this.isMobile() ?
                     <Col mb={4}>
