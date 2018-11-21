@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
-import RadioButton from '@emcasa/ui-dom/components/RadioButton'
+import Button from '@emcasa/ui-dom/components/Button'
 import Col from '@emcasa/ui-dom/components/Col'
 import Row from '@emcasa/ui-dom/components/Row'
 import View from '@emcasa/ui-dom/components/View'
@@ -17,7 +17,7 @@ import {
 
 class CustomTime extends PureComponent {
   render() {
-    const { selected, onClick } = this.props
+    const { selected, onClick, selectedTime } = this.props
     return (
       <StyledCustomTime
         onClick={onClick}
@@ -31,15 +31,22 @@ class CustomTime extends PureComponent {
                 {selected ?
                   <Icon name="dot-circle" color="pink" />
                 :
-                  <StyledBullet />}
+                  <StyledBullet />
+                }
               </View>
-              <Text inline size="small">Escolher horário específico</Text>
+              {(selected && selectedTime) ?
+                <Text>{selectedTime}</Text>
+              :
+                <Text inline style={{fontSize: 16}}>Escolher horário específico</Text>
+              }
             </Title>
           </Col>
         </Row>
-        <Row flexWrap="wrap" justifyContent="space-between">
-          {selected && this.props.children}
-        </Row>
+        {(selected && !selectedTime) &&
+          <Row flexWrap="wrap" justifyContent="space-between">
+            {this.props.children}
+          </Row>
+        }
         </Col>
       </StyledCustomTime>
     )
@@ -47,9 +54,10 @@ class CustomTime extends PureComponent {
 }
 
 CustomTime.propTypes = {
-  selected: PropTypes.bool
+  selected: PropTypes.bool,
+  selectedTime: PropTypes.string
 }
 
-CustomTime.Item = (props) => <StyledCustomTimeItem> <RadioButton {...props} /></StyledCustomTimeItem>
+CustomTime.Item = (props) => <StyledCustomTimeItem> <Button {...props} /></StyledCustomTimeItem>
 
 export default CustomTime

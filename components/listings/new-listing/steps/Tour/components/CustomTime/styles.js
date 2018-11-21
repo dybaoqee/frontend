@@ -30,6 +30,8 @@ const Title = styled(Row)`
 const StyledBullet = styled(Bullet)`
   position: relative;
   margin: 0;
+  width: 18px;
+  height: 18px;
 `
 
 export {

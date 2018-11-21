@@ -2,6 +2,11 @@ import moment from 'moment'
 import 'moment/locale/pt-br'
 moment.locale('pt-br')
 
+const EARLY = '09'
+const LATE = '17'
+const EARLY_DISPLAY = 'No começo do dia (9:00h)'
+const LATE_DISPLAY = 'No final do dia (17:00h)'
+
 const MONTH_KEY_FORMAT = 'YYYY-MM'
 const DAY_KEY_FORMAT = 'YYYY-MM-DD'
 
@@ -45,10 +50,24 @@ const getTourDays = (timeList, month) => {
   return Object.values(tourDays)
 }
 
+const getTimeDisplay = (time, longText) => {
+  if (time === EARLY && longText) {
+    return EARLY_DISPLAY
+  } else if (time === LATE && longText) {
+    return LATE_DISPLAY
+  }
+  return `${time}:00h`
+}
+
 const TOUR_HOURS = ['09', '10', '11', '12', '13', '14', '15', '16', '17']
 
 export {
   getTourMonths,
   getTourDays,
-  TOUR_HOURS
+  getTimeDisplay,
+  TOUR_HOURS,
+  EARLY,
+  LATE,
+  EARLY_DISPLAY,
+  LATE_DISPLAY
 }

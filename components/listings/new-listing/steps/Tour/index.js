@@ -12,14 +12,13 @@ import TourDays from './components/TourDays'
 import {
   getTourDays,
   getTourMonths,
-  TOUR_HOURS
-} from './times'
-import {
+  getTimeDisplay,
+  TOUR_HOURS,
   EARLY,
   LATE,
   EARLY_DISPLAY,
   LATE_DISPLAY
-} from './constants'
+} from './times'
 
 class Tour extends Component {
   constructor(props) {
@@ -99,15 +98,6 @@ class Tour extends Component {
 
   selectTime(value) {
     this.setState({time: value})
-  }
-
-  getTimeDisplay(time, longText) {
-    if (time === EARLY && longText) {
-      return EARLY_DISPLAY
-    } else if (time === LATE && longText) {
-      return LATE_DISPLAY
-    }
-    return `${time}:00`
   }
 
   validateTime(value) {
@@ -203,7 +193,7 @@ class Tour extends Component {
                               return (
                                 <>
                                   <RadioButton
-                                    label={this.getTimeDisplay(item, true)}
+                                    label={getTimeDisplay(item, true)}
                                     value={item}
                                     checked={this.state.time === item && !this.state.customTime}
                                     onClick={() => {
@@ -222,21 +212,18 @@ class Tour extends Component {
                             <CustomTime
                               onClick={this.selectCustomTime}
                               selected={this.state.customTime}
+                              selectedTime={this.state.time}
                             >
                               {TOUR_HOURS.map((item) => {
                                 return (
                                   <>
                                     <CustomTime.Item
-                                      label={this.getTimeDisplay(item, false)}
-                                      value={item}
-                                      checked={this.state.time === item}
-                                      height="small"
                                       onClick={() => {
                                         setFieldValue('time', item)
                                         setFieldTouched('time')
                                         this.selectTime(item)
                                       }}
-                                    />
+                                    >{getTimeDisplay(item, false)}</CustomTime.Item>
                                     <View mb={2} />
                                   </>
                                 )
