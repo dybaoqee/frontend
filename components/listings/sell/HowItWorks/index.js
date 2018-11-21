@@ -40,6 +40,14 @@ export default class HowItWorks extends Component {
             </Col>
           </Row>
           <Row justifyContent="center">
+            <Col>
+              <Text color="grey">
+                A EmCasa tem um processo único. É muito fácil vender seu imóvel aqui.
+                Simplificamos todo o processo e proporcionamos uma economia pra você
+            </Text>
+            </Col>
+          </Row>
+          <Row justifyContent="center">
             <Col width={2 / 12}>
               <Icon name="cadastro-imovel" />
               <Text fontSize="medium" color="dark">
