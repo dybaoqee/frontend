@@ -275,8 +275,7 @@ export default class AddressAutoComplete extends Component {
             <Input
               style={{border: 0}}
               hideLabelView
-              hideErrorView={errors.length === 0}
-              error={errors.length ? errors[0] : null}
+              hideErrorView
               onKeyDown={this.onKeyPress}
               onBlur={this.onBlur}
               type="text"
@@ -289,6 +288,7 @@ export default class AddressAutoComplete extends Component {
             />
           </Col>
         </InputContainer>
+        {errors.length > 0 && <Text inline color="red" fontSize="small">{errors[0]}</Text>}
         {showPredictions &&
           <SearchResultContainer>
             <Col width={[1]}>
