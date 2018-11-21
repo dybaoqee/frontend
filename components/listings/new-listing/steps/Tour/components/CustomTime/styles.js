@@ -3,6 +3,7 @@ import { themeGet } from 'styled-system'
 
 import View from '@emcasa/ui-dom/components/View'
 import Row from '@emcasa/ui-dom/components/Row'
+import Icon from '@emcasa/ui-dom/components/Icon'
 import Bullet from 'components/listings/new-listing/shared/Bullet'
 
 const StyledCustomTime = styled(Row)`
@@ -29,13 +30,19 @@ const Title = styled(Row)`
 
 const StyledBullet = styled(Bullet)`
   position: relative;
+  display: flex;
   margin: 0;
   width: 18px;
   height: 18px;
 `
 
+const SelectedIcon = styled(Icon)`
+  display: flex;
+`
+
 export {
   Title,
+  SelectedIcon,
   StyledBullet,
   StyledCustomTime,
   StyledCustomTimeItem

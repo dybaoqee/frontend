@@ -9,7 +9,12 @@ import Icon from '@emcasa/ui-dom/components/Icon'
 import Text from '@emcasa/ui-dom/components/Text'
 
 import {
+  getTimeDisplay
+} from '../../times'
+
+import {
   Title,
+  SelectedIcon,
   StyledBullet,
   StyledCustomTime,
   StyledCustomTimeItem
@@ -29,15 +34,15 @@ class CustomTime extends PureComponent {
             <Title>
               <View mr={3}>
                 {selected ?
-                  <Icon name="dot-circle" color="pink" />
+                  <SelectedIcon name="dot-circle" color="pink" />
                 :
                   <StyledBullet />
                 }
               </View>
               {(selected && selectedTime) ?
-                <Text>{selectedTime}</Text>
+                <Text inline>{getTimeDisplay(selectedTime)}</Text>
               :
-                <Text inline style={{fontSize: 16}}>Escolher horário específico</Text>
+                <Text inline>Escolher horário específico</Text>
               }
             </Title>
           </Col>
