@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import {key} from 'services/google-maps-api'
 import StyledImage from './styles'
 
-const ZOOM = 15
+const ZOOM = 16
 const MAP_HEIGHT = 110
 const MAP_SCALE = 2
 const MARKER_URL = 'https://s3.amazonaws.com/emcasa-ui/images/place-48x48px.png'

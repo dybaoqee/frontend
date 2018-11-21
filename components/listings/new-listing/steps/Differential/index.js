@@ -9,6 +9,7 @@ import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import { getAddressInput } from 'lib/address'
 import { estimatePrice, getPricingInput } from 'lib/listings/pricing'
 import { getUser, hasPhoneNumber } from 'components/listings/new-listing/lib/auth'
+import {autoFocus} from 'components/listings/new-listing/lib/forms'
 
 class Differential extends Component {
   constructor(props) {
@@ -31,11 +32,8 @@ class Differential extends Component {
 
   componentDidMount() {
     this.updateStateFromProps(this.props)
-    if (this.textInput.current) {
-      this.textInput.current.focus()
-    }
+    autoFocus(this.textInput.current)
   }
-
   componentWillReceiveProps(props) {
     this.updateStateFromProps(props)
   }

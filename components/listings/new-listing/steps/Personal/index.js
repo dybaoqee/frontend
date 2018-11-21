@@ -8,6 +8,7 @@ import Text from '@emcasa/ui-dom/components/Text'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import { getAddressInput } from 'lib/address'
 import { estimatePrice, getPricingInput } from 'lib/listings/pricing'
+import {autoFocus} from 'components/listings/new-listing/lib/forms'
 
 class Personal extends Component {
   constructor(props) {
@@ -30,9 +31,7 @@ class Personal extends Component {
 
   componentDidMount() {
     this.updateStateFromProps(this.props)
-    if (this.nameField.current) {
-      this.nameField.current.focus()
-    }
+    autoFocus(this.nameField.current)
   }
 
   componentWillReceiveProps(props) {
@@ -41,7 +40,7 @@ class Personal extends Component {
 
   updateStateFromProps(props) {
     const { personal, location } = props
-    
+
     if (personal) {
       this.setState({
         name: personal.name,

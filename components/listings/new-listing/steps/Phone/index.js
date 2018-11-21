@@ -10,6 +10,7 @@ import Text from '@emcasa/ui-dom/components/Text'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import { getAddressInput } from 'lib/address'
 import { estimatePrice, getPricingInput } from 'lib/listings/pricing'
+import {autoFocus} from 'components/listings/new-listing/lib/forms'
 
 const BRAZIL_CODE = '55'
 
@@ -38,7 +39,7 @@ class Phone extends Component {
 
   componentDidMount() {
     this.updateStateFromProps(this.props)
-    this.dddField.current.focus()
+    autoFocus(this.dddField.current)
   }
 
   componentWillReceiveProps(props) {
