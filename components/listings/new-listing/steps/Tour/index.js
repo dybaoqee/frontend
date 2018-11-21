@@ -87,6 +87,8 @@ class Tour extends Component {
   }
 
   onDaySelected(day, dayOffset, setFieldTouched, setFieldValue) {
+    setFieldValue('day', day)
+    setFieldTouched('day')
     setFieldValue('time', null)
     setFieldTouched('time')
     this.setState({
@@ -98,6 +100,12 @@ class Tour extends Component {
 
   selectTime(value) {
     this.setState({time: value})
+  }
+
+  validateDay(value) {
+    if (!value) {
+      return 'É necessário selecionar um dia.'
+    }
   }
 
   validateTime(value) {
@@ -158,7 +166,7 @@ class Tour extends Component {
                 time
               }}
               isInitialValid={() => {
-                return !this.validateTime(time)
+                return !this.validateTime(time) || !this.validateDay(day)
               }}
               render={({isValid, setFieldTouched, setFieldValue}) => (
                 <>
@@ -176,6 +184,7 @@ class Tour extends Component {
                   <Row mb={4}>
                     <Field
                       name="day"
+                      validate={this.validateDay}
                       render={() =>
                         <TourDays
                           month={month}
@@ -233,7 +242,7 @@ class Tour extends Component {
                                         this.selectTime(item)
                                       }}
                                     >{getTimeDisplay(item, false)}</CustomTime.Item>
-                                    <View mb={2} />
+                                    <View mb={2} mr={2} />
                                   </>
                                 )
                               })}

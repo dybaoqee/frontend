@@ -47,7 +47,7 @@ class CustomTime extends PureComponent {
           </Col>
         </Row>
         {(selected && !selectedTime) &&
-          <Row flexWrap="wrap" justifyContent="space-between">
+          <Row flexWrap="wrap">
             {this.props.children}
           </Row>
         }
@@ -62,6 +62,6 @@ CustomTime.propTypes = {
   selectedTime: PropTypes.string
 }
 
-CustomTime.Item = (props) => <StyledCustomTimeItem> <Button {...props} /></StyledCustomTimeItem>
+CustomTime.Item = (props) => <StyledCustomTimeItem><Button {...props} /></StyledCustomTimeItem>
 
 export default CustomTime
