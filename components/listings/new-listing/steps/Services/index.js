@@ -132,28 +132,34 @@ class Services extends Component {
                     Quer impulsionar seu imóvel?
                   </Text>
                   <Text color="grey">Fazemos um Tour Virtual 3D do seu imóvel e também tiramos fotos com qualidade profissional sem custo nenhum. Diga-nos aqui qual o melhor horário pra você:</Text>
-                  <Row justifyContent="space-around" flexWrap="wrap">
-                    <SelectCard
-                      image="tour"
-                      text="Quero o Tour Virtual 3D"
-                      checked={this.state.wantsTour}
-                      onClick={() => {
-                        this.setState({wantsTour: !this.state.wantsTour})
-                      }}
-                    />
-                    <SelectCard
-                      image="camera"
-                      text="Quero Fotos Profissionais"
-                      checked={this.state.wantsPictures}
-                      onClick={() => {
-                        this.setState({wantsPictures: !this.state.wantsPictures})
-                      }}
-                    />
+                  <Row justifyContent="center" flexWrap="wrap">
+                    <Col mr={2}>
+                      <SelectCard
+                        image="tour"
+                        text="Quero o Tour Virtual 3D"
+                        checked={this.state.wantsTour}
+                        onClick={() => {
+                          this.setState({wantsTour: !this.state.wantsTour})
+                        }}
+                      />
+                    </Col>
+                    <Col>
+                      <SelectCard
+                        image="camera"
+                        text="Quero Fotos Profissionais"
+                        checked={this.state.wantsPictures}
+                        onClick={() => {
+                          this.setState({wantsPictures: !this.state.wantsPictures})
+                        }}
+                      />
+                    </Col>
                   </Row>
                   {(this.state.wantsTour || this.state.wantsPictures) &&
-                    <>
+                    <Row>
+                      <Col width={1} mt={2}>
                       <View><Text inline fontSize="small">Quando?</Text></View>
                       <SchedulingButton
+                        height="tall"
                         fluid
                         onClick={this.getAvailableTimes}
                         color={when ? 'dark' : 'grey'}
@@ -161,7 +167,8 @@ class Services extends Component {
                       {when ? when : '00/00/0000 - entre 00h e 00h'}
                       </SchedulingButton>
                       <View><Text inline color="red">{this.state.error}</Text></View>
-                    </>
+                      </Col>
+                    </Row>
                   }
                   <Row justifyContent="space-between" mt={4}>
                     <Col width={5/12}>

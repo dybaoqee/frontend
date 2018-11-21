@@ -100,6 +100,8 @@ class HomeDetails extends Component {
       propertyTax = homeDetails.propertyTax
     }
     const selectedHomeType = this.state.type !== null && this.state.type !== HOME_TYPES.placeholder
+    const showFloorNumber = this.state.type !== null && this.state.type !== HOME_TYPES.house
+
     return (
       <div ref={this.props.hostRef}>
         <Row justifyContent="center" p={4}>
@@ -150,25 +152,6 @@ class HomeDetails extends Component {
                       <Row mb={4}>
                         <Col width={1/2} mr={4}>
                           <Field
-                            name="floor"
-                            render={() => (
-                              <Input
-                                label="Nº andar"
-                                placeholder="Nº andar"
-                                type="number"
-                                error={errors.floor}
-                                defaultValue={floor}
-                                disabled={this.state.type === HOME_TYPES.house}
-                                onChange={(e) => {
-                                  const { value } = e.target
-                                  setFieldValue('floor', value)
-                                  this.setState({floor: value})
-                                }}
-                              />
-                            )}/>
-                        </Col>
-                        <Col width={1/2} ml={2} mr={4}>
-                          <Field
                             name="area"
                             validate={this.validateArea}
                             render={({form}) => (
@@ -186,33 +169,6 @@ class HomeDetails extends Component {
                                 }}
                                 />
                             )}/>
-                        </Col>
-                      </Row>
-                      <Row mb={4}>
-                        <Col width={1/2} mr={4}>
-                          <Field
-                            name="maintenanceFee"
-                            render={() =>
-                              <MaskedInput
-                                mask={currencyInputMask}
-                                render={(ref, props) =>
-                                  <Input
-                                    {...props}
-                                    label="Valor do condomínio"
-                                    placeholder="Cond (R$)"
-                                    error={errors.maintenanceFee}
-                                    defaultValue={maintenanceFee}
-                                    type="tel"
-                                    ref={(input) => ref(input)}
-                                    onChange={(e) => {
-                                      const value = currencyToInt(e.target.value)
-                                      setFieldValue('maintenanceFee', value)
-                                      this.setState({maintenanceFee: value})
-                                    }}
-                                  />
-                                }
-                              />
-                            }/>
                         </Col>
                         <Col width={1/2} ml={2} mr={4}>
                           <Field
@@ -241,6 +197,53 @@ class HomeDetails extends Component {
                               />
                             }/>
                         </Col>
+                      </Row>
+                      <Row mb={4}>
+                        <Col width={showFloorNumber ? 1/2 : 1} mr={4}>
+                          <Field
+                            name="maintenanceFee"
+                            render={() =>
+                              <MaskedInput
+                                mask={currencyInputMask}
+                                render={(ref, props) =>
+                                  <Input
+                                    {...props}
+                                    label="Valor do condomínio"
+                                    placeholder="Cond (R$)"
+                                    error={errors.maintenanceFee}
+                                    defaultValue={maintenanceFee}
+                                    type="tel"
+                                    ref={(input) => ref(input)}
+                                    onChange={(e) => {
+                                      const value = currencyToInt(e.target.value)
+                                      setFieldValue('maintenanceFee', value)
+                                      this.setState({maintenanceFee: value})
+                                    }}
+                                  />
+                                }
+                              />
+                            }/>
+                        </Col>
+                        {showFloorNumber && (
+                          <Col width={1/2} mr={4} ml={2}>
+                            <Field
+                              name="floor"
+                              render={() => (
+                                <Input
+                                  label="Nº andar"
+                                  placeholder="Nº andar"
+                                  type="number"
+                                  error={errors.floor}
+                                  defaultValue={floor}
+                                  onChange={(e) => {
+                                    const { value } = e.target
+                                    setFieldValue('floor', value)
+                                    this.setState({floor: value})
+                                  }}
+                                />
+                              )}/>
+                          </Col>
+                        )}
                       </Row>
                     </>
                   }
