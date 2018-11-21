@@ -13,9 +13,11 @@ export const UPDATE_PERSONAL = 'UPDATE_PERSONAL'
 export const UPDATE_PRICING = 'UPDATE_PRICING'
 export const UPDATE_SERVICES = 'UPDATE_SERVICES'
 export const UPDATE_TOUR = 'UPDATE_TOUR'
+export const UPDATE_LISTING = 'UPDATE_LISTING'
 
 // Action creators
 export const navigateTo = (step) => {
+  amplitude.getInstance().logEvent(`seller-onboarding-${step}`);
   return {
     type: NAVIGATE,
     step: step
@@ -107,6 +109,13 @@ export const updateServices = (value) => {
 export const updateTour = (value) => {
   return {
     type: UPDATE_TOUR,
+    value: value
+  }
+}
+
+export const updateListing = (value) => {
+  return {
+    type: UPDATE_LISTING,
     value: value
   }
 }

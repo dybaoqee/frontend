@@ -135,9 +135,10 @@ class Summary extends PureComponent {
   }
 
   nextStep() {
-    const { navigateTo, resetStoreExceptStep } = this.props
+    const { navigateTo, resetStoreExceptStep, updateListing } = this.props
     navigateTo('success')
     resetStoreExceptStep()
+    updateListing({id: this.state.listingId})
   }
 
   render() {

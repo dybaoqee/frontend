@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components'
+import { themeGet } from 'styled-system'
 
 import {headerMobileMedia} from 'constants/media'
 import * as colors from 'constants/colors'
@@ -72,7 +73,7 @@ export const Nav = styled.nav`
       :after {
         content: '';
         width: 100%;
-        height: 3px;
+        height: 1px;
         background: ${colors.blue.dark};
         position: absolute;
         top: calc(100% - 3px);
@@ -134,6 +135,7 @@ export const Wrapper = styled.div`
 
 export const MenuItem = styled.div`
   box-sizing: border-box;
+  width: ${({isIcon}) => isIcon ? 'auto' : '120px'};
   color: ${({active}) => (active ? colors.gray4a : colors.blue.medium)};
   :after {
     content: '';
@@ -145,9 +147,9 @@ export const MenuItem = styled.div`
     top: calc(100% - 3px);
   }
 
-  font-size: 16px;
   line-height: 22px;
   display: flex;
+  justify-content: center;
 
   min-height: 100%;
   align-items: center;

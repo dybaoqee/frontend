@@ -1,23 +1,27 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
-import RadioButton from '@emcasa/ui-dom/components/RadioButton'
+import Button from '@emcasa/ui-dom/components/Button'
 import Col from '@emcasa/ui-dom/components/Col'
 import Row from '@emcasa/ui-dom/components/Row'
 import View from '@emcasa/ui-dom/components/View'
-import Icon from '@emcasa/ui-dom/components/Icon'
-import Text from '@emcasa/ui-dom/components/Text'
+
+import {
+  getTimeDisplay
+} from '../../times'
 
 import {
   Title,
+  SelectedIcon,
   StyledBullet,
+  CustomTimeText,
   StyledCustomTime,
   StyledCustomTimeItem
 } from './styles'
 
 class CustomTime extends PureComponent {
   render() {
-    const { selected, onClick } = this.props
+    const { selected, onClick, selectedTime } = this.props
     return (
       <StyledCustomTime
         onClick={onClick}
@@ -29,17 +33,24 @@ class CustomTime extends PureComponent {
             <Title>
               <View mr={3}>
                 {selected ?
-                  <Icon name="dot-circle" color="pink" />
+                  <SelectedIcon name="dot-circle" color="pink" />
                 :
-                  <StyledBullet />}
+                  <StyledBullet />
+                }
               </View>
-              <Text inline>Escolher horário específico</Text>
+              {(selected && selectedTime) ?
+                <CustomTimeText inline>{getTimeDisplay(selectedTime)}</CustomTimeText>
+              :
+                <CustomTimeText inline>Escolher horário específico</CustomTimeText>
+              }
             </Title>
           </Col>
         </Row>
-        <Row flexWrap="wrap" justifyContent="space-between">
-          {selected && this.props.children}
-        </Row>
+        {(selected && !selectedTime) &&
+          <Row flexWrap="wrap" justifyContent="space-between">
+            {this.props.children}
+          </Row>
+        }
         </Col>
       </StyledCustomTime>
     )
@@ -47,9 +58,10 @@ class CustomTime extends PureComponent {
 }
 
 CustomTime.propTypes = {
-  selected: PropTypes.bool
+  selected: PropTypes.bool,
+  selectedTime: PropTypes.string
 }
 
-CustomTime.Item = (props) => <StyledCustomTimeItem> <RadioButton {...props} /></StyledCustomTimeItem>
+CustomTime.Item = (props) => <StyledCustomTimeItem> <Button {...props} /></StyledCustomTimeItem>
 
 export default CustomTime

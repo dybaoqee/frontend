@@ -150,7 +150,7 @@ class HomeDetails extends Component {
                   {selectedHomeType &&
                     <>
                       <Row mb={4}>
-                        <Col width={1/2} mr={4}>
+                        <Col width={1/2}>
                           <Field
                             name="area"
                             validate={this.validateArea}
@@ -170,7 +170,7 @@ class HomeDetails extends Component {
                                 />
                             )}/>
                         </Col>
-                        <Col width={1/2} ml={2} mr={4}>
+                        <Col width={1/2} ml={2}>
                           <Field
                             name="propertyTax"
                             validate={this.validatePropertyTax}
@@ -199,7 +199,7 @@ class HomeDetails extends Component {
                         </Col>
                       </Row>
                       <Row mb={4}>
-                        <Col width={showFloorNumber ? 1/2 : 1} mr={4}>
+                        <Col width={showFloorNumber ? 1/2 : 1}>
                           <Field
                             name="maintenanceFee"
                             render={() =>
@@ -225,7 +225,7 @@ class HomeDetails extends Component {
                             }/>
                         </Col>
                         {showFloorNumber && (
-                          <Col width={1/2} mr={4} ml={2}>
+                          <Col width={1/2} ml={2}>
                             <Field
                               name="floor"
                               render={() => (

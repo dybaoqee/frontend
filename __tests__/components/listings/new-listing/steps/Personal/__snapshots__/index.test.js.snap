@@ -34,6 +34,7 @@ exports[`renders correctly 1`] = `
 .c6 {
   -webkit-font-smoothing: antialiased;
   display: block;
+  box-sizing: border-box;
   width: 100%;
   outline: none;
   border-radius: 4px;
@@ -219,12 +220,8 @@ exports[`renders correctly 1`] = `
           >
             <input
               className="c6"
-              error={null}
-              fluid={true}
               fontSize="default"
               height="tall"
-              hideErrorView={false}
-              hideLabelView={true}
               letterSpacing="default"
               onChange={[Function]}
               placeholder="Nome*"
@@ -253,12 +250,8 @@ exports[`renders correctly 1`] = `
           >
             <input
               className="c6"
-              error={null}
-              fluid={true}
               fontSize="default"
               height="tall"
-              hideErrorView={false}
-              hideLabelView={true}
               letterSpacing="default"
               onChange={[Function]}
               placeholder="E-mail"

@@ -13,7 +13,8 @@ import {
   updatePersonal,
   updatePricing,
   updateServices,
-  updateTour
+  updateTour,
+  updateListing
 } from 'redux/actions'
 import Intro from 'components/listings/new-listing/steps/Intro'
 import AddressInput from 'components/listings/new-listing/steps/AddressInput'
@@ -161,6 +162,9 @@ const mapDispatchToProps = dispatch => {
     },
     updateTour: value => {
       dispatch(updateTour(value))
+    },
+    updateListing: value => {
+      dispatch(updateListing(value))
     },
     resetStore: () => {
       dispatch(resetStore())

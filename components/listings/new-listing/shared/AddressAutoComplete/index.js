@@ -1,11 +1,20 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import axios from 'axios'
-import { SearchResultContainer, SearchResultItem } from './styles'
 import { filterComponent } from 'services/google-maps-api'
+import { MoonLoader } from 'react-spinners';
+
+import theme from '@emcasa/ui'
 import Input from '@emcasa/ui-dom/components/Input'
 import Col from '@emcasa/ui-dom/components/Col'
+import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
+import {
+  SearchResultContainer,
+  SearchResultItem,
+  InputContainer,
+  BackIcon
+} from './styles'
 
 export default class AddressAutoComplete extends Component {
   constructor(props) {
@@ -30,7 +39,8 @@ export default class AddressAutoComplete extends Component {
   static propTypes = {
     defaultValue: PropTypes.string,
     onSelectAddress: PropTypes.func.isRequired,
-    onClearInput: PropTypes.func
+    onClearInput: PropTypes.func,
+    onBackPressed: PropTypes.func
   }
 
   static defaultProps = {
@@ -237,8 +247,10 @@ export default class AddressAutoComplete extends Component {
     this.timer = setTimeout(this.searchPlaces.bind(null, value), 300)
 
     const { onClearInput } = this.props
-    if (!value || value === '' && (onClearInput)) {
-      onClearInput()
+    if (onClearInput) {
+      if (!value || value === '') {
+        onClearInput()
+      }
     }
   }
 
@@ -252,22 +264,39 @@ export default class AddressAutoComplete extends Component {
       errors
     } = this.state
     const value = place.description || search
+    const { onBackPressed } = this.props
     return (
       <>
-        <Input
-          hideLabelView
-          hideErrorView={errors.length === 0}
-          error={errors.length ? errors[0] : null}
-          onKeyDown={this.onKeyPress}
-          onBlur={this.onBlur}
-          type="text"
-          name="street"
-          ref={this.searchInput}
-          value={dirty ? value : this.props.defaultValue}
-          placeholder="Endereço e número*"
-          onChange={this.onChange}
-          autoComplete="off"
-        />
+        <InputContainer>
+          {onBackPressed &&
+            <BackIcon name="arrow-left" color="dark" onClick={onBackPressed} />
+          }
+          <Col width={1}>
+            <Input
+              style={{border: 0}}
+              hideLabelView
+              hideErrorView
+              onKeyDown={this.onKeyPress}
+              onBlur={this.onBlur}
+              type="text"
+              name="street"
+              ref={this.searchInput}
+              value={dirty ? value : this.props.defaultValue}
+              placeholder="Endereço e número*"
+              onChange={this.onChange}
+              autoComplete="off"
+            />
+          </Col>
+          <View mr={2}>
+            <MoonLoader
+              size={24}
+              color={theme.colors.pink}
+              style={{marginRight: 14}}
+              loading={loadingPlaceInfo}
+            />
+          </View>
+        </InputContainer>
+        {errors.length > 0 && <Text inline color="red" fontSize="small">{errors[0]}</Text>}
         {showPredictions &&
           <SearchResultContainer>
             <Col width={[1]}>
@@ -275,7 +304,6 @@ export default class AddressAutoComplete extends Component {
             </Col>
           </SearchResultContainer>
         }
-        {loadingPlaceInfo && <Text>Buscando informações sobre o local...</Text>}
       </>
     )
   }

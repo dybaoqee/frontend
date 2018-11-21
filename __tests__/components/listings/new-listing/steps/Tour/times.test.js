@@ -1,7 +1,6 @@
 import {
   getTourMonths,
-  getTourDays,
-  getTourHours
+  getTourDays
 } from 'components/listings/new-listing/steps/Tour/times'
 
 const fullList = [
@@ -26,10 +25,5 @@ describe('Tour dates', () => {
   it('should return a list of unique days of the given month', () => {
     const tourDays = getTourDays(fullList, 10)
     expect(tourDays.length).toBe(5)
-  })
-
-  it('should return a list of tour times of a given date', () => {
-    const tourHours = getTourHours(fullList, '2018-11-16')
-    expect(tourHours.length).toBe(2)
   })
 })
