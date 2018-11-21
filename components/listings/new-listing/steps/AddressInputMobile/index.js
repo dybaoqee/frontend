@@ -41,6 +41,7 @@ class AddressInputMobile extends Component {
         <MobieTypeaheadContainer justifyContent="center" p={4}>
           <Col width={1} mr={4}>
             <AddressAutoComplete
+              onBackPressed={this.close}
               defaultValue={this.state.address}
               onClearInput={this.onClearInput}
               onSelectAddress={(addressFormatted, addressData) => {

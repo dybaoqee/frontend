@@ -2,6 +2,8 @@ import styled from 'styled-components'
 import { themeGet } from 'styled-system'
 import View from '@emcasa/ui-dom/components/View'
 import Row from '@emcasa/ui-dom/components/Row'
+import Icon from '@emcasa/ui-dom/components/Icon'
+import Input from '@emcasa/ui-dom/components/Input'
 
 const SearchResultItem = styled(View)`
   display: flex;
@@ -28,4 +30,25 @@ const SearchResultContainer = styled(Row)`
   }
 `
 
-export { SearchResultItem, SearchResultContainer }
+const InputContainer = styled(Row)`
+  border: 1px solid ${themeGet('colors.lightGrey')};
+  border-radius: ${themeGet('space.1')}px;
+  display: flex;
+  align-items: center;
+`
+
+const StyledInput = styled(Input)`
+  border: none;
+`
+
+const BackIcon = styled(Icon)`
+  margin: ${themeGet('space.1')}px ${themeGet('space.3')}px 0 ${themeGet('space.3')}px;
+`
+
+export {
+  SearchResultItem,
+  SearchResultContainer,
+  InputContainer,
+  StyledInput,
+  BackIcon
+}
