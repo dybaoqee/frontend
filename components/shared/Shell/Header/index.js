@@ -182,14 +182,15 @@ export default class Header extends Component {
     const {
       router,
       hideSeparator,
-      shortLogo
+      shortLogo,
+      transparent
     } = this.props
 
     return (
       <ThemeProvider theme={theme}>
         <Wrapper>
           {router && router.route === '/' && <PhoneHeader />}
-          <Container hideSeparator={hideSeparator}>
+          <Container hideSeparator={hideSeparator} transparent={transparent}>
             <Link href="/">
               <a>
                 <Logo

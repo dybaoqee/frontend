@@ -40,8 +40,9 @@ class Layout extends Component {
           router={router}
           hideSeparator={pageProps.hideSeparator}
           shortLogo={pageProps.shortLogo}
+          transparent={pageProps.transparentHeader}
         />
-        <Container>
+        <Container transparentHeader={pageProps.transparentHeader}>
           <Main>{this.props.children}</Main>
           {renderFooter && <Footer />}
         </Container>

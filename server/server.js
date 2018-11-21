@@ -117,14 +117,18 @@ const startServer = () => {
         app.render(req, res, '/auth/confirm', req.query)
       })
 
+      server.get('/vender', (req, res) => {
+        return app.render(req, res, '/listings/sell', req.query)
+      })
+
+      server.get('/vender/imovel', (req, res) => {
+        return app.render(req, res, '/listings/new-listing', req.query)
+      })
+
       server.get('/saiba-mais-para-vender', (req, res) => {
         return app.render(req, res, '/listings/sell/know-more', req.query)
       })
 
-      server.get('/anuncie', (req, res) => {
-        return app.render(req, res, '/listings/new-listing', req.query)
-      })
-      
       server.get('/avaliacao-imovel', (req, res) => {
         return app.render(req, res, '/listings/estimate-price', req.query)
       })

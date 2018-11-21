@@ -52,7 +52,7 @@ class NewListing extends Component {
       if (!this.hasProgress() && FINAL_STEPS.includes(key)) {
         this.props.resetStore()
         this.props.navigateTo('intro')
-        Router.replace('/anuncie')
+        Router.replace('/vender/imovel')
         return
       }
 
@@ -115,7 +115,7 @@ class NewListing extends Component {
       throw Error('Navigation key ' + nextStep + ' not found in ' + currentStep)
     }
     const stepDisplay = getStepDisplay(nextStep)
-    Router.push('/anuncie', `/anuncie#${stepDisplay}`, {shallow: true})
+    Router.push('/vender/imovel', `/vender/imovel#${stepDisplay}`, {shallow: true})
     window.scrollTo(0, 0)
   }
 
