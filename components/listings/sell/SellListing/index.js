@@ -18,8 +18,14 @@ const CustomInput = styled(Input)`
 `
 
 const Container = styled(View)`
+  width: 100%;
   display: flex;
   justify-content: center;
+  align-self: stretch;
+  background: url(https://res.cloudinary.com/emcasa/image/upload/fl_any_format/v1542831121/background/wall-large.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: bottom;
 `
 
 const Content = styled(View)`

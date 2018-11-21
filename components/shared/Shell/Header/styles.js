@@ -6,7 +6,7 @@ import * as colors from 'constants/colors'
 export default styled.header`
   box-sizing: border-box;
   align-items: center;
-  background: white;
+  background: ${props => props.transparent ? 'transparent' : 'white'};
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;

@@ -25,7 +25,8 @@ export default class Sell extends Component {
   static async getInitialProps() {
     return {
       shortLogo: true,
-      hideSeparator: true
+      hideSeparator: true,
+      transparentHeader: true
     }
   }
 

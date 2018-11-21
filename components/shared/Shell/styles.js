@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components'
 import * as constants from 'constants/dimensions'
 
 export default styled.div`
-  margin-top: ${constants.desktopHeaderHeight}px;
+  margin-top: ${(props) => props.transparentHeader ? 0 : constants.desktopHeaderHeight}px;
   display: flex;
   box-sizing: border-box;
   min-height: calc(100vh - ${constants.desktopHeaderHeight}px);
