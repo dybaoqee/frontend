@@ -19,6 +19,14 @@ const Content = styled(View)`
   max-width: 1100px;
 `
 
+const Icon = styled.div`
+  background-image: url('/static/svg-icons/${props => props.name}.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+`
+
 export default class Benefits extends Component {
   render() {
     return (
@@ -33,6 +41,7 @@ export default class Benefits extends Component {
           </Row>
           <Row justifyContent="center">
             <Col width={3 / 12}>
+              <Icon name="tour-3d" />
               <Text fontSize="large" color="dark">
                 Tour Virtual 3D
               </Text>
@@ -42,6 +51,7 @@ export default class Benefits extends Component {
               </Text>
             </Col>
             <Col width={3 / 12}>
+              <Icon name="avaliacao-precisa" />
               <Text fontSize="large" color="dark">
                 Avaliação precisa
               </Text>
@@ -50,6 +60,7 @@ export default class Benefits extends Component {
               </Text>
             </Col>
             <Col width={3 / 12}>
+              <Icon name="assistencia-juridica" />
               <Text fontSize="large" color="dark">
                 Assitência jurídica
               </Text>
