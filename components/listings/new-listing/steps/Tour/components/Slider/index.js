@@ -6,6 +6,8 @@ import Icon from '@emcasa/ui-dom/components/Icon'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 
+import {isMobile} from 'components/listings/new-listing/lib/mobile'
+
 import {
   PageButton,
   SliderButton
@@ -32,12 +34,15 @@ class Slider extends PureComponent {
       nextDisabled,
       onNext
     } = this.props
+
+    const arrowMargin = isMobile() ? 0 : 4
     return (
       <Row
         width={1}
         alignItems="center"
-        justifyContent="space-between">
-        <Col>
+        justifyContent={isMobile() ? 'space-between' : 'center'}
+      >
+        <Col mr={arrowMargin}>
           <PageButton
             disabled={previousDisabled}
             onClick={onPrevious}
@@ -52,7 +57,7 @@ class Slider extends PureComponent {
             }) : this.renderChild(children)}
           </Row>
         </Col>
-        <Col>
+        <Col ml={arrowMargin}>
           <PageButton
             disabled={nextDisabled}
             onClick={onNext}
