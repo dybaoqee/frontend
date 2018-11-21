@@ -1,5 +1,6 @@
 import {Component, Fragment} from 'react'
 import Link from 'next/link'
+
 import EmCasaButton from 'components/shared/Common/Buttons/Rounded'
 import UserMenu from './UserMenu'
 import PhoneHeader from 'components/shared/Shell/Header/PhoneHeader'
@@ -11,6 +12,12 @@ import faHeart from '@fortawesome/fontawesome-pro-light/faHeart'
 import faChart from '@fortawesome/fontawesome-pro-light/faChartBar'
 import AccountKit from 'components/shared/Auth/AccountKit'
 import {getCookie, setCookie} from 'lib/session'
+
+import theme from '@emcasa/ui'
+import { ThemeProvider } from 'styled-components'
+import Text from '@emcasa/ui-dom/components/Text'
+import Icon from '@emcasa/ui-dom/components/Icon'
+import * as colors from 'constants/colors'
 
 export default class Header extends Component {
   constructor(props) {
@@ -72,7 +79,7 @@ export default class Header extends Component {
     )
   }
 
-  renderNav() {
+  renderNav(shortLogo) {
     const {authenticated, isAdmin, router} = this.props
     const {isMobileNavVisible} = this.state
 
@@ -81,13 +88,15 @@ export default class Header extends Component {
         href: '/listings',
         as: '/imoveis',
         icon: faSearch,
-        title: 'Buscar Imóveis'
+        title: 'Buscar Imóveis',
+        newTitle: 'Comprar'
       },
       {
         href: '/listings/sell/know-more',
         as: '/saiba-mais-para-vender',
         icon: faTag,
-        title: 'Quero anunciar'
+        title: 'Quero anunciar',
+        newTitle: 'Vender'
       },
       {
         href: '/listings/fav',
@@ -102,35 +111,70 @@ export default class Header extends Component {
         icon: faChart,
         title: 'Painel',
         admin: true
+      },
+      {
+        href: '/listings/sell/know-more',
+        as: '/saiba-mais-para-vender',
+        newIcon: 'phone'
       }
     ]
     return (
-      <Fragment>
+      <>
         <Button onClick={this.toggleMobileNavVisibility}>☰</Button>
-
         <Nav visible={isMobileNavVisible}>
-          {menuItems.map(({href, as, icon, title, auth, admin}) => {
+          {menuItems.map(({href, as, icon, title, newTitle, newIcon, auth, admin}) => {
             if (
               (auth && authenticated) ||
               (admin && isAdmin) ||
               (!auth && !admin)
             ) {
-              return (
-                <Link href={href} as={as} key={title}>
-                  <a>
-                    <MenuItem active={router && href === router.route}>
-                      <FontAwesomeIcon icon={icon} />
-                      <span>{title}</span>
-                    </MenuItem>
-                  </a>
-                </Link>
-              )
+              if (shortLogo && (newTitle || newIcon)) {
+                return (
+                  <Link href={href} as={as} key={title}>
+                    <a>
+                      <MenuItem
+                        active={router && href === router.route}
+                        isIcon={!!newIcon}
+                      >
+                        {newTitle ?
+                          <Text
+                            inline
+                            color="dark"
+                            fontFamily="FaktSoftPro-Blond"
+                          >
+                            {newTitle}
+                          </Text>
+                        :
+                          <Icon name={newIcon} color="dark" />
+                        }
+                      </MenuItem>
+                    </a>
+                  </Link>
+                )
+              } else if (!shortLogo && !newIcon) {
+                return (
+                  <Link href={href} as={as} key={title}>
+                    <a>
+                      <MenuItem
+                        active={router && href === router.route}
+                        isIcon={!!icon}
+                      >
+                        {icon && <FontAwesomeIcon icon={icon} />}
+                        <span
+                          style={{color: colors.blue.dark}}
+                        >
+                          {title}
+                        </span>
+                      </MenuItem>
+                    </a>
+                  </Link>
+                )
+              }
             }
           })}
-
           {this.getUserHeader(authenticated, isAdmin)}
         </Nav>
-      </Fragment>
+      </>
     )
   }
 
@@ -142,20 +186,22 @@ export default class Header extends Component {
     } = this.props
 
     return (
-      <Wrapper>
-        {router && router.route === '/' && <PhoneHeader />}
-        <Container hideSeparator={hideSeparator}>
-          <Link href="/">
-            <a>
-              <Logo
-                shortLogo={shortLogo}
-                alt="Emcasa Imobiliária no Rio de Janeiro"
-              />
-            </a>
-          </Link>
-          {this.renderNav()}
-        </Container>
-      </Wrapper>
+      <ThemeProvider theme={theme}>
+        <Wrapper>
+          {router && router.route === '/' && <PhoneHeader />}
+          <Container hideSeparator={hideSeparator}>
+            <Link href="/">
+              <a>
+                <Logo
+                  shortLogo={shortLogo}
+                  alt="Emcasa Imobiliária no Rio de Janeiro"
+                />
+              </a>
+            </Link>
+            {this.renderNav(shortLogo)}
+          </Container>
+        </Wrapper>
+      </ThemeProvider>
     )
   }
 }
