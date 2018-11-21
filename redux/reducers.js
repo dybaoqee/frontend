@@ -10,6 +10,7 @@ import {
   UPDATE_PRICING,
   UPDATE_SERVICES,
   UPDATE_TOUR,
+  UPDATE_LISTING,
   RESET_STORE,
   RESET_STORE_EXCEPT_STEP,
   START
@@ -69,6 +70,9 @@ const initialState = {
     time: null,
     monthOffset: 0,
     dayOffset: 0
+  },
+  listing: {
+    id: null
   }
 }
 
@@ -133,6 +137,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         tour: action.value
+      }
+    case UPDATE_LISTING:
+      return {
+        ...state,
+        listing: action.value
       }
     case RESET_STORE:
       return initialState
