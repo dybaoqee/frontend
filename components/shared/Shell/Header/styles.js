@@ -74,9 +74,9 @@ export const Nav = styled.nav`
         content: '';
         width: 100%;
         height: 1px;
-        background: ${themeGet('colors.pink')};
+        background: ${colors.blue.dark};
         position: absolute;
-        top: calc(100% - 1px);
+        top: calc(100% - 3px);
       }
     }
   }
