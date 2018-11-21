@@ -12,6 +12,9 @@ const Container = styled(View)`
 `
 
 const Content = styled(View)`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   max-width: 1100px;
 `
 
