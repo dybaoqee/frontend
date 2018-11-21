@@ -2,17 +2,17 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import axios from 'axios'
 import { filterComponent } from 'services/google-maps-api'
+import { MoonLoader } from 'react-spinners';
 
+import theme from '@emcasa/ui'
 import Input from '@emcasa/ui-dom/components/Input'
-import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
+import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
-import Icon from '@emcasa/ui-dom/components/Icon'
 import {
   SearchResultContainer,
   SearchResultItem,
   InputContainer,
-  StyledInput,
   BackIcon
 } from './styles'
 
@@ -287,6 +287,14 @@ export default class AddressAutoComplete extends Component {
               autoComplete="off"
             />
           </Col>
+          <View mr={2}>
+            <MoonLoader
+              size={24}
+              color={theme.colors.pink}
+              style={{marginRight: 14}}
+              loading={loadingPlaceInfo}
+            />
+          </View>
         </InputContainer>
         {errors.length > 0 && <Text inline color="red" fontSize="small">{errors[0]}</Text>}
         {showPredictions &&
@@ -296,7 +304,6 @@ export default class AddressAutoComplete extends Component {
             </Col>
           </SearchResultContainer>
         }
-        {loadingPlaceInfo && <Text>Buscando informações sobre o local...</Text>}
       </>
     )
   }

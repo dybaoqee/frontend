@@ -168,7 +168,7 @@ class AddressInput extends Component {
                       </MobileAddressButton>
                     </Col>
                   :
-                    <Col mb={4} mr={4}>
+                    <Col mb={4}>
                       <Field
                         name="address"
                         validate={this.validateAddress}
@@ -188,22 +188,23 @@ class AddressInput extends Component {
                       />
                     </Col>
                   }
-                  <Col mr={4}>
-                  <Field
-                    name="complement"
-                    render={() => (
-                      <Input
-                        hideLabelView
-                        hideErrorView
-                        placeholder="Complemento"
-                        defaultValue={complement}
-                        onChange={(e) => {
-                          const { value } = e.target
-                          setFieldValue('complement', value)
-                          this.setState({complement: value})
-                        }}
-                      />
-                    )} />
+                  <Col>
+                    <Field
+                      name="complement"
+                      render={() => (
+                        <Input
+                          hideLabelView
+                          hideErrorView
+                          placeholder="Complemento"
+                          defaultValue={complement}
+                          onChange={(e) => {
+                            const { value } = e.target
+                            setFieldValue('complement', value)
+                            this.setState({complement: value})
+                          }}
+                        />
+                      )}
+                    />
                   </Col>
                   <NavButtons
                     previousStep={this.previousStep}

@@ -3,7 +3,6 @@ import { themeGet } from 'styled-system'
 import View from '@emcasa/ui-dom/components/View'
 import Row from '@emcasa/ui-dom/components/Row'
 import Icon from '@emcasa/ui-dom/components/Icon'
-import Input from '@emcasa/ui-dom/components/Input'
 
 const SearchResultItem = styled(View)`
   display: flex;
@@ -20,7 +19,7 @@ const SearchResultItem = styled(View)`
   }
 `
 
-const MARGIN_RIGHT = '38px'
+const MARGIN_RIGHT = '20px'
 const SearchResultContainer = styled(Row)`
   position: absolute;
   z-index: 1;
@@ -37,10 +36,6 @@ const InputContainer = styled(Row)`
   align-items: center;
 `
 
-const StyledInput = styled(Input)`
-  border: none;
-`
-
 const BackIcon = styled(Icon)`
   margin: ${themeGet('space.1')}px ${themeGet('space.3')}px 0 ${themeGet('space.3')}px;
 `
@@ -49,6 +44,5 @@ export {
   SearchResultItem,
   SearchResultContainer,
   InputContainer,
-  StyledInput,
   BackIcon
 }
