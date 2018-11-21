@@ -10,6 +10,7 @@ import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
 import StaticMap from 'components/listings/new-listing/shared/StaticMap'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
+import {autoFocus} from 'components/listings/new-listing/lib/forms'
 import {
   UserPriceCol,
   EditPriceButton
@@ -42,9 +43,7 @@ class Pricing extends Component {
 
   componentDidMount() {
     this.updateStateFromProps(this.props)
-    if (this.userPriceInput !== null) {
-      this.userPriceInput.focus()
-    }
+    autoFocus(this.userPriceInput)
   }
 
   componentWillReceiveProps(props) {

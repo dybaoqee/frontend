@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Formik, Field } from 'formik'
-import theme from '@emcasa/ui'
 
 import { ADDRESS_IS_COVERED } from 'graphql/listings/queries'
 import Row from '@emcasa/ui-dom/components/Row'
@@ -11,6 +10,7 @@ import AddressAutoComplete from 'components/listings/new-listing/shared/AddressA
 import StaticMap from 'components/listings/new-listing/shared/StaticMap'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import { getAddressInput } from 'lib/address'
+import {isMobile} from 'components/listings/new-listing/lib/mobile'
 import {
   MobileAddressTextContainer,
   MobileAddressButton,
@@ -27,7 +27,6 @@ class AddressInput extends Component {
     this.validateAddress = this.validateAddress.bind(this)
     this.updateStateFromProps = this.updateStateFromProps.bind(this)
     this.onClearInput = this.onClearInput.bind(this)
-    this.isMobile = this.isMobile.bind(this)
     this.openMobileAddressInput = this.openMobileAddressInput.bind(this)
   }
 
@@ -122,11 +121,6 @@ class AddressInput extends Component {
     }
   }
 
-  isMobile() {
-    const breakpoint = parseInt(theme.breakpoints[0])
-    return window.innerWidth <= breakpoint
-  }
-
   openMobileAddressInput() {
     this.props.navigateTo('addressInputMobile')
   }
@@ -161,7 +155,7 @@ class AddressInput extends Component {
                   <Col>
                     <StaticMap animated={true} addressData={this.state.addressData} />
                   </Col>
-                  {this.isMobile() ?
+                  {isMobile() ?
                     <Col mb={4}>
                       <MobileAddressButton
                         fluid

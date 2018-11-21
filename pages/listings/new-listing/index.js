@@ -8,7 +8,7 @@ import {
   resetStore
 } from 'redux/actions'
 import { ThemeProvider } from 'styled-components'
-import injectGlobal from '@emcasa/ui-dom/components/global-styles'
+import '@emcasa/ui-dom/components/global-styles'
 import theme from '@emcasa/ui'
 import {
   getScreen,
@@ -59,6 +59,12 @@ class NewListing extends Component {
       navigateTo(key ? key : 'intro')
       return false
     })
+
+    // Scroll restoration
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0)
   }
 
   componentWillReceiveProps(props) {
@@ -109,7 +115,8 @@ class NewListing extends Component {
       throw Error('Navigation key ' + nextStep + ' not found in ' + currentStep)
     }
     const stepDisplay = getStepDisplay(nextStep)
-    Router.push('/anuncie', `/anuncie#${stepDisplay}`, { shallow: true })
+    Router.push('/anuncie', `/anuncie#${stepDisplay}`, {shallow: true})
+    window.scrollTo(0, 0)
   }
 
   render() {
