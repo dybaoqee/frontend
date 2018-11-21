@@ -33,7 +33,7 @@ class CustomTime extends PureComponent {
                 :
                   <StyledBullet />}
               </View>
-              <Text inline>Escolher horário específico</Text>
+              <Text inline size="small">Escolher horário específico</Text>
             </Title>
           </Col>
         </Row>

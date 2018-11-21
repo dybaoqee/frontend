@@ -45,19 +45,10 @@ const getTourDays = (timeList, month) => {
   return Object.values(tourDays)
 }
 
-const getTourHours = (timeList, date) => {
-  const tourHours = []
-  timeList.forEach((item) => {
-    const parser = moment(item)
-    const itemDate = parser.format(DAY_KEY_FORMAT)
-    if (date !== itemDate) return
-    tourHours.push(parser.format('HH'))
-  })
-  return tourHours.reverse()
-}
+const TOUR_HOURS = ['09', '10', '11', '12', '13', '14', '15', '16', '17']
 
 export {
   getTourMonths,
   getTourDays,
-  getTourHours
+  TOUR_HOURS
 }

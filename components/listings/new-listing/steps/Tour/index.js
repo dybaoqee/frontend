@@ -12,7 +12,7 @@ import TourDays from './components/TourDays'
 import {
   getTourDays,
   getTourMonths,
-  getTourHours
+  TOUR_HOURS
 } from './times'
 import {
   EARLY,
@@ -147,7 +147,6 @@ class Tour extends Component {
     const { tourOptions } = services
     const tourDays = getTourDays(tourOptions, this.state.month)
     const tourMonths = getTourMonths(tourOptions)
-    const tourHours = getTourHours(tourOptions, this.state.day)
 
     return (
       <div ref={this.props.hostRef}>
@@ -197,7 +196,7 @@ class Tour extends Component {
                       render={() =>
                         <Col width={1}>
                           <RadioButton.Group>
-                            {tourHours.map((item) => {
+                            {TOUR_HOURS.map((item) => {
                               if (item !== EARLY && item !== LATE) {
                                 return null
                               }
@@ -219,12 +218,12 @@ class Tour extends Component {
                               )
                             })}
                           </RadioButton.Group>
-                          {this.hasCustomTime(tourHours) &&
+                          {this.hasCustomTime(TOUR_HOURS) &&
                             <CustomTime
                               onClick={this.selectCustomTime}
                               selected={this.state.customTime}
                             >
-                              {tourHours.map((item) => {
+                              {TOUR_HOURS.map((item) => {
                                 return (
                                   <>
                                     <CustomTime.Item
