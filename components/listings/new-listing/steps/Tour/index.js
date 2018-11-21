@@ -114,7 +114,16 @@ class Tour extends Component {
   }
 
   selectCustomTime() {
-    if (!this.state.customTime) {
+    const { time, customTime } = this.state
+    if (time) {
+      this.setState({
+        time: null,
+        customTime: true
+      })
+      return
+    }
+
+    if (!customTime) {
       this.setState({
         time: null
       })

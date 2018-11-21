@@ -5,8 +5,6 @@ import Button from '@emcasa/ui-dom/components/Button'
 import Col from '@emcasa/ui-dom/components/Col'
 import Row from '@emcasa/ui-dom/components/Row'
 import View from '@emcasa/ui-dom/components/View'
-import Icon from '@emcasa/ui-dom/components/Icon'
-import Text from '@emcasa/ui-dom/components/Text'
 
 import {
   getTimeDisplay
@@ -16,6 +14,7 @@ import {
   Title,
   SelectedIcon,
   StyledBullet,
+  CustomTimeText,
   StyledCustomTime,
   StyledCustomTimeItem
 } from './styles'
@@ -40,9 +39,9 @@ class CustomTime extends PureComponent {
                 }
               </View>
               {(selected && selectedTime) ?
-                <Text inline>{getTimeDisplay(selectedTime)}</Text>
+                <CustomTimeText inline>{getTimeDisplay(selectedTime)}</CustomTimeText>
               :
-                <Text inline>Escolher horário específico</Text>
+                <CustomTimeText inline>Escolher horário específico</CustomTimeText>
               }
             </Title>
           </Col>
