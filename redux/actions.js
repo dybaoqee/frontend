@@ -17,6 +17,7 @@ export const UPDATE_LISTING = 'UPDATE_LISTING'
 
 // Action creators
 export const navigateTo = (step) => {
+  amplitude.getInstance().logEvent(`seller-onboarding-${step}`);
   return {
     type: NAVIGATE,
     step: step
