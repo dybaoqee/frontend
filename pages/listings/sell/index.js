@@ -16,7 +16,7 @@ const Container = styled(View)`
 const Block = styled(View)`
   display: flex;
   flex: 1;
-  min-height: 60vh;
+  min-height: 80vh;
   align-items: center;
   justify-content: center;
 `

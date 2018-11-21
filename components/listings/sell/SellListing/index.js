@@ -7,6 +7,7 @@ import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
 import Input from '@emcasa/ui-dom/components/Input'
 import Button from '@emcasa/ui-dom/components/Button'
+import {desktopHeaderHeight} from 'constants/dimensions'
 
 const UnderlinedText = styled(Text)`
   text-decoration: underline;
@@ -29,6 +30,7 @@ const Container = styled(View)`
 `
 
 const Content = styled(View)`
+  margin-top: ${desktopHeaderHeight}px;
   max-width: 700px;
 `
 
