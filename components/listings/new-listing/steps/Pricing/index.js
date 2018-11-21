@@ -137,7 +137,7 @@ class Pricing extends Component {
         <Text fontSize="large" fontWeight="bold" textAlign="center">{suggestedPrice}</Text>
         <Text color="grey">Recomendamos anunciar por:</Text>
             {this.state.editingPrice ?
-              <Col width={[1, 1/2]} mr={4}>
+              <Col width={[1, 1/2]}>
                 {this.currencyInput(errors, setFieldValue, setFieldTouched)}
               </Col>
               :

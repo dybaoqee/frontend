@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 
-import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import AddressAutoComplete from 'components/listings/new-listing/shared/AddressAutoComplete'
 import {
@@ -16,10 +15,6 @@ class AddressInputMobile extends Component {
 
   state = {
     address: null
-  }
-
-  componentDidMount() {
-    // TODO: hide header
   }
 
   selectAddress(addressFormatted, addressData) {
@@ -39,8 +34,9 @@ class AddressInputMobile extends Component {
     return (
       <div ref={this.props.hostRef}>
         <MobieTypeaheadContainer justifyContent="center" p={4}>
-          <Col width={1} mr={4}>
+          <Col width={1}>
             <AddressAutoComplete
+              onBackPressed={this.close}
               defaultValue={this.state.address}
               onClearInput={this.onClearInput}
               onSelectAddress={(addressFormatted, addressData) => {

@@ -152,7 +152,7 @@ class Differential extends Component {
                   </Text>
                   <Text color="grey">Conte pra gente algum diferencial do seu imóvel.</Text>
                   <Row mb={4}>
-                    <Col width={1} mr={4}>
+                    <Col width={1}>
                       <Field
                         name="text"
                         render={() => (

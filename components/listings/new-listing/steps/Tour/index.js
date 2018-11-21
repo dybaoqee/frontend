@@ -12,14 +12,13 @@ import TourDays from './components/TourDays'
 import {
   getTourDays,
   getTourMonths,
-  getTourHours
-} from './times'
-import {
+  getTimeDisplay,
+  TOUR_HOURS,
   EARLY,
   LATE,
   EARLY_DISPLAY,
   LATE_DISPLAY
-} from './constants'
+} from './times'
 
 class Tour extends Component {
   constructor(props) {
@@ -88,6 +87,8 @@ class Tour extends Component {
   }
 
   onDaySelected(day, dayOffset, setFieldTouched, setFieldValue) {
+    setFieldValue('day', day)
+    setFieldTouched('day')
     setFieldValue('time', null)
     setFieldTouched('time')
     this.setState({
@@ -101,13 +102,10 @@ class Tour extends Component {
     this.setState({time: value})
   }
 
-  getTimeDisplay(time, longText) {
-    if (time === EARLY && longText) {
-      return EARLY_DISPLAY
-    } else if (time === LATE && longText) {
-      return LATE_DISPLAY
+  validateDay(value) {
+    if (!value) {
+      return 'É necessário selecionar um dia.'
     }
-    return `${time}:00`
   }
 
   validateTime(value) {
@@ -124,7 +122,16 @@ class Tour extends Component {
   }
 
   selectCustomTime() {
-    if (!this.state.customTime) {
+    const { time, customTime } = this.state
+    if (time) {
+      this.setState({
+        time: null,
+        customTime: true
+      })
+      return
+    }
+
+    if (!customTime) {
       this.setState({
         time: null
       })
@@ -147,7 +154,6 @@ class Tour extends Component {
     const { tourOptions } = services
     const tourDays = getTourDays(tourOptions, this.state.month)
     const tourMonths = getTourMonths(tourOptions)
-    const tourHours = getTourHours(tourOptions, this.state.day)
 
     return (
       <div ref={this.props.hostRef}>
@@ -160,7 +166,7 @@ class Tour extends Component {
                 time
               }}
               isInitialValid={() => {
-                return !this.validateTime(time)
+                return !this.validateTime(time) || !this.validateDay(day)
               }}
               render={({isValid, setFieldTouched, setFieldValue}) => (
                 <>
@@ -178,6 +184,7 @@ class Tour extends Component {
                   <Row mb={4}>
                     <Field
                       name="day"
+                      validate={this.validateDay}
                       render={() =>
                         <TourDays
                           month={month}
@@ -197,14 +204,14 @@ class Tour extends Component {
                       render={() =>
                         <Col width={1}>
                           <RadioButton.Group>
-                            {tourHours.map((item) => {
+                            {TOUR_HOURS.map((item) => {
                               if (item !== EARLY && item !== LATE) {
                                 return null
                               }
                               return (
                                 <>
                                   <RadioButton
-                                    label={this.getTimeDisplay(item, true)}
+                                    label={getTimeDisplay(item, true)}
                                     value={item}
                                     checked={this.state.time === item && !this.state.customTime}
                                     onClick={() => {
@@ -219,26 +226,23 @@ class Tour extends Component {
                               )
                             })}
                           </RadioButton.Group>
-                          {this.hasCustomTime(tourHours) &&
+                          {this.hasCustomTime(TOUR_HOURS) &&
                             <CustomTime
                               onClick={this.selectCustomTime}
                               selected={this.state.customTime}
+                              selectedTime={this.state.time}
                             >
-                              {tourHours.map((item) => {
+                              {TOUR_HOURS.map((item) => {
                                 return (
                                   <>
                                     <CustomTime.Item
-                                      label={this.getTimeDisplay(item, false)}
-                                      value={item}
-                                      checked={this.state.time === item}
-                                      height="small"
                                       onClick={() => {
                                         setFieldValue('time', item)
                                         setFieldTouched('time')
                                         this.selectTime(item)
                                       }}
-                                    />
-                                    <View mb={2} />
+                                    >{getTimeDisplay(item, false)}</CustomTime.Item>
+                                    <View mb={2} mr={2} />
                                   </>
                                 )
                               })}

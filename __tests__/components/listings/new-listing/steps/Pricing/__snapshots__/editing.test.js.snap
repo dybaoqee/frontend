@@ -29,7 +29,7 @@ exports[`renders editing price state 1`] = `
   justify-content: center;
 }
 
-.c6 {
+.c5 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -45,20 +45,15 @@ exports[`renders editing price state 1`] = `
   width: 100%;
 }
 
-.c7 {
+.c6 {
   width: 41.66666666666667%;
 }
 
 .c4 {
   margin-right: 20px;
-  width: 100%;
 }
 
-.c5 {
-  margin-right: 20px;
-}
-
-.c8 {
+.c7 {
   outline: none;
   display: block;
   cursor: pointer;
@@ -76,11 +71,11 @@ exports[`renders editing price state 1`] = `
   border-color: #e0e6ed;
 }
 
-.c8 :hover {
+.c7 :hover {
   background-color: #ffffff;
 }
 
-.c9 {
+.c8 {
   outline: none;
   display: block;
   cursor: pointer;
@@ -98,18 +93,12 @@ exports[`renders editing price state 1`] = `
   border-color: #e0e6ed;
 }
 
-.c9 :hover {
+.c8 :hover {
   background-color: #f50057;
 }
 
 @media screen and (min-width:640px) {
   .c1 {
-    width: 50%;
-  }
-}
-
-@media screen and (min-width:640px) {
-  .c4 {
     width: 50%;
   }
 }
@@ -164,7 +153,7 @@ exports[`renders editing price state 1`] = `
           Recomendamos anunciar por:
         </p>
         <div
-          className="c4"
+          className="c1"
           width={
             Array [
               1,
@@ -173,7 +162,7 @@ exports[`renders editing price state 1`] = `
           }
         >
           <div
-            className="c5"
+            className="c4"
           >
             <input
               mask={[Function]}
@@ -191,14 +180,14 @@ exports[`renders editing price state 1`] = `
         </p>
       </div>
       <div
-        className="c6"
+        className="c5"
       >
         <div
-          className="c7"
+          className="c6"
           width={0.4166666666666667}
         >
           <button
-            className="c8"
+            className="c7"
             fontSize="default"
             height="tall"
             onClick={[Function]}
@@ -207,11 +196,11 @@ exports[`renders editing price state 1`] = `
           </button>
         </div>
         <div
-          className="c7"
+          className="c6"
           width={0.4166666666666667}
         >
           <button
-            className="c9"
+            className="c8"
             disabled={false}
             fontSize="default"
             height="tall"
