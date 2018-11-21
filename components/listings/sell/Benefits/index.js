@@ -50,7 +50,8 @@ export default class Benefits extends Component {
                 Assitência jurídica
               </Text>
               <Text color="gray">
-                Aqui você tem Assistência Jurídica grátis com documentação e processos
+                Aqui você tem Assistência Jurídica grátis com documentação e
+                processos
               </Text>
             </Col>
           </Row>
