@@ -23,8 +23,20 @@ const Icon = styled.div`
   background-image: url('/static/svg-icons/${props => props.name}.svg');
   background-repeat: no-repeat;
   background-size: cover;
-  width: 50px;
-  height: 50px;
+  width: 70px;
+  height: 70px;
+  margin-bottom: 30px;
+`
+
+const BenefitCol = styled(Col)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  p {
+    margin-bottom: 8px;
+    margin-top: 0;
+  }
 `
 
 export default class Benefits extends Component {
@@ -40,7 +52,7 @@ export default class Benefits extends Component {
             </Col>
           </Row>
           <Row justifyContent="center">
-            <Col width={3 / 12}>
+            <BenefitCol width={3 / 12}>
               <Icon name="tour-3d" />
               <Text fontSize="large" color="dark">
                 Tour Virtual 3D
@@ -49,8 +61,8 @@ export default class Benefits extends Component {
                 O Tour Virtual 3D permite que as pessoas vejam o imóvel de uma
                 maneira diferenciada
               </Text>
-            </Col>
-            <Col width={3 / 12}>
+            </BenefitCol>
+            <BenefitCol width={3 / 12}>
               <Icon name="avaliacao-precisa" />
               <Text fontSize="large" color="dark">
                 Avaliação precisa
@@ -58,8 +70,8 @@ export default class Benefits extends Component {
               <Text color="gray">
                 Nossa plataforma calcula automaticamente o valor do seu imóvel
               </Text>
-            </Col>
-            <Col width={3 / 12}>
+            </BenefitCol>
+            <BenefitCol width={3 / 12}>
               <Icon name="assistencia-juridica" />
               <Text fontSize="large" color="dark">
                 Assitência jurídica
@@ -68,7 +80,7 @@ export default class Benefits extends Component {
                 Aqui você tem Assistência Jurídica grátis com documentação e
                 processos
               </Text>
-            </Col>
+            </BenefitCol>
           </Row>
           <Row justifyContent="center">
             <Col width={4 / 12}>
