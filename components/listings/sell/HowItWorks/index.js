@@ -1,4 +1,5 @@
 import {Component} from 'react'
+import Link from 'next/link'
 import styled from 'styled-components'
 import View from '@emcasa/ui-dom/components/View'
 import Col from '@emcasa/ui-dom/components/Col'
@@ -64,9 +65,11 @@ export default class HowItWorks extends Component {
           </Row>
           <Row justifyContent="center">
             <Col width={4 / 12}>
-              <Button height="tall" fluid>
-                Quero vender meu imóvel
-              </Button>
+              <Link href="/vender/imovel">
+                <Button height="tall" fluid>
+                  Quero vender meu imóvel
+                </Button>
+              </Link>
             </Col>
           </Row>
         </Content>
