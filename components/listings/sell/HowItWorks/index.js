@@ -1,4 +1,5 @@
 import {Component} from 'react'
+import theme from '@emcasa/ui'
 import Link from 'next/link'
 import styled from 'styled-components'
 import View from '@emcasa/ui-dom/components/View'
@@ -27,6 +28,48 @@ const Icon = styled.div`
   height: 50px;
 `
 
+const Step = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  border: 1px solid ${theme.colors.lightGrey};
+  border-radius: 4px;
+  width: 120px;
+  height: 164px;
+  padding: 5px;
+  p {
+    margin: 0;
+  }
+`
+
+const StepIndex = styled.div`
+  margin: -10px;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+  width: 28px;
+  border-radius: 100%;
+  background-color: ${theme.colors.pink};
+`
+
+
+const Steps = styled(Row)`
+  min-height: 30vh;
+`
+
+const STEPS = [
+  {title: 'Cadastro do Imóvel', icon: 'cadastro-imovel'},
+  {title: 'Avaliação precisa do seu imóvel', icon: 'avaliacao-precisa'},
+  {title: 'Tour Virtual 3D e Fotos Profissionais', icon: 'tour-3d'},
+  {title: 'Imóvel Publicado', icon: 'publicacao'},
+  {title: 'Visitas Agendadas', icon: 'acesso-compradores'},
+  {title: 'Venda Finalizada', icon: 'venda-finalizada'},
+]
+
 export default class HowItWorks extends Component {
   render() {
     return (
@@ -40,51 +83,31 @@ export default class HowItWorks extends Component {
             </Col>
           </Row>
           <Row justifyContent="center">
-            <Col>
-              <Text color="grey">
-                A EmCasa tem um processo único. É muito fácil vender seu imóvel aqui.
-                Simplificamos todo o processo e proporcionamos uma economia pra você
-            </Text>
-            </Col>
-          </Row>
-          <Row justifyContent="center">
-            <Col width={2 / 12}>
-              <Icon name="cadastro-imovel" />
-              <Text fontSize="medium" color="dark">
-                Cadastro do Imóvel
-              </Text>
-            </Col>
-            <Col width={2 / 12}>
-              <Icon name="avaliacao-precisa" />
-              <Text fontSize="medium" color="dark">
-                Avaliação precisa do seu imóvel
-              </Text>
-            </Col>
-            <Col width={2 / 12}>
-              <Icon name="tour-3d" />
-              <Text fontSize="medium" color="dark">
-                Tour Virtual 3D e Fotos Profissionais
-              </Text>
-            </Col>
-            <Col width={2 / 12}>
-              <Icon name="publicacao" />
-              <Text fontSize="medium" color="dark">
-                Imóvel Publicado
-              </Text>
-            </Col>
-            <Col width={2 / 12}>
-              <Icon name="acesso-compradores" />
-              <Text fontSize="medium" color="dark">
-                Visitas Agendadas
-              </Text>
-            </Col>
-            <Col width={2 / 12}>
-              <Icon name="venda-finalizada" />
-              <Text fontSize="medium" color="dark">
-                Venda finalizada
+            <Col width={10 / 12}>
+              <Text color="grey" textAlign="center">
+                A EmCasa tem um processo único. É muito fácil vender seu imóvel
+                aqui. Simplificamos todo o processo e proporcionamos uma
+                economia pra você.
               </Text>
             </Col>
           </Row>
+          <Steps justifyContent="center" mt={40}>
+            {STEPS.map(({title, icon}, index) => (
+              <Col width={2 / 12}>
+                <StepIndex>
+                  <Text color="white" fontWeight="bold" fontSize="small">
+                    {index + 1}
+                  </Text>
+                </StepIndex>
+                <Step>
+                  <Icon name={icon} />
+                  <Text fontSize="medium" color="dark" fontWeight="bold">
+                    {title}
+                  </Text>
+                </Step>
+              </Col>
+            ))}
+          </Steps>
           <Row justifyContent="center">
             <Col width={4 / 12}>
               <Link href="/vender/imovel">
