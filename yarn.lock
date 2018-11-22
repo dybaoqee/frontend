@@ -4515,11 +4515,15 @@ d3-color@1:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/d3-color/-/d3-color-1.2.3.tgz#6c67bb2af6df3cc8d79efcc4d3a3e83e28c8048f"
 
+d3-ease@^1.0.3:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/d3-ease/-/d3-ease-1.0.5.tgz#8ce59276d81241b1b72042d6af2d40e76d936ffb"
+
 d3-format@1:
   version "1.3.2"
   resolved "https://registry.yarnpkg.com/d3-format/-/d3-format-1.3.2.tgz#6a96b5e31bcb98122a30863f7d92365c00603562"
 
-d3-interpolate@1, d3-interpolate@^1.1.5:
+d3-interpolate@1, d3-interpolate@^1.1.5, d3-interpolate@^1.2.0:
   version "1.3.2"
   resolved "https://registry.yarnpkg.com/d3-interpolate/-/d3-interpolate-1.3.2.tgz#417d3ebdeb4bc4efcc8fd4361c55e4040211fd68"
   dependencies:
@@ -4556,6 +4560,10 @@ d3-time-format@2:
 d3-time@1:
   version "1.0.10"
   resolved "https://registry.yarnpkg.com/d3-time/-/d3-time-1.0.10.tgz#8259dd71288d72eeacfd8de281c4bf5c7393053c"
+
+d3-timer@^1.0.4:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/d3-timer/-/d3-timer-1.0.9.tgz#f7bb8c0d597d792ff7131e1c24a36dd471a471ba"
 
 d@1:
   version "1.0.0"
@@ -5296,6 +5304,10 @@ execa@^0.7.0:
     p-finally "^1.0.0"
     signal-exit "^3.0.0"
     strip-eof "^1.0.0"
+
+exenv@^1.2.0:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/exenv/-/exenv-1.2.2.tgz#2ae78e85d9894158670b03d47bec1f03bd91bb9d"
 
 exit-hook@^1.0.0:
   version "1.1.1"
@@ -8142,6 +8154,15 @@ nth-check@~1.0.1:
   dependencies:
     boolbase "~1.0.0"
 
+nuka-carousel@^4.4.3:
+  version "4.4.3"
+  resolved "https://registry.yarnpkg.com/nuka-carousel/-/nuka-carousel-4.4.3.tgz#ae815cb7ffa2ae2d4b2572da244d85a1574d8a31"
+  dependencies:
+    d3-ease "^1.0.3"
+    exenv "^1.2.0"
+    prop-types "^15.6.0"
+    react-move "^2.7.0"
+
 number-abbreviate@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/number-abbreviate/-/number-abbreviate-2.0.0.tgz#e9cb2d18db800e153cf072829553c4afe0df7898"
@@ -9000,6 +9021,13 @@ react-loadable@5.4.0:
   resolved "https://registry.yarnpkg.com/react-loadable/-/react-loadable-5.4.0.tgz#3b6b7d51121a7868fd155be848a36e02084742c9"
   dependencies:
     prop-types "^15.5.0"
+
+react-move@^2.7.0:
+  version "2.8.0"
+  resolved "https://registry.yarnpkg.com/react-move/-/react-move-2.8.0.tgz#63deaf6a0e58ca6769357abfcd91dde44d83a596"
+  dependencies:
+    d3-interpolate "^1.2.0"
+    d3-timer "^1.0.4"
 
 react-no-ssr@^1.1.0:
   version "1.1.0"

@@ -1,6 +1,7 @@
 import {Component} from 'react'
 import Link from 'next/link'
 import styled from 'styled-components'
+import theme from '@emcasa/ui'
 import View from '@emcasa/ui-dom/components/View'
 import Col from '@emcasa/ui-dom/components/Col'
 import Row from '@emcasa/ui-dom/components/Row'
@@ -8,6 +9,8 @@ import Text from '@emcasa/ui-dom/components/Text'
 import Input from '@emcasa/ui-dom/components/Input'
 import Button from '@emcasa/ui-dom/components/Button'
 import {desktopHeaderHeight} from 'constants/dimensions'
+
+const CLOUDINARY_URL = 'https://res.cloudinary.com/emcasa/image/upload/fl_any_format/v1542831121/background'
 
 const UnderlinedText = styled(Text)`
   text-decoration: underline;
@@ -23,15 +26,29 @@ const Container = styled(View)`
   display: flex;
   justify-content: center;
   align-self: stretch;
-  background: url(https://res.cloudinary.com/emcasa/image/upload/fl_any_format/v1542831121/background/wall-large.jpg);
+  background-image: url(${CLOUDINARY_URL}/wall-large.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: bottom;
+  
+  @media (max-width: ${theme.breakpoints[0]}){
+    background-image: url(${CLOUDINARY_URL}/wall-small.jpg);
+  }
+  
+  @media (min-aspect-ratio: 2 / 1) {
+    background-image: url(${CLOUDINARY_URL}/wall-small.jpg);
+  }
+ 
 `
 
 const Content = styled(View)`
   margin-top: ${desktopHeaderHeight}px;
   max-width: 700px;
+  
+  @media (max-width: ${theme.breakpoints[0]}){
+    padding-right: 20px;
+    padding-left: 20px;
+  }
 `
 
 export default class SellListing extends Component {
@@ -41,7 +58,7 @@ export default class SellListing extends Component {
         <Content>
           <Row justifyContent="center">
             <Col>
-              <Text fontSize="xlarge" color="dark" fontWeight="bold">
+              <Text fontSize="xlarge" color="dark" fontWeight="bold" textAlign="center">
                 Quer vender seu imóvel?
               </Text>
             </Col>
@@ -54,16 +71,16 @@ export default class SellListing extends Component {
               </Text>
             </Col>
           </Row>
-          <Row>
-            <Col width={10 / 12} mr={2}>
+          <Row flexDirection={['column', 'row']}>
+            <Col width={[1, 10 / 12]} mr={2} mb={[4, 0]}>
               <CustomInput
                 placeholder="Endereço e número"
                 hideLabelView
                 hideErrorView
               />
             </Col>
-            <Col width={2 / 12}>
-              <Button height="tall" active>
+            <Col width={[1, 2 / 12]}>
+              <Button height="tall" active fluid>
                 Avaliar
               </Button>
             </Col>

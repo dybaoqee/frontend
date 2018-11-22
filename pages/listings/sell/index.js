@@ -25,6 +25,9 @@ const Block = styled(View)`
 const MainBlock = styled(Block)`
   padding-top: 0px;
   min-height: 80vh;
+  @media (max-width: ${theme.breakpoints[0]}) {
+    min-height: 100vh;
+  }
 `
 
 export default class Sell extends Component {

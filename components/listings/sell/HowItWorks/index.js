@@ -2,11 +2,14 @@ import {Component} from 'react'
 import theme from '@emcasa/ui'
 import Link from 'next/link'
 import styled from 'styled-components'
+import Carousel from 'nuka-carousel'
+import NoSSR from 'react-no-ssr'
 import View from '@emcasa/ui-dom/components/View'
 import Col from '@emcasa/ui-dom/components/Col'
 import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
+import {isMobile} from 'components/listings/new-listing/lib/mobile'
 
 const Container = styled(View)`
   display: flex;
@@ -17,15 +20,19 @@ const Content = styled(View)`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-width: 1100px;
+  max-width: 1100px;
+  @media (max-width: ${theme.breakpoints[0]}) {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 `
 
 const Icon = styled.div`
   background-image: url('/static/svg-icons/${props => props.name}.svg');
   background-repeat: no-repeat;
   background-size: cover;
-  width: 50px;
-  height: 50px;
+  width: 70px;
+  height: 70px;
 `
 
 const Step = styled.div`
@@ -41,6 +48,10 @@ const Step = styled.div`
   padding: 5px;
   p {
     margin: 0;
+  }
+  @media (max-width: ${theme.breakpoints[0]}) {
+    margin-top: 28px;
+    margin-bottom: 60px;
   }
 `
 
@@ -59,16 +70,51 @@ const StepIndex = styled.div`
 
 const Steps = styled(Row)`
   min-height: 30vh;
+  
 `
 
 const STEPS = [
   {title: 'Cadastro do Imóvel', icon: 'cadastro-imovel'},
-  {title: 'Avaliação precisa do seu imóvel', icon: 'avaliacao-precisa'},
-  {title: 'Tour Virtual 3D e Fotos Profissionais', icon: 'tour-3d'},
+  {title: 'Avaliação precisa do<br />seu imóvel', icon: 'avaliacao-precisa'},
+  {title: 'Tour Virtual <br />3D e Fotos Profissionais', icon: 'tour-3d'},
   {title: 'Imóvel Publicado', icon: 'publicacao'},
   {title: 'Visitas Agendadas', icon: 'acesso-compradores'},
-  {title: 'Venda Finalizada', icon: 'venda-finalizada'},
+  {title: 'Venda<br />Finalizada', icon: 'venda-finalizada'},
 ]
+
+const getSteps = (ignoreMobile) => {
+  const steps = STEPS.map(({title, icon}, index) => (
+    <Col width={[1, 2 / 12]}>
+      <StepIndex>
+        <Text color="white" fontWeight="bold" fontSize="small">
+          {index + 1}
+        </Text>
+      </StepIndex>
+      <Step>
+        <Icon name={icon} />
+        <Text fontSize="medium" color="dark" fontWeight="bold">
+          <span dangerouslySetInnerHTML={{__html: title}} />
+        </Text>
+      </Step>
+    </Col>
+  ))
+
+  if (!ignoreMobile && isMobile()) {
+    return (
+      <Carousel
+        renderCenterLeftControls={() => null}
+        renderCenterRightControls={() => null}
+        width="400px"
+        slidesToShow={2}
+        initialSlideHeight={0}
+        heightMode="max">
+        {steps}
+      </Carousel>
+    )
+  }
+
+  return steps
+}
 
 export default class HowItWorks extends Component {
   render() {
@@ -77,7 +123,7 @@ export default class HowItWorks extends Component {
         <Content>
           <Row justifyContent="center">
             <Col>
-              <Text fontSize="xlarge" color="dark" fontWeight="bold">
+              <Text fontSize="xlarge" color="dark" fontWeight="bold" textAlign="center">
                 100% de Satisfação Garantida
               </Text>
             </Col>
@@ -92,24 +138,12 @@ export default class HowItWorks extends Component {
             </Col>
           </Row>
           <Steps justifyContent="center" mt={40}>
-            {STEPS.map(({title, icon}, index) => (
-              <Col width={2 / 12}>
-                <StepIndex>
-                  <Text color="white" fontWeight="bold" fontSize="small">
-                    {index + 1}
-                  </Text>
-                </StepIndex>
-                <Step>
-                  <Icon name={icon} />
-                  <Text fontSize="medium" color="dark" fontWeight="bold">
-                    {title}
-                  </Text>
-                </Step>
-              </Col>
-            ))}
+            <NoSSR onSSR={getSteps(true)}>
+              {getSteps()}
+            </NoSSR>
           </Steps>
           <Row justifyContent="center">
-            <Col width={4 / 12}>
+            <Col width={[1, 4 / 12]}>
               <Link href="/vender/imovel">
                 <Button height="tall" fluid>
                   Quero vender meu imóvel
