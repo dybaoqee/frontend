@@ -63,6 +63,7 @@
     "next-redux-wrapper": "^2.0.0",
     "next-router-events": "^2.1.0",
     "nprogress": "^0.2.0",
+    "nuka-carousel": "^4.4.3",
     "number-abbreviate": "^2.0.0",
     "numeral": "^2.0.6",
     "points-cluster": "^0.1.4",
