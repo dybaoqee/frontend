@@ -97,13 +97,12 @@ class Phone extends Component {
     // Handle result
     if (response.result) {
       const { suggestedPrice, userPrice } = response.result
-      const { navigateTo, updatePricing, updateDifferential, pricing } = this.props
+      const { navigateTo, updatePricing, pricing } = this.props
       updatePricing({
         ...pricing,
         suggestedPrice,
         userPrice
       })
-      updateDifferential({text: this.state.text})
       navigateTo('pricing')
     }
   }
@@ -216,7 +215,7 @@ class Phone extends Component {
                           />
                         )}/>
                     </Col>
-                    <Col width={6/12} mr={4}>
+                    <Col width={6/12}>
                       <Field
                         name="number"
                         validate={this.validateNumber}
@@ -228,6 +227,7 @@ class Phone extends Component {
                             placeholder="Celular*"
                             error={form.touched.number ? errors.number : null}
                             defaultValue={number}
+                            maxLength={12} // 12345 - 9012
                             onChange={(e) => {
                               const { value } = e.target
                               setFieldValue('number', value)
