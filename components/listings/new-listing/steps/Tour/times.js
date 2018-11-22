@@ -4,8 +4,8 @@ moment.locale('pt-br')
 
 const EARLY = '09'
 const LATE = '17'
-const EARLY_DISPLAY = 'No começo do dia (9:00h)'
-const LATE_DISPLAY = 'No final do dia (17:00h)'
+const EARLY_DISPLAY = 'No começo do dia (das 09h às 12h)'
+const LATE_DISPLAY = 'No final do dia (das 16h às 19h)'
 
 const MONTH_KEY_FORMAT = 'YYYY-MM'
 const DAY_KEY_FORMAT = 'YYYY-MM-DD'
