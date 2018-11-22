@@ -11,6 +11,8 @@ class Logout extends Component {
   componentDidMount() {
     const {client} = this.props
 
+    window.localStorage.clear()
+
     //Force a reload of all the current queries now that the user is
     //logged in, so we don't accidentally leave any state around.
     client.cache.reset().then(() => {

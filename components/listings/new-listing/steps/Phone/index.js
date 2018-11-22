@@ -58,6 +58,9 @@ class Phone extends Component {
   }
 
   onLoginSuccess(userInfo) {
+    if (!userInfo) {
+      return
+    }
     const { updatePhone } = this.props
     updatePhone({
       internationalCode: this.state.internationalCode || BRAZIL_CODE,
@@ -68,9 +71,8 @@ class Phone extends Component {
     const name = get(userInfo, 'data.accountKitSignIn.user.name', null)
     const email = get(userInfo, 'data.accountKitSignIn.user.email', null)
 
-    if (name && email) {
+    if (name) {
       const { updatePersonal } = this.props
-      this.setState({hasNameAndEmail: true})
       updatePersonal({
         name,
         email
@@ -97,13 +99,12 @@ class Phone extends Component {
     // Handle result
     if (response.result) {
       const { suggestedPrice, userPrice } = response.result
-      const { navigateTo, updatePricing, updateDifferential, pricing } = this.props
+      const { navigateTo, updatePricing, pricing } = this.props
       updatePricing({
         ...pricing,
         suggestedPrice,
         userPrice
       })
-      updateDifferential({text: this.state.text})
       navigateTo('pricing')
     }
   }
@@ -216,7 +217,7 @@ class Phone extends Component {
                           />
                         )}/>
                     </Col>
-                    <Col width={6/12} mr={4}>
+                    <Col width={6/12}>
                       <Field
                         name="number"
                         validate={this.validateNumber}
@@ -228,6 +229,7 @@ class Phone extends Component {
                             placeholder="Celular*"
                             error={form.touched.number ? errors.number : null}
                             defaultValue={number}
+                            maxLength={9}
                             onChange={(e) => {
                               const { value } = e.target
                               setFieldValue('number', value)
