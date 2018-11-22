@@ -68,7 +68,7 @@ class Phone extends Component {
     const name = get(userInfo, 'data.accountKitSignIn.user.name', null)
     const email = get(userInfo, 'data.accountKitSignIn.user.email', null)
 
-    if (name && email) {
+    if (name) {
       const { updatePersonal } = this.props
       this.setState({hasNameAndEmail: true})
       updatePersonal({
