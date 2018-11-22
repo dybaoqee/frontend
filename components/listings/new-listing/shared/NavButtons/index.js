@@ -25,11 +25,15 @@ class NavButtons extends PureComponent {
   }
 
   componentDidMount() {
-    document.addEventListener('keypress', this.onPressEnter)
+    if (!this.props.disableEnterToSubmit) {
+      document.addEventListener('keypress', this.onPressEnter)
+    }
   }
 
   componentWillUnmount() {
-    document.removeEventListener('keypress', this.onPressEnter)
+    if (!this.props.disableEnterToSubmit) {
+      document.removeEventListener('keypress', this.onPressEnter)
+    }
   }
 
   getNextLabel() {
@@ -74,7 +78,8 @@ class NavButtons extends PureComponent {
     previousStep: PropTypes.func,
     onSubmit: PropTypes.func,
     submitEnabled: PropTypes.bool.isRequired,
-    loading: PropTypes.bool
+    loading: PropTypes.bool,
+    disableEnterToSubmit: PropTypes.bool
   }
 
   static defaultProps = {

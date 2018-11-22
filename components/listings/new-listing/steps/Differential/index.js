@@ -176,6 +176,7 @@ class Differential extends Component {
                   </Row>
                   <Text color="red">{this.state.error}</Text>
                   <NavButtons
+                    disableEnterToSubmit
                     submitEnabled={!this.state.loading}
                     loading={this.state.loading}
                     previousStep={this.previousStep}
