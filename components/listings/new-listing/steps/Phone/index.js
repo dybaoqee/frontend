@@ -70,7 +70,6 @@ class Phone extends Component {
 
     if (name) {
       const { updatePersonal } = this.props
-      this.setState({hasNameAndEmail: true})
       updatePersonal({
         name,
         email
