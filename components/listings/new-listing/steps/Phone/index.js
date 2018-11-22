@@ -229,7 +229,7 @@ class Phone extends Component {
                             placeholder="Celular*"
                             error={form.touched.number ? errors.number : null}
                             defaultValue={number}
-                            maxLength={12} // 12345 - 9012
+                            maxLength={9}
                             onChange={(e) => {
                               const { value } = e.target
                               setFieldValue('number', value)
