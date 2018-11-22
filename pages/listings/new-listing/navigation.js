@@ -27,7 +27,6 @@ import Phone from 'components/listings/new-listing/steps/Phone'
 import Personal from 'components/listings/new-listing/steps/Personal'
 import Pricing from 'components/listings/new-listing/steps/Pricing'
 import Services from 'components/listings/new-listing/steps/Services'
-import Summary from 'components/listings/new-listing/steps/Summary'
 import NotifyCoverage from 'components/listings/new-listing/steps/NotifyCoverage'
 import NotifyCoverageSuccess from 'components/listings/new-listing/steps/NotifyCoverageSuccess'
 import Tour from 'components/listings/new-listing/steps/Tour'
@@ -97,29 +96,24 @@ const steps = {
   },
   services: {
     component: Services,
-    canNavigateTo: ['pricing', 'scheduling', 'summary', 'tour'],
+    canNavigateTo: ['pricing', 'success', 'tour'],
     display: 'servicos'
   },
   tour: {
     component: Tour,
-    canNavigateTo: ['services', 'summary'],
+    canNavigateTo: ['services'],
     display: 'tour'
-  },
-  summary: {
-    component: Summary,
-    canNavigateTo: ['tour', 'services', 'success'],
-    display: 'resumo'
   },
   success: {
     component: Success,
-    canNavigateTo: ['summary'],
+    canNavigateTo: ['services'],
     display: 'sucesso'
   }
 }
 
 const FINAL_STEPS = [
   'success',
-  'summary',
+  'services',
   'notifyCoverageSuccess',
   'notifyCoverage'
 ]

@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { Formik, Field } from 'formik'
+import { Formik } from 'formik'
 import moment from 'moment'
 
+import { INSERT_LISTING, TOUR_SCHEDULE } from 'graphql/listings/mutations'
 import { TOUR_OPTIONS } from 'graphql/listings/queries'
 import Button from '@emcasa/ui-dom/components/Button'
 import Row from '@emcasa/ui-dom/components/Row'
@@ -9,6 +10,7 @@ import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import SelectCard from 'components/listings/new-listing/shared/SelectCard'
+import { getAddressInput } from 'lib/address'
 import { SchedulingButton } from './styles'
 
 class Services extends Component {
@@ -20,7 +22,11 @@ class Services extends Component {
     this.updateStateFromProps = this.updateStateFromProps.bind(this)
 
     this.getAvailableTimes = this.getAvailableTimes.bind(this)
-    this.validateScheduling = this.validateScheduling.bind(this)
+
+    this.getListingInput = this.getListingInput.bind(this)
+    this.createListing = this.createListing.bind(this)
+    this.createTour = this.createTour.bind(this)
+    this.save = this.save.bind(this)
   }
 
   state = {
@@ -28,7 +34,10 @@ class Services extends Component {
     wantsPictures: false,
     availableTimes: null,
     loading: false,
-    error: null
+    error: null,
+    listingCreated: false,
+    listingId: null,
+    tourCreated: false
   }
 
   componentDidMount() {
@@ -79,24 +88,124 @@ class Services extends Component {
     navigateTo('tour')
   }
 
+  getListingInput() {
+    const { location, homeDetails, rooms, garage, differential, phone, pricing } = this.props
+    const { addressData, complement } = location
+    const { area, floor, type, maintenanceFee, propertyTax } = homeDetails
+    const { bathrooms, bedrooms, suites } = rooms
+    const { spots } = garage
+    const { userPrice } = pricing
+    const { text } = differential
+    const { internationalCode, localAreaCode, number } = phone
+
+    const address = getAddressInput(addressData)
+    return {
+      address,
+      area: parseInt(area),
+      bathrooms,
+      complement,
+      description: text,
+      floor,
+      garageSpots: spots,
+      maintenanceFee: parseInt(maintenanceFee),
+      phone: internationalCode + localAreaCode + number,
+      price: userPrice,
+      propertyTax: parseInt(propertyTax),
+      rooms: bedrooms,
+      suites,
+      type
+    }
+  }
+
+  async createListing() {
+    this.setState({loading: true})
+
+    try {
+      const input = this.getListingInput()
+      const { data } = await apolloClient.mutate({
+        mutation: INSERT_LISTING,
+        variables: {
+          input
+        }
+      })
+
+      if (data) {
+        this.setState({
+          listingCreated: true,
+          listingId: data.insertListing.id
+        })
+      }
+    } catch (e) {
+      this.setState({
+        loading: false,
+        error: 'Ocorreu um erro. Por favor, tente novamente.'
+      })
+    }
+  }
+
+  async createTour() {
+    this.setState({loading: true})
+
+    try {
+      const { tour, services } = this.props
+      const { day, time } = tour
+      const { wantsTour, wantsPictures } = services
+
+      const datetime = moment(day + time, 'YYYY-MM-DD HH').toDate()
+      const { data } = await apolloClient.mutate({
+        mutation: TOUR_SCHEDULE,
+        variables: {
+          input: {
+            listingId: this.state.listingId,
+            options: {
+              datetime
+            },
+            wantsTour,
+            wantsPictures
+          }
+        }
+      })
+
+      if (data) {
+        this.setState({tourCreated: true})
+      }
+    } catch (e) {
+      this.setState({
+        loading: false,
+        error: 'Ocorreu um erro. Por favor, tente novamente.'
+      })
+    }
+  }
+
+  async save() {
+    const { services: { wantsTour, wantsPictures } } = this.props
+    const wantsServices = wantsTour || wantsPictures
+
+    if (!this.state.listingCreated) {
+      await this.createListing()
+    }
+    if (this.state.listingCreated && !this.state.tourCreated && wantsServices) {
+      await this.createTour()
+    }
+    if (this.state.listingCreated && this.state.tourCreated || (this.state.listingCreated && !wantsServices)) {
+      this.nextStep()
+    }
+  }
+
   skipStep() {
-    const { navigateTo, updateServices } = this.props
+    const { updateServices } = this.props
     updateServices({
       wantsTour: false,
       wantsPictures: false
     })
-    navigateTo('summary')
+    this.save()
   }
 
   nextStep() {
-    this.props.navigateTo('summary')
-  }
-
-  validateScheduling(value) {
-    if (value && (this.state.wantsPictures ||  this.state.wantsTour)) {
-      return false
-    }
-    return true
+    const { navigateTo, resetStoreExceptStep, updateListing } = this.props
+    navigateTo('success')
+    resetStoreExceptStep()
+    updateListing({id: this.state.listingId})
   }
 
   render() {
@@ -120,10 +229,7 @@ class Services extends Component {
                 wantsTour,
                 wantsPictures
               }}
-              isInitialValid={() => {
-                return !(this.validateScheduling(when))
-              }}
-              render={({isValid}) => (
+              render={() => (
                 <>
                   <Text
                     fontSize="large"
@@ -166,10 +272,10 @@ class Services extends Component {
                       >
                       {when ? when : '00/00/0000 - entre 00h e 00h'}
                       </SchedulingButton>
-                      <View><Text inline color="red">{this.state.error}</Text></View>
                       </Col>
                     </Row>
                   }
+                  <Text color="red">{this.state.error}</Text>
                   <Row justifyContent="space-between" mt={4}>
                     <Col width={5/12}>
                       <Button
@@ -181,9 +287,9 @@ class Services extends Component {
                       <Button
                         fluid
                         height="tall"
-                        active
-                        disabled={!isValid}
-                        onClick={this.nextStep}>
+                        active={!this.state.loading}
+                        disabled={this.state.loading}
+                        onClick={this.save}>
                         Agendar
                       </Button>
                     </Col>
