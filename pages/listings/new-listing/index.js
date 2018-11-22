@@ -88,6 +88,20 @@ class NewListing extends Component {
     }
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextState.resuming || this.state.resuming) {
+      return true
+    }
+
+    const currentStep = this.props.step
+    const nextStep = nextProps.step
+    if (currentStep !== nextStep) {
+      return true
+    }
+
+    return false
+  }
+
   hasProgress() {
     const { startedAt, location: { address } } = this.props
     return startedAt && startedAt !== this.state.startedAt && address !== null
