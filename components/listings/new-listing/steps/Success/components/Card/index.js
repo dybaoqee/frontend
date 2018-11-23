@@ -8,6 +8,7 @@ import Icon from '@emcasa/ui-dom/components/Icon'
 import Text from '@emcasa/ui-dom/components/Text'
 import { getDateDisplay } from 'components/listings/new-listing/lib/times'
 import { intToCurrency } from 'utils/text-utils'
+import Link from '../Link'
 
 import {
   CardContainer,
@@ -22,6 +23,7 @@ class Card extends PureComponent {
 
   render() {
     const { tour } = this.props
+    const { listingId } = this.props
     return (
       <CardContainer>
         <View elevation={4}>
@@ -55,9 +57,12 @@ class Card extends PureComponent {
             <Row m={4}>
               <Separator />
             </Row>
-            <Row justifyContent="center">
-              <Icon name="plus" color="pink" size={16} mr={2} /><Text inline fontSize="small" color="pink">Adicionar fotos</Text>
-            </Row>
+              <Link
+                href={`/listings/images?listingId=${listingId}`}
+                as={`/imoveis/${listingId}/imagens`}
+              >
+                <Row justifyContent="center"><Icon name="plus" color="pink" size={16} mr={2} /><Text inline fontSize="small" color="pink">Adicionar fotos</Text></Row>
+              </Link>
           </Col>
         </View>
       </CardContainer>
