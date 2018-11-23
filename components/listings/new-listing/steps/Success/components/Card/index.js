@@ -28,8 +28,8 @@ class Card extends PureComponent {
   }
 
   render() {
-    const { tour } = this.props
-    const { listingId } = this.props
+    const { tour, listingId } = this.props
+    const { day } = tour
     return (
       <CardContainer>
         <Row flexDirection="column">
@@ -49,7 +49,7 @@ class Card extends PureComponent {
                 <Col width={1/2}>
                   <Text inline fontSize="small" color="grey">Valor</Text>
                 </Col>
-                {tour && <Col width={1/2}>
+                {day && <Col width={1/2}>
                   <Text inline fontSize="small" color="grey">Data para visita</Text>
                 </Col>}
               </Row>
@@ -57,7 +57,7 @@ class Card extends PureComponent {
                 <Col width={1/2}>
                 <Text inline fontSize="small" fontWeight="bold">{intToCurrency(this.props.userPrice)}</Text>
                 </Col>
-                {tour && <Col width={1/2}>
+                {day && <Col width={1/2}>
                   <Text inline fontSize="small" fontWeight="bold">{this.getTourTimeDisplay(tour)}</Text>
                 </Col>}
               </Row>

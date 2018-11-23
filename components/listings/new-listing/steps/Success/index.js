@@ -39,6 +39,7 @@ class Success extends PureComponent {
     const { address } = this.props.location
     const { userPrice } = this.props.pricing
     const { tour } = this.props
+    console.log('tour:', tour)
     return (
       <div ref={this.props.hostRef}>
         <Row justifyContent="center" p={4}>
