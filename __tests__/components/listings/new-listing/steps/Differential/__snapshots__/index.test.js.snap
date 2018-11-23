@@ -38,10 +38,10 @@ exports[`renders correctly 1`] = `
   color: #3c4858;
   font-family: FaktSoftPro-Normal;
   font-size: 18px;
-  -webkit-letter-spacing: 2px;
-  -moz-letter-spacing: 2px;
-  -ms-letter-spacing: 2px;
-  letter-spacing: 2px;
+  -webkit-letter-spacing: 0px;
+  -moz-letter-spacing: 0px;
+  -ms-letter-spacing: 0px;
+  letter-spacing: 0px;
 }
 
 .c6:focus {
