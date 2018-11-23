@@ -12,7 +12,13 @@ import Link from '../Link'
 
 import {
   CardContainer,
-  Separator
+  TopContainer,
+  BottomContainer,
+  Separator,
+  TopLeftCorner,
+  BottomLeftCorner,
+  TopRightCorner,
+  BottomRightCorner
 } from './styles'
 
 class Card extends PureComponent {
@@ -26,45 +32,63 @@ class Card extends PureComponent {
     const { listingId } = this.props
     return (
       <CardContainer>
-        <View elevation={4}>
-          <Col p={4}>
-            <Row>
-              <Col>
-                <Text inline fontSize="small" color="grey">Endereço</Text>
-              </Col>
-            </Row>
-            <Row mb={2}>
-              <Col>
-                <Text inline fontSize="small" fontWeight="bold">{this.props.address}</Text>
-              </Col>
-            </Row>
-            <Row>
-              <Col width={1/2}>
-                <Text inline fontSize="small" color="grey">Valor</Text>
-              </Col>
-              {tour && <Col width={1/2}>
-                <Text inline fontSize="small" color="grey">Data para visita</Text>
-              </Col>}
-            </Row>
-            <Row>
-              <Col width={1/2}>
-              <Text inline fontSize="small" fontWeight="bold">{intToCurrency(this.props.userPrice)}</Text>
-              </Col>
-              {tour && <Col width={1/2}>
-                <Text inline fontSize="small" fontWeight="bold">{this.getTourTimeDisplay(tour)}</Text>
-              </Col>}
-            </Row>
-            <Row m={4}>
-              <Separator />
-            </Row>
+          <Row flexDirection="column">
+            <View elevation={4}>
+              <View p={4}>
+                <Row>
+                  <Col>
+                    <Text inline fontSize="small" color="grey">Endereço</Text>
+                  </Col>
+                </Row>
+                <Row mb={2}>
+                  <Col>
+                    <Text inline fontSize="small" fontWeight="bold">{this.props.address}</Text>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col width={1/2}>
+                    <Text inline fontSize="small" color="grey">Valor</Text>
+                  </Col>
+                  {tour && <Col width={1/2}>
+                    <Text inline fontSize="small" color="grey">Data para visita</Text>
+                  </Col>}
+                </Row>
+                <Row>
+                  <Col width={1/2}>
+                  <Text inline fontSize="small" fontWeight="bold">{intToCurrency(this.props.userPrice)}</Text>
+                  </Col>
+                  {tour && <Col width={1/2}>
+                    <Text inline fontSize="small" fontWeight="bold">{this.getTourTimeDisplay(tour)}</Text>
+                  </Col>}
+                </Row>
+              </View>
+            
+            <View style={{
+              backgroundColor: '#fff',
+              width: 'calc(100% + 10px)',
+              marginLeft: '-5px'
+            }}>
+              <Row justifyContent="space-between">
+                <TopLeftCorner />
+                <TopRightCorner />
+              </Row>
+              {/* <Row>
+                <Separator />
+              </Row> */}
+              <Row justifyContent="space-between">
+                <BottomLeftCorner />
+                <BottomRightCorner />
+              </Row>
+            </View>
+            
               <Link
                 href={`/listings/images?listingId=${listingId}`}
                 as={`/imoveis/${listingId}/imagens`}
               >
                 <Row justifyContent="center"><Icon name="plus" color="pink" size={16} mr={2} /><Text inline fontSize="small" color="pink">Adicionar fotos</Text></Row>
               </Link>
-          </Col>
-        </View>
+            </View>
+          </Row>
       </CardContainer>
     )
   }
