@@ -2,18 +2,20 @@ import styled from 'styled-components'
 import { themeGet } from 'styled-system'
 
 import Row from '@emcasa/ui-dom/components/Row'
-import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
 
+const CARD_WIDTH = 300
+const SEPARATOR_WIDTH = 220
 const CORNER_SIZE = 10
 
 const CardContainer = styled(Row)`
-  max-width: 340px;
+  min-width: ${CARD_WIDTH}px;
+  max-width: ${CARD_WIDTH}px;
 `
 
 const Separator = styled(View)`
   height: 1px;
-  width: 100%;
+  width: ${SEPARATOR_WIDTH}px;
   background-color: ${themeGet('colors.lightGrey')};
 `
 
@@ -59,26 +61,24 @@ const BottomRightCorner = styled.div`
   background-color: #fff;
 `
 
-const TopContainer = styled(Col)`
-  padding: ${themeGet('space.4')}px;
-  box-shadow: 0px -2px 2px 0px rgba(0, 0, 0, 0.2), 0px 0px 2px 2px rgba(0, 0, 0, 0.2);
+const SeparatorContainer = styled(Row)`
+  position: absolute;
+  margin-left: ${(CARD_WIDTH - SEPARATOR_WIDTH) / 2 + CORNER_SIZE / 2}px;
 `
 
-const BottomContainer = styled(Col)`
-  padding: ${themeGet('space.4')}px;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px -2px 2px 0px;
+const CornerContainer = styled(View)`
+  background-color: #fff;
+  width: calc(100% + 10px);
+  margin-left: -5px;
 `
 
 export {
   CardContainer,
-  TopContainer,
-  BottomContainer,
   Separator,
   TopLeftCorner,
   BottomLeftCorner,
   TopRightCorner,
-  BottomRightCorner
+  BottomRightCorner,
+  SeparatorContainer,
+  CornerContainer
 }
-
-// box-shadow: rgba(0, 0, 0, 0.2) 0px -2px 2px 0px, rgba(0, 0, 0, 0.14) 0px -2px 2px 0px, rgba(0, 0, 0, 0.12) 0px -2px 2px 0px;
-// box-shadow: rgba(0, 0, 0, 0.2) 0px -2px 2px 0px, rgba(0, 0, 0, 0.14) 0px -2px 2px 0px, rgba(0, 0, 0, 0.12) 0px -2px 2px 0px;
