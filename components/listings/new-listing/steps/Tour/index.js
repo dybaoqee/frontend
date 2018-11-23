@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Fragment, Component } from 'react'
 import { Formik, Field } from 'formik'
 
 import RadioButton from '@emcasa/ui-dom/components/RadioButton'
@@ -202,12 +202,12 @@ class Tour extends Component {
                       render={() =>
                         <Col width={1}>
                           <RadioButton.Group>
-                            {TOUR_HOURS.map((item) => {
+                            {TOUR_HOURS.map((item, index) => {
                               if (item !== EARLY && item !== LATE) {
                                 return null
                               }
                               return (
-                                <>
+                                <Fragment key={index}>
                                   <RadioButton
                                     label={getTimeDisplay(item, true)}
                                     value={item}
@@ -220,7 +220,7 @@ class Tour extends Component {
                                     }}
                                   />
                                   <View mb={2} />
-                                </>
+                                </Fragment>
                               )
                             })}
                           </RadioButton.Group>
@@ -230,9 +230,9 @@ class Tour extends Component {
                               selected={this.state.customTime}
                               selectedTime={this.state.time}
                             >
-                              {TOUR_HOURS.map((item) => {
+                              {TOUR_HOURS.map((item, index) => {
                                 return (
-                                  <>
+                                  <Fragment key={index}>
                                     <CustomTime.Item
                                       onClick={() => {
                                         setFieldValue('time', item)
@@ -241,7 +241,7 @@ class Tour extends Component {
                                       }}
                                     >{getTimeDisplay(item, false)}</CustomTime.Item>
                                     <View mb={2} mr={2} />
-                                  </>
+                                  </Fragment>
                                 )
                               })}
                             </CustomTime>}
