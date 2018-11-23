@@ -61,7 +61,6 @@ const initialState = {
   },
   services: {
     wantsTour: false,
-    wantsPictures: false,
     tourOptions: null
   },
   tour: {

@@ -9,7 +9,7 @@ import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
-import SelectCard from 'components/listings/new-listing/shared/SelectCard'
+import ImageLabel from 'components/listings/new-listing/shared/ImageLabel'
 import { getAddressInput } from 'lib/address'
 import { SchedulingButton } from './styles'
 
@@ -31,7 +31,6 @@ class Services extends Component {
 
   state = {
     wantsTour: false,
-    wantsPictures: false,
     availableTimes: null,
     loading: false,
     error: null,
@@ -52,8 +51,7 @@ class Services extends Component {
     const { services } = props
     if (services) {
       this.setState({
-        wantsTour: services.wantsTour,
-        wantsPictures: services.wantsPictures
+        wantsTour: services.wantsTour
       })
     }
   }
@@ -82,7 +80,6 @@ class Services extends Component {
     const { navigateTo, updateServices } = this.props
     updateServices({
       wantsTour: this.state.wantsTour,
-      wantsPictures: this.state.wantsPictures,
       tourOptions: data
     })
     navigateTo('tour')
@@ -149,7 +146,7 @@ class Services extends Component {
     try {
       const { tour, services } = this.props
       const { day, time } = tour
-      const { wantsTour, wantsPictures } = services
+      const { wantsTour } = services
 
       const datetime = moment(day + time, 'YYYY-MM-DD HH').toDate()
       const { data } = await apolloClient.mutate({
@@ -161,7 +158,7 @@ class Services extends Component {
               datetime
             },
             wantsTour,
-            wantsPictures
+            wantsPictures: wantsTour
           }
         }
       })
@@ -178,16 +175,15 @@ class Services extends Component {
   }
 
   async save() {
-    const { services: { wantsTour, wantsPictures } } = this.props
-    const wantsServices = wantsTour || wantsPictures
+    const { services: { wantsTour } } = this.props
 
     if (!this.state.listingCreated) {
       await this.createListing()
     }
-    if (this.state.listingCreated && !this.state.tourCreated && wantsServices) {
+    if (this.state.listingCreated && !this.state.tourCreated && wantsTour) {
       await this.createTour()
     }
-    if (this.state.listingCreated && this.state.tourCreated || (this.state.listingCreated && !wantsServices)) {
+    if (this.state.listingCreated && this.state.tourCreated || (this.state.listingCreated && !wantsTour)) {
       this.nextStep()
     }
   }
@@ -195,8 +191,7 @@ class Services extends Component {
   skipStep() {
     const { updateServices } = this.props
     updateServices({
-      wantsTour: false,
-      wantsPictures: false
+      wantsTour: false
     })
     this.save()
   }
@@ -209,10 +204,9 @@ class Services extends Component {
 
   render() {
     const { services, tour } = this.props
-    let wantsTour, wantsPictures
+    let wantsTour
     if (services) {
       wantsTour = services.wantsTour
-      wantsPictures = services.wantsPictures
     }
     let when
     if (tour && tour.day && tour.time) {
@@ -224,10 +218,6 @@ class Services extends Component {
         <Row justifyContent="center" p={4}>
           <Col width={[1, 1/2]}>
             <Formik
-              initialValues={{
-                wantsTour,
-                wantsPictures
-              }}
               render={() => (
                 <>
                   <Text
@@ -239,55 +229,45 @@ class Services extends Component {
                   <Text color="grey">Fazemos um Tour Virtual 3D do seu imóvel e também tiramos fotos com qualidade profissional sem custo nenhum. Diga-nos aqui qual o melhor horário pra você:</Text>
                   <Row justifyContent="center" flexWrap="wrap">
                     <Col mr={2}>
-                      <SelectCard
+                      <ImageLabel
                         image="tour"
-                        text="Quero o Tour Virtual 3D"
-                        checked={this.state.wantsTour}
-                        onClick={() => {
-                          this.setState({wantsTour: !this.state.wantsTour})
-                        }}
+                        text="Tour Virtual 3D"
                       />
                     </Col>
                     <Col>
-                      <SelectCard
+                      <ImageLabel
                         image="camera"
-                        text="Quero Fotos Profissionais"
-                        checked={this.state.wantsPictures}
-                        onClick={() => {
-                          this.setState({wantsPictures: !this.state.wantsPictures})
-                        }}
+                        text="Fotos Profissionais"
                       />
                     </Col>
                   </Row>
-                  {(this.state.wantsTour || this.state.wantsPictures) &&
-                    <Row>
-                      <Col width={1} mt={2}>
-                      <View><Text inline fontSize="small">Quando?</Text></View>
-                      <SchedulingButton
-                        height="tall"
-                        fluid
-                        onClick={this.getAvailableTimes}
-                        color={when ? 'dark' : 'grey'}
-                      >
-                      {when ? when : '00/00/0000 - entre 00h e 00h'}
-                      </SchedulingButton>
-                      </Col>
-                    </Row>
-                  }
+                  <Row>
+                    <Col width={1} mt={2}>
+                    <View><Text inline fontSize="small">Qual o melhor dia e horário pra você?</Text></View>
+                    <SchedulingButton
+                      height="tall"
+                      fluid
+                      onClick={this.getAvailableTimes}
+                      color={when ? 'dark' : 'grey'}
+                    >
+                    {when ? when : '00/00/0000 - entre 00h e 00h'}
+                    </SchedulingButton>
+                    </Col>
+                  </Row>
                   <Text color="red">{this.state.error}</Text>
                   <Row justifyContent="space-between" mt={4}>
                     <Col width={5/12}>
                       <Button
                         fluid
                         height="tall"
-                        onClick={this.skipStep}>Não quero</Button>
+                        onClick={this.skipStep}>Pular</Button>
                     </Col>
                     <Col width={5/12}>
                       <Button
                         fluid
                         height="tall"
-                        active={!this.state.loading}
-                        disabled={this.state.loading}
+                        active={!this.state.loading && !!when}
+                        disabled={this.state.loading || !when}
                         onClick={this.save}>
                         Agendar
                       </Button>
