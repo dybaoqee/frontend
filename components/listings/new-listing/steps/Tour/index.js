@@ -16,9 +16,7 @@ import {
   TOUR_HOURS,
   EARLY,
   LATE,
-  EARLY_DISPLAY,
-  LATE_DISPLAY
-} from './times'
+} from 'components/listings/new-listing/lib/times'
 
 class Tour extends Component {
   constructor(props) {

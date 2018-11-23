@@ -8,7 +8,7 @@ import View from '@emcasa/ui-dom/components/View'
 
 import {
   getTimeDisplay
-} from '../../times'
+} from 'components/listings/new-listing/lib/times'
 
 import {
   Title,

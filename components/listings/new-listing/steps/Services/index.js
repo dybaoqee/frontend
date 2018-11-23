@@ -202,10 +202,9 @@ class Services extends Component {
   }
 
   nextStep() {
-    const { navigateTo, resetStoreExceptStep, updateListing } = this.props
-    navigateTo('success')
-    resetStoreExceptStep()
+    const { navigateTo, updateListing } = this.props
     updateListing({id: this.state.listingId})
+    navigateTo('success')
   }
 
   render() {

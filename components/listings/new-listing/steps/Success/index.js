@@ -4,10 +4,9 @@ import routerEvents from 'next-router-events'
 
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
-import Icon from '@emcasa/ui-dom/components/Icon'
 import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
-import Link from './components/Link'
+import Card from './components/Card'
 
 const ROUTE_HOME = '/'
 const ROUTE_MY_LISTINGS = '/listings/user-listings'
@@ -22,7 +21,7 @@ class Success extends PureComponent {
   componentDidMount() {
     routerEvents.once('routeChangeComplete', () => {
       this.props.navigateTo('intro')
-      this.props.resetStore()      
+      this.props.resetStore()
       return true
     })
   }
@@ -37,6 +36,11 @@ class Success extends PureComponent {
 
   render() {
     const listingId = this.props.listing.id
+    const { address } = this.props.location
+    const { userPrice } = this.props.pricing
+    const { tour } = this.props
+
+    console.log(this.props)
     return (
       <div ref={this.props.hostRef}>
         <Row justifyContent="center" p={4}>
@@ -47,17 +51,16 @@ class Success extends PureComponent {
               textAlign="center">
               Parabéns, seu imóvel foi salvo com sucesso!
             </Text>
-            <Row justifyContent="center" my={4}>
-              <Icon name="check-circle" color="green" size={60} />
-            </Row>
             <Row>
-              <Text color="grey">Muito obrigado por confiar na EmCasa! Enviaremos um SMS assim que seu imóvel estiver publicado.</Text>
+              <Text color="grey">Muito obrigado por confiar na EmCasa! Nosso time entrará em contato por telefone em breve. Após o contato, seu imóvel será publicado.</Text>
             </Row>
-            <Row>
-              <Text color="grey">Você já tem fotos do seu imóvel? <Link
-                href={`/listings/images?listingId=${listingId}`}
-                as={`/imoveis/${listingId}/imagens`}
-              >Clique aqui</Link> para fazer o upload.</Text>
+            <Row justifyContent="center" mb={4}>
+              <Card
+                listingId={listingId}
+                address={address}
+                userPrice={userPrice}
+                tour={tour}
+              />
             </Row>
             <Row>
               <Col width={1} mb={2}>
@@ -66,7 +69,7 @@ class Success extends PureComponent {
             </Row>
             <Row>
               <Col width={1}>
-                <Button fluid height="tall" onClick={this.goHome}>Ir para Home</Button>
+                <Button fluid height="tall" onClick={this.goHome}>Fale com a EmCasa</Button>
               </Col>
             </Row>
           </Col>

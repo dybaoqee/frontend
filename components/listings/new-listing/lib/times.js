@@ -59,12 +59,18 @@ const getTimeDisplay = (time, longText) => {
   return `${time}:00h`
 }
 
+const getDateDisplay = (date) => {
+  const parser = moment(date)
+  return parser.format('DD/MM/YY')
+}
+
 const TOUR_HOURS = ['09', '10', '11', '12', '13', '14', '15', '16', '17']
 
 export {
   getTourMonths,
   getTourDays,
   getTimeDisplay,
+  getDateDisplay,
   TOUR_HOURS,
   EARLY,
   LATE,
