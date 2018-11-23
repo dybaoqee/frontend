@@ -2,10 +2,15 @@ import React, { PureComponent } from 'react'
 import Router from 'next/router'
 import routerEvents from 'next-router-events'
 
+import View from '@emcasa/ui-dom/components/View'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
+import Icon from '@emcasa/ui-dom/components/Icon'
+import { getDateDisplay } from 'components/listings/new-listing/lib/times'
+import { intToCurrency } from 'utils/text-utils'
+import Link from 'components/listings/new-listing/shared/Link'
 import Ticket from 'components/listings/new-listing/shared/Ticket'
 
 const ROUTE_HOME = '/'
@@ -34,11 +39,17 @@ class Success extends PureComponent {
     Router.push(ROUTE_HOME)
   }
 
+  getTourTimeDisplay(tour) {
+    const date = getDateDisplay(tour.day)
+    return `${date} - às ${tour.time}h`
+  }
+
   render() {
-    const listingId = this.props.listing.id
-    const { address } = this.props.location
-    const { userPrice } = this.props.pricing
-    const { tour } = this.props
+    const { tour, location, pricing, listing } = this.props
+    const listingId = listing.id
+    const { day } = tour    
+    const { address } = location
+    const { userPrice } = pricing
     return (
       <div ref={this.props.hostRef}>
         <Row justifyContent="center" p={4}>
@@ -54,10 +65,46 @@ class Success extends PureComponent {
             </Row>
             <Row justifyContent="center" mb={4}>
               <Ticket
-                listingId={listingId}
-                address={address}
-                userPrice={userPrice}
-                tour={tour}
+                topRender={() =>
+                  <View p={4}>
+                    <Row>
+                      <Col>
+                        <Text inline fontSize="small" color="grey">Endereço</Text>
+                      </Col>
+                    </Row>
+                    <Row mb={2}>
+                      <Col>
+                        <Text inline fontSize="small" fontWeight="bold">{address}</Text>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col width={1/2}>
+                        <Text inline fontSize="small" color="grey">Valor</Text>
+                      </Col>
+                      {day && <Col width={1/2}>
+                        <Text inline fontSize="small" color="grey">Data para visita</Text>
+                      </Col>}
+                    </Row>
+                    <Row>
+                      <Col width={1/2}>
+                      {userPrice && <Text inline fontSize="small" fontWeight="bold">{intToCurrency(userPrice)}</Text>}
+                      </Col>
+                      {day && <Col width={1/2}>
+                        <Text inline fontSize="small" fontWeight="bold">{this.getTourTimeDisplay(tour)}</Text>
+                      </Col>}
+                    </Row>
+                  </View>
+                }
+                bottomRender={() =>
+                  <Row p={4} justifyContent="center">
+                    <Link
+                      href={`/listings/images?listingId=${listingId}`}
+                      as={`/imoveis/${listingId}/imagens`}
+                    >
+                      <Row justifyContent="center"><Icon name="plus" color="pink" size={16} mr={2} /><Text inline fontSize="small" color="pink">Adicionar fotos</Text></Row>
+                    </Link>
+                  </Row>
+                }
               />
             </Row>
             <Row>

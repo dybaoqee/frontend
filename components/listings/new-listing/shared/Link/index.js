@@ -20,7 +20,7 @@ class Link extends PureComponent {
 Link.propTypes = {
   href: PropTypes.string.isRequired,
   as: PropTypes.string.isRequired,
-  children: PropTypes.string.isRequired
+  children: PropTypes.node.isRequired
 }
 
 export default Link
