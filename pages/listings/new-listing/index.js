@@ -51,11 +51,13 @@ class NewListing extends Component {
       const key = getKeyFromDisplay(display)
 
       // User is trying to back from final screen. Reset store
-      if (this.props.listing && this.props.listing.id && FINAL_STEPS.includes(key)) {
+      if (this.props.listing && this.props.listing.id && key === 'services') {
         this.restartForm()
+        return
       }
       if (!this.hasProgress() && FINAL_STEPS.includes(key)) {
         this.restartForm()
+        return
       }
 
       navigateTo(key ? key : 'intro')
@@ -106,7 +108,6 @@ class NewListing extends Component {
 
   restartForm() {
     this.props.resetStore()
-    this.props.navigateTo('intro')
     Router.replace('/vender/imovel')
     return
   }

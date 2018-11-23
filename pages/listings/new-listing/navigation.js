@@ -113,7 +113,6 @@ const steps = {
 
 const FINAL_STEPS = [
   'success',
-  'services',
   'notifyCoverageSuccess',
   'notifyCoverage'
 ]
