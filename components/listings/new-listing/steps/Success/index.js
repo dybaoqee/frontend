@@ -6,7 +6,7 @@ import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
-import Card from './components/Card'
+import Ticket from 'components/listings/new-listing/shared/Ticket'
 
 const ROUTE_HOME = '/'
 const ROUTE_MY_LISTINGS = '/listings/user-listings'
@@ -39,7 +39,6 @@ class Success extends PureComponent {
     const { address } = this.props.location
     const { userPrice } = this.props.pricing
     const { tour } = this.props
-    console.log('tour:', tour)
     return (
       <div ref={this.props.hostRef}>
         <Row justifyContent="center" p={4}>
@@ -54,7 +53,7 @@ class Success extends PureComponent {
               <Text color="grey">Muito obrigado por confiar na EmCasa! Nosso time entrará em contato por telefone em breve. Após o contato, seu imóvel será publicado.</Text>
             </Row>
             <Row justifyContent="center" mb={4}>
-              <Card
+              <Ticket
                 listingId={listingId}
                 address={address}
                 userPrice={userPrice}

@@ -4,13 +4,13 @@ import { themeGet } from 'styled-system'
 import Row from '@emcasa/ui-dom/components/Row'
 import View from '@emcasa/ui-dom/components/View'
 
-const CARD_WIDTH = 300
+const TICKET_WIDTH = 300
 const SEPARATOR_WIDTH = 220
 const CORNER_SIZE = 10
 
-const CardContainer = styled(Row)`
-  min-width: ${CARD_WIDTH}px;
-  max-width: ${CARD_WIDTH}px;
+const TicketContainer = styled(Row)`
+  min-width: ${TICKET_WIDTH}px;
+  max-width: ${TICKET_WIDTH}px;
 `
 
 const Separator = styled(View)`
@@ -63,7 +63,7 @@ const BottomRightCorner = styled.div`
 
 const SeparatorContainer = styled(Row)`
   position: absolute;
-  margin-left: ${(CARD_WIDTH - SEPARATOR_WIDTH) / 2 + CORNER_SIZE / 2}px;
+  margin-left: ${(TICKET_WIDTH - SEPARATOR_WIDTH) / 2 + CORNER_SIZE / 2}px;
 `
 
 const CornerContainer = styled(View)`
@@ -73,7 +73,7 @@ const CornerContainer = styled(View)`
 `
 
 export {
-  CardContainer,
+  TicketContainer,
   Separator,
   TopLeftCorner,
   BottomLeftCorner,

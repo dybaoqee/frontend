@@ -8,10 +8,10 @@ import Icon from '@emcasa/ui-dom/components/Icon'
 import Text from '@emcasa/ui-dom/components/Text'
 import { getDateDisplay } from 'components/listings/new-listing/lib/times'
 import { intToCurrency } from 'utils/text-utils'
-import Link from '../Link'
+import Link from 'components/listings/new-listing/shared/Link'
 
 import {
-  CardContainer,
+  TicketContainer,
   Separator,
   TopLeftCorner,
   BottomLeftCorner,
@@ -21,17 +21,17 @@ import {
   CornerContainer
 } from './styles'
 
-class Card extends PureComponent {
+class Ticket extends PureComponent {
   getTourTimeDisplay(tour) {
     const date = getDateDisplay(tour.day)
     return `${date} - às ${tour.time}h`
   }
 
   render() {
-    const { tour, listingId } = this.props
+    const { tour, listingId, userPrice } = this.props
     const { day } = tour
     return (
-      <CardContainer>
+      <TicketContainer>
         <Row flexDirection="column">
           <View elevation={4} style={{borderRadius: 4}}>
             <View p={4}>
@@ -55,7 +55,7 @@ class Card extends PureComponent {
               </Row>
               <Row>
                 <Col width={1/2}>
-                <Text inline fontSize="small" fontWeight="bold">{intToCurrency(this.props.userPrice)}</Text>
+                {userPrice && <Text inline fontSize="small" fontWeight="bold">{intToCurrency(this.props.userPrice)}</Text>}
                 </Col>
                 {day && <Col width={1/2}>
                   <Text inline fontSize="small" fontWeight="bold">{this.getTourTimeDisplay(tour)}</Text>
@@ -85,16 +85,18 @@ class Card extends PureComponent {
             </Row>
           </View>
         </Row>
-      </CardContainer>
+      </TicketContainer>
     )
   }
 }
 
-Card.propTypes = {
+Ticket.propTypes = {
   listingId: PropTypes.number.isRequired,
   address: PropTypes.string.isRequired,
   userPrice: PropTypes.number.isRequired,
   tour: PropTypes.object.isRequired
 }
 
-export default Card
+
+
+export default Ticket
