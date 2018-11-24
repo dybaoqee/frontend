@@ -12,13 +12,7 @@ import {
   currencyInputMask,
   currencyToInt
 } from 'utils/text-utils'
-
-const HOME_TYPES = {
-  house: 'Casa',
-  apartment: 'Apartamento',
-  penthouse: 'Cobertura',
-  placeholder: '_placeholder'
-}
+import { HOME_TYPES } from './constants'
 
 class HomeDetails extends Component {
   constructor(props) {
@@ -198,6 +192,10 @@ class HomeDetails extends Component {
                             }/>
                         </Col>
                       </Row>
+                      <Row>
+                        <Col width={1/2} mb={1}><Text inline fontSize="small">Valor mensal do condomínio</Text></Col>
+                        <Row alignItems="flex-end" width={1/2}><Col width={1} ml={2} mb={1}><Text inline fontSize="small">Nº andar</Text></Col></Row>
+                      </Row>
                       <Row mb={4}>
                         <Col width={showFloorNumber ? 1/2 : 1}>
                           <Field
@@ -208,7 +206,7 @@ class HomeDetails extends Component {
                                 render={(ref, props) =>
                                   <Input
                                     {...props}
-                                    label="Valor mensal do condomínio"
+                                    hideLabelView
                                     placeholder="Cond (R$)"
                                     error={errors.maintenanceFee}
                                     defaultValue={maintenanceFee}
@@ -230,7 +228,7 @@ class HomeDetails extends Component {
                               name="floor"
                               render={() => (
                                 <Input
-                                  label="Nº andar"
+                                  hideLabelView
                                   placeholder="Nº andar"
                                   type="number"
                                   error={errors.floor}
