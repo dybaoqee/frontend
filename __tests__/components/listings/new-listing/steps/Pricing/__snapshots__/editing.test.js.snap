@@ -1,6 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders editing price state 1`] = `
+.c7 {
+  box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
+}
+
 .c2 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
@@ -10,7 +14,30 @@ exports[`renders editing price state 1`] = `
   text-align: center;
 }
 
-.c3 {
+.c9 {
+  -webkit-font-smoothing: antialiased;
+  font-family: FaktSoftPro-Normal;
+  color: #3c4858;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.c11 {
+  -webkit-font-smoothing: antialiased;
+  font-family: FaktSoftPro-Normal;
+  color: #979797;
+  font-size: 10px;
+}
+
+.c20 {
+  -webkit-font-smoothing: antialiased;
+  font-family: FaktSoftPro-Normal;
+  color: #3c4858;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.c21 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
   color: #979797;
@@ -29,7 +56,68 @@ exports[`renders editing price state 1`] = `
   justify-content: center;
 }
 
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
 .c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c6 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c8 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c10 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 10px;
+}
+
+.c13 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.c23 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -45,15 +133,15 @@ exports[`renders editing price state 1`] = `
   width: 100%;
 }
 
-.c6 {
+.c24 {
   width: 41.66666666666667%;
 }
 
-.c4 {
+.c22 {
   margin-right: 20px;
 }
 
-.c7 {
+.c25 {
   outline: none;
   display: block;
   cursor: pointer;
@@ -71,11 +159,11 @@ exports[`renders editing price state 1`] = `
   border-color: #e0e6ed;
 }
 
-.c7 :hover {
+.c25 :hover {
   background-color: #ffffff;
 }
 
-.c8 {
+.c26 {
   outline: none;
   display: block;
   cursor: pointer;
@@ -93,8 +181,72 @@ exports[`renders editing price state 1`] = `
   border-color: #e0e6ed;
 }
 
-.c8 :hover {
+.c26 :hover {
   background-color: #f50057;
+}
+
+.c4 {
+  min-width: 300px;
+  max-width: 300px;
+}
+
+.c17 {
+  height: 1px;
+  width: 220px;
+  background-color: #e0e6ed;
+}
+
+.c14 {
+  margin-top: -2px;
+  margin-left: 4px;
+  width: 10px;
+  height: 10px;
+  border-top: 1px solid rgba(0,0,0,0.4);
+  border-radius: 0 100% 0 0;
+  box-shadow: rgba(0,0,0,0.2) -1px 1px 2px 0px inset;
+  background-color: #fff;
+}
+
+.c18 {
+  margin-left: 4px;
+  width: 10px;
+  height: 10px;
+  border-bottom: 1px solid rgba(0,0,0,0.2);
+  border-radius: 0 0 100% 0;
+  box-shadow: rgba(0,0,0,0.2) -1px -1px 1px 0px inset;
+  background-color: #fff;
+}
+
+.c15 {
+  margin-top: -2px;
+  margin-right: 4px;
+  width: 10px;
+  height: 10px;
+  border-top: 1px solid rgba(0,0,0,0.4);
+  border-radius: 100% 0 0 0;
+  box-shadow: rgba(0,0,0,0.2) 1px 1px 2px 0px inset;
+  background-color: #fff;
+}
+
+.c19 {
+  margin-right: 4px;
+  width: 10px;
+  height: 10px;
+  border-bottom: 1px solid rgba(0,0,0,0.2);
+  border-radius: 0 0 0 100%;
+  box-shadow: rgba(0,0,0,0.2) 1px -1px 2px 0px inset;
+  background-color: #fff;
+}
+
+.c16 {
+  position: absolute;
+  margin-left: 45px;
+}
+
+.c12 {
+  background-color: #fff;
+  width: calc(100% + 10px);
+  margin-left: -5px;
 }
 
 @media screen and (min-width:640px) {
@@ -125,32 +277,107 @@ exports[`renders editing price state 1`] = `
         Qual o valor do seu imóvel?
       </p>
       <div
-        className=""
-      />
+        className="c3"
+      >
+        <div
+          className="c4 c5"
+        >
+          <div
+            className="c6"
+          >
+            <div
+              className="c7"
+              elevation={4}
+              style={
+                Object {
+                  "borderRadius": 4,
+                }
+              }
+            >
+              <div
+                className="c8"
+              >
+                <span
+                  className="c9"
+                  color="dark"
+                  fontSize="small"
+                  fontWeight="bold"
+                />
+                <div
+                  className="c10"
+                >
+                  <span
+                    className="c11"
+                    color="grey"
+                    fontSize="xsmall"
+                  >
+                    
+                  </span>
+                </div>
+              </div>
+              <div
+                className="c12 "
+              >
+                <div
+                  className="c13"
+                >
+                  <div
+                    className="c14"
+                  />
+                  <div
+                    className="c15"
+                  />
+                </div>
+                <div
+                  className="c16 c5"
+                >
+                  <div
+                    className="c17 "
+                  />
+                </div>
+                <div
+                  className="c13"
+                >
+                  <div
+                    className="c18"
+                  />
+                  <div
+                    className="c19"
+                  />
+                </div>
+              </div>
+              <div
+                className="c8"
+              >
+                <span
+                  className="c11"
+                  color="grey"
+                  fontSize="xsmall"
+                >
+                  VALOR AVALIADO
+                </span>
+                <span
+                  className="c20"
+                  color="dark"
+                  fontSize="large"
+                  fontWeight="bold"
+                >
+                  R$1,000
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div
         className=""
       >
         <p
-          className="c3"
+          className="c21"
           color="grey"
           fontSize="default"
         >
-          Seu imóvel foi avaliado por:
-        </p>
-        <p
-          className="c2"
-          color="dark"
-          fontSize="large"
-          fontWeight="bold"
-        >
-          R$1,000
-        </p>
-        <p
-          className="c3"
-          color="grey"
-          fontSize="default"
-        >
-          Recomendamos anunciar por:
+          Nossa avaliação é precisa de acordo com os valores de mercado da sua região. Para ter margem na negociação, sugerimos anunciar por um valor 10% maior.
         </p>
         <div
           className="c1"
@@ -162,7 +389,7 @@ exports[`renders editing price state 1`] = `
           }
         >
           <div
-            className="c4"
+            className="c22"
           >
             <input
               mask={[Function]}
@@ -171,23 +398,16 @@ exports[`renders editing price state 1`] = `
             />
           </div>
         </div>
-        <p
-          className="c3"
-          color="grey"
-          fontSize="default"
-        >
-          Não gostou da nossa avaliação? Não tem problema. É só editar o valor do seu imóvel.
-        </p>
       </div>
       <div
-        className="c5"
+        className="c23"
       >
         <div
-          className="c6"
+          className="c24"
           width={0.4166666666666667}
         >
           <button
-            className="c7"
+            className="c25"
             fontSize="default"
             height="tall"
             onClick={[Function]}
@@ -196,11 +416,11 @@ exports[`renders editing price state 1`] = `
           </button>
         </div>
         <div
-          className="c6"
+          className="c24"
           width={0.4166666666666667}
         >
           <button
-            className="c8"
+            className="c26"
             disabled={false}
             fontSize="default"
             height="tall"

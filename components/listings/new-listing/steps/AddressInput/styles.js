@@ -12,7 +12,6 @@ const MobileAddressButton = styled(Button)`
 const MobileAddresText = styled(Text)`
   white-space: nowrap;
   color: ${({hasAddress}) => hasAddress ? themeGet('colors.dark') : '#8291a8'};
-  letter-spacing: 2px;
 `
 
 const MobileAddressTextContainer = styled.div`

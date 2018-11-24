@@ -26,6 +26,7 @@ class NewListing extends Component {
     this.onReset = this.onReset.bind(this)
     this.onResume = this.onResume.bind(this)
     this.hasProgress = this.hasProgress.bind(this)
+    this.restartForm = this.restartForm.bind(this)
   }
 
   static async getInitialProps(context) {
@@ -49,10 +50,13 @@ class NewListing extends Component {
       const display = as.split('#')[1]
       const key = getKeyFromDisplay(display)
 
+      // User is trying to back from final screen. Reset store
+      if (this.props.listing && this.props.listing.id && key === 'services') {
+        this.restartForm()
+        return
+      }
       if (!this.hasProgress() && FINAL_STEPS.includes(key)) {
-        this.props.resetStore()
-        this.props.navigateTo('intro')
-        Router.replace('/vender/imovel')
+        this.restartForm()
         return
       }
 
@@ -100,6 +104,12 @@ class NewListing extends Component {
     }
 
     return false
+  }
+
+  restartForm() {
+    this.props.resetStore()
+    Router.replace('/vender/imovel')
+    return
   }
 
   hasProgress() {

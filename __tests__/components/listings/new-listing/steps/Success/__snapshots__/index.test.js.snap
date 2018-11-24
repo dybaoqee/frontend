@@ -1,0 +1,523 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+.c8 {
+  box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
+}
+
+.c9 {
+  padding: 20px;
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 20px;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 20px;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c7 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c11 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.c15 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.c24 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c1 {
+  width: 100%;
+}
+
+.c13 {
+  width: 50%;
+}
+
+.c27 {
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.c29 {
+  width: 100%;
+}
+
+.c2 {
+  -webkit-font-smoothing: antialiased;
+  font-family: FaktSoftPro-Normal;
+  color: #3c4858;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.c4 {
+  -webkit-font-smoothing: antialiased;
+  font-family: FaktSoftPro-Normal;
+  color: #979797;
+  font-size: 18px;
+}
+
+.c10 {
+  -webkit-font-smoothing: antialiased;
+  font-family: FaktSoftPro-Normal;
+  color: #979797;
+  font-size: 14px;
+}
+
+.c12 {
+  -webkit-font-smoothing: antialiased;
+  font-family: FaktSoftPro-Normal;
+  color: #3c4858;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.c23 {
+  -webkit-font-smoothing: antialiased;
+  font-family: FaktSoftPro-Normal;
+  color: #f50057;
+  font-size: 18px;
+}
+
+.c26 {
+  -webkit-font-smoothing: antialiased;
+  font-family: FaktSoftPro-Normal;
+  color: #f50057;
+  font-size: 14px;
+}
+
+.c28 {
+  outline: none;
+  display: block;
+  cursor: pointer;
+  padding: 0 20px 0 20px;
+  border-radius: 4px;
+  border: 1px solid;
+  border-color: #f50057;
+  background-color: #f50057;
+  width: 100%;
+  height: 60px;
+  color: #ffffff;
+  font-family: FaktSoftPro-Normal;
+  font-size: 18px;
+  -webkit-font-smoothing: antialiased;
+  border-color: #e0e6ed;
+}
+
+.c28 :hover {
+  background-color: #f50057;
+}
+
+.c30 {
+  outline: none;
+  display: block;
+  cursor: pointer;
+  padding: 0 20px 0 20px;
+  border-radius: 4px;
+  border: 1px solid;
+  border-color: #e0e6ed;
+  background-color: #ffffff;
+  width: 100%;
+  height: 60px;
+  color: #3c4858;
+  font-family: FaktSoftPro-Normal;
+  font-size: 18px;
+  -webkit-font-smoothing: antialiased;
+  border-color: #e0e6ed;
+}
+
+.c30 :hover {
+  background-color: #ffffff;
+}
+
+.c25 {
+  margin-right: 10px;
+}
+
+.c22 {
+  cursor: pointer;
+}
+
+.c6 {
+  min-width: 300px;
+  max-width: 300px;
+}
+
+.c19 {
+  height: 1px;
+  width: 220px;
+  background-color: #e0e6ed;
+}
+
+.c16 {
+  margin-top: -2px;
+  margin-left: 4px;
+  width: 10px;
+  height: 10px;
+  border-top: 1px solid rgba(0,0,0,0.4);
+  border-radius: 0 100% 0 0;
+  box-shadow: rgba(0,0,0,0.2) -1px 1px 2px 0px inset;
+  background-color: #fff;
+}
+
+.c20 {
+  margin-left: 4px;
+  width: 10px;
+  height: 10px;
+  border-bottom: 1px solid rgba(0,0,0,0.2);
+  border-radius: 0 0 100% 0;
+  box-shadow: rgba(0,0,0,0.2) -1px -1px 1px 0px inset;
+  background-color: #fff;
+}
+
+.c17 {
+  margin-top: -2px;
+  margin-right: 4px;
+  width: 10px;
+  height: 10px;
+  border-top: 1px solid rgba(0,0,0,0.4);
+  border-radius: 100% 0 0 0;
+  box-shadow: rgba(0,0,0,0.2) 1px 1px 2px 0px inset;
+  background-color: #fff;
+}
+
+.c21 {
+  margin-right: 4px;
+  width: 10px;
+  height: 10px;
+  border-bottom: 1px solid rgba(0,0,0,0.2);
+  border-radius: 0 0 0 100%;
+  box-shadow: rgba(0,0,0,0.2) 1px -1px 2px 0px inset;
+  background-color: #fff;
+}
+
+.c18 {
+  position: absolute;
+  margin-left: 45px;
+}
+
+.c14 {
+  background-color: #fff;
+  width: calc(100% + 10px);
+  margin-left: -5px;
+}
+
+@media screen and (min-width:640px) {
+  .c1 {
+    width: 50%;
+  }
+}
+
+<div>
+  <div
+    className="c0"
+  >
+    <div
+      className="c1"
+      width={
+        Array [
+          1,
+          0.5,
+        ]
+      }
+    >
+      <p
+        className="c2"
+        color="dark"
+        fontSize="large"
+        fontWeight="bold"
+      >
+        Parabéns, seu imóvel foi salvo com sucesso!
+      </p>
+      <div
+        className="c3"
+      >
+        <p
+          className="c4"
+          color="grey"
+          fontSize="default"
+        >
+          Muito obrigado por confiar na EmCasa! Nosso time entrará em contato por telefone em breve. Após o contato, seu imóvel será publicado.
+        </p>
+      </div>
+      <div
+        className="c5"
+      >
+        <div
+          className="c6 c3"
+        >
+          <div
+            className="c7"
+          >
+            <div
+              className="c8"
+              elevation={4}
+              style={
+                Object {
+                  "borderRadius": 4,
+                }
+              }
+            >
+              <div
+                className="c9"
+              >
+                <div
+                  className="c3"
+                >
+                  <div
+                    className=""
+                  >
+                    <span
+                      className="c10"
+                      color="grey"
+                      fontSize="small"
+                    >
+                      Endereço
+                    </span>
+                  </div>
+                </div>
+                <div
+                  className="c11"
+                >
+                  <div
+                    className=""
+                  >
+                    <span
+                      className="c12"
+                      color="dark"
+                      fontSize="small"
+                      fontWeight="bold"
+                    >
+                      Av. Vieira Souto, 600
+                    </span>
+                  </div>
+                </div>
+                <div
+                  className="c3"
+                >
+                  <div
+                    className="c13"
+                    width={0.5}
+                  >
+                    <span
+                      className="c10"
+                      color="grey"
+                      fontSize="small"
+                    >
+                      Valor
+                    </span>
+                  </div>
+                  <div
+                    className="c13"
+                    width={0.5}
+                  >
+                    <span
+                      className="c10"
+                      color="grey"
+                      fontSize="small"
+                    >
+                      Data para visita
+                    </span>
+                  </div>
+                </div>
+                <div
+                  className="c3"
+                >
+                  <div
+                    className="c13"
+                    width={0.5}
+                  >
+                    <span
+                      className="c12"
+                      color="dark"
+                      fontSize="small"
+                      fontWeight="bold"
+                    >
+                      R$1,000,000
+                    </span>
+                  </div>
+                  <div
+                    className="c13"
+                    width={0.5}
+                  >
+                    <span
+                      className="c12"
+                      color="dark"
+                      fontSize="small"
+                      fontWeight="bold"
+                    >
+                      23/11/18 - às undefinedh
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="c14 "
+              >
+                <div
+                  className="c15"
+                >
+                  <div
+                    className="c16"
+                  />
+                  <div
+                    className="c17"
+                  />
+                </div>
+                <div
+                  className="c18 c3"
+                >
+                  <div
+                    className="c19 "
+                  />
+                </div>
+                <div
+                  className="c15"
+                >
+                  <div
+                    className="c20"
+                  />
+                  <div
+                    className="c21"
+                  />
+                </div>
+              </div>
+              <div
+                className="c0"
+              >
+                <span
+                  className="c22 c23"
+                  color="pink"
+                  fontSize="default"
+                  onClick={[Function]}
+                >
+                  <div
+                    className="c24"
+                  >
+                    <div
+                      className="c25"
+                    >
+                      <svg
+                        height={16}
+                        version="1.1"
+                        viewBox="0 0 448 512"
+                        x={0}
+                        y={0}
+                      >
+                        <path
+                          d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
+                          fill="#f50057"
+                          mr={2}
+                          name="plus"
+                          type="default"
+                        />
+                      </svg>
+                    </div>
+                    <span
+                      className="c26"
+                      color="pink"
+                      fontSize="small"
+                    >
+                      Adicionar fotos
+                    </span>
+                  </div>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="c3"
+      >
+        <div
+          className="c27"
+          width={1}
+        >
+          <button
+            className="c28"
+            fontSize="default"
+            height="tall"
+            onClick={[Function]}
+          >
+            Ver Meus Imóveis
+          </button>
+        </div>
+      </div>
+      <div
+        className="c3"
+      >
+        <div
+          className="c29"
+          width={1}
+        >
+          <button
+            className="c30"
+            fontSize="default"
+            height="tall"
+            onClick={[Function]}
+          >
+            Fale com a EmCasa
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
