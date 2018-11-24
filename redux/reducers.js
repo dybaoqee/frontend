@@ -51,6 +51,7 @@ const initialState = {
     number: null
   },
   personal: {
+    id: null,
     name: null,
     email: null
   },
