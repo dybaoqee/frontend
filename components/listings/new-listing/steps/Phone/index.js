@@ -68,15 +68,18 @@ class Phone extends Component {
       number: this.state.number
     })
 
+    const id = get(userInfo, 'data.accountKitSignIn.user.id', null)
     const name = get(userInfo, 'data.accountKitSignIn.user.name', null)
     const email = get(userInfo, 'data.accountKitSignIn.user.email', null)
 
+    const { updatePersonal } = this.props
+    updatePersonal({
+      id,
+      name,
+      email
+    })
+
     if (name) {
-      const { updatePersonal } = this.props
-      updatePersonal({
-        name,
-        email
-      })
       this.estimatePrice({name, email})
     } else {
       this.nextStep()

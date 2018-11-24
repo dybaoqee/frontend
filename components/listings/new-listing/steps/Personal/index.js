@@ -8,7 +8,9 @@ import Text from '@emcasa/ui-dom/components/Text'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import { getAddressInput } from 'lib/address'
 import { estimatePrice, getPricingInput } from 'lib/listings/pricing'
+import { getUserInfo } from 'lib/user'
 import {autoFocus} from 'components/listings/new-listing/lib/forms'
+import {EDIT_PROFILE, EDIT_EMAIL} from 'graphql/user/mutations'
 
 class Personal extends Component {
   constructor(props) {
@@ -18,6 +20,7 @@ class Personal extends Component {
     this.validateName = this.validateName.bind(this)
     this.validateEmail = this.validateEmail.bind(this)
     this.estimatePrice = this.estimatePrice.bind(this)
+    this.updateUserInfo = this.updateUserInfo.bind(this)
     this.updateStateFromProps = this.updateStateFromProps.bind(this)
     this.nameField = React.createRef()
   }
@@ -39,7 +42,7 @@ class Personal extends Component {
   }
 
   updateStateFromProps(props) {
-    const { personal, location } = props
+    const { personal } = props
 
     if (personal) {
       this.setState({
@@ -63,8 +66,48 @@ class Personal extends Component {
     navigateTo('differential')
   }
 
+  async updateUserInfo() {
+    const userInfo = await getUserInfo(this.props.personal.id)
+    if (userInfo.error) {
+      this.setState({
+        loading: false,
+        error: 'Ocorreu um erro. Por favor, tente novamente.'
+      })
+      return
+    }
+
+    try {
+      await apolloClient.mutate({
+        mutation: EDIT_PROFILE,
+        variables: {
+          name: this.state.name,
+          id: this.props.personal.id
+        }
+      })
+
+      if (this.state.email) {
+        await apolloClient.mutate({
+          mutation: EDIT_EMAIL,
+          variables: {
+            id: this.props.personal.id,
+            email: this.state.email
+          }
+        })
+      }
+    } catch (e) {
+      this.setState({
+        loading: false,
+        error: 'Ocorreu um erro. Por favor, tente novamente.'
+      })
+      return
+    }
+  }
+
   async estimatePrice() {
     this.setState({loading: true})
+
+    // If it's a new user, update its name and e-mail so we don't ask again
+    await this.updateUserInfo()
 
     // Prepare input
     const personal = {
