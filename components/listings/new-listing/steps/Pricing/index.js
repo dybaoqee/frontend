@@ -8,19 +8,15 @@ import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
-import StaticMap from 'components/listings/new-listing/shared/StaticMap'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import {autoFocus} from 'components/listings/new-listing/lib/forms'
-import {
-  UserPriceCol,
-  EditPriceButton
- } from './styles'
 import {
   currencyInputMask,
   currencyStyle,
   currencyToInt,
   intToCurrency
 } from 'utils/text-utils'
+import Ticket from 'components/listings/new-listing/shared/Ticket';
 
 class Pricing extends Component {
   constructor(props) {
@@ -31,6 +27,7 @@ class Pricing extends Component {
     this.validateUserPrice = this.validateUserPrice.bind(this)
     this.priceSuggestion = this.priceSuggestion.bind(this)
     this.noPriceSuggestion = this.noPriceSuggestion.bind(this)
+    this.getListingSummary = this.getListingSummary.bind(this)
 
     this.userPriceInput = null
   }
@@ -133,34 +130,27 @@ class Pricing extends Component {
     const formattedUserPrice = userPrice ? intToCurrency(userPrice) : null
     return (
       <Col>
-        <Text color="grey">Seu imóvel foi avaliado por:</Text>
-        <Text fontSize="large" fontWeight="bold" textAlign="center">{suggestedPrice}</Text>
-        <Text color="grey">Recomendamos anunciar por:</Text>
-            {this.state.editingPrice ?
-              <Col width={[1, 1/2]}>
-                {this.currencyInput(errors, setFieldValue, setFieldTouched)}
-              </Col>
-              :
-              <>
-                <Row justifyContent="center">
-                  <UserPriceCol />
-                  <Col>
-                    <Text
-                      inline
-                      fontSize="large"
-                      fontWeight="bold"
-                      textAlign="center"
-                    >{formattedUserPrice ? formattedUserPrice : suggestedPrice}</Text>
-                  </Col>
-                  <UserPriceCol>
-                    <EditPriceButton onClick={() => this.setState({editingPrice: true})} style={{marginLeft: 20}}>
-                      <Icon name="pen" color="dark" />
-                    </EditPriceButton>
-                  </UserPriceCol>
-                </Row>
-              </>
-            }
-        <Text color="grey">Não gostou da nossa avaliação? Não tem problema. É só editar o valor do seu imóvel.</Text>
+        <Text color="grey">Nossa avaliação é precisa de acordo com os valores de mercado da sua região. Para ter margem na negociação, sugerimos anunciar por um valor 10% maior.</Text>
+        {this.state.editingPrice ?
+          <Col width={[1, 1/2]}>
+            {this.currencyInput(errors, setFieldValue, setFieldTouched)}
+          </Col>
+          :
+          <Row justifyContent="center">
+            <Col>
+              <Text
+                inline
+                fontSize="large"
+                fontWeight="bold"
+              >{formattedUserPrice ? formattedUserPrice : suggestedPrice}</Text>
+            </Col>
+          </Row>
+        }
+        {!this.state.editingPrice &&
+          <Row justifyContent="center" onClick={() => this.setState({editingPrice: true})} style={{cursor: 'pointer'}}>
+            <Text fontSize="small" color="pink">Quer anunciar por outro valor?</Text>
+          </Row>
+        }
       </Col>
     )
   }
@@ -182,6 +172,29 @@ class Pricing extends Component {
     )
   }
 
+  plural(item) {
+    return item > 1 ? 's' : ''
+  }
+
+  getListingSummary() {
+    const { homeDetails, rooms, garage } = this.props
+    let listingSummary = ''
+    if (homeDetails && rooms && garage) {
+      const { area } = homeDetails
+      const { bedrooms, suites, bathrooms } = rooms
+      const { spots } = garage
+      listingSummary = `
+        ${area}m² -
+        ${bedrooms} Quarto${this.plural(bedrooms)}
+        ${suites ? ` - ${suites} Suíte${this.plural(suites)}` : ``} -
+        ${bathrooms} Banheiro${this.plural(bathrooms)}
+        ${spots ? ` - ${spots} Vaga${this.plural(spots)}` : ``}
+      `
+    }
+
+    return listingSummary
+  }
+
   validateUserPrice(value) {
     if (!this.state.editingPrice) {
       return
@@ -193,11 +206,10 @@ class Pricing extends Component {
 
   render() {
     const { pricing, location } = this.props
-    let suggestedPrice, userPrice, addressData
+    let suggestedPrice, userPrice
     if (pricing && location) {
       suggestedPrice = pricing.suggestedPrice
       userPrice = pricing.userPrice
-      addressData = location.addressData
     }
     return (
       <div ref={this.props.hostRef}>
@@ -218,9 +230,29 @@ class Pricing extends Component {
                     textAlign="center">
                     Qual o valor do seu imóvel?
                   </Text>
-                  <Col>
-                    <StaticMap addressData={addressData} />
-                  </Col>
+                  <Row justifyContent="center">
+                    <Ticket
+                      hideSeparator={!suggestedPrice}
+                      topRender={() =>
+                        <Row px={4} pt={4} pb={suggestedPrice ? 4 : 0} flexDirection="column">
+                          <Text inline fontSize="xsmall" fontWeight="bold">{location.address}</Text>
+                          {suggestedPrice && <Row mt={2}><Text inline fontSize="small" color="grey">{this.getListingSummary()}</Text></Row>}
+                        </Row>
+                      }
+                      bottomRender={() =>
+                        <Row px={4} pb={4} pt={suggestedPrice ? 4 : 0} flexDirection="column">
+                          {suggestedPrice ?
+                            <>
+                              <Text inline fontSize="xsmall" color="grey">VALOR AVALIADO</Text>
+                              <Text inline fontSize="large" fontWeight="bold">{intToCurrency(suggestedPrice)}</Text>
+                            </>
+                          :
+                            <Row><Text inline fontSize="small" color="grey">{this.getListingSummary()}</Text></Row>
+                          }
+                        </Row>
+                      }
+                    />
+                  </Row>
                   {suggestedPrice ?
                     this.priceSuggestion(errors, setFieldValue, setFieldTouched)
                   :

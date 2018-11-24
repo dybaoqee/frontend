@@ -27,9 +27,11 @@ class Ticket extends PureComponent {
                 <TopLeftCorner />
                 <TopRightCorner />
               </Row>
-              <SeparatorContainer>
-                <Separator />
-              </SeparatorContainer>
+              {!this.props.hideSeparator &&
+                <SeparatorContainer>
+                  <Separator />
+                </SeparatorContainer>
+              }
               <Row justifyContent="space-between">
                 <BottomLeftCorner />
                 <BottomRightCorner />
@@ -45,7 +47,8 @@ class Ticket extends PureComponent {
 
 Ticket.propTypes = {
   topRender: PropTypes.func.isRequired,
-  bottomRender: PropTypes.func.isRequired
+  bottomRender: PropTypes.func.isRequired,
+  hideSeparator: PropTypes.bool
 }
 
 export default Ticket
