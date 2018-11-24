@@ -18,7 +18,7 @@ exports[`renders editing price state 1`] = `
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
   color: #3c4858;
-  font-size: xsmall;
+  font-size: 14px;
   font-weight: bold;
 }
 
@@ -26,17 +26,10 @@ exports[`renders editing price state 1`] = `
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
   color: #979797;
-  font-size: 14px;
+  font-size: 10px;
 }
 
 .c20 {
-  -webkit-font-smoothing: antialiased;
-  font-family: FaktSoftPro-Normal;
-  color: #979797;
-  font-size: xsmall;
-}
-
-.c21 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
   color: #3c4858;
@@ -44,7 +37,7 @@ exports[`renders editing price state 1`] = `
   font-weight: bold;
 }
 
-.c22 {
+.c21 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
   color: #979797;
@@ -124,7 +117,7 @@ exports[`renders editing price state 1`] = `
   justify-content: space-between;
 }
 
-.c24 {
+.c23 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -140,15 +133,15 @@ exports[`renders editing price state 1`] = `
   width: 100%;
 }
 
-.c25 {
+.c24 {
   width: 41.66666666666667%;
 }
 
-.c23 {
+.c22 {
   margin-right: 20px;
 }
 
-.c26 {
+.c25 {
   outline: none;
   display: block;
   cursor: pointer;
@@ -166,11 +159,11 @@ exports[`renders editing price state 1`] = `
   border-color: #e0e6ed;
 }
 
-.c26 :hover {
+.c25 :hover {
   background-color: #ffffff;
 }
 
-.c27 {
+.c26 {
   outline: none;
   display: block;
   cursor: pointer;
@@ -188,7 +181,7 @@ exports[`renders editing price state 1`] = `
   border-color: #e0e6ed;
 }
 
-.c27 :hover {
+.c26 :hover {
   background-color: #f50057;
 }
 
@@ -307,7 +300,7 @@ exports[`renders editing price state 1`] = `
                 <span
                   className="c9"
                   color="dark"
-                  fontSize="xsmall"
+                  fontSize="small"
                   fontWeight="bold"
                 />
                 <div
@@ -316,7 +309,7 @@ exports[`renders editing price state 1`] = `
                   <span
                     className="c11"
                     color="grey"
-                    fontSize="small"
+                    fontSize="xsmall"
                   >
                     
                   </span>
@@ -357,14 +350,14 @@ exports[`renders editing price state 1`] = `
                 className="c8"
               >
                 <span
-                  className="c20"
+                  className="c11"
                   color="grey"
                   fontSize="xsmall"
                 >
                   VALOR AVALIADO
                 </span>
                 <span
-                  className="c21"
+                  className="c20"
                   color="dark"
                   fontSize="large"
                   fontWeight="bold"
@@ -380,7 +373,7 @@ exports[`renders editing price state 1`] = `
         className=""
       >
         <p
-          className="c22"
+          className="c21"
           color="grey"
           fontSize="default"
         >
@@ -396,7 +389,7 @@ exports[`renders editing price state 1`] = `
           }
         >
           <div
-            className="c23"
+            className="c22"
           >
             <input
               mask={[Function]}
@@ -407,14 +400,14 @@ exports[`renders editing price state 1`] = `
         </div>
       </div>
       <div
-        className="c24"
+        className="c23"
       >
         <div
-          className="c25"
+          className="c24"
           width={0.4166666666666667}
         >
           <button
-            className="c26"
+            className="c25"
             fontSize="default"
             height="tall"
             onClick={[Function]}
@@ -423,11 +416,11 @@ exports[`renders editing price state 1`] = `
           </button>
         </div>
         <div
-          className="c25"
+          className="c24"
           width={0.4166666666666667}
         >
           <button
-            className="c27"
+            className="c26"
             disabled={false}
             fontSize="default"
             height="tall"
