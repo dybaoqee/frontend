@@ -34,7 +34,9 @@ class Phone extends Component {
     internationalCode: null,
     localAreaCode: null,
     number: null,
-    userInfo: null
+    userInfo: null,
+    loading: false,
+    error: null
   }
 
   componentDidMount() {
@@ -59,6 +61,7 @@ class Phone extends Component {
 
   onLoginSuccess(userInfo) {
     if (!userInfo) {
+      this.setState({loading: false})
       return
     }
     const { updatePhone } = this.props
@@ -243,6 +246,7 @@ class Phone extends Component {
                         )}/>
                     </Col>
                   </Row>
+                  <Text color="red">{this.state.error}</Text>
                   <AccountKit
                     skipRedirect
                     appId={process.env.FACEBOOK_APP_ID}
@@ -254,7 +258,12 @@ class Phone extends Component {
                     {({signIn}) => (
                       <NavButtons
                         previousStep={this.previousStep}
-                        onSubmit={signIn}
+                        onSubmit={() => {
+                          this.setState({loading: true}, () => {
+                            signIn()
+                          })
+                        }}
+                        loading={this.state.loading}
                         submitEnabled={isValid}
                       />
                     )}
