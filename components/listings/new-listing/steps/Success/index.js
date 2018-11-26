@@ -47,7 +47,7 @@ class Success extends PureComponent {
   render() {
     const { tour, location, pricing, listing } = this.props
     const listingId = listing.id
-    const { day } = tour    
+    const { day } = tour
     const { address } = location
     const { userPrice } = pricing
     return (
@@ -61,7 +61,7 @@ class Success extends PureComponent {
               Parabéns, seu imóvel foi salvo com sucesso!
             </Text>
             <Row>
-              <Text color="grey">Muito obrigado por confiar na EmCasa! Nosso time entrará em contato por telefone em breve. Após o contato, seu imóvel será publicado.</Text>
+              <Text color="grey">Muito obrigado por confiar na EmCasa! Nosso time entrará em contato por telefone em breve.</Text>
             </Row>
             <Row justifyContent="center" mb={4}>
               <Ticket

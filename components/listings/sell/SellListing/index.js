@@ -66,8 +66,8 @@ export default class SellListing extends Component {
           <Row justifyContent="center">
             <Col>
               <Text color="gray">
-                Vender seu imóvel com a EmCasa nunca foi tão fácil, informe o endereço do seu imóvel
-                e faremos uma pré-avaliação do valor para você
+                Vender seu imóvel nunca foi tão fácil, informe o endereço do seu imóvel
+                e receba agora uma avaliação grátis
               </Text>
             </Col>
           </Row>
