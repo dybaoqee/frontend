@@ -265,8 +265,7 @@ export default class AddressAutoComplete extends Component {
       errors
     } = this.state
     const value = place.description || search
-    const { onBackPressed } = this.props
-    console.log('searchResultsMargin:', this.props.searchResultsMargin)
+    const { onBackPressed, defaultValue, searchResultsMargin } = this.props
     return (
       <>
         <InputContainer>
@@ -283,7 +282,7 @@ export default class AddressAutoComplete extends Component {
               type="text"
               name="street"
               ref={this.searchInput}
-              value={dirty ? value : this.props.defaultValue}
+              value={dirty ? value : defaultValue}
               placeholder="Endereço e número*"
               onChange={this.onChange}
               autoComplete="off"
@@ -300,7 +299,7 @@ export default class AddressAutoComplete extends Component {
         </InputContainer>
         {errors.length > 0 && <Text inline color="red" fontSize="small">{errors[0]}</Text>}
         {showPredictions &&
-          <SearchResultContainer searchResultsMargin={this.props.searchResultsMargin}>
+          <SearchResultContainer searchResultsMargin={searchResultsMargin}>
             <Col width={[1]}>
               {this.getSearchResults()}
             </Col>

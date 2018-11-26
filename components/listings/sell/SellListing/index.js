@@ -48,7 +48,7 @@ export default class SellListing extends Component {
             </Col>
           </Row>
           <Row flexDirection={['column', 'row']}>
-            <Col width={[1, 10 / 12]} mr={2} mb={[4, 0]}>
+            <Col width={[1, 10 / 12]} mr={[0, 2]} mb={[4, 0]}>
               {isMobile() ?
                 <Col mb={4}>
                   <MobileAddressButton
