@@ -1,9 +1,7 @@
-import {Fragment} from 'react'
 import {ThemeProvider} from 'styled-components'
 import theme from '@emcasa/ui'
 import Link from 'next/link'
 import Col from '@emcasa/ui-dom/components/Col'
-import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faPhone from '@fortawesome/fontawesome-pro-light/faPhone'
@@ -16,88 +14,92 @@ import {
   faWhatsapp
 } from '@fortawesome/fontawesome-free-brands'
 
+import {
+  Container,
+  TextLink,
+  AboutText
+} from './styles'
+
+const titleText = {
+  fontWeight: 'bold'
+}
+
 const Footer = () => (
   <ThemeProvider theme={theme}>
-    <Fragment>
-      <Col>
-        <Text>
+    <Container>
+      <Col width={6 / 12}>
+        <AboutText fontSize="small">
           A EmCasa é uma imobiliária digital que usa tecnologia e design para simplificar a compra e venda de apartamentos e casas no Rio de Janeiro e em São Paulo
-        </Text>
-        <Text> CRECI-RJ J-7712</Text>
+        </AboutText>
+        <Text fontSize="16px"> CRECI-RJ J-7712</Text>
       </Col>
-      <Col>
-        <Text>EmCasa</Text>
+      <Col width={2 / 12}>
+        <Text {...titleText}>EmCasa</Text>
         <Link href="/listings" as="/imoveis">
-          <Text>Compre</Text>
+          <TextLink>Compre</TextLink>
         </Link>
         <Link href="/listings/sell/know-more" as="/saiba-mais-para-vender">
-          <Text>Venda</Text>
+          <TextLink>Venda</TextLink>
         </Link>
         <Link href="http://blog.emcasa.com">
-          <Text>Blog</Text>
+          <TextLink>Blog</TextLink>
         </Link>
         <Link href="https://jobs.emcasa.com/">
-          <Text>Trabalhe Conosco</Text>
+          <TextLink>Trabalhe Conosco</TextLink>
         </Link>
         <Link href="/sitemap">
-          <Text>Mapa do site</Text>
+          <TextLink>Mapa do site</TextLink>
         </Link>
       </Col>
-      <Col>
-        <Text>Suporte</Text>
+      <Col width={2 / 12}>
+        <Text {...titleText}>Suporte</Text>
         <div>
-          <FontAwesomeIcon icon={faPhone} />
-          <a href="tel:+5521994771868"> (21) 99477-1868 </a>
+          <TextLink>
+            <FontAwesomeIcon icon={faPhone} />
+            (21) 99477-1868
+          </TextLink>
         </div>
         <div>
-          <FontAwesomeIcon icon={faWhatsapp} />
-          <a href="https://wa.me/5521994771868">WhatsApp</a>
+          <TextLink>
+            <FontAwesomeIcon icon={faWhatsapp} />
+            WhatsApp
+          </TextLink>
         </div>
         <div>
-          <FontAwesomeIcon icon={faMail} />
-          <a href="mailto:contato@emcasa.com">Fale com a gente</a>
+          <TextLink>
+            <FontAwesomeIcon icon={faMail} />
+            Fale com a gente
+          </TextLink>
         </div>
       </Col>
-      <Col>
-        <Text>Redes Sociais</Text>
+      <Col width={2 / 12}>
+        <Text {...titleText}>Redes Sociais</Text>
         <div>
-          <a
-            href="https://www.facebook.com/EmCasa"
-            target="_blank"
-            className="icon"
-          >
+          <TextLink>
             <FontAwesomeIcon icon={faFacebook} />
-          </a>
+            Facebook
+          </TextLink>
         </div>
         <div>
-          <a
-            href="https://www.instagram.com/emcasaimoveis/"
-            target="_blank"
-            className="icon"
-          >
+          <TextLink>
             <FontAwesomeIcon icon={faInstagram} />
-          </a>
+            Instagram
+          </TextLink>
         </div>
         <div>
-          <a
-            href="https://www.linkedin.com/company/emcasa/"
-            target="_blank"
-            className="icon"
-          >
+          <TextLink>
             <FontAwesomeIcon icon={faLinkedin} />
-          </a>
+            LinkedIn
+          </TextLink>
         </div>
         <div>
-          <a
-            href="https://twitter.com/EmCasaTech"
-            target="_blank"
-            className="icon"
-          >
+          <TextLink>
             <FontAwesomeIcon icon={faTwitter} />
-          </a>
+            Twitter
+          </TextLink>
         </div>
       </Col>
-    </Fragment>
+    </Container>
   </ThemeProvider>
 )
 
