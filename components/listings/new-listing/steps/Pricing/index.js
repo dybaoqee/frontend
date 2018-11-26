@@ -12,9 +12,9 @@ import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import {autoFocus} from 'components/listings/new-listing/lib/forms'
 import {
   currencyInputMask,
-  currencyStyle,
   currencyToInt,
-  intToCurrency
+  intToCurrency,
+  roundUpPrice
 } from 'utils/text-utils'
 import Ticket from 'components/listings/new-listing/shared/Ticket';
 
@@ -25,7 +25,6 @@ class Pricing extends Component {
     this.previousStep = this.previousStep.bind(this)
     this.updateStateFromProps = this.updateStateFromProps.bind(this)
     this.validateUserPrice = this.validateUserPrice.bind(this)
-    this.priceSuggestion = this.priceSuggestion.bind(this)
     this.noPriceSuggestion = this.noPriceSuggestion.bind(this)
     this.getListingSummary = this.getListingSummary.bind(this)
 
@@ -59,7 +58,7 @@ class Pricing extends Component {
   }
 
   nextStep() {
-    if (this.state.editingPrice) {
+    if (this.state.suggestedPrice && this.state.editingPrice) {
       this.setState({editingPrice: false})
       return
     }
@@ -105,7 +104,7 @@ class Pricing extends Component {
                   hideLabelView
                   error={form.touched.userPrice ? errors.userPrice : null}
                   placeholder="R$ 000.000"
-                  defaultValue={userPrice}
+                  defaultValue={this.state.userPrice ? this.state.userPrice : userPrice}
                   type="tel"
                   ref={(input) => ref(input)}
                   onChange={(e) => {
@@ -119,38 +118,6 @@ class Pricing extends Component {
             />
           }
         />
-      </Col>
-    )
-  }
-
-  priceSuggestion(errors, setFieldValue, setFieldTouched) {
-    const { pricing } = this.props
-    const suggestedPrice = intToCurrency(pricing.suggestedPrice)
-    const { userPrice } = this.state
-    const formattedUserPrice = userPrice ? intToCurrency(userPrice) : null
-    return (
-      <Col>
-        <Text color="grey">Nossa avaliação é precisa de acordo com os valores de mercado da sua região. Para ter margem na negociação, sugerimos anunciar por um valor 10% maior.</Text>
-        {this.state.editingPrice ?
-          <Col width={[1, 1/2]}>
-            {this.currencyInput(errors, setFieldValue, setFieldTouched)}
-          </Col>
-          :
-          <Row justifyContent="center">
-            <Col>
-              <Text
-                inline
-                fontSize="large"
-                fontWeight="bold"
-              >{formattedUserPrice ? formattedUserPrice : suggestedPrice}</Text>
-            </Col>
-          </Row>
-        }
-        {!this.state.editingPrice &&
-          <Row justifyContent="center" onClick={() => this.setState({editingPrice: true})} style={{cursor: 'pointer'}}>
-            <Text fontSize="small" color="pink">Quer anunciar por outro valor?</Text>
-          </Row>
-        }
       </Col>
     )
   }
@@ -208,7 +175,7 @@ class Pricing extends Component {
     const { pricing, location } = this.props
     let suggestedPrice, userPrice
     if (pricing && location) {
-      suggestedPrice = pricing.suggestedPrice
+      suggestedPrice = pricing.suggestedPrice ? roundUpPrice(pricing.suggestedPrice) : null
       userPrice = pricing.userPrice
     }
     return (
@@ -230,7 +197,8 @@ class Pricing extends Component {
                     textAlign="center">
                     Qual o valor do seu imóvel?
                   </Text>
-                  <Row justifyContent="center">
+                  <Row alignItems="center" flexDirection="column">
+                    {suggestedPrice && <Text color="grey">Nossa avaliação é precisa de acordo com os valores de mercado da sua região. Você mesmo pode editar este valor ou conversar com um de nossos especialistas no final do processo.</Text>}
                     <Ticket
                       hideSeparator={!suggestedPrice}
                       topRender={() =>
@@ -244,7 +212,20 @@ class Pricing extends Component {
                           {suggestedPrice ?
                             <>
                               <Text inline fontSize="xsmall" color="grey">VALOR AVALIADO</Text>
-                              <Text inline fontSize="large" fontWeight="bold">{intToCurrency(suggestedPrice)}</Text>
+                              <Row justifyContent="space-between">
+                                {this.state.editingPrice ?
+                                  <>
+                                    {this.currencyInput(errors, setFieldValue, setFieldTouched)}
+                                  </>
+                                :
+                                  <>
+                                    <Text inline fontSize="large" fontWeight="bold">{intToCurrency(this.state.userPrice ? this.state.userPrice : suggestedPrice)}</Text>
+                                    <Col onClick={() => {this.setState({editingPrice: true})}} style={{cursor: 'pointer', marginTop: 8}}>
+                                      <Icon name="pen" />
+                                    </Col>
+                                  </>
+                                }
+                              </Row>
                             </>
                           :
                             <Row><Text inline fontSize="small" color="grey">{this.getListingSummary()}</Text></Row>
@@ -253,11 +234,7 @@ class Pricing extends Component {
                       }
                     />
                   </Row>
-                  {suggestedPrice ?
-                    this.priceSuggestion(errors, setFieldValue, setFieldTouched)
-                  :
-                    this.noPriceSuggestion(errors, setFieldValue, setFieldTouched)
-                  }
+                  {!suggestedPrice && this.noPriceSuggestion(errors, setFieldValue, setFieldTouched)}
                   <NavButtons
                     nextLabel={this.state.editingPrice ? 'OK' : 'Avançar'}
                     previousLabel={this.state.editingPrice ? 'Cancelar' : 'Voltar'}
