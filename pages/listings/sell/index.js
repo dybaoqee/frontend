@@ -8,6 +8,7 @@ import SellListing from 'components/listings/sell/SellListing'
 import Benefits from 'components/listings/sell/Benefits'
 import HowItWorks from 'components/listings/sell/HowItWorks'
 import {desktopHeaderHeight} from 'constants/dimensions'
+import {isMobile} from 'components/listings/new-listing/lib/mobile'
 
 const Container = styled(View)`
   display: flex;
@@ -39,7 +40,30 @@ export default class Sell extends Component {
     }
   }
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      pageWidth: process.browser ? window.innerWidth : 0
+    }
+  }
+
+  onResize = () => {
+    this.setState({pageWidth: window.innerWidth})
+  }
+
+  componentDidMount() {
+    window.addEventListener('resize', this.onResize)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.onResize)
+  }
+
   render() {
+    const blockProps = {
+      isMobile: isMobile(this.state.pageWidth)
+    }
+
     return (
       <ThemeProvider theme={theme}>
         <Container>
@@ -47,10 +71,10 @@ export default class Sell extends Component {
             <SellListing />
           </MainBlock>
           <Block>
-            <Benefits />
+            <Benefits {...blockProps} />
           </Block>
           <Block>
-            <HowItWorks />
+            <HowItWorks {...blockProps} />
           </Block>
         </Container>
       </ThemeProvider>

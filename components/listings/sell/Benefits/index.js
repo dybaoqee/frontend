@@ -9,7 +9,10 @@ import Col from '@emcasa/ui-dom/components/Col'
 import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
+<<<<<<< HEAD
 import {isMobile} from 'lib/mobile'
+=======
+>>>>>>> master
 
 const Container = styled(View)`
   display: flex;
@@ -71,7 +74,7 @@ const BENEFITS = [
   }
 ]
 
-const getBenefits = (ignoreMobile) => {
+const getBenefits = (isMobile) => {
   const benefits = BENEFITS.map(({icon, title, description}) => (
     <BenefitCol width={[1, 3 / 12]}>
       <Icon name={icon} />
@@ -82,7 +85,7 @@ const getBenefits = (ignoreMobile) => {
     </BenefitCol>
   ))
 
-  if (!ignoreMobile && isMobile()) {
+  if (isMobile) {
     return (
       <Carousel
         renderCenterLeftControls={() => null}
@@ -115,8 +118,8 @@ export default class Benefits extends Component {
             flexDirection={['column', 'row']}
             alignItems={['center', 'none']}
           >
-            <NoSSR onSSR={getBenefits(true)}>
-              {getBenefits()}
+            <NoSSR onSSR={getBenefits()}>
+              {getBenefits(this.props.isMobile)}
             </NoSSR>
           </Row>
           <Row justifyContent="center">
