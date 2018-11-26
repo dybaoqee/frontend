@@ -49,14 +49,11 @@ const Step = styled.div`
   p {
     margin: 0;
   }
-  @media (max-width: ${theme.breakpoints[0]}) {
-    margin-top: 28px;
-    margin-bottom: 60px;
-  }
 `
 
 const StepIndex = styled.div`
-  margin: -10px;
+  margin-top: -10px;
+  margin-left: -60px;
   position: absolute;
   display: flex;
   align-items: center;
@@ -67,10 +64,25 @@ const StepIndex = styled.div`
   background-color: ${theme.colors.pink};
 `
 
+const StepArrow = styled.div`
+  background: url('/static/assets/arrow-seller.svg') no-repeat;
+  background-size: contain;
+  background-position: center center;
+  width: 70px;
+  margin-left: 10px;
+  margin-right: 10px;
+  opacity: ${props => props.isLast ? '0' : '1'};
+`
+
+const StepContainer = styled(Row)`
+  @media (max-width: ${theme.breakpoints[0]}) {
+    margin-top: 10px;
+    margin-bottom: 70px;
+  }
+`
 
 const Steps = styled(Row)`
   min-height: 30vh;
-  
 `
 
 const STEPS = [
@@ -84,17 +96,22 @@ const STEPS = [
 const getSteps = (ignoreMobile) => {
   const steps = STEPS.map(({title, icon}, index) => (
     <Col width={[1, 2 / 12]}>
-      <StepIndex>
-        <Text color="white" fontWeight="bold" fontSize="small">
-          {index + 1}
-        </Text>
-      </StepIndex>
-      <Step>
-        <Icon name={icon} />
-        <Text fontSize="medium" color="dark" fontWeight="bold">
-          <span dangerouslySetInnerHTML={{__html: title}} />
-        </Text>
-      </Step>
+      <StepContainer justifyContent="center">
+        <Row justifyContent="center">
+          <StepIndex>
+            <Text color="white" fontWeight="bold" fontSize="small">
+              {index + 1}
+            </Text>
+          </StepIndex>
+          <Step>
+            <Icon name={icon} />
+            <Text fontSize="medium" color="dark" fontWeight="bold">
+              <span dangerouslySetInnerHTML={{__html: title}} />
+            </Text>
+          </Step>
+        </Row>
+        {!isMobile() && <StepArrow isLast={index === STEPS.length - 1} />}
+      </StepContainer>
     </Col>
   ))
 
@@ -104,7 +121,7 @@ const getSteps = (ignoreMobile) => {
         renderCenterLeftControls={() => null}
         renderCenterRightControls={() => null}
         width="400px"
-        slidesToShow={2}
+        slidesToShow={1}
         initialSlideHeight={0}
         heightMode="max">
         {steps}
