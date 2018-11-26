@@ -8,6 +8,7 @@ import Button from '@emcasa/ui-dom/components/Button'
 import {isMobile} from 'lib/mobile'
 import AddressAutoComplete from 'components/shared/AddressAutoComplete'
 import MobileAddressButton from 'components/shared/MobileAddressButton'
+import { MobieTypeaheadContainer } from 'components/shared/AddressAutoComplete/styles'
 
 import {
   UnderlinedText,
@@ -19,18 +20,49 @@ export default class SellListing extends Component {
   constructor(props) {
     super(props)
     this.openMobileAddressInput = this.openMobileAddressInput.bind(this)
+    this.close = this.close.bind(this)
   }
 
   state = {
+    showMobileAddressInput: false,
     addressFormatted: null,
     addressData: null
   }
 
   openMobileAddressInput() {
-    
+    this.setState({
+      showMobileAddressInput: true
+    })
+  }
+
+  close() {
+    this.setState({
+      showMobileAddressInput: false
+    })
   }
 
   render() {
+    if (this.state.showMobileAddressInput) {
+      return (
+        <MobieTypeaheadContainer justifyContent="center" p={4}>
+          <Col width={1}>
+            <AddressAutoComplete
+              onBackPressed={this.close}
+              defaultValue={this.state.addressFormatted}
+              onClearInput={() => {}}
+              onSelectAddress={(addressFormatted, addressData) => {
+                this.setState({
+                  showMobileAddressInput: false,
+                  addressFormatted,
+                  addressData
+                })
+              }}
+            />
+          </Col>
+        </MobieTypeaheadContainer>
+      )
+    }
+
     return (
       <Container>
         <Content>
@@ -55,7 +87,7 @@ export default class SellListing extends Component {
                 <Col mb={4}>
                   <MobileAddressButton
                     onClick={this.openMobileAddressInput}
-                    address={this.state.address}
+                    address={this.state.addressFormatted}
                   />
                 </Col>
               :
