@@ -5,6 +5,8 @@ import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
 import {isMobile} from 'lib/mobile'
+import AddressAutoComplete from 'components/shared/AddressAutoComplete'
+import MobileAddressButton from 'components/shared/MobileAddressButton'
 
 import {
   UnderlinedText,
@@ -23,7 +25,7 @@ export default class SellListing extends Component {
   }
 
   openMobileAddressInput() {
-    console.log('open mobile address input')
+    
   }
 
   render() {
@@ -57,14 +59,11 @@ export default class SellListing extends Component {
               :
                 <Col mb={4}>
                   <AddressAutoComplete
-                    defaultValue={address}
+                    searchResultsMargin={4}
+                    defaultValue={this.state.address}
                     onClearInput={this.onClearInput}
                     onSelectAddress={(addressFormatted, addressData) => {
-                      setFieldValue('address', addressFormatted)
-                      this.setState({
-                        address: addressFormatted,
-                        addressData: addressData
-                      })
+                      
                     }}
                   />
                 </Col>

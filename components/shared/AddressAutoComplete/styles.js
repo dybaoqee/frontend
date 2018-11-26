@@ -19,14 +19,14 @@ const SearchResultItem = styled(View)`
   }
 `
 
-const MARGIN_RIGHT = '20px'
-const MOBILE_MARGIN = '40px'
+const MARGIN_RIGHT = 20
+const MOBILE_MARGIN = 40
 const SearchResultContainer = styled(Row)`
   position: absolute;
   z-index: 1;
-  width: calc(50vw - ${MARGIN_RIGHT});
+  width: calc(50vw - ${({searchResultsMargin}) => searchResultsMargin ? searchResultsMargin : MARGIN_RIGHT }px);
   @media only screen and (max-width: ${themeGet('breakpoints.0')}) {
-    width: calc(100vw - ${MOBILE_MARGIN});
+    width: calc(100vw - ${MOBILE_MARGIN}px);
   }
 `
 

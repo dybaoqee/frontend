@@ -37,6 +37,7 @@ export default class AddressAutoComplete extends Component {
   }
 
   static propTypes = {
+    searchResultsMargin: PropTypes.number,
     defaultValue: PropTypes.string,
     onSelectAddress: PropTypes.func.isRequired,
     onClearInput: PropTypes.func,
@@ -265,6 +266,7 @@ export default class AddressAutoComplete extends Component {
     } = this.state
     const value = place.description || search
     const { onBackPressed } = this.props
+    console.log('searchResultsMargin:', this.props.searchResultsMargin)
     return (
       <>
         <InputContainer>
@@ -298,7 +300,7 @@ export default class AddressAutoComplete extends Component {
         </InputContainer>
         {errors.length > 0 && <Text inline color="red" fontSize="small">{errors[0]}</Text>}
         {showPredictions &&
-          <SearchResultContainer>
+          <SearchResultContainer searchResultsMargin={this.props.searchResultsMargin}>
             <Col width={[1]}>
               {this.getSearchResults()}
             </Col>

@@ -2,7 +2,6 @@ import styled from 'styled-components'
 import theme from '@emcasa/ui'
 import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
-import Input from '@emcasa/ui-dom/components/Input'
 import {desktopHeaderHeight} from 'constants/dimensions'
 
 const CLOUDINARY_URL = 'https://res.cloudinary.com/emcasa/image/upload/fl_any_format/v1542831121/background'
