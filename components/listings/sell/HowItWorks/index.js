@@ -9,7 +9,6 @@ import Col from '@emcasa/ui-dom/components/Col'
 import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
-import {isMobile} from 'components/listings/new-listing/lib/mobile'
 
 const Container = styled(View)`
   display: flex;
@@ -93,7 +92,7 @@ const STEPS = [
   {title: 'Venda<br />Finalizada', icon: 'venda-finalizada'},
 ]
 
-const getSteps = (ignoreMobile) => {
+const getSteps = (isMobile) => {
   const steps = STEPS.map(({title, icon}, index) => (
     <Col width={[1, 2 / 12]}>
       <StepContainer justifyContent="center">
@@ -110,12 +109,12 @@ const getSteps = (ignoreMobile) => {
             </Text>
           </Step>
         </Row>
-        {!isMobile() && <StepArrow isLast={index === STEPS.length - 1} />}
+        {!isMobile && <StepArrow isLast={index === STEPS.length - 1} />}
       </StepContainer>
     </Col>
   ))
 
-  if (!ignoreMobile && isMobile()) {
+  if (isMobile) {
     return (
       <Carousel
         renderCenterLeftControls={() => null}
@@ -153,8 +152,8 @@ export default class HowItWorks extends Component {
             </Col>
           </Row>
           <Steps justifyContent="center" mt={40}>
-            <NoSSR onSSR={getSteps(true)}>
-              {getSteps()}
+            <NoSSR onSSR={getSteps()}>
+              {getSteps(this.props.isMobile)}
             </NoSSR>
           </Steps>
           <Row justifyContent="center">
