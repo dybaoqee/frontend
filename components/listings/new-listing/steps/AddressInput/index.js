@@ -10,12 +10,8 @@ import AddressAutoComplete from 'components/listings/new-listing/shared/AddressA
 import StaticMap from 'components/listings/new-listing/shared/StaticMap'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import { getAddressInput } from 'lib/address'
-import {isMobile} from 'components/listings/new-listing/lib/mobile'
-import {
-  MobileAddressTextContainer,
-  MobileAddressButton,
-  MobileAddresText
-} from './styles'
+import {isMobile} from 'lib/mobile'
+import MobileAddressButton from 'components/shared/MobileAddressButton'
 
 class AddressInput extends Component {
   constructor(props) {
@@ -158,14 +154,9 @@ class AddressInput extends Component {
                   {isMobile() ?
                     <Col mb={4}>
                       <MobileAddressButton
-                        fluid
-                        height="tall"
-                        onClick={this.openMobileAddressInput}>
-                        <MobileAddressTextContainer><MobileAddresText
-                          inline
-                          hasAddress={address !== null}
-                        >{address ? address : 'Endereço e número*'}</MobileAddresText></MobileAddressTextContainer>
-                      </MobileAddressButton>
+                        onClick={this.openMobileAddressInput}
+                        address={address}
+                      />
                     </Col>
                   :
                     <Col mb={4}>

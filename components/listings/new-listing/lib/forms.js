@@ -1,4 +1,4 @@
-import {isMobile} from './mobile'
+import {isMobile} from 'lib/mobile'
 
 const autoFocus = (ref) => {
   if (ref && !isMobile()) {

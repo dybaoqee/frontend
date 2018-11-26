@@ -9,7 +9,7 @@ import Col from '@emcasa/ui-dom/components/Col'
 import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
-import {isMobile} from 'components/listings/new-listing/lib/mobile'
+import {isMobile} from 'lib/mobile'
 
 const Container = styled(View)`
   display: flex;
