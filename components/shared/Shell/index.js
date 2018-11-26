@@ -45,7 +45,6 @@ class Layout extends Component {
           notifications={this.notifications}
           router={router}
           hideSeparator={pageProps.hideSeparator}
-          shortLogo={pageProps.shortLogo}
           transparent={pageProps.transparentHeader}
         />
         <Container transparentHeader={pageProps.transparentHeader}>

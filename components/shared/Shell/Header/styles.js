@@ -171,9 +171,4 @@ export const MenuItem = styled.div`
 export const Logo = styled.img`
   content: url(/static/emcasa-imobiliaria-rio-de-janeiro.png);
   max-width: 118px;
-
-  ${props => props.shortLogo && css`
-    content: url(https://s3.amazonaws.com/emcasa-ui/logo/symbol.svg);
-    max-width: 32px;
-  `}
 `

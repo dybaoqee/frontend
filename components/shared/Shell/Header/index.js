@@ -79,7 +79,7 @@ export default class Header extends Component {
     )
   }
 
-  renderNav(shortLogo) {
+  renderNav() {
     const {authenticated, isAdmin, router} = this.props
     const {isMobileNavVisible} = this.state
 
@@ -128,48 +128,24 @@ export default class Header extends Component {
               (admin && isAdmin) ||
               (!auth && !admin)
             ) {
-              if (shortLogo && (newTitle || newIcon)) {
-                return (
-                  <Link href={href} as={as} key={title}>
-                    <a>
-                      <MenuItem
-                        active={router && href === router.route}
-                        isIcon={!!newIcon}
+
+              return (
+                <Link href={href} as={as} key={title}>
+                  <a>
+                    <MenuItem
+                      active={router && href === router.route}
+                      isIcon={!!icon}
+                    >
+                      {icon && <FontAwesomeIcon icon={icon} />}
+                      <span
+                        style={{color: colors.blue.dark}}
                       >
-                        {newTitle ?
-                          <Text
-                            inline
-                            color="dark"
-                            fontFamily="FaktSoftPro-Blond"
-                          >
-                            {newTitle}
-                          </Text>
-                        :
-                          <Icon name={newIcon} color="dark" />
-                        }
-                      </MenuItem>
-                    </a>
-                  </Link>
-                )
-              } else if (!shortLogo && !newIcon) {
-                return (
-                  <Link href={href} as={as} key={title}>
-                    <a>
-                      <MenuItem
-                        active={router && href === router.route}
-                        isIcon={!!icon}
-                      >
-                        {icon && <FontAwesomeIcon icon={icon} />}
-                        <span
-                          style={{color: colors.blue.dark}}
-                        >
                           {title}
                         </span>
-                      </MenuItem>
-                    </a>
-                  </Link>
-                )
-              }
+                    </MenuItem>
+                  </a>
+                </Link>
+              )
             }
           })}
           {this.getUserHeader(authenticated, isAdmin)}
@@ -182,7 +158,6 @@ export default class Header extends Component {
     const {
       router,
       hideSeparator,
-      shortLogo,
       transparent
     } = this.props
 
@@ -194,12 +169,11 @@ export default class Header extends Component {
             <Link href="/">
               <a>
                 <Logo
-                  shortLogo={shortLogo}
                   alt="Emcasa Imobiliária no Rio de Janeiro"
                 />
               </a>
             </Link>
-            {this.renderNav(shortLogo)}
+            {this.renderNav()}
           </Container>
         </Wrapper>
       </ThemeProvider>
