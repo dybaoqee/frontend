@@ -36,7 +36,6 @@ describe('pricing functions', () => {
     const apolloClient = new ApolloClient()
     const { result, error } = await estimatePrice(apolloClient, {})
     expect(result.suggestedPrice).toBe(1000000)
-    expect(result.userPrice).toBe(1100000)
     expect(error).toEqual(null)
   })
 

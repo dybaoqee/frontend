@@ -75,7 +75,7 @@ class Pricing extends Component {
   }
 
   previousStep() {
-    if (this.state.editingPrice) {
+    if (this.state.suggestedPrice && this.state.editingPrice) {
       this.setState({
         editingPrice: false,
         userPrice: this.props.pricing.userPrice
@@ -131,7 +131,7 @@ class Pricing extends Component {
           </Col>
         </Row>
         <Row>
-          <Col width={[1, 1/2]} mr={4}>
+          <Col width={[1, 1/2]}>
             {this.currencyInput(errors, setFieldValue, setFieldTouched)}
           </Col>
         </Row>
@@ -178,6 +178,7 @@ class Pricing extends Component {
       suggestedPrice = pricing.suggestedPrice ? roundUpPrice(pricing.suggestedPrice) : null
       userPrice = pricing.userPrice
     }
+    const showEditingPriceLabels = this.state.suggestedPrice && this.state.editingPrice
     return (
       <div ref={this.props.hostRef}>
         <Row justifyContent="center" p={4}>
@@ -219,7 +220,7 @@ class Pricing extends Component {
                                   </>
                                 :
                                   <>
-                                    <Text inline fontSize="large" fontWeight="bold">{intToCurrency(this.state.userPrice ? this.state.userPrice : suggestedPrice)}</Text>
+                                    <Text inline fontSize="large" fontWeight="bold">{this.state.userPrice ? intToCurrency(this.state.userPrice) : intToCurrency(roundUpPrice(suggestedPrice))}</Text>
                                     <Col onClick={() => {this.setState({editingPrice: true})}} style={{cursor: 'pointer', marginTop: 8}}>
                                       <Icon name="pen" />
                                     </Col>
@@ -236,8 +237,8 @@ class Pricing extends Component {
                   </Row>
                   {!suggestedPrice && this.noPriceSuggestion(errors, setFieldValue, setFieldTouched)}
                   <NavButtons
-                    nextLabel={this.state.editingPrice ? 'OK' : 'Avançar'}
-                    previousLabel={this.state.editingPrice ? 'Cancelar' : 'Voltar'}
+                    nextLabel={showEditingPriceLabels ? 'OK' : 'Avançar'}
+                    previousLabel={showEditingPriceLabels ? 'Cancelar' : 'Voltar'}
                     previousStep={this.previousStep}
                     onSubmit={this.nextStep}
                     submitEnabled={isValid}

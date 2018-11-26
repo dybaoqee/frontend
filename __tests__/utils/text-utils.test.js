@@ -13,6 +13,6 @@ describe('text utils', () => {
   it('should round up a price value', () => {
     const price = 1234567
     const roundedPrice = roundUpPrice(price)
-    expect(roundedPrice).toBe(1230000)
+    expect(roundedPrice).toBe(1240000)
   })
 })

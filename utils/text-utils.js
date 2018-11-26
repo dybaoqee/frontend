@@ -27,7 +27,7 @@ const intToCurrency = (value) => {
 
 const roundUpPrice = (price) => {
   const base = 10000
-  return Math.trunc(price/base) * base
+  return Math.ceil(price/base) * base
 }
 
 const currencyStyle = {
