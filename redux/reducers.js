@@ -68,6 +68,7 @@ const initialState = {
     month: null,
     date: null,
     time: null,
+    timeRange: null,
     monthOffset: 0,
     dayOffset: 0
   },

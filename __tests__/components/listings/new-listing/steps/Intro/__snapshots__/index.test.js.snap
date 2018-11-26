@@ -107,7 +107,7 @@ exports[`renders correctly 1`] = `
         fontSize="large"
         fontWeight="bold"
       >
-        Como funciona anunciar aqui na EmCasa?
+        Como funciona vender seu imóvel aqui na EmCasa?
       </p>
       <p
         className="c3"
@@ -314,7 +314,7 @@ exports[`renders correctly 1`] = `
             height="tall"
             onClick={[Function]}
           >
-            Quero Anunciar
+            Quero Vender
           </button>
         </div>
       </div>

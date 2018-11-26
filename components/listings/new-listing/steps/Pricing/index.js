@@ -236,7 +236,7 @@ class Pricing extends Component {
                       topRender={() =>
                         <Row px={4} pt={4} pb={suggestedPrice ? 4 : 0} flexDirection="column">
                           <Text inline fontSize="small" fontWeight="bold">{location.address}</Text>
-                          {suggestedPrice && <Row mt={2}><Text inline fontSize="xsmall" color="grey">{this.getListingSummary()}</Text></Row>}
+                          {suggestedPrice ? <Row mt={2}><Text inline fontSize="xsmall" color="grey">{this.getListingSummary()}</Text></Row> : null}
                         </Row>
                       }
                       bottomRender={() =>

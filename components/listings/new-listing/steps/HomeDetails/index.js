@@ -194,7 +194,7 @@ class HomeDetails extends Component {
                       </Row>
                       <Row>
                         <Col width={1/2} mb={1}><Text inline fontSize="small">Valor mensal do condomínio</Text></Col>
-                        <Row alignItems="flex-end" width={1/2}><Col width={1} ml={2} mb={1}><Text inline fontSize="small">Nº andar</Text></Col></Row>
+                        {showFloorNumber && <Row alignItems="flex-end" width={1/2}><Col width={1} ml={2} mb={1}><Text inline fontSize="small">Nº andar</Text></Col></Row>}
                       </Row>
                       <Row mb={4}>
                         <Col width={showFloorNumber ? 1/2 : 1}>

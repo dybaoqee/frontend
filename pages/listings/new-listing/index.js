@@ -73,6 +73,10 @@ class NewListing extends Component {
 
   componentWillReceiveProps(props) {
     // Check for previous progress
+    if (this.hasProgress() && this.getKey() === 'success') {
+      this.restartForm()
+      return
+    }
     if (this.hasProgress() && !this.state.checkedProgress) {
       this.setState({
         resuming: true,
@@ -115,6 +119,16 @@ class NewListing extends Component {
   hasProgress() {
     const { startedAt, location: { address } } = this.props
     return startedAt && startedAt !== this.state.startedAt && address !== null
+  }
+
+  getKey() {
+    try {
+      const keyDisplay = window.location.hash.split('#')[1]
+      const key = getKeyFromDisplay(keyDisplay)
+      return key
+    } catch (e) {
+      return ''
+    }
   }
 
   /**
