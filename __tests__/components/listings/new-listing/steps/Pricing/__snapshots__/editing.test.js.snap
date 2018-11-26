@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders editing price state 1`] = `
-.c7 {
+.c8 {
   box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
 }
 
@@ -14,7 +14,14 @@ exports[`renders editing price state 1`] = `
   text-align: center;
 }
 
-.c9 {
+.c4 {
+  -webkit-font-smoothing: antialiased;
+  font-family: FaktSoftPro-Normal;
+  color: #979797;
+  font-size: 18px;
+}
+
+.c10 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
   color: #3c4858;
@@ -22,26 +29,11 @@ exports[`renders editing price state 1`] = `
   font-weight: bold;
 }
 
-.c11 {
+.c12 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
   color: #979797;
   font-size: 10px;
-}
-
-.c20 {
-  -webkit-font-smoothing: antialiased;
-  font-family: FaktSoftPro-Normal;
-  color: #3c4858;
-  font-size: 24px;
-  font-weight: bold;
-}
-
-.c21 {
-  -webkit-font-smoothing: antialiased;
-  font-family: FaktSoftPro-Normal;
-  color: #979797;
-  font-size: 18px;
 }
 
 .c0 {
@@ -61,20 +53,23 @@ exports[`renders editing price state 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
-.c5 {
+.c6 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
 }
 
-.c6 {
+.c7 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -84,7 +79,7 @@ exports[`renders editing price state 1`] = `
   flex-direction: column;
 }
 
-.c8 {
+.c9 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -98,7 +93,7 @@ exports[`renders editing price state 1`] = `
   flex-direction: column;
 }
 
-.c10 {
+.c11 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -106,7 +101,7 @@ exports[`renders editing price state 1`] = `
   margin-top: 10px;
 }
 
-.c13 {
+.c14 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -117,7 +112,7 @@ exports[`renders editing price state 1`] = `
   justify-content: space-between;
 }
 
-.c23 {
+.c22 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -133,15 +128,15 @@ exports[`renders editing price state 1`] = `
   width: 100%;
 }
 
-.c24 {
+.c23 {
   width: 41.66666666666667%;
 }
 
-.c22 {
+.c21 {
   margin-right: 20px;
 }
 
-.c25 {
+.c24 {
   outline: none;
   display: block;
   cursor: pointer;
@@ -159,11 +154,11 @@ exports[`renders editing price state 1`] = `
   border-color: #e0e6ed;
 }
 
-.c25 :hover {
+.c24 :hover {
   background-color: #ffffff;
 }
 
-.c26 {
+.c25 {
   outline: none;
   display: block;
   cursor: pointer;
@@ -181,22 +176,22 @@ exports[`renders editing price state 1`] = `
   border-color: #e0e6ed;
 }
 
-.c26 :hover {
+.c25 :hover {
   background-color: #f50057;
 }
 
-.c4 {
+.c5 {
   min-width: 300px;
   max-width: 300px;
 }
 
-.c17 {
+.c18 {
   height: 1px;
   width: 220px;
   background-color: #e0e6ed;
 }
 
-.c14 {
+.c15 {
   margin-top: -2px;
   margin-left: 4px;
   width: 10px;
@@ -207,7 +202,7 @@ exports[`renders editing price state 1`] = `
   background-color: #fff;
 }
 
-.c18 {
+.c19 {
   margin-left: 4px;
   width: 10px;
   height: 10px;
@@ -217,7 +212,7 @@ exports[`renders editing price state 1`] = `
   background-color: #fff;
 }
 
-.c15 {
+.c16 {
   margin-top: -2px;
   margin-right: 4px;
   width: 10px;
@@ -228,7 +223,7 @@ exports[`renders editing price state 1`] = `
   background-color: #fff;
 }
 
-.c19 {
+.c20 {
   margin-right: 4px;
   width: 10px;
   height: 10px;
@@ -238,12 +233,12 @@ exports[`renders editing price state 1`] = `
   background-color: #fff;
 }
 
-.c16 {
+.c17 {
   position: absolute;
   margin-left: 45px;
 }
 
-.c12 {
+.c13 {
   background-color: #fff;
   width: calc(100% + 10px);
   margin-left: -5px;
@@ -279,14 +274,21 @@ exports[`renders editing price state 1`] = `
       <div
         className="c3"
       >
+        <p
+          className="c4"
+          color="grey"
+          fontSize="default"
+        >
+          Nossa avaliação é precisa de acordo com os valores de mercado da sua região. Você mesmo pode editar este valor ou conversar com um de nossos especialistas no final do processo.
+        </p>
         <div
-          className="c4 c5"
+          className="c5 c6"
         >
           <div
-            className="c6"
+            className="c7"
           >
             <div
-              className="c7"
+              className="c8"
               elevation={4}
               style={
                 Object {
@@ -295,19 +297,19 @@ exports[`renders editing price state 1`] = `
               }
             >
               <div
-                className="c8"
+                className="c9"
               >
                 <span
-                  className="c9"
+                  className="c10"
                   color="dark"
                   fontSize="small"
                   fontWeight="bold"
                 />
                 <div
-                  className="c10"
+                  className="c11"
                 >
                   <span
-                    className="c11"
+                    className="c12"
                     color="grey"
                     fontSize="xsmall"
                   >
@@ -316,98 +318,73 @@ exports[`renders editing price state 1`] = `
                 </div>
               </div>
               <div
-                className="c12 "
+                className="c13 "
               >
                 <div
-                  className="c13"
+                  className="c14"
                 >
-                  <div
-                    className="c14"
-                  />
                   <div
                     className="c15"
                   />
-                </div>
-                <div
-                  className="c16 c5"
-                >
                   <div
-                    className="c17 "
+                    className="c16"
                   />
                 </div>
                 <div
-                  className="c13"
+                  className="c17 c6"
                 >
                   <div
-                    className="c18"
+                    className="c18 "
                   />
+                </div>
+                <div
+                  className="c14"
+                >
                   <div
                     className="c19"
+                  />
+                  <div
+                    className="c20"
                   />
                 </div>
               </div>
               <div
-                className="c8"
+                className="c9"
               >
                 <span
-                  className="c11"
+                  className="c12"
                   color="grey"
                   fontSize="xsmall"
                 >
                   VALOR AVALIADO
                 </span>
-                <span
-                  className="c20"
-                  color="dark"
-                  fontSize="large"
-                  fontWeight="bold"
+                <div
+                  className="c14"
                 >
-                  R$1,000
-                </span>
+                  <div
+                    className="c21"
+                  >
+                    <input
+                      mask={[Function]}
+                      render={[Function]}
+                      type="text"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
       <div
-        className=""
-      >
-        <p
-          className="c21"
-          color="grey"
-          fontSize="default"
-        >
-          Nossa avaliação é precisa de acordo com os valores de mercado da sua região. Para ter margem na negociação, sugerimos anunciar por um valor 10% maior.
-        </p>
-        <div
-          className="c1"
-          width={
-            Array [
-              1,
-              0.5,
-            ]
-          }
-        >
-          <div
-            className="c22"
-          >
-            <input
-              mask={[Function]}
-              render={[Function]}
-              type="text"
-            />
-          </div>
-        </div>
-      </div>
-      <div
-        className="c23"
+        className="c22"
       >
         <div
-          className="c24"
+          className="c23"
           width={0.4166666666666667}
         >
           <button
-            className="c25"
+            className="c24"
             fontSize="default"
             height="tall"
             onClick={[Function]}
@@ -416,11 +393,11 @@ exports[`renders editing price state 1`] = `
           </button>
         </div>
         <div
-          className="c24"
+          className="c23"
           width={0.4166666666666667}
         >
           <button
-            className="c26"
+            className="c25"
             disabled={false}
             fontSize="default"
             height="tall"

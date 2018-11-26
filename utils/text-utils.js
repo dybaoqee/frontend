@@ -25,6 +25,11 @@ const intToCurrency = (value) => {
   return currencyValue
 }
 
+const roundUpPrice = (price) => {
+  const base = 10000
+  return Math.ceil(price/base) * base
+}
+
 const currencyStyle = {
   style: 'currency',
   currency: 'BRL',
@@ -48,6 +53,7 @@ export {
   currencyInputMask,
   currencyToInt,
   intToCurrency,
+  roundUpPrice,
 
   PREFIX,
   THOUSANDS_SEPARATOR_SYMBOL

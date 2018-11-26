@@ -67,7 +67,6 @@ const getDateDisplay = (date) => {
 const getFullTourDateDisplay = (tour) => {
   if (tour && tour.day && tour.time) {
     const date = moment(tour.day).format('DD/MM/YYYY')
-
     if (tour.timeRange) {
       return `${date} - entre ${tour.timeRange[0]}h e ${tour.timeRange[1]}h`
     }
