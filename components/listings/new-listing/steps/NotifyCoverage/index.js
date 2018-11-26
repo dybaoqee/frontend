@@ -105,7 +105,7 @@ class NotifyCoverage extends Component {
                   </Text>
                   <Text color="grey">Gostaria de ser notificado quando atendermos a sua área?</Text>
                   <Row>
-                    <Col width={1} mr={4}>
+                    <Col width={1}>
                       <Field
                         name="name"
                         validate={this.validateName}
@@ -126,7 +126,7 @@ class NotifyCoverage extends Component {
                     </Col>
                   </Row>
                   <Row>
-                    <Col width={1} mr={4}>
+                    <Col width={1}>
                       <Field
                         name="email"
                         validate={this.validateEmail}
