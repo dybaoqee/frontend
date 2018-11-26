@@ -138,7 +138,7 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   width: 41.66666666666667%;
 }
 
-@media screen and (min-width:640px) {
+@media screen and (min-width:780px) {
   .c1 {
     width: 50%;
   }

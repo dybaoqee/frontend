@@ -3,7 +3,7 @@
 exports[`<SellListing/> should render a clean page 1`] = `
 .c6 {
   margin-bottom: 20px;
-  margin-right: 10px;
+  margin-right: 0px;
   width: 100%;
 }
 
@@ -183,25 +183,26 @@ exports[`<SellListing/> should render a clean page 1`] = `
   max-width: 700px;
 }
 
-@media screen and (min-width:640px) {
+@media screen and (min-width:780px) {
   .c6 {
     margin-bottom: 0px;
+    margin-right: 10px;
   }
 }
 
-@media screen and (min-width:640px) {
+@media screen and (min-width:780px) {
   .c6 {
     width: 83.33333333333334%;
   }
 }
 
-@media screen and (min-width:640px) {
+@media screen and (min-width:780px) {
   .c13 {
     width: 16.666666666666664%;
   }
 }
 
-@media screen and (min-width:640px) {
+@media screen and (min-width:780px) {
   .c5 {
     -webkit-flex-direction: row;
     -ms-flex-direction: row;
@@ -209,7 +210,7 @@ exports[`<SellListing/> should render a clean page 1`] = `
   }
 }
 
-@media (max-width:640px) {
+@media (max-width:780px) {
   .c0 {
     background-image: url(https://res.cloudinary.com/emcasa/image/upload/fl_any_format/v1542831121/background/wall-small.jpg);
   }
@@ -221,7 +222,7 @@ exports[`<SellListing/> should render a clean page 1`] = `
   }
 }
 
-@media (max-width:640px) {
+@media (max-width:780px) {
   .c1 {
     padding-right: 20px;
     padding-left: 20px;
@@ -330,6 +331,7 @@ exports[`<SellListing/> should render a clean page 1`] = `
           className="c14"
           fontSize="default"
           height="tall"
+          onClick={[Function]}
         >
           Avaliar
         </button>
