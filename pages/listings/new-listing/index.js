@@ -102,12 +102,16 @@ class NewListing extends Component {
     if (sellerAddressFormatted && sellerAddressData) {
       localStorage.removeItem('sellerAddressFormatted')
       localStorage.removeItem('sellerAddressData')
-      const { updateLocation } = this.props
+      this.setState({
+        checkedProgress: true
+      })
+      const { updateLocation, resetStore, navigateTo } = this.props
+      resetStore()
       updateLocation({
         address: sellerAddressFormatted,
         addressData: JSON.parse(sellerAddressData)
       })
-      this.navigate('addressInput')
+      navigateTo('addressInput')
     }
   }
 
