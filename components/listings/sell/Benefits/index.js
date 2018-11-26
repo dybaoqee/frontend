@@ -9,10 +9,6 @@ import Col from '@emcasa/ui-dom/components/Col'
 import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
-<<<<<<< HEAD
-import {isMobile} from 'lib/mobile'
-=======
->>>>>>> master
 
 const Container = styled(View)`
   display: flex;
