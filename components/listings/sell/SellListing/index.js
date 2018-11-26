@@ -1,5 +1,6 @@
 import {Component} from 'react'
 import Link from 'next/link'
+import Router from 'next/router'
 import Col from '@emcasa/ui-dom/components/Col'
 import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
@@ -21,7 +22,8 @@ export default class SellListing extends Component {
   }
 
   state = {
-    address: null
+    addressFormatted: null,
+    addressData: null
   }
 
   openMobileAddressInput() {
@@ -63,14 +65,21 @@ export default class SellListing extends Component {
                     defaultValue={this.state.address}
                     onClearInput={this.onClearInput}
                     onSelectAddress={(addressFormatted, addressData) => {
-                      
+                      this.setState({
+                        addressFormatted,
+                        addressData
+                      })
                     }}
                   />
                 </Col>
               }
             </Col>
             <Col width={[1, 2 / 12]}>
-              <Button height="tall" active fluid>
+              <Button height="tall" active fluid onClick={() => {
+                localStorage.setItem('sellerAddressFormatted', this.state.addressFormatted)
+                localStorage.setItem('sellerAddressData', JSON.stringify(this.state.addressData))
+                Router.push('/vender/imovel')
+              }}>
                 Avaliar
               </Button>
             </Col>
