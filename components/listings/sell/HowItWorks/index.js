@@ -74,8 +74,7 @@ const Steps = styled(Row)`
 `
 
 const STEPS = [
-  {title: 'Cadastro do Imóvel', icon: 'cadastro-imovel'},
-  {title: 'Avaliação precisa do<br />seu imóvel', icon: 'avaliacao-precisa'},
+  {title: 'Avaliação e cadastro <br />online', icon: 'avaliacao-precisa'},
   {title: 'Tour Virtual <br />3D e Fotos Profissionais', icon: 'tour-3d'},
   {title: 'Imóvel Publicado', icon: 'publicacao'},
   {title: 'Visitas Agendadas', icon: 'acesso-compradores'},
@@ -124,16 +123,15 @@ export default class HowItWorks extends Component {
           <Row justifyContent="center">
             <Col>
               <Text fontSize="xlarge" color="dark" fontWeight="bold" textAlign="center">
-                100% de Satisfação Garantida
+                Venda seu imóvel em 5 passos
               </Text>
             </Col>
           </Row>
           <Row justifyContent="center">
             <Col width={10 / 12}>
               <Text color="grey" textAlign="center">
-                A EmCasa tem um processo único. É muito fácil vender seu imóvel
-                aqui. Simplificamos todo o processo e proporcionamos uma
-                economia pra você.
+                Nosso time de especialistas está preparado para te guiar em cada etapa do processo de venda
+                do seu imóvel.
               </Text>
             </Col>
           </Row>

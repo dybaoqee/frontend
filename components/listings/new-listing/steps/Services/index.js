@@ -221,9 +221,11 @@ class Services extends Component {
                     fontSize="large"
                     fontWeight="bold"
                     textAlign="center">
-                    Quer impulsionar seu imóvel?
+                    Agende uma visita com nossos especialistas
                   </Text>
-                  <Text color="grey">Fazemos um Tour Virtual 3D do seu imóvel e também tiramos fotos com qualidade profissional sem custo nenhum. Diga-nos aqui qual o melhor horário pra você:</Text>
+                  <Text color="grey">
+                    Um de nossos agentes fará uma visita ao seu imóvel para tiramos fotos com qualidade profissional e fazer um Tour Virtual 3D sem custo nenhum. Diga-nos aqui qual o melhor horário pra você:
+                  </Text>
                   <Row justifyContent="center" flexWrap="wrap">
                     <Col mr={2}>
                       <ImageLabel

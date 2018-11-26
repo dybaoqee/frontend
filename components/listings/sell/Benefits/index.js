@@ -55,19 +55,19 @@ const BENEFITS = [
     icon: 'tour-3d',
     title: 'Tour Virtual 3D',
     description:
-      'O Tour Virtual 3D permite que as pessoas vejam o imóvel de uma maneira diferenciada'
+      'Atraia mais compradores interessados no seu imóvel com Tour 3D'
   },
   {
     icon: 'avaliacao-precisa',
-    title: 'Avaliação precisa',
+    title: 'Avaliação online',
     description:
-      'Nossa plataforma calcula automaticamente o valor do seu imóvel'
+      'Nossa avaliação online é precisa de acordo com os valores de mercado da sua região'
   },
   {
     icon: 'assistencia-juridica',
-    title: 'Assistência Jurídica',
+    title: 'Sem dor de cabeça',
     description:
-      'Aqui você tem Assistência Jurídica grátis com documentação e processos'
+      'Aqui na EmCasa cuidamos de toda burocracia, contratos e documentação'
   }
 ]
 
@@ -106,7 +106,7 @@ export default class Benefits extends Component {
           <Row justifyContent="center">
             <Col>
               <Text fontSize="large" color="dark" fontWeight="bold" textAlign="center">
-                Conheça as vantagens de vender com a EmCasa!
+                Conheça as vantagens de vender com a EmCasa
               </Text>
             </Col>
           </Row>
@@ -123,7 +123,7 @@ export default class Benefits extends Component {
             <Col width={[1, 4 / 12]}>
               <Link href="/vender/imovel">
                 <Button height="tall" fluid>
-                  Vender meu imóvel
+                  Conheça mais
                 </Button>
               </Link>
             </Col>

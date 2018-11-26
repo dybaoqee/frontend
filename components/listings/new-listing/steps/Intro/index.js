@@ -29,7 +29,7 @@ class Intro extends PureComponent {
             >
               Como funciona vender seu imóvel aqui na EmCasa?
             </Text>
-            <Text color="grey">Venda seu imóvel do jeito fácil e seguro.</Text>
+            <Text color="grey">Venda seu imóvel de um jeito fácil e seguro.</Text>
             <View mb={2}>
               <Arrow /><Text inline>Cadastre seu imóvel no nosso site</Text>
             </View>
@@ -40,7 +40,7 @@ class Intro extends PureComponent {
               <Arrow /><Text inline>Economize tempo e dinheiro anunciando seu imóvel com a gente</Text>
             </View>
             <View mb={2}>
-              <Arrow /><Text inline>Pré avaliação grátis do seu imóvel</Text>
+              <Arrow /><Text inline>Avaliação do seu imóvel</Text>
             </View>
             <View mb={2}>
               <Arrow /><Text inline>Assistência jurídica grátis</Text>
