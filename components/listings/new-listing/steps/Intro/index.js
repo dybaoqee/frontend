@@ -27,7 +27,7 @@ class Intro extends PureComponent {
               fontWeight="bold"
               textAlign="center"
             >
-              Como funciona anunciar aqui na EmCasa?
+              Como funciona vender seu imóvel aqui na EmCasa?
             </Text>
             <Text color="grey">Venda seu imóvel do jeito fácil e seguro.</Text>
             <View mb={2}>
@@ -51,7 +51,7 @@ class Intro extends PureComponent {
                   fluid
                   active
                   height="tall"
-                  onClick={this.nextStep}>Quero Anunciar</Button>
+                  onClick={this.nextStep}>Quero Vender</Button>
               </Col>
             </Row>
           </Col>

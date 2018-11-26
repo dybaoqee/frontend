@@ -153,6 +153,14 @@ const startServer = () => {
         return app.render(req, res, '/user/messages', req.query)
       })
 
+      server.get('/google1e5ce96173e3bf9d.html', (req, res) => {
+        app.serveStatic(
+          req,
+          res,
+          path.join(process.cwd(), 'static', 'google1e5ce96173e3bf9d.html')
+        )
+      })
+
       server.get('*', (req, res) => {
         const parsedUrl = parse(req.url, true)
         const rootStaticFiles = ['/robots.txt', '/sitemap.xml']
@@ -160,8 +168,6 @@ const startServer = () => {
           if (parsedUrl.pathname.indexOf('sitemap') > -1) {
             buildSitemap()
               .then((response) => {
-                console.log(response)
-
                 const pathToSitemap = path.join(
                   process.cwd(),
                   'static',
@@ -177,6 +183,13 @@ const startServer = () => {
                 )
                 app.render(req, res, '/', req.query)
               })
+          } else if (parsedUrl.pathname.indexOf('robots') > -1) {
+            const pathToRobots = path.join(
+              process.cwd(),
+              'static',
+              process.env.IS_STAGING === 'true' ? 'robots-staging.txt' : 'robots.txt'
+            )
+            app.serveStatic(req, res, pathToRobots)
           } else {
             const path = join(__dirname, 'static', parsedUrl.pathname)
             app.serveStatic(req, res, path)
