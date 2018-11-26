@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import Col from '@emcasa/ui-dom/components/Col'
-import AddressAutoComplete from 'components/listings/new-listing/shared/AddressAutoComplete'
+import AddressAutoComplete from 'components/shared/AddressAutoComplete'
 import {
   MobieTypeaheadContainer
 } from './styles'

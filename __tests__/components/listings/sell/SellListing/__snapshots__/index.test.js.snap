@@ -1,0 +1,356 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SellListing/> should render a clean page 1`] = `
+.c6 {
+  margin-bottom: 20px;
+  margin-right: 10px;
+  width: 100%;
+}
+
+.c7 {
+  margin-bottom: 20px;
+}
+
+.c10 {
+  width: 100%;
+}
+
+.c13 {
+  width: 100%;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c9 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c3 {
+  -webkit-font-smoothing: antialiased;
+  font-family: FaktSoftPro-Normal;
+  color: #3c4858;
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.c4 {
+  -webkit-font-smoothing: antialiased;
+  font-family: FaktSoftPro-Normal;
+  color: gray;
+  font-size: 18px;
+}
+
+.c16 {
+  -webkit-font-smoothing: antialiased;
+  font-family: FaktSoftPro-Normal;
+  color: #f50057;
+  font-size: 18px;
+}
+
+.c14 {
+  outline: none;
+  display: block;
+  cursor: pointer;
+  padding: 0 20px 0 20px;
+  border-radius: 4px;
+  border: 1px solid;
+  border-color: #f50057;
+  background-color: #f50057;
+  width: 100%;
+  height: 60px;
+  color: #ffffff;
+  font-family: FaktSoftPro-Normal;
+  font-size: 18px;
+  -webkit-font-smoothing: antialiased;
+  border-color: #e0e6ed;
+}
+
+.c14 :hover {
+  background-color: #f50057;
+}
+
+.c12 {
+  margin-right: 10px;
+}
+
+.c11 {
+  -webkit-font-smoothing: antialiased;
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  outline: none;
+  border-radius: 4px;
+  border: 1px solid;
+  border-color: #e0e6ed;
+  padding: 0px 10px 0px 10px;
+  height: 60px;
+  color: #3c4858;
+  font-family: FaktSoftPro-Normal;
+  font-size: 18px;
+  -webkit-letter-spacing: 0px;
+  -moz-letter-spacing: 0px;
+  -ms-letter-spacing: 0px;
+  letter-spacing: 0px;
+}
+
+.c11:focus {
+  border-radius: 4px;
+  border: 1px solid;
+  border-color: #1fb6ff;
+  padding: 0px 10px 0px 10px;
+  height: 60px;
+}
+
+.c11::-webkit-input-placeholder {
+  color: #8492a6;
+}
+
+.c11::-moz-placeholder {
+  color: #8492a6;
+}
+
+.c11:-ms-input-placeholder {
+  color: #8492a6;
+}
+
+.c11::placeholder {
+  color: #8492a6;
+}
+
+.c8 {
+  border: 1px solid #e0e6ed;
+  border-radius: 4px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c15 {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.c0 {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  background-image: url(https://res.cloudinary.com/emcasa/image/upload/fl_any_format/v1542831121/background/wall-large.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: bottom;
+}
+
+.c1 {
+  margin-top: 76px;
+  max-width: 700px;
+}
+
+@media screen and (min-width:640px) {
+  .c6 {
+    margin-bottom: 0px;
+  }
+}
+
+@media screen and (min-width:640px) {
+  .c6 {
+    width: 83.33333333333334%;
+  }
+}
+
+@media screen and (min-width:640px) {
+  .c13 {
+    width: 16.666666666666664%;
+  }
+}
+
+@media screen and (min-width:640px) {
+  .c5 {
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+  }
+}
+
+@media (max-width:640px) {
+  .c0 {
+    background-image: url(https://res.cloudinary.com/emcasa/image/upload/fl_any_format/v1542831121/background/wall-small.jpg);
+  }
+}
+
+@media (min-aspect-ratio:2 / 1) {
+  .c0 {
+    background-image: url(https://res.cloudinary.com/emcasa/image/upload/fl_any_format/v1542831121/background/wall-small.jpg);
+  }
+}
+
+@media (max-width:640px) {
+  .c1 {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+}
+
+<div
+  className="c0 "
+>
+  <div
+    className="c1 "
+  >
+    <div
+      className="c2"
+    >
+      <div
+        className=""
+      >
+        <p
+          className="c3"
+          color="dark"
+          fontSize="xlarge"
+          fontWeight="bold"
+        >
+          Quer vender seu imóvel?
+        </p>
+      </div>
+    </div>
+    <div
+      className="c2"
+    >
+      <div
+        className=""
+      >
+        <p
+          className="c4"
+          color="gray"
+          fontSize="default"
+        >
+          Vender seu imóvel nunca foi tão fácil, informe o endereço do seu imóvel e receba agora uma avaliação grátis
+        </p>
+      </div>
+    </div>
+    <div
+      className="c5"
+    >
+      <div
+        className="c6"
+        width={
+          Array [
+            1,
+            0.8333333333333334,
+          ]
+        }
+      >
+        <div
+          className="c7"
+        >
+          <div
+            className="c8 c9"
+          >
+            <div
+              className="c10"
+              width={1}
+            >
+              <div
+                className=""
+              >
+                <input
+                  autoComplete="off"
+                  className="c11"
+                  fontSize="default"
+                  height="tall"
+                  letterSpacing="default"
+                  name="street"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onKeyDown={[Function]}
+                  placeholder="Endereço e número*"
+                  style={
+                    Object {
+                      "border": 0,
+                    }
+                  }
+                  type="text"
+                  value={null}
+                />
+              </div>
+            </div>
+            <div
+              className="c12"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="c13"
+        width={
+          Array [
+            1,
+            0.16666666666666666,
+          ]
+        }
+      >
+        <button
+          className="c14"
+          fontSize="default"
+          height="tall"
+        >
+          Avaliar
+        </button>
+      </div>
+    </div>
+    <div
+      className="c2"
+    >
+      <div
+        className=""
+      >
+        <p
+          className="c15 c16"
+          color="pink"
+          fontSize="default"
+          onClick={[Function]}
+        >
+          Você quer comprar?
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;
