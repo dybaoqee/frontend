@@ -34,9 +34,10 @@ const MainBlock = styled(Block)`
 export default class Sell extends Component {
   static async getInitialProps() {
     return {
-      shortLogo: true,
       hideSeparator: true,
-      transparentHeader: true
+      transparentHeader: true,
+      newFooter: true,
+      newHeader: true
     }
   }
 
