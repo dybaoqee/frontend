@@ -119,7 +119,7 @@ const getSteps = (isMobile) => {
       <Carousel
         renderCenterLeftControls={() => null}
         renderCenterRightControls={() => null}
-        width="400px"
+        width="300px"
         slidesToShow={1}
         initialSlideHeight={0}
         heightMode="max">
