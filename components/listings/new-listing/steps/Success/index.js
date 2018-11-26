@@ -21,14 +21,21 @@ class Success extends PureComponent {
     super(props)
     this.viewMyListings = this.viewMyListings.bind(this)
     this.goHome = this.goHome.bind(this)
+    this.reset = this.reset.bind(this)
   }
 
   componentDidMount() {
-    routerEvents.once('routeChangeComplete', () => {
-      this.props.navigateTo('intro')
-      this.props.resetStore()
-      return true
+    routerEvents.once('hashChangeComplete', () => {
+      this.reset()
     })
+    routerEvents.once('routeChangeComplete', () => {
+      this.reset()
+    })
+  }
+
+  reset() {
+    this.props.navigateTo('intro')
+    this.props.resetStore()
   }
 
   viewMyListings() {
