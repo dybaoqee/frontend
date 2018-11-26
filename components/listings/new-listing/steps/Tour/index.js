@@ -36,6 +36,7 @@ class Tour extends Component {
     month: null,
     day: null,
     time: null,
+    timeRange: null,
     customTime: false,
     monthOffset: 0,
     dayOffset: 0
@@ -96,8 +97,11 @@ class Tour extends Component {
     })
   }
 
-  selectTime(value) {
-    this.setState({time: value})
+  selectTime(time, timeRange) {
+    this.setState({
+      time,
+      timeRange
+    })
   }
 
   validateDay(value) {
@@ -117,6 +121,14 @@ class Tour extends Component {
       return false
     }
     return !(tourHours.includes(EARLY) && tourHours.includes(LATE) && tourHours.length === 2)
+  }
+
+  getTimeRange(time) {
+    if (time === '09') {
+      return ['09', '12']
+    } else if (time === '17') {
+      return ['16', '19']
+    }
   }
 
   selectCustomTime() {
@@ -216,7 +228,8 @@ class Tour extends Component {
                                       setFieldValue('time', item)
                                       setFieldTouched('time')
                                       this.setState({customTime: false})
-                                      this.selectTime(item)
+                                      const timeRange = this.getTimeRange(item)
+                                      this.selectTime(item, timeRange)
                                     }}
                                   />
                                   <View mb={2} />

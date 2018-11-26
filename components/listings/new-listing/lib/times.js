@@ -64,6 +64,19 @@ const getDateDisplay = (date) => {
   return parser.format('DD/MM/YY')
 }
 
+const getFullTourDateDisplay = (tour) => {
+  if (tour && tour.day && tour.time) {
+    const date = moment(tour.day).format('DD/MM/YYYY')
+
+    if (tour.timeRange) {
+      return `${date} - entre ${tour.timeRange[0]}h e ${tour.timeRange[1]}h`
+    }
+    return `${date} - às ${tour.time}h`
+  } else {
+    return '00/00/0000 - entre 00h e 00h'
+  }
+}
+
 const TOUR_HOURS = ['09', '10', '11', '12', '13', '14', '15', '16', '17']
 
 export {
@@ -71,6 +84,8 @@ export {
   getTourDays,
   getTimeDisplay,
   getDateDisplay,
+  getFullTourDateDisplay,
+
   TOUR_HOURS,
   EARLY,
   LATE,

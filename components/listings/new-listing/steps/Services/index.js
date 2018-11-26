@@ -12,6 +12,7 @@ import Text from '@emcasa/ui-dom/components/Text'
 import ImageLabel from 'components/listings/new-listing/shared/ImageLabel'
 import { getAddressInput } from 'lib/address'
 import { SchedulingButton } from './styles'
+import { getFullTourDateDisplay } from 'components/listings/new-listing/lib/times'
 
 class Services extends Component {
   constructor(props) {
@@ -208,11 +209,7 @@ class Services extends Component {
     if (services) {
       wantsTour = services.wantsTour
     }
-    let when
-    if (tour && tour.day && tour.time) {
-      const date = moment(tour.day).format('DD/MM/YYYY')
-      when = `${date} - às ${tour.time}h`
-    }
+    const fullTourDateDisplay = getFullTourDateDisplay(tour)
     return (
       <div ref={this.props.hostRef}>
         <Row justifyContent="center" p={4}>
@@ -248,9 +245,9 @@ class Services extends Component {
                       height="tall"
                       fluid
                       onClick={this.getAvailableTimes}
-                      color={when ? 'dark' : 'grey'}
+                      color={fullTourDateDisplay ? 'dark' : 'grey'}
                     >
-                    {when ? when : '00/00/0000 - entre 00h e 00h'}
+                    {fullTourDateDisplay}
                     </SchedulingButton>
                     </Col>
                   </Row>
@@ -266,8 +263,8 @@ class Services extends Component {
                       <Button
                         fluid
                         height="tall"
-                        active={!this.state.loading && !!when}
-                        disabled={this.state.loading || !when}
+                        active={!this.state.loading && !!fullTourDateDisplay}
+                        disabled={this.state.loading || !fullTourDateDisplay}
                         onClick={this.save}>
                         Agendar
                       </Button>

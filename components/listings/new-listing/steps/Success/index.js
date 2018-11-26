@@ -12,6 +12,7 @@ import { getDateDisplay } from 'components/listings/new-listing/lib/times'
 import { intToCurrency } from 'utils/text-utils'
 import Link from 'components/listings/new-listing/shared/Link'
 import Ticket from 'components/listings/new-listing/shared/Ticket'
+import { getFullTourDateDisplay } from 'components/listings/new-listing/lib/times'
 
 const ROUTE_HOME = '/'
 const ROUTE_MY_LISTINGS = '/listings/user-listings'
@@ -44,11 +45,6 @@ class Success extends PureComponent {
 
   goHome() {
     Router.push(ROUTE_HOME)
-  }
-
-  getTourTimeDisplay(tour) {
-    const date = getDateDisplay(tour.day)
-    return `${date} - às ${tour.time}h`
   }
 
   render() {
@@ -97,7 +93,7 @@ class Success extends PureComponent {
                       {userPrice && <Text inline fontSize="small" fontWeight="bold">{intToCurrency(userPrice)}</Text>}
                       </Col>
                       {day && <Col width={1/2}>
-                        <Text inline fontSize="small" fontWeight="bold">{this.getTourTimeDisplay(tour)}</Text>
+                        <Text inline fontSize="small" fontWeight="bold">{getFullTourDateDisplay(tour)}</Text>
                       </Col>}
                     </Row>
                   </View>
