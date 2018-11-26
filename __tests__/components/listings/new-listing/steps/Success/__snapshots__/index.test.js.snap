@@ -293,7 +293,7 @@ exports[`renders correctly 1`] = `
           color="grey"
           fontSize="default"
         >
-          Muito obrigado por confiar na EmCasa! Nosso time entrará em contato por telefone em breve. Após o contato, seu imóvel será publicado.
+          Muito obrigado por confiar na EmCasa! Nosso time entrará em contato por telefone em breve.
         </p>
       </div>
       <div

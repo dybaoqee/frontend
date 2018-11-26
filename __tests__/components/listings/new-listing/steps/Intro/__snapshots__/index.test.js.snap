@@ -114,7 +114,7 @@ exports[`renders correctly 1`] = `
         color="grey"
         fontSize="default"
       >
-        Venda seu imóvel do jeito fácil e seguro.
+        Venda seu imóvel de um jeito fácil e seguro.
       </p>
       <div
         className="c4"
@@ -257,7 +257,7 @@ exports[`renders correctly 1`] = `
           color="dark"
           fontSize="default"
         >
-          Pré avaliação grátis do seu imóvel
+          Avaliação do seu imóvel
         </span>
       </div>
       <div
