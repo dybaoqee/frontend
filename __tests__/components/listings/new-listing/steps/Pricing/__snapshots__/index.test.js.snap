@@ -248,7 +248,7 @@ exports[`renders an empty state 1`] = `
   margin-left: -5px;
 }
 
-@media screen and (min-width:640px) {
+@media screen and (min-width:780px) {
   .c1 {
     width: 50%;
   }

@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 
 import Col from '@emcasa/ui-dom/components/Col'
-import AddressAutoComplete from 'components/listings/new-listing/shared/AddressAutoComplete'
-import {
-  MobieTypeaheadContainer
-} from './styles'
+import AddressAutoComplete from 'components/shared/AddressAutoComplete'
+import { MobieTypeaheadContainer } from 'components/shared/AddressAutoComplete/styles'
 
 class AddressInputMobile extends Component {
   constructor(props) {
@@ -38,7 +36,7 @@ class AddressInputMobile extends Component {
             <AddressAutoComplete
               onBackPressed={this.close}
               defaultValue={this.state.address}
-              onClearInput={this.onClearInput}
+              onClearInput={() => {}}
               onSelectAddress={(addressFormatted, addressData) => {
                 this.setState({
                   address: addressFormatted
