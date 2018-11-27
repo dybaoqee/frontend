@@ -231,12 +231,6 @@ export default class AddressAutoComplete extends Component {
     this.setState({predictionSelected: newPredictionSelected})
   }
 
-  onBlur = (e) => {
-    const {place} = this.state
-    if (place.id) return
-    e.target.focus()
-  }
-
   onChange = (e) => {
     const {value} = e.target
     this.setState({
@@ -284,7 +278,6 @@ export default class AddressAutoComplete extends Component {
               hideLabelView
               hideErrorView
               onKeyDown={this.onKeyPress}
-              onBlur={this.onBlur}
               type="text"
               name="street"
               ref={this.searchInput}
