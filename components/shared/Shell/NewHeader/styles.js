@@ -2,6 +2,8 @@ import styled from 'styled-components'
 import theme from '@emcasa/ui'
 
 export default styled.header`
+  transition: background 0.3s ease-out;
+  transition: height 0.3s ease-out;
   max-height: 76px;
   box-sizing: border-box;
   align-items: center;
@@ -13,6 +15,11 @@ export default styled.header`
   width: 100%;
   max-height: 76px;
   height: 76px;
+  
+  &.sticky {
+    background: white;
+    height: 60px;
+  }
 `
 
 export const Wrapper = styled.div`
@@ -67,6 +74,7 @@ export const MenuItem = styled.div`
 
 export const Logo = styled.div`
   cursor: pointer;
+  transform: translateZ(0);
   @media (max-width: ${theme.breakpoints[0]}) {
     content: url(https://s3.amazonaws.com/emcasa-ui/logo/symbol.svg);
     max-width: 32px;

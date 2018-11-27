@@ -8,12 +8,33 @@ import Container, {Wrapper, Nav, MenuItem, Logo} from './styles'
 
 
 export default class Header extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      sticky: false
+    }
+  }
+
+  onScroll = () => {
+    this.setState({sticky: window.scrollY > 100})
+  }
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.onScroll)
+  }
+
+  componentWilUnmount() {
+    window.removeEventListener('scroll', this.onScroll)
+  }
+
   render() {
     const {transparent, authenticated} = this.props
+    const {sticky} = this.state
+
     return (
       <ThemeProvider theme={theme}>
         <Wrapper>
-          <Container transparent={transparent}>
+          <Container transparent={transparent} className={sticky ? 'sticky' : null}>
             <Link href="/">
               <Logo alt="EmCasa Imobiliária no Rio de Janeiro e São Paulo" />
             </Link>
