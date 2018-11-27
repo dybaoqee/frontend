@@ -57,22 +57,28 @@ const Footer = () => (
         <Text {...titleText}>Suporte</Text>
         <LinkGroup>
           <div>
-            <TextLink>
-              <FontAwesomeIcon icon={faPhone} />
-              (21) 99477-1868
-            </TextLink>
+            <a href="tel:+5521994771868">
+              <TextLink>
+                <FontAwesomeIcon icon={faPhone} />
+                (21) 99477-1868
+              </TextLink>
+            </a>
           </div>
           <div>
-            <TextLink>
-              <FontAwesomeIcon icon={faWhatsapp} />
-              WhatsApp
-            </TextLink>
+            <a href="https://wa.me/5521994771868">
+              <TextLink>
+                <FontAwesomeIcon icon={faWhatsapp} />
+                WhatsApp
+              </TextLink>
+            </a>
           </div>
           <div>
-            <TextLink>
-              <FontAwesomeIcon icon={faMail} />
-              Fale com a gente
-            </TextLink>
+            <a href="mailto:contato@emcasa.com">
+              <TextLink>
+                <FontAwesomeIcon icon={faMail} />
+                Fale com a gente
+              </TextLink>
+            </a>
           </div>
         </LinkGroup>
       </Col>
@@ -80,28 +86,36 @@ const Footer = () => (
         <Text {...titleText}>Redes Sociais</Text>
         <LinkGroup>
           <div>
-            <TextLink>
-              <FontAwesomeIcon icon={faFacebook} />
-              Facebook
-            </TextLink>
+            <a href="https://www.facebook.com/EmCasa" target="_blank">
+              <TextLink>
+                <FontAwesomeIcon icon={faFacebook} />
+                Facebook
+              </TextLink>
+            </a>
           </div>
           <div>
-            <TextLink>
-              <FontAwesomeIcon icon={faInstagram} />
-              Instagram
-            </TextLink>
+            <a href="https://www.instagram.com/emcasaimoveis/" target="_blank">
+              <TextLink>
+                <FontAwesomeIcon icon={faInstagram} />
+                Instagram
+              </TextLink>
+            </a>
           </div>
           <div>
-            <TextLink>
-              <FontAwesomeIcon icon={faLinkedin} />
-              LinkedIn
-            </TextLink>
+            <a href="https://www.linkedin.com/company/emcasa/" target="_blank">
+              <TextLink>
+                <FontAwesomeIcon icon={faLinkedin} />
+                LinkedIn
+              </TextLink>
+            </a>
           </div>
           <div>
-            <TextLink>
-              <FontAwesomeIcon icon={faTwitter} />
-              Twitter
-            </TextLink>
+            <a href="https://twitter.com/EmCasaTech" target="_blank">
+              <TextLink>
+                <FontAwesomeIcon icon={faTwitter} />
+                Twitter
+              </TextLink>
+            </a>
           </div>
         </LinkGroup>
       </Col>

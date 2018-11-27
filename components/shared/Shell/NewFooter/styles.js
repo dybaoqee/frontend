@@ -38,6 +38,10 @@ export const LinkGroup = styled.div`
     flex-direction: column;
     height: 15vh;
   }
+  
+  a {
+    text-decoration: none;
+  }
 `
 
 export const AboutText = styled(Text)`
