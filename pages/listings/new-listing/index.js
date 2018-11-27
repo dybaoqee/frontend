@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { PoseGroup } from 'react-pose'
 import {
   navigateTo,
+  updateLocation,
   start,
   resetStore
 } from 'redux/actions'
@@ -92,6 +93,24 @@ class NewListing extends Component {
     if (!this.hasProgress()) {
       const { start } = this.props
       start(this.state.startedAt)
+    }
+
+    // Get Seller Home data
+    const sellerAddressFormatted = localStorage.getItem('sellerAddressFormatted')
+    const sellerAddressData = localStorage.getItem('sellerAddressData')
+    if (sellerAddressFormatted && sellerAddressData) {
+      localStorage.removeItem('sellerAddressFormatted')
+      localStorage.removeItem('sellerAddressData')
+      this.setState({
+        checkedProgress: true
+      })
+      const { updateLocation, resetStore, navigateTo } = this.props
+      resetStore()
+      updateLocation({
+        address: sellerAddressFormatted,
+        addressData: JSON.parse(sellerAddressData)
+      })
+      navigateTo('addressInput')
     }
   }
 
@@ -194,6 +213,9 @@ const mapDispatchToProps = dispatch => {
     },
     resetStore: () => {
       dispatch(resetStore())
+    },
+    updateLocation: value => {
+      dispatch(updateLocation(value))
     },
     start: timestamp => {
       dispatch(start(timestamp))

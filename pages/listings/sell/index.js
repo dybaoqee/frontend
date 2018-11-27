@@ -8,7 +8,7 @@ import SellListing from 'components/listings/sell/SellListing'
 import Benefits from 'components/listings/sell/Benefits'
 import HowItWorks from 'components/listings/sell/HowItWorks'
 import {desktopHeaderHeight} from 'constants/dimensions'
-import {isMobile} from 'components/listings/new-listing/lib/mobile'
+import {isMobile} from 'lib/mobile'
 
 const Container = styled(View)`
   display: flex;

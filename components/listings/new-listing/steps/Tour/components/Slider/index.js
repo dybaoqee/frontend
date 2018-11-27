@@ -6,7 +6,7 @@ import Icon from '@emcasa/ui-dom/components/Icon'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 
-import {isMobile} from 'components/listings/new-listing/lib/mobile'
+import {isMobile} from 'lib/mobile'
 
 import {
   PageButton,

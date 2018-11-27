@@ -19,15 +19,10 @@ const SearchResultItem = styled(View)`
   }
 `
 
-const MARGIN_RIGHT = '20px'
-const MOBILE_MARGIN = '40px'
 const SearchResultContainer = styled(Row)`
   position: absolute;
   z-index: 1;
-  width: calc(50vw - ${MARGIN_RIGHT});
-  @media only screen and (max-width: ${themeGet('breakpoints.0')}) {
-    width: calc(100vw - ${MOBILE_MARGIN});
-  }
+  width: ${({width}) => width ? `${width}px` : '100%'};
 `
 
 const InputContainer = styled(Row)`
@@ -35,13 +30,24 @@ const InputContainer = styled(Row)`
   border-radius: ${themeGet('space.1')}px;
   display: flex;
   align-items: center;
+  background-color: ${themeGet('colors.white')};
 `
 
 const BackIcon = styled(Icon)`
   margin: ${themeGet('space.1')}px ${themeGet('space.3')}px 0 ${themeGet('space.3')}px;
 `
 
+const MobieTypeaheadContainer = styled(Row)`
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 5;
+  background-color: ${themeGet('colors.white')};
+`
+
 export {
+  MobieTypeaheadContainer,
   SearchResultItem,
   SearchResultContainer,
   InputContainer,

@@ -5,10 +5,6 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   width: 100%;
 }
 
-.c7 {
-  margin-right: 10px;
-}
-
 .c6 {
   -webkit-font-smoothing: antialiased;
   display: block;
@@ -83,6 +79,7 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  background-color: #ffffff;
 }
 
 .c5 {
@@ -106,59 +103,58 @@ exports[`<AddressInput/> should render a clean page 1`] = `
       className="c2"
       width={1}
     >
-      <div
-        className="c3 c4"
-      >
+      <div>
         <div
-          className="c5 "
-        >
-          <svg
-            height={20}
-            version="1.1"
-            viewBox="0 0 448 512"
-            x={0}
-            y={0}
-          >
-            <path
-              d="M257.5 445.1l-22.2 22.2c-9.4 9.4-24.6 9.4-33.9 0L7 273c-9.4-9.4-9.4-24.6 0-33.9L201.4 44.7c9.4-9.4 24.6-9.4 33.9 0l22.2 22.2c9.5 9.5 9.3 25-.4 34.3L136.6 216H424c13.3 0 24 10.7 24 24v32c0 13.3-10.7 24-24 24H136.6l120.5 114.8c9.8 9.3 10 24.8.4 34.3z"
-              fill="#3c4858"
-              name="arrow-left"
-              onClick={[Function]}
-              type="default"
-            />
-          </svg>
-        </div>
-        <div
-          className="c2"
-          width={1}
+          className="c3 c4"
         >
           <div
-            className=""
+            className="c5 "
           >
-            <input
-              autoComplete="off"
-              className="c6"
-              fontSize="default"
-              height="tall"
-              letterSpacing="default"
-              name="street"
-              onBlur={[Function]}
-              onChange={[Function]}
-              onKeyDown={[Function]}
-              placeholder="Endereço e número*"
-              style={
-                Object {
-                  "border": 0,
+            <svg
+              height={20}
+              version="1.1"
+              viewBox="0 0 448 512"
+              x={0}
+              y={0}
+            >
+              <path
+                d="M257.5 445.1l-22.2 22.2c-9.4 9.4-24.6 9.4-33.9 0L7 273c-9.4-9.4-9.4-24.6 0-33.9L201.4 44.7c9.4-9.4 24.6-9.4 33.9 0l22.2 22.2c9.5 9.5 9.3 25-.4 34.3L136.6 216H424c13.3 0 24 10.7 24 24v32c0 13.3-10.7 24-24 24H136.6l120.5 114.8c9.8 9.3 10 24.8.4 34.3z"
+                fill="#3c4858"
+                name="arrow-left"
+                onClick={[Function]}
+                type="default"
+              />
+            </svg>
+          </div>
+          <div
+            className="c2"
+            width={1}
+          >
+            <div
+              className=""
+            >
+              <input
+                autoComplete="off"
+                className="c6"
+                fontSize="default"
+                height="tall"
+                letterSpacing="default"
+                name="street"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onKeyDown={[Function]}
+                placeholder="Endereço e número*"
+                style={
+                  Object {
+                    "border": 0,
+                  }
                 }
-              }
-              type="text"
-              value={null}
-            />
+                type="text"
+                value={null}
+              />
+            </div>
           </div>
         </div>
-        <div
-          className="c7"
-        />
       </div>
     </div>
   </div>
