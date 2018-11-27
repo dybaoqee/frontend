@@ -63,7 +63,7 @@ class Pricing extends Component {
       return
     }
     const { navigateTo, updatePricing } = this.props
-    const intUserPrice = parseInt(this.state.userPrice)
+    const intUserPrice = this.state.userPrice ? parseInt(this.state.userPrice) : roundUpPrice(this.state.suggestedPrice)
     const intSuggestedPrice = parseInt(this.state.suggestedPrice)
     const newPricing = {
       userPrice: intUserPrice,

@@ -150,8 +150,8 @@ class HomeDetails extends Component {
                             validate={this.validateArea}
                             render={({form}) => (
                               <Input
-                                label="Área conforme IPTU"
-                                placeholder="Área (m²)*"
+                                label="Área conforme IPTU*"
+                                placeholder="Área (m²)"
                                 type="number"
                                 error={form.touched.area ? errors.area : null}
                                 defaultValue={area}
@@ -174,8 +174,8 @@ class HomeDetails extends Component {
                                 render={(ref, props) =>
                                   <Input
                                     {...props}
-                                    label="Valor do IPTU anual"
-                                    placeholder="IPTU (R$/ano)*"
+                                    label="Valor do IPTU anual*"
+                                    placeholder="IPTU (R$/ano)"
                                     error={form.touched.propertyTax ? errors.propertyTax : null}
                                     defaultValue={propertyTax}
                                     type="tel"
