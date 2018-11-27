@@ -31,13 +31,8 @@ const Container = styled(View)`
 `
 
 const Content = styled(View)`
+  max-width: 100%;
   margin-top: ${desktopHeaderHeight}px;
-  max-width: 700px;
-
-  @media (max-width: ${theme.breakpoints[0]}){
-    padding-right: 20px;
-    padding-left: 20px;
-  }
 `
 
 export {
