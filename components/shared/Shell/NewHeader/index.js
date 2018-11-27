@@ -4,20 +4,27 @@ import theme from '@emcasa/ui'
 import {Component} from 'react'
 import Text from '@emcasa/ui-dom/components/Text'
 import AccountKit from 'components/shared/Auth/AccountKit'
-import Container, {Wrapper, Nav, NavButton, MenuItem, Logo} from './styles'
+import Container, {Wrapper, Nav, CloseNavButton, NavButton, MenuItem, Logo} from './styles'
 
 
 export default class Header extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      sticky: false
+      sticky: false,
+      isMobileNavVisible: false
     }
   }
 
   onScroll = () => {
     this.setState({sticky: window.scrollY > 100})
   }
+
+  toggleMobileNavVisibility = () => {
+    const {isMobileNavVisible} = this.state
+    this.setState({isMobileNavVisible: !isMobileNavVisible})
+  }
+
 
   componentDidMount() {
     window.addEventListener('scroll', this.onScroll)
@@ -29,7 +36,7 @@ export default class Header extends Component {
 
   render() {
     const {transparent, authenticated} = this.props
-    const {sticky} = this.state
+    const {sticky, isMobileNavVisible} = this.state
 
     return (
       <ThemeProvider theme={theme}>
@@ -38,8 +45,19 @@ export default class Header extends Component {
             <Link href="/">
               <Logo alt="EmCasa Imobiliária no Rio de Janeiro e São Paulo" />
             </Link>
-            <NavButton onClick={this.toggleMobileNavVisibility}>☰</NavButton>
-            <Nav>
+            <NavButton
+              visible={!isMobileNavVisible}
+              onClick={this.toggleMobileNavVisibility}
+            >
+              ☰
+            </NavButton>
+            <Nav visible={isMobileNavVisible}>
+              <CloseNavButton
+                visible={isMobileNavVisible}
+                onClick={this.toggleMobileNavVisibility}
+              >
+                X
+              </CloseNavButton>
               <Link href="/">
                 <MenuItem>
                   <Text>Comprar</Text>

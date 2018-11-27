@@ -43,7 +43,20 @@ export const Nav = styled.nav`
   }
   
   @media (max-width: ${theme.breakpoints[0]}) {
-    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: ${(props) => (props.visible ? 'flex' : 'none')};
+    background: white;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 60vw;
+    height: 100vh;
+    
+    > :nth-child(n + 2) { 
+      margin-left: 0;
+    }
   }
 `
 
@@ -66,10 +79,24 @@ export const NavButton = styled.button`
   }
   
   @media (max-width: ${theme.breakpoints[0]}) {
-    display: block;
+    display: ${(props) => (props.visible ? 'block' : 'none')};
   }
 `
 
+export const CloseNavButton = styled.button`
+  display: none;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  color: ${theme.colors.dark};
+  margin: 30px;
+  align-self: flex-end;
+
+  @media (max-width: ${theme.breakpoints[0]}) {
+    display: ${(props) => (props.visible ? 'block' : 'none')};
+  }
+`
 
 export const MenuItem = styled.div`
   box-sizing: border-box;
@@ -93,6 +120,30 @@ export const MenuItem = styled.div`
  
   &:hover {
     border-bottom: 1px solid ${theme.colors.pink};
+  }
+  
+  @media (max-width: ${theme.breakpoints[0]}) {
+    min-height: auto;
+    height: 60px;
+    
+    align-items: flex-start;
+    justify-content: flex-start;
+    
+    p {
+      text-align: left;
+      font-family: 'FaktSoftPro-Normal';
+      font-weight: 500;
+      color: ${theme.colors.dark};
+      margin-left: 10px;
+    }
+    
+    border-left: 7px solid transparent;
+    
+    &:hover {
+      border-left: 7px solid ${theme.colors.pink};
+      border-bottom: none;
+    }
+  
   }
 `
 
