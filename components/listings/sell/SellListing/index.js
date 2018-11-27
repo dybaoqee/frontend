@@ -107,8 +107,10 @@ export default class SellListing extends Component {
             </Col>
             <Col width={[1, 2 / 12]}>
               <Button height="tall" active fluid onClick={() => {
-                localStorage.setItem('sellerAddressFormatted', this.state.addressFormatted)
-                localStorage.setItem('sellerAddressData', JSON.stringify(this.state.addressData))
+                if (this.state.addressFormatted && this.state.addressData) {
+                  localStorage.setItem('sellerAddressFormatted', this.state.addressFormatted)
+                  localStorage.setItem('sellerAddressData', JSON.stringify(this.state.addressData))
+                }
                 Router.push('/vender/imovel')
               }}>
                 Avaliar
