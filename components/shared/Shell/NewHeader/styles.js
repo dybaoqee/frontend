@@ -47,6 +47,30 @@ export const Nav = styled.nav`
   }
 `
 
+
+export const NavButton = styled.button`
+  display: none;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  color: gray;
+  font-size: 17px;
+  margin-top: -3px;
+  margin-right: 9px;
+  transform: scale(1.5, 1);
+  padding-left: 5px;
+  padding-right: 5px;
+  &:hover {
+    color: gray;
+  }
+  
+  @media (max-width: ${theme.breakpoints[0]}) {
+    display: block;
+  }
+`
+
+
 export const MenuItem = styled.div`
   box-sizing: border-box;
   width: 120px;

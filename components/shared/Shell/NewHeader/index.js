@@ -4,7 +4,7 @@ import theme from '@emcasa/ui'
 import {Component} from 'react'
 import Text from '@emcasa/ui-dom/components/Text'
 import AccountKit from 'components/shared/Auth/AccountKit'
-import Container, {Wrapper, Nav, MenuItem, Logo} from './styles'
+import Container, {Wrapper, Nav, NavButton, MenuItem, Logo} from './styles'
 
 
 export default class Header extends Component {
@@ -38,6 +38,7 @@ export default class Header extends Component {
             <Link href="/">
               <Logo alt="EmCasa Imobiliária no Rio de Janeiro e São Paulo" />
             </Link>
+            <NavButton onClick={this.toggleMobileNavVisibility}>☰</NavButton>
             <Nav>
               <Link href="/">
                 <MenuItem>
