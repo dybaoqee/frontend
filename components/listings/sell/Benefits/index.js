@@ -122,7 +122,7 @@ export default class Benefits extends Component {
             <Col width={[1, 4 / 12]}>
               <Link href="/vender/imovel">
                 <Button height="tall" fluid>
-                  Conheça mais
+                  Conheça mais a EmCasa
                 </Button>
               </Link>
             </Col>

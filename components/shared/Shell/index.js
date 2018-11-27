@@ -5,6 +5,8 @@ import Router from 'next/router'
 import NProgress from 'nprogress'
 import Header from './Header'
 import Footer from './Footer'
+import NewFooter from './NewFooter'
+import NewHeader from './NewHeader'
 import Container, {Main} from './styles'
 
 Router.onRouteChangeStart = () => {
@@ -29,22 +31,25 @@ class Layout extends Component {
       pageProps,
       router
     } = this.props
+
+    const FooterComponent = pageProps.newFooter ? NewFooter : Footer
+    const HeaderComponent = pageProps.newHeader ? NewHeader : Header
+
     return (
       <Fragment>
         <Head />
-        <Header
+        <HeaderComponent
           errorCode={errorCode}
           authenticated={authenticated}
           isAdmin={isAdmin}
           notifications={this.notifications}
           router={router}
           hideSeparator={pageProps.hideSeparator}
-          shortLogo={pageProps.shortLogo}
           transparent={pageProps.transparentHeader}
         />
         <Container transparentHeader={pageProps.transparentHeader}>
           <Main>{this.props.children}</Main>
-          {renderFooter && <Footer />}
+          {renderFooter && <FooterComponent />}
         </Container>
       </Fragment>
     )
