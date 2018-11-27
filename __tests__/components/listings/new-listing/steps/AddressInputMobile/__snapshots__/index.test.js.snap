@@ -140,7 +140,6 @@ exports[`<AddressInput/> should render a clean page 1`] = `
                 height="tall"
                 letterSpacing="default"
                 name="street"
-                onBlur={[Function]}
                 onChange={[Function]}
                 onKeyDown={[Function]}
                 placeholder="Endereço e número*"
