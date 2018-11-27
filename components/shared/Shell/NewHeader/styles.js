@@ -139,6 +139,7 @@ export const MenuItem = styled.div`
   @media (max-width: ${theme.breakpoints[0]}) {
     min-height: auto;
     height: 60px;
+    width: auto;
     
     align-items: center;
     justify-content: flex-start;

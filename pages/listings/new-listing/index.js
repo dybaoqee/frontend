@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Router from 'next/router'
+import Head from 'next/head'
 import { connect } from 'react-redux'
 import { PoseGroup } from 'react-pose'
 import {
@@ -19,6 +20,16 @@ import {
   FINAL_STEPS
 } from './navigation'
 import ProgressDialog from './components/ProgressDialog'
+import {imageUrl} from 'utils/image_url'
+
+
+const seoImg = imageUrl(
+  'emcasa-saiba-mais-para-vender-share-centered-2.jpg'
+)
+const seoTitle = 'Anuncie e Venda seu imóvel no Rio de Janeiro ou São Paulo | EmCasa'
+const seoDescription =
+  'Anuncie e venda seu imóvel no Rio de Janeiro de forma simples e transparente com a EmCasa que tem sistema exclusivo de Tour Virtual 3D para aumentar suas chances de venda'
+
 
 class NewListing extends Component {
   constructor(props) {
@@ -186,17 +197,32 @@ class NewListing extends Component {
     }
     return (
       <ThemeProvider theme={theme}>
-        {this.state.resuming ?
-          <ProgressDialog
-            address={address}
-            onReset={this.onReset}
-            onResume={this.onResume}
-          />
-        :
-          <PoseGroup>
-            {getScreen(screenProps)}
-          </PoseGroup>
-        }
+        <>
+          <Head>
+            <title>{seoTitle}</title>
+            <meta name="description" content={seoDescription} />
+            <meta name="theme-color" content={theme.colors.pink} />
+            <meta property="og:description" content={seoDescription} />
+            <meta property="og:image" content={seoImg} />
+            <meta property="og:image:height" content="838" />
+            <meta property="og:image:width" content="1476" />
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:title" content={seoTitle} />
+            <meta name="twitter:description" content={seoDescription} />
+            <meta name="twitter:image" content={seoImg} />
+          </Head>
+          {this.state.resuming ?
+            <ProgressDialog
+              address={address}
+              onReset={this.onReset}
+              onResume={this.onResume}
+            />
+            :
+            <PoseGroup>
+              {getScreen(screenProps)}
+            </PoseGroup>
+          }
+        </>
       </ThemeProvider>
     )
   }
