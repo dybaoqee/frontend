@@ -2,7 +2,6 @@ import styled from 'styled-components'
 import theme from '@emcasa/ui'
 import Text from '@emcasa/ui-dom/components/Text'
 import Row from '@emcasa/ui-dom/components/Row'
-import Col from '@emcasa/ui-dom/components/Col'
 
 const LINK_FONT_SIZE = '16px'
 

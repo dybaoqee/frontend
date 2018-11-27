@@ -66,6 +66,7 @@ export const MenuItem = styled.div`
 `
 
 export const Logo = styled.div`
+  cursor: pointer;
   @media (max-width: ${theme.breakpoints[0]}) {
     content: url(https://s3.amazonaws.com/emcasa-ui/logo/symbol.svg);
     max-width: 32px;
