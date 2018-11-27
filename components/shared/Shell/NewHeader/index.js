@@ -4,6 +4,12 @@ import theme from '@emcasa/ui'
 import {Component} from 'react'
 import Text from '@emcasa/ui-dom/components/Text'
 import AccountKit from 'components/shared/Auth/AccountKit'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import faSearch from '@fortawesome/fontawesome-pro-solid/faSearch'
+import faFlag from '@fortawesome/fontawesome-pro-solid/faFlag'
+import faUser from '@fortawesome/fontawesome-pro-solid/faUser'
+import faSignInAlt from '@fortawesome/fontawesome-pro-solid/faSignInAlt'
+
 import Container, {
   Wrapper,
   Nav,
@@ -63,23 +69,23 @@ export default class Header extends Component {
             <Nav visible={isMobileNavVisible}>
               <CloseNavButton
                 visible={isMobileNavVisible}
-                onClick={this.toggleMobileNavVisibility}
-              >
-                X
-              </CloseNavButton>
+                onClick={this.toggleMobileNavVisibility} />
               <Link href="/">
                 <MenuItem>
+                  <FontAwesomeIcon icon={faSearch} className="icon" />
                   <Text>Comprar</Text>
                 </MenuItem>
               </Link>
               <Link href="/vender">
                 <MenuItem active={true}>
+                  <FontAwesomeIcon className="icon" icon={faFlag} />
                   <Text>Vender</Text>
                 </MenuItem>
               </Link>
               {authenticated && (
                 <Link href="/meu-perfil">
                   <MenuItem active={true}>
+                    <FontAwesomeIcon className="icon" icon={faUser} />
                     <Text>Meu Perfil</Text>
                   </MenuItem>
                 </Link>
@@ -91,6 +97,7 @@ export default class Header extends Component {
               >
                 {({signIn, loading}) => (
                   <MenuItem onClick={signIn}>
+                    <FontAwesomeIcon className="icon" icon={faSignInAlt} />
                     <Text>Entrar</Text>
                   </MenuItem>
                 )}

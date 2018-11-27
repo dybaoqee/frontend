@@ -91,7 +91,7 @@ export const NavButton = styled.button`
   }
 `
 
-export const CloseNavButton = styled.button`
+export const CloseNavButton = styled.div`
   display: none;
   cursor: pointer;
   background: transparent;
@@ -101,6 +101,8 @@ export const CloseNavButton = styled.button`
   margin: 30px;
   align-self: flex-end;
 
+  content: url(/static/assets/close.svg);
+  
   @media (max-width: ${theme.breakpoints[0]}) {
     display: ${(props) => (props.visible ? 'block' : 'none')};
   }
@@ -116,6 +118,10 @@ export const MenuItem = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  
+  .icon {
+    display: none;
+  }
   
   p {
     font-size: 16px;
@@ -134,7 +140,7 @@ export const MenuItem = styled.div`
     min-height: auto;
     height: 60px;
     
-    align-items: flex-start;
+    align-items: center;
     justify-content: flex-start;
     
     p {
@@ -142,10 +148,15 @@ export const MenuItem = styled.div`
       font-family: 'FaktSoftPro-Normal';
       font-weight: 500;
       color: ${theme.colors.dark};
-      margin-left: 10px;
+    }
+    
+    .icon {
+      display: block;
+      margin-right: 40px;
     }
     
     border-left: 7px solid transparent;
+    padding-left: 20px;
     
     &:hover {
       border-left: 7px solid ${theme.colors.pink};
@@ -172,6 +183,9 @@ const fadeIn = keyframes`
 `
 
 export const Overlay = styled.div`
+  @media (min-width: ${theme.breakpoints[0]}) {
+    display: none; 
+  }
   position: absolute;
   top: 0;
   left: 0;
@@ -181,3 +195,4 @@ export const Overlay = styled.div`
   opacity: 0;
   animation: ${fadeIn} 0.3s 0s both;
 `
+
