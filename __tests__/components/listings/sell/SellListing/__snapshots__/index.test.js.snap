@@ -9,13 +9,14 @@ exports[`<SellListing/> should render a clean page 1`] = `
 
 .c7 {
   margin-bottom: 20px;
+  width: 100%;
 }
 
 .c10 {
   width: 100%;
 }
 
-.c13 {
+.c12 {
   width: 100%;
 }
 
@@ -63,14 +64,14 @@ exports[`<SellListing/> should render a clean page 1`] = `
   font-size: 18px;
 }
 
-.c16 {
+.c15 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
   color: #f50057;
   font-size: 18px;
 }
 
-.c14 {
+.c13 {
   outline: none;
   display: block;
   cursor: pointer;
@@ -88,12 +89,8 @@ exports[`<SellListing/> should render a clean page 1`] = `
   border-color: #e0e6ed;
 }
 
-.c14 :hover {
+.c13 :hover {
   background-color: #f50057;
-}
-
-.c12 {
-  margin-right: 10px;
 }
 
 .c11 {
@@ -151,9 +148,10 @@ exports[`<SellListing/> should render a clean page 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  background-color: #ffffff;
 }
 
-.c15 {
+.c14 {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   cursor: pointer;
@@ -197,7 +195,7 @@ exports[`<SellListing/> should render a clean page 1`] = `
 }
 
 @media screen and (min-width:780px) {
-  .c13 {
+  .c12 {
     width: 16.666666666666664%;
   }
 }
@@ -280,46 +278,46 @@ exports[`<SellListing/> should render a clean page 1`] = `
       >
         <div
           className="c7"
+          width={1}
         >
-          <div
-            className="c8 c9"
-          >
+          <div>
             <div
-              className="c10"
-              width={1}
+              className="c8 c9"
             >
               <div
-                className=""
+                className="c10"
+                width={1}
               >
-                <input
-                  autoComplete="off"
-                  className="c11"
-                  fontSize="default"
-                  height="tall"
-                  letterSpacing="default"
-                  name="street"
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onKeyDown={[Function]}
-                  placeholder="Endereço e número*"
-                  style={
-                    Object {
-                      "border": 0,
+                <div
+                  className=""
+                >
+                  <input
+                    autoComplete="off"
+                    className="c11"
+                    fontSize="default"
+                    height="tall"
+                    letterSpacing="default"
+                    name="street"
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onKeyDown={[Function]}
+                    placeholder="Endereço e número*"
+                    style={
+                      Object {
+                        "border": 0,
+                      }
                     }
-                  }
-                  type="text"
-                  value={null}
-                />
+                    type="text"
+                    value={null}
+                  />
+                </div>
               </div>
             </div>
-            <div
-              className="c12"
-            />
           </div>
         </div>
       </div>
       <div
-        className="c13"
+        className="c12"
         width={
           Array [
             1,
@@ -328,7 +326,7 @@ exports[`<SellListing/> should render a clean page 1`] = `
         }
       >
         <button
-          className="c14"
+          className="c13"
           fontSize="default"
           height="tall"
           onClick={[Function]}
@@ -344,7 +342,7 @@ exports[`<SellListing/> should render a clean page 1`] = `
         className=""
       >
         <p
-          className="c15 c16"
+          className="c14 c15"
           color="pink"
           fontSize="default"
           onClick={[Function]}
