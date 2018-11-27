@@ -210,6 +210,7 @@ class Services extends Component {
       wantsTour = services.wantsTour
     }
     const fullTourDateDisplay = getFullTourDateDisplay(tour)
+    const tourScheduled = tour && tour.day && tour.time
     return (
       <div ref={this.props.hostRef}>
         <Row justifyContent="center" p={4}>
@@ -265,8 +266,8 @@ class Services extends Component {
                       <Button
                         fluid
                         height="tall"
-                        active={!this.state.loading && !!fullTourDateDisplay}
-                        disabled={this.state.loading || !fullTourDateDisplay}
+                        active={!this.state.loading && tourScheduled}
+                        disabled={this.state.loading || !tourScheduled}
                         onClick={this.save}>
                         Agendar
                       </Button>
