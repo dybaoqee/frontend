@@ -60,17 +60,17 @@ class Differential extends Component {
     // Old site auth
     if (authenticated) {
       const { updatePhone, updatePersonal } = this.props
-      const userInfo = await getUser(user.id, updatePhone, updatePersonal)
-      if (userInfo.error) {
+      try {
+        const userInfo = await getUser(user.id, updatePhone, updatePersonal)
+        await this.estimatePrice(userInfo)
+        return
+      } catch (e) {
         this.setState({
           loading: false,
-          error: userInfo.error
+          error: 'Ocorreu um erro. Por favor, tente novamente.'
         })
         return
       }
-
-      await this.estimatePrice(userInfo)
-      return
     }
 
     // User has already input phone number
