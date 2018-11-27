@@ -271,7 +271,6 @@ export default class AddressAutoComplete extends Component {
     let suggestionsWidth = null
     if (this.inputContainer && this.inputContainer.current) {
       suggestionsWidth = this.inputContainer.current.offsetWidth
-      console.log(suggestionsWidth)
     }
     return (
       <div ref={this.inputContainer}>
