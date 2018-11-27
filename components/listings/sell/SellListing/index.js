@@ -91,9 +91,8 @@ export default class SellListing extends Component {
                   />
                 </Col>
               :
-                <Col mb={4}>
+                <Col mb={4} width={1}>
                   <AddressAutoComplete
-                    searchResultsMargin={4}
                     defaultValue={this.state.address}
                     onClearInput={this.onClearInput}
                     onSelectAddress={(addressFormatted, addressData) => {

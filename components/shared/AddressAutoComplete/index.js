@@ -21,6 +21,7 @@ export default class AddressAutoComplete extends Component {
     super(props)
     this.timer = null
     this.searchInput = React.createRef()
+    this.inputContainer = React.createRef()
     this.predictionsIds = []
     this.secondaryText = undefined
   }
@@ -265,9 +266,15 @@ export default class AddressAutoComplete extends Component {
       errors
     } = this.state
     const value = place.description || search
-    const { onBackPressed, defaultValue, searchResultsMargin } = this.props
+    const { onBackPressed, defaultValue } = this.props
+
+    let suggestionsWidth = null
+    if (this.inputContainer && this.inputContainer.current) {
+      suggestionsWidth = this.inputContainer.current.offsetWidth
+      console.log(suggestionsWidth)
+    }
     return (
-      <>
+      <div ref={this.inputContainer}>
         <InputContainer>
           {onBackPressed &&
             <BackIcon name="arrow-left" color="dark" onClick={onBackPressed} />
@@ -288,24 +295,26 @@ export default class AddressAutoComplete extends Component {
               autoComplete="off"
             />
           </Col>
-          <View mr={2}>
-            <MoonLoader
-              size={24}
-              color={theme.colors.pink}
-              style={{marginRight: 14}}
-              loading={loadingPlaceInfo}
-            />
-          </View>
+          {loadingPlaceInfo &&
+            <View mr={2}>
+              <MoonLoader
+                size={24}
+                color={theme.colors.pink}
+                style={{marginRight: 14}}
+                loading={loadingPlaceInfo}
+              />
+            </View>
+          }
         </InputContainer>
         {errors.length > 0 && <Text inline color="red" fontSize="small">{errors[0]}</Text>}
         {showPredictions &&
-          <SearchResultContainer searchResultsMargin={searchResultsMargin}>
+          <SearchResultContainer width={suggestionsWidth}>
             <Col width={[1]}>
               {this.getSearchResults()}
             </Col>
           </SearchResultContainer>
         }
-      </>
+      </div>
     )
   }
 }
