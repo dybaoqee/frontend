@@ -132,7 +132,7 @@ export const MenuItem = styled.div`
     text-align: center;
   }
  
-  &:hover {
+  &:hover, &.active {
     border-bottom: 1px solid ${theme.colors.pink};
   }
   
@@ -158,7 +158,7 @@ export const MenuItem = styled.div`
     border-left: 7px solid transparent;
     padding-left: 20px;
     
-    &:hover {
+    &:hover, &.active {
       border-left: 7px solid ${theme.colors.pink};
       border-bottom: none;
     }

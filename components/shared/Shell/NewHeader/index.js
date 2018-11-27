@@ -49,7 +49,7 @@ export default class Header extends Component {
   }
 
   render() {
-    const {transparent, authenticated} = this.props
+    const {transparent, authenticated, router} = this.props
     const {sticky, isMobileNavVisible} = this.state
 
     return (
@@ -59,7 +59,7 @@ export default class Header extends Component {
             <Link href="/">
               <Logo alt="EmCasa Imobiliária no Rio de Janeiro e São Paulo" />
             </Link>
-            {isMobileNavVisible && <Overlay />}
+            {isMobileNavVisible && <Overlay onClick={this.toggleMobileNavVisibility} />}
             <NavButton
               visible={!isMobileNavVisible}
               onClick={this.toggleMobileNavVisibility}
@@ -77,14 +77,14 @@ export default class Header extends Component {
                 </MenuItem>
               </Link>
               <Link href="/vender">
-                <MenuItem active={true}>
+                <MenuItem className="active">
                   <FontAwesomeIcon className="icon" icon={faFlag} />
                   <Text>Vender</Text>
                 </MenuItem>
               </Link>
               {authenticated && (
                 <Link href="/meu-perfil">
-                  <MenuItem active={true}>
+                  <MenuItem>
                     <FontAwesomeIcon className="icon" icon={faUser} />
                     <Text>Meu Perfil</Text>
                   </MenuItem>
