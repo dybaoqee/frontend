@@ -111,11 +111,6 @@ export default class Header extends Component {
         icon: faChart,
         title: 'Painel',
         admin: true
-      },
-      {
-        href: '/listings/sell/know-more',
-        as: '/saiba-mais-para-vender',
-        newIcon: 'phone'
       }
     ]
     return (
