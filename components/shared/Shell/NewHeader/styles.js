@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, {keyframes} from 'styled-components'
 import theme from '@emcasa/ui'
 
 export default styled.header`
@@ -30,6 +30,12 @@ export const Wrapper = styled.div`
   width: 100vw;
 `
 
+
+const slideFromRight = keyframes`
+  from { right: -60vw; }
+  to   { right: 0; }
+`
+
 export const Nav = styled.nav`
   flex: 1;
   min-height: 100%;
@@ -45,7 +51,9 @@ export const Nav = styled.nav`
   @media (max-width: ${theme.breakpoints[0]}) {
     position: absolute;
     top: 0;
-    right: 0;
+    right: -60vw;
+    animation: ${slideFromRight} 0.3s 0s both;
+    
     display: ${(props) => (props.visible ? 'flex' : 'none')};
     background: white;
     flex-direction: column;
@@ -156,4 +164,20 @@ export const Logo = styled.div`
   }
   content: url(https://s3.amazonaws.com/emcasa-ui/logo/logo.svg);
   max-width: 118px;
+`
+
+const fadeIn = keyframes`
+  from { opacity: 0; }
+  to   { opacity: 0.5; }
+`
+
+export const Overlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: black;
+  opacity: 0;
+  animation: ${fadeIn} 0.3s 0s both;
 `
