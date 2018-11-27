@@ -66,14 +66,14 @@ export default class SellListing extends Component {
     return (
       <Container>
         <Content>
-          <Row justifyContent="center">
+          <Row justifyContent="center" px={[4, 0]}>
             <Col>
               <Text fontSize="xlarge" color="dark" fontWeight="bold" textAlign="center">
                 Quer vender seu imóvel?
               </Text>
             </Col>
           </Row>
-          <Row justifyContent="center">
+          <Row justifyContent="center" px={[4, 0]}>
             <Col>
               <Text color="gray">
                 Vender seu imóvel nunca foi tão fácil, informe o endereço do seu imóvel
@@ -81,8 +81,8 @@ export default class SellListing extends Component {
               </Text>
             </Col>
           </Row>
-          <Row flexDirection={['column', 'row']}>
-            <Col width={[1, 10 / 12]} mr={[0, 2]} mb={[4, 0]}>
+          <Row flexDirection={['column', 'row']} px={[4, 0]}>
+            <Col width={[1, 10 / 12]} mr={[0, 2]}>
               {isMobile() ?
                 <Col mb={4}>
                   <MobileAddressButton
@@ -107,8 +107,10 @@ export default class SellListing extends Component {
             </Col>
             <Col width={[1, 2 / 12]}>
               <Button height="tall" active fluid onClick={() => {
-                localStorage.setItem('sellerAddressFormatted', this.state.addressFormatted)
-                localStorage.setItem('sellerAddressData', JSON.stringify(this.state.addressData))
+                if (this.state.addressFormatted && this.state.addressData) {
+                  localStorage.setItem('sellerAddressFormatted', this.state.addressFormatted)
+                  localStorage.setItem('sellerAddressData', JSON.stringify(this.state.addressData))
+                }
                 Router.push('/vender/imovel')
               }}>
                 Avaliar
