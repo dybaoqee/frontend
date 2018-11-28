@@ -15,6 +15,7 @@ exports[`renders correctly 1`] = `
   display: -ms-flexbox;
   display: flex;
   padding: 20px;
+  padding-top: 0px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
@@ -69,7 +70,19 @@ exports[`renders correctly 1`] = `
   justify-content: space-between;
 }
 
-.c24 {
+.c22 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 20px;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c25 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -88,12 +101,12 @@ exports[`renders correctly 1`] = `
   width: 50%;
 }
 
-.c27 {
+.c28 {
   margin-bottom: 10px;
   width: 100%;
 }
 
-.c29 {
+.c30 {
   width: 100%;
 }
 
@@ -128,21 +141,21 @@ exports[`renders correctly 1`] = `
   font-weight: bold;
 }
 
-.c23 {
+.c24 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
   color: #f50057;
   font-size: 18px;
 }
 
-.c26 {
+.c27 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
   color: #f50057;
   font-size: 14px;
 }
 
-.c28 {
+.c29 {
   outline: none;
   display: block;
   cursor: pointer;
@@ -160,11 +173,11 @@ exports[`renders correctly 1`] = `
   border-color: #e0e6ed;
 }
 
-.c28 :hover {
+.c29 :hover {
   background-color: #f50057;
 }
 
-.c30 {
+.c31 {
   outline: none;
   display: block;
   cursor: pointer;
@@ -182,15 +195,15 @@ exports[`renders correctly 1`] = `
   border-color: #e0e6ed;
 }
 
-.c30 :hover {
+.c31 :hover {
   background-color: #ffffff;
 }
 
-.c25 {
+.c26 {
   margin-right: 10px;
 }
 
-.c22 {
+.c23 {
   cursor: pointer;
 }
 
@@ -439,19 +452,19 @@ exports[`renders correctly 1`] = `
                 </div>
               </div>
               <div
-                className="c0"
+                className="c22"
               >
                 <span
-                  className="c22 c23"
+                  className="c23 c24"
                   color="pink"
                   fontSize="default"
                   onClick={[Function]}
                 >
                   <div
-                    className="c24"
+                    className="c25"
                   >
                     <div
-                      className="c25"
+                      className="c26"
                     >
                       <svg
                         height={16}
@@ -470,7 +483,7 @@ exports[`renders correctly 1`] = `
                       </svg>
                     </div>
                     <span
-                      className="c26"
+                      className="c27"
                       color="pink"
                       fontSize="small"
                     >
@@ -487,11 +500,11 @@ exports[`renders correctly 1`] = `
         className="c3"
       >
         <div
-          className="c27"
+          className="c28"
           width={1}
         >
           <button
-            className="c28"
+            className="c29"
             fontSize="default"
             height="tall"
             onClick={[Function]}
@@ -504,11 +517,11 @@ exports[`renders correctly 1`] = `
         className="c3"
       >
         <div
-          className="c29"
+          className="c30"
           width={1}
         >
           <button
-            className="c30"
+            className="c31"
             fontSize="default"
             height="tall"
             onClick={[Function]}
