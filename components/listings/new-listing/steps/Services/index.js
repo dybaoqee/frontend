@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Formik } from 'formik'
 import moment from 'moment'
+import * as Sentry from '@sentry/browser'
 
 import { INSERT_LISTING, TOUR_SCHEDULE } from 'graphql/listings/mutations'
 import { TOUR_OPTIONS } from 'graphql/listings/queries'
@@ -70,6 +71,7 @@ class Services extends Component {
       const tourOptions = data.tourOptions.slice()
       this.tourStep(tourOptions.reverse())
     } catch (e) {
+      Sentry.captureException(e)
       this.setState({
         loading: false,
         error: 'Ocorreu um erro. Por favor, tente novamente.'
@@ -134,6 +136,7 @@ class Services extends Component {
         })
       }
     } catch (e) {
+      Sentry.captureException(e)
       this.setState({
         loading: false,
         error: 'Ocorreu um erro. Por favor, tente novamente.'
@@ -168,6 +171,7 @@ class Services extends Component {
         this.setState({tourCreated: true})
       }
     } catch (e) {
+      Sentry.captureException(e)
       this.setState({
         loading: false,
         error: 'Ocorreu um erro. Por favor, tente novamente.'
