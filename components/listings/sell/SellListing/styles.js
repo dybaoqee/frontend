@@ -22,11 +22,25 @@ const Container = styled(View)`
   background-position: bottom;
 
   @media (max-width: ${theme.breakpoints[0]}){
+    align-items: center;
     background-image: url(${CLOUDINARY_URL}/wall-small.jpg);
   }
 
-  @media (min-aspect-ratio: 2 / 1) {
+  @media (max-height: 690px) {
+    align-items: center;
     background-image: url(${CLOUDINARY_URL}/wall-small.jpg);
+  }
+  
+  @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px)  {
+    align-items: center;
+    background-image: url(${CLOUDINARY_URL}/wall-small.jpg);
+  }
+  
+  @media (min-width: 1500px) {
+    align-items: center;
+    margin-top: -20vh;
   }
 `
 
