@@ -19,6 +19,7 @@ import makeStore from 'redux/store'
 
 class MyApp extends App {
   static async getInitialProps(ctx) {
+    Sentry.init({dsn: process.env.SENTRY_DSN})
     const {Component, router, ctx: context} = ctx
     global.res = context.res
     let pageProps = {}
@@ -48,8 +49,6 @@ class MyApp extends App {
   }
 
   componentDidMount() {
-    Sentry.init({dsn: process.env.SENTRY_DSN})
-
     if (getCookie('resetAuth')) {
       removeCookie('jwt')
       removeCookie('currentUserId')
