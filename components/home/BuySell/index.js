@@ -17,7 +17,7 @@ export default class HomeBuySell extends Component {
         </div>
         <div>
           <Title>Quero vender meu imóvel!</Title>
-          <Link href={'/listings/new'} as={'/imoveis/adicionar'}>
+          <Link href={'/listings/new-listing'} as={'/vender/imovel'}>
             <EmCasaButton light>Vender imóvel</EmCasaButton>
           </Link>
         </div>
