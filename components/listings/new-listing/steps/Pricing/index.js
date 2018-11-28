@@ -181,7 +181,7 @@ class Pricing extends Component {
     const showEditingPriceLabels = this.state.suggestedPrice && this.state.editingPrice
     return (
       <div ref={this.props.hostRef}>
-        <Row justifyContent="center" p={4}>
+        <Row justifyContent="center" p={4} pt={0}>
           <Col width={[1, 1/2]}>
             <Formik
               initialValues={{

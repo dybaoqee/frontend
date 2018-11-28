@@ -22,12 +22,10 @@ const Container = styled(View)`
   background-position: bottom;
 
   @media (max-width: ${theme.breakpoints[0]}){
-    align-items: center;
     background-image: url(${CLOUDINARY_URL}/wall-small.jpg);
   }
 
   @media (max-height: 690px) {
-    align-items: center;
     background-image: url(${CLOUDINARY_URL}/wall-small.jpg);
   }
   

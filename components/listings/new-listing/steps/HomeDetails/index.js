@@ -98,7 +98,7 @@ class HomeDetails extends Component {
 
     return (
       <div ref={this.props.hostRef}>
-        <Row justifyContent="center" p={4}>
+        <Row justifyContent="center" p={4} pt={0}>
           <Col width={[1, 1/2]}>
             <Formik
               initialValues={{
