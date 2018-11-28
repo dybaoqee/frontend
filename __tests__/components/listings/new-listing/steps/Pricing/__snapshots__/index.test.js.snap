@@ -50,6 +50,7 @@ exports[`renders an empty state 1`] = `
   display: -ms-flexbox;
   display: flex;
   padding: 20px;
+  padding-top: 0px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;

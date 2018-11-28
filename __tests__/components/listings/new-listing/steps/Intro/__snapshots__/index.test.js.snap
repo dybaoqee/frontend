@@ -7,6 +7,7 @@ exports[`renders correctly 1`] = `
   display: -ms-flexbox;
   display: flex;
   padding: 20px;
+  padding-top: 0px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
@@ -185,7 +186,79 @@ exports[`renders correctly 1`] = `
           color="dark"
           fontSize="default"
         >
-          Agende grátis um Tour Virtual 3D e uma sessão de fotos do seu imóvel
+          Agende Tour Virtual 3D / Fotos grátis
+        </span>
+      </div>
+      <div
+        className="c4"
+      >
+        <div
+          className="c5"
+          style={
+            Object {
+              "display": "inline",
+              "verticalAlign": "sub",
+            }
+          }
+        >
+          <svg
+            height={20}
+            version="1.1"
+            viewBox="0 0 512 512"
+            x={0}
+            y={0}
+          >
+            <path
+              d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm113.9 231L234.4 103.5c-9.4-9.4-24.6-9.4-33.9 0l-17 17c-9.4 9.4-9.4 24.6 0 33.9L285.1 256 183.5 357.6c-9.4 9.4-9.4 24.6 0 33.9l17 17c9.4 9.4 24.6 9.4 33.9 0L369.9 273c9.4-9.4 9.4-24.6 0-34z"
+              fill="#1fb6ff"
+              mr={2}
+              name="chevron-circle-right"
+              type="default"
+            />
+          </svg>
+        </div>
+        <span
+          className="c6"
+          color="dark"
+          fontSize="default"
+        >
+          Avaliação online do seu imóvel
+        </span>
+      </div>
+      <div
+        className="c4"
+      >
+        <div
+          className="c5"
+          style={
+            Object {
+              "display": "inline",
+              "verticalAlign": "sub",
+            }
+          }
+        >
+          <svg
+            height={20}
+            version="1.1"
+            viewBox="0 0 512 512"
+            x={0}
+            y={0}
+          >
+            <path
+              d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm113.9 231L234.4 103.5c-9.4-9.4-24.6-9.4-33.9 0l-17 17c-9.4 9.4-9.4 24.6 0 33.9L285.1 256 183.5 357.6c-9.4 9.4-9.4 24.6 0 33.9l17 17c9.4 9.4 24.6 9.4 33.9 0L369.9 273c9.4-9.4 9.4-24.6 0-34z"
+              fill="#1fb6ff"
+              mr={2}
+              name="chevron-circle-right"
+              type="default"
+            />
+          </svg>
+        </div>
+        <span
+          className="c6"
+          color="dark"
+          fontSize="default"
+        >
+          Cuidamos de toda burocracia, contratos e documentação
         </span>
       </div>
       <div
@@ -222,78 +295,6 @@ exports[`renders correctly 1`] = `
           fontSize="default"
         >
           Economize tempo e dinheiro anunciando seu imóvel com a gente
-        </span>
-      </div>
-      <div
-        className="c4"
-      >
-        <div
-          className="c5"
-          style={
-            Object {
-              "display": "inline",
-              "verticalAlign": "sub",
-            }
-          }
-        >
-          <svg
-            height={20}
-            version="1.1"
-            viewBox="0 0 512 512"
-            x={0}
-            y={0}
-          >
-            <path
-              d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm113.9 231L234.4 103.5c-9.4-9.4-24.6-9.4-33.9 0l-17 17c-9.4 9.4-9.4 24.6 0 33.9L285.1 256 183.5 357.6c-9.4 9.4-9.4 24.6 0 33.9l17 17c9.4 9.4 24.6 9.4 33.9 0L369.9 273c9.4-9.4 9.4-24.6 0-34z"
-              fill="#1fb6ff"
-              mr={2}
-              name="chevron-circle-right"
-              type="default"
-            />
-          </svg>
-        </div>
-        <span
-          className="c6"
-          color="dark"
-          fontSize="default"
-        >
-          Avaliação do seu imóvel
-        </span>
-      </div>
-      <div
-        className="c4"
-      >
-        <div
-          className="c5"
-          style={
-            Object {
-              "display": "inline",
-              "verticalAlign": "sub",
-            }
-          }
-        >
-          <svg
-            height={20}
-            version="1.1"
-            viewBox="0 0 512 512"
-            x={0}
-            y={0}
-          >
-            <path
-              d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm113.9 231L234.4 103.5c-9.4-9.4-24.6-9.4-33.9 0l-17 17c-9.4 9.4-9.4 24.6 0 33.9L285.1 256 183.5 357.6c-9.4 9.4-9.4 24.6 0 33.9l17 17c9.4 9.4 24.6 9.4 33.9 0L369.9 273c9.4-9.4 9.4-24.6 0-34z"
-              fill="#1fb6ff"
-              mr={2}
-              name="chevron-circle-right"
-              type="default"
-            />
-          </svg>
-        </div>
-        <span
-          className="c6"
-          color="dark"
-          fontSize="default"
-        >
-          Assistência jurídica grátis
         </span>
       </div>
       <div
