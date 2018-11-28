@@ -64,6 +64,7 @@ export default class Sell extends Component {
   }
 
   componentDidMount() {
+    amplitude.getInstance().logEvent('seller-landing-page')
     window.addEventListener('resize', this.onResize)
   }
 
