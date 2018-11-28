@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Router from 'next/router'
 import Head from 'next/head'
+import * as Sentry from '@sentry/browser'
 import { connect } from 'react-redux'
 import { PoseGroup } from 'react-pose'
 import {
@@ -137,6 +138,15 @@ class NewListing extends Component {
     }
 
     return false
+  }
+
+  componentDidCatch(error, errorInfo) {
+    Sentry.withScope(scope => {
+      Object.keys(errorInfo).forEach(key => {
+        scope.setExtra(key, errorInfo[key]);
+      });
+      Sentry.captureException(error);
+    });
   }
 
   restartForm() {
