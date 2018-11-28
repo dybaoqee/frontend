@@ -68,14 +68,19 @@ export default class SellListing extends Component {
         <Content>
           <Row justifyContent="center" px={[4, 0]}>
             <Col>
-              <Text fontSize="xlarge" color="dark" fontWeight="bold" textAlign="center">
+              <Text
+                fontSize="xlarge"
+                color="dark"
+                fontWeight="bold"
+                textAlign="center"
+                style={{marginBottom: 0, marginTop: 0}}>
                 {this.props.title}
               </Text>
             </Col>
           </Row>
           <Row justifyContent="center" px={[4, 0]}>
             <Col>
-              <Text color="gray">
+              <Text color="gray" style={{margin: '0.5em'}}>
                 Vender seu imóvel nunca foi tão fácil, informe o endereço do seu imóvel
                 e receba agora uma avaliação grátis
               </Text>
@@ -91,7 +96,7 @@ export default class SellListing extends Component {
                   />
                 </Col>
               :
-                <Col mb={4} width={1}>
+                <Col mb={2} width={1}>
                   <AddressAutoComplete
                     defaultValue={this.state.address}
                     onClearInput={() => {}}
@@ -105,7 +110,7 @@ export default class SellListing extends Component {
                 </Col>
               }
             </Col>
-            <Col width={[1, 2 / 12]}>
+            <Col width={[1, 2 / 12]} mb={[5, 0]}>
               <Button height="tall" active fluid onClick={() => {
                 if (this.state.addressFormatted && this.state.addressData) {
                   localStorage.setItem('sellerAddressFormatted', this.state.addressFormatted)

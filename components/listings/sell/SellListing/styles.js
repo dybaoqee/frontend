@@ -7,6 +7,7 @@ import {desktopHeaderHeight} from 'constants/dimensions'
 const CLOUDINARY_URL = 'https://res.cloudinary.com/emcasa/image/upload/fl_any_format/v1542831121/background'
 
 const UnderlinedText = styled(Text)`
+  margin-top: 0;
   text-decoration: underline;
   cursor: pointer;
 `
@@ -25,8 +26,21 @@ const Container = styled(View)`
     background-image: url(${CLOUDINARY_URL}/wall-small.jpg);
   }
 
-  @media (max-height: 690px) {
-    background-image: url(${CLOUDINARY_URL}/wall-small.jpg);
+  @media (min-width: ${theme.breakpoints[0]}){ 
+    @media (max-height: 590px) {
+      align-items: center;
+      background-image: url(${CLOUDINARY_URL}/wall-small.jpg);
+    }
+    
+    @media (max-width: 1300px) {
+      align-items: center;
+      margin-top: -20vh;
+    }
+    
+    @media (min-width: 1500px) {
+      align-items: center;
+      margin-top: -40vh;
+    }
   }
   
   @media only screen 
@@ -35,16 +49,16 @@ const Container = styled(View)`
     align-items: center;
     background-image: url(${CLOUDINARY_URL}/wall-small.jpg);
   }
-  
-  @media (min-width: 1500px) {
-    align-items: center;
-    margin-top: -20vh;
-  }
 `
 
 const Content = styled(View)`
   max-width: 100%;
-  margin-top: ${desktopHeaderHeight}px;
+  margin-top: ${desktopHeaderHeight * 2}px;
+   @media (min-width: ${theme.breakpoints[0]}){ 
+    @media (min-aspect-ratio: 2 / 1) {
+      margin-top: ${desktopHeaderHeight}px;    
+    }
+   }
 `
 
 export {
