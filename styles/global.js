@@ -1,5 +1,6 @@
 import {injectGlobal} from 'styled-components'
 import {mobileMedia} from 'constants/media'
+import theme from '@emcasa/ui'
 import * as colors from 'constants/colors'
 
 export default injectGlobal`
@@ -112,7 +113,7 @@ form {
 }
 
 #nprogress .bar {
-  background: #227ea2;
+  background: ${theme.colors.pink};
 
   position: fixed;
   z-index: 9999;
@@ -125,7 +126,7 @@ form {
 
 /* Fancy blur effect */
 #nprogress .peg {
-  display: block;
+  display: none;
   position: absolute;
   right: 0px;
   width: 100px;
