@@ -21,6 +21,8 @@ const Block = styled(View)`
   display: flex;
   flex: 1;
   min-height: 60vh;
+  max-width: 100vw;
+  overflow: hidden;
   justify-content: center;
   padding-top: ${desktopHeaderHeight}px;
 `
@@ -71,7 +73,8 @@ export default class Sell extends Component {
 
   render() {
     const blockProps = {
-      isMobile: isMobile(this.state.pageWidth)
+      isMobile: isMobile(this.state.pageWidth),
+      pageWidth: this.state.pageWidth
     }
 
     return (
