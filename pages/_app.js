@@ -3,6 +3,7 @@ import {Provider} from 'react-redux'
 import withRedux from 'next-redux-wrapper'
 import App, {Container} from 'next/app'
 import Head from 'next/head'
+import * as Sentry from '@sentry/browser'
 import isUndefined from 'lodash/isUndefined'
 import Layout from 'components/shared/Shell'
 import {isAuthenticated, isAdmin, getCurrentUserId} from 'lib/auth'
@@ -47,6 +48,8 @@ class MyApp extends App {
   }
 
   componentDidMount() {
+    Sentry.init({dsn: process.env.SENTRY_DSN})
+
     if (getCookie('resetAuth')) {
       removeCookie('jwt')
       removeCookie('currentUserId')
