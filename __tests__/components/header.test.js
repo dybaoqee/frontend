@@ -26,13 +26,13 @@ describe('Header', () => {
 
     expect(
       header
-        .find('[href="/listings/sell/know-more"]')
+        .find('[href="/listings/sell"]')
         .find('span')
         .text()
     ).toEqual('Quero anunciar')
 
     expect(header.find(UserMenu).exists()).toEqual(false)
-    expect(header.find('[href="/listings/sell/know-more"]').exists()).toEqual(
+    expect(header.find('[href="/listings/sell"]').exists()).toEqual(
       true
     )
   })

@@ -217,7 +217,7 @@ class Services extends Component {
     const tourScheduled = tour && tour.day && tour.time
     return (
       <div ref={this.props.hostRef}>
-        <Row justifyContent="center" p={4}>
+        <Row justifyContent="center" p={4} pt={0}>
           <Col width={[1, 1/2]}>
             <Formik
               render={() => (

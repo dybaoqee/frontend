@@ -20,7 +20,7 @@ class Intro extends PureComponent {
   render() {
     return (
       <div ref={this.props.hostRef}>
-        <Row justifyContent="center" p={4}>
+        <Row justifyContent="center" p={4} pt={0}>
           <Col width={[1, 1/2]}>
             <Text
               fontSize="large"
@@ -34,16 +34,17 @@ class Intro extends PureComponent {
               <Arrow /><Text inline>Cadastre seu imóvel no nosso site</Text>
             </View>
             <View mb={2}>
-              <Arrow /><Text inline>Agende grátis um Tour Virtual 3D e uma sessão de fotos do seu imóvel</Text>
+              <Arrow /><Text inline>Agende Tour Virtual 3D / Fotos grátis</Text>
+            </View>
+            <View mb={2}>
+              <Arrow /><Text inline>Avaliação online do seu imóvel</Text>
+            </View>
+            <View mb={2}>
+              <Arrow /><Text inline>Cuidamos de toda burocracia, contratos e documentação
+            </Text>
             </View>
             <View mb={2}>
               <Arrow /><Text inline>Economize tempo e dinheiro anunciando seu imóvel com a gente</Text>
-            </View>
-            <View mb={2}>
-              <Arrow /><Text inline>Avaliação do seu imóvel</Text>
-            </View>
-            <View mb={2}>
-              <Arrow /><Text inline>Assistência jurídica grátis</Text>
             </View>
             <Row justifyContent="center" mt={4}>
               <Col width={[1, 1/2]}>
