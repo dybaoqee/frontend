@@ -17,6 +17,15 @@ const SearchResultItem = styled(View)`
   :hover {
     border: 1px solid ${themeGet('colors.pink')};
   }
+  
+  overflow: hidden;
+  white-space: nowrap;
+  
+  p {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
 `
 
 const SearchResultContainer = styled(Row)`
