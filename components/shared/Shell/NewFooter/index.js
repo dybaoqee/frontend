@@ -45,11 +45,14 @@ const Footer = () => (
           <Link href="/listings/sell/know-more" as="/saiba-mais-para-vender">
             <TextLink>Venda</TextLink>
           </Link>
-          <Link href="http://blog.emcasa.com">
+          <a href="http://blog.emcasa.com" target="_blank">
             <TextLink>Blog</TextLink>
-          </Link>
-          <Link href="https://jobs.emcasa.com/">
+          </a>
+          <a href="https://jobs.emcasa.com/" target="_blank">
             <TextLink>Trabalhe Conosco</TextLink>
+          </a>
+          <Link href="/sitemap">
+            <TextLink>Mapa do Site</TextLink>
           </Link>
         </LinkGroup>
       </Col>

@@ -3,6 +3,7 @@ import theme from '@emcasa/ui'
 import Text from '@emcasa/ui-dom/components/Text'
 import Row from '@emcasa/ui-dom/components/Row'
 
+const LINK_FONT_SIZE_MOBILE = '14px';
 const LINK_FONT_SIZE = '16px'
 
 export const Container = styled(Row)`
@@ -27,6 +28,17 @@ export const TextLink = styled(Text)`
     width: ${LINK_FONT_SIZE};
     height: ${LINK_FONT_SIZE};
     margin-right: 5px;
+  } 
+  
+  @media (max-width: ${theme.breakpoints[0]}) {
+    line-height: 0.3em;
+    margin-right: 20px;
+    min-height: ${LINK_FONT_SIZE_MOBILE};
+    font-size: ${LINK_FONT_SIZE_MOBILE};
+    svg {
+      width: ${LINK_FONT_SIZE_MOBILE};
+      height: ${LINK_FONT_SIZE_MOBILE};
+    }
   }
 `
 
@@ -35,7 +47,8 @@ export const LinkGroup = styled.div`
     display: flex;
     flex-wrap: wrap; 
     flex-direction: column;
-    height: 15vh;
+    max-height: 130px;
+    align-content: flex-start;
   }
   
   a {
