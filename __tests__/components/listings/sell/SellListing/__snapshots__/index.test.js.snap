@@ -284,9 +284,7 @@ exports[`<SellListing/> should render a clean page 1`] = `
           color="dark"
           fontSize="xlarge"
           fontWeight="bold"
-        >
-          Quer vender seu imóvel?
-        </p>
+        />
       </div>
     </div>
     <div
