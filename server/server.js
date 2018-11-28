@@ -121,6 +121,14 @@ const startServer = () => {
         return app.render(req, res, '/listings/sell', req.query)
       })
 
+      server.get('/vender/sao-paulo', (req, res) => {
+        return app.render(req, res, '/listings/sell', {city: 'sp'})
+      })
+
+      server.get('/vender/rio-de-janeiro', (req, res) => {
+        return app.render(req, res, '/listings/sell', {city: 'rj'})
+      })
+
       server.get('/vender/imovel', (req, res) => {
         return app.render(req, res, '/listings/new-listing', req.query)
       })

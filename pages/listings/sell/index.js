@@ -35,13 +35,28 @@ const MainBlock = styled(Block)`
   }
 `
 
-const seoImg = imageUrl(
-  'emcasa-saiba-mais-para-vender-share-centered-2.jpg'
-)
-const seoTitle = 'Anuncie e Venda seu imóvel no Rio de Janeiro ou São Paulo | EmCasa'
-const seoDescription =
-  'Anuncie e venda seu imóvel no Rio de Janeiro de forma simples e transparente com a EmCasa que tem sistema exclusivo de Tour Virtual 3D para aumentar suas chances de venda'
-
+const BASE_TITLE = 'Anuncie e Venda seu imóvel'
+const BASE_DESCRIPTION = 'de forma simples e transparente com a EmCasa que tem sistema exclusivo de Tour Virtual 3D para aumentar suas chances de venda'
+const CONTENT = {
+    all: {
+      seoImg: imageUrl('sell.jpg'),
+      seoTitle: `${BASE_TITLE} no Rio de Janeiro ou São Paulo | EmCasa`,
+      seoDescription: `${BASE_TITLE} no Rio de Janeiro ou São Paulo ${BASE_DESCRIPTION}`,
+      heroTitle: 'Quer vender seu imóvel?'
+    },
+    sp: {
+      seoImg: imageUrl('sell-sp.jpg'),
+      seoTitle: `${BASE_TITLE} em Perdizes, São Paulo | EmCasa`,
+      seoDescription: `${BASE_TITLE} em Perdizes, São Paulo ${BASE_DESCRIPTION}`,
+      heroTitle: 'Quer vender seu imóvel em Perdizes?'
+    },
+    rj: {
+      seoImg: imageUrl('sell-rj.jpg'),
+      seoTitle: `${BASE_TITLE} no Rio de Janeiro | EmCasa`,
+      seoDescription: `${BASE_TITLE} no Rio de Janeiro ${BASE_DESCRIPTION}`,
+      heroTitle: 'Quer vender seu imóvel na zona sul do Rio de Janeiro?'
+    }
+}
 
 export default class Sell extends Component {
   static async getInitialProps() {
@@ -78,6 +93,10 @@ export default class Sell extends Component {
       pageWidth: this.state.pageWidth
     }
 
+    const {router} = this.props
+    const city = (router.query || {}).city || 'all'
+    const {seoTitle, seoDescription, seoImg, heroTitle} = CONTENT[city]
+
     return (
       <ThemeProvider theme={theme}>
         <Container>
@@ -95,7 +114,7 @@ export default class Sell extends Component {
             <meta name="twitter:image" content={seoImg} />
           </Head>
           <MainBlock>
-            <SellListing />
+            <SellListing title={heroTitle} />
           </MainBlock>
           <Block>
             <Benefits {...blockProps} />

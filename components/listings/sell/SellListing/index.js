@@ -69,7 +69,7 @@ export default class SellListing extends Component {
           <Row justifyContent="center" px={[4, 0]}>
             <Col>
               <Text fontSize="xlarge" color="dark" fontWeight="bold" textAlign="center">
-                Quer vender seu imóvel?
+                {this.props.title}
               </Text>
             </Col>
           </Row>
