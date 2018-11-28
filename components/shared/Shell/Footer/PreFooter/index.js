@@ -18,7 +18,7 @@ export default class PreFooter extends Component {
           <Link href="/listings" as="/imoveis">
             <a>Compre</a>
           </Link>
-          <Link href="/listings/sell/know-more" as="/saiba-mais-para-vender">
+          <Link href="/listings/sell" as="/vender">
             <a>Venda</a>
           </Link>
           <Link href="http://blog.emcasa.com">

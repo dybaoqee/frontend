@@ -237,13 +237,41 @@ exports[`<SellListing/> should render a clean page 1`] = `
 
 @media (max-width:780px) {
   .c0 {
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
     background-image: url(https://res.cloudinary.com/emcasa/image/upload/fl_any_format/v1542831121/background/wall-small.jpg);
   }
 }
 
-@media (min-aspect-ratio:2 / 1) {
+@media (max-height:690px) {
   .c0 {
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
     background-image: url(https://res.cloudinary.com/emcasa/image/upload/fl_any_format/v1542831121/background/wall-small.jpg);
+  }
+}
+
+@media only screen and (min-device-width:768px) and (max-device-width:1024px) {
+  .c0 {
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    background-image: url(https://res.cloudinary.com/emcasa/image/upload/fl_any_format/v1542831121/background/wall-small.jpg);
+  }
+}
+
+@media (min-width:1500px) {
+  .c0 {
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    margin-top: -20vh;
   }
 }
 
