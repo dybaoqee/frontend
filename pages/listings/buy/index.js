@@ -7,6 +7,7 @@ import View from '@emcasa/ui-dom/components/View'
 import {ThemeProvider} from 'styled-components'
 import BuyListing from 'components/listings/buy/BuyListing'
 import Benefits from 'components/listings/buy/Benefits'
+import Neighborhoods from 'components/listings/buy/Neighborhoods'
 import {desktopHeaderHeight} from 'constants/dimensions'
 import {isMobile} from 'lib/mobile'
 import {imageUrl} from 'utils/image_url'
@@ -88,14 +89,14 @@ export default class Buy extends Component {
   }
 
   render() {
-    const blockProps = {
-      isMobile: isMobile(this.state.pageWidth),
-      pageWidth: this.state.pageWidth
-    }
-
     const {router} = this.props
     const city = (router.query || {}).city || 'all'
     const {seoTitle, seoDescription, seoImg, heroTitle} = CONTENT[city]
+    const blockProps = {
+      isMobile: isMobile(this.state.pageWidth),
+      pageWidth: this.state.pageWidth,
+      city
+    }
 
     return (
       <ThemeProvider theme={theme}>
@@ -119,6 +120,7 @@ export default class Buy extends Component {
           <Block>
             <Benefits {...blockProps} />
           </Block>
+            <Neighborhoods {...blockProps} />
           <Block>
           </Block>
         </Container>
