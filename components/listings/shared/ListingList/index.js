@@ -20,7 +20,6 @@ import Neighborhood from 'components/listings/shared/Neighborhood'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import {
-  MapButton,
   MapContainer,
   Loading
 } from './styles'
@@ -225,7 +224,6 @@ class ListingList extends Component {
       <Query query={GET_LISTINGS_COORDINATES} variables={{filters}}>
         {({data: {listings: mapListings}}) => (
           <Fragment>
-            <MapButton opened={mapOpened} onClick={this.handleMap} />
             <MapContainer opened={mapOpened}>
               {process.browser ? (
                 <Map

@@ -26,26 +26,6 @@ export const MapContainer = styled.div`
   }
 `
 
-export const MapButton = styled.div`
-  position: fixed;
-  z-index: 9999;
-  cursor: pointer;
-  display: none;
-  transition: bottom 0.3s;
-
-  background-image: url(${({opened}) =>
-    opened ? '/static/img/list_button.png' : '/static/img/map_button.png'});
-  background-size: cover;
-  right: 0;
-  bottom: ${({opened}) => (opened ? '32%' : 0)};
-  width: 80px;
-  height: 80px;
-
-  @media ${mobileMedia} {
-    display: block;
-  }
-`
-
 export const Loading = styled.div`
   box-sizing: border-box;
   height: 100%;

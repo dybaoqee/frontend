@@ -1,14 +1,18 @@
 import styled from 'styled-components'
 import Row from '@emcasa/ui-dom/components/Row'
+import View from '@emcasa/ui-dom/components/View'
 import { themeGet } from 'styled-system'
 
-const Container = styled(Row)`
+const Container = styled(View)`
+  padding: ${themeGet('space.4')}px;
+`
+
+const ListContainer = styled(Row)`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
   max-width: 980px;
-  padding: ${themeGet('space.4')}px;
 `
 
 const Footer = styled.footer`
@@ -33,5 +37,6 @@ const Footer = styled.footer`
 
 export {
   Container,
+  ListContainer,
   Footer
 }

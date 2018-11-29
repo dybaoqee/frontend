@@ -8,18 +8,17 @@ import * as colors from 'constants/colors'
 
 import {getWindowHeight} from 'utils/polyfills/bounding-rect'
 
-export default styled.div`
+export const Container = styled.div`
   align-items: center;
   background: white;
-  border-bottom: 1px solid ${colors.lightestGray};
   display: flex;
   overflow: visible;
   padding: 10px;
-  position: fixed;
   width: 100vw;
   z-index: 4;
   box-sizing: border-box;
   height: 62px;
+  margin-top: 60px;
 
   .Select-control {
     border-color: ${colors.blue.medium};

@@ -26,9 +26,9 @@ class ListingSearch extends Component {
 
   static async getInitialProps(context) {
     return {
-      shortLogo: true,
       hideSeparator: true,
       transparentHeader: true,
+      newHeader: true,
       query: context.query,
       renderFooter: false
     }
@@ -72,7 +72,6 @@ class ListingSearch extends Component {
   }
 
   getHead = () => {
-    const {query} = this.props
     const {neighborhood} = this.state
     const seoImgSrc =
       'https://res.cloudinary.com/emcasa/image/upload/f_auto/v1513818385/home-2018-04-03_cozxd9.jpg'

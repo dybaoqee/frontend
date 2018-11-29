@@ -6,6 +6,7 @@ import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
 import {
   Container,
+  ListContainer,
   Footer,
 } from './styles'
 
@@ -70,14 +71,14 @@ class ListingInfiniteScroll extends Component {
       children: renderEntry
     } = this.props
     return (
-      <div
+      <Container
         title={title}
         innerRef={(wrapper) => (this.wrapper = wrapper)}
       >
         {title && <Text>{title}</Text>}
-        <Container>
+        <ListContainer>
           {entries.map(renderEntry)}
-        </Container>
+        </ListContainer>
         {remaining_count > 0 && (
           <Footer
             className="infinite-scroll-footer"
@@ -92,7 +93,7 @@ class ListingInfiniteScroll extends Component {
             </a>
           </Footer>
         )}
-      </div>
+      </Container>
     )
   }
 }
