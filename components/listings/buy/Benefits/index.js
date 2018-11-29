@@ -51,16 +51,15 @@ const BenefitCol = styled(Col)`
 
 const BENEFITS = [
   {
+    icon: 'suporte-financiamento',
+    title: 'Financiamento e FGTS',
+    description: 'Tenha suporte para o financiamento do seu imóvel e retirada de FGTS'
+  },
+  {
     icon: 'tour-3d',
     title: 'Tour Virtual 3D',
     description:
-      'Atraia mais compradores interessados no seu imóvel com Tour 3D'
-  },
-  {
-    icon: 'avaliacao-precisa',
-    title: 'Avaliação online',
-    description:
-      'Nossa avaliação online é precisa de acordo com os valores de mercado da sua região'
+      'Visite dezenas de imóveis sem sair de casa, economize tempo e encontre o imóvel perfeito'
   },
   {
     icon: 'assistencia-juridica',
@@ -120,9 +119,9 @@ export default class Benefits extends Component {
           </Row>
           <Row justifyContent="center">
             <Col width={[1, 4 / 12]}>
-              <Link href="/vender/imovel">
+              <Link href="/imoveis">
                 <Button height="tall" fluid>
-                  Conheça mais a EmCasa
+                  Explorar Imóveis
                 </Button>
               </Link>
             </Col>

@@ -34,25 +34,26 @@ const MainBlock = styled(Block)`
   }
 `
 
-const BASE_TITLE = 'Anuncie e Venda seu imóvel'
-const BASE_DESCRIPTION = 'de forma simples e transparente com a EmCasa que tem sistema exclusivo de Tour Virtual 3D para aumentar suas chances de venda'
+const BASE_TITLE = 'Apartamentos, Casas e Imóveis à Venda'
+const BASE_DESCRIPTION = 'com a Emcasa, a Imobiliária Digital com exclusivo sistema de Tour Virtual em 3D, assistência jurídica, comissões reduzidas e atendimento personalizado!'
+
 const CONTENT = {
     all: {
-      seoImg: imageUrl('sell.jpg'),
+      seoImg: imageUrl('buy.jpg'),
       seoTitle: `${BASE_TITLE} no Rio de Janeiro ou São Paulo | EmCasa`,
-      seoDescription: `${BASE_TITLE} no Rio de Janeiro ou São Paulo ${BASE_DESCRIPTION}`,
+      seoDescription: `Encontre ${BASE_TITLE} no Rio de Janeiro em Ipanema, Leblon, Copacabana, Botafogo, Flamengo, Lagoa e toda Zona Sul ou São Paulo em Perdizes ${BASE_DESCRIPTION}`,
       heroTitle: 'Quer comprar um imóvel?'
     },
     sp: {
-      seoImg: imageUrl('sell-sp.jpg'),
+      seoImg: imageUrl('buy-sp.jpg'),
       seoTitle: `${BASE_TITLE} em Perdizes, São Paulo | EmCasa`,
-      seoDescription: `${BASE_TITLE} em Perdizes, São Paulo ${BASE_DESCRIPTION}`,
+      seoDescription: `Encontre ${BASE_TITLE} em Perdizes, São Paulo ${BASE_DESCRIPTION}`,
       heroTitle: 'Quer comprar um imóvel em Perdizes?'
     },
     rj: {
-      seoImg: imageUrl('sell-rj.jpg'),
+      seoImg: imageUrl('buy-rj.jpg'),
       seoTitle: `${BASE_TITLE} no Rio de Janeiro | EmCasa`,
-      seoDescription: `${BASE_TITLE} no Rio de Janeiro ${BASE_DESCRIPTION}`,
+      seoDescription: `Encontre ${BASE_TITLE} no Rio de Janeiro em Ipanema, Leblon, Copacabana, Botafogo, Flamengo, Lagoa e toda Zona Sul ${BASE_DESCRIPTION}`,
       heroTitle: 'Quer comprar um imóvel na zona sul do Rio de Janeiro?'
     }
 }

@@ -81,8 +81,8 @@ export default class BuyListing extends Component {
           <Row justifyContent="center" px={[4, 0]}>
             <Col>
               <Text color="gray" style={{margin: '0.5em'}}>
-                Vender seu imóvel nunca foi tão fácil, informe o endereço do seu imóvel
-                e receba agora uma avaliação grátis
+                Comprar seu imóvel nunca foi tão fácil, informe o bairro ou cidade
+                e comece a sua pesquisa
               </Text>
             </Col>
           </Row>
@@ -112,20 +112,16 @@ export default class BuyListing extends Component {
             </Col>
             <Col width={[1, 2 / 12]} mb={[5, 0]}>
               <Button height="tall" active fluid onClick={() => {
-                if (this.state.addressFormatted && this.state.addressData) {
-                  localStorage.setItem('sellerAddressFormatted', this.state.addressFormatted)
-                  localStorage.setItem('sellerAddressData', JSON.stringify(this.state.addressData))
-                }
-                Router.push('/vender/imovel')
+                Router.push('/imoveis')
               }}>
-                Avaliar
+                Pesquisar
               </Button>
             </Col>
           </Row>
           <Row justifyContent="center">
             <Col>
-              <Link href="/">
-                <UnderlinedText color="pink">Você quer comprar?</UnderlinedText>
+              <Link href="/vender">
+                <UnderlinedText color="pink">Você quer vender?</UnderlinedText>
               </Link>
             </Col>
           </Row>
