@@ -52,8 +52,6 @@ class ListingList extends Component {
     } = this.props
     const {mapOpened} = this.state
 
-    const h1Content = 'Apartamentos e Casas à venda na Zona Sul do Rio de Janeiro'
-
     if (result && result.listings.length > 0) {
       return (
         <Query query={GET_USER_LISTINGS_ACTIONS} skip={!user.authenticated}>
@@ -67,7 +65,6 @@ class ListingList extends Component {
             )
             return (
               <ListingInfiniteScroll
-                title={h1Content}
                 titleComponent={
                   query.neighborhoodSlug && (
                     <Neighborhood
@@ -112,7 +109,7 @@ class ListingList extends Component {
                   return loadedListings
                 }}
               >
-                {(listing) => (
+                {(listing) =>
                   <ListingCard
                     onMouseEnter={onHoverListing}
                     onMouseLeave={onLeaveListing}
@@ -125,7 +122,7 @@ class ListingList extends Component {
                     favorited={favorites || []}
                     blacklists={blacklists || []}
                   />
-                )}
+                }
               </ListingInfiniteScroll>
             )
           }}
@@ -247,6 +244,7 @@ class ListingList extends Component {
 
   render() {
     const {filters} = this.props
+    const h1Content = 'Apartamentos e Casas à venda na Zona Sul do Rio de Janeiro'
     return (
       <ThemeProvider theme={theme}>
         <Query
@@ -257,7 +255,7 @@ class ListingList extends Component {
           {({data: {listings}, fetchMore}) => {
             return (
               <>
-                <Row px={4}><Text>Title</Text></Row>
+                <Row px={4}><Text>{h1Content}</Text></Row>
                 <Row>
                   <Row>
                     {this.getListings(listings, fetchMore)}

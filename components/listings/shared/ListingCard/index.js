@@ -7,7 +7,8 @@ import humps from 'humps'
 import {buildSlug} from 'lib/listings'
 import LikeButton from 'components/shared/Common/Buttons/Like'
 import BlacklistButton from 'components/shared/Common/Buttons/Blacklist'
-
+import { thumbnailUrl } from 'utils/image_url'
+import { intToCurrency } from 'utils/text-utils'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
@@ -16,7 +17,9 @@ import Button from '@emcasa/ui-dom/components/Button'
 import {
   Container,
   ListingImage,
-  LikeButtonContainer
+  LikeButtonContainer,
+  THUMB_WIDTH,
+  THUMB_HEIGHT
 } from './styles'
 
 class ListingCard extends Component {
@@ -47,6 +50,8 @@ class ListingCard extends Component {
         (actual) => actual.id.toString() === listing.id.toString()
       ).length > 0
 
+    const thumbFilename = listing.images && listing.images[0] ? listing.images[0].filename : ''
+    const thumbUrl = thumbnailUrl(thumbFilename, THUMB_WIDTH * 2, THUMB_HEIGHT * 2)
     return (
       <Link
         href={`/listings/show?id=${listing.id}`}
@@ -54,14 +59,12 @@ class ListingCard extends Component {
         passHref
       >
         <Container aria-label={`listing-${listing.id}`}>
-          <ListingImage
-            image={listing.images[0]}
-          />
+          <ListingImage url={thumbUrl} />
           <Row flexDirection="column" p={2}>
             <Row><Text inline fontSize="small">{listing.address.neighborhood.toUpperCase()}</Text></Row>
             <Row><Text inline fontSize="small">{listing.address.street}</Text></Row>
             <Row><Text inline></Text></Row>
-            <Row><Text inline fontSize="large" fontWeight="bold">{listing.price}</Text></Row>
+            <Row><Text inline fontSize="large" fontWeight="bold">{intToCurrency(listing.price)}</Text></Row>
           </Row>
           <LikeButtonContainer>
             <LikeButton

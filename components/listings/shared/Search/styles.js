@@ -138,6 +138,7 @@ export const FilterButton = styled.div`
 `
 
 export const FiltersWrapper = styled.div`
+  display: ${({active}) => active ? 'flex' : 'none'};
   box-sizing: border-box;
   height: calc(
     ${process.browser ? getWindowHeight() + 'px' : '100vh'} -

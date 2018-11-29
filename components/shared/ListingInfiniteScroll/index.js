@@ -65,7 +65,6 @@ class ListingInfiniteScroll extends Component {
   render() {
     const {
       entries,
-      title,
       remaining_count,
       horizontal,
       children: renderEntry

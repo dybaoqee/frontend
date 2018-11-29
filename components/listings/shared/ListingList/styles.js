@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 
 export const MapContainer = styled.div`
+  position: fixed;
+  right: 0;
   overflow: hidden;
   box-sizing: border-box;
   background: white;
