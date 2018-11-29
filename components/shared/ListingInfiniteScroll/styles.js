@@ -4,7 +4,7 @@ import View from '@emcasa/ui-dom/components/View'
 import { themeGet } from 'styled-system'
 
 const Container = styled(View)`
-  padding: ${themeGet('space.4')}px;
+  padding: 0 ${themeGet('space.4')}px ${themeGet('space.4')}px ${themeGet('space.4')}px;
 `
 
 const ListContainer = styled(Row)`

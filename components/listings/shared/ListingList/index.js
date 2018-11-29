@@ -19,6 +19,7 @@ import ListingsNotFound from 'components/listings/shared/NotFound'
 import Neighborhood from 'components/listings/shared/Neighborhood'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
+import Text from '@emcasa/ui-dom/components/Text'
 import {
   MapContainer,
   Loading
@@ -255,12 +256,15 @@ class ListingList extends Component {
         >
           {({data: {listings}, fetchMore}) => {
             return (
-              <Row>
-                {this.getMap()}
+              <>
+                <Row px={4}><Text>Title</Text></Row>
                 <Row>
-                  {this.getListings(listings, fetchMore)}
+                  <Row>
+                    {this.getListings(listings, fetchMore)}
+                  </Row>
+                  {this.getMap()}
                 </Row>
-              </Row>
+              </>
             )
           }}
         </Query>

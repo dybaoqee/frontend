@@ -108,7 +108,6 @@ class ListingSearch extends Component {
     return (
       <Fragment>
         {this.getHead()}
-
         <Filter
           neighborhoods={neighborhoods}
           onChange={this.onChangeFilter}

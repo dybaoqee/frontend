@@ -72,10 +72,8 @@ class ListingInfiniteScroll extends Component {
     } = this.props
     return (
       <Container
-        title={title}
         innerRef={(wrapper) => (this.wrapper = wrapper)}
       >
-        {title && <Text>{title}</Text>}
         <ListContainer>
           {entries.map(renderEntry)}
         </ListContainer>
