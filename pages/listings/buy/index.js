@@ -120,8 +120,8 @@ export default class Buy extends Component {
           <Block>
             <Benefits {...blockProps} />
           </Block>
-            <Neighborhoods {...blockProps} />
           <Block>
+            <Neighborhoods {...blockProps} />
           </Block>
         </Container>
       </ThemeProvider>
