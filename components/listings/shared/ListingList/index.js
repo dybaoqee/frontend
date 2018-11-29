@@ -1,7 +1,7 @@
 import '@emcasa/ui-dom/components/global-styles'
+import {Component} from 'react'
 import {ThemeProvider} from 'styled-components'
 import theme from '@emcasa/ui'
-import {Component, Fragment} from 'react'
 import {Query} from 'react-apollo'
 import {GET_USER_LISTINGS_ACTIONS} from 'graphql/user/queries'
 import {
@@ -25,9 +25,12 @@ import {
   Loading
 } from './styles'
 
+const MIN_WIDTH_FOR_MAP_RENDER = 1080
+
 class ListingList extends Component {
   constructor(props) {
     super(props)
+    this.onResize = this.onResize.bind(this)
 
     this.pagination = {
       pageSize: 10,
@@ -35,8 +38,25 @@ class ListingList extends Component {
     }
 
     this.state = {
-      mapOpened: false
+      mapOpened: false,
+      renderMap: true
     }
+  }
+
+  componentWillMount() {
+    if (process.browser) {
+      window.onresize = this.onResize
+    }
+  }
+
+  onResize() {
+    if (!process.browser) {
+      return
+    }
+
+    this.setState({
+      renderMap: window.innerWidth >= MIN_WIDTH_FOR_MAP_RENDER
+    })
   }
 
   getListings = (result, fetchMore) => {
@@ -221,22 +241,20 @@ class ListingList extends Component {
     return (
       <Query query={GET_LISTINGS_COORDINATES} variables={{filters}}>
         {({data: {listings: mapListings}}) => (
-          <Fragment>
-            <MapContainer opened={mapOpened}>
-              {process.browser ? (
-                <Map
-                  zoom={13}
-                  onSelect={this.onSelectListing}
-                  listings={mapListings.listings}
-                  highlight={highlight}
-                  onChange={this.onChangeMap}
-                  updateAfterApiCall
-                />
-              ) : (
-                <Loading>Carregando mapa...</Loading>
-              )}
-            </MapContainer>
-          </Fragment>
+          <MapContainer opened={mapOpened}>
+            {process.browser ? (
+              <Map
+                zoom={13}
+                onSelect={this.onSelectListing}
+                listings={mapListings.listings}
+                highlight={highlight}
+                onChange={this.onChangeMap}
+                updateAfterApiCall
+              />
+            ) : (
+              <Loading>Carregando mapa...</Loading>
+            )}
+          </MapContainer>
         )}
       </Query>
     )
@@ -255,12 +273,12 @@ class ListingList extends Component {
           {({data: {listings}, fetchMore}) => {
             return (
               <>
-                <Row px={4}><Text>{h1Content}</Text></Row>
-                <Row>
-                  <Row>
-                    {this.getListings(listings, fetchMore)}
-                  </Row>
-                  {this.getMap()}
+                <Row px={4}>
+                  <Text>{h1Content}</Text>
+                </Row>
+                <Row justifyContent="center">
+                  {this.getListings(listings, fetchMore)}
+                  {this.state.renderMap && this.getMap()}
                 </Row>
               </>
             )
