@@ -8,7 +8,7 @@ import {
   getFiltersFromQuery
 } from 'utils/filter-params.js'
 import Filter from 'components/listings/shared/Search'
-import Listings from 'components/listings/shared/Listings'
+import ListingList from 'components/listings/shared/ListingList'
 import {getUrlVars} from 'utils/text-utils'
 
 class ListingSearch extends Component {
@@ -117,7 +117,7 @@ class ListingSearch extends Component {
           initialFilters={getDerivedParams(query)}
           ref={(filter) => (this.filter = filter)}
         />
-        <Listings
+        <ListingList
           query={query}
           user={user}
           resetFilters={this.onResetFilter}

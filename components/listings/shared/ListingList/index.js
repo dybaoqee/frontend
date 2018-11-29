@@ -12,8 +12,8 @@ import {
 import differenceBy from 'lodash/differenceBy'
 import map from 'lodash/map'
 import isEmpty from 'lodash/isEmpty'
-import InfiniteScroll from 'components/shared/InfiniteScroll'
-import Listing from 'components/listings/shared/Listing'
+import ListingInfiniteScroll from 'components/shared/ListingInfiniteScroll'
+import ListingCard from 'components/listings/shared/ListingCard'
 import Map from 'components/listings/shared/Map'
 import ListingsNotFound from 'components/listings/shared/NotFound'
 import Neighborhood from 'components/listings/shared/Neighborhood'
@@ -66,7 +66,7 @@ class ListingList extends Component {
               'id'
             )
             return (
-              <InfiniteScroll
+              <ListingInfiniteScroll
                 title={h1Content}
                 titleComponent={
                   query.neighborhoodSlug && (
@@ -113,7 +113,7 @@ class ListingList extends Component {
                 }}
               >
                 {(listing) => (
-                  <Listing
+                  <ListingCard
                     onMouseEnter={onHoverListing}
                     onMouseLeave={onLeaveListing}
                     highlight={highlight}
@@ -126,7 +126,7 @@ class ListingList extends Component {
                     blacklists={blacklists || []}
                   />
                 )}
-              </InfiniteScroll>
+              </ListingInfiniteScroll>
             )
           }}
         </Query>
