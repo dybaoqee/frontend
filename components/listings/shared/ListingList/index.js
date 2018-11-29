@@ -76,11 +76,9 @@ class ListingList extends Component {
       return (
         <Query query={GET_USER_LISTINGS_ACTIONS} skip={!user.authenticated}>
           {({data: {userProfile}, loading}) => {
-            const blacklists = userProfile ? userProfile.blacklists : []
             const favorites = userProfile ? userProfile.favorites : []
             const filteredListings = differenceBy(
               result.listings,
-              blacklists || [],
               'id'
             )
             return (
@@ -140,7 +138,6 @@ class ListingList extends Component {
                     loading={loading}
                     resumedInfo={mapOpened}
                     favorited={favorites || []}
-                    blacklists={blacklists || []}
                   />
                 }
               </ListingInfiniteScroll>

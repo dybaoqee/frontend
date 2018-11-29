@@ -6,7 +6,6 @@ import humps from 'humps'
 
 import {buildSlug} from 'lib/listings'
 import LikeButton from 'components/shared/Common/Buttons/Like'
-import BlacklistButton from 'components/shared/Common/Buttons/Blacklist'
 import { thumbnailUrl } from 'utils/image_url'
 import { intToCurrency } from 'utils/text-utils'
 import Row from '@emcasa/ui-dom/components/Row'
@@ -35,18 +34,12 @@ class ListingCard extends Component {
       listing,
       currentUser,
       favorited: favoritedListings,
-      blacklists,
       loading,
     } = this.props
     listing = humps.decamelizeKeys(listing)
 
     const favorited =
       favoritedListings.filter(
-        (actual) => actual.id.toString() === listing.id.toString()
-      ).length > 0
-
-    const blacklisted =
-      blacklists.filter(
         (actual) => actual.id.toString() === listing.id.toString()
       ).length > 0
 
@@ -69,12 +62,6 @@ class ListingCard extends Component {
           <LikeButtonContainer>
             <LikeButton
               favorite={favorited}
-              listing={listing}
-              user={currentUser}
-              secondary
-            />
-            <BlacklistButton
-              blacklisted={blacklisted}
               listing={listing}
               user={currentUser}
               secondary

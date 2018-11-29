@@ -11,7 +11,7 @@ const ListContainer = styled(Row)`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
   max-width: 980px;
 `
 
