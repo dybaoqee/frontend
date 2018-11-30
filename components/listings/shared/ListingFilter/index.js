@@ -10,7 +10,7 @@ import includes from 'lodash/includes'
 import remove from 'lodash/remove'
 import {
   Container,
-  FilterApplied,
+  Overlay,
   FilterButton
 } from './styles'
 import NewSlider from 'components/shared/Common/NewSlider'
@@ -27,8 +27,10 @@ import Text from '@emcasa/ui-dom/components/Text'
 export default class Filter extends Component {
   constructor(props) {
     super(props)
-    const initialValues = {...props.initialFilters}
+    this.isFilterOpen = this.isFilterOpen.bind(this)
+    this.hideAllFilters = this.hideAllFilters.bind(this)
 
+    const initialValues = {...props.initialFilters}
     if (props.initialFilters.neighborhoods) {
       initialValues.neighborhoods = props.initialFilters.neighborhoods.map(
         (neighborhood) => ({
@@ -41,7 +43,11 @@ export default class Filter extends Component {
     this.state = {
       values: initialValues,
       showType: false,
-      showArea: false
+      showArea: false,
+      showPrice: false,
+      showRooms: false,
+      showGarage: false,
+      panelPosition: null
     }
   }
 
@@ -120,54 +126,9 @@ export default class Filter extends Component {
     this.setState({values: {}})
   }
 
-  get activeFilters() {
-    const {
-      values: {types, price, neighborhoods, rooms, garageSpots, area}
-    } = this.state
-
-    const propertyTypes = types && types.join(', ')
-    const rangePrice =
-      price &&
-      `R$${numeral(price.min).format('0.00a')} - R$${numeral(price.max).format(
-        '0.00a'
-      )}`
-
-    const rangeRooms = rooms && `${rooms.min} - ${rooms.max} quartos`
-    const rangeGarageSpots =
-      garageSpots && `${garageSpots.min} - ${garageSpots.max} vagas`
-
-    const rangeArea = area && `${area.min} - ${area.max} m²`
-
-    const rangeNeighborhoods =
-      neighborhoods &&
-      neighborhoods.length > 0 &&
-      `${neighborhoods[0].value}${
-        neighborhoods.length > 1 ? ` e mais ${neighborhoods.length - 1}` : ''
-      }`
-
-    const filters = [
-      {filter: 'types', value: propertyTypes},
-      {filter: 'neighborhoods', value: rangeNeighborhoods},
-      {filter: 'price', value: rangePrice},
-      {filter: 'rooms', value: rangeRooms},
-      {filter: 'garageSpots', value: rangeGarageSpots},
-      {filter: 'area', value: rangeArea}
-    ].filter((filter) => filter.value)
-
-    return filters.map(({filter, value}) => (
-      <FilterApplied key={filter}>
-        <span onClick={this.onToggle}>{value}</span>
-        <FontAwesomeIcon
-          icon={faRemove}
-          onClick={this.resetFilter.bind(this, filter)}
-        />
-      </FilterApplied>
-    ))
-  }
-
   showFilter(filter, event) {
     const { target } = event
-    const panelPosition = target.getBoundingClientRect().left
+    const panelPosition = {left: target.getBoundingClientRect().left, top: target.getBoundingClientRect().top}
     this.setState({
       showType: filter === 'type' ? !this.state.showType : false,
       showArea: filter === 'area' ? !this.state.showArea : false,
@@ -176,6 +137,26 @@ export default class Filter extends Component {
       showGarage: filter === 'garage' ? !this.state.showGarage : false,
       panelPosition,
     })
+  }
+
+  hideAllFilters() {
+    this.setState({
+      showType: false,
+      showArea: false,
+      showPrice: false,
+      showRooms: false,
+      showGarage: false
+    })
+  }
+
+  isFilterOpen() {
+    return (
+      this.state.showType ||
+      this.state.showArea ||
+      this.state.showPrice ||
+      this.state.showRooms ||
+      this.state.showGarage
+    )
   }
 
   render() {
@@ -198,7 +179,8 @@ export default class Filter extends Component {
         {({data: {neighborhoods = []}}) => {
           const neighborhoodsOptions = neighborhoodOptions(neighborhoods)
           return (
-            <Container>
+            <Row p={4}>
+              
               <Row flexDirection="row" flexWrap="wrap" style={{position: 'relative'}}>
                 <FilterButton active={hasSelectedAnyTypes} onClick={this.showFilter.bind(this, 'type')}>Tipos de imóveis</FilterButton>
                 <FilterButton onClick={this.showFilter.bind(this, 'area')}>Área</FilterButton>
@@ -272,7 +254,7 @@ export default class Filter extends Component {
                   onChange={this.sliderChanged.bind(this, 'garageSpots')}
                 />
               </FilterPanel>
-            </Container>
+            </Row>
           )
         }}
       </Query>

@@ -33,11 +33,10 @@ class ListingList extends Component {
       pageSize: 10,
       excludedListingIds: []
     }
+  }
 
-    this.state = {
-      mapOpened: false,
-      renderMap: true
-    }
+  state = {
+    renderMap: false
   }
 
   componentWillMount() {
@@ -46,13 +45,20 @@ class ListingList extends Component {
     }
   }
 
-  onResize() {
-    if (!process.browser) {
-      return
-    }
+  componentDidMount() {
+    this.onResize()
+  }
 
+  shouldRenderMap() {
+    if (process.browser) {
+      return window.innerWidth >= MIN_WIDTH_FOR_MAP_RENDER
+    }
+    return false
+  }
+
+  onResize() {
     this.setState({
-      renderMap: window.innerWidth >= MIN_WIDTH_FOR_MAP_RENDER
+      renderMap: this.shouldRenderMap()
     })
   }
 
@@ -67,7 +73,6 @@ class ListingList extends Component {
       highlight,
       neighborhoodListener
     } = this.props
-    const {mapOpened} = this.state
 
     if (result && result.listings.length > 0) {
       return (
@@ -133,7 +138,6 @@ class ListingList extends Component {
                     listing={listing}
                     currentUser={user}
                     loading={loading}
-                    resumedInfo={mapOpened}
                     favorited={favorites || []}
                   />
                 }
@@ -223,33 +227,33 @@ class ListingList extends Component {
     this.setState({filters})
   }
 
-  handleMap = () => {
-    const {mapOpened} = this.state
-    this.setState({mapOpened: !mapOpened})
-  }
-
   getMap = () => {
-    const {highlight, mapOpened} = this.state
+    const {highlight} = this.state
     const {filters} = this.props
 
     return (
       <Query query={GET_LISTINGS_COORDINATES} variables={{filters}}>
-        {({data: {listings: mapListings}}) => (
-          <MapContainer opened={mapOpened}>
-            {process.browser ? (
-              <Map
-                zoom={13}
-                onSelect={this.onSelectListing}
-                listings={mapListings.listings}
-                highlight={highlight}
-                onChange={this.onChangeMap}
-                updateAfterApiCall
-              />
-            ) : (
-              <Loading>Carregando mapa...</Loading>
-            )}
-          </MapContainer>
-        )}
+        {({data: {listings: mapListings}}) => {
+          if (!mapListings) {
+            return <MapContainer />
+          }
+          return (
+            <MapContainer>
+              {process.browser ? (
+                <Map
+                  zoom={13}
+                  onSelect={this.onSelectListing}
+                  listings={mapListings.listings}
+                  highlight={highlight}
+                  onChange={this.onChangeMap}
+                  updateAfterApiCall
+                />
+              ) : (
+                <Loading>Carregando mapa...</Loading>
+              )}
+            </MapContainer>
+          )
+        }}
       </Query>
     )
   }
