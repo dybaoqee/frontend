@@ -27,7 +27,7 @@ class ListingSearch extends Component {
   static async getInitialProps(context) {
     return {
       hideSeparator: true,
-      transparentHeader: true,
+      transparentHeader: false,
       newHeader: true,
       query: context.query,
       renderFooter: false

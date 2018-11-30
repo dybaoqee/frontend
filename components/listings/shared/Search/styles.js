@@ -18,7 +18,6 @@ export const Container = styled.div`
   z-index: 4;
   box-sizing: border-box;
   height: 62px;
-  margin-top: 60px;
 
   .Select-control {
     border-color: ${colors.blue.medium};

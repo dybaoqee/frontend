@@ -48,8 +48,6 @@ class ListingCard extends Component {
 
     const thumbFilename = listing.images && listing.images[0] ? listing.images[0].filename : ''
     const thumbUrl = thumbnailUrl(thumbFilename, THUMB_WIDTH * 2, THUMB_HEIGHT * 2)
-
-    console.log('listing:', listing)
     const listingSummary = getListingSummary(listing)
 
     return (

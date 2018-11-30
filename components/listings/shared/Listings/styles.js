@@ -48,7 +48,6 @@ margin: 20px 0 0 20px;
 `
 
 export default styled.div`
-  margin-top: ${desktopFilterHeight}px;
   box-sizing: border-box;
 
   .gm-style-pbc {

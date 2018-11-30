@@ -6,6 +6,7 @@ const THUMB_WIDTH = 308
 const THUMB_HEIGHT = 165
 
 const Container = styled(View)`
+  position: relative;
   box-sizing: border-box;
   cursor: pointer;
   width: 310px;
@@ -30,10 +31,9 @@ const ListingImage = styled(View)`
 `
 
 const LikeButtonContainer = styled.div`
-  display: flex;
   position: absolute;
-  right: 20px;
-  top: 20px;
+  right: ${themeGet('space.2')}px;
+  top: ${themeGet('space.2')}px;
 `
 
 export {
