@@ -160,6 +160,17 @@ export const GET_NEIGHBORHOODS = gql`
   }
 `
 
+export const GET_DISTRICTS = gql`
+  {
+    districts {
+      citySlug
+      stateSlug
+      nameSlug
+      name
+    }
+  }
+`
+
 export const GET_NEIGHBORHOOD_DESCRIPTION = gql`
   query district($citySlug: String, $nameSlug: String, $stateSlug: String) {
     district(citySlug: $citySlug, nameSlug: $nameSlug, stateSlug: $stateSlug) {
