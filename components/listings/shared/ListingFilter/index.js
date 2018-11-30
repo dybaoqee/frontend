@@ -135,7 +135,7 @@ export default class Filter extends Component {
       showPrice: filter === 'price' ? !this.state.showPrice : false,
       showRooms: filter === 'rooms' ? !this.state.showRooms : false,
       showGarage: filter === 'garage' ? !this.state.showGarage : false,
-      panelPosition,
+      panelPosition
     })
   }
 
