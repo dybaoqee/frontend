@@ -45,6 +45,12 @@ export const City = styled(View)`
 export const CityTitle = styled(View)`
 `
 
+export const CityInfo = styled(View)`
+  @media (max-width: ${theme.breakpoints[0]}) {
+    display: none;
+  }
+`
+
 export const NeighborhoodContainer = styled(View)`
   position: relative;
   
@@ -62,6 +68,34 @@ export const NeighborhoodContainer = styled(View)`
       width: 20%;
       height: 100%;
       pointer-events: none;
+    }
+  }
+`
+
+export const NeighborhoodsLinks = styled(View)`
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1000px;
+  max-height: 130px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  flex-direction: column;
+  
+  a {
+    font-family: FaktSoftPro-Normal;
+    color: ${theme.colors.grey};
+    font-size: 14px;
+    text-decoration: none;
+    width: 345px;
+    margin-right: 12px;
+  }
+  
+  @media (max-width: ${theme.breakpoints[0]}) {
+    max-height: 70px;
+    a { 
+      width: 130px;
+      font-size: 8px;
+      margin-right: 10px;
     }
   }
 `
@@ -142,7 +176,10 @@ export const Soon = styled(View)`
 `
 
 export const Spacer = styled(View)`
+  display: none;
   @media (max-width: ${theme.breakpoints[0]}) {
+    display: flex;
+    max-height: 70px;
     &:after {
       display: flex;
       width: 20px;
