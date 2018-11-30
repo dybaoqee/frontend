@@ -1,6 +1,8 @@
 import styled, {keyframes} from 'styled-components'
 import theme from '@emcasa/ui'
 
+export const HEADER_HEIGHT = 60
+
 export default styled.header`
   transition: background 0.3s ease-out;
   transition: height 0.3s ease-out;
@@ -18,7 +20,7 @@ export default styled.header`
   
   &.sticky {
     background: white;
-    height: 60px;
+    height: ${HEADER_HEIGHT}px;
   }
 `
 
@@ -32,7 +34,7 @@ export const Wrapper = styled.div`
 
 
 const slideFromRight = keyframes`
-  from { right: -60vw; }
+  from { right: -${HEADER_HEIGHT}vw; }
   to   { right: 0; }
 `
 
@@ -51,7 +53,7 @@ export const Nav = styled.nav`
   @media (max-width: ${theme.breakpoints[0]}) {
     position: absolute;
     top: 0;
-    right: -60vw;
+    right: -${HEADER_HEIGHT}vw;
     animation: ${slideFromRight} 0.3s 0s both;
     
     display: ${(props) => (props.visible ? 'flex' : 'none')};
@@ -59,7 +61,7 @@ export const Nav = styled.nav`
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    width: 60vw;
+    width: ${HEADER_HEIGHT}vw;
     height: 100vh;
     
     > :nth-child(n + 2) { 
@@ -138,7 +140,7 @@ export const MenuItem = styled.div`
   
   @media (max-width: ${theme.breakpoints[0]}) {
     min-height: auto;
-    height: 60px;
+    height: ${HEADER_HEIGHT}px;
     width: auto;
     
     align-items: center;

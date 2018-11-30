@@ -7,8 +7,8 @@ import {
   getFiltersFromFilters,
   getFiltersFromQuery
 } from 'utils/filter-params.js'
-import Filter from 'components/listings/shared/Search'
-import Listings from 'components/listings/shared/Listings'
+import Filter from 'components/listings/shared/ListingSearch'
+import ListingList from 'components/listings/shared/ListingList'
 import {getUrlVars} from 'utils/text-utils'
 
 class ListingSearch extends Component {
@@ -26,9 +26,9 @@ class ListingSearch extends Component {
 
   static async getInitialProps(context) {
     return {
-      shortLogo: true,
       hideSeparator: true,
-      transparentHeader: true,
+      transparentHeader: false,
+      newHeader: true,
       query: context.query,
       renderFooter: false
     }
@@ -72,7 +72,6 @@ class ListingSearch extends Component {
   }
 
   getHead = () => {
-    const {query} = this.props
     const {neighborhood} = this.state
     const seoImgSrc =
       'https://res.cloudinary.com/emcasa/image/upload/f_auto/v1513818385/home-2018-04-03_cozxd9.jpg'
@@ -109,7 +108,6 @@ class ListingSearch extends Component {
     return (
       <Fragment>
         {this.getHead()}
-
         <Filter
           neighborhoods={neighborhoods}
           onChange={this.onChangeFilter}
@@ -117,7 +115,7 @@ class ListingSearch extends Component {
           initialFilters={getDerivedParams(query)}
           ref={(filter) => (this.filter = filter)}
         />
-        <Listings
+        <ListingList
           query={query}
           user={user}
           resetFilters={this.onResetFilter}
