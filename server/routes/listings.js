@@ -67,7 +67,7 @@ router.get('/:id(\\d+)/editar', (req, res) => {
 })
 
 router.get(['/', '/:state', '/:state/:city'], (req, res) => {
-  const actualPage = '/listings/search'
+  const actualPage = '/listings'
   res.locals.app.render(req, res, actualPage, req.query)
 })
 
