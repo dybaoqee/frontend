@@ -12,7 +12,7 @@ import {
 class FilterPanel extends PureComponent {
   render() {
     return (
-      <Container elevation={4} p={4} show={this.props.show}>
+      <Container elevation={4} p={4} show={this.props.show} panelPosition={this.props.panelPosition}>
         {this.props.children}
       </Container>
     )
@@ -20,7 +20,8 @@ class FilterPanel extends PureComponent {
 }
 
 FilterPanel.propTypes = {
-  show: PropTypes.bool.isRequired
+  show: PropTypes.bool.isRequired,
+  panelPosition: PropTypes.number.isRequired
 }
 
 export default FilterPanel
