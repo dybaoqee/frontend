@@ -11,20 +11,14 @@ import remove from 'lodash/remove'
 import {
   Container,
   FilterApplied,
-  Overlay,
-  FilterButton,
-  Filters,
-  FilterContainer,
-  PropertyTypes,
-  PropertyType,
-  FiltersWrapper
+  FilterButton
 } from './styles'
-import Slider from 'components/shared/Common/Slider'
+import NewSlider from 'components/shared/Common/NewSlider'
 import Select from 'react-select'
-import EmCasaButton from 'components/shared/Common/Buttons'
 import {neighborhoodOptions} from 'constants/listing-filter-options'
 import {Query} from 'react-apollo'
 import {GET_NEIGHBORHOODS} from 'graphql/listings/queries'
+import FilterPanel from './components/FilterPanel'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Button from '@emcasa/ui-dom/components/Button'
@@ -33,6 +27,12 @@ import Text from '@emcasa/ui-dom/components/Text'
 export default class Filter extends Component {
   constructor(props) {
     super(props)
+    this.toggleTypeFilter = this.toggleTypeFilter.bind(this)
+    this.toggleAreaFilter = this.toggleAreaFilter.bind(this)
+    this.togglePriceFilter = this.togglePriceFilter.bind(this)
+    this.toggleRoomsFilter = this.toggleRoomsFilter.bind(this)
+    this.toggleGarageFilter = this.toggleGarageFilter.bind(this)
+
     const initialValues = {...props.initialFilters}
 
     if (props.initialFilters.neighborhoods) {
@@ -43,18 +43,12 @@ export default class Filter extends Component {
         })
       )
     }
-
+    
     this.state = {
-      active: false,
-      values: initialValues
+      values: initialValues,
+      showType: false,
+      showArea: false
     }
-  }
-
-  onClose = () => this.setState({active: false})
-
-  onToggle = () => {
-    const {active} = this.state
-    this.setState({active: !active})
   }
 
   setFilters = (filters) => {
@@ -177,9 +171,58 @@ export default class Filter extends Component {
     ))
   }
 
+  toggleTypeFilter() {
+      this.setState({
+        showType: !this.state.showType,
+        showArea: false,
+        showPrice: false,
+        showRooms: false,
+        showGarage: false
+      })
+  }
+
+  toggleAreaFilter() {
+    this.setState({
+      showType: false,
+      showArea: !this.state.showArea,
+      showPrice: false,
+      showRooms: false,
+      showGarage: false
+    })
+  }
+
+  togglePriceFilter() {
+    this.setState({
+      showType: false,
+      showArea: false,
+      showPrice: !this.state.showPrice,
+      showRooms: false,
+      showGarage: false
+    })
+  }
+
+  toggleRoomsFilter() {
+    this.setState({
+      showType: false,
+      showArea: false,
+      showPrice: false,
+      showRooms: !this.state.showRooms,
+      showGarage: false
+    })
+  }
+
+  toggleGarageFilter() {
+    this.setState({
+      showType: false,
+      showArea: false,
+      showPrice: false,
+      showRooms: false,
+      showGarage: !this.state.showGarage
+    })
+  }
+
   render() {
     const {
-      active,
       values: {
         area,
         price,
@@ -190,7 +233,8 @@ export default class Filter extends Component {
       }
     } = this.state
 
-    const {onChangeListingType, onToggle, activeFilters, resetFilter} = this
+    const {onChangeListingType, resetFilter} = this
+    const hasSelectedAnyTypes = !!types && types.length > 0
 
     return (
       <Query query={GET_NEIGHBORHOODS} ssr={false}>
@@ -198,144 +242,79 @@ export default class Filter extends Component {
           const neighborhoodsOptions = neighborhoodOptions(neighborhoods)
           return (
             <Container>
-              <Row flexDirection="row" flexWrap="wrap">
-                <FilterButton>Tipos de imóveis</FilterButton>
-                <FilterButton>Área</FilterButton>
-                <FilterButton>Valor</FilterButton>
-                <FilterButton>Quartos</FilterButton>
-                <FilterButton>Vagas de garagem</FilterButton>
+              <Row flexDirection="row" flexWrap="wrap" style={{position: 'relative'}}>
+                <FilterButton active={hasSelectedAnyTypes} onClick={this.toggleTypeFilter}>Tipos de imóveis</FilterButton>
+                <FilterButton onClick={this.toggleAreaFilter}>Área</FilterButton>
+                <FilterButton onClick={this.togglePriceFilter}>Valor</FilterButton>
+                <FilterButton onClick={this.toggleRoomsFilter}>Quartos</FilterButton>
+                <FilterButton onClick={this.toggleGarageFilter}>Vagas de garagem</FilterButton>
               </Row>
-              <FiltersWrapper active={active}>
-                <Filters>
-                  <div>
-                    <FilterContainer>
-                      <h4>
-                        Tipo de Imóvel
-                        <FontAwesomeIcon
-                          icon={faTrash}
-                          onClick={resetFilter.bind(this, 'types')}
-                        />
-                      </h4>
-                      <PropertyTypes activeTypes={types}>
-                        <PropertyType
-                          aria-label="Apartamento"
-                          onClick={onChangeListingType}
-                        >
-                          <FontAwesomeIcon icon={faBuilding} />
-                          <span>Apartamento</span>
-                        </PropertyType>
-                        <PropertyType
-                          aria-label="Casa"
-                          onClick={onChangeListingType}
-                        >
-                          <FontAwesomeIcon icon={faHome} />
-                          <span>Casa</span>
-                        </PropertyType>
-                        <PropertyType
-                          aria-label="Cobertura"
-                          onClick={onChangeListingType}
-                        >
-                          <FontAwesomeIcon icon={faRoof} />
-                          <span>Cobertura</span>
-                        </PropertyType>
-                      </PropertyTypes>
-                    </FilterContainer>
-                    <FilterContainer>
-                      <h4>
-                        Bairros
-                        <FontAwesomeIcon
-                          icon={faTrash}
-                          onClick={resetFilter.bind(this, 'neighborhoods')}
-                        />
-                      </h4>
-                      <Select
-                        name="form-field-name"
-                        arrowRenderer={null}
-                        placeholder="Selecione"
-                        multi={true}
-                        value={selectedNeighborhoods || []}
-                        onChange={this.neighborhoodChanged}
-                        options={neighborhoodsOptions}
-                        noResultsText="Resultado Não Encontrado"
-                      />
-                    </FilterContainer>
-                    <FilterContainer>
-                      <h4>
-                        Preço
-                        <FontAwesomeIcon
-                          icon={faTrash}
-                          onClick={resetFilter.bind(this, 'price')}
-                        />
-                      </h4>
-                      <Slider
-                        min={550000}
-                        max={12000000}
-                        values={price}
-                        isRange
-                        onChange={this.sliderChanged.bind(this, 'price')}
-                        valuesRounder={(value) =>
-                          Math.ceil(value / 10000) * 10000
-                        }
-                        valuesFormatter={(value) =>
-                          ` R$ ${value.toLocaleString('pt-BR')}`
-                        }
-                      />
-                    </FilterContainer>
-                    <FilterContainer>
-                      <h4>
-                        Área
-                        <FontAwesomeIcon
-                          icon={faTrash}
-                          onClick={resetFilter.bind(this, 'area')}
-                        />
-                      </h4>
-                      <Slider
-                        min={35}
-                        values={area}
-                        max={500}
-                        isRange
-                        onChange={this.sliderChanged.bind(this, 'area')}
-                        valuesFormatter={(value) => `${value} m²`}
-                      />
-                    </FilterContainer>
-                    <FilterContainer>
-                      <h4>
-                        Quartos
-                        <FontAwesomeIcon
-                          icon={faTrash}
-                          onClick={resetFilter.bind(this, 'rooms')}
-                        />
-                      </h4>
-                      <Slider
-                        values={rooms}
-                        min={1}
-                        max={8}
-                        isRange
-                        onChange={this.sliderChanged.bind(this, 'rooms')}
-                      />
-                    </FilterContainer>
-                    <FilterContainer>
-                      <h4>
-                        Vagas
-                        <FontAwesomeIcon
-                          icon={faTrash}
-                          onClick={resetFilter.bind(this, 'garageSpots')}
-                        />
-                      </h4>
-                      <Slider
-                        min={0}
-                        values={garageSpots}
-                        max={8}
-                        isRange
-                        onChange={this.sliderChanged.bind(this, 'garageSpots')}
-                      />
-                    </FilterContainer>
-                  </div>
-                  <EmCasaButton full light onClick={this.onClose}>
-                    Ver resultados
-                  </EmCasaButton>
-                </Filters>
-              </FiltersWrapper>
+              <FilterPanel show={this.state.showType}>
+                <FilterButton
+                  aria-label="Apartamento"
+                  active={hasSelectedAnyTypes && types.includes('Apartamento')}
+                  onClick={onChangeListingType}
+                >
+                  Apartamento
+                </FilterButton>
+                <FilterButton
+                  aria-label="Casa"
+                  active={hasSelectedAnyTypes && types.includes('Casa')}
+                  onClick={onChangeListingType}
+                >
+                  Casa
+                </FilterButton>
+                <FilterButton
+                  aria-label="Cobertura"
+                  active={hasSelectedAnyTypes && types.includes('Cobertura')}
+                  onClick={onChangeListingType}
+                >
+                  Cobertura
+                </FilterButton>
+              </FilterPanel>
+              <FilterPanel show={this.state.showArea}>
+                <NewSlider
+                  min={35}
+                  values={area}
+                  max={500}
+                  isRange
+                  onChange={this.sliderChanged.bind(this, 'area')}
+                  valuesFormatter={(value) => `${value} m²`}
+                />
+              </FilterPanel>
+              <FilterPanel show={this.state.showPrice}>
+                <NewSlider
+                  min={550000}
+                  max={12000000}
+                  values={price}
+                  isRange
+                  onChange={this.sliderChanged.bind(this, 'price')}
+                  valuesRounder={(value) =>
+                    Math.ceil(value / 10000) * 10000
+                  }
+                  valuesFormatter={(value) =>
+                    ` R$ ${value.toLocaleString('pt-BR')}`
+                  }
+                />
+              </FilterPanel>
+              <FilterPanel show={this.state.showRooms}>
+                <NewSlider
+                  values={rooms}
+                  min={1}
+                  max={8}
+                  isRange
+                  onChange={this.sliderChanged.bind(this, 'rooms')}
+                />
+              </FilterPanel>
+              <FilterPanel show={this.state.showGarage}>
+                <NewSlider
+                  min={0}
+                  values={garageSpots}
+                  max={8}
+                  isRange
+                  onChange={this.sliderChanged.bind(this, 'garageSpots')}
+                />
+              </FilterPanel>
             </Container>
           )
         }}

@@ -1,10 +1,11 @@
 import styled from 'styled-components'
+import { themeGet } from 'styled-system'
 import { HEADER_HEIGHT } from 'components/shared/Shell/NewHeader/styles'
 
 export const MapContainer = styled.div`
   position: sticky;
-  right: 0;
   top: ${HEADER_HEIGHT}px;
+  right: ${themeGet('space.4')}px;
   overflow: hidden;
   box-sizing: border-box;
   background: white;
