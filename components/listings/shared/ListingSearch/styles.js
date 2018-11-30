@@ -11,11 +11,9 @@ import {getWindowHeight} from 'utils/polyfills/bounding-rect'
 export const Container = styled.div`
   align-items: center;
   background: white;
-  border-bottom: 1px solid ${colors.lightestGray};
   display: flex;
   overflow: visible;
   padding: 10px;
-  position: fixed;
   width: 100vw;
   z-index: 4;
   box-sizing: border-box;
@@ -139,6 +137,7 @@ export const FilterButton = styled.div`
 `
 
 export const FiltersWrapper = styled.div`
+  display: ${({active}) => active ? 'flex' : 'none'};
   box-sizing: border-box;
   height: calc(
     ${process.browser ? getWindowHeight() + 'px' : '100vh'} -

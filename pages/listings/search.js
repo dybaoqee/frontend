@@ -7,7 +7,7 @@ import {
   getFiltersFromFilters,
   getFiltersFromQuery
 } from 'utils/filter-params.js'
-import Filter from 'components/listings/shared/Search'
+import Filter from 'components/listings/shared/ListingSearch'
 import ListingList from 'components/listings/shared/ListingList'
 import {getUrlVars} from 'utils/text-utils'
 
