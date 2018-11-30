@@ -53,7 +53,7 @@ export const NeighborhoodContainer = styled(View)`
       background: linear-gradient(
         to left,
         white, 
-        transparent
+        rgba(255, 255, 255, 0)
       );
       content: ' ';
       position: absolute;
