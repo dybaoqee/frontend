@@ -9,7 +9,7 @@ const Container = styled(View)`
   box-sizing: border-box;
   cursor: pointer;
   width: 310px;
-  height: 270px;
+  height: auto;
   border: 1px solid ${themeGet('colors.lightGrey')};
   border-radius: ${themeGet('space.1')}px;
   margin-bottom: ${themeGet('space.2')}px;

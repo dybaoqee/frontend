@@ -4,7 +4,10 @@ import NumberFormat from 'react-number-format'
 import Link from 'next/link'
 import humps from 'humps'
 
-import {buildSlug} from 'lib/listings'
+import {
+  buildSlug,
+  getListingSummary
+} from 'lib/listings'
 import LikeButton from 'components/shared/Common/Buttons/Like'
 import { thumbnailUrl } from 'utils/image_url'
 import { intToCurrency } from 'utils/text-utils'
@@ -45,6 +48,10 @@ class ListingCard extends Component {
 
     const thumbFilename = listing.images && listing.images[0] ? listing.images[0].filename : ''
     const thumbUrl = thumbnailUrl(thumbFilename, THUMB_WIDTH * 2, THUMB_HEIGHT * 2)
+
+    console.log('listing:', listing)
+    const listingSummary = getListingSummary(listing)
+
     return (
       <Link
         href={`/listings/show?id=${listing.id}`}
@@ -56,7 +63,7 @@ class ListingCard extends Component {
           <Row flexDirection="column" p={2}>
             <Row><Text inline fontSize="small">{listing.address.neighborhood.toUpperCase()}</Text></Row>
             <Row><Text inline fontSize="small">{listing.address.street}</Text></Row>
-            <Row><Text inline></Text></Row>
+            <Row><Text inline fontSize="small" color="grey">{listingSummary}</Text></Row>
             <Row><Text inline fontSize="large" fontWeight="bold">{intToCurrency(listing.price)}</Text></Row>
           </Row>
           <LikeButtonContainer>
