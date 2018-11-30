@@ -27,12 +27,6 @@ import Text from '@emcasa/ui-dom/components/Text'
 export default class Filter extends Component {
   constructor(props) {
     super(props)
-    this.toggleTypeFilter = this.toggleTypeFilter.bind(this)
-    this.toggleAreaFilter = this.toggleAreaFilter.bind(this)
-    this.togglePriceFilter = this.togglePriceFilter.bind(this)
-    this.toggleRoomsFilter = this.toggleRoomsFilter.bind(this)
-    this.toggleGarageFilter = this.toggleGarageFilter.bind(this)
-
     const initialValues = {...props.initialFilters}
 
     if (props.initialFilters.neighborhoods) {
@@ -171,53 +165,13 @@ export default class Filter extends Component {
     ))
   }
 
-  toggleTypeFilter() {
-      this.setState({
-        showType: !this.state.showType,
-        showArea: false,
-        showPrice: false,
-        showRooms: false,
-        showGarage: false
-      })
-  }
-
-  toggleAreaFilter() {
+  showFilter(filter) {
     this.setState({
-      showType: false,
-      showArea: !this.state.showArea,
-      showPrice: false,
-      showRooms: false,
-      showGarage: false
-    })
-  }
-
-  togglePriceFilter() {
-    this.setState({
-      showType: false,
-      showArea: false,
-      showPrice: !this.state.showPrice,
-      showRooms: false,
-      showGarage: false
-    })
-  }
-
-  toggleRoomsFilter() {
-    this.setState({
-      showType: false,
-      showArea: false,
-      showPrice: false,
-      showRooms: !this.state.showRooms,
-      showGarage: false
-    })
-  }
-
-  toggleGarageFilter() {
-    this.setState({
-      showType: false,
-      showArea: false,
-      showPrice: false,
-      showRooms: false,
-      showGarage: !this.state.showGarage
+      showType: filter === 'type' ? !this.state.showType : false,
+      showArea: filter === 'area' ? !this.state.showArea : false,
+      showPrice: filter === 'price' ? !this.state.showPrice : false,
+      showRooms: filter === 'rooms' ? !this.state.showRooms : false,
+      showGarage: filter === 'garage' ? !this.state.showGarage : false
     })
   }
 
@@ -243,11 +197,11 @@ export default class Filter extends Component {
           return (
             <Container>
               <Row flexDirection="row" flexWrap="wrap" style={{position: 'relative'}}>
-                <FilterButton active={hasSelectedAnyTypes} onClick={this.toggleTypeFilter}>Tipos de imóveis</FilterButton>
-                <FilterButton onClick={this.toggleAreaFilter}>Área</FilterButton>
-                <FilterButton onClick={this.togglePriceFilter}>Valor</FilterButton>
-                <FilterButton onClick={this.toggleRoomsFilter}>Quartos</FilterButton>
-                <FilterButton onClick={this.toggleGarageFilter}>Vagas de garagem</FilterButton>
+                <FilterButton active={hasSelectedAnyTypes} onClick={this.showFilter.bind(this, 'type')}>Tipos de imóveis</FilterButton>
+                <FilterButton onClick={this.showFilter.bind(this, 'area')}>Área</FilterButton>
+                <FilterButton onClick={this.showFilter.bind(this, 'price')}>Valor</FilterButton>
+                <FilterButton onClick={this.showFilter.bind(this, 'rooms')}>Quartos</FilterButton>
+                <FilterButton onClick={this.showFilter.bind(this, 'garage')}>Vagas de garagem</FilterButton>
               </Row>
               <FilterPanel show={this.state.showType}>
                 <FilterButton
