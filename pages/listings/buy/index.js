@@ -23,8 +23,8 @@ const Block = styled(View)`
   min-height: 60vh;
   max-width: 100vw;
   overflow: hidden;
-  justify-content: center;
   padding-top: ${desktopHeaderHeight}px;
+  justify-content: center;
 `
 
 const MainBlock = styled(Block)`
