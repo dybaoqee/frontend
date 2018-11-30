@@ -133,6 +133,18 @@ const startServer = () => {
         return app.render(req, res, '/listings/new-listing', req.query)
       })
 
+      server.get('/comprar', (req, res) => {
+        return app.render(req, res, '/listings/buy', req.query)
+      })
+
+      server.get('/comprar/sao-paulo', (req, res) => {
+        return app.render(req, res, '/listings/buy', {city: 'sp'})
+      })
+
+      server.get('/comprar/rio-de-janeiro', (req, res) => {
+        return app.render(req, res, '/listings/buy', {city: 'rj'})
+      })
+
       server.get('/saiba-mais-para-vender', (req, res) => {
         return app.render(req, res, '/listings/sell/know-more', req.query)
       })
