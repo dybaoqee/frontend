@@ -1,4 +1,7 @@
-import {Component, Fragment} from 'react'
+import '@emcasa/ui-dom/components/global-styles'
+import {Component} from 'react'
+import {ThemeProvider} from 'styled-components'
+import theme from '@emcasa/ui'
 import Head from 'next/head'
 import Router from 'next/router'
 import {
@@ -7,7 +10,7 @@ import {
   getFiltersFromFilters,
   getFiltersFromQuery
 } from 'utils/filter-params.js'
-import Filter from 'components/listings/shared/ListingSearch'
+import ListingFilter from 'components/listings/shared/ListingFilter'
 import ListingList from 'components/listings/shared/ListingList'
 import {getUrlVars} from 'utils/text-utils'
 
@@ -55,7 +58,7 @@ class ListingSearch extends Component {
     const newQuery = treatParams(filters)
 
     const query = newQuery.length > 0 ? `?${newQuery}` : ''
-    Router.push(`/listings${query}`, `/imoveis${query}`, {
+    Router.push(`/listings/search${query}`, `/imoveis${query}`, {
       shallow: true
     })
     this.setState({
@@ -68,7 +71,7 @@ class ListingSearch extends Component {
     window.scrollTo(0, 0)
     this.setState({filters: {}})
     this.filter.removeFilters()
-    Router.push('/listings', '/imoveis', {shallow: true})
+    Router.push('/listings/search', '/imoveis', {shallow: true})
   }
 
   getHead = () => {
@@ -106,28 +109,30 @@ class ListingSearch extends Component {
     }
 
     return (
-      <Fragment>
-        {this.getHead()}
-        <Filter
-          neighborhoods={neighborhoods}
-          onChange={this.onChangeFilter}
-          onReset={this.onResetFilter}
-          initialFilters={getDerivedParams(query)}
-          ref={(filter) => (this.filter = filter)}
-        />
-        <ListingList
-          query={query}
-          user={user}
-          resetFilters={this.onResetFilter}
-          filters={filters}
-          apolloClient={client}
-          neighborhoodListener={(neighborhood) => {
-            if (!this.state.neighborhood) {
-              this.setState({neighborhood: neighborhood})
-            }
-          }}
-        />
-      </Fragment>
+      <ThemeProvider theme={theme}>
+        <>
+          {this.getHead()}
+          <ListingFilter
+            neighborhoods={neighborhoods}
+            onChange={this.onChangeFilter}
+            onReset={this.onResetFilter}
+            initialFilters={getDerivedParams(query)}
+            ref={(filter) => (this.filter = filter)}
+          />
+          <ListingList
+            query={query}
+            user={user}
+            resetFilters={this.onResetFilter}
+            filters={filters}
+            apolloClient={client}
+            neighborhoodListener={(neighborhood) => {
+              if (!this.state.neighborhood) {
+                this.setState({neighborhood: neighborhood})
+              }
+            }}
+          />
+        </>
+      </ThemeProvider>
     )
   }
 }

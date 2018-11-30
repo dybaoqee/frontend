@@ -1,7 +1,4 @@
-import '@emcasa/ui-dom/components/global-styles'
 import {Component} from 'react'
-import {ThemeProvider} from 'styled-components'
-import theme from '@emcasa/ui'
 import {Query} from 'react-apollo'
 import {GET_USER_LISTINGS_ACTIONS} from 'graphql/user/queries'
 import {
@@ -261,27 +258,25 @@ class ListingList extends Component {
     const {filters} = this.props
     const h1Content = 'Apartamentos e Casas à venda na Zona Sul do Rio de Janeiro'
     return (
-      <ThemeProvider theme={theme}>
-        <Query
-          query={GET_LISTINGS}
-          variables={{pagination: this.pagination, filters}}
-          fetchPolicy="cache-and-network"
-        >
-          {({data: {listings}, fetchMore}) => {
-            return (
-              <>
-                <Row px={4}>
-                  <Text>{h1Content}</Text>
-                </Row>
-                <Row justifyContent="center">
-                  {this.getListings(listings, fetchMore)}
-                  {this.state.renderMap && this.getMap()}
-                </Row>
-              </>
-            )
-          }}
-        </Query>
-      </ThemeProvider>
+      <Query
+        query={GET_LISTINGS}
+        variables={{pagination: this.pagination, filters}}
+        fetchPolicy="cache-and-network"
+      >
+        {({data: {listings}, fetchMore}) => {
+          return (
+            <>
+              <Row px={4}>
+                <Text>{h1Content}</Text>
+              </Row>
+              <Row justifyContent="center">
+                {this.getListings(listings, fetchMore)}
+                {this.state.renderMap && this.getMap()}
+              </Row>
+            </>
+          )
+        }}
+      </Query>
     )
   }
 }

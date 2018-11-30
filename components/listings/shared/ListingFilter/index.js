@@ -1,20 +1,15 @@
 import {Component} from 'react'
 import numeral from 'numeral'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
-import faFilter from '@fortawesome/fontawesome-pro-light/faFilter'
 import faBuilding from '@fortawesome/fontawesome-pro-light/faBuilding'
 import faRoof from '@fortawesome/fontawesome-pro-light/faWarehouse'
 import faHome from '@fortawesome/fontawesome-pro-light/faHome'
-import faAngleUp from '@fortawesome/fontawesome-pro-light/faAngleUp'
-import faAngleDown from '@fortawesome/fontawesome-pro-light/faAngleDown'
 import faTrash from '@fortawesome/fontawesome-pro-light/faTrash'
 import faRemove from '@fortawesome/fontawesome-pro-light/faTimesCircle'
 import includes from 'lodash/includes'
 import remove from 'lodash/remove'
 import {
   Container,
-  FiltersApplied,
-  FiltersAppliedContainer,
   FilterApplied,
   Overlay,
   FilterButton,
@@ -30,6 +25,10 @@ import EmCasaButton from 'components/shared/Common/Buttons'
 import {neighborhoodOptions} from 'constants/listing-filter-options'
 import {Query} from 'react-apollo'
 import {GET_NEIGHBORHOODS} from 'graphql/listings/queries'
+import Row from '@emcasa/ui-dom/components/Row'
+import Col from '@emcasa/ui-dom/components/Col'
+import Button from '@emcasa/ui-dom/components/Button'
+import Text from '@emcasa/ui-dom/components/Text'
 
 export default class Filter extends Component {
   constructor(props) {
@@ -191,7 +190,6 @@ export default class Filter extends Component {
       }
     } = this.state
 
-    const anyFilterApplied = Object.keys(this.state.values).length > 0
     const {onChangeListingType, onToggle, activeFilters, resetFilter} = this
 
     return (
@@ -200,26 +198,14 @@ export default class Filter extends Component {
           const neighborhoodsOptions = neighborhoodOptions(neighborhoods)
           return (
             <Container>
-              <FiltersApplied>
-                <FilterButton onClick={onToggle}>
-                  <FontAwesomeIcon icon={faFilter} />
-                  <span>Filtrar imóveis</span>
-                  <FontAwesomeIcon icon={active ? faAngleUp : faAngleDown} />
-                </FilterButton>
-                <FiltersAppliedContainer>
-                  {anyFilterApplied ? (
-                    activeFilters
-                  ) : (
-                    <p onClick={onToggle}>Sem filtros aplicados</p>
-                  )}
-                </FiltersAppliedContainer>
-                <FilterButton onClick={this.resetFilters}>
-                  <FontAwesomeIcon icon={faTrash} />
-                  <span>Limpar filtros</span>
-                </FilterButton>
-              </FiltersApplied>
+              <Row flexDirection="row" flexWrap="wrap">
+                <FilterButton>Tipos de imóveis</FilterButton>
+                <FilterButton>Área</FilterButton>
+                <FilterButton>Valor</FilterButton>
+                <FilterButton>Quartos</FilterButton>
+                <FilterButton>Vagas de garagem</FilterButton>
+              </Row>
               <FiltersWrapper active={active}>
-                <Overlay onClick={this.onClose} />
                 <Filters>
                   <div>
                     <FilterContainer>

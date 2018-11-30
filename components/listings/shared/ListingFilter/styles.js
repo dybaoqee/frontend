@@ -5,6 +5,8 @@ import {
   desktopHeaderAndFilterHeight
 } from 'constants/dimensions'
 import * as colors from 'constants/colors'
+import Button from '@emcasa/ui-dom/components/Button'
+import {themeGet} from 'styled-system'
 
 import {getWindowHeight} from 'utils/polyfills/bounding-rect'
 
@@ -17,7 +19,6 @@ export const Container = styled.div`
   width: 100vw;
   z-index: 4;
   box-sizing: border-box;
-  height: 62px;
 
   .Select-control {
     border-color: ${colors.blue.medium};
@@ -32,54 +33,6 @@ export const Container = styled.div`
     > .Select-control
     .Select-value {
     padding-right: 20px;
-  }
-`
-
-export const FiltersApplied = styled.div`
-  box-sizing: border-box;
-  max-width: 100%;
-  display: flex;
-  flex: 1;
-  justify-content: space-between;
-  align-items: center;
-  user-select: none;
-
-  p {
-    box-sizing: border-box;
-    margin: 0;
-    flex: 1;
-    color: ${colors.mediumGray};
-    font-size: 14px;
-  }
-
-  > * {
-    box-sizing: border-box;
-  }
-
-  @media ${headerMobileMedia} {
-    > :first-child,
-    > :last-child {
-      > :nth-child(n + 2) {
-        display: none;
-      }
-    }
-  }
-`
-
-export const FiltersAppliedContainer = styled.div`
-  flex: 1;
-  display: flex;
-  box-sizing: border-box;
-  min-width: 100px;
-  overflow-x: scroll;
-
-  > :nth-last-child(n + 2) {
-    margin-right: 5px;
-  }
-
-  @media ${headerMobileMedia} {
-    max-width: 90%;
-    overflow: scroll;
   }
 `
 
@@ -113,27 +66,11 @@ export const FilterApplied = styled.div`
   }
 `
 
-export const FilterButton = styled.div`
-  color: ${colors.blue.medium};
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 13px;
-  text-transform: uppercase;
-  box-sizing: border-box;
-  font-weight: 600;
-  user-select: none;
-
-  span {
-    white-space: nowrap;
-  }
-
-  svg {
-    width: 20px !important;
-    height: 20px;
-    margin: 5px;
-  }
+export const FilterButton = styled(Button)`
+  border: 1px solid ${themeGet('colors.pink')};
+  color: ${themeGet('colors.pink')};
+  font-size: ${themeGet('fontSizes.1')}px;
+  margin: ${themeGet('space.1')}px;
 `
 
 export const FiltersWrapper = styled.div`
@@ -174,14 +111,6 @@ export const Filters = styled.div`
     width: 100%;
     padding: 15px;
   }
-`
-
-export const Overlay = styled.div`
-  box-sizing: border-box;
-  background: rgba(0, 0, 0, 0.5);
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
 `
 
 export const FilterContainer = styled.div`
