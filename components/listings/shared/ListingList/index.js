@@ -15,11 +15,11 @@ import Map from 'components/listings/shared/Map'
 import ListingsNotFound from 'components/listings/shared/NotFound'
 import Neighborhood from 'components/listings/shared/Neighborhood'
 import Row from '@emcasa/ui-dom/components/Row'
-import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
 import {
   MapContainer,
-  Loading
+  Loading,
+  Title
 } from './styles'
 
 const MIN_WIDTH_FOR_MAP_RENDER = 1080
@@ -270,9 +270,9 @@ class ListingList extends Component {
         {({data: {listings}, fetchMore}) => {
           return (
             <>
-              <Row px={4}>
+              <Title>
                 <Text>{h1Content}</Text>
-              </Row>
+              </Title>
               <Row justifyContent="center">
                 {this.getListings(listings, fetchMore)}
                 {this.state.renderMap && this.getMap()}

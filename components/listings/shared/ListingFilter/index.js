@@ -1,20 +1,11 @@
 import {Component} from 'react'
-import numeral from 'numeral'
-import FontAwesomeIcon from '@fortawesome/react-fontawesome'
-import faBuilding from '@fortawesome/fontawesome-pro-light/faBuilding'
-import faRoof from '@fortawesome/fontawesome-pro-light/faWarehouse'
-import faHome from '@fortawesome/fontawesome-pro-light/faHome'
-import faTrash from '@fortawesome/fontawesome-pro-light/faTrash'
-import faRemove from '@fortawesome/fontawesome-pro-light/faTimesCircle'
 import includes from 'lodash/includes'
 import remove from 'lodash/remove'
 import {
-  Container,
   Overlay,
   FilterButton
 } from './styles'
 import NewSlider from 'components/shared/Common/NewSlider'
-import Select from 'react-select'
 import {neighborhoodOptions} from 'constants/listing-filter-options'
 import {Query} from 'react-apollo'
 import {GET_NEIGHBORHOODS} from 'graphql/listings/queries'
@@ -180,7 +171,7 @@ export default class Filter extends Component {
           const neighborhoodsOptions = neighborhoodOptions(neighborhoods)
           return (
             <Row p={4}>
-              
+              <Overlay onClick={this.hideAllFilters} />
               <Row flexDirection="row" flexWrap="wrap" style={{position: 'relative'}}>
                 <FilterButton active={hasSelectedAnyTypes} onClick={this.showFilter.bind(this, 'type')}>Tipos de imóveis</FilterButton>
                 <FilterButton onClick={this.showFilter.bind(this, 'area')}>Área</FilterButton>

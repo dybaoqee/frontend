@@ -13,7 +13,7 @@ const Container = styled(View)`
   height: auto;
   border: 1px solid ${themeGet('colors.lightGrey')};
   border-radius: ${themeGet('space.1')}px;
-  margin: ${themeGet('space.2')}px;
+  margin: 0 ${themeGet('space.2')}px ${themeGet('space.4')}px ${themeGet('space.2')}px;
 
   : hover {
     border: 1px solid ${themeGet('colors.pink')};

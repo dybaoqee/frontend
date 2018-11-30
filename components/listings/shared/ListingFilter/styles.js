@@ -1,13 +1,13 @@
 import styled from 'styled-components'
 import {themeGet} from 'styled-system'
-import * as colors from 'constants/colors'
 import Button from '@emcasa/ui-dom/components/Button'
 
 const Overlay = styled.div`
   position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  background-color: #ff0000;
 `
 
 const FilterButton = styled(Button)`
@@ -18,7 +18,6 @@ const FilterButton = styled(Button)`
 `
 
 export {
-  Container,
   Overlay,
   FilterButton
 }
