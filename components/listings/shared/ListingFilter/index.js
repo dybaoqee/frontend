@@ -1,6 +1,7 @@
 import {Component} from 'react'
 import includes from 'lodash/includes'
 import remove from 'lodash/remove'
+import numeral from 'numeral'
 import {
   Overlay,
   FilterButton
@@ -117,6 +118,61 @@ export default class Filter extends Component {
     this.setState({values: {}})
   }
 
+  get activeFilters() {
+    const {
+      values: {types, price, neighborhoods, rooms, garageSpots, area}
+    } = this.state
+
+    const propertyTypes = types && types.join(', ')
+    const rangePrice =
+      price &&
+      `R$${numeral(price.min).format('0.00a')} - R$${numeral(price.max).format(
+        '0.00a'
+      )}`
+
+    const rangeRooms = rooms && `${rooms.min} - ${rooms.max} quartos`
+    const rangeGarageSpots =
+      garageSpots && `${garageSpots.min} - ${garageSpots.max} vagas`
+
+    const rangeArea = area && `${area.min} - ${area.max} m²`
+
+    const rangeNeighborhoods =
+      neighborhoods &&
+      neighborhoods.length > 0 &&
+      `${neighborhoods[0].value}${
+        neighborhoods.length > 1 ? ` e mais ${neighborhoods.length - 1}` : ''
+      }`
+
+    const filters = [
+      {filter: 'types', value: propertyTypes},
+      {filter: 'neighborhoods', value: rangeNeighborhoods},
+      {filter: 'price', value: rangePrice},
+      {filter: 'rooms', value: rangeRooms},
+      {filter: 'garageSpots', value: rangeGarageSpots},
+      {filter: 'area', value: rangeArea}
+    ].filter((filter) => filter.value)
+
+    return filters.map(({filter, value}) => (
+      {filter: filter, value: value}
+    ))
+  }
+
+  getFiltersLabels(filter) {
+    const selectedFilter = this.activeFilters.find((item) => item.filter === filter)
+    if (selectedFilter) {
+      return selectedFilter.value
+    }
+    switch (filter) {
+      case 'types': return 'Tipos de imóveis'
+      case 'area': return 'Area'
+      case 'price': return 'Valor'
+      case 'rooms': return 'Quartos'
+      case 'garageSpots': return 'Vagas de garagem'
+      default:
+    }
+    return ''
+  }
+
   showFilter(filter, event) {
     const { target } = event
     const panelPosition = {left: target.getBoundingClientRect().left, top: target.getBoundingClientRect().top}
@@ -161,10 +217,10 @@ export default class Filter extends Component {
         neighborhoods: selectedNeighborhoods
       }
     } = this.state
-
     const {onChangeListingType, resetFilter} = this
-    const hasSelectedAnyTypes = !!types && types.length > 0
-
+    const selectedFilters = this.activeFilters
+    const selectedFiltersArray = selectedFilters.map((item) => item.filter)
+    const hasSelectedAnyTypes = selectedFiltersArray.includes('types')
     return (
       <Query query={GET_NEIGHBORHOODS} ssr={false}>
         {({data: {neighborhoods = []}}) => {
@@ -173,11 +229,11 @@ export default class Filter extends Component {
             <Row p={4}>
               <Overlay onClick={this.hideAllFilters} />
               <Row flexDirection="row" flexWrap="wrap" style={{position: 'relative'}}>
-                <FilterButton active={hasSelectedAnyTypes} onClick={this.showFilter.bind(this, 'type')}>Tipos de imóveis</FilterButton>
-                <FilterButton onClick={this.showFilter.bind(this, 'area')}>Área</FilterButton>
-                <FilterButton onClick={this.showFilter.bind(this, 'price')}>Valor</FilterButton>
-                <FilterButton onClick={this.showFilter.bind(this, 'rooms')}>Quartos</FilterButton>
-                <FilterButton onClick={this.showFilter.bind(this, 'garage')}>Vagas de garagem</FilterButton>
+                <FilterButton active={hasSelectedAnyTypes} onClick={this.showFilter.bind(this, 'type')}>{this.getFiltersLabels('types')}</FilterButton>
+                <FilterButton active={selectedFiltersArray.includes('area')} onClick={this.showFilter.bind(this, 'area')}>{this.getFiltersLabels('area')}</FilterButton>
+                <FilterButton active={selectedFiltersArray.includes('price')} onClick={this.showFilter.bind(this, 'price')}>{this.getFiltersLabels('price')}</FilterButton>
+                <FilterButton active={selectedFiltersArray.includes('rooms')} onClick={this.showFilter.bind(this, 'rooms')}>{this.getFiltersLabels('rooms')}</FilterButton>
+                <FilterButton active={selectedFiltersArray.includes('garageSpots')} onClick={this.showFilter.bind(this, 'garage')}>{this.getFiltersLabels('garageSpots')}</FilterButton>
               </Row>
               <FilterPanel show={this.state.showType} panelPosition={this.state.panelPosition}>
                 <FilterButton
