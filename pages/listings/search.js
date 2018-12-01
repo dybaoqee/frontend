@@ -33,7 +33,8 @@ class ListingSearch extends Component {
       transparentHeader: false,
       newHeader: true,
       query: context.query,
-      renderFooter: false
+      renderFooter: false,
+      headerSearch: true
     }
   }
 

@@ -10,6 +10,10 @@ import faFlag from '@fortawesome/fontawesome-pro-solid/faFlag'
 import faUser from '@fortawesome/fontawesome-pro-solid/faUser'
 import faSignInAlt from '@fortawesome/fontawesome-pro-solid/faSignInAlt'
 
+import NeighborhoodAutoComplete from 'components/shared/NeighborhoodAutoComplete'
+import MobileAddressButton from 'components/shared/MobileAddressButton'
+import {MobieTypeaheadContainer} from 'components/shared/NeighborhoodAutoComplete/styles'
+
 import Container, {
   Wrapper,
   Nav,
@@ -48,8 +52,14 @@ export default class Header extends Component {
     window.removeEventListener('scroll', this.onScroll)
   }
 
+  renderSearch() {
+    return (
+      <NeighborhoodAutoComplete />
+    )
+  }
+
   render() {
-    const {transparent, authenticated, router} = this.props
+    const {transparent, authenticated, search, router} = this.props
     const {sticky, isMobileNavVisible} = this.state
     const currentPath = router.asPath
     return (
@@ -59,6 +69,7 @@ export default class Header extends Component {
             <Link href="/listings/buy" as="/">
               <Logo alt="EmCasa Imobiliária no Rio de Janeiro e São Paulo" />
             </Link>
+            {search && this.renderSearch()}
             {isMobileNavVisible && <Overlay onClick={this.toggleMobileNavVisibility} />}
             <NavButton
               visible={!isMobileNavVisible}

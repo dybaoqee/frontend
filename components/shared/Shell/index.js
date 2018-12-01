@@ -44,6 +44,7 @@ class Layout extends Component {
           isAdmin={isAdmin}
           notifications={this.notifications}
           router={router}
+          search={pageProps.headerSearch}
           hideSeparator={pageProps.hideSeparator}
           transparent={pageProps.transparentHeader}
         />
