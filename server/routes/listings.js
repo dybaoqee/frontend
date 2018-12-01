@@ -50,7 +50,7 @@ router.get('/:state/:city/:neighborhood/:streetwithId', (req, res) => {
 })
 
 router.get('/:state/:city/:neighborhood/', (req, res) => {
-  const actualPage = '/listings'
+  const actualPage = '/listings/search'
   const neighborhood = req.params.neighborhood
   const queryParams = {
     neighborhoodSlug: neighborhood,
@@ -67,7 +67,7 @@ router.get('/:id(\\d+)/editar', (req, res) => {
 })
 
 router.get(['/', '/:state', '/:state/:city'], (req, res) => {
-  const actualPage = '/listings'
+  const actualPage = '/listings/search'
   res.locals.app.render(req, res, actualPage, req.query)
 })
 
