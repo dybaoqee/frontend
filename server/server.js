@@ -41,6 +41,24 @@ const startServer = () => {
 
       server.use('/imoveis', listingsRouter)
 
+      // New listings search route
+
+      server.get('/search/:state/:city/:neighborhood/', (req, res) => {
+        const actualPage = '/listings/search'
+        const neighborhood = req.params.neighborhood
+        const queryParams = {
+          neighborhoodSlug: neighborhood,
+          state: req.params.state,
+          city: req.params.city
+        }
+        res.locals.app.render(req, res, actualPage, queryParams)
+      })
+
+      server.get(['/search/', '/search/:state', '/search/:state/:city'], (req, res) => {
+        const actualPage = '/listings/search'
+        res.locals.app.render(req, res, actualPage, req.query)
+      })
+
       server.get(
         '/:state/:city/:neighborhood/:street/:listingId(id-\\d+)',
         (req, res) => {
