@@ -24,8 +24,8 @@ const RJ_SLUG = 'rio-de-janeiro'
 const SP_SLUG = 'sao-paulo'
 
 const CITIES = [
-  {title: 'Bairros no Rio de Janeiro', slug: RJ_SLUG},
-  {title: 'Bairros em São Paulo', slug: SP_SLUG}
+  {title: 'Bairros no Rio de Janeiro', slug: RJ_SLUG, stateSlug: 'rj'},
+  {title: 'Bairros em São Paulo', slug: SP_SLUG, stateSlug: 'sp'}
 ]
 
 const NEIGHBORHOODS = [
@@ -90,7 +90,7 @@ export default class Neighborhoods extends Component {
             </Text>
           </Header>
           <Cities>
-            {CITIES.map(({title, slug: citySlug}) => {
+            {CITIES.map(({title, slug: citySlug, stateSlug}) => {
               const links = getCityNeighborhoodLinks(citySlug)
               return (
                 <City>
@@ -102,10 +102,12 @@ export default class Neighborhoods extends Component {
                   <NeighborhoodContainer>
                     <NeighborhoodItems>
                       {NEIGHBORHOODS_BY_CITIES[citySlug].map(({name, ...props}) => (
-                        <Neighborhood {...props}>
-                          <Text>{name}</Text>
-                          {props.soon && <Soon />}
-                        </Neighborhood>
+                        <Link href={props.soon ? null : `/imoveis/${stateSlug}/${citySlug}/${slug(name.toLowerCase())}`}>
+                          <Neighborhood {...props}>
+                            <Text>{name}</Text>
+                            {props.soon && <Soon />}
+                          </Neighborhood>
+                        </Link>
                       ))}
                       <Spacer>
                         {links}

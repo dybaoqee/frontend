@@ -11,7 +11,7 @@ const ListContainer = styled(Row)`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
 `
 
 const Footer = styled.footer`

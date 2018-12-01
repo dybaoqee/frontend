@@ -6,9 +6,9 @@ import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
 import {isMobile} from 'lib/mobile'
-import AddressAutoComplete from 'components/shared/AddressAutoComplete'
+import NeighborhoodAutoComplete from 'components/shared/NeighborhoodAutoComplete'
 import MobileAddressButton from 'components/shared/MobileAddressButton'
-import { MobieTypeaheadContainer } from 'components/shared/AddressAutoComplete/styles'
+import { MobieTypeaheadContainer } from 'components/shared/NeighborhoodAutoComplete/styles'
 
 import {
   UnderlinedText,
@@ -26,7 +26,6 @@ export default class BuyListing extends Component {
   state = {
     showMobileAddressInput: false,
     addressFormatted: null,
-    addressData: null
   }
 
   openMobileAddressInput() {
@@ -46,17 +45,9 @@ export default class BuyListing extends Component {
       return (
         <MobieTypeaheadContainer justifyContent="center" p={4}>
           <Col width={1}>
-            <AddressAutoComplete
+            <NeighborhoodAutoComplete
               onBackPressed={this.close}
-              defaultValue={this.state.addressFormatted}
               onClearInput={() => {}}
-              onSelectAddress={(addressFormatted, addressData) => {
-                this.setState({
-                  showMobileAddressInput: false,
-                  addressFormatted,
-                  addressData
-                })
-              }}
             />
           </Col>
         </MobieTypeaheadContainer>
@@ -92,12 +83,12 @@ export default class BuyListing extends Component {
                 <Col mb={4}>
                   <MobileAddressButton
                     onClick={this.openMobileAddressInput}
-                    address={this.state.addressFormatted}
+                    address="Bairro, Cidade ou Código"
                   />
                 </Col>
               :
                 <Col mb={2} width={1}>
-                  <AddressAutoComplete
+                  <NeighborhoodAutoComplete
                     defaultValue={this.state.address}
                     onClearInput={() => {}}
                     onSelectAddress={(addressFormatted, addressData) => {
