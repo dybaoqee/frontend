@@ -61,7 +61,7 @@ export default class NeighborhoodAutoComplete extends Component {
 
   searchPlaces = async (input) => {
     this.setState({
-      showPredictions: Boolean(input),
+      showPredictions: true,
       input: input,
       predictionSelected: 0,
     })
@@ -75,27 +75,28 @@ export default class NeighborhoodAutoComplete extends Component {
           if (loading) {
             return null
           }
+          const cities = [
+            {name: 'São Paulo', citySlug: 'sao-paulo', stateSlug: 'sp', state: 'SP'},
+            {name: 'Rio de Janeiro', citySlug: 'rio-de-janeiro', stateSlug: 'rj', state: 'RJ'}
+          ]
 
-          /*const {predictions, predictionSelected, search} = this.state
-          const words = search
-            .replace(/,/g, ' ')
-            .split(' ')
-            .filter((word) => word && word.length > 0)
-          const regex = new RegExp('(' + words.join('|') + ')', 'ig')
-          this.predictionsIds = []*/
-          const itemsToSearch = new Fuse(districts, {threshold: 0.1 , keys: ['name']})
-          const results = itemsToSearch.search(this.state.input)
-          return results.filter(d => d.name).map((district, index) => {
-            const url = `/imoveis/${district.stateSlug}/${district.citySlug}/${slug(
-              district.nameSlug.toLowerCase()
-            )}`
+          const districtsSP = districts.filter(({stateSlug}) => stateSlug === 'sp')
+          const districtsRJ = districts.filter(({stateSlug}) => stateSlug === 'rj')
+          const items = cities.concat(districtsSP).concat(districtsRJ)
+          const itemsToSearch = new Fuse(items, {threshold: 0.1 , keys: ['name', 'city', 'state']})
+          const results = this.state.input ? itemsToSearch.search(this.state.input) : items
+          return results.filter(d => d.name).slice(0, 5).map((item, index) => {
+            let url = `/imoveis/${item.stateSlug}/${item.citySlug}`
+            if (item.nameSlug) {
+              url += `/${slug(item.nameSlug.toLowerCase())}`
+            }
             return (
               <Link key={index} href={{
                 pathname: url,
                 asPath: url
               }}>
                 <SearchResultItem>
-                  <Text>{district.name}</Text>
+                  <Text>{item.name}, {item.nameSlug ? item.city : item.state}</Text>
                 </SearchResultItem>
               </Link>
             )
@@ -195,12 +196,13 @@ export default class NeighborhoodAutoComplete extends Component {
               style={{border: 0}}
               hideLabelView
               hideErrorView
+              onFocus={() => this.setState({showPredictions: true})}
               onKeyDown={this.onKeyPress}
               type="text"
               name="street"
               ref={this.searchInput}
               value={dirty ? value : defaultValue}
-              placeholder="Bairro, Cidade ou Código"
+              placeholder="Bairro ou Cidade"
               onChange={this.onChange}
               autoComplete="off"
             />

@@ -83,7 +83,7 @@ export default class BuyListing extends Component {
                 <Col mb={4}>
                   <MobileAddressButton
                     onClick={this.openMobileAddressInput}
-                    address="Bairro, Cidade ou Código"
+                    address="Bairro ou Cidade"
                   />
                 </Col>
               :
@@ -91,12 +91,6 @@ export default class BuyListing extends Component {
                   <NeighborhoodAutoComplete
                     defaultValue={this.state.address}
                     onClearInput={() => {}}
-                    onSelectAddress={(addressFormatted, addressData) => {
-                      this.setState({
-                        addressFormatted,
-                        addressData
-                      })
-                    }}
                   />
                 </Col>
               }

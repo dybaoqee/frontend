@@ -73,7 +73,7 @@ export default class Header extends Component {
     return (
       <Search>
         {isMobile() ? <MobileAddressButton
-          address="Bairro, Cidade ou Código"
+          address="Bairro ou Cidade"
           onClick={this.openMobileSearch}
         /> :
           <NeighborhoodAutoComplete />

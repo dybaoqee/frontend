@@ -166,6 +166,8 @@ export const GET_DISTRICTS = gql`
       citySlug
       stateSlug
       nameSlug
+      city
+      state
       name
     }
   }
