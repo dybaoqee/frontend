@@ -76,12 +76,16 @@ class Listing extends Component {
 
       return {
         listing,
-        currentUser
+        currentUser,
+        newFooter: true,
+        newHeader: true
       }
     } else {
       return {
         listingFetchError: errors[0],
-        currentUser
+        currentUser,
+        newFooter: true,
+        newHeader: true
       }
     }
   }

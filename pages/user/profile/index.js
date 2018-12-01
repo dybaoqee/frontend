@@ -31,11 +31,15 @@ class UserProfile extends Component {
     try {
       return {
         currentUser,
-        renderFooter: false
+        renderFooter: false,
+        newFooter: true,
+        newHeader: true
       }
     } catch (e) {
       return {
-        error: e.message
+        error: e.message,
+        newFooter: true,
+        newHeader: true
       }
     }
   }
