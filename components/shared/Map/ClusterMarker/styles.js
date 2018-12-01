@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import * as colors from 'constants/colors'
+import theme from '@emcasa/ui'
 export default styled.div`
   box-sizing: border-box;
   width: 35px;
@@ -10,7 +11,7 @@ export default styled.div`
   color: #fff;
   border: 2px solid #fff;
   border-radius: 100%;
-  background-color: ${colors.blue.medium};
+  background-color: ${theme.colors.pink};
   box-shadow: 1px 3px 6px rgba(0, 0, 0, 0.3);
 
   > span {
@@ -26,11 +27,12 @@ export default styled.div`
   ${({highlight}) =>
     highlight
       ? `background-color: white; color: ${
-          colors.blue.medium
-        }; border: 2px solid ${colors.blue.medium};`
+          theme.colors.pink
+        }; border: 2px solid ${theme.colors.pink};`
       : ''};
   :hover {
     cursor: pointer;
-    background-color: ${colors.blue.dark};
+    color: ${theme.colors.pink};
+    background-color: white;
   }
 `
