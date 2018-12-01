@@ -12,7 +12,7 @@ export default styled.header`
   background: ${props => props.transparent ? 'transparent' : 'white'};
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: ${props => props.search ? 'unset' : 'space-between'};
   padding: 0px 24px;
   width: 100%;
   max-height: 76px;
@@ -206,3 +206,12 @@ export const Overlay = styled.div`
   animation: ${fadeIn} 0.3s 0s both;
 `
 
+
+export const Search = styled.div`
+  margin-left: 20px;
+  width: 35%;
+  
+  @media (max-width: ${theme.breakpoints[0]}) {
+    width: 80%;
+  }
+`

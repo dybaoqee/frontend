@@ -3,6 +3,7 @@ import Link from 'next/link'
 import theme from '@emcasa/ui'
 import {Component} from 'react'
 import Text from '@emcasa/ui-dom/components/Text'
+import Col from '@emcasa/ui-dom/components/Col'
 import AccountKit from 'components/shared/Auth/AccountKit'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faSearch from '@fortawesome/fontawesome-pro-solid/faSearch'
@@ -13,6 +14,7 @@ import faSignInAlt from '@fortawesome/fontawesome-pro-solid/faSignInAlt'
 import NeighborhoodAutoComplete from 'components/shared/NeighborhoodAutoComplete'
 import MobileAddressButton from 'components/shared/MobileAddressButton'
 import {MobieTypeaheadContainer} from 'components/shared/NeighborhoodAutoComplete/styles'
+import {isMobile} from 'lib/mobile'
 
 import Container, {
   Wrapper,
@@ -22,7 +24,8 @@ import Container, {
   NavButton,
   MenuItem,
   Logo,
-  ShortLogo
+  ShortLogo,
+  Search
 } from './styles'
 
 
@@ -31,12 +34,25 @@ export default class Header extends Component {
     super(props)
     this.state = {
       sticky: false,
-      isMobileNavVisible: false
+      isMobileNavVisible: false,
+      showMobileSearch: false
     }
   }
 
   onScroll = () => {
     this.setState({sticky: window.scrollY > 100})
+  }
+
+  openMobileSearch = () => {
+    this.setState({
+      showMobileSearch: true
+    })
+  }
+
+  closeMobileSearch = () => {
+    this.setState({
+      showMobileSearch: false
+    })
   }
 
   toggleMobileNavVisibility = () => {
@@ -55,18 +71,47 @@ export default class Header extends Component {
 
   renderSearch() {
     return (
-      <NeighborhoodAutoComplete />
+      <Search>
+        {isMobile() ? <MobileAddressButton
+          address="Bairro, Cidade ou Código"
+          onClick={this.openMobileSearch}
+        /> :
+          <NeighborhoodAutoComplete />
+        }
+      </Search>
+    )
+  }
+
+  renderMobileSearch() {
+    return (
+      <MobieTypeaheadContainer justifyContent="center" p={4} style={{height: '100%'}}>
+        <Col width={1}>
+          <NeighborhoodAutoComplete
+            onBackPressed={this.closeMobileSearch}
+            onClearInput={() => {}}
+          />
+        </Col>
+      </MobieTypeaheadContainer>
     )
   }
 
   render() {
     const {transparent, authenticated, search, router} = this.props
-    const {sticky, isMobileNavVisible} = this.state
+    const {sticky, isMobileNavVisible, showMobileSearch} = this.state
     const currentPath = router.asPath
+
+    if (this.state.showMobileSearch) {
+      return (
+        <ThemeProvider theme={theme}>
+          {this.renderMobileSearch()}
+        </ThemeProvider>
+      )
+    }
+
     return (
       <ThemeProvider theme={theme}>
         <Wrapper>
-          <Container transparent={transparent} className={sticky ? 'sticky' : null}>
+          <Container transparent={transparent} className={sticky ? 'sticky' : null} search={search}>
             <Link href="/listings/buy" as="/">
               <>
                 {!search && <Logo alt="EmCasa Imobiliária no Rio de Janeiro e São Paulo" />}
