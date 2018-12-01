@@ -12,8 +12,7 @@ export default ({
     return (
       <Container onClick={resetAllParams}>
         <div>
-          <p>Não encontramos listagens para sua busca.</p>
-          <p>Clique aqui para limpar os filtros.</p>
+          <p>Não encontramos imóveis com base nesses critérios, tente alterar os filtros para outros resultados</p>
         </div>
       </Container>
     )

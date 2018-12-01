@@ -274,7 +274,7 @@ class ListingList extends Component {
           return (
             <>
               <Title>
-                <Text>{h1Content}</Text>
+                <Text>{state ? h1Content : null}</Text>
               </Title>
               <Row justifyContent={['center', 'flex-start']}>
                 {this.getListings(listings, fetchMore)}

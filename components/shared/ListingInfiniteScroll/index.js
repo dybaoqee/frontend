@@ -72,7 +72,7 @@ class ListingInfiniteScroll extends Component {
     } = this.props
     return (
       <Container
-        style={{position: 'relative'}}
+        style={{position: 'relative', minWidth: titleComponent ? null : '100%'}}
         innerRef={(wrapper) => (this.wrapper = wrapper)}
       >
         {titleComponent && !horizontal && titleComponent}

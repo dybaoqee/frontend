@@ -5,6 +5,7 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faWhatsApp from '@fortawesome/fontawesome-free-brands/faWhatsapp'
 import faPhone from '@fortawesome/fontawesome-pro-light/faPhone'
 import Container, {SuggestedPrice} from './styles'
+import theme from '@emcasa/ui'
 
 const Space = () => ' '
 
@@ -92,7 +93,7 @@ export default class ListingCard extends React.Component {
             ''
           )}
 
-          <button className="btn green" onClick={handleOpenPopup}>
+          <button className="btn green" style={{backgroundColor: theme.colors.pink, border: 'none'}} onClick={handleOpenPopup}>
             Marcar Visita
           </button>
           <p className="phone">

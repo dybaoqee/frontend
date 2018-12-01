@@ -2,17 +2,16 @@ import styled from 'styled-components'
 import * as colors from 'constants/colors'
 import {mobileMedia} from 'constants/media'
 import {desktopHeaderAndFilterHeight} from 'constants/dimensions'
+import theme from '@emcasa/ui'
 
 export default styled.div`
   align-items: center;
-  border: 1px solid ${colors.lightGray};
-  border-radius: 8px;
   cursor: pointer;
   display: flex;
   height: calc(100vh - ${desktopHeaderAndFilterHeight + 40}px);
   margin-top: 20px;
   justify-content: space-around;
-  width: calc(100% - 20px);
+  width: 100%;
   &:hover {
     background: ${colors.offWhite};
   }
@@ -23,7 +22,8 @@ export default styled.div`
   }
 
   p {
-    color: ${colors.red.medium};
+    font-family: FaktSoftPro-Normal;
+    color: ${theme.colors.pink};
     font-weight: 600;
     margin: 0 0 10px;
     max-width: calc(100% - 40px);
