@@ -70,7 +70,7 @@ export default class Header extends Component {
               <CloseNavButton
                 visible={isMobileNavVisible}
                 onClick={this.toggleMobileNavVisibility} />
-              <Link href="/">
+              <Link href="/listings/buy" as="/">
                 <MenuItem>
                   <FontAwesomeIcon icon={faSearch} className="icon" />
                   <Text>Comprar</Text>
