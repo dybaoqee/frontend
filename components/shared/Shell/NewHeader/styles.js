@@ -180,6 +180,13 @@ export const Logo = styled.div`
   max-width: 118px;
 `
 
+export const ShortLogo = styled.div`
+  cursor: pointer;
+  transform: translateZ(0);
+  content: url(https://s3.amazonaws.com/emcasa-ui/logo/symbol.svg);
+  max-width: 32px;
+`
+
 const fadeIn = keyframes`
   from { opacity: 0; }
   to   { opacity: 0.5; }
