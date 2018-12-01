@@ -58,7 +58,7 @@ class ListingSearch extends Component {
     const newQuery = treatParams(filters)
 
     const query = newQuery.length > 0 ? `?${newQuery}` : ''
-    Router.push(`/listings/search${query}`, `/search${query}`, {
+    Router.push(`/listings/search${query}`, `/imoveis${query}`, {
       shallow: true
     })
     this.setState({
@@ -71,7 +71,7 @@ class ListingSearch extends Component {
     window.scrollTo(0, 0)
     this.setState({filters: {}})
     this.filter.removeFilters()
-    Router.push('/listings/search', '/search', {shallow: true})
+    Router.push('/listings/search', '/imoveis', {shallow: true})
   }
 
   getHead = () => {

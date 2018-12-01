@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import Link from 'next/link'
+import slug from 'slug'
 import PropTypes from 'prop-types'
 import {Query} from 'react-apollo'
 import { filterComponent } from 'services/google-maps-api'
@@ -83,13 +85,19 @@ export default class NeighborhoodAutoComplete extends Component {
           this.predictionsIds = []*/
           const itemsToSearch = new Fuse(districts, {threshold: 0.1 , keys: ['name']})
           const results = itemsToSearch.search(this.state.input)
-          return results.filter(d => d.name).map((disctrict, index) => {
+          return results.filter(d => d.name).map((district, index) => {
+            const url = `/imoveis/${district.stateSlug}/${district.citySlug}/${slug(
+              district.nameSlug.toLowerCase()
+            )}`
             return (
-              <SearchResultItem
-                key={index}
-              >
-                <Text>{disctrict.name}</Text>
-              </SearchResultItem>
+              <Link key={index} href={{
+                pathname: url,
+                asPath: url
+              }}>
+                <SearchResultItem>
+                  <Text>{district.name}</Text>
+                </SearchResultItem>
+              </Link>
             )
           })
         }}

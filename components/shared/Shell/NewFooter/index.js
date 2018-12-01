@@ -39,10 +39,10 @@ const Footer = () => (
       <Col width={[1, 2 / 12]}>
         <Text {...titleText}>EmCasa</Text>
         <LinkGroup>
-          <Link href="/listings" as="/imoveis">
+          <Link href="/listings/search" as="/imoveis">
             <TextLink>Compre</TextLink>
           </Link>
-          <Link href="/listings/sell/know-more" as="/saiba-mais-para-vender">
+          <Link href="/listings/sell" as="/vender">
             <TextLink>Venda</TextLink>
           </Link>
           <a href="http://blog.emcasa.com" target="_blank">

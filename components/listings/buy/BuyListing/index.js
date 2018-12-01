@@ -26,7 +26,6 @@ export default class BuyListing extends Component {
   state = {
     showMobileAddressInput: false,
     addressFormatted: null,
-    addressData: null
   }
 
   openMobileAddressInput() {
@@ -48,15 +47,7 @@ export default class BuyListing extends Component {
           <Col width={1}>
             <NeighborhoodAutoComplete
               onBackPressed={this.close}
-              defaultValue={this.state.addressFormatted}
               onClearInput={() => {}}
-              onSelectAddress={(addressFormatted, addressData) => {
-                this.setState({
-                  showMobileAddressInput: false,
-                  addressFormatted,
-                  addressData
-                })
-              }}
             />
           </Col>
         </MobieTypeaheadContainer>

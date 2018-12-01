@@ -41,24 +41,6 @@ const startServer = () => {
 
       server.use('/imoveis', listingsRouter)
 
-      // New listings search route
-
-      server.get('/search/:state/:city/:neighborhood/', (req, res) => {
-        const actualPage = '/listings/search'
-        const neighborhood = req.params.neighborhood
-        const queryParams = {
-          neighborhoodSlug: neighborhood,
-          state: req.params.state,
-          city: req.params.city
-        }
-        res.locals.app.render(req, res, actualPage, queryParams)
-      })
-
-      server.get(['/search/', '/search/:state', '/search/:state/:city'], (req, res) => {
-        const actualPage = '/listings/search'
-        res.locals.app.render(req, res, actualPage, req.query)
-      })
-
       server.get(
         '/:state/:city/:neighborhood/:street/:listingId(id-\\d+)',
         (req, res) => {
@@ -104,7 +86,7 @@ const startServer = () => {
       })
 
       server.get('/vender-imovel', (req, res) => {
-        res.redirect(301, '/saiba-mais-para-vender')
+        res.redirect(301, '/vender')
       })
 
       server.get('/jobs', (req, res) => {
@@ -151,20 +133,33 @@ const startServer = () => {
         return app.render(req, res, '/listings/new-listing', req.query)
       })
 
-      server.get('/comprar', (req, res) => {
+      server.get('/', (req, res) => {
         return app.render(req, res, '/listings/buy', req.query)
       })
 
-      server.get('/comprar/sao-paulo', (req, res) => {
+      server.get('/sao-paulo', (req, res) => {
         return app.render(req, res, '/listings/buy', {city: 'sp'})
       })
 
-      server.get('/comprar/rio-de-janeiro', (req, res) => {
+      server.get('/rio-de-janeiro', (req, res) => {
         return app.render(req, res, '/listings/buy', {city: 'rj'})
       })
 
+
+      server.get('/comprar', (req, res) => {
+        return res.redirect(301, '/')
+      })
+
+      server.get('/comprar/sao-paulo', (req, res) => {
+        return res.redirect(301, '/sao-paulo')
+      })
+
+      server.get('/comprar/rio-de-janeiro', (req, res) => {
+        return res.redirect(301, '/rio-de-janeiro')
+      })
+
       server.get('/saiba-mais-para-vender', (req, res) => {
-        return app.render(req, res, '/listings/sell/know-more', req.query)
+        return res.redirect(301, '/vender')
       })
 
       server.get('/avaliacao-imovel', (req, res) => {

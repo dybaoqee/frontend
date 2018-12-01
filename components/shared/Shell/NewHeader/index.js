@@ -56,7 +56,7 @@ export default class Header extends Component {
       <ThemeProvider theme={theme}>
         <Wrapper>
           <Container transparent={transparent} className={sticky ? 'sticky' : null}>
-            <Link href="/">
+            <Link href="/listings/buy" as="/">
               <Logo alt="EmCasa Imobiliária no Rio de Janeiro e São Paulo" />
             </Link>
             {isMobileNavVisible && <Overlay onClick={this.toggleMobileNavVisibility} />}
