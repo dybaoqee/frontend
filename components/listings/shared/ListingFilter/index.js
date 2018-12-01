@@ -31,7 +31,7 @@ export default class Filter extends Component {
         })
       )
     }
-    
+
     this.state = {
       values: initialValues,
       showType: false,
@@ -164,7 +164,7 @@ export default class Filter extends Component {
     }
     switch (filter) {
       case 'types': return 'Tipos de imóveis'
-      case 'area': return 'Area'
+      case 'area': return 'Área'
       case 'price': return 'Valor'
       case 'rooms': return 'Quartos'
       case 'garageSpots': return 'Vagas de garagem'
