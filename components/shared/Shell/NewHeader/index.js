@@ -51,7 +51,7 @@ export default class Header extends Component {
   render() {
     const {transparent, authenticated, router} = this.props
     const {sticky, isMobileNavVisible} = this.state
-
+    const currentPath = router.asPath
     return (
       <ThemeProvider theme={theme}>
         <Wrapper>
@@ -70,21 +70,21 @@ export default class Header extends Component {
               <CloseNavButton
                 visible={isMobileNavVisible}
                 onClick={this.toggleMobileNavVisibility} />
-              <Link href="/listings/buy" as="/">
-                <MenuItem>
+              <Link href="/listings/search" as="/imoveis">
+                <MenuItem className={router.route === '/listings/search' ? 'active' :  null}>
                   <FontAwesomeIcon icon={faSearch} className="icon" />
                   <Text>Comprar</Text>
                 </MenuItem>
               </Link>
               <Link href="/vender">
-                <MenuItem className="active">
+                <MenuItem className={currentPath.startsWith('/vender') ? 'active' :  null}>
                   <FontAwesomeIcon className="icon" icon={faFlag} />
                   <Text>Vender</Text>
                 </MenuItem>
               </Link>
               {authenticated && (
                 <Link href="/meu-perfil">
-                  <MenuItem>
+                  <MenuItem className={currentPath.startsWith('/meu-perfil') ? 'active' :  null}>
                     <FontAwesomeIcon className="icon" icon={faUser} />
                     <Text>Meu Perfil</Text>
                   </MenuItem>
