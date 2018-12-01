@@ -7,7 +7,7 @@ exports[`<SellListing/> should render a clean page 1`] = `
 }
 
 .c7 {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   width: 100%;
 }
 
@@ -16,6 +16,7 @@ exports[`<SellListing/> should render a clean page 1`] = `
 }
 
 .c12 {
+  margin-bottom: 25px;
   width: 100%;
 }
 
@@ -166,6 +167,7 @@ exports[`<SellListing/> should render a clean page 1`] = `
 }
 
 .c15 {
+  margin-top: 0;
   -webkit-text-decoration: underline;
   text-decoration: underline;
   cursor: pointer;
@@ -192,7 +194,7 @@ exports[`<SellListing/> should render a clean page 1`] = `
 
 .c1 {
   max-width: 100%;
-  margin-top: 76px;
+  margin-top: 152px;
 }
 
 @media screen and (min-width:780px) {
@@ -204,6 +206,12 @@ exports[`<SellListing/> should render a clean page 1`] = `
 @media screen and (min-width:780px) {
   .c6 {
     width: 83.33333333333334%;
+  }
+}
+
+@media screen and (min-width:780px) {
+  .c12 {
+    margin-bottom: 0px;
   }
 }
 
@@ -241,12 +249,6 @@ exports[`<SellListing/> should render a clean page 1`] = `
   }
 }
 
-@media (max-height:690px) {
-  .c0 {
-    background-image: url(https://res.cloudinary.com/emcasa/image/upload/fl_any_format/v1542831121/background/wall-small.jpg);
-  }
-}
-
 @media only screen and (min-device-width:768px) and (max-device-width:1024px) {
   .c0 {
     -webkit-align-items: center;
@@ -254,16 +256,6 @@ exports[`<SellListing/> should render a clean page 1`] = `
     -ms-flex-align: center;
     align-items: center;
     background-image: url(https://res.cloudinary.com/emcasa/image/upload/fl_any_format/v1542831121/background/wall-small.jpg);
-  }
-}
-
-@media (min-width:1500px) {
-  .c0 {
-    -webkit-align-items: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    margin-top: -20vh;
   }
 }
 
@@ -284,6 +276,12 @@ exports[`<SellListing/> should render a clean page 1`] = `
           color="dark"
           fontSize="xlarge"
           fontWeight="bold"
+          style={
+            Object {
+              "marginBottom": 0,
+              "marginTop": 0,
+            }
+          }
         />
       </div>
     </div>
@@ -297,6 +295,11 @@ exports[`<SellListing/> should render a clean page 1`] = `
           className="c4"
           color="gray"
           fontSize="default"
+          style={
+            Object {
+              "margin": "0.5em",
+            }
+          }
         >
           Vender seu imóvel nunca foi tão fácil, informe o endereço do seu imóvel e receba agora uma avaliação grátis
         </p>
