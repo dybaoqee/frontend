@@ -11,7 +11,8 @@ import faTrash from '@fortawesome/fontawesome-pro-light/faTrash'
 import faRemove from '@fortawesome/fontawesome-pro-light/faTimesCircle'
 import includes from 'lodash/includes'
 import remove from 'lodash/remove'
-import Container, {
+import {
+  Container,
   FiltersApplied,
   FiltersAppliedContainer,
   FilterApplied,

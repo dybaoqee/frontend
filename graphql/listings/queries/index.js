@@ -15,7 +15,7 @@ export const GET_LISTINGS = gql`
         bathrooms
         price
         description
-        images(limit: 1, isActive: true) {
+        images(limit: 5, isActive: true) {
           filename
           position
         }
