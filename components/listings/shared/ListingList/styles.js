@@ -8,6 +8,8 @@ const Title = styled(Row)`
   margin-right: 30px;
 `
 
+const MAP_WIDTH = '400px';
+
 const MapContainer = styled.div`
   position: sticky;
   top: ${HEADER_HEIGHT}px;
@@ -16,8 +18,8 @@ const MapContainer = styled.div`
   box-sizing: border-box;
   background: white;
   border-radius: 4px;
-  width: 420px;
-  min-width: 420px;
+  width: ${MAP_WIDTH};
+  min-width: ${MAP_WIDTH};
   height: calc(100vh - ${HEADER_HEIGHT}px);
 `
 
