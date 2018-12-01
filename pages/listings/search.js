@@ -77,14 +77,18 @@ class ListingSearch extends Component {
 
   getHead = () => {
     const {neighborhood} = this.state
+    const {query} = this.props
+    const fullCity = query.state === 'rj' ? 'na Zona Sul do Rio de Janeiro' : 'em São Paulo'
+    const city = query.state === 'rj' ? 'Rio De Janeiro' : 'São Paulo'
+
     const seoImgSrc =
       'https://res.cloudinary.com/emcasa/image/upload/f_auto/v1513818385/home-2018-04-03_cozxd9.jpg'
     const title = !neighborhood
-      ? 'Apartamentos e Casas à venda na Zona Sul do Rio de Janeiro | EmCasa'
-      : `Apartamentos e Casas à venda - ${neighborhood}, Rio de Janeiro | EmCasa`
+      ? `Apartamentos e Casas à venda ${fullCity} | EmCasa`
+      : `Apartamentos e Casas à venda - ${neighborhood}, ${city} | EmCasa`
     const description = !neighborhood
-      ? 'Conheça em Compre Apartamentos e Casas à venda na Zona Sul do Rio de Janeiro com o sistema exclusivo de Tour 3D da EmCasa'
-      : `Conheça em Compre Apartamentos e Casas à venda - ${neighborhood}, Zona Sul do Rio de Janeiro com o sistema exclusivo de Tour 3D da EmCasa`
+      ? `Conheça em Compre Apartamentos e Casas à venda ${fullCity} com o sistema exclusivo de Tour 3D da EmCasa`
+      : `Conheça em Compre Apartamentos e Casas à venda - ${neighborhood}, ${city} com o sistema exclusivo de Tour 3D da EmCasa`
 
     return (
       <Head>
