@@ -83,7 +83,7 @@ export default class BuyListing extends Component {
                 <Col mb={4}>
                   <MobileAddressButton
                     onClick={this.openMobileAddressInput}
-                    address={this.state.addressFormatted}
+                    address="Bairro, Cidade ou Código"
                   />
                 </Col>
               :

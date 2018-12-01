@@ -111,7 +111,7 @@ export default class Header extends Component {
     return (
       <ThemeProvider theme={theme}>
         <Wrapper>
-          <Container transparent={transparent} className={sticky ? 'sticky' : null} search={search}>
+          <Container transparent={transparent} className={sticky && !search ? 'sticky' : null} search={search}>
             <Link href="/listings/buy" as="/">
               <>
                 {!search && <Logo alt="EmCasa Imobiliária no Rio de Janeiro e São Paulo" />}
