@@ -259,8 +259,11 @@ class ListingList extends Component {
   }
 
   render() {
-    const {filters} = this.props
-    const h1Content = 'Apartamentos e Casas à venda na Zona Sul do Rio de Janeiro'
+    const {filters, query} = this.props
+    const {state} = query
+    const h1Content = state === 'rj' ?
+      'Apartamentos e Casas à venda na Zona Sul do Rio de Janeiro' :
+      'Apartamentos e Casas à venda em São Paulo'
     return (
       <Query
         query={GET_LISTINGS}

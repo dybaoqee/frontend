@@ -65,6 +65,7 @@ class ListingInfiniteScroll extends Component {
   render() {
     const {
       entries,
+      titleComponent,
       remaining_count,
       horizontal,
       children: renderEntry
@@ -73,6 +74,7 @@ class ListingInfiniteScroll extends Component {
       <Container
         innerRef={(wrapper) => (this.wrapper = wrapper)}
       >
+        {titleComponent && !horizontal && titleComponent}
         <ListContainer>
           {entries.map(renderEntry)}
         </ListContainer>
