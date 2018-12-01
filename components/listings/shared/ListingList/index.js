@@ -273,7 +273,7 @@ class ListingList extends Component {
               <Title>
                 <Text>{h1Content}</Text>
               </Title>
-              <Row justifyContent="center">
+              <Row justifyContent={['center', 'flex-start']}>
                 {this.getListings(listings, fetchMore)}
                 {this.state.renderMap && this.getMap()}
               </Row>
