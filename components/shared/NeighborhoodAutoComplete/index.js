@@ -199,7 +199,6 @@ export default class NeighborhoodAutoComplete extends Component {
               placeholder="Bairro ou Cidade"
               onChange={this.onChange}
               autoComplete="off"
-              height="medium"
             />
           </Col>
           {loadingPlaceInfo &&
