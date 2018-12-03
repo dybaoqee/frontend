@@ -33,7 +33,6 @@ class ListingSearch extends Component {
       transparentHeader: false,
       newHeader: true,
       query: context.query,
-      params: context.req.params,
       renderFooter: false,
       headerSearch: true
     }
@@ -59,14 +58,8 @@ class ListingSearch extends Component {
   onChangeFilter = (filters) => {
     const newQuery = treatParams(filters)
 
-    const { params } = this.props
-    let route = ''
-    if (params) {
-      route = `/${params.state}/${params.city}${params.neighborhood ? `/${params.neighborhood}` : ``}`
-    }
-
     const query = newQuery.length > 0 ? `?${newQuery}` : ''
-    Router.push(`/listings/search${query}`, `/imoveis${route}${query}`, {
+    Router.push(`/listings/search${query}`, `/imoveis${query}`, {
       shallow: true
     })
     this.setState({
@@ -112,16 +105,12 @@ class ListingSearch extends Component {
   }
 
   render() {
-    const {neighborhoods, query, params, user, client} = this.props
+    const {neighborhoods, query, user, client} = this.props
     const {filters} = this.state
 
-    const hasQuery = query && Object.keys(query).length > 0
-    const hasParams = params && Object.keys(params).length > 0
-    if (hasQuery) {
+    const hasFilters = Object.keys(filters).length > 0
+    if (!hasFilters && query.neighborhoodSlug) {
       filters.neighborhoodsSlugs = [query.neighborhoodSlug]
-    }
-    if (hasParams) {
-      filters.citiesSlug = [params.city]
     }
 
     return (
