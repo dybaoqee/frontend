@@ -1,19 +1,15 @@
 import styled from 'styled-components'
 import { themeGet } from 'styled-system'
-import theme from '@emcasa/ui'
 import View from '@emcasa/ui-dom/components/View'
 import Row from '@emcasa/ui-dom/components/Row'
 import Icon from '@emcasa/ui-dom/components/Icon'
-
-const HEIGHT_TALL = theme.buttonHeight[0]
-const HEIGHT_MEDIUM = theme.buttonHeight[1]
 
 const SearchResultItem = styled(View)`
   display: flex;
   align-items: center;
   box-sizing: border-box;
   padding: ${themeGet('space.1')}px;
-  height: ${(props) => (props.height && props.height === 'medium') ? HEIGHT_MEDIUM : HEIGHT_TALL}px;
+  height: ${themeGet('buttonHeight.1')}px;
   border: 1px solid ${themeGet('colors.lightGrey')};
   border-radius: ${themeGet('space.1')}px;
   background-color: ${themeGet('colors.white')};
