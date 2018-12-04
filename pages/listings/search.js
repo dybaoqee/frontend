@@ -28,12 +28,13 @@ class ListingSearch extends Component {
   }
 
   static async getInitialProps(context) {
+    const params = context.req && context.req.params ? context.req.params : null
     return {
       hideSeparator: true,
       transparentHeader: false,
       newHeader: true,
       query: context.query,
-      params: context.req.params,
+      params,
       renderFooter: false,
       headerSearch: true
     }

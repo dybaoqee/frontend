@@ -89,7 +89,7 @@ export default class NeighborhoodAutoComplete extends Component {
                 pathname: url,
                 asPath: url
               }}>
-                <SearchResultItem>
+                <SearchResultItem height={this.props.height}>
                   <Text>{item.name}, {item.nameSlug ? item.city : item.state}</Text>
                 </SearchResultItem>
               </Link>
@@ -173,7 +173,7 @@ export default class NeighborhoodAutoComplete extends Component {
       errors
     } = this.state
     const value = place.description || search
-    const { onBackPressed, defaultValue } = this.props
+    const { onBackPressed, defaultValue, height } = this.props
 
     let suggestionsWidth = null
     if (this.inputContainer && this.inputContainer.current) {
@@ -199,7 +199,7 @@ export default class NeighborhoodAutoComplete extends Component {
               placeholder="Bairro ou Cidade"
               onChange={this.onChange}
               autoComplete="off"
-              height="medium"
+              height={height ? height : 'tall'}
             />
           </Col>
           {loadingPlaceInfo &&
