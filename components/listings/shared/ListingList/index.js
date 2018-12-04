@@ -22,7 +22,7 @@ import {
   Title
 } from './styles'
 
-const MIN_WIDTH_FOR_MAP_RENDER = 1080
+const MIN_WIDTH_FOR_MAP_RENDER = 1471
 
 class ListingList extends Component {
   constructor(props) {
@@ -276,7 +276,7 @@ class ListingList extends Component {
               <Title>
                 <Text>{state ? h1Content : null}</Text>
               </Title>
-              <Row justifyContent={['center', 'flex-start']}>
+              <Row justifyContent="center" style={{maxWidth: 1480, margin: 'auto'}}>
                 {this.getListings(listings, fetchMore)}
                 {this.state.renderMap && this.getMap()}
               </Row>
