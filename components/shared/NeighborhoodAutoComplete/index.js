@@ -4,7 +4,7 @@ import slug from 'slug'
 import PropTypes from 'prop-types'
 import {Query} from 'react-apollo'
 import { filterComponent } from 'services/google-maps-api'
-import { MoonLoader } from 'react-spinners';
+import { MoonLoader } from 'react-spinners'
 import Fuse from 'fuse.js'
 import {GET_DISTRICTS} from 'graphql/listings/queries'
 
