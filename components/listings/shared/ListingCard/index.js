@@ -12,10 +12,7 @@ import LikeButton from 'components/shared/Common/Buttons/Like'
 import { thumbnailUrl } from 'utils/image_url'
 import { intToCurrency } from 'utils/text-utils'
 import Row from '@emcasa/ui-dom/components/Row'
-import Col from '@emcasa/ui-dom/components/Col'
-import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
-import Button from '@emcasa/ui-dom/components/Button'
 import {
   Container,
   ListingImage,

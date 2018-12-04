@@ -1,5 +1,7 @@
 import {Component} from 'react'
 import {Query} from 'react-apollo'
+import { FadeLoader } from 'react-spinners'
+import theme from '@emcasa/ui'
 import {GET_USER_LISTINGS_ACTIONS} from 'graphql/user/queries'
 import {
   GET_LISTINGS,
@@ -73,6 +75,10 @@ class ListingList extends Component {
       highlight,
       neighborhoodListener
     } = this.props
+
+    if (!process.browser) {
+      return null
+    }
 
     if (result && result.listings.length > 0) {
       return (
