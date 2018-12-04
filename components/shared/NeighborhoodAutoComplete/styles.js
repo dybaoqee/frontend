@@ -9,7 +9,7 @@ const SearchResultItem = styled(View)`
   align-items: center;
   box-sizing: border-box;
   padding: ${themeGet('space.1')}px;
-  height: ${themeGet('buttonHeight.0')}px;
+  height: ${themeGet('buttonHeight.1')}px;
   border: 1px solid ${themeGet('colors.lightGrey')};
   border-radius: ${themeGet('space.1')}px;
   background-color: ${themeGet('colors.white')};
