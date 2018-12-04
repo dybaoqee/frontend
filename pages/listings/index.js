@@ -62,7 +62,7 @@ class ListingSearch extends Component {
 
     const { params } = this.props
     let route = ''
-    if (params) {
+    if (params && Object.keys(params).length > 0) {
       route = `/${params.state}/${params.city}${params.neighborhood ? `/${params.neighborhood}` : ``}`
     }
 
