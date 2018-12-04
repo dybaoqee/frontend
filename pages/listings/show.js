@@ -161,7 +161,7 @@ class Listing extends Component {
   async componentDidMount() {
     const {listing} = this.props
     if (listing && listing.id) {
-      const related = await getRelatedListings(id).then(({data}) => data.listings)
+      const related = await getRelatedListings(listing.id).then(({data}) => data.listings)
       this.setState({related})
     }
   }
