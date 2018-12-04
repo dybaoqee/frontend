@@ -56,9 +56,9 @@ export default class HomeSearch extends Component {
     const params = `bairros=${neighborhoods.join('|')}`
 
     if (neighborhoods.length) {
-      return {href: `/listings/index?${params}`, as: `/imoveis?${params}`}
+      return {href: `/listings?${params}`, as: `/imoveis?${params}`}
     } else {
-      return {href: '/listings/index', as: '/imoveis'}
+      return {href: '/listings', as: '/imoveis'}
     }
   }
 
