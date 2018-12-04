@@ -56,7 +56,7 @@ export default class Index extends Component {
         </Query>
         <CallToAction
           call="Ver mais imóveis"
-          href={'/listings/index'}
+          href={'/listings'}
           as={'/imoveis'}
         />
         <HomeTour />

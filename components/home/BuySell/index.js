@@ -9,7 +9,7 @@ export default class HomeBuySell extends Component {
       <Container>
         <div>
           <Title>Pronto para comprar seu imóvel?</Title>
-          <Link href={'/listings/index'} as={'/imoveis'}>
+          <Link href={'/listings'} as={'/imoveis'}>
             <EmCasaButton light secondary>
               Comprar Imóvel
             </EmCasaButton>

@@ -1,4 +1,7 @@
-import {Component, Fragment} from 'react'
+import '@emcasa/ui-dom/components/global-styles'
+import {Component} from 'react'
+import {ThemeProvider} from 'styled-components'
+import theme from '@emcasa/ui'
 import Head from 'next/head'
 import Router from 'next/router'
 import {
@@ -7,11 +10,11 @@ import {
   getFiltersFromFilters,
   getFiltersFromQuery
 } from 'utils/filter-params.js'
-import Filter from 'components/listings/shared/Search'
-import Listings from 'components/listings/shared/Listings'
+import ListingFilter from 'components/listings/shared/ListingFilter'
+import ListingList from 'components/listings/shared/ListingList'
 import {getUrlVars} from 'utils/text-utils'
 
-class ListingsIndex extends Component {
+class ListingSearch extends Component {
   constructor(props) {
     super(props)
 
@@ -25,9 +28,15 @@ class ListingsIndex extends Component {
   }
 
   static async getInitialProps(context) {
+    const params = context.req && context.req.params ? context.req.params : null
     return {
+      hideSeparator: true,
+      transparentHeader: false,
+      newHeader: true,
       query: context.query,
-      renderFooter: false
+      params,
+      renderFooter: false,
+      headerSearch: true
     }
   }
 
@@ -51,8 +60,14 @@ class ListingsIndex extends Component {
   onChangeFilter = (filters) => {
     const newQuery = treatParams(filters)
 
+    const { params } = this.props
+    let route = ''
+    if (params) {
+      route = `/${params.state}/${params.city}${params.neighborhood ? `/${params.neighborhood}` : ``}`
+    }
+
     const query = newQuery.length > 0 ? `?${newQuery}` : ''
-    Router.push(`/listings${query}`, `/imoveis${query}`, {
+    Router.push(`/listings${query}`, `/imoveis${route}${query}`, {
       shallow: true
     })
     this.setState({
@@ -69,16 +84,19 @@ class ListingsIndex extends Component {
   }
 
   getHead = () => {
-    const {query} = this.props
     const {neighborhood} = this.state
+    const {query} = this.props
+    const fullCity = query.state === 'rj' ? 'na Zona Sul do Rio de Janeiro' : 'em São Paulo'
+    const city = query.state === 'rj' ? 'Rio De Janeiro' : 'São Paulo'
+
     const seoImgSrc =
       'https://res.cloudinary.com/emcasa/image/upload/f_auto/v1513818385/home-2018-04-03_cozxd9.jpg'
     const title = !neighborhood
-      ? 'Apartamentos e Casas à venda na Zona Sul do Rio de Janeiro | EmCasa'
-      : `Apartamentos e Casas à venda - ${neighborhood}, Rio de Janeiro | EmCasa`
+      ? `Apartamentos e Casas à venda ${fullCity} | EmCasa`
+      : `Apartamentos e Casas à venda - ${neighborhood}, ${city} | EmCasa`
     const description = !neighborhood
-      ? 'Conheça em Compre Apartamentos e Casas à venda na Zona Sul do Rio de Janeiro com o sistema exclusivo de Tour 3D da EmCasa'
-      : `Conheça em Compre Apartamentos e Casas à venda - ${neighborhood}, Zona Sul do Rio de Janeiro com o sistema exclusivo de Tour 3D da EmCasa`
+      ? `Conheça em Compre Apartamentos e Casas à venda ${fullCity} com o sistema exclusivo de Tour 3D da EmCasa`
+      : `Conheça em Compre Apartamentos e Casas à venda - ${neighborhood}, ${city} com o sistema exclusivo de Tour 3D da EmCasa`
 
     return (
       <Head>
@@ -95,40 +113,45 @@ class ListingsIndex extends Component {
   }
 
   render() {
-    const {neighborhoods, query, user, client} = this.props
+    const {neighborhoods, query, params, user, client} = this.props
     const {filters} = this.state
 
-    const hasFilters = Object.keys(filters).length > 0
-    if (!hasFilters && query.neighborhoodSlug) {
+    const hasQuery = query && Object.keys(query).length > 0
+    const hasParams = params && Object.keys(params).length > 0
+    if (hasQuery) {
       filters.neighborhoodsSlugs = [query.neighborhoodSlug]
+    }
+    if (hasParams) {
+      filters.citiesSlug = [params.city]
     }
 
     return (
-      <Fragment>
-        {this.getHead()}
-
-        <Filter
-          neighborhoods={neighborhoods}
-          onChange={this.onChangeFilter}
-          onReset={this.onResetFilter}
-          initialFilters={getDerivedParams(query)}
-          ref={(filter) => (this.filter = filter)}
-        />
-        <Listings
-          query={query}
-          user={user}
-          resetFilters={this.onResetFilter}
-          filters={filters}
-          apolloClient={client}
-          neighborhoodListener={(neighborhood) => {
-            if (!this.state.neighborhood) {
-              this.setState({neighborhood: neighborhood})
-            }
-          }}
-        />
-      </Fragment>
+      <ThemeProvider theme={theme}>
+        <>
+          {this.getHead()}
+          <ListingFilter
+            neighborhoods={neighborhoods}
+            onChange={this.onChangeFilter}
+            onReset={this.onResetFilter}
+            initialFilters={getDerivedParams(query)}
+            ref={(filter) => (this.filter = filter)}
+          />
+          <ListingList
+            query={query}
+            user={user}
+            resetFilters={this.onResetFilter}
+            filters={filters}
+            apolloClient={client}
+            neighborhoodListener={(neighborhood) => {
+              if (!this.state.neighborhood) {
+                this.setState({neighborhood: neighborhood})
+              }
+            }}
+          />
+        </>
+      </ThemeProvider>
     )
   }
 }
 
-export default ListingsIndex
+export default ListingSearch

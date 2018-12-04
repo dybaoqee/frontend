@@ -39,7 +39,7 @@ const Footer = () => (
       <Col width={[1, 2 / 12]}>
         <Text {...titleText}>EmCasa</Text>
         <LinkGroup>
-          <Link href="/listings/search" as="/imoveis">
+          <Link href="/listings" as="/imoveis">
             <TextLink>Compre</TextLink>
           </Link>
           <Link href="/listings/sell" as="/vender">

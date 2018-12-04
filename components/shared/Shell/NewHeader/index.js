@@ -131,8 +131,8 @@ export default class Header extends Component {
               <CloseNavButton
                 visible={isMobileNavVisible}
                 onClick={this.toggleMobileNavVisibility} />
-              <Link href="/listings/search" as="/imoveis">
-                <MenuItem className={router.route === '/listings/search' ? 'active' :  null}>
+              <Link href="/listings" as="/imoveis">
+                <MenuItem className={router.route === '/listings' ? 'active' :  null}>
                   <FontAwesomeIcon icon={faSearch} className="icon" />
                   <Text>Comprar</Text>
                 </MenuItem>
