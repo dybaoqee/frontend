@@ -1,9 +1,9 @@
 import {Component} from 'react'
 import throttle from 'lodash/throttle'
 import {getY, getX} from 'utils/polyfills/bounding-rect'
+import { FadeLoader } from 'react-spinners'
 import Row from '@emcasa/ui-dom/components/Row'
-import Col from '@emcasa/ui-dom/components/Col'
-import Text from '@emcasa/ui-dom/components/Text'
+import theme from '@emcasa/ui'
 import {
   Container,
   ListContainer,
@@ -89,7 +89,15 @@ class ListingInfiniteScroll extends Component {
               onClick={() => !this.state.loading && this.loadMore()}
               title="Próxima página"
             >
-              Carregando...
+            <Row justifyContent="center">
+              <FadeLoader
+                width={10}
+                height={10}
+                margin={2}
+                radius={8}
+                color={theme.colors.pink}
+              />
+            </Row>
             </a>
           </Footer>
         )}
