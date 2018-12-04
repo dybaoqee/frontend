@@ -56,23 +56,25 @@ class ListingCard extends Component {
         as={buildSlug(listing)}
         passHref
       >
-        <Container aria-label={`listing-${listing.id}`}>
-          <ListingImage url={thumbUrl} />
-          <Row flexDirection="column" p={2}>
-            <Row><Text inline fontSize="small">{listing.address.neighborhood.toUpperCase()}</Text></Row>
-            <Row><Text inline fontSize="small">{listing.address.street}</Text></Row>
-            <Row><Text inline fontSize="small" color="grey">{listingSummary}</Text></Row>
-            <Row><Text inline fontSize="large" fontWeight="bold">{intToCurrency(listing.price)}</Text></Row>
-          </Row>
-          <LikeButtonContainer onClick={(e) => {e.preventDefault()}}>
-            <LikeButton
-              favorite={favorited}
-              listing={listing}
-              user={currentUser}
-              secondary
-            />
-          </LikeButtonContainer>
-        </Container>
+        <a style={{textDecoration: 'none'}}>
+          <Container aria-label={`listing-${listing.id}`}>
+            <ListingImage url={thumbUrl} />
+            <Row flexDirection="column" p={2}>
+              <Row><Text inline fontSize="small">{listing.address.neighborhood.toUpperCase()}</Text></Row>
+              <Row><Text inline fontSize="small">{listing.address.street}</Text></Row>
+              <Row><Text inline fontSize="small" color="grey">{listingSummary}</Text></Row>
+              <Row><Text inline fontSize="large" fontWeight="bold">{intToCurrency(listing.price)}</Text></Row>
+            </Row>
+            <LikeButtonContainer onClick={(e) => {e.preventDefault()}}>
+              <LikeButton
+                favorite={favorited}
+                listing={listing}
+                user={currentUser}
+                secondary
+              />
+            </LikeButtonContainer>
+          </Container>
+        </a>
       </Link>
     )
   }
