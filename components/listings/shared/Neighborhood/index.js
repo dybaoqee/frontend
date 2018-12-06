@@ -1,10 +1,14 @@
 import {Component} from 'react'
-import Container, {Title, Info} from './styles'
 import {Query} from 'react-apollo'
 import {GET_NEIGHBORHOOD_DESCRIPTION} from 'graphql/listings/queries'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faArrowDown from '@fortawesome/fontawesome-pro-regular/faArrowDown'
 import faArrowUp from '@fortawesome/fontawesome-pro-regular/faArrowUp'
+import {
+  Container,
+  Title,
+  Info
+} from './styles'
 
 /**
  * Dropdown with neighborhood information.

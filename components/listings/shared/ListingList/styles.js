@@ -6,6 +6,13 @@ import Row from '@emcasa/ui-dom/components/Row'
 const MIN_WIDTH_FOR_MAP_RENDER = 1279
 const MAP_WIDTH_PERCENT = 30
 
+const shouldShowMap = () => {
+  if (process.browser && window) {
+    return window.innerWidth >= MIN_WIDTH_FOR_MAP_RENDER
+  }
+  return false
+}
+
 const Title = styled(Row)`
   margin-left: ${themeGet('space.4')}px;
   margin-right: ${themeGet('space.4')}px;
@@ -39,6 +46,7 @@ const Loading = styled.div`
 export {
   MIN_WIDTH_FOR_MAP_RENDER,
   MAP_WIDTH_PERCENT,
+  shouldShowMap,
   Container,
   MapContainer,
   Loading,

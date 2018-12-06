@@ -3,7 +3,7 @@ import { themeGet } from 'styled-system'
 import theme from '@emcasa/ui'
 import View from '@emcasa/ui-dom/components/View'
 import {
-  MIN_WIDTH_FOR_MAP_RENDER,
+  shouldShowMap,
   MAP_WIDTH_PERCENT
 } from 'components/listings/shared/ListingList/styles'
 
@@ -16,7 +16,7 @@ const getCardWidth = () => {
   const pageMargins = CARD_MARGIN * 2
 
   // Map width to be discounted
-  const showMap = containerWidth >= MIN_WIDTH_FOR_MAP_RENDER
+  const showMap = shouldShowMap()
   const mapWidth = showMap ? (containerWidth) * (MAP_WIDTH_PERCENT / 100) : 0
 
   // Calculated area to fit cards (in one row)

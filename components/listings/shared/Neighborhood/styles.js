@@ -1,14 +1,17 @@
 import styled from 'styled-components'
 import { themeGet } from 'styled-system'
+import {
+  shouldShowMap
+} from 'components/listings/shared/ListingList/styles'
 
-export default styled.div`
+export const Container = styled.div`
   box-sizing: border-box;
   height: auto;
   display: flex;
   flex-direction: column;
-  border: 1px solid #E0E6ED;;
+  border: 1px solid #E0E6ED;
   border-radius: 4px;
-  margin: 0 ${themeGet('space.4')}px ${themeGet('space.4')}px 0;
+  margin: 0 ${() => shouldShowMap() ? 40 : themeGet('space.4')}px ${themeGet('space.4')}px 0;
   padding: 10px;
 `
 
