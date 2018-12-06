@@ -3,11 +3,10 @@ import Link from 'next/link'
 import slug from 'slug'
 import PropTypes from 'prop-types'
 import {Query} from 'react-apollo'
-import { filterComponent } from 'services/google-maps-api'
 import { MoonLoader } from 'react-spinners'
 import Fuse from 'fuse.js'
 import {GET_DISTRICTS} from 'graphql/listings/queries'
-
+import {isMobile} from 'lib/mobile'
 import theme from '@emcasa/ui'
 import Input from '@emcasa/ui-dom/components/Input'
 import Col from '@emcasa/ui-dom/components/Col'
@@ -57,7 +56,7 @@ export default class NeighborhoodAutoComplete extends Component {
   }
 
   componentDidMount() {
-    if (this.searchInput.current) {
+    if (this.searchInput.current && isMobile()) {
       this.searchInput.current.focus()
     }
   }

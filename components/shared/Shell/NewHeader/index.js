@@ -75,8 +75,9 @@ export default class Header extends Component {
         {isMobile() ? <MobileAddressButton
           address="Bairro ou Cidade"
           onClick={this.openMobileSearch}
+          height="medium"
         /> :
-          <NeighborhoodAutoComplete height={this.state.isMobileNavVisible ? 'medium' : 'tall'} />
+          <NeighborhoodAutoComplete height="medium" />
         }
       </Search>
     )
@@ -89,7 +90,7 @@ export default class Header extends Component {
           <NeighborhoodAutoComplete
             onBackPressed={this.closeMobileSearch}
             onClearInput={() => {}}
-            height={this.state.isMobileNavVisible ? 'medium' : 'tall'}
+            height="medium"
           />
         </Col>
       </MobieTypeaheadContainer>

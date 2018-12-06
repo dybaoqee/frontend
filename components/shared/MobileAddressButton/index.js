@@ -8,11 +8,11 @@ import {
 
 class MobileAddressButton extends PureComponent {
   render() {
-    const { address, onClick } = this.props
+    const { height, address, onClick } = this.props
     return (
       <Container
         fluid
-        height="tall"
+        height={height || 'tall'}
         onClick={onClick}>
         <MobileAddressTextContainer>
           <MobileAddressText
