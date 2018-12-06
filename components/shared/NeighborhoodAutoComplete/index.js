@@ -29,6 +29,8 @@ export default class NeighborhoodAutoComplete extends Component {
     this.predictionsIds = []
     this.secondaryText = undefined
     this.onBlur = this.onBlur.bind(this)
+    this.hidePredictions = this.hidePredictions.bind(this)
+    this.hidePredictionsTimer = null
   }
 
   state = {
@@ -52,6 +54,10 @@ export default class NeighborhoodAutoComplete extends Component {
 
   static defaultProps = {
     defaultValue: null
+  }
+
+  componentWillUnmount() {
+    clearTimer(this.hidePredictionsTimer)
   }
 
   searchPlaces = async (input) => {
@@ -164,10 +170,12 @@ export default class NeighborhoodAutoComplete extends Component {
     }
   }
 
-  onBlur = (e) => {
-    setTimeout(() => {
-      this.setState({showPredictions: false})
-    }, 100)
+  hidePredictions = () => {
+    this.setState({showPredictions: false})
+  }
+
+  onBlur = () => {
+    this.hidePredictionsTimer = setTimeout(this.hidePredictions, 100)
   }
 
   render() {
