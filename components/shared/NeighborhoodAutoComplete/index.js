@@ -56,6 +56,12 @@ export default class NeighborhoodAutoComplete extends Component {
     defaultValue: null
   }
 
+  componentDidMount() {
+    if (this.searchInput.current) {
+      this.searchInput.current.focus()
+    }
+  }
+
   componentWillUnmount() {
     clearTimeout(this.hidePredictionsTimer)
   }
