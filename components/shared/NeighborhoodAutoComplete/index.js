@@ -3,11 +3,10 @@ import Link from 'next/link'
 import slug from 'slug'
 import PropTypes from 'prop-types'
 import {Query} from 'react-apollo'
-import { filterComponent } from 'services/google-maps-api'
 import { MoonLoader } from 'react-spinners'
 import Fuse from 'fuse.js'
 import {GET_DISTRICTS} from 'graphql/listings/queries'
-
+import {isMobile} from 'lib/mobile'
 import theme from '@emcasa/ui'
 import Input from '@emcasa/ui-dom/components/Input'
 import Col from '@emcasa/ui-dom/components/Col'
@@ -28,6 +27,9 @@ export default class NeighborhoodAutoComplete extends Component {
     this.inputContainer = React.createRef()
     this.predictionsIds = []
     this.secondaryText = undefined
+    this.onBlur = this.onBlur.bind(this)
+    this.hidePredictions = this.hidePredictions.bind(this)
+    this.hidePredictionsTimer = null
   }
 
   state = {
@@ -53,13 +55,22 @@ export default class NeighborhoodAutoComplete extends Component {
     defaultValue: null
   }
 
+  componentDidMount() {
+    if (this.searchInput.current && isMobile()) {
+      this.searchInput.current.focus()
+    }
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.hidePredictionsTimer)
+  }
+
   searchPlaces = async (input) => {
     this.setState({
       showPredictions: true,
       input: input,
       predictionSelected: 0,
     })
-
   }
 
   getSearchResults = () => {
@@ -89,7 +100,9 @@ export default class NeighborhoodAutoComplete extends Component {
                 pathname: url,
                 asPath: url
               }}>
-                <SearchResultItem height={this.props.height}>
+                <SearchResultItem
+                  height={this.props.height}
+                >
                   <Text>{item.name}, {item.nameSlug ? item.city : item.state}</Text>
                 </SearchResultItem>
               </Link>
@@ -98,7 +111,6 @@ export default class NeighborhoodAutoComplete extends Component {
         }}
       </Query>
     )
-
   }
 
   onKeyPress = (e) => {
@@ -163,6 +175,14 @@ export default class NeighborhoodAutoComplete extends Component {
     }
   }
 
+  hidePredictions = () => {
+    this.setState({showPredictions: false})
+  }
+
+  onBlur = () => {
+    this.hidePredictionsTimer = setTimeout(this.hidePredictions, 100)
+  }
+
   render() {
     const {
       dirty,
@@ -187,6 +207,7 @@ export default class NeighborhoodAutoComplete extends Component {
           }
           <Col width={1}>
             <Input
+              onBlur={this.onBlur}
               style={{border: 0}}
               hideLabelView
               hideErrorView

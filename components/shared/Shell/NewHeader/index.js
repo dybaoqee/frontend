@@ -70,13 +70,15 @@ export default class Header extends Component {
   }
 
   renderSearch() {
+    const height = isMobile() ? 'tall' : 'medium'
     return (
       <Search>
         {isMobile() ? <MobileAddressButton
           address="Bairro ou Cidade"
           onClick={this.openMobileSearch}
+          height={isMobile}
         /> :
-          <NeighborhoodAutoComplete height="medium" />
+          <NeighborhoodAutoComplete height={height} />
         }
       </Search>
     )
@@ -89,7 +91,7 @@ export default class Header extends Component {
           <NeighborhoodAutoComplete
             onBackPressed={this.closeMobileSearch}
             onClearInput={() => {}}
-            height="medium"
+            height={isMobile() ? 'tall' : medium}
           />
         </Col>
       </MobieTypeaheadContainer>
