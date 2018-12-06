@@ -1,19 +1,41 @@
 import styled from 'styled-components'
 import { themeGet } from 'styled-system'
+import theme from '@emcasa/ui'
 import View from '@emcasa/ui-dom/components/View'
+import {
+  MIN_WIDTH_FOR_MAP_RENDER,
+  MAP_WIDTH_PERCENT
+} from 'components/listings/shared/ListingList/styles'
 
-const THUMB_WIDTH = 308
-const THUMB_HEIGHT = 165
+const MIN_CARD_WIDTH = 300
+const CARD_MARGIN = theme.space[4]
+
+const getCardWidth = () => {
+  const containerWidth = window.innerWidth
+  // Two margins (each corner of the document: left of list, right of map)
+  const pageMargins = CARD_MARGIN * 2
+
+  // Map width to be discounted
+  const showMap = containerWidth >= MIN_WIDTH_FOR_MAP_RENDER
+  const mapWidth = showMap ? (containerWidth) * (MAP_WIDTH_PERCENT / 100) : 0
+
+  // Calculated area to fit cards (in one row)
+  const cardsArea = containerWidth - mapWidth - pageMargins + (showMap ? 0 : CARD_MARGIN)
+
+  // How many cards, minimum, can fit in this row?
+  const cardsPerRow = Math.floor(cardsArea / (MIN_CARD_WIDTH + CARD_MARGIN))
+  return cardsArea / cardsPerRow - (CARD_MARGIN)
+}
 
 const Container = styled(View)`
   position: relative;
   box-sizing: border-box;
   cursor: pointer;
-  width: 310px;
+  width: ${() => getCardWidth()}px;
   height: auto;
   border: 1px solid ${themeGet('colors.lightGrey')};
   border-radius: ${themeGet('space.1')}px;
-  margin: 0 ${themeGet('space.2')}px ${themeGet('space.4')}px ${themeGet('space.2')}px;
+  margin: 0 ${themeGet('space.4')}px ${themeGet('space.4')}px 0;
 
   : hover {
     border: 1px solid ${themeGet('colors.pink')};
@@ -25,8 +47,8 @@ const ListingImage = styled(View)`
   background-image: ${({url}) => `url('${url}')`};
   background-repeat: no-repeat;
   background-size: cover;
-  width: ${THUMB_WIDTH}px;
-  height: ${THUMB_HEIGHT}px;
+  width: 100%;
+  height: ${() => getCardWidth() * 0.5}px;
   border-radius: ${themeGet('space.1')}px ${themeGet('space.1')}px 0 0;
 `
 
@@ -39,7 +61,5 @@ const LikeButtonContainer = styled.div`
 export {
   Container,
   ListingImage,
-  LikeButtonContainer,
-  THUMB_WIDTH,
-  THUMB_HEIGHT
+  LikeButtonContainer
 }

@@ -3,9 +3,17 @@ import { themeGet } from 'styled-system'
 import { HEADER_HEIGHT } from 'components/shared/Shell/NewHeader/styles'
 import Row from '@emcasa/ui-dom/components/Row'
 
+const MIN_WIDTH_FOR_MAP_RENDER = 1279
+const MAP_WIDTH_PERCENT = 30
+
 const Title = styled(Row)`
   margin-left: 30px;
   margin-right: 30px;
+`
+
+const Container = styled(Row)`
+  justify-content: flex-start;
+  margin: auto;
 `
 
 const MapContainer = styled.div`
@@ -16,7 +24,7 @@ const MapContainer = styled.div`
   box-sizing: border-box;
   background: white;
   border-radius: 4px;
-  min-width: 30%;
+  min-width: ${MAP_WIDTH_PERCENT}%;
   height: calc(100vh - ${HEADER_HEIGHT}px);
 `
 
@@ -29,6 +37,9 @@ const Loading = styled.div`
 `
 
 export {
+  MIN_WIDTH_FOR_MAP_RENDER,
+  MAP_WIDTH_PERCENT,
+  Container,
   MapContainer,
   Loading,
   Title

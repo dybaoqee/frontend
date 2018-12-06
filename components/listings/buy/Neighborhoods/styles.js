@@ -121,7 +121,7 @@ export const Neighborhood = styled(View)`
   height: 185px;
   max-width: 100%;
   cursor: pointer;
-  background: url(http://res.cloudinary.com/emcasa/image/upload/v1543531007/bairros/${
+  background: url(https://res.cloudinary.com/emcasa/image/upload/v1543531007/bairros/${
     props => props.thumb + (props.soon ? '-em-breve' : '')}.png) ${theme.colors.pink};
   background-size: cover;
   border-radius: 4px;

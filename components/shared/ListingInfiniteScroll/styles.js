@@ -4,14 +4,14 @@ import View from '@emcasa/ui-dom/components/View'
 import { themeGet } from 'styled-system'
 
 const Container = styled(View)`
-  padding: 0 ${themeGet('space.4')}px ${themeGet('space.4')}px ${themeGet('space.4')}px;
+  padding: 0 0 ${themeGet('space.4')}px ${themeGet('space.4')}px;
 `
 
 const ListContainer = styled(Row)`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
 `
 
 const Footer = styled.footer`
