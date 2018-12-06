@@ -57,7 +57,7 @@ export default class NeighborhoodAutoComplete extends Component {
   }
 
   componentWillUnmount() {
-    clearTimer(this.hidePredictionsTimer)
+    clearTimeout(this.hidePredictionsTimer)
   }
 
   searchPlaces = async (input) => {
