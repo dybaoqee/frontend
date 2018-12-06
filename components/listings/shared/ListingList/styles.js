@@ -7,8 +7,8 @@ const MIN_WIDTH_FOR_MAP_RENDER = 1279
 const MAP_WIDTH_PERCENT = 30
 
 const Title = styled(Row)`
-  margin-left: 30px;
-  margin-right: 30px;
+  margin-left: ${themeGet('space.4')}px;
+  margin-right: ${themeGet('space.4')}px;
 `
 
 const Container = styled(Row)`

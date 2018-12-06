@@ -1,6 +1,5 @@
 import styled from 'styled-components'
-import {blue} from 'constants/colors'
-import theme from '@emcasa/ui'
+import { themeGet } from 'styled-system'
 
 export default styled.div`
   box-sizing: border-box;
@@ -9,7 +8,7 @@ export default styled.div`
   flex-direction: column;
   border: 1px solid #E0E6ED;;
   border-radius: 4px;
-  margin: -8px 10px 10px 10px;
+  margin: 0 ${themeGet('space.4')}px ${themeGet('space.4')}px 0;
   padding: 10px;
 `
 
