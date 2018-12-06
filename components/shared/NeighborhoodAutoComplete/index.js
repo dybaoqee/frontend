@@ -28,6 +28,7 @@ export default class NeighborhoodAutoComplete extends Component {
     this.inputContainer = React.createRef()
     this.predictionsIds = []
     this.secondaryText = undefined
+    this.onBlur = this.onBlur.bind(this)
   }
 
   state = {
@@ -59,7 +60,6 @@ export default class NeighborhoodAutoComplete extends Component {
       input: input,
       predictionSelected: 0,
     })
-
   }
 
   getSearchResults = () => {
@@ -89,7 +89,9 @@ export default class NeighborhoodAutoComplete extends Component {
                 pathname: url,
                 asPath: url
               }}>
-                <SearchResultItem height={this.props.height}>
+                <SearchResultItem
+                  height={this.props.height}
+                >
                   <Text>{item.name}, {item.nameSlug ? item.city : item.state}</Text>
                 </SearchResultItem>
               </Link>
@@ -98,7 +100,6 @@ export default class NeighborhoodAutoComplete extends Component {
         }}
       </Query>
     )
-
   }
 
   onKeyPress = (e) => {
@@ -163,6 +164,12 @@ export default class NeighborhoodAutoComplete extends Component {
     }
   }
 
+  onBlur = (e) => {
+    setTimeout(() => {
+      this.setState({showPredictions: false})
+    }, 100)
+  }
+
   render() {
     const {
       dirty,
@@ -187,6 +194,7 @@ export default class NeighborhoodAutoComplete extends Component {
           }
           <Col width={1}>
             <Input
+              onBlur={this.onBlur}
               style={{border: 0}}
               hideLabelView
               hideErrorView
