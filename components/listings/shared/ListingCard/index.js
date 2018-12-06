@@ -16,9 +16,7 @@ import Text from '@emcasa/ui-dom/components/Text'
 import {
   Container,
   ListingImage,
-  LikeButtonContainer,
-  THUMB_WIDTH,
-  THUMB_HEIGHT
+  LikeButtonContainer
 } from './styles'
 
 class ListingCard extends Component {
@@ -43,7 +41,7 @@ class ListingCard extends Component {
       ).length > 0
 
     const thumbFilename = listing.images && listing.images[0] ? listing.images[0].filename : ''
-    const thumbUrl = thumbnailUrl(thumbFilename, THUMB_WIDTH * 2, THUMB_HEIGHT * 2)
+    const thumbUrl = thumbnailUrl(thumbFilename, 600, 600)
     const listingSummary = getListingSummary(listing)
 
     return (

@@ -2,12 +2,12 @@ import styled from 'styled-components'
 import { themeGet } from 'styled-system'
 import theme from '@emcasa/ui'
 import View from '@emcasa/ui-dom/components/View'
-import { MAP_WIDTH_PERCENT } from 'components/listings/shared/ListingList/styles'
+import {
+  MIN_WIDTH_FOR_MAP_RENDER,
+  MAP_WIDTH_PERCENT
+} from 'components/listings/shared/ListingList/styles'
 
 const MIN_CARD_WIDTH = 300
-
-const THUMB_WIDTH = 308
-const THUMB_HEIGHT = 165
 const CARD_MARGIN = theme.space[4]
 
 const getCardWidth = () => {
@@ -16,13 +16,14 @@ const getCardWidth = () => {
   const pageMargins = CARD_MARGIN * 2
 
   // Map width to be discounted
-  const mapWidth = (containerWidth) * (MAP_WIDTH_PERCENT / 100)
+  const showMap = containerWidth >= MIN_WIDTH_FOR_MAP_RENDER
+  const mapWidth = showMap ? (containerWidth) * (MAP_WIDTH_PERCENT / 100) : 0
 
   // Calculated area to fit cards (in one row)
-  const cardsArea = containerWidth - mapWidth - pageMargins
+  const cardsArea = containerWidth - mapWidth - pageMargins + (showMap ? 0 : CARD_MARGIN)
 
   // How many cards, minimum, can fit in this row?
-  const cardsPerRow = Math.floor(cardsArea / MIN_CARD_WIDTH)
+  const cardsPerRow = Math.floor(cardsArea / (MIN_CARD_WIDTH + CARD_MARGIN))
   return cardsArea / cardsPerRow - (CARD_MARGIN)
 }
 
@@ -46,8 +47,8 @@ const ListingImage = styled(View)`
   background-image: ${({url}) => `url('${url}')`};
   background-repeat: no-repeat;
   background-size: cover;
-  width: ${THUMB_WIDTH}px;
-  height: ${THUMB_HEIGHT}px;
+  width: 100%;
+  height: ${() => getCardWidth() * 0.5}px;
   border-radius: ${themeGet('space.1')}px ${themeGet('space.1')}px 0 0;
 `
 
@@ -60,7 +61,5 @@ const LikeButtonContainer = styled.div`
 export {
   Container,
   ListingImage,
-  LikeButtonContainer,
-  THUMB_WIDTH,
-  THUMB_HEIGHT
+  LikeButtonContainer
 }
