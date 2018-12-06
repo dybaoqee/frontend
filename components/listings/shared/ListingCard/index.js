@@ -33,8 +33,7 @@ class ListingCard extends Component {
     let {
       listing,
       currentUser,
-      favorited: favoritedListings,
-      loading,
+      favorited: favoritedListings
     } = this.props
     listing = humps.decamelizeKeys(listing)
 

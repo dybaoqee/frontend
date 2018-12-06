@@ -19,12 +19,12 @@ import Neighborhood from 'components/listings/shared/Neighborhood'
 import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
 import {
+  MIN_WIDTH_FOR_MAP_RENDER,
+  Container,
   MapContainer,
   Loading,
   Title
 } from './styles'
-
-const MIN_WIDTH_FOR_MAP_RENDER = 1471
 
 class ListingList extends Component {
   constructor(props) {
@@ -282,10 +282,10 @@ class ListingList extends Component {
               <Title>
                 <Text>{state ? h1Content : null}</Text>
               </Title>
-              <Row justifyContent="center" style={{maxWidth: 1480, margin: 'auto'}}>
+              <Container>
                 {this.getListings(listings, fetchMore)}
                 {this.state.renderMap && this.getMap()}
-              </Row>
+              </Container>
             </>
           )
         }}
