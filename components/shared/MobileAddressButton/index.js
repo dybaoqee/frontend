@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import { isMobile } from 'lib/mobile'
 import {
   Container,
   MobileAddressTextContainer,
@@ -8,11 +9,12 @@ import {
 
 class MobileAddressButton extends PureComponent {
   render() {
-    const { height, address, onClick } = this.props
+    const { address, onClick } = this.props
+
     return (
       <Container
         fluid
-        height={height || 'tall'}
+        height={isMobile() ? 'tall' : 'medium'}
         onClick={onClick}>
         <MobileAddressTextContainer>
           <MobileAddressText
