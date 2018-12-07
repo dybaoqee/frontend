@@ -90,7 +90,7 @@ export default class NeighborhoodAutoComplete extends Component {
           const items = cities.concat(districtsSP).concat(districtsRJ)
           const itemsToSearch = new Fuse(items, {threshold: 0.1 , keys: ['name', 'city', 'state']})
           const results = this.state.input ? itemsToSearch.search(this.state.input) : items
-          return results.filter(d => d.name).slice(0, 5).map((item, index) => {
+          return results.filter(d => d.name).map((item, index) => {
             let url = `/imoveis/${item.stateSlug}/${item.citySlug}`
             if (item.nameSlug) {
               url += `/${slug(item.nameSlug.toLowerCase())}`

@@ -37,6 +37,9 @@ const SearchResultContainer = styled(Row)`
   position: absolute;
   z-index: 1;
   width: ${({width}) => width ? `${width}px` : '100%'};
+  max-height: 220px;
+  overflow-y: scroll;
+  overflow-x: hidden;
 `
 
 const InputContainer = styled(Row)`
