@@ -277,6 +277,7 @@ class ListingList extends Component {
         fetchPolicy="cache-and-network"
       >
         {({data: {listings}, fetchMore}) => {
+          const hasListings = listings && listings.listings && listings.listings.length > 0
           return (
             <>
               <Title>
@@ -284,7 +285,7 @@ class ListingList extends Component {
               </Title>
               <Container>
                 {this.getListings(listings, fetchMore)}
-                {this.state.renderMap && this.getMap()}
+                {(this.state.renderMap && hasListings) && this.getMap()}
               </Container>
             </>
           )

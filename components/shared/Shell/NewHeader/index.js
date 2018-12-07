@@ -91,7 +91,7 @@ export default class Header extends Component {
           <NeighborhoodAutoComplete
             onBackPressed={this.closeMobileSearch}
             onClearInput={() => {}}
-            height={isMobile() ? 'tall' : medium}
+            height={isMobile() ? 'tall' : 'medium'}
           />
         </Col>
       </MobieTypeaheadContainer>
