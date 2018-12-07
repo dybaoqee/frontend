@@ -40,6 +40,10 @@ const SearchResultContainer = styled(Row)`
   max-height: 220px;
   overflow-y: scroll;
   overflow-x: hidden;
+
+  @media only screen and (max-width: ${themeGet('breakpoints.0')}) {
+    max-height: 100%;
+  }
 `
 
 const InputContainer = styled(Row)`
