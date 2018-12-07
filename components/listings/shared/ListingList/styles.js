@@ -26,7 +26,7 @@ const Container = styled(Row)`
 const MapContainer = styled.div`
   position: sticky;
   top: ${HEADER_HEIGHT}px;
-  right: ${themeGet('space.4')}px;
+  margin-right: ${themeGet('space.4')}px;
   overflow: hidden;
   box-sizing: border-box;
   background: white;

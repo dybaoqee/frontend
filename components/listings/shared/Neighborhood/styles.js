@@ -1,8 +1,5 @@
 import styled from 'styled-components'
 import { themeGet } from 'styled-system'
-import {
-  shouldShowMap
-} from 'components/listings/shared/ListingList/styles'
 
 export const Container = styled.div`
   box-sizing: border-box;
@@ -11,7 +8,7 @@ export const Container = styled.div`
   flex-direction: column;
   border: 1px solid #E0E6ED;
   border-radius: 4px;
-  margin: 0 ${() => shouldShowMap() ? 40 : themeGet('space.4')}px ${themeGet('space.4')}px 0;
+  margin: 0 ${themeGet('space.4')}px ${themeGet('space.4')}px 0;
   padding: 10px;
 `
 
