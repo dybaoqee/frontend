@@ -11,16 +11,16 @@ const MIN_CARD_WIDTH = 300
 const CARD_MARGIN = theme.space[4]
 
 const getCardWidth = () => {
-  const innerWidth = document.documentElement.clientWidth
+  const clientWidth = document.documentElement.clientWidth
   // Two margins (each corner of the document: left of list, right of map)
   const pageMargins = CARD_MARGIN * 2
 
   // Map width to be discounted
   const showMap = shouldShowMap()
-  const mapWidth = showMap ? (innerWidth) * (MAP_WIDTH_PERCENT / 100) : 0
+  const mapWidth = showMap ? (clientWidth) * (MAP_WIDTH_PERCENT / 100) : 0
 
   // Calculated area to fit cards (in one row)
-  const cardsArea = innerWidth - mapWidth - pageMargins + (showMap ? 0 : CARD_MARGIN)
+  const cardsArea = clientWidth - mapWidth - pageMargins + (showMap ? 0 : CARD_MARGIN)
 
   // How many cards, minimum, can fit in this row?
   const cardsPerRow = Math.floor(cardsArea / (MIN_CARD_WIDTH + CARD_MARGIN))
