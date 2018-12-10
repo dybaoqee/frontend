@@ -65,6 +65,10 @@ const MobieTypeaheadContainer = styled(Row)`
   left: 0;
   z-index: 5;
   background-color: ${themeGet('colors.white')};
+
+  @media only screen and (max-width: ${themeGet('breakpoints.0')}) {
+    height: 100%;
+  }
 `
 
 export {
