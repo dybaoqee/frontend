@@ -67,9 +67,8 @@ class ListingSearch extends Component {
     }
 
     const query = newQuery.length > 0 ? `?${newQuery}` : ''
-    Router.push(`/listings${query}`, `/imoveis${route}${query}`, {
-      shallow: true
-    })
+    Router.push(`/listings${query}`, `/imoveis${route}${query}`, {shallow: true})
+
     this.setState({
       filters: getFiltersFromFilters(filters)
     })
@@ -124,7 +123,6 @@ class ListingSearch extends Component {
     if (hasParams) {
       filters.citiesSlug = [params.city]
     }
-
     return (
       <ThemeProvider theme={theme}>
         <>
