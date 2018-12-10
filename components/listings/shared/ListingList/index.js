@@ -64,6 +64,14 @@ class ListingList extends Component {
     })
   }
 
+  componentWillReceiveProps(newProps) {
+    const currentFilters = this.props.filters
+    const newFilters = newProps.filters
+    if (currentFilters !== newFilters) {
+      this.pagination.excludedListingIds = []
+    }
+  }
+
   getListings = (result, fetchMore) => {
     const {
       user,
