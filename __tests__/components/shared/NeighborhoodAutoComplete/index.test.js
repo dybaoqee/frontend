@@ -5,18 +5,15 @@ import 'jest-styled-components'
 import theme from '@emcasa/ui'
 import { ThemeProvider } from 'styled-components'
 import { MockedProvider } from 'react-apollo/test-utils'
-import { isMobile } from 'lib/mobile'
 import { districts } from '__mocks__/districts'
 
-jest.mock('lib/mobile')
-isMobile.mockImplementation(() => false)
-
 describe('<NeighborhoodAutoComplete/>', () => {
-  it('should render component on desktop', () => {
+  it('should render component', () => {
     const tree = renderer.create(
       <ThemeProvider theme={theme}>
         <MockedProvider mocks={districts}>
           <NeighborhoodAutoComplete
+            mountWithVisiblePredictions={true}
             onBackPressed={() => {}}
             onSelectAddress={() => {}}
           />
