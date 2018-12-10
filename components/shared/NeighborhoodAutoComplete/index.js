@@ -48,11 +48,18 @@ export default class NeighborhoodAutoComplete extends Component {
     defaultValue: PropTypes.string,
     onSelectAddress: PropTypes.func.isRequired,
     onClearInput: PropTypes.func,
-    onBackPressed: PropTypes.func
+    onBackPressed: PropTypes.func,
+    mountWithVisiblePredictions: PropTypes.bool
   }
 
   static defaultProps = {
     defaultValue: null
+  }
+
+  componentWillMount() {
+    if (this.props.mountWithVisiblePredictions) {
+      this.setState({showPredictions: true})
+    }
   }
 
   componentDidMount() {
