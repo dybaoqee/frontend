@@ -180,7 +180,7 @@ export default class NeighborhoodAutoComplete extends Component {
   }
 
   onBlur = () => {
-    this.hidePredictionsTimer = setTimeout(this.hidePredictions, 100)
+    this.hidePredictionsTimer = setTimeout(this.hidePredictions, 500)
   }
 
   render() {
