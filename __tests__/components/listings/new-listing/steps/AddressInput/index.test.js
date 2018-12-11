@@ -1,6 +1,6 @@
-import React from 'react';
-import AddressInput from 'components/listings/new-listing/steps/AddressInput';
-import renderer from 'react-test-renderer';
+import React from 'react'
+import AddressInput from 'components/listings/new-listing/steps/AddressInput'
+import renderer from 'react-test-renderer'
 import 'jest-styled-components'
 import theme from '@emcasa/ui'
 import { ThemeProvider } from 'styled-components'

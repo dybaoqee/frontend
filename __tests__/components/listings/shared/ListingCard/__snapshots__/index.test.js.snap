@@ -1,0 +1,192 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ListingCard/> should render component 1`] = `
+.c8 {
+  background: none;
+  border: none;
+  box-shadow: none;
+  box-sizing: border-box;
+  pointer-events: all;
+  cursor: pointer;
+  cursor: pointer;
+}
+
+.c8 svg {
+  width: 15px;
+  text-shadow: 2px 2px 3px #f00;
+  text-shadow: 2px 2px 3px #f00;
+}
+
+.c8 svg path {
+  text-shadow: 2px 2px 3px #f00;
+  fill: white;
+  fill-opacity: 0;
+  stroke: black;
+  stroke-width: 30;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 10px;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c4 {
+  -webkit-font-smoothing: antialiased;
+  font-family: FaktSoftPro-Normal;
+  color: #3c4858;
+  font-size: 14px;
+}
+
+.c5 {
+  -webkit-font-smoothing: antialiased;
+  font-family: FaktSoftPro-Normal;
+  color: #979797;
+  font-size: 14px;
+}
+
+.c6 {
+  -webkit-font-smoothing: antialiased;
+  font-family: FaktSoftPro-Normal;
+  color: #3c4858;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.c0 {
+  position: relative;
+  box-sizing: border-box;
+  cursor: pointer;
+  width: 0px;
+  height: auto;
+  border: 1px solid #e0e6ed;
+  border-radius: 4px;
+  margin: 0 20px 20px 0;
+}
+
+.c0:hover {
+  border: 1px solid #f50057;
+}
+
+.c1 {
+  box-sizing: border-box;
+  background-image: url('https://res.cloudinary.com/emcasa/image/upload/f_auto,c_fit,h_600,w_600/v1513818385/');
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 0px;
+  border-radius: 4px 4px 0 0;
+}
+
+.c7 {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+<a
+  href="/imoveis/rj/rio-de-janeiro/bairro/rua-tal/id-undefined"
+  onClick={[Function]}
+  style={
+    Object {
+      "textDecoration": "none",
+    }
+  }
+>
+  <div
+    aria-label="listing-undefined"
+    className="c0 "
+  >
+    <div
+      className="c1 "
+    />
+    <div
+      className="c2"
+    >
+      <div
+        className="c3"
+      >
+        <span
+          className="c4"
+          color="dark"
+          fontSize="small"
+        >
+          BAIRRO
+        </span>
+      </div>
+      <div
+        className="c3"
+      >
+        <span
+          className="c4"
+          color="dark"
+          fontSize="small"
+        >
+          Rua tal
+        </span>
+      </div>
+      <div
+        className="c3"
+      >
+        <span
+          className="c5"
+          color="grey"
+          fontSize="small"
+        >
+          undefinedm² - undefined quarto
+        </span>
+      </div>
+      <div
+        className="c3"
+      >
+        <span
+          className="c6"
+          color="dark"
+          fontSize="large"
+          fontWeight="bold"
+        >
+          R$1,000,000
+        </span>
+      </div>
+    </div>
+    <div
+      className="c7"
+      onClick={[Function]}
+    >
+      <div
+        className="c8"
+        onClick={[Function]}
+      >
+        <svg
+          aria-hidden="true"
+          className="svg-inline--fa fa-heart fa-w-16 "
+          data-icon="heart"
+          data-prefix="fas"
+          role="img"
+          style={Object {}}
+          viewBox="0 0 512 512"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z"
+            fill="currentColor"
+            style={Object {}}
+          />
+        </svg>
+      </div>
+    </div>
+  </div>
+</a>
+`;
