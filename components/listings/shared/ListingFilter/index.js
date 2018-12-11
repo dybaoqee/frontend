@@ -235,7 +235,7 @@ export default class Filter extends Component {
                 <FilterButton active={selectedFiltersArray.includes('rooms')} onClick={this.showFilter.bind(this, 'rooms')}>{this.getFiltersLabels('rooms')}</FilterButton>
                 <FilterButton active={selectedFiltersArray.includes('garageSpots')} onClick={this.showFilter.bind(this, 'garage')}>{this.getFiltersLabels('garageSpots')}</FilterButton>
               </Row>
-              <FilterPanel show={this.state.showType} panelPosition={this.state.panelPosition}>
+              <FilterPanel show={this.state.showType} panelPosition={this.state.panelPosition} close={this.hideAllFilters}>
                 <FilterButton
                   aria-label="Apartamento"
                   active={hasSelectedAnyTypes && types.includes('Apartamento')}
@@ -258,7 +258,7 @@ export default class Filter extends Component {
                   Cobertura
                 </FilterButton>
               </FilterPanel>
-              <FilterPanel show={this.state.showArea} panelPosition={this.state.panelPosition}>
+              <FilterPanel show={this.state.showArea} panelPosition={this.state.panelPosition} close={this.hideAllFilters}>
                 <NewSlider
                   min={35}
                   values={area}
@@ -268,7 +268,7 @@ export default class Filter extends Component {
                   valuesFormatter={(value) => `${value} m²`}
                 />
               </FilterPanel>
-              <FilterPanel show={this.state.showPrice} panelPosition={this.state.panelPosition}>
+              <FilterPanel show={this.state.showPrice} panelPosition={this.state.panelPosition} close={this.hideAllFilters}>
                 <NewSlider
                   min={550000}
                   max={12000000}
@@ -283,7 +283,7 @@ export default class Filter extends Component {
                   }
                 />
               </FilterPanel>
-              <FilterPanel show={this.state.showRooms} panelPosition={this.state.panelPosition}>
+              <FilterPanel show={this.state.showRooms} panelPosition={this.state.panelPosition} close={this.hideAllFilters}>
                 <NewSlider
                   values={rooms}
                   min={1}
@@ -292,7 +292,7 @@ export default class Filter extends Component {
                   onChange={this.sliderChanged.bind(this, 'rooms')}
                 />
               </FilterPanel>
-              <FilterPanel show={this.state.showGarage} panelPosition={this.state.panelPosition}>
+              <FilterPanel show={this.state.showGarage} panelPosition={this.state.panelPosition} close={this.hideAllFilters}>
                 <NewSlider
                   min={0}
                   values={garageSpots}

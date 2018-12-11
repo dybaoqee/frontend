@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import Router from 'next/router'
-import NumberFormat from 'react-number-format'
 import Link from 'next/link'
 import humps from 'humps'
 
@@ -72,6 +72,12 @@ class ListingCard extends Component {
       </Link>
     )
   }
+}
+
+ListingCard.propTypes = {
+  listing: PropTypes.object.isRequired,
+  currentUser: PropTypes.object,
+  favorited: PropTypes.array.isRequired
 }
 
 export default ListingCard

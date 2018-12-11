@@ -1,7 +1,8 @@
 import {
   getListingId,
   getListingSummary,
-  plural
+  plural,
+  buildSlug
 } from 'lib/listings'
 
 describe('Listing', () => {
@@ -35,6 +36,20 @@ describe('Listing', () => {
     }
     const listingSummary = getListingSummary(listing)
     expect(listingSummary).toBe('500m² - 4 quartos - 2 vagas')
+  })
+
+  it('should build slug based on listing data', () => {
+    const listing = {
+      id: 123,
+      address: {
+        city: 'rio',
+        state: 'rj',
+        neighborhood: 'ipanema',
+        street: 'rua'
+      }
+    }
+    const result = buildSlug(listing)
+    expect(result).toBe('/imoveis/rj/rio/ipanema/rua/id-123')
   })
 })
 

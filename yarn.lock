@@ -1626,18 +1626,18 @@
   dependencies:
     lodash.once "^4.1.1"
 
-"@emcasa/ui-dom@0.7.6":
-  version "0.7.6"
-  resolved "https://registry.yarnpkg.com/@emcasa/ui-dom/-/ui-dom-0.7.6.tgz#2b17122eb1f399d125da411d1f311a1c5914f70b"
+"@emcasa/ui-dom@0.7.9":
+  version "0.7.9"
+  resolved "https://registry.yarnpkg.com/@emcasa/ui-dom/-/ui-dom-0.7.9.tgz#47c5cc6e97c941d2de948c35791956c977d00e69"
   dependencies:
-    "@emcasa/ui" "^0.7.6"
+    "@emcasa/ui" "^0.7.9"
     "@rebass/grid" "6.0.0-4"
     styled-icons "^3.0.0"
     styled-system "3.1.6"
 
-"@emcasa/ui@^0.7.6":
-  version "0.7.6"
-  resolved "https://registry.yarnpkg.com/@emcasa/ui/-/ui-0.7.6.tgz#47dedd210ccec4b21fddbcac1412e2209943f187"
+"@emcasa/ui@^0.7.9":
+  version "0.7.9"
+  resolved "https://registry.yarnpkg.com/@emcasa/ui/-/ui-0.7.9.tgz#5814437dedd89587acc16d4a165f02079e15f139"
   dependencies:
     "@fortawesome/free-solid-svg-icons" "^5.4.1"
     lodash.omit "^4.5.0"
@@ -5837,7 +5837,6 @@ functional-red-black-tree@^1.0.1:
 fuse.js@^3.3.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/fuse.js/-/fuse.js-3.3.0.tgz#1e4fe172a60687230fb54a5cb247eb96e2e7e885"
-  integrity sha512-ESBRkGLWMuVkapqYCcNO1uqMg5qbCKkgb+VS6wsy17Rix0/cMS9kSOZoYkjH8Ko//pgJ/EEGu0GTjk2mjX2LGQ==
 
 gauge@~2.7.3:
   version "2.7.4"
