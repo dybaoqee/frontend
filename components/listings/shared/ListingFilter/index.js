@@ -321,11 +321,11 @@ export default class Filter extends Component {
                     }
                     this.sliderChanged('rooms', values, true)
                 }}>
-                  <Button mr={2} px={3} value={1}>1</Button>
-                  <Button mr={2} px={3} value={2}>2</Button>
-                  <Button mr={2} px={3} value={3}>3</Button>
-                  <Button mr={2} px={3} value={4}>4</Button>
-                  <Button mr={2} px={3} value="more">+</Button>
+                  <FilterButton active={rooms && rooms.min === 1} mr={2} px={[2, 3]} value={1}>1</FilterButton>
+                  <FilterButton active={rooms && rooms.min === 2} mr={2} px={[2, 3]} value={2}>2</FilterButton>
+                  <FilterButton active={rooms && rooms.min === 3} mr={2} px={[2, 3]} value={3}>3</FilterButton>
+                  <FilterButton active={rooms && rooms.min === 4} mr={2} px={[2, 3]} value={4}>4</FilterButton>
+                  <FilterButton active={rooms && rooms.min === 5} mr={2} px={[2, 3]} value="more">+</FilterButton>
                 </Button.Group>
               </FilterPanel>
               <FilterPanel show={this.state.showGarage} panelPosition={this.state.panelPosition} close={this.hideAllFilters}>
@@ -353,12 +353,12 @@ export default class Filter extends Component {
                     }
                     this.sliderChanged('garageSpots', values, true)
                 }}>
-                  <Button mr={2} mb={2} px={3} value={0}>Sem vagas</Button>
-                  <Button mr={2} mb={2} px={3} value={1}>1</Button>
-                  <Button mr={2} mb={2} px={3} value={2}>2</Button>
-                  <Button mr={2} mb={2} px={3} value={3}>3</Button>
-                  <Button mr={2} mb={2} px={3} value={4}>4</Button>
-                  <Button mr={2} mb={2} px={3} value="more">+</Button>
+                  <FilterButton active={garageSpots && garageSpots.min === 0} mr={2} mb={2} px={[2, 3]} value={0}>Sem vagas</FilterButton>
+                  <FilterButton active={garageSpots && garageSpots.min === 1} mr={2} mb={2} px={[2, 3]} value={1}>1</FilterButton>
+                  <FilterButton active={garageSpots && garageSpots.min === 2} mr={2} mb={2} px={[2, 3]} value={2}>2</FilterButton>
+                  <FilterButton active={garageSpots && garageSpots.min === 3} mr={2} mb={2} px={[2, 3]} value={3}>3</FilterButton>
+                  <FilterButton active={garageSpots && garageSpots.min === 4} mr={2} mb={2} px={[2, 3]} value={4}>4</FilterButton>
+                  <FilterButton active={garageSpots && garageSpots.min === 5} mr={2} mb={2} px={[2, 3]} value="more">+</FilterButton>
                 </Button.Group>
               </FilterPanel>
             </Row>
