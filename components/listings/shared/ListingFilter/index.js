@@ -12,9 +12,6 @@ import {Query} from 'react-apollo'
 import {GET_NEIGHBORHOODS} from 'graphql/listings/queries'
 import FilterPanel from './components/FilterPanel'
 import Row from '@emcasa/ui-dom/components/Row'
-import Col from '@emcasa/ui-dom/components/Col'
-import Button from '@emcasa/ui-dom/components/Button'
-import Text from '@emcasa/ui-dom/components/Text'
 
 export default class Filter extends Component {
   constructor(props) {

@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-
+import theme from '@emcasa/ui'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Button from '@emcasa/ui-dom/components/Button'
-
+import { isMobile } from 'lib/mobile'
 import {
   Container
 } from './styles'
@@ -14,17 +14,17 @@ class FilterPanel extends PureComponent {
     let left = 0, top = 0
     const { show, panelPosition } = this.props
     if (panelPosition) {
-      left = panelPosition.left
+      left = isMobile() ? theme.space[4] : panelPosition.left
       top = panelPosition.top
     }
     return (
-      <Container elevation={4} p={4} show={show} left={left} top={top}>
+      <Container elevation={4} p={2} show={show} left={left} top={top}>
         <Row>
           <Col width={1}>
             {this.props.children}
           </Col>
         </Row>
-        <Row justifyContent="flex-end">
+        <Row justifyContent="flex-end" mt={2}>
           <Button link onClick={this.props.close}>Aplicar</Button>
         </Row>
       </Container>

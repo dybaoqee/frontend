@@ -4,14 +4,9 @@ import {
   Rail,
   Thumb,
   Tip,
-  Tutorial,
-  Icon,
   RangeValues,
   Bar
 } from './styles'
-import FontAwesomeIcon from '@fortawesome/react-fontawesome'
-import faAngleRight from '@fortawesome/fontawesome-pro-regular/faAngleRight'
-import faAngleLeft from '@fortawesome/fontawesome-pro-regular/faAngleLeft'
 
 export default class NewSlider extends Component {
   static defaultProps = {
@@ -36,8 +31,7 @@ export default class NewSlider extends Component {
       values: {
         minValue: min,
         maxValue: max
-      },
-      used: false
+      }
     }
   }
 
@@ -125,9 +119,10 @@ export default class NewSlider extends Component {
     const {target} = mouseDownEvent
 
     const handleMouseMove = (event) => {
-      var diffX =
-        (event.touches ? event.touches[0].pageX : event.pageX) -
-        this.rail.current.offsetLeft
+      const isLeftThumb = target.getAttribute('aria-label') === 'min'
+      const railOffsetX = this.rail.current.getBoundingClientRect().left
+      const thumbWidth = isLeftThumb ? 0 : this.minThumb.current.getBoundingClientRect().width / 2
+      var diffX = (event.touches ? event.touches[0].pageX : event.pageX) - thumbWidth - railOffsetX
       const newValue = min + parseInt((max - min) * diffX / this.railWidth)
       this.moveSliderTo(newValue, target, true)
 
@@ -180,13 +175,12 @@ export default class NewSlider extends Component {
     const {
       isRange,
       showValue,
-      showTutorial,
       valuesFormatter,
       min,
       max
     } = this.props
 
-    const {values: {minValue, maxValue}, used} = this.state
+    const {values: {minValue, maxValue}} = this.state
     return (
       <Container>
         {isRange && (
@@ -203,32 +197,10 @@ export default class NewSlider extends Component {
           {isRange && <Bar innerRef={this.bar} />}
           {isRange && (
             <Thumb aria-label="min" innerRef={this.minThumb} tabIndex="0">
-              {showTutorial &&
-                !used && (
-                  <Tutorial>
-                    <Icon left>
-                      <FontAwesomeIcon icon={faAngleLeft} />
-                    </Icon>
-                    <Icon>
-                      <FontAwesomeIcon icon={faAngleRight} />
-                    </Icon>
-                  </Tutorial>
-                )}
               {showValue && <Tip>R$ {minValue.toLocaleString('pt-BR')}</Tip>}
             </Thumb>
           )}
           <Thumb aria-label="max" innerRef={this.maxThumb} tabIndex="0">
-            {showTutorial &&
-              !used && (
-                <Tutorial>
-                  <Icon left>
-                    <FontAwesomeIcon icon={faAngleLeft} />
-                  </Icon>
-                  <Icon>
-                    <FontAwesomeIcon icon={faAngleRight} />
-                  </Icon>
-                </Tutorial>
-              )}
             {showValue && <Tip>R$ {maxValue.toLocaleString('pt-BR')}</Tip>}
           </Thumb>
         </Rail>

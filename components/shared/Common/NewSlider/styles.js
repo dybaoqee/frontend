@@ -1,7 +1,5 @@
 import styled from 'styled-components'
-import {themeGet} from 'styled-system'
-import {mobileMedia} from 'constants/media'
-import * as colors from 'constants/colors'
+import { themeGet } from 'styled-system'
 import Text from '@emcasa/ui-dom/components/Text'
 
 export const Container = styled.div`
@@ -55,27 +53,6 @@ export const Tip = styled.div`
   align-items: center;
 `
 
-export const Tutorial = styled.div`
-  box-sizing: border-box;
-  pointer-events: none;
-  display: flex;
-  justify-content: space-between;
-  position: absolute;
-  left: -52px;
-  top: -5px;
-  width: 130px;
-  animation: highlight 1s linear infinite alternate;
-  transform-origin: center center;
-  opacity: 0;
-  @keyframes highlight {
-    to {
-      width: 150px;
-      opacity: 1;
-      left: -60px;
-    }
-  }
-`
-
 export const Icon = styled.div`
   box-sizing: border-box;
   pointer-events: none;
@@ -94,7 +71,7 @@ export const RangeValues = styled(Text)`
   box-sizing: border-box;
   text-align: center;
   margin: 0 10px 20px 10px;
-  color: ${colors.mediumDarkGray};
+  color: ${themeGet('colors.grey')};
 `
 
 export const Bar = styled.div`
