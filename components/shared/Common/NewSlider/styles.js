@@ -4,7 +4,7 @@ import {mobileMedia} from 'constants/media'
 import * as colors from 'constants/colors'
 import Text from '@emcasa/ui-dom/components/Text'
 
-export default styled.div`
+export const Container = styled.div`
   box-sizing: border-box;
   padding: 0 14px;
 `
@@ -12,36 +12,8 @@ export default styled.div`
 export const Rail = styled.div`
   box-sizing: border-box;
   position: relative;
-  height: 4px;
-  border-radius: 6px;
-  background-color: ${colors.lightestGray};
-  box-shadow: inset 0 1px 0 0 rgba(0, 0, 0, 0.2);
-
-  :before {
-    box-sizing: border-box;
-    content: '${({min}) => min}';
-    display: ${({showValues}) => (showValues ? 'flex' : 'none')};
-    color: ${colors.mediumGray};
-    font-size: 18px;
-    letter-spacing: -0.2px;
-    line-height: 24px;
-    position: absolute;
-    transform: translate(-50%, 0);
-    top: -40px;
-  }
-
-  :after {
-    box-sizing: border-box;
-    content: '${({max}) => max}';
-    display: ${({showValues}) => (showValues ? 'flex' : 'none')};
-    color: ${colors.mediumGray};
-    font-size: 18px;
-    letter-spacing: -0.2px;
-    position: absolute;
-    right: 0;
-    top: -40px;
-    transform: translate(50%, 0);
-  }
+  height: 1px;
+  background-color: ${themeGet('colors.grey')};
 `
 
 export const Thumb = styled.div`
@@ -52,17 +24,16 @@ export const Thumb = styled.div`
   border-radius: 100%;
   padding: 0;
   margin: 0;
-  top: -10px;
-  height: 20px;
-  width: 20px;
+  top: -8px;
+  height: 18px;
+  width: 18px;
   background-color: ${themeGet('colors.pink')};
   display: flex;
 
-  box-shadow: inset 0 0 0 1px ${themeGet('colors.pink')};
+  box-shadow: 0 0 0 1px ${themeGet('colors.pink')};
 
   :hover {
-    box-shadow: inset 0 0 0 1px #094156, 0 4px 2px 0 rgba(0, 0, 0, 0.2),
-      0 0 0 12px rgba(34, 126, 162, 0.15);
+    box-shadow: 0 0 0 12px rgba(34, 126, 162, 0.15), 0 0 0 1px ${themeGet('colors.pink')};
   }
 `
 
@@ -70,36 +41,18 @@ export const Tip = styled.div`
   box-sizing: border-box;
   position: absolute;
   top: -80px;
-  border-radius: 3px;
-  background-color: ${colors.blue.light};
 
   color: ${themeGet('colors.pink')};
   font-size: 20px;
   letter-spacing: -0.2px;
   line-height: 27px;
-  padding: 5px;
+  padding: 4px;
   width: 130px;
   left: -50px;
   display: flex;
 
   justify-content: center;
-
-  :after {
-    user-select: none;
-    top: 100%;
-    left: 50%;
-    border: solid transparent;
-    content: '';
-    height: 0;
-    width: 0;
-    position: absolute;
-    pointer-events: none;
-    border-top-color: ${colors.blue.light};
-    border-width: 10px;
-    margin-left: -10px;
-  }
-
-  filter: drop-shadow(0px 2px 2px rgba(9, 58, 77, 0.3));
+  align-items: center;
 `
 
 export const Tutorial = styled.div`
@@ -145,7 +98,7 @@ export const RangeValues = styled(Text)`
 `
 
 export const Bar = styled.div`
-  height: 4px;
+  height: 3px;
   background: ${themeGet('colors.pink')};
   width: 100%;
   position: absolute;

@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
-import Container, {
+import {
+  Container,
   Rail,
   Thumb,
   Tip,
