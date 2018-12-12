@@ -12,9 +12,12 @@ import {Query} from 'react-apollo'
 import {GET_NEIGHBORHOODS} from 'graphql/listings/queries'
 import FilterPanel from './components/FilterPanel'
 import Row from '@emcasa/ui-dom/components/Row'
-import Col from '@emcasa/ui-dom/components/Col'
 import Button from '@emcasa/ui-dom/components/Button'
-import Text from '@emcasa/ui-dom/components/Text'
+
+const MIN_FILTER_VALUE = 0
+const MAX_FILTER_VALUE = 100
+
+const MAX_ITEMS_SELECTION = 5
 
 export default class Filter extends Component {
   constructor(props) {
@@ -130,9 +133,19 @@ export default class Filter extends Component {
         '0.00a'
       )}`
 
-    const rangeRooms = rooms && `${rooms.min} - ${rooms.max} quartos`
-    const rangeGarageSpots =
-      garageSpots && `${garageSpots.min} - ${garageSpots.max} vagas`
+    let rangeRooms = ''
+    if (rooms && rooms.min !== null && rooms.max !== null) {
+      rangeRooms = rooms.min === MAX_ITEMS_SELECTION ? `${rooms.min} ou mais quartos` : `${rooms.min} quarto${rooms.min > 1 ? 's' : ''}`
+    }
+
+    let rangeGarageSpots = ''
+    if (garageSpots && garageSpots.min !== null && garageSpots.max !== null) {
+      if (garageSpots.min === 0) {
+        rangeGarageSpots = 'Sem vagas'
+      } else {
+        rangeGarageSpots = garageSpots.min === MAX_ITEMS_SELECTION ? `${garageSpots.min} ou mais vagas` : `${garageSpots.min} vaga${garageSpots.min > 1 ? 's' : ''}`
+      }
+    }
 
     const rangeArea = area && `${area.min} - ${area.max} m²`
 
@@ -284,22 +297,69 @@ export default class Filter extends Component {
                 />
               </FilterPanel>
               <FilterPanel show={this.state.showRooms} panelPosition={this.state.panelPosition} close={this.hideAllFilters}>
-                <NewSlider
-                  values={rooms}
-                  min={1}
-                  max={8}
-                  isRange
-                  onChange={this.sliderChanged.bind(this, 'rooms')}
-                />
+                <Button.Group
+                  flexWrap="wrap"
+                  initialValue={rooms}
+                  strategy={{
+                    isSelected: (selectedValue, value) => selectedValue === value,
+                    update: (selectedValue, value) => (selectedValue === value ? null : value)
+                  }}
+                  onChange={(value) => {
+                    // reset filter
+                    if (value === null) {
+                      this.resetFilter('rooms')
+                      return
+                    }
+
+                    // apply filter
+                    let values = {minValue: MIN_FILTER_VALUE, maxValue: MAX_FILTER_VALUE}
+                    if (value === 'more') {
+                      values.minValue = MAX_ITEMS_SELECTION
+                    } else {
+                      values.minValue = value
+                      values.maxValue = value
+                    }
+                    this.sliderChanged('rooms', values, true)
+                }}>
+                  <Button mr={2} px={3} value={1}>1</Button>
+                  <Button mr={2} px={3} value={2}>2</Button>
+                  <Button mr={2} px={3} value={3}>3</Button>
+                  <Button mr={2} px={3} value={4}>4</Button>
+                  <Button mr={2} px={3} value="more">+</Button>
+                </Button.Group>
               </FilterPanel>
               <FilterPanel show={this.state.showGarage} panelPosition={this.state.panelPosition} close={this.hideAllFilters}>
-                <NewSlider
-                  min={0}
-                  values={garageSpots}
-                  max={8}
-                  isRange
-                  onChange={this.sliderChanged.bind(this, 'garageSpots')}
-                />
+                <Button.Group
+                  flexWrap="wrap"
+                  initialValue={garageSpots}
+                  strategy={{
+                    isSelected: (selectedValue, value) => selectedValue === value,
+                    update: (selectedValue, value) => (selectedValue === value ? null : value)
+                  }}
+                  onChange={(value) => {
+                    // reset filter
+                    if (value === null) {
+                      this.resetFilter('garageSpots')
+                      return
+                    }
+
+                    // apply filter
+                    let values = {minValue: MIN_FILTER_VALUE, maxValue: MAX_FILTER_VALUE}
+                    if (value === 'more') {
+                      values.minValue = MAX_ITEMS_SELECTION
+                    } else {
+                      values.minValue = value
+                      values.maxValue = value
+                    }
+                    this.sliderChanged('garageSpots', values, true)
+                }}>
+                  <Button mr={2} mb={2} px={3} value={0}>Sem vagas</Button>
+                  <Button mr={2} mb={2} px={3} value={1}>1</Button>
+                  <Button mr={2} mb={2} px={3} value={2}>2</Button>
+                  <Button mr={2} mb={2} px={3} value={3}>3</Button>
+                  <Button mr={2} mb={2} px={3} value={4}>4</Button>
+                  <Button mr={2} mb={2} px={3} value="more">+</Button>
+                </Button.Group>
               </FilterPanel>
             </Row>
           )
