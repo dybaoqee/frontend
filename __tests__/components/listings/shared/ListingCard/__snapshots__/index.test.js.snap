@@ -21,8 +21,8 @@ exports[`<ListingCard/> should render component 1`] = `
   text-shadow: 2px 2px 3px #f00;
   fill: white;
   fill-opacity: 0;
-  stroke: black;
-  stroke-width: 30;
+  stroke: white;
+  stroke-width: 60;
 }
 
 .c2 {
