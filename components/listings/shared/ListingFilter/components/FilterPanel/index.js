@@ -20,9 +20,7 @@ class FilterPanel extends PureComponent {
     return (
       <Container elevation={4} p={2} show={show} left={left} top={top}>
         <Row>
-          <Col width={1}>
-            {this.props.children}
-          </Col>
+          {this.props.children}
         </Row>
         <Row justifyContent="flex-end" mt={2}>
           <Button link onClick={this.props.close}>Aplicar</Button>
