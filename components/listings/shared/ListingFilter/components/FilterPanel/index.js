@@ -24,7 +24,7 @@ class FilterPanel extends PureComponent {
         </Row>
         <Row justifyContent="space-between" mt={2}>
           <Button link onClick={this.props.clear}>Limpar</Button>
-          <Button link onClick={this.props.close}>Aplicar</Button>
+          <Button link onClick={this.props.apply}>Aplicar</Button>
         </Row>
       </Container>
     )
@@ -33,7 +33,7 @@ class FilterPanel extends PureComponent {
 
 FilterPanel.propTypes = {
   show: PropTypes.bool.isRequired,
-  close: PropTypes.func.isRequired,
+  apply: PropTypes.func.isRequired,
   clear: PropTypes.func.isRequired,
   panelPosition: PropTypes.object.isRequired
 }

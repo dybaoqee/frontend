@@ -24,6 +24,7 @@ export default class Filter extends Component {
     super(props)
     this.isFilterOpen = this.isFilterOpen.bind(this)
     this.hideAllFilters = this.hideAllFilters.bind(this)
+    this.applyFilters = this.applyFilters.bind(this)
 
     const initialValues = {...props.initialFilters}
     if (props.initialFilters.neighborhoods) {
@@ -44,21 +45,6 @@ export default class Filter extends Component {
       showGarage: false,
       panelPosition: null
     }
-  }
-
-  setFilters = (filters) => {
-    const updatedValues = {...filters}
-
-    if (filters.neighborhoods) {
-      updatedValues.neighborhoods = filters.neighborhoods.map(
-        (neighborhood) => ({
-          value: neighborhood,
-          label: neighborhood
-        })
-      )
-    }
-
-    this.setState({values: updatedValues})
   }
 
   sliderChanged = (value, {minValue, maxValue}, userClicked) => {
@@ -87,7 +73,6 @@ export default class Filter extends Component {
 
   onChangeListingType = ({currentTarget}) => {
     const {values} = this.state
-    const {onChange} = this.props
     const listingType = currentTarget.getAttribute('aria-label')
 
     let updatedValues = values
@@ -98,7 +83,7 @@ export default class Filter extends Component {
     } else {
       remove(updatedValues.types, (item) => item === listingType)
     }
-    onChange(updatedValues)
+
     this.setState({values: updatedValues})
   }
 
@@ -122,10 +107,8 @@ export default class Filter extends Component {
     this.setState({values: {}})
   }
 
-  get activeFilters() {
-    const {
-      values: {types, price, neighborhoods, rooms, garageSpots, area}
-    } = this.state
+  activeFilters(values) {
+    const { types, price, neighborhoods, rooms, garageSpots, area } = values
 
     const propertyTypes = types && types.join(', ')
     const rangePrice =
@@ -172,7 +155,7 @@ export default class Filter extends Component {
   }
 
   getFiltersLabels(filter) {
-    const selectedFilter = this.activeFilters.find((item) => item.filter === filter)
+    const selectedFilter = this.activeFilters(this.props.filters).find((item) => item.filter === filter)
     if (selectedFilter) {
       return selectedFilter.value
     }
@@ -200,6 +183,11 @@ export default class Filter extends Component {
     })
   }
 
+  applyFilters() {
+    this.props.onChange(this.state.values)
+    this.hideAllFilters()
+  }
+
   hideAllFilters() {
     this.setState({
       showType: false,
@@ -222,7 +210,7 @@ export default class Filter extends Component {
 
   render() {
     const {
-      values: {
+      filters: {
         area,
         price,
         garageSpots,
@@ -230,11 +218,16 @@ export default class Filter extends Component {
         types,
         neighborhoods: selectedNeighborhoods
       }
-    } = this.state
-    const {onChangeListingType} = this
-    const selectedFilters = this.activeFilters
+    } = this.props
+
+    const selectedFilters = this.activeFilters(this.props.filters)
     const selectedFiltersArray = selectedFilters.map((item) => item.filter)
     const hasSelectedAnyTypes = selectedFiltersArray.includes('types')
+
+    const userSelectedFilters = this.activeFilters(this.state.values)
+    const userSelectedFiltersArray = userSelectedFilters.map((item) => item.filter)
+    const userHasSelectedAnyTypes = userSelectedFiltersArray.includes('types')
+
     return (
       <Query query={GET_NEIGHBORHOODS} ssr={false}>
         {({data: {neighborhoods = []}}) => {
@@ -252,27 +245,27 @@ export default class Filter extends Component {
               <FilterPanel
                 show={this.state.showType}
                 panelPosition={this.state.panelPosition}
-                close={this.hideAllFilters}
+                apply={this.applyFilters}
                 clear={this.resetFilter.bind(this, 'types')}
               >
                 <FilterButton
                   aria-label="Apartamento"
-                  active={hasSelectedAnyTypes && types.includes('Apartamento')}
-                  onClick={onChangeListingType}
+                  active={userHasSelectedAnyTypes && this.state.values && this.state.values.types.includes('Apartamento')}
+                  onClick={this.onChangeListingType}
                 >
                   Apartamento
                 </FilterButton>
                 <FilterButton
                   aria-label="Casa"
-                  active={hasSelectedAnyTypes && types.includes('Casa')}
-                  onClick={onChangeListingType}
+                  active={userHasSelectedAnyTypes && this.state.values && this.state.values.types.includes('Casa')}
+                  onClick={this.onChangeListingType}
                 >
                   Casa
                 </FilterButton>
                 <FilterButton
                   aria-label="Cobertura"
-                  active={hasSelectedAnyTypes && types.includes('Cobertura')}
-                  onClick={onChangeListingType}
+                  active={userHasSelectedAnyTypes && this.state.values && this.state.values.types.includes('Cobertura')}
+                  onClick={this.onChangeListingType}
                 >
                   Cobertura
                 </FilterButton>
