@@ -48,8 +48,6 @@ class ListingSearch extends Component {
       this.setState({
         filters: getFiltersFromQuery(newQuery)
       })
-
-      this.filter.setFilters(getDerivedParams(newQuery))
     }
   }
 
@@ -78,7 +76,6 @@ class ListingSearch extends Component {
   onResetFilter = () => {
     window.scrollTo(0, 0)
     this.setState({filters: {}})
-    this.filter.removeFilters()
     Router.push('/listings', '/imoveis', {shallow: true})
   }
 
@@ -118,21 +115,21 @@ class ListingSearch extends Component {
     const hasQuery = query && Object.keys(query).length > 0
     const hasParams = params && Object.keys(params).length > 0
     if (hasQuery) {
-      filters.neighborhoodsSlugs = [query.neighborhoodSlug]
+      filters.neighborhoodsSlugs = [query.neighborhoodSlug] // filter params (query string)
     }
     if (hasParams) {
-      filters.citiesSlug = [params.city]
+      filters.citiesSlug = [params.city] // part of url. Used in ListingList only, to query listings from that state/city/neighborhood
     }
     return (
       <ThemeProvider theme={theme}>
         <>
           {this.getHead()}
           <ListingFilter
+            filters={filters}
             neighborhoods={neighborhoods}
             onChange={this.onChangeFilter}
             onReset={this.onResetFilter}
             initialFilters={getDerivedParams(query)}
-            ref={(filter) => (this.filter = filter)}
           />
           <ListingList
             query={query}

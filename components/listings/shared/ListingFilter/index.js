@@ -107,6 +107,7 @@ export default class Filter extends Component {
     const {values} = this.state
     let updatedValues = values
     delete updatedValues[filter]
+    this.hideAllFilters()
     this.setState({values: updatedValues})
     onChange(updatedValues)
   }
@@ -230,7 +231,7 @@ export default class Filter extends Component {
         neighborhoods: selectedNeighborhoods
       }
     } = this.state
-    const {onChangeListingType, resetFilter} = this
+    const {onChangeListingType} = this
     const selectedFilters = this.activeFilters
     const selectedFiltersArray = selectedFilters.map((item) => item.filter)
     const hasSelectedAnyTypes = selectedFiltersArray.includes('types')
