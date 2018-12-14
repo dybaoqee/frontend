@@ -60,19 +60,16 @@ export default class Filter extends Component {
   }
 
   neighborhoodChanged = (neighborhoods) => {
-    const {values} = this.state
-    const {onChange} = this.props
-    let updatedValues = values
+    let updatedValues = Object.assign({}, this.state.values)
     updatedValues.neighborhoods = neighborhoods
-    onChange(updatedValues)
+    this.props.onChange(updatedValues)
     this.setState({values: updatedValues})
   }
 
   onChangeListingType = ({currentTarget}) => {
-    const {values} = this.state
     const listingType = currentTarget.getAttribute('aria-label')
 
-    let updatedValues = values
+    let updatedValues = Object.assign({}, this.state.values)
     updatedValues.types = updatedValues.types || []
 
     if (!includes(updatedValues.types, listingType)) {
@@ -85,13 +82,11 @@ export default class Filter extends Component {
   }
 
   resetFilter = (filter) => {
-    const {onChange} = this.props
-    const {values} = this.state
-    let updatedValues = values
+    let updatedValues = this.state.values
     delete updatedValues[filter]
     this.hideAllFilters()
     this.setState({values: updatedValues})
-    onChange(updatedValues)
+    this.props.onChange(updatedValues)
   }
 
   resetFilters = () => {
@@ -217,6 +212,13 @@ export default class Filter extends Component {
       }
     } = this.props
 
+    const {
+      values: {
+        rooms: userRooms,
+        garageSpots: userGarageSpots
+      }
+    } = this.state
+
     const selectedFilters = this.activeFilters(this.props.filters)
     const selectedFiltersArray = selectedFilters.map((item) => item.filter)
     const hasSelectedAnyTypes = selectedFiltersArray.includes('types')
@@ -330,11 +332,11 @@ export default class Filter extends Component {
                     }
                     this.sliderChanged('rooms', values, true)
                 }}>
-                  <FilterButton active={rooms && rooms.min === 1} mr={2} px={[2, 3]} value={1}>1</FilterButton>
-                  <FilterButton active={rooms && rooms.min === 2} mr={2} px={[2, 3]} value={2}>2</FilterButton>
-                  <FilterButton active={rooms && rooms.min === 3} mr={2} px={[2, 3]} value={3}>3</FilterButton>
-                  <FilterButton active={rooms && rooms.min === 4} mr={2} px={[2, 3]} value={4}>4</FilterButton>
-                  <FilterButton active={rooms && rooms.min === 5} mr={2} px={[2, 3]} value="more">+</FilterButton>
+                  <FilterButton active={userRooms && userRooms.min === 1} mr={2} px={[2, 3]} value={1}>1</FilterButton>
+                  <FilterButton active={userRooms && userRooms.min === 2} mr={2} px={[2, 3]} value={2}>2</FilterButton>
+                  <FilterButton active={userRooms && userRooms.min === 3} mr={2} px={[2, 3]} value={3}>3</FilterButton>
+                  <FilterButton active={userRooms && userRooms.min === 4} mr={2} px={[2, 3]} value={4}>4</FilterButton>
+                  <FilterButton active={userRooms && userRooms.min === 5} mr={2} px={[2, 3]} value="more">+</FilterButton>
                 </Button.Group>
               </FilterPanel>
               <FilterPanel
@@ -365,12 +367,12 @@ export default class Filter extends Component {
                     }
                     this.sliderChanged('garageSpots', values, true)
                 }}>
-                  <FilterButton active={garageSpots && garageSpots.min === 0} mr={2} mb={2} px={[2, 3]} value={0}>Sem vagas</FilterButton>
-                  <FilterButton active={garageSpots && garageSpots.min === 1} mr={2} mb={2} px={[2, 3]} value={1}>1</FilterButton>
-                  <FilterButton active={garageSpots && garageSpots.min === 2} mr={2} mb={2} px={[2, 3]} value={2}>2</FilterButton>
-                  <FilterButton active={garageSpots && garageSpots.min === 3} mr={2} mb={2} px={[2, 3]} value={3}>3</FilterButton>
-                  <FilterButton active={garageSpots && garageSpots.min === 4} mr={2} mb={2} px={[2, 3]} value={4}>4</FilterButton>
-                  <FilterButton active={garageSpots && garageSpots.min === 5} mr={2} mb={2} px={[2, 3]} value="more">+</FilterButton>
+                  <FilterButton active={userGarageSpots && userGarageSpots.min === 0} mr={2} mb={2} px={[2, 3]} value={0}>Sem vagas</FilterButton>
+                  <FilterButton active={userGarageSpots && userGarageSpots.min === 1} mr={2} mb={2} px={[2, 3]} value={1}>1</FilterButton>
+                  <FilterButton active={userGarageSpots && userGarageSpots.min === 2} mr={2} mb={2} px={[2, 3]} value={2}>2</FilterButton>
+                  <FilterButton active={userGarageSpots && userGarageSpots.min === 3} mr={2} mb={2} px={[2, 3]} value={3}>3</FilterButton>
+                  <FilterButton active={userGarageSpots && userGarageSpots.min === 4} mr={2} mb={2} px={[2, 3]} value={4}>4</FilterButton>
+                  <FilterButton active={userGarageSpots && userGarageSpots.min === 5} mr={2} mb={2} px={[2, 3]} value="more">+</FilterButton>
                 </Button.Group>
               </FilterPanel>
             </Row>
