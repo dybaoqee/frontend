@@ -49,8 +49,7 @@ export default class Filter extends Component {
 
   sliderChanged = (value, {minValue, maxValue}, userClicked) => {
     if (userClicked) {
-      const {values} = this.state
-      let updatedValues = values
+      let updatedValues = Object.assign({}, this.state.values)
       if (!updatedValues[value]) {
         updatedValues[value] = {}
       }
