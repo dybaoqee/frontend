@@ -31,7 +31,7 @@ export const Thumb = styled.div`
   box-shadow: 0 0 0 1px ${themeGet('colors.pink')};
 
   :hover {
-    box-shadow: 0 0 0 12px rgba(34, 126, 162, 0.15), 0 0 0 1px ${themeGet('colors.pink')};
+    box-shadow: 0 0 0 12px rgba(245, 0, 87, 0.15), 0 0 0 1px ${themeGet('colors.pink')};
   }
 `
 
