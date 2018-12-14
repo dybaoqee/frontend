@@ -20,7 +20,7 @@ const Title = styled(Row)`
 
 const Container = styled(Row)`
   justify-content: flex-start;
-  margin: auto;
+  margin: 0, auto, 0, auto;
 `
 
 const MapContainer = styled.div`
