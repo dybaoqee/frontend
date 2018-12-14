@@ -50,7 +50,6 @@ export default class Filter extends Component {
   sliderChanged = (value, {minValue, maxValue}, userClicked) => {
     if (userClicked) {
       const {values} = this.state
-      const {onChange} = this.props
       let updatedValues = values
       if (!updatedValues[value]) {
         updatedValues[value] = {}
@@ -58,7 +57,6 @@ export default class Filter extends Component {
       updatedValues[value].min = minValue
       updatedValues[value].max = maxValue
       this.setState({values: updatedValues})
-      onChange(updatedValues)
     }
   }
 
@@ -273,7 +271,7 @@ export default class Filter extends Component {
               <FilterPanel
                 show={this.state.showArea}
                 panelPosition={this.state.panelPosition}
-                close={this.hideAllFilters}
+                apply={this.applyFilters}
                 clear={this.resetFilter.bind(this, 'area')}
               >
                 <NewSlider
@@ -288,7 +286,7 @@ export default class Filter extends Component {
               <FilterPanel
                 show={this.state.showPrice}
                 panelPosition={this.state.panelPosition}
-                close={this.hideAllFilters}
+                apply={this.applyFilters}
                 clear={this.resetFilter.bind(this, 'price')}
               >
                 <NewSlider
@@ -308,7 +306,7 @@ export default class Filter extends Component {
               <FilterPanel
                 show={this.state.showRooms}
                 panelPosition={this.state.panelPosition}
-                close={this.hideAllFilters}
+                apply={this.applyFilters}
                 clear={this.resetFilter.bind(this, 'rooms')}
               >
                 <Button.Group
@@ -345,7 +343,7 @@ export default class Filter extends Component {
               <FilterPanel
                 show={this.state.showGarage}
                 panelPosition={this.state.panelPosition}
-                close={this.hideAllFilters}
+                apply={this.applyFilters}
                 clear={this.resetFilter.bind(this, 'garageSpots')}
               >
                 <Button.Group
