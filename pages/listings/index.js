@@ -109,15 +109,19 @@ class ListingSearch extends Component {
   render() {
     const {neighborhoods, query, params, user, client} = this.props
     const {filters} = this.state
+    const listingFilters = getFiltersFromFilters(filters)
 
     const hasQuery = query && Object.keys(query).length > 0
     const hasParams = params && Object.keys(params).length > 0
     if (hasQuery) {
       filters.neighborhoodsSlugs = [query.neighborhoodSlug] // filter params (query string)
+      listingFilters.neighborhoodsSlugs = [query.neighborhoodSlug]
     }
     if (hasParams) {
       filters.citiesSlug = [params.city] // part of url. Used in ListingList only, to query listings from that state/city/neighborhood
+      listingFilters.citiesSlug = [params.city]
     }
+
     return (
       <ThemeProvider theme={theme}>
         <>
@@ -133,7 +137,7 @@ class ListingSearch extends Component {
             query={query}
             user={user}
             resetFilters={this.onResetFilter}
-            filters={getFiltersFromFilters(filters)}
+            filters={listingFilters}
             apolloClient={client}
             neighborhoodListener={(neighborhood) => {
               if (!this.state.neighborhood) {
