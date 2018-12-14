@@ -19,12 +19,17 @@ const MAX_FILTER_VALUE = 100
 
 const MAX_ITEMS_SELECTION = 5
 
+function clone(object) {
+  return JSON.parse(JSON.stringify(object))
+}
+
 export default class Filter extends Component {
   constructor(props) {
     super(props)
     this.isFilterOpen = this.isFilterOpen.bind(this)
     this.hideAllFilters = this.hideAllFilters.bind(this)
     this.applyFilters = this.applyFilters.bind(this)
+    this.restorePreviousValues = this.restorePreviousValues.bind(this)
 
     const initialValues = {...props.initialFilters}
     if (props.initialFilters.neighborhoods) {
@@ -37,7 +42,8 @@ export default class Filter extends Component {
     }
 
     this.state = {
-      values: initialValues,
+      values: clone(initialValues),
+      previousValues: clone(initialValues),
       showType: false,
       showArea: false,
       showPrice: false,
@@ -49,7 +55,7 @@ export default class Filter extends Component {
 
   sliderChanged = (value, {minValue, maxValue}, userClicked) => {
     if (userClicked) {
-      let updatedValues = Object.assign({}, this.state.values)
+      let updatedValues = clone(this.state.values)
       if (!updatedValues[value]) {
         updatedValues[value] = {}
       }
@@ -60,7 +66,7 @@ export default class Filter extends Component {
   }
 
   neighborhoodChanged = (neighborhoods) => {
-    let updatedValues = Object.assign({}, this.state.values)
+    let updatedValues = clone(this.state.values)
     updatedValues.neighborhoods = neighborhoods
     this.props.onChange(updatedValues)
     this.setState({values: updatedValues})
@@ -69,7 +75,7 @@ export default class Filter extends Component {
   onChangeListingType = ({currentTarget}) => {
     const listingType = currentTarget.getAttribute('aria-label')
 
-    let updatedValues = Object.assign({}, this.state.values)
+    let updatedValues = clone(this.state.values)
     updatedValues.types = updatedValues.types || []
 
     if (!includes(updatedValues.types, listingType)) {
@@ -82,10 +88,13 @@ export default class Filter extends Component {
   }
 
   resetFilter = (filter) => {
-    let updatedValues = this.state.values
+    let updatedValues = clone(this.state.values)
     delete updatedValues[filter]
+    this.setState({
+      values: updatedValues,
+      previousValues: updatedValues
+    })
     this.hideAllFilters()
-    this.setState({values: updatedValues})
     this.props.onChange(updatedValues)
   }
 
@@ -166,6 +175,7 @@ export default class Filter extends Component {
     const { target } = event
     const panelPosition = {left: target.getBoundingClientRect().left, top: target.getBoundingClientRect().top}
     this.setState({
+      values: clone(this.state.previousValues),
       showType: filter === 'type' ? !this.state.showType : false,
       showArea: filter === 'area' ? !this.state.showArea : false,
       showPrice: filter === 'price' ? !this.state.showPrice : false,
@@ -176,8 +186,19 @@ export default class Filter extends Component {
   }
 
   applyFilters() {
-    this.props.onChange(this.state.values)
-    this.hideAllFilters()
+    this.setState({
+      previousValues: clone(this.state.values)
+    }, () => {
+      this.hideAllFilters()
+      this.restorePreviousValues()
+      this.props.onChange(this.state.values)
+    })
+  }
+
+  restorePreviousValues() {
+    this.setState({
+      values: clone(this.state.previousValues)
+    })
   }
 
   hideAllFilters() {
@@ -214,6 +235,8 @@ export default class Filter extends Component {
 
     const {
       values: {
+        area: userArea,
+        price: userPrice,
         rooms: userRooms,
         garageSpots: userGarageSpots
       }
@@ -233,7 +256,7 @@ export default class Filter extends Component {
           const neighborhoodsOptions = neighborhoodOptions(neighborhoods)
           return (
             <Row p={4}>
-              <Overlay onClick={this.hideAllFilters} />
+              <Overlay onClick={() => {this.hideAllFilters(); this.restorePreviousValues();}} />
               <Row flexDirection="row" flexWrap="wrap" style={{position: 'relative'}}>
                 <FilterButton active={hasSelectedAnyTypes} onClick={this.showFilter.bind(this, 'type')}>{this.getFiltersLabels('types')}</FilterButton>
                 <FilterButton active={selectedFiltersArray.includes('area')} onClick={this.showFilter.bind(this, 'area')}>{this.getFiltersLabels('area')}</FilterButton>
@@ -277,7 +300,7 @@ export default class Filter extends Component {
               >
                 <NewSlider
                   min={35}
-                  values={area}
+                  values={userArea}
                   max={500}
                   isRange
                   onChange={this.sliderChanged.bind(this, 'area')}
@@ -293,7 +316,7 @@ export default class Filter extends Component {
                 <NewSlider
                   min={550000}
                   max={12000000}
-                  values={price}
+                  values={userPrice}
                   isRange
                   onChange={this.sliderChanged.bind(this, 'price')}
                   valuesRounder={(value) =>
