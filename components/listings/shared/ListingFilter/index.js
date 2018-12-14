@@ -317,9 +317,7 @@ export default class Filter extends Component {
                     update: (selectedValue, value) => (selectedValue === value ? null : value)
                   }}
                   onChange={(value) => {
-                    // reset filter
                     if (value === null) {
-                      this.resetFilter('rooms')
                       return
                     }
 
@@ -354,9 +352,7 @@ export default class Filter extends Component {
                     update: (selectedValue, value) => (selectedValue === value ? null : value)
                   }}
                   onChange={(value) => {
-                    // reset filter
                     if (value === null) {
-                      this.resetFilter('garageSpots')
                       return
                     }
 

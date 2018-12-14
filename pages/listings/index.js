@@ -67,9 +67,7 @@ class ListingSearch extends Component {
     const query = newQuery.length > 0 ? `?${newQuery}` : ''
     Router.push(`/listings${query}`, `/imoveis${route}${query}`, {shallow: true})
 
-    this.setState({
-      filters: getFiltersFromFilters(filters)
-    })
+    this.setState({filters: filters})
     window.scrollTo(0, 0)
   }
 
@@ -135,7 +133,7 @@ class ListingSearch extends Component {
             query={query}
             user={user}
             resetFilters={this.onResetFilter}
-            filters={filters}
+            filters={getFiltersFromFilters(filters)}
             apolloClient={client}
             neighborhoodListener={(neighborhood) => {
               if (!this.state.neighborhood) {
