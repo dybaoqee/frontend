@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import theme from '@emcasa/ui'
 import Row from '@emcasa/ui-dom/components/Row'
-import Col from '@emcasa/ui-dom/components/Col'
 import Button from '@emcasa/ui-dom/components/Button'
 import { isMobile } from 'lib/mobile'
 import {
@@ -23,8 +22,8 @@ class FilterPanel extends PureComponent {
           {this.props.children}
         </Row>
         <Row justifyContent="space-between" mt={2}>
-          <Button link onClick={this.props.clear}>Limpar</Button>
-          <Button link onClick={this.props.apply}>Aplicar</Button>
+          <Button p={0} link style={{color: theme.colors.dark, height: 32}} onClick={this.props.clear}>Limpar</Button>
+          <Button p={0} link style={{height: 32}} onClick={this.props.apply}>Aplicar</Button>
         </Row>
       </Container>
     )
