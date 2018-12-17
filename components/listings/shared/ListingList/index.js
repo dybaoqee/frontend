@@ -286,7 +286,7 @@ class ListingList extends Component {
           return (
             <>
               <Title>
-                <Text>{state ? h1Content : null}</Text>
+                {state && <Text>{h1Content}</Text>}
               </Title>
               <Container>
                 {this.getListings(listings, fetchMore)}
