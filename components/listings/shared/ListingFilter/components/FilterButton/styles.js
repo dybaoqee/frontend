@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import theme from '@emcasa/ui'
 import Button from '@emcasa/ui-dom/components/Button'
+import Icon from '@emcasa/ui-dom/components/Icon'
 
 const StyledFilterButton = styled(Button)`
   border: 1px solid ${theme.colors.pink};
@@ -9,6 +10,12 @@ const StyledFilterButton = styled(Button)`
   margin: 0 ${theme.space[2]}px ${theme.space[1]}px 0;
 `
 
+const RemoveIcon = styled(Icon)`
+  display: flex;
+  margin-left: ${theme.space[2]}px;
+`
+
 export {
-  StyledFilterButton
+  StyledFilterButton,
+  RemoveIcon
 }

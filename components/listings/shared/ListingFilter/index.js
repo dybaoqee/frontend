@@ -258,11 +258,41 @@ export default class Filter extends Component {
             <Row p={4}>
               <Overlay onClick={() => {this.hideAllFilters(); this.restorePreviousValues();}} />
               <Row flexDirection="row" flexWrap="wrap" style={{position: 'relative'}}>
-                <FilterButton active={hasSelectedAnyTypes} onClick={this.showFilter.bind(this, 'type')}>{this.getFiltersLabels('types')}</FilterButton>
-                <FilterButton active={selectedFiltersArray.includes('area')} onClick={this.showFilter.bind(this, 'area')}>{this.getFiltersLabels('area')}</FilterButton>
-                <FilterButton active={selectedFiltersArray.includes('price')} onClick={this.showFilter.bind(this, 'price')}>{this.getFiltersLabels('price')}</FilterButton>
-                <FilterButton active={selectedFiltersArray.includes('rooms')} onClick={this.showFilter.bind(this, 'rooms')}>{this.getFiltersLabels('rooms')}</FilterButton>
-                <FilterButton active={selectedFiltersArray.includes('garageSpots')} onClick={this.showFilter.bind(this, 'garage')}>{this.getFiltersLabels('garageSpots')}</FilterButton>
+                <FilterButton
+                  active={hasSelectedAnyTypes}
+                  onClick={this.showFilter.bind(this, 'type')}
+                  onRemoveFilter={this.resetFilter.bind(this, 'types')}
+                  showRemoveButton={selectedFiltersArray.includes('types')}>
+                    {this.getFiltersLabels('types')}
+                </FilterButton>
+                <FilterButton
+                  active={selectedFiltersArray.includes('area')}
+                  onClick={this.showFilter.bind(this, 'area')}
+                  onRemoveFilter={this.resetFilter.bind(this, 'area')}
+                  showRemoveButton={selectedFiltersArray.includes('area')}>
+                    {this.getFiltersLabels('area')}
+                </FilterButton>
+                <FilterButton
+                  active={selectedFiltersArray.includes('price')}
+                  onClick={this.showFilter.bind(this, 'price')}
+                  onRemoveFilter={this.resetFilter.bind(this, 'price')}
+                  showRemoveButton={selectedFiltersArray.includes('price')}>
+                    {this.getFiltersLabels('price')}
+                </FilterButton>
+                <FilterButton
+                  active={selectedFiltersArray.includes('rooms')}
+                  onClick={this.showFilter.bind(this, 'rooms')}
+                  onRemoveFilter={this.resetFilter.bind(this, 'rooms')}
+                  showRemoveButton={selectedFiltersArray.includes('rooms')}>
+                    {this.getFiltersLabels('rooms')}
+                </FilterButton>
+                <FilterButton
+                  active={selectedFiltersArray.includes('garageSpots')}
+                  onClick={this.showFilter.bind(this, 'garage')}
+                  onRemoveFilter={this.resetFilter.bind(this, 'garageSpots')}
+                  showRemoveButton={selectedFiltersArray.includes('garageSpots')}>
+                    {this.getFiltersLabels('garageSpots')}
+                </FilterButton>
               </Row>
               <FilterPanel
                 show={this.state.showType}

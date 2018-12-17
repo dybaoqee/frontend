@@ -1,6 +1,11 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { StyledFilterButton } from './styles'
+import Row from '@emcasa/ui-dom/components/Row'
+import Icon from '@emcasa/ui-dom/components/Icon'
+import {
+  StyledFilterButton,
+  RemoveIcon
+} from './styles'
 
 class FilterButton extends PureComponent {
   render() {
@@ -13,7 +18,10 @@ class FilterButton extends PureComponent {
         value={this.props.value}
         onClick={this.props.onClick}
       >
-        {this.props.children}
+        <Row>
+          {this.props.children}
+          {this.props.showRemoveButton && <RemoveIcon name="times-circle" color="white" onClick={this.props.onRemoveFilter} />}
+        </Row>
       </StyledFilterButton>
     )
   }
@@ -23,7 +31,8 @@ FilterButton.propTypes = {
   value: PropTypes.any.isRequired,
   active: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
-  onRemoveFilter: PropTypes.func.isRequired
+  onRemoveFilter: PropTypes.func.isRequired,
+  showRemoveButton: PropTypes.bool.isRequired
 }
 
 export default FilterButton
