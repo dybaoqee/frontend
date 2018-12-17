@@ -11,13 +11,14 @@ import {
 class FilterPanel extends PureComponent {
   render() {
     let left = 0, top = 0
-    const { show, panelPosition } = this.props
+    const { title, show, panelPosition } = this.props
     if (panelPosition) {
       left = isMobile() ? theme.space[4] : panelPosition.left
       top = panelPosition.top
     }
     return (
       <Container elevation={4} p={2} show={show} left={left} top={top}>
+        {isMobile() && <Row>{title}</Row>}
         <Row>
           {this.props.children}
         </Row>
