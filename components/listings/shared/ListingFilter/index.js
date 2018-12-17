@@ -11,6 +11,7 @@ import Row from '@emcasa/ui-dom/components/Row'
 import Button from '@emcasa/ui-dom/components/Button'
 import { clone } from 'utils/clone'
 import {
+  Container,
   Overlay
 } from './styles'
 import { activeFilters } from './lib'
@@ -203,7 +204,7 @@ export default class Filter extends Component {
         {({data: {neighborhoods = []}}) => {
           const neighborhoodsOptions = neighborhoodOptions(neighborhoods)
           return (
-            <Row p={4}>
+            <Container>
               <Overlay onClick={() => {this.hideAllFilters(); this.restorePreviousValues();}} />
               <Row flexDirection="row" flexWrap="wrap" style={{position: 'relative'}}>
                 <FilterButton
@@ -364,7 +365,7 @@ export default class Filter extends Component {
                   <FilterButton active={userGarageSpots && userGarageSpots.min === 5} value="more">+</FilterButton>
                 </Button.Group>
               </FilterPanel>
-            </Row>
+            </Container>
           )
         }}
       </Query>
