@@ -1,7 +1,6 @@
 import {Component} from 'react'
 import includes from 'lodash/includes'
 import remove from 'lodash/remove'
-import numeral from 'numeral'
 import NewSlider from 'components/shared/Common/NewSlider'
 import {neighborhoodOptions} from 'constants/listing-filter-options'
 import {Query} from 'react-apollo'
@@ -14,7 +13,7 @@ import { clone } from 'utils/clone'
 import {
   Overlay
 } from './styles'
-
+import { activeFilters } from './lib'
 import {
   MIN_GROUP_FILTER_VALUE,
   MAX_GROUP_FILTER_VALUE,
@@ -107,55 +106,8 @@ export default class Filter extends Component {
     this.setState({values: {}})
   }
 
-  activeFilters(values) {
-    const { types, price, neighborhoods, rooms, garageSpots, area } = values
-
-    const propertyTypes = types && types.join(', ')
-    const rangePrice =
-      price &&
-      `R$${numeral(price.min).format('0.00a')} - R$${numeral(price.max).format(
-        '0.00a'
-      )}`
-
-    let rangeRooms = ''
-    if (rooms && rooms.min !== null && rooms.max !== null) {
-      rangeRooms = rooms.min === MAX_GROUP_ITEMS_SELECTION ? `${rooms.min} ou mais quartos` : `${rooms.min} quarto${rooms.min > 1 ? 's' : ''}`
-    }
-
-    let rangeGarageSpots = ''
-    if (garageSpots && garageSpots.min !== null && garageSpots.max !== null) {
-      if (garageSpots.min === 0) {
-        rangeGarageSpots = 'Sem vagas'
-      } else {
-        rangeGarageSpots = garageSpots.min === MAX_GROUP_ITEMS_SELECTION ? `${garageSpots.min} ou mais vagas` : `${garageSpots.min} vaga${garageSpots.min > 1 ? 's' : ''}`
-      }
-    }
-
-    const rangeArea = area && `${area.min} - ${area.max} m²`
-
-    const rangeNeighborhoods =
-      neighborhoods &&
-      neighborhoods.length > 0 &&
-      `${neighborhoods[0].value}${
-        neighborhoods.length > 1 ? ` e mais ${neighborhoods.length - 1}` : ''
-      }`
-
-    const filters = [
-      {filter: FILTERS.TYPES, value: propertyTypes},
-      {filter: FILTERS.NEIGHBORHOODS, value: rangeNeighborhoods},
-      {filter: FILTERS.PRICE, value: rangePrice},
-      {filter: FILTERS.ROOMS, value: rangeRooms},
-      {filter: FILTERS.GARAGE_SPOTS, value: rangeGarageSpots},
-      {filter: FILTERS.AREA, value: rangeArea}
-    ].filter((filter) => filter.value)
-
-    return filters.map(({filter, value}) => (
-      {filter: filter, value: value}
-    ))
-  }
-
   getFiltersLabels(filter) {
-    const selectedFilter = this.activeFilters(this.props.filters).find((item) => item.filter === filter)
+    const selectedFilter = activeFilters(this.props.filters).find((item) => item.filter === filter)
     if (selectedFilter) {
       return selectedFilter.value
     }
@@ -238,11 +190,11 @@ export default class Filter extends Component {
       }
     } = this.state
 
-    const selectedFilters = this.activeFilters(this.props.filters)
+    const selectedFilters = activeFilters(this.props.filters)
     const selectedFiltersArray = selectedFilters.map((item) => item.filter)
     const hasSelectedAnyTypes = selectedFiltersArray.includes(FILTERS.TYPES)
 
-    const userSelectedFilters = this.activeFilters(this.state.values)
+    const userSelectedFilters = activeFilters(this.state.values)
     const userSelectedFiltersArray = userSelectedFilters.map((item) => item.filter)
     const userHasSelectedAnyTypes = userSelectedFiltersArray.includes(FILTERS.TYPES)
 
@@ -256,37 +208,27 @@ export default class Filter extends Component {
               <Row flexDirection="row" flexWrap="wrap" style={{position: 'relative'}}>
                 <FilterButton
                   active={hasSelectedAnyTypes}
-                  onClick={this.showFilter.bind(this, FILTERS.TYPES)}
-                  onRemoveFilter={this.resetFilter.bind(this, FILTERS.TYPES)}
-                  showRemoveButton={selectedFiltersArray.includes(FILTERS.TYPES)}>
+                  onClick={this.showFilter.bind(this, FILTERS.TYPES)}>
                     {this.getFiltersLabels(FILTERS.TYPES)}
                 </FilterButton>
                 <FilterButton
                   active={selectedFiltersArray.includes(FILTERS.AREA)}
-                  onClick={this.showFilter.bind(this, FILTERS.AREA)}
-                  onRemoveFilter={this.resetFilter.bind(this, FILTERS.AREA)}
-                  showRemoveButton={selectedFiltersArray.includes(FILTERS.AREA)}>
+                  onClick={this.showFilter.bind(this, FILTERS.AREA)}>
                     {this.getFiltersLabels(FILTERS.AREA)}
                 </FilterButton>
                 <FilterButton
                   active={selectedFiltersArray.includes(FILTERS.PRICE)}
-                  onClick={this.showFilter.bind(this, FILTERS.PRICE)}
-                  onRemoveFilter={this.resetFilter.bind(this, FILTERS.PRICE)}
-                  showRemoveButton={selectedFiltersArray.includes(FILTERS.PRICE)}>
+                  onClick={this.showFilter.bind(this, FILTERS.PRICE)}>
                     {this.getFiltersLabels(FILTERS.PRICE)}
                 </FilterButton>
                 <FilterButton
                   active={selectedFiltersArray.includes(FILTERS.ROOMS)}
-                  onClick={this.showFilter.bind(this, FILTERS.ROOMS)}
-                  onRemoveFilter={this.resetFilter.bind(this, FILTERS.ROOMS)}
-                  showRemoveButton={selectedFiltersArray.includes(FILTERS.ROOMS)}>
+                  onClick={this.showFilter.bind(this, FILTERS.ROOMS)}>
                     {this.getFiltersLabels(FILTERS.ROOMS)}
                 </FilterButton>
                 <FilterButton
                   active={selectedFiltersArray.includes(FILTERS.GARAGE_SPOTS)}
-                  onClick={this.showFilter.bind(this, FILTERS.GARAGE_SPOTS)}
-                  onRemoveFilter={this.resetFilter.bind(this, FILTERS.GARAGE_SPOTS)}
-                  showRemoveButton={selectedFiltersArray.includes(FILTERS.GARAGE_SPOTS)}>
+                  onClick={this.showFilter.bind(this, FILTERS.GARAGE_SPOTS)}>
                     {this.getFiltersLabels(FILTERS.GARAGE_SPOTS)}
                 </FilterButton>
               </Row>

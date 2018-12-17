@@ -2,8 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import Row from '@emcasa/ui-dom/components/Row'
 import {
-  StyledFilterButton,
-  RemoveIcon
+  StyledFilterButton
 } from './styles'
 
 class FilterButton extends PureComponent {
@@ -19,12 +18,6 @@ class FilterButton extends PureComponent {
       >
         <Row>
           {this.props.children}
-          <div onClick={(e) => {
-            e.stopPropagation()
-            this.props.onRemoveFilter()
-          }}>
-            {this.props.showRemoveButton && <RemoveIcon name="times-circle" color="white" />}
-          </div>
         </Row>
       </StyledFilterButton>
     )
@@ -34,9 +27,7 @@ class FilterButton extends PureComponent {
 FilterButton.propTypes = {
   value: PropTypes.any.isRequired,
   active: PropTypes.bool.isRequired,
-  onClick: PropTypes.func.isRequired,
-  onRemoveFilter: PropTypes.func.isRequired,
-  showRemoveButton: PropTypes.bool.isRequired
+  onClick: PropTypes.func.isRequired
 }
 
 export default FilterButton

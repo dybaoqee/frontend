@@ -1,7 +1,5 @@
 import {Component} from 'react'
 import {Query} from 'react-apollo'
-import { FadeLoader } from 'react-spinners'
-import theme from '@emcasa/ui'
 import {GET_USER_LISTINGS_ACTIONS} from 'graphql/user/queries'
 import {
   GET_LISTINGS,
@@ -16,7 +14,6 @@ import ListingCard from 'components/listings/shared/ListingCard'
 import Map from 'components/listings/shared/Map'
 import ListingsNotFound from 'components/listings/shared/NotFound'
 import Neighborhood from 'components/listings/shared/Neighborhood'
-import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
 import {
   MIN_WIDTH_FOR_MAP_RENDER,
