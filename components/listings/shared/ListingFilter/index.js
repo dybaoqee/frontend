@@ -1,4 +1,5 @@
 import {Component} from 'react'
+import PropTypes from 'prop-types'
 import includes from 'lodash/includes'
 import remove from 'lodash/remove'
 import NewSlider from 'components/shared/Common/NewSlider'
@@ -24,7 +25,7 @@ import {
   PRICE_FILTER
 } from './constants'
 
-export default class Filter extends Component {
+class ListingFilter extends Component {
   constructor(props) {
     super(props)
     this.isFilterOpen = this.isFilterOpen.bind(this)
@@ -372,3 +373,13 @@ export default class Filter extends Component {
     )
   }
 }
+
+ListingFilter.propTypes = {
+  filters: PropTypes.object,
+  neighborhoods: PropTypes.array,
+  onChange: PropTypes.func.isRequired,
+  onReset: PropTypes.func.isRequired,
+  initialFilters: PropTypes.object
+}
+
+export default ListingFilter
