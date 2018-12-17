@@ -10,18 +10,19 @@ import FilterPanel from './components/FilterPanel'
 import FilterButton from './components/FilterButton'
 import Row from '@emcasa/ui-dom/components/Row'
 import Button from '@emcasa/ui-dom/components/Button'
+import { clone } from 'utils/clone'
 import {
   Overlay
 } from './styles'
 
-const MIN_FILTER_VALUE = 0
-const MAX_FILTER_VALUE = 100
-
-const MAX_ITEMS_SELECTION = 5
-
-function clone(object) {
-  return JSON.parse(JSON.stringify(object))
-}
+import {
+  MIN_GROUP_FILTER_VALUE,
+  MAX_GROUP_FILTER_VALUE,
+  MAX_GROUP_ITEMS_SELECTION,
+  FILTERS,
+  AREA_FILTER,
+  PRICE_FILTER
+} from './constants'
 
 export default class Filter extends Component {
   constructor(props) {
@@ -73,8 +74,6 @@ export default class Filter extends Component {
   }
 
   onChangeListingType = (listingType) => {
-    console.log('change listing type', listingType)
-
     let updatedValues = clone(this.state.values)
     updatedValues.types = updatedValues.types || []
 
@@ -120,7 +119,7 @@ export default class Filter extends Component {
 
     let rangeRooms = ''
     if (rooms && rooms.min !== null && rooms.max !== null) {
-      rangeRooms = rooms.min === MAX_ITEMS_SELECTION ? `${rooms.min} ou mais quartos` : `${rooms.min} quarto${rooms.min > 1 ? 's' : ''}`
+      rangeRooms = rooms.min === MAX_GROUP_ITEMS_SELECTION ? `${rooms.min} ou mais quartos` : `${rooms.min} quarto${rooms.min > 1 ? 's' : ''}`
     }
 
     let rangeGarageSpots = ''
@@ -128,7 +127,7 @@ export default class Filter extends Component {
       if (garageSpots.min === 0) {
         rangeGarageSpots = 'Sem vagas'
       } else {
-        rangeGarageSpots = garageSpots.min === MAX_ITEMS_SELECTION ? `${garageSpots.min} ou mais vagas` : `${garageSpots.min} vaga${garageSpots.min > 1 ? 's' : ''}`
+        rangeGarageSpots = garageSpots.min === MAX_GROUP_ITEMS_SELECTION ? `${garageSpots.min} ou mais vagas` : `${garageSpots.min} vaga${garageSpots.min > 1 ? 's' : ''}`
       }
     }
 
@@ -142,12 +141,12 @@ export default class Filter extends Component {
       }`
 
     const filters = [
-      {filter: 'types', value: propertyTypes},
-      {filter: 'neighborhoods', value: rangeNeighborhoods},
-      {filter: 'price', value: rangePrice},
-      {filter: 'rooms', value: rangeRooms},
-      {filter: 'garageSpots', value: rangeGarageSpots},
-      {filter: 'area', value: rangeArea}
+      {filter: FILTERS.TYPES, value: propertyTypes},
+      {filter: FILTERS.NEIGHBORHOODS, value: rangeNeighborhoods},
+      {filter: FILTERS.PRICE, value: rangePrice},
+      {filter: FILTERS.ROOMS, value: rangeRooms},
+      {filter: FILTERS.GARAGE_SPOTS, value: rangeGarageSpots},
+      {filter: FILTERS.AREA, value: rangeArea}
     ].filter((filter) => filter.value)
 
     return filters.map(({filter, value}) => (
@@ -161,11 +160,11 @@ export default class Filter extends Component {
       return selectedFilter.value
     }
     switch (filter) {
-      case 'types': return 'Tipos de imóveis'
-      case 'area': return 'Área'
-      case 'price': return 'Valor'
-      case 'rooms': return 'Quartos'
-      case 'garageSpots': return 'Vagas de garagem'
+      case FILTERS.TYPES: return 'Tipos de imóveis'
+      case FILTERS.AREA: return 'Área'
+      case FILTERS.PRICE: return 'Valor'
+      case FILTERS.ROOMS: return 'Quartos'
+      case FILTERS.GARAGE_SPOTS: return 'Vagas de garagem'
       default:
     }
     return ''
@@ -176,11 +175,11 @@ export default class Filter extends Component {
     const panelPosition = {left: target.getBoundingClientRect().left, top: target.getBoundingClientRect().top}
     this.setState({
       values: clone(this.state.previousValues),
-      showType: filter === 'type' ? !this.state.showType : false,
-      showArea: filter === 'area' ? !this.state.showArea : false,
-      showPrice: filter === 'price' ? !this.state.showPrice : false,
-      showRooms: filter === 'rooms' ? !this.state.showRooms : false,
-      showGarage: filter === 'garage' ? !this.state.showGarage : false,
+      showType: filter === FILTERS.TYPES ? !this.state.showType : false,
+      showArea: filter === FILTERS.AREA ? !this.state.showArea : false,
+      showPrice: filter === FILTERS.PRICE ? !this.state.showPrice : false,
+      showRooms: filter === FILTERS.ROOMS ? !this.state.showRooms : false,
+      showGarage: filter === FILTERS.GARAGE_SPOTS ? !this.state.showGarage : false,
       panelPosition
     })
   }
@@ -224,11 +223,8 @@ export default class Filter extends Component {
   render() {
     const {
       filters: {
-        area,
-        price,
         garageSpots,
         rooms,
-        types,
         neighborhoods: selectedNeighborhoods
       }
     } = this.props
@@ -244,11 +240,11 @@ export default class Filter extends Component {
 
     const selectedFilters = this.activeFilters(this.props.filters)
     const selectedFiltersArray = selectedFilters.map((item) => item.filter)
-    const hasSelectedAnyTypes = selectedFiltersArray.includes('types')
+    const hasSelectedAnyTypes = selectedFiltersArray.includes(FILTERS.TYPES)
 
     const userSelectedFilters = this.activeFilters(this.state.values)
     const userSelectedFiltersArray = userSelectedFilters.map((item) => item.filter)
-    const userHasSelectedAnyTypes = userSelectedFiltersArray.includes('types')
+    const userHasSelectedAnyTypes = userSelectedFiltersArray.includes(FILTERS.TYPES)
 
     return (
       <Query query={GET_NEIGHBORHOODS} ssr={false}>
@@ -260,45 +256,45 @@ export default class Filter extends Component {
               <Row flexDirection="row" flexWrap="wrap" style={{position: 'relative'}}>
                 <FilterButton
                   active={hasSelectedAnyTypes}
-                  onClick={this.showFilter.bind(this, 'type')}
-                  onRemoveFilter={this.resetFilter.bind(this, 'types')}
-                  showRemoveButton={selectedFiltersArray.includes('types')}>
-                    {this.getFiltersLabels('types')}
+                  onClick={this.showFilter.bind(this, FILTERS.TYPES)}
+                  onRemoveFilter={this.resetFilter.bind(this, FILTERS.TYPES)}
+                  showRemoveButton={selectedFiltersArray.includes(FILTERS.TYPES)}>
+                    {this.getFiltersLabels(FILTERS.TYPES)}
                 </FilterButton>
                 <FilterButton
-                  active={selectedFiltersArray.includes('area')}
-                  onClick={this.showFilter.bind(this, 'area')}
-                  onRemoveFilter={this.resetFilter.bind(this, 'area')}
-                  showRemoveButton={selectedFiltersArray.includes('area')}>
-                    {this.getFiltersLabels('area')}
+                  active={selectedFiltersArray.includes(FILTERS.AREA)}
+                  onClick={this.showFilter.bind(this, FILTERS.AREA)}
+                  onRemoveFilter={this.resetFilter.bind(this, FILTERS.AREA)}
+                  showRemoveButton={selectedFiltersArray.includes(FILTERS.AREA)}>
+                    {this.getFiltersLabels(FILTERS.AREA)}
                 </FilterButton>
                 <FilterButton
-                  active={selectedFiltersArray.includes('price')}
-                  onClick={this.showFilter.bind(this, 'price')}
-                  onRemoveFilter={this.resetFilter.bind(this, 'price')}
-                  showRemoveButton={selectedFiltersArray.includes('price')}>
-                    {this.getFiltersLabels('price')}
+                  active={selectedFiltersArray.includes(FILTERS.PRICE)}
+                  onClick={this.showFilter.bind(this, FILTERS.PRICE)}
+                  onRemoveFilter={this.resetFilter.bind(this, FILTERS.PRICE)}
+                  showRemoveButton={selectedFiltersArray.includes(FILTERS.PRICE)}>
+                    {this.getFiltersLabels(FILTERS.PRICE)}
                 </FilterButton>
                 <FilterButton
-                  active={selectedFiltersArray.includes('rooms')}
-                  onClick={this.showFilter.bind(this, 'rooms')}
-                  onRemoveFilter={this.resetFilter.bind(this, 'rooms')}
-                  showRemoveButton={selectedFiltersArray.includes('rooms')}>
-                    {this.getFiltersLabels('rooms')}
+                  active={selectedFiltersArray.includes(FILTERS.ROOMS)}
+                  onClick={this.showFilter.bind(this, FILTERS.ROOMS)}
+                  onRemoveFilter={this.resetFilter.bind(this, FILTERS.ROOMS)}
+                  showRemoveButton={selectedFiltersArray.includes(FILTERS.ROOMS)}>
+                    {this.getFiltersLabels(FILTERS.ROOMS)}
                 </FilterButton>
                 <FilterButton
-                  active={selectedFiltersArray.includes('garageSpots')}
-                  onClick={this.showFilter.bind(this, 'garage')}
-                  onRemoveFilter={this.resetFilter.bind(this, 'garageSpots')}
-                  showRemoveButton={selectedFiltersArray.includes('garageSpots')}>
-                    {this.getFiltersLabels('garageSpots')}
+                  active={selectedFiltersArray.includes(FILTERS.GARAGE_SPOTS)}
+                  onClick={this.showFilter.bind(this, FILTERS.GARAGE_SPOTS)}
+                  onRemoveFilter={this.resetFilter.bind(this, FILTERS.GARAGE_SPOTS)}
+                  showRemoveButton={selectedFiltersArray.includes(FILTERS.GARAGE_SPOTS)}>
+                    {this.getFiltersLabels(FILTERS.GARAGE_SPOTS)}
                 </FilterButton>
               </Row>
               <FilterPanel
                 show={this.state.showType}
                 panelPosition={this.state.panelPosition}
                 apply={this.applyFilters}
-                clear={this.resetFilter.bind(this, 'types')}
+                clear={this.resetFilter.bind(this, FILTERS.TYPES)}
               >
                 <FilterButton
                   active={userHasSelectedAnyTypes && this.state.values && this.state.values.types.includes('Apartamento')}
@@ -323,14 +319,14 @@ export default class Filter extends Component {
                 show={this.state.showArea}
                 panelPosition={this.state.panelPosition}
                 apply={this.applyFilters}
-                clear={this.resetFilter.bind(this, 'area')}
+                clear={this.resetFilter.bind(this, FILTERS.AREA)}
               >
                 <NewSlider
-                  min={35}
+                  min={AREA_FILTER.MIN}
                   values={userArea}
-                  max={500}
+                  max={AREA_FILTER.MAX}
                   isRange
-                  onChange={this.sliderChanged.bind(this, 'area')}
+                  onChange={this.sliderChanged.bind(this, FILTERS.AREA)}
                   valuesFormatter={(value) => `${value} m²`}
                 />
               </FilterPanel>
@@ -338,14 +334,14 @@ export default class Filter extends Component {
                 show={this.state.showPrice}
                 panelPosition={this.state.panelPosition}
                 apply={this.applyFilters}
-                clear={this.resetFilter.bind(this, 'price')}
+                clear={this.resetFilter.bind(this, FILTERS.PRICE)}
               >
                 <NewSlider
-                  min={550000}
-                  max={12000000}
+                  min={PRICE_FILTER.MIN}
+                  max={PRICE_FILTER.MAX}
                   values={userPrice}
                   isRange
-                  onChange={this.sliderChanged.bind(this, 'price')}
+                  onChange={this.sliderChanged.bind(this, FILTERS.PRICE)}
                   valuesRounder={(value) =>
                     Math.ceil(value / 10000) * 10000
                   }
@@ -358,7 +354,7 @@ export default class Filter extends Component {
                 show={this.state.showRooms}
                 panelPosition={this.state.panelPosition}
                 apply={this.applyFilters}
-                clear={this.resetFilter.bind(this, 'rooms')}
+                clear={this.resetFilter.bind(this, FILTERS.ROOMS)}
               >
                 <Button.Group
                   flexWrap="wrap"
@@ -371,14 +367,14 @@ export default class Filter extends Component {
                     if (value === null) {
                       return
                     }
-                    let values = {minValue: MIN_FILTER_VALUE, maxValue: MAX_FILTER_VALUE}
+                    let values = {minValue: MIN_GROUP_FILTER_VALUE, maxValue: MAX_GROUP_FILTER_VALUE}
                     if (value === 'more') {
-                      values.minValue = MAX_ITEMS_SELECTION
+                      values.minValue = MAX_GROUP_ITEMS_SELECTION
                     } else {
                       values.minValue = value
                       values.maxValue = value
                     }
-                    this.sliderChanged('rooms', values, true)
+                    this.sliderChanged(FILTERS.ROOMS, values, true)
                 }}>
                   <FilterButton active={userRooms && userRooms.min === 1} value={1}>1</FilterButton>
                   <FilterButton active={userRooms && userRooms.min === 2} value={2}>2</FilterButton>
@@ -391,7 +387,7 @@ export default class Filter extends Component {
                 show={this.state.showGarage}
                 panelPosition={this.state.panelPosition}
                 apply={this.applyFilters}
-                clear={this.resetFilter.bind(this, 'garageSpots')}
+                clear={this.resetFilter.bind(this, FILTERS.GARAGE_SPOTS)}
               >
                 <Button.Group
                   flexWrap="wrap"
@@ -404,14 +400,14 @@ export default class Filter extends Component {
                     if (value === null) {
                       return
                     }
-                    let values = {minValue: MIN_FILTER_VALUE, maxValue: MAX_FILTER_VALUE}
+                    let values = {minValue: MIN_GROUP_FILTER_VALUE, maxValue: MAX_GROUP_FILTER_VALUE}
                     if (value === 'more') {
-                      values.minValue = MAX_ITEMS_SELECTION
+                      values.minValue = MAX_GROUP_ITEMS_SELECTION
                     } else {
                       values.minValue = value
                       values.maxValue = value
                     }
-                    this.sliderChanged('garageSpots', values, true)
+                    this.sliderChanged(FILTERS.GARAGE_SPOTS, values, true)
                 }}>
                   <FilterButton active={userGarageSpots && userGarageSpots.min === 0} value={0}>Sem vagas</FilterButton>
                   <FilterButton active={userGarageSpots && userGarageSpots.min === 1} value={1}>1</FilterButton>

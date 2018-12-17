@@ -1,0 +1,31 @@
+const MIN_GROUP_FILTER_VALUE = 0
+const MAX_GROUP_FILTER_VALUE = 100
+const MAX_GROUP_ITEMS_SELECTION = 5
+
+const AREA_FILTER = {
+  MIN: 35,
+  MAX: 500
+}
+
+const PRICE_FILTER = {
+  MIN: 250000,
+  MAX: 12000000
+}
+
+const FILTERS = {
+  TYPES: 'types',
+  AREA: 'area',
+  PRICE: 'price',
+  ROOMS: 'rooms',
+  GARAGE_SPOTS: 'garageSpots',
+  NEIGHBORHOODS: 'neighborhoods'
+}
+
+export {
+  MIN_GROUP_FILTER_VALUE,
+  MAX_GROUP_FILTER_VALUE,
+  MAX_GROUP_ITEMS_SELECTION,
+  FILTERS,
+  AREA_FILTER,
+  PRICE_FILTER
+}
