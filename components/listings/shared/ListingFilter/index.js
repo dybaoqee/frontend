@@ -2,17 +2,17 @@ import {Component} from 'react'
 import includes from 'lodash/includes'
 import remove from 'lodash/remove'
 import numeral from 'numeral'
-import {
-  Overlay,
-  FilterButton
-} from './styles'
 import NewSlider from 'components/shared/Common/NewSlider'
 import {neighborhoodOptions} from 'constants/listing-filter-options'
 import {Query} from 'react-apollo'
 import {GET_NEIGHBORHOODS} from 'graphql/listings/queries'
 import FilterPanel from './components/FilterPanel'
+import FilterButton from './components/FilterButton'
 import Row from '@emcasa/ui-dom/components/Row'
 import Button from '@emcasa/ui-dom/components/Button'
+import {
+  Overlay
+} from './styles'
 
 const MIN_FILTER_VALUE = 0
 const MAX_FILTER_VALUE = 100
@@ -72,8 +72,8 @@ export default class Filter extends Component {
     this.setState({values: updatedValues})
   }
 
-  onChangeListingType = ({currentTarget}) => {
-    const listingType = currentTarget.getAttribute('aria-label')
+  onChangeListingType = (listingType) => {
+    console.log('change listing type', listingType)
 
     let updatedValues = clone(this.state.values)
     updatedValues.types = updatedValues.types || []
@@ -271,23 +271,20 @@ export default class Filter extends Component {
                 clear={this.resetFilter.bind(this, 'types')}
               >
                 <FilterButton
-                  aria-label="Apartamento"
                   active={userHasSelectedAnyTypes && this.state.values && this.state.values.types.includes('Apartamento')}
-                  onClick={this.onChangeListingType}
+                  onClick={this.onChangeListingType.bind(this, 'Apartamento')}
                 >
                   Apartamento
                 </FilterButton>
                 <FilterButton
-                  aria-label="Casa"
                   active={userHasSelectedAnyTypes && this.state.values && this.state.values.types.includes('Casa')}
-                  onClick={this.onChangeListingType}
+                  onClick={this.onChangeListingType.bind(this, 'Casa')}
                 >
                   Casa
                 </FilterButton>
                 <FilterButton
-                  aria-label="Cobertura"
                   active={userHasSelectedAnyTypes && this.state.values && this.state.values.types.includes('Cobertura')}
-                  onClick={this.onChangeListingType}
+                  onClick={this.onChangeListingType.bind(this, 'Cobertura')}
                 >
                   Cobertura
                 </FilterButton>
@@ -344,8 +341,6 @@ export default class Filter extends Component {
                     if (value === null) {
                       return
                     }
-
-                    // apply filter
                     let values = {minValue: MIN_FILTER_VALUE, maxValue: MAX_FILTER_VALUE}
                     if (value === 'more') {
                       values.minValue = MAX_ITEMS_SELECTION
@@ -355,11 +350,11 @@ export default class Filter extends Component {
                     }
                     this.sliderChanged('rooms', values, true)
                 }}>
-                  <FilterButton active={userRooms && userRooms.min === 1} mr={2} px={[2, 3]} value={1}>1</FilterButton>
-                  <FilterButton active={userRooms && userRooms.min === 2} mr={2} px={[2, 3]} value={2}>2</FilterButton>
-                  <FilterButton active={userRooms && userRooms.min === 3} mr={2} px={[2, 3]} value={3}>3</FilterButton>
-                  <FilterButton active={userRooms && userRooms.min === 4} mr={2} px={[2, 3]} value={4}>4</FilterButton>
-                  <FilterButton active={userRooms && userRooms.min === 5} mr={2} px={[2, 3]} value="more">+</FilterButton>
+                  <FilterButton active={userRooms && userRooms.min === 1} value={1}>1</FilterButton>
+                  <FilterButton active={userRooms && userRooms.min === 2} value={2}>2</FilterButton>
+                  <FilterButton active={userRooms && userRooms.min === 3} value={3}>3</FilterButton>
+                  <FilterButton active={userRooms && userRooms.min === 4} value={4}>4</FilterButton>
+                  <FilterButton active={userRooms && userRooms.min === 5} value="more">+</FilterButton>
                 </Button.Group>
               </FilterPanel>
               <FilterPanel
@@ -379,8 +374,6 @@ export default class Filter extends Component {
                     if (value === null) {
                       return
                     }
-
-                    // apply filter
                     let values = {minValue: MIN_FILTER_VALUE, maxValue: MAX_FILTER_VALUE}
                     if (value === 'more') {
                       values.minValue = MAX_ITEMS_SELECTION
@@ -390,12 +383,12 @@ export default class Filter extends Component {
                     }
                     this.sliderChanged('garageSpots', values, true)
                 }}>
-                  <FilterButton active={userGarageSpots && userGarageSpots.min === 0} mr={2} mb={2} px={[2, 3]} value={0}>Sem vagas</FilterButton>
-                  <FilterButton active={userGarageSpots && userGarageSpots.min === 1} mr={2} mb={2} px={[2, 3]} value={1}>1</FilterButton>
-                  <FilterButton active={userGarageSpots && userGarageSpots.min === 2} mr={2} mb={2} px={[2, 3]} value={2}>2</FilterButton>
-                  <FilterButton active={userGarageSpots && userGarageSpots.min === 3} mr={2} mb={2} px={[2, 3]} value={3}>3</FilterButton>
-                  <FilterButton active={userGarageSpots && userGarageSpots.min === 4} mr={2} mb={2} px={[2, 3]} value={4}>4</FilterButton>
-                  <FilterButton active={userGarageSpots && userGarageSpots.min === 5} mr={2} mb={2} px={[2, 3]} value="more">+</FilterButton>
+                  <FilterButton active={userGarageSpots && userGarageSpots.min === 0} value={0}>Sem vagas</FilterButton>
+                  <FilterButton active={userGarageSpots && userGarageSpots.min === 1} value={1}>1</FilterButton>
+                  <FilterButton active={userGarageSpots && userGarageSpots.min === 2} value={2}>2</FilterButton>
+                  <FilterButton active={userGarageSpots && userGarageSpots.min === 3} value={3}>3</FilterButton>
+                  <FilterButton active={userGarageSpots && userGarageSpots.min === 4} value={4}>4</FilterButton>
+                  <FilterButton active={userGarageSpots && userGarageSpots.min === 5} value="more">+</FilterButton>
                 </Button.Group>
               </FilterPanel>
             </Row>
