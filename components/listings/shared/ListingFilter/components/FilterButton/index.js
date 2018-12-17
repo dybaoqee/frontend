@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import Row from '@emcasa/ui-dom/components/Row'
-import Icon from '@emcasa/ui-dom/components/Icon'
 import {
   StyledFilterButton,
   RemoveIcon
@@ -20,7 +19,12 @@ class FilterButton extends PureComponent {
       >
         <Row>
           {this.props.children}
-          {this.props.showRemoveButton && <RemoveIcon name="times-circle" color="white" onClick={this.props.onRemoveFilter} />}
+          <div onClick={(e) => {
+            e.stopPropagation()
+            this.props.onRemoveFilter()
+          }}>
+            {this.props.showRemoveButton && <RemoveIcon name="times-circle" color="white" />}
+          </div>
         </Row>
       </StyledFilterButton>
     )

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { themeGet } from 'styled-system'
+import theme from '@emcasa/ui'
 
 import View from '@emcasa/ui-dom/components/View'
 
@@ -10,7 +10,7 @@ const Container = styled(View)`
   position: absolute;
   top: ${({top}) => top ? `calc(${top}px - ${OFFSET_TOP}px)` : '0'};
   left: ${({left}) => left ? `${left}px` : '0'};
-  background-color: ${themeGet('colors.white')};
+  background-color: ${theme.colors.white};
   z-index: 1;
 ` 
 
