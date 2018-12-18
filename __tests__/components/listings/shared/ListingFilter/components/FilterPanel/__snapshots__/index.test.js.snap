@@ -1,26 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<FilterPanel/> should render component 1`] = `
-.c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
 .c3 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  margin-top: 10px;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
 }
 
-.c4 {
+.c5 {
   outline: none;
   cursor: pointer;
   padding: 0 20px 0 20px;
@@ -37,7 +25,7 @@ exports[`<FilterPanel/> should render component 1`] = `
   border-color: #e0e6ed;
 }
 
-.c4 :hover {
+.c5 :hover {
   background-color: #ffffff;
 }
 
@@ -49,10 +37,21 @@ exports[`<FilterPanel/> should render component 1`] = `
 .c0 {
   display: block;
   position: absolute;
+  background-color: #ffffff;
   top: 0;
   left: 0;
-  background-color: #ffffff;
-  z-index: 1;
+}
+
+.c2 {
+  padding: 20px;
+}
+
+.c4 {
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  margin-top: 10px;
 }
 
 <div
@@ -60,38 +59,42 @@ exports[`<FilterPanel/> should render component 1`] = `
   elevation={4}
 >
   <div
-    className="c2"
-  />
-  <div
-    className="c3"
+    className="c2 "
   >
-    <button
-      className="c4"
-      fontSize="default"
-      height="medium"
-      onClick={[Function]}
-      style={
-        Object {
-          "color": "#3c4858",
-          "height": 32,
-        }
-      }
+    <div
+      className="c3"
+    />
+    <div
+      className="c4 c3"
     >
-      Limpar
-    </button>
-    <button
-      className="c4"
-      fontSize="default"
-      height="medium"
-      onClick={[Function]}
-      style={
-        Object {
-          "height": 32,
+      <button
+        className="c5"
+        fontSize="default"
+        height="medium"
+        onClick={[Function]}
+        style={
+          Object {
+            "color": "#3c4858",
+            "height": 32,
+          }
         }
-      }
-    >
-      Aplicar
-    </button>
+      >
+        Limpar
+      </button>
+      <button
+        className="c5"
+        fontSize="default"
+        height="medium"
+        onClick={[Function]}
+        style={
+          Object {
+            "height": 32,
+          }
+        }
+      >
+        Aplicar
+      </button>
+    </div>
   </div>
 </div>
 `;

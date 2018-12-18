@@ -5,7 +5,9 @@ import Row from '@emcasa/ui-dom/components/Row'
 import Button from '@emcasa/ui-dom/components/Button'
 import { isMobile } from 'lib/mobile'
 import {
-  Container
+  Container,
+  Wrapper,
+  ActionButtons
 } from './styles'
 
 class FilterPanel extends PureComponent {
@@ -18,14 +20,16 @@ class FilterPanel extends PureComponent {
     }
     return (
       <Container elevation={4} p={2} show={show} left={left} top={top}>
-        {isMobile() && <Row>{title}</Row>}
-        <Row>
-          {this.props.children}
-        </Row>
-        <Row justifyContent="space-between" mt={2}>
-          <Button p={0} link style={{color: theme.colors.dark, height: 32}} onClick={this.props.clear}>Limpar</Button>
-          <Button p={0} link style={{height: 32}} onClick={this.props.apply}>Aplicar</Button>
-        </Row>
+        <Wrapper>
+          {isMobile() && <Row>{title}</Row>}
+          <Row>
+            {this.props.children}
+          </Row>
+          <ActionButtons>
+            <Button p={0} link style={{color: theme.colors.dark, height: 32}} onClick={this.props.clear}>Limpar</Button>
+            <Button p={0} link style={{height: 32}} onClick={this.props.apply}>Aplicar</Button>
+          </ActionButtons>
+        </Wrapper>
       </Container>
     )
   }

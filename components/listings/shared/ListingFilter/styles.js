@@ -7,7 +7,7 @@ const Container = styled(Row)`
   position: sticky;
   top: ${HEADER_HEIGHT}px;
   padding: ${theme.space[4]}px;
-  z-index: 1;
+  z-index: 6;
   background-color: ${theme.colors.white};
 `
 
