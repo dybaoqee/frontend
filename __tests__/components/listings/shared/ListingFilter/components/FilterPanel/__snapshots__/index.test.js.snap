@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<FilterPanel/> should render component 1`] = `
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 10px;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.c4 {
+  outline: none;
+  cursor: pointer;
+  padding: 0 20px 0 20px;
+  border-color: #e0e6ed;
+  background-color: #ffffff;
+  border: none;
+  width: auto;
+  height: 40px;
+  padding: 0px;
+  color: #f50057;
+  font-family: FaktSoftPro-Normal;
+  font-size: 18px;
+  -webkit-font-smoothing: antialiased;
+  border-color: #e0e6ed;
+}
+
+.c4 :hover {
+  background-color: #ffffff;
+}
+
+.c1 {
+  padding: 10px;
+  box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
+}
+
+.c0 {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #ffffff;
+  z-index: 1;
+}
+
+<div
+  className="c0 c1"
+  elevation={4}
+>
+  <div
+    className="c2"
+  />
+  <div
+    className="c3"
+  >
+    <button
+      className="c4"
+      fontSize="default"
+      height="medium"
+      onClick={[Function]}
+      style={
+        Object {
+          "color": "#3c4858",
+          "height": 32,
+        }
+      }
+    >
+      Limpar
+    </button>
+    <button
+      className="c4"
+      fontSize="default"
+      height="medium"
+      onClick={[Function]}
+      style={
+        Object {
+          "height": 32,
+        }
+      }
+    >
+      Aplicar
+    </button>
+  </div>
+</div>
+`;
