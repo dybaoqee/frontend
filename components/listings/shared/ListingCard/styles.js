@@ -7,7 +7,7 @@ import {
   MAP_WIDTH_PERCENT
 } from 'components/listings/shared/ListingList/styles'
 
-const MIN_CARD_WIDTH = 300
+const MIN_CARD_WIDTH = 280
 const CARD_MARGIN = theme.space[4]
 
 const getCardWidth = () => {
