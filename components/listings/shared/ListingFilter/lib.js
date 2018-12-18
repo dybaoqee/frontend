@@ -38,12 +38,12 @@ function activeFilters(values) {
     }`
 
   const filters = [
-    {filter: FILTERS.TYPES, value: propertyTypes},
-    {filter: FILTERS.NEIGHBORHOODS, value: rangeNeighborhoods},
-    {filter: FILTERS.PRICE, value: rangePrice},
-    {filter: FILTERS.ROOMS, value: rangeRooms},
-    {filter: FILTERS.GARAGE_SPOTS, value: rangeGarageSpots},
-    {filter: FILTERS.AREA, value: rangeArea}
+    {filter: FILTERS.TYPES.code, value: propertyTypes},
+    {filter: FILTERS.NEIGHBORHOODS.code, value: rangeNeighborhoods},
+    {filter: FILTERS.PRICE.code, value: rangePrice},
+    {filter: FILTERS.ROOMS.code, value: rangeRooms},
+    {filter: FILTERS.GARAGE_SPOTS.code, value: rangeGarageSpots},
+    {filter: FILTERS.AREA.code, value: rangeArea}
   ].filter((filter) => filter.value)
 
   return filters.map(({filter, value}) => (
