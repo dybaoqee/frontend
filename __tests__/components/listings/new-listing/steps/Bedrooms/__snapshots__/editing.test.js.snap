@@ -35,7 +35,7 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
   flex-wrap: wrap;
 }
 
-.c8 {
+.c7 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -64,38 +64,14 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
   font-family: FaktSoftPro-Normal;
   font-size: 18px;
   -webkit-font-smoothing: antialiased;
-  border-color: #e0e6ed;
+  border-style: solid;
 }
 
 .c6 :hover {
   background-color: #ffffff;
 }
 
-.c7 {
-  outline: none;
-  cursor: pointer;
-  padding: 0 20px 0 20px;
-  border-color: #e0e6ed;
-  background-color: #ffffff;
-  border-radius: 4px;
-  border-width: 1px;
-  width: auto;
-  height: 60px;
-  margin-right: 10px;
-  padding-left: 14px;
-  padding-right: 14px;
-  color: #3c4858;
-  font-family: FaktSoftPro-Normal;
-  font-size: 18px;
-  -webkit-font-smoothing: antialiased;
-  border-color: #f50057;
-}
-
-.c7 :hover {
-  background-color: #ffffff;
-}
-
-.c10 {
+.c9 {
   outline: none;
   display: block;
   cursor: pointer;
@@ -110,14 +86,14 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
   font-family: FaktSoftPro-Normal;
   font-size: 18px;
   -webkit-font-smoothing: antialiased;
-  border-color: #e0e6ed;
+  border-style: solid;
 }
 
-.c10 :hover {
+.c9 :hover {
   background-color: #ffffff;
 }
 
-.c11 {
+.c10 {
   outline: none;
   display: block;
   cursor: pointer;
@@ -132,10 +108,10 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
   font-family: FaktSoftPro-Normal;
   font-size: 18px;
   -webkit-font-smoothing: antialiased;
-  border-color: #e0e6ed;
+  border-style: solid;
 }
 
-.c11 :hover {
+.c10 :hover {
   background-color: #f50057;
 }
 
@@ -159,7 +135,7 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
   width: 100%;
 }
 
-.c9 {
+.c8 {
   width: 41.66666666666667%;
 }
 
@@ -227,7 +203,7 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
             2
           </button>
           <button
-            className="c7"
+            className="c6"
             fontSize="default"
             height="tall"
             name="3"
@@ -273,14 +249,14 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
         </div>
       </div>
       <div
-        className="c8"
+        className="c7"
       >
         <div
-          className="c9"
+          className="c8"
           width={0.4166666666666667}
         >
           <button
-            className="c10"
+            className="c9"
             fontSize="default"
             height="tall"
             onClick={[Function]}
@@ -289,11 +265,11 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
           </button>
         </div>
         <div
-          className="c9"
+          className="c8"
           width={0.4166666666666667}
         >
           <button
-            className="c11"
+            className="c10"
             disabled={false}
             fontSize="default"
             height="tall"

@@ -152,7 +152,7 @@ exports[`renders editing price state 1`] = `
   font-family: FaktSoftPro-Normal;
   font-size: 18px;
   -webkit-font-smoothing: antialiased;
-  border-color: #e0e6ed;
+  border-style: solid;
 }
 
 .c24 :hover {
@@ -174,7 +174,7 @@ exports[`renders editing price state 1`] = `
   font-family: FaktSoftPro-Normal;
   font-size: 18px;
   -webkit-font-smoothing: antialiased;
-  border-color: #e0e6ed;
+  border-style: solid;
 }
 
 .c25 :hover {
