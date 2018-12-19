@@ -200,12 +200,14 @@ class ListingFilter extends Component {
     const userSelectedFiltersArray = userSelectedFilters.map((item) => item.filter)
     const userHasSelectedAnyTypes = userSelectedFiltersArray.includes(FILTERS.TYPES.code)
 
+    const isFilterOpen = this.isFilterOpen()
+
     return (
       <Query query={GET_NEIGHBORHOODS} ssr={false}>
         {({data: {neighborhoods = []}}) => {
           const neighborhoodsOptions = neighborhoodOptions(neighborhoods)
           return (
-            <Container>
+            <Container isFilterOpen={isFilterOpen}>
               <Overlay onClick={() => {this.hideAllFilters(); this.restorePreviousValues();}} />
               <Row flexDirection="row" flexWrap="wrap" style={{position: 'relative'}}>
                 <FilterButton
