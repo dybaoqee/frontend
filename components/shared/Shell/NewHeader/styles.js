@@ -2,6 +2,7 @@ import styled, {keyframes} from 'styled-components'
 import theme from '@emcasa/ui'
 
 export const HEADER_HEIGHT = 60
+export const MAX_HEADER_HEIGHT = 76
 
 export default styled.header`
   transition: background 0.3s ease-out;

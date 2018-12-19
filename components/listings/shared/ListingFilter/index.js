@@ -200,12 +200,14 @@ class ListingFilter extends Component {
     const userSelectedFiltersArray = userSelectedFilters.map((item) => item.filter)
     const userHasSelectedAnyTypes = userSelectedFiltersArray.includes(FILTERS.TYPES.code)
 
+    const isFilterOpen = this.isFilterOpen()
+
     return (
       <Query query={GET_NEIGHBORHOODS} ssr={false}>
         {({data: {neighborhoods = []}}) => {
           const neighborhoodsOptions = neighborhoodOptions(neighborhoods)
           return (
-            <Container>
+            <Container isFilterOpen={isFilterOpen}>
               <Overlay onClick={() => {this.hideAllFilters(); this.restorePreviousValues();}} />
               <Row flexDirection="row" flexWrap="wrap" style={{position: 'relative'}}>
                 <FilterButton
@@ -237,6 +239,7 @@ class ListingFilter extends Component {
               <FilterPanel
                 title={FILTERS.TYPES.label}
                 show={this.state.showType}
+                close={this.hideAllFilters}
                 panelPosition={this.state.panelPosition}
                 apply={this.applyFilters}
                 clear={this.resetFilter.bind(this, FILTERS.TYPES.code)}
@@ -263,6 +266,7 @@ class ListingFilter extends Component {
               <FilterPanel
                 title={FILTERS.AREA.label}
                 show={this.state.showArea}
+                close={this.hideAllFilters}
                 panelPosition={this.state.panelPosition}
                 apply={this.applyFilters}
                 clear={this.resetFilter.bind(this, FILTERS.AREA.code)}
@@ -279,6 +283,7 @@ class ListingFilter extends Component {
               <FilterPanel
                 title={FILTERS.PRICE.label}
                 show={this.state.showPrice}
+                close={this.hideAllFilters}
                 panelPosition={this.state.panelPosition}
                 apply={this.applyFilters}
                 clear={this.resetFilter.bind(this, FILTERS.PRICE.code)}
@@ -300,6 +305,7 @@ class ListingFilter extends Component {
               <FilterPanel
                 title={FILTERS.ROOMS.label}
                 show={this.state.showRooms}
+                close={this.hideAllFilters}
                 panelPosition={this.state.panelPosition}
                 apply={this.applyFilters}
                 clear={this.resetFilter.bind(this, FILTERS.ROOMS.code)}
@@ -333,6 +339,7 @@ class ListingFilter extends Component {
               </FilterPanel>
               <FilterPanel
                 title={FILTERS.GARAGE_SPOTS.label}
+                close={this.hideAllFilters}
                 show={this.state.showGarage}
                 panelPosition={this.state.panelPosition}
                 apply={this.applyFilters}

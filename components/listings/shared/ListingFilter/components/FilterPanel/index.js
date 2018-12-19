@@ -1,11 +1,17 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import theme from '@emcasa/ui'
+import View from '@emcasa/ui-dom/components/View'
 import Row from '@emcasa/ui-dom/components/Row'
+import Col from '@emcasa/ui-dom/components/Col'
 import Button from '@emcasa/ui-dom/components/Button'
+import Icon from '@emcasa/ui-dom/components/Icon'
+import Text from '@emcasa/ui-dom/components/Text'
 import { isMobile } from 'lib/mobile'
 import {
-  Container
+  Container,
+  Wrapper,
+  ActionsWrapper
 } from './styles'
 
 class FilterPanel extends PureComponent {
@@ -17,15 +23,28 @@ class FilterPanel extends PureComponent {
       top = panelPosition.top
     }
     return (
-      <Container elevation={4} p={2} show={show} left={left} top={top}>
-        {isMobile() && <Row>{title}</Row>}
-        <Row>
-          {this.props.children}
-        </Row>
-        <Row justifyContent="space-between" mt={2}>
-          <Button p={0} link style={{color: theme.colors.dark, height: 32}} onClick={this.props.clear}>Limpar</Button>
-          <Button p={0} link style={{height: 32}} onClick={this.props.apply}>Aplicar</Button>
-        </Row>
+      <Container elevation={4} show={show} left={left} top={top}>
+        <Wrapper>
+          {isMobile() &&
+            <Row justifyContent="flex-end">
+              <Button link pr={0} onClick={this.props.close}>
+                <Icon name="times" />
+              </Button>
+            </Row>
+          }
+          {isMobile() && <Row><Text>{title}</Text></Row>}
+          <Row justifyContent="center">
+            {this.props.children}
+          </Row>
+          <ActionsWrapper>
+            <Col width={1/3}>
+              <Button fluid={isMobile()} p={0} link={!isMobile()} height={isMobile() ? 'tall' : 'short'} color="dark" onClick={this.props.clear}>Limpar</Button>
+            </Col>
+            <Col width={1/3} style={{display: 'flex', justifyContent: 'flex-end'}}>
+              <Button fluid={isMobile()} p={0} link={!isMobile()} active={isMobile()} height={isMobile() ? 'tall' : 'short'} onClick={this.props.apply}>Aplicar</Button>
+            </Col>
+          </ActionsWrapper>
+        </Wrapper>
       </Container>
     )
   }
@@ -35,6 +54,7 @@ FilterPanel.propTypes = {
   show: PropTypes.bool.isRequired,
   apply: PropTypes.func.isRequired,
   clear: PropTypes.func.isRequired,
+  close: PropTypes.func.isRequired,
   panelPosition: PropTypes.object.isRequired
 }
 
