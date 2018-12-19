@@ -1,22 +1,65 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<FilterPanel/> should render component 1`] = `
+.c1 {
+  box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
+}
+
 .c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c5 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
 }
 
-.c5 {
+.c6 {
+  width: 33.33333333333333%;
+}
+
+.c7 {
   outline: none;
   cursor: pointer;
   padding: 0 20px 0 20px;
   border-color: #e0e6ed;
   background-color: #ffffff;
-  border: none;
+  border-radius: 0;
+  border-width: 0;
   width: auto;
-  height: 40px;
+  height: 32px;
+  padding: 0px;
+  color: #f50057;
+  font-family: FaktSoftPro-Normal;
+  font-size: 18px;
+  color: #3c4858;
+  -webkit-font-smoothing: antialiased;
+  border-color: #e0e6ed;
+}
+
+.c7 :hover {
+  background-color: #ffffff;
+}
+
+.c8 {
+  outline: none;
+  cursor: pointer;
+  padding: 0 20px 0 20px;
+  border-color: #e0e6ed;
+  background-color: #ffffff;
+  border-radius: 0;
+  border-width: 0;
+  width: auto;
+  height: 32px;
   padding: 0px;
   color: #f50057;
   font-family: FaktSoftPro-Normal;
@@ -25,13 +68,8 @@ exports[`<FilterPanel/> should render component 1`] = `
   border-color: #e0e6ed;
 }
 
-.c5 :hover {
+.c8 :hover {
   background-color: #ffffff;
-}
-
-.c1 {
-  padding: 10px;
-  box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
 }
 
 .c0 {
@@ -40,10 +78,7 @@ exports[`<FilterPanel/> should render component 1`] = `
   background-color: #ffffff;
   top: 0;
   left: 0;
-}
-
-.c2 {
-  padding: 20px;
+  padding: 10px;
 }
 
 .c4 {
@@ -52,6 +87,22 @@ exports[`<FilterPanel/> should render component 1`] = `
   -ms-flex-pack: justify;
   justify-content: space-between;
   margin-top: 10px;
+}
+
+@media screen and (max-width:780px) {
+  .c2 {
+    position: relative;
+    height: 100%;
+    padding: 20px;
+  }
+}
+
+@media screen and (max-width:780px) {
+  .c4 {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+  }
 }
 
 <div
@@ -65,35 +116,41 @@ exports[`<FilterPanel/> should render component 1`] = `
       className="c3"
     />
     <div
-      className="c4 c3"
+      className="c4 c5"
     >
-      <button
-        className="c5"
-        fontSize="default"
-        height="medium"
-        onClick={[Function]}
+      <div
+        className="c6"
+        width={0.3333333333333333}
+      >
+        <button
+          className="c7"
+          color="dark"
+          fontSize="default"
+          height="short"
+          onClick={[Function]}
+        >
+          Limpar
+        </button>
+      </div>
+      <div
+        className="c6"
         style={
           Object {
-            "color": "#3c4858",
-            "height": 32,
+            "display": "flex",
+            "justifyContent": "flex-end",
           }
         }
+        width={0.3333333333333333}
       >
-        Limpar
-      </button>
-      <button
-        className="c5"
-        fontSize="default"
-        height="medium"
-        onClick={[Function]}
-        style={
-          Object {
-            "height": 32,
-          }
-        }
-      >
-        Aplicar
-      </button>
+        <button
+          className="c8"
+          fontSize="default"
+          height="short"
+          onClick={[Function]}
+        >
+          Aplicar
+        </button>
+      </div>
     </div>
   </div>
 </div>

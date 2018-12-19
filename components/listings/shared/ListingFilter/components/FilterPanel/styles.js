@@ -5,6 +5,7 @@ import Row from '@emcasa/ui-dom/components/Row'
 import { isMobile } from 'lib/mobile'
 
 const OFFSET_TOP = 32
+const WRAPPER_PADDING = theme.space[4] * 2
 
 const getDesktopPosition = () => {
   if (isMobile()) {
@@ -46,8 +47,8 @@ const ActionsWrapper = styled(Row)`
   margin-top: ${theme.space[2]}px;
   @media screen and (max-width: ${theme.breakpoints[0]}) {
     position: absolute;
-    bottom: 20px;
-    width: 100%;
+    bottom: calc(20px + ${WRAPPER_PADDING}px);
+    width: calc(100% - ${WRAPPER_PADDING}px);
   }
 `
 
