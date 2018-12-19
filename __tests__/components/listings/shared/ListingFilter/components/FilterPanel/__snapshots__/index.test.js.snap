@@ -10,6 +10,7 @@ exports[`<FilterPanel/> should render component 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  width: 100%;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
@@ -100,6 +101,7 @@ exports[`<FilterPanel/> should render component 1`] = `
 @media screen and (max-width:780px) {
   .c4 {
     position: absolute;
+    margin: 0;
     bottom: calc(20px + 40px);
     width: calc(100% - 40px);
   }
@@ -114,6 +116,7 @@ exports[`<FilterPanel/> should render component 1`] = `
   >
     <div
       className="c3"
+      width={1}
     />
     <div
       className="c4 c5"
