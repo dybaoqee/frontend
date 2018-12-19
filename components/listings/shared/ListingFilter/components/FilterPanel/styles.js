@@ -21,6 +21,7 @@ const getDesktopPosition = () => {
     return css`
       top: ${({top}) => top ? `calc(${top}px - ${OFFSET_TOP}px)` : '0'};
       left: ${({left}) => left ? `${left}px` : '0'};
+      padding: ${theme.space[2]}px;
     `
   }
 }
@@ -33,10 +34,12 @@ const Container = styled(View)`
 `
 
 const Wrapper = styled(View)`
-  padding: ${theme.space[4]}px;
+  @media screen and (max-width: ${theme.breakpoints[0]}) {
+    padding: ${theme.space[4]}px;
+  }
 `
 
-const ActionButtons = styled(Row)`
+const ActionsWrapper = styled(Row)`
   justify-content: space-between;
   margin-top: ${theme.space[2]}px;
 `
@@ -44,5 +47,5 @@ const ActionButtons = styled(Row)`
 export {
   Container,
   Wrapper,
-  ActionButtons
+  ActionsWrapper
 }

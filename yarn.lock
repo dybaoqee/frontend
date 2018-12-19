@@ -1626,21 +1626,23 @@
   dependencies:
     lodash.once "^4.1.1"
 
-"@emcasa/ui-dom@0.7.9":
-  version "0.7.9"
-  resolved "https://registry.yarnpkg.com/@emcasa/ui-dom/-/ui-dom-0.7.9.tgz#47c5cc6e97c941d2de948c35791956c977d00e69"
+"@emcasa/ui-dom@0.8.4":
+  version "0.8.4"
+  resolved "https://registry.yarnpkg.com/@emcasa/ui-dom/-/ui-dom-0.8.4.tgz#645ff3883e736597cfb76c3c26322b134c1d1105"
   dependencies:
-    "@emcasa/ui" "^0.7.9"
+    "@emcasa/ui" "^0.8.4"
     "@rebass/grid" "6.0.0-4"
     styled-icons "^3.0.0"
     styled-system "3.1.6"
 
-"@emcasa/ui@^0.7.9":
-  version "0.7.9"
-  resolved "https://registry.yarnpkg.com/@emcasa/ui/-/ui-0.7.9.tgz#5814437dedd89587acc16d4a165f02079e15f139"
+"@emcasa/ui@^0.8.4":
+  version "0.8.4"
+  resolved "https://registry.yarnpkg.com/@emcasa/ui/-/ui-0.8.4.tgz#234e57cf1a8d0f27db6da6ada8df432f87b4e5fa"
   dependencies:
     "@fortawesome/free-solid-svg-icons" "^5.4.1"
+    everpolate "^0.0.3"
     lodash.omit "^4.5.0"
+    lodash.throttle "^4.1.1"
     lodash.toarray "^4.4.0"
     styled-components "^3.4.9"
     styled-system "^3.1.6"
@@ -5314,6 +5316,10 @@ events@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/events/-/events-2.1.0.tgz#2a9a1e18e6106e0e812aa9ebd4a819b3c29c0ba5"
 
+everpolate@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/everpolate/-/everpolate-0.0.3.tgz#3b1b318465494712aa1eb106144468ea417d0129"
+
 evp_bytestokey@^1.0.0, evp_bytestokey@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/evp_bytestokey/-/evp_bytestokey-1.0.3.tgz#7fcbdb198dc71959432efe13842684e0525acb02"
@@ -7519,6 +7525,10 @@ lodash.once@^4.1.1:
 lodash.sortby@^4.7.0:
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/lodash.sortby/-/lodash.sortby-4.7.0.tgz#edd14c824e2cc9c1e0b0a1b42bb5210516a42438"
+
+lodash.throttle@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/lodash.throttle/-/lodash.throttle-4.1.1.tgz#c23e91b710242ac70c37f1e1cda9274cc39bf2f4"
 
 lodash.toarray@^4.4.0:
   version "4.4.0"
