@@ -108,8 +108,13 @@ class ListingSearch extends Component {
     const {neighborhoods, query, params, user, client} = this.props
     const {filters} = this.state
 
-    if (params && params.city && params.neighborhood) {
-      filters.neighborhoodsSlugs = [params.neighborhood]
+    if (params) {
+      if (params.city) {
+        filters.citiesSlug = [params.city]
+      }
+      if (params.neighborhood) {
+        filters.neighborhoodsSlugs = [params.neighborhood]
+      }
     }
 
     const listingFilters = getNewFiltersFromFilters(filters)

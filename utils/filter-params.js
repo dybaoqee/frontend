@@ -199,6 +199,7 @@ export const getNewFiltersFromFilters = ({
   garageSpots,
   rooms,
   neighborhoodsSlugs,
+  citiesSlug,
   types
 }) => {
   const filters = {
@@ -211,6 +212,7 @@ export const getNewFiltersFromFilters = ({
     minGarageSpots: garageSpots && parseInt(garageSpots.min),
     maxGarageSpots: garageSpots && parseInt(garageSpots.max),
     neighborhoodsSlugs,
+    citiesSlug,
     types:
       types &&
       types.length > 0 &&
