@@ -33,7 +33,7 @@ class FilterPanel extends PureComponent {
             </Row>
           }
           {isMobile() && <Row><Text>{title}</Text></Row>}
-          <Row justifyContent="center">
+          <Row justifyContent="center" width={1}>
             {this.props.children}
           </Row>
           <ActionsWrapper>

@@ -47,6 +47,7 @@ const ActionsWrapper = styled(Row)`
   margin-top: ${theme.space[2]}px;
   @media screen and (max-width: ${theme.breakpoints[0]}) {
     position: absolute;
+    margin: 0;
     bottom: calc(20px + ${WRAPPER_PADDING}px);
     width: calc(100% - ${WRAPPER_PADDING}px);
   }
