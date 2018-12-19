@@ -3,6 +3,7 @@ import { themeGet } from 'styled-system'
 import Text from '@emcasa/ui-dom/components/Text'
 
 export const Container = styled.div`
+  width: 100%;
   box-sizing: border-box;
   padding: 0 14px;
 `

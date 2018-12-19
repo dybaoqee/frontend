@@ -35,6 +35,8 @@ const Container = styled(View)`
 
 const Wrapper = styled(View)`
   @media screen and (max-width: ${theme.breakpoints[0]}) {
+    position: relative;
+    height: 100%;
     padding: ${theme.space[4]}px;
   }
 `
@@ -42,6 +44,11 @@ const Wrapper = styled(View)`
 const ActionsWrapper = styled(Row)`
   justify-content: space-between;
   margin-top: ${theme.space[2]}px;
+  @media screen and (max-width: ${theme.breakpoints[0]}) {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+  }
 `
 
 export {
