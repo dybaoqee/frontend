@@ -100,8 +100,8 @@ exports[`<FilterPanel/> should render component 1`] = `
 @media screen and (max-width:780px) {
   .c4 {
     position: absolute;
-    bottom: 20px;
-    width: 100%;
+    bottom: calc(20px + 40px);
+    width: calc(100% - 40px);
   }
 }
 
