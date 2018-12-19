@@ -11,6 +11,7 @@ describe('<FilterPanel/>', () => {
       <ThemeProvider theme={theme}>
         <FilterPanel
           show={true}
+          close={() => {}}
           apply={() => {}}
           clear={() => {}}
           panelPosition={{left: 0, top: 0}}
