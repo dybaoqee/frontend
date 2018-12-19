@@ -117,6 +117,49 @@ export const getFiltersFromQuery = ({
   return pickBy(filters, identity)
 }
 
+export const getNewFiltersFromQuery = ({
+  preco_minimo,
+  preco_maximo,
+  area_minima,
+  area_maxima,
+  vagas_minimo,
+  vagas_maximo,
+  quartos_minimo,
+  quartos_maximo,
+  tipos
+}, {state, city, neighborhood}) => {
+  const price = preco_minimo || preco_maximo ? {
+    min: parseInt(preco_minimo),
+    max: parseInt(preco_maximo)
+  } : null
+  const area = area_minima || area_maxima ? {
+    min: parseInt(area_minima),
+    max: parseInt(area_maxima)
+  } : null
+  const rooms = quartos_minimo || quartos_maximo ? {
+    min: parseInt(quartos_minimo),
+    max: parseInt(quartos_maximo)
+  } : null
+  const garageSpots = vagas_minimo || vagas_maximo ? {
+    min: parseInt(vagas_minimo),
+    max: parseInt(vagas_maximo)
+  } : null
+  const types = tipos && splitParam(tipos).map((type) => (type.value ? type.value : type))
+  const neighborhoodsSlugs = neighborhood ? [neighborhood] : null
+  const citiesSlug = city ? [city] : null
+  const filters = {
+    price,
+    area,
+    rooms,
+    garageSpots,
+    types,
+    neighborhoodsSlugs,
+    citiesSlug
+  }
+
+  return pickBy(filters, identity)
+}
+
 export const getFiltersFromFilters = ({
   price,
   area,
@@ -141,6 +184,35 @@ export const getFiltersFromFilters = ({
         (neighborhood) =>
           neighborhood.value ? neighborhood.value : neighborhood
       ),
+    types:
+      types &&
+      types.length > 0 &&
+      types.map((type) => (type.value ? type.value : type))
+  }
+
+  return pickBy(filters, identity)
+}
+
+export const getNewFiltersFromFilters = ({
+  price,
+  area,
+  garageSpots,
+  rooms,
+  neighborhoodsSlugs,
+  citiesSlug,
+  types
+}) => {
+  const filters = {
+    minPrice: price && parseInt(price.min),
+    maxPrice: price && parseInt(price.max),
+    minArea: area && parseInt(area.min),
+    maxArea: area && parseInt(area.max),
+    minRooms: rooms && parseInt(rooms.min),
+    maxRooms: rooms && parseInt(rooms.max),
+    minGarageSpots: garageSpots && parseInt(garageSpots.min),
+    maxGarageSpots: garageSpots && parseInt(garageSpots.max),
+    neighborhoodsSlugs,
+    citiesSlug,
     types:
       types &&
       types.length > 0 &&
