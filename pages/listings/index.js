@@ -7,8 +7,8 @@ import Router from 'next/router'
 import {
   treatParams,
   getDerivedParams,
-  getFiltersFromFilters,
-  getFiltersFromQuery
+  getNewFiltersFromFilters,
+  getNewFiltersFromQuery
 } from 'utils/filter-params.js'
 import ListingFilter from 'components/listings/shared/ListingFilter'
 import ListingList from 'components/listings/shared/ListingList'
@@ -17,9 +17,7 @@ import {getUrlVars} from 'utils/text-utils'
 class ListingSearch extends Component {
   constructor(props) {
     super(props)
-
-    const filters = getFiltersFromQuery(props.query)
-
+    const filters = getNewFiltersFromQuery(props.query, props.params)
     this.state = {
       mapOpened: false,
       filters,
@@ -33,7 +31,7 @@ class ListingSearch extends Component {
       hideSeparator: true,
       transparentHeader: false,
       newHeader: true,
-      query: context.query,
+      query: context.req.query,
       params,
       renderFooter: false,
       headerSearch: true
@@ -46,7 +44,7 @@ class ListingSearch extends Component {
     window.onpopstate = (event) => {
       const newQuery = getUrlVars(event.state.url)
       this.setState({
-        filters: getFiltersFromQuery(newQuery)
+        filters: getNewFiltersFromQuery(newQuery)
       })
     }
   }
@@ -109,18 +107,12 @@ class ListingSearch extends Component {
   render() {
     const {neighborhoods, query, params, user, client} = this.props
     const {filters} = this.state
-    const listingFilters = getFiltersFromFilters(filters)
 
-    const hasQuery = query && Object.keys(query).length > 0
-    const hasParams = params && Object.keys(params).length > 0
-    if (hasQuery) {
-      filters.neighborhoodsSlugs = [query.neighborhoodSlug] // filter params (query string)
-      listingFilters.neighborhoodsSlugs = [query.neighborhoodSlug]
+    if (params && params.city && params.neighborhood) {
+      filters.neighborhoodsSlugs = [params.neighborhood]
     }
-    if (hasParams) {
-      filters.citiesSlug = [params.city] // part of url. Used in ListingList only, to query listings from that state/city/neighborhood
-      listingFilters.citiesSlug = [params.city]
-    }
+
+    const listingFilters = getNewFiltersFromFilters(filters)
 
     return (
       <ThemeProvider theme={theme}>
