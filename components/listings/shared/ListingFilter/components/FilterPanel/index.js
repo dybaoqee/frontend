@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import theme from '@emcasa/ui'
-import View from '@emcasa/ui-dom/components/View'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Button from '@emcasa/ui-dom/components/Button'
@@ -11,7 +10,8 @@ import { isMobile } from 'lib/mobile'
 import {
   Container,
   Wrapper,
-  ActionsWrapper
+  ActionsWrapper,
+  FilterOptions
 } from './styles'
 
 class FilterPanel extends PureComponent {
@@ -26,16 +26,16 @@ class FilterPanel extends PureComponent {
       <Container elevation={4} show={show} left={left} top={top}>
         <Wrapper>
           {isMobile() &&
-            <Row justifyContent="flex-end">
+            <Row justifyContent="flex-end" width={1}>
               <Button link pr={0} onClick={this.props.close}>
                 <Icon name="times" />
               </Button>
             </Row>
           }
-          {isMobile() && <Row><Text>{title}</Text></Row>}
-          <Row justifyContent="center" width={1}>
+          {isMobile() && <Text>{title}</Text>}
+          <FilterOptions>
             {this.props.children}
-          </Row>
+          </FilterOptions>
           <ActionsWrapper>
             <Col width={1/3}>
               <Button fluid={isMobile()} p={0} link={!isMobile()} height={isMobile() ? 'tall' : 'short'} color="dark" onClick={this.props.clear}>Limpar</Button>

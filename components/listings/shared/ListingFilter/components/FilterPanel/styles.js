@@ -42,6 +42,11 @@ const Wrapper = styled(View)`
   }
 `
 
+const FilterOptions = styled(Row)`
+  justify-content: flex-start;
+  width: 100%;
+`
+
 const ActionsWrapper = styled(Row)`
   justify-content: space-between;
   margin-top: ${theme.space[2]}px;
@@ -56,5 +61,6 @@ const ActionsWrapper = styled(Row)`
 export {
   Container,
   Wrapper,
-  ActionsWrapper
+  ActionsWrapper,
+  FilterOptions
 }
