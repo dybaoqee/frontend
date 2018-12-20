@@ -11,7 +11,8 @@ import {
   Container,
   Wrapper,
   ActionsWrapper,
-  FilterOptions
+  FilterOptions,
+  MobileContent
 } from './styles'
 
 class FilterPanel extends PureComponent {
@@ -19,20 +20,16 @@ class FilterPanel extends PureComponent {
     let left = 0, top = 0
     const { title, show, panelPosition } = this.props
     if (panelPosition) {
-      left = isMobile() ? theme.space[4] : panelPosition.left
+      left = panelPosition.left
       top = panelPosition.top
     }
     return (
       <Container elevation={4} show={show} left={left} top={top}>
         <Wrapper>
-          {isMobile() &&
-            <Row justifyContent="flex-end" width={1}>
-              <Button link pr={0} onClick={this.props.close}>
-                <Icon name="times" />
-              </Button>
-            </Row>
-          }
-          {isMobile() && <Text>{title}</Text>}
+          <MobileContent>
+            <Row justifyContent="flex-end" width={1} onClick={this.props.close}><Icon name="times" /></Row>
+            <Row><Text>{title}</Text></Row>
+          </MobileContent>
           <FilterOptions>
             {this.props.children}
           </FilterOptions>
