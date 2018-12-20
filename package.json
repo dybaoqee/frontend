@@ -124,7 +124,7 @@
     "babel-plugin-inline-import": "^2.0.6",
     "babel-plugin-lodash": "^3.3.4",
     "babel-plugin-module-resolver": "^3.0.0",
-    "babel-plugin-styled-components": "^1.5.0",
+    "babel-plugin-styled-components": "^1.10.0",
     "babel-plugin-transform-define": "^1.2.0",
     "em-casa-mock-server": "^0.0.4",
     "eslint": "^4.16.0",
