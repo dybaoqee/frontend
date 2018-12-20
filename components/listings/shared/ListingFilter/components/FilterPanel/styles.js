@@ -5,6 +5,7 @@ import Row from '@emcasa/ui-dom/components/Row'
 
 const OFFSET_TOP = 32
 const WRAPPER_PADDING = theme.space[4] * 2
+const MAX_FILTER_PANEL_DESKTOP_WIDTH = 300
 
 const Container = styled(View)`
   position: absolute;
@@ -13,6 +14,7 @@ const Container = styled(View)`
   left: ${({left}) => left ? `${left}px` : '0'};
   padding: ${theme.space[2]}px;
   background-color: ${theme.colors.white};
+  width: ${MAX_FILTER_PANEL_DESKTOP_WIDTH}px;
 
   @media screen and (max-width: ${theme.breakpoints[0]}) {
     position: fixed;
@@ -35,7 +37,6 @@ const Wrapper = styled(View)`
 
 const FilterOptions = styled(Row)`
   justify-content: flex-start;
-  width: 100%;
 `
 
 const ActionsWrapper = styled(Row)`
@@ -73,5 +74,6 @@ export {
   ActionsWrapper,
   FilterOptions,
   MobileContent,
-  DesktopContent
+  DesktopContent,
+  MAX_FILTER_PANEL_DESKTOP_WIDTH
 }
