@@ -17,7 +17,9 @@ import {getUrlVars} from 'utils/text-utils'
 class ListingSearch extends Component {
   constructor(props) {
     super(props)
-    const filters = getNewFiltersFromQuery(props.query, props.params)
+    const params = props.params ? props.params : {}
+    const query = props.query ? props.query : {}
+    const filters = getNewFiltersFromQuery(query, params)
     this.state = {
       mapOpened: false,
       filters,
@@ -26,12 +28,13 @@ class ListingSearch extends Component {
   }
 
   static async getInitialProps(context) {
-    const params = context.req && context.req.params ? context.req.params : null
+    const params = (context.req && context.req.params) ? context.req.params : {}
+    const query = (context.req && context.req.query) ? context.req.query : {}
     return {
       hideSeparator: true,
       transparentHeader: false,
       newHeader: true,
-      query: context.req.query,
+      query,
       params,
       renderFooter: false,
       headerSearch: true
@@ -78,8 +81,8 @@ class ListingSearch extends Component {
   getHead = () => {
     const {neighborhood} = this.state
     const {query} = this.props
-    const fullCity = query.state === 'rj' ? 'na Zona Sul do Rio de Janeiro' : 'em São Paulo'
-    const city = query.state === 'rj' ? 'Rio De Janeiro' : 'São Paulo'
+    const fullCity = query && query.state === 'rj' ? 'na Zona Sul do Rio de Janeiro' : 'em São Paulo'
+    const city = query && query.state === 'rj' ? 'Rio De Janeiro' : 'São Paulo'
 
     const seoImgSrc =
       'https://res.cloudinary.com/emcasa/image/upload/f_auto/v1513818385/home-2018-04-03_cozxd9.jpg'
@@ -118,6 +121,7 @@ class ListingSearch extends Component {
     }
 
     const listingFilters = getNewFiltersFromFilters(filters)
+    const initialFilters = query ? getDerivedParams(query) : {}
 
     return (
       <ThemeProvider theme={theme}>
@@ -128,7 +132,7 @@ class ListingSearch extends Component {
             neighborhoods={neighborhoods}
             onChange={this.onChangeFilter}
             onReset={this.onResetFilter}
-            initialFilters={getDerivedParams(query)}
+            initialFilters={initialFilters}
           />
           <ListingList
             query={query}
