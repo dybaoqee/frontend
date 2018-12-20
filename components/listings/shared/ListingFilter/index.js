@@ -12,6 +12,9 @@ import Row from '@emcasa/ui-dom/components/Row'
 import Button from '@emcasa/ui-dom/components/Button'
 import { clone } from 'utils/clone'
 import {
+  MAX_FILTER_PANEL_DESKTOP_WIDTH
+} from './components/FilterPanel/styles'
+import {
   Container,
   Overlay
 } from './styles'
@@ -272,9 +275,10 @@ class ListingFilter extends Component {
                 clear={this.resetFilter.bind(this, FILTERS.AREA.code)}
               >
                 <NewSlider
+                  railWidth={MAX_FILTER_PANEL_DESKTOP_WIDTH}
                   min={AREA_FILTER.MIN}
-                  values={userArea}
                   max={AREA_FILTER.MAX}
+                  values={userArea}
                   isRange
                   onChange={this.sliderChanged.bind(this, FILTERS.AREA.code)}
                   valuesFormatter={(value) => `${value} m²`}
@@ -289,6 +293,7 @@ class ListingFilter extends Component {
                 clear={this.resetFilter.bind(this, FILTERS.PRICE.code)}
               >
                 <NewSlider
+                  railWidth={MAX_FILTER_PANEL_DESKTOP_WIDTH}
                   min={PRICE_FILTER.MIN}
                   max={PRICE_FILTER.MAX}
                   values={userPrice}

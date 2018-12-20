@@ -134,6 +134,7 @@ exports[`<FilterPanel/> should render component 1`] = `
   left: 0;
   padding: 10px;
   background-color: #ffffff;
+  width: 300px;
 }
 
 .c7 {
@@ -141,7 +142,6 @@ exports[`<FilterPanel/> should render component 1`] = `
   -webkit-justify-content: flex-start;
   -ms-flex-pack: start;
   justify-content: flex-start;
-  width: 100%;
 }
 
 .c8 {

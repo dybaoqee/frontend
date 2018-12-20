@@ -1,18 +1,27 @@
 import styled from 'styled-components'
-import theme from '@emcasa/ui'
 import { themeGet } from 'styled-system'
+import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
+import {
+  MAX_FILTER_PANEL_DESKTOP_WIDTH
+} from 'components/listings/shared/ListingFilter/components/FilterPanel/styles'
 
-export const Container = styled.div`
-  width: 100%;
+export const THUMB_SIZE = 18
+
+export const Container = styled(Row)`
+  flex-direction: column;
+  align-items: flex-start;
+  width: ${MAX_FILTER_PANEL_DESKTOP_WIDTH}px;
+  max-width: ${MAX_FILTER_PANEL_DESKTOP_WIDTH}px;
   box-sizing: border-box;
-  margin-right: ${theme.space[2]}px;
+  margin: auto;
 `
 
 export const Rail = styled.div`
   box-sizing: border-box;
   position: relative;
   height: 1px;
+  width: ${MAX_FILTER_PANEL_DESKTOP_WIDTH}px;
   background-color: ${themeGet('colors.grey')};
 `
 
@@ -25,8 +34,8 @@ export const Thumb = styled.div`
   padding: 0;
   margin: 0;
   top: -8px;
-  height: 18px;
-  width: 18px;
+  height: ${THUMB_SIZE}px;
+  width: ${THUMB_SIZE}px;
   background-color: ${themeGet('colors.pink')};
   display: flex;
 
@@ -72,13 +81,14 @@ export const Icon = styled.div`
 export const RangeValues = styled(Text)`
   box-sizing: border-box;
   text-align: center;
-  margin: 0 10px 20px 10px;
+  margin: 0 auto 20px auto;
   color: ${themeGet('colors.grey')};
 `
 
 export const Bar = styled.div`
+  position: absolute;
+  width: ${MAX_FILTER_PANEL_DESKTOP_WIDTH}px;
+  max-width: ${MAX_FILTER_PANEL_DESKTOP_WIDTH}px;
   height: 3px;
   background: ${themeGet('colors.pink')};
-  width: 100%;
-  position: absolute;
 `

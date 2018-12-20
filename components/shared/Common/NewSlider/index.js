@@ -1,14 +1,18 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import {
   Container,
   Rail,
   Thumb,
   Tip,
   RangeValues,
-  Bar
+  Bar,
+  THUMB_SIZE
 } from './styles'
 
-export default class NewSlider extends Component {
+const BORDERS = 10
+
+class NewSlider extends Component {
   static defaultProps = {
     min: 1,
     max: 10,
@@ -53,7 +57,7 @@ export default class NewSlider extends Component {
 
     const left = element.getAttribute('aria-label') === 'min'
 
-    const width = element.getBoundingClientRect().width
+    const width = THUMB_SIZE
 
     if (valuesRounder) {
       value = valuesRounder(value)
@@ -82,7 +86,7 @@ export default class NewSlider extends Component {
     pos -= isRange ? width / 2 : 0
 
     if (left) {
-      element.style.left = pos + 'px'
+      element.style.left = pos + width / 2 + 'px'
     } else {
       element.style.left = pos + (isRange ? width : 0) + 'px'
     }
@@ -111,7 +115,7 @@ export default class NewSlider extends Component {
   }
 
   get railWidth() {
-    return this.rail.current.clientWidth
+    return this.props.railWidth - BORDERS
   }
 
   handleMouseDown = (mouseDownEvent) => {
@@ -208,3 +212,16 @@ export default class NewSlider extends Component {
     )
   }
 }
+
+NewSlider.propTypes = {
+  railWidth: PropTypes.number,
+  min: PropTypes.number.isRequired,
+  max: PropTypes.number.isRequired,
+  values: PropTypes.object,
+  isRange: PropTypes.bool,
+  onChange: PropTypes.func,
+  valuesFormatter: PropTypes.func,
+  valuesRounder: PropTypes.func
+}
+
+export default NewSlider
