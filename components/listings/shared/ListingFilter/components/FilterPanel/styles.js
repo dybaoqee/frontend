@@ -41,6 +41,7 @@ const FilterOptions = styled(Row)`
 const ActionsWrapper = styled(Row)`
   justify-content: space-between;
   margin-top: ${theme.space[2]}px;
+  width: 100%;
   @media screen and (max-width: ${theme.breakpoints[0]}) {
     position: absolute;
     margin: 0;
@@ -51,8 +52,18 @@ const ActionsWrapper = styled(Row)`
 
 const MobileContent = styled(Row)`
   display: none;
+  padding: 0;
+  margin: 0;
   @media screen and (max-width: ${theme.breakpoints[0]}) {
     display: block;
+  }
+`
+
+const DesktopContent = styled(Row)`
+  @media screen and (max-width: ${theme.breakpoints[0]}) {
+    display: none;
+    padding: 0;
+    margin: 0;
   }
 `
 
@@ -61,5 +72,6 @@ export {
   Wrapper,
   ActionsWrapper,
   FilterOptions,
-  MobileContent
+  MobileContent,
+  DesktopContent
 }

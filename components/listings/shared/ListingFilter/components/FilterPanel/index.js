@@ -1,18 +1,17 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import theme from '@emcasa/ui'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Button from '@emcasa/ui-dom/components/Button'
 import Icon from '@emcasa/ui-dom/components/Icon'
 import Text from '@emcasa/ui-dom/components/Text'
-import { isMobile } from 'lib/mobile'
 import {
   Container,
   Wrapper,
   ActionsWrapper,
   FilterOptions,
-  MobileContent
+  MobileContent,
+  DesktopContent
 } from './styles'
 
 class FilterPanel extends PureComponent {
@@ -33,14 +32,26 @@ class FilterPanel extends PureComponent {
           <FilterOptions>
             {this.props.children}
           </FilterOptions>
-          <ActionsWrapper>
-            <Col width={1/3}>
-              <Button fluid={isMobile()} p={0} link={!isMobile()} height={isMobile() ? 'tall' : 'short'} color="dark" onClick={this.props.clear}>Limpar</Button>
-            </Col>
-            <Col width={1/3} style={{display: 'flex', justifyContent: 'flex-end'}}>
-              <Button fluid={isMobile()} p={0} link={!isMobile()} active={isMobile()} height={isMobile() ? 'tall' : 'short'} onClick={this.props.apply}>Aplicar</Button>
-            </Col>
-          </ActionsWrapper>
+          <MobileContent>
+            <ActionsWrapper>
+              <Col width={1/3}>
+                <Button fluid p={0} height="tall" color="dark" onClick={this.props.clear}>Limpar</Button>
+              </Col>
+              <Col width={1/3} style={{display: 'flex', justifyContent: 'flex-end'}}>
+                <Button fluid p={0} active height="tall" onClick={this.props.apply}>Aplicar</Button>
+              </Col>
+            </ActionsWrapper>
+          </MobileContent>
+          <DesktopContent>
+            <ActionsWrapper>
+              <Col width={1/3}>
+                <Button p={0} link height="short" color="dark" onClick={this.props.clear}>Limpar</Button>
+              </Col>
+              <Col width={1/3} style={{display: 'flex', justifyContent: 'flex-end'}}>
+                <Button p={0} link height="short" onClick={this.props.apply}>Aplicar</Button>
+              </Col>
+            </ActionsWrapper>
+          </DesktopContent>
         </Wrapper>
       </Container>
     )
