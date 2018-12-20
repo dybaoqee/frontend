@@ -1,20 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<FilterPanel/> should render component 1`] = `
-.c1 {
-  box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
-}
-
-.c3 {
+.c4 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  width: 100%;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
 }
 
 .c5 {
@@ -22,13 +13,65 @@ exports[`<FilterPanel/> should render component 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  width: 100%;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
 }
 
-.c6 {
+.c9 {
   width: 33.33333333333333%;
 }
 
-.c7 {
+.c10 {
+  outline: none;
+  display: block;
+  cursor: pointer;
+  padding: 0 20px 0 20px;
+  border-color: #e0e6ed;
+  background-color: #ffffff;
+  border-radius: 4px;
+  border-width: 1px;
+  width: 100%;
+  height: 60px;
+  padding: 0px;
+  color: #3c4858;
+  font-family: FaktSoftPro-Normal;
+  font-size: 18px;
+  color: #3c4858;
+  -webkit-font-smoothing: antialiased;
+  border-style: solid;
+}
+
+.c10 :hover {
+  background-color: #ffffff;
+}
+
+.c11 {
+  outline: none;
+  display: block;
+  cursor: pointer;
+  padding: 0 20px 0 20px;
+  border-color: #f50057;
+  background-color: #f50057;
+  border-radius: 4px;
+  border-width: 1px;
+  width: 100%;
+  height: 60px;
+  padding: 0px;
+  color: #ffffff;
+  font-family: FaktSoftPro-Normal;
+  font-size: 18px;
+  -webkit-font-smoothing: antialiased;
+  border-style: solid;
+}
+
+.c11 :hover {
+  background-color: #f50057;
+}
+
+.c13 {
   outline: none;
   cursor: pointer;
   padding: 0 20px 0 20px;
@@ -47,11 +90,11 @@ exports[`<FilterPanel/> should render component 1`] = `
   border-style: solid;
 }
 
-.c7 :hover {
+.c13 :hover {
   background-color: #ffffff;
 }
 
-.c8 {
+.c14 {
   outline: none;
   cursor: pointer;
   padding: 0 20px 0 20px;
@@ -69,25 +112,63 @@ exports[`<FilterPanel/> should render component 1`] = `
   border-style: solid;
 }
 
-.c8 :hover {
+.c14 :hover {
   background-color: #ffffff;
+}
+
+.c6 {
+  -webkit-font-smoothing: antialiased;
+  font-family: FaktSoftPro-Normal;
+  color: #3c4858;
+  font-size: 18px;
+}
+
+.c1 {
+  box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
 }
 
 .c0 {
-  display: block;
   position: absolute;
-  background-color: #ffffff;
+  display: block;
   top: 0;
   left: 0;
   padding: 10px;
+  background-color: #ffffff;
 }
 
-.c4 {
+.c7 {
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.c8 {
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
   justify-content: space-between;
   margin-top: 10px;
+  width: 100%;
+}
+
+.c3 {
+  display: none;
+  padding: 0;
+  margin: 0;
+}
+
+@media screen and (max-width:780px) {
+  .c0 {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+  }
 }
 
 @media screen and (max-width:780px) {
@@ -99,11 +180,25 @@ exports[`<FilterPanel/> should render component 1`] = `
 }
 
 @media screen and (max-width:780px) {
-  .c4 {
+  .c8 {
     position: absolute;
     margin: 0;
     bottom: calc(20px + 40px);
     width: calc(100% - 40px);
+  }
+}
+
+@media screen and (max-width:780px) {
+  .c3 {
+    display: block;
+  }
+}
+
+@media screen and (max-width:780px) {
+  .c12 {
+    display: none;
+    padding: 0;
+    margin: 0;
   }
 }
 
@@ -115,44 +210,124 @@ exports[`<FilterPanel/> should render component 1`] = `
     className="c2 "
   >
     <div
-      className="c3"
-      width={1}
-    />
-    <div
-      className="c4 c5"
+      className="c3 c4"
     >
       <div
-        className="c6"
-        width={0.3333333333333333}
+        className="c5"
+        onClick={[Function]}
+        width={1}
       >
-        <button
-          className="c7"
-          color="dark"
-          fontSize="default"
-          height="short"
-          onClick={[Function]}
+        <div
+          className=""
         >
-          Limpar
-        </button>
+          <svg
+            height={20}
+            version="1.1"
+            viewBox="0 0 352 512"
+            x={0}
+            y={0}
+          >
+            <path
+              d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
+              name="times"
+              type="default"
+            />
+          </svg>
+        </div>
       </div>
       <div
-        className="c6"
-        style={
-          Object {
-            "display": "flex",
-            "justifyContent": "flex-end",
-          }
-        }
-        width={0.3333333333333333}
+        className="c4"
       >
-        <button
-          className="c8"
+        <p
+          className="c6"
+          color="dark"
           fontSize="default"
-          height="short"
-          onClick={[Function]}
+        />
+      </div>
+    </div>
+    <div
+      className="c7 c4"
+    />
+    <div
+      className="c3 c4"
+    >
+      <div
+        className="c8 c4"
+      >
+        <div
+          className="c9"
+          width={0.3333333333333333}
         >
-          Aplicar
-        </button>
+          <button
+            className="c10"
+            color="dark"
+            fontSize="default"
+            height="tall"
+            onClick={[Function]}
+          >
+            Limpar
+          </button>
+        </div>
+        <div
+          className="c9"
+          style={
+            Object {
+              "display": "flex",
+              "justifyContent": "flex-end",
+            }
+          }
+          width={0.3333333333333333}
+        >
+          <button
+            className="c11"
+            fontSize="default"
+            height="tall"
+            onClick={[Function]}
+          >
+            Aplicar
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      className="c12 c4"
+    >
+      <div
+        className="c8 c4"
+      >
+        <div
+          className="c9"
+          width={0.3333333333333333}
+        >
+          <button
+            className="c13"
+            color="dark"
+            fontSize="default"
+            height="short"
+            onClick={[Function]}
+          >
+            Limpar
+          </button>
+        </div>
+        <div
+          className="c9"
+          style={
+            Object {
+              "display": "flex",
+              "justifyContent": "flex-end",
+            }
+          }
+          width={0.3333333333333333}
+        >
+          <button
+            className="c14"
+            fontSize="default"
+            height="short"
+            onClick={[Function]}
+          >
+            Aplicar
+          </button>
+        </div>
       </div>
     </div>
   </div>
