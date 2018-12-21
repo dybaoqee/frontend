@@ -127,7 +127,7 @@ export const getNewFiltersFromQuery = ({
   quartos_minimo,
   quartos_maximo,
   tipos
-}, {state, city, neighborhood}) => {
+}, params) => {
   const price = preco_minimo || preco_maximo ? {
     min: parseInt(preco_minimo),
     max: parseInt(preco_maximo)
@@ -145,8 +145,8 @@ export const getNewFiltersFromQuery = ({
     max: parseInt(vagas_maximo)
   } : null
   const types = tipos && splitParam(tipos).map((type) => (type.value ? type.value : type))
-  const neighborhoodsSlugs = neighborhood ? [neighborhood] : null
-  const citiesSlug = city ? [city] : null
+  const neighborhoodsSlugs = params && params.neighborhood ? [params.neighborhood] : null
+  const citiesSlug = params && params.city ? [params.city] : null
   const filters = {
     price,
     area,
