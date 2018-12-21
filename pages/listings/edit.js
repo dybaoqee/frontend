@@ -93,7 +93,7 @@ export default class ListingEditV2 extends Component {
         renderFooter: false
       }
     } catch (e) {
-      const statusCode = e.response.status
+      const statusCode = e.response ? e.response.status : 0
       return {
         statusCode,
         id: id,
