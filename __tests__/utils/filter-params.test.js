@@ -29,8 +29,7 @@ describe('listing search filter functions', () => {
     const query = {
       tipos: 'Apartamento'
     }
-    const params = {}
-    const filters = getNewFiltersFromQuery(query, params)
+    const filters = getNewFiltersFromQuery(query)
     expect(filters).toEqual({"types": ["Apartamento"]})
   })
 
