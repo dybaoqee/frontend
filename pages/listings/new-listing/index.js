@@ -142,10 +142,12 @@ class NewListing extends Component {
 
   componentDidCatch(error, errorInfo) {
     Sentry.withScope(scope => {
-      Object.keys(errorInfo).forEach(key => {
-        scope.setExtra(key, errorInfo[key]);
-      });
-      Sentry.captureException(error);
+      if (errorInfo) {
+        Object.keys(errorInfo).forEach(key => {
+          scope.setExtra(key, errorInfo[key])
+        })
+      }
+      Sentry.captureException(error)
     });
   }
 
