@@ -51,6 +51,9 @@ export default class ListingHeader extends Component {
       if (event.defaultPrevented) {
         return
       }
+      if (!this.slider1) {
+        return
+      }
       switch (event.keyCode) {
         case 27:
           this.setState({isFullScreen: false})
