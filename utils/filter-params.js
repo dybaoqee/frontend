@@ -222,6 +222,20 @@ export const getNewFiltersFromFilters = ({
   return pickBy(filters, identity)
 }
 
+export const getLocationFromPath = (asPath) => {
+  const locationString = asPath.split('?')[0]
+  const urlParts = locationString.split('/')
+  const state = urlParts[2]
+  const city = urlParts[3]
+  const neighborhood = urlParts[4]
+  const location = {
+    state,
+    city,
+    neighborhood,
+  }
+  return location
+}
+
 export const getDerivedParams = ({
   preco_minimo,
   preco_maximo,
