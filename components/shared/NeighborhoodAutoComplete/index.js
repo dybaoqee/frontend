@@ -105,7 +105,8 @@ export default class NeighborhoodAutoComplete extends Component {
             return (
               <Link key={index} href={{
                 pathname: url,
-                asPath: url
+                asPath: url,
+                search: (window && window.location && window.location.search) ? window.location.search : null
               }}>
                 <SearchResultItem
                   height={this.props.height}
