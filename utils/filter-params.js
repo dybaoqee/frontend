@@ -228,11 +228,11 @@ export const getLocationFromPath = (asPath) => {
   const state = urlParts[2]
   const city = urlParts[3]
   const neighborhood = urlParts[4]
-  const location = {
-    state,
-    city,
-    neighborhood,
-  }
+  const location = Object.assign({},
+    state && {state},
+    city && {city},
+    neighborhood && {neighborhood}
+  )
   return location
 }
 
