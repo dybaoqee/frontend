@@ -92,7 +92,7 @@ class ListingSearch extends Component {
   getHead = () => {
     const {neighborhood} = this.state
     const {query} = this.props
-    const fullCity = query && query.state === 'rj' ? 'na Zona Sul do Rio de Janeiro' : 'em São Paulo'
+    const fullCity = query && query.state === 'rj' ? 'na Zona Sul do Rio de Janeiro' : 'no Rio de Janeiro e em São Paulo'
     const city = query && query.state === 'rj' ? 'Rio De Janeiro' : 'São Paulo'
 
     const seoImgSrc =
