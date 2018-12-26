@@ -29,7 +29,12 @@ class ListingSearch extends Component {
 
   static async getInitialProps(context) {
     const params = (context.req && context.req.params) ? context.req.params : {}
-    const query = (context.req && context.req.query) ? context.req.query : {}
+    let query = {}
+    if (context.req && context.req.query) {
+      query = context.req.query
+    } else if (context.query) {
+      query = context.query
+    }
     return {
       hideSeparator: true,
       transparentHeader: false,
@@ -42,8 +47,6 @@ class ListingSearch extends Component {
   }
 
   componentDidMount() {
-    require('utils/polyfills/smooth-scroll').load()
-
     window.onpopstate = (event) => {
       const newQuery = getUrlVars(event.state.url)
       this.setState({
