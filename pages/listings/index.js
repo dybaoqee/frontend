@@ -8,7 +8,8 @@ import {
   treatParams,
   getDerivedParams,
   getNewFiltersFromFilters,
-  getNewFiltersFromQuery
+  getNewFiltersFromQuery,
+  getLocationFromPath
 } from 'utils/filter-params.js'
 import ListingFilter from 'components/listings/shared/ListingFilter'
 import ListingList from 'components/listings/shared/ListingList'
@@ -28,7 +29,14 @@ class ListingSearch extends Component {
   }
 
   static async getInitialProps(context) {
-    const params = (context.req && context.req.params) ? context.req.params : {}
+    let params = {}
+    if (context.req && context.req.params) {
+      params = context.req.params
+    } else {
+      const { asPath } = context
+      params = getLocationFromPath(asPath)
+    }
+
     let query = {}
     if (context.req && context.req.query) {
       query = context.req.query
