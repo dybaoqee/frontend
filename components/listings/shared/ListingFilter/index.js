@@ -326,12 +326,11 @@ class ListingFilter extends Component {
                     if (value === null) {
                       return
                     }
-                    let values = {minValue: MIN_GROUP_FILTER_VALUE, maxValue: MAX_GROUP_FILTER_VALUE}
+                    let values = {minValue: MIN_GROUP_FILTER_VALUE}
                     if (value === 'more') {
                       values.minValue = MAX_GROUP_ITEMS_SELECTION
                     } else {
                       values.minValue = value
-                      values.maxValue = value
                     }
                     this.sliderChanged(FILTERS.ROOMS.code, values, true)
                 }}>
@@ -361,12 +360,11 @@ class ListingFilter extends Component {
                     if (value === null) {
                       return
                     }
-                    let values = {minValue: MIN_GROUP_FILTER_VALUE, maxValue: MAX_GROUP_FILTER_VALUE}
+                    let values = {minValue: MIN_GROUP_FILTER_VALUE}
                     if (value === 'more') {
                       values.minValue = MAX_GROUP_ITEMS_SELECTION
                     } else {
                       values.minValue = value
-                      values.maxValue = value
                     }
                     this.sliderChanged(FILTERS.GARAGE_SPOTS.code, values, true)
                 }}>
