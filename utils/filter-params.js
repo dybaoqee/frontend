@@ -41,16 +41,15 @@ function treatMaxRooms(rooms) {
 }
 
 function treatMinGarageSpots(garageSpots) {
-  if (garageSpots) return `vagas_minimo=${garageSpots.min}`
+  if (garageSpots && typeof(garageSpots.min) === 'number') return `vagas_minimo=${garageSpots.min}`
 }
 
 function treatMaxGarageSpots(garageSpots) {
-  if (garageSpots) return `vagas_maximo=${garageSpots.max}`
+  if (garageSpots && typeof(garageSpots.max) === 'number') return `vagas_maximo=${garageSpots.max}`
 }
 
 function treatNeighborhoods(neighborhoods) {
-  if (neighborhoods && neighborhoods.length > 0)
-    return `bairros=${joinParam(neighborhoods)}`
+  if (neighborhoods && neighborhoods.length > 0) return `bairros=${joinParam(neighborhoods)}`
 }
 
 function treatPropertyType(types) {
@@ -193,7 +192,7 @@ export const getFiltersFromFilters = ({
   return pickBy(filters, identity)
 }
 
-export const getNewFiltersFromFilters = ({
+export const getListingFiltersFromState = ({
   price,
   area,
   garageSpots,
@@ -219,7 +218,7 @@ export const getNewFiltersFromFilters = ({
       types.map((type) => (type.value ? type.value : type))
   }
 
-  return pickBy(filters, identity)
+  return pickBy(filters, (value) => value !== undefined && value !== null && ((typeof(value) === 'number' && !isNaN(value)) || typeof(value) === 'object'))
 }
 
 export const getLocationFromPath = (asPath) => {

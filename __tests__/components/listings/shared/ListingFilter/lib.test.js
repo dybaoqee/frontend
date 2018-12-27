@@ -36,44 +36,44 @@ describe('Listing Filter libs', () => {
 
   it('should return filter with a single room', () => {
     const values = {
-      rooms: {min: 1, max: 1}
+      rooms: {min: 1}
     }
-    expect(activeFilters(values)).toEqual([{"filter": "rooms", "value": "1 quarto"}])
+    expect(activeFilters(values)).toEqual([{"filter": "rooms", "value": "1 quarto ou mais"}])
   })
 
   it('should return filter with rooms', () => {
     const values = {
-      rooms: {min: 2, max: 2}
+      rooms: {min: 2}
     }
-    expect(activeFilters(values)).toEqual([{"filter": "rooms", "value": "2 quartos"}])
+    expect(activeFilters(values)).toEqual([{"filter": "rooms", "value": "2 quartos ou mais"}])
   })
 
   it('should return filter with a single garage spot', () => {
     const values = {
-      garageSpots: {min: 1, max: 1}
+      garageSpots: {min: 1}
     }
-    expect(activeFilters(values)).toEqual([{"filter": "garageSpots", "value": "1 vaga"}])
+    expect(activeFilters(values)).toEqual([{"filter": "garageSpots", "value": "1 vaga ou mais"}])
   })
 
   it('should return filter with garage spots', () => {
     const values = {
-      garageSpots: {min: 4, max: 4}
+      garageSpots: {min: 4}
     }
-    expect(activeFilters(values)).toEqual([{"filter": "garageSpots", "value": "4 vagas"}])
+    expect(activeFilters(values)).toEqual([{"filter": "garageSpots", "value": "4 vagas ou mais"}])
   })
 
   it('should return filter with more than 5 rooms', () => {
     const values = {
-      rooms: {min: 5, max: 5}
+      rooms: {min: 5}
     }
-    expect(activeFilters(values)).toEqual([{"filter": "rooms", "value": "5 ou mais quartos"}])
+    expect(activeFilters(values)).toEqual([{"filter": "rooms", "value": "5 quartos ou mais"}])
   })
 
   it('should return filter with 5 or more garage spots', () => {
     const values = {
-      garageSpots: {min: 5, max: 5}
+      garageSpots: {min: 5}
     }
-    expect(activeFilters(values)).toEqual([{"filter": "garageSpots", "value": "5 ou mais vagas"}])
+    expect(activeFilters(values)).toEqual([{"filter": "garageSpots", "value": "5 vagas ou mais"}])
   })
 
   it('should return filter with all values included', () => {
@@ -81,9 +81,9 @@ describe('Listing Filter libs', () => {
       types: ['Apartameto', 'Casa', 'Cobertura'],
       area: {min: 50, max: 120},
       price: {min: 750000, max: 1500000},
-      rooms: {min: 4, max: 4},
-      garageSpots: {min: 3, max: 3}
+      rooms: {min: 4},
+      garageSpots: {min: 3}
     }
-    expect(activeFilters(values)).toEqual([{"filter": "types", "value": "Apartameto, Casa, Cobertura"}, {"filter": "price", "value": "R$750.00k - R$1.50m"}, {"filter": "rooms", "value": "4 quartos"}, {"filter": "garageSpots", "value": "3 vagas"}, {"filter": "area", "value": "50 - 120 m²"}])
+    expect(activeFilters(values)).toEqual([{"filter": "types", "value": "Apartameto, Casa, Cobertura"}, {"filter": "price", "value": "R$750.00k - R$1.50m"}, {"filter": "rooms", "value": "4 quartos ou mais"}, {"filter": "garageSpots", "value": "3 vagas ou mais"}, {"filter": "area", "value": "50 - 120 m²"}])
   })
 })

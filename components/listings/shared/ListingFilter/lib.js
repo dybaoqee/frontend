@@ -1,34 +1,30 @@
 import numeral from 'numeral'
 import {
-  FILTERS,
-  MAX_GROUP_ITEMS_SELECTION
+  FILTERS
 } from './constants'
 
 function activeFilters(values) {
   const { types, price, neighborhoods, rooms, garageSpots, area } = values
 
   const propertyTypes = types && types.join(', ')
-  const rangePrice =
-    price &&
-    `R$${numeral(price.min).format('0.00a')} - R$${numeral(price.max).format(
-      '0.00a'
-    )}`
+
+  const rangePrice = price && `R$${numeral(price.min).format('0.00a')} - R$${numeral(price.max).format('0.00a')}`
+
+  const rangeArea = area && `${area.min} - ${area.max} m²`
 
   let rangeRooms = ''
-  if (rooms && rooms.min !== null && rooms.max !== null) {
-    rangeRooms = rooms.min === MAX_GROUP_ITEMS_SELECTION ? `${rooms.min} ou mais quartos` : `${rooms.min} quarto${rooms.min > 1 ? 's' : ''}`
+  if (rooms && rooms.min !== null) {
+    rangeRooms = `${rooms.min} quarto${rooms.min > 1 ? 's' : ''} ou mais`
   }
 
   let rangeGarageSpots = ''
-  if (garageSpots && garageSpots.min !== null && garageSpots.max !== null) {
+  if (garageSpots && garageSpots.min !== null) {
     if (garageSpots.min === 0) {
       rangeGarageSpots = 'Sem vagas'
     } else {
-      rangeGarageSpots = garageSpots.min === MAX_GROUP_ITEMS_SELECTION ? `${garageSpots.min} ou mais vagas` : `${garageSpots.min} vaga${garageSpots.min > 1 ? 's' : ''}`
+      rangeGarageSpots = `${garageSpots.min} vaga${garageSpots.min > 1 ? 's' : ''} ou mais`
     }
   }
-
-  const rangeArea = area && `${area.min} - ${area.max} m²`
 
   const rangeNeighborhoods =
     neighborhoods &&

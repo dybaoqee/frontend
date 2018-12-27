@@ -8,8 +8,8 @@ import {Query} from 'react-apollo'
 import {GET_NEIGHBORHOODS} from 'graphql/listings/queries'
 import FilterPanel from './components/FilterPanel'
 import FilterButton from './components/FilterButton'
+import ButtonGroupFilter from './components/ButtonGroupFilter'
 import Row from '@emcasa/ui-dom/components/Row'
-import Button from '@emcasa/ui-dom/components/Button'
 import { clone } from 'utils/clone'
 import {
   MAX_FILTER_PANEL_DESKTOP_WIDTH
@@ -20,9 +20,6 @@ import {
 } from './styles'
 import { activeFilters } from './lib'
 import {
-  MIN_GROUP_FILTER_VALUE,
-  MAX_GROUP_FILTER_VALUE,
-  MAX_GROUP_ITEMS_SELECTION,
   FILTERS,
   AREA_FILTER,
   PRICE_FILTER
@@ -315,32 +312,18 @@ class ListingFilter extends Component {
                 apply={this.applyFilters}
                 clear={this.resetFilter.bind(this, FILTERS.ROOMS.code)}
               >
-                <Button.Group
-                  flexWrap="wrap"
+                <ButtonGroupFilter
                   initialValue={rooms}
-                  strategy={{
-                    isSelected: (selectedValue, value) => selectedValue === value,
-                    update: (selectedValue, value) => (selectedValue === value ? null : value)
-                  }}
-                  onChange={(value) => {
-                    if (value === null) {
-                      return
-                    }
-                    let values = {minValue: MIN_GROUP_FILTER_VALUE, maxValue: MAX_GROUP_FILTER_VALUE}
-                    if (value === 'more') {
-                      values.minValue = MAX_GROUP_ITEMS_SELECTION
-                    } else {
-                      values.minValue = value
-                      values.maxValue = value
-                    }
-                    this.sliderChanged(FILTERS.ROOMS.code, values, true)
-                }}>
-                  <FilterButton active={userRooms && userRooms.min === 1} value={1}>1</FilterButton>
-                  <FilterButton active={userRooms && userRooms.min === 2} value={2}>2</FilterButton>
-                  <FilterButton active={userRooms && userRooms.min === 3} value={3}>3</FilterButton>
-                  <FilterButton active={userRooms && userRooms.min === 4} value={4}>4</FilterButton>
-                  <FilterButton active={userRooms && userRooms.min === 5} value="more">+</FilterButton>
-                </Button.Group>
+                  userValue={userRooms && userRooms.min}
+                  onChange={(value) => {this.sliderChanged(FILTERS.ROOMS.code, value, true)}}
+                  values={[
+                    {value: 1, label: '1'},
+                    {value: 2, label: '2'},
+                    {value: 3, label: '3'},
+                    {value: 4, label: '4'},
+                    {value: 5, label: '+'},
+                  ]}
+                />
               </FilterPanel>
               <FilterPanel
                 title={FILTERS.GARAGE_SPOTS.label}
@@ -350,33 +333,19 @@ class ListingFilter extends Component {
                 apply={this.applyFilters}
                 clear={this.resetFilter.bind(this, FILTERS.GARAGE_SPOTS.code)}
               >
-                <Button.Group
-                  flexWrap="wrap"
+                <ButtonGroupFilter
                   initialValue={garageSpots}
-                  strategy={{
-                    isSelected: (selectedValue, value) => selectedValue === value,
-                    update: (selectedValue, value) => (selectedValue === value ? null : value)
-                  }}
-                  onChange={(value) => {
-                    if (value === null) {
-                      return
-                    }
-                    let values = {minValue: MIN_GROUP_FILTER_VALUE, maxValue: MAX_GROUP_FILTER_VALUE}
-                    if (value === 'more') {
-                      values.minValue = MAX_GROUP_ITEMS_SELECTION
-                    } else {
-                      values.minValue = value
-                      values.maxValue = value
-                    }
-                    this.sliderChanged(FILTERS.GARAGE_SPOTS.code, values, true)
-                }}>
-                  <FilterButton active={userGarageSpots && userGarageSpots.min === 0} value={0}>Sem vagas</FilterButton>
-                  <FilterButton active={userGarageSpots && userGarageSpots.min === 1} value={1}>1</FilterButton>
-                  <FilterButton active={userGarageSpots && userGarageSpots.min === 2} value={2}>2</FilterButton>
-                  <FilterButton active={userGarageSpots && userGarageSpots.min === 3} value={3}>3</FilterButton>
-                  <FilterButton active={userGarageSpots && userGarageSpots.min === 4} value={4}>4</FilterButton>
-                  <FilterButton active={userGarageSpots && userGarageSpots.min === 5} value="more">+</FilterButton>
-                </Button.Group>
+                  userValue={userGarageSpots && userGarageSpots.min}
+                  onChange={(value) => {this.sliderChanged(FILTERS.GARAGE_SPOTS.code, value, true)}}
+                  values={[
+                    {value: 0, label: 'Sem vagas'},
+                    {value: 1, label: '1'},
+                    {value: 2, label: '2'},
+                    {value: 3, label: '3'},
+                    {value: 4, label: '4'},
+                    {value: 5, label: '+'},
+                  ]}
+                />
               </FilterPanel>
             </Container>
           )
