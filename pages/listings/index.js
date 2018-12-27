@@ -7,7 +7,7 @@ import Router from 'next/router'
 import {
   treatParams,
   getDerivedParams,
-  getNewFiltersFromFilters,
+  getListingFiltersFromState,
   getNewFiltersFromQuery,
   getLocationFromPath
 } from 'utils/filter-params.js'
@@ -131,7 +131,7 @@ class ListingSearch extends Component {
       }
     }
 
-    const listingFilters = getNewFiltersFromFilters(filters)
+    const listingFilters = getListingFiltersFromState(filters)
     const initialFilters = query ? getDerivedParams(query) : {}
 
     return (

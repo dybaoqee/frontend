@@ -1,6 +1,6 @@
 import {
   getNewFiltersFromQuery,
-  getNewFiltersFromFilters,
+  getListingFiltersFromState,
   getLocationFromPath
 } from 'utils/filter-params'
 
@@ -45,19 +45,28 @@ describe('listing search filter functions', () => {
         max: 150
       },
       garageSpots: {
-        min: 2,
-        max: 2
+        min: 2
       },
       rooms: {
-        min: 3,
-        max: 3
+        min: 3
       },
       neighborhoodsSlugs: ['botafogo'],
       citiesSlugs: ['rio-de-janeiro'],
       types: ['Apartamento', 'Cobertura']
     }
-    const query = getNewFiltersFromFilters(filters)
-    expect(query).toEqual({"maxArea": 150, "maxGarageSpots": 2, "maxPrice": 2500000, "maxRooms": 3, "minArea": 35, "minGarageSpots": 2, "minPrice": 250000, "minRooms": 3, "neighborhoodsSlugs": ["botafogo"], "types": ["Apartamento", "Cobertura"]})
+    const query = getListingFiltersFromState(filters)
+    expect(query).toEqual({"maxArea": 150, "minGarageSpots": 2, "maxPrice": 2500000, "minRooms": 3, "minArea": 35, "minPrice": 250000, "neighborhoodsSlugs": ["botafogo"], "types": ["Apartamento", "Cobertura"]})
+  })
+
+  it('parses user selected garage spots into query string', () => {
+    const filters = {
+      garageSpots: {
+        min: 0,
+        max: 0
+      }
+    }
+    const query = getListingFiltersFromState(filters)
+    expect(query).toEqual({"minGarageSpots": 0, "maxGarageSpots": 0})
   })
 
   it('parses url with location into a location object', () => {

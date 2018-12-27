@@ -18,7 +18,7 @@ function activeFilters(values) {
   }
 
   let rangeGarageSpots = ''
-  if (garageSpots && garageSpots.min !== null && garageSpots.max !== null) {
+  if (garageSpots && garageSpots.min !== null) {
     if (garageSpots.min === 0) {
       rangeGarageSpots = 'Sem vagas'
     } else {

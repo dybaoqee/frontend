@@ -193,7 +193,7 @@ export const getFiltersFromFilters = ({
   return pickBy(filters, identity)
 }
 
-export const getNewFiltersFromFilters = ({
+export const getListingFiltersFromState = ({
   price,
   area,
   garageSpots,
@@ -219,7 +219,7 @@ export const getNewFiltersFromFilters = ({
       types.map((type) => (type.value ? type.value : type))
   }
 
-  return pickBy(filters, identity)
+  return pickBy(filters, (value) => value !== undefined && value !== null && ((typeof(value) === 'number' && !isNaN(value)) || typeof(value) === 'object'))
 }
 
 export const getLocationFromPath = (asPath) => {
