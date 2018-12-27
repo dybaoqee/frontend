@@ -1,7 +1,6 @@
 import numeral from 'numeral'
 import {
-  FILTERS,
-  MAX_GROUP_ITEMS_SELECTION
+  FILTERS
 } from './constants'
 
 function activeFilters(values) {

@@ -326,19 +326,14 @@ class ListingFilter extends Component {
                     if (value === null) {
                       return
                     }
-                    let values = {minValue: MIN_GROUP_FILTER_VALUE}
-                    if (value === 'more') {
-                      values.minValue = MAX_GROUP_ITEMS_SELECTION
-                    } else {
-                      values.minValue = value
-                    }
+                    let values = {minValue: value}
                     this.sliderChanged(FILTERS.ROOMS.code, values, true)
                 }}>
                   <FilterButton active={userRooms && userRooms.min === 1} value={1}>1</FilterButton>
                   <FilterButton active={userRooms && userRooms.min === 2} value={2}>2</FilterButton>
                   <FilterButton active={userRooms && userRooms.min === 3} value={3}>3</FilterButton>
                   <FilterButton active={userRooms && userRooms.min === 4} value={4}>4</FilterButton>
-                  <FilterButton active={userRooms && userRooms.min === 5} value="more">+</FilterButton>
+                  <FilterButton active={userRooms && userRooms.min === 5} value={5}>+</FilterButton>
                 </Button.Group>
               </FilterPanel>
               <FilterPanel
@@ -360,12 +355,8 @@ class ListingFilter extends Component {
                     if (value === null) {
                       return
                     }
-                    let values = {minValue: MIN_GROUP_FILTER_VALUE}
-                    if (value === 'more') {
-                      values.minValue = MAX_GROUP_ITEMS_SELECTION
-                    } else {
-                      values.minValue = value
-                    }
+                    let values = {minValue: value}
+                    this.sliderChanged(FILTERS.ROOMS.code, values, true)
                     this.sliderChanged(FILTERS.GARAGE_SPOTS.code, values, true)
                 }}>
                   <FilterButton active={userGarageSpots && userGarageSpots.min === 0} value={0}>Sem vagas</FilterButton>
@@ -373,7 +364,7 @@ class ListingFilter extends Component {
                   <FilterButton active={userGarageSpots && userGarageSpots.min === 2} value={2}>2</FilterButton>
                   <FilterButton active={userGarageSpots && userGarageSpots.min === 3} value={3}>3</FilterButton>
                   <FilterButton active={userGarageSpots && userGarageSpots.min === 4} value={4}>4</FilterButton>
-                  <FilterButton active={userGarageSpots && userGarageSpots.min === 5} value="more">+</FilterButton>
+                  <FilterButton active={userGarageSpots && userGarageSpots.min === 5} value={5}>+</FilterButton>
                 </Button.Group>
               </FilterPanel>
             </Container>
