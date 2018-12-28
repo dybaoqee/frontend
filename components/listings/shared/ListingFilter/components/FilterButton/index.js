@@ -27,7 +27,7 @@ class FilterButton extends PureComponent {
 FilterButton.propTypes = {
   value: PropTypes.any.isRequired,
   active: PropTypes.bool.isRequired,
-  onClick: PropTypes.func.isRequired
+  onClick: PropTypes.func
 }
 
 export default FilterButton
