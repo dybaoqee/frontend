@@ -56,6 +56,11 @@ function treatPropertyType(types) {
   if (types && types.length > 0) return `tipos=${joinParam(types)}`
 }
 
+/**
+ * Generates a query string with the given Filters.
+ *
+ * @param filters
+ */
 export function treatParams({
   price,
   area,
@@ -82,6 +87,9 @@ export function treatParams({
 
 const splitParam = (param) => (param ? param.split('|') : [])
 
+/**
+ * @deprecated. Use `getNewFiltersFromQuery` instead.
+ */
 export const getFiltersFromQuery = ({
   preco_minimo,
   preco_maximo,
@@ -116,6 +124,12 @@ export const getFiltersFromQuery = ({
   return pickBy(filters, identity)
 }
 
+/**
+ * Returns a Filter object given the request's query string and url parameters.
+ *
+ * @param query query string object.
+ * @param params params object.
+ */
 export const getNewFiltersFromQuery = ({
   preco_minimo,
   preco_maximo,
@@ -159,6 +173,9 @@ export const getNewFiltersFromQuery = ({
   return pickBy(filters, identity)
 }
 
+/**
+ * @deprecated. Use `getListingFiltersFromState` instead.
+ */
 export const getFiltersFromFilters = ({
   price,
   area,
@@ -192,6 +209,11 @@ export const getFiltersFromFilters = ({
   return pickBy(filters, identity)
 }
 
+/**
+ * Returns a filter object to be passed to the Listing query.
+ *
+ * @param filters Listing Filters selected by the user.
+ */
 export const getListingFiltersFromState = ({
   price,
   area,
@@ -221,6 +243,11 @@ export const getListingFiltersFromState = ({
   return pickBy(filters, (value) => value !== undefined && value !== null && ((typeof(value) === 'number' && !isNaN(value)) || typeof(value) === 'object'))
 }
 
+/**
+ * Reads location info (state, city, neighborhood) from a give URL.
+ *
+ * @param asPath url
+ */
 export const getLocationFromPath = (asPath) => {
   const locationString = asPath.split('?')[0]
   const urlParts = locationString.split('/')
