@@ -1,4 +1,5 @@
 import {
+  treatParams,
   getNewFiltersFromQuery,
   getListingFiltersFromState,
   getLocationFromPath
@@ -79,5 +80,33 @@ describe('listing search filter functions', () => {
     const asPath = '/imoveis/rj/rio-de-janeiro?tipos=Apartamento'
     const location = getLocationFromPath(asPath)
     expect(location).toEqual({city: 'rio-de-janeiro', state: 'rj'})
+  })
+
+  it('reads filters from a given object and parses into a query string', () => {
+    const filters = {
+      price: {
+        min: 250000,
+        max: 500000
+      },
+      area: {
+        min: 50,
+        max: 150
+      },
+      rooms: {
+        min: 2,
+        max: 4
+      },
+      garageSpots: {
+        min: 2,
+        max: 4
+      },
+      neighborhoods: {
+        min: 1,
+        max: 3
+      },
+      types: ['Apartamento', 'Cobertura']
+    }
+    const queryString = treatParams(filters)
+    expect(queryString).toBe('preco_minimo=250000&preco_maximo=500000&area_minima=50&area_maxima=150&quartos_minimo=2&quartos_maximo=4&vagas_minimo=2&vagas_maximo=4&tipos=Apartamento|Cobertura')
   })
 })
