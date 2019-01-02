@@ -52,7 +52,8 @@ class ListingFilter extends Component {
       showPrice: false,
       showRooms: false,
       showGarage: false,
-      panelPosition: null
+      panelPosition: null,
+      expanded: false
     }
   }
 
@@ -210,7 +211,7 @@ class ListingFilter extends Component {
           return (
             <Container isFilterOpen={isFilterOpen}>
               <Overlay onClick={() => {this.hideAllFilters(); this.restorePreviousValues();}} />
-              <ButtonsWrapper>
+              <ButtonsWrapper expanded={this.state.expanded}>
                 <FilterButton
                   active={hasSelectedAnyTypes}
                   onClick={this.showFilter.bind(this, FILTERS.TYPES.code)}>
@@ -236,7 +237,7 @@ class ListingFilter extends Component {
                   onClick={this.showFilter.bind(this, FILTERS.GARAGE_SPOTS.code)}>
                     {this.getFiltersLabels(FILTERS.GARAGE_SPOTS.code)}
                 </FilterButton>
-                <ExpandButton />
+                <ExpandButton onClick={() => {this.setState({expanded: !this.state.expanded})}} />
               </ButtonsWrapper>
               <FilterPanel
                 title={FILTERS.TYPES.label}

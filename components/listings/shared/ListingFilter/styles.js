@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import theme from '@emcasa/ui'
 import Row from '@emcasa/ui-dom/components/Row'
 import { MAX_HEADER_HEIGHT } from 'components/shared/Shell/NewHeader/styles'
@@ -21,17 +21,19 @@ const Container = styled(Row)`
   }
 `
 
+const expandedWrapper = css`
+  flex-wrap: nowrap;
+  overflow: scroll hidden;
+  height: 40px;
+  margin-right: calc(${EXPAND_BUTTON_WIDTH}px + ${theme.space[2]}px);
+`
+
 const ButtonsWrapper = styled(Row)`
   position: relative;
   flex-direction: row;
   flex-wrap: wrap;
 
-  @media screen and (max-width: ${theme.breakpoints[0]}) {
-    flex-wrap: nowrap;
-    overflow: scroll hidden;
-    height: 40px;
-    margin-right: calc(${EXPAND_BUTTON_WIDTH}px + ${theme.space[2]}px);
-  }
+  ${({expanded}) => expanded ? null : expandedWrapper}
 `
 
 const Overlay = styled.div`
