@@ -9,6 +9,7 @@ import {GET_NEIGHBORHOODS} from 'graphql/listings/queries'
 import FilterPanel from './components/FilterPanel'
 import FilterButton from './components/FilterButton'
 import ButtonGroupFilter from './components/ButtonGroupFilter'
+import ExpandButton from './components/ExpandButton'
 import { clone } from 'utils/clone'
 import {
   MAX_FILTER_PANEL_DESKTOP_WIDTH
@@ -235,6 +236,7 @@ class ListingFilter extends Component {
                   onClick={this.showFilter.bind(this, FILTERS.GARAGE_SPOTS.code)}>
                     {this.getFiltersLabels(FILTERS.GARAGE_SPOTS.code)}
                 </FilterButton>
+                <ExpandButton />
               </ButtonsWrapper>
               <FilterPanel
                 title={FILTERS.TYPES.label}

@@ -2,6 +2,9 @@ import styled from 'styled-components'
 import theme from '@emcasa/ui'
 import Row from '@emcasa/ui-dom/components/Row'
 import { MAX_HEADER_HEIGHT } from 'components/shared/Shell/NewHeader/styles'
+import {
+  EXPAND_BUTTON_WIDTH
+} from './components/ExpandButton/styles'
 
 const OVER_HEADER = 6
 const BELOW_HEADER = 1
@@ -27,6 +30,7 @@ const ButtonsWrapper = styled(Row)`
     flex-wrap: nowrap;
     overflow: scroll hidden;
     height: 40px;
+    margin-right: calc(${EXPAND_BUTTON_WIDTH}px + ${theme.space[2]}px);
   }
 `
 
