@@ -11,7 +11,7 @@ exports[`<ButtonGroupFilter/> should render component 1`] = `
   flex-wrap: wrap;
 }
 
-.c3 {
+.c4 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -43,7 +43,7 @@ exports[`<ButtonGroupFilter/> should render component 1`] = `
   background-color: #ffffff;
 }
 
-.c5 {
+.c6 {
   outline: none;
   cursor: pointer;
   padding: 0 20px 0 20px;
@@ -64,7 +64,7 @@ exports[`<ButtonGroupFilter/> should render component 1`] = `
   border-style: solid;
 }
 
-.c5 :hover {
+.c6 :hover {
   background-color: #f50057;
 }
 
@@ -76,12 +76,18 @@ exports[`<ButtonGroupFilter/> should render component 1`] = `
   height: 32px;
 }
 
-.c4 {
+.c5 {
   border: 1px solid #f50057;
   color: #ffffff;
   font-size: 14px;
   margin: 0 10px 4px 0;
   height: 32px;
+}
+
+.c3 {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
 }
 
 @media screen and (min-width:780px) {
@@ -92,7 +98,7 @@ exports[`<ButtonGroupFilter/> should render component 1`] = `
 }
 
 @media screen and (min-width:780px) {
-  .c5 {
+  .c6 {
     padding-left: 14px;
     padding-right: 14px;
   }
@@ -110,20 +116,20 @@ exports[`<ButtonGroupFilter/> should render component 1`] = `
     value={0}
   >
     <div
-      className="c3"
+      className="c3 c4"
     >
       Sem vagas
     </div>
   </button>
   <button
-    className="c4 c5"
+    className="c5 c6"
     fontSize="default"
     height="medium"
     onClick={[Function]}
     value={1}
   >
     <div
-      className="c3"
+      className="c3 c4"
     >
       1
     </div>
@@ -136,7 +142,7 @@ exports[`<ButtonGroupFilter/> should render component 1`] = `
     value={2}
   >
     <div
-      className="c3"
+      className="c3 c4"
     >
       2
     </div>
@@ -149,7 +155,7 @@ exports[`<ButtonGroupFilter/> should render component 1`] = `
     value={3}
   >
     <div
-      className="c3"
+      className="c3 c4"
     >
       3
     </div>
@@ -162,7 +168,7 @@ exports[`<ButtonGroupFilter/> should render component 1`] = `
     value={4}
   >
     <div
-      className="c3"
+      className="c3 c4"
     >
       4
     </div>
@@ -175,7 +181,7 @@ exports[`<ButtonGroupFilter/> should render component 1`] = `
     value={5}
   >
     <div
-      className="c3"
+      className="c3 c4"
     >
       +
     </div>

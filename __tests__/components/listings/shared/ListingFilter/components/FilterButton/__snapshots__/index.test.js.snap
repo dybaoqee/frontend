@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<FilterButton/> should render component 1`] = `
-.c2 {
+.c3 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -41,6 +41,12 @@ exports[`<FilterButton/> should render component 1`] = `
   height: 32px;
 }
 
+.c2 {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+
 @media screen and (min-width:780px) {
   .c1 {
     padding-left: 14px;
@@ -56,7 +62,7 @@ exports[`<FilterButton/> should render component 1`] = `
   value={1}
 >
   <div
-    className="c2"
+    className="c2 c3"
   />
 </button>
 `;

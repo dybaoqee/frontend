@@ -12,6 +12,22 @@ const Container = styled(Row)`
   padding: ${theme.space[4]}px;
   z-index: ${({isFilterOpen}) => isFilterOpen ? OVER_HEADER : BELOW_HEADER};
   background-color: ${theme.colors.white};
+
+  @media screen and (max-width: ${theme.breakpoints[0]}) {
+    
+  }
+`
+
+const ButtonsWrapper = styled(Row)`
+  position: relative;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  @media screen and (max-width: ${theme.breakpoints[0]}) {
+    flex-wrap: nowrap;
+    overflow: scroll hidden;
+    height: 40px;
+  }
 `
 
 const Overlay = styled.div`
@@ -24,5 +40,6 @@ const Overlay = styled.div`
 
 export {
   Container,
-  Overlay
+  Overlay,
+  ButtonsWrapper
 }
