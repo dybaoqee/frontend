@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ExpandButton/> should render component 1`] = `
+.c1 {
+  outline: none;
+  cursor: pointer;
+  padding: 0 20px 0 20px;
+  border-color: #e0e6ed;
+  background-color: #ffffff;
+  border-radius: 4px;
+  border-width: 1px;
+  width: auto;
+  height: 40px;
+  color: #3c4858;
+  font-family: FaktSoftPro-Normal;
+  font-size: 18px;
+  -webkit-font-smoothing: antialiased;
+  border-style: solid;
+}
+
+.c1 :hover {
+  background-color: #ffffff;
+}
+
+.c0 {
+  position: fixed;
+  right: 0;
+  border: 1px solid #e0e6ed;
+  color: #f50057;
+  font-size: 14px;
+  margin: 0 20px 4px 0;
+  width: 32px;
+  height: 32px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 16px;
+}
+
+@media screen and (min-width:768px) {
+  .c0 {
+    display: none;
+  }
+}
+
+<button
+  className="c0 c1"
+  fontSize="default"
+  height="medium"
+  onClick={[Function]}
+>
+  <div
+    className="c2 "
+  >
+    <svg
+      height={20}
+      version="1.1"
+      viewBox="0 0 320 512"
+      x={0}
+      y={0}
+    >
+      <path
+        d="M177 159.7l136 136c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L7 329.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"
+        name="angle-up"
+        type="default"
+      />
+    </svg>
+  </div>
+</button>
+`;

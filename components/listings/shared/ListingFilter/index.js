@@ -9,14 +9,15 @@ import {GET_NEIGHBORHOODS} from 'graphql/listings/queries'
 import FilterPanel from './components/FilterPanel'
 import FilterButton from './components/FilterButton'
 import ButtonGroupFilter from './components/ButtonGroupFilter'
-import Row from '@emcasa/ui-dom/components/Row'
+import ExpandButton from './components/ExpandButton'
 import { clone } from 'utils/clone'
 import {
   MAX_FILTER_PANEL_DESKTOP_WIDTH
 } from './components/FilterPanel/styles'
 import {
   Container,
-  Overlay
+  Overlay,
+  ButtonsWrapper
 } from './styles'
 import { activeFilters } from './lib'
 import {
@@ -51,7 +52,8 @@ class ListingFilter extends Component {
       showPrice: false,
       showRooms: false,
       showGarage: false,
-      panelPosition: null
+      panelPosition: null,
+      expanded: false
     }
   }
 
@@ -209,7 +211,7 @@ class ListingFilter extends Component {
           return (
             <Container isFilterOpen={isFilterOpen}>
               <Overlay onClick={() => {this.hideAllFilters(); this.restorePreviousValues();}} />
-              <Row flexDirection="row" flexWrap="wrap" style={{position: 'relative'}}>
+              <ButtonsWrapper expanded={this.state.expanded}>
                 <FilterButton
                   active={hasSelectedAnyTypes}
                   onClick={this.showFilter.bind(this, FILTERS.TYPES.code)}>
@@ -235,7 +237,11 @@ class ListingFilter extends Component {
                   onClick={this.showFilter.bind(this, FILTERS.GARAGE_SPOTS.code)}>
                     {this.getFiltersLabels(FILTERS.GARAGE_SPOTS.code)}
                 </FilterButton>
-              </Row>
+                <ExpandButton
+                  expanded={this.state.expanded}
+                  onClick={() => {this.setState({expanded: !this.state.expanded})}}
+                />
+              </ButtonsWrapper>
               <FilterPanel
                 title={FILTERS.TYPES.label}
                 show={this.state.showType}
