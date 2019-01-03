@@ -19,7 +19,7 @@ const Container = styled(Row)`
 
 const expandedWrapper = css`
   flex-wrap: nowrap;
-  overflow: scroll hidden;
+  overflow: hidden;
   height: 40px;
 `
 
