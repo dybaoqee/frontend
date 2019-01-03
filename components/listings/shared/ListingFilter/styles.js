@@ -15,10 +15,6 @@ const Container = styled(Row)`
   padding: ${theme.space[4]}px;
   z-index: ${({isFilterOpen}) => isFilterOpen ? OVER_HEADER : BELOW_HEADER};
   background-color: ${theme.colors.white};
-
-  @media screen and (max-width: ${theme.breakpoints[0]}) {
-    
-  }
 `
 
 const expandedWrapper = css`

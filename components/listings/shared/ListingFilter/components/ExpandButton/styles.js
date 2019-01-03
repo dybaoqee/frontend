@@ -19,7 +19,7 @@ const StyledExpandButton = styled(Button)`
   justify-content: center;
   align-items: center;
 
-  @media screen and (min-width: ${theme.breakpoints[0]}) {
+  @media screen and (min-width: 768px) {
     display: none;
   }
 `

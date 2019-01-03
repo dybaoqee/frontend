@@ -57,7 +57,7 @@ exports[`<ExpandButton/> should render component 1`] = `
   height: 16px;
 }
 
-@media screen and (min-width:780px) {
+@media screen and (min-width:768px) {
   .c0 {
     display: none;
   }
