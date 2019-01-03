@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import theme from '@emcasa/ui'
 import {
   StyledExpandButton,
   ArrowIcon
@@ -9,7 +10,7 @@ class ExpandButton extends PureComponent {
   render() {
     return (
       <StyledExpandButton onClick={this.props.onClick}>
-        <ArrowIcon name={this.props.expanded ? "angle-up" : "angle-down"} />
+        <ArrowIcon name={this.props.expanded ? "chevron-up" : "chevron-down"} color={theme.colors.dark} size={16} />
       </StyledExpandButton>
     )
   }
