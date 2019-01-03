@@ -25,12 +25,36 @@ exports[`<ExpandButton/> should render component 1`] = `
 .c0 {
   position: fixed;
   right: 0;
-  border: 1px solid #f50057;
+  border: 1px solid #e0e6ed;
   color: #f50057;
   font-size: 14px;
   margin: 0 20px 4px 0;
-  width: 48px;
+  width: 32px;
   height: 32px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 16px;
 }
 
 @media screen and (min-width:780px) {
@@ -46,7 +70,7 @@ exports[`<ExpandButton/> should render component 1`] = `
   onClick={[Function]}
 >
   <div
-    className=""
+    className="c2 "
   >
     <svg
       height={20}

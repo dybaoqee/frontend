@@ -25,7 +25,7 @@ const expandedWrapper = css`
   flex-wrap: nowrap;
   overflow: scroll hidden;
   height: 40px;
-  margin-right: calc(${EXPAND_BUTTON_WIDTH}px + ${theme.space[2]}px);
+  margin-right: calc(${EXPAND_BUTTON_WIDTH}px + ${theme.space[4]}px);
 `
 
 const ButtonsWrapper = styled(Row)`

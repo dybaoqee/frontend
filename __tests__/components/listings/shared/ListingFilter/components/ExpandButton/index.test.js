@@ -10,6 +10,7 @@ describe('<ExpandButton/>', () => {
     const tree = renderer.create(
       <ThemeProvider theme={theme}>
         <ExpandButton
+          expanded={false}
           onClick={() => {}}
         />
       </ThemeProvider>).toJSON()

@@ -237,7 +237,10 @@ class ListingFilter extends Component {
                   onClick={this.showFilter.bind(this, FILTERS.GARAGE_SPOTS.code)}>
                     {this.getFiltersLabels(FILTERS.GARAGE_SPOTS.code)}
                 </FilterButton>
-                <ExpandButton onClick={() => {this.setState({expanded: !this.state.expanded})}} />
+                <ExpandButton
+                  expanded={this.state.expanded}
+                  onClick={() => {this.setState({expanded: !this.state.expanded})}}
+                />
               </ButtonsWrapper>
               <FilterPanel
                 title={FILTERS.TYPES.label}

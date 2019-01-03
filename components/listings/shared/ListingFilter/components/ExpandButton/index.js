@@ -1,22 +1,23 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import Icon from '@emcasa/ui-dom/components/Icon'
 import {
-  StyledExpandButton
+  StyledExpandButton,
+  ArrowIcon
 } from './styles'
 
 class ExpandButton extends PureComponent {
   render() {
     return (
       <StyledExpandButton onClick={this.props.onClick}>
-        <Icon name="angle-down" />
+        <ArrowIcon name={this.props.expanded ? "angle-up" : "angle-down"} />
       </StyledExpandButton>
     )
   }
 }
 
 ExpandButton.propTypes = {
-  onClick: PropTypes.func.isRequired
+  onClick: PropTypes.func.isRequired,
+  expanded: PropTypes.bool.isRequired
 }
 
 export default ExpandButton
