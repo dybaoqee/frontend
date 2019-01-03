@@ -3,7 +3,7 @@ import theme from '@emcasa/ui'
 import Button from '@emcasa/ui-dom/components/Button'
 import Icon from '@emcasa/ui-dom/components/Icon'
 
-const EXPAND_BUTTON_WIDTH = 32
+const EXPAND_BUTTON_SIZE = 32
 
 const StyledExpandButton = styled(Button)`
   position: fixed;
@@ -12,8 +12,8 @@ const StyledExpandButton = styled(Button)`
   color: ${({active}) => active ? theme.colors.white : theme.colors.pink};
   font-size: ${theme.fontSizes[1]}px;
   margin: 0 ${theme.space[4]}px ${theme.space[1]}px 0;
-  width: ${EXPAND_BUTTON_WIDTH}px;
-  height: 32px;
+  width: ${EXPAND_BUTTON_SIZE}px;
+  height: ${EXPAND_BUTTON_SIZE}px;
 
   display: flex;
   justify-content: center;
@@ -27,11 +27,11 @@ const StyledExpandButton = styled(Button)`
 const ArrowIcon = styled(Icon)`
   display: flex;
   align-items: center;
-  height: 16px;
+  height: ${EXPAND_BUTTON_SIZE / 2}px;
 `
 
 export {
   StyledExpandButton,
   ArrowIcon,
-  EXPAND_BUTTON_WIDTH
+  EXPAND_BUTTON_SIZE
 }
