@@ -11,9 +11,6 @@ export const GET_FAVORITE_LISTINGS_IDS = gql`
 export const GET_USER_LISTINGS_ACTIONS = gql`
   {
     userProfile {
-      blacklists(pagination: {pageSize: 400}, filters: {}) {
-        id
-      }
       favorites(pagination: {pageSize: 400}, filters: {}) {
         id
       }
@@ -24,43 +21,7 @@ export const GET_USER_LISTINGS_ACTIONS = gql`
 export const GET_FAVORITE_LISTINGS = gql`
   {
     userProfile {
-      blacklists(pagination: {pageSize: 400}, filters: {}) {
-        id
-      }
       favorites(pagination: {pageSize: 400}, filters: {}) {
-        id
-        area
-        rooms
-        floor
-        garageSpots
-        area
-        bathrooms
-        price
-        type
-        description
-        images(limit: 1) {
-          filename
-        }
-        address {
-          street
-          neighborhood
-          state
-          city
-          lat
-          lng
-        }
-      }
-    }
-  }
-`
-
-export const GET_BLACKLIST_LISTINGS = gql`
-  {
-    userProfile {
-      favorites(pagination: {pageSize: 400}, filters: {}) {
-        id
-      }
-      blacklists(pagination: {pageSize: 400}, filters: {}) {
         id
         area
         rooms
@@ -135,9 +96,6 @@ export const GET_USER_LISTINGS = gql`
         }
       }
       favorites(pagination: {pageSize: 400}, filters: {}) {
-        id
-      }
-      blacklists(pagination: {pageSize: 400}, filters: {}) {
         id
       }
     }

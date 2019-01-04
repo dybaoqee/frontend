@@ -82,26 +82,6 @@ export const ESTIMATE_PRICE = gql`
   }
 `
 
-export const BLACKLIST_LISTING = gql`
-  mutation listingBlacklist($id: ID!) {
-    listingBlacklist(id: $id) {
-      listing {
-        id
-      }
-    }
-  }
-`
-
-export const UNBLACKLIST_LISTING = gql`
-  mutation listingUnblacklist($id: ID!) {
-    listingUnblacklist(id: $id) {
-      listing {
-        id
-      }
-    }
-  }
-`
-
 export const NOTIFY_WHEN_COVERED = gql`
   mutation notifyWhenCovered($city: String!, $email: String, $message: String, $name: String, $neighborhood: String!, $phone: String, $state: String!) {
     notifyWhenCovered(city: $city, email: $email, message: $message, name: $name, neighborhood: $neighborhood, phone: $phone, state: $state) {
