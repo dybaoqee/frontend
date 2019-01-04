@@ -59,7 +59,6 @@ exports[`<FilterButton/> should render component 1`] = `
   fontSize="default"
   height="medium"
   onClick={[Function]}
-  value={1}
 >
   <div
     className="c2 c3"

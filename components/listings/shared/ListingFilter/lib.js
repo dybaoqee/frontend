@@ -113,6 +113,7 @@ function getFilterButtons(filters, showFilter) {
     if (selectedFiltersArray.includes(filterItem.code)) {
       activeFilterButtons.push(
         <FilterButton
+          key={item.code}
           active={true}
           onClick={(e) => { showFilter(filterItem.code, e) }}
         >
@@ -122,6 +123,7 @@ function getFilterButtons(filters, showFilter) {
     } else {
       inactiveFilterButtons.push(
         <FilterButton
+          key={item.code}
           active={false}
           onClick={(e) => { showFilter(filterItem.code, e) }}
         >

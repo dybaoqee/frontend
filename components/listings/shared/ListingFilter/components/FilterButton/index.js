@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import Row from '@emcasa/ui-dom/components/Row'
 import {
   StyledFilterButton,
   ChildrenWrapper
@@ -14,7 +13,6 @@ class FilterButton extends PureComponent {
         mb={2}
         px={[2, 3]}
         active={this.props.active}
-        value={this.props.value}
         onClick={this.props.onClick}
       >
         <ChildrenWrapper>
@@ -26,7 +24,6 @@ class FilterButton extends PureComponent {
 }
 
 FilterButton.propTypes = {
-  value: PropTypes.any.isRequired,
   active: PropTypes.bool.isRequired,
   onClick: PropTypes.func
 }
