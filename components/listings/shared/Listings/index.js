@@ -249,6 +249,7 @@ export default class Listings extends Component {
       <Query
         query={GET_LISTINGS}
         variables={{pagination: this.pagination, filters}}
+        fetchPolicy="cache-and-network"
       >
         {({data: {listings}, fetchMore}) => {
           return (

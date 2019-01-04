@@ -279,6 +279,7 @@ class ListingList extends Component {
       <Query
         query={GET_LISTINGS}
         variables={{pagination: this.pagination, filters}}
+        fetchPolicy="cache-and-network"
       >
         {({data: {listings}, fetchMore}) => {
           const hasListings = listings && listings.listings && listings.listings.length > 0

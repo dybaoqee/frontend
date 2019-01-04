@@ -13,6 +13,7 @@ import Map from 'components/listings/shared/Map'
 import ListingsNotFound from 'components/listings/shared/NotFound'
 import Container, {MapButton, MapContainer, ListingsContainer} from './styles'
 import {filterListings} from 'lib/listings'
+
 export default class Listings extends Component {
   constructor(props) {
     super(props)
@@ -220,6 +221,7 @@ export default class Listings extends Component {
       <Query
         query={GET_FAVORITE_LISTINGS}
         variables={{pagination: this.pagination, filters}}
+        fetchPolicy="cache-and-network"
       >
         {({data: {userProfile}, fetchMore}) => {
           const filtered = !isEmpty(filters)
