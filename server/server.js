@@ -174,10 +174,6 @@ const startServer = () => {
         return app.render(req, res, '/listings/user-listings', req.query)
       })
 
-      server.get('/imoveis-ocultados', (req, res) => {
-        return app.render(req, res, '/listings/blacklisted', req.query)
-      })
-
       server.get('/busca', (req, res) => {
         return app.render(req, res, '/search', req.query)
       })

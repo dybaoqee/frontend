@@ -87,7 +87,6 @@ export default class Listings extends Component {
               loading={this.loading}
               resumedInfo={mapOpened}
               favorited={userProfile.favorites || []}
-              blacklists={userProfile.blacklists || []}
             />
           )}
         </InfiniteScroll>
