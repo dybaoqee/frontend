@@ -21,7 +21,7 @@ import Warning from 'components/shared/Common/Warning'
 import Breadcrumb from 'components/shared/Common/Breadcrumb'
 import {buildSlug, getListingId} from 'lib/listings'
 import Head from 'next/head'
-import getApolloClient from 'lib/apollo/initApollo'
+import getApolloClient, {FETCH_POLICY_NETWORK_ONLY} from 'lib/apollo/initApollo'
 
 
 class Listing extends Component {
@@ -55,7 +55,7 @@ class Listing extends Component {
 
     const serverResponse = await apolloClient.query({
       query: GET_FULL_LISTING,
-      fetchPolicy: 'network-only',
+      fetchPolicy: FETCH_POLICY_NETWORK_ONLY,
       errorPolicy: 'all',
       variables: {
         id

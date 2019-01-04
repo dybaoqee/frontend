@@ -209,7 +209,6 @@ export default class Listings extends Component {
       <Query
         query={GET_USER_LISTINGS}
         variables={{pagination: this.pagination, filters}}
-        fetchPolicy="cache-and-network"
       >
         {({data: {userProfile}, fetchMore}) => {
           const filtered = !isEmpty(filters)

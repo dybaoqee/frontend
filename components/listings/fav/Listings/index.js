@@ -220,7 +220,6 @@ export default class Listings extends Component {
       <Query
         query={GET_FAVORITE_LISTINGS}
         variables={{pagination: this.pagination, filters}}
-        fetchPolicy="cache-and-network"
       >
         {({data: {userProfile}, fetchMore}) => {
           const filtered = !isEmpty(filters)
