@@ -19,7 +19,10 @@ import {
   Overlay,
   ButtonsWrapper
 } from './styles'
-import { activeFilters } from './lib'
+import {
+  getFilterButtons,
+  userHasSelectedType
+} from './lib'
 import {
   FILTERS,
   AREA_FILTER,
@@ -33,6 +36,7 @@ class ListingFilter extends Component {
     this.hideAllFilters = this.hideAllFilters.bind(this)
     this.applyFilters = this.applyFilters.bind(this)
     this.restorePreviousValues = this.restorePreviousValues.bind(this)
+    this.showFilter = this.showFilter.bind(this)
 
     const initialValues = {...props.initialFilters}
     if (props.initialFilters.neighborhoods) {
@@ -110,22 +114,6 @@ class ListingFilter extends Component {
     this.setState({values: {}})
   }
 
-  getFiltersLabels(filter) {
-    const selectedFilter = activeFilters(this.props.filters).find((item) => item.filter === filter)
-    if (selectedFilter) {
-      return selectedFilter.value
-    }
-    switch (filter) {
-      case FILTERS.TYPES.code: return FILTERS.TYPES.label
-      case FILTERS.AREA.code: return FILTERS.AREA.label
-      case FILTERS.PRICE.code: return FILTERS.PRICE.label
-      case FILTERS.ROOMS.code: return FILTERS.ROOMS.label
-      case FILTERS.GARAGE_SPOTS.code: return FILTERS.GARAGE_SPOTS.label
-      default:
-    }
-    return ''
-  }
-
   showFilter(filter, event) {
     const { target } = event
     const panelPosition = {left: target.getBoundingClientRect().left, top: target.getBoundingClientRect().top}
@@ -194,14 +182,6 @@ class ListingFilter extends Component {
       }
     } = this.state
 
-    const selectedFilters = activeFilters(this.props.filters)
-    const selectedFiltersArray = selectedFilters.map((item) => item.filter)
-    const hasSelectedAnyTypes = selectedFiltersArray.includes(FILTERS.TYPES.code)
-
-    const userSelectedFilters = activeFilters(this.state.values)
-    const userSelectedFiltersArray = userSelectedFilters.map((item) => item.filter)
-    const userHasSelectedAnyTypes = userSelectedFiltersArray.includes(FILTERS.TYPES.code)
-
     const isFilterOpen = this.isFilterOpen()
 
     return (
@@ -212,31 +192,7 @@ class ListingFilter extends Component {
             <Container isFilterOpen={isFilterOpen}>
               <Overlay onClick={() => {this.hideAllFilters(); this.restorePreviousValues();}} />
               <ButtonsWrapper expanded={this.state.expanded}>
-                <FilterButton
-                  active={hasSelectedAnyTypes}
-                  onClick={this.showFilter.bind(this, FILTERS.TYPES.code)}>
-                    {this.getFiltersLabels(FILTERS.TYPES.code)}
-                </FilterButton>
-                <FilterButton
-                  active={selectedFiltersArray.includes(FILTERS.AREA.code)}
-                  onClick={this.showFilter.bind(this, FILTERS.AREA.code)}>
-                    {this.getFiltersLabels(FILTERS.AREA.code)}
-                </FilterButton>
-                <FilterButton
-                  active={selectedFiltersArray.includes(FILTERS.PRICE.code)}
-                  onClick={this.showFilter.bind(this, FILTERS.PRICE.code)}>
-                    {this.getFiltersLabels(FILTERS.PRICE.code)}
-                </FilterButton>
-                <FilterButton
-                  active={selectedFiltersArray.includes(FILTERS.ROOMS.code)}
-                  onClick={this.showFilter.bind(this, FILTERS.ROOMS.code)}>
-                    {this.getFiltersLabels(FILTERS.ROOMS.code)}
-                </FilterButton>
-                <FilterButton
-                  active={selectedFiltersArray.includes(FILTERS.GARAGE_SPOTS.code)}
-                  onClick={this.showFilter.bind(this, FILTERS.GARAGE_SPOTS.code)}>
-                    {this.getFiltersLabels(FILTERS.GARAGE_SPOTS.code)}
-                </FilterButton>
+                {getFilterButtons(this.props.filters, this.showFilter)}
                 <ExpandButton
                   expanded={this.state.expanded}
                   onClick={() => {this.setState({expanded: !this.state.expanded})}}
@@ -251,19 +207,19 @@ class ListingFilter extends Component {
                 clear={this.resetFilter.bind(this, FILTERS.TYPES.code)}
               >
                 <FilterButton
-                  active={userHasSelectedAnyTypes && this.state.values && this.state.values.types.includes('Apartamento')}
+                  active={userHasSelectedType(this.state.values, 'Apartamento')}
                   onClick={this.onChangeListingType.bind(this, 'Apartamento')}
                 >
                   Apartamento
                 </FilterButton>
                 <FilterButton
-                  active={userHasSelectedAnyTypes && this.state.values && this.state.values.types.includes('Casa')}
+                  active={userHasSelectedType(this.state.values, 'Casa')}
                   onClick={this.onChangeListingType.bind(this, 'Casa')}
                 >
                   Casa
                 </FilterButton>
                 <FilterButton
-                  active={userHasSelectedAnyTypes && this.state.values && this.state.values.types.includes('Cobertura')}
+                  active={userHasSelectedType(this.state.values, 'Cobertura')}
                   onClick={this.onChangeListingType.bind(this, 'Cobertura')}
                 >
                   Cobertura
