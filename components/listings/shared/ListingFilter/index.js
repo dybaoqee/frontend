@@ -20,8 +20,7 @@ import {
   ButtonsWrapper
 } from './styles'
 import {
-  getActiveFilters,
-  getFilterLabel,
+  getFilterButtons,
   userHasSelectedType
 } from './lib'
 import {
@@ -185,9 +184,6 @@ class ListingFilter extends Component {
 
     const isFilterOpen = this.isFilterOpen()
 
-    const selectedFilters = getActiveFilters(this.state.values)
-    const selectedFiltersArray = selectedFilters.map((item) => item.filter)
-
     return (
       <Query query={GET_NEIGHBORHOODS} ssr={false}>
         {({data: {neighborhoods = []}}) => {
@@ -196,31 +192,7 @@ class ListingFilter extends Component {
             <Container isFilterOpen={isFilterOpen}>
               <Overlay onClick={() => {this.hideAllFilters(); this.restorePreviousValues();}} />
               <ButtonsWrapper expanded={this.state.expanded}>
-                <FilterButton
-                  active={selectedFiltersArray.includes(FILTERS.TYPES.code)}
-                  onClick={(e) => { this.showFilter(FILTERS.TYPES.code, e) }}>
-                    {getFilterLabel(this.state.values, FILTERS.TYPES.code)}
-                </FilterButton>
-                <FilterButton
-                  active={selectedFiltersArray.includes(FILTERS.AREA.code)}
-                  onClick={(e) => { this.showFilter(FILTERS.AREA.code, e) }}>
-                    {getFilterLabel(this.state.values, FILTERS.AREA.code)}
-                </FilterButton>
-                <FilterButton
-                  active={selectedFiltersArray.includes(FILTERS.PRICE.code)}
-                  onClick={(e) => { this.showFilter(FILTERS.PRICE.code, e) }}>
-                    {getFilterLabel(this.state.values, FILTERS.PRICE.code)}
-                </FilterButton>
-                <FilterButton
-                  active={selectedFiltersArray.includes(FILTERS.ROOMS.code)}
-                  onClick={(e) => { this.showFilter(FILTERS.ROOMS.code, e) }}>
-                    {getFilterLabel(this.state.values, FILTERS.ROOMS.code)}
-                </FilterButton>
-                <FilterButton
-                  active={selectedFiltersArray.includes(FILTERS.GARAGE_SPOTS.code)}
-                  onClick={(e) => { this.showFilter(FILTERS.GARAGE_SPOTS.code, e) }}>
-                    {getFilterLabel(this.state.values, FILTERS.GARAGE_SPOTS.code)}
-                </FilterButton>
+                {getFilterButtons(this.props.filters, this.showFilter)}
                 <ExpandButton
                   expanded={this.state.expanded}
                   onClick={() => {this.setState({expanded: !this.state.expanded})}}

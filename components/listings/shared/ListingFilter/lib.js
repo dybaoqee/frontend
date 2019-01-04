@@ -1,4 +1,5 @@
 import numeral from 'numeral'
+import FilterButton from './components/FilterButton'
 import {
   FILTERS
 } from './constants'
@@ -89,8 +90,58 @@ function userHasSelectedType(userFilters, homeType) {
   return activeUserFilterCodes.includes('types') && userFilters.types.includes(homeType)
 }
 
+/**
+ * Returns a list of FilterButton components to be rendered. Selected filters come first in the array, so
+ * they are rendered first. Inactive filters are rendered last.
+ *
+ * @param {object} filters selected filters.
+ * @param {function} showFilter function that is called when user clicks the filter button.
+ */
+function getFilterButtons(filters, showFilter) {
+  const selectedFilters = getActiveFilters(filters)
+  const selectedFiltersArray = selectedFilters.map((item) => item.filter)
+
+  let activeFilterButtons = []
+  let inactiveFilterButtons = []
+
+  Object.keys(FILTERS).forEach((item) => {
+    const filterItem = FILTERS[item]
+    if (filterItem.code === 'neighborhoods') {
+      return
+    }
+
+    if (selectedFiltersArray.includes(filterItem.code)) {
+      activeFilterButtons.push(
+        <FilterButton
+          active={true}
+          onClick={(e) => { showFilter(filterItem.code, e) }}
+        >
+          {getFilterLabel(filters, filterItem.code)}
+        </FilterButton>
+      )
+    } else {
+      inactiveFilterButtons.push(
+        <FilterButton
+          active={false}
+          onClick={(e) => { showFilter(filterItem.code, e) }}
+        >
+          {getFilterLabel(filters, filterItem.code)}
+        </FilterButton>
+      )
+    }
+  })
+
+  return (
+    <>
+      {activeFilterButtons}
+      {inactiveFilterButtons}
+    </>
+  )
+}
+
 export {
   getActiveFilters,
   getFilterLabel,
+  getFilterButtons,
   userHasSelectedType
 }
