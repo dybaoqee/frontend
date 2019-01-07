@@ -306,7 +306,8 @@ exports[`renders correctly 1`] = `
           color="grey"
           fontSize="default"
         >
-          Muito obrigado por confiar na EmCasa! Nosso time entrará em contato por telefone em breve.
+          Muito obrigado por confiar na EmCasa!
+           Aguarde o contato do nosso time por telefone em breve para confirmar a visita.
         </p>
       </div>
       <div
@@ -416,6 +417,28 @@ exports[`renders correctly 1`] = `
                       fontWeight="bold"
                     >
                       00/00/0000 - entre 00h e 00h
+                    </span>
+                  </div>
+                </div>
+                <div
+                  className="c3"
+                >
+                  <div
+                    className="c13"
+                    width={0.5}
+                  >
+                     
+                  </div>
+                  <div
+                    className="c13"
+                    width={0.5}
+                  >
+                    <span
+                      className="c10"
+                      color="grey"
+                      fontSize="small"
+                    >
+                      📞 Aguarde a confirmação da visita.
                     </span>
                   </div>
                 </div>

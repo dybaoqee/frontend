@@ -64,7 +64,10 @@ class Success extends PureComponent {
               Parabéns, seu imóvel foi salvo com sucesso!
             </Text>
             <Row>
-              <Text color="grey">Muito obrigado por confiar na EmCasa! Nosso time entrará em contato por telefone em breve.</Text>
+              <Text color="grey">
+                Muito obrigado por confiar na EmCasa!
+                {day ? ' Aguarde o contato do nosso time por telefone em breve para confirmar a visita.'
+                     : ' Aguarde o contato do nosso time por telefone em breve.'}</Text>
             </Row>
             <Row justifyContent="center" mb={4}>
               <Ticket
@@ -96,6 +99,10 @@ class Success extends PureComponent {
                         <Text inline fontSize="small" fontWeight="bold">{getFullTourDateDisplay(tour)}</Text>
                       </Col>}
                     </Row>
+                    {day && <Row>
+                      <Col width={1/2}>{' '}</Col>
+                      <Col width={1/2}><Text inline fontSize="small" color="grey">📞 Aguarde a confirmação da visita.</Text></Col>
+                    </Row>}
                   </View>
                 }
                 bottomRender={() =>
