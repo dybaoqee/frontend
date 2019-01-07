@@ -59,7 +59,7 @@ exports[`renders correctly 1`] = `
   margin-bottom: 10px;
 }
 
-.c15 {
+.c17 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -70,7 +70,7 @@ exports[`renders correctly 1`] = `
   justify-content: space-between;
 }
 
-.c22 {
+.c24 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -82,7 +82,7 @@ exports[`renders correctly 1`] = `
   justify-content: center;
 }
 
-.c25 {
+.c27 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -101,12 +101,22 @@ exports[`renders correctly 1`] = `
   width: 50%;
 }
 
-.c28 {
+.c14 {
+  margin-right: 4px;
+  padding-top: 4px;
+  width: 16.666666666666664%;
+}
+
+.c15 {
+  width: 83.33333333333334%;
+}
+
+.c30 {
   margin-bottom: 10px;
   width: 100%;
 }
 
-.c30 {
+.c32 {
   width: 100%;
 }
 
@@ -141,21 +151,21 @@ exports[`renders correctly 1`] = `
   font-weight: bold;
 }
 
-.c24 {
+.c26 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
   color: #f50057;
   font-size: 18px;
 }
 
-.c27 {
+.c29 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
   color: #f50057;
   font-size: 14px;
 }
 
-.c29 {
+.c31 {
   outline: none;
   display: block;
   cursor: pointer;
@@ -173,11 +183,11 @@ exports[`renders correctly 1`] = `
   border-style: solid;
 }
 
-.c29 :hover {
+.c31 :hover {
   background-color: #f50057;
 }
 
-.c31 {
+.c33 {
   outline: none;
   display: block;
   cursor: pointer;
@@ -195,15 +205,15 @@ exports[`renders correctly 1`] = `
   border-style: solid;
 }
 
-.c31 :hover {
+.c33 :hover {
   background-color: #ffffff;
 }
 
-.c26 {
+.c28 {
   margin-right: 10px;
 }
 
-.c23 {
+.c25 {
   cursor: pointer;
 }
 
@@ -212,13 +222,13 @@ exports[`renders correctly 1`] = `
   max-width: 300px;
 }
 
-.c19 {
+.c21 {
   height: 1px;
   width: 220px;
   background-color: #e0e6ed;
 }
 
-.c16 {
+.c18 {
   margin-top: -2px;
   margin-left: 4px;
   width: 10px;
@@ -229,7 +239,7 @@ exports[`renders correctly 1`] = `
   background-color: #fff;
 }
 
-.c20 {
+.c22 {
   margin-left: 4px;
   width: 10px;
   height: 10px;
@@ -239,7 +249,7 @@ exports[`renders correctly 1`] = `
   background-color: #fff;
 }
 
-.c17 {
+.c19 {
   margin-top: -2px;
   margin-right: 4px;
   width: 10px;
@@ -250,7 +260,7 @@ exports[`renders correctly 1`] = `
   background-color: #fff;
 }
 
-.c21 {
+.c23 {
   margin-right: 4px;
   width: 10px;
   height: 10px;
@@ -260,12 +270,12 @@ exports[`renders correctly 1`] = `
   background-color: #fff;
 }
 
-.c18 {
+.c20 {
   position: absolute;
   margin-left: 45px;
 }
 
-.c14 {
+.c16 {
   background-color: #fff;
   width: calc(100% + 10px);
   margin-left: -5px;
@@ -433,61 +443,76 @@ exports[`renders correctly 1`] = `
                     className="c13"
                     width={0.5}
                   >
-                    <span
-                      className="c10"
-                      color="grey"
-                      fontSize="small"
+                    <div
+                      className="c3"
                     >
-                      📞 Aguarde a confirmação da visita.
-                    </span>
+                      <div
+                        className="c14"
+                        width={0.16666666666666666}
+                      >
+                        📞
+                      </div>
+                      <div
+                        className="c15"
+                        width={0.8333333333333334}
+                      >
+                        <span
+                          className="c10"
+                          color="grey"
+                          fontSize="small"
+                        >
+                           Aguarde a confirmação da visita.
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
               <div
-                className="c14 "
+                className="c16 "
               >
                 <div
-                  className="c15"
+                  className="c17"
                 >
                   <div
-                    className="c16"
+                    className="c18"
                   />
                   <div
-                    className="c17"
+                    className="c19"
                   />
                 </div>
                 <div
-                  className="c18 c3"
+                  className="c20 c3"
                 >
                   <div
-                    className="c19 "
+                    className="c21 "
                   />
                 </div>
                 <div
-                  className="c15"
+                  className="c17"
                 >
                   <div
-                    className="c20"
+                    className="c22"
                   />
                   <div
-                    className="c21"
+                    className="c23"
                   />
                 </div>
               </div>
               <div
-                className="c22"
+                className="c24"
               >
                 <span
-                  className="c23 c24"
+                  className="c25 c26"
                   color="pink"
                   fontSize="default"
                   onClick={[Function]}
                 >
                   <div
-                    className="c25"
+                    className="c27"
                   >
                     <div
-                      className="c26"
+                      className="c28"
                     >
                       <svg
                         height={16}
@@ -506,7 +531,7 @@ exports[`renders correctly 1`] = `
                       </svg>
                     </div>
                     <span
-                      className="c27"
+                      className="c29"
                       color="pink"
                       fontSize="small"
                     >
@@ -523,11 +548,11 @@ exports[`renders correctly 1`] = `
         className="c3"
       >
         <div
-          className="c28"
+          className="c30"
           width={1}
         >
           <button
-            className="c29"
+            className="c31"
             fontSize="default"
             height="tall"
             onClick={[Function]}
@@ -540,11 +565,11 @@ exports[`renders correctly 1`] = `
         className="c3"
       >
         <div
-          className="c30"
+          className="c32"
           width={1}
         >
           <button
-            className="c31"
+            className="c33"
             fontSize="default"
             height="tall"
             onClick={[Function]}

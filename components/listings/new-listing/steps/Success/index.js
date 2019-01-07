@@ -8,7 +8,6 @@ import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
 import Icon from '@emcasa/ui-dom/components/Icon'
-import { getDateDisplay } from 'components/listings/new-listing/lib/times'
 import { intToCurrency } from 'utils/text-utils'
 import Link from 'components/listings/new-listing/shared/Link'
 import Ticket from 'components/listings/new-listing/shared/Ticket'
@@ -101,7 +100,16 @@ class Success extends PureComponent {
                     </Row>
                     {day && <Row>
                       <Col width={1/2}>{' '}</Col>
-                      <Col width={1/2}><Text inline fontSize="small" color="grey">📞 Aguarde a confirmação da visita.</Text></Col>
+                      <Col width={1/2}>
+                        <Row>
+                          <Col width={1/6} mr={1} pt={1}>
+                            📞
+                          </Col>
+                          <Col width={5/6}>
+                            <Text inline fontSize="small" color="grey"> Aguarde a confirmação da visita.</Text>
+                          </Col>
+                        </Row>
+                      </Col>
                     </Row>}
                   </View>
                 }
