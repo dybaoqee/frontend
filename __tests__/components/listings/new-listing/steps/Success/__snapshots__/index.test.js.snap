@@ -59,7 +59,7 @@ exports[`renders correctly 1`] = `
   margin-bottom: 10px;
 }
 
-.c15 {
+.c18 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -70,7 +70,7 @@ exports[`renders correctly 1`] = `
   justify-content: space-between;
 }
 
-.c22 {
+.c25 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -82,7 +82,7 @@ exports[`renders correctly 1`] = `
   justify-content: center;
 }
 
-.c25 {
+.c28 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -101,12 +101,22 @@ exports[`renders correctly 1`] = `
   width: 50%;
 }
 
-.c28 {
+.c14 {
+  margin-right: 2px;
+  padding-top: 2px;
+  width: 16.666666666666664%;
+}
+
+.c16 {
+  width: 83.33333333333334%;
+}
+
+.c31 {
   margin-bottom: 10px;
   width: 100%;
 }
 
-.c30 {
+.c33 {
   width: 100%;
 }
 
@@ -141,21 +151,28 @@ exports[`renders correctly 1`] = `
   font-weight: bold;
 }
 
-.c24 {
+.c15 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
-  color: #f50057;
-  font-size: 18px;
+  color: #3c4858;
+  font-size: 12px;
 }
 
 .c27 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
   color: #f50057;
+  font-size: 18px;
+}
+
+.c30 {
+  -webkit-font-smoothing: antialiased;
+  font-family: FaktSoftPro-Normal;
+  color: #f50057;
   font-size: 14px;
 }
 
-.c29 {
+.c32 {
   outline: none;
   display: block;
   cursor: pointer;
@@ -173,11 +190,11 @@ exports[`renders correctly 1`] = `
   border-style: solid;
 }
 
-.c29 :hover {
+.c32 :hover {
   background-color: #f50057;
 }
 
-.c31 {
+.c34 {
   outline: none;
   display: block;
   cursor: pointer;
@@ -195,15 +212,15 @@ exports[`renders correctly 1`] = `
   border-style: solid;
 }
 
-.c31 :hover {
+.c34 :hover {
   background-color: #ffffff;
 }
 
-.c26 {
+.c29 {
   margin-right: 10px;
 }
 
-.c23 {
+.c26 {
   cursor: pointer;
 }
 
@@ -212,13 +229,13 @@ exports[`renders correctly 1`] = `
   max-width: 300px;
 }
 
-.c19 {
+.c22 {
   height: 1px;
   width: 220px;
   background-color: #e0e6ed;
 }
 
-.c16 {
+.c19 {
   margin-top: -2px;
   margin-left: 4px;
   width: 10px;
@@ -229,7 +246,7 @@ exports[`renders correctly 1`] = `
   background-color: #fff;
 }
 
-.c20 {
+.c23 {
   margin-left: 4px;
   width: 10px;
   height: 10px;
@@ -239,7 +256,7 @@ exports[`renders correctly 1`] = `
   background-color: #fff;
 }
 
-.c17 {
+.c20 {
   margin-top: -2px;
   margin-right: 4px;
   width: 10px;
@@ -250,7 +267,7 @@ exports[`renders correctly 1`] = `
   background-color: #fff;
 }
 
-.c21 {
+.c24 {
   margin-right: 4px;
   width: 10px;
   height: 10px;
@@ -260,12 +277,12 @@ exports[`renders correctly 1`] = `
   background-color: #fff;
 }
 
-.c18 {
+.c21 {
   position: absolute;
   margin-left: 45px;
 }
 
-.c14 {
+.c17 {
   background-color: #fff;
   width: calc(100% + 10px);
   margin-left: -5px;
@@ -306,7 +323,8 @@ exports[`renders correctly 1`] = `
           color="grey"
           fontSize="default"
         >
-          Muito obrigado por confiar na EmCasa! Nosso time entrará em contato por telefone em breve.
+          Muito obrigado por confiar na EmCasa!
+           Aguarde o contato do nosso time por telefone em breve para confirmar a visita.
         </p>
       </div>
       <div
@@ -419,52 +437,95 @@ exports[`renders correctly 1`] = `
                     </span>
                   </div>
                 </div>
+                <div
+                  className="c3"
+                >
+                  <div
+                    className="c13"
+                    width={0.5}
+                  >
+                     
+                  </div>
+                  <div
+                    className="c13"
+                    width={0.5}
+                  >
+                    <div
+                      className="c3"
+                    >
+                      <div
+                        className="c14"
+                        width={0.16666666666666666}
+                      >
+                        <span
+                          className="c15"
+                          color="dark"
+                          fontSize={12}
+                        >
+                          📞
+                        </span>
+                      </div>
+                      <div
+                        className="c16"
+                        width={0.8333333333333334}
+                      >
+                        <span
+                          className="c10"
+                          color="grey"
+                          fontSize="small"
+                        >
+                           Aguarde a confirmação da visita.
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div
-                className="c14 "
+                className="c17 "
               >
                 <div
-                  className="c15"
+                  className="c18"
                 >
                   <div
-                    className="c16"
+                    className="c19"
                   />
-                  <div
-                    className="c17"
-                  />
-                </div>
-                <div
-                  className="c18 c3"
-                >
-                  <div
-                    className="c19 "
-                  />
-                </div>
-                <div
-                  className="c15"
-                >
                   <div
                     className="c20"
                   />
+                </div>
+                <div
+                  className="c21 c3"
+                >
                   <div
-                    className="c21"
+                    className="c22 "
+                  />
+                </div>
+                <div
+                  className="c18"
+                >
+                  <div
+                    className="c23"
+                  />
+                  <div
+                    className="c24"
                   />
                 </div>
               </div>
               <div
-                className="c22"
+                className="c25"
               >
                 <span
-                  className="c23 c24"
+                  className="c26 c27"
                   color="pink"
                   fontSize="default"
                   onClick={[Function]}
                 >
                   <div
-                    className="c25"
+                    className="c28"
                   >
                     <div
-                      className="c26"
+                      className="c29"
                     >
                       <svg
                         height={16}
@@ -483,7 +544,7 @@ exports[`renders correctly 1`] = `
                       </svg>
                     </div>
                     <span
-                      className="c27"
+                      className="c30"
                       color="pink"
                       fontSize="small"
                     >
@@ -500,11 +561,11 @@ exports[`renders correctly 1`] = `
         className="c3"
       >
         <div
-          className="c28"
+          className="c31"
           width={1}
         >
           <button
-            className="c29"
+            className="c32"
             fontSize="default"
             height="tall"
             onClick={[Function]}
@@ -517,11 +578,11 @@ exports[`renders correctly 1`] = `
         className="c3"
       >
         <div
-          className="c30"
+          className="c33"
           width={1}
         >
           <button
-            className="c31"
+            className="c34"
             fontSize="default"
             height="tall"
             onClick={[Function]}

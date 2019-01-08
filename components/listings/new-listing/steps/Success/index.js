@@ -8,7 +8,6 @@ import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
 import Icon from '@emcasa/ui-dom/components/Icon'
-import { getDateDisplay } from 'components/listings/new-listing/lib/times'
 import { intToCurrency } from 'utils/text-utils'
 import Link from 'components/listings/new-listing/shared/Link'
 import Ticket from 'components/listings/new-listing/shared/Ticket'
@@ -64,7 +63,10 @@ class Success extends PureComponent {
               Parabéns, seu imóvel foi salvo com sucesso!
             </Text>
             <Row>
-              <Text color="grey">Muito obrigado por confiar na EmCasa! Nosso time entrará em contato por telefone em breve.</Text>
+              <Text color="grey">
+                Muito obrigado por confiar na EmCasa!
+                {day ? ' Aguarde o contato do nosso time por telefone em breve para confirmar a visita.'
+                     : ' Aguarde o contato do nosso time por telefone em breve.'}</Text>
             </Row>
             <Row justifyContent="center" mb={4}>
               <Ticket
@@ -96,6 +98,19 @@ class Success extends PureComponent {
                         <Text inline fontSize="small" fontWeight="bold">{getFullTourDateDisplay(tour)}</Text>
                       </Col>}
                     </Row>
+                    {day && <Row>
+                      <Col width={1/2}>{' '}</Col>
+                      <Col width={1/2}>
+                        <Row>
+                          <Col width={1/6} mr="2px" pt="2px">
+                            <Text inline fontSize={12}>📞</Text>
+                          </Col>
+                          <Col width={5/6}>
+                            <Text inline fontSize="small" color="grey"> Aguarde a confirmação da visita.</Text>
+                          </Col>
+                        </Row>
+                      </Col>
+                    </Row>}
                   </View>
                 }
                 bottomRender={() =>
