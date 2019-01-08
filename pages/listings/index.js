@@ -147,6 +147,7 @@ class ListingSearch extends Component {
           />
           <ListingList
             query={query}
+            params={params}
             user={user}
             resetFilters={this.onResetFilter}
             filters={listingFilters}
