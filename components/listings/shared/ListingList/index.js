@@ -15,6 +15,8 @@ import Map from 'components/listings/shared/Map'
 import ListingsNotFound from 'components/listings/shared/NotFound'
 import Neighborhood from 'components/listings/shared/Neighborhood'
 import Text from '@emcasa/ui-dom/components/Text'
+import View from '@emcasa/ui-dom/components/View'
+import { getTitleText } from './title'
 import {
   MIN_WIDTH_FOR_MAP_RENDER,
   Container,
@@ -72,7 +74,7 @@ class ListingList extends Component {
   getListings = (result, fetchMore) => {
     const {
       user,
-      query,
+      params,
       resetFilters,
       filters,
       onHoverListing,
@@ -97,11 +99,11 @@ class ListingList extends Component {
             return (
               <ListingInfiniteScroll
                 titleComponent={
-                  query.neighborhoodSlug && (
+                  params.neighborhood && (
                     <Neighborhood
-                      neighborhood={query.neighborhoodSlug}
-                      state={query.state}
-                      city={query.city}
+                      neighborhood={params.neighborhood}
+                      state={params.state}
+                      city={params.city}
                       neighborhoodListener={neighborhoodListener}
                     />
                   )
@@ -270,11 +272,9 @@ class ListingList extends Component {
   }
 
   render() {
-    const {filters, query} = this.props
-    const {state} = query
-    const h1Content = state === 'rj' ?
-      'Apartamentos e Casas à venda na Zona Sul do Rio de Janeiro' :
-      'Apartamentos e Casas à venda em São Paulo'
+    const {filters, params} = this.props
+    const {state, neighborhood} = params
+    const h1Content = getTitleText(state, neighborhood)
     return (
       <Query
         query={GET_LISTINGS}
@@ -286,7 +286,7 @@ class ListingList extends Component {
           return (
             <>
               <Title>
-                {state && <Text>{h1Content}</Text>}
+                {state && <View mb={2}><Text inline>{h1Content}</Text></View>}
               </Title>
               <Container>
                 {this.getListings(listings, fetchMore)}
