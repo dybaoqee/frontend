@@ -102,8 +102,8 @@ class Success extends PureComponent {
                       <Col width={1/2}>{' '}</Col>
                       <Col width={1/2}>
                         <Row>
-                          <Col width={1/6} mr={1} pt={1}>
-                            📞
+                          <Col width={1/6} mr="2px" pt="2px">
+                            <Text inline fontSize={12}>📞</Text>
                           </Col>
                           <Col width={5/6}>
                             <Text inline fontSize="small" color="grey"> Aguarde a confirmação da visita.</Text>
