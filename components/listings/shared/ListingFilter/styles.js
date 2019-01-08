@@ -18,9 +18,8 @@ const Container = styled(Row)`
 `
 
 const expandedWrapper = css`
-  flex-wrap: nowrap;
   overflow: hidden;
-  height: 40px;
+  height: 34px;
 `
 
 const ButtonsWrapper = styled(Row)`
