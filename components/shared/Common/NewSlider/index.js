@@ -34,7 +34,8 @@ class NewSlider extends Component {
       values: {
         minValue: min,
         maxValue: max
-      }
+      },
+      minThumbOnTheFront: false
     }
   }
 
@@ -142,7 +143,10 @@ class NewSlider extends Component {
     }
 
     if (target === this.minThumb.current || target === this.maxThumb.current) {
-      this.setState({used: true})
+      this.setState({
+        used: true,
+        minThumbOnTheFront: target === this.minThumb.current
+      })
       document.addEventListener('touchmove', handleMouseMove)
       document.addEventListener('touchend', handleMouseUp)
       document.addEventListener('mousemove', handleMouseMove)
@@ -183,7 +187,7 @@ class NewSlider extends Component {
       max
     } = this.props
 
-    const {values: {minValue, maxValue}} = this.state
+    const {values: {minValue, maxValue}, minThumbOnTheFront} = this.state
     return (
       <Container>
         <Rail
@@ -194,11 +198,11 @@ class NewSlider extends Component {
         >
           {isRange && <Bar innerRef={this.bar} />}
           {isRange && (
-            <Thumb aria-label="min" innerRef={this.minThumb} tabIndex="0">
+            <Thumb aria-label="min" innerRef={this.minThumb} tabIndex="0" isOnTheFront={minThumbOnTheFront}>
               <Tip>R$ {minValue.toLocaleString('pt-BR')}</Tip>
             </Thumb>
           )}
-          <Thumb aria-label="max" innerRef={this.maxThumb} tabIndex="0">
+          <Thumb aria-label="max" innerRef={this.maxThumb} tabIndex="0" isOnTheFront={!minThumbOnTheFront}>
             <Tip>R$ {maxValue.toLocaleString('pt-BR')}</Tip>
           </Thumb>
         </Rail>

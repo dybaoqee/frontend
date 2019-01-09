@@ -38,6 +38,7 @@ export const Thumb = styled.div`
   width: ${THUMB_SIZE}px;
   background-color: ${theme.colors.pink};
   display: flex;
+  z-index: ${({isOnTheFront}) => isOnTheFront ? 1 : null};
 
   box-shadow: 0 0 0 1px ${theme.colors.pink};
 
