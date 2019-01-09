@@ -14,6 +14,10 @@ export const Container = styled(Row)`
   max-width: ${MAX_FILTER_PANEL_DESKTOP_WIDTH}px;
   box-sizing: border-box;
   margin: 42px auto ${theme.space[2]}px;
+
+  @media screen and (max-width: ${theme.breakpoints[0]}) {
+    margin-top: 0;
+  }
 `
 
 export const Rail = styled.div`
