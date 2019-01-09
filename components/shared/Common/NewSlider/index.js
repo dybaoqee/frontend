@@ -5,7 +5,6 @@ import {
   Rail,
   Thumb,
   Tip,
-  RangeValues,
   Bar,
   THUMB_SIZE
 } from './styles'
@@ -187,11 +186,6 @@ class NewSlider extends Component {
     const {values: {minValue, maxValue}} = this.state
     return (
       <Container>
-        {isRange && (
-          <RangeValues>{`${valuesFormatter(minValue)} até ${valuesFormatter(
-            maxValue
-          )}`}</RangeValues>
-        )}
         <Rail
           innerRef={this.rail}
           showValues={showValue}
@@ -201,11 +195,11 @@ class NewSlider extends Component {
           {isRange && <Bar innerRef={this.bar} />}
           {isRange && (
             <Thumb aria-label="min" innerRef={this.minThumb} tabIndex="0">
-              {showValue && <Tip>R$ {minValue.toLocaleString('pt-BR')}</Tip>}
+              <Tip>R$ {minValue.toLocaleString('pt-BR')}</Tip>
             </Thumb>
           )}
           <Thumb aria-label="max" innerRef={this.maxThumb} tabIndex="0">
-            {showValue && <Tip>R$ {maxValue.toLocaleString('pt-BR')}</Tip>}
+            <Tip>R$ {maxValue.toLocaleString('pt-BR')}</Tip>
           </Thumb>
         </Rail>
       </Container>

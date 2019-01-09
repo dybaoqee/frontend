@@ -47,21 +47,32 @@ export const Thumb = styled.div`
 `
 
 export const Tip = styled.div`
-  box-sizing: border-box;
   position: absolute;
-  top: -80px;
-
-  color: ${themeGet('colors.pink')};
-  font-size: 20px;
-  letter-spacing: -0.2px;
-  line-height: 27px;
+  top: -200%;
+  left: 50%;
+  transform: translateX(-50%);
   padding: 4px;
-  width: 130px;
-  left: -50px;
-  display: flex;
+  pointer-events: none;
+  white-space: nowrap;
+  background-color: ${themeGet('colors.white')};
+  border: 1px solid ${themeGet('colors.pink')};
+  border-radius: 2px;
+  color: ${themeGet('colors.pink')};
+  font-size: 12px;
 
-  justify-content: center;
-  align-items: center;
+  &::before {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-225deg);
+    width: 6px;
+    height: 6px;
+    background-color: ${themeGet('colors.white')};
+    border-top: 1px solid ${themeGet('colors.pink')};
+    border-right: 1px solid ${themeGet('colors.pink')};
+  }
 `
 
 export const Icon = styled.div`
