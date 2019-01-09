@@ -199,11 +199,11 @@ class NewSlider extends Component {
           {isRange && <Bar innerRef={this.bar} />}
           {isRange && (
             <Thumb aria-label="min" innerRef={this.minThumb} tabIndex="0" isOnTheFront={minThumbOnTheFront}>
-              <Tip>R$ {minValue.toLocaleString('pt-BR')}</Tip>
+              <Tip>{valuesFormatter(minValue)}</Tip>
             </Thumb>
           )}
           <Thumb aria-label="max" innerRef={this.maxThumb} tabIndex="0" isOnTheFront={!minThumbOnTheFront}>
-            <Tip>R$ {maxValue.toLocaleString('pt-BR')}</Tip>
+            <Tip>{valuesFormatter(maxValue)}</Tip>
           </Thumb>
         </Rail>
       </Container>
