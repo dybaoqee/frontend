@@ -5,6 +5,8 @@ import {
   Rail,
   Thumb,
   Tip,
+  RangeValues,
+  Value,
   Bar,
   THUMB_SIZE
 } from './styles'
@@ -190,6 +192,12 @@ class NewSlider extends Component {
     const {values: {minValue, maxValue}, minThumbOnTheFront} = this.state
     return (
       <Container>
+        {isRange && (
+          <RangeValues>
+            <Value>${valuesFormatter(minValue)}</Value>
+            <Value>${valuesFormatter(maxValue)}</Value>
+          </RangeValues>
+        )}
         <Rail
           innerRef={this.rail}
           showValues={showValue}

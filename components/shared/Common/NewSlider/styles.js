@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import theme from '@emcasa/ui'
 import Row from '@emcasa/ui-dom/components/Row'
-import Text from '@emcasa/ui-dom/components/Text'
 import {
   MAX_FILTER_PANEL_DESKTOP_WIDTH
 } from 'components/listings/shared/ListingFilter/components/FilterPanel/styles'
@@ -22,7 +21,7 @@ export const Rail = styled.div`
   position: relative;
   height: 1px;
   width: 100%;
-  max-width: ${MAX_FILTER_PANEL_DESKTOP_WIDTH}px;
+  max-width: 100%;
   background-color: ${theme.colors.grey};
 `
 
@@ -75,6 +74,10 @@ export const Tip = styled.div`
     border-top: 1px solid ${theme.colors.pink};
     border-right: 1px solid ${theme.colors.pink};
   }
+
+  @media screen and (max-width: ${theme.breakpoints[0]}) {
+    display: none;
+  }
 `
 
 export const Icon = styled.div`
@@ -91,17 +94,28 @@ export const Icon = styled.div`
   }
 `
 
-export const RangeValues = styled(Text)`
+export const RangeValues = styled.div`
   box-sizing: border-box;
   text-align: center;
   margin: 0 auto 20px auto;
   color: ${theme.colors.grey};
+  display: none;
+
+  @media screen and (max-width: ${theme.breakpoints[0]}) {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+`
+
+export const Value = styled.span`
+  color: ${theme.colors.pink};
+  font-size: 14px;
 `
 
 export const Bar = styled.div`
   position: absolute;
-  width: ${MAX_FILTER_PANEL_DESKTOP_WIDTH}px;
-  max-width: ${MAX_FILTER_PANEL_DESKTOP_WIDTH}px;
+  max-width: 100%;
   height: 3px;
   background: ${theme.colors.pink};
 `
