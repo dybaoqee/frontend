@@ -21,7 +21,8 @@ export const Rail = styled.div`
   box-sizing: border-box;
   position: relative;
   height: 1px;
-  width: ${MAX_FILTER_PANEL_DESKTOP_WIDTH}px;
+  width: 100%;
+  max-width: ${MAX_FILTER_PANEL_DESKTOP_WIDTH}px;
   background-color: ${theme.colors.grey};
 `
 
