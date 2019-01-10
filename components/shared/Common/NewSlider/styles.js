@@ -13,7 +13,7 @@ export const Container = styled(Row)`
   width: ${MAX_FILTER_PANEL_DESKTOP_WIDTH}px;
   max-width: ${MAX_FILTER_PANEL_DESKTOP_WIDTH}px;
   box-sizing: border-box;
-  margin: 42px auto ${theme.space[2]}px;
+  margin: ${theme.space[2]}px auto;
 
   @media screen and (max-width: ${theme.breakpoints[0]}) {
     margin-top: 0;
@@ -51,39 +51,6 @@ export const Thumb = styled.div`
   }
 `
 
-export const Tip = styled.div`
-  position: absolute;
-  top: -200%;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 4px;
-  pointer-events: none;
-  white-space: nowrap;
-  background-color: ${theme.colors.white};
-  border: 1px solid ${theme.colors.pink};
-  border-radius: 2px;
-  color: ${theme.colors.pink};
-  font-size: 12px;
-
-  &::before {
-    content: '';
-    position: absolute;
-    z-index: 1;
-    bottom: -4px;
-    left: 50%;
-    transform: translateX(-50%) rotate(-225deg);
-    width: 6px;
-    height: 6px;
-    background-color: ${theme.colors.white};
-    border-top: 1px solid ${theme.colors.pink};
-    border-right: 1px solid ${theme.colors.pink};
-  }
-
-  @media screen and (max-width: ${theme.breakpoints[0]}) {
-    display: none;
-  }
-`
-
 export const Icon = styled.div`
   box-sizing: border-box;
   pointer-events: none;
@@ -99,17 +66,12 @@ export const Icon = styled.div`
 `
 
 export const RangeValues = styled.div`
-  box-sizing: border-box;
-  text-align: center;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
   margin: 0 auto 20px auto;
   color: ${theme.colors.grey};
-  display: none;
-
-  @media screen and (max-width: ${theme.breakpoints[0]}) {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-  }
+  text-align: center;
 `
 
 export const Value = styled.span`
