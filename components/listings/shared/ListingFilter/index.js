@@ -12,6 +12,14 @@ import ButtonGroupFilter from './components/ButtonGroupFilter'
 import ExpandButton from './components/ExpandButton'
 import { clone } from 'utils/clone'
 import {
+  log,
+  LISTING_SEARCH_FILTER_OPEN,
+  LISTING_SEARCH_FILTER_APPLY,
+  LISTING_SEARCH_FILTER_CLEAR,
+  LISTING_SEARCH_FILTER_CLOSE,
+  LISTING_SEARCH_FILTER_TOGGLE
+} from 'lib/amplitude'
+import {
   MAX_FILTER_PANEL_DESKTOP_WIDTH
 } from './components/FilterPanel/styles'
 import {
@@ -37,6 +45,7 @@ class ListingFilter extends Component {
     this.applyFilters = this.applyFilters.bind(this)
     this.restorePreviousValues = this.restorePreviousValues.bind(this)
     this.showFilter = this.showFilter.bind(this)
+    this.toggleFilters = this.toggleFilters.bind(this)
 
     const initialValues = {...props.initialFilters}
     if (props.initialFilters.neighborhoods) {
@@ -94,6 +103,7 @@ class ListingFilter extends Component {
   }
 
   resetFilter = (filter) => {
+    log(LISTING_SEARCH_FILTER_CLEAR, {filter: filter})
     let updatedValues = clone(this.state.values)
     delete updatedValues[filter]
     this.setState({
@@ -115,6 +125,7 @@ class ListingFilter extends Component {
   }
 
   showFilter(filter, event) {
+    log(LISTING_SEARCH_FILTER_OPEN, {filter: filter})
     const { target } = event
     const panelPosition = {left: target.getBoundingClientRect().left, top: target.getBoundingClientRect().top}
     this.setState({
@@ -128,9 +139,13 @@ class ListingFilter extends Component {
     })
   }
 
-  applyFilters() {
+  applyFilters(filter) {
+    const newValues = clone(this.state.values)
+    if (filter) {
+      log(LISTING_SEARCH_FILTER_APPLY, {filter: filter, values: newValues})
+    }
     this.setState({
-      previousValues: clone(this.state.values)
+      previousValues: newValues
     }, () => {
       this.hideAllFilters()
       this.restorePreviousValues()
@@ -144,7 +159,10 @@ class ListingFilter extends Component {
     })
   }
 
-  hideAllFilters() {
+  hideAllFilters(filter) {
+    if (filter) {
+      log(LISTING_SEARCH_FILTER_CLOSE, {filter: filter})
+    }
     this.setState({
       showType: false,
       showArea: false,
@@ -162,6 +180,12 @@ class ListingFilter extends Component {
       this.state.showRooms ||
       this.state.showGarage
     )
+  }
+
+  toggleFilters() {
+    const newState = !this.state.expanded
+    log(LISTING_SEARCH_FILTER_TOGGLE, {filtesVisible: newState})
+    this.setState({expanded: newState})
   }
 
   render() {
@@ -195,15 +219,15 @@ class ListingFilter extends Component {
                 {getFilterButtons(this.props.filters, this.showFilter)}
                 <ExpandButton
                   expanded={this.state.expanded}
-                  onClick={() => {this.setState({expanded: !this.state.expanded})}}
+                  onClick={this.toggleFilters}
                 />
               </ButtonsWrapper>
               <FilterPanel
-                title={FILTERS.TYPES.label}
+                filter={FILTERS.TYPES}
                 show={this.state.showType}
-                close={this.hideAllFilters}
+                close={() => {this.hideAllFilters(FILTERS.TYPES.code)}}
                 panelPosition={this.state.panelPosition}
-                apply={this.applyFilters}
+                apply={() => {this.applyFilters(FILTERS.TYPES.code)}}
                 clear={this.resetFilter.bind(this, FILTERS.TYPES.code)}
               >
                 <FilterButton
@@ -226,11 +250,11 @@ class ListingFilter extends Component {
                 </FilterButton>
               </FilterPanel>
               <FilterPanel
-                title={FILTERS.AREA.label}
+                filter={FILTERS.AREA}
                 show={this.state.showArea}
-                close={this.hideAllFilters}
+                close={() => {this.hideAllFilters(FILTERS.AREA.code)}}
                 panelPosition={this.state.panelPosition}
-                apply={this.applyFilters}
+                apply={() => {this.applyFilters(FILTERS.AREA.code)}}
                 clear={this.resetFilter.bind(this, FILTERS.AREA.code)}
               >
                 <NewSlider
@@ -244,11 +268,11 @@ class ListingFilter extends Component {
                 />
               </FilterPanel>
               <FilterPanel
-                title={FILTERS.PRICE.label}
+                filter={FILTERS.PRICE}
                 show={this.state.showPrice}
-                close={this.hideAllFilters}
+                close={() => {this.hideAllFilters(FILTERS.PRICE.code)}}
                 panelPosition={this.state.panelPosition}
-                apply={this.applyFilters}
+                apply={() => {this.applyFilters(FILTERS.PRICE.code)}}
                 clear={this.resetFilter.bind(this, FILTERS.PRICE.code)}
               >
                 <NewSlider
@@ -267,11 +291,11 @@ class ListingFilter extends Component {
                 />
               </FilterPanel>
               <FilterPanel
-                title={FILTERS.ROOMS.label}
+                filter={FILTERS.ROOMS}
                 show={this.state.showRooms}
-                close={this.hideAllFilters}
+                close={() => {this.hideAllFilters(FILTERS.ROOMS.code)}}
                 panelPosition={this.state.panelPosition}
-                apply={this.applyFilters}
+                apply={() => {this.applyFilters(FILTERS.ROOMS.code)}}
                 clear={this.resetFilter.bind(this, FILTERS.ROOMS.code)}
               >
                 <ButtonGroupFilter
@@ -288,11 +312,11 @@ class ListingFilter extends Component {
                 />
               </FilterPanel>
               <FilterPanel
-                title={FILTERS.GARAGE_SPOTS.label}
-                close={this.hideAllFilters}
+                filter={FILTERS.GARAGE_SPOTS}
+                close={() => {this.hideAllFilters(FILTERS.GARAGE_SPOTS.code)}}
                 show={this.state.showGarage}
                 panelPosition={this.state.panelPosition}
-                apply={this.applyFilters}
+                apply={() => {this.applyFilters(FILTERS.GARAGE_SPOTS.code)}}
                 clear={this.resetFilter.bind(this, FILTERS.GARAGE_SPOTS.code)}
               >
                 <ButtonGroupFilter

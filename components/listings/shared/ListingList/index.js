@@ -18,6 +18,10 @@ import Text from '@emcasa/ui-dom/components/Text'
 import View from '@emcasa/ui-dom/components/View'
 import { getTitleText } from './title'
 import {
+  log,
+  LISTING_SEARCH_MAP_PIN
+} from 'lib/amplitude'
+import {
   MIN_WIDTH_FOR_MAP_RENDER,
   Container,
   MapContainer,
@@ -109,6 +113,7 @@ class ListingList extends Component {
                   )
                 }
                 entries={filteredListings}
+                filters={filters}
                 remaining_count={result.remainingCount}
                 onLoad={async () => {
                   const loadedListings = await fetchMore({
@@ -173,6 +178,8 @@ class ListingList extends Component {
     const {apolloClient, filters} = this.props
     const footer = document.querySelector('.infinite-scroll-footer')
     footer.scrollIntoView({block: 'end', behavior: 'smooth'})
+
+    log(LISTING_SEARCH_MAP_PIN, {listingId: id, filters: filters})
 
     const loadedListings = apolloClient.readQuery({
       query: GET_LISTINGS,

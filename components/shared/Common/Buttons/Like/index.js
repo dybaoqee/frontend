@@ -7,6 +7,11 @@ import {GET_USER_LISTINGS_ACTIONS} from 'graphql/user/queries'
 import Router from 'next/router'
 import {setCookie} from 'lib/session'
 import {buildSlug} from 'lib/listings'
+import {
+  log,
+  LISTING_SEARCH_FAVORITE_LISTING
+} from 'lib/amplitude'
+
 const LikeButton = (props) => (
   <Mutation mutation={!props.favorite ? FAVORITE_LISTING : UNFAVORITE_LISTING}>
     {(favoriteListing) => (
@@ -14,6 +19,7 @@ const LikeButton = (props) => (
         {...props}
         onClick={() => {
           if (props.user && props.user.authenticated) {
+            log(LISTING_SEARCH_FAVORITE_LISTING, {listingId: props.listing.id, favorited: !props.favorite})
             favoriteListing({
               refetchQueries: [
                 {

@@ -5,6 +5,10 @@ import { FadeLoader } from 'react-spinners'
 import Row from '@emcasa/ui-dom/components/Row'
 import theme from '@emcasa/ui'
 import {
+  log,
+  LISTING_SEARCH_LOAD_MORE
+} from 'lib/amplitude'
+import {
   Container,
   ListContainer,
   Footer,
@@ -51,6 +55,7 @@ class ListingInfiniteScroll extends Component {
     const {onLoad} = this.props
     this.setState({loading: true})
     const loadedValues = await onLoad()
+    log(LISTING_SEARCH_LOAD_MORE, {remaining: this.props.remaining_count, filters: this.props.filters})
     this.setState({loading: false})
   }
 

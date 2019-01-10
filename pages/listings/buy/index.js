@@ -11,6 +11,10 @@ import Neighborhoods from 'components/listings/buy/Neighborhoods'
 import {desktopHeaderHeight} from 'constants/dimensions'
 import {isMobile} from 'lib/mobile'
 import {imageUrl} from 'utils/image_url'
+import {
+  log,
+  BUYER_LANDING_PAGE
+} from 'lib/amplitude'
 
 const Container = styled(View)`
   display: flex;
@@ -80,7 +84,7 @@ export default class Buy extends Component {
   }
 
   componentDidMount() {
-    amplitude.getInstance().logEvent('buyer-landing-page')
+    log(BUYER_LANDING_PAGE)
     window.addEventListener('resize', this.onResize)
   }
 

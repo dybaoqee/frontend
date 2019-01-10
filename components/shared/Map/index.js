@@ -6,6 +6,10 @@ import throttle from 'lodash/throttle'
 import isEqual from 'lodash/isEqual'
 import MapMarker from 'components/shared/Map/Marker'
 import ClusterMarker from 'components/shared/Map/ClusterMarker'
+import {
+  log,
+  LISTING_SEARCH_MAP_CLUSTER
+} from 'lib/amplitude'
 
 function createMapOptions(maps) {
   return {
@@ -170,6 +174,7 @@ export default class MapContainer extends Component {
   }
 
   frameMarkers(markers) {
+    log(LISTING_SEARCH_MAP_CLUSTER)
     const LatLngList = markers.map((m) => new this.maps.LatLng(m.lat, m.lng))
 
     const bounds = new this.maps.LatLngBounds()

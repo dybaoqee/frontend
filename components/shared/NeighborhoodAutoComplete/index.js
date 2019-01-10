@@ -12,6 +12,11 @@ import Input from '@emcasa/ui-dom/components/Input'
 import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
+import { normalizeLocation } from './locationNormalizer'
+import {
+  log,
+  LISTING_SEARCH_FILTER_LOCATION
+} from 'lib/amplitude'
 import {
   SearchResultContainer,
   SearchResultItem,
@@ -29,6 +34,7 @@ export default class NeighborhoodAutoComplete extends Component {
     this.secondaryText = undefined
     this.onBlur = this.onBlur.bind(this)
     this.hidePredictions = this.hidePredictions.bind(this)
+    this.logLocationSelection = this.logLocationSelection.bind(this)
     this.hidePredictionsTimer = null
   }
 
@@ -80,6 +86,11 @@ export default class NeighborhoodAutoComplete extends Component {
     })
   }
 
+  logLocationSelection(item) {
+    const location = normalizeLocation(item)
+    log(LISTING_SEARCH_FILTER_LOCATION, location)
+  }
+
   getSearchResults = () => {
     return (
       <Query query={GET_DISTRICTS}>
@@ -109,6 +120,7 @@ export default class NeighborhoodAutoComplete extends Component {
                 search: (window && window.location && window.location.search) ? window.location.search : null
               }}>
                 <SearchResultItem
+                  onClick={() => {this.logLocationSelection(item)}}
                   height={this.props.height}
                 >
                   <Text>{item.name}, {item.nameSlug ? item.city : item.state}</Text>
