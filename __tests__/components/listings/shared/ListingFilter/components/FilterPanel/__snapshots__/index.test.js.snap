@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<FilterPanel/> should render component 1`] = `
-.c4 {
+.c3 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
 }
 
-.c5 {
+.c4 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -20,11 +20,11 @@ exports[`<FilterPanel/> should render component 1`] = `
   justify-content: flex-end;
 }
 
-.c9 {
+.c8 {
   width: 33.33333333333333%;
 }
 
-.c10 {
+.c9 {
   outline: none;
   display: block;
   cursor: pointer;
@@ -44,11 +44,11 @@ exports[`<FilterPanel/> should render component 1`] = `
   border-style: solid;
 }
 
-.c10 :hover {
+.c9 :hover {
   background-color: #ffffff;
 }
 
-.c11 {
+.c10 {
   outline: none;
   display: block;
   cursor: pointer;
@@ -67,8 +67,31 @@ exports[`<FilterPanel/> should render component 1`] = `
   border-style: solid;
 }
 
-.c11 :hover {
+.c10 :hover {
   background-color: #f50057;
+}
+
+.c12 {
+  outline: none;
+  cursor: pointer;
+  padding: 0 20px 0 20px;
+  border-color: #e0e6ed;
+  background-color: #ffffff;
+  border-radius: 0;
+  border-width: 0;
+  width: auto;
+  height: 32px;
+  padding: 0px;
+  color: #f50057;
+  font-family: FaktSoftPro-Normal;
+  font-size: 18px;
+  color: #3c4858;
+  -webkit-font-smoothing: antialiased;
+  border-style: solid;
+}
+
+.c12 :hover {
+  background-color: #ffffff;
 }
 
 .c13 {
@@ -85,7 +108,6 @@ exports[`<FilterPanel/> should render component 1`] = `
   color: #f50057;
   font-family: FaktSoftPro-Normal;
   font-size: 18px;
-  color: #3c4858;
   -webkit-font-smoothing: antialiased;
   border-style: solid;
 }
@@ -94,37 +116,11 @@ exports[`<FilterPanel/> should render component 1`] = `
   background-color: #ffffff;
 }
 
-.c14 {
-  outline: none;
-  cursor: pointer;
-  padding: 0 20px 0 20px;
-  border-color: #e0e6ed;
-  background-color: #ffffff;
-  border-radius: 0;
-  border-width: 0;
-  width: auto;
-  height: 32px;
-  padding: 0px;
-  color: #f50057;
-  font-family: FaktSoftPro-Normal;
-  font-size: 18px;
-  -webkit-font-smoothing: antialiased;
-  border-style: solid;
-}
-
-.c14 :hover {
-  background-color: #ffffff;
-}
-
-.c6 {
+.c5 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
   color: #3c4858;
   font-size: 18px;
-}
-
-.c1 {
-  box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
 }
 
 .c0 {
@@ -132,19 +128,41 @@ exports[`<FilterPanel/> should render component 1`] = `
   display: block;
   top: 0;
   left: 0;
-  padding: 10px;
-  background-color: #ffffff;
-  width: 300px;
+  border-radius: 4px;
+  box-shadow: 0px 0px 8px -1px rgba(0,0,0,0.2);
 }
 
-.c7 {
+.c0::before {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  top: -8px;
+  left: 30px;
+  width: 15px;
+  height: 15px;
+  -webkit-transform: rotate(-225deg);
+  -ms-transform: rotate(-225deg);
+  transform: rotate(-225deg);
+  background-color: #ffffff;
+  box-shadow: 0px 0px 8px -1px rgba(0,0,0,0.2);
+}
+
+.c1 {
+  position: relative;
+  z-index: 2;
+  padding: 10px;
+  background-color: #ffffff;
+  border-radius: 4px;
+}
+
+.c6 {
   -webkit-box-pack: start;
   -webkit-justify-content: flex-start;
   -ms-flex-pack: start;
   justify-content: flex-start;
 }
 
-.c8 {
+.c7 {
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
@@ -153,10 +171,16 @@ exports[`<FilterPanel/> should render component 1`] = `
   width: 100%;
 }
 
-.c3 {
+.c2 {
   display: none;
   padding: 0;
   margin: 0;
+}
+
+@media screen and (max-width:780px) {
+  .c0::before {
+    content: unset;
+  }
 }
 
 @media screen and (max-width:780px) {
@@ -172,7 +196,7 @@ exports[`<FilterPanel/> should render component 1`] = `
 }
 
 @media screen and (max-width:780px) {
-  .c2 {
+  .c1 {
     position: relative;
     height: 100%;
     padding: 20px;
@@ -180,7 +204,7 @@ exports[`<FilterPanel/> should render component 1`] = `
 }
 
 @media screen and (max-width:780px) {
-  .c8 {
+  .c7 {
     position: absolute;
     margin: 0;
     bottom: calc(20px + 40px);
@@ -189,13 +213,13 @@ exports[`<FilterPanel/> should render component 1`] = `
 }
 
 @media screen and (max-width:780px) {
-  .c3 {
+  .c2 {
     display: block;
   }
 }
 
 @media screen and (max-width:780px) {
-  .c12 {
+  .c11 {
     display: none;
     padding: 0;
     margin: 0;
@@ -203,17 +227,16 @@ exports[`<FilterPanel/> should render component 1`] = `
 }
 
 <div
-  className="c0 c1"
-  elevation={4}
+  className="c0 "
 >
   <div
-    className="c2 "
+    className="c1 "
   >
     <div
-      className="c3 c4"
+      className="c2 c3"
     >
       <div
-        className="c5"
+        className="c4"
         onClick={[Function]}
         width={1}
       >
@@ -236,30 +259,30 @@ exports[`<FilterPanel/> should render component 1`] = `
         </div>
       </div>
       <div
-        className="c4"
+        className="c3"
       >
         <p
-          className="c6"
+          className="c5"
           color="dark"
           fontSize="default"
         />
       </div>
     </div>
     <div
-      className="c7 c4"
+      className="c6 c3"
     />
     <div
-      className="c3 c4"
+      className="c2 c3"
     >
       <div
-        className="c8 c4"
+        className="c7 c3"
       >
         <div
-          className="c9"
+          className="c8"
           width={0.3333333333333333}
         >
           <button
-            className="c10"
+            className="c9"
             color="dark"
             fontSize="default"
             height="tall"
@@ -269,7 +292,7 @@ exports[`<FilterPanel/> should render component 1`] = `
           </button>
         </div>
         <div
-          className="c9"
+          className="c8"
           style={
             Object {
               "display": "flex",
@@ -279,7 +302,7 @@ exports[`<FilterPanel/> should render component 1`] = `
           width={0.3333333333333333}
         >
           <button
-            className="c11"
+            className="c10"
             fontSize="default"
             height="tall"
             onClick={[Function]}
@@ -290,17 +313,17 @@ exports[`<FilterPanel/> should render component 1`] = `
       </div>
     </div>
     <div
-      className="c12 c4"
+      className="c11 c3"
     >
       <div
-        className="c8 c4"
+        className="c7 c3"
       >
         <div
-          className="c9"
+          className="c8"
           width={0.3333333333333333}
         >
           <button
-            className="c13"
+            className="c12"
             color="dark"
             fontSize="default"
             height="short"
@@ -310,7 +333,7 @@ exports[`<FilterPanel/> should render component 1`] = `
           </button>
         </div>
         <div
-          className="c9"
+          className="c8"
           style={
             Object {
               "display": "flex",
@@ -320,7 +343,7 @@ exports[`<FilterPanel/> should render component 1`] = `
           width={0.3333333333333333}
         >
           <button
-            className="c14"
+            className="c13"
             fontSize="default"
             height="short"
             onClick={[Function]}
