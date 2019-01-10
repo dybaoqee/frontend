@@ -9,6 +9,7 @@ import {
   Container,
   Wrapper,
   ActionsWrapper,
+  ActionsButton,
   FilterOptions,
   MobileContent,
   DesktopContent
@@ -45,10 +46,10 @@ class FilterPanel extends PureComponent {
           <DesktopContent>
             <ActionsWrapper>
               <Col width={1/3}>
-                <Button p={0} link height="short" color="dark" onClick={this.props.clear.bind(filter.code)}>Limpar</Button>
+                <ActionsButton p={0} link height="short" color="dark" onClick={this.props.clear.bind(filter.code)}>Limpar</ActionsButton>
               </Col>
               <Col width={1/3} style={{display: 'flex', justifyContent: 'flex-end'}}>
-                <Button p={0} link height="short" onClick={this.props.apply.bind(filter.code)}>Aplicar</Button>
+                <ActionsButton p={0} link height="short" onClick={this.props.apply.bind(filter.code)}>Aplicar</ActionsButton>
               </Col>
             </ActionsWrapper>
           </DesktopContent>
