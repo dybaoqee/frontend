@@ -1,12 +1,20 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import NumberFormat from 'react-number-format'
 import ListingCard from './Card'
 import Container, {CardWrapper, ListingInfo} from './styles'
 import Statistics from 'components/listings/show/Statistics'
 import {getParagraphs} from 'utils/text-utils'
 import {canEdit} from 'permissions/listings-permissions'
+import {
+  log,
+  LISTING_SEARCH_VIEW_LISTING
+} from 'lib/amplitude'
 
-export default class ListingMainContent extends React.Component {
+export default class ListingMainContent extends PureComponent {
+  componentDidMount() {
+    log(LISTING_SEARCH_VIEW_LISTING, {listingId: this.props.listing.id})
+  }
+
   render() {
     const {listing, handleOpenPopup, user} = this.props
     const {street, neighborhood, streetNumber} = listing.address

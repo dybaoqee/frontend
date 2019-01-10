@@ -1,3 +1,8 @@
+import {
+  log,
+  SELLER_ONBOARDING_EVENT_BASE
+} from 'lib/amplitude'
+
 // Action Types
 export const NAVIGATE = 'NAVIGATE'
 export const START = 'START'
@@ -17,7 +22,7 @@ export const UPDATE_LISTING = 'UPDATE_LISTING'
 
 // Action creators
 export const navigateTo = (step) => {
-  amplitude.getInstance().logEvent(`seller-onboarding-${step}`);
+  log(`${SELLER_ONBOARDING_EVENT_BASE}${step}`);
   return {
     type: NAVIGATE,
     step: step

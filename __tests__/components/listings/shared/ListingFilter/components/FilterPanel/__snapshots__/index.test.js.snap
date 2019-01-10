@@ -265,7 +265,9 @@ exports[`<FilterPanel/> should render component 1`] = `
           className="c5"
           color="dark"
           fontSize="default"
-        />
+        >
+          label
+        </p>
       </div>
     </div>
     <div

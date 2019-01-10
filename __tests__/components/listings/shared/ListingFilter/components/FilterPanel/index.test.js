@@ -10,6 +10,7 @@ describe('<FilterPanel/>', () => {
     const tree = renderer.create(
       <ThemeProvider theme={theme}>
         <FilterPanel
+          filter={{code: 'code', label: 'label'}}
           show={true}
           close={() => {}}
           apply={() => {}}
