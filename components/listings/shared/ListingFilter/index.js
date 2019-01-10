@@ -15,7 +15,8 @@ import {
   LISTING_SEARCH_FILTER_OPEN,
   LISTING_SEARCH_FILTER_APPLY,
   LISTING_SEARCH_FILTER_CLEAR,
-  LISTING_SEARCH_FILTER_CLOSE
+  LISTING_SEARCH_FILTER_CLOSE,
+  LISTING_SEARCH_FILTER_TOGGLE
 } from 'constants/amplitude'
 import {
   MAX_FILTER_PANEL_DESKTOP_WIDTH
@@ -43,6 +44,7 @@ class ListingFilter extends Component {
     this.applyFilters = this.applyFilters.bind(this)
     this.restorePreviousValues = this.restorePreviousValues.bind(this)
     this.showFilter = this.showFilter.bind(this)
+    this.toggleFilters = this.toggleFilters.bind(this)
 
     const initialValues = {...props.initialFilters}
     if (props.initialFilters.neighborhoods) {
@@ -137,11 +139,12 @@ class ListingFilter extends Component {
   }
 
   applyFilters(filter) {
+    const newValues = clone(this.state.values)
     if (filter) {
-      amplitude.getInstance().logEvent(LISTING_SEARCH_FILTER_APPLY, {filter: filter})
+      amplitude.getInstance().logEvent(LISTING_SEARCH_FILTER_APPLY, {filter: filter, values: newValues})
     }
     this.setState({
-      previousValues: clone(this.state.values)
+      previousValues: newValues
     }, () => {
       this.hideAllFilters()
       this.restorePreviousValues()
@@ -178,6 +181,12 @@ class ListingFilter extends Component {
     )
   }
 
+  toggleFilters() {
+    const newState = !this.state.expanded
+    amplitude.getInstance().logEvent(LISTING_SEARCH_FILTER_TOGGLE, {filtesVisible: newState})
+    this.setState({expanded: newState})
+  }
+
   render() {
     const {
       filters: {
@@ -209,7 +218,7 @@ class ListingFilter extends Component {
                 {getFilterButtons(this.props.filters, this.showFilter)}
                 <ExpandButton
                   expanded={this.state.expanded}
-                  onClick={() => {this.setState({expanded: !this.state.expanded})}}
+                  onClick={this.toggleFilters}
                 />
               </ButtonsWrapper>
               <FilterPanel

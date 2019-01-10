@@ -9,6 +9,7 @@ const LISTING_SEARCH_FILTER_CLOSE = 'listing-search-filter-close'
 const LISTING_SEARCH_FILTER_APPLY = 'listing-search-filter-apply'
 const LISTING_SEARCH_FILTER_CLEAR = 'listing-search-filter-clear'
 const LISTING_SEARCH_FILTER_LOCATION = 'listing-search-filter-location'
+const LISTING_SEARCH_FILTER_TOGGLE = 'listing-search-filter-toggle'
 
 export {
   LISTING_SEARCH_OPEN,
@@ -20,5 +21,6 @@ export {
   LISTING_SEARCH_FILTER_CLOSE,
   LISTING_SEARCH_FILTER_APPLY,
   LISTING_SEARCH_FILTER_CLEAR,
-  LISTING_SEARCH_FILTER_LOCATION
+  LISTING_SEARCH_FILTER_LOCATION,
+  LISTING_SEARCH_FILTER_TOGGLE
 }
