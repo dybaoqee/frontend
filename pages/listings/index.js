@@ -14,6 +14,9 @@ import {
 import ListingFilter from 'components/listings/shared/ListingFilter'
 import ListingList from 'components/listings/shared/ListingList'
 import {getUrlVars} from 'utils/text-utils'
+import {
+  LISTING_SEARCH_OPEN
+} from 'constants/amplitude'
 
 class ListingSearch extends Component {
   constructor(props) {
@@ -55,6 +58,7 @@ class ListingSearch extends Component {
   }
 
   componentDidMount() {
+    amplitude.getInstance().logEvent(LISTING_SEARCH_OPEN)
     window.onpopstate = (event) => {
       const newQuery = getUrlVars(event.state.url)
       this.setState({
