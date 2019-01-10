@@ -103,7 +103,7 @@ export default class Header extends Component {
     const {sticky, isMobileNavVisible, showMobileSearch} = this.state
     const currentPath = router.asPath
 
-    if (this.state.showMobileSearch) {
+    if (showMobileSearch) {
       return (
         <ThemeProvider theme={theme}>
           {this.renderMobileSearch()}
