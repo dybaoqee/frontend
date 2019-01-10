@@ -66,17 +66,18 @@ export const Icon = styled.div`
 `
 
 export const RangeValues = styled.div`
+  display: grid;
+  grid-template-columns: minmax(33%, 1fr) auto minmax(33%, 1fr);
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  margin: 0 auto 20px auto;
-  color: ${theme.colors.grey};
+  margin: 0 auto 20px;
   text-align: center;
 `
 
 export const Value = styled.span`
   color: ${theme.colors.pink};
+  text-align: ${({textAlign}) => textAlign};
   font-size: 14px;
+  margin: ${({margin}) => margin ? `0 ${theme.space[2]}px` : null};
 `
 
 export const Bar = styled.div`
