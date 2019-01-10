@@ -12,12 +12,13 @@ import ButtonGroupFilter from './components/ButtonGroupFilter'
 import ExpandButton from './components/ExpandButton'
 import { clone } from 'utils/clone'
 import {
+  log,
   LISTING_SEARCH_FILTER_OPEN,
   LISTING_SEARCH_FILTER_APPLY,
   LISTING_SEARCH_FILTER_CLEAR,
   LISTING_SEARCH_FILTER_CLOSE,
   LISTING_SEARCH_FILTER_TOGGLE
-} from 'constants/amplitude'
+} from 'lib/amplitude'
 import {
   MAX_FILTER_PANEL_DESKTOP_WIDTH
 } from './components/FilterPanel/styles'
@@ -102,7 +103,7 @@ class ListingFilter extends Component {
   }
 
   resetFilter = (filter) => {
-    amplitude.getInstance().logEvent(LISTING_SEARCH_FILTER_CLEAR, {filter: filter})
+    log(LISTING_SEARCH_FILTER_CLEAR, {filter: filter})
     let updatedValues = clone(this.state.values)
     delete updatedValues[filter]
     this.setState({
@@ -124,7 +125,7 @@ class ListingFilter extends Component {
   }
 
   showFilter(filter, event) {
-    amplitude.getInstance().logEvent(LISTING_SEARCH_FILTER_OPEN, {filter: filter})
+    log(LISTING_SEARCH_FILTER_OPEN, {filter: filter})
     const { target } = event
     const panelPosition = {left: target.getBoundingClientRect().left, top: target.getBoundingClientRect().top}
     this.setState({
@@ -141,7 +142,7 @@ class ListingFilter extends Component {
   applyFilters(filter) {
     const newValues = clone(this.state.values)
     if (filter) {
-      amplitude.getInstance().logEvent(LISTING_SEARCH_FILTER_APPLY, {filter: filter, values: newValues})
+      log(LISTING_SEARCH_FILTER_APPLY, {filter: filter, values: newValues})
     }
     this.setState({
       previousValues: newValues
@@ -160,7 +161,7 @@ class ListingFilter extends Component {
 
   hideAllFilters(filter) {
     if (filter) {
-      amplitude.getInstance().logEvent(LISTING_SEARCH_FILTER_CLOSE, {filter: filter})
+      log(LISTING_SEARCH_FILTER_CLOSE, {filter: filter})
     }
     this.setState({
       showType: false,
@@ -183,7 +184,7 @@ class ListingFilter extends Component {
 
   toggleFilters() {
     const newState = !this.state.expanded
-    amplitude.getInstance().logEvent(LISTING_SEARCH_FILTER_TOGGLE, {filtesVisible: newState})
+    log(LISTING_SEARCH_FILTER_TOGGLE, {filtesVisible: newState})
     this.setState({expanded: newState})
   }
 

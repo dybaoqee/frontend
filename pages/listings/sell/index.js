@@ -11,6 +11,10 @@ import HowItWorks from 'components/listings/sell/HowItWorks'
 import {desktopHeaderHeight} from 'constants/dimensions'
 import {isMobile} from 'lib/mobile'
 import {imageUrl} from 'utils/image_url'
+import {
+  log,
+  SELLER_LANDING_PAGE
+} from 'lib/amplitude'
 
 const Container = styled(View)`
   display: flex;
@@ -79,7 +83,7 @@ export default class Sell extends Component {
   }
 
   componentDidMount() {
-    amplitude.getInstance().logEvent('seller-landing-page')
+    log(SELLER_LANDING_PAGE)
     window.addEventListener('resize', this.onResize)
   }
 
