@@ -109,6 +109,7 @@ class ListingList extends Component {
                   )
                 }
                 entries={filteredListings}
+                filters={filters}
                 remaining_count={result.remainingCount}
                 onLoad={async () => {
                   const loadedListings = await fetchMore({
