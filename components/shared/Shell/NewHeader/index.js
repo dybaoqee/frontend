@@ -3,6 +3,7 @@ import Link from 'next/link'
 import theme from '@emcasa/ui'
 import {Component} from 'react'
 import Text from '@emcasa/ui-dom/components/Text'
+import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import AccountKit from 'components/shared/Auth/AccountKit'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
@@ -13,7 +14,6 @@ import faSignInAlt from '@fortawesome/fontawesome-pro-solid/faSignInAlt'
 
 import NeighborhoodPicker from 'components/shared/NeighborhoodPicker'
 import NeighborhoodAutoComplete from 'components/shared/NeighborhoodAutoComplete'
-import MobileAddressButton from 'components/shared/MobileAddressButton'
 import {MobieTypeaheadContainer} from 'components/shared/NeighborhoodAutoComplete/styles'
 import {isMobile} from 'lib/mobile'
 
@@ -25,8 +25,7 @@ import Container, {
   NavButton,
   MenuItem,
   Logo,
-  ShortLogo,
-  Search
+  ShortLogo
 } from './styles'
 
 
@@ -70,25 +69,6 @@ export default class Header extends Component {
     window.removeEventListener('scroll', this.onScroll)
   }
 
-  renderSearch() {
-    const height = isMobile() ? 'tall' : 'medium'
-    return (
-      <Search>
-        {isMobile() ? <MobileAddressButton
-          address="Bairro ou Cidade"
-          onClick={this.openMobileSearch}
-          height={isMobile}
-        /> : (
-          <>
-            <NeighborhoodPicker />
-            <NeighborhoodAutoComplete height={height} />
-          </>
-        )
-        }
-      </Search>
-    )
-  }
-
   renderMobileSearch() {
     return (
       <MobieTypeaheadContainer justifyContent="center" p={4} style={{height: '100%'}}>
@@ -126,7 +106,10 @@ export default class Header extends Component {
                 {search && <ShortLogo alt="EmCasa Imobiliária no Rio de Janeiro e São Paulo" />}
               </div>
             </Link>
-            {search && this.renderSearch()}
+            {search && <Row m={4}>
+                <NeighborhoodPicker />
+              </Row>
+            }
             {isMobileNavVisible && <Overlay onClick={this.toggleMobileNavVisibility} />}
             <NavButton
               visible={!isMobileNavVisible && !search}

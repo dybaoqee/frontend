@@ -2,16 +2,26 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import * as Sentry from '@sentry/browser'
 import Text from '@emcasa/ui-dom/components/Text'
+import Row from '@emcasa/ui-dom/components/Row'
+import Icon from '@emcasa/ui-dom/components/Icon'
+import Col from '@emcasa/ui-dom/components/Col'
 import { GET_DISTRICTS } from 'graphql/listings/queries'
 import { cities } from 'constants/cities'
+import {
+  InputContainer,
+  SearchContainer,
+  SearchTextContainer
+} from './styles'
 
 class NeighborhoodPicker extends Component {
   constructor(props) {
     super(props)
     this.getCities = this.getCities.bind(this)
+    this.toggleCities = this.toggleCities.bind(this)
 
     this.state = {
-      cities: []
+      cities: [],
+      showCities: false
     }
   }
 
@@ -36,9 +46,24 @@ class NeighborhoodPicker extends Component {
     }
   }
 
+  toggleCities() {
+    this.setState({showCities: !this.state.showCities})
+  }
+
   render() {
     return (
-      null
+      <SearchContainer>
+        <Col width={1}>
+          <InputContainer onClick={this.toggleCities}>
+            <SearchTextContainer>
+              <Icon name="map-marker-alt" px={3} pt={1} size={21} /><Text color="grey">Selecione os bairros desejados</Text>
+            </SearchTextContainer>
+            <Col px={3} pt={1}>
+              <Icon name={this.state.showCities ? 'angle-up' : 'angle-down'} />
+            </Col>
+          </InputContainer>
+        </Col>
+      </SearchContainer>
     )
   }
 }
