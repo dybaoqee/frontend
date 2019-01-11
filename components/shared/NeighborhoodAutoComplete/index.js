@@ -12,9 +12,9 @@ import Input from '@emcasa/ui-dom/components/Input'
 import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
-import { normalizeLocation } from './locationNormalizer'
 import {
   log,
+  normalizeLocation,
   LISTING_SEARCH_FILTER_LOCATION
 } from 'lib/amplitude'
 import {

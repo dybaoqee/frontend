@@ -11,6 +11,7 @@ import faFlag from '@fortawesome/fontawesome-pro-solid/faFlag'
 import faUser from '@fortawesome/fontawesome-pro-solid/faUser'
 import faSignInAlt from '@fortawesome/fontawesome-pro-solid/faSignInAlt'
 
+import NeighborhoodPicker from 'components/shared/NeighborhoodPicker'
 import NeighborhoodAutoComplete from 'components/shared/NeighborhoodAutoComplete'
 import MobileAddressButton from 'components/shared/MobileAddressButton'
 import {MobieTypeaheadContainer} from 'components/shared/NeighborhoodAutoComplete/styles'
@@ -77,8 +78,12 @@ export default class Header extends Component {
           address="Bairro ou Cidade"
           onClick={this.openMobileSearch}
           height={isMobile}
-        /> :
-          <NeighborhoodAutoComplete height={height} />
+        /> : (
+          <>
+            <NeighborhoodPicker />
+            <NeighborhoodAutoComplete height={height} />
+          </>
+        )
         }
       </Search>
     )
