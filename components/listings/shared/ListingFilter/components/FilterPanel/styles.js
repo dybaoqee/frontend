@@ -72,10 +72,10 @@ const ActionsWrapper = styled(Row)`
     bottom: calc(20px + ${WRAPPER_PADDING}px);
     width: calc(100% - ${WRAPPER_PADDING}px);
   }
-`
 
-const ActionsButton = styled(Button)`
-  font-size: ${theme.fontSizes[1]}px;
+  Button {
+    font-size: ${theme.fontSizes[1]}px;
+  }
 `
 
 const MobileContent = styled(Row)`
@@ -99,7 +99,6 @@ export {
   Container,
   Wrapper,
   ActionsWrapper,
-  ActionsButton,
   FilterOptions,
   MobileContent,
   DesktopContent,
