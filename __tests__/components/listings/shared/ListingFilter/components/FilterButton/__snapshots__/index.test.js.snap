@@ -41,10 +41,6 @@ exports[`<FilterButton/> should render component 1`] = `
   height: 32px;
 }
 
-.c0:last-child {
-  margin-right: 0;
-}
-
 .c2 {
   width: -webkit-max-content;
   width: -moz-max-content;

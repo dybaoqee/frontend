@@ -23,7 +23,7 @@ class FilterPanel extends PureComponent {
       top = panelPosition.top
     }
     return (
-      <Container show={show} left={left} top={top}>
+      <Container elevation={4} show={show} left={left} top={top}>
         <Wrapper>
           <MobileContent>
             <Row justifyContent="flex-end" width={1} onClick={this.props.close}><Icon name="times" /></Row>
