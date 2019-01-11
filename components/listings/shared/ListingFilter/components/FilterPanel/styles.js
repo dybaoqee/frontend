@@ -12,25 +12,9 @@ const Container = styled(View)`
   display: ${({show}) => show ? 'block' : 'none'};
   top: ${({top}) => top ? `calc(${top}px - ${OFFSET_TOP}px)` : '0'};
   left: ${({left}) => left ? `${left}px` : '0'};
-  border-radius: 4px;
-  box-shadow: 0px 0px 8px -1px rgba(0,0,0,0.2);
-
-  &::before {
-    content: '';
-    position: absolute;
-    z-index: 1;
-    top: -8px;
-    left: 30px;
-    width: 15px;
-    height: 15px;
-    transform: rotate(-225deg);
-    background-color: ${theme.colors.white};
-    box-shadow: 0px 0px 8px -1px rgba(0,0,0,0.2);
-
-    @media screen and (max-width: ${theme.breakpoints[0]}) {
-      content: unset;
-    }
-  }
+  padding: ${theme.space[2]}px;
+  background-color: ${theme.colors.white};
+  width: ${MAX_FILTER_PANEL_DESKTOP_WIDTH}px;
 
   @media screen and (max-width: ${theme.breakpoints[0]}) {
     position: fixed;
@@ -44,12 +28,6 @@ const Container = styled(View)`
 `
 
 const Wrapper = styled(View)`
-  position: relative;
-  z-index: 2;
-  padding: ${theme.space[2]}px;
-  background-color: ${theme.colors.white};
-  border-radius: 4px;
-
   @media screen and (max-width: ${theme.breakpoints[0]}) {
     position: relative;
     height: 100%;
