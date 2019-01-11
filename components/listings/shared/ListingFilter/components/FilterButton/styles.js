@@ -9,6 +9,10 @@ const StyledFilterButton = styled(Button)`
   font-size: ${theme.fontSizes[1]}px;
   margin: 0 ${theme.space[2]}px ${theme.space[1]}px 0;
   height: 32px;
+
+  &:last-child {
+    margin-right: 0;
+  }
 `
 
 const ChildrenWrapper = styled(Row)`
