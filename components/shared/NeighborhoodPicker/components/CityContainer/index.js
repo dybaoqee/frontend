@@ -11,11 +11,17 @@ import {
 class CityContainer extends Component {
   render() {
     const { cities } = this.props
+    console.log(cities)
     return (
       <CitiesWrapper>
-        {cities.map((city) =>
-          <Row>
-            <Text size="small">{city.name}</Text>
+        {cities.map((city, i) =>
+          <Row key={i} p={2}>
+            <Text fontSize="small">{city.name}</Text>
+            <Row>
+              {city.neighborhoods.map((neighborhood, j) =>
+                <Button key={j}>{neighborhood.name}</Button>
+              )}
+            </Row>
           </Row>
         )}
       </CitiesWrapper>

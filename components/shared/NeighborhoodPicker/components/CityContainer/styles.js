@@ -10,6 +10,7 @@ import {
 
 const CitiesWrapper = styled(Row)`
   position: absolute;
+  flex-direction: column;
   width: ${SEARCH_CONTAINER_WIDTH}px;
   top: calc(${theme.buttonHeight[0]}px + 6px);
   background-color: ${theme.colors.white};
