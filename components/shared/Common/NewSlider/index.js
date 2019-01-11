@@ -4,6 +4,7 @@ import {
   Container,
   Rail,
   Thumb,
+  Tip,
   RangeValues,
   Value,
   Bar,
@@ -205,9 +206,13 @@ class NewSlider extends Component {
         >
           {isRange && <Bar innerRef={this.bar} />}
           {isRange && (
-            <Thumb aria-label="min" innerRef={this.minThumb} tabIndex="0" isOnTheFront={minThumbOnTheFront} />
+            <Thumb aria-label="min" innerRef={this.minThumb} tabIndex="0" isOnTheFront={minThumbOnTheFront}>
+              <Tip>{valuesFormatter(minValue)}</Tip>
+            </Thumb>
           )}
-          <Thumb aria-label="max" innerRef={this.maxThumb} tabIndex="0" isOnTheFront={!minThumbOnTheFront} />
+          <Thumb aria-label="max" innerRef={this.maxThumb} tabIndex="0" isOnTheFront={!minThumbOnTheFront}>
+            <Tip>{valuesFormatter(maxValue)}</Tip>
+          </Thumb>
         </Rail>
       </Container>
     )
