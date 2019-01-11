@@ -7,16 +7,17 @@ import Icon from '@emcasa/ui-dom/components/Icon'
 
 const HEIGHT_TALL = theme.buttonHeight[0]
 const HEIGHT_MEDIUM = theme.buttonHeight[1]
+const SEARCH_CONTAINER_WIDTH = 560
 
 const SearchContainer = styled(Row)`
-  width: 560px;
+  width: ${SEARCH_CONTAINER_WIDTH}px;
   height: 100%;
 `
 
 const InputContainer = styled(Row)`
   cursor: pointer;
   max-width: 560px;
-  border: 1px solid ${theme.colors.lightGrey};
+  border: 1px solid ${({selected}) => selected ? theme.colors.blue : theme.colors.lightGrey}};
   border-radius: ${theme.space[1]}px;
   display: flex;
   align-items: center;
@@ -35,5 +36,6 @@ const SearchTextContainer = styled(Row)`
 export {
   InputContainer,
   SearchContainer,
-  SearchTextContainer
+  SearchTextContainer,
+  SEARCH_CONTAINER_WIDTH
 }

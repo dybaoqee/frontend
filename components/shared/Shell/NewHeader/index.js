@@ -60,7 +60,6 @@ export default class Header extends Component {
     this.setState({isMobileNavVisible: !isMobileNavVisible})
   }
 
-
   componentDidMount() {
     window.addEventListener('scroll', this.onScroll)
   }

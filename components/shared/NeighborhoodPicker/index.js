@@ -5,6 +5,7 @@ import Text from '@emcasa/ui-dom/components/Text'
 import Row from '@emcasa/ui-dom/components/Row'
 import Icon from '@emcasa/ui-dom/components/Icon'
 import Col from '@emcasa/ui-dom/components/Col'
+import CityContainer from './components/CityContainer'
 import { GET_DISTRICTS } from 'graphql/listings/queries'
 import { cities } from 'constants/cities'
 import {
@@ -53,8 +54,8 @@ class NeighborhoodPicker extends Component {
   render() {
     return (
       <SearchContainer>
-        <Col width={1}>
-          <InputContainer onClick={this.toggleCities}>
+        <Col width={1} style={{zIndex: 1}}>
+          <InputContainer onClick={this.toggleCities} selected={this.state.showCities}>
             <SearchTextContainer>
               <Icon name="map-marker-alt" px={3} pt={1} size={21} /><Text color="grey">Selecione os bairros desejados</Text>
             </SearchTextContainer>
@@ -63,6 +64,7 @@ class NeighborhoodPicker extends Component {
             </Col>
           </InputContainer>
         </Col>
+        {this.state.showCities && <CityContainer cities={this.state.cities} />}
       </SearchContainer>
     )
   }
