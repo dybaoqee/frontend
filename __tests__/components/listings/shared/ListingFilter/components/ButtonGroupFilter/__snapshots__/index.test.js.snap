@@ -76,12 +76,20 @@ exports[`<ButtonGroupFilter/> should render component 1`] = `
   height: 32px;
 }
 
+.c1:last-child {
+  margin-right: 0;
+}
+
 .c5 {
   border: 1px solid #f50057;
   color: #ffffff;
   font-size: 14px;
   margin: 0 10px 4px 0;
   height: 32px;
+}
+
+.c5:last-child {
+  margin-right: 0;
 }
 
 .c3 {
