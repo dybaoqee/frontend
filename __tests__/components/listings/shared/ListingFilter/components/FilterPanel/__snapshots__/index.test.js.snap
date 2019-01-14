@@ -171,6 +171,10 @@ exports[`<FilterPanel/> should render component 1`] = `
   width: 100%;
 }
 
+.c7 Button {
+  font-size: 14px;
+}
+
 .c2 {
   display: none;
   padding: 0;
