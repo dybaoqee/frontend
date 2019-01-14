@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import enhanceWithClickOutside from 'react-click-outside'
 import * as Sentry from '@sentry/browser'
 import Text from '@emcasa/ui-dom/components/Text'
 import Row from '@emcasa/ui-dom/components/Row'
@@ -28,6 +29,12 @@ class NeighborhoodPicker extends Component {
 
   componentWillMount() {
     this.getCities()
+  }
+
+  handleClickOutside() {
+    if (this.state.showCities) {
+      this.toggleCities()
+    }
   }
 
   async getCities() {
@@ -70,4 +77,8 @@ class NeighborhoodPicker extends Component {
   }
 }
 
-export default NeighborhoodPicker
+NeighborhoodPicker.propTypes = {
+
+}
+
+export default enhanceWithClickOutside(NeighborhoodPicker)
