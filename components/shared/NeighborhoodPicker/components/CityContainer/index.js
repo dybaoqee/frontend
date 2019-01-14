@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { clone } from 'utils/clone'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
@@ -20,7 +21,15 @@ class CityContainer extends Component {
   }
 
   selectNeighborhood(neighborhood) {
-
+    let selectedNeighborhoods = clone(this.state.selected)
+    if (selectedNeighborhoods.includes(neighborhood.nameSlug)) {
+      selectedNeighborhoods = selectedNeighborhoods.filter((slug) => slug !== neighborhood.nameSlug)
+    } else {
+      selectedNeighborhoods.push(neighborhood.nameSlug)
+    }
+    this.setState({
+      selected: selectedNeighborhoods
+    })
   }
 
   render() {
