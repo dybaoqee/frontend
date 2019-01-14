@@ -15,9 +15,7 @@ class FilterButton extends PureComponent {
         active={this.props.active}
         onClick={this.props.onClick}
       >
-        <ChildrenWrapper>
-          {this.props.children}
-        </ChildrenWrapper>
+        {this.props.children}
       </StyledFilterButton>
     )
   }

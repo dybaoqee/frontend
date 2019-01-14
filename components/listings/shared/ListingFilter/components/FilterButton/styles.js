@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import theme from '@emcasa/ui'
 import Button from '@emcasa/ui-dom/components/Button'
-import Row from '@emcasa/ui-dom/components/Row'
 
 const StyledFilterButton = styled(Button)`
   border: 1px solid ${theme.colors.pink};
@@ -13,10 +12,6 @@ const StyledFilterButton = styled(Button)`
   &:last-child {
     margin-right: 0;
   }
-`
-
-const ChildrenWrapper = styled(Row)`
-  width: max-content;
 `
 
 export {
