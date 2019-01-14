@@ -37,6 +37,5 @@ const StyledFilterButton = styled(Button)`
 `
 
 export {
-  StyledFilterButton,
-  ChildrenWrapper
+  StyledFilterButton
 }
