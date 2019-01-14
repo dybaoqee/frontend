@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import theme from '@emcasa/ui'
 import View from '@emcasa/ui-dom/components/View'
 import Row from '@emcasa/ui-dom/components/Row'
+import Button from '@emcasa/ui-dom/components/Button'
 
 const OFFSET_TOP = 32
 const WRAPPER_PADDING = theme.space[4] * 2
@@ -70,6 +71,10 @@ const ActionsWrapper = styled(Row)`
     margin: 0;
     bottom: calc(20px + ${WRAPPER_PADDING}px);
     width: calc(100% - ${WRAPPER_PADDING}px);
+  }
+
+  Button {
+    font-size: ${theme.fontSizes[1]}px;
   }
 `
 

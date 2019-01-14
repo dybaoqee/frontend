@@ -6,6 +6,7 @@ import {
   Thumb,
   RangeValues,
   Value,
+  Separator,
   Bar,
   THUMB_SIZE
 } from './styles'
@@ -193,8 +194,9 @@ class NewSlider extends Component {
       <Container>
         {isRange && (
           <RangeValues>
-            <Value>${valuesFormatter(minValue)}</Value>
-            <Value>${valuesFormatter(maxValue)}</Value>
+            <Value textAlign="right">{valuesFormatter(minValue)}</Value>
+            <Value margin>/</Value>
+            <Value textAlign="left">{valuesFormatter(maxValue)}</Value>
           </RangeValues>
         )}
         <Rail
