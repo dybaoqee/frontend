@@ -4,7 +4,7 @@ import View from '@emcasa/ui-dom/components/View'
 import Row from '@emcasa/ui-dom/components/Row'
 import Button from '@emcasa/ui-dom/components/Button'
 
-const OFFSET_TOP = 32
+const OFFSET_TOP = 26
 const WRAPPER_PADDING = theme.space[4] * 2
 const MAX_FILTER_PANEL_DESKTOP_WIDTH = 300
 
@@ -15,23 +15,6 @@ const Container = styled(View)`
   left: ${({left}) => left ? `${left}px` : '0'};
   border-radius: 4px;
   box-shadow: 0px 0px 8px -1px rgba(0,0,0,0.2);
-
-  &::before {
-    content: '';
-    position: absolute;
-    z-index: 1;
-    top: -8px;
-    left: 30px;
-    width: 15px;
-    height: 15px;
-    transform: rotate(-225deg);
-    background-color: ${theme.colors.white};
-    box-shadow: 0px 0px 8px -1px rgba(0,0,0,0.2);
-
-    @media screen and (max-width: ${theme.breakpoints[0]}) {
-      content: unset;
-    }
-  }
 
   @media screen and (max-width: ${theme.breakpoints[0]}) {
     position: fixed;

@@ -13,6 +13,7 @@ class FilterButton extends PureComponent {
         mb={2}
         px={[2, 3]}
         active={this.props.active}
+        open={this.props.open}
         onClick={this.props.onClick}
       >
         {this.props.children}
