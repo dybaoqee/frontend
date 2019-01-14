@@ -71,7 +71,7 @@ class NeighborhoodPicker extends Component {
             </Col>
           </InputContainer>
         </Col>
-        {this.state.showCities && <CityContainer cities={this.state.cities} />}
+        {this.state.showCities && <CityContainer cities={this.state.cities} onSelect={this.onSelect} />}
       </SearchContainer>
     )
   }

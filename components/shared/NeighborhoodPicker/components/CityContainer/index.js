@@ -10,19 +10,31 @@ import {
 } from './styles'
 
 class CityContainer extends Component {
+  constructor(props) {
+    super(props)
+    this.selectNeighborhood = this.selectNeighborhood.bind(this)
+
+    this.state = {
+      selected: []
+    }
+  }
+
+  selectNeighborhood(neighborhood) {
+
+  }
+
   render() {
     const { cities } = this.props
-    console.log(cities)
     return (
-      <CitiesWrapper>
+      <CitiesWrapper p={2}>
         {cities.map((city, i) =>
-          <Row key={i} p={2} flexDirection="column">
+          <Row key={i} flexDirection="column">
             <Col><Text fontSize="small">{city.name}</Text></Col>
             <Col>
               <Row flexWrap="wrap">
                 {city.neighborhoods.map((neighborhood, j) =>
                   <View mr={2} mb={2}>
-                    <Button key={j}>{neighborhood.name}</Button>
+                    <Button key={j} onClick={() => {this.selectNeighborhood(neighborhood)}}>{neighborhood.name}</Button>
                   </View>
                 )}
                 <Button link>Ver todos</Button>
@@ -30,6 +42,10 @@ class CityContainer extends Component {
             </Col>
           </Row>
         )}
+        <Row justifyContent="space-between">
+          <Button>Limpar</Button>
+          <Button>Aplicar</Button>
+        </Row>
       </CitiesWrapper>
     )
   }

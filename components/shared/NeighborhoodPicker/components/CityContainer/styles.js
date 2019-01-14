@@ -1,9 +1,6 @@
 import styled from 'styled-components'
-import { themeGet } from 'styled-system'
 import theme from '@emcasa/ui'
-import View from '@emcasa/ui-dom/components/View'
 import Row from '@emcasa/ui-dom/components/Row'
-import Icon from '@emcasa/ui-dom/components/Icon'
 import {
   SEARCH_CONTAINER_WIDTH
 } from '../../styles'
