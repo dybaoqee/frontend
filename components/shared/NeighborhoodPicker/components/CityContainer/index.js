@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { clone } from 'utils/clone'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
 import Button from '@emcasa/ui-dom/components/Button'
 import Text from '@emcasa/ui-dom/components/Text'
+import { updateSelection } from './selection'
 import {
   CitiesWrapper
 } from './styles'
@@ -13,23 +13,16 @@ import {
 class CityContainer extends Component {
   constructor(props) {
     super(props)
-    this.selectNeighborhood = this.selectNeighborhood.bind(this)
+    this.changeSelection = this.changeSelection.bind(this)
 
     this.state = {
       selected: []
     }
   }
 
-  selectNeighborhood(neighborhood) {
-    let selectedNeighborhoods = clone(this.state.selected)
-    if (selectedNeighborhoods.includes(neighborhood.nameSlug)) {
-      selectedNeighborhoods = selectedNeighborhoods.filter((slug) => slug !== neighborhood.nameSlug)
-    } else {
-      selectedNeighborhoods.push(neighborhood.nameSlug)
-    }
-    this.setState({
-      selected: selectedNeighborhoods
-    })
+  changeSelection(neighborhood) {
+    const newSelection = updateSelection(this.state.selected, neighborhood)
+    this.setState({ selected: newSelection })
   }
 
   render() {
@@ -43,7 +36,7 @@ class CityContainer extends Component {
               <Row flexWrap="wrap">
                 {city.neighborhoods.map((neighborhood, j) =>
                   <View mr={2} mb={2}>
-                    <Button key={j} onClick={() => {this.selectNeighborhood(neighborhood)}}>{neighborhood.name}</Button>
+                    <Button key={j} onClick={() => {this.changeSelection(neighborhood.nameSlug)}}>{neighborhood.name}</Button>
                   </View>
                 )}
                 <Button link>Ver todos</Button>
