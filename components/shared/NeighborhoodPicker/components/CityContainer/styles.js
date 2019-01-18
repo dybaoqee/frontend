@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import theme from '@emcasa/ui'
 import Row from '@emcasa/ui-dom/components/Row'
+import Button from '@emcasa/ui-dom/components/Button'
 import {
   SEARCH_CONTAINER_WIDTH
 } from '../../styles'
@@ -16,6 +17,14 @@ const CitiesWrapper = styled(Row)`
   box-sizing: border-box;
 `
 
+const NeighborhoodButton = styled(Button)`
+  :hover {
+    border: 1px solid ${theme.colors.pink};
+
+  }
+`
+
 export {
-  CitiesWrapper
+  CitiesWrapper,
+  NeighborhoodButton
 }

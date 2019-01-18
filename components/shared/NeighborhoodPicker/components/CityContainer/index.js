@@ -9,7 +9,8 @@ import {
   isNeighborhoodSelected
 } from '../../selection'
 import {
-  CitiesWrapper
+  CitiesWrapper,
+  NeighborhoodButton
 } from './styles'
 
 const MAX_INITIAL_ITEMS = 3
@@ -44,7 +45,7 @@ class CityContainer extends Component {
                     const isSelected = isNeighborhoodSelected(selectedNeighborhoods, neighborhood.nameSlug)
                     return (
                       <View mr={2} mb={2}>
-                        <Button key={j} active={isSelected} onClick={() => {changeSelection(neighborhood.nameSlug)}}>{neighborhood.name}</Button>
+                        <NeighborhoodButton key={j} active={isSelected} onClick={() => {changeSelection(neighborhood.nameSlug)}}>{neighborhood.name}</NeighborhoodButton>
                       </View>
                     )
                   })}
