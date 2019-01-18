@@ -10,14 +10,26 @@ import {
   CitiesWrapper
 } from './styles'
 
+const MAX_INITIAL_ITEMS = 3
+
 class CityContainer extends Component {
   constructor(props) {
     super(props)
+    this.expand = this.expand.bind(this)
     this.changeSelection = this.changeSelection.bind(this)
 
     this.state = {
-      selected: []
+      selected: [],
+      expanded: []
     }
+  }
+
+  expand(city) {
+    let newExpanded = this.state.expanded
+    newExpanded.push(city)
+    this.setState({
+      expanded: newExpanded
+    })
   }
 
   changeSelection(neighborhood) {
@@ -29,21 +41,31 @@ class CityContainer extends Component {
     const { cities } = this.props
     return (
       <CitiesWrapper p={2}>
-        {cities.map((city, i) =>
-          <Row key={i} flexDirection="column">
-            <Col><Text fontSize="small">{city.name}</Text></Col>
-            <Col>
-              <Row flexWrap="wrap">
-                {city.neighborhoods.map((neighborhood, j) =>
-                  <View mr={2} mb={2}>
-                    <Button key={j} onClick={() => {this.changeSelection(neighborhood.nameSlug)}}>{neighborhood.name}</Button>
-                  </View>
-                )}
-                <Button link>Ver todos</Button>
-              </Row>
-            </Col>
-          </Row>
-        )}
+        {cities.map((city, i) => {
+          let showExpandAll = false
+          let isCityExpanded = this.state.expanded.includes(city)
+          return (
+            <Row key={i} flexDirection="column">
+              <Col><Text fontSize="small">{city.name}</Text></Col>
+              <Col>
+                <Row flexWrap="wrap">
+                  {city.neighborhoods.map((neighborhood, j) => {
+                    showExpandAll = j > MAX_INITIAL_ITEMS
+                    if (!isCityExpanded && j >= MAX_INITIAL_ITEMS) {
+                      return null
+                    }
+                    return (
+                      <View mr={2} mb={2}>
+                        <Button key={j} onClick={() => {this.changeSelection(neighborhood.nameSlug)}}>{neighborhood.name}</Button>
+                      </View>
+                    )
+                  })}
+                  {(showExpandAll && !isCityExpanded) && <Button link onClick={() => {this.expand(city)}}>Ver todos</Button>}
+                </Row>
+              </Col>
+            </Row>
+          )
+        })}
         <Row justifyContent="space-between">
           <Button>Limpar</Button>
           <Button>Aplicar</Button>
