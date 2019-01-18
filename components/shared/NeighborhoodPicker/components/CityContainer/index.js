@@ -21,7 +21,9 @@ class CityContainer extends Component {
       expand,
       expanded,
       changeSelection,
-      selectedNeighborhoods
+      selectedNeighborhoods,
+      clear,
+      apply
     } = this.props
 
     return (
@@ -53,8 +55,8 @@ class CityContainer extends Component {
           )
         })}
         <Row justifyContent="space-between">
-          <Button>Limpar</Button>
-          <Button>Aplicar</Button>
+          <Button p={0} link color="dark" onClick={clear}>Limpar</Button>
+          <Button p={0} link onClick={apply}>Aplicar</Button>
         </Row>
       </CitiesWrapper>
     )
@@ -66,7 +68,9 @@ CityContainer.propTypes = {
   expand: PropTypes.func.isRequired,
   expanded: PropTypes.bool.isRequired,
   changeSelection: PropTypes.func.isRequired,
-  selectedNeighborhoods: PropTypes.func.isRequired
+  selectedNeighborhoods: PropTypes.func.isRequired,
+  clear: PropTypes.func.isRequired,
+  apply: PropTypes.func.isRequired
 }
 
 export default CityContainer

@@ -24,6 +24,8 @@ class NeighborhoodPicker extends Component {
     this.toggleCities = this.toggleCities.bind(this)
     this.changeSelection = this.changeSelection.bind(this)
     this.expand = this.expand.bind(this)
+    this.clear = this.clear.bind(this)
+    this.apply = this.apply.bind(this)
 
     this.state = {
       cities: [],
@@ -43,6 +45,14 @@ class NeighborhoodPicker extends Component {
     this.setState({
       expanded: newExpanded
     })
+  }
+
+  clear() {
+    this.setState({selectedNeighborhoods: []})
+  }
+
+  apply() {
+
   }
 
   changeSelection(neighborhood) {
@@ -97,6 +107,8 @@ class NeighborhoodPicker extends Component {
             expanded={this.state.expanded}
             changeSelection={this.changeSelection}
             expand={this.expand}
+            clear={this.clear}
+            apply={this.apply}
           />}
       </SearchContainer>
     )
