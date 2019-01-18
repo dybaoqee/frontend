@@ -11,13 +11,6 @@ exports[`<ButtonGroupFilter/> should render component 1`] = `
   flex-wrap: wrap;
 }
 
-.c4 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
 .c2 {
   outline: none;
   cursor: pointer;
@@ -43,7 +36,7 @@ exports[`<ButtonGroupFilter/> should render component 1`] = `
   background-color: #ffffff;
 }
 
-.c6 {
+.c4 {
   outline: none;
   cursor: pointer;
   padding: 0 20px 0 20px;
@@ -64,30 +57,34 @@ exports[`<ButtonGroupFilter/> should render component 1`] = `
   border-style: solid;
 }
 
-.c6 :hover {
+.c4 :hover {
   background-color: #f50057;
 }
 
 .c1 {
+  position: relative;
+  height: 32px;
+  margin: 0 10px 4px 0;
   border: 1px solid #f50057;
   color: #f50057;
   font-size: 14px;
-  margin: 0 10px 4px 0;
-  height: 32px;
 }
 
-.c5 {
-  border: 1px solid #f50057;
-  color: #ffffff;
-  font-size: 14px;
-  margin: 0 10px 4px 0;
-  height: 32px;
+.c1:last-child {
+  margin-right: 0;
 }
 
 .c3 {
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
+  position: relative;
+  height: 32px;
+  margin: 0 10px 4px 0;
+  border: 1px solid #f50057;
+  color: #ffffff;
+  font-size: 14px;
+}
+
+.c3:last-child {
+  margin-right: 0;
 }
 
 @media screen and (min-width:780px) {
@@ -98,7 +95,7 @@ exports[`<ButtonGroupFilter/> should render component 1`] = `
 }
 
 @media screen and (min-width:780px) {
-  .c6 {
+  .c4 {
     padding-left: 14px;
     padding-right: 14px;
   }
@@ -114,23 +111,15 @@ exports[`<ButtonGroupFilter/> should render component 1`] = `
     height="medium"
     onClick={[Function]}
   >
-    <div
-      className="c3 c4"
-    >
-      Sem vagas
-    </div>
+    Sem vagas
   </button>
   <button
-    className="c5 c6"
+    className="c3 c4"
     fontSize="default"
     height="medium"
     onClick={[Function]}
   >
-    <div
-      className="c3 c4"
-    >
-      1
-    </div>
+    1
   </button>
   <button
     className="c1 c2"
@@ -138,11 +127,7 @@ exports[`<ButtonGroupFilter/> should render component 1`] = `
     height="medium"
     onClick={[Function]}
   >
-    <div
-      className="c3 c4"
-    >
-      2
-    </div>
+    2
   </button>
   <button
     className="c1 c2"
@@ -150,11 +135,7 @@ exports[`<ButtonGroupFilter/> should render component 1`] = `
     height="medium"
     onClick={[Function]}
   >
-    <div
-      className="c3 c4"
-    >
-      3
-    </div>
+    3
   </button>
   <button
     className="c1 c2"
@@ -162,11 +143,7 @@ exports[`<ButtonGroupFilter/> should render component 1`] = `
     height="medium"
     onClick={[Function]}
   >
-    <div
-      className="c3 c4"
-    >
-      4
-    </div>
+    4
   </button>
   <button
     className="c1 c2"
@@ -174,11 +151,7 @@ exports[`<ButtonGroupFilter/> should render component 1`] = `
     height="medium"
     onClick={[Function]}
   >
-    <div
-      className="c3 c4"
-    >
-      +
-    </div>
+    +
   </button>
 </div>
 `;

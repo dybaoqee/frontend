@@ -96,8 +96,9 @@ function userHasSelectedType(userFilters, homeType) {
  *
  * @param {object} filters selected filters.
  * @param {function} showFilter function that is called when user clicks the filter button.
+ * @param {function} getOpenButton function that is called to check if button is open
  */
-function getFilterButtons(filters, showFilter) {
+function getFilterButtons(filters, showFilter, getOpenButton) {
   const selectedFilters = getActiveFilters(filters)
   const selectedFiltersArray = selectedFilters.map((item) => item.filter)
 
@@ -115,6 +116,7 @@ function getFilterButtons(filters, showFilter) {
         <FilterButton
           key={item.code}
           active={true}
+          open={getOpenButton(filterItem.code)}
           onClick={(e) => { showFilter(filterItem.code, e) }}
         >
           {getFilterLabel(filters, filterItem.code)}
@@ -125,6 +127,7 @@ function getFilterButtons(filters, showFilter) {
         <FilterButton
           key={item.code}
           active={false}
+          open={getOpenButton(filterItem.code)}
           onClick={(e) => { showFilter(filterItem.code, e) }}
         >
           {getFilterLabel(filters, filterItem.code)}

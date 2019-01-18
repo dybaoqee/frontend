@@ -1,13 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<FilterButton/> should render component 1`] = `
-.c3 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
 .c1 {
   outline: none;
   cursor: pointer;
@@ -34,17 +27,16 @@ exports[`<FilterButton/> should render component 1`] = `
 }
 
 .c0 {
+  position: relative;
+  height: 32px;
+  margin: 0 10px 4px 0;
   border: 1px solid #f50057;
   color: #f50057;
   font-size: 14px;
-  margin: 0 10px 4px 0;
-  height: 32px;
 }
 
-.c2 {
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
+.c0:last-child {
+  margin-right: 0;
 }
 
 @media screen and (min-width:780px) {
@@ -59,9 +51,5 @@ exports[`<FilterButton/> should render component 1`] = `
   fontSize="default"
   height="medium"
   onClick={[Function]}
->
-  <div
-    className="c2 c3"
-  />
-</button>
+/>
 `;

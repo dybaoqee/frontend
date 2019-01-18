@@ -46,6 +46,7 @@ class ListingFilter extends Component {
     this.restorePreviousValues = this.restorePreviousValues.bind(this)
     this.showFilter = this.showFilter.bind(this)
     this.toggleFilters = this.toggleFilters.bind(this)
+    this.getOpenButton = this.getOpenButton.bind(this)
 
     const initialValues = {...props.initialFilters}
     if (props.initialFilters.neighborhoods) {
@@ -139,6 +140,25 @@ class ListingFilter extends Component {
     })
   }
 
+  getOpenButton(filter) {
+    switch (filter) {
+      case FILTERS.TYPES.code:
+        return this.state.showType
+      case FILTERS.AREA.code:
+        return this.state.showArea
+      case FILTERS.AREA.code:
+        return this.state.showArea
+      case FILTERS.PRICE.code:
+        return this.state.showPrice
+      case FILTERS.ROOMS.code:
+        return this.state.showRooms
+      case FILTERS.GARAGE_SPOTS.code:
+        return this.state.showGarage
+      default:
+        return false
+    }
+  }
+
   applyFilters(filter) {
     const newValues = clone(this.state.values)
     if (filter) {
@@ -216,7 +236,7 @@ class ListingFilter extends Component {
             <Container isFilterOpen={isFilterOpen}>
               <Overlay onClick={() => {this.hideAllFilters(); this.restorePreviousValues();}} />
               <ButtonsWrapper expanded={this.state.expanded}>
-                {getFilterButtons(this.props.filters, this.showFilter)}
+                {getFilterButtons(this.props.filters, this.showFilter, this.getOpenButton)}
                 <ExpandButton
                   expanded={this.state.expanded}
                   onClick={this.toggleFilters}

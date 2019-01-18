@@ -1,8 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import {
-  StyledFilterButton,
-  ChildrenWrapper
+  StyledFilterButton
 } from './styles'
 
 class FilterButton extends PureComponent {
@@ -13,11 +12,10 @@ class FilterButton extends PureComponent {
         mb={2}
         px={[2, 3]}
         active={this.props.active}
+        open={this.props.open}
         onClick={this.props.onClick}
       >
-        <ChildrenWrapper>
-          {this.props.children}
-        </ChildrenWrapper>
+        {this.props.children}
       </StyledFilterButton>
     )
   }
