@@ -3,12 +3,14 @@ import PropTypes from 'prop-types'
 import enhanceWithClickOutside from 'react-click-outside'
 import * as Sentry from '@sentry/browser'
 import Text from '@emcasa/ui-dom/components/Text'
-import Row from '@emcasa/ui-dom/components/Row'
 import Icon from '@emcasa/ui-dom/components/Icon'
 import Col from '@emcasa/ui-dom/components/Col'
 import CityContainer from './components/CityContainer'
 import { GET_DISTRICTS } from 'graphql/listings/queries'
 import { cities } from 'constants/cities'
+import {
+  updateSelection
+} from './selection'
 import {
   InputContainer,
   SearchContainer,
@@ -20,15 +22,32 @@ class NeighborhoodPicker extends Component {
     super(props)
     this.getCities = this.getCities.bind(this)
     this.toggleCities = this.toggleCities.bind(this)
+    this.changeSelection = this.changeSelection.bind(this)
+    this.expand = this.expand.bind(this)
 
     this.state = {
       cities: [],
+      selectedNeighborhoods: [],
+      expanded: [],
       showCities: false
     }
   }
 
   componentWillMount() {
     this.getCities()
+  }
+
+  expand(city) {
+    let newExpanded = this.state.expanded
+    newExpanded.push(city)
+    this.setState({
+      expanded: newExpanded
+    })
+  }
+
+  changeSelection(neighborhood) {
+    const newSelection = updateSelection(this.state.selectedNeighborhoods, neighborhood)
+    this.setState({ selectedNeighborhoods: newSelection })
   }
 
   handleClickOutside() {
@@ -71,7 +90,14 @@ class NeighborhoodPicker extends Component {
             </Col>
           </InputContainer>
         </Col>
-        {this.state.showCities && <CityContainer cities={this.state.cities} onSelect={this.onSelect} />}
+        {this.state.showCities &&
+          <CityContainer
+            cities={this.state.cities}
+            selectedNeighborhoods={this.state.selectedNeighborhoods}
+            expanded={this.state.expanded}
+            changeSelection={this.changeSelection}
+            expand={this.expand}
+          />}
       </SearchContainer>
     )
   }

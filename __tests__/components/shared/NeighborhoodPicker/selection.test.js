@@ -1,4 +1,4 @@
-import { updateSelection } from 'components/shared/NeighborhoodPicker/components/CityContainer/selection'
+import { updateSelection } from 'components/shared/NeighborhoodPicker/selection'
 
 describe('neighborhood selection test', () => {
   it('should add a neighborhood to selection', () => {

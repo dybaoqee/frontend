@@ -6,9 +6,8 @@ import View from '@emcasa/ui-dom/components/View'
 import Button from '@emcasa/ui-dom/components/Button'
 import Text from '@emcasa/ui-dom/components/Text'
 import {
-  updateSelection,
   isNeighborhoodSelected
-} from './selection'
+} from '../../selection'
 import {
   CitiesWrapper
 } from './styles'
@@ -16,37 +15,20 @@ import {
 const MAX_INITIAL_ITEMS = 3
 
 class CityContainer extends Component {
-  constructor(props) {
-    super(props)
-    this.expand = this.expand.bind(this)
-    this.changeSelection = this.changeSelection.bind(this)
-
-    this.state = {
-      selected: [],
-      expanded: []
-    }
-  }
-
-  expand(city) {
-    let newExpanded = this.state.expanded
-    newExpanded.push(city)
-    this.setState({
-      expanded: newExpanded
-    })
-  }
-
-  changeSelection(neighborhood) {
-    const newSelection = updateSelection(this.state.selected, neighborhood)
-    this.setState({ selected: newSelection })
-  }
-
   render() {
-    const { cities } = this.props
+    const {
+      cities,
+      expand,
+      expanded,
+      changeSelection,
+      selectedNeighborhoods
+    } = this.props
+
     return (
       <CitiesWrapper p={2}>
         {cities.map((city, i) => {
           let showExpandAll = false
-          let isCityExpanded = this.state.expanded.includes(city)
+          let isCityExpanded = expanded.includes(city)
           return (
             <Row key={i} flexDirection="column">
               <Col><Text fontSize="small">{city.name}</Text></Col>
@@ -57,14 +39,14 @@ class CityContainer extends Component {
                     if (!isCityExpanded && j >= MAX_INITIAL_ITEMS) {
                       return null
                     }
-                    const isSelected = isNeighborhoodSelected(this.state.selected, neighborhood.nameSlug)
+                    const isSelected = isNeighborhoodSelected(selectedNeighborhoods, neighborhood.nameSlug)
                     return (
                       <View mr={2} mb={2}>
-                        <Button key={j} active={isSelected} onClick={() => {this.changeSelection(neighborhood.nameSlug)}}>{neighborhood.name}</Button>
+                        <Button key={j} active={isSelected} onClick={() => {changeSelection(neighborhood.nameSlug)}}>{neighborhood.name}</Button>
                       </View>
                     )
                   })}
-                  {(showExpandAll && !isCityExpanded) && <Button link onClick={() => {this.expand(city)}}>Ver todos</Button>}
+                  {(showExpandAll && !isCityExpanded) && <Button link onClick={() => {expand(city)}}>Ver todos</Button>}
                 </Row>
               </Col>
             </Row>
@@ -80,7 +62,11 @@ class CityContainer extends Component {
 }
 
 CityContainer.propTypes = {
-  cities: PropTypes.array.isRequired
+  cities: PropTypes.array.isRequired,
+  expand: PropTypes.func.isRequired,
+  expanded: PropTypes.bool.isRequired,
+  changeSelection: PropTypes.func.isRequired,
+  selectedNeighborhoods: PropTypes.func.isRequired
 }
 
 export default CityContainer
