@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import Router from 'next/router'
 import enhanceWithClickOutside from 'react-click-outside'
 import * as Sentry from '@sentry/browser'
 import Text from '@emcasa/ui-dom/components/Text'
@@ -8,6 +9,9 @@ import Col from '@emcasa/ui-dom/components/Col'
 import CityContainer from './components/CityContainer'
 import { GET_DISTRICTS } from 'graphql/listings/queries'
 import { cities } from 'constants/cities'
+import {
+  addNeighborhoodsToQuery
+} from 'utils/filter-params.js'
 import {
   updateSelection
 } from './selection'
@@ -52,7 +56,9 @@ class NeighborhoodPicker extends Component {
   }
 
   apply() {
-
+    this.toggleCities()
+    const query = addNeighborhoodsToQuery(window.location.search, this.state.selectedNeighborhoods)
+    Router.push(`/listings${query}`, `/imoveis${query}`, {shallow: true})
   }
 
   changeSelection(neighborhood) {

@@ -1,6 +1,7 @@
 import omit from 'lodash/omit'
 import pickBy from 'lodash/pickBy'
 import identity from 'lodash/identity'
+import union from 'lodash/union'
 
 const filterValid = (object) => omit(object, [undefined])
 
@@ -244,7 +245,7 @@ export const getListingFiltersFromState = ({
 }
 
 /**
- * Reads location info (state, city, neighborhood) from a give URL.
+ * Reads location info (state, city, neighborhood) from a given URL.
  *
  * @param asPath url
  */
@@ -298,4 +299,16 @@ export const getDerivedParams = ({
       tipos
     )
   })
+}
+
+/**
+ * Adds the list of selected neighborhoods to the current search query. This is
+ * done separately because the Neighborhood Search component is separated from
+ * the Listing Filters.
+ *
+ * @param filters current filters.
+ * @param selectedNeighborhoods array of selected neighborhoods.
+ */
+export const addNeighborhoodsToQuery = (filters, selectedNeighborhoods) => {
+  // TODO(tulio)
 }
