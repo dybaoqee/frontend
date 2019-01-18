@@ -10,6 +10,11 @@ function updateSelection(selected, neighborhood) {
   return selectedNeighborhoods
 }
 
+function isNeighborhoodSelected(selected, neighborhood) {
+  return selected.includes(neighborhood)
+}
+
 export {
-  updateSelection
+  updateSelection,
+  isNeighborhoodSelected
 }

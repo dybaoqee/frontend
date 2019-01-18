@@ -5,7 +5,10 @@ import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
 import Button from '@emcasa/ui-dom/components/Button'
 import Text from '@emcasa/ui-dom/components/Text'
-import { updateSelection } from './selection'
+import {
+  updateSelection,
+  isNeighborhoodSelected
+} from './selection'
 import {
   CitiesWrapper
 } from './styles'
@@ -54,9 +57,10 @@ class CityContainer extends Component {
                     if (!isCityExpanded && j >= MAX_INITIAL_ITEMS) {
                       return null
                     }
+                    const isSelected = isNeighborhoodSelected(this.state.selected, neighborhood.nameSlug)
                     return (
                       <View mr={2} mb={2}>
-                        <Button key={j} onClick={() => {this.changeSelection(neighborhood.nameSlug)}}>{neighborhood.name}</Button>
+                        <Button key={j} active={isSelected} onClick={() => {this.changeSelection(neighborhood.nameSlug)}}>{neighborhood.name}</Button>
                       </View>
                     )
                   })}
