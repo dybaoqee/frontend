@@ -10,7 +10,9 @@ import CityContainer from './components/CityContainer'
 import { GET_DISTRICTS } from 'graphql/listings/queries'
 import { cities } from 'constants/cities'
 import {
-  addNeighborhoodsToQuery
+  addNeighborhoodsToQuery,
+  getNewFiltersFromQuery,
+  getDerivedParams
 } from 'utils/filter-params.js'
 import {
   updateSelection
@@ -57,7 +59,7 @@ class NeighborhoodPicker extends Component {
 
   apply() {
     this.toggleCities()
-    const query = addNeighborhoodsToQuery(window.location.search, this.state.selectedNeighborhoods)
+    const query = addNeighborhoodsToQuery(getDerivedParams(this.props.query), this.state.selectedNeighborhoods)
     Router.push(`/listings${query}`, `/imoveis${query}`, {shallow: true})
   }
 
@@ -122,7 +124,7 @@ class NeighborhoodPicker extends Component {
 }
 
 NeighborhoodPicker.propTypes = {
-
+  query: PropTypes.object.isRequired
 }
 
 export default enhanceWithClickOutside(NeighborhoodPicker)

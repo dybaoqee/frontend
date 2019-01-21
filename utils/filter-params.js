@@ -263,6 +263,11 @@ export const getLocationFromPath = (asPath) => {
   return location
 }
 
+/**
+ * Returns a filter object given a query object.
+ *
+ * @param query nextjs' query object.
+ */
 export const getDerivedParams = ({
   preco_minimo,
   preco_maximo,
@@ -284,20 +289,16 @@ export const getDerivedParams = ({
       min: parseInt(area_minima),
       max: parseInt(area_maxima)
     },
-    [quartos_minimo && quartos_maximo ? 'rooms' : undefined]: {
-      min: parseInt(quartos_minimo),
-      max: parseInt(quartos_maximo)
-    },
-    [vagas_minimo && vagas_maximo ? 'garageSpots' : undefined]: {
-      min: parseInt(vagas_minimo),
-      max: parseInt(vagas_maximo)
-    },
-    [bairros && splitParam(bairros).length > 0
-      ? 'neighborhoods'
-      : undefined]: splitParam(bairros),
-    [tipos && splitParam(tipos).length > 0 ? 'types' : undefined]: splitParam(
-      tipos
-    )
+    [quartos_minimo || quartos_maximo ? 'rooms' : undefined]: filterValid({
+      [quartos_minimo ? 'min' : undefined]: parseInt(quartos_minimo),
+      [quartos_maximo ? 'max' : undefined]: parseInt(quartos_maximo)
+    }),
+    [vagas_minimo || vagas_maximo ? 'garageSpots' : undefined]: filterValid({
+      [vagas_minimo ? 'min' : undefined]: parseInt(vagas_minimo),
+      [vagas_maximo ? 'max' : undefined]: parseInt(vagas_maximo)
+    }),
+    [bairros && splitParam(bairros).length > 0 ? 'neighborhoods' : undefined]: splitParam(bairros),
+    [tipos && splitParam(tipos).length > 0 ? 'types' : undefined]: splitParam(tipos)
   })
 }
 
@@ -310,5 +311,6 @@ export const getDerivedParams = ({
  * @param selectedNeighborhoods array of selected neighborhoods.
  */
 export const addNeighborhoodsToQuery = (filters, selectedNeighborhoods) => {
-  // TODO(tulio)
+  filters.neighborhoods = selectedNeighborhoods
+  return `?${treatParams(filters)}`
 }

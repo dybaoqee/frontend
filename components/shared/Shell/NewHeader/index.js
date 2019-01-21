@@ -106,7 +106,9 @@ export default class Header extends Component {
               </div>
             </Link>
             {search && <Row m={4}>
-                <NeighborhoodPicker />
+                <NeighborhoodPicker
+                  query={this.props.router.query}
+                />
               </Row>
             }
             {isMobileNavVisible && <Overlay onClick={this.toggleMobileNavVisibility} />}
