@@ -211,7 +211,7 @@ class Tour extends Component {
                         />
                       }/>
                   </Row>
-                  <Row mb={4}>
+                  {this.state.day && <Row mb={4}>
                     <Field
                       name="time"
                       validate={this.validateTime}
@@ -264,7 +264,7 @@ class Tour extends Component {
                             </CustomTime>}
                         </Col>
                       }/>
-                  </Row>
+                  </Row>}
                   <NavButtons
                     previousStep={this.previousStep}
                     onSubmit={this.done}
