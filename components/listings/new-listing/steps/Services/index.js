@@ -180,15 +180,13 @@ class Services extends Component {
   }
 
   async save() {
-    const { services: { wantsTour } } = this.props
-
     if (!this.state.listingCreated) {
       await this.createListing()
     }
-    if (this.state.listingCreated && !this.state.tourCreated && wantsTour) {
+    if (this.state.listingCreated && !this.state.tourCreated && this.state.wantsTour) {
       await this.createTour()
     }
-    if (this.state.listingCreated && this.state.tourCreated || (this.state.listingCreated && !wantsTour)) {
+    if (this.state.listingCreated && this.state.tourCreated || (this.state.listingCreated && !this.state.wantsTour)) {
       this.nextStep()
     }
   }
@@ -208,11 +206,7 @@ class Services extends Component {
   }
 
   render() {
-    const { services, tour } = this.props
-    let wantsTour
-    if (services) {
-      wantsTour = services.wantsTour
-    }
+    const { tour } = this.props
     const fullTourDateDisplay = getFullTourDateDisplay(tour)
     const tourScheduled = tour && tour.day && tour.time
     return (

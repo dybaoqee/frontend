@@ -69,8 +69,12 @@ class Tour extends Component {
   }
 
   done() {
-    const { navigateTo, updateTour } = this.props
+    const { navigateTo, services, updateTour, updateServices } = this.props
     updateTour(this.state)
+    updateServices({
+      wantsTour: true,
+      tourOptions: services.tourOptions
+    })
     navigateTo('services')
   }
 
@@ -207,7 +211,7 @@ class Tour extends Component {
                         />
                       }/>
                   </Row>
-                  <Row mb={4}>
+                  {this.state.day && <Row mb={4}>
                     <Field
                       name="time"
                       validate={this.validateTime}
@@ -260,7 +264,7 @@ class Tour extends Component {
                             </CustomTime>}
                         </Col>
                       }/>
-                  </Row>
+                  </Row>}
                   <NavButtons
                     previousStep={this.previousStep}
                     onSubmit={this.done}
