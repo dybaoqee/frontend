@@ -75,12 +75,13 @@ class ListingSearch extends Component {
     Router.events.off('routeChangeComplete', this.handleRouteChange)
   }
 
-  handleRouteChange(url) {
+  handleRouteChange() {
     // Take action only when neighborhood changes. We do this here because the component
     // responsible for controlling neighborhood filters is not in the same context as
     // this ListingSearch or the ListingFilter.
     const newFilters = getNewFiltersFromQuery(Router.query)
-    if (newFilters.neighborhoods.toString() !== this.state.filters.neighborhoods.toString()) {
+    if (newFilters.neighborhoods && this.state.filters.neighborhoods &&
+      newFilters.neighborhoods.toString() !== this.state.filters.neighborhoods.toString()) {
       this.setState({
         filters: newFilters
       })
