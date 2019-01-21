@@ -8,10 +8,10 @@ import Icon from '@emcasa/ui-dom/components/Icon'
 import Col from '@emcasa/ui-dom/components/Col'
 import CityContainer from './components/CityContainer'
 import { GET_DISTRICTS } from 'graphql/listings/queries'
+import { Query } from 'react-apollo'
 import { cities } from 'constants/cities'
 import {
   addNeighborhoodsToQuery,
-  getNewFiltersFromQuery,
   getDerivedParams
 } from 'utils/filter-params.js'
 import {
@@ -34,15 +34,10 @@ class NeighborhoodPicker extends Component {
     this.apply = this.apply.bind(this)
 
     this.state = {
-      cities: [],
       selectedNeighborhoods: [],
       expanded: [],
       showCities: false
     }
-  }
-
-  componentWillMount() {
-    this.getCities()
   }
 
   expand(city) {
@@ -74,17 +69,15 @@ class NeighborhoodPicker extends Component {
     }
   }
 
-  async getCities() {
+  getCities(data) {
     try {
-      const { data } = await apolloClient.query({
-        query: GET_DISTRICTS
-      })
       if (data) {
         let citiesNeighborhoods = cities
+        citiesNeighborhoods.forEach((city) => city.neighborhoods = [])
         data.districts.forEach((item) => {
           citiesNeighborhoods.find((city) => city.citySlug === item.citySlug).neighborhoods.push(item)
         })
-        this.setState({cities: citiesNeighborhoods})
+        return citiesNeighborhoods
       }
     } catch (e) {
       Sentry.captureException(e)
@@ -97,28 +90,36 @@ class NeighborhoodPicker extends Component {
 
   render() {
     return (
-      <SearchContainer>
-        <Col width={1} style={{zIndex: 1}}>
-          <InputContainer onClick={this.toggleCities} selected={this.state.showCities}>
-            <SearchTextContainer>
-              <Icon name="map-marker-alt" px={3} pt={1} size={21} /><Text color="grey">Selecione os bairros desejados</Text>
-            </SearchTextContainer>
-            <Col px={3} pt={1}>
-              <Icon name={this.state.showCities ? 'angle-up' : 'angle-down'} />
-            </Col>
-          </InputContainer>
-        </Col>
-        {this.state.showCities &&
-          <CityContainer
-            cities={this.state.cities}
-            selectedNeighborhoods={this.state.selectedNeighborhoods}
-            expanded={this.state.expanded}
-            changeSelection={this.changeSelection}
-            expand={this.expand}
-            clear={this.clear}
-            apply={this.apply}
-          />}
-      </SearchContainer>
+      <Query query={GET_DISTRICTS} ssr={false}>
+        {({data}) => {
+          console.log('got districts')
+          const availableCities = this.getCities(data)
+          return (
+            <SearchContainer>
+              <Col width={1} style={{zIndex: 1}}>
+                <InputContainer onClick={this.toggleCities} selected={this.state.showCities}>
+                  <SearchTextContainer>
+                    <Icon name="map-marker-alt" px={3} pt={1} size={21} /><Text color="grey">Selecione os bairros desejados</Text>
+                  </SearchTextContainer>
+                  <Col px={3} pt={1}>
+                    <Icon name={this.state.showCities ? 'angle-up' : 'angle-down'} />
+                  </Col>
+                </InputContainer>
+              </Col>
+              {this.state.showCities &&
+                <CityContainer
+                  cities={availableCities}
+                  selectedNeighborhoods={this.state.selectedNeighborhoods}
+                  expanded={this.state.expanded}
+                  changeSelection={this.changeSelection}
+                  expand={this.expand}
+                  clear={this.clear}
+                  apply={this.apply}
+                />}
+            </SearchContainer>
+          )
+        }}
+      </Query>
     )
   }
 }

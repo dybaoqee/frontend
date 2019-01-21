@@ -3,9 +3,6 @@ import PropTypes from 'prop-types'
 import includes from 'lodash/includes'
 import remove from 'lodash/remove'
 import NewSlider from 'components/shared/Common/NewSlider'
-import {neighborhoodOptions} from 'constants/listing-filter-options'
-import {Query} from 'react-apollo'
-import {GET_NEIGHBORHOODS} from 'graphql/listings/queries'
 import FilterPanel from './components/FilterPanel'
 import FilterButton from './components/FilterButton'
 import ButtonGroupFilter from './components/ButtonGroupFilter'
@@ -49,14 +46,6 @@ class ListingFilter extends Component {
     this.getOpenButton = this.getOpenButton.bind(this)
 
     const initialValues = {...props.initialFilters}
-    if (props.initialFilters.neighborhoods) {
-      initialValues.neighborhoods = props.initialFilters.neighborhoods.map(
-        (neighborhood) => ({
-          value: neighborhood,
-          label: neighborhood
-        })
-      )
-    }
 
     this.state = {
       values: clone(initialValues),
@@ -212,8 +201,7 @@ class ListingFilter extends Component {
     const {
       filters: {
         rooms,
-        garageSpots,
-        neighborhoods: selectedNeighborhoods
+        garageSpots
       }
     } = this.props
 
@@ -229,134 +217,127 @@ class ListingFilter extends Component {
     const isFilterOpen = this.isFilterOpen()
 
     return (
-      <Query query={GET_NEIGHBORHOODS} ssr={false}>
-        {({data: {neighborhoods = []}}) => {
-          const neighborhoodsOptions = neighborhoodOptions(neighborhoods)
-          return (
-            <Container isFilterOpen={isFilterOpen}>
-              <Overlay onClick={() => {this.hideAllFilters(); this.restorePreviousValues();}} />
-              <ButtonsWrapper expanded={this.state.expanded}>
-                {getFilterButtons(this.props.filters, this.showFilter, this.getOpenButton)}
-                <ExpandButton
-                  expanded={this.state.expanded}
-                  onClick={this.toggleFilters}
-                />
-              </ButtonsWrapper>
-              <FilterPanel
-                filter={FILTERS.TYPES}
-                show={this.state.showType}
-                close={() => {this.hideAllFilters(FILTERS.TYPES.code)}}
-                panelPosition={this.state.panelPosition}
-                apply={() => {this.applyFilters(FILTERS.TYPES.code)}}
-                clear={this.resetFilter.bind(this, FILTERS.TYPES.code)}
-              >
-                <FilterButton
-                  active={userHasSelectedType(this.state.values, 'Apartamento')}
-                  onClick={this.onChangeListingType.bind(this, 'Apartamento')}
-                >
-                  Apartamento
-                </FilterButton>
-                <FilterButton
-                  active={userHasSelectedType(this.state.values, 'Casa')}
-                  onClick={this.onChangeListingType.bind(this, 'Casa')}
-                >
-                  Casa
-                </FilterButton>
-                <FilterButton
-                  active={userHasSelectedType(this.state.values, 'Cobertura')}
-                  onClick={this.onChangeListingType.bind(this, 'Cobertura')}
-                >
-                  Cobertura
-                </FilterButton>
-              </FilterPanel>
-              <FilterPanel
-                filter={FILTERS.AREA}
-                show={this.state.showArea}
-                close={() => {this.hideAllFilters(FILTERS.AREA.code)}}
-                panelPosition={this.state.panelPosition}
-                apply={() => {this.applyFilters(FILTERS.AREA.code)}}
-                clear={this.resetFilter.bind(this, FILTERS.AREA.code)}
-              >
-                <NewSlider
-                  railWidth={MAX_FILTER_PANEL_DESKTOP_WIDTH}
-                  min={AREA_FILTER.MIN}
-                  max={AREA_FILTER.MAX}
-                  values={userArea}
-                  isRange
-                  onChange={this.sliderChanged.bind(this, FILTERS.AREA.code)}
-                  valuesFormatter={(value) => `${value} m²`}
-                />
-              </FilterPanel>
-              <FilterPanel
-                filter={FILTERS.PRICE}
-                show={this.state.showPrice}
-                close={() => {this.hideAllFilters(FILTERS.PRICE.code)}}
-                panelPosition={this.state.panelPosition}
-                apply={() => {this.applyFilters(FILTERS.PRICE.code)}}
-                clear={this.resetFilter.bind(this, FILTERS.PRICE.code)}
-              >
-                <NewSlider
-                  railWidth={MAX_FILTER_PANEL_DESKTOP_WIDTH}
-                  min={PRICE_FILTER.MIN}
-                  max={PRICE_FILTER.MAX}
-                  values={userPrice}
-                  isRange
-                  onChange={this.sliderChanged.bind(this, FILTERS.PRICE.code)}
-                  valuesRounder={(value) =>
-                    Math.ceil(value / 10000) * 10000
-                  }
-                  valuesFormatter={(value) =>
-                    ` R$ ${value.toLocaleString('pt-BR')}`
-                  }
-                />
-              </FilterPanel>
-              <FilterPanel
-                filter={FILTERS.ROOMS}
-                show={this.state.showRooms}
-                close={() => {this.hideAllFilters(FILTERS.ROOMS.code)}}
-                panelPosition={this.state.panelPosition}
-                apply={() => {this.applyFilters(FILTERS.ROOMS.code)}}
-                clear={this.resetFilter.bind(this, FILTERS.ROOMS.code)}
-              >
-                <ButtonGroupFilter
-                  initialValue={rooms}
-                  userValue={userRooms && userRooms.min}
-                  onChange={(value) => {this.sliderChanged(FILTERS.ROOMS.code, value, true)}}
-                  values={[
-                    {value: 1, label: '1'},
-                    {value: 2, label: '2'},
-                    {value: 3, label: '3'},
-                    {value: 4, label: '4'},
-                    {value: 5, label: '+'},
-                  ]}
-                />
-              </FilterPanel>
-              <FilterPanel
-                filter={FILTERS.GARAGE_SPOTS}
-                close={() => {this.hideAllFilters(FILTERS.GARAGE_SPOTS.code)}}
-                show={this.state.showGarage}
-                panelPosition={this.state.panelPosition}
-                apply={() => {this.applyFilters(FILTERS.GARAGE_SPOTS.code)}}
-                clear={this.resetFilter.bind(this, FILTERS.GARAGE_SPOTS.code)}
-              >
-                <ButtonGroupFilter
-                  initialValue={garageSpots}
-                  userValue={userGarageSpots && userGarageSpots.min}
-                  onChange={(value) => {this.sliderChanged(FILTERS.GARAGE_SPOTS.code, value, true)}}
-                  values={[
-                    {value: 0, label: 'Sem vagas'},
-                    {value: 1, label: '1'},
-                    {value: 2, label: '2'},
-                    {value: 3, label: '3'},
-                    {value: 4, label: '4'},
-                    {value: 5, label: '+'},
-                  ]}
-                />
-              </FilterPanel>
-            </Container>
-          )
-        }}
-      </Query>
+      <Container isFilterOpen={isFilterOpen}>
+        <Overlay onClick={() => {this.hideAllFilters(); this.restorePreviousValues();}} />
+        <ButtonsWrapper expanded={this.state.expanded}>
+          {getFilterButtons(this.props.filters, this.showFilter, this.getOpenButton)}
+          <ExpandButton
+            expanded={this.state.expanded}
+            onClick={this.toggleFilters}
+          />
+        </ButtonsWrapper>
+        <FilterPanel
+          filter={FILTERS.TYPES}
+          show={this.state.showType}
+          close={() => {this.hideAllFilters(FILTERS.TYPES.code)}}
+          panelPosition={this.state.panelPosition}
+          apply={() => {this.applyFilters(FILTERS.TYPES.code)}}
+          clear={this.resetFilter.bind(this, FILTERS.TYPES.code)}
+        >
+          <FilterButton
+            active={userHasSelectedType(this.state.values, 'Apartamento')}
+            onClick={this.onChangeListingType.bind(this, 'Apartamento')}
+          >
+            Apartamento
+          </FilterButton>
+          <FilterButton
+            active={userHasSelectedType(this.state.values, 'Casa')}
+            onClick={this.onChangeListingType.bind(this, 'Casa')}
+          >
+            Casa
+          </FilterButton>
+          <FilterButton
+            active={userHasSelectedType(this.state.values, 'Cobertura')}
+            onClick={this.onChangeListingType.bind(this, 'Cobertura')}
+          >
+            Cobertura
+          </FilterButton>
+        </FilterPanel>
+        <FilterPanel
+          filter={FILTERS.AREA}
+          show={this.state.showArea}
+          close={() => {this.hideAllFilters(FILTERS.AREA.code)}}
+          panelPosition={this.state.panelPosition}
+          apply={() => {this.applyFilters(FILTERS.AREA.code)}}
+          clear={this.resetFilter.bind(this, FILTERS.AREA.code)}
+        >
+          <NewSlider
+            railWidth={MAX_FILTER_PANEL_DESKTOP_WIDTH}
+            min={AREA_FILTER.MIN}
+            max={AREA_FILTER.MAX}
+            values={userArea}
+            isRange
+            onChange={this.sliderChanged.bind(this, FILTERS.AREA.code)}
+            valuesFormatter={(value) => `${value} m²`}
+          />
+        </FilterPanel>
+        <FilterPanel
+          filter={FILTERS.PRICE}
+          show={this.state.showPrice}
+          close={() => {this.hideAllFilters(FILTERS.PRICE.code)}}
+          panelPosition={this.state.panelPosition}
+          apply={() => {this.applyFilters(FILTERS.PRICE.code)}}
+          clear={this.resetFilter.bind(this, FILTERS.PRICE.code)}
+        >
+          <NewSlider
+            railWidth={MAX_FILTER_PANEL_DESKTOP_WIDTH}
+            min={PRICE_FILTER.MIN}
+            max={PRICE_FILTER.MAX}
+            values={userPrice}
+            isRange
+            onChange={this.sliderChanged.bind(this, FILTERS.PRICE.code)}
+            valuesRounder={(value) =>
+              Math.ceil(value / 10000) * 10000
+            }
+            valuesFormatter={(value) =>
+              ` R$ ${value.toLocaleString('pt-BR')}`
+            }
+          />
+        </FilterPanel>
+        <FilterPanel
+          filter={FILTERS.ROOMS}
+          show={this.state.showRooms}
+          close={() => {this.hideAllFilters(FILTERS.ROOMS.code)}}
+          panelPosition={this.state.panelPosition}
+          apply={() => {this.applyFilters(FILTERS.ROOMS.code)}}
+          clear={this.resetFilter.bind(this, FILTERS.ROOMS.code)}
+        >
+          <ButtonGroupFilter
+            initialValue={rooms}
+            userValue={userRooms && userRooms.min}
+            onChange={(value) => {this.sliderChanged(FILTERS.ROOMS.code, value, true)}}
+            values={[
+              {value: 1, label: '1'},
+              {value: 2, label: '2'},
+              {value: 3, label: '3'},
+              {value: 4, label: '4'},
+              {value: 5, label: '+'},
+            ]}
+          />
+        </FilterPanel>
+        <FilterPanel
+          filter={FILTERS.GARAGE_SPOTS}
+          close={() => {this.hideAllFilters(FILTERS.GARAGE_SPOTS.code)}}
+          show={this.state.showGarage}
+          panelPosition={this.state.panelPosition}
+          apply={() => {this.applyFilters(FILTERS.GARAGE_SPOTS.code)}}
+          clear={this.resetFilter.bind(this, FILTERS.GARAGE_SPOTS.code)}
+        >
+          <ButtonGroupFilter
+            initialValue={garageSpots}
+            userValue={userGarageSpots && userGarageSpots.min}
+            onChange={(value) => {this.sliderChanged(FILTERS.GARAGE_SPOTS.code, value, true)}}
+            values={[
+              {value: 0, label: 'Sem vagas'},
+              {value: 1, label: '1'},
+              {value: 2, label: '2'},
+              {value: 3, label: '3'},
+              {value: 4, label: '4'},
+              {value: 5, label: '+'},
+            ]}
+          />
+        </FilterPanel>
+      </Container>
     )
   }
 }
