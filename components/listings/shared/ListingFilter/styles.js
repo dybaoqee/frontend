@@ -18,8 +18,11 @@ const Container = styled(Row)`
 `
 
 const expandedWrapper = css`
-  overflow: hidden;
   height: 34px;
+
+  @media screen and (max-width: ${theme.breakpoints[0]}) {
+    overflow: hidden;
+  }
 `
 
 const ButtonsWrapper = styled(Row)`

@@ -2,8 +2,9 @@ import styled from 'styled-components'
 import theme from '@emcasa/ui'
 import View from '@emcasa/ui-dom/components/View'
 import Row from '@emcasa/ui-dom/components/Row'
+import Button from '@emcasa/ui-dom/components/Button'
 
-const OFFSET_TOP = 32
+const OFFSET_TOP = 26
 const WRAPPER_PADDING = theme.space[4] * 2
 const MAX_FILTER_PANEL_DESKTOP_WIDTH = 300
 
@@ -12,9 +13,8 @@ const Container = styled(View)`
   display: ${({show}) => show ? 'block' : 'none'};
   top: ${({top}) => top ? `calc(${top}px - ${OFFSET_TOP}px)` : '0'};
   left: ${({left}) => left ? `${left}px` : '0'};
-  padding: ${theme.space[2]}px;
-  background-color: ${theme.colors.white};
-  width: ${MAX_FILTER_PANEL_DESKTOP_WIDTH}px;
+  border-radius: 4px;
+  box-shadow: 0px 0px 8px -1px rgba(0,0,0,0.2);
 
   @media screen and (max-width: ${theme.breakpoints[0]}) {
     position: fixed;
@@ -28,6 +28,12 @@ const Container = styled(View)`
 `
 
 const Wrapper = styled(View)`
+  position: relative;
+  z-index: 2;
+  padding: ${theme.space[2]}px;
+  background-color: ${theme.colors.white};
+  border-radius: 4px;
+
   @media screen and (max-width: ${theme.breakpoints[0]}) {
     position: relative;
     height: 100%;
@@ -48,6 +54,10 @@ const ActionsWrapper = styled(Row)`
     margin: 0;
     bottom: calc(20px + ${WRAPPER_PADDING}px);
     width: calc(100% - ${WRAPPER_PADDING}px);
+  }
+
+  Button {
+    font-size: ${theme.fontSizes[1]}px;
   }
 `
 

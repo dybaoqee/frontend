@@ -4,8 +4,9 @@ import {
   Container,
   Rail,
   Thumb,
-  Tip,
   RangeValues,
+  Value,
+  Separator,
   Bar,
   THUMB_SIZE
 } from './styles'
@@ -35,7 +36,8 @@ class NewSlider extends Component {
       values: {
         minValue: min,
         maxValue: max
-      }
+      },
+      minThumbOnTheFront: false
     }
   }
 
@@ -143,7 +145,10 @@ class NewSlider extends Component {
     }
 
     if (target === this.minThumb.current || target === this.maxThumb.current) {
-      this.setState({used: true})
+      this.setState({
+        used: true,
+        minThumbOnTheFront: target === this.minThumb.current
+      })
       document.addEventListener('touchmove', handleMouseMove)
       document.addEventListener('touchend', handleMouseUp)
       document.addEventListener('mousemove', handleMouseMove)
@@ -184,13 +189,15 @@ class NewSlider extends Component {
       max
     } = this.props
 
-    const {values: {minValue, maxValue}} = this.state
+    const {values: {minValue, maxValue}, minThumbOnTheFront} = this.state
     return (
       <Container>
         {isRange && (
-          <RangeValues>{`${valuesFormatter(minValue)} até ${valuesFormatter(
-            maxValue
-          )}`}</RangeValues>
+          <RangeValues>
+            <Value textAlign="right">{valuesFormatter(minValue)}</Value>
+            <Value margin>/</Value>
+            <Value textAlign="left">{valuesFormatter(maxValue)}</Value>
+          </RangeValues>
         )}
         <Rail
           innerRef={this.rail}
@@ -200,13 +207,9 @@ class NewSlider extends Component {
         >
           {isRange && <Bar innerRef={this.bar} />}
           {isRange && (
-            <Thumb aria-label="min" innerRef={this.minThumb} tabIndex="0">
-              {showValue && <Tip>R$ {minValue.toLocaleString('pt-BR')}</Tip>}
-            </Thumb>
+            <Thumb aria-label="min" innerRef={this.minThumb} tabIndex="0" isOnTheFront={minThumbOnTheFront} />
           )}
-          <Thumb aria-label="max" innerRef={this.maxThumb} tabIndex="0">
-            {showValue && <Tip>R$ {maxValue.toLocaleString('pt-BR')}</Tip>}
-          </Thumb>
+          <Thumb aria-label="max" innerRef={this.maxThumb} tabIndex="0" isOnTheFront={!minThumbOnTheFront} />
         </Rail>
       </Container>
     )
