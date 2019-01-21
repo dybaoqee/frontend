@@ -1,7 +1,6 @@
 import omit from 'lodash/omit'
 import pickBy from 'lodash/pickBy'
 import identity from 'lodash/identity'
-import union from 'lodash/union'
 
 const filterValid = (object) => omit(object, [undefined])
 

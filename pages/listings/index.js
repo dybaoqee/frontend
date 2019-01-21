@@ -22,6 +22,7 @@ import {
 class ListingSearch extends Component {
   constructor(props) {
     super(props)
+    this.handleRouteChange = this.handleRouteChange.bind(this)
     const params = props.params ? props.params : {}
     const query = props.query ? props.query : {}
     const filters = getNewFiltersFromQuery(query, params)
@@ -66,13 +67,31 @@ class ListingSearch extends Component {
         filters: getNewFiltersFromQuery(newQuery)
       })
     }
+    Router.events.on('routeChangeComplete', this.handleRouteChange)
   }
 
   componentWillUnmount() {
     window.onpopstate = null
+    Router.events.off('routeChangeComplete', this.handleRouteChange)
+  }
+
+  handleRouteChange(url) {
+    // Take action only when neighborhood changes. We do this here because the component
+    // responsible for controlling neighborhood filters is not in the same context as
+    // this ListingSearch or the ListingFilter.
+    const newFilters = getNewFiltersFromQuery(Router.query)
+    if (newFilters.neighborhoods.toString() !== this.state.filters.neighborhoods.toString()) {
+      this.setState({
+        filters: newFilters
+      })
+      window.scrollTo(0, 0)
+    }
   }
 
   onChangeFilter = (filters) => {
+    // Add neighborhoods to new filters from Router.query
+    const neighborhoodFilters = getNewFiltersFromQuery(Router.query).neighborhoods
+    filters.neighborhoods = neighborhoodFilters
     const newQuery = treatParams(filters)
 
     const { params } = this.props
@@ -85,7 +104,6 @@ class ListingSearch extends Component {
     Router.push(`/listings${query}`, `/imoveis${route}${query}`, {shallow: true})
 
     this.setState({filters: filters})
-    window.scrollTo(0, 0)
   }
 
   onResetFilter = () => {
