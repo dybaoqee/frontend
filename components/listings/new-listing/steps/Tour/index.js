@@ -69,8 +69,12 @@ class Tour extends Component {
   }
 
   done() {
-    const { navigateTo, updateTour } = this.props
+    const { navigateTo, services, updateTour, updateServices } = this.props
     updateTour(this.state)
+    updateServices({
+      wantsTour: true,
+      tourOptions: services.tourOptions
+    })
     navigateTo('services')
   }
 
