@@ -17,6 +17,7 @@ describe('listing search filter functions', () => {
       vagas_maximo: 2,
       quartos_minimo: 3,
       quartos_maximo: 3,
+      bairros: 'botafogo|ipanema',
       tipos: 'Apartamento|Casa'
     }
     const params = {
@@ -25,7 +26,7 @@ describe('listing search filter functions', () => {
       neighborhood: 'humaita'
     }
     const filters = getNewFiltersFromQuery(query, params)
-    expect(filters).toEqual({"area": {"max": 300, "min": 35}, "citiesSlug": ["rio-de-janeiro"], "garageSpots": {"max": 2, "min": 2}, "neighborhoodsSlugs": ["humaita"], "price": {"max": 1500000, "min": 250000}, "rooms": {"max": 3, "min": 3}, "types": ["Apartamento", "Casa"]})
+    expect(filters).toEqual({"area": {"max": 300, "min": 35}, "citiesSlug": ["rio-de-janeiro"], "garageSpots": {"max": 2, "min": 2}, "neighborhoods": ['botafogo', 'ipanema'], "neighborhoodsSlugs": ["humaita"], "price": {"max": 1500000, "min": 250000}, "rooms": {"max": 3, "min": 3}, "types": ["Apartamento", "Casa"]})
   })
 
   it('parses query with only one home type to filter state', () => {

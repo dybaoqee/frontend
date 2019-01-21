@@ -140,6 +140,7 @@ export const getNewFiltersFromQuery = ({
   vagas_maximo,
   quartos_minimo,
   quartos_maximo,
+  bairros,
   tipos
 }, params) => {
   const price = preco_minimo || preco_maximo ? {
@@ -159,6 +160,7 @@ export const getNewFiltersFromQuery = ({
     max: parseInt(vagas_maximo)
   } : null
   const types = tipos && splitParam(tipos).map((type) => (type.value ? type.value : type))
+  const neighborhoods = bairros && splitParam(bairros).map((neighborhood) => neighborhood)
   const neighborhoodsSlugs = params && params.neighborhood ? [params.neighborhood] : null
   const citiesSlug = params && params.city ? [params.city] : null
   const filters = {
@@ -167,6 +169,7 @@ export const getNewFiltersFromQuery = ({
     rooms,
     garageSpots,
     types,
+    neighborhoods,
     neighborhoodsSlugs,
     citiesSlug
   }
@@ -220,6 +223,7 @@ export const getListingFiltersFromState = ({
   area,
   garageSpots,
   rooms,
+  neighborhoods,
   neighborhoodsSlugs,
   citiesSlug,
   types
@@ -238,7 +242,11 @@ export const getListingFiltersFromState = ({
     types:
       types &&
       types.length > 0 &&
-      types.map((type) => (type.value ? type.value : type))
+      types.map((type) => (type.value ? type.value : type)),
+    neighborhoods:
+      neighborhoods &&
+      neighborhoods.length > 0 &&
+      neighborhoods.map((neighborhood) => `${neighborhood.substring(0, 1).toUpperCase()}${neighborhood.substring(1, neighborhood.length)}`)
   }
 
   return pickBy(filters, (value) => value !== undefined && value !== null && ((typeof(value) === 'number' && !isNaN(value)) || typeof(value) === 'object'))

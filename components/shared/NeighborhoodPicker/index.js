@@ -90,9 +90,8 @@ class NeighborhoodPicker extends Component {
 
   render() {
     return (
-      <Query query={GET_DISTRICTS} ssr={false}>
+      <Query query={GET_DISTRICTS} ssr={true}>
         {({data}) => {
-          console.log('got districts')
           const availableCities = this.getCities(data)
           return (
             <SearchContainer>
