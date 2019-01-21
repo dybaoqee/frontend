@@ -13,11 +13,7 @@ export const Container = styled(Row)`
   width: ${MAX_FILTER_PANEL_DESKTOP_WIDTH}px;
   max-width: ${MAX_FILTER_PANEL_DESKTOP_WIDTH}px;
   box-sizing: border-box;
-  margin: ${theme.space[2]}px auto;
-
-  @media screen and (max-width: ${theme.breakpoints[0]}) {
-    margin-top: 0;
-  }
+  margin: 0 auto ${theme.space[2]}px;
 `
 
 export const Rail = styled.div`
@@ -74,7 +70,7 @@ export const RangeValues = styled.div`
 `
 
 export const Value = styled.span`
-  color: ${theme.colors.pink};
+  color: ${theme.colors.gray};
   text-align: ${({textAlign}) => textAlign};
   font-size: 14px;
   margin: ${({margin}) => margin ? `0 ${theme.space[2]}px` : null};
