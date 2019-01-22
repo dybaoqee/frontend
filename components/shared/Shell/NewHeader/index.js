@@ -105,11 +105,10 @@ export default class Header extends Component {
                 {search && <ShortLogo alt="EmCasa Imobiliária no Rio de Janeiro e São Paulo" />}
               </div>
             </Link>
-            {search && <Row m={4}>
-                <NeighborhoodPicker
-                  query={this.props.router.query}
-                />
-              </Row>
+            {search &&
+              <NeighborhoodPicker
+                query={this.props.router.query}
+              />
             }
             {isMobileNavVisible && <Overlay onClick={this.toggleMobileNavVisibility} />}
             <NavButton
