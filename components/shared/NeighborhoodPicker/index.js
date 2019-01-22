@@ -33,8 +33,10 @@ class NeighborhoodPicker extends Component {
     this.clear = this.clear.bind(this)
     this.apply = this.apply.bind(this)
 
+    const initialNeighborhoodSelection = props.query && props.query.bairros ? getDerivedParams(props.query).neighborhoods : []
+
     this.state = {
-      selectedNeighborhoods: [],
+      selectedNeighborhoods: initialNeighborhoodSelection,
       expanded: [],
       showCities: false
     }
