@@ -17,7 +17,8 @@ const SearchContainer = styled(Row)`
   margin: ${theme.space[4]}px 0 0 ${theme.space[4]}px;
 
   @media (max-width: ${theme.breakpoints[0]}) {
-    width: calc(100% - 88px);
+    width: calc(100% - 52px);
+    max-width: none;
   }
 `
 
@@ -33,6 +34,10 @@ const InputContainer = styled(Row)`
   background-color: ${theme.colors.white};
   height: ${HEIGHT_TALL}px;
   box-sizing: border-box;
+
+  @media (max-width: ${theme.breakpoints[0]}) {
+    max-width: none;
+  }
 `
 
 const SearchTextContainer = styled(Row)`
