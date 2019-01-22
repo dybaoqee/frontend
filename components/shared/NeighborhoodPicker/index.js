@@ -10,6 +10,7 @@ import CityContainer from './components/CityContainer'
 import { GET_DISTRICTS } from 'graphql/listings/queries'
 import { Query } from 'react-apollo'
 import { cities } from 'constants/cities'
+import { arrayToString } from 'utils/text-utils'
 import {
   addNeighborhoodsToQuery,
   getDerivedParams
@@ -23,15 +24,18 @@ import {
   SearchTextContainer
 } from './styles'
 
+const DEFAULT_BUTTON_TEXT = 'Selecione os bairros desejados'
+
 class NeighborhoodPicker extends Component {
   constructor(props) {
     super(props)
     this.getCities = this.getCities.bind(this)
-    this.toggleCities = this.toggleCities.bind(this)
+    this.toggleCitiesDisplay = this.toggleCitiesDisplay.bind(this)
     this.changeSelection = this.changeSelection.bind(this)
     this.expand = this.expand.bind(this)
     this.clear = this.clear.bind(this)
     this.apply = this.apply.bind(this)
+    this.getButtonText = this.getButtonText.bind(this)
 
     const initialNeighborhoodSelection = props.query && props.query.bairros ? getDerivedParams(props.query).neighborhoods : []
 
@@ -57,7 +61,7 @@ class NeighborhoodPicker extends Component {
   }
 
   apply() {
-    this.toggleCities()
+    this.toggleCitiesDisplay()
     const query = addNeighborhoodsToQuery(getDerivedParams(this.props.query), this.state.selectedNeighborhoods)
     Router.push(`/listings${query}`, `/imoveis${query}`, {shallow: true})
   }
@@ -69,7 +73,7 @@ class NeighborhoodPicker extends Component {
 
   handleClickOutside() {
     if (this.state.showCities) {
-      this.toggleCities()
+      this.toggleCitiesDisplay()
     }
   }
 
@@ -88,8 +92,18 @@ class NeighborhoodPicker extends Component {
     }
   }
 
-  toggleCities() {
+  toggleCitiesDisplay() {
     this.setState({showCities: !this.state.showCities})
+  }
+
+  getButtonText() {
+    if (process.browser) {
+      const selected = getDerivedParams(Router.query).neighborhoods
+      if (selected && selected.length > 0) {
+        return arrayToString(selected)
+      }
+    }
+    return DEFAULT_BUTTON_TEXT
   }
 
   render() {
@@ -100,9 +114,9 @@ class NeighborhoodPicker extends Component {
           return (
             <SearchContainer>
               <Col width={1} style={{zIndex: 1}}>
-                <InputContainer onClick={this.toggleCities} selected={this.state.showCities}>
+                <InputContainer onClick={this.toggleCitiesDisplay} selected={this.state.showCities}>
                   <SearchTextContainer>
-                    <Icon name="map-marker-alt" px={3} pt={1} size={21} /><Text color="grey">Selecione os bairros desejados</Text>
+                    <Icon name="map-marker-alt" px={3} pt={1} size={21} /><Text color="grey">{this.getButtonText()}</Text>
                   </SearchTextContainer>
                   <Col px={3} pt={1}>
                     <Icon name={this.state.showCities ? 'angle-up' : 'angle-down'} />

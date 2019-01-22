@@ -2,7 +2,8 @@ import {
   getParagraphs,
   currencyToInt,
   roundUpPrice,
-  getUrlVars
+  getUrlVars,
+  arrayToString
 } from 'utils/text-utils'
 
 describe('currency formatting', () => {
@@ -37,5 +38,17 @@ describe('text utils', () => {
     const urlVars = getUrlVars(url)
     expect(urlVars.a).toBe('123')
     expect(urlVars.b).toBe('456')
+  })
+
+  it('should transform an array of strings of one string into a text', () => {
+    const arr = ['copacabana']
+    const text = arrayToString(arr)
+    expect(text).toBe('Copacabana')
+  })
+
+  it('should transform an array of strings into a text', () => {
+    const arr = ['copacabana', 'ipanema', 'botafogo']
+    const text = arrayToString(arr)
+    expect(text).toBe('Copacabana, Ipanema, Botafogo')
   })
 })
