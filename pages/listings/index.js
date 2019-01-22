@@ -107,6 +107,7 @@ class ListingSearch extends Component {
     Router.push(`/listings${query}`, `/imoveis${route}${query}`, {shallow: true})
 
     this.setState({filters: filters})
+    window.scrollTo(0, 0)
   }
 
   onResetFilter = () => {
