@@ -14,6 +14,7 @@ import faSignInAlt from '@fortawesome/fontawesome-pro-solid/faSignInAlt'
 
 import NeighborhoodPicker from 'components/shared/NeighborhoodPicker'
 import NeighborhoodAutoComplete from 'components/shared/NeighborhoodAutoComplete'
+import MobileAddressButton from 'components/shared/MobileAddressButton'
 import {MobieTypeaheadContainer} from 'components/shared/NeighborhoodAutoComplete/styles'
 import {isMobile} from 'lib/mobile'
 
@@ -25,9 +26,11 @@ import Container, {
   NavButton,
   MenuItem,
   Logo,
-  ShortLogo
+  ShortLogo,
+  Search
 } from './styles'
 
+const USE_NEW_SEARCH = true
 
 export default class Header extends Component {
   constructor(props) {
@@ -68,6 +71,29 @@ export default class Header extends Component {
     window.removeEventListener('scroll', this.onScroll)
   }
 
+  renderSearch() {
+    if (USE_NEW_SEARCH) {
+      return (
+        <NeighborhoodPicker
+          query={this.props.router.query}
+        />
+      )
+    }
+
+    const height = isMobile() ? 'tall' : 'medium'
+    return (
+      <Search>
+        {isMobile() ? <MobileAddressButton
+          address="Bairro ou Cidade"
+          onClick={this.openMobileSearch}
+          height={isMobile}
+        /> :
+          <NeighborhoodAutoComplete height={height} />
+        }
+      </Search>
+    )
+  }
+
   renderMobileSearch() {
     return (
       <MobieTypeaheadContainer justifyContent="center" p={4} style={{height: '100%'}}>
@@ -105,11 +131,7 @@ export default class Header extends Component {
                 {search && <ShortLogo alt="EmCasa Imobiliária no Rio de Janeiro e São Paulo" />}
               </div>
             </Link>
-            {search &&
-              <NeighborhoodPicker
-                query={this.props.router.query}
-              />
-            }
+            {search && this.renderSearch()}
             {isMobileNavVisible && <Overlay onClick={this.toggleMobileNavVisibility} />}
             <NavButton
               visible={!isMobileNavVisible && !search}
