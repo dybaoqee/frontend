@@ -79,10 +79,11 @@ class ListingSearch extends Component {
     // Take action only when neighborhood changes. We do this here because the component
     // responsible for controlling neighborhood filters is not in the same context as
     // this ListingSearch or the ListingFilter.
-    const newFilters = getNewFiltersFromQuery(Router.query)
+    let newFilters = getNewFiltersFromQuery(Router.query)
     const newNeighborhoods = newFilters.neighborhoods ? newFilters.neighborhoods.toString() : ''
     const currentNeighborhoods = this.state.filters.neighborhoods ? this.state.filters.neighborhoods.toString() : ''
     if (newNeighborhoods !== currentNeighborhoods) {
+      delete newFilters.citiesSlug
       this.setState({
         filters: newFilters
       })
@@ -98,7 +99,7 @@ class ListingSearch extends Component {
 
     const { params } = this.props
     let route = ''
-    if (params && Object.keys(params).length > 0) {
+    if (params && Object.keys(params).length > 0 && neighborhoodFilters.length === 0) {
       route = `/${params.state}/${params.city}${params.neighborhood ? `/${params.neighborhood}` : ``}`
     }
 
@@ -147,7 +148,7 @@ class ListingSearch extends Component {
     const {neighborhoods, query, params, user, client} = this.props
     const {filters} = this.state
 
-    if (params) {
+    if (params && !filters.neighborhoods) {
       if (params.city) {
         filters.citiesSlug = [params.city]
       }
