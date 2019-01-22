@@ -80,8 +80,10 @@ class ListingSearch extends Component {
     // responsible for controlling neighborhood filters is not in the same context as
     // this ListingSearch or the ListingFilter.
     const newFilters = getNewFiltersFromQuery(Router.query)
-    if (newFilters.neighborhoods && this.state.filters.neighborhoods &&
-      newFilters.neighborhoods.toString() !== this.state.filters.neighborhoods.toString()) {
+    // TODO(tulio): check if the array exists
+    const newNeighborhoods = newFilters.neighborhoods ? newFilters.neighborhoods.toString() : ''
+    const currentNeighborhoods = this.state.filters.neighborhoods ? this.state.filters.neighborhoods.toString() : ''
+    if (newNeighborhoods !== currentNeighborhoods) {
       this.setState({
         filters: newFilters
       })

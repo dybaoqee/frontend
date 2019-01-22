@@ -49,7 +49,9 @@ class NeighborhoodPicker extends Component {
   }
 
   clear() {
-    this.setState({selectedNeighborhoods: []})
+    this.setState({selectedNeighborhoods: []}, () => {
+      this.apply()
+    })
   }
 
   apply() {
