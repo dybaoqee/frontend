@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import {mobileMedia} from 'constants/media'
-import {text, mediumGray, blue} from 'constants/colors'
 import theme from '@emcasa/ui'
 
 export default styled.div`
