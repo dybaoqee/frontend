@@ -22,7 +22,11 @@ import Tab from '@emcasa/ui-dom/components/Tab'
 import Input from '@emcasa/ui-dom/components/Input'
 import Button from '@emcasa/ui-dom/components/Button'
 import Text from '@emcasa/ui-dom/components/Text'
-import {TabWrapper} from './styles'
+import {
+  TabWrapper,
+  InitialView,
+  ProfileAvatar
+} from './styles'
 
 class UserProfile extends Component {
   state = {
@@ -186,30 +190,54 @@ class UserProfile extends Component {
                 {({loading, data: {userProfile}}) => {
                   if (loading) return <div />
                   return (
-                    <Fragment>
-                      <div>
-                        <div></div>
-                        <Text fontSize="xlarge">{userProfile.name}</Text>
-                        <Text color="grey">{userProfile.email}</Text>
-                        <Text color="grey">{userProfile.phone}</Text>
-                      </div>
-                      <div>
-                        <Button
-                          active
-                          fluid
-                          height="tall"
-                          onClick={this.handleProfileButtonClick}
-                        >
-                          Editar
-                        </Button>
-                        <Button
-                          fluid
-                          height="tall"
-                        >
-                          Sair
-                        </Button>
-                      </div>
-                    </Fragment>
+                    <InitialView
+                      flexDirection={'column'}
+                      alignItems={'center'}
+                      width="100%"
+                      maxWidth={"100%"}
+                    >
+                      <ProfileAvatar
+                        justifyContent={'center'}
+                        alignItems={'center'}
+                      >
+                        PS
+                      </ProfileAvatar>
+                      <Text
+                        margin={6}
+                        textAlign="center"
+                        fontSize="large"
+                      >
+                        {userProfile.name}
+                      </Text>
+                      <Text
+                        margin={6}
+                        textAlign="center"
+                        color="grey"
+                      >
+                        {userProfile.email}
+                      </Text>
+                      <Text
+                        margin={6}
+                        textAlign="center"
+                        color="grey"
+                      >
+                        {userProfile.phone}
+                      </Text>
+                      <Button
+                        active
+                        fluid
+                        height="tall"
+                        onClick={this.handleProfileButtonClick}
+                      >
+                        Editar
+                      </Button>
+                      <Button
+                        fluid
+                        height="tall"
+                      >
+                        Sair
+                      </Button>
+                    </InitialView>
                   )
                 }}
               </Query>
