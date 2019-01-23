@@ -19,6 +19,7 @@ import {ThemeProvider} from 'styled-components'
 import theme from '@emcasa/ui'
 import View from '@emcasa/ui-dom/components/View'
 import Tab from '@emcasa/ui-dom/components/Tab'
+import Input from '@emcasa/ui-dom/components/Input'
 import {TabWrapper} from './styles'
 
 class UserProfile extends Component {
@@ -186,31 +187,22 @@ class UserProfile extends Component {
                       }
                       errors={errors}
                     >
-                      <Field>
-                        <label htmlFor="name">Nome completo</label>
-                        <input
-                          name="name"
-                          type="text"
-                          defaultValue={userProfile.name}
-                        />
-                      </Field>
-                      <Field>
-                        <label htmlFor="email">Endereço de e-mail</label>
-                        <input
-                          name="email"
-                          type="text"
-                          defaultValue={userProfile.email}
-                        />
-                      </Field>
-                      <Field>
-                        <label htmlFor="phone">Telefone</label>
-                        <input
-                          disabled
-                          name="phone"
-                          type="tel"
-                          defaultValue={userProfile.phone}
-                        />
-                      </Field>
+                      <Input
+                        name="name"
+                        type="text"
+                        defaultValue={userProfile.name}
+                      />
+                      <Input
+                        name="email"
+                        type="text"
+                        defaultValue={userProfile.email}
+                      />
+                      <Input
+                        disabled
+                        name="phone"
+                        type="tel"
+                        defaultValue={userProfile.phone}
+                      />
                       <Field>
                         <label htmlFor="emailPreference">
                           Notificações por e-mail
@@ -247,18 +239,9 @@ class UserProfile extends Component {
             onSubmit={(e) => this.handlePasswordUpdate(e, editPassword)}
             errors={errors}
           >
-            <Field>
-              <label htmlFor="actual_password">Senha atual</label>
-              <input name="actual_password" type="password" />
-            </Field>
-            <Field>
-              <label htmlFor="new_password">Nova senha</label>
-              <input name="new_password" type="password" />
-            </Field>
-            <Field>
-              <label htmlFor="confirm_password">Confirmar nova senha</label>
-              <input name="confirm_password" type="password" />
-            </Field>
+            <Input label="Senha atual" name="actual_password" type="password" />
+            <Input label="Nova senha" name="new_password" type="password" />
+            <Input label="Confirmar nova senha" name="confirm_password" type="password" />
             <EmCasaButton disabled={updatingPassword}>
               {updatingPassword ? 'Atualizando...' : 'Salvar'}
             </EmCasaButton>
