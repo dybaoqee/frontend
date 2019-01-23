@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import theme from '@emcasa/ui'
 import Row from '@emcasa/ui-dom/components/Row'
+import Icon from '@emcasa/ui-dom/components/Icon'
 
 const SEARCH_CONTAINER_WIDTH = 560
 
@@ -39,9 +40,14 @@ const SearchTextContainer = styled(Row)`
   align-items: center;
 `
 
+const BackIcon = styled(Icon)`
+  margin: ${theme.space[1]}px ${theme.space[3]}px 0 ${theme.space[3]}px;
+`
+
 export {
   InputContainer,
   SearchContainer,
   SearchTextContainer,
+  BackIcon,
   SEARCH_CONTAINER_WIDTH
 }

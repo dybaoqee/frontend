@@ -3,7 +3,9 @@ import Link from 'next/link'
 import theme from '@emcasa/ui'
 import {Component} from 'react'
 import Text from '@emcasa/ui-dom/components/Text'
+import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
+import View from '@emcasa/ui-dom/components/View'
 import AccountKit from 'components/shared/Auth/AccountKit'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faSearch from '@fortawesome/fontawesome-pro-solid/faSearch'
@@ -74,6 +76,7 @@ export default class Header extends Component {
     if (USE_NEW_SEARCH) {
       return (
         <NeighborhoodPicker
+          onClick={isMobile() ? this.openMobileSearch : () => {}}
           query={this.props.router.query}
         />
       )
@@ -97,11 +100,18 @@ export default class Header extends Component {
     return (
       <MobieTypeaheadContainer justifyContent="center" p={4} style={{height: '100%'}}>
         <Col width={1}>
-          <NeighborhoodAutoComplete
-            onBackPressed={this.closeMobileSearch}
-            onClearInput={() => {}}
-            height={isMobile() ? 'tall' : 'medium'}
-          />
+          {USE_NEW_SEARCH ?
+            <NeighborhoodPicker
+              onBackPressed={this.closeMobileSearch}
+              query={this.props.router.query}
+            />
+            :
+            <NeighborhoodAutoComplete
+              onBackPressed={this.closeMobileSearch}
+              onClearInput={() => {}}
+              height={isMobile() ? 'tall' : 'medium'}
+            />
+          }
         </Col>
       </MobieTypeaheadContainer>
     )

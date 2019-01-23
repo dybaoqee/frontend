@@ -21,7 +21,8 @@ import {
 import {
   InputContainer,
   SearchContainer,
-  SearchTextContainer
+  SearchTextContainer,
+  BackIcon
 } from './styles'
 
 const DEFAULT_BUTTON_TEXT = 'Selecione os bairros desejados'
@@ -112,11 +113,16 @@ class NeighborhoodPicker extends Component {
         {({data}) => {
           const availableCities = this.getCities(data)
           return (
-            <SearchContainer>
+            <SearchContainer onClick={this.props.onClick}>
               <Col width={1} style={{zIndex: 1}}>
                 <InputContainer onClick={this.toggleCitiesDisplay} selected={this.state.showCities}>
                   <SearchTextContainer>
-                    <Icon name="map-marker-alt" px={3} pt={1} size={21} /><Text color="grey">{this.getButtonText()}</Text>
+                    {this.props.onBackPressed ?
+                      <BackIcon name="arrow-left" color="dark" onClick={this.props.onBackPressed} />
+                      :
+                      <Icon name="map-marker-alt" px={3} pt={1} size={21} />
+                    }
+                    <Text color="grey">{this.getButtonText()}</Text>
                   </SearchTextContainer>
                   <Col px={3} pt={1}>
                     <Icon name={this.state.showCities ? 'angle-up' : 'angle-down'} />
@@ -142,6 +148,8 @@ class NeighborhoodPicker extends Component {
 }
 
 NeighborhoodPicker.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  onBackPressed: PropTypes.func,
   query: PropTypes.object.isRequired
 }
 
