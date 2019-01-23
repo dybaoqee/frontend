@@ -19,6 +19,7 @@ import {
   updateSelection
 } from './selection'
 import {
+  InputWrapper,
   InputContainer,
   SearchContainer,
   SearchTextContainer,
@@ -43,7 +44,7 @@ class NeighborhoodPicker extends Component {
     this.state = {
       selectedNeighborhoods: initialNeighborhoodSelection,
       expanded: [],
-      showCities: false
+      showCities: this.props.mobile
     }
   }
 
@@ -63,6 +64,9 @@ class NeighborhoodPicker extends Component {
 
   apply() {
     this.toggleCitiesDisplay()
+    if (this.props.onBackPressed) {
+      this.props.onBackPressed()
+    }
     const query = addNeighborhoodsToQuery(getDerivedParams(this.props.query), this.state.selectedNeighborhoods)
     Router.push(`/listings${query}`, `/imoveis${query}`, {shallow: true})
   }
@@ -113,8 +117,8 @@ class NeighborhoodPicker extends Component {
         {({data}) => {
           const availableCities = this.getCities(data)
           return (
-            <SearchContainer onClick={this.props.onClick}>
-              <Col width={1} style={{zIndex: 1}}>
+            <SearchContainer onClick={this.props.onClick} mobile={this.props.mobile}>
+              <InputWrapper>
                 <InputContainer onClick={this.toggleCitiesDisplay} selected={this.state.showCities}>
                   <SearchTextContainer>
                     {this.props.onBackPressed ?
@@ -128,7 +132,7 @@ class NeighborhoodPicker extends Component {
                     <Icon name={this.state.showCities ? 'angle-up' : 'angle-down'} />
                   </Col>
                 </InputContainer>
-              </Col>
+              </InputWrapper>
               {this.state.showCities &&
                 <CityContainer
                   cities={availableCities}
@@ -150,6 +154,7 @@ class NeighborhoodPicker extends Component {
 NeighborhoodPicker.propTypes = {
   onClick: PropTypes.func.isRequired,
   onBackPressed: PropTypes.func,
+  mobile: PropTypes.bool,
   query: PropTypes.object.isRequired
 }
 

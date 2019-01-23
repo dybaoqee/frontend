@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import theme from '@emcasa/ui'
 import Row from '@emcasa/ui-dom/components/Row'
+import Col from '@emcasa/ui-dom/components/Col'
 import Icon from '@emcasa/ui-dom/components/Icon'
 
 const SEARCH_CONTAINER_WIDTH = 560
@@ -9,12 +10,18 @@ const SearchContainer = styled(Row)`
   width: 35%;
   max-width: ${SEARCH_CONTAINER_WIDTH}px;
   height: 100%;
-  margin: ${theme.space[4]}px 0 0 ${theme.space[4]}px;
+  margin: ${({mobile}) => mobile ? `0` : `${theme.space[4]}px 0 0 ${theme.space[4]}px`};
 
   @media (max-width: ${theme.breakpoints[0]}) {
-    width: calc(100% - 52px);
+    width: ${({mobile}) => mobile ? `100%` : `calc(100% - 52px)`};
     max-width: none;
   }
+`
+
+const InputWrapper = styled(Col)`
+  width: 100%;
+  height: ${theme.buttonHeight[1]}px;
+  z-index: 1;
 `
 
 const InputContainer = styled(Row)`
@@ -45,6 +52,7 @@ const BackIcon = styled(Icon)`
 `
 
 export {
+  InputWrapper,
   InputContainer,
   SearchContainer,
   SearchTextContainer,
