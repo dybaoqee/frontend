@@ -21,10 +21,12 @@ import View from '@emcasa/ui-dom/components/View'
 import Tab from '@emcasa/ui-dom/components/Tab'
 import Input from '@emcasa/ui-dom/components/Input'
 import Button from '@emcasa/ui-dom/components/Button'
+import Text from '@emcasa/ui-dom/components/Text'
 import {TabWrapper} from './styles'
 
 class UserProfile extends Component {
   state = {
+    editProfile: false,
     errors: {}
   }
 
@@ -56,6 +58,13 @@ class UserProfile extends Component {
     if (objValue === othValue || (isNull(objValue) && othValue === '')) {
       return true
     }
+  }
+
+  changeProfileView = () => this.setState({ editProfile: !this.state.editProfile })
+
+  handleProfileButtonClick = (e) => {
+    e.preventDefault()
+    this.changeProfileView()
   }
 
   handleProfileUpdate = async (e, editProfile, editEmail, userProfile) => {
@@ -165,6 +174,52 @@ class UserProfile extends Component {
       })
   }
 
+  getInitialView = () => {
+    const {currentUser: {id}} = this.props
+
+    return (
+      <Mutation mutation={EDIT_EMAIL}>
+        {(editEmail, {loading: updatingEmail}) => (
+          <Mutation mutation={EDIT_PROFILE}>
+            {(editProfile, {loading: updatingProfile}) => (
+              <Query query={GET_USER_INFO} variables={{id}}>
+                {({loading, data: {userProfile}}) => {
+                  if (loading) return <div />
+                  return (
+                    <Fragment>
+                      <div>
+                        <div></div>
+                        <Text fontSize="xlarge">{userProfile.name}</Text>
+                        <Text color="grey">{userProfile.email}</Text>
+                        <Text color="grey">{userProfile.phone}</Text>
+                      </div>
+                      <div>
+                        <Button
+                          active
+                          fluid
+                          height="tall"
+                          onClick={this.handleProfileButtonClick}
+                        >
+                          Editar
+                        </Button>
+                        <Button
+                          fluid
+                          height="tall"
+                        >
+                          Sair
+                        </Button>
+                      </div>
+                    </Fragment>
+                  )
+                }}
+              </Query>
+            )}
+          </Mutation>
+        )}
+      </Mutation>
+    )
+  }
+
   getProfileForm = () => {
     const {currentUser: {id}} = this.props
     const {errors} = this.state
@@ -218,6 +273,14 @@ class UserProfile extends Component {
                       <Button
                         fluid
                         height="tall"
+                        onClick={this.handleProfileButtonClick}
+                      >
+                        Cancelar
+                      </Button>
+                      <Button
+                        type="submit"
+                        fluid
+                        height="tall"
                         disabled={updatingProfile || updatingEmail}
                       >
                         {updatingProfile || updatingEmail
@@ -260,6 +323,18 @@ class UserProfile extends Component {
     )
   }
 
+  getMyRealEstate = () => {
+    return (
+      <Text fontSize="xlarge">Meus imóveis</Text>
+    )
+  }
+
+  getMyFavorites = () => {
+    return (
+      <Text fontSize="xlarge">Meus favoritos</Text>
+    )
+  }
+
   render() {
     const seoTitle = 'EmCasa | Meu Perfil'
     return (
@@ -272,10 +347,13 @@ class UserProfile extends Component {
           <TabWrapper>
             <Tab.Group>
               <Tab label="Meu Perfil">
-                {this.getProfileForm()}
+                {this.state.editProfile ? this.getProfileForm() : this.getInitialView()}
               </Tab>
-              <Tab label="Senha">
-                {this.getPasswordForm()}
+              <Tab label="Meus Imóveis">
+                {this.getMyRealEstate()}
+              </Tab>
+              <Tab label="Meus Favoritos">
+                {this.getMyFavorites()}
               </Tab>
             </Tab.Group>
           </TabWrapper>
