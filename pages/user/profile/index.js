@@ -20,6 +20,7 @@ import theme from '@emcasa/ui'
 import View from '@emcasa/ui-dom/components/View'
 import Tab from '@emcasa/ui-dom/components/Tab'
 import Input from '@emcasa/ui-dom/components/Input'
+import Button from '@emcasa/ui-dom/components/Button'
 import {TabWrapper} from './styles'
 
 class UserProfile extends Component {
@@ -214,11 +215,15 @@ class UserProfile extends Component {
                           name="emailPreference"
                         />
                       </Field>
-                      <EmCasaButton disabled={updatingProfile || updatingEmail}>
+                      <Button
+                        fluid
+                        height="tall"
+                        disabled={updatingProfile || updatingEmail}
+                      >
                         {updatingProfile || updatingEmail
                           ? 'Atualizando...'
                           : 'Salvar'}
-                      </EmCasaButton>
+                      </Button>
                     </Form>
                   )
                 }}
@@ -242,9 +247,13 @@ class UserProfile extends Component {
             <Input label="Senha atual" name="actual_password" type="password" />
             <Input label="Nova senha" name="new_password" type="password" />
             <Input label="Confirmar nova senha" name="confirm_password" type="password" />
-            <EmCasaButton disabled={updatingPassword}>
+            <Button
+              fluid
+              height="tall"
+              disabled={updatingPassword}
+            >
               {updatingPassword ? 'Atualizando...' : 'Salvar'}
-            </EmCasaButton>
+            </Button>
           </Form>
         )}
       </Mutation>
