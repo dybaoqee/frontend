@@ -15,6 +15,12 @@ import isEqualWith from 'lodash/isEqualWith'
 import pickBy from 'lodash/pickBy'
 import Head from 'next/head'
 
+import {ThemeProvider} from 'styled-components'
+import theme from '@emcasa/ui'
+import View from '@emcasa/ui-dom/components/View'
+import Tab from '@emcasa/ui-dom/components/Tab'
+import {TabWrapper} from './styles'
+
 class UserProfile extends Component {
   state = {
     errors: {}
@@ -216,7 +222,6 @@ class UserProfile extends Component {
                           name="emailPreference"
                         />
                       </Field>
-
                       <EmCasaButton disabled={updatingProfile || updatingEmail}>
                         {updatingProfile || updatingEmail
                           ? 'Atualizando...'
@@ -266,18 +271,24 @@ class UserProfile extends Component {
   render() {
     const seoTitle = 'EmCasa | Meu Perfil'
     return (
-      <Fragment>
-        <Head>
-          <title>{seoTitle}</title>
-          <meta name="twitter:title" content={seoTitle} />
-        </Head>
-        <Tabs
-          tabs={[
-            {title: 'Perfil', component: this.getProfileForm},
-            {title: 'Senha', component: this.getPasswordForm}
-          ]}
-        />
-      </Fragment>
+      <ThemeProvider theme={theme}>
+        <Fragment>
+          <Head>
+            <title>{seoTitle}</title>
+            <meta name="twitter:title" content={seoTitle} />
+          </Head>
+          <TabWrapper>
+            <Tab.Group>
+              <Tab label="Meu Perfil">
+                {this.getProfileForm()}
+              </Tab>
+              <Tab label="Senha">
+                {this.getPasswordForm()}
+              </Tab>
+            </Tab.Group>
+          </TabWrapper>
+        </Fragment>
+      </ThemeProvider>
     )
   }
 }
