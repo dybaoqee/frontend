@@ -3,6 +3,7 @@ import theme from '@emcasa/ui'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Icon from '@emcasa/ui-dom/components/Icon'
+import Button from '@emcasa/ui-dom/components/Button'
 
 const SEARCH_CONTAINER_MAX_WIDTH = 560
 
@@ -51,11 +52,20 @@ const BackIcon = styled(Icon)`
   margin: ${theme.space[1]}px ${theme.space[3]}px 0 ${theme.space[3]}px;
 `
 
+const BackButton = styled(Button)`
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  margin: 0;
+  border: 0;
+`
+
 export {
   InputWrapper,
   InputContainer,
   SearchContainer,
   SearchTextContainer,
   BackIcon,
+  BackButton,
   SEARCH_CONTAINER_MAX_WIDTH
 }

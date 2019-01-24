@@ -23,7 +23,8 @@ import {
   InputContainer,
   SearchContainer,
   SearchTextContainer,
-  BackIcon
+  BackIcon,
+  BackButton
 } from './styles'
 
 const DEFAULT_BUTTON_TEXT = 'Selecione os bairros desejados'
@@ -122,7 +123,9 @@ class NeighborhoodPicker extends Component {
                 <InputContainer onClick={this.toggleCitiesDisplay} selected={this.state.showCities}>
                   <SearchTextContainer>
                     {this.props.onBackPressed ?
-                      <BackIcon name="arrow-left" color="dark" onClick={this.props.onBackPressed} />
+                      <BackButton>
+                        <BackIcon name="arrow-left" color="dark" onClick={this.props.onBackPressed} />
+                      </BackButton>
                       :
                       <Icon name="map-marker-alt" px={3} pt={1} size={21} />
                     }
