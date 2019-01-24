@@ -17,7 +17,7 @@ import Head from 'next/head'
 
 import {ThemeProvider} from 'styled-components'
 import theme from '@emcasa/ui'
-import View from '@emcasa/ui-dom/components/View'
+import Row from '@emcasa/ui-dom/components/Row'
 import Tab from '@emcasa/ui-dom/components/Tab'
 import Input from '@emcasa/ui-dom/components/Input'
 import Button from '@emcasa/ui-dom/components/Button'
@@ -287,34 +287,25 @@ class UserProfile extends Component {
                         type="tel"
                         defaultValue={userProfile.phone}
                       />
-                      <Field>
-                        <label htmlFor="emailPreference">
-                          Notificações por e-mail
-                        </label>
-                        <CheckBox
-                          defaultChecked={
-                            userProfile.notificationPreferences.email
-                          }
-                          name="emailPreference"
-                        />
-                      </Field>
-                      <Button
-                        fluid
-                        height="tall"
-                        onClick={this.handleProfileButtonClick}
+                      <Row
+                        justifyContent="space-between"
                       >
-                        Cancelar
-                      </Button>
-                      <Button
-                        type="submit"
-                        fluid
-                        height="tall"
-                        disabled={updatingProfile || updatingEmail}
-                      >
-                        {updatingProfile || updatingEmail
-                          ? 'Atualizando...'
-                          : 'Salvar'}
-                      </Button>
+                        <Button
+                          height="tall"
+                          onClick={this.handleProfileButtonClick}
+                        >
+                          Cancelar
+                        </Button>
+                        <Button
+                          type="submit"
+                          height="tall"
+                          disabled={updatingProfile || updatingEmail}
+                        >
+                          {updatingProfile || updatingEmail
+                            ? 'Atualizando...'
+                            : 'Salvar'}
+                        </Button>
+                      </Row>
                     </Form>
                   )
                 }}
