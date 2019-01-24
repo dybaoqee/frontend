@@ -3,7 +3,9 @@ import Link from 'next/link'
 import theme from '@emcasa/ui'
 import {Component} from 'react'
 import Text from '@emcasa/ui-dom/components/Text'
+import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
+import View from '@emcasa/ui-dom/components/View'
 import AccountKit from 'components/shared/Auth/AccountKit'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faSearch from '@fortawesome/fontawesome-pro-solid/faSearch'
@@ -11,6 +13,7 @@ import faFlag from '@fortawesome/fontawesome-pro-solid/faFlag'
 import faUser from '@fortawesome/fontawesome-pro-solid/faUser'
 import faSignInAlt from '@fortawesome/fontawesome-pro-solid/faSignInAlt'
 
+import NeighborhoodPicker from 'components/shared/NeighborhoodPicker'
 import NeighborhoodAutoComplete from 'components/shared/NeighborhoodAutoComplete'
 import MobileAddressButton from 'components/shared/MobileAddressButton'
 import {MobieTypeaheadContainer} from 'components/shared/NeighborhoodAutoComplete/styles'
@@ -28,6 +31,7 @@ import Container, {
   Search
 } from './styles'
 
+const USE_NEW_SEARCH = true
 
 export default class Header extends Component {
   constructor(props) {
@@ -60,7 +64,6 @@ export default class Header extends Component {
     this.setState({isMobileNavVisible: !isMobileNavVisible})
   }
 
-
   componentDidMount() {
     window.addEventListener('scroll', this.onScroll)
   }
@@ -70,6 +73,15 @@ export default class Header extends Component {
   }
 
   renderSearch() {
+    if (USE_NEW_SEARCH) {
+      return (
+        <NeighborhoodPicker
+          onClick={isMobile() ? this.openMobileSearch : () => {}}
+          query={this.props.router.query}
+        />
+      )
+    }
+
     const height = isMobile() ? 'tall' : 'medium'
     return (
       <Search>
@@ -88,11 +100,19 @@ export default class Header extends Component {
     return (
       <MobieTypeaheadContainer justifyContent="center" p={4} style={{height: '100%'}}>
         <Col width={1}>
-          <NeighborhoodAutoComplete
-            onBackPressed={this.closeMobileSearch}
-            onClearInput={() => {}}
-            height={isMobile() ? 'tall' : 'medium'}
-          />
+          {USE_NEW_SEARCH ?
+            <NeighborhoodPicker
+              mobile
+              onBackPressed={this.closeMobileSearch}
+              query={this.props.router.query}
+            />
+            :
+            <NeighborhoodAutoComplete
+              onBackPressed={this.closeMobileSearch}
+              onClearInput={() => {}}
+              height={isMobile() ? 'tall' : 'medium'}
+            />
+          }
         </Col>
       </MobieTypeaheadContainer>
     )

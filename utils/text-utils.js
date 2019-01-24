@@ -1,4 +1,5 @@
 import createNumberMask from 'text-mask-addons/dist/createNumberMask'
+import startCase from 'lodash/startCase'
 
 const getParagraphs = (text) => {
   if (text) {
@@ -12,6 +13,17 @@ const getUrlVars = (url) => {
     vars[key] = value
   })
   return vars
+}
+
+const arrayToString = (arr) => {
+  let str = ''
+  for (let i = 0; i < arr.length; i++) {
+    str += startCase(arr[i])
+    if (i < arr.length - 1) {
+      str += ', '
+    }
+  }
+  return str
 }
 
 const currencyToInt = (displayPrice) => {
@@ -54,6 +66,7 @@ export {
   currencyToInt,
   intToCurrency,
   roundUpPrice,
+  arrayToString,
 
   PREFIX,
   THOUSANDS_SEPARATOR_SYMBOL

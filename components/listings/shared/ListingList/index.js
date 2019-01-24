@@ -279,9 +279,8 @@ class ListingList extends Component {
   }
 
   render() {
-    const {filters, params} = this.props
-    const {state, neighborhood} = params
-    const h1Content = getTitleText(state, neighborhood)
+    const {filters} = this.props
+    const h1Content = getTitleText(filters)
     return (
       <Query
         query={GET_LISTINGS}
@@ -293,7 +292,7 @@ class ListingList extends Component {
           return (
             <>
               <Title>
-                {state && <View mb={2}><Text inline>{h1Content}</Text></View>}
+                {filters.citiesSlug && <View mb={2}><Text inline>{h1Content}</Text></View>}
               </Title>
               <Container>
                 {this.getListings(listings, fetchMore)}

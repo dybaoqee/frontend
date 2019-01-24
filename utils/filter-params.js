@@ -139,6 +139,7 @@ export const getNewFiltersFromQuery = ({
   vagas_maximo,
   quartos_minimo,
   quartos_maximo,
+  bairros,
   tipos
 }, params) => {
   const price = preco_minimo || preco_maximo ? {
@@ -158,6 +159,7 @@ export const getNewFiltersFromQuery = ({
     max: parseInt(vagas_maximo)
   } : null
   const types = tipos && splitParam(tipos).map((type) => (type.value ? type.value : type))
+  const neighborhoods = bairros && splitParam(bairros).map((neighborhood) => neighborhood)
   const neighborhoodsSlugs = params && params.neighborhood ? [params.neighborhood] : null
   const citiesSlug = params && params.city ? [params.city] : null
   const filters = {
@@ -166,6 +168,7 @@ export const getNewFiltersFromQuery = ({
     rooms,
     garageSpots,
     types,
+    neighborhoods,
     neighborhoodsSlugs,
     citiesSlug
   }
@@ -219,6 +222,7 @@ export const getListingFiltersFromState = ({
   area,
   garageSpots,
   rooms,
+  neighborhoods,
   neighborhoodsSlugs,
   citiesSlug,
   types
@@ -237,14 +241,18 @@ export const getListingFiltersFromState = ({
     types:
       types &&
       types.length > 0 &&
-      types.map((type) => (type.value ? type.value : type))
+      types.map((type) => (type.value ? type.value : type)),
+    neighborhoods:
+      neighborhoods &&
+      neighborhoods.length > 0 &&
+      neighborhoods.map((neighborhood) => `${neighborhood.substring(0, 1).toUpperCase()}${neighborhood.substring(1, neighborhood.length)}`)
   }
 
   return pickBy(filters, (value) => value !== undefined && value !== null && ((typeof(value) === 'number' && !isNaN(value)) || typeof(value) === 'object'))
 }
 
 /**
- * Reads location info (state, city, neighborhood) from a give URL.
+ * Reads location info (state, city, neighborhood) from a given URL.
  *
  * @param asPath url
  */
@@ -262,6 +270,11 @@ export const getLocationFromPath = (asPath) => {
   return location
 }
 
+/**
+ * Returns a filter object given a query object.
+ *
+ * @param query nextjs' query object.
+ */
 export const getDerivedParams = ({
   preco_minimo,
   preco_maximo,
@@ -283,19 +296,28 @@ export const getDerivedParams = ({
       min: parseInt(area_minima),
       max: parseInt(area_maxima)
     },
-    [quartos_minimo && quartos_maximo ? 'rooms' : undefined]: {
-      min: parseInt(quartos_minimo),
-      max: parseInt(quartos_maximo)
-    },
-    [vagas_minimo && vagas_maximo ? 'garageSpots' : undefined]: {
-      min: parseInt(vagas_minimo),
-      max: parseInt(vagas_maximo)
-    },
-    [bairros && splitParam(bairros).length > 0
-      ? 'neighborhoods'
-      : undefined]: splitParam(bairros),
-    [tipos && splitParam(tipos).length > 0 ? 'types' : undefined]: splitParam(
-      tipos
-    )
+    [quartos_minimo || quartos_maximo ? 'rooms' : undefined]: filterValid({
+      [quartos_minimo ? 'min' : undefined]: parseInt(quartos_minimo),
+      [quartos_maximo ? 'max' : undefined]: parseInt(quartos_maximo)
+    }),
+    [vagas_minimo || vagas_maximo ? 'garageSpots' : undefined]: filterValid({
+      [vagas_minimo ? 'min' : undefined]: parseInt(vagas_minimo),
+      [vagas_maximo ? 'max' : undefined]: parseInt(vagas_maximo)
+    }),
+    [bairros && splitParam(bairros).length > 0 ? 'neighborhoods' : undefined]: splitParam(bairros),
+    [tipos && splitParam(tipos).length > 0 ? 'types' : undefined]: splitParam(tipos)
   })
+}
+
+/**
+ * Adds the list of selected neighborhoods to the current search query. This is
+ * done separately because the Neighborhood Search component is separated from
+ * the Listing Filters.
+ *
+ * @param filters current filters.
+ * @param selectedNeighborhoods array of selected neighborhoods.
+ */
+export const addNeighborhoodsToQuery = (filters, selectedNeighborhoods) => {
+  filters.neighborhoods = selectedNeighborhoods
+  return `?${treatParams(filters)}`
 }

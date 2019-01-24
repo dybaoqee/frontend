@@ -2,7 +2,8 @@ import {
   treatParams,
   getNewFiltersFromQuery,
   getListingFiltersFromState,
-  getLocationFromPath
+  getLocationFromPath,
+  addNeighborhoodsToQuery
 } from 'utils/filter-params'
 
 describe('listing search filter functions', () => {
@@ -16,6 +17,7 @@ describe('listing search filter functions', () => {
       vagas_maximo: 2,
       quartos_minimo: 3,
       quartos_maximo: 3,
+      bairros: 'botafogo|ipanema',
       tipos: 'Apartamento|Casa'
     }
     const params = {
@@ -24,7 +26,7 @@ describe('listing search filter functions', () => {
       neighborhood: 'humaita'
     }
     const filters = getNewFiltersFromQuery(query, params)
-    expect(filters).toEqual({"area": {"max": 300, "min": 35}, "citiesSlug": ["rio-de-janeiro"], "garageSpots": {"max": 2, "min": 2}, "neighborhoodsSlugs": ["humaita"], "price": {"max": 1500000, "min": 250000}, "rooms": {"max": 3, "min": 3}, "types": ["Apartamento", "Casa"]})
+    expect(filters).toEqual({"area": {"max": 300, "min": 35}, "citiesSlug": ["rio-de-janeiro"], "garageSpots": {"max": 2, "min": 2}, "neighborhoods": ['botafogo', 'ipanema'], "neighborhoodsSlugs": ["humaita"], "price": {"max": 1500000, "min": 250000}, "rooms": {"max": 3, "min": 3}, "types": ["Apartamento", "Casa"]})
   })
 
   it('parses query with only one home type to filter state', () => {
@@ -108,5 +110,40 @@ describe('listing search filter functions', () => {
     }
     const queryString = treatParams(filters)
     expect(queryString).toBe('preco_minimo=250000&preco_maximo=500000&area_minima=50&area_maxima=150&quartos_minimo=2&quartos_maximo=4&vagas_minimo=2&vagas_maximo=4&tipos=Apartamento|Cobertura')
+  })
+
+  it('adds neighborhoods to filters', () => {
+    const filters = {}
+    const selectedNeighborhoods = ['ipanema', 'copacabana']
+    const query = addNeighborhoodsToQuery(filters, selectedNeighborhoods)
+    expect(query).toBe('?bairros=ipanema|copacabana')
+  })
+
+  it('adds neighborhoods to existing filters', () => {
+    const filters = {rooms: {min: 2}}
+    const selectedNeighborhoods = ['ipanema', 'copacabana']
+    const query = addNeighborhoodsToQuery(filters, selectedNeighborhoods)
+    expect(query).toBe('?quartos_minimo=2&bairros=ipanema|copacabana')
+  })
+
+  it('adds neighborhoods to filters when there are two or more filters', () => {
+    const filters = {rooms: {min: 2}, types: ['Apartamento', 'Casa']}
+    const selectedNeighborhoods = ['ipanema', 'copacabana']
+    const query = addNeighborhoodsToQuery(filters, selectedNeighborhoods)
+    expect(query).toBe('?quartos_minimo=2&bairros=ipanema|copacabana&tipos=Apartamento|Casa')
+  })
+
+  it('adds neighborhoods to filters when theres already a neighborhood selected', () => {
+    const filters = {neighborhoods: ['botafogo']}
+    const selectedNeighborhoods = ['ipanema', 'copacabana']
+    const query = addNeighborhoodsToQuery(filters, selectedNeighborhoods)
+    expect(query).toBe('?bairros=ipanema|copacabana')
+  })
+
+  it('adds neighborhoods to filters when theres already a neighborhood selected, among other filters', () => {
+    const filters = {rooms: {min: 2}, types: ['Apartamento', 'Casa'], neighborhoods: ['botafogo', 'leblon']}
+    const selectedNeighborhoods = ['ipanema', 'copacabana']
+    const query = addNeighborhoodsToQuery(filters, selectedNeighborhoods)
+    expect(query).toBe('?quartos_minimo=2&bairros=ipanema|copacabana&tipos=Apartamento|Casa')
   })
 })
