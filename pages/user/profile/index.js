@@ -31,6 +31,7 @@ class UserProfile extends Component {
   constructor(props) {
     super(props)
     this.checkFieldsChange = this.checkFieldsChange.bind(this)
+    this.getUserAcronym = this.getUserAcronym.bind(this)
     this.nameField = React.createRef()
     this.emailField = React.createRef()
   }
@@ -71,7 +72,22 @@ class UserProfile extends Component {
     }
   }
 
+  checkFieldsChange = (userName, userEmail) => {
+    let hasBeenChanged = false
+
+    if (this.nameField.current && this.emailField.current) {
+      hasBeenChanged = this.nameField.current.value != userName || this.emailField.current.value != userEmail
+    }
+
+    clearTimeout(this.timer)
+    this.timer = setTimeout(() => {
+      this.setState({hasChanged: hasBeenChanged})
+    }, 300)
+  }
+
   changeProfileView = () => this.setState({ editingProfile: !this.state.editingProfile })
+
+  getUserAcronym = (name) => name.match(/\b(\w)/g).join('').substring(0, 2)
 
   handleProfileButtonClick = (e) => {
     e.preventDefault()
@@ -137,19 +153,6 @@ class UserProfile extends Component {
     }
   }
 
-  checkFieldsChange = (userName, userEmail) => {
-    let hasBeenChanged = false
-
-    if (this.nameField.current && this.emailField.current) {
-      hasBeenChanged = this.nameField.current.value != userName || this.emailField.current.value != userEmail
-    }
-
-    clearTimeout(this.timer)
-    this.timer = setTimeout(() => {
-      this.setState({hasChanged: hasBeenChanged})
-    }, 300)
-  }
-
   getInitialView = () => {
     const {currentUser: {id}} = this.props
 
@@ -169,7 +172,7 @@ class UserProfile extends Component {
                     justifyContent={'center'}
                     alignItems={'center'}
                   >
-                    PS
+                    {this.getUserAcronym(userProfile.name)}
                   </ProfileAvatar>
                   <Text
                     margin={6}
