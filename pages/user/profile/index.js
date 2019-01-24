@@ -1,7 +1,6 @@
 import {Component, Fragment} from 'react'
-import {Query} from 'react-apollo'
 import {GET_USER_INFO} from 'graphql/user/queries'
-import {Mutation} from 'react-apollo'
+import {Mutation, Query} from 'react-apollo'
 import {EDIT_PROFILE, EDIT_EMAIL} from 'graphql/user/mutations'
 import Tabs from 'components/shared/Common/Tabs'
 import {isEmailValid} from 'lib/validation'
@@ -134,11 +133,10 @@ class UserProfile extends Component {
     const {currentUser: {id}} = this.props
 
     return (
-      <Mutation mutation={EDIT_PROFILE}>
-        {(editProfile, {loading: updatingProfile}) => (
-          <Query query={GET_USER_INFO} variables={{id}}>
-            {({loading, data: {userProfile}}) => {
-              if (loading) return <div />
+      <Query query={GET_USER_INFO} variables={{id}}>
+        {({loading, error, data: {userProfile}}) => {
+          if (loading) return <div />
+          if (error) return `Error!: ${error}`
               return (
                 <InitialView
                   flexDirection={'column'}
@@ -189,10 +187,8 @@ class UserProfile extends Component {
                   </Button>
                 </InitialView>
               )
-            }}
-          </Query>
-        )}
-      </Mutation>
+        }}
+      </Query>
     )
   }
 
@@ -279,6 +275,7 @@ class UserProfile extends Component {
 
   render() {
     const seoTitle = 'EmCasa | Meu Perfil'
+    const {currentUser: {id}} = this.props
     return (
       <ThemeProvider theme={theme}>
         <Fragment>
@@ -286,7 +283,22 @@ class UserProfile extends Component {
             <title>{seoTitle}</title>
             <meta name="twitter:title" content={seoTitle} />
           </Head>
-          <Text fontSize="xlarge">Olá !</Text>
+          <Query query={GET_USER_INFO} variables={{id}}>
+            {({ loading, error, data }) => {
+              if (loading) return null
+              if (error) return `Error!: ${error}`
+              return (
+                <Row px={4} justifyContent="center">
+                  <Text
+                    fluid
+                    fontSize="xlarge" 
+                    textAlign="center"
+                  >Olá {data.userProfile.name}!</Text>
+                </Row>
+              )
+            }}
+          </Query>
+
           <TabWrapper>
             <Tab.Group>
               <Tab label="Meu Perfil">
