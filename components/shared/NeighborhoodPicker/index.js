@@ -123,8 +123,8 @@ class NeighborhoodPicker extends Component {
                 <InputContainer onClick={this.toggleCitiesDisplay} selected={this.state.showCities}>
                   <SearchTextContainer>
                     {this.props.onBackPressed ?
-                      <BackButton>
-                        <BackIcon name="arrow-left" color="dark" onClick={this.props.onBackPressed} />
+                      <BackButton onClick={this.props.onBackPressed}>
+                        <BackIcon name="arrow-left" color="dark" />
                       </BackButton>
                       :
                       <Icon name="map-marker-alt" px={3} pt={1} size={21} />
