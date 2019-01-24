@@ -84,7 +84,6 @@ class UserProfile extends Component {
     const name = e.target.elements.name.value
     const email = e.target.elements.email.value
     const phone = e.target.elements.phone.value
-    const emailPreference = e.target.elements.emailPreference.checked
 
     if (!isEmailValid(email)) {
       this.setState({errors: {email: 'Digite um e-mail válido'}})
@@ -102,14 +101,7 @@ class UserProfile extends Component {
         : email,
       phone: isEqualWith(actualPhone, phone, this.checkComparison)
         ? undefined
-        : phone,
-      emailPreference: isEqualWith(
-        actualEmailPreference,
-        emailPreference,
-        this.checkComparison
-      )
-        ? undefined
-        : emailPreference
+        : phone
     }
 
     const attributesChanged = pickBy(
@@ -119,8 +111,7 @@ class UserProfile extends Component {
 
     if (
       attributesChanged.name === undefined ||
-      attributesChanged.phone === undefined ||
-      attributesChanged.emailPreference === undefined
+      attributesChanged.phone === undefined
     ) {
       editProfile({
         variables: {id, ...attributesChanged},
@@ -182,67 +173,63 @@ class UserProfile extends Component {
     const {currentUser: {id}} = this.props
 
     return (
-      <Mutation mutation={EDIT_EMAIL}>
-        {(editEmail, {loading: updatingEmail}) => (
-          <Mutation mutation={EDIT_PROFILE}>
-            {(editProfile, {loading: updatingProfile}) => (
-              <Query query={GET_USER_INFO} variables={{id}}>
-                {({loading, data: {userProfile}}) => {
-                  if (loading) return <div />
-                  return (
-                    <InitialView
-                      flexDirection={'column'}
-                      alignItems={'center'}
-                      width="100%"
-                      maxWidth={"100%"}
-                    >
-                      <ProfileAvatar
-                        justifyContent={'center'}
-                        alignItems={'center'}
-                      >
-                        PS
-                      </ProfileAvatar>
-                      <Text
-                        margin={6}
-                        textAlign="center"
-                        fontSize="large"
-                      >
-                        {userProfile.name}
-                      </Text>
-                      <Text
-                        margin={6}
-                        textAlign="center"
-                        color="grey"
-                      >
-                        {userProfile.email}
-                      </Text>
-                      <Text
-                        margin={6}
-                        textAlign="center"
-                        color="grey"
-                      >
-                        {userProfile.phone}
-                      </Text>
-                      <Button
-                        active
-                        fluid
-                        height="tall"
-                        onClick={this.handleProfileButtonClick}
-                      >
-                        Editar
-                      </Button>
-                      <Button
-                        fluid
-                        height="tall"
-                      >
-                        Sair
-                      </Button>
-                    </InitialView>
-                  )
-                }}
-              </Query>
-            )}
-          </Mutation>
+      <Mutation mutation={EDIT_PROFILE}>
+        {(editProfile, {loading: updatingProfile}) => (
+          <Query query={GET_USER_INFO} variables={{id}}>
+            {({loading, data: {userProfile}}) => {
+              if (loading) return <div />
+              return (
+                <InitialView
+                  flexDirection={'column'}
+                  alignItems={'center'}
+                  width="100%"
+                  maxWidth={"100%"}
+                >
+                  <ProfileAvatar
+                    justifyContent={'center'}
+                    alignItems={'center'}
+                  >
+                    PS
+                  </ProfileAvatar>
+                  <Text
+                    margin={6}
+                    textAlign="center"
+                    fontSize="large"
+                  >
+                    {userProfile.name}
+                  </Text>
+                  <Text
+                    margin={6}
+                    textAlign="center"
+                    color="grey"
+                  >
+                    {userProfile.email}
+                  </Text>
+                  <Text
+                    margin={6}
+                    textAlign="center"
+                    color="grey"
+                  >
+                    {userProfile.phone}
+                  </Text>
+                  <Button
+                    active
+                    fluid
+                    height="tall"
+                    onClick={this.handleProfileButtonClick}
+                  >
+                    Editar
+                  </Button>
+                  <Button
+                    fluid
+                    height="tall"
+                  >
+                    Sair
+                  </Button>
+                </InitialView>
+              )
+            }}
+          </Query>
         )}
       </Mutation>
     )
