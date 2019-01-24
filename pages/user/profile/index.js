@@ -2,7 +2,7 @@ import {Component, Fragment} from 'react'
 import {Query} from 'react-apollo'
 import {GET_USER_INFO} from 'graphql/user/queries'
 import {Mutation} from 'react-apollo'
-import {EDIT_PROFILE, EDIT_EMAIL, EDIT_PASSWORD} from 'graphql/user/mutations'
+import {EDIT_PROFILE, EDIT_EMAIL} from 'graphql/user/mutations'
 import Tabs from 'components/shared/Common/Tabs'
 import {isEmailValid} from 'lib/validation'
 import {getCurrentUserId, redirectIfNotAuthenticated} from 'lib/auth'
@@ -128,45 +128,6 @@ class UserProfile extends Component {
         })
       })
     }
-  }
-
-  handlePasswordUpdate = async (e, editPassword) => {
-    e.preventDefault()
-    e.persist()
-    const {currentUser: {id}} = this.props
-
-    const currentPassword = e.target.elements.actual_password.value
-    const newPassword = e.target.elements.new_password.value
-    const confirm_password = e.target.elements.confirm_password.value
-
-    if (currentPassword.length === 0) {
-      this.setState({errors: {actual_password: 'Digite sua senha atual'}})
-      return
-    }
-
-    if (newPassword.length === 0) {
-      this.setState({errors: {new_password: 'A nova senha é muito curta'}})
-      return
-    }
-
-    if (newPassword !== confirm_password) {
-      this.setState({errors: {confirm_password: 'As senhas não coincidem'}})
-      return
-    }
-
-    this.setState({errors: {}})
-
-    editPassword({
-      variables: {id, currentPassword, newPassword}
-    })
-      .then(() => {
-        e.target.reset()
-      })
-      .catch(() => {
-        this.setState({
-          errors: {actual_password: 'A senha atual está incorreta'}
-        })
-      })
   }
 
   getInitialView = () => {
@@ -304,31 +265,6 @@ class UserProfile extends Component {
     )
   }
 
-  getPasswordForm = () => {
-    const {errors} = this.state
-    return (
-      <Mutation mutation={EDIT_PASSWORD}>
-        {(editPassword, {loading: updatingPassword}) => (
-          <Form
-            onSubmit={(e) => this.handlePasswordUpdate(e, editPassword)}
-            errors={errors}
-          >
-            <Input label="Senha atual" name="actual_password" type="password" />
-            <Input label="Nova senha" name="new_password" type="password" />
-            <Input label="Confirmar nova senha" name="confirm_password" type="password" />
-            <Button
-              fluid
-              height="tall"
-              disabled={updatingPassword}
-            >
-              {updatingPassword ? 'Atualizando...' : 'Salvar'}
-            </Button>
-          </Form>
-        )}
-      </Mutation>
-    )
-  }
-
   getMyRealEstate = () => {
     return (
       <Text fontSize="xlarge">Meus imóveis</Text>
@@ -355,8 +291,8 @@ class UserProfile extends Component {
               <Tab label="Meu Perfil">
                 {this.state.editProfile ? this.getProfileForm() : this.getInitialView()}
               </Tab>
-              <Tab label="Senha">
-                {this.getPasswordForm()}
+              <Tab label="Meus Imóveis">
+                {this.getMyRealEstate()}
               </Tab>
               <Tab label="Meus Favoritos">
                 {this.getMyFavorites()}
