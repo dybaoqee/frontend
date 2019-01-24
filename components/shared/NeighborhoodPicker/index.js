@@ -2,8 +2,10 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Router from 'next/router'
 import enhanceWithClickOutside from 'react-click-outside'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import AngleDown from '@fortawesome/fontawesome-pro-light/faAngleDown'
+import AngleUp from '@fortawesome/fontawesome-pro-light/faAngleUp'
 import * as Sentry from '@sentry/browser'
-import Text from '@emcasa/ui-dom/components/Text'
 import Icon from '@emcasa/ui-dom/components/Icon'
 import Col from '@emcasa/ui-dom/components/Col'
 import CityContainer from './components/CityContainer'
@@ -24,10 +26,11 @@ import {
   SearchContainer,
   SearchTextContainer,
   BackIcon,
-  BackButton
+  BackButton,
+  ButtonText
 } from './styles'
 
-const DEFAULT_BUTTON_TEXT = 'Selecione os bairros'
+const DEFAULT_BUTTON_TEXT = 'Escolha os bairros'
 
 class NeighborhoodPicker extends Component {
   constructor(props) {
@@ -127,12 +130,12 @@ class NeighborhoodPicker extends Component {
                         <BackIcon name="arrow-left" color="dark" />
                       </BackButton>
                       :
-                      <Icon name="map-marker-alt" px={3} pt={1} size={21} />
+                      <Icon name="map-marker-alt" px={3} pt={1} size={21} color="dark" />
                     }
-                    <Text color="grey">{this.getButtonText()}</Text>
+                    <ButtonText color="grey">{this.getButtonText()}</ButtonText>
                   </SearchTextContainer>
                   <Col px={3} pt={1}>
-                    <Icon name={this.state.showCities ? 'angle-up' : 'angle-down'} />
+                    <FontAwesomeIcon icon={this.state.showCities ? AngleUp : AngleDown} size="2x" style={{fontSize: 24}} />
                   </Col>
                 </InputContainer>
               </InputWrapper>
