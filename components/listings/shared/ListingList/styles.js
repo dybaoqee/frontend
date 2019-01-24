@@ -19,7 +19,7 @@ const Title = styled(Row)`
 `
 
 const Container = styled(Row)`
-  justify-content: flex-start;
+  justify-content: space-between;
   margin: 0, auto, 0, auto;
 `
 
