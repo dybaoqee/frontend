@@ -94,6 +94,7 @@ class NeighborhoodPicker extends Component {
         data.districts.forEach((item) => {
           citiesNeighborhoods.find((city) => city.citySlug === item.citySlug).neighborhoods.push(item)
         })
+        citiesNeighborhoods.forEach((city) => city.neighborhoods.sort((n1, n2) => n1.nameSlug.localeCompare(n2.nameSlug)))
         return citiesNeighborhoods
       }
     } catch (e) {
