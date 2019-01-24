@@ -46,7 +46,7 @@ const BackIcon = styled(Icon)`
   margin: ${themeGet('space.1')}px ${themeGet('space.3')}px 0 ${themeGet('space.3')}px;
 `
 
-const MobieTypeaheadContainer = styled(Row)`
+const MobileTypeaheadContainer = styled(Row)`
   position: fixed;
   top: 0;
   right: 0;
@@ -57,7 +57,7 @@ const MobieTypeaheadContainer = styled(Row)`
 `
 
 export {
-  MobieTypeaheadContainer,
+  MobileTypeaheadContainer,
   SearchResultItem,
   SearchResultContainer,
   InputContainer,

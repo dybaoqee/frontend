@@ -23,6 +23,8 @@ const CitiesWrapper = styled(Row)`
   @media (max-width: ${theme.breakpoints[0]}) {
     width: calc(100% - ${MARGINS}px);
     top: calc(${theme.buttonHeight[0]}px + ${TOP}px);
+    max-width: none;
+    margin-bottom: ${theme.space[4]}px;
   }
 `
 
