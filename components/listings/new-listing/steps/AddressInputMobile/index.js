@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import Col from '@emcasa/ui-dom/components/Col'
 import AddressAutoComplete from 'components/shared/AddressAutoComplete'
-import { MobieTypeaheadContainer } from 'components/shared/AddressAutoComplete/styles'
+import { MobileTypeaheadContainer } from 'components/shared/AddressAutoComplete/styles'
 
 class AddressInputMobile extends Component {
   constructor(props) {
@@ -31,7 +31,7 @@ class AddressInputMobile extends Component {
   render() {
     return (
       <div ref={this.props.hostRef}>
-        <MobieTypeaheadContainer justifyContent="center" p={4}>
+        <MobileTypeaheadContainer justifyContent="center" p={4}>
           <Col width={1}>
             <AddressAutoComplete
               onBackPressed={this.close}
@@ -45,7 +45,7 @@ class AddressInputMobile extends Component {
               }}
             />
           </Col>
-        </MobieTypeaheadContainer>
+        </MobileTypeaheadContainer>
       </div>
     )
   }

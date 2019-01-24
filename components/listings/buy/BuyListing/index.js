@@ -8,7 +8,7 @@ import Button from '@emcasa/ui-dom/components/Button'
 import {isMobile} from 'lib/mobile'
 import NeighborhoodAutoComplete from 'components/shared/NeighborhoodAutoComplete'
 import MobileAddressButton from 'components/shared/MobileAddressButton'
-import { MobieTypeaheadContainer } from 'components/shared/NeighborhoodAutoComplete/styles'
+import { MobileTypeaheadContainer } from 'components/shared/NeighborhoodAutoComplete/styles'
 
 import {
   UnderlinedText,
@@ -43,14 +43,14 @@ export default class BuyListing extends Component {
   render() {
     if (this.state.showMobileAddressInput) {
       return (
-        <MobieTypeaheadContainer justifyContent="center" p={4}>
+        <MobileTypeaheadContainer justifyContent="center" p={4}>
           <Col width={1}>
             <NeighborhoodAutoComplete
               onBackPressed={this.close}
               onClearInput={() => {}}
             />
           </Col>
-        </MobieTypeaheadContainer>
+        </MobileTypeaheadContainer>
       )
     }
 

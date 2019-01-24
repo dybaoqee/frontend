@@ -24,6 +24,7 @@ const CitiesWrapper = styled(Row)`
     width: calc(100% - ${MARGINS}px);
     top: calc(${theme.buttonHeight[0]}px + ${TOP}px);
     max-width: none;
+    margin-bottom: ${theme.space[4]}px;
   }
 `
 
