@@ -14,7 +14,7 @@ export default styled.header`
   display: flex;
   flex-wrap: wrap;
   justify-content: ${props => props.search ? 'unset' : 'space-between'};
-  padding: 0px 24px;
+  padding: 0px ${theme.space[4]}px;
   width: 100%;
   max-height: 76px;
   height: 76px;
@@ -46,6 +46,7 @@ export const Nav = styled.nav`
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  z-index: 1;
   
   > :nth-child(n + 2) {
     margin-left: 20px;
@@ -205,6 +206,7 @@ export const Overlay = styled.div`
   background: black;
   opacity: 0;
   animation: ${fadeIn} 0.3s 0s both;
+  z-index: 1;
 `
 
 

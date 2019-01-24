@@ -22,6 +22,7 @@ import {
 class ListingSearch extends Component {
   constructor(props) {
     super(props)
+    this.handleRouteChange = this.handleRouteChange.bind(this)
     const params = props.params ? props.params : {}
     const query = props.query ? props.query : {}
     const filters = getNewFiltersFromQuery(query, params)
@@ -66,18 +67,39 @@ class ListingSearch extends Component {
         filters: getNewFiltersFromQuery(newQuery)
       })
     }
+    Router.events.on('routeChangeComplete', this.handleRouteChange)
   }
 
   componentWillUnmount() {
     window.onpopstate = null
+    Router.events.off('routeChangeComplete', this.handleRouteChange)
+  }
+
+  handleRouteChange() {
+    // Take action only when neighborhood changes. We do this here because the component
+    // responsible for controlling neighborhood filters is not in the same context as
+    // this ListingSearch or the ListingFilter.
+    let newFilters = getNewFiltersFromQuery(Router.query)
+    const newNeighborhoods = newFilters.neighborhoods ? newFilters.neighborhoods.toString() : ''
+    const currentNeighborhoods = this.state.filters.neighborhoods ? this.state.filters.neighborhoods.toString() : ''
+    if (newNeighborhoods !== currentNeighborhoods) {
+      delete newFilters.citiesSlug
+      this.setState({
+        filters: newFilters
+      })
+      window.scrollTo(0, 0)
+    }
   }
 
   onChangeFilter = (filters) => {
+    // Add neighborhoods to new filters from Router.query
+    const neighborhoodFilters = getNewFiltersFromQuery(Router.query).neighborhoods
+    filters.neighborhoods = neighborhoodFilters
     const newQuery = treatParams(filters)
 
     const { params } = this.props
     let route = ''
-    if (params && Object.keys(params).length > 0) {
+    if (params && Object.keys(params).length > 0 && neighborhoodFilters.length === 0) {
       route = `/${params.state}/${params.city}${params.neighborhood ? `/${params.neighborhood}` : ``}`
     }
 
@@ -127,7 +149,7 @@ class ListingSearch extends Component {
     const {neighborhoods, query, params, user, client} = this.props
     const {filters} = this.state
 
-    if (params) {
+    if (params && !filters.neighborhoods) {
       if (params.city) {
         filters.citiesSlug = [params.city]
       }
