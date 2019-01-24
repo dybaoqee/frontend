@@ -30,7 +30,7 @@ import {
 
 class UserProfile extends Component {
   state = {
-    editProfile: false,
+    editingProfile: false,
     errors: {}
   }
 
@@ -64,7 +64,7 @@ class UserProfile extends Component {
     }
   }
 
-  changeProfileView = () => this.setState({ editProfile: !this.state.editProfile })
+  changeProfileView = () => this.setState({ editingProfile: !this.state.editingProfile })
 
   handleProfileButtonClick = (e) => {
     e.preventDefault()
@@ -286,10 +286,11 @@ class UserProfile extends Component {
             <title>{seoTitle}</title>
             <meta name="twitter:title" content={seoTitle} />
           </Head>
+          <Text fontSize="xlarge">Olá !</Text>
           <TabWrapper>
             <Tab.Group>
               <Tab label="Meu Perfil">
-                {this.state.editProfile ? this.getProfileForm() : this.getInitialView()}
+                {this.state.editingProfile ? this.getProfileForm() : this.getInitialView()}
               </Tab>
               <Tab label="Meus Imóveis">
                 {this.getMyRealEstate()}
