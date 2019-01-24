@@ -27,7 +27,7 @@ import {
   BackButton
 } from './styles'
 
-const DEFAULT_BUTTON_TEXT = 'Selecione os bairros desejados'
+const DEFAULT_BUTTON_TEXT = 'Selecione os bairros'
 
 class NeighborhoodPicker extends Component {
   constructor(props) {
