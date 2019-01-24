@@ -4,11 +4,11 @@ import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Icon from '@emcasa/ui-dom/components/Icon'
 
-const SEARCH_CONTAINER_WIDTH = 560
+const SEARCH_CONTAINER_MAX_WIDTH = 560
 
 const SearchContainer = styled(Row)`
   width: 35%;
-  max-width: ${SEARCH_CONTAINER_WIDTH}px;
+  max-width: ${SEARCH_CONTAINER_MAX_WIDTH}px;
   height: 100%;
   margin: ${({mobile}) => mobile ? `0` : `${theme.space[4]}px 0 0 ${theme.space[4]}px`};
 
@@ -26,7 +26,7 @@ const InputWrapper = styled(Col)`
 
 const InputContainer = styled(Row)`
   cursor: pointer;
-  max-width: ${SEARCH_CONTAINER_WIDTH}px;
+  max-width: ${SEARCH_CONTAINER_MAX_WIDTH}px;
   border: 1px solid ${({selected}) => selected ? theme.colors.blue : theme.colors.lightGrey}};
   border-radius: ${theme.space[1]}px;
   display: flex;
@@ -57,5 +57,5 @@ export {
   SearchContainer,
   SearchTextContainer,
   BackIcon,
-  SEARCH_CONTAINER_WIDTH
+  SEARCH_CONTAINER_MAX_WIDTH
 }
