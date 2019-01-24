@@ -1,4 +1,4 @@
-import {Component, Fragment} from 'react'
+import React, {Component, Fragment} from 'react'
 import {GET_USER_INFO} from 'graphql/user/queries'
 import {Mutation, Query} from 'react-apollo'
 import {EDIT_PROFILE, EDIT_EMAIL} from 'graphql/user/mutations'
@@ -28,8 +28,16 @@ import {
 } from './styles'
 
 class UserProfile extends Component {
+  constructor(props) {
+    super(props)
+    this.checkFieldsChange = this.checkFieldsChange.bind(this)
+    this.nameField = React.createRef()
+    this.emailField = React.createRef()
+  }
   state = {
     editingProfile: false,
+    editedProfile: false,
+    hasChanged: false,
     errors: {}
   }
 
@@ -129,6 +137,19 @@ class UserProfile extends Component {
     }
   }
 
+  checkFieldsChange = (userName, userEmail) => {
+    let hasBeenChanged = false
+
+    if (this.nameField.current && this.emailField.current) {
+      hasBeenChanged = this.nameField.current.value != userName || this.emailField.current.value != userEmail
+    }
+
+    clearTimeout(this.timer)
+    this.timer = setTimeout(() => {
+      this.setState({hasChanged: hasBeenChanged})
+    }, 300)
+  }
+
   getInitialView = () => {
     const {currentUser: {id}} = this.props
 
@@ -194,7 +215,7 @@ class UserProfile extends Component {
 
   getProfileForm = () => {
     const {currentUser: {id}} = this.props
-    const {errors} = this.state
+    const {errors, editedProfile} = this.state
     return (
       <Mutation mutation={EDIT_EMAIL}>
         {(editEmail, {loading: updatingEmail}) => (
@@ -203,6 +224,7 @@ class UserProfile extends Component {
               <Query query={GET_USER_INFO} variables={{id}}>
                 {({loading, data: {userProfile}}) => {
                   if (loading) return <div />
+                  this.checkFieldsChange(userProfile.name, userProfile.email)
                   return (
                     <Form
                       onSubmit={(e) =>
@@ -218,12 +240,21 @@ class UserProfile extends Component {
                       <Input
                         name="name"
                         type="text"
+                        ref={this.nameField}
                         defaultValue={userProfile.name}
+                        onChange={(e) => {
+                          this.checkFieldsChange(userProfile.name, userProfile.email)
+                        }}
                       />
                       <Input
+                        required
                         name="email"
-                        type="text"
+                        type="email"
+                        ref={this.emailField}
                         defaultValue={userProfile.email}
+                        onChange={(e) => {
+                          this.checkFieldsChange(userProfile.name, userProfile.email)
+                        }}
                       />
                       <Input
                         disabled
@@ -243,7 +274,8 @@ class UserProfile extends Component {
                         <Button
                           type="submit"
                           height="tall"
-                          disabled={updatingProfile || updatingEmail}
+                          active={this.state.hasChanged}
+                          disabled={!this.state.hasChanged || updatingProfile || updatingEmail}
                         >
                           {updatingProfile || updatingEmail
                             ? 'Atualizando...'
