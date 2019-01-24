@@ -292,6 +292,7 @@ class UserProfile extends Component {
                   <Text
                     fluid
                     fontSize="xlarge" 
+                    fontWeight="bold" 
                     textAlign="center"
                   >Olá {data.userProfile.name}!</Text>
                 </Row>
