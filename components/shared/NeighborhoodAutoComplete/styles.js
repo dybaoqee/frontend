@@ -58,21 +58,23 @@ const BackIcon = styled(Icon)`
   margin: ${themeGet('space.1')}px ${themeGet('space.3')}px 0 ${themeGet('space.3')}px;
 `
 
-const MobieTypeaheadContainer = styled(Row)`
+const MobileTypeaheadContainer = styled(Row)`
   position: fixed;
   top: 0;
   right: 0;
   left: 0;
+  bottom: 0;
   z-index: 5;
   background-color: ${themeGet('colors.white')};
 
-  @media only screen and (max-width: ${themeGet('breakpoints.0')}) {
-    height: 100%;
+  @media only screen and (max-width: ${theme.breakpoints[0]}) {
+    overflow-y: scroll;
+    padding-bottom: ${theme.space[4]}px;
   }
 `
 
 export {
-  MobieTypeaheadContainer,
+  MobileTypeaheadContainer,
   SearchResultItem,
   SearchResultContainer,
   InputContainer,

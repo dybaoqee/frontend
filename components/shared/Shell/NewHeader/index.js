@@ -16,7 +16,7 @@ import faSignInAlt from '@fortawesome/fontawesome-pro-solid/faSignInAlt'
 import NeighborhoodPicker from 'components/shared/NeighborhoodPicker'
 import NeighborhoodAutoComplete from 'components/shared/NeighborhoodAutoComplete'
 import MobileAddressButton from 'components/shared/MobileAddressButton'
-import {MobieTypeaheadContainer} from 'components/shared/NeighborhoodAutoComplete/styles'
+import {MobileTypeaheadContainer} from 'components/shared/NeighborhoodAutoComplete/styles'
 import {isMobile} from 'lib/mobile'
 
 import Container, {
@@ -98,7 +98,7 @@ export default class Header extends Component {
 
   renderMobileSearch() {
     return (
-      <MobieTypeaheadContainer justifyContent="center" p={4} style={{height: '100%'}}>
+      <MobileTypeaheadContainer justifyContent="center" p={4}>
         <Col width={1}>
           {USE_NEW_SEARCH ?
             <NeighborhoodPicker
@@ -114,7 +114,7 @@ export default class Header extends Component {
             />
           }
         </Col>
-      </MobieTypeaheadContainer>
+      </MobileTypeaheadContainer>
     )
   }
 
