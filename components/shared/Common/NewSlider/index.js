@@ -195,7 +195,7 @@ class NewSlider extends Component {
         {isRange && (
           <RangeValues>
             <Value textAlign="right">{valuesFormatter(minValue)}</Value>
-            <Value margin>/</Value>
+            <Value margin>-</Value>
             <Value textAlign="left">{valuesFormatter(maxValue)}</Value>
           </RangeValues>
         )}
