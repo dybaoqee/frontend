@@ -4,8 +4,10 @@ import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Icon from '@emcasa/ui-dom/components/Icon'
 import Button from '@emcasa/ui-dom/components/Button'
+import Text from '@emcasa/ui-dom/components/Text'
 
 const SEARCH_CONTAINER_MAX_WIDTH = 560
+const MARGINS = theme.space[4] * 2
 
 const SearchContainer = styled(Row)`
   width: 35%;
@@ -44,8 +46,13 @@ const InputContainer = styled(Row)`
 `
 
 const SearchTextContainer = styled(Row)`
+  max-width: calc(100% - 42px);
   flex-direction: row;
   align-items: center;
+
+  @media (max-width: ${theme.breakpoints[0]}) {
+    width: calc(100% - ${MARGINS}px);
+  }
 `
 
 const BackIcon = styled(Icon)`
@@ -60,6 +67,12 @@ const BackButton = styled(Button)`
   border: 0;
 `
 
+const ButtonText = styled(Text)`
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+`
+
 export {
   InputWrapper,
   InputContainer,
@@ -67,5 +80,6 @@ export {
   SearchTextContainer,
   BackIcon,
   BackButton,
+  ButtonText,
   SEARCH_CONTAINER_MAX_WIDTH
 }
