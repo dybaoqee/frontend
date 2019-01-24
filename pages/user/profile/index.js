@@ -355,8 +355,8 @@ class UserProfile extends Component {
               <Tab label="Meu Perfil">
                 {this.state.editProfile ? this.getProfileForm() : this.getInitialView()}
               </Tab>
-              <Tab label="Meus Imóveis">
-                {this.getMyRealEstate()}
+              <Tab label="Senha">
+                {this.getPasswordForm()}
               </Tab>
               <Tab label="Meus Favoritos">
                 {this.getMyFavorites()}
