@@ -1,18 +1,19 @@
 import React, {Component, Fragment} from 'react'
 import {GET_USER_INFO, GET_FAVORITE_LISTINGS} from 'graphql/user/queries'
-import {Mutation, Query} from 'react-apollo'
 import {EDIT_PROFILE, EDIT_EMAIL} from 'graphql/user/mutations'
-import Tabs from 'components/shared/Common/Tabs'
+import {Mutation, Query} from 'react-apollo'
 import {isEmailValid} from 'lib/validation'
 import {getCurrentUserId, redirectIfNotAuthenticated} from 'lib/auth'
-import EmCasaButton from 'components/shared/Common/Buttons'
-import Form, {Field} from 'components/shared/Common/Form/styles'
-import CheckBox from 'components/shared/Common/Form/CheckBox'
 import isNull from 'lodash/isNull'
 import isUndefined from 'lodash/isUndefined'
 import isEqualWith from 'lodash/isEqualWith'
 import pickBy from 'lodash/pickBy'
 import Head from 'next/head'
+import Router from 'next/router'
+import Tabs from 'components/shared/Common/Tabs'
+import EmCasaButton from 'components/shared/Common/Buttons'
+import Form, {Field} from 'components/shared/Common/Form/styles'
+import CheckBox from 'components/shared/Common/Form/CheckBox'
 
 import {ThemeProvider} from 'styled-components'
 import theme from '@emcasa/ui'
@@ -87,9 +88,15 @@ class UserProfile extends Component {
 
   getUserAcronym = (name) => name.match(/\b(\w)/g).join('').substring(0, 2)
 
-  handleProfileButtonClick = (e) => {
+  handleProfileButton = (e) => {
     e.preventDefault()
     this.changeProfileView()
+  }
+
+  handleLogoutButton = (e) => {
+    Router.push({
+      pathname: '/auth/logout'
+    })
   }
 
   handleProfileUpdate = async (e, editProfile, editEmail, userProfile) => {
@@ -197,13 +204,14 @@ class UserProfile extends Component {
                     active
                     fluid
                     height="tall"
-                    onClick={this.handleProfileButtonClick}
+                    onClick={this.handleProfileButton}
                   >
                     Editar
                   </Button>
                   <Button
                     fluid
                     height="tall"
+                    onClick={this.handleLogoutButton}
                   >
                     Sair
                   </Button>
@@ -268,12 +276,12 @@ class UserProfile extends Component {
                       >
                         <Button
                           height="tall"
-                          onClick={this.handleProfileButtonClick}
+                          onClick={this.handleProfileButton}
                         >
                           Cancelar
                         </Button>
                         <Button
-                          type="submit"
+                          handleLogoutButton="submit"
                           height="tall"
                           active={this.state.hasChanged}
                           disabled={!this.state.hasChanged || updatingProfile || updatingEmail}
