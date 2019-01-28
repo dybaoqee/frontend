@@ -25,7 +25,7 @@ const SearchContainer = styled(Row)`
 const InputWrapper = styled(Col)`
   width: 100%;
   height: ${theme.buttonHeight[1]}px;
-  z-index: 1;
+  z-index: 2;
 `
 
 const InputContainer = styled(Row)`
