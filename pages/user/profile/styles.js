@@ -4,8 +4,9 @@ import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
 import {Container} from 'components/listings/shared/ListingCard/styles'
+import {mobileMedia} from 'constants/media'
 
-export const PROFILE_TABWRAPPER_MAX_WIDTH = 970
+const PROFILE_TABWRAPPER_MAX_WIDTH = 970
 
 export const TabWrapper = styled.div`
   box-sizing: border-box;
@@ -43,13 +44,17 @@ export const InitialView = styled(Row)`
   }
 `
 
-export const FavoritesView = styled.div`
+export const ProfileList = styled.div`
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(${Math.round((PROFILE_TABWRAPPER_MAX_WIDTH / 3) - (theme.space[2] * 2))}px, 1fr));
+  grid-template-columns: 33% 33% 33%;
   grid-column-gap: ${theme.space[2]}px;
   grid-row-gap: ${theme.space[2]}px;
   margin: ${theme.space[5]}px 0 0;
+
+  @media only screen and (max-width: 1024px) {
+    grid-template-columns: repeat(auto-fill, minmax(${Math.round((PROFILE_TABWRAPPER_MAX_WIDTH / 3) - (theme.space[2] * 2))}px, 1fr));
+  }
 
   ${Container} {
     margin: 0;

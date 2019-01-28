@@ -1,9 +1,22 @@
 import React, {Component, Fragment} from 'react'
-import {GET_USER_INFO, GET_FAVORITE_LISTINGS} from 'graphql/user/queries'
-import {EDIT_PROFILE, EDIT_EMAIL} from 'graphql/user/mutations'
-import {Mutation, Query} from 'react-apollo'
+import {
+  GET_USER_INFO,
+  GET_USER_LISTINGS,
+  GET_FAVORITE_LISTINGS
+} from 'graphql/user/queries'
+import {
+  EDIT_PROFILE,
+  EDIT_EMAIL
+} from 'graphql/user/mutations'
+import {
+  Mutation,
+  Query
+} from 'react-apollo'
 import {isEmailValid} from 'lib/validation'
-import {getCurrentUserId, redirectIfNotAuthenticated} from 'lib/auth'
+import {
+  getCurrentUserId,
+  redirectIfNotAuthenticated
+} from 'lib/auth'
 import isNull from 'lodash/isNull'
 import isUndefined from 'lodash/isUndefined'
 import isEqualWith from 'lodash/isEqualWith'
@@ -27,7 +40,7 @@ import {
   TabWrapper,
   InitialView,
   ProfileAvatar,
-  FavoritesView
+  ProfileList
 } from './styles'
 
 class UserProfile extends Component {
@@ -306,7 +319,38 @@ class UserProfile extends Component {
 
   getMyRealEstate = () => {
     return (
-      <Text fontSize="xlarge">Meus imóveis</Text>
+      <Query query={GET_USER_LISTINGS}>
+        {({loading, error, data: {userProfile}}) => {
+          if (loading) return <div />
+          if (error) return `Error!: ${error}`
+          console.log(userProfile)
+          if (userProfile.listings.length > 0) {
+            return (
+              <ProfileList
+                width="100%"
+                flexWrap="wrap"
+                justifyContent="space-between"
+              >
+                {userProfile.listings.map((listing) => {
+                  return (
+                    <ListingCard
+                      key={listing.id}
+                      listing={listing}
+                      currentUser={userProfile}
+                      loading={loading}
+                      favorited={userProfile.favorites || []}
+                    />
+                  )
+                })}
+              </ProfileList>
+            )
+          } else {
+            return (
+              <Text>Nenhum imóvel cadastrado</Text>
+            )
+          }
+        }}
+      </Query>
     )
   }
 
@@ -319,13 +363,12 @@ class UserProfile extends Component {
 
           if (userProfile.favorites.length > 0) {
             return (
-              <FavoritesView
+              <ProfileList
                 width="100%"
                 flexWrap="wrap"
                 justifyContent="space-between"
               >
                 {userProfile.favorites.map((listing) => {
-                  console.log(listing)
                   return (
                     <ListingCard
                       key={listing.id}
@@ -336,7 +379,7 @@ class UserProfile extends Component {
                     />
                   )
                 })}
-              </FavoritesView>
+              </ProfileList>
             )
           } else {
             return (
