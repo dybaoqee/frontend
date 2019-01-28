@@ -18,6 +18,7 @@ export default styled.header`
   width: 100%;
   max-height: 76px;
   height: 76px;
+  z-index: 1;
   
   &.sticky {
     background: white;
@@ -46,6 +47,7 @@ export const Nav = styled.nav`
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  z-index: 1;
   
   > :nth-child(n + 2) {
     margin-left: 20px;
