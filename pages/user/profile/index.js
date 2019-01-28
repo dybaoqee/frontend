@@ -323,7 +323,6 @@ class UserProfile extends Component {
         {({loading, error, data: {userProfile}}) => {
           if (loading) return <div />
           if (error) return `Error!: ${error}`
-          console.log(userProfile)
           if (userProfile.listings.length > 0) {
             return (
               <ProfileList

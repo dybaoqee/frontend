@@ -4,7 +4,6 @@ import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
 import {Container} from 'components/listings/shared/ListingCard/styles'
-import {mobileMedia} from 'constants/media'
 
 const PROFILE_GRID_MEDIAQUERY = 'only screen and (max-width: 1024px)'
 const PROFILE_TABWRAPPER_MAX_WIDTH = 970
