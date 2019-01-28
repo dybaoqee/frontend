@@ -18,7 +18,9 @@ import {
   getDerivedParams
 } from 'utils/filter-params.js'
 import {
-  updateSelection
+  updateSelection,
+  selectCity,
+  isCitySelected
 } from './selection'
 import {
   InputWrapper,
@@ -27,7 +29,8 @@ import {
   SearchTextContainer,
   BackIcon,
   BackButton,
-  ButtonText
+  ButtonText,
+  Background
 } from './styles'
 
 const DEFAULT_BUTTON_TEXT = 'Escolha os bairros'
@@ -42,6 +45,8 @@ class NeighborhoodPicker extends Component {
     this.clear = this.clear.bind(this)
     this.apply = this.apply.bind(this)
     this.getButtonText = this.getButtonText.bind(this)
+    this.selectCity = this.selectCity.bind(this)
+    this.isCitySelected = this.isCitySelected.bind(this)
 
     const initialNeighborhoodSelection = props.query && props.query.bairros ? getDerivedParams(props.query).neighborhoods : []
 
@@ -102,6 +107,15 @@ class NeighborhoodPicker extends Component {
     }
   }
 
+  selectCity(cities, selectedNeighborhoods, citySlug) {
+    const newSelection = selectCity(cities, selectedNeighborhoods, citySlug)
+    this.setState({ selectedNeighborhoods: newSelection })
+  }
+
+  isCitySelected(cities, selectedNeighborhoods, citySlug) {
+    return isCitySelected(cities, selectedNeighborhoods, citySlug)
+  }
+
   toggleCitiesDisplay() {
     this.setState({showCities: !this.state.showCities})
   }
@@ -141,15 +155,21 @@ class NeighborhoodPicker extends Component {
                 </InputContainer>
               </InputWrapper>
               {this.state.showCities &&
-                <CityContainer
-                  cities={availableCities}
-                  selectedNeighborhoods={this.state.selectedNeighborhoods}
-                  expanded={this.state.expanded}
-                  changeSelection={this.changeSelection}
-                  expand={this.expand}
-                  clear={this.clear}
-                  apply={this.apply}
-                />}
+                <>
+                  <CityContainer
+                    cities={availableCities}
+                    selectedNeighborhoods={this.state.selectedNeighborhoods}
+                    expanded={this.state.expanded}
+                    changeSelection={this.changeSelection}
+                    selectCity={this.selectCity}
+                    isCitySelected={this.isCitySelected}
+                    expand={this.expand}
+                    clear={this.clear}
+                    apply={this.apply}
+                  />
+                  <Background />
+                </>
+              }
             </SearchContainer>
           )
         }}

@@ -18,6 +18,7 @@ export default styled.header`
   width: 100%;
   max-height: 76px;
   height: 76px;
+  z-index: 1;
   
   &.sticky {
     background: white;

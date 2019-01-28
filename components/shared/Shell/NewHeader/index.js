@@ -136,7 +136,7 @@ export default class Header extends Component {
         <Wrapper>
           <Container transparent={transparent} className={sticky && !search ? 'sticky' : null} search={search}>
             <Link href="/listings/buy" as="/">
-              <div>
+              <div style={{zIndex: 1}}>
                 {!search && <Logo alt="EmCasa Imobiliária no Rio de Janeiro e São Paulo" />}
                 {search && <ShortLogo alt="EmCasa Imobiliária no Rio de Janeiro e São Paulo" />}
               </div>
