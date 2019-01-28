@@ -29,7 +29,8 @@ import {
   SearchTextContainer,
   BackIcon,
   BackButton,
-  ButtonText
+  ButtonText,
+  Background
 } from './styles'
 
 const DEFAULT_BUTTON_TEXT = 'Escolha os bairros'
@@ -154,17 +155,21 @@ class NeighborhoodPicker extends Component {
                 </InputContainer>
               </InputWrapper>
               {this.state.showCities &&
-                <CityContainer
-                  cities={availableCities}
-                  selectedNeighborhoods={this.state.selectedNeighborhoods}
-                  expanded={this.state.expanded}
-                  changeSelection={this.changeSelection}
-                  selectCity={this.selectCity}
-                  isCitySelected={this.isCitySelected}
-                  expand={this.expand}
-                  clear={this.clear}
-                  apply={this.apply}
-                />}
+                <>
+                  <CityContainer
+                    cities={availableCities}
+                    selectedNeighborhoods={this.state.selectedNeighborhoods}
+                    expanded={this.state.expanded}
+                    changeSelection={this.changeSelection}
+                    selectCity={this.selectCity}
+                    isCitySelected={this.isCitySelected}
+                    expand={this.expand}
+                    clear={this.clear}
+                    apply={this.apply}
+                  />
+                  <Background />
+                </>
+              }
             </SearchContainer>
           )
         }}

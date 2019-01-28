@@ -19,6 +19,7 @@ const CitiesWrapper = styled(Row)`
   border: 1px solid ${theme.colors.lightGrey};
   border-radius: 0 0 4px 4px;
   box-sizing: border-box;
+  z-index: 1;
 
   @media (max-width: ${theme.breakpoints[0]}) {
     width: calc(100% - ${MARGINS}px);
