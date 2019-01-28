@@ -107,7 +107,8 @@ class NeighborhoodPicker extends Component {
   }
 
   selectCity(cities, selectedNeighborhoods, citySlug) {
-    
+    const newSelection = selectCity(cities, selectedNeighborhoods, citySlug)
+    this.setState({ selectedNeighborhoods: newSelection })
   }
 
   isCitySelected(cities, selectedNeighborhoods, citySlug) {

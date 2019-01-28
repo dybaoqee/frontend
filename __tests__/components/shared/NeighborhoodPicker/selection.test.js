@@ -41,7 +41,7 @@ describe('neighborhood selection test', () => {
   })
 
   it('should return false if one neighborhood in a city is not selected', () => {
-    let cities = [
+    const cities = [
       {
         citySlug: 'rio-de-janeiro',
         neighborhoods: [
@@ -51,13 +51,13 @@ describe('neighborhood selection test', () => {
         ]
       }
     ]
-    let selected = ['leblon', 'copacabana']
-    let citySlug = 'rio-de-janeiro'
+    const selected = ['leblon', 'copacabana']
+    const citySlug = 'rio-de-janeiro'
     expect(isCitySelected(cities, selected, citySlug)).toBe(false)
   })
 
   it('should return false if no neighborhood in a city is selected', () => {
-    let cities = [
+    const cities = [
       {
         citySlug: 'rio-de-janeiro',
         neighborhoods: [
@@ -67,12 +67,52 @@ describe('neighborhood selection test', () => {
         ]
       }
     ]
-    let selected = []
-    let citySlug = 'rio-de-janeiro'
+    const selected = []
+    const citySlug = 'rio-de-janeiro'
     expect(isCitySelected(cities, selected, citySlug)).toBe(false)
   })
 
   it('should select all neighborhoods in a city', () => {
-    
+    const cities = [
+      {
+        citySlug: 'rio-de-janeiro',
+        neighborhoods: [
+          {nameSlug: 'leblon'},
+          {nameSlug: 'ipanema'},
+          {nameSlug: 'copacabana'}
+        ]
+      },
+      {
+        citySlug: 'sao-paulo',
+        neighborhoods: [
+          {nameSlug: 'perdizes'}
+        ]
+      }
+    ]
+    const selected = []
+    const citySlug = 'rio-de-janeiro'
+    expect(selectCity(cities, selected, citySlug)).toEqual(['leblon', 'ipanema', 'copacabana'])
+  })
+
+  it('should deselect all neighborhoods in a city', () => {
+    const cities = [
+      {
+        citySlug: 'rio-de-janeiro',
+        neighborhoods: [
+          {nameSlug: 'leblon'},
+          {nameSlug: 'ipanema'},
+          {nameSlug: 'copacabana'}
+        ]
+      },
+      {
+        citySlug: 'sao-paulo',
+        neighborhoods: [
+          {nameSlug: 'perdizes'}
+        ]
+      }
+    ]
+    const selected = ['leblon', 'ipanema', 'copacabana', 'perdizes']
+    const citySlug = 'rio-de-janeiro'
+    expect(selectCity(cities, selected, citySlug)).toEqual(['perdizes'])
   })
 })
