@@ -23,6 +23,8 @@ class CityContainer extends Component {
       expanded,
       changeSelection,
       selectedNeighborhoods,
+      isCitySelected,
+      selectCity,
       clear,
       apply
     } = this.props
@@ -32,11 +34,19 @@ class CityContainer extends Component {
         {cities.map((city, i) => {
           let showExpandAll = false
           let isCityExpanded = expanded.includes(city)
+          const citySelected = isCitySelected(cities, selectedNeighborhoods, city.citySlug)
           return (
             <Row key={i} flexDirection="column">
               <Col><Text fontSize="small">{city.name}</Text></Col>
               <Col>
                 <Row flexWrap="wrap">
+                  <View mr={2} mb={2}>
+                    <NeighborhoodButton
+                      active={citySelected}
+                      onClick={() => {selectCity(cities, selectedNeighborhoods, city.citySlug)}}>
+                        Todos
+                      </NeighborhoodButton>
+                  </View>
                   {city.neighborhoods.map((neighborhood, j) => {
                     showExpandAll = j > MAX_INITIAL_ITEMS
                     if (!isCityExpanded && j >= MAX_INITIAL_ITEMS) {
@@ -70,6 +80,8 @@ CityContainer.propTypes = {
   expanded: PropTypes.bool.isRequired,
   changeSelection: PropTypes.func.isRequired,
   selectedNeighborhoods: PropTypes.func.isRequired,
+  selectCity: PropTypes.func.isRequired,
+  isCitySelected: PropTypes.func.isRequired,
   clear: PropTypes.func.isRequired,
   apply: PropTypes.func.isRequired
 }
