@@ -21,10 +21,13 @@ export default ({submitting, listingId, editing}) => (
           publicação.
         </p>
         <Link
+          passHref
           href={`/listings/images?listingId=${listingId}`}
           as={`/imoveis/${listingId}/imagens`}
         >
-          <EmCasaButton secondary>Adicionar fotos</EmCasaButton>
+          <a>
+            <EmCasaButton secondary>Adicionar fotos</EmCasaButton>
+          </a>
         </Link>
       </Fragment>
     )}
