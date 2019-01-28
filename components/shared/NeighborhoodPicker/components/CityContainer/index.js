@@ -10,7 +10,8 @@ import {
 } from '../../selection'
 import {
   CitiesWrapper,
-  NeighborhoodButton
+  NeighborhoodButton,
+  Separator
 } from './styles'
 
 const MAX_INITIAL_ITEMS = 3
@@ -35,6 +36,7 @@ class CityContainer extends Component {
           let showExpandAll = false
           let isCityExpanded = expanded.includes(city)
           const citySelected = isCitySelected(cities, selectedNeighborhoods, city.citySlug)
+          const showSeparator = i <= cities.length - 1
           return (
             <Row key={i} flexDirection="column">
               <Col><Text fontSize="small">{city.name}</Text></Col>
@@ -62,6 +64,7 @@ class CityContainer extends Component {
                   {(showExpandAll && !isCityExpanded) && <Button link onClick={() => {expand(city)}}>Ver todos</Button>}
                 </Row>
               </Col>
+              {showSeparator && <Col mt={2}><Separator /></Col>}
             </Row>
           )
         })}
