@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react'
-import {GET_USER_INFO} from 'graphql/user/queries'
+import {GET_USER_INFO, GET_FAVORITE_LISTINGS} from 'graphql/user/queries'
 import {Mutation, Query} from 'react-apollo'
 import {EDIT_PROFILE, EDIT_EMAIL} from 'graphql/user/mutations'
 import Tabs from 'components/shared/Common/Tabs'
@@ -30,8 +30,6 @@ import {
 class UserProfile extends Component {
   constructor(props) {
     super(props)
-    this.checkFieldsChange = this.checkFieldsChange.bind(this)
-    this.getUserAcronym = this.getUserAcronym.bind(this)
     this.nameField = React.createRef()
     this.emailField = React.createRef()
   }
@@ -304,7 +302,26 @@ class UserProfile extends Component {
 
   getMyFavorites = () => {
     return (
-      <Text fontSize="xlarge">Meus favoritos</Text>
+      <Query query={GET_FAVORITE_LISTINGS}>
+        {({loading, error, data: {userProfile}}) => {
+          if (loading) return <div />
+          if (error) return `Error!: ${error}`
+
+          if (userProfile.favorites.length > 0) {
+            return (
+              <div>
+                {userProfile.favorites.map((imovel) => {
+                  return (<Text>{imovel.address.street}</Text>)
+                })}
+              </div>
+            )
+          } else {
+            return (
+              <Text>Nenhum imóvel favorito</Text>
+            )
+          }
+        }}
+      </Query>
     )
   }
 
@@ -343,7 +360,7 @@ class UserProfile extends Component {
               <Tab label="Meus Imóveis">
                 {this.getMyRealEstate()}
               </Tab>
-              <Tab label="Meus Favoritos">
+              <Tab label="Favoritos">
                 {this.getMyFavorites()}
               </Tab>
             </Tab.Group>
