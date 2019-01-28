@@ -35,7 +35,12 @@ const NeighborhoodButton = styled(Button)`
   }
 `
 
+const Separator = styled.hr`
+  border: 0.5px solid ${theme.colors.lightGrey};
+`
+
 export {
   CitiesWrapper,
-  NeighborhoodButton
+  NeighborhoodButton,
+  Separator
 }
