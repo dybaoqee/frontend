@@ -46,7 +46,6 @@ export const Nav = styled.nav`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  z-index: 1;
   
   > :nth-child(n + 2) {
     margin-left: 20px;

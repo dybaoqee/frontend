@@ -5,6 +5,7 @@ import Col from '@emcasa/ui-dom/components/Col'
 import Icon from '@emcasa/ui-dom/components/Icon'
 import Button from '@emcasa/ui-dom/components/Button'
 import Text from '@emcasa/ui-dom/components/Text'
+import View from '@emcasa/ui-dom/components/View'
 
 const SEARCH_CONTAINER_MAX_WIDTH = 560
 const MARGINS = theme.space[4] * 2
@@ -73,6 +74,12 @@ const ButtonText = styled(Text)`
   overflow: hidden;
 `
 
+const Background = styled(View)`
+  position: fixed;
+  top: 0; right: 0; bottom: 0; left: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+`
+
 export {
   InputWrapper,
   InputContainer,
@@ -81,5 +88,6 @@ export {
   BackIcon,
   BackButton,
   ButtonText,
+  Background,
   SEARCH_CONTAINER_MAX_WIDTH
 }
