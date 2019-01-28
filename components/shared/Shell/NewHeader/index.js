@@ -135,11 +135,13 @@ export default class Header extends Component {
       <ThemeProvider theme={theme}>
         <Wrapper>
           <Container transparent={transparent} className={sticky && !search ? 'sticky' : null} search={search}>
-            <Link href="/listings/buy" as="/">
-              <div>
-                {!search && <Logo alt="EmCasa Imobiliária no Rio de Janeiro e São Paulo" />}
-                {search && <ShortLogo alt="EmCasa Imobiliária no Rio de Janeiro e São Paulo" />}
-              </div>
+            <Link passHref href="/listings/buy" as="/">
+              <a>
+                <div>
+                  {!search && <Logo alt="EmCasa Imobiliária no Rio de Janeiro e São Paulo" />}
+                  {search && <ShortLogo alt="EmCasa Imobiliária no Rio de Janeiro e São Paulo" />}
+                </div>
+              </a>
             </Link>
             {search && this.renderSearch()}
             {isMobileNavVisible && <Overlay onClick={this.toggleMobileNavVisibility} />}
@@ -153,24 +155,30 @@ export default class Header extends Component {
               <CloseNavButton
                 visible={isMobileNavVisible}
                 onClick={this.toggleMobileNavVisibility} />
-              <Link href="/listings" as="/imoveis">
-                <MenuItem className={router.route === '/listings' ? 'active' :  null}>
-                  <FontAwesomeIcon icon={faSearch} className="icon" />
-                  <Text>Comprar</Text>
-                </MenuItem>
+              <Link passHref href="/listings" as="/imoveis">
+                <a>
+                  <MenuItem className={router.route === '/listings' ? 'active' :  null}>
+                    <FontAwesomeIcon icon={faSearch} className="icon" />
+                    <Text>Comprar</Text>
+                  </MenuItem>
+                </a>
               </Link>
-              <Link href="/vender">
-                <MenuItem className={currentPath.startsWith('/vender') ? 'active' :  null}>
-                  <FontAwesomeIcon className="icon" icon={faFlag} />
-                  <Text>Vender</Text>
-                </MenuItem>
+              <Link passHref href="/vender">
+                <a>
+                  <MenuItem className={currentPath.startsWith('/vender') ? 'active' :  null}>
+                    <FontAwesomeIcon className="icon" icon={faFlag} />
+                    <Text>Vender</Text>
+                  </MenuItem>
+                </a>
               </Link>
               {authenticated && (
-                <Link href="/meu-perfil">
-                  <MenuItem className={currentPath.startsWith('/meu-perfil') ? 'active' :  null}>
-                    <FontAwesomeIcon className="icon" icon={faUser} />
-                    <Text>Meu Perfil</Text>
-                  </MenuItem>
+                <Link passHref href="/meu-perfil">
+                  <a>
+                    <MenuItem className={currentPath.startsWith('/meu-perfil') ? 'active' :  null}>
+                      <FontAwesomeIcon className="icon" icon={faUser} />
+                      <Text>Meu Perfil</Text>
+                    </MenuItem>
+                  </a>
                 </Link>
               )}
               {!authenticated && (<AccountKit
