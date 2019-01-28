@@ -317,7 +317,7 @@ class UserProfile extends Component {
     )
   }
 
-  getProfileListings = () => {
+  getUserListings = () => {
     return (
       <Query query={GET_USER_LISTINGS}>
         {({loading, error, data: {userProfile}}) => {
@@ -354,7 +354,7 @@ class UserProfile extends Component {
     )
   }
 
-  getProfileFavorites = () => {
+  getUserFavorites = () => {
     return (
       <Query query={GET_FAVORITE_LISTINGS}>
         {({loading, error, data: {userProfile}}) => {
@@ -424,10 +424,10 @@ class UserProfile extends Component {
                 {this.state.editingProfile ? this.getProfileForm() : this.getInitialView()}
               </Tab>
               <Tab label="Meus Imóveis">
-                {this.getProfileListings()}
+                {this.getUserListings()}
               </Tab>
               <Tab label="Favoritos">
-                {this.getProfileFavorites()}
+                {this.getUserFavorites()}
               </Tab>
             </Tab.Group>
           </TabWrapper>
