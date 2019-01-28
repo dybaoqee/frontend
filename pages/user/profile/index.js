@@ -14,6 +14,7 @@ import Tabs from 'components/shared/Common/Tabs'
 import EmCasaButton from 'components/shared/Common/Buttons'
 import Form, {Field} from 'components/shared/Common/Form/styles'
 import CheckBox from 'components/shared/Common/Form/CheckBox'
+import ListingCard from 'components/listings/shared/ListingCard'
 
 import {ThemeProvider} from 'styled-components'
 import theme from '@emcasa/ui'
@@ -25,7 +26,8 @@ import Text from '@emcasa/ui-dom/components/Text'
 import {
   TabWrapper,
   InitialView,
-  ProfileAvatar
+  ProfileAvatar,
+  FavoritesView
 } from './styles'
 
 class UserProfile extends Component {
@@ -317,11 +319,24 @@ class UserProfile extends Component {
 
           if (userProfile.favorites.length > 0) {
             return (
-              <div>
-                {userProfile.favorites.map((imovel) => {
-                  return (<Text>{imovel.address.street}</Text>)
+              <FavoritesView
+                width="100%"
+                flexWrap="wrap"
+                justifyContent="space-between"
+              >
+                {userProfile.favorites.map((listing) => {
+                  console.log(listing)
+                  return (
+                    <ListingCard
+                      key={listing.id}
+                      listing={listing}
+                      currentUser={userProfile}
+                      loading={loading}
+                      favorited={userProfile.favorites || []}
+                    />
+                  )
                 })}
-              </div>
+              </FavoritesView>
             )
           } else {
             return (

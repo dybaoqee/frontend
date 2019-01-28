@@ -3,13 +3,16 @@ import theme from '@emcasa/ui'
 import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
+import {Container} from 'components/listings/shared/ListingCard/styles'
+
+export const PROFILE_TABWRAPPER_MAX_WIDTH = 970
 
 export const TabWrapper = styled.div`
   box-sizing: border-box;
   width: 100%;
-  margin: ${theme.space[5]}px auto ${theme.space[4]}px;
+  margin: ${theme.space[5]}px auto;
   padding: 0 ${theme.space[4]}px;
-  max-width: 700px;
+  max-width: ${PROFILE_TABWRAPPER_MAX_WIDTH}px;
 `
 
 export const ProfileAvatar = styled(Row)`
@@ -37,5 +40,19 @@ export const InitialView = styled(Row)`
 
   ${Text} + ${Button} {
     margin: ${theme.space[5]}px 0 ${theme.space[2]}px;
+  }
+`
+
+export const FavoritesView = styled.div`
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(${Math.round((PROFILE_TABWRAPPER_MAX_WIDTH / 3) - (theme.space[2] * 2))}px, 1fr));
+  grid-column-gap: ${theme.space[2]}px;
+  grid-row-gap: ${theme.space[2]}px;
+  margin: ${theme.space[5]}px 0 0;
+
+  ${Container} {
+    margin: 0;
+    width: 100%;
   }
 `
