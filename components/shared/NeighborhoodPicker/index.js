@@ -77,6 +77,9 @@ class NeighborhoodPicker extends Component {
     if (this.props.onBackPressed) {
       this.props.onBackPressed()
     }
+    if (this.props.fromHome && this.state.selectedNeighborhoods.length === 0) {
+      return
+    }
     const currentQuery = this.props.query || {}
     const query = addNeighborhoodsToQuery(getDerivedParams(currentQuery), this.state.selectedNeighborhoods)
     Router.push(`/listings${query}`, `/imoveis${query}`, {shallow: true})
