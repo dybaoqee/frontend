@@ -1,0 +1,26 @@
+---
+version: "3"
+services:
+  frontend:
+    image: emcasa/frontend:dev
+    build:
+      context: .
+      args:
+        VCS_REF: ${VCS_REF:-by-docker-compose}
+        BUILD_DATE: ${BUILD_DATE:-1978-12-15T03:00:00Z}
+    networks:
+      - backend
+    hostname: frontend
+    environment:
+      PORT: 4000
+      FACEBOOK_APP_ID: ${FACEBOOK_APP_ID:-nofacebook}
+      ACCOUNT_KIT_APP_SECRET: ${ACCOUNT_KIT_APP_SECRET:-noaccountkit}
+      WEBSERVICE_BASE_URL: ${WEBSERVICE_BASE_URL:-http://backend:4000}
+    ports:
+      - '4001:4000'
+    entrypoint: sleep
+    command: infinity
+networks:
+  backend:
+    external:
+      name: backend_default
