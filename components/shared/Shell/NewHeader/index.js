@@ -12,12 +12,12 @@ import faSearch from '@fortawesome/fontawesome-pro-solid/faSearch'
 import faFlag from '@fortawesome/fontawesome-pro-solid/faFlag'
 import faUser from '@fortawesome/fontawesome-pro-solid/faUser'
 import faSignInAlt from '@fortawesome/fontawesome-pro-solid/faSignInAlt'
-
 import NeighborhoodPicker from 'components/shared/NeighborhoodPicker'
 import NeighborhoodAutoComplete from 'components/shared/NeighborhoodAutoComplete'
 import MobileAddressButton from 'components/shared/MobileAddressButton'
 import {MobileTypeaheadContainer} from 'components/shared/NeighborhoodAutoComplete/styles'
 import {isMobile} from 'lib/mobile'
+import {USE_NEW_SEARCH} from 'config/globals'
 
 import Container, {
   Wrapper,
@@ -31,15 +31,13 @@ import Container, {
   Search
 } from './styles'
 
-const USE_NEW_SEARCH = true
-
 export default class Header extends Component {
   constructor(props) {
     super(props)
     this.state = {
       sticky: false,
       isMobileNavVisible: false,
-      showMobileSearch: false
+      showFullScreenSearch: false
     }
   }
 
@@ -49,13 +47,13 @@ export default class Header extends Component {
 
   openMobileSearch = () => {
     this.setState({
-      showMobileSearch: true
+      showFullScreenSearch: true
     })
   }
 
   closeMobileSearch = () => {
     this.setState({
-      showMobileSearch: false
+      showFullScreenSearch: false
     })
   }
 
@@ -96,7 +94,7 @@ export default class Header extends Component {
     )
   }
 
-  renderMobileSearch() {
+  renderFullScreenSearch() {
     return (
       <MobileTypeaheadContainer justifyContent="center" p={4}>
         <Col width={1}>
@@ -120,13 +118,13 @@ export default class Header extends Component {
 
   render() {
     const {transparent, authenticated, search, router} = this.props
-    const {sticky, isMobileNavVisible, showMobileSearch} = this.state
+    const {sticky, isMobileNavVisible, showFullScreenSearch} = this.state
     const currentPath = router.asPath
 
-    if (showMobileSearch) {
+    if (showFullScreenSearch) {
       return (
         <ThemeProvider theme={theme}>
-          {this.renderMobileSearch()}
+          {this.renderFullScreenSearch()}
         </ThemeProvider>
       )
     }
@@ -153,7 +151,6 @@ export default class Header extends Component {
                 ☰
               </NavButton>
             </Row>
-
             <Col width={[0, 1/2]}>
               <Nav visible={isMobileNavVisible}>
                 <CloseNavButton

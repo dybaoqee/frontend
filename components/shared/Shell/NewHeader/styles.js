@@ -213,7 +213,7 @@ export const Overlay = styled.div`
 
 export const Search = styled.div`
   margin-left: 20px;
-  width: 35%;
+  width: 100%;
   
   @media (max-width: ${theme.breakpoints[0]}) {
     width: 80%;
