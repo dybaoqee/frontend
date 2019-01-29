@@ -13,6 +13,7 @@ if (!prod) {
 
 module.exports = {
   'process.env.NODE_ENV': prod ? 'production' : 'development',
+  'process.env.APOLLO_ENGINE': process.env.APOLLO_ENGINE || null,
   'process.env.REACT_APP_API_URL':
     process.env.WEBSERVICE_BASE_URL || 'http://localhost:4000',
   'process.env.REACT_APP_CLOUDINARY_BASE_URL':
