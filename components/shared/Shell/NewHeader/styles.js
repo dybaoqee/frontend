@@ -1,25 +1,27 @@
 import styled, {keyframes} from 'styled-components'
 import theme from '@emcasa/ui'
+import Col from '@emcasa/ui-dom/components/Col'
 
 export const HEADER_HEIGHT = 60
 export const MAX_HEADER_HEIGHT = 76
 
 export default styled.header`
-  transition: background 0.3s ease-out;
-  transition: height 0.3s ease-out;
-  max-height: 76px;
-  box-sizing: border-box;
-  align-items: center;
-  background: ${props => props.transparent ? 'transparent' : 'white'};
   display: flex;
   flex-wrap: wrap;
-  justify-content: ${props => props.search ? 'unset' : 'space-between'};
-  padding: 0px ${theme.space[4]}px;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  box-sizing: border-box;
   width: 100%;
-  max-height: 76px;
   height: 76px;
+  max-height: 76px;
+  padding: ${theme.space[2]}px ${theme.space[4]}px 0 ${theme.space[4]}px;
   z-index: 1;
-  
+  transition: background 0.3s ease-out;
+  transition: height 0.3s ease-out;
+  background: ${props => props.transparent ? 'transparent' : 'white'};
+
   &.sticky {
     background: white;
     height: ${HEADER_HEIGHT}px;
@@ -41,7 +43,6 @@ const slideFromRight = keyframes`
 `
 
 export const Nav = styled.nav`
-  flex: 1;
   min-height: 100%;
   box-sizing: border-box;
   display: flex;
@@ -213,9 +214,19 @@ export const Overlay = styled.div`
 
 export const Search = styled.div`
   margin-left: 20px;
-  width: 35%;
+  width: 100%;
   
   @media (max-width: ${theme.breakpoints[0]}) {
     width: 80%;
+  }
+`
+
+export const SearchWrapper = styled(Col)`
+  width: 100%;
+  margin-left: ${theme.space[4]}px;
+  max-width: 560px;
+
+  @media screen and (max-width: ${theme.breakpoints[0]}) {
+    max-width: calc(100% - 51px);
   }
 `

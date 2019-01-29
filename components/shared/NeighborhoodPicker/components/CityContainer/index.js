@@ -27,11 +27,19 @@ class CityContainer extends Component {
       isCitySelected,
       selectCity,
       clear,
-      apply
+      apply,
+      parentRef
     } = this.props
 
+    let pos = {}
+    if (parentRef) {
+      const rects = parentRef.getClientRects()
+      if (rects && rects.length > 0) {
+        pos = rects[0]
+      }
+    }
     return (
-      <CitiesWrapper p={2}>
+      <CitiesWrapper p={2} width={pos.width} top={pos.top} left={pos.left}>
         {cities.map((city, i) => {
           let showExpandAll = false
           let isCityExpanded = expanded.includes(city)
@@ -61,7 +69,7 @@ class CityContainer extends Component {
                       </View>
                     )
                   })}
-                  {(showExpandAll && !isCityExpanded) && <Button link onClick={() => {expand(city)}}>Ver todos</Button>}
+                  {(showExpandAll && !isCityExpanded) && <Button link onClick={() => {expand(city)}}>Ver mais</Button>}
                 </Row>
               </Col>
               {showSeparator && <Col mt={2}><Separator /></Col>}
@@ -86,7 +94,8 @@ CityContainer.propTypes = {
   selectCity: PropTypes.func.isRequired,
   isCitySelected: PropTypes.func.isRequired,
   clear: PropTypes.func.isRequired,
-  apply: PropTypes.func.isRequired
+  apply: PropTypes.func.isRequired,
+  parentRef: PropTypes.object.isRequired
 }
 
 export default CityContainer

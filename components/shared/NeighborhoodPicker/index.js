@@ -49,6 +49,7 @@ class NeighborhoodPicker extends Component {
     this.isCitySelected = this.isCitySelected.bind(this)
 
     const initialNeighborhoodSelection = props.query && props.query.bairros ? getDerivedParams(props.query).neighborhoods : []
+    this.containerRef = React.createRef()
 
     this.state = {
       selectedNeighborhoods: initialNeighborhoodSelection,
@@ -76,7 +77,8 @@ class NeighborhoodPicker extends Component {
     if (this.props.onBackPressed) {
       this.props.onBackPressed()
     }
-    const query = addNeighborhoodsToQuery(getDerivedParams(this.props.query), this.state.selectedNeighborhoods)
+    const currentQuery = this.props.query || {}
+    const query = addNeighborhoodsToQuery(getDerivedParams(currentQuery), this.state.selectedNeighborhoods)
     Router.push(`/listings${query}`, `/imoveis${query}`, {shallow: true})
   }
 
@@ -135,8 +137,9 @@ class NeighborhoodPicker extends Component {
       <Query query={GET_DISTRICTS} ssr={true}>
         {({data}) => {
           const availableCities = this.getCities(data)
+          const buttonText = this.getButtonText()
           return (
-            <SearchContainer onClick={this.props.onClick} mobile={this.props.mobile}>
+            <SearchContainer innerRef={this.containerRef} onClick={this.props.onClick} mobile={this.props.mobile}>
               <InputWrapper>
                 <InputContainer onClick={this.toggleCitiesDisplay} selected={this.state.showCities}>
                   <SearchTextContainer>
@@ -147,7 +150,7 @@ class NeighborhoodPicker extends Component {
                       :
                       <Icon name="map-marker-alt" px={3} pt={1} size={21} color="dark" />
                     }
-                    <ButtonText color="grey">{this.getButtonText()}</ButtonText>
+                    <ButtonText color={buttonText === DEFAULT_BUTTON_TEXT ? 'grey' : 'dark'}>{this.getButtonText()}</ButtonText>
                   </SearchTextContainer>
                   <Col px={3} pt={1}>
                     <FontAwesomeIcon icon={this.state.showCities ? AngleUp : AngleDown} size="2x" style={{fontSize: 24}} />
@@ -166,6 +169,7 @@ class NeighborhoodPicker extends Component {
                     expand={this.expand}
                     clear={this.clear}
                     apply={this.apply}
+                    parentRef={this.containerRef.current}
                   />
                   <Background />
                 </>
@@ -182,7 +186,8 @@ NeighborhoodPicker.propTypes = {
   onClick: PropTypes.func.isRequired,
   onBackPressed: PropTypes.func,
   mobile: PropTypes.bool,
-  query: PropTypes.object.isRequired
+  query: PropTypes.object.isRequired,
+  fromHome: PropTypes.bool
 }
 
 export default enhanceWithClickOutside(NeighborhoodPicker)
