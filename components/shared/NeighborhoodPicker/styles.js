@@ -7,30 +7,20 @@ import Button from '@emcasa/ui-dom/components/Button'
 import Text from '@emcasa/ui-dom/components/Text'
 import View from '@emcasa/ui-dom/components/View'
 
-const SEARCH_CONTAINER_MAX_WIDTH = 560
 const MARGINS = theme.space[4] * 2
 
 const SearchContainer = styled(Row)`
-  width: 35%;
-  max-width: ${SEARCH_CONTAINER_MAX_WIDTH}px;
   height: 100%;
-  margin: ${({mobile}) => mobile ? `0` : `${theme.space[4]}px 0 0 ${theme.space[4]}px`};
-
-  @media (max-width: ${theme.breakpoints[0]}) {
-    width: ${({mobile}) => mobile ? `100%` : `calc(100% - 52px)`};
-    max-width: none;
-  }
+  width: 100%;
 `
 
 const InputWrapper = styled(Col)`
   width: 100%;
-  height: ${theme.buttonHeight[1]}px;
   z-index: 2;
 `
 
 const InputContainer = styled(Row)`
   cursor: pointer;
-  max-width: ${SEARCH_CONTAINER_MAX_WIDTH}px;
   border: 1px solid ${({selected}) => selected ? theme.colors.blue : theme.colors.lightGrey}};
   border-radius: ${theme.space[1]}px;
   display: flex;
@@ -88,6 +78,5 @@ export {
   BackIcon,
   BackButton,
   ButtonText,
-  Background,
-  SEARCH_CONTAINER_MAX_WIDTH
+  Background
 }

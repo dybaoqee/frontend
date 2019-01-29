@@ -141,7 +141,9 @@ export default class Header extends Component {
                 {search && <ShortLogo alt="EmCasa Imobiliária no Rio de Janeiro e São Paulo" />}
               </div>
             </Link>
-            {search && this.renderSearch()}
+            <Col width={[1, 1/2]} ml={[0, 4]}>
+              {search && this.renderSearch()}
+            </Col>
             {isMobileNavVisible && <Overlay onClick={this.toggleMobileNavVisibility} />}
             <NavButton
               visible={!isMobileNavVisible && !search}

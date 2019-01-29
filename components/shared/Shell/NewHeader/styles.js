@@ -5,6 +5,9 @@ export const HEADER_HEIGHT = 60
 export const MAX_HEADER_HEIGHT = 76
 
 export default styled.header`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   transition: background 0.3s ease-out;
   transition: height 0.3s ease-out;
   max-height: 76px;
@@ -13,13 +16,12 @@ export default styled.header`
   background: ${props => props.transparent ? 'transparent' : 'white'};
   display: flex;
   flex-wrap: wrap;
-  justify-content: ${props => props.search ? 'unset' : 'space-between'};
   padding: 0px ${theme.space[4]}px;
   width: 100%;
   max-height: 76px;
   height: 76px;
   z-index: 1;
-  
+
   &.sticky {
     background: white;
     height: ${HEADER_HEIGHT}px;
@@ -41,7 +43,6 @@ const slideFromRight = keyframes`
 `
 
 export const Nav = styled.nav`
-  flex: 1;
   min-height: 100%;
   box-sizing: border-box;
   display: flex;

@@ -7,6 +7,7 @@ import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
 import {isMobile} from 'lib/mobile'
 import NeighborhoodAutoComplete from 'components/shared/NeighborhoodAutoComplete'
+import NeighborhoodPicker from 'components/shared/NeighborhoodPicker'
 import MobileAddressButton from 'components/shared/MobileAddressButton'
 import { MobileTypeaheadContainer } from 'components/shared/NeighborhoodAutoComplete/styles'
 
@@ -88,9 +89,8 @@ export default class BuyListing extends Component {
                 </Col>
               :
                 <Col mb={2} width={1}>
-                  <NeighborhoodAutoComplete
-                    defaultValue={this.state.address}
-                    onClearInput={() => {}}
+                  <NeighborhoodPicker
+                    
                   />
                 </Col>
               }
