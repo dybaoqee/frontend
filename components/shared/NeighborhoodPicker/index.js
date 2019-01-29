@@ -170,6 +170,7 @@ class NeighborhoodPicker extends Component {
                     clear={this.clear}
                     apply={this.apply}
                     parentRef={this.containerRef.current}
+                    fromHome={this.props.fromHome}
                   />
                   <Background />
                 </>
