@@ -38,8 +38,9 @@ class CityContainer extends Component {
         pos = rects[0]
       }
     }
+    const topOffset = process.browser && window ? window.scrollY : 0
     return (
-      <CitiesWrapper p={2} width={pos.width} top={pos.top} left={pos.left}>
+      <CitiesWrapper p={2} width={pos.width} top={(pos.top + topOffset)} left={pos.left}>
         {cities.map((city, i) => {
           let showExpandAll = false
           let isCityExpanded = expanded.includes(city)
@@ -78,7 +79,7 @@ class CityContainer extends Component {
         })}
         <Row justifyContent="space-between">
           <Button p={0} link color="dark" onClick={clear}>Limpar</Button>
-          <Button p={0} link onClick={apply}>Aplicar</Button>
+          <Button p={0} link onClick={apply}>{this.props.fromHome ? 'Pesquisar' : 'Aplicar'}</Button>
         </Row>
       </CitiesWrapper>
     )
@@ -95,7 +96,8 @@ CityContainer.propTypes = {
   isCitySelected: PropTypes.func.isRequired,
   clear: PropTypes.func.isRequired,
   apply: PropTypes.func.isRequired,
-  parentRef: PropTypes.object.isRequired
+  parentRef: PropTypes.object.isRequired,
+  fromHome: PropTypes.bool
 }
 
 export default CityContainer
