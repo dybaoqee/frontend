@@ -137,6 +137,7 @@ class NeighborhoodPicker extends Component {
       <Query query={GET_DISTRICTS} ssr={true}>
         {({data}) => {
           const availableCities = this.getCities(data)
+          const buttonText = this.getButtonText()
           return (
             <SearchContainer innerRef={this.containerRef} onClick={this.props.onClick} mobile={this.props.mobile}>
               <InputWrapper>
@@ -149,7 +150,7 @@ class NeighborhoodPicker extends Component {
                       :
                       <Icon name="map-marker-alt" px={3} pt={1} size={21} color="dark" />
                     }
-                    <ButtonText color="grey">{this.getButtonText()}</ButtonText>
+                    <ButtonText color={buttonText === DEFAULT_BUTTON_TEXT ? 'grey' : 'dark'}>{this.getButtonText()}</ButtonText>
                   </SearchTextContainer>
                   <Col px={3} pt={1}>
                     <FontAwesomeIcon icon={this.state.showCities ? AngleUp : AngleDown} size="2x" style={{fontSize: 24}} />
