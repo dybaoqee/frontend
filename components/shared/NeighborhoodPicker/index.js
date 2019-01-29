@@ -77,7 +77,8 @@ class NeighborhoodPicker extends Component {
     if (this.props.onBackPressed) {
       this.props.onBackPressed()
     }
-    const query = addNeighborhoodsToQuery(getDerivedParams(this.props.query), this.state.selectedNeighborhoods)
+    const currentQuery = this.props.query || {}
+    const query = addNeighborhoodsToQuery(getDerivedParams(currentQuery), this.state.selectedNeighborhoods)
     Router.push(`/listings${query}`, `/imoveis${query}`, {shallow: true})
   }
 
@@ -184,7 +185,8 @@ NeighborhoodPicker.propTypes = {
   onClick: PropTypes.func.isRequired,
   onBackPressed: PropTypes.func,
   mobile: PropTypes.bool,
-  query: PropTypes.object.isRequired
+  query: PropTypes.object.isRequired,
+  fromHome: PropTypes.bool
 }
 
 export default enhanceWithClickOutside(NeighborhoodPicker)

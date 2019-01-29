@@ -47,12 +47,14 @@ export default class BuyListing extends Component {
         isMobile() ?
           <Col mb={4}>
             <NeighborhoodPicker
+              fromHome
               onClick={this.openMobileAddressInput}
             />
           </Col>
         :
           <Col mb={2} width={1}>
             <NeighborhoodPicker
+              fromHome
             />
         </Col>
       )
@@ -82,7 +84,11 @@ export default class BuyListing extends Component {
         USE_NEW_SEARCH ?
           <MobileTypeaheadContainer justifyContent="center" p={4}>
             <Col width={1}>
-              <NeighborhoodPicker />
+              <NeighborhoodPicker
+                mobile
+                fromHome
+                onBackPressed={this.close}
+              />
             </Col>
           </MobileTypeaheadContainer>
         :
