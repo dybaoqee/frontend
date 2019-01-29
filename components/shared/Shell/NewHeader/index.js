@@ -28,7 +28,8 @@ import Container, {
   MenuItem,
   Logo,
   ShortLogo,
-  Search
+  Search,
+  SearchWrapper
 } from './styles'
 
 export default class Header extends Component {
@@ -140,9 +141,9 @@ export default class Header extends Component {
                   {search && <ShortLogo alt="EmCasa Imobiliária no Rio de Janeiro e São Paulo" />}
                 </div>
               </Link>
-              <Col width={1} ml={[4]}>
+              <SearchWrapper>
                 {search && this.renderSearch()}
-              </Col>
+              </SearchWrapper>
               {isMobileNavVisible && <Overlay onClick={this.toggleMobileNavVisibility} />}
               <NavButton
                 visible={!isMobileNavVisible && !search}

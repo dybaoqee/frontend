@@ -1,5 +1,6 @@
 import styled, {keyframes} from 'styled-components'
 import theme from '@emcasa/ui'
+import Col from '@emcasa/ui-dom/components/Col'
 
 export const HEADER_HEIGHT = 60
 export const MAX_HEADER_HEIGHT = 76
@@ -217,5 +218,15 @@ export const Search = styled.div`
   
   @media (max-width: ${theme.breakpoints[0]}) {
     width: 80%;
+  }
+`
+
+export const SearchWrapper = styled(Col)`
+  width: 100%;
+  margin-left: ${theme.space[4]}px;
+  max-width: 560px;
+
+  @media screen and (max-width: ${theme.breakpoints[0]}) {
+    max-width: calc(100% - 51px);
   }
 `
