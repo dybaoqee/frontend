@@ -6,21 +6,20 @@ export const MAX_HEADER_HEIGHT = 76
 
 export default styled.header`
   display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
+
+  box-sizing: border-box;
+  width: 100%;
+  height: 76px;
+  max-height: 76px;
+  padding: ${theme.space[4]}px ${theme.space[4]}px 0 ${theme.space[4]}px;
+  z-index: 1;
   transition: background 0.3s ease-out;
   transition: height 0.3s ease-out;
-  max-height: 76px;
-  box-sizing: border-box;
-  align-items: center;
   background: ${props => props.transparent ? 'transparent' : 'white'};
-  display: flex;
-  flex-wrap: wrap;
-  padding: 0px ${theme.space[4]}px;
-  width: 100%;
-  max-height: 76px;
-  height: 76px;
-  z-index: 1;
 
   &.sticky {
     background: white;

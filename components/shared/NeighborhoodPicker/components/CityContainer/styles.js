@@ -10,7 +10,7 @@ const CitiesWrapper = styled(Row)`
   position: absolute;
   flex-direction: column;
   width: calc(50% - ${theme.space[4]}px);
-  top: calc(${theme.buttonHeight[0]}px + 8px);
+  top: calc(${theme.buttonHeight[0]}px + 17px);
   background-color: ${theme.colors.white};
   border: 1px solid ${theme.colors.lightGrey};
   border-radius: 0 0 4px 4px;
