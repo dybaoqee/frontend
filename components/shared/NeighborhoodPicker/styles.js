@@ -16,6 +16,7 @@ const SearchContainer = styled(Row)`
 
 const InputWrapper = styled(Col)`
   width: 100%;
+  height: 60px;
   z-index: 2;
 `
 
