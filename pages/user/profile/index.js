@@ -332,6 +332,7 @@ class UserProfile extends Component {
   }
 
   getUserListings = () => {
+    const {user} = this.props
     return (
       <Query query={GET_USER_LISTINGS}>
         {({loading, error, data: {userProfile}}) => {
@@ -349,7 +350,7 @@ class UserProfile extends Component {
                     <ListingCard
                       key={listing.id}
                       listing={listing}
-                      currentUser={userProfile}
+                      currentUser={user}
                       loading={loading}
                       favorited={userProfile.favorites || []}
                     />
@@ -390,6 +391,7 @@ class UserProfile extends Component {
   }
 
   getUserFavorites = () => {
+    const {user} = this.props
     return (
       <Query query={GET_FAVORITE_LISTINGS}>
         {({loading, error, data: {userProfile}}) => {
@@ -408,7 +410,7 @@ class UserProfile extends Component {
                     <ListingCard
                       key={listing.id}
                       listing={listing}
-                      currentUser={userProfile}
+                      currentUser={user}
                       loading={loading}
                       favorited={userProfile.favorites || []}
                     />
