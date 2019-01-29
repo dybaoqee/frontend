@@ -23,6 +23,7 @@ import isEqualWith from 'lodash/isEqualWith'
 import pickBy from 'lodash/pickBy'
 import Head from 'next/head'
 import Router from 'next/router'
+import Link from 'next/link'
 import Tabs from 'components/shared/Common/Tabs'
 import EmCasaButton from 'components/shared/Common/Buttons'
 import Form, {Field} from 'components/shared/Common/Form/styles'
@@ -31,6 +32,7 @@ import ListingCard from 'components/listings/shared/ListingCard'
 
 import {ThemeProvider} from 'styled-components'
 import theme from '@emcasa/ui'
+import Col from '@emcasa/ui-dom/components/Col'
 import Row from '@emcasa/ui-dom/components/Row'
 import Tab from '@emcasa/ui-dom/components/Tab'
 import Input from '@emcasa/ui-dom/components/Input'
@@ -108,12 +110,6 @@ class UserProfile extends Component {
     this.changeProfileView()
   }
 
-  handleLogoutButton = (e) => {
-    Router.push({
-      pathname: '/auth/logout'
-    })
-  }
-
   handleProfileUpdate = async (e, editProfile, editEmail, userProfile) => {
     const {
       name: actualName,
@@ -185,8 +181,6 @@ class UserProfile extends Component {
                 <InitialView
                   flexDirection={'column'}
                   alignItems={'center'}
-                  width="100%"
-                  maxWidth={"100%"}
                 >
                   <ProfileAvatar
                     justifyContent={'center'}
@@ -223,13 +217,14 @@ class UserProfile extends Component {
                   >
                     Editar
                   </Button>
-                  <Button
-                    fluid
-                    height="tall"
-                    onClick={this.handleLogoutButton}
-                  >
-                    Sair
-                  </Button>
+                  <Link href="/auth/logout">
+                    <Button
+                      fluid
+                      height="tall"
+                    >
+                      Sair
+                    </Button>
+                  </Link>
                 </InitialView>
               )
         }}
@@ -250,63 +245,82 @@ class UserProfile extends Component {
                   if (loading) return <div />
                   this.checkFieldsChange(userProfile.name, userProfile.email)
                   return (
-                    <Form
-                      onSubmit={(e) =>
-                        this.handleProfileUpdate(
-                          e,
-                          editProfile,
-                          editEmail,
-                          userProfile
-                        )
-                      }
-                      errors={errors}
-                    >
-                      <Input
-                        name="name"
-                        type="text"
-                        ref={this.nameField}
-                        defaultValue={userProfile.name}
-                        onChange={(e) => {
-                          this.checkFieldsChange(userProfile.name, userProfile.email)
-                        }}
-                      />
-                      <Input
-                        required
-                        name="email"
-                        type="email"
-                        ref={this.emailField}
-                        defaultValue={userProfile.email}
-                        onChange={(e) => {
-                          this.checkFieldsChange(userProfile.name, userProfile.email)
-                        }}
-                      />
-                      <Input
-                        disabled
-                        name="phone"
-                        type="tel"
-                        defaultValue={userProfile.phone}
-                      />
-                      <Row
-                        justifyContent="space-between"
+                      <InitialView
+                        flexDirection={'column'}
+                        alignItems={'center'}
+                        maxWidth="100%"
                       >
-                        <Button
-                          height="tall"
-                          onClick={this.handleProfileButton}
+                      <ProfileAvatar
+                        justifyContent={'center'}
+                        alignItems={'center'}
+                      >
+                        {this.getUserAcronym(userProfile.name)}
+                      </ProfileAvatar>
+                      <Form
+                        onSubmit={(e) =>
+                          this.handleProfileUpdate(
+                            e,
+                            editProfile,
+                            editEmail,
+                            userProfile
+                          )
+                        }
+                        errors={errors}
+                      >
+                        <Input
+                          hideLabelView
+                          hideErrorView
+                          name="name"
+                          type="text"
+                          ref={this.nameField}
+                          defaultValue={userProfile.name}
+                          onChange={(e) => {
+                            this.checkFieldsChange(userProfile.name, userProfile.email)
+                          }}
+                        />
+                        <Input
+                          hideLabelView
+                          hideErrorView
+                          required
+                          name="email"
+                          type="email"
+                          ref={this.emailField}
+                          defaultValue={userProfile.email}
+                          onChange={(e) => {
+                            this.checkFieldsChange(userProfile.name, userProfile.email)
+                          }}
+                        />
+                        <Input
+                          hideLabelView
+                          disabled
+                          name="phone"
+                          type="tel"
+                          defaultValue={userProfile.phone}
+                        />
+                        <Row
+                          justifyContent="space-between"
                         >
-                          Cancelar
-                        </Button>
-                        <Button
-                          handleLogoutButton="submit"
-                          height="tall"
-                          active={this.state.hasChanged}
-                          disabled={!this.state.hasChanged || updatingProfile || updatingEmail}
-                        >
-                          {updatingProfile || updatingEmail
-                            ? 'Atualizando...'
-                            : 'Salvar'}
-                        </Button>
-                      </Row>
-                    </Form>
+                          <Button
+                            height="tall"
+                            type="button"
+                            onClick={this.handleProfileButton}
+                          >
+                            Cancelar
+                          </Button>
+                          <Button
+                            type="submit"
+                            height="tall"
+                            active={this.state.hasChanged}
+                            disabled={!this.state.hasChanged || updatingProfile || updatingEmail}
+                          >
+                            {updatingProfile || updatingEmail
+                              ? 'Atualizando...'
+                              : 'Salvar'}
+                          </Button>
+                        </Row>
+                      </Form>
+                    </InitialView>
+
                   )
                 }}
               </Query>
@@ -345,7 +359,29 @@ class UserProfile extends Component {
             )
           } else {
             return (
-              <Text>Nenhum imóvel cadastrado</Text>
+            <InitialView maxWidth="440px">
+              <Col
+                width="100%"
+                alignItems="center"
+              >
+                  <Text
+                    textAlign="center"
+                    fontSize="large"
+                    fontWeight="bold"
+                  >Você não tem nenhum imóvel anunciado</Text>
+                  <Text
+                    textAlign="center"
+                    color="gray"
+                  >Venda seu imóvel de um jeito fácil e seguro.<br /> Quer anunciar seu imóvel aqui na EmCasa?<br /></Text>
+                <Link href="/vender/imovel">
+                  <Button
+                    active
+                    fluid
+                    height="tall"
+                  >Começar</Button>
+                </Link>
+              </Col>
+            </InitialView>
             )
           }
         }}
@@ -382,7 +418,29 @@ class UserProfile extends Component {
             )
           } else {
             return (
-              <Text>Nenhum imóvel favorito</Text>
+              <InitialView maxWidth="440px">
+                <Col
+                  width="100%"
+                  alignItems="center"
+              >
+                  <Text
+                    textAlign="center"
+                    fontSize="large"
+                    fontWeight="bold"
+                  >Você não cadastrou nenhum imóvel</Text>
+                  <Text
+                    textAlign="center"
+                    color="gray"
+                  >Navegue pelos nosso imóveis e dê um coração para os que você mais gostar. Esses imóveis ficarão salvos aqui nessa lista para você ver e rever quando quiser.</Text>
+                  <Link href="/vender">
+                    <Button
+                      active
+                      fluid
+                      height="tall"
+                    >Explorar</Button>
+                  </Link>
+                </Col>
+              </InitialView>
             )
           }
         }}
@@ -400,23 +458,6 @@ class UserProfile extends Component {
             <title>{seoTitle}</title>
             <meta name="twitter:title" content={seoTitle} />
           </Head>
-          <Query query={GET_USER_INFO} variables={{id}}>
-            {({ loading, error, data }) => {
-              if (loading) return null
-              if (error) return `Error!: ${error}`
-              return (
-                <Row px={4} justifyContent="center">
-                  <Text
-                    fluid
-                    fontSize="xlarge" 
-                    fontWeight="bold" 
-                    textAlign="center"
-                  >Olá {data.userProfile.name}!</Text>
-                </Row>
-              )
-            }}
-          </Query>
-
           <TabWrapper>
             <Tab.Group>
               <Tab label="Meu Perfil">
