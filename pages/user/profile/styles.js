@@ -6,8 +6,8 @@ import Button from '@emcasa/ui-dom/components/Button'
 import {Container} from 'components/listings/shared/ListingCard/styles'
 
 const PROFILE_GRID_MEDIAQUERY = 'only screen and (max-width: 1024px)'
-const PROFILE_TABWRAPPER_MAX_WIDTH = 970
-const PROFILE_INITIALVIEW_MAX_WIDTH = 324
+export const PROFILE_TABWRAPPER_MAX_WIDTH = 710
+export const PROFILE_INITIALVIEW_MAX_WIDTH = 414
 
 export const TabWrapper = styled.div`
   box-sizing: border-box;
@@ -28,8 +28,8 @@ export const ProfileAvatar = styled(Row)`
 
 export const InitialView = styled(Row)`
   width: 100%;
-  margin: ${theme.space[5]}px auto ${theme.space[4]}px;
-  max-width: ${PROFILE_INITIALVIEW_MAX_WIDTH}px;
+  margin: ${theme.space[6]}px auto ${theme.space[4]}px;
+  max-width: ${({maxWidth}) => maxWidth ? maxWidth : `${PROFILE_INITIALVIEW_MAX_WIDTH}px`};
 
   ${ProfileAvatar} {
     margin: 0 auto ${theme.space[5]}px;
