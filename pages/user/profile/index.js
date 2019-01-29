@@ -372,7 +372,7 @@ class UserProfile extends Component {
                   <Text
                     textAlign="center"
                     color="gray"
-                  >Venda seu imóvel de um jeito fácil e seguro.<br /> Quer anunciar seu imóvel aqui na EmCasa?<br /></Text>
+                  >Venda seu imóvel de um jeito fácil e seguro.<br /> Quer anunciar aqui na EmCasa?</Text>
                 <Link href="/vender/imovel">
                   <Button
                     active
