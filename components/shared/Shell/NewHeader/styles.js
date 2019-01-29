@@ -15,7 +15,7 @@ export default styled.header`
   width: 100%;
   height: 76px;
   max-height: 76px;
-  padding: ${theme.space[4]}px ${theme.space[4]}px 0 ${theme.space[4]}px;
+  padding: ${theme.space[2]}px ${theme.space[4]}px 0 ${theme.space[4]}px;
   z-index: 1;
   transition: background 0.3s ease-out;
   transition: height 0.3s ease-out;
