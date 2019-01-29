@@ -3,14 +3,12 @@ import theme from '@emcasa/ui'
 import Row from '@emcasa/ui-dom/components/Row'
 import Button from '@emcasa/ui-dom/components/Button'
 
-const MARGINS = theme.space[4] * 2
-const TOP = 19
-
 const CitiesWrapper = styled(Row)`
   position: absolute;
   flex-direction: column;
-  width: calc(50% - ${theme.space[4]}px);
-  top: calc(${theme.buttonHeight[0]}px + 17px);
+  width: ${({width}) => width}px;
+  top: calc(${({top}) => top}px + 60px);
+  left: ${({left}) => left}px;
   background-color: ${theme.colors.white};
   border: 1px solid ${theme.colors.lightGrey};
   border-radius: 0 0 4px 4px;
@@ -18,9 +16,6 @@ const CitiesWrapper = styled(Row)`
   z-index: 1;
 
   @media (max-width: ${theme.breakpoints[0]}) {
-    width: calc(100% - ${MARGINS}px);
-    top: calc(${theme.buttonHeight[0]}px + ${TOP}px);
-    max-width: none;
     margin-bottom: ${theme.space[4]}px;
   }
 `

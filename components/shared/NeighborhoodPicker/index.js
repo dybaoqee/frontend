@@ -49,6 +49,7 @@ class NeighborhoodPicker extends Component {
     this.isCitySelected = this.isCitySelected.bind(this)
 
     const initialNeighborhoodSelection = props.query && props.query.bairros ? getDerivedParams(props.query).neighborhoods : []
+    this.containerRef = React.createRef()
 
     this.state = {
       selectedNeighborhoods: initialNeighborhoodSelection,
@@ -136,7 +137,7 @@ class NeighborhoodPicker extends Component {
         {({data}) => {
           const availableCities = this.getCities(data)
           return (
-            <SearchContainer onClick={this.props.onClick} mobile={this.props.mobile}>
+            <SearchContainer innerRef={this.containerRef} onClick={this.props.onClick} mobile={this.props.mobile}>
               <InputWrapper>
                 <InputContainer onClick={this.toggleCitiesDisplay} selected={this.state.showCities}>
                   <SearchTextContainer>
@@ -166,6 +167,7 @@ class NeighborhoodPicker extends Component {
                     expand={this.expand}
                     clear={this.clear}
                     apply={this.apply}
+                    parentRef={this.containerRef.current}
                   />
                   <Background />
                 </>
