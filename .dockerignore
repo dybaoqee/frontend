@@ -1,0 +1,25 @@
+# vcs
+.git
+
+# node dependencies
+node_modules
+.next
+
+# node testing
+coverage
+cypress/videos/*
+cypress/screenshots/*
+
+# production
+build
+/**/*.css
+!static/styles/*.css
+
+# misc
+.DS_Store
+.env
+.idea
+sitemap.xml
+npm-debug.log
+package-lock.json
+yarn-error.log
