@@ -10,7 +10,8 @@ import {
 } from '../../selection'
 import {
   CitiesWrapper,
-  NeighborhoodButton
+  NeighborhoodButton,
+  Separator
 } from './styles'
 
 const MAX_INITIAL_ITEMS = 3
@@ -23,20 +24,40 @@ class CityContainer extends Component {
       expanded,
       changeSelection,
       selectedNeighborhoods,
+      isCitySelected,
+      selectCity,
       clear,
-      apply
+      apply,
+      parentRef
     } = this.props
 
+    let pos = {}
+    if (parentRef) {
+      const rects = parentRef.getClientRects()
+      if (rects && rects.length > 0) {
+        pos = rects[0]
+      }
+    }
+    const topOffset = process.browser && window ? window.scrollY : 0
     return (
-      <CitiesWrapper p={2}>
+      <CitiesWrapper p={2} width={pos.width} top={(pos.top + topOffset)} left={pos.left}>
         {cities.map((city, i) => {
           let showExpandAll = false
           let isCityExpanded = expanded.includes(city)
+          const citySelected = isCitySelected(cities, selectedNeighborhoods, city.citySlug)
+          const showSeparator = i <= cities.length - 1
           return (
             <Row key={i} flexDirection="column">
               <Col><Text fontSize="small">{city.name}</Text></Col>
               <Col>
                 <Row flexWrap="wrap">
+                  <View mr={2} mb={2}>
+                    <NeighborhoodButton
+                      active={citySelected}
+                      onClick={() => {selectCity(cities, selectedNeighborhoods, city.citySlug)}}>
+                        Todos
+                      </NeighborhoodButton>
+                  </View>
                   {city.neighborhoods.map((neighborhood, j) => {
                     showExpandAll = j > MAX_INITIAL_ITEMS
                     if (!isCityExpanded && j >= MAX_INITIAL_ITEMS) {
@@ -49,15 +70,16 @@ class CityContainer extends Component {
                       </View>
                     )
                   })}
-                  {(showExpandAll && !isCityExpanded) && <Button link onClick={() => {expand(city)}}>Ver todos</Button>}
+                  {(showExpandAll && !isCityExpanded) && <Button link onClick={() => {expand(city)}}>Ver mais</Button>}
                 </Row>
               </Col>
+              {showSeparator && <Col mt={2}><Separator /></Col>}
             </Row>
           )
         })}
         <Row justifyContent="space-between">
           <Button p={0} link color="dark" onClick={clear}>Limpar</Button>
-          <Button p={0} link onClick={apply}>Aplicar</Button>
+          <Button p={0} link onClick={apply}>{this.props.fromHome ? 'Pesquisar' : 'Aplicar'}</Button>
         </Row>
       </CitiesWrapper>
     )
@@ -70,8 +92,12 @@ CityContainer.propTypes = {
   expanded: PropTypes.bool.isRequired,
   changeSelection: PropTypes.func.isRequired,
   selectedNeighborhoods: PropTypes.func.isRequired,
+  selectCity: PropTypes.func.isRequired,
+  isCitySelected: PropTypes.func.isRequired,
   clear: PropTypes.func.isRequired,
-  apply: PropTypes.func.isRequired
+  apply: PropTypes.func.isRequired,
+  parentRef: PropTypes.object.isRequired,
+  fromHome: PropTypes.bool
 }
 
 export default CityContainer
