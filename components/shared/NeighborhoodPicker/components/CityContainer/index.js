@@ -5,6 +5,7 @@ import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
 import Button from '@emcasa/ui-dom/components/Button'
 import Text from '@emcasa/ui-dom/components/Text'
+import theme from '@emcasa/ui'
 import {
   isNeighborhoodSelected
 } from '../../selection'
@@ -42,13 +43,25 @@ class CityContainer extends Component {
     return (
       <CitiesWrapper p={2} width={pos.width} top={(pos.top + topOffset)} left={pos.left}>
         {cities.map((city, i) => {
+          // Restrict view to only the currently expanded city
+          const isExpanded = expanded && expanded.length > 0
+          if (isExpanded) {
+            if (city.citySlug !== expanded[0].citySlug) {
+              return
+            }
+          }
           let showExpandAll = false
           let isCityExpanded = expanded.includes(city)
           const citySelected = isCitySelected(cities, selectedNeighborhoods, city.citySlug)
           const showSeparator = i <= cities.length - 1
           return (
             <Row key={i} flexDirection="column">
-              <Col><Text fontSize="small">{city.name}</Text></Col>
+              <Col>
+                <Row flexDirection="row" alignItems="center">
+                  <Text fontSize="small">{city.name}</Text>
+                  {isExpanded && <Button link fontSize={theme.fontSizes[1]} onClick={this.props.showAllCities}>Trocar cidade</Button>}
+                </Row>
+              </Col>
               <Col>
                 <Row flexWrap="wrap">
                   <View mr={2} mb={2}>
@@ -97,7 +110,8 @@ CityContainer.propTypes = {
   clear: PropTypes.func.isRequired,
   apply: PropTypes.func.isRequired,
   parentRef: PropTypes.object.isRequired,
-  fromHome: PropTypes.bool
+  fromHome: PropTypes.bool,
+  showAllCities: PropTypes.func.isRequired
 }
 
 export default CityContainer
