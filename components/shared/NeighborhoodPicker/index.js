@@ -14,6 +14,14 @@ import { Query } from 'react-apollo'
 import { cities } from 'constants/cities'
 import { arrayToString } from 'utils/text-utils'
 import {
+  log,
+  LISTING_SEARCH_NEIGHBORHOOD_APPLY,
+  LISTING_SEARCH_NEIGHBORHOOD_CLEAR,
+  LISTING_SEARCH_NEIGHBORHOOD_EXPAND,
+  LISTING_SEARCH_NEIGHBORHOOD_CHANGE_CITY,
+  LISTING_SEARCH_NEIGHBORHOOD_SELECT_ALL
+} from 'lib/amplitude'
+import {
   addNeighborhoodsToQuery,
   getDerivedParams
 } from 'utils/filter-params.js'
@@ -60,6 +68,7 @@ class NeighborhoodPicker extends Component {
   }
 
   expand(city) {
+    log(LISTING_SEARCH_NEIGHBORHOOD_EXPAND, {city: city.citySlug})
     let newExpanded = this.state.expanded
     newExpanded.push(city)
     this.setState({
@@ -68,16 +77,19 @@ class NeighborhoodPicker extends Component {
   }
 
   showAllCities() {
+    log(LISTING_SEARCH_NEIGHBORHOOD_CHANGE_CITY, {city: this.state.expanded[0].citySlug})
     this.setState({expanded: []})
   }
 
   clear() {
+    log(LISTING_SEARCH_NEIGHBORHOOD_CLEAR)
     this.setState({selectedNeighborhoods: []}, () => {
       this.apply()
     })
   }
 
   apply() {
+    log(LISTING_SEARCH_NEIGHBORHOOD_APPLY, {neighborhoods: this.state.selectedNeighborhoods})
     this.toggleCitiesDisplay()
     if (this.props.onBackPressed) {
       this.props.onBackPressed()
@@ -118,6 +130,7 @@ class NeighborhoodPicker extends Component {
   }
 
   selectCity(cities, selectedNeighborhoods, citySlug) {
+    log(LISTING_SEARCH_NEIGHBORHOOD_SELECT_ALL, {city: citySlug})
     const newSelection = selectCity(cities, selectedNeighborhoods, citySlug)
     this.setState({ selectedNeighborhoods: newSelection })
   }
