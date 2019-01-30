@@ -68,6 +68,9 @@ class ListingFilter extends Component {
       }
       updatedValues[value].min = minValue
       updatedValues[value].max = maxValue
+      if ((value === 'price' && maxValue === PRICE_FILTER.MAX) || (value === 'area' && maxValue === AREA_FILTER.MAX)) {
+        delete updatedValues[value].max
+      }
       this.setState({values: updatedValues})
     }
   }
