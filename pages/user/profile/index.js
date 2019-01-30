@@ -374,7 +374,7 @@ class UserProfile extends Component {
                   justifyContent="center"
                   py={5}
                 >
-                  <Icon icon="/static/svg-icons/venda-finalizada.svg"/>
+                  <Icon icon="/static/svg-icons/house.svg"/>
                 </Row>
                 <Text
                   textAlign="center"
@@ -440,13 +440,13 @@ class UserProfile extends Component {
                     justifyContent="center"
                     py={5}
                   >
-                    <Icon icon="/static/svg-icons/venda-finalizada.svg"/>
+                    <Icon icon="/static/svg-icons/happy-face-favorite.svg"/>
                   </Row>
                   <Text
                     textAlign="center"
                     color="gray"
                   >Navegue pelos nosso imóveis e dê um coração para os que você mais gostar. Esses imóveis ficarão salvos aqui nessa lista para você ver e rever quando quiser.</Text>
-                  <Link href="/vender">
+                  <Link href="/imoveis">
                     <Button
                       active
                       fluid
