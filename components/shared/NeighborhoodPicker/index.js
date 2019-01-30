@@ -47,6 +47,7 @@ class NeighborhoodPicker extends Component {
     this.getButtonText = this.getButtonText.bind(this)
     this.selectCity = this.selectCity.bind(this)
     this.isCitySelected = this.isCitySelected.bind(this)
+    this.showAllCities = this.showAllCities.bind(this)
 
     const initialNeighborhoodSelection = props.query && props.query.bairros ? getDerivedParams(props.query).neighborhoods : []
     this.containerRef = React.createRef()
@@ -64,6 +65,10 @@ class NeighborhoodPicker extends Component {
     this.setState({
       expanded: newExpanded
     })
+  }
+
+  showAllCities() {
+    this.setState({expanded: []})
   }
 
   clear() {
@@ -174,6 +179,8 @@ class NeighborhoodPicker extends Component {
                     apply={this.apply}
                     parentRef={this.containerRef.current}
                     fromHome={this.props.fromHome}
+                    showAllCities={this.showAllCities}
+                    fullscreen={this.props.fullscreen}
                   />
                   <Background />
                 </>
@@ -191,7 +198,8 @@ NeighborhoodPicker.propTypes = {
   onBackPressed: PropTypes.func,
   mobile: PropTypes.bool,
   query: PropTypes.object.isRequired,
-  fromHome: PropTypes.bool
+  fromHome: PropTypes.bool,
+  fullscreen: PropTypes.bool
 }
 
 export default enhanceWithClickOutside(NeighborhoodPicker)
