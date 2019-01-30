@@ -41,7 +41,14 @@ class CityContainer extends Component {
     }
     const topOffset = process.browser && window ? window.scrollY : 0
     return (
-      <CitiesWrapper p={2} width={pos.width} top={(pos.top + topOffset)} left={pos.left}>
+      <CitiesWrapper
+        p={2}
+        width={pos.width}
+        top={(pos.top + topOffset)}
+        left={pos.left}
+        fromHome={this.props.fromHome}
+        fullscreen={this.props.fullscreen}
+      >
         {cities.map((city, i) => {
           // Restrict view to only the currently expanded city
           const isExpanded = expanded && expanded.length > 0
@@ -110,8 +117,9 @@ CityContainer.propTypes = {
   clear: PropTypes.func.isRequired,
   apply: PropTypes.func.isRequired,
   parentRef: PropTypes.object.isRequired,
+  showAllCities: PropTypes.func.isRequired,
   fromHome: PropTypes.bool,
-  showAllCities: PropTypes.func.isRequired
+  fullscreen: PropTypes.bool
 }
 
 export default CityContainer

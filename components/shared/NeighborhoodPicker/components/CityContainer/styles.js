@@ -7,7 +7,14 @@ const CitiesWrapper = styled(Row)`
   position: absolute;
   flex-direction: column;
   width: ${({width}) => width}px;
-  top: ${({top}) => top ? `calc(${top}px + 60px)` : `80px`};
+  top: ${({top, fromHome, fullscreen}) => {
+    if (fullscreen) {
+      return `80px`
+    } else if (!fromHome) {
+      return `70px`
+    }
+    return `calc(${top}px + 60px)`
+  }};
   left: ${({left}) => left ? `${left}px` : `${theme.space[4]}px`};
   right: ${theme.space[4]}px;
   background-color: ${theme.colors.white};

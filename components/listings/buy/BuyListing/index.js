@@ -49,6 +49,7 @@ export default class BuyListing extends Component {
             <NeighborhoodPicker
               fromHome
               onClick={this.openMobileAddressInput}
+              fullscreen={this.state.showMobileAddressInput}
             />
           </Col>
         :
@@ -87,6 +88,7 @@ export default class BuyListing extends Component {
               <NeighborhoodPicker
                 mobile
                 fromHome
+                fullscreen
                 onBackPressed={this.close}
               />
             </Col>
