@@ -223,7 +223,6 @@ export const getListingFiltersFromState = ({
   garageSpots,
   rooms,
   neighborhoods,
-  neighborhoodsSlugs,
   citiesSlug,
   types
 }) => {
@@ -236,16 +235,15 @@ export const getListingFiltersFromState = ({
     maxRooms: rooms && parseInt(rooms.max),
     minGarageSpots: garageSpots && parseInt(garageSpots.min),
     maxGarageSpots: garageSpots && parseInt(garageSpots.max),
-    neighborhoodsSlugs,
     citiesSlug,
     types:
       types &&
       types.length > 0 &&
       types.map((type) => (type.value ? type.value : type)),
-    neighborhoods:
+    neighborhoodsSlugs:
       neighborhoods &&
       neighborhoods.length > 0 &&
-      neighborhoods.map((neighborhood) => `${neighborhood.substring(0, 1).toUpperCase()}${neighborhood.substring(1, neighborhood.length)}`)
+      neighborhoods.map((neighborhood) => neighborhood)
   }
 
   return pickBy(filters, (value) => value !== undefined && value !== null && ((typeof(value) === 'number' && !isNaN(value)) || typeof(value) === 'object'))
