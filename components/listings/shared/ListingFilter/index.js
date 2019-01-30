@@ -265,11 +265,12 @@ class ListingFilter extends Component {
           clear={this.resetFilter.bind(this, FILTERS.AREA.code)}
         >
           <NewSlider
+            isRange
+            hideMaxAt={AREA_FILTER.MAX}
             railWidth={MAX_FILTER_PANEL_DESKTOP_WIDTH}
             min={AREA_FILTER.MIN}
             max={AREA_FILTER.MAX}
             values={userArea}
-            isRange
             onChange={this.sliderChanged.bind(this, FILTERS.AREA.code)}
             valuesFormatter={(value) => `${value} m²`}
           />
@@ -283,11 +284,12 @@ class ListingFilter extends Component {
           clear={this.resetFilter.bind(this, FILTERS.PRICE.code)}
         >
           <NewSlider
+            isRange
+            hideMaxAt={PRICE_FILTER.MAX}
             railWidth={MAX_FILTER_PANEL_DESKTOP_WIDTH}
             min={PRICE_FILTER.MIN}
             max={PRICE_FILTER.MAX}
             values={userPrice}
-            isRange
             onChange={this.sliderChanged.bind(this, FILTERS.PRICE.code)}
             valuesRounder={(value) =>
               Math.ceil(value / 10000) * 10000
