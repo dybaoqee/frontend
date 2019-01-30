@@ -135,7 +135,7 @@ export default class Header extends Component {
       <ThemeProvider theme={theme}>
         <Wrapper>
           <Container transparent={transparent} className={sticky && !search ? 'sticky' : null} search={search}>
-            <Row alignItems="center" width={[1, 1/2]}>
+            <Row alignItems="center" width={[1, 1/2]} style={!search ? {height: theme.buttonHeight[1]} : null}>
               <Link href="/listings/buy" as="/">
                 <div style={{zIndex: 1}}>
                   {!search && <Logo alt="EmCasa Imobiliária no Rio de Janeiro e São Paulo" />}
