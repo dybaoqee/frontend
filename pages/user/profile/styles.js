@@ -9,14 +9,6 @@ const PROFILE_GRID_MEDIAQUERY = 'only screen and (max-width: 1024px)'
 export const PROFILE_TABWRAPPER_MAX_WIDTH = 710
 export const PROFILE_INITIALVIEW_MAX_WIDTH = 414
 
-export const TabWrapper = styled.div`
-  box-sizing: border-box;
-  width: 100%;
-  margin: ${theme.space[5]}px auto;
-  padding: 0 ${theme.space[4]}px;
-  max-width: ${PROFILE_TABWRAPPER_MAX_WIDTH}px;
-`
-
 export const ProfileAvatar = styled(Row)`
   width: 100px;
   height: 100px;
@@ -24,6 +16,22 @@ export const ProfileAvatar = styled(Row)`
   color: ${theme.colors.white};
   background-color: ${theme.colors.blue};
   border-radius: 100%;
+`
+
+export const Icon = styled.div`
+  background-image: url(${props => props.icon});
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 70px;
+  height: 70px;
+`
+
+export const TabWrapper = styled.div`
+  box-sizing: border-box;
+  width: 100%;
+  margin: ${theme.space[5]}px auto;
+  padding: 0 ${theme.space[4]}px;
+  max-width: ${PROFILE_TABWRAPPER_MAX_WIDTH}px;
 `
 
 export const InitialView = styled(Row)`

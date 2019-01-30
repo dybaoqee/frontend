@@ -42,7 +42,8 @@ import {
   TabWrapper,
   InitialView,
   ProfileAvatar,
-  ProfileList
+  ProfileList,
+  Icon
 } from './styles'
 
 class UserProfile extends Component {
@@ -245,11 +246,11 @@ class UserProfile extends Component {
                   if (loading) return <div />
                   this.checkFieldsChange(userProfile.name, userProfile.email)
                   return (
-                      <InitialView
-                        flexDirection={'column'}
-                        alignItems={'center'}
-                        maxWidth="100%"
-                      >
+                    <InitialView
+                      flexDirection={'column'}
+                      alignItems={'center'}
+                      maxWidth="100%"
+                    >
                       <ProfileAvatar
                         justifyContent={'center'}
                         alignItems={'center'}
@@ -320,7 +321,6 @@ class UserProfile extends Component {
                         </Row>
                       </Form>
                     </InitialView>
-
                   )
                 }}
               </Query>
@@ -365,15 +365,21 @@ class UserProfile extends Component {
                 width="100%"
                 alignItems="center"
               >
-                  <Text
-                    textAlign="center"
-                    fontSize="large"
-                    fontWeight="bold"
-                  >Você não tem nenhum imóvel anunciado</Text>
-                  <Text
-                    textAlign="center"
-                    color="gray"
-                  >Venda seu imóvel de um jeito fácil e seguro.<br /> Quer anunciar aqui na EmCasa?</Text>
+                <Text
+                  textAlign="center"
+                  fontSize="large"
+                  fontWeight="bold"
+                >Você não tem nenhum imóvel anunciado</Text>
+                <Row
+                  justifyContent="center"
+                  py={5}
+                >
+                  <Icon icon="/static/svg-icons/venda-finalizada.svg"/>
+                </Row>
+                <Text
+                  textAlign="center"
+                  color="gray"
+                >Venda seu imóvel de um jeito fácil e seguro.<br /> Quer anunciar aqui na EmCasa?</Text>
                 <Link href="/vender/imovel">
                   <Button
                     active
@@ -424,12 +430,18 @@ class UserProfile extends Component {
                 <Col
                   width="100%"
                   alignItems="center"
-              >
+                >
                   <Text
                     textAlign="center"
                     fontSize="large"
                     fontWeight="bold"
                   >Você não cadastrou nenhum imóvel</Text>
+                  <Row
+                    justifyContent="center"
+                    py={5}
+                  >
+                    <Icon icon="/static/svg-icons/venda-finalizada.svg"/>
+                  </Row>
                   <Text
                     textAlign="center"
                     color="gray"
