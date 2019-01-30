@@ -180,6 +180,7 @@ class NeighborhoodPicker extends Component {
                     parentRef={this.containerRef.current}
                     fromHome={this.props.fromHome}
                     showAllCities={this.showAllCities}
+                    fullscreen={this.props.fullscreen}
                   />
                   <Background />
                 </>
@@ -197,7 +198,8 @@ NeighborhoodPicker.propTypes = {
   onBackPressed: PropTypes.func,
   mobile: PropTypes.bool,
   query: PropTypes.object.isRequired,
-  fromHome: PropTypes.bool
+  fromHome: PropTypes.bool,
+  fullscreen: PropTypes.bool
 }
 
 export default enhanceWithClickOutside(NeighborhoodPicker)

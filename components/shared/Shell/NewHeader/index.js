@@ -102,6 +102,7 @@ export default class Header extends Component {
           {USE_NEW_SEARCH ?
             <NeighborhoodPicker
               mobile
+              fullscreen
               onBackPressed={this.closeMobileSearch}
               query={this.props.router.query}
             />
