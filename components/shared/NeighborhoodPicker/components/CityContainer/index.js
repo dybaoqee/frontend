@@ -70,15 +70,15 @@ class CityContainer extends Component {
                 </Row>
               </Col>
               <Col>
-                <Row style={{height: theme.buttonHeight[1]}}>
-                  <View mr={2} mb={2}>
-                    <NeighborhoodButton
-                      active={citySelected}
-                      onClick={() => {selectCity(cities, selectedNeighborhoods, city.citySlug)}}>
-                        Todos
+                <Row style={!isCityExpanded ? {height: theme.buttonHeight[1]} : null}>
+                  <Row flexWrap="wrap" style={!isCityExpanded ? {overflow: 'hidden'} : null}>
+                    <View mr={2} mb={2}>
+                      <NeighborhoodButton
+                        active={citySelected}
+                        onClick={() => {selectCity(cities, selectedNeighborhoods, city.citySlug)}}>
+                          Todos
                       </NeighborhoodButton>
-                  </View>
-                  <Row flexWrap="wrap" style={{overflow: 'hidden'}}>
+                    </View>
                     {city.neighborhoods.map((neighborhood, j) => {
                       showExpandAll = j > MAX_INITIAL_ITEMS
                       if (!isCityExpanded && j >= MAX_INITIAL_ITEMS) {
@@ -92,7 +92,7 @@ class CityContainer extends Component {
                       )
                     })}
                   </Row>
-                  {(showExpandAll && !isCityExpanded) && <Button link style={{minWidth: 90, padding: 0, margin: 0}} onClick={() => {expand(city)}}>Ver mais</Button>}
+                  {(showExpandAll && !isCityExpanded) && <Button link style={{minWidth: 68, padding: 0, margin: 0}} onClick={() => {expand(city)}}>Ver mais</Button>}
                 </Row>
               </Col>
               {showSeparator && <Col mt={2}><Separator /></Col>}
