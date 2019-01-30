@@ -70,7 +70,7 @@ class CityContainer extends Component {
                 </Row>
               </Col>
               <Col>
-                <Row flexWrap="wrap">
+                <Row style={{height: theme.buttonHeight[1]}}>
                   <View mr={2} mb={2}>
                     <NeighborhoodButton
                       active={citySelected}
@@ -78,19 +78,21 @@ class CityContainer extends Component {
                         Todos
                       </NeighborhoodButton>
                   </View>
-                  {city.neighborhoods.map((neighborhood, j) => {
-                    showExpandAll = j > MAX_INITIAL_ITEMS
-                    if (!isCityExpanded && j >= MAX_INITIAL_ITEMS) {
-                      return null
-                    }
-                    const isSelected = isNeighborhoodSelected(selectedNeighborhoods, neighborhood.nameSlug)
-                    return (
-                      <View mr={2} mb={2}>
-                        <NeighborhoodButton key={j} active={isSelected} onClick={() => {changeSelection(neighborhood.nameSlug)}}>{neighborhood.name}</NeighborhoodButton>
-                      </View>
-                    )
-                  })}
-                  {(showExpandAll && !isCityExpanded) && <Button link onClick={() => {expand(city)}}>Ver mais</Button>}
+                  <Row flexWrap="wrap" style={{overflow: 'hidden'}}>
+                    {city.neighborhoods.map((neighborhood, j) => {
+                      showExpandAll = j > MAX_INITIAL_ITEMS
+                      if (!isCityExpanded && j >= MAX_INITIAL_ITEMS) {
+                        return null
+                      }
+                      const isSelected = isNeighborhoodSelected(selectedNeighborhoods, neighborhood.nameSlug)
+                      return (
+                        <View mr={2} mb={2}>
+                          <NeighborhoodButton key={j} active={isSelected} onClick={() => {changeSelection(neighborhood.nameSlug)}}>{neighborhood.name}</NeighborhoodButton>
+                        </View>
+                      )
+                    })}
+                  </Row>
+                  {(showExpandAll && !isCityExpanded) && <Button link style={{minWidth: 90, padding: 0, margin: 0}} onClick={() => {expand(city)}}>Ver mais</Button>}
                 </Row>
               </Col>
               {showSeparator && <Col mt={2}><Separator /></Col>}
