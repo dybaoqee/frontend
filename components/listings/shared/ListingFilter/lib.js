@@ -14,9 +14,23 @@ function getActiveFilters(userFilters) {
 
   const propertyTypes = types && types.join(', ')
 
-  const rangePrice = price && `R$${numeral(price.min).format('0.00a')} - R$${numeral(price.max).format('0.00a')}`
+  let rangePrice = ''
+  if (price && price.min !== null) {
+    if (price.max) {
+      rangePrice = `R$${numeral(price.min).format('0.00a')} - R$${numeral(price.max).format('0.00a')}`
+    } else {
+      rangePrice = `A partir de R$${numeral(price.min).format('0.00a')}`
+    }
+  }
 
-  const rangeArea = area && `${area.min} - ${area.max} m²`
+  let rangeArea = ''
+  if (area && area.min !== null) {
+    if (area.max) {
+      rangeArea = `${area.min} - ${area.max} m²`
+    } else {
+      rangeArea = `A partir de ${area.min} m²`
+    }
+  }
 
   let rangeRooms = ''
   if (rooms && rooms.min !== null) {

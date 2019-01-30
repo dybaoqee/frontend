@@ -63,7 +63,9 @@ export const Icon = styled.div`
 
 export const RangeValues = styled.div`
   display: grid;
-  grid-template-columns: minmax(33%, 1fr) auto minmax(33%, 1fr);
+  ${({multiValue}) => multiValue && `
+    grid-template-columns: minmax(33%, 1fr) auto minmax(33%, 1fr);
+  `}
   width: 100%;
   margin: 0 auto 20px;
   text-align: center;
