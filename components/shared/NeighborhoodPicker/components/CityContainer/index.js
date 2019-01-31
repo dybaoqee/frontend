@@ -90,7 +90,7 @@ class CityContainer extends Component {
                       </View>
                     )
                   })}
-                  {(showExpandAll && !isCityExpanded) && <Button link onClick={() => {expand(city)}}>Ver mais</Button>}
+                  {(showExpandAll && !isCityExpanded) && <Button p={0} link onClick={() => {expand(city)}}>Ver mais</Button>}
                 </Row>
               </Col>
               {showSeparator && <Col mt={2}><Separator /></Col>}
