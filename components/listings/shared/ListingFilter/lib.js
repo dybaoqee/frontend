@@ -1,4 +1,5 @@
 import numeral from 'numeral'
+import { isMobile } from 'lib/mobile'
 import FilterButton from './components/FilterButton'
 import {
   FILTERS
@@ -105,8 +106,9 @@ function userHasSelectedType(userFilters, homeType) {
 }
 
 /**
- * Returns a list of FilterButton components to be rendered. Selected filters come first in the array, so
- * they are rendered first. Inactive filters are rendered last.
+ * Returns a list of FilterButton components to be rendered. On mobile, selected filters
+ * come first in the array, so they are rendered first. Inactive filters are rendered last.
+ * On desktop, the filters are not reordered.
  *
  * @param {object} filters selected filters.
  * @param {function} showFilter function that is called when user clicks the filter button.
@@ -125,28 +127,15 @@ function getFilterButtons(filters, showFilter, getOpenButton) {
       return
     }
 
-    if (selectedFiltersArray.includes(filterItem.code)) {
-      activeFilterButtons.push(
-        <FilterButton
-          key={item.code}
-          active={true}
-          open={getOpenButton(filterItem.code)}
-          onClick={(e) => { showFilter(filterItem.code, e) }}
-        >
-          {getFilterLabel(filters, filterItem.code)}
-        </FilterButton>
-      )
+    const active = selectedFiltersArray.includes(filterItem.code)
+    if (isMobile()) {
+      if (active) {
+        activeFilterButtons.push(getFilterButton(active, item, filterItem, filters, getOpenButton, showFilter))
+      } else {
+        inactiveFilterButtons.push(getFilterButton(active, item, filterItem, filters, getOpenButton, showFilter))
+      }
     } else {
-      inactiveFilterButtons.push(
-        <FilterButton
-          key={item.code}
-          active={false}
-          open={getOpenButton(filterItem.code)}
-          onClick={(e) => { showFilter(filterItem.code, e) }}
-        >
-          {getFilterLabel(filters, filterItem.code)}
-        </FilterButton>
-      )
+      activeFilterButtons.push(getFilterButton(active, item, filterItem, filters, getOpenButton, showFilter))
     }
   })
 
@@ -155,6 +144,19 @@ function getFilterButtons(filters, showFilter, getOpenButton) {
       {activeFilterButtons}
       {inactiveFilterButtons}
     </>
+  )
+}
+
+function getFilterButton(active, item, filterItem, filters, getOpenButton, showFilter) {
+  return (
+    <FilterButton
+      key={item.code}
+      active={active}
+      open={getOpenButton(filterItem.code)}
+      onClick={(e) => { showFilter(filterItem.code, e) }}
+    >
+      {getFilterLabel(filters, filterItem.code)}
+    </FilterButton>
   )
 }
 
