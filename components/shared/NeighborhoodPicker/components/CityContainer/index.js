@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { PoseGroup } from 'react-pose'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
 import Button from '@emcasa/ui-dom/components/Button'
 import Text from '@emcasa/ui-dom/components/Text'
 import theme from '@emcasa/ui'
-import { PoseGroup } from 'react-pose'
 import {
   isNeighborhoodSelected
 } from '../../selection'
@@ -15,6 +15,7 @@ import {
   NeighborhoodButton,
   Separator
 } from './styles'
+import { Animated } from '../../styles'
 
 const MAX_INITIAL_ITEMS = 3
 
@@ -32,6 +33,10 @@ class CityContainer extends Component {
         <NeighborhoodButton key={key} active={active} onClick={() => {changeSelection(neighborhood.nameSlug)}}>{neighborhood.name}</NeighborhoodButton>
       </View>
     )
+  }
+
+  updateCurrentSelection() {
+
   }
 
   render() {
@@ -107,22 +112,24 @@ class CityContainer extends Component {
                         Todos
                       </NeighborhoodButton>
                   </View>
-                  {selectedNeighborhoodList.map((item) => {
-                    buttonsRendered++
-                    showExpandAll = buttonsRendered > MAX_INITIAL_ITEMS
-                    if (!isCityExpanded && buttonsRendered >= MAX_INITIAL_ITEMS) {
-                      return null
-                    }
-                    return item
-                  })}
-                  {deselectedNeighborhoodList.map((item) => {
-                    buttonsRendered++
-                    showExpandAll = buttonsRendered > MAX_INITIAL_ITEMS
-                    if (!isCityExpanded && buttonsRendered >= MAX_INITIAL_ITEMS) {
-                      return null
-                    }
-                    return item
-                  })}
+                  <PoseGroup>
+                    {selectedNeighborhoodList.map((Item) => {
+                      buttonsRendered++
+                      showExpandAll = buttonsRendered > MAX_INITIAL_ITEMS
+                      if (!isCityExpanded && buttonsRendered >= MAX_INITIAL_ITEMS) {
+                        return null
+                      }
+                      return <Animated key={buttonsRendered * 1000}>{Item}</Animated>
+                    })}
+                    {deselectedNeighborhoodList.map((Item) => {
+                      buttonsRendered++
+                      showExpandAll = buttonsRendered > MAX_INITIAL_ITEMS
+                      if (!isCityExpanded && buttonsRendered >= MAX_INITIAL_ITEMS) {
+                        return null
+                      }
+                      return <Animated key={buttonsRendered}>{Item}</Animated>
+                    })}
+                  </PoseGroup>
                   {(showExpandAll && !isCityExpanded) && <Button p={0} link onClick={() => {expand(city)}}>Ver mais</Button>}
                 </Row>
               </Col>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { PoseGroup } from 'react-pose'
 import Router from 'next/router'
 import enhanceWithClickOutside from 'react-click-outside'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
@@ -38,7 +39,8 @@ import {
   BackIcon,
   BackButton,
   ButtonText,
-  Background
+  Background,
+  Animated
 } from './styles'
 
 const DEFAULT_BUTTON_TEXT = 'Escolha os bairros'
@@ -178,26 +180,28 @@ class NeighborhoodPicker extends Component {
                   </Col>
                 </InputContainer>
               </InputWrapper>
+              <PoseGroup>
               {this.state.showCities &&
-                <>
-                  <CityContainer
-                    cities={availableCities}
-                    selectedNeighborhoods={this.state.selectedNeighborhoods}
-                    expanded={this.state.expanded}
-                    changeSelection={this.changeSelection}
-                    selectCity={this.selectCity}
-                    isCitySelected={this.isCitySelected}
-                    expand={this.expand}
-                    clear={this.clear}
-                    apply={this.apply}
-                    parentRef={this.containerRef.current}
-                    fromHome={this.props.fromHome}
-                    showAllCities={this.showAllCities}
-                    fullscreen={this.props.fullscreen}
-                  />
-                  <Background />
-                </>
+                  <Animated key={1}>
+                    <CityContainer
+                      cities={availableCities}
+                      selectedNeighborhoods={this.state.selectedNeighborhoods}
+                      expanded={this.state.expanded}
+                      changeSelection={this.changeSelection}
+                      selectCity={this.selectCity}
+                      isCitySelected={this.isCitySelected}
+                      expand={this.expand}
+                      clear={this.clear}
+                      apply={this.apply}
+                      parentRef={this.containerRef.current}
+                      fromHome={this.props.fromHome}
+                      showAllCities={this.showAllCities}
+                      fullscreen={this.props.fullscreen}
+                    />
+                    <Background />
+                  </Animated>
               }
+              </PoseGroup>
             </SearchContainer>
           )
         }}
