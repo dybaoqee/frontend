@@ -19,6 +19,8 @@ Before anything else, you must ave [`docker`][1]  and [`docker-compose`][2] inst
 1. Start all services with `docker-compose up -d`.
 1. Start `next.js` with `docker-compose exec frontend yarn start`.
 
+To use `https` locally, check the instructions in the [README from backend][5].
+
 ## Tests
 
 `yarn test` to run automated unit, integration and end to end tests with Jest and Cypress.
@@ -42,3 +44,4 @@ At the moment, we're tracking tasks at https://www.pivotaltracker.com/n/projects
 [2]: https://docs.docker.com/compose/install/
 [3]: https://github.com/emcasa/backend#using-docker
 [4]: https://github.com/emcasa/frontend/blob/33bc74222d283892710e43fae58c2841588bf109/.local.env.example
+[5]: https://github.com/emcasa/backend#enable-https-locally

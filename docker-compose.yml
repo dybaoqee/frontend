@@ -17,7 +17,12 @@ services:
     depends_on:
       - s3
     networks:
-      - backend
+      reverse:
+        aliases:
+          - frontend
+      default:
+        aliases:
+          - frontend
     hostname: frontend
     env_file:
       # NOTE (jpd): contains access keys defined as env vars.
@@ -32,6 +37,6 @@ services:
 volumes:
   s3_data:
 networks:
-  backend:
+  reverse:
     external:
-      name: backend_default
+      name: backend_reverse
