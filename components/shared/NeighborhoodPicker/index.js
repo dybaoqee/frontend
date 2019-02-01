@@ -27,7 +27,7 @@ import {
   getDerivedParams
 } from 'utils/filter-params.js'
 import {
-  updateSelection,
+  updateSelectionList,
   selectCity,
   isCitySelected
 } from './selection'
@@ -90,23 +90,25 @@ class NeighborhoodPicker extends Component {
     })
   }
 
-  apply() {
-    log(LISTING_SEARCH_NEIGHBORHOOD_APPLY, {neighborhoods: this.state.selectedNeighborhoods})
-    this.toggleCitiesDisplay()
-    if (this.props.onBackPressed) {
-      this.props.onBackPressed()
-    }
-    if (this.props.fromHome && this.state.selectedNeighborhoods.length === 0) {
-      return
-    }
-    const currentQuery = this.props.query || {}
-    const query = addNeighborhoodsToQuery(getDerivedParams(currentQuery), this.state.selectedNeighborhoods)
-    Router.push(`/listings${query}`, `/imoveis${query}`, {shallow: true})
+  apply(newSelection) {
+    this.changeSelection(newSelection, () => {
+      log(LISTING_SEARCH_NEIGHBORHOOD_APPLY, {neighborhoods: this.state.selectedNeighborhoods})
+      this.toggleCitiesDisplay()
+      if (this.props.onBackPressed) {
+        this.props.onBackPressed()
+      }
+      if (this.props.fromHome && this.state.selectedNeighborhoods.length === 0) {
+        return
+      }
+      const currentQuery = this.props.query || {}
+      const query = addNeighborhoodsToQuery(getDerivedParams(currentQuery), this.state.selectedNeighborhoods)
+      Router.push(`/listings${query}`, `/imoveis${query}`, {shallow: true})
+    })
   }
 
-  changeSelection(neighborhood) {
-    const newSelection = updateSelection(this.state.selectedNeighborhoods, neighborhood)
-    this.setState({ selectedNeighborhoods: newSelection })
+  changeSelection(newSelection, onFinished) {
+    let newList = updateSelectionList(this.state.selectedNeighborhoods, newSelection)
+    this.setState({ selectedNeighborhoods: newList }, onFinished)
   }
 
   handleClickOutside() {
@@ -187,7 +189,6 @@ class NeighborhoodPicker extends Component {
                       cities={availableCities}
                       selectedNeighborhoods={this.state.selectedNeighborhoods}
                       expanded={this.state.expanded}
-                      changeSelection={this.changeSelection}
                       selectCity={this.selectCity}
                       isCitySelected={this.isCitySelected}
                       expand={this.expand}

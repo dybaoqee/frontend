@@ -8,7 +8,8 @@ import Button from '@emcasa/ui-dom/components/Button'
 import Text from '@emcasa/ui-dom/components/Text'
 import theme from '@emcasa/ui'
 import {
-  isNeighborhoodSelected
+  isNeighborhoodSelected,
+  updateSelection
 } from '../../selection'
 import {
   CitiesWrapper,
@@ -22,21 +23,23 @@ const MAX_INITIAL_ITEMS = 3
 class CityContainer extends Component {
   constructor(props) {
     super(props)
+    this.updateCurrentSelection = this.updateCurrentSelection.bind(this)
     this.state = {
       currentSelection: []
     }
   }
 
-  getNeighborhoodButton(key, active, changeSelection, neighborhood) {
+  getNeighborhoodButton(key, isSelected, isNewSelection, changeSelection, neighborhood) {
     return (
       <View mr={2} mb={2}>
-        <NeighborhoodButton key={key} active={active} onClick={() => {changeSelection(neighborhood.nameSlug)}}>{neighborhood.name}</NeighborhoodButton>
+        <NeighborhoodButton key={key} active={isSelected || isNewSelection} onClick={() => {changeSelection(neighborhood.nameSlug)}}>{neighborhood.name}</NeighborhoodButton>
       </View>
     )
   }
 
-  updateCurrentSelection() {
-
+  updateCurrentSelection(neighborhood) {
+    const newSelection = updateSelection(this.state.currentSelection, neighborhood)
+    this.setState({ currentSelection: newSelection })
   }
 
   render() {
@@ -44,7 +47,6 @@ class CityContainer extends Component {
       cities,
       expand,
       expanded,
-      changeSelection,
       selectedNeighborhoods,
       isCitySelected,
       selectCity,
@@ -80,17 +82,18 @@ class CityContainer extends Component {
           }
           let showExpandAll = false
           let isCityExpanded = expanded.includes(city)
-          const citySelected = isCitySelected(cities, selectedNeighborhoods, city.citySlug)
+          const citySelected = isCitySelected(cities, this.state.currentSelection, city.citySlug)
           const showSeparator = i <= cities.length - 1
 
           const selectedNeighborhoodList = []
           const deselectedNeighborhoodList = []
           city.neighborhoods.forEach((neighborhood, j) => {
             const isSelected = isNeighborhoodSelected(selectedNeighborhoods, neighborhood.nameSlug)
+            const isNewSelection = isNeighborhoodSelected(this.state.currentSelection, neighborhood.nameSlug)
             if (isSelected) {
-              selectedNeighborhoodList.push(this.getNeighborhoodButton(j, isSelected, changeSelection, neighborhood))
+              selectedNeighborhoodList.push(this.getNeighborhoodButton(j, isSelected, isNewSelection, this.updateCurrentSelection, neighborhood))
             } else {
-              deselectedNeighborhoodList.push(this.getNeighborhoodButton(j, isSelected, changeSelection, neighborhood))
+              deselectedNeighborhoodList.push(this.getNeighborhoodButton(j, isSelected, isNewSelection, this.updateCurrentSelection, neighborhood))
             }
           })
           let buttonsRendered = 0
@@ -108,7 +111,7 @@ class CityContainer extends Component {
                   <View mr={2} mb={2}>
                     <NeighborhoodButton
                       active={citySelected}
-                      onClick={() => {selectCity(cities, selectedNeighborhoods, city.citySlug)}}>
+                      onClick={() => {selectCity(cities, this.state.currentSelection, city.citySlug)}}>
                         Todos
                       </NeighborhoodButton>
                   </View>
@@ -139,7 +142,7 @@ class CityContainer extends Component {
         })}
         <Row justifyContent="space-between">
           <Button p={0} link color="dark" onClick={clear}>Limpar</Button>
-          <Button p={0} link onClick={apply}>{this.props.fromHome ? 'Pesquisar' : 'Aplicar'}</Button>
+          <Button p={0} link onClick={() => {apply(this.state.currentSelection)}}>{this.props.fromHome ? 'Pesquisar' : 'Aplicar'}</Button>
         </Row>
       </CitiesWrapper>
     )
