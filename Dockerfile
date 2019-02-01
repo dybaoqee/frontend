@@ -23,7 +23,8 @@ RUN apt-get -y update \
 # app set workdir
 WORKDIR /opt/emcasa/frontend
 
+# NOTE (jpd): check a way to first install app deps and them copy the code,
+# copying package.json and .npmrc doesn't solve the problem
 # app add source code and install it
-# NOTE (jpd): check a way to first install app deps and them copy the code
 COPY . /opt/emcasa/frontend
 RUN yarn install
