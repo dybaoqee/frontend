@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import theme from '@emcasa/ui'
+import posed from 'react-pose'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Icon from '@emcasa/ui-dom/components/Icon'
@@ -71,6 +72,13 @@ const Background = styled(View)`
   background-color: rgba(255, 255, 255, 0.5);
 `
 
+const DURATION = 300
+
+const Animated = posed.div({
+  enter: { opacity: 1, transition: { duration: DURATION }},
+  exit: { opacity: 0, transition: { duration: DURATION }},
+})
+
 export {
   InputWrapper,
   InputContainer,
@@ -79,5 +87,6 @@ export {
   BackIcon,
   BackButton,
   ButtonText,
-  Background
+  Background,
+  Animated
 }
