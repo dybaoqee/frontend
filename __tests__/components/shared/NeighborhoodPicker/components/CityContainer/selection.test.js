@@ -3,7 +3,7 @@ import {
   isNeighborhoodSelected,
   isCitySelected,
   selectCity
-} from 'components/shared/NeighborhoodPicker/selection'
+} from 'components/shared/NeighborhoodPicker/components/CityContainer/selection'
 
 describe('neighborhood selection test', () => {
   it('should add a neighborhood to selection', () => {

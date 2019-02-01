@@ -1,32 +1,74 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { PoseGroup } from 'react-pose'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
 import Button from '@emcasa/ui-dom/components/Button'
 import Text from '@emcasa/ui-dom/components/Text'
 import theme from '@emcasa/ui'
+import { randomKey } from 'lib/random'
 import {
-  isNeighborhoodSelected
-} from '../../selection'
+  log,
+  LISTING_SEARCH_NEIGHBORHOOD_SELECT_ALL
+} from 'lib/amplitude'
+import {
+  isNeighborhoodSelected,
+  updateSelection,
+  isCitySelected,
+  selectCity
+} from './selection'
 import {
   CitiesWrapper,
   NeighborhoodButton,
   Separator
 } from './styles'
+import { Animated } from '../../styles'
 
 const MAX_INITIAL_ITEMS = 3
 
 class CityContainer extends Component {
+  constructor(props) {
+    super(props)
+    this.getNeighborhoodButton = this.getNeighborhoodButton.bind(this)
+    this.updateCurrentSelection = this.updateCurrentSelection.bind(this)
+    this.selectCity = this.selectCity.bind(this)
+    this.state = {
+      currentSelection: []
+    }
+  }
+
+  componentDidMount() {
+    this.setState({
+      currentSelection: this.props.selectedNeighborhoods
+    })
+  }
+
+  selectCity(cities, citySlug) {
+    log(LISTING_SEARCH_NEIGHBORHOOD_SELECT_ALL, {city: citySlug})
+    const newSelection = selectCity(cities, this.state.currentSelection, citySlug)
+    this.setState({ currentSelection: newSelection })
+  }
+
+  getNeighborhoodButton(key, isNewSelection, neighborhood) {
+    return (
+      <View mr={2} mb={2}>
+        <NeighborhoodButton key={key} active={isNewSelection} onClick={() => {this.updateCurrentSelection(neighborhood.nameSlug)}}>{neighborhood.name}</NeighborhoodButton>
+      </View>
+    )
+  }
+
+  updateCurrentSelection(neighborhood) {
+    const newSelection = updateSelection(this.state.currentSelection, neighborhood)
+    this.setState({ currentSelection: newSelection })
+  }
+
   render() {
     const {
       cities,
       expand,
       expanded,
-      changeSelection,
       selectedNeighborhoods,
-      isCitySelected,
-      selectCity,
       clear,
       apply,
       parentRef
@@ -59,8 +101,22 @@ class CityContainer extends Component {
           }
           let showExpandAll = false
           let isCityExpanded = expanded.includes(city)
-          const citySelected = isCitySelected(cities, selectedNeighborhoods, city.citySlug)
+          const citySelected = isCitySelected(cities, this.state.currentSelection, city.citySlug)
           const showSeparator = i <= cities.length - 1
+
+          const selectedNeighborhoodList = []
+          const deselectedNeighborhoodList = []
+          city.neighborhoods.forEach((neighborhood, j) => {
+            const isSelected = isNeighborhoodSelected(selectedNeighborhoods, neighborhood.nameSlug)
+            const isNewSelection = isNeighborhoodSelected(this.state.currentSelection, neighborhood.nameSlug)
+            if (isSelected) {
+              selectedNeighborhoodList.push(this.getNeighborhoodButton(j, isNewSelection, neighborhood))
+            } else {
+              deselectedNeighborhoodList.push(this.getNeighborhoodButton(j, isNewSelection, neighborhood))
+            }
+          })
+          let buttonsRendered = 0
+
           return (
             <Row key={i} flexDirection="column">
               <Col>
@@ -70,29 +126,33 @@ class CityContainer extends Component {
                 </Row>
               </Col>
               <Col>
-                <Row style={!isCityExpanded ? {height: theme.buttonHeight[1]} : null}>
-                  <Row flexWrap="wrap" style={!isCityExpanded ? {overflow: 'hidden'} : null}>
-                    <View mr={2} mb={2}>
-                      <NeighborhoodButton
-                        active={citySelected}
-                        onClick={() => {selectCity(cities, selectedNeighborhoods, city.citySlug)}}>
-                          Todos
+                <Row flexWrap="wrap">
+                  <View mr={2} mb={2}>
+                    <NeighborhoodButton
+                      active={citySelected}
+                      onClick={() => {this.selectCity(cities, city.citySlug)}}>
+                        Todos
                       </NeighborhoodButton>
-                    </View>
-                    {city.neighborhoods.map((neighborhood, j) => {
-                      showExpandAll = j > MAX_INITIAL_ITEMS
-                      if (!isCityExpanded && j >= MAX_INITIAL_ITEMS) {
+                  </View>
+                  <PoseGroup>
+                    {selectedNeighborhoodList.map((Item) => {
+                      buttonsRendered++
+                      showExpandAll = buttonsRendered > MAX_INITIAL_ITEMS
+                      if (!isCityExpanded && buttonsRendered >= MAX_INITIAL_ITEMS) {
                         return null
                       }
-                      const isSelected = isNeighborhoodSelected(selectedNeighborhoods, neighborhood.nameSlug)
-                      return (
-                        <View mr={2} mb={2}>
-                          <NeighborhoodButton key={j} active={isSelected} onClick={() => {changeSelection(neighborhood.nameSlug)}}>{neighborhood.name}</NeighborhoodButton>
-                        </View>
-                      )
+                      return <Animated key={randomKey()}>{Item}</Animated>
                     })}
-                  </Row>
-                  {(showExpandAll && !isCityExpanded) && <Button link style={{minWidth: 68, padding: 0, margin: 0}} onClick={() => {expand(city)}}>Ver mais</Button>}
+                    {deselectedNeighborhoodList.map((Item) => {
+                      buttonsRendered++
+                      showExpandAll = buttonsRendered > MAX_INITIAL_ITEMS
+                      if (!isCityExpanded && buttonsRendered >= MAX_INITIAL_ITEMS) {
+                        return null
+                      }
+                      return <Animated key={randomKey()}>{Item}</Animated>
+                    })}
+                  </PoseGroup>
+                  {(showExpandAll && !isCityExpanded) && <Button p={0} link onClick={() => {expand(city)}}>Ver mais</Button>}
                 </Row>
               </Col>
               {showSeparator && <Col mt={2}><Separator /></Col>}
@@ -101,7 +161,7 @@ class CityContainer extends Component {
         })}
         <Row justifyContent="space-between">
           <Button p={0} link color="dark" onClick={clear}>Limpar</Button>
-          <Button p={0} link onClick={apply}>{this.props.fromHome ? 'Pesquisar' : 'Aplicar'}</Button>
+          <Button p={0} link onClick={() => {apply(this.state.currentSelection)}}>{this.props.fromHome ? 'Pesquisar' : 'Aplicar'}</Button>
         </Row>
       </CitiesWrapper>
     )
@@ -112,10 +172,7 @@ CityContainer.propTypes = {
   cities: PropTypes.array.isRequired,
   expand: PropTypes.func.isRequired,
   expanded: PropTypes.bool.isRequired,
-  changeSelection: PropTypes.func.isRequired,
   selectedNeighborhoods: PropTypes.func.isRequired,
-  selectCity: PropTypes.func.isRequired,
-  isCitySelected: PropTypes.func.isRequired,
   clear: PropTypes.func.isRequired,
   apply: PropTypes.func.isRequired,
   parentRef: PropTypes.object.isRequired,

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { PoseGroup } from 'react-pose'
 import Router from 'next/router'
 import enhanceWithClickOutside from 'react-click-outside'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
@@ -18,18 +19,12 @@ import {
   LISTING_SEARCH_NEIGHBORHOOD_APPLY,
   LISTING_SEARCH_NEIGHBORHOOD_CLEAR,
   LISTING_SEARCH_NEIGHBORHOOD_EXPAND,
-  LISTING_SEARCH_NEIGHBORHOOD_CHANGE_CITY,
-  LISTING_SEARCH_NEIGHBORHOOD_SELECT_ALL
+  LISTING_SEARCH_NEIGHBORHOOD_CHANGE_CITY
 } from 'lib/amplitude'
 import {
   addNeighborhoodsToQuery,
   getDerivedParams
 } from 'utils/filter-params.js'
-import {
-  updateSelection,
-  selectCity,
-  isCitySelected
-} from './selection'
 import {
   InputWrapper,
   InputContainer,
@@ -38,7 +33,8 @@ import {
   BackIcon,
   BackButton,
   ButtonText,
-  Background
+  Background,
+  Animated
 } from './styles'
 
 const DEFAULT_BUTTON_TEXT = 'Escolha os bairros'
@@ -53,8 +49,6 @@ class NeighborhoodPicker extends Component {
     this.clear = this.clear.bind(this)
     this.apply = this.apply.bind(this)
     this.getButtonText = this.getButtonText.bind(this)
-    this.selectCity = this.selectCity.bind(this)
-    this.isCitySelected = this.isCitySelected.bind(this)
     this.showAllCities = this.showAllCities.bind(this)
 
     const initialNeighborhoodSelection = props.query && props.query.bairros ? getDerivedParams(props.query).neighborhoods : []
@@ -84,27 +78,28 @@ class NeighborhoodPicker extends Component {
   clear() {
     log(LISTING_SEARCH_NEIGHBORHOOD_CLEAR)
     this.setState({selectedNeighborhoods: []}, () => {
-      this.apply()
+      this.apply([])
     })
   }
 
-  apply() {
-    log(LISTING_SEARCH_NEIGHBORHOOD_APPLY, {neighborhoods: this.state.selectedNeighborhoods})
-    this.toggleCitiesDisplay()
-    if (this.props.onBackPressed) {
-      this.props.onBackPressed()
-    }
-    if (this.props.fromHome && this.state.selectedNeighborhoods.length === 0) {
-      return
-    }
-    const currentQuery = this.props.query || {}
-    const query = addNeighborhoodsToQuery(getDerivedParams(currentQuery), this.state.selectedNeighborhoods)
-    Router.push(`/listings${query}`, `/imoveis${query}`, {shallow: true})
+  apply(newSelection) {
+    this.changeSelection(newSelection, () => {
+      log(LISTING_SEARCH_NEIGHBORHOOD_APPLY, {neighborhoods: this.state.selectedNeighborhoods})
+      this.toggleCitiesDisplay()
+      if (this.props.onBackPressed) {
+        this.props.onBackPressed()
+      }
+      if (this.props.fromHome && this.state.selectedNeighborhoods.length === 0) {
+        return
+      }
+      const currentQuery = this.props.query || {}
+      const query = addNeighborhoodsToQuery(getDerivedParams(currentQuery), this.state.selectedNeighborhoods)
+      Router.push(`/listings${query}`, `/imoveis${query}`, {shallow: true})
+    })
   }
 
-  changeSelection(neighborhood) {
-    const newSelection = updateSelection(this.state.selectedNeighborhoods, neighborhood)
-    this.setState({ selectedNeighborhoods: newSelection })
+  changeSelection(newSelection, onFinished) {
+    this.setState({ selectedNeighborhoods: newSelection }, onFinished)
   }
 
   handleClickOutside() {
@@ -127,16 +122,6 @@ class NeighborhoodPicker extends Component {
     } catch (e) {
       Sentry.captureException(e)
     }
-  }
-
-  selectCity(cities, selectedNeighborhoods, citySlug) {
-    log(LISTING_SEARCH_NEIGHBORHOOD_SELECT_ALL, {city: citySlug})
-    const newSelection = selectCity(cities, selectedNeighborhoods, citySlug)
-    this.setState({ selectedNeighborhoods: newSelection })
-  }
-
-  isCitySelected(cities, selectedNeighborhoods, citySlug) {
-    return isCitySelected(cities, selectedNeighborhoods, citySlug)
   }
 
   toggleCitiesDisplay() {
@@ -178,26 +163,27 @@ class NeighborhoodPicker extends Component {
                   </Col>
                 </InputContainer>
               </InputWrapper>
+              <PoseGroup>
               {this.state.showCities &&
-                <>
-                  <CityContainer
-                    cities={availableCities}
-                    selectedNeighborhoods={this.state.selectedNeighborhoods}
-                    expanded={this.state.expanded}
-                    changeSelection={this.changeSelection}
-                    selectCity={this.selectCity}
-                    isCitySelected={this.isCitySelected}
-                    expand={this.expand}
-                    clear={this.clear}
-                    apply={this.apply}
-                    parentRef={this.containerRef.current}
-                    fromHome={this.props.fromHome}
-                    showAllCities={this.showAllCities}
-                    fullscreen={this.props.fullscreen}
-                  />
-                  <Background />
-                </>
+                  <Animated key={1}>
+                    <CityContainer
+                      cities={availableCities}
+                      selectedNeighborhoods={this.state.selectedNeighborhoods}
+                      expanded={this.state.expanded}
+                      selectCity={this.selectCity}
+                      isCitySelected={this.isCitySelected}
+                      expand={this.expand}
+                      clear={this.clear}
+                      apply={this.apply}
+                      parentRef={this.containerRef.current}
+                      fromHome={this.props.fromHome}
+                      showAllCities={this.showAllCities}
+                      fullscreen={this.props.fullscreen}
+                    />
+                    <Background />
+                  </Animated>
               }
+              </PoseGroup>
             </SearchContainer>
           )
         }}
