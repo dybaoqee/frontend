@@ -6,6 +6,7 @@ import View from '@emcasa/ui-dom/components/View'
 import Button from '@emcasa/ui-dom/components/Button'
 import Text from '@emcasa/ui-dom/components/Text'
 import theme from '@emcasa/ui'
+import { PoseGroup } from 'react-pose'
 import {
   isNeighborhoodSelected
 } from '../../selection'
@@ -18,6 +19,21 @@ import {
 const MAX_INITIAL_ITEMS = 3
 
 class CityContainer extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      currentSelection: []
+    }
+  }
+
+  getNeighborhoodButton(key, active, changeSelection, neighborhood) {
+    return (
+      <View mr={2} mb={2}>
+        <NeighborhoodButton key={key} active={active} onClick={() => {changeSelection(neighborhood.nameSlug)}}>{neighborhood.name}</NeighborhoodButton>
+      </View>
+    )
+  }
+
   render() {
     const {
       cities,
@@ -61,6 +77,19 @@ class CityContainer extends Component {
           let isCityExpanded = expanded.includes(city)
           const citySelected = isCitySelected(cities, selectedNeighborhoods, city.citySlug)
           const showSeparator = i <= cities.length - 1
+
+          const selectedNeighborhoodList = []
+          const deselectedNeighborhoodList = []
+          city.neighborhoods.forEach((neighborhood, j) => {
+            const isSelected = isNeighborhoodSelected(selectedNeighborhoods, neighborhood.nameSlug)
+            if (isSelected) {
+              selectedNeighborhoodList.push(this.getNeighborhoodButton(j, isSelected, changeSelection, neighborhood))
+            } else {
+              deselectedNeighborhoodList.push(this.getNeighborhoodButton(j, isSelected, changeSelection, neighborhood))
+            }
+          })
+          let buttonsRendered = 0
+
           return (
             <Row key={i} flexDirection="column">
               <Col>
@@ -78,17 +107,21 @@ class CityContainer extends Component {
                         Todos
                       </NeighborhoodButton>
                   </View>
-                  {city.neighborhoods.map((neighborhood, j) => {
-                    showExpandAll = j > MAX_INITIAL_ITEMS
-                    if (!isCityExpanded && j >= MAX_INITIAL_ITEMS) {
+                  {selectedNeighborhoodList.map((item) => {
+                    buttonsRendered++
+                    showExpandAll = buttonsRendered > MAX_INITIAL_ITEMS
+                    if (!isCityExpanded && buttonsRendered >= MAX_INITIAL_ITEMS) {
                       return null
                     }
-                    const isSelected = isNeighborhoodSelected(selectedNeighborhoods, neighborhood.nameSlug)
-                    return (
-                      <View mr={2} mb={2}>
-                        <NeighborhoodButton key={j} active={isSelected} onClick={() => {changeSelection(neighborhood.nameSlug)}}>{neighborhood.name}</NeighborhoodButton>
-                      </View>
-                    )
+                    return item
+                  })}
+                  {deselectedNeighborhoodList.map((item) => {
+                    buttonsRendered++
+                    showExpandAll = buttonsRendered > MAX_INITIAL_ITEMS
+                    if (!isCityExpanded && buttonsRendered >= MAX_INITIAL_ITEMS) {
+                      return null
+                    }
+                    return item
                   })}
                   {(showExpandAll && !isCityExpanded) && <Button p={0} link onClick={() => {expand(city)}}>Ver mais</Button>}
                 </Row>
