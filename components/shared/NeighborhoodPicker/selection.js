@@ -20,27 +20,6 @@ function updateSelection(selected, neighborhood) {
 }
 
 /**
- * Adds or removes an array of neighborhood slugs from the current selection. Returns
- * the new array of neighborhood slugs after the change.
- *
- * @param selected currently selected neighborhood slugs.
- * @param neighborhoods array of neighborhood slugs to add or remove from selection.
- */
-function updateSelectionList(selected, neighborhoods) {
-  let selectedNeighborhoods = clone(selected)
-  if (neighborhoods && neighborhoods.length > 0) {
-    neighborhoods.forEach((neighborhood) => {
-      if (selectedNeighborhoods.includes(neighborhood)) {
-        selectedNeighborhoods = selectedNeighborhoods.filter((slug) => slug !== neighborhood)
-      } else {
-        selectedNeighborhoods.push(neighborhood)
-      }
-    })
-  }
-  return selectedNeighborhoods
-}
-
-/**
  * Adds or removes every neighborhood slug of a city from the current selection.
  * Returns the new array of neighborhood slugs after the change.
  *
@@ -105,7 +84,6 @@ function getNeighborhoodsSlugs(neighborhoods) {
 
 export {
   updateSelection,
-  updateSelectionList,
   isNeighborhoodSelected,
   isCitySelected,
   selectCity

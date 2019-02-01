@@ -27,7 +27,6 @@ import {
   getDerivedParams
 } from 'utils/filter-params.js'
 import {
-  updateSelectionList,
   selectCity,
   isCitySelected
 } from './selection'
@@ -86,7 +85,7 @@ class NeighborhoodPicker extends Component {
   clear() {
     log(LISTING_SEARCH_NEIGHBORHOOD_CLEAR)
     this.setState({selectedNeighborhoods: []}, () => {
-      this.apply()
+      this.apply([])
     })
   }
 
