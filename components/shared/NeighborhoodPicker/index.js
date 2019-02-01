@@ -19,17 +19,12 @@ import {
   LISTING_SEARCH_NEIGHBORHOOD_APPLY,
   LISTING_SEARCH_NEIGHBORHOOD_CLEAR,
   LISTING_SEARCH_NEIGHBORHOOD_EXPAND,
-  LISTING_SEARCH_NEIGHBORHOOD_CHANGE_CITY,
-  LISTING_SEARCH_NEIGHBORHOOD_SELECT_ALL
+  LISTING_SEARCH_NEIGHBORHOOD_CHANGE_CITY
 } from 'lib/amplitude'
 import {
   addNeighborhoodsToQuery,
   getDerivedParams
 } from 'utils/filter-params.js'
-import {
-  selectCity,
-  isCitySelected
-} from './selection'
 import {
   InputWrapper,
   InputContainer,
@@ -54,8 +49,6 @@ class NeighborhoodPicker extends Component {
     this.clear = this.clear.bind(this)
     this.apply = this.apply.bind(this)
     this.getButtonText = this.getButtonText.bind(this)
-    this.selectCity = this.selectCity.bind(this)
-    this.isCitySelected = this.isCitySelected.bind(this)
     this.showAllCities = this.showAllCities.bind(this)
 
     const initialNeighborhoodSelection = props.query && props.query.bairros ? getDerivedParams(props.query).neighborhoods : []
@@ -129,16 +122,6 @@ class NeighborhoodPicker extends Component {
     } catch (e) {
       Sentry.captureException(e)
     }
-  }
-
-  selectCity(cities, selectedNeighborhoods, citySlug) {
-    log(LISTING_SEARCH_NEIGHBORHOOD_SELECT_ALL, {city: citySlug})
-    const newSelection = selectCity(cities, selectedNeighborhoods, citySlug)
-    this.setState({ selectedNeighborhoods: newSelection })
-  }
-
-  isCitySelected(cities, selectedNeighborhoods, citySlug) {
-    return isCitySelected(cities, selectedNeighborhoods, citySlug)
   }
 
   toggleCitiesDisplay() {

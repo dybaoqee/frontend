@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import union from 'lodash/union'
 import { PoseGroup } from 'react-pose'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
@@ -9,9 +8,15 @@ import Button from '@emcasa/ui-dom/components/Button'
 import Text from '@emcasa/ui-dom/components/Text'
 import theme from '@emcasa/ui'
 import {
+  log,
+  LISTING_SEARCH_NEIGHBORHOOD_SELECT_ALL
+} from 'lib/amplitude'
+import {
   isNeighborhoodSelected,
-  updateSelection
-} from '../../selection'
+  updateSelection,
+  isCitySelected,
+  selectCity
+} from './selection'
 import {
   CitiesWrapper,
   NeighborhoodButton,
@@ -24,7 +29,9 @@ const MAX_INITIAL_ITEMS = 3
 class CityContainer extends Component {
   constructor(props) {
     super(props)
+    this.getNeighborhoodButton = this.getNeighborhoodButton.bind(this)
     this.updateCurrentSelection = this.updateCurrentSelection.bind(this)
+    this.selectCity = this.selectCity.bind(this)
     this.state = {
       currentSelection: []
     }
@@ -36,10 +43,16 @@ class CityContainer extends Component {
     })
   }
 
-  getNeighborhoodButton(key, isSelected, isNewSelection, changeSelection, neighborhood) {
+  selectCity(cities, citySlug) {
+    log(LISTING_SEARCH_NEIGHBORHOOD_SELECT_ALL, {city: citySlug})
+    const newSelection = selectCity(cities, this.state.currentSelection, citySlug)
+    this.setState({ currentSelection: newSelection })
+  }
+
+  getNeighborhoodButton(key, isNewSelection, neighborhood) {
     return (
       <View mr={2} mb={2}>
-        <NeighborhoodButton key={key} active={isNewSelection} onClick={() => {changeSelection(neighborhood.nameSlug)}}>{neighborhood.name}</NeighborhoodButton>
+        <NeighborhoodButton key={key} active={isNewSelection} onClick={() => {this.updateCurrentSelection(neighborhood.nameSlug)}}>{neighborhood.name}</NeighborhoodButton>
       </View>
     )
   }
@@ -55,8 +68,6 @@ class CityContainer extends Component {
       expand,
       expanded,
       selectedNeighborhoods,
-      isCitySelected,
-      selectCity,
       clear,
       apply,
       parentRef
@@ -98,9 +109,9 @@ class CityContainer extends Component {
             const isSelected = isNeighborhoodSelected(selectedNeighborhoods, neighborhood.nameSlug)
             const isNewSelection = isNeighborhoodSelected(this.state.currentSelection, neighborhood.nameSlug)
             if (isSelected) {
-              selectedNeighborhoodList.push(this.getNeighborhoodButton(j, isSelected, isNewSelection, this.updateCurrentSelection, neighborhood))
+              selectedNeighborhoodList.push(this.getNeighborhoodButton(j, isNewSelection, neighborhood))
             } else {
-              deselectedNeighborhoodList.push(this.getNeighborhoodButton(j, isSelected, isNewSelection, this.updateCurrentSelection, neighborhood))
+              deselectedNeighborhoodList.push(this.getNeighborhoodButton(j, isNewSelection, neighborhood))
             }
           })
           let buttonsRendered = 0
@@ -118,7 +129,7 @@ class CityContainer extends Component {
                   <View mr={2} mb={2}>
                     <NeighborhoodButton
                       active={citySelected}
-                      onClick={() => {selectCity(cities, this.state.currentSelection, city.citySlug)}}>
+                      onClick={() => {this.selectCity(cities, city.citySlug)}}>
                         Todos
                       </NeighborhoodButton>
                   </View>
@@ -160,10 +171,7 @@ CityContainer.propTypes = {
   cities: PropTypes.array.isRequired,
   expand: PropTypes.func.isRequired,
   expanded: PropTypes.bool.isRequired,
-  changeSelection: PropTypes.func.isRequired,
   selectedNeighborhoods: PropTypes.func.isRequired,
-  selectCity: PropTypes.func.isRequired,
-  isCitySelected: PropTypes.func.isRequired,
   clear: PropTypes.func.isRequired,
   apply: PropTypes.func.isRequired,
   parentRef: PropTypes.object.isRequired,
