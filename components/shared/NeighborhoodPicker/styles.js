@@ -72,9 +72,11 @@ const Background = styled(View)`
   background-color: rgba(255, 255, 255, 0.5);
 `
 
+const DURATION = 300
+
 const Animated = posed.div({
-  enter: { opacity: 1, transition: { duration: 300 }},
-  exit: { opacity: 0, transition: { duration: 300 }},
+  enter: { opacity: 1, transition: { duration: DURATION }},
+  exit: { opacity: 0, transition: { duration: DURATION }},
 })
 
 export {

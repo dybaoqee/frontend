@@ -7,6 +7,7 @@ import View from '@emcasa/ui-dom/components/View'
 import Button from '@emcasa/ui-dom/components/Button'
 import Text from '@emcasa/ui-dom/components/Text'
 import theme from '@emcasa/ui'
+import { randomKey } from 'lib/random'
 import {
   log,
   LISTING_SEARCH_NEIGHBORHOOD_SELECT_ALL
@@ -140,7 +141,7 @@ class CityContainer extends Component {
                       if (!isCityExpanded && buttonsRendered >= MAX_INITIAL_ITEMS) {
                         return null
                       }
-                      return <Animated key={buttonsRendered * 1000}>{Item}</Animated>
+                      return <Animated key={randomKey()}>{Item}</Animated>
                     })}
                     {deselectedNeighborhoodList.map((Item) => {
                       buttonsRendered++
@@ -148,7 +149,7 @@ class CityContainer extends Component {
                       if (!isCityExpanded && buttonsRendered >= MAX_INITIAL_ITEMS) {
                         return null
                       }
-                      return <Animated key={buttonsRendered}>{Item}</Animated>
+                      return <Animated key={randomKey()}>{Item}</Animated>
                     })}
                   </PoseGroup>
                   {(showExpandAll && !isCityExpanded) && <Button p={0} link onClick={() => {expand(city)}}>Ver mais</Button>}
