@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import union from 'lodash/union'
 import { PoseGroup } from 'react-pose'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
@@ -29,10 +30,16 @@ class CityContainer extends Component {
     }
   }
 
+  componentDidMount() {
+    this.setState({
+      currentSelection: this.props.selectedNeighborhoods
+    })
+  }
+
   getNeighborhoodButton(key, isSelected, isNewSelection, changeSelection, neighborhood) {
     return (
       <View mr={2} mb={2}>
-        <NeighborhoodButton key={key} active={isSelected || isNewSelection} onClick={() => {changeSelection(neighborhood.nameSlug)}}>{neighborhood.name}</NeighborhoodButton>
+        <NeighborhoodButton key={key} active={isNewSelection} onClick={() => {changeSelection(neighborhood.nameSlug)}}>{neighborhood.name}</NeighborhoodButton>
       </View>
     )
   }

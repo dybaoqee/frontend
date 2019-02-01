@@ -107,8 +107,7 @@ class NeighborhoodPicker extends Component {
   }
 
   changeSelection(newSelection, onFinished) {
-    let newList = updateSelectionList(this.state.selectedNeighborhoods, newSelection)
-    this.setState({ selectedNeighborhoods: newList }, onFinished)
+    this.setState({ selectedNeighborhoods: newSelection }, onFinished)
   }
 
   handleClickOutside() {
