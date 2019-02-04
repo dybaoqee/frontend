@@ -9,6 +9,7 @@ import FilterButton from './components/FilterButton'
 import ButtonGroupFilter from './components/ButtonGroupFilter'
 import ExpandButton from './components/ExpandButton'
 import { clone } from 'utils/clone'
+import { isMobile } from 'lib/mobile'
 import {
   log,
   LISTING_SEARCH_FILTER_OPEN,
@@ -341,7 +342,7 @@ class ListingFilter extends Component {
             ]}
           />
         </FilterPanel>
-        {isFilterOpen && <Background onClick={() => {
+        {(isFilterOpen && !isMobile()) && <Background onClick={() => {
           this.hideAllFilters()
           this.restorePreviousValues()
         }} />}

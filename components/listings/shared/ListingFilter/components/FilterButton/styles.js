@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import theme from '@emcasa/ui'
 import Button from '@emcasa/ui-dom/components/Button'
+import { isMobile } from 'lib/mobile'
 
 const StyledFilterButton = styled(Button)`
   position: relative;
@@ -11,7 +12,7 @@ const StyledFilterButton = styled(Button)`
   color: ${({active, open}) => active || open ? theme.colors.white : theme.colors.pink};
   font-size: ${theme.fontSizes[1]}px;
 
-  ${({open}) => open && `z-index: 1;`}
+  ${({open}) => (open && !isMobile()) && `z-index: 1;`}
 
   &:last-child {
     margin-right: 0;
