@@ -19,7 +19,7 @@ Before anything else, you must ave [`docker`][1]  and [`docker-compose`][2] inst
 1. Start all services with `docker-compose up -d`.
 1. Start `next.js` with `docker-compose exec frontend yarn start`.
 
-To use `https` locally, check the instructions in the [README from backend][5].
+To use `https` locally, check the instructions in the [README from backend][5], the frontend will be available in [https://dev.emcasa.com](https://dev.emcasa.com).
 
 ## Tests
 
