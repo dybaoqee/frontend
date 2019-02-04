@@ -7,6 +7,8 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import AngleDown from '@fortawesome/fontawesome-pro-light/faAngleDown'
 import AngleUp from '@fortawesome/fontawesome-pro-light/faAngleUp'
 import * as Sentry from '@sentry/browser'
+import Background from 'components/shared/Background'
+import FadeInOut from 'components/shared/Animation/FadeInOut'
 import Icon from '@emcasa/ui-dom/components/Icon'
 import Col from '@emcasa/ui-dom/components/Col'
 import CityContainer from './components/CityContainer'
@@ -32,9 +34,7 @@ import {
   SearchTextContainer,
   BackIcon,
   BackButton,
-  ButtonText,
-  Background,
-  Animated
+  ButtonText
 } from './styles'
 
 const DEFAULT_BUTTON_TEXT = 'Escolha os bairros'
@@ -165,7 +165,7 @@ class NeighborhoodPicker extends Component {
               </InputWrapper>
               <PoseGroup>
               {this.state.showCities &&
-                  <Animated key={1}>
+                  <FadeInOut key={1}>
                     <CityContainer
                       cities={availableCities}
                       selectedNeighborhoods={this.state.selectedNeighborhoods}
@@ -181,7 +181,7 @@ class NeighborhoodPicker extends Component {
                       fullscreen={this.props.fullscreen}
                     />
                     <Background />
-                  </Animated>
+                  </FadeInOut>
               }
               </PoseGroup>
             </SearchContainer>
