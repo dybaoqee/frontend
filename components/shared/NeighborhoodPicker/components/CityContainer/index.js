@@ -113,7 +113,7 @@ class CityContainer extends Component {
           const citySelected = isCitySelected(cities, this.state.currentSelection, city.citySlug)
           const showSeparator = i <= cities.length - 1
 
-          let selectedNeighborhoodList = []
+          const selectedNeighborhoodList = []
           let deselectedNeighborhoodList = []
           city.neighborhoods.forEach((neighborhood, j) => {
             const isSelected = isNeighborhoodSelected(selectedNeighborhoods, neighborhood.nameSlug)
@@ -124,7 +124,6 @@ class CityContainer extends Component {
               deselectedNeighborhoodList.push(this.getNeighborhoodButton(j, isNewSelection, neighborhood))
             }
           })
-
           deselectedNeighborhoodList = sortByPopularity(deselectedNeighborhoodList)
 
           let buttonsRendered = 0
