@@ -100,11 +100,9 @@ function sortByPopularity(neighborhoodButtons) {
 }
 
 const popularNeighborhoods = [
-  'copacabana',
   'ipanema',
-  'botafogo',
   'leblon',
-  'humaita'
+  'botafogo'
 ]
 
 export {

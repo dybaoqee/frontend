@@ -120,17 +120,17 @@ describe('neighborhood selection test', () => {
   it('should sort a list of neighborhoods by popularity', () => {
     let neighborhoodButtons = [
       {props: {neighborhood: {nameSlug: 'ipanema'}}},
-      {props: {neighborhood: {nameSlug: 'copacabana'}}},
       {props: {neighborhood: {nameSlug: 'catete'}}},
+      {props: {neighborhood: {nameSlug: 'copacabana'}}},
       {props: {neighborhood: {nameSlug: 'joa'}}},
       {props: {neighborhood: {nameSlug: 'botafogo'}}}
     ]
     let sorted = sortByPopularity(neighborhoodButtons)
     expect(sorted).toEqual([
-      {props: {neighborhood: {nameSlug: 'copacabana'}}},
       {props: {neighborhood: {nameSlug: 'ipanema'}}},
       {props: {neighborhood: {nameSlug: 'botafogo'}}},
       {props: {neighborhood: {nameSlug: 'catete'}}},
+      {props: {neighborhood: {nameSlug: 'copacabana'}}},
       {props: {neighborhood: {nameSlug: 'joa'}}}
     ])
   })
