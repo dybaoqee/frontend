@@ -24,7 +24,6 @@ export default class ListingHead extends Component {
         imageSrc={seoImgSrc}
         imageWidth={'1024'}
         imageHeight={'768'}
-        url={'https://www.emcasa.com/'}
       >
         <link
           rel="stylesheet"
