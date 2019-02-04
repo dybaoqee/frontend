@@ -2,7 +2,7 @@ import Head from 'next/head'
 import {Fragment} from 'react'
 
 const NextHead = (props) => {
-  const {title, description, imageSrc, imageWidth, imageHeight, url, canonical} = props
+  const {title, description, imageSrc, imageWidth, imageHeight, url, canonical, children} = props
 
   return (
     <Head>
@@ -47,6 +47,8 @@ const NextHead = (props) => {
 
       {imageWidth && <meta property="og:image:width" content={imageWidth} />}
       {imageHeight && <meta property="og:image:height"content={imageHeight} />}
+
+      {children}
     </Head>
   )
 }
