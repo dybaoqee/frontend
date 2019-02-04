@@ -11,6 +11,8 @@ const StyledFilterButton = styled(Button)`
   color: ${({active, open}) => active || open ? theme.colors.white : theme.colors.pink};
   font-size: ${theme.fontSizes[1]}px;
 
+  ${({open}) => open && `z-index: 1;`}
+
   &:last-child {
     margin-right: 0;
   }
