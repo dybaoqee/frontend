@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import includes from 'lodash/includes'
 import remove from 'lodash/remove'
 import NewSlider from 'components/shared/Common/NewSlider'
+import Background from 'components/shared/Background'
 import FilterPanel from './components/FilterPanel'
 import FilterButton from './components/FilterButton'
 import ButtonGroupFilter from './components/ButtonGroupFilter'
@@ -21,7 +22,6 @@ import {
 } from './components/FilterPanel/styles'
 import {
   Container,
-  Overlay,
   ButtonsWrapper
 } from './styles'
 import {
@@ -221,7 +221,6 @@ class ListingFilter extends Component {
 
     return (
       <Container isFilterOpen={isFilterOpen}>
-        <Overlay onClick={() => {this.hideAllFilters(); this.restorePreviousValues();}} />
         <ButtonsWrapper expanded={this.state.expanded}>
           {getFilterButtons(this.props.filters, this.showFilter, this.getOpenButton)}
           <ExpandButton
@@ -342,6 +341,10 @@ class ListingFilter extends Component {
             ]}
           />
         </FilterPanel>
+        {isFilterOpen && <Background onClick={() => {
+          this.hideAllFilters()
+          this.restorePreviousValues()
+        }} />}
       </Container>
     )
   }
