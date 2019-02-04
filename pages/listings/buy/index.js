@@ -15,6 +15,7 @@ import {
   log,
   BUYER_LANDING_PAGE
 } from 'lib/amplitude'
+import NextHead from 'components/shared/NextHead'
 
 const Container = styled(View)`
   display: flex;
@@ -39,13 +40,13 @@ const MainBlock = styled(Block)`
   }
 `
 
-const BASE_TITLE = 'Apartamentos, Casas e Imóveis à Venda'
-const BASE_DESCRIPTION = 'com a Emcasa, a Imobiliária Digital com exclusivo sistema de Tour Virtual em 3D, assistência jurídica, comissões reduzidas e atendimento personalizado!'
+const BASE_TITLE = 'Imóveis, Casas e Apartamentos à Venda'
+const BASE_DESCRIPTION = ' com o sistema exclusivo de Tour Virtual 3D do Emcasa, a sua startup imobiliária.'
 
 const CONTENT = {
     all: {
       seoImg: imageUrl('buy.jpg'),
-      seoTitle: `${BASE_TITLE} no Rio de Janeiro ou São Paulo | EmCasa`,
+      seoTitle: `${BASE_TITLE} no Rio de Janeiro e São Paulo | EmCasa`,
       seoDescription: `Encontre ${BASE_TITLE} no Rio de Janeiro em Ipanema, Leblon, Copacabana, Botafogo, Flamengo, Lagoa e toda Zona Sul ou São Paulo em Perdizes ${BASE_DESCRIPTION}`,
       heroTitle: 'Quer comprar um imóvel?'
     },
@@ -105,19 +106,14 @@ export default class Buy extends Component {
     return (
       <ThemeProvider theme={theme}>
         <Container>
-          <Head>
-            <title>{seoTitle}</title>
-            <meta name="description" content={seoDescription} />
-            <meta name="theme-color" content={theme.colors.pink} />
-            <meta property="og:description" content={seoDescription} />
-            <meta property="og:image" content={seoImg} />
-            <meta property="og:image:height" content="838" />
-            <meta property="og:image:width" content="1476" />
-            <meta name="twitter:card" content="summary_large_image" />
-            <meta name="twitter:title" content={seoTitle} />
-            <meta name="twitter:description" content={seoDescription} />
-            <meta name="twitter:image" content={seoImg} />
-          </Head>
+          <NextHead
+            title={seoTitle}
+            description={seoDescription}
+            imageSrc={seoImg}
+            imageWidth={'1476'}
+            imageHeight={'838'}
+            url={'https://www.emcasa.com/'}
+          />
           <MainBlock>
             <BuyListing title={heroTitle} />
           </MainBlock>
