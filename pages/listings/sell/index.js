@@ -15,6 +15,7 @@ import {
   log,
   SELLER_LANDING_PAGE
 } from 'lib/amplitude'
+import NextHead from 'components/shared/NextHead'
 
 const Container = styled(View)`
   display: flex;
@@ -39,8 +40,8 @@ const MainBlock = styled(Block)`
   }
 `
 
-const BASE_TITLE = 'Anuncie e Venda seu imóvel'
-const BASE_DESCRIPTION = 'de forma simples e transparente com a EmCasa que tem sistema exclusivo de Tour Virtual 3D para aumentar suas chances de venda'
+const BASE_TITLE = 'Anuncie e Venda seu Imóvel'
+const BASE_DESCRIPTION = 'com Emcasa, a startup imobiliária que tem exclusivo sistema de Tour Virtual 3D para aumentar suas chances de venda.'
 const CONTENT = {
     all: {
       seoImg: imageUrl('sell.jpg'),
@@ -104,19 +105,14 @@ export default class Sell extends Component {
     return (
       <ThemeProvider theme={theme}>
         <Container>
-          <Head>
-            <title>{seoTitle}</title>
-            <meta name="description" content={seoDescription} />
-            <meta name="theme-color" content={theme.colors.pink} />
-            <meta property="og:description" content={seoDescription} />
-            <meta property="og:image" content={seoImg} />
-            <meta property="og:image:height" content="838" />
-            <meta property="og:image:width" content="1476" />
-            <meta name="twitter:card" content="summary_large_image" />
-            <meta name="twitter:title" content={seoTitle} />
-            <meta name="twitter:description" content={seoDescription} />
-            <meta name="twitter:image" content={seoImg} />
-          </Head>
+          <NextHead
+            title={seoTitle}
+            description={seoDescription}
+            imageSrc={seoImg}
+            imageWidth={'1476'}
+            imageHeight={'838'}
+            url={'https://www.emcasa.com/'}
+          />
           <MainBlock>
             <SellListing title={heroTitle} />
           </MainBlock>
