@@ -1,7 +1,9 @@
-import {Component} from 'react'
+import { Component } from 'react'
 import PropTypes from 'prop-types'
 import includes from 'lodash/includes'
 import remove from 'lodash/remove'
+import { PoseGroup } from 'react-pose'
+import FadeInOut from 'components/shared/Animation/FadeInOut'
 import NewSlider from 'components/shared/Common/NewSlider'
 import Background from 'components/shared/Background'
 import FilterPanel from './components/FilterPanel'
@@ -342,10 +344,16 @@ class ListingFilter extends Component {
             ]}
           />
         </FilterPanel>
-        {(isFilterOpen && !isMobile()) && <Background onClick={() => {
-          this.hideAllFilters()
-          this.restorePreviousValues()
-        }} />}
+        <PoseGroup>
+          {(isFilterOpen && !isMobile()) &&
+            <FadeInOut key={1}>
+              <Background onClick={() => {
+                this.hideAllFilters()
+                this.restorePreviousValues()
+              }} />
+            </FadeInOut>
+          }
+        </PoseGroup>
       </Container>
     )
   }
