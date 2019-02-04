@@ -34,16 +34,7 @@ const ButtonsWrapper = styled(Row)`
   ${({expanded}) => expanded ? null : expandedWrapper}
 `
 
-const Overlay = styled.div`
-  position: absolute;
-  top: ${-MAX_HEADER_HEIGHT}px;
-  left: 0;
-  width: 100%;
-  height: 200%;
-`
-
 export {
   Container,
-  Overlay,
   ButtonsWrapper
 }
