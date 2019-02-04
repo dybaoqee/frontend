@@ -29,6 +29,7 @@ const CitiesWrapper = styled(Row)`
 `
 
 const NeighborhoodButton = styled(Button)`
+  width: max-content;
   :hover {
     border: 1px solid ${theme.colors.pink};
 
