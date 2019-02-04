@@ -111,7 +111,7 @@ export default class Sell extends Component {
             imageSrc={seoImg}
             imageWidth={'1476'}
             imageHeight={'838'}
-            url={'https://www.emcasa.com/'}
+            url={'https://www.emcasa.com/vender'}
           />
           <MainBlock>
             <SellListing title={heroTitle} />

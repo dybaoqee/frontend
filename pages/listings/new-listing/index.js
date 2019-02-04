@@ -215,7 +215,7 @@ class NewListing extends Component {
             imageSrc={seoImg}
             imageWidth={'1476'}
             imageHeight={'838'}
-            url={'https://www.emcasa.com/'}
+            url={'https://www.emcasa.com/vender/imovel'}
           />
           {this.state.resuming ?
             <ProgressDialog
