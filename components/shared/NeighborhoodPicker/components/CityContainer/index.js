@@ -16,7 +16,8 @@ import {
   isNeighborhoodSelected,
   updateSelection,
   isCitySelected,
-  selectCity
+  selectCity,
+  sortByPopularity
 } from './selection'
 import {
   CitiesWrapper,
@@ -52,8 +53,16 @@ class CityContainer extends Component {
 
   getNeighborhoodButton(key, isNewSelection, neighborhood) {
     return (
-      <View mr={2} mb={2}>
-        <NeighborhoodButton key={key} active={isNewSelection} onClick={() => {this.updateCurrentSelection(neighborhood.nameSlug)}}>{neighborhood.name}</NeighborhoodButton>
+      <View mr={2} mb={2} neighborhood={neighborhood}>
+        <NeighborhoodButton
+          key={key}
+          active={isNewSelection}
+          onClick={() => {
+            this.updateCurrentSelection(neighborhood.nameSlug)
+          }}
+        >
+          {neighborhood.name}
+        </NeighborhoodButton>
       </View>
     )
   }
@@ -104,8 +113,8 @@ class CityContainer extends Component {
           const citySelected = isCitySelected(cities, this.state.currentSelection, city.citySlug)
           const showSeparator = i <= cities.length - 1
 
-          const selectedNeighborhoodList = []
-          const deselectedNeighborhoodList = []
+          let selectedNeighborhoodList = []
+          let deselectedNeighborhoodList = []
           city.neighborhoods.forEach((neighborhood, j) => {
             const isSelected = isNeighborhoodSelected(selectedNeighborhoods, neighborhood.nameSlug)
             const isNewSelection = isNeighborhoodSelected(this.state.currentSelection, neighborhood.nameSlug)
@@ -115,6 +124,9 @@ class CityContainer extends Component {
               deselectedNeighborhoodList.push(this.getNeighborhoodButton(j, isNewSelection, neighborhood))
             }
           })
+
+          deselectedNeighborhoodList = sortByPopularity(deselectedNeighborhoodList)
+
           let buttonsRendered = 0
 
           return (
