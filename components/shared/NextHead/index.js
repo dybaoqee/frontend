@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import {Fragment} from 'react'
+import theme from '@emcasa/ui'
 
 const NextHead = (props) => {
   const {title, description, imageSrc, imageWidth, imageHeight, url, canonical, children} = props
@@ -47,6 +48,8 @@ const NextHead = (props) => {
 
       {imageWidth && <meta property="og:image:width" content={imageWidth} />}
       {imageHeight && <meta property="og:image:height"content={imageHeight} />}
+
+      <meta name="theme-color" content={theme.colors.pink} />
 
       {children}
     </Head>
