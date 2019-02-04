@@ -22,14 +22,13 @@ import {
 } from './navigation'
 import ProgressDialog from './components/ProgressDialog'
 import {imageUrl} from 'utils/image_url'
+import NextHead from 'components/shared/NextHead'
 
 
-const seoImg = imageUrl(
-  'emcasa-saiba-mais-para-vender-share-centered-2.jpg'
-)
-const seoTitle = 'Anuncie e Venda seu imóvel no Rio de Janeiro ou São Paulo | EmCasa'
+const seoImg = imageUrl('sell.jpg')
+const seoTitle = 'Anuncie e Venda seu Imóvel no Rio de Janeiro ou em São Paulo'
 const seoDescription =
-  'Anuncie e venda seu imóvel no Rio de Janeiro de forma simples e transparente com a EmCasa que tem sistema exclusivo de Tour Virtual 3D para aumentar suas chances de venda'
+  'Anuncie e Venda seu Imóvel no Rio de Janeiro ou em São Paulo com Emcasa, a startup imobiliária que tem exclusivo sistema de Tour Virtual 3D para aumentar suas chances de venda.'
 
 
 class NewListing extends Component {
@@ -210,19 +209,14 @@ class NewListing extends Component {
     return (
       <ThemeProvider theme={theme}>
         <>
-          <Head>
-            <title>{seoTitle}</title>
-            <meta name="description" content={seoDescription} />
-            <meta name="theme-color" content={theme.colors.pink} />
-            <meta property="og:description" content={seoDescription} />
-            <meta property="og:image" content={seoImg} />
-            <meta property="og:image:height" content="838" />
-            <meta property="og:image:width" content="1476" />
-            <meta name="twitter:card" content="summary_large_image" />
-            <meta name="twitter:title" content={seoTitle} />
-            <meta name="twitter:description" content={seoDescription} />
-            <meta name="twitter:image" content={seoImg} />
-          </Head>
+          <NextHead
+            title={seoTitle}
+            description={seoDescription}
+            imageSrc={seoImg}
+            imageWidth={'1476'}
+            imageHeight={'838'}
+            url={'https://www.emcasa.com/'}
+          />
           {this.state.resuming ?
             <ProgressDialog
               address={address}
