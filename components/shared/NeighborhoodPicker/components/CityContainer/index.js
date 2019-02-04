@@ -124,7 +124,9 @@ class CityContainer extends Component {
               deselectedNeighborhoodList.push(this.getNeighborhoodButton(j, isNewSelection, neighborhood))
             }
           })
-          deselectedNeighborhoodList = sortByPopularity(deselectedNeighborhoodList)
+          if (!isExpanded) {
+            deselectedNeighborhoodList = sortByPopularity(deselectedNeighborhoodList)
+          }
 
           let buttonsRendered = 0
 
