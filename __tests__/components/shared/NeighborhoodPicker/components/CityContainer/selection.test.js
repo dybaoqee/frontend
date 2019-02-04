@@ -2,7 +2,8 @@ import {
   updateSelection,
   isNeighborhoodSelected,
   isCitySelected,
-  selectCity
+  selectCity,
+  sortByPopularity
 } from 'components/shared/NeighborhoodPicker/components/CityContainer/selection'
 
 describe('neighborhood selection test', () => {
@@ -114,5 +115,23 @@ describe('neighborhood selection test', () => {
     const selected = ['leblon', 'ipanema', 'copacabana', 'perdizes']
     const citySlug = 'rio-de-janeiro'
     expect(selectCity(cities, selected, citySlug)).toEqual(['perdizes'])
+  })
+
+  it('should sort a list of neighborhoods by popularity', () => {
+    let neighborhoodButtons = [
+      {props: {neighborhood: {nameSlug: 'ipanema'}}},
+      {props: {neighborhood: {nameSlug: 'copacabana'}}},
+      {props: {neighborhood: {nameSlug: 'catete'}}},
+      {props: {neighborhood: {nameSlug: 'joa'}}},
+      {props: {neighborhood: {nameSlug: 'botafogo'}}}
+    ]
+    let sorted = sortByPopularity(neighborhoodButtons)
+    expect(sorted).toEqual([
+      {props: {neighborhood: {nameSlug: 'copacabana'}}},
+      {props: {neighborhood: {nameSlug: 'ipanema'}}},
+      {props: {neighborhood: {nameSlug: 'botafogo'}}},
+      {props: {neighborhood: {nameSlug: 'catete'}}},
+      {props: {neighborhood: {nameSlug: 'joa'}}}
+    ])
   })
 })

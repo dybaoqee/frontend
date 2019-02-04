@@ -1,5 +1,6 @@
 import difference from 'lodash/difference'
 import union from 'lodash/union'
+import sortBy from 'lodash/sortBy'
 import { clone } from 'utils/clone'
 
 /**
@@ -82,9 +83,34 @@ function getNeighborhoodsSlugs(neighborhoods) {
   })
 }
 
+/**
+ * Returns a list of neighborhoods ordered by popularity.
+ *
+ * @param neighborhoodButtons list of neighborhood buttons to be displayed.
+ */
+function sortByPopularity(neighborhoodButtons) {
+  return sortBy(neighborhoodButtons, (button) => {
+    let index = popularNeighborhoods.indexOf(button.props.neighborhood.nameSlug)
+    if (index === -1) {
+      // Push neighborhoods not in the popular list to the end
+      index = neighborhoodButtons.length
+    }
+    return index
+  })
+}
+
+const popularNeighborhoods = [
+  'copacabana',
+  'ipanema',
+  'botafogo',
+  'leblon',
+  'humaita'
+]
+
 export {
   updateSelection,
   isNeighborhoodSelected,
   isCitySelected,
-  selectCity
+  selectCity,
+  sortByPopularity
 }
