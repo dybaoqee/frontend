@@ -1,12 +1,10 @@
 import styled from 'styled-components'
 import theme from '@emcasa/ui'
-import posed from 'react-pose'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Icon from '@emcasa/ui-dom/components/Icon'
 import Button from '@emcasa/ui-dom/components/Button'
 import Text from '@emcasa/ui-dom/components/Text'
-import View from '@emcasa/ui-dom/components/View'
 
 const MARGINS = theme.space[4] * 2
 
@@ -66,19 +64,6 @@ const ButtonText = styled(Text)`
   overflow: hidden;
 `
 
-const Background = styled(View)`
-  position: fixed;
-  top: 0; right: 0; bottom: 0; left: 0;
-  background-color: rgba(255, 255, 255, 0.5);
-`
-
-const DURATION = 300
-
-const Animated = posed.div({
-  enter: { opacity: 1, transition: { duration: DURATION }},
-  exit: { opacity: 0, transition: { duration: DURATION }},
-})
-
 export {
   InputWrapper,
   InputContainer,
@@ -86,7 +71,5 @@ export {
   SearchTextContainer,
   BackIcon,
   BackButton,
-  ButtonText,
-  Background,
-  Animated
+  ButtonText
 }
