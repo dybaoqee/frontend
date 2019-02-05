@@ -24,5 +24,3 @@ Output file with bundle sizes will be created at .next/stats.txt
 ## Contribute
 
 Feel free to open issues and PRs.
-
-At the moment, we're tracking tasks at https://www.pivotaltracker.com/n/projects/2125081
