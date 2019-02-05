@@ -124,8 +124,10 @@ export default class SellListing extends Component {
           </Row>
           <Row justifyContent="center">
             <Col>
-              <Link href="/">
-                <UnderlinedText color="pink">Você quer comprar?</UnderlinedText>
+              <Link passHref href="/">
+                <a>
+                  <UnderlinedText color="pink">Você quer comprar?</UnderlinedText>
+                </a>
               </Link>
             </Col>
           </Row>

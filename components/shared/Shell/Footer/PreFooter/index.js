@@ -15,10 +15,10 @@ export default class PreFooter extends Component {
       <Container>
         <div>
           <h4>EmCasa</h4>
-          <Link href="/listings" as="/imoveis">
+          <Link passHref href="/listings" as="/imoveis">
             <a>Compre</a>
           </Link>
-          <Link href="/listings/sell" as="/vender">
+          <Link passHref href="/listings/sell" as="/vender">
             <a>Venda</a>
           </Link>
           <Link href="http://blog.emcasa.com">
