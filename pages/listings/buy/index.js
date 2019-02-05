@@ -41,7 +41,7 @@ const MainBlock = styled(Block)`
 `
 
 const BASE_TITLE = 'Imóveis, Casas e Apartamentos à Venda'
-const BASE_DESCRIPTION = ' com o sistema exclusivo de Tour Virtual 3D do Emcasa, a sua startup imobiliária.'
+const BASE_DESCRIPTION = 'com o sistema exclusivo de Tour Virtual 3D do Emcasa, a sua startup imobiliária.'
 
 const CONTENT = {
     all: {
