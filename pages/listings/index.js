@@ -14,6 +14,7 @@ import {
 import ListingFilter from 'components/listings/shared/ListingFilter'
 import ListingList from 'components/listings/shared/ListingList'
 import {getUrlVars} from 'utils/text-utils'
+import {imageUrl} from 'utils/image_url'
 import {
   log,
   LISTING_SEARCH_OPEN
@@ -119,28 +120,29 @@ class ListingSearch extends Component {
   getHead = () => {
     const {params} = this.props
     const {neighborhood} = this.state
-    let BASE_LOCAL = 'na Zona Sul do Rio de Janeiro e em São Paulo'
+    let location = 'na Zona Sul do Rio de Janeiro e em São Paulo'
+    let imageSrc = imageUrl('buy.jpg')
 
     if (neighborhood) {
-      BASE_LOCAL = `em ${neighborhood}, ${params.state === 'rj' ? 'Rio De Janeiro' : 'São Paulo'}`
+      location = `em ${neighborhood}, ${params.state === 'rj' ? 'Rio De Janeiro' : 'São Paulo'}`
     } else if (params && params.city === 'rio-de-janeiro') {
-      BASE_LOCAL = 'na Zona Sul do Rio de Janeiro'
+      location = 'na Zona Sul do Rio de Janeiro'
     } else if (params && params.city === 'sao-paulo') {
-      BASE_LOCAL = 'na cidade de São Paulo'
+      location = 'na cidade de São Paulo'
     } else if (params && params.state === 'rj') {
-      BASE_LOCAL = 'no Rio de Janeiro'
+      location = 'no Rio de Janeiro'
     } else if (params && params.state === 'sp') {
-      BASE_LOCAL = 'em São Paulo'
+      location = 'em São Paulo'
     }
 
-    const seoImgSrc =
-      'https://res.cloudinary.com/emcasa/image/upload/f_auto/v1513818385/home-2018-04-03_cozxd9.jpg'
+    if (params && params.state === 'rj') imageSrc = imageUrl('buy-rj.jpg')
+    if (params && params.state === 'sp') imageSrc = imageUrl('buy-sp.jpg')
 
     return (
       <NextHead
-        title={`Apartamentos e Casas à venda ${BASE_LOCAL} | Emcasa`}
-        description={`Conheça em Compre Apartamentos e Casas à venda ${BASE_LOCAL} com o sistema exclusivo de Tour Virtual 3D do Emcasa, a sua startup imobiliária.`}
-        imageSrc={seoImgSrc}
+        title={`Apartamentos e Casas à venda ${location} | Emcasa`}
+        description={`Conheça em Compre Apartamentos e Casas à venda ${location} com o sistema exclusivo de Tour Virtual 3D do Emcasa, a sua startup imobiliária.`}
+        imageSrc={imageSrc}
       />
     )
   }
