@@ -165,23 +165,23 @@ class NeighborhoodPicker extends Component {
               </InputWrapper>
               <PoseGroup>
               {this.state.showCities &&
-                  <FadeInOut key={1}>
-                    <CityContainer
-                      cities={availableCities}
-                      selectedNeighborhoods={this.state.selectedNeighborhoods}
-                      expanded={this.state.expanded}
-                      selectCity={this.selectCity}
-                      isCitySelected={this.isCitySelected}
-                      expand={this.expand}
-                      clear={this.clear}
-                      apply={this.apply}
-                      parentRef={this.containerRef.current}
-                      fromHome={this.props.fromHome}
-                      showAllCities={this.showAllCities}
-                      fullscreen={this.props.fullscreen}
-                    />
-                    <Background />
-                  </FadeInOut>
+                <FadeInOut key={1}>
+                  <CityContainer
+                    cities={availableCities}
+                    selectedNeighborhoods={this.state.selectedNeighborhoods}
+                    expanded={this.state.expanded}
+                    selectCity={this.selectCity}
+                    isCitySelected={this.isCitySelected}
+                    expand={this.expand}
+                    clear={this.clear}
+                    apply={this.apply}
+                    parentRef={this.containerRef.current}
+                    fromHome={this.props.fromHome}
+                    showAllCities={this.showAllCities}
+                    fullscreen={this.props.fullscreen}
+                  />
+                  <Background />
+                </FadeInOut>
               }
               </PoseGroup>
             </SearchContainer>
