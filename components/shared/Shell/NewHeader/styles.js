@@ -53,7 +53,12 @@ export const Nav = styled.nav`
   > :nth-child(n + 2) {
     margin-left: 20px;
   }
-  
+
+  > a {
+    color: inherit;
+    text-decoration: none;
+  }
+
   @media (max-width: ${theme.breakpoints[0]}) {
     position: absolute;
     top: 0;

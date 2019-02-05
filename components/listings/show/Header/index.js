@@ -254,10 +254,11 @@ export default class ListingHeader extends Component {
                 <BottomRight>
                   {canEdit(currentUser, listing) && (
                     <Link
+                      passHref
                       href={`/listings/edit?id=${listing.id}`}
                       as={`/imoveis/${listing.id}/editar`}
                     >
-                      <EmCasaButton>Editar</EmCasaButton>
+                      <a><EmCasaButton>Editar</EmCasaButton></a>
                     </Link>
                   )}
                   {listing.images.length > 0 &&

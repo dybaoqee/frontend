@@ -38,18 +38,19 @@ export default class MyPage extends Component {
           <h1>Mapa do site</h1>
           <ul>
             <li>
-              <Link href="/">
+              <Link passHref href="/">
                 <a title="EmCasa">EmCasa</a>
               </Link>
             </li>
             <li>
-              <Link href="/listings" as="/imoveis/rj/rio-de-janeiro">
+              <Link passHref href="/listings" as="/imoveis/rj/rio-de-janeiro">
                 <a title="Compre seu imóvel">Compre seu imóvel</a>
               </Link>
               <ul>
                 {search.neighborhoods.map((neighborhood) => (
                   <li key={neighborhood}>
                     <Link
+                      passHref
                       href={`/listings/?bairros=${neighborhood}`}
                       as={`/imoveis/rj/rio-de-janeiro/${slugify(
                         neighborhood.toLowerCase()
@@ -64,12 +65,13 @@ export default class MyPage extends Component {
               </ul>
             </li>
             <li>
-              <Link href="/listings/new" as="/imoveis/adicionar">
+              <Link passHref href="/listings/new" as="/imoveis/adicionar">
                 <a title="Venda seu imóvel">Venda seu imóvel</a>
               </Link>
               <ul>
                 <li>
                   <Link
+                    passHref
                     href="/listings/sell/know-more"
                     as="/saiba-mais-para-vender"
                   >
@@ -79,12 +81,12 @@ export default class MyPage extends Component {
               </ul>
             </li>
             <li>
-              <Link href="http://blog.emcasa.com">
+              <Link passHref href="http://blog.emcasa.com">
                 <a title="Blog">Blog</a>
               </Link>
             </li>
             <li>
-              <Link href="https://jobs.emcasa.com/">
+              <Link passHref href="https://jobs.emcasa.com/">
                 <a title="Trabalhe Conosco">Trabalhe Conosco</a>
               </Link>
             </li>

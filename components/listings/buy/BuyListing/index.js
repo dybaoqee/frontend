@@ -135,8 +135,10 @@ export default class BuyListing extends Component {
           </Row>
           <Row justifyContent="center">
             <Col>
-              <Link href="/vender">
-                <UnderlinedText color="pink">Você quer vender?</UnderlinedText>
+              <Link passHref href="/vender">
+                <a>
+                  <UnderlinedText color="pink">Você quer vender?</UnderlinedText>
+                </a>
               </Link>
             </Col>
           </Row>

@@ -61,9 +61,7 @@ export default class SellKnowMore extends Component {
               </Benefit>
               <Benefit>
                 <FontAwesomeIcon icon={faBolt} />
-                <p>
-                  Evite visitas desnecessárias em sua casa.
-                </p>
+                <p>Evite visitas desnecessárias em sua casa.</p>
               </Benefit>
               <Benefit>
                 <FontAwesomeIcon icon={faCoin} />
@@ -78,8 +76,10 @@ export default class SellKnowMore extends Component {
                 <p>Economize tempo e venda seu imóvel mais rápido.</p>
               </Benefit>
             </BenefitsContainer>
-            <Link href="/listings/new" as="/imoveis/adicionar">
-              <EmCasaButton light>Anuncie agora</EmCasaButton>
+            <Link passHref href="/listings/new" as="/imoveis/adicionar">
+              <a>
+                <EmCasaButton light>Anuncie agora</EmCasaButton>
+              </a>
             </Link>
           </Container>
           <Container id="precificador">
@@ -112,8 +112,10 @@ export default class SellKnowMore extends Component {
               Agora é aguardar nosso contato para agendamento das visitas com os
               interessados em comprar o seu imóvel.
             </p>
-            <Link href="/listings/new" as="/imoveis/adicionar">
-              <EmCasaButton light>Anuncie agora</EmCasaButton>
+            <Link passHref href="/listings/new" as="/imoveis/adicionar">
+              <a>
+                <EmCasaButton light>Anuncie agora</EmCasaButton>
+              </a>
             </Link>
           </Container>
         </Fragment>

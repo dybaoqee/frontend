@@ -25,6 +25,11 @@ body {
   line-height: 1.5;
 }
 
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
 main {
   justify-content: flex-start;
 }

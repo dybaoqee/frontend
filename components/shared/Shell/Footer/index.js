@@ -16,7 +16,7 @@ const Footer = () => (
     <PreFooter />
     <Container>
       <EmCasaInfo>
-        <Link href="/">
+        <Link passHref href="/">
           <a>
             <img
               src="/static/emcasa-imobiliaria-rio-de-janeiro.png"
@@ -29,7 +29,7 @@ const Footer = () => (
       <EmCasaContact>
         <span> CRECI-RJ J-7712</span>
         <a href="mailto:contato@emcasa.com">contato@emcasa.com</a>
-        <Link href="/sitemap">
+        <Link passHref href="/sitemap">
           <a>Mapa do site</a>
         </Link>
 

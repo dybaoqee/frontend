@@ -120,10 +120,12 @@ export default class Benefits extends Component {
           </Row>
           <Row justifyContent="center">
             <Col width={[1, 4 / 12]}>
-              <Link href="/vender/imovel">
-                <Button height="tall" fluid>
-                  Conheça mais a EmCasa
-                </Button>
+              <Link passHref href="/vender/imovel">
+                <a>
+                  <Button height="tall" fluid>
+                    Conheça mais a EmCasa
+                  </Button>
+                </a>
               </Link>
             </Col>
           </Row>

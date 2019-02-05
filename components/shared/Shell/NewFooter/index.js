@@ -32,18 +32,23 @@ const Footer = () => (
       <Col width={[1, 6 / 12]} ml={[0, '5vw']} mt="1.5em">
         <AboutLogo />
         <AboutText fontSize="small">
-          A EmCasa é uma imobiliária digital tem como objetivo transformar a maneira que o brasileiro compra ou vende imóvel.
+          A EmCasa é uma imobiliária digital tem como objetivo transformar a
+          maneira que o brasileiro compra ou vende imóvel.
         </AboutText>
         <Text fontSize="16px"> CRECI-RJ J-7712</Text>
       </Col>
       <Col width={[1, 2 / 12]}>
         <Text {...titleText}>EmCasa</Text>
         <LinkGroup>
-          <Link href="/listings" as="/imoveis">
-            <TextLink>Compre</TextLink>
+          <Link passHref href="/listings" as="/imoveis">
+            <a>
+              <TextLink>Compre</TextLink>
+            </a>
           </Link>
-          <Link href="/listings/sell" as="/vender">
-            <TextLink>Venda</TextLink>
+          <Link passHref href="/listings/sell" as="/vender">
+            <a>
+              <TextLink>Venda</TextLink>
+            </a>
           </Link>
           <a href="http://blog.emcasa.com" target="_blank">
             <TextLink>Blog</TextLink>
@@ -51,8 +56,10 @@ const Footer = () => (
           <a href="https://jobs.emcasa.com/" target="_blank">
             <TextLink>Trabalhe Conosco</TextLink>
           </a>
-          <Link href="/sitemap">
-            <TextLink>Mapa do Site</TextLink>
+          <Link passHref href="/sitemap">
+            <a>
+              <TextLink>Mapa do Site</TextLink>
+            </a>
           </Link>
         </LinkGroup>
       </Col>
