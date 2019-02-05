@@ -186,18 +186,25 @@ class NewSlider extends Component {
       showValue,
       valuesFormatter,
       min,
-      max
+      max,
+      hideMaxAt
     } = this.props
 
     const {values: {minValue, maxValue}, minThumbOnTheFront} = this.state
+    const hideMax = maxValue === hideMaxAt
     return (
       <Container>
         {isRange && (
-          <RangeValues>
-            <Value textAlign="right">{valuesFormatter(minValue)}</Value>
-            <Value margin>-</Value>
-            <Value textAlign="left">{valuesFormatter(maxValue)}</Value>
-          </RangeValues>
+          hideMax ?
+            <RangeValues>
+              <Value>A partir de {valuesFormatter(minValue)}</Value>
+            </RangeValues>
+          :
+            <RangeValues multiValue>
+              <Value textAlign="right">{valuesFormatter(minValue)}</Value>
+              <Value margin>-</Value>
+              <Value textAlign="left">{valuesFormatter(maxValue)}</Value>
+            </RangeValues>
         )}
         <Rail
           innerRef={this.rail}
@@ -224,7 +231,8 @@ NewSlider.propTypes = {
   isRange: PropTypes.bool,
   onChange: PropTypes.func,
   valuesFormatter: PropTypes.func,
-  valuesRounder: PropTypes.func
+  valuesRounder: PropTypes.func,
+  hideMaxAt: PropTypes.number
 }
 
 export default NewSlider

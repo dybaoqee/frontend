@@ -53,7 +53,7 @@ describe('listing search filter functions', () => {
       rooms: {
         min: 3
       },
-      neighborhoodsSlugs: ['botafogo'],
+      neighborhoods: ['botafogo'],
       citiesSlugs: ['rio-de-janeiro'],
       types: ['Apartamento', 'Cobertura']
     }

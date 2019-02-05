@@ -1,22 +1,61 @@
-import {Component, Fragment} from 'react'
-import {Query} from 'react-apollo'
-import {GET_USER_INFO} from 'graphql/user/queries'
-import {Mutation} from 'react-apollo'
-import {EDIT_PROFILE, EDIT_EMAIL, EDIT_PASSWORD} from 'graphql/user/mutations'
-import Tabs from 'components/shared/Common/Tabs'
+import React, {Component, Fragment} from 'react'
+import {
+  GET_USER_INFO,
+  GET_USER_LISTINGS,
+  GET_FAVORITE_LISTINGS
+} from 'graphql/user/queries'
+import {
+  EDIT_PROFILE,
+  EDIT_EMAIL
+} from 'graphql/user/mutations'
+import {
+  Mutation,
+  Query
+} from 'react-apollo'
 import {isEmailValid} from 'lib/validation'
-import {getCurrentUserId, redirectIfNotAuthenticated} from 'lib/auth'
-import EmCasaButton from 'components/shared/Common/Buttons'
-import Form, {Field} from 'components/shared/Common/Form/styles'
-import CheckBox from 'components/shared/Common/Form/CheckBox'
+import {
+  getCurrentUserId,
+  redirectIfNotAuthenticated
+} from 'lib/auth'
 import isNull from 'lodash/isNull'
 import isUndefined from 'lodash/isUndefined'
 import isEqualWith from 'lodash/isEqualWith'
 import pickBy from 'lodash/pickBy'
 import Head from 'next/head'
+import Router from 'next/router'
+import Link from 'next/link'
+import Tabs from 'components/shared/Common/Tabs'
+import EmCasaButton from 'components/shared/Common/Buttons'
+import Form, {Field} from 'components/shared/Common/Form/styles'
+import CheckBox from 'components/shared/Common/Form/CheckBox'
+import ListingCard from 'components/listings/shared/ListingCard'
+
+import {ThemeProvider} from 'styled-components'
+import theme from '@emcasa/ui'
+import Col from '@emcasa/ui-dom/components/Col'
+import Row from '@emcasa/ui-dom/components/Row'
+import Tab from '@emcasa/ui-dom/components/Tab'
+import Input from '@emcasa/ui-dom/components/Input'
+import Button from '@emcasa/ui-dom/components/Button'
+import Text from '@emcasa/ui-dom/components/Text'
+import {
+  TabWrapper,
+  InitialView,
+  ProfileAvatar,
+  ProfileList,
+  Icon
+} from './styles'
 
 class UserProfile extends Component {
+  constructor(props) {
+    super(props)
+    this.nameField = React.createRef()
+    this.emailField = React.createRef()
+  }
   state = {
+    editingProfile: false,
+    editedProfile: false,
+    hasChanged: false,
     errors: {}
   }
 
@@ -50,6 +89,28 @@ class UserProfile extends Component {
     }
   }
 
+  checkFieldsChange = (userName, userEmail) => {
+    let hasBeenChanged = false
+
+    if (this.nameField.current && this.emailField.current) {
+      hasBeenChanged = this.nameField.current.value != userName || this.emailField.current.value != userEmail
+    }
+
+    clearTimeout(this.timer)
+    this.timer = setTimeout(() => {
+      this.setState({hasChanged: hasBeenChanged})
+    }, 300)
+  }
+
+  changeProfileView = () => this.setState({ editingProfile: !this.state.editingProfile })
+
+  getUserAcronym = (name) => name.match(/\b(\w)/g).join('').substring(0, 2)
+
+  handleProfileButton = (e) => {
+    e.preventDefault()
+    this.changeProfileView()
+  }
+
   handleProfileUpdate = async (e, editProfile, editEmail, userProfile) => {
     const {
       name: actualName,
@@ -63,7 +124,6 @@ class UserProfile extends Component {
     const name = e.target.elements.name.value
     const email = e.target.elements.email.value
     const phone = e.target.elements.phone.value
-    const emailPreference = e.target.elements.emailPreference.checked
 
     if (!isEmailValid(email)) {
       this.setState({errors: {email: 'Digite um e-mail válido'}})
@@ -81,14 +141,7 @@ class UserProfile extends Component {
         : email,
       phone: isEqualWith(actualPhone, phone, this.checkComparison)
         ? undefined
-        : phone,
-      emailPreference: isEqualWith(
-        actualEmailPreference,
-        emailPreference,
-        this.checkComparison
-      )
-        ? undefined
-        : emailPreference
+        : phone
     }
 
     const attributesChanged = pickBy(
@@ -98,8 +151,7 @@ class UserProfile extends Component {
 
     if (
       attributesChanged.name === undefined ||
-      attributesChanged.phone === undefined ||
-      attributesChanged.emailPreference === undefined
+      attributesChanged.phone === undefined
     ) {
       editProfile({
         variables: {id, ...attributesChanged},
@@ -118,48 +170,72 @@ class UserProfile extends Component {
     }
   }
 
-  handlePasswordUpdate = async (e, editPassword) => {
-    e.preventDefault()
-    e.persist()
+  getInitialView = () => {
     const {currentUser: {id}} = this.props
 
-    const currentPassword = e.target.elements.actual_password.value
-    const newPassword = e.target.elements.new_password.value
-    const confirm_password = e.target.elements.confirm_password.value
-
-    if (currentPassword.length === 0) {
-      this.setState({errors: {actual_password: 'Digite sua senha atual'}})
-      return
-    }
-
-    if (newPassword.length === 0) {
-      this.setState({errors: {new_password: 'A nova senha é muito curta'}})
-      return
-    }
-
-    if (newPassword !== confirm_password) {
-      this.setState({errors: {confirm_password: 'As senhas não coincidem'}})
-      return
-    }
-
-    this.setState({errors: {}})
-
-    editPassword({
-      variables: {id, currentPassword, newPassword}
-    })
-      .then(() => {
-        e.target.reset()
-      })
-      .catch(() => {
-        this.setState({
-          errors: {actual_password: 'A senha atual está incorreta'}
-        })
-      })
+    return (
+      <Query query={GET_USER_INFO} variables={{id}}>
+        {({loading, error, data: {userProfile}}) => {
+          if (loading) return <div />
+          if (error) return `Error!: ${error}`
+              return (
+                <InitialView
+                  flexDirection={'column'}
+                  alignItems={'center'}
+                >
+                  <ProfileAvatar
+                    justifyContent={'center'}
+                    alignItems={'center'}
+                  >
+                    {this.getUserAcronym(userProfile.name)}
+                  </ProfileAvatar>
+                  <Text
+                    margin={6}
+                    textAlign="center"
+                    fontSize="large"
+                  >
+                    {userProfile.name}
+                  </Text>
+                  <Text
+                    margin={6}
+                    textAlign="center"
+                    color="grey"
+                  >
+                    {userProfile.email}
+                  </Text>
+                  <Text
+                    margin={6}
+                    textAlign="center"
+                    color="grey"
+                  >
+                    {userProfile.phone}
+                  </Text>
+                  <Button
+                    active
+                    fluid
+                    height="tall"
+                    onClick={this.handleProfileButton}
+                  >
+                    Editar
+                  </Button>
+                  <Link href="/auth/logout">
+                    <Button
+                      fluid
+                      height="tall"
+                    >
+                      Sair
+                    </Button>
+                  </Link>
+                </InitialView>
+              )
+        }}
+      </Query>
+    )
   }
 
   getProfileForm = () => {
     const {currentUser: {id}} = this.props
-    const {errors} = this.state
+    const {errors, editedProfile} = this.state
     return (
       <Mutation mutation={EDIT_EMAIL}>
         {(editEmail, {loading: updatingEmail}) => (
@@ -168,61 +244,83 @@ class UserProfile extends Component {
               <Query query={GET_USER_INFO} variables={{id}}>
                 {({loading, data: {userProfile}}) => {
                   if (loading) return <div />
+                  this.checkFieldsChange(userProfile.name, userProfile.email)
                   return (
-                    <Form
-                      onSubmit={(e) =>
-                        this.handleProfileUpdate(
-                          e,
-                          editProfile,
-                          editEmail,
-                          userProfile
-                        )
-                      }
-                      errors={errors}
+                    <InitialView
+                      flexDirection={'column'}
+                      alignItems={'center'}
+                      maxWidth="100%"
                     >
-                      <Field>
-                        <label htmlFor="name">Nome completo</label>
-                        <input
+                      <ProfileAvatar
+                        justifyContent={'center'}
+                        alignItems={'center'}
+                      >
+                        {this.getUserAcronym(userProfile.name)}
+                      </ProfileAvatar>
+                      <Form
+                        onSubmit={(e) =>
+                          this.handleProfileUpdate(
+                            e,
+                            editProfile,
+                            editEmail,
+                            userProfile
+                          )
+                        }
+                        errors={errors}
+                      >
+                        <Input
+                          hideLabelView
+                          hideErrorView
                           name="name"
                           type="text"
+                          ref={this.nameField}
                           defaultValue={userProfile.name}
+                          onChange={(e) => {
+                            this.checkFieldsChange(userProfile.name, userProfile.email)
+                          }}
                         />
-                      </Field>
-                      <Field>
-                        <label htmlFor="email">Endereço de e-mail</label>
-                        <input
+                        <Input
+                          hideLabelView
+                          hideErrorView
+                          required
                           name="email"
-                          type="text"
+                          type="email"
+                          ref={this.emailField}
                           defaultValue={userProfile.email}
+                          onChange={(e) => {
+                            this.checkFieldsChange(userProfile.name, userProfile.email)
+                          }}
                         />
-                      </Field>
-                      <Field>
-                        <label htmlFor="phone">Telefone</label>
-                        <input
+                        <Input
+                          hideLabelView
                           disabled
                           name="phone"
                           type="tel"
                           defaultValue={userProfile.phone}
                         />
-                      </Field>
-                      <Field>
-                        <label htmlFor="emailPreference">
-                          Notificações por e-mail
-                        </label>
-                        <CheckBox
-                          defaultChecked={
-                            userProfile.notificationPreferences.email
-                          }
-                          name="emailPreference"
-                        />
-                      </Field>
-
-                      <EmCasaButton disabled={updatingProfile || updatingEmail}>
-                        {updatingProfile || updatingEmail
-                          ? 'Atualizando...'
-                          : 'Salvar'}
-                      </EmCasaButton>
-                    </Form>
+                        <Row
+                          justifyContent="space-between"
+                        >
+                          <Button
+                            height="tall"
+                            type="button"
+                            onClick={this.handleProfileButton}
+                          >
+                            Cancelar
+                          </Button>
+                          <Button
+                            type="submit"
+                            height="tall"
+                            active={this.state.hasChanged}
+                            disabled={!this.state.hasChanged || updatingProfile || updatingEmail}
+                          >
+                            {updatingProfile || updatingEmail
+                              ? 'Atualizando...'
+                              : 'Salvar'}
+                          </Button>
+                        </Row>
+                      </Form>
+                    </InitialView>
                   )
                 }}
               </Query>
@@ -233,51 +331,162 @@ class UserProfile extends Component {
     )
   }
 
-  getPasswordForm = () => {
-    const {errors} = this.state
+  getUserListings = () => {
+    const {user} = this.props
     return (
-      <Mutation mutation={EDIT_PASSWORD}>
-        {(editPassword, {loading: updatingPassword}) => (
-          <Form
-            onSubmit={(e) => this.handlePasswordUpdate(e, editPassword)}
-            errors={errors}
-          >
-            <Field>
-              <label htmlFor="actual_password">Senha atual</label>
-              <input name="actual_password" type="password" />
-            </Field>
-            <Field>
-              <label htmlFor="new_password">Nova senha</label>
-              <input name="new_password" type="password" />
-            </Field>
-            <Field>
-              <label htmlFor="confirm_password">Confirmar nova senha</label>
-              <input name="confirm_password" type="password" />
-            </Field>
-            <EmCasaButton disabled={updatingPassword}>
-              {updatingPassword ? 'Atualizando...' : 'Salvar'}
-            </EmCasaButton>
-          </Form>
-        )}
-      </Mutation>
+      <Query query={GET_USER_LISTINGS}>
+        {({loading, error, data: {userProfile}}) => {
+          if (loading) return <div />
+          if (error) return `Error!: ${error}`
+          if (userProfile.listings.length > 0) {
+            return (
+              <ProfileList
+                width="100%"
+                flexWrap="wrap"
+                justifyContent="space-between"
+              >
+                {userProfile.listings.map((listing) => {
+                  return (
+                    <ListingCard
+                      key={listing.id}
+                      listing={listing}
+                      currentUser={user}
+                      loading={loading}
+                      favorited={userProfile.favorites || []}
+                    />
+                  )
+                })}
+              </ProfileList>
+            )
+          } else {
+            return (
+            <InitialView maxWidth="440px">
+              <Col
+                width="100%"
+                alignItems="center"
+              >
+                <Text
+                  textAlign="center"
+                  fontSize="large"
+                  fontWeight="bold"
+                >Você não tem nenhum imóvel anunciado</Text>
+                <Row
+                  justifyContent="center"
+                  py={5}
+                >
+                  <Icon icon="/static/svg-icons/house.svg"/>
+                </Row>
+                <Text
+                  textAlign="center"
+                  color="gray"
+                >Venda seu imóvel de um jeito fácil e seguro.<br /> Quer anunciar aqui na EmCasa?</Text>
+                <Link href="/vender/imovel">
+                  <Button
+                    active
+                    fluid
+                    height="tall"
+                  >Começar</Button>
+                </Link>
+              </Col>
+            </InitialView>
+            )
+          }
+        }}
+      </Query>
+    )
+  }
+
+  getUserFavorites = () => {
+    const {user} = this.props
+    return (
+      <Query query={GET_FAVORITE_LISTINGS}>
+        {({loading, error, data: {userProfile}}) => {
+          if (loading) return <div />
+          if (error) return `Error!: ${error}`
+
+          if (userProfile.favorites.length > 0) {
+            return (
+              <ProfileList
+                width="100%"
+                flexWrap="wrap"
+                justifyContent="space-between"
+              >
+                {userProfile.favorites.map((listing) => {
+                  return (
+                    <ListingCard
+                      key={listing.id}
+                      listing={listing}
+                      currentUser={user}
+                      loading={loading}
+                      favorited={userProfile.favorites || []}
+                    />
+                  )
+                })}
+              </ProfileList>
+            )
+          } else {
+            return (
+              <InitialView maxWidth="440px">
+                <Col
+                  width="100%"
+                  alignItems="center"
+                >
+                  <Text
+                    textAlign="center"
+                    fontSize="large"
+                    fontWeight="bold"
+                  >Você não cadastrou nenhum imóvel</Text>
+                  <Row
+                    justifyContent="center"
+                    py={5}
+                  >
+                    <Icon icon="/static/svg-icons/happy-face-favorite.svg"/>
+                  </Row>
+                  <Text
+                    textAlign="center"
+                    color="gray"
+                  >Navegue pelos nosso imóveis e dê um coração para os que você mais gostar. Esses imóveis ficarão salvos aqui nessa lista para você ver e rever quando quiser.</Text>
+                  <Link href="/imoveis">
+                    <Button
+                      active
+                      fluid
+                      height="tall"
+                    >Explorar</Button>
+                  </Link>
+                </Col>
+              </InitialView>
+            )
+          }
+        }}
+      </Query>
     )
   }
 
   render() {
     const seoTitle = 'EmCasa | Meu Perfil'
+    const {currentUser: {id}} = this.props
     return (
-      <Fragment>
-        <Head>
-          <title>{seoTitle}</title>
-          <meta name="twitter:title" content={seoTitle} />
-        </Head>
-        <Tabs
-          tabs={[
-            {title: 'Perfil', component: this.getProfileForm},
-            {title: 'Senha', component: this.getPasswordForm}
-          ]}
-        />
-      </Fragment>
+      <ThemeProvider theme={theme}>
+        <Fragment>
+          <Head>
+            <title>{seoTitle}</title>
+            <meta name="twitter:title" content={seoTitle} />
+          </Head>
+          <TabWrapper>
+            <Tab.Group>
+              <Tab label="Meu Perfil">
+                {this.state.editingProfile ? this.getProfileForm() : this.getInitialView()}
+              </Tab>
+              <Tab label="Meus Imóveis">
+                {this.getUserListings()}
+              </Tab>
+              <Tab label="Favoritos">
+                {this.getUserFavorites()}
+              </Tab>
+            </Tab.Group>
+          </TabWrapper>
+        </Fragment>
+      </ThemeProvider>
     )
   }
 }

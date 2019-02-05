@@ -1619,24 +1619,21 @@
   dependencies:
     lodash.once "^4.1.1"
 
-"@emcasa/ui-dom@0.8.6":
-  version "0.8.6"
-  resolved "https://registry.yarnpkg.com/@emcasa/ui-dom/-/ui-dom-0.8.6.tgz#8c0062f7320355f51dabf858940dd938b3c42ac5"
+"@emcasa/ui-dom@^0.8.6":
+  version "0.8.10"
+  resolved "https://registry.yarnpkg.com/@emcasa/ui-dom/-/ui-dom-0.8.10.tgz#ee24f1032590f0a82252c681a75aabed11c0231d"
   dependencies:
-    "@emcasa/ui" "^0.8.6"
+    "@emcasa/ui" "^0.8.10"
     "@rebass/grid" "6.0.0-4"
     styled-icons "^3.0.0"
     styled-system "3.1.6"
 
-"@emcasa/ui@^0.8.6":
-  version "0.8.6"
-  resolved "https://registry.yarnpkg.com/@emcasa/ui/-/ui-0.8.6.tgz#4902c4ae5713daaeec7696cb14be2db715dcc5ad"
+"@emcasa/ui@^0.8.10":
+  version "0.8.10"
+  resolved "https://registry.yarnpkg.com/@emcasa/ui/-/ui-0.8.10.tgz#a9e5cc10db9204bef5cea0469385a83de4c21fd4"
   dependencies:
     "@fortawesome/free-solid-svg-icons" "^5.4.1"
     everpolate "^0.0.3"
-    lodash.omit "^4.5.0"
-    lodash.throttle "^4.1.1"
-    lodash.toarray "^4.4.0"
     styled-components "^3.4.9"
     styled-system "^3.1.6"
 
@@ -7508,10 +7505,6 @@ lodash.memoize@~3.0.3:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/lodash.memoize/-/lodash.memoize-3.0.4.tgz#2dcbd2c287cbc0a55cc42328bd0c736150d53e3f"
 
-lodash.omit@^4.5.0:
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/lodash.omit/-/lodash.omit-4.5.0.tgz#6eb19ae5a1ee1dd9df0b969e66ce0b7fa30b5e60"
-
 lodash.once@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/lodash.once/-/lodash.once-4.1.1.tgz#0dd3971213c7c56df880977d504c88fb471a97ac"
@@ -7519,14 +7512,6 @@ lodash.once@^4.1.1:
 lodash.sortby@^4.7.0:
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/lodash.sortby/-/lodash.sortby-4.7.0.tgz#edd14c824e2cc9c1e0b0a1b42bb5210516a42438"
-
-lodash.throttle@^4.1.1:
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/lodash.throttle/-/lodash.throttle-4.1.1.tgz#c23e91b710242ac70c37f1e1cda9274cc39bf2f4"
-
-lodash.toarray@^4.4.0:
-  version "4.4.0"
-  resolved "https://registry.yarnpkg.com/lodash.toarray/-/lodash.toarray-4.4.0.tgz#24c4bfcd6b2fba38bfd0594db1179d8e9b656561"
 
 lodash.topath@4.5.2:
   version "4.5.2"

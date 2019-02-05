@@ -35,7 +35,7 @@ class ListingList extends Component {
     this.onResize = this.onResize.bind(this)
 
     this.pagination = {
-      pageSize: 10,
+      pageSize: 12,
       excludedListingIds: []
     }
   }

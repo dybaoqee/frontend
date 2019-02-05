@@ -12,12 +12,12 @@ import faSearch from '@fortawesome/fontawesome-pro-solid/faSearch'
 import faFlag from '@fortawesome/fontawesome-pro-solid/faFlag'
 import faUser from '@fortawesome/fontawesome-pro-solid/faUser'
 import faSignInAlt from '@fortawesome/fontawesome-pro-solid/faSignInAlt'
-
 import NeighborhoodPicker from 'components/shared/NeighborhoodPicker'
 import NeighborhoodAutoComplete from 'components/shared/NeighborhoodAutoComplete'
 import MobileAddressButton from 'components/shared/MobileAddressButton'
 import {MobileTypeaheadContainer} from 'components/shared/NeighborhoodAutoComplete/styles'
 import {isMobile} from 'lib/mobile'
+import {USE_NEW_SEARCH} from 'config/globals'
 
 import Container, {
   Wrapper,
@@ -28,10 +28,9 @@ import Container, {
   MenuItem,
   Logo,
   ShortLogo,
-  Search
+  Search,
+  SearchWrapper
 } from './styles'
-
-const USE_NEW_SEARCH = true
 
 export default class Header extends Component {
   constructor(props) {
@@ -39,7 +38,7 @@ export default class Header extends Component {
     this.state = {
       sticky: false,
       isMobileNavVisible: false,
-      showMobileSearch: false
+      showFullScreenSearch: false
     }
   }
 
@@ -49,13 +48,13 @@ export default class Header extends Component {
 
   openMobileSearch = () => {
     this.setState({
-      showMobileSearch: true
+      showFullScreenSearch: true
     })
   }
 
   closeMobileSearch = () => {
     this.setState({
-      showMobileSearch: false
+      showFullScreenSearch: false
     })
   }
 
@@ -96,13 +95,14 @@ export default class Header extends Component {
     )
   }
 
-  renderMobileSearch() {
+  renderFullScreenSearch() {
     return (
       <MobileTypeaheadContainer justifyContent="center" p={4}>
         <Col width={1}>
           {USE_NEW_SEARCH ?
             <NeighborhoodPicker
               mobile
+              fullscreen
               onBackPressed={this.closeMobileSearch}
               query={this.props.router.query}
             />
@@ -120,13 +120,13 @@ export default class Header extends Component {
 
   render() {
     const {transparent, authenticated, search, router} = this.props
-    const {sticky, isMobileNavVisible, showMobileSearch} = this.state
+    const {sticky, isMobileNavVisible, showFullScreenSearch} = this.state
     const currentPath = router.asPath
 
-    if (showMobileSearch) {
+    if (showFullScreenSearch) {
       return (
         <ThemeProvider theme={theme}>
-          {this.renderMobileSearch()}
+          {this.renderFullScreenSearch()}
         </ThemeProvider>
       )
     }
@@ -135,65 +135,71 @@ export default class Header extends Component {
       <ThemeProvider theme={theme}>
         <Wrapper>
           <Container transparent={transparent} className={sticky && !search ? 'sticky' : null} search={search}>
-            <Link passHref href="/listings/buy" as="/">
-              <a>
-                <div>
-                  {!search && <Logo alt="EmCasa Imobiliária no Rio de Janeiro e São Paulo" />}
-                  {search && <ShortLogo alt="EmCasa Imobiliária no Rio de Janeiro e São Paulo" />}
-                </div>
-              </a>
-            </Link>
-            {search && this.renderSearch()}
-            {isMobileNavVisible && <Overlay onClick={this.toggleMobileNavVisibility} />}
-            <NavButton
-              visible={!isMobileNavVisible && !search}
-              onClick={this.toggleMobileNavVisibility}
-            >
-              ☰
-            </NavButton>
-            <Nav visible={isMobileNavVisible}>
-              <CloseNavButton
-                visible={isMobileNavVisible}
-                onClick={this.toggleMobileNavVisibility} />
-              <Link passHref href="/listings" as="/imoveis">
+            <Row alignItems="center" width={[1, 1/2]} style={!search ? {height: theme.buttonHeight[1]} : null}>
+              <Link passHref href="/listings/buy" as="/">
                 <a>
-                  <MenuItem className={router.route === '/listings' ? 'active' :  null}>
-                    <FontAwesomeIcon icon={faSearch} className="icon" />
-                    <Text>Comprar</Text>
-                  </MenuItem>
+                  <div style={{zIndex: 1}}>
+                    {!search && <Logo alt="EmCasa Imobiliária no Rio de Janeiro e São Paulo" />}
+                    {search && <ShortLogo alt="EmCasa Imobiliária no Rio de Janeiro e São Paulo" />}
+                  </div>
                 </a>
               </Link>
-              <Link passHref href="/vender">
-                <a>
-                  <MenuItem className={currentPath.startsWith('/vender') ? 'active' :  null}>
-                    <FontAwesomeIcon className="icon" icon={faFlag} />
-                    <Text>Vender</Text>
-                  </MenuItem>
-                </a>
-              </Link>
-              {authenticated && (
-                <Link passHref href="/meu-perfil">
+              <SearchWrapper>
+                {search && this.renderSearch()}
+              </SearchWrapper>
+              {isMobileNavVisible && <Overlay onClick={this.toggleMobileNavVisibility} />}
+              <NavButton
+                visible={!isMobileNavVisible && !search}
+                onClick={this.toggleMobileNavVisibility}
+              >
+                ☰
+              </NavButton>
+            </Row>
+            <Col width={[0, 1/2]}>
+              <Nav visible={isMobileNavVisible}>
+                <CloseNavButton
+                  visible={isMobileNavVisible}
+                  onClick={this.toggleMobileNavVisibility} />
+                <Link passHref href="/listings" as="/imoveis">
                   <a>
-                    <MenuItem className={currentPath.startsWith('/meu-perfil') ? 'active' :  null}>
-                      <FontAwesomeIcon className="icon" icon={faUser} />
-                      <Text>Meu Perfil</Text>
+                    <MenuItem className={router.route === '/listings' ? 'active' :  null}>
+                      <FontAwesomeIcon icon={faSearch} className="icon" />
+                      <Text>Comprar</Text>
                     </MenuItem>
                   </a>
                 </Link>
-              )}
-              {!authenticated && (<AccountKit
-                appId={process.env.FACEBOOK_APP_ID}
-                appSecret={process.env.ACCOUNT_KIT_APP_SECRET}
-                version="v1.0"
-              >
-                {({signIn, loading}) => (
-                  <MenuItem onClick={signIn}>
-                    <FontAwesomeIcon className="icon" icon={faSignInAlt} />
-                    <Text>Entrar</Text>
-                  </MenuItem>
+                <Link passHref href="/vender">
+                  <a>
+                    <MenuItem className={currentPath.startsWith('/vender') ? 'active' :  null}>
+                      <FontAwesomeIcon className="icon" icon={faFlag} />
+                      <Text>Vender</Text>
+                    </MenuItem>
+                  </a>
+                </Link>
+                {authenticated && (
+                  <Link passHref href="/meu-perfil">
+                    <a>
+                      <MenuItem className={currentPath.startsWith('/meu-perfil') ? 'active' :  null}>
+                        <FontAwesomeIcon className="icon" icon={faUser} />
+                        <Text>Meu Perfil</Text>
+                      </MenuItem>
+                    </a>
+                  </Link>
                 )}
-              </AccountKit>)}
-            </Nav>
+                {!authenticated && (<AccountKit
+                  appId={process.env.FACEBOOK_APP_ID}
+                  appSecret={process.env.ACCOUNT_KIT_APP_SECRET}
+                  version="v1.0"
+                >
+                  {({signIn, loading}) => (
+                    <MenuItem onClick={signIn}>
+                      <FontAwesomeIcon className="icon" icon={faSignInAlt} />
+                      <Text>Entrar</Text>
+                    </MenuItem>
+                  )}
+                </AccountKit>)}
+              </Nav>
+            </Col>
           </Container>
         </Wrapper>
       </ThemeProvider>

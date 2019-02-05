@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components'
+import posed from 'react-pose'
 import theme from '@emcasa/ui'
 import Row from '@emcasa/ui-dom/components/Row'
 import { MAX_HEADER_HEIGHT } from 'components/shared/Shell/NewHeader/styles'
@@ -8,6 +9,8 @@ import {
 
 const OVER_HEADER = 6
 const BELOW_HEADER = 1
+const CLOSED_BUTTONS_HEIGHT = 34
+const DURATION = 300
 
 const Container = styled(Row)`
   position: sticky;
@@ -18,32 +21,34 @@ const Container = styled(Row)`
 `
 
 const expandedWrapper = css`
-  height: 34px;
+  height: ${CLOSED_BUTTONS_HEIGHT}px;
 
   @media screen and (max-width: ${theme.breakpoints[0]}) {
     overflow: hidden;
   }
 `
 
-const ButtonsWrapper = styled(Row)`
+const ButtonsWrapperBase = styled(Row)`
   position: relative;
   flex-direction: row;
   flex-wrap: wrap;
   margin-right: calc(${EXPAND_BUTTON_SIZE}px + ${theme.space[4]}px);
 
-  ${({expanded}) => expanded ? null : expandedWrapper}
+  ${({expanded}) => expanded ? `height: auto;` : expandedWrapper}
 `
 
-const Overlay = styled.div`
-  position: absolute;
-  top: ${-MAX_HEADER_HEIGHT}px;
-  left: 0;
-  width: 100%;
-  height: 200%;
-`
+const ButtonsWrapper = posed(ButtonsWrapperBase)({
+  open: {
+    height: 'auto',
+    transition: { duration: DURATION }
+  },
+  closed: {
+    height: CLOSED_BUTTONS_HEIGHT,
+    transition: { duration: DURATION }
+  },
+})
 
 export {
   Container,
-  Overlay,
   ButtonsWrapper
 }

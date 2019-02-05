@@ -5,7 +5,7 @@ const AREA_FILTER = {
 
 const PRICE_FILTER = {
   MIN: 250000,
-  MAX: 12000000
+  MAX: 2000000
 }
 
 const FILTERS = {
