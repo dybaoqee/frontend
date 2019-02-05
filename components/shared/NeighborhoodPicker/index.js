@@ -7,6 +7,8 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import AngleDown from '@fortawesome/fontawesome-pro-light/faAngleDown'
 import AngleUp from '@fortawesome/fontawesome-pro-light/faAngleUp'
 import * as Sentry from '@sentry/browser'
+import Background from 'components/shared/Background'
+import FadeInOut from 'components/shared/Animation/FadeInOut'
 import Icon from '@emcasa/ui-dom/components/Icon'
 import Col from '@emcasa/ui-dom/components/Col'
 import CityContainer from './components/CityContainer'
@@ -16,6 +18,7 @@ import { cities } from 'constants/cities'
 import { arrayToString } from 'utils/text-utils'
 import {
   log,
+  LISTING_SEARCH_NEIGHBORHOOD_OPEN,
   LISTING_SEARCH_NEIGHBORHOOD_APPLY,
   LISTING_SEARCH_NEIGHBORHOOD_CLEAR,
   LISTING_SEARCH_NEIGHBORHOOD_EXPAND,
@@ -32,9 +35,7 @@ import {
   SearchTextContainer,
   BackIcon,
   BackButton,
-  ButtonText,
-  Background,
-  Animated
+  ButtonText
 } from './styles'
 
 const DEFAULT_BUTTON_TEXT = 'Escolha os bairros'
@@ -125,6 +126,9 @@ class NeighborhoodPicker extends Component {
   }
 
   toggleCitiesDisplay() {
+    if (!this.state.showCities) {
+      log(LISTING_SEARCH_NEIGHBORHOOD_OPEN)
+    }
     this.setState({showCities: !this.state.showCities})
   }
 
@@ -165,23 +169,23 @@ class NeighborhoodPicker extends Component {
               </InputWrapper>
               <PoseGroup>
               {this.state.showCities &&
-                  <Animated key={1}>
-                    <CityContainer
-                      cities={availableCities}
-                      selectedNeighborhoods={this.state.selectedNeighborhoods}
-                      expanded={this.state.expanded}
-                      selectCity={this.selectCity}
-                      isCitySelected={this.isCitySelected}
-                      expand={this.expand}
-                      clear={this.clear}
-                      apply={this.apply}
-                      parentRef={this.containerRef.current}
-                      fromHome={this.props.fromHome}
-                      showAllCities={this.showAllCities}
-                      fullscreen={this.props.fullscreen}
-                    />
-                    <Background />
-                  </Animated>
+                <FadeInOut key={1}>
+                  <CityContainer
+                    cities={availableCities}
+                    selectedNeighborhoods={this.state.selectedNeighborhoods}
+                    expanded={this.state.expanded}
+                    selectCity={this.selectCity}
+                    isCitySelected={this.isCitySelected}
+                    expand={this.expand}
+                    clear={this.clear}
+                    apply={this.apply}
+                    parentRef={this.containerRef.current}
+                    fromHome={this.props.fromHome}
+                    showAllCities={this.showAllCities}
+                    fullscreen={this.props.fullscreen}
+                  />
+                  <Background />
+                </FadeInOut>
               }
               </PoseGroup>
             </SearchContainer>

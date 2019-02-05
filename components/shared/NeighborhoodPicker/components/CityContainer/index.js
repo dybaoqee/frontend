@@ -8,6 +8,7 @@ import Button from '@emcasa/ui-dom/components/Button'
 import Text from '@emcasa/ui-dom/components/Text'
 import theme from '@emcasa/ui'
 import { randomKey } from 'lib/random'
+import FadeInOut from 'components/shared/Animation/FadeInOut'
 import {
   log,
   LISTING_SEARCH_NEIGHBORHOOD_SELECT_ALL
@@ -24,7 +25,6 @@ import {
   NeighborhoodButton,
   Separator
 } from './styles'
-import { Animated } from '../../styles'
 
 const MAX_INITIAL_ITEMS = 3
 
@@ -151,18 +151,18 @@ class CityContainer extends Component {
                     {selectedNeighborhoodList.map((Item) => {
                       buttonsRendered++
                       showExpandAll = buttonsRendered > MAX_INITIAL_ITEMS
-                      if (!isCityExpanded && buttonsRendered >= MAX_INITIAL_ITEMS) {
+                      if (!isCityExpanded && showExpandAll) {
                         return null
                       }
-                      return <Animated key={randomKey()}>{Item}</Animated>
+                      return <FadeInOut key={randomKey()}>{Item}</FadeInOut>
                     })}
                     {deselectedNeighborhoodList.map((Item) => {
                       buttonsRendered++
                       showExpandAll = buttonsRendered > MAX_INITIAL_ITEMS
-                      if (!isCityExpanded && buttonsRendered >= MAX_INITIAL_ITEMS) {
+                      if (!isCityExpanded && showExpandAll) {
                         return null
                       }
-                      return <Animated key={randomKey()}>{Item}</Animated>
+                      return <FadeInOut key={randomKey()}>{Item}</FadeInOut>
                     })}
                   </PoseGroup>
                   {(showExpandAll && !isCityExpanded) && <Button p={0} link onClick={() => {expand(city)}}>Ver mais</Button>}

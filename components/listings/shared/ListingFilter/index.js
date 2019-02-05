@@ -1,13 +1,17 @@
-import {Component} from 'react'
+import { Component } from 'react'
 import PropTypes from 'prop-types'
 import includes from 'lodash/includes'
 import remove from 'lodash/remove'
+import { PoseGroup } from 'react-pose'
+import FadeInOut from 'components/shared/Animation/FadeInOut'
 import NewSlider from 'components/shared/Common/NewSlider'
+import Background from 'components/shared/Background'
 import FilterPanel from './components/FilterPanel'
 import FilterButton from './components/FilterButton'
 import ButtonGroupFilter from './components/ButtonGroupFilter'
 import ExpandButton from './components/ExpandButton'
 import { clone } from 'utils/clone'
+import { isMobile } from 'lib/mobile'
 import {
   log,
   LISTING_SEARCH_FILTER_OPEN,
@@ -21,7 +25,6 @@ import {
 } from './components/FilterPanel/styles'
 import {
   Container,
-  Overlay,
   ButtonsWrapper
 } from './styles'
 import {
@@ -214,21 +217,23 @@ class ListingFilter extends Component {
         price: userPrice,
         rooms: userRooms,
         garageSpots: userGarageSpots
-      }
+      },
+      expanded
     } = this.state
 
     const isFilterOpen = this.isFilterOpen()
 
     return (
       <Container isFilterOpen={isFilterOpen}>
-        <Overlay onClick={() => {this.hideAllFilters(); this.restorePreviousValues();}} />
-        <ButtonsWrapper expanded={this.state.expanded}>
-          {getFilterButtons(this.props.filters, this.showFilter, this.getOpenButton)}
-          <ExpandButton
-            expanded={this.state.expanded}
-            onClick={this.toggleFilters}
-          />
-        </ButtonsWrapper>
+        <PoseGroup>
+            <ButtonsWrapper expanded={expanded} key={1} pose={expanded ? 'open' : 'closed'}>
+              {getFilterButtons(this.props.filters, this.showFilter, this.getOpenButton)}
+              <ExpandButton
+                expanded={expanded}
+                onClick={this.toggleFilters}
+              />
+            </ButtonsWrapper>
+        </PoseGroup>
         <FilterPanel
           filter={FILTERS.TYPES}
           show={this.state.showType}
@@ -342,6 +347,16 @@ class ListingFilter extends Component {
             ]}
           />
         </FilterPanel>
+        <PoseGroup>
+          {(isFilterOpen && !isMobile()) &&
+            <FadeInOut key={1}>
+              <Background onClick={() => {
+                this.hideAllFilters()
+                this.restorePreviousValues()
+              }} />
+            </FadeInOut>
+          }
+        </PoseGroup>
       </Container>
     )
   }
