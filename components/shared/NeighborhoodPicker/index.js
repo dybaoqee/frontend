@@ -18,6 +18,7 @@ import { cities } from 'constants/cities'
 import { arrayToString } from 'utils/text-utils'
 import {
   log,
+  LISTING_SEARCH_NEIGHBORHOOD_OPEN,
   LISTING_SEARCH_NEIGHBORHOOD_APPLY,
   LISTING_SEARCH_NEIGHBORHOOD_CLEAR,
   LISTING_SEARCH_NEIGHBORHOOD_EXPAND,
@@ -125,6 +126,9 @@ class NeighborhoodPicker extends Component {
   }
 
   toggleCitiesDisplay() {
+    if (!this.state.showCities) {
+      log(LISTING_SEARCH_NEIGHBORHOOD_OPEN)
+    }
     this.setState({showCities: !this.state.showCities})
   }
 
