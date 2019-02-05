@@ -18,6 +18,7 @@ import { cities } from 'constants/cities'
 import { arrayToString } from 'utils/text-utils'
 import {
   log,
+  LISTING_SEARCH_NEIGHBORHOOD_OPEN,
   LISTING_SEARCH_NEIGHBORHOOD_APPLY,
   LISTING_SEARCH_NEIGHBORHOOD_CLEAR,
   LISTING_SEARCH_NEIGHBORHOOD_EXPAND,
@@ -125,6 +126,9 @@ class NeighborhoodPicker extends Component {
   }
 
   toggleCitiesDisplay() {
+    if (!this.state.showCities) {
+      log(LISTING_SEARCH_NEIGHBORHOOD_OPEN)
+    }
     this.setState({showCities: !this.state.showCities})
   }
 
@@ -165,23 +169,23 @@ class NeighborhoodPicker extends Component {
               </InputWrapper>
               <PoseGroup>
               {this.state.showCities &&
-                  <FadeInOut key={1}>
-                    <CityContainer
-                      cities={availableCities}
-                      selectedNeighborhoods={this.state.selectedNeighborhoods}
-                      expanded={this.state.expanded}
-                      selectCity={this.selectCity}
-                      isCitySelected={this.isCitySelected}
-                      expand={this.expand}
-                      clear={this.clear}
-                      apply={this.apply}
-                      parentRef={this.containerRef.current}
-                      fromHome={this.props.fromHome}
-                      showAllCities={this.showAllCities}
-                      fullscreen={this.props.fullscreen}
-                    />
-                    <Background />
-                  </FadeInOut>
+                <FadeInOut key={1}>
+                  <CityContainer
+                    cities={availableCities}
+                    selectedNeighborhoods={this.state.selectedNeighborhoods}
+                    expanded={this.state.expanded}
+                    selectCity={this.selectCity}
+                    isCitySelected={this.isCitySelected}
+                    expand={this.expand}
+                    clear={this.clear}
+                    apply={this.apply}
+                    parentRef={this.containerRef.current}
+                    fromHome={this.props.fromHome}
+                    showAllCities={this.showAllCities}
+                    fullscreen={this.props.fullscreen}
+                  />
+                  <Background />
+                </FadeInOut>
               }
               </PoseGroup>
             </SearchContainer>

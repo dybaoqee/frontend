@@ -151,7 +151,7 @@ class CityContainer extends Component {
                     {selectedNeighborhoodList.map((Item) => {
                       buttonsRendered++
                       showExpandAll = buttonsRendered > MAX_INITIAL_ITEMS
-                      if (!isCityExpanded && buttonsRendered >= MAX_INITIAL_ITEMS) {
+                      if (!isCityExpanded && showExpandAll) {
                         return null
                       }
                       return <FadeInOut key={randomKey()}>{Item}</FadeInOut>
@@ -159,7 +159,7 @@ class CityContainer extends Component {
                     {deselectedNeighborhoodList.map((Item) => {
                       buttonsRendered++
                       showExpandAll = buttonsRendered > MAX_INITIAL_ITEMS
-                      if (!isCityExpanded && buttonsRendered >= MAX_INITIAL_ITEMS) {
+                      if (!isCityExpanded && showExpandAll) {
                         return null
                       }
                       return <FadeInOut key={randomKey()}>{Item}</FadeInOut>
