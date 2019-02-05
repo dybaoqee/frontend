@@ -28,14 +28,8 @@ const NextHead = (props) => {
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content="EmCasa" />
       <meta property="og:locale" content="pt_BR" />
-
-      {url && (
-        <Fragment>
-          <meta property="og:url" content={url} />
-          <meta name="twitter:url" content={url} />
-        </Fragment>
-      )}
-
+      <meta property="og:url" content={url || 'https://www.emcasa.com/'} />
+      <meta name="twitter:url" content={url || 'https://www.emcasa.com/'} />
       <meta name="twitter:card" content="summary" />
 
       {imageSrc && (
