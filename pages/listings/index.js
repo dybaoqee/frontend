@@ -2,7 +2,7 @@ import '@emcasa/ui-dom/components/global-styles'
 import {Component} from 'react'
 import {ThemeProvider} from 'styled-components'
 import theme from '@emcasa/ui'
-import Head from 'next/head'
+import NextHead from 'components/shared/NextHead'
 import Router from 'next/router'
 import {
   treatParams,
@@ -14,6 +14,7 @@ import {
 import ListingFilter from 'components/listings/shared/ListingFilter'
 import ListingList from 'components/listings/shared/ListingList'
 import {getUrlVars} from 'utils/text-utils'
+import {imageUrl} from 'utils/image_url'
 import {
   log,
   LISTING_SEARCH_OPEN
@@ -117,31 +118,32 @@ class ListingSearch extends Component {
   }
 
   getHead = () => {
+    const {params} = this.props
     const {neighborhood} = this.state
-    const {query} = this.props
-    const fullCity = query && query.state === 'rj' ? 'na Zona Sul do Rio de Janeiro' : 'no Rio de Janeiro e em São Paulo'
-    const city = query && query.state === 'rj' ? 'Rio De Janeiro' : 'São Paulo'
+    let location = 'na Zona Sul do Rio de Janeiro e em São Paulo'
+    let imageSrc = imageUrl('buy.jpg')
 
-    const seoImgSrc =
-      'https://res.cloudinary.com/emcasa/image/upload/f_auto/v1513818385/home-2018-04-03_cozxd9.jpg'
-    const title = !neighborhood
-      ? `Apartamentos e Casas à venda ${fullCity} | EmCasa`
-      : `Apartamentos e Casas à venda - ${neighborhood}, ${city} | EmCasa`
-    const description = !neighborhood
-      ? `Conheça em Compre Apartamentos e Casas à venda ${fullCity} com o sistema exclusivo de Tour 3D da EmCasa`
-      : `Conheça em Compre Apartamentos e Casas à venda - ${neighborhood}, ${city} com o sistema exclusivo de Tour 3D da EmCasa`
+    if (neighborhood) {
+      location = `em ${neighborhood}, ${params.state === 'rj' ? 'Rio De Janeiro' : 'São Paulo'}`
+    } else if (params && params.city === 'rio-de-janeiro') {
+      location = 'na Zona Sul do Rio de Janeiro'
+    } else if (params && params.city === 'sao-paulo') {
+      location = 'na cidade de São Paulo'
+    } else if (params && params.state === 'rj') {
+      location = 'no Rio de Janeiro'
+    } else if (params && params.state === 'sp') {
+      location = 'em São Paulo'
+    }
+
+    if (params && params.state === 'rj') imageSrc = imageUrl('buy-rj.jpg')
+    if (params && params.state === 'sp') imageSrc = imageUrl('buy-sp.jpg')
 
     return (
-      <Head>
-        <title>{title}</title>
-        <meta name="description" content={description} />
-        <meta property="og:description" content={description} />
-        <meta property="og:image" content={seoImgSrc} />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={title} />
-        <meta name="twitter:description" content={description} />
-        <meta name="twitter:image" content={seoImgSrc} />
-      </Head>
+      <NextHead
+        title={`Apartamentos e Casas à venda ${location} | Emcasa`}
+        description={`Conheça em Compre Apartamentos e Casas à venda ${location} com o sistema exclusivo de Tour Virtual 3D do Emcasa, a sua startup imobiliária.`}
+        imageSrc={imageSrc}
+      />
     )
   }
 
