@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import theme from '@emcasa/ui'
 import View from '@emcasa/ui-dom/components/View'
+import Text from '@emcasa/ui-dom/components/Text'
 import {imageUrl} from 'utils/image_url'
 
 export const Container = styled(View)`
@@ -14,8 +15,12 @@ export const Content = styled(View)`
   flex-direction: column;
 `
 
+export const Title = Text.withComponent('h2')
+export const SubTitle = Text.withComponent('h3')
+export const ListTitle = Text.withComponent('h4')
+
 export const Header = styled(View)`
-  .title {
+  ${Title} {
     margin-bottom: 0;
   }
   
@@ -77,25 +82,31 @@ export const NeighborhoodsLinks = styled(View)`
   flex-wrap: wrap;
   max-width: 1000px;
   max-height: 130px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: ${theme.space[3]}px;
+  margin-bottom: ${theme.space[3]}px;
   flex-direction: column;
-  
-  a {
+
+  .NeighborhoodLink {
     font-family: FaktSoftPro-Normal;
     color: ${theme.colors.grey};
     font-size: 14px;
     text-decoration: none;
     width: 345px;
-    margin-right: 12px;
+    margin: 0 ${theme.space[3]}px 0 0;
+
+    ${ListTitle} {
+      margin: 0;
+      font-size: inherit;
+      color: inherit;
+    }
   }
   
   @media (max-width: ${theme.breakpoints[0]}) {
     max-height: 70px;
-    a { 
+    .NeighborhoodLink { 
       width: 130px;
       font-size: 8px;
-      margin-right: 10px;
+      margin: 0 ${theme.space[2]}px 0 0;
     }
   }
 `
@@ -107,7 +118,7 @@ export const NeighborhoodItems = styled(View)`
   @media (max-width: ${theme.breakpoints[0]}) {
     overflow-y: hidden;
     overflow-x: auto;
-    padding-bottom: 10px;
+    padding-bottom: ${theme.space[3]}px;
   }
 `
 
@@ -126,7 +137,7 @@ export const Neighborhood = styled(View)`
   background-size: cover;
   border-radius: 4px;
   box-shadow: 1px 2px 4px 0 rgba(0,0,0,0.3);
-  margin-right: 10px;
+  margin-right: ${theme.space[2]}px;
 
   p {
     color: white;
@@ -147,8 +158,8 @@ export const Neighborhood = styled(View)`
 
 export const Soon = styled(View)`
   position: absolute;
-  right: 10px;
-  top: 10px;
+  right: ${theme.space[3]}px;
+  top: ${theme.space[3]}px;
   display: flex;
   align-items: center;
   justify-content: center;

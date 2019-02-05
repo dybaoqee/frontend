@@ -17,7 +17,10 @@ import {
   NeighborhoodItems,
   Neighborhood,
   Soon,
-  Spacer
+  Spacer,
+  Title,
+  SubTitle,
+  ListTitle
 } from './styles'
 
 const RJ_SLUG = 'rio-de-janeiro'
@@ -45,7 +48,7 @@ const NEIGHBORHOODS_BY_CITIES = NEIGHBORHOODS.reduce((cities, neighborhood) => {
   return cities
 }, {})
 
-const getCityNeighborhoodLinks = (citySlug) => (
+const getCityNeighborhoodLinks = (citySlug, noTitle) => (
   <NeighborhoodsLinks>
     <Query query={GET_DISTRICTS}>
       {({data: {districts}, loading}) =>
@@ -56,6 +59,7 @@ const getCityNeighborhoodLinks = (citySlug) => (
             const url = `/imoveis/${district.stateSlug}/${district.citySlug}/${slug(
               district.nameSlug.toLowerCase()
             )}`
+
             return (
               <Link
                 passHref
@@ -65,8 +69,15 @@ const getCityNeighborhoodLinks = (citySlug) => (
                   asPath: url
                 }}
               >
-                <a title={`Comprar imóvel: ${district.name}`}>
-                  Apartamentos em {district.name}
+                <a title={`Comprar imóvel: ${district.name}`} class="NeighborhoodLink">
+                  {noTitle ? (
+                      `Apartamentos em ${district.name}`
+                    ) : (
+                      <ListTitle fontWeight="normal">
+                        Apartamentos em {district.name}
+                      </ListTitle>
+                    )
+                  }
                 </a>
               </Link>
             )
@@ -83,22 +94,21 @@ export default class Neighborhoods extends Component {
       <Container>
         <Content>
           <Header>
-            <Text fontSize="xlarge" fontWeight="bold" textAlign="center" className="title">
+            <Title fontSize="xlarge" fontWeight="bold" textAlign="center">
               Imóveis à venda no Rio de Janeiro e São Paulo
-            </Text>
+            </Title>
             <Text color="grey" textAlign="center">
               Escolha a localidade e confira os imóveis disponíveis
             </Text>
           </Header>
           <Cities>
             {CITIES.map(({title, slug: citySlug, stateSlug}) => {
-              const links = getCityNeighborhoodLinks(citySlug)
               return (
                 <City>
                   <CityTitle>
-                    <Text fontWeight="bold">
+                    <SubTitle fontWeight="bold">
                       {title}
-                    </Text>
+                    </SubTitle>
                   </CityTitle>
                   <NeighborhoodContainer>
                     <NeighborhoodItems>
@@ -116,12 +126,12 @@ export default class Neighborhoods extends Component {
                         </Link>
                       ))}
                       <Spacer>
-                        {links}
+                        {getCityNeighborhoodLinks(citySlug, true)}
                       </Spacer>
                     </NeighborhoodItems>
                   </NeighborhoodContainer>
                   <CityInfo>
-                    {links}
+                    {getCityNeighborhoodLinks(citySlug)}
                   </CityInfo>
                 </City>
               )})}
