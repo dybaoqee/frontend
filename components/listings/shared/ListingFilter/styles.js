@@ -50,5 +50,6 @@ const ButtonsWrapper = posed(ButtonsWrapperBase)({
 
 export {
   Container,
-  ButtonsWrapper
+  ButtonsWrapper,
+  ButtonsWrapperBase
 }
