@@ -9,6 +9,10 @@ import Col from '@emcasa/ui-dom/components/Col'
 import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
+import {
+  log,
+  BUYER_LANDING_EXPLORE_LISTINGS
+} from 'lib/amplitude'
 
 const Container = styled(View)`
   display: flex;
@@ -121,7 +125,9 @@ export default class Benefits extends Component {
             <Col width={[1, 4 / 12]}>
               <Link passHref href="/imoveis">
                 <a>
-                  <Button height="tall" fluid>
+                  <Button height="tall" fluid onClick={() => {
+                    log(BUYER_LANDING_EXPLORE_LISTINGS)
+                  }}>
                     Explorar Imóveis
                   </Button>
                 </a>
