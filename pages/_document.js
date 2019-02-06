@@ -19,7 +19,7 @@ export default class AppDocument extends Document {
     const {styleTags, prod} = this.props
 
     return (
-      <html>
+      <html lang="pt-br">
         <Head>
           {prod ? (
             <script
