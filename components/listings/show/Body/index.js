@@ -12,7 +12,21 @@ import {
 
 export default class ListingMainContent extends PureComponent {
   componentDidMount() {
-    log(LISTING_DETAIL_OPEN, {listingId: this.props.listing.id})
+    const {id, address, area, bathrooms, floor, garageSpots, price, rooms, type, maintenanceFee, propertyTax} = this.props.listing
+    log(LISTING_DETAIL_OPEN, {
+      listingId: id,
+      neighborhood: address.neighborhoodSlug,
+      city: address.citySlug,
+      area,
+      bathrooms,
+      floor,
+      garageSpots,
+      price,
+      rooms,
+      type,
+      maintenanceFee,
+      propertyTax,
+    })
   }
 
   render() {
