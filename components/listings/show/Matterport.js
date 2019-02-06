@@ -9,12 +9,10 @@ import {
 
 export default class Matterport extends Component {
   componentDidMount() {
-    console.log('matterport open')
     log(LISTING_DETAIL_MATTERPORT_OPEN, {listingId: this.props.listingId})
   }
 
   componentWillUnmount() {
-    console.log('matterport close')
     log(LISTING_DETAIL_MATTERPORT_CLOSE, {listingId: this.props.listingId})
   }
 
