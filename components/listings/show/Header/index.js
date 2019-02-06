@@ -30,7 +30,9 @@ import {mobileMedia} from 'constants/media'
 import {
   log,
   LISTING_DETAIL_PHOTOS_LEFT,
-  LISTING_DETAIL_PHOTOS_RIGHT
+  LISTING_DETAIL_PHOTOS_RIGHT,
+  LISTING_DETAIL_PHOTOS_FULLSCREEN_OPEN,
+  LISTING_DETAIL_PHOTOS_FULLSCREEN_CLOSE,
 } from 'lib/amplitude'
 
 export default class ListingHeader extends Component {
@@ -89,8 +91,11 @@ export default class ListingHeader extends Component {
   }
 
   hide3DTour = () => this.setState({show3DTour: false})
-  toggleFullScreen = () =>
+  toggleFullScreen = () => {
+    const event = this.state.isFullScreen ? LISTING_DETAIL_PHOTOS_FULLSCREEN_CLOSE : LISTING_DETAIL_PHOTOS_FULLSCREEN_OPEN
+    log(event, {listingId: this.props.listing.id})
     this.setState(({isFullScreen}) => ({isFullScreen: !isFullScreen}))
+  }
 
   getSliderImages = () =>
     this.props.listing.images.map(({filename}) => (
