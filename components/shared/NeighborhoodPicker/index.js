@@ -95,7 +95,13 @@ class NeighborhoodPicker extends Component {
       }
       const currentQuery = this.props.query || {}
       const query = addNeighborhoodsToQuery(getDerivedParams(currentQuery), this.state.selectedNeighborhoods)
-      Router.push(`/listings${query}`, `/imoveis${query}`, {shallow: true})
+      if (this.props.fromHome) {
+        // React-pose has a bug that causes an error in `PoseElement.componentDidUpdate` if you do a shallow route
+        // push and call an animation in the new page. We have to do a full push here to avoid it.
+        Router.push(`/imoveis${query}`)
+      } else {
+        Router.push(`/listings${query}`, `/imoveis${query}`, {shallow: true})
+      }
     })
   }
 
