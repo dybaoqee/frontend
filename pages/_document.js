@@ -40,7 +40,7 @@ export default class AppDocument extends Document {
               }}
             />
           )}
-          {prod ? (
+          {process.env.HOTJAR_SITE_ID ? (
             <script
               dangerouslySetInnerHTML={{
                 __html: `
