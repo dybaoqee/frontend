@@ -120,7 +120,7 @@ export default class Header extends Component {
             ) {
 
               return (
-                <Link href={href} as={as} key={title}>
+                <Link passHref href={href} as={as} key={title}>
                   <a>
                     <MenuItem
                       active={router && href === router.route}
@@ -156,7 +156,7 @@ export default class Header extends Component {
         <Wrapper>
           {router && router.route === '/' && <PhoneHeader />}
           <Container hideSeparator={hideSeparator} transparent={transparent}>
-            <Link href="/">
+            <Link passHref href="/">
               <a>
                 <Logo
                   alt="Emcasa Imobiliária no Rio de Janeiro"

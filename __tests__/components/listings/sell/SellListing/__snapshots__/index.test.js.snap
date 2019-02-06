@@ -381,14 +381,18 @@ exports[`<SellListing/> should render a clean page 1`] = `
       <div
         className=""
       >
-        <p
-          className="c15 c16"
-          color="pink"
-          fontSize="default"
+        <a
+          href="/"
           onClick={[Function]}
         >
-          Você quer comprar?
-        </p>
+          <p
+            className="c15 c16"
+            color="pink"
+            fontSize="default"
+          >
+            Você quer comprar?
+          </p>
+        </a>
       </div>
     </div>
   </div>

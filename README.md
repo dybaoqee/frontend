@@ -37,8 +37,6 @@ Output file with bundle sizes will be created at .next/stats.txt
 
 Feel free to open issues and PRs.
 
-At the moment, we're tracking tasks at https://www.pivotaltracker.com/n/projects/2125081
-
 [0]: https://github.com/emcasa/backend
 [1]: https://docs.docker.com/install/
 [2]: https://docs.docker.com/compose/install/

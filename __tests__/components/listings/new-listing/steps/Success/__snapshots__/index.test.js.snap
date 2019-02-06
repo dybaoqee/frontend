@@ -521,36 +521,38 @@ exports[`renders correctly 1`] = `
                   fontSize="default"
                   onClick={[Function]}
                 >
-                  <div
-                    className="c28"
-                  >
+                  <a>
                     <div
-                      className="c29"
+                      className="c28"
                     >
-                      <svg
-                        height={16}
-                        version="1.1"
-                        viewBox="0 0 448 512"
-                        x={0}
-                        y={0}
+                      <div
+                        className="c29"
                       >
-                        <path
-                          d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
-                          fill="#f50057"
-                          mr={2}
-                          name="plus"
-                          type="default"
-                        />
-                      </svg>
+                        <svg
+                          height={16}
+                          version="1.1"
+                          viewBox="0 0 448 512"
+                          x={0}
+                          y={0}
+                        >
+                          <path
+                            d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
+                            fill="#f50057"
+                            mr={2}
+                            name="plus"
+                            type="default"
+                          />
+                        </svg>
+                      </div>
+                      <span
+                        className="c30"
+                        color="pink"
+                        fontSize="small"
+                      >
+                        Adicionar fotos
+                      </span>
                     </div>
-                    <span
-                      className="c30"
-                      color="pink"
-                      fontSize="small"
-                    >
-                      Adicionar fotos
-                    </span>
-                  </div>
+                  </a>
                 </span>
               </div>
             </div>

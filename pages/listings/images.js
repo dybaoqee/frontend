@@ -123,10 +123,13 @@ class ListingImages extends Component {
           <h1>Editar Imagens</h1>
           <EditButtons>
             <Link
+              passHref
               href={`/listings/edit?id=${listingId}`}
               as={`/imoveis/${listingId}/editar`}
             >
-              <EmCasaButton>Editar Imóvel</EmCasaButton>
+              <a>
+                <EmCasaButton>Editar Imóvel</EmCasaButton>
+              </a>
             </Link>
             <a href={`/imoveis/${listingId}`}>
               <EmCasaButton light>Visualizar anúncio</EmCasaButton>

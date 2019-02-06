@@ -116,10 +116,16 @@ class Success extends PureComponent {
                 bottomRender={() =>
                   <Row p={4} justifyContent="center">
                     <Link
+                      passHref
                       href={`/listings/images?listingId=${listingId}`}
                       as={`/imoveis/${listingId}/imagens`}
                     >
-                      <Row justifyContent="center"><Icon name="plus" color="pink" size={16} mr={2} /><Text inline fontSize="small" color="pink">Adicionar fotos</Text></Row>
+                      <a>
+                        <Row justifyContent="center">
+                          <Icon name="plus" color="pink" size={16} mr={2} />
+                          <Text inline fontSize="small" color="pink">Adicionar fotos</Text>
+                        </Row>
+                      </a>
                     </Link>
                   </Row>
                 }

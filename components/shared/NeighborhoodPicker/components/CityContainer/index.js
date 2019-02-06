@@ -8,6 +8,7 @@ import Button from '@emcasa/ui-dom/components/Button'
 import Text from '@emcasa/ui-dom/components/Text'
 import theme from '@emcasa/ui'
 import { randomKey } from 'lib/random'
+import FadeInOut from 'components/shared/Animation/FadeInOut'
 import {
   log,
   LISTING_SEARCH_NEIGHBORHOOD_SELECT_ALL
@@ -16,14 +17,14 @@ import {
   isNeighborhoodSelected,
   updateSelection,
   isCitySelected,
-  selectCity
+  selectCity,
+  sortByPopularity
 } from './selection'
 import {
   CitiesWrapper,
   NeighborhoodButton,
   Separator
 } from './styles'
-import { Animated } from '../../styles'
 
 const MAX_INITIAL_ITEMS = 3
 
@@ -52,8 +53,16 @@ class CityContainer extends Component {
 
   getNeighborhoodButton(key, isNewSelection, neighborhood) {
     return (
-      <View mr={2} mb={2}>
-        <NeighborhoodButton key={key} active={isNewSelection} onClick={() => {this.updateCurrentSelection(neighborhood.nameSlug)}}>{neighborhood.name}</NeighborhoodButton>
+      <View mr={2} mb={2} neighborhood={neighborhood}>
+        <NeighborhoodButton
+          key={key}
+          active={isNewSelection}
+          onClick={() => {
+            this.updateCurrentSelection(neighborhood.nameSlug)
+          }}
+        >
+          {neighborhood.name}
+        </NeighborhoodButton>
       </View>
     )
   }
@@ -105,7 +114,7 @@ class CityContainer extends Component {
           const showSeparator = i <= cities.length - 1
 
           const selectedNeighborhoodList = []
-          const deselectedNeighborhoodList = []
+          let deselectedNeighborhoodList = []
           city.neighborhoods.forEach((neighborhood, j) => {
             const isSelected = isNeighborhoodSelected(selectedNeighborhoods, neighborhood.nameSlug)
             const isNewSelection = isNeighborhoodSelected(this.state.currentSelection, neighborhood.nameSlug)
@@ -115,6 +124,10 @@ class CityContainer extends Component {
               deselectedNeighborhoodList.push(this.getNeighborhoodButton(j, isNewSelection, neighborhood))
             }
           })
+          if (!isExpanded) {
+            deselectedNeighborhoodList = sortByPopularity(deselectedNeighborhoodList)
+          }
+
           let buttonsRendered = 0
 
           return (
@@ -138,18 +151,18 @@ class CityContainer extends Component {
                     {selectedNeighborhoodList.map((Item) => {
                       buttonsRendered++
                       showExpandAll = buttonsRendered > MAX_INITIAL_ITEMS
-                      if (!isCityExpanded && buttonsRendered >= MAX_INITIAL_ITEMS) {
+                      if (!isCityExpanded && showExpandAll) {
                         return null
                       }
-                      return <Animated key={randomKey()}>{Item}</Animated>
+                      return <FadeInOut key={randomKey()}>{Item}</FadeInOut>
                     })}
                     {deselectedNeighborhoodList.map((Item) => {
                       buttonsRendered++
                       showExpandAll = buttonsRendered > MAX_INITIAL_ITEMS
-                      if (!isCityExpanded && buttonsRendered >= MAX_INITIAL_ITEMS) {
+                      if (!isCityExpanded && showExpandAll) {
                         return null
                       }
-                      return <Animated key={randomKey()}>{Item}</Animated>
+                      return <FadeInOut key={randomKey()}>{Item}</FadeInOut>
                     })}
                   </PoseGroup>
                   {(showExpandAll && !isCityExpanded) && <Button p={0} link onClick={() => {expand(city)}}>Ver mais</Button>}

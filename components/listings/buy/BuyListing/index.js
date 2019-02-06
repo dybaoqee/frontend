@@ -1,10 +1,8 @@
 import {Component} from 'react'
 import Link from 'next/link'
-import Router from 'next/router'
 import Col from '@emcasa/ui-dom/components/Col'
 import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
-import Button from '@emcasa/ui-dom/components/Button'
 import {isMobile} from 'lib/mobile'
 import NeighborhoodAutoComplete from 'components/shared/NeighborhoodAutoComplete'
 import NeighborhoodPicker from 'components/shared/NeighborhoodPicker'
@@ -135,8 +133,10 @@ export default class BuyListing extends Component {
           </Row>
           <Row justifyContent="center">
             <Col>
-              <Link href="/vender">
-                <UnderlinedText color="pink">Você quer vender?</UnderlinedText>
+              <Link passHref href="/vender">
+                <a>
+                  <UnderlinedText color="pink">Você quer vender?</UnderlinedText>
+                </a>
               </Link>
             </Col>
           </Row>

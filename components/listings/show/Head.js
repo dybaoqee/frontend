@@ -1,6 +1,5 @@
 import {Component} from 'react'
-import Head from 'next/head'
-
+import NextHead from 'components/shared/NextHead'
 import {mainListingImage} from 'utils/image_url'
 
 export default class ListingHead extends Component {
@@ -19,11 +18,13 @@ export default class ListingHead extends Component {
     },00 - ID${id}`
 
     return (
-      <Head>
-        <title>
-          {type} à venda na {address.street} - {address.neighborhood},{' '}
-          {address.city} - ID{id} | EmCasa
-        </title>
+      <NextHead
+        title={`${type} à venda na ${address.street} - ${address.neighborhood}, ${address.city} - ID${id} | EmCasa`}
+        description={description}
+        imageSrc={seoImgSrc}
+        imageWidth={'1024'}
+        imageHeight={'768'}
+      >
         <link
           rel="stylesheet"
           type="text/css"
@@ -35,12 +36,7 @@ export default class ListingHead extends Component {
           type="text/css"
           href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
         />
-        <meta name="description" content={description} />
-        <meta property="og:description" content={description} />
-        <meta property="og:image" content={seoImgSrc} />
-        <meta property="og:image:width" content="1024" />
-        <meta property="og:image:height" content="768" />
-      </Head>
+      </NextHead>
     )
   }
 }
