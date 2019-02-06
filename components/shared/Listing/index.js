@@ -1,10 +1,13 @@
 import {Component} from 'react'
 import Link from 'next/link'
 import NumberFormat from 'react-number-format'
-
 import {mainListingThumbnail} from 'utils/image_url'
 import Container from './styles'
 import {buildSlug} from 'lib/listings'
+import {
+  log,
+  LISTING_DETAIL_VIEW_FEATURED_LISTING
+} from 'lib/amplitude'
 
 export default class Listing extends Component {
   render() {
@@ -19,7 +22,9 @@ export default class Listing extends Component {
         passHref
       >
         <a className="GTAG">
-          <Container className="featured">
+          <Container className="featured" onClick={() => {
+            log(LISTING_DETAIL_VIEW_FEATURED_LISTING, {listingId: id})
+          }}>
             <div className="image-container" style={imgStyle} />
             <p className="price">
               <NumberFormat
