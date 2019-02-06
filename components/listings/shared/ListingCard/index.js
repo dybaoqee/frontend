@@ -17,15 +17,12 @@ import {
   ListingImage,
   LikeButtonContainer
 } from './styles'
+import {
+  log,
+  LISTING_SEARCH_VIEW_LISTING
+} from 'lib/amplitude'
 
 class ListingCard extends Component {
-  handleListingClick = () => {
-    const {listing} = this.props
-    Router.push(`/listings/show?id=${listing.id}`, buildSlug(listing)).then(
-      () => window.scrollTo(0, 0)
-    )
-  }
-
   render() {
     let {
       listing,
@@ -50,7 +47,11 @@ class ListingCard extends Component {
         passHref
       >
         <a style={{textDecoration: 'none'}}>
-          <Container aria-label={`listing-${listing.id}`}>
+          <Container aria-label={`listing-${listing.id}`} onClick={(e) => {
+            if (e.target.tagName !== 'path') {
+              log(LISTING_SEARCH_VIEW_LISTING, {listingId: listing.id})
+            }
+          }}>
             <ListingImage url={thumbUrl} />
             <Row flexDirection="column" p={2}>
               <Row><Text inline fontSize="small">{listing.address.neighborhood.toUpperCase()}</Text></Row>

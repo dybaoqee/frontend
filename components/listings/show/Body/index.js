@@ -7,12 +7,12 @@ import {getParagraphs} from 'utils/text-utils'
 import {canEdit} from 'permissions/listings-permissions'
 import {
   log,
-  LISTING_SEARCH_VIEW_LISTING
+  LISTING_DETAIL_OPEN
 } from 'lib/amplitude'
 
 export default class ListingMainContent extends PureComponent {
   componentDidMount() {
-    log(LISTING_SEARCH_VIEW_LISTING, {listingId: this.props.listing.id})
+    log(LISTING_DETAIL_OPEN, {listingId: this.props.listing.id})
   }
 
   render() {
