@@ -19,6 +19,10 @@ import {
   Soon,
   Spacer
 } from './styles'
+import {
+  log,
+  BUYER_LANDING_NEIGHBORHOOD_LINK
+} from 'lib/amplitude'
 
 const RJ_SLUG = 'rio-de-janeiro'
 const SP_SLUG = 'sao-paulo'
@@ -65,7 +69,9 @@ const getCityNeighborhoodLinks = (citySlug) => (
                   asPath: url
                 }}
               >
-                <a title={`Comprar imóvel: ${district.name}`}>
+                <a title={`Comprar imóvel: ${district.name}`} onClick={() => {
+                  log(BUYER_LANDING_NEIGHBORHOOD_LINK, {neighborhood: district.nameSlug})
+                }}>
                   Apartamentos em {district.name}
                 </a>
               </Link>
@@ -108,7 +114,9 @@ export default class Neighborhoods extends Component {
                           href={props.soon ? null : `/imoveis/${stateSlug}/${citySlug}/${slug(name.toLowerCase())}`}
                         >
                           <a>
-                            <Neighborhood {...props}>
+                            <Neighborhood {...props} onClick={() => {
+                              log(BUYER_LANDING_NEIGHBORHOOD_IMAGE, {neighborhood: name})
+                            }}>
                               <Text>{name}</Text>
                               {props.soon && <Soon />}
                             </Neighborhood>

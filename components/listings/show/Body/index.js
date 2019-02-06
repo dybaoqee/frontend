@@ -7,12 +7,26 @@ import {getParagraphs} from 'utils/text-utils'
 import {canEdit} from 'permissions/listings-permissions'
 import {
   log,
-  LISTING_SEARCH_VIEW_LISTING
+  LISTING_DETAIL_OPEN
 } from 'lib/amplitude'
 
 export default class ListingMainContent extends PureComponent {
   componentDidMount() {
-    log(LISTING_SEARCH_VIEW_LISTING, {listingId: this.props.listing.id})
+    const {id, address, area, bathrooms, floor, garageSpots, price, rooms, type, maintenanceFee, propertyTax} = this.props.listing
+    log(LISTING_DETAIL_OPEN, {
+      listingId: id,
+      neighborhood: address.neighborhoodSlug,
+      city: address.citySlug,
+      area,
+      bathrooms,
+      floor,
+      garageSpots,
+      price,
+      rooms,
+      type,
+      maintenanceFee,
+      propertyTax,
+    })
   }
 
   render() {

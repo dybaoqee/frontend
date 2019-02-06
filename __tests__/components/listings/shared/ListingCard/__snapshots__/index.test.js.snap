@@ -108,6 +108,7 @@ exports[`<ListingCard/> should render component 1`] = `
   <div
     aria-label="listing-undefined"
     className="c0 "
+    onClick={[Function]}
   >
     <div
       className="c1 "
