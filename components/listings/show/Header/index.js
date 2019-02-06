@@ -27,6 +27,11 @@ import faCube from '@fortawesome/fontawesome-pro-light/faCube'
 import faExpand from '@fortawesome/fontawesome-pro-light/faExpandArrows'
 import faMinimize from '@fortawesome/fontawesome-pro-light/faCompressAlt'
 import {mobileMedia} from 'constants/media'
+import {
+  log,
+  LISTING_DETAIL_PHOTOS_LEFT,
+  LISTING_DETAIL_PHOTOS_RIGHT
+} from 'lib/amplitude'
 
 export default class ListingHeader extends Component {
   state = {
@@ -127,7 +132,7 @@ export default class ListingHeader extends Component {
   }
 
   getSliderNavigation = () => {
-    const {listing: {images, matterportCode}} = this.props
+    const {listing: {id, images, matterportCode}} = this.props
     const settings = {
       infinite: true,
       className: 'thumb-slider',
@@ -135,8 +140,8 @@ export default class ListingHeader extends Component {
       slidesToShow: this.state.slidesToShow,
       slidesToScroll: 1,
       swipeToSlide: true,
-      nextArrow: <SliderArrow icon={faAngleRight} />,
-      prevArrow: <SliderArrow icon={faAngleLeft} left={true} />,
+      nextArrow: <SliderArrow icon={faAngleRight} listingId={id} />,
+      prevArrow: <SliderArrow icon={faAngleLeft} left={true} listingId={id} />,
       centerMode: true,
       focusOnSelect: true
     }
@@ -197,8 +202,8 @@ export default class ListingHeader extends Component {
         }
       ],
       adaptiveHeight: false,
-      nextArrow: <SliderArrow icon={faAngleRight} />,
-      prevArrow: <SliderArrow icon={faAngleLeft} left={true} />
+      nextArrow: <SliderArrow icon={faAngleRight} listingId={listing.id} />,
+      prevArrow: <SliderArrow icon={faAngleLeft} left={true} listingId={listing.id} />
     }
 
     return (
@@ -283,9 +288,14 @@ export default class ListingHeader extends Component {
   }
 }
 
-function SliderArrow({onClick, icon, left}) {
+function SliderArrow({onClick, icon, left, listingId}) {
   return (
-    <Arrow onClick={onClick} left={left}>
+    <Arrow onClick={() => {
+      const properties = {listingId}
+      const event = left ? LISTING_DETAIL_PHOTOS_LEFT : LISTING_DETAIL_PHOTOS_RIGHT
+      log(event, properties)
+      onClick()
+    }} left={left}>
       <FontAwesomeIcon icon={icon} />
     </Arrow>
   )
