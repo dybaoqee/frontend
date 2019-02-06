@@ -22,7 +22,11 @@ import Breadcrumb from 'components/shared/Common/Breadcrumb'
 import {buildSlug, getListingId} from 'lib/listings'
 import Head from 'next/head'
 import getApolloClient from 'lib/apollo/initApollo'
-
+import {
+  log,
+  getPreferredContactType,
+  LISTING_DETAIL_SCHEDULE_VISIT
+} from 'lib/amplitude'
 
 class Listing extends Component {
   favMutated = false
@@ -139,6 +143,7 @@ class Listing extends Component {
 
     const {interestForm} = this.state
     const {id} = this.props.listing
+    const {listing} = this.props
 
     const res = await createInterest(id, custom || interestForm)
 
@@ -146,6 +151,23 @@ class Listing extends Component {
       this.setState({errors: res.data.errors})
       return
     }
+
+    const {area, bathrooms, floor, garageSpots, price, rooms, type, maintenanceFee, propertyTax} = listing
+    log(LISTING_DETAIL_SCHEDULE_VISIT, {
+      listingId: id,
+      neighborhood: listing.address.neighborhoodSlug,
+      city: listing.address.citySlug,
+      area,
+      bathrooms,
+      floor,
+      garageSpots,
+      price,
+      rooms,
+      type,
+      maintenanceFee,
+      propertyTax,
+      preferredContact: getPreferredContactType(interestForm.interest_type_id)
+    })
 
     if (!res.data) {
       return res
