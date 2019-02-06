@@ -21,6 +21,7 @@ export const Content = styled(View)`
 `
 
 export const Title = Text.withComponent('h2')
+export const SubTitle = Text.withComponent('h3')
 
 export const Icon = styled.div`
   background-image: url('/static/svg-icons/${props => props.name}.svg');

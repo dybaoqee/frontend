@@ -15,7 +15,8 @@ import {
   StepArrow,
   StepContainer,
   Steps,
-  Title
+  Title,
+  SubTitle
 } from './styles'
 
 const STEPS = [
@@ -79,10 +80,10 @@ export default class HowItWorks extends Component {
           </Row>
           <Row justifyContent="center">
             <Col width={10 / 12}>
-              <Text color="grey" textAlign="center">
+              <SubTitle color="grey" textAlign="center">
                 Nosso time de especialistas está preparado para te guiar em cada etapa do processo de venda
                 do seu imóvel.
-              </Text>
+              </SubTitle>
             </Col>
           </Row>
           <Steps justifyContent="center" mt={40}>
