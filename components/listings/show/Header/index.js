@@ -215,6 +215,7 @@ export default class ListingHeader extends Component {
                 <Matterport
                   matterport_code={listing.matterportCode}
                   handleClose={this.hide3DTour}
+                  listingId={listing.id}
                 />
               )}
               <Carousel
