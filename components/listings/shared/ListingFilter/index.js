@@ -25,7 +25,8 @@ import {
 } from './components/FilterPanel/styles'
 import {
   Container,
-  ButtonsWrapper
+  ButtonsWrapper,
+  ButtonsWrapperBase
 } from './styles'
 import {
   getFilterButtons,
@@ -226,13 +227,13 @@ class ListingFilter extends Component {
     return (
       <Container isFilterOpen={isFilterOpen}>
         <PoseGroup>
-          <ButtonsWrapper expanded={expanded} key={1} pose={expanded ? 'open' : 'closed'}>
+          <ButtonsWrapperBase expanded={expanded} key={1} pose={expanded ? 'open' : 'closed'}>
             {getFilterButtons(this.props.filters, this.showFilter, this.getOpenButton)}
             <ExpandButton
               expanded={expanded}
               onClick={this.toggleFilters}
             />
-          </ButtonsWrapper>
+          </ButtonsWrapperBase>
         </PoseGroup>
         <FilterPanel
           filter={FILTERS.TYPES}
