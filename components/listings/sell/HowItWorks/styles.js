@@ -15,8 +15,8 @@ export const Content = styled(View)`
   justify-content: space-between;
   max-width: 1100px;
   @media (max-width: ${theme.breakpoints[0]}) {
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: ${theme.space[4]};
+    padding-right: ${theme.space[4]};
   }
 `
 
@@ -41,7 +41,7 @@ export const Step = styled.div`
   border-radius: 4px;
   width: 120px;
   height: 164px;
-  padding: 5px;
+  padding: ${theme.space[1]};
   p {
     margin: 0;
   }
@@ -65,14 +65,14 @@ export const StepArrow = styled.div`
   background-size: contain;
   background-position: center center;
   width: 70px;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: ${theme.space[2]}px;
+  margin-right: ${theme.space[2]}px;
   opacity: ${props => props.isLast ? '0' : '1'};
 `
 
 export const StepContainer = styled(Row)`
   @media (max-width: ${theme.breakpoints[0]}) {
-    margin-top: 10px;
+    margin-top: ${theme.space[2]}px;
     margin-bottom: 70px;
   }
 `
