@@ -85,7 +85,10 @@ class NeighborhoodPicker extends Component {
 
   apply(newSelection) {
     this.changeSelection(newSelection, () => {
-      log(LISTING_SEARCH_NEIGHBORHOOD_APPLY, {neighborhoods: this.state.selectedNeighborhoods})
+      log(LISTING_SEARCH_NEIGHBORHOOD_APPLY, {
+        neighborhoods: this.state.selectedNeighborhoods,
+        fromHome: this.props.fromHome
+      })
       this.toggleCitiesDisplay()
       if (this.props.onBackPressed) {
         this.props.onBackPressed()
