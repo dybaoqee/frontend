@@ -13,7 +13,8 @@ import {isMobile} from 'lib/mobile'
 import {imageUrl} from 'utils/image_url'
 import {
   log,
-  SELLER_LANDING_PAGE
+  SELLER_LANDING_PAGE,
+  SELLER_LANDING_EXPLORE_LISTINGS
 } from 'lib/amplitude'
 import NextHead from 'components/shared/NextHead'
 
@@ -126,6 +127,9 @@ export default class Sell extends Component {
       ],
       buttonHref: '/vender/imovel',
       buttonLabel: 'Conheça mais a EmCasa',
+      buttonClick: () => {
+          log(SELLER_LANDING_EXPLORE_LISTINGS)
+      },
       isMobile: isMobile(this.state.pageWidth)
     }
 

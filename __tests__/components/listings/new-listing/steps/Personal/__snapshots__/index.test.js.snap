@@ -17,18 +17,26 @@ exports[`renders correctly 1`] = `
   font-size: 18px;
 }
 
-.c9 {
+.c8 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
   color: #3c4858;
-  font-size: 14px;
+  font-size: 18px;
 }
 
-.c10 {
+.c9 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
   color: #ff4949;
   font-size: 18px;
+}
+
+.c7 {
+  display: block;
+  min-height: 25px;
+  color: #ff4949;
+  font-size: 14px;
+  font-family: FaktSoftPro-Normal;
 }
 
 .c6 {
@@ -75,16 +83,6 @@ exports[`renders correctly 1`] = `
   color: #8492a6;
 }
 
-.c7 {
-  height: 25px;
-}
-
-.c8 {
-  color: #ff4949;
-  font-family: FaktSoftPro-Normal;
-  font-size: 14px;
-}
-
 .c0 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -105,7 +103,7 @@ exports[`renders correctly 1`] = `
   display: flex;
 }
 
-.c11 {
+.c10 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -126,11 +124,11 @@ exports[`renders correctly 1`] = `
   width: 100%;
 }
 
-.c12 {
+.c11 {
   width: 41.66666666666667%;
 }
 
-.c13 {
+.c12 {
   outline: none;
   display: block;
   cursor: pointer;
@@ -148,11 +146,11 @@ exports[`renders correctly 1`] = `
   border-style: solid;
 }
 
-.c13 :hover {
+.c12 :hover {
   background-color: #ffffff;
 }
 
-.c14 {
+.c13 {
   outline: none;
   display: block;
   cursor: default;
@@ -170,7 +168,7 @@ exports[`renders correctly 1`] = `
   border-style: solid;
 }
 
-.c14 :hover {
+.c13 :hover {
   background-color: #ffffff;
 }
 
@@ -226,15 +224,11 @@ exports[`renders correctly 1`] = `
               onChange={[Function]}
               placeholder="Nome*"
             />
-            <div
-              className="c7 "
-            >
-              <span
-                className="c8 c9"
-                color="dark"
-                fontSize="small"
-              />
-            </div>
+            <span
+              className="c7 c8"
+              color="dark"
+              fontSize="default"
+            />
           </div>
         </div>
       </div>
@@ -256,32 +250,28 @@ exports[`renders correctly 1`] = `
               onChange={[Function]}
               placeholder="E-mail"
             />
-            <div
-              className="c7 "
-            >
-              <span
-                className="c8 c9"
-                color="dark"
-                fontSize="small"
-              />
-            </div>
+            <span
+              className="c7 c8"
+              color="dark"
+              fontSize="default"
+            />
           </div>
         </div>
       </div>
       <p
-        className="c10"
+        className="c9"
         color="red"
         fontSize="default"
       />
       <div
-        className="c11"
+        className="c10"
       >
         <div
-          className="c12"
+          className="c11"
           width={0.4166666666666667}
         >
           <button
-            className="c13"
+            className="c12"
             fontSize="default"
             height="tall"
             onClick={[Function]}
@@ -290,11 +280,11 @@ exports[`renders correctly 1`] = `
           </button>
         </div>
         <div
-          className="c12"
+          className="c11"
           width={0.4166666666666667}
         >
           <button
-            className="c14"
+            className="c13"
             disabled={true}
             fontSize="default"
             height="tall"

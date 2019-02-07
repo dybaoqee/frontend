@@ -45,7 +45,7 @@ export default class Benefits extends Component {
   }
 
   render() {
-    const {sectionTitle, buttonHref, buttonLabel, isMobile} = this.props
+    const {sectionTitle, buttonHref, buttonLabel, buttonClick, isMobile} = this.props
 
     return (
       <Container>
@@ -70,7 +70,7 @@ export default class Benefits extends Component {
             <Col width={[1, 4 / 12]}>
               <Link passHref href={buttonHref}>
                 <a>
-                  <Button height="tall" fluid>
+                  <Button height="tall" fluid onClick={buttonClick}>
                     {buttonLabel}
                   </Button>
                 </a>

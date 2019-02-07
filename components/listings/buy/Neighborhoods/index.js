@@ -22,6 +22,10 @@ import {
   SubTitle,
   ListTitle
 } from './styles'
+import {
+  log,
+  BUYER_LANDING_NEIGHBORHOOD_LINK
+} from 'lib/amplitude'
 
 const RJ_SLUG = 'rio-de-janeiro'
 const SP_SLUG = 'sao-paulo'
@@ -69,7 +73,9 @@ const getCityNeighborhoodLinks = (citySlug, noTitle) => (
                   asPath: url
                 }}
               >
-                <a title={`Comprar imóvel: ${district.name}`} class="NeighborhoodLink">
+                <a class="NeighborhoodLink" title={`Comprar imóvel: ${district.name}`} onClick={() => {
+                  log(BUYER_LANDING_NEIGHBORHOOD_LINK, {neighborhood: district.nameSlug})
+                }}>
                   {noTitle ? (
                       `Apartamentos em ${district.name}`
                     ) : (
@@ -118,7 +124,9 @@ export default class Neighborhoods extends Component {
                           href={props.soon ? null : `/imoveis/${stateSlug}/${citySlug}/${slug(name.toLowerCase())}`}
                         >
                           <a>
-                            <Neighborhood {...props}>
+                            <Neighborhood {...props} onClick={() => {
+                              log(BUYER_LANDING_NEIGHBORHOOD_IMAGE, {neighborhood: name})
+                            }}>
                               <Text>{name}</Text>
                               {props.soon && <Soon />}
                             </Neighborhood>

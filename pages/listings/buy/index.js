@@ -13,7 +13,8 @@ import {isMobile} from 'lib/mobile'
 import {imageUrl} from 'utils/image_url'
 import {
   log,
-  BUYER_LANDING_PAGE
+  BUYER_LANDING_PAGE,
+  BUYER_LANDING_EXPLORE_LISTINGS
 } from 'lib/amplitude'
 import NextHead from 'components/shared/NextHead'
 
@@ -126,6 +127,9 @@ export default class Buy extends Component {
       ],
       buttonHref: '/imoveis',
       buttonLabel: 'Explorar Imóveis',
+      buttonClick: () => {
+          log(BUYER_LANDING_EXPLORE_LISTINGS)
+      },
       isMobile: isMobile(this.state.pageWidth)
     }
 
