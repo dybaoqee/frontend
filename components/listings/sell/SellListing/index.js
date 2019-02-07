@@ -9,7 +9,14 @@ import {isMobile} from 'lib/mobile'
 import AddressAutoComplete from 'components/shared/AddressAutoComplete'
 import MobileAddressButton from 'components/shared/MobileAddressButton'
 import { MobileTypeaheadContainer } from 'components/shared/AddressAutoComplete/styles'
-
+import ScrollTracker from 'components/shared/ScrollTracker'
+import {
+  log,
+  SELLER_LANDING_SCROLL_25,
+  SELLER_LANDING_SCROLL_50,
+  SELLER_LANDING_SCROLL_75,
+  SELLER_LANDING_SCROLL_100
+} from 'lib/amplitude'
 import {
   UnderlinedText,
   Container,
@@ -65,6 +72,12 @@ export default class SellListing extends Component {
 
     return (
       <Container>
+        <ScrollTracker
+          onScroll25={() => {log(SELLER_LANDING_SCROLL_25)}}
+          onScroll50={() => {log(SELLER_LANDING_SCROLL_50)}}
+          onScroll75={() => {log(SELLER_LANDING_SCROLL_75)}}
+          onScroll100={() => {log(SELLER_LANDING_SCROLL_100)}}
+        />
         <Content>
           <Row justifyContent="center" px={[4, 0]}>
             <Col>
