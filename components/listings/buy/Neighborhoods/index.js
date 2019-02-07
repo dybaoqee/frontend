@@ -21,6 +21,7 @@ import {
 } from './styles'
 import {
   log,
+  BUYER_LANDING_NEIGHBORHOOD_IMAGE,
   BUYER_LANDING_NEIGHBORHOOD_LINK
 } from 'lib/amplitude'
 
