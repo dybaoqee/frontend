@@ -1,9 +1,9 @@
 import {Fragment} from 'react'
 import {Provider} from 'react-redux'
+import * as Sentry from '@sentry/browser'
 import withRedux from 'next-redux-wrapper'
 import App, {Container} from 'next/app'
 import Head from 'next/head'
-import * as Sentry from '@sentry/browser'
 import isUndefined from 'lodash/isUndefined'
 import Layout from 'components/shared/Shell'
 import {isAuthenticated, isAdmin, getCurrentUserId} from 'lib/auth'
@@ -68,6 +68,17 @@ class MyApp extends App {
         })
       )
     }
+  }
+
+  componentDidCatch(error, errorInfo) {
+    Sentry.withScope(scope => {
+      if (errorInfo) {
+        Object.keys(errorInfo).forEach(key => {
+          scope.setExtra(key, errorInfo[key])
+        })
+      }
+      Sentry.captureException(error)
+    });
   }
 
   render() {
