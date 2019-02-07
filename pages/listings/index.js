@@ -19,6 +19,10 @@ import {
   log,
   LISTING_SEARCH_OPEN
 } from 'lib/amplitude'
+import {
+  getTitleTextByFilters,
+  getTitleTextByParams
+} from 'components/listings/shared/ListingList/title'
 
 class ListingSearch extends Component {
   constructor(props) {
@@ -118,31 +122,17 @@ class ListingSearch extends Component {
   }
 
   getHead = () => {
+    const {filters} = this.state
     const {params} = this.props
-    const {neighborhood} = this.state
-    let location = 'na Zona Sul do Rio de Janeiro e em São Paulo'
+    const titleContent = filters && filters.neighborhoods ? getTitleTextByFilters(filters.neighborhoods) : getTitleTextByParams(params)
     let imageSrc = imageUrl('buy.jpg')
-
-    if (neighborhood) {
-      location = `em ${neighborhood}, ${params.state === 'rj' ? 'Rio De Janeiro' : 'São Paulo'}`
-    } else if (params && params.city === 'rio-de-janeiro') {
-      location = 'na Zona Sul do Rio de Janeiro'
-    } else if (params && params.city === 'sao-paulo') {
-      location = 'na cidade de São Paulo'
-    } else if (params && params.state === 'rj') {
-      location = 'no Rio de Janeiro'
-    } else if (params && params.state === 'sp') {
-      location = 'em São Paulo'
-    }
-
-    if (params && params.state === 'rj') imageSrc = imageUrl('buy-rj.jpg')
-    if (params && params.state === 'sp') imageSrc = imageUrl('buy-sp.jpg')
 
     return (
       <NextHead
-        title={`Apartamentos e Casas à venda ${location} | Emcasa`}
-        description={`Conheça em Compre Apartamentos e Casas à venda ${location} com o sistema exclusivo de Tour Virtual 3D do Emcasa, a sua startup imobiliária.`}
+        title={`${titleContent} | Emcasa`}
+        description={`Conheça em Compre Apartamentos e Casas à venda ${titleContent} com o sistema exclusivo de Tour Virtual 3D do Emcasa, a sua startup imobiliária.`}
         imageSrc={imageSrc}
+        url={`https://www.emcasa.com${this.props.router.asPath}`}
       />
     )
   }
@@ -156,7 +146,7 @@ class ListingSearch extends Component {
         filters.citiesSlug = [params.city]
       }
       if (params.neighborhood) {
-        filters.neighborhoodsSlugs = [params.neighborhood]
+        filters.neighborhoods = [params.neighborhood]
       }
     }
 
