@@ -23,6 +23,9 @@ import {
   getTitleTextByFilters,
   getTitleTextByParams
 } from 'components/listings/shared/ListingList/title'
+import {NEIGHBORHOODS} from 'constants/listing-locations'
+
+const BASE_URL = 'https://www.emcasa.com/imoveis'
 
 class ListingSearch extends Component {
   constructor(props) {
@@ -121,18 +124,32 @@ class ListingSearch extends Component {
     Router.push('/listings', '/imoveis', {shallow: true})
   }
 
+  getCanonical = (neighborhoodsSlugs)  => {
+    if (neighborhoodsSlugs.length > 1) {
+      return ''
+    } else {
+      const {state, city, neighborhood} = NEIGHBORHOODS.find(value => value.neighborhood === neighborhoodsSlugs[0])
+      return state ? `/${state}/${city}/${neighborhood}` : ''
+    }
+  }
+
   getHead = () => {
     const {filters} = this.state
     const {params} = this.props
     const titleContent = filters && filters.neighborhoods ? getTitleTextByFilters(filters.neighborhoods) : getTitleTextByParams(params)
-    let imageSrc = imageUrl('buy.jpg')
+    let url = BASE_URL
+    let canonical = filters && filters.neighborhoods ? `${BASE_URL}${this.getCanonical(filters.neighborhoods)}`: undefined
+
+    url = params.state && canonical ? canonical : url
 
     return (
       <NextHead
         title={`${titleContent} | Emcasa`}
         description={`Conheça em Compre Apartamentos e Casas à venda ${titleContent} com o sistema exclusivo de Tour Virtual 3D do Emcasa, a sua startup imobiliária.`}
-        imageSrc={imageSrc}
-        url={`https://www.emcasa.com${this.props.router.asPath}`}
+        imageSrc={imageUrl('buy.jpg')}
+        url={url}
+        canonical={canonical}
+
       />
     )
   }
