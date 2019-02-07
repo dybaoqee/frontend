@@ -6,6 +6,10 @@ import Row from '@emcasa/ui-dom/components/Row'
 const LINK_FONT_SIZE_MOBILE = '14px';
 const LINK_FONT_SIZE = '16px'
 
+export const Wrapper = styled.address`
+  font-style: normal;
+`
+
 export const Container = styled(Row)`
   border-top: 1px solid ${theme.colors.pink};
   margin: 50px;

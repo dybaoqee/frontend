@@ -196,6 +196,17 @@ export const ShortLogo = styled.div`
   max-width: 32px;
 `
 
+export const LabelLogo = styled.span`
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  padding: 0;
+  border: 0;
+`
+
 const fadeIn = keyframes`
   from { opacity: 0; }
   to   { opacity: 0.5; }

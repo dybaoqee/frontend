@@ -24,12 +24,10 @@ import ProgressDialog from './components/ProgressDialog'
 import {imageUrl} from 'utils/image_url'
 import NextHead from 'components/shared/NextHead'
 
-
 const seoImg = imageUrl('sell.jpg')
 const seoTitle = 'Anuncie e Venda seu Imóvel no Rio de Janeiro ou em São Paulo'
 const seoDescription =
   'Anuncie e Venda seu Imóvel no Rio de Janeiro ou em São Paulo com Emcasa, a startup imobiliária que tem exclusivo sistema de Tour Virtual 3D para aumentar suas chances de venda.'
-
 
 class NewListing extends Component {
   constructor(props) {
