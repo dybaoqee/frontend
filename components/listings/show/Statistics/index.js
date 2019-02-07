@@ -82,16 +82,18 @@ export default ({listing: {insertedAt, id, isActive}, user}) => (
               <span>{inPersonVisitCount}</span>
             </Title>
           </Topic>
-          <Topic>
-            <FontAwesomeIcon icon={faExternalLink} />
-            <Title>
-              <a href={`${process.env.GARAGEM_URL}/imoveis/${id}`} target="_blank">
-                <Button link height="auto" p={0}>
-                  Ver no garagem
-                </Button>
-              </a>
-            </Title>
-          </Topic>
+          {user.admin && (
+            <Topic>
+              <FontAwesomeIcon icon={faExternalLink} />
+              <Title>
+                <a href={`${process.env.GARAGEM_URL}/imoveis/${id}`} target="_blank">
+                  <Button link height="auto" p={0}>
+                    Ver no garagem
+                  </Button>
+                </a>
+              </Title>
+            </Topic>
+          )}
         </Container>
       )
     }}
