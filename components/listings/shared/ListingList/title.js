@@ -77,11 +77,11 @@ const NEIGHBORHOODS = [
     neighborhoodValue: 'Catete'
   },
   {
-    state: 'rj Velho',
-    city: 'rio-de-janeiro Velho',
+    state: 'rj',
+    city: 'rio-de-janeiro',
     neighborhood: 'cosme-velho',
     stateValue: 'RJ',
-    cityValue: 'Rio de Janeiro Velho',
+    cityValue: 'Rio de Janeiro',
     neighborhoodValue: 'Cosme Velho'
   },
   {
@@ -117,11 +117,11 @@ const NEIGHBORHOODS = [
     neighborhoodValue: 'Itanhangá'
   },
   {
-    state: 'rj Botânico',
-    city: 'rio-de-janeiro Botânico',
+    state: 'rj',
+    city: 'rio-de-janeiro',
     neighborhood: 'jardim-botanico',
     stateValue: 'RJ',
-    cityValue: 'Rio de Janeiro Botânico',
+    cityValue: 'Rio de Janeiro',
     neighborhoodValue: 'Jardim Botânico'
   },
   {
@@ -165,11 +165,11 @@ const NEIGHBORHOODS = [
     neighborhoodValue: 'Leme'
   },
   {
-    state: 'rj Conrado',
-    city: 'rio-de-janeiro Conrado',
+    state: 'rj',
+    city: 'rio-de-janeiro',
     neighborhood: 'sao-conrado',
     stateValue: 'RJ',
-    cityValue: 'Rio de Janeiro Conrado',
+    cityValue: 'Rio de Janeiro',
     neighborhoodValue: 'São Conrado'
   },
   {
@@ -236,10 +236,16 @@ function getTitleTextByParams(params) {
 }
 
 export {
-  getTitleText
-}
-
-export {
+  BUY_TITLE_BASE,
+  BUY_TITLE_DEFAULT_END,
+  BUY_TITLE_FILTER_PREPOSITION,
+  BUY_TITLE_NEIGHBORHOOD_PREPOSITION,
+  BUY_TITLE_CITY_PREPOSITION,
+  BUY_TITLE_STATE_PREPOSITION,
+  NEIGHBORHOODS,
+  CITIES,
+  STATES,
+  CUSTOM_BUY_TITLE,
   getTitleTextByFilters,
   getTitleTextByParams
 }
