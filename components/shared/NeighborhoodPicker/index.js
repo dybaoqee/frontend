@@ -23,7 +23,7 @@ import {
   LISTING_SEARCH_NEIGHBORHOOD_CLEAR,
   LISTING_SEARCH_NEIGHBORHOOD_EXPAND,
   LISTING_SEARCH_NEIGHBORHOOD_CHANGE_CITY
-} from 'lib/amplitude'
+} from 'lib/logging'
 import {
   addNeighborhoodsToQuery,
   getDerivedParams

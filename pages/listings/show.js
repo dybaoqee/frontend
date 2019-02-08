@@ -26,7 +26,7 @@ import {
   log,
   getPreferredContactType,
   LISTING_DETAIL_SCHEDULE_VISIT
-} from 'lib/amplitude'
+} from 'lib/logging'
 
 class Listing extends Component {
   favMutated = false

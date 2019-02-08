@@ -18,7 +18,7 @@ import {imageUrl} from 'utils/image_url'
 import {
   log,
   LISTING_SEARCH_OPEN
-} from 'lib/amplitude'
+} from 'lib/logging'
 
 class ListingSearch extends Component {
   constructor(props) {

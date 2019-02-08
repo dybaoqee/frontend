@@ -8,7 +8,7 @@ import {canEdit} from 'permissions/listings-permissions'
 import {
   log,
   LISTING_DETAIL_OPEN
-} from 'lib/amplitude'
+} from 'lib/logging'
 
 export default class ListingMainContent extends PureComponent {
   componentDidMount() {

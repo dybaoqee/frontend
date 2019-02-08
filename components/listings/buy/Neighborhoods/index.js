@@ -26,7 +26,7 @@ import {
   log,
   BUYER_LANDING_NEIGHBORHOOD_IMAGE,
   BUYER_LANDING_NEIGHBORHOOD_LINK
-} from 'lib/amplitude'
+} from 'lib/logging'
 
 const RJ_SLUG = 'rio-de-janeiro'
 const SP_SLUG = 'sao-paulo'

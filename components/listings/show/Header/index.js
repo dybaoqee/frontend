@@ -33,7 +33,7 @@ import {
   LISTING_DETAIL_PHOTOS_RIGHT,
   LISTING_DETAIL_PHOTOS_FULLSCREEN_OPEN,
   LISTING_DETAIL_PHOTOS_FULLSCREEN_CLOSE,
-} from 'lib/amplitude'
+} from 'lib/logging'
 
 export default class ListingHeader extends Component {
   state = {

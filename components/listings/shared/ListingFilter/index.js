@@ -19,7 +19,7 @@ import {
   LISTING_SEARCH_FILTER_CLEAR,
   LISTING_SEARCH_FILTER_CLOSE,
   LISTING_SEARCH_FILTER_TOGGLE
-} from 'lib/amplitude'
+} from 'lib/logging'
 import {
   MAX_FILTER_PANEL_DESKTOP_WIDTH
 } from './components/FilterPanel/styles'
