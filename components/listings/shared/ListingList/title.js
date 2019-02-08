@@ -11,13 +11,51 @@ import {
   CUSTOM_BUY_TITLE
 } from 'constants/listing-locations'
 
+function getStateTitle(state) {
+  const custom = CUSTOM_BUY_TITLE.find(a => a.state === state)
+  const {stateValue} = STATES.find(a => a.state === state)
+
+  return custom ? ` ${custom.value}` : ` ${BUY_TITLE_STATE_PREPOSITION} ${stateValue}`
+}
+
+function getCityTitle(city) {
+  const custom = CUSTOM_BUY_TITLE.find(a => a.city === city)
+  const {stateValue, cityValue} = CITIES.find(a => a.city === city)
+
+  return custom ? ` ${custom.value}` : ` ${BUY_TITLE_CITY_PREPOSITION} ${cityValue} - ${stateValue}`
+}
+
+function getNeighborhoodTitle(neighborhood) {
+  const custom = CUSTOM_BUY_TITLE.find(a => a.neighborhood === neighborhood)
+  const {stateValue, cityValue, neighborhoodValue} = NEIGHBORHOODS.find(a => a.neighborhood === neighborhood)
+
+  return custom ? ` ${custom.value}` : ` ${BUY_TITLE_NEIGHBORHOOD_PREPOSITION} ${neighborhoodValue}, ${cityValue} - ${stateValue}`
+}
+
 function getTitleTextByFilters(neighborhoodsSlugs) {
   let h1Content = `${BUY_TITLE_BASE}`
   if (neighborhoodsSlugs.length > 1) {
-    h1Content += ` ${BUY_TITLE_DEFAULT_END}`
+    const neighborhoodsFilter = NEIGHBORHOODS.reduce((a, b) => {
+      if (neighborhoodsSlugs.indexOf(b.neighborhood) > -1) {
+        a.push(b)
+      }
+      return a
+    }, [])
+
+    const sameState = neighborhoodsFilter.reduce((a, b) => a.state === b.state ? a : false)
+
+    if (sameState) {
+      const sameCity = neighborhoodsFilter.reduce((a, b) => a.city === b.city ? a : false)
+      if (sameCity) {
+        h1Content += getCityTitle(neighborhoodsFilter[0].city)
+      } else {
+        h1Content += getStateTitle(neighborhoodsFilter[0].state)
+      }
+    } else {
+      h1Content += ` ${BUY_TITLE_DEFAULT_END}`
+    }
   } else {
-    const {stateValue, cityValue, neighborhoodValue} = NEIGHBORHOODS.find(value => value.neighborhood === neighborhoodsSlugs[0])
-    h1Content += ` ${BUY_TITLE_NEIGHBORHOOD_PREPOSITION} ${neighborhoodValue}, ${cityValue} - ${stateValue}`
+    h1Content += getNeighborhoodTitle(neighborhoodsSlugs[0])
   }
   return `${h1Content}`
 }
@@ -27,17 +65,11 @@ function getTitleTextByParams(params) {
   const {state, city, neighborhood} = params
 
   if (neighborhood) {
-    const custom = CUSTOM_BUY_TITLE.find(title => title.neighborhood === neighborhood)
-    const {stateValue, cityValue, neighborhoodValue} = NEIGHBORHOODS.find(value => value.neighborhood === neighborhood)
-    h1Content += custom ? ` ${custom.value}` : ` ${BUY_TITLE_NEIGHBORHOOD_PREPOSITION} ${neighborhoodValue}, ${cityValue} - ${stateValue}`
+    h1Content += getNeighborhoodTitle(neighborhoodsSlugs[0])
   } else if (city) {
-    const custom = CUSTOM_BUY_TITLE.find(title => title.city === city)
-    const {stateValue, cityValue} = CITIES.find(value => value.city === city)
-    h1Content += custom ? ` ${custom.value}` : ` ${BUY_TITLE_CITY_PREPOSITION} ${cityValue} - ${stateValue}`
+    h1Content += getCityTitle(neighborhoodsFilter[0].city)
   } else if(state) {
-    const custom = CUSTOM_BUY_TITLE.find(title => title.state === state)
-    const {stateValue} = STATES.find(value => value.state === state)
-    h1Content += custom ? ` ${custom.value}` : ` ${BUY_TITLE_STATE_PREPOSITION} ${stateValue}`
+    h1Content += getStateTitle(neighborhoodsFilter[0].state)
   } else {
     h1Content += ` ${BUY_TITLE_DEFAULT_END}`
   }
