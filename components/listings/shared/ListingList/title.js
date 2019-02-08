@@ -65,11 +65,11 @@ function getTitleTextByParams(params) {
   const {state, city, neighborhood} = params
 
   if (neighborhood) {
-    h1Content += getNeighborhoodTitle(neighborhoodsSlugs[0])
+    h1Content += getNeighborhoodTitle(neighborhood)
   } else if (city) {
-    h1Content += getCityTitle(neighborhoodsFilter[0].city)
+    h1Content += getCityTitle(city)
   } else if(state) {
-    h1Content += getStateTitle(neighborhoodsFilter[0].state)
+    h1Content += getStateTitle(state)
   } else {
     h1Content += ` ${BUY_TITLE_DEFAULT_END}`
   }
