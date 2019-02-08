@@ -16,6 +16,9 @@ import Link from 'next/link'
 import Error from 'components/shared/Shell/Error'
 import codes from 'constants/statusCodes'
 import makeStore from 'redux/store'
+import {ThemeProvider} from 'styled-components'
+import theme from 'config/theme'
+import '@emcasa/ui-dom/components/global-styles'
 
 class MyApp extends App {
   static async getInitialProps(ctx) {
@@ -71,14 +74,14 @@ class MyApp extends App {
   }
 
   componentDidCatch(error, errorInfo) {
-    Sentry.withScope(scope => {
+    Sentry.withScope((scope) => {
       if (errorInfo) {
-        Object.keys(errorInfo).forEach(key => {
+        Object.keys(errorInfo).forEach((key) => {
           scope.setExtra(key, errorInfo[key])
         })
       }
       Sentry.captureException(error)
-    });
+    })
   }
 
   render() {
@@ -95,49 +98,53 @@ class MyApp extends App {
       store
     } = this.props
     return (
-      <Container>
-        <ApolloProvider client={apolloClient}>
-          <Provider store={store}>
-            <Layout
-              authenticated={authenticated}
-              isAdmin={isAdmin}
-              renderFooter={isUndefined(pageProps.renderFooter) ? true : false}
-              pageProps={pageProps}
-              router={router}
-            >
-              {error ? (
-                <Fragment>
-                  <Head>
-                    <title>EmCasa</title>
-                  </Head>
-                  <Error>
-                    <h1>{codes[error.code] || 'Erro não identificado'}</h1>
-                    <h2>{error.code}</h2>
-                    <p>
-                      Visite nossa <Link href="/">página inicial</Link> ou entre
-                      em&nbsp;
-                      <Link href="mailto:contato@emcasa.com">contato</Link> com a
-                      gente
-                    </p>
-                  </Error>
-                </Fragment>
-              ) : (
-                <Component
-                  {...pageProps}
-                  url={url}
-                  router={router}
-                  user={currentUser}
-                  client={apolloClient}
-                />
-              )}
-            </Layout>
-          </Provider>
-        </ApolloProvider>
-      </Container>
+      <ThemeProvider theme={theme}>
+        <Container>
+          <ApolloProvider client={apolloClient}>
+            <Provider store={store}>
+              <Layout
+                authenticated={authenticated}
+                isAdmin={isAdmin}
+                renderFooter={
+                  isUndefined(pageProps.renderFooter) ? true : false
+                }
+                pageProps={pageProps}
+                router={router}
+              >
+                {error ? (
+                  <Fragment>
+                    <Head>
+                      <title>EmCasa</title>
+                    </Head>
+                    <Error>
+                      <h1>{codes[error.code] || 'Erro não identificado'}</h1>
+                      <h2>{error.code}</h2>
+                      <p>
+                        Visite nossa <Link href="/">página inicial</Link> ou
+                        entre em&nbsp;
+                        <Link href="mailto:contato@emcasa.com">
+                          contato
+                        </Link>{' '}
+                        com a gente
+                      </p>
+                    </Error>
+                  </Fragment>
+                ) : (
+                  <Component
+                    {...pageProps}
+                    url={url}
+                    router={router}
+                    user={currentUser}
+                    client={apolloClient}
+                  />
+                )}
+              </Layout>
+            </Provider>
+          </ApolloProvider>
+        </Container>
+      </ThemeProvider>
     )
   }
 }
 
-export default withApolloClient(
-  withRedux(makeStore)(MyApp)
-)
+export default withApolloClient(withRedux(makeStore)(MyApp))

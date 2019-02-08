@@ -1,9 +1,7 @@
-import '@emcasa/ui-dom/components/global-styles'
 import {Component} from 'react'
 import styled from 'styled-components'
-import theme from '@emcasa/ui'
+import {themeGet} from 'styled-system'
 import View from '@emcasa/ui-dom/components/View'
-import {ThemeProvider} from 'styled-components'
 import BuyListing from 'components/listings/buy/BuyListing'
 import Benefits from 'components/listings/shared/Benefits'
 import Neighborhoods from 'components/listings/buy/Neighborhoods'
@@ -35,13 +33,14 @@ const Block = styled(View)`
 const MainBlock = styled(Block)`
   padding-top: 0px;
   min-height: 80vh;
-  @media (max-width: ${theme.breakpoints[0]}) {
+  @media (max-width: ${themeGet('breakpoints.0')}) {
     min-height: 100vh;
   }
 `
 
 const BASE_TITLE = 'Imóveis, Casas e Apartamentos à Venda'
-const BASE_DESCRIPTION = 'com o sistema exclusivo de Tour Virtual 3D do Emcasa, a sua startup imobiliária.'
+const BASE_DESCRIPTION =
+  'com o sistema exclusivo de Tour Virtual 3D do Emcasa, a sua startup imobiliária.'
 
 const CONTENT = {
     all: {
@@ -72,7 +71,7 @@ export default class Buy extends Component {
   }
 
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       pageWidth: process.browser ? window.innerWidth : 0
     }
@@ -131,27 +130,25 @@ export default class Buy extends Component {
     }
 
     return (
-      <ThemeProvider theme={theme}>
-        <Container>
-          <NextHead
-            title={seoTitle}
-            description={seoDescription}
-            imageSrc={seoImg}
-            imageWidth={'1476'}
-            imageHeight={'838'}
-            url={'https://www.emcasa.com/'}
-          />
-          <MainBlock>
-            <BuyListing title={heroTitle} />
-          </MainBlock>
-          <Block>
-            <Benefits {...benefitsProps} />
-          </Block>
-          <Block>
-            <Neighborhoods {...blockProps} />
-          </Block>
-        </Container>
-      </ThemeProvider>
+      <Container>
+        <NextHead
+          title={seoTitle}
+          description={seoDescription}
+          imageSrc={seoImg}
+          imageWidth={'1476'}
+          imageHeight={'838'}
+          url={'https://www.emcasa.com/'}
+        />
+        <MainBlock>
+          <BuyListing title={heroTitle} />
+        </MainBlock>
+        <Block>
+          <Benefits {...benefitsProps} />
+        </Block>
+        <Block>
+          <Neighborhoods {...blockProps} />
+        </Block>
+      </Container>
     )
   }
 }

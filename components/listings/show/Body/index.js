@@ -9,8 +9,6 @@ import {
   log,
   LISTING_DETAIL_OPEN
 } from 'lib/logging'
-import {ThemeProvider} from 'styled-components'
-import theme from '@emcasa/ui'
 
 export default class ListingMainContent extends PureComponent {
   componentDidMount() {
@@ -44,60 +42,58 @@ export default class ListingMainContent extends PureComponent {
       : `${street}`
 
     return (
-      <ThemeProvider theme={theme}>
-        <Container>
-          <div className="description">
-            <h1 className="street">
-              {listing.type} na {listingInfo}, {neighborhood},{' '}
-              {listing.address.city}
-            </h1>
-            <h6>O imóvel</h6>
-            {paragraphs && paragraphs.map((paragraph, i) => <p key={i}>{paragraph}</p>)}
-            <ListingInfo>
+      <Container>
+        <div className="description">
+          <h1 className="street">
+            {listing.type} na {listingInfo}, {neighborhood},{' '}
+            {listing.address.city}
+          </h1>
+          <h6>O imóvel</h6>
+          {paragraphs && paragraphs.map((paragraph, i) => <p key={i}>{paragraph}</p>)}
+          <ListingInfo>
+            <div>
+              <h6>Tipo do imóvel</h6>
+              <p>{listing.type}</p>
+            </div>
+            {listing.maintenanceFee && (
               <div>
-                <h6>Tipo do imóvel</h6>
-                <p>{listing.type}</p>
+                <h3>Condomínio</h3>
+                <p>
+                  <NumberFormat
+                    value={listing.maintenanceFee}
+                    displayType={'text'}
+                    thousandSeparator={'.'}
+                    prefix={'R$'}
+                    decimalSeparator={','}
+                  />
+                </p>
               </div>
-              {listing.maintenanceFee && (
-                <div>
-                  <h3>Condomínio</h3>
-                  <p>
-                    <NumberFormat
-                      value={listing.maintenanceFee}
-                      displayType={'text'}
-                      thousandSeparator={'.'}
-                      prefix={'R$'}
-                      decimalSeparator={','}
-                    />
-                  </p>
-                </div>
-              )}
-              {listing.propertyTax && (
-                <div>
-                  <h6>Iptu</h6>
-                  <p>
-                    <NumberFormat
-                      value={listing.propertyTax}
-                      displayType={'text'}
-                      thousandSeparator={'.'}
-                      prefix={'R$'}
-                      decimalSeparator={','}
-                    />
-                  </p>
-                </div>
-              )}
-            </ListingInfo>
-          </div>
-          <CardWrapper>
-            <ListingCard
-              listing={listing}
-              handleOpenPopup={handleOpenPopup}
-              user={user}
-            />
-            {showStatistics && <Statistics listing={listing} user={user} />}
-          </CardWrapper>
-        </Container>
-      </ThemeProvider>
+            )}
+            {listing.propertyTax && (
+              <div>
+                <h6>Iptu</h6>
+                <p>
+                  <NumberFormat
+                    value={listing.propertyTax}
+                    displayType={'text'}
+                    thousandSeparator={'.'}
+                    prefix={'R$'}
+                    decimalSeparator={','}
+                  />
+                </p>
+              </div>
+            )}
+          </ListingInfo>
+        </div>
+        <CardWrapper>
+          <ListingCard
+            listing={listing}
+            handleOpenPopup={handleOpenPopup}
+            user={user}
+          />
+          {showStatistics && <Statistics listing={listing} user={user} />}
+        </CardWrapper>
+      </Container>
     )
   }
 }

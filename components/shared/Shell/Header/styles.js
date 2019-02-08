@@ -20,11 +20,15 @@ export default styled.header`
   z-index: 1;
   transition: background 0.3s ease-out;
   transition: height 0.3s ease-out;
-  background: ${props => props.transparent ? 'transparent' : 'white'};
+  background: ${(props) => (props.transparent ? 'transparent' : 'white')};
 
   &.sticky {
     background: white;
     height: ${HEADER_HEIGHT}px;
+  }
+
+  .search {
+    ${({search}) => !search ? {height: theme.buttonHeight[1]} : null}
   }
 `
 
@@ -35,7 +39,6 @@ export const Wrapper = styled.div`
   z-index: 5;
   width: 100vw;
 `
-
 
 const slideFromRight = keyframes`
   from { right: -${HEADER_HEIGHT}vw; }
@@ -49,7 +52,7 @@ export const Nav = styled.nav`
   justify-content: flex-end;
   align-items: center;
   z-index: 1;
-  
+
   > :nth-child(n + 2) {
     margin-left: 20px;
   }
@@ -64,7 +67,7 @@ export const Nav = styled.nav`
     top: 0;
     right: -${HEADER_HEIGHT}vw;
     animation: ${slideFromRight} 0.3s 0s both;
-    
+
     display: ${(props) => (props.visible ? 'flex' : 'none')};
     background: white;
     flex-direction: column;
@@ -72,13 +75,12 @@ export const Nav = styled.nav`
     align-items: flex-start;
     width: ${HEADER_HEIGHT}vw;
     height: 100vh;
-    
-    > :nth-child(n + 2) { 
+
+    > :nth-child(n + 2) {
       margin-left: 0;
     }
   }
 `
-
 
 export const NavButton = styled.button`
   display: none;
@@ -96,7 +98,7 @@ export const NavButton = styled.button`
   &:hover {
     color: gray;
   }
-  
+
   @media (max-width: ${theme.breakpoints[0]}) {
     display: ${(props) => (props.visible ? 'block' : 'none')};
   }
@@ -113,7 +115,7 @@ export const CloseNavButton = styled.div`
   align-self: flex-end;
 
   content: url(/static/assets/close.svg);
-  
+
   @media (max-width: ${theme.breakpoints[0]}) {
     display: ${(props) => (props.visible ? 'block' : 'none')};
   }
@@ -125,15 +127,15 @@ export const MenuItem = styled.div`
   height: 40px;
   min-height: 100%;
   cursor: pointer;
-  
+
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
   .icon {
     display: none;
   }
-  
+
   p {
     font-size: 16px;
     color: ${theme.colors.dark};
@@ -142,39 +144,40 @@ export const MenuItem = styled.div`
     line-height: 24px;
     text-align: center;
   }
- 
-  &:hover, &.active {
+
+  &:hover,
+  &.active {
     border-bottom: 1px solid ${theme.colors.pink};
   }
-  
+
   @media (max-width: ${theme.breakpoints[0]}) {
     min-height: auto;
     height: ${HEADER_HEIGHT}px;
     width: auto;
-    
+
     align-items: center;
     justify-content: flex-start;
-    
+
     p {
       text-align: left;
       font-family: 'FaktSoftPro-Normal';
       font-weight: 500;
       color: ${theme.colors.dark};
     }
-    
+
     .icon {
       display: block;
       margin-right: 40px;
     }
-    
+
     border-left: 7px solid transparent;
     padding-left: 20px;
-    
-    &:hover, &.active {
+
+    &:hover,
+    &.active {
       border-left: 7px solid ${theme.colors.pink};
       border-bottom: none;
     }
-  
   }
 `
 
@@ -214,7 +217,7 @@ const fadeIn = keyframes`
 
 export const Overlay = styled.div`
   @media (min-width: ${theme.breakpoints[0]}) {
-    display: none; 
+    display: none;
   }
   position: absolute;
   top: 0;
@@ -227,11 +230,10 @@ export const Overlay = styled.div`
   z-index: 1;
 `
 
-
 export const Search = styled.div`
   margin-left: 20px;
   width: 100%;
-  
+
   @media (max-width: ${theme.breakpoints[0]}) {
     width: 80%;
   }

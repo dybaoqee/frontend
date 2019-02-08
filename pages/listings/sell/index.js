@@ -1,10 +1,7 @@
-import '@emcasa/ui-dom/components/global-styles'
 import {Component} from 'react'
-import Head from 'next/head'
 import styled from 'styled-components'
-import theme from '@emcasa/ui'
+import {themeGet} from 'styled-system'
 import View from '@emcasa/ui-dom/components/View'
-import {ThemeProvider} from 'styled-components'
 import SellListing from 'components/listings/sell/SellListing'
 import Benefits from 'components/listings/shared/Benefits'
 import HowItWorks from 'components/listings/sell/HowItWorks'
@@ -36,7 +33,7 @@ const Block = styled(View)`
 const MainBlock = styled(Block)`
   padding-top: 0px;
   min-height: 80vh;
-  @media (max-width: ${theme.breakpoints[0]}) {
+  @media (max-width: ${themeGet('breakpoints.0')}) {
     min-height: 100vh;
   }
 `
@@ -134,27 +131,25 @@ export default class Sell extends Component {
     }
 
     return (
-      <ThemeProvider theme={theme}>
-        <Container>
-          <NextHead
-            title={seoTitle}
-            description={seoDescription}
-            imageSrc={seoImg}
-            imageWidth={'1476'}
-            imageHeight={'838'}
-            url={'https://www.emcasa.com/vender'}
-          />
-          <MainBlock>
-            <SellListing title={heroTitle} />
-          </MainBlock>
-          <Block>
-            <Benefits {...benefitsProps} />
-          </Block>
-          <Block>
-            <HowItWorks {...blockProps} />
-          </Block>
-        </Container>
-      </ThemeProvider>
+      <Container>
+        <NextHead
+          title={seoTitle}
+          description={seoDescription}
+          imageSrc={seoImg}
+          imageWidth={'1476'}
+          imageHeight={'838'}
+          url={'https://www.emcasa.com/vender'}
+        />
+        <MainBlock>
+          <SellListing title={heroTitle} />
+        </MainBlock>
+        <Block>
+          <Benefits {...benefitsProps} />
+        </Block>
+        <Block>
+          <HowItWorks {...blockProps} />
+        </Block>
+      </Container>
     )
   }
 }
