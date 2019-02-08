@@ -125,11 +125,18 @@ class ListingSearch extends Component {
   }
 
   getCanonical = (neighborhoodsSlugs)  => {
-    if (neighborhoodsSlugs.length > 1) {
-      return ''
+    const {state, city, neighborhood} = NEIGHBORHOODS.find(value => value.neighborhood === neighborhoodsSlugs[0])
+    return state ? `/${state}/${city}/${neighborhood}` : null
+  }
+
+  getURL = (params)  => {
+    const {state, city, neighborhood} = params
+    if (neighborhood) {
+      return `/${state}/${city}/${neighborhood}`
+    } else if (city) {
+      return `/${state}/${city}`
     } else {
-      const {state, city, neighborhood} = NEIGHBORHOODS.find(value => value.neighborhood === neighborhoodsSlugs[0])
-      return state ? `/${state}/${city}/${neighborhood}` : ''
+      return `/${state}`
     }
   }
 
@@ -137,10 +144,8 @@ class ListingSearch extends Component {
     const {filters} = this.state
     const {params} = this.props
     const titleContent = filters && filters.neighborhoods ? getTitleTextByFilters(filters.neighborhoods) : getTitleTextByParams(params)
-    let url = BASE_URL
-    let canonical = filters && filters.neighborhoods ? `${BASE_URL}${this.getCanonical(filters.neighborhoods)}`: undefined
-
-    url = params.state && canonical ? canonical : url
+    const url = params && params.state ? this.getURL(params) : BASE_URL
+    const canonical = filters.neighborhoods && filters.neighborhoods.length === 1 ? `${BASE_URL}${this.getCanonical(filters.neighborhoods)}` : null
 
     return (
       <NextHead
