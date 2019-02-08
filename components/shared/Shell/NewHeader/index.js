@@ -31,7 +31,8 @@ import Container, {
   Logo,
   ShortLogo,
   Search,
-  SearchWrapper
+  SearchWrapper,
+  LabelLogo
 } from './styles'
 
 export default class Header extends Component {
@@ -140,10 +141,11 @@ export default class Header extends Component {
             <Row alignItems="center" width={[1, 1/2]} style={!search ? {height: theme.buttonHeight[1]} : null}>
               <Link passHref href="/listings/buy" as="/">
                 <a>
-                  <div style={{zIndex: 1}}>
+                  <h1 style={{zIndex: 1}}>
                     {!search && <Logo alt="EmCasa Imobiliária no Rio de Janeiro e São Paulo" />}
                     {search && <ShortLogo alt="EmCasa Imobiliária no Rio de Janeiro e São Paulo" />}
-                  </div>
+                    <LabelLogo>EmCasa Imobiliária no Rio de Janeiro e São Paulo</LabelLogo>
+                  </h1>
                 </a>
               </Link>
               <SearchWrapper>

@@ -14,7 +14,7 @@ exports[`renders correctly 1`] = `
   justify-content: center;
 }
 
-.c7 {
+.c8 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -26,7 +26,7 @@ exports[`renders correctly 1`] = `
   justify-content: center;
 }
 
-.c8 {
+.c9 {
   outline: none;
   display: block;
   cursor: pointer;
@@ -44,7 +44,7 @@ exports[`renders correctly 1`] = `
   border-style: solid;
 }
 
-.c8 :hover {
+.c9 :hover {
   background-color: #f50057;
 }
 
@@ -65,22 +65,29 @@ exports[`renders correctly 1`] = `
   text-align: center;
 }
 
+.c5 {
+  margin-right: 10px;
+}
+
 .c3 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
   color: #979797;
   font-size: 18px;
+  font-weight: normal;
 }
 
-.c6 {
+.c7 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
   color: #3c4858;
   font-size: 18px;
+  font-weight: normal;
 }
 
-.c5 {
-  margin-right: 10px;
+.c6 {
+  display: inline;
+  margin: 0;
 }
 
 @media screen and (min-width:780px) {
@@ -110,13 +117,14 @@ exports[`renders correctly 1`] = `
       >
         Como funciona vender seu imóvel aqui na EmCasa?
       </p>
-      <p
+      <h2
         className="c3"
         color="grey"
         fontSize="default"
+        fontWeight="normal"
       >
         Venda seu imóvel de um jeito fácil e seguro.
-      </p>
+      </h2>
       <div
         className="c4"
       >
@@ -145,13 +153,14 @@ exports[`renders correctly 1`] = `
             />
           </svg>
         </div>
-        <span
-          className="c6"
+        <h3
+          className="c6 c7"
           color="dark"
           fontSize="default"
+          fontWeight="normal"
         >
           Cadastre seu imóvel no nosso site
-        </span>
+        </h3>
       </div>
       <div
         className="c4"
@@ -181,13 +190,14 @@ exports[`renders correctly 1`] = `
             />
           </svg>
         </div>
-        <span
-          className="c6"
+        <h3
+          className="c6 c7"
           color="dark"
           fontSize="default"
+          fontWeight="normal"
         >
           Agende Tour Virtual 3D / Fotos grátis
-        </span>
+        </h3>
       </div>
       <div
         className="c4"
@@ -217,13 +227,14 @@ exports[`renders correctly 1`] = `
             />
           </svg>
         </div>
-        <span
-          className="c6"
+        <h3
+          className="c6 c7"
           color="dark"
           fontSize="default"
+          fontWeight="normal"
         >
           Avaliação online do seu imóvel
-        </span>
+        </h3>
       </div>
       <div
         className="c4"
@@ -253,13 +264,14 @@ exports[`renders correctly 1`] = `
             />
           </svg>
         </div>
-        <span
-          className="c6"
+        <h3
+          className="c6 c7"
           color="dark"
           fontSize="default"
+          fontWeight="normal"
         >
           Cuidamos de toda burocracia, contratos e documentação
-        </span>
+        </h3>
       </div>
       <div
         className="c4"
@@ -289,16 +301,17 @@ exports[`renders correctly 1`] = `
             />
           </svg>
         </div>
-        <span
-          className="c6"
+        <h3
+          className="c6 c7"
           color="dark"
           fontSize="default"
+          fontWeight="normal"
         >
           Economize tempo e dinheiro anunciando seu imóvel com a gente
-        </span>
+        </h3>
       </div>
       <div
-        className="c7"
+        className="c8"
       >
         <div
           className="c1"
@@ -310,7 +323,7 @@ exports[`renders correctly 1`] = `
           }
         >
           <button
-            className="c8"
+            className="c9"
             fontSize="default"
             height="tall"
             onClick={[Function]}

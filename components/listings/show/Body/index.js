@@ -44,22 +44,22 @@ export default class ListingMainContent extends PureComponent {
     return (
       <Container>
         <div className="description">
-          <h1 className="street">
+          <h2 className="street">
             {listing.type} na {listingInfo}, {neighborhood},{' '}
             {listing.address.city}
-          </h1>
-          <h6>O imóvel</h6>
+          </h2>
+          <h3>O imóvel</h3>
           {paragraphs &&
             paragraphs.map((paragraph, i) => <p key={i}>{paragraph}</p>)}
 
           <ListingInfo>
             <div>
-              <h6>Tipo do imóvel</h6>
+              <h3>Tipo do imóvel</h3>
               <p>{listing.type}</p>
             </div>
             {listing.maintenanceFee && (
               <div>
-                <h6>Condomínio</h6>
+                <h3>Condomínio</h3>
                 <p>
                   <NumberFormat
                     value={listing.maintenanceFee}
@@ -74,7 +74,7 @@ export default class ListingMainContent extends PureComponent {
 
             {listing.propertyTax && (
               <div>
-                <h6>Iptu</h6>
+                <h3>Iptu</h3>
                 <p>
                   <NumberFormat
                     value={listing.propertyTax}

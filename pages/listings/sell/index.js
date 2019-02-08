@@ -6,14 +6,15 @@ import theme from '@emcasa/ui'
 import View from '@emcasa/ui-dom/components/View'
 import {ThemeProvider} from 'styled-components'
 import SellListing from 'components/listings/sell/SellListing'
-import Benefits from 'components/listings/sell/Benefits'
+import Benefits from 'components/listings/shared/Benefits'
 import HowItWorks from 'components/listings/sell/HowItWorks'
 import {desktopHeaderHeight} from 'constants/dimensions'
 import {isMobile} from 'lib/mobile'
 import {imageUrl} from 'utils/image_url'
 import {
   log,
-  SELLER_LANDING_PAGE
+  SELLER_LANDING_PAGE,
+  SELLER_LANDING_EXPLORE_LISTINGS
 } from 'lib/amplitude'
 import NextHead from 'components/shared/NextHead'
 
@@ -102,6 +103,36 @@ export default class Sell extends Component {
     const city = (router.query || {}).city || 'all'
     const {seoTitle, seoDescription, seoImg, heroTitle} = CONTENT[city]
 
+    const benefitsProps = {
+      sectionTitle: 'Conheça as vantagens de vender com a EmCasa',
+      benefitsList:  [
+        {
+          icon: 'tour-3d',
+          title: 'Tour Virtual 3D',
+          description:
+            'Atraia mais compradores interessados no seu imóvel com Tour 3D'
+        },
+        {
+          icon: 'avaliacao-precisa',
+          title: 'Avaliação online',
+          description:
+            'Nossa avaliação online é precisa de acordo com os valores de mercado da sua região'
+        },
+        {
+          icon: 'assistencia-juridica',
+          title: 'Sem dor de cabeça',
+          description:
+            'Aqui na EmCasa cuidamos de toda burocracia, contratos e documentação'
+        }
+      ],
+      buttonHref: '/vender/imovel',
+      buttonLabel: 'Conheça mais a EmCasa',
+      buttonClick: () => {
+          log(SELLER_LANDING_EXPLORE_LISTINGS)
+      },
+      isMobile: isMobile(this.state.pageWidth)
+    }
+
     return (
       <ThemeProvider theme={theme}>
         <Container>
@@ -117,7 +148,7 @@ export default class Sell extends Component {
             <SellListing title={heroTitle} />
           </MainBlock>
           <Block>
-            <Benefits {...blockProps} />
+            <Benefits {...benefitsProps} />
           </Block>
           <Block>
             <HowItWorks {...blockProps} />
