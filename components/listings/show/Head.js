@@ -1,12 +1,14 @@
 import {Component} from 'react'
 import NextHead from 'components/shared/NextHead'
 import {mainListingImage} from 'utils/image_url'
+import Router from 'next/router'
 
 export default class ListingHead extends Component {
   render() {
     const {
       listing: {matterportCode, type, images, address, rooms, area, price, id}
     } = this.props
+    const {routerAsPath} = this.props
     const seoImgSrc = mainListingImage(images)
 
     const description = `Conheça ${
@@ -24,7 +26,7 @@ export default class ListingHead extends Component {
         imageSrc={seoImgSrc}
         imageWidth={'1024'}
         imageHeight={'768'}
-        url={'https://www.emcasa.com/'}
+        url={`https://www.emcasa.com${routerAsPath}`}
       >
         <link
           rel="stylesheet"
