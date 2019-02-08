@@ -230,6 +230,7 @@ class Listing extends Component {
             skip={!currentUser.authenticated}
           >
             {({data: {userProfile}, loading, error}) => {
+              const {router} = this.props
               const favorite =
                 !loading &&
                 !error &&
@@ -261,7 +262,10 @@ class Listing extends Component {
 
               return (
                 <Fragment>
-                  <ListingHead listing={listing} />
+                  <ListingHead
+                    listing={listing}
+                    routerAsPath={router.asPath}
+                  />
 
                   <div>
                     <ListingHeader
