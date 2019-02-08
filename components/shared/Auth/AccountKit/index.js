@@ -1,4 +1,4 @@
-import {Component, Fragment} from 'react'
+import {Component} from 'react'
 import PropTypes from 'prop-types'
 import {Mutation} from 'react-apollo'
 import {SIGN_IN_ACCOUNT_KIT} from 'graphql/user/mutations'
@@ -6,6 +6,11 @@ import UserInfo from 'components/shared/Auth/AccountKit/UserInfo'
 import redirect from 'lib/redirect'
 import {getCookie, setCookie} from 'lib/session'
 import {signUpUser} from 'lib/auth'
+import {
+  log,
+  LOGIN_SUCCESS,
+  LOGIN_REQUEST_NAME_EMAIL
+} from 'lib/amplitude'
 
 class AccountKit extends Component {
   state = {
@@ -123,9 +128,11 @@ class AccountKit extends Component {
         userInfo.data.accountKitSignIn.user.email &&
         userInfo.data.accountKitSignIn.user.name
       ) {
+        log(LOGIN_SUCCESS)
         this.setState({loading: false})
         redirect(getCookie('redirectTo') || '/')
       } else {
+        log(LOGIN_REQUEST_NAME_EMAIL)
         this.setState({userInfo: userInfo.data, loading: false})
         setCookie('accountkitinit', 1)
       }
@@ -138,7 +145,7 @@ class AccountKit extends Component {
     const {userInfo, loading} = this.state
 
     return (
-      <Fragment>
+      <>
         <Mutation mutation={SIGN_IN_ACCOUNT_KIT}>
           {(serverSignIn, {data, loading: signingIn}) => {
             this.serverSignIn = serverSignIn
@@ -150,7 +157,7 @@ class AccountKit extends Component {
           }}
         </Mutation>
         {userInfo && <UserInfo userInfo={userInfo} />}
-      </Fragment>
+      </>
     )
   }
 }
