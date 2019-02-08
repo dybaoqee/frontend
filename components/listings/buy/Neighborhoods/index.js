@@ -74,7 +74,7 @@ const getCityNeighborhoodLinks = (citySlug, noTitle) => (
                   asPath: url
                 }}
               >
-                <a class="NeighborhoodLink" title={`Comprar imóvel: ${district.name}`} onClick={() => {
+                <a className="NeighborhoodLink" title={`Comprar imóvel: ${district.name}`} onClick={() => {
                   log(BUYER_LANDING_NEIGHBORHOOD_LINK, {neighborhood: district.nameSlug})
                 }}>
                   {noTitle ? (
@@ -109,9 +109,9 @@ export default class Neighborhoods extends Component {
             </Text>
           </Header>
           <Cities>
-            {CITIES.map(({title, slug: citySlug, stateSlug}) => {
+            {CITIES.map(({title, slug: citySlug, stateSlug}, index) => {
               return (
-                <City>
+                <City key={index}>
                   <CityTitle>
                     <SubTitle fontWeight="bold">
                       {title}
@@ -119,8 +119,9 @@ export default class Neighborhoods extends Component {
                   </CityTitle>
                   <NeighborhoodContainer>
                     <NeighborhoodItems>
-                      {NEIGHBORHOODS_BY_CITIES[citySlug].map(({name, ...props}) => (
+                      {NEIGHBORHOODS_BY_CITIES[citySlug].map(({name, ...props}, index) => (
                         <Link
+                          key={index}
                           passHref
                           href={props.soon ? null : `/imoveis/${stateSlug}/${citySlug}/${slug(name.toLowerCase())}`}
                         >

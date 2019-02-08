@@ -200,10 +200,10 @@ class NeighborhoodPicker extends Component {
 }
 
 NeighborhoodPicker.propTypes = {
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
   onBackPressed: PropTypes.func,
   mobile: PropTypes.bool,
-  query: PropTypes.object.isRequired,
+  query: PropTypes.object,
   fromHome: PropTypes.bool,
   fullscreen: PropTypes.bool
 }
