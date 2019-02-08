@@ -98,15 +98,17 @@ export default class ListingHeader extends Component {
   }
 
   getSliderImages = () =>
-    this.props.listing.images.map(({filename}) => (
-      <SliderImage
-        key={filename}
-        src={thumbnailUrl(filename, 1920, 1080)}
-        alt={`Imagem do apartamento ID ${this.props.listing.id}`}
-        innerRef={(currentImage) => (this[filename] = currentImage)}
-        loaded={this[filename]}
-      />
-    ))
+    this.props.listing.images.map(({filename}) => {
+      return (
+        <SliderImage
+          key={filename}
+          src={thumbnailUrl(filename, 1920, 1080)}
+          alt={`Imagem do apartamento ID ${this.props.listing.id}`}
+          innerRef={(currentImage) => (this[filename] = currentImage)}
+          loaded={this[filename]}
+        />
+      )
+    })
 
   getSliderContent = (visualizeTour) => {
     const {listing: {matterportCode, id}} = this.props

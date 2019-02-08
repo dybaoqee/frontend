@@ -52,7 +52,10 @@ class ListingCard extends Component {
               log(LISTING_SEARCH_VIEW_LISTING, {listingId: listing.id})
             }
           }}>
-            <ListingImage url={thumbUrl} />
+            <ListingImage
+              src={thumbUrl}
+              alt={`Imagem do apartamento ID ${listing.id}`}
+            />
             <Row flexDirection="column" p={2}>
               <Row><Text inline fontSize="small">{listing.address.neighborhood.toUpperCase()}</Text></Row>
               <Row><Text inline fontSize="small">{listing.address.street}</Text></Row>
