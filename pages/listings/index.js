@@ -19,6 +19,13 @@ import {
   log,
   LISTING_SEARCH_OPEN
 } from 'lib/amplitude'
+import {
+  getTitleTextByFilters,
+  getTitleTextByParams
+} from 'components/listings/shared/ListingList/title'
+import {NEIGHBORHOODS} from 'constants/listing-locations'
+
+const BASE_URL = 'https://www.emcasa.com/imoveis'
 
 class ListingSearch extends Component {
   constructor(props) {
@@ -117,32 +124,37 @@ class ListingSearch extends Component {
     Router.push('/listings', '/imoveis', {shallow: true})
   }
 
-  getHead = () => {
-    const {params} = this.props
-    const {neighborhood} = this.state
-    let location = 'na Zona Sul do Rio de Janeiro e em São Paulo'
-    let imageSrc = imageUrl('buy.jpg')
+  getCanonical = (neighborhoodsSlugs)  => {
+    const {state, city, neighborhood} = NEIGHBORHOODS.find(value => value.neighborhood === neighborhoodsSlugs[0])
+    return state ? `/${state}/${city}/${neighborhood}` : null
+  }
 
+  getURL = (params)  => {
+    const {state, city, neighborhood} = params
     if (neighborhood) {
-      location = `em ${neighborhood}, ${params.state === 'rj' ? 'Rio De Janeiro' : 'São Paulo'}`
-    } else if (params && params.city === 'rio-de-janeiro') {
-      location = 'na Zona Sul do Rio de Janeiro'
-    } else if (params && params.city === 'sao-paulo') {
-      location = 'na cidade de São Paulo'
-    } else if (params && params.state === 'rj') {
-      location = 'no Rio de Janeiro'
-    } else if (params && params.state === 'sp') {
-      location = 'em São Paulo'
+      return `/${state}/${city}/${neighborhood}`
+    } else if (city) {
+      return `/${state}/${city}`
+    } else {
+      return `/${state}`
     }
+  }
 
-    if (params && params.state === 'rj') imageSrc = imageUrl('buy-rj.jpg')
-    if (params && params.state === 'sp') imageSrc = imageUrl('buy-sp.jpg')
+  getHead = () => {
+    const {filters} = this.state
+    const {params} = this.props
+    const titleContent = filters && filters.neighborhoods ? getTitleTextByFilters(filters.neighborhoods) : getTitleTextByParams(params)
+    const url = params && params.state ? this.getURL(params) : BASE_URL
+    const canonical = filters.neighborhoods && filters.neighborhoods.length === 1 ? `${BASE_URL}${this.getCanonical(filters.neighborhoods)}` : null
 
     return (
       <NextHead
-        title={`Apartamentos e Casas à venda ${location} | Emcasa`}
-        description={`Conheça em Compre Apartamentos e Casas à venda ${location} com o sistema exclusivo de Tour Virtual 3D do Emcasa, a sua startup imobiliária.`}
-        imageSrc={imageSrc}
+        title={`${titleContent} | Emcasa`}
+        description={`Conheça em Compre Apartamentos e Casas à venda ${titleContent} com o sistema exclusivo de Tour Virtual 3D do Emcasa, a sua startup imobiliária.`}
+        imageSrc={imageUrl('buy.jpg')}
+        url={url}
+        canonical={canonical}
+
       />
     )
   }
@@ -156,7 +168,7 @@ class ListingSearch extends Component {
         filters.citiesSlug = [params.city]
       }
       if (params.neighborhood) {
-        filters.neighborhoodsSlugs = [params.neighborhood]
+        filters.neighborhoods = [params.neighborhood]
       }
     }
 

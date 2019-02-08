@@ -8,7 +8,10 @@ import {
   NEIGHBORHOODS,
   CITIES,
   STATES,
-  CUSTOM_BUY_TITLE,
+  CUSTOM_BUY_TITLE
+} from 'constants/listing-locations'
+
+import {
   getTitleTextByFilters,
   getTitleTextByParams
 } from 'components/listings/shared/ListingList/title'
