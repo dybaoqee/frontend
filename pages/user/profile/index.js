@@ -22,14 +22,9 @@ import isUndefined from 'lodash/isUndefined'
 import isEqualWith from 'lodash/isEqualWith'
 import pickBy from 'lodash/pickBy'
 import Head from 'next/head'
-import Router from 'next/router'
 import Link from 'next/link'
-import Tabs from 'components/shared/Common/Tabs'
-import EmCasaButton from 'components/shared/Common/Buttons'
-import Form, {Field} from 'components/shared/Common/Form/styles'
-import CheckBox from 'components/shared/Common/Form/CheckBox'
+import Form from 'components/shared/Common/Form/styles'
 import ListingCard from 'components/listings/shared/ListingCard'
-
 import {ThemeProvider} from 'styled-components'
 import theme from '@emcasa/ui'
 import Col from '@emcasa/ui-dom/components/Col'
@@ -38,6 +33,16 @@ import Tab from '@emcasa/ui-dom/components/Tab'
 import Input from '@emcasa/ui-dom/components/Input'
 import Button from '@emcasa/ui-dom/components/Button'
 import Text from '@emcasa/ui-dom/components/Text'
+import {
+  log,
+  PROFILE_OPEN,
+  PROFILE_MY_LISTINGS,
+  PROFILE_FAVORITES,
+  PROFILE_LOGOUT,
+  PROFILE_EDIT,
+  PROFILE_EDIT_CANCEL,
+  PROFILE_EDIT_SAVE
+} from 'lib/amplitude'
 import {
   TabWrapper,
   InitialView,
@@ -83,6 +88,10 @@ class UserProfile extends Component {
     }
   }
 
+  componentDidMount() {
+    log(PROFILE_OPEN)
+  }
+
   checkComparison = (objValue, othValue) => {
     if (objValue === othValue || (isNull(objValue) && othValue === '')) {
       return true
@@ -102,7 +111,10 @@ class UserProfile extends Component {
     }, 300)
   }
 
-  changeProfileView = () => this.setState({ editingProfile: !this.state.editingProfile })
+  changeProfileView = () => {
+    this.state.editingProfile ? log(PROFILE_EDIT_CANCEL) : log(PROFILE_EDIT)
+    this.setState({ editingProfile: !this.state.editingProfile })
+  }
 
   getUserAcronym = (name) => name.match(/\b(\w)/g).join('').substring(0, 2)
 
@@ -112,6 +124,7 @@ class UserProfile extends Component {
   }
 
   handleProfileUpdate = async (e, editProfile, editEmail, userProfile) => {
+    log(PROFILE_EDIT_SAVE)
     const {
       name: actualName,
       email: actualEmail,
@@ -222,6 +235,7 @@ class UserProfile extends Component {
                     <Button
                       fluid
                       height="tall"
+                      onClick={() => {log(PROFILE_LOGOUT)}}
                     >
                       Sair
                     </Button>
