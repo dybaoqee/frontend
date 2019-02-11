@@ -54,7 +54,7 @@ class ListingCard extends Component {
           }}>
             <ListingImage
               src={thumbUrl}
-              alt={`Imagem do apartamento ID ${listing.id}`}
+              alt={`Imagem do imóvel ID-${listing.id} na ${listing.address.street}, ${listing.address.neighborhood}, ${listing.address.city} - ${listing.address.state}`}
             />
             <Row flexDirection="column" p={2}>
               <Row><Text inline fontSize="small">{listing.address.neighborhood.toUpperCase()}</Text></Row>
