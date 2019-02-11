@@ -27,7 +27,7 @@ import {
   log,
   BUYER_LANDING_NEIGHBORHOOD_IMAGE,
   BUYER_LANDING_NEIGHBORHOOD_LINK
-} from 'lib/amplitude'
+} from 'lib/logging'
 
 const RJ_SLUG = 'rio-de-janeiro'
 const SP_SLUG = 'sao-paulo'
@@ -75,7 +75,7 @@ const getCityNeighborhoodLinks = (citySlug, noTitle) => (
                   asPath: url
                 }}
               >
-                <a class="NeighborhoodLink" title={`Comprar imóvel: ${district.name}`} onClick={() => {
+                <a className="NeighborhoodLink" title={`Comprar imóvel: ${district.name}`} onClick={() => {
                   log(BUYER_LANDING_NEIGHBORHOOD_LINK, {neighborhood: district.nameSlug})
                 }}>
                   {noTitle ? (
@@ -110,9 +110,9 @@ export default class Neighborhoods extends Component {
             </Text>
           </Header>
           <Cities>
-            {CITIES.map(({title, slug: citySlug, stateSlug}) => {
+            {CITIES.map(({title, slug: citySlug, stateSlug}, index) => {
               return (
-                <City>
+                <City key={index}>
                   <CityTitle>
                     <SubTitle fontWeight="bold">
                       {title}

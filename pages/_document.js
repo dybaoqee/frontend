@@ -1,3 +1,4 @@
+import get from 'lodash/get'
 import Document, {Head, Main, NextScript} from 'next/document'
 import {ServerStyleSheet} from 'styled-components'
 import globalStyles from 'styles/global'
@@ -17,6 +18,8 @@ export default class AppDocument extends Document {
 
   render() {
     const {styleTags, prod} = this.props
+    const currentUser = get(this, 'props.__NEXT_DATA__.props.initialProps.currentUser')
+    let isAdmin = currentUser && currentUser.isAdmin
 
     return (
       <html lang="pt-br">
@@ -40,7 +43,7 @@ export default class AppDocument extends Document {
               }}
             />
           )}
-          {process.env.HOTJAR_SITE_ID ? (
+          {(process.env.HOTJAR_SITE_ID && !isAdmin) ? (
             <script
               dangerouslySetInnerHTML={{
                 __html: `

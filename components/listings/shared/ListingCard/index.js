@@ -20,7 +20,7 @@ import {
 import {
   log,
   LISTING_SEARCH_VIEW_LISTING
-} from 'lib/amplitude'
+} from 'lib/logging'
 
 class ListingCard extends Component {
   render() {

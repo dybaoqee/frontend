@@ -12,7 +12,7 @@ import FadeInOut from 'components/shared/Animation/FadeInOut'
 import {
   log,
   LISTING_SEARCH_NEIGHBORHOOD_SELECT_ALL
-} from 'lib/amplitude'
+} from 'lib/logging'
 import {
   isNeighborhoodSelected,
   updateSelection,

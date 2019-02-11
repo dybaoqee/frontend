@@ -16,7 +16,7 @@ import {
   log,
   normalizeLocation,
   LISTING_SEARCH_FILTER_LOCATION
-} from 'lib/amplitude'
+} from 'lib/logging'
 import {
   SearchResultContainer,
   SearchResultItem,

@@ -10,7 +10,7 @@ import {buildSlug} from 'lib/listings'
 import {
   log,
   LISTING_SEARCH_FAVORITE_LISTING
-} from 'lib/amplitude'
+} from 'lib/logging'
 
 const LikeButton = (props) => (
   <Mutation mutation={!props.favorite ? FAVORITE_LISTING : UNFAVORITE_LISTING}>

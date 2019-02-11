@@ -9,7 +9,7 @@ import ClusterMarker from 'components/shared/Map/ClusterMarker'
 import {
   log,
   LISTING_SEARCH_MAP_CLUSTER
-} from 'lib/amplitude'
+} from 'lib/logging'
 
 function createMapOptions(maps) {
   return {

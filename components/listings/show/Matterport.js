@@ -5,7 +5,7 @@ import {
   log,
   LISTING_DETAIL_MATTERPORT_OPEN,
   LISTING_DETAIL_MATTERPORT_CLOSE
-} from 'lib/amplitude'
+} from 'lib/logging'
 
 export default class Matterport extends Component {
   componentDidMount() {
