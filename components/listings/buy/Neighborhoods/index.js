@@ -135,6 +135,7 @@ export default class Neighborhoods extends Component {
                                 }}
                               >
                                 <NeighborhoodImg
+                                  decoding="async"
                                   src={srcImg}
                                   alt={`Imagem em destaque do bairro ${name}`}
                                 />

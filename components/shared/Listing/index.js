@@ -25,6 +25,7 @@ export default class Listing extends Component {
             log(LISTING_DETAIL_VIEW_FEATURED_LISTING, {listingId: id})
           }}>
             <img
+              decoding="async"
               className="image-container"
               alt={`asdasdaImagem ${type === 'Apartamento' ? 'do' : 'da'} ${type} ID-${id} à venda na ${address.street} - ${address.neighborhood}, ${address.city} - ${address.state}`}
               src={imgUrl}
