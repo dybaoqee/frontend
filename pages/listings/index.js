@@ -124,12 +124,12 @@ class ListingSearch extends Component {
     Router.push('/listings', '/imoveis', {shallow: true})
   }
 
-  getCanonical = (neighborhoodsSlugs)  => {
+  getCanonical = (neighborhoodsSlugs) => {
     const {state, city, neighborhood} = NEIGHBORHOODS.find(value => value.neighborhood === neighborhoodsSlugs[0])
     return state ? `/${state}/${city}/${neighborhood}` : null
   }
 
-  getURL = (params)  => {
+  getURL = (params) => {
     const {state, city, neighborhood} = params
     if (neighborhood) {
       return `${BASE_URL}/${state}/${city}/${neighborhood}`
@@ -140,18 +140,26 @@ class ListingSearch extends Component {
     }
   }
 
+  getImageSrc = (params) => {
+    const {state} = params
+    let imgSrc = state ? `buy-${state}.jpg` : 'buy.jpg'
+
+    return imageUrl(imgSrc)
+  }
+
   getHead = () => {
     const {filters} = this.state
     const {params} = this.props
     const titleContent = filters && filters.neighborhoods ? getTitleTextByFilters(filters.neighborhoods) : getTitleTextByParams(params)
     const url = params && params.state ? this.getURL(params) : BASE_URL
     const canonical = filters.neighborhoods && filters.neighborhoods.length === 1 ? `${BASE_URL}${this.getCanonical(filters.neighborhoods)}` : null
+    const imageSrc = this.getImageSrc(params)
 
     return (
       <NextHead
         title={`${titleContent} | Emcasa`}
         description={`Conheça em Compre Apartamentos e Casas à venda ${titleContent} com o sistema exclusivo de Tour Virtual 3D do Emcasa, a sua startup imobiliária.`}
-        imageSrc={imageUrl('buy.jpg')}
+        imageSrc={imageSrc}
         url={url}
         canonical={canonical}
 
