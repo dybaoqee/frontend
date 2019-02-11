@@ -132,11 +132,11 @@ class ListingSearch extends Component {
   getURL = (params)  => {
     const {state, city, neighborhood} = params
     if (neighborhood) {
-      return `/${state}/${city}/${neighborhood}`
+      return `${BASE_URL}/${state}/${city}/${neighborhood}`
     } else if (city) {
-      return `/${state}/${city}`
+      return `${BASE_URL}/${state}/${city}`
     } else {
-      return `/${state}`
+      return `${BASE_URL}/${state}`
     }
   }
 
