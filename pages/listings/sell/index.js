@@ -15,7 +15,7 @@ import {
   log,
   SELLER_LANDING_PAGE,
   SELLER_LANDING_EXPLORE_LISTINGS
-} from 'lib/amplitude'
+} from 'lib/logging'
 import NextHead from 'components/shared/NextHead'
 
 const Container = styled(View)`

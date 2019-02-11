@@ -1,7 +1,7 @@
 import {
   log,
   SELLER_ONBOARDING_EVENT_BASE
-} from 'lib/amplitude'
+} from 'lib/logging'
 
 // Action Types
 export const NAVIGATE = 'NAVIGATE'

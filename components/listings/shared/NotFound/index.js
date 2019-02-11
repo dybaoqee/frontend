@@ -5,7 +5,7 @@ import Container from './styles'
 import {
   log,
   LISTING_SEARCH_NOT_FOUND
-} from 'lib/amplitude'
+} from 'lib/logging'
 
 class NotFound extends PureComponent {
   componentDidMount() {

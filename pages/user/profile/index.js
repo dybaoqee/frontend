@@ -44,7 +44,7 @@ import {
   PROFILE_EDIT_CANCEL,
   PROFILE_EDIT_SAVE,
   PROFILE_FAVORITES_EXPLORE_LISTINGS
-} from 'lib/amplitude'
+} from 'lib/logging'
 import {
   TabWrapper,
   InitialView,

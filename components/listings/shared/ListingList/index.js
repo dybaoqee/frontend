@@ -23,7 +23,7 @@ import {
 import {
   log,
   LISTING_SEARCH_MAP_PIN
-} from 'lib/amplitude'
+} from 'lib/logging'
 import {
   MIN_WIDTH_FOR_MAP_RENDER,
   Container,

@@ -20,7 +20,7 @@ import {USE_NEW_SEARCH} from 'config/globals'
 import {
   log,
   LANDING_LOGIN
-} from 'lib/amplitude'
+} from 'lib/logging'
 import Container, {
   Wrapper,
   Nav,

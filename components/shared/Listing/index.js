@@ -7,7 +7,7 @@ import {buildSlug} from 'lib/listings'
 import {
   log,
   LISTING_DETAIL_VIEW_FEATURED_LISTING
-} from 'lib/amplitude'
+} from 'lib/logging'
 
 export default class Listing extends Component {
   render() {

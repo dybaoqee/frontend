@@ -10,7 +10,7 @@ import {
   log,
   LOGIN_SUCCESS,
   LOGIN_REQUEST_NAME_EMAIL
-} from 'lib/amplitude'
+} from 'lib/logging'
 
 class AccountKit extends Component {
   state = {
