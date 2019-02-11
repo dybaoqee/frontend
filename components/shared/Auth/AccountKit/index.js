@@ -91,6 +91,9 @@ class AccountKit extends Component {
         onSuccess(userInfo)
       }
     })
+
+    const divs = document.getElementsByTagName('div')
+    divs[divs.length - 1].style.zIndex = 5
   }
 
   onSuccess = async (resp) => {
