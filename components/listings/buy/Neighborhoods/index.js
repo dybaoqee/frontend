@@ -16,6 +16,7 @@ import {
   NeighborhoodsLinks,
   NeighborhoodItems,
   Neighborhood,
+  NeighborhoodImg,
   Soon,
   Spacer,
   Title,
@@ -119,21 +120,32 @@ export default class Neighborhoods extends Component {
                   </CityTitle>
                   <NeighborhoodContainer>
                     <NeighborhoodItems>
-                      {NEIGHBORHOODS_BY_CITIES[citySlug].map(({name, ...props}) => (
-                        <Link
-                          passHref
-                          href={props.soon ? null : `/imoveis/${stateSlug}/${citySlug}/${slug(name.toLowerCase())}`}
-                        >
-                          <a>
-                            <Neighborhood {...props} onClick={() => {
-                              log(BUYER_LANDING_NEIGHBORHOOD_IMAGE, {neighborhood: name})
-                            }}>
-                              <Text>{name}</Text>
-                              {props.soon && <Soon />}
-                            </Neighborhood>
-                          </a>
-                        </Link>
-                      ))}
+                      {NEIGHBORHOODS_BY_CITIES[citySlug].map((props) => {
+                        const {name, thumb, soon} = props
+                        const srcImg = `https://res.cloudinary.com/emcasa/image/upload/v1543531007/bairros/${thumb + (soon ? '-em-breve' : '')}.png`
+                        return (
+                          <Link
+                            passHref
+                            href={soon ? null : `/imoveis/${stateSlug}/${citySlug}/${slug(name.toLowerCase())}`}
+                          >
+                            <a>
+                              <Neighborhood
+                                onClick={() => {
+                                  log(BUYER_LANDING_NEIGHBORHOOD_IMAGE, {neighborhood: name})
+                                }}
+                              >
+                                <NeighborhoodImg
+                                  decoding="async"
+                                  src={srcImg}
+                                  alt={`Imagem em destaque do bairro ${name}`}
+                                />
+                                <Text>{name}</Text>
+                                {soon && <Soon />}
+                              </Neighborhood>
+                            </a>
+                          </Link>
+                        )
+                      })}
                       <Spacer>
                         {getCityNeighborhoodLinks(citySlug, true)}
                       </Spacer>

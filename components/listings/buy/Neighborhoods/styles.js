@@ -132,9 +132,6 @@ export const Neighborhood = styled(View)`
   height: 185px;
   max-width: 100%;
   cursor: pointer;
-  background: url(https://res.cloudinary.com/emcasa/image/upload/v1543531007/bairros/${
-    props => props.thumb + (props.soon ? '-em-breve' : '')}.png) ${theme.colors.pink};
-  background-size: cover;
   border-radius: 4px;
   box-shadow: 1px 2px 4px 0 rgba(0,0,0,0.3);
   margin-right: ${theme.space[2]}px;
@@ -154,6 +151,16 @@ export const Neighborhood = styled(View)`
       font-size: 100%;
     }
   }
+`
+
+export const NeighborhoodImg = styled.img`
+  position: absolute;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
 `
 
 export const Soon = styled(View)`
