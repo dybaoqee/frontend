@@ -3,6 +3,8 @@ import NextHead from 'components/shared/NextHead'
 import {mainListingImage} from 'utils/image_url'
 import Router from 'next/router'
 
+const BASE_URL = 'https://www.emcasa.com'
+
 export default class ListingHead extends Component {
   render() {
     const {
@@ -26,7 +28,7 @@ export default class ListingHead extends Component {
         imageSrc={seoImgSrc}
         imageWidth={'1024'}
         imageHeight={'768'}
-        url={`https://www.emcasa.com${routerAsPath}`}
+        url={`${BASE_URL}${routerAsPath}`}
       >
         <link
           rel="stylesheet"
