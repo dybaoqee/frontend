@@ -52,7 +52,8 @@ class ListingCard extends Component {
               log(LISTING_SEARCH_VIEW_LISTING, {listingId: listing.id})
             }
           }}>
-            <ListingImage
+            <img
+              decoding="async"
               src={thumbUrl}
               alt={`Imagem do imóvel ID-${listing.id} na ${listing.address.street}, ${listing.address.neighborhood}, ${listing.address.city} - ${listing.address.state}`}
             />
