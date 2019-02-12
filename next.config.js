@@ -10,33 +10,7 @@ const {ANALYZE, BUILD, AWS_DEFAULT_REGION, AWS_S3_BUCKET_NAME} = process.env
 const s3URL = `https://s3-${AWS_DEFAULT_REGION}.amazonaws.com/${AWS_S3_BUCKET_NAME}`
 const shouldUseAssetPrefix = !isEmpty(AWS_S3_BUCKET_NAME)
 
-const prod = process.env.NODE_ENV === 'production'
-const staging = process.env.IS_STAGING === 'true'
-
-let favicon
-
-if (!prod) {
-  favicon = 'favicon-dev.png'
-} else if (staging) {
-  favicon = 'favicon-staging.png'
-} else {
-  favicon = 'favicon.png'
-}
-
 module.exports = {
-  env: {
-    NODE_ENV: prod ? 'production' : 'development',
-    APOLLO_ENGINE: process.env.APOLLO_ENGINE || null,
-    REACT_APP_API_URL: process.env.WEBSERVICE_BASE_URL || 'http://localhost:4000',
-    REACT_APP_CLOUDINARY_BASE_URL: 'https://res.cloudinary.com/emcasa/image/upload',
-    REACT_APP_FAVICON: favicon,
-    GOOGLE_ANALYTICS_TRACKING_ID: prod ? process.env.GOOGLE_ANALYTICS_TRACKING_ID : null,
-    GOOGLE_MAPS_KEY: process.env.GOOGLE_MAPS_KEY || 'AIzaSyAxgyVJYcA8NjH3Qvr32agv8VQPLjSNrk4',
-    TEST: process.env.TEST === 'cypress' ? 'cypress' : 'jest',
-    ADMIN_MESSENGER_ID: process.env.ADMIN_MESSENGER_ID || 30,
-    FACEBOOK_APP_ID: process.env.FACEBOOK_APP_ID || null,
-    ACCOUNT_KIT_APP_SECRET: process.env.ACCOUNT_KIT_APP_SECRET || null
-  },
   assetPrefix: shouldUseAssetPrefix ? s3URL : '',
   webpack: function(config, {isServer}) {
     if (ANALYZE) {
