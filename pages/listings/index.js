@@ -125,8 +125,9 @@ class ListingSearch extends Component {
   }
 
   getCanonical = (neighborhoodsSlugs) => {
-    const {state, city, neighborhood} = NEIGHBORHOODS.find(value => value.neighborhood === neighborhoodsSlugs[0])
-    return state ? `/${state}/${city}/${neighborhood}` : null
+    const info = NEIGHBORHOODS.find(a => a.neighborhood === neighborhoodsSlugs[0])
+
+    return info && info.state ? `/${info.state}/${info.city}/${info.neighborhood}` : `${BASE_URL}${this.props.url.asPath}`
   }
 
   getURL = (params) => {
