@@ -141,6 +141,16 @@ export const Neighborhood = styled(View)`
     font-size: 20px;
   }
 
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+
   @media (max-width: ${theme.breakpoints[0]}) {
     width: auto;
     min-width: 130px;
@@ -151,16 +161,6 @@ export const Neighborhood = styled(View)`
       font-size: 100%;
     }
   }
-`
-
-export const NeighborhoodImg = styled.img`
-  position: absolute;
-  top: 0;
-  left: 0;
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
 `
 
 export const Soon = styled(View)`
