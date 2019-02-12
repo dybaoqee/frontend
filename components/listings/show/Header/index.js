@@ -3,7 +3,6 @@ import Link from 'next/link'
 import LikeButton from 'components/shared/Common/Buttons/Like'
 import Container, {
   Thumb,
-  SliderImage,
   Content,
   Arrow,
   TourWrapper,
@@ -102,7 +101,9 @@ export default class ListingHeader extends Component {
     return (
       images.map(({filename}) => {
         return (
-          <SliderImage
+          <img
+            className="slider-image"
+            decoding="async"
             key={filename}
             src={thumbnailUrl(filename, 1920, 1080)}
             alt={`Imagem ${type === 'Apartamento' ? 'do' : 'da'} ${type} ID-${id} na ${address.street}, ${address.neighborhood}, ${address.city} - ${address.state}`}
