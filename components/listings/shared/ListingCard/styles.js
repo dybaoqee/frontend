@@ -59,6 +59,5 @@ const LikeButtonContainer = styled.div`
 
 export {
   Container,
-  ListingImage,
   LikeButtonContainer
 }
