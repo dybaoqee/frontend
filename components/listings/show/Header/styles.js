@@ -46,17 +46,15 @@ export const Thumb = styled.div`
   }
 `
 
-export const SliderImage = styled.div`
+export const SliderImage = styled.img`
   box-sizing: border-box;
-  background: url(${({src}) => src});
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
   cursor: pointer;
   max-height: 343px;
   height: 343px;
   z-index: 2;
   position: relative;
+  object-fit: cover;
+  width: 100%;
 `
 
 export const Content = styled.div`
@@ -66,8 +64,6 @@ export const Content = styled.div`
   outline: none;
   box-sizing: border-box;
   position: relative;
-
-  padding-right: 5px !important;
   background: ${colors.lightestGray};
 
   .spinner {

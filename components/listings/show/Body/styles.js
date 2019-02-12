@@ -24,7 +24,7 @@ export default styled.div`
       }
     }
 
-    h6 {
+    h3 {
       font-size: 12px;
       text-transform: uppercase;
     }
@@ -76,7 +76,7 @@ export const ListingInfo = styled.div`
   }
 
   @media ${mobileMedia} {
-    h6 {
+    h3 {
       margin: 15px 0;
     }
   }

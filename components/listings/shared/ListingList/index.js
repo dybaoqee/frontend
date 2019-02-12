@@ -16,11 +16,14 @@ import ListingsNotFound from 'components/listings/shared/NotFound'
 import Neighborhood from 'components/listings/shared/Neighborhood'
 import Text from '@emcasa/ui-dom/components/Text'
 import View from '@emcasa/ui-dom/components/View'
-import { getTitleText } from './title'
+import {
+  getTitleTextByFilters,
+  getTitleTextByParams
+} from './title'
 import {
   log,
   LISTING_SEARCH_MAP_PIN
-} from 'lib/amplitude'
+} from 'lib/logging'
 import {
   MIN_WIDTH_FOR_MAP_RENDER,
   Container,
@@ -279,8 +282,9 @@ class ListingList extends Component {
   }
 
   render() {
-    const {filters} = this.props
-    const h1Content = getTitleText(filters)
+    const {filters, params} = this.props
+    const h1Content = filters && filters.neighborhoodsSlugs ? getTitleTextByFilters(filters.neighborhoodsSlugs) : getTitleTextByParams(params)
+
     return (
       <Query
         query={GET_LISTINGS}
@@ -291,8 +295,8 @@ class ListingList extends Component {
           const hasListings = listings && listings.listings && listings.listings.length > 0
           return (
             <>
-              <Title>
-                {filters.citiesSlug && <View mb={2}><Text inline>{h1Content}</Text></View>}
+              <Title fontWeight="normal">
+                {h1Content}
               </Title>
               <Container>
                 {this.getListings(listings, fetchMore)}

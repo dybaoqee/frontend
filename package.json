@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@absinthe/socket-apollo-link": "^0.1.11",
+    "@babel/runtime": "^7.3.1",
     "@emcasa/ui-dom": "^0.8.6",
     "@fortawesome/fontawesome": "^1.1.5",
     "@fortawesome/fontawesome-free-brands": "^5.0.4",
@@ -60,7 +61,7 @@
     "js-cookie": "^2.2.0",
     "lodash": "^4.17.10",
     "moment": "^2.22.2",
-    "next": "^7.0.0-canary.0",
+    "next": "^8.0.0",
     "next-redux-wrapper": "^2.0.0",
     "next-router-events": "^2.1.0",
     "nprogress": "^0.2.0",

@@ -7,7 +7,7 @@ import theme from '@emcasa/ui'
 import {
   log,
   LISTING_SEARCH_LOAD_MORE
-} from 'lib/amplitude'
+} from 'lib/logging'
 import {
   Container,
   ListContainer,

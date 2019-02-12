@@ -12,6 +12,7 @@ class Logout extends Component {
     const {client} = this.props
 
     window.localStorage.clear()
+    amplitude.getInstance().clearUserProperties()
 
     //Force a reload of all the current queries now that the user is
     //logged in, so we don't accidentally leave any state around.

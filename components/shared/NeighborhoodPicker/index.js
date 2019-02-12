@@ -23,7 +23,7 @@ import {
   LISTING_SEARCH_NEIGHBORHOOD_CLEAR,
   LISTING_SEARCH_NEIGHBORHOOD_EXPAND,
   LISTING_SEARCH_NEIGHBORHOOD_CHANGE_CITY
-} from 'lib/amplitude'
+} from 'lib/logging'
 import {
   addNeighborhoodsToQuery,
   getDerivedParams
@@ -85,7 +85,12 @@ class NeighborhoodPicker extends Component {
 
   apply(newSelection) {
     this.changeSelection(newSelection, () => {
-      log(LISTING_SEARCH_NEIGHBORHOOD_APPLY, {neighborhoods: this.state.selectedNeighborhoods})
+      log(LISTING_SEARCH_NEIGHBORHOOD_APPLY, {
+        neighborhoods: this.state.selectedNeighborhoods,
+        fromHome: this.props.fromHome
+      }, {
+        neighborhoods: this.state.selectedNeighborhoods,
+      })
       this.toggleCitiesDisplay()
       if (this.props.onBackPressed) {
         this.props.onBackPressed()
@@ -95,13 +100,7 @@ class NeighborhoodPicker extends Component {
       }
       const currentQuery = this.props.query || {}
       const query = addNeighborhoodsToQuery(getDerivedParams(currentQuery), this.state.selectedNeighborhoods)
-      if (this.props.fromHome) {
-        // React-pose has a bug that causes an error in `PoseElement.componentDidUpdate` if you do a shallow route
-        // push and call an animation in the new page. We have to do a full push here to avoid it.
-        Router.push(`/imoveis${query}`)
-      } else {
-        Router.push(`/listings${query}`, `/imoveis${query}`, {shallow: true})
-      }
+      Router.push(`/listings${query}`, `/imoveis${query}`, {shallow: true})
     })
   }
 
@@ -203,10 +202,10 @@ class NeighborhoodPicker extends Component {
 }
 
 NeighborhoodPicker.propTypes = {
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
   onBackPressed: PropTypes.func,
   mobile: PropTypes.bool,
-  query: PropTypes.object.isRequired,
+  query: PropTypes.object,
   fromHome: PropTypes.bool,
   fullscreen: PropTypes.bool
 }

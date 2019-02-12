@@ -14,6 +14,10 @@ import Container, {
 import Link from 'next/link'
 import EmCasaButton from 'components/shared/Common/Buttons'
 import ContactButton from 'components/shared/Common/Contact'
+import {
+  log,
+  CALCULATOR_USED
+} from 'lib/logging'
 
 export default class Calculator extends Component {
   state = {
@@ -25,10 +29,7 @@ export default class Calculator extends Component {
     this.setState({listingValue: maxValue, used: userClicked})
 
     if (!used && userClicked) {
-      window.dataLayer.push({
-        action: 'User used calculator',
-        event: 'user_used_calculator'
-      })
+      log(CALCULATOR_USED)
     }
   }
 

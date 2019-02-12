@@ -42,13 +42,12 @@ const Container = styled(View)`
   }
 `
 
-const ListingImage = styled(View)`
+const ListingImage = styled.img`
   box-sizing: border-box;
-  background-image: ${({url}) => `url('${url}')`};
-  background-repeat: no-repeat;
-  background-size: cover;
+  object-fit: cover;
   width: 100%;
-  height: ${() => getCardWidth() * 0.5}px;
+  min-height: ${() => Math.round(getCardWidth() * 0.5)}px;
+  height: ${() => Math.round(getCardWidth() * 0.5)}px;
   border-radius: ${themeGet('space.1')}px ${themeGet('space.1')}px 0 0;
 `
 

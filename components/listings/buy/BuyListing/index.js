@@ -8,7 +8,15 @@ import NeighborhoodAutoComplete from 'components/shared/NeighborhoodAutoComplete
 import NeighborhoodPicker from 'components/shared/NeighborhoodPicker'
 import MobileAddressButton from 'components/shared/MobileAddressButton'
 import { MobileTypeaheadContainer } from 'components/shared/NeighborhoodAutoComplete/styles'
-import {USE_NEW_SEARCH} from 'config/globals'
+import { USE_NEW_SEARCH } from 'config/globals'
+import ScrollTracker from 'components/shared/ScrollTracker'
+import {
+  log,
+  BUYER_LANDING_SCROLL_25,
+  BUYER_LANDING_SCROLL_50,
+  BUYER_LANDING_SCROLL_75,
+  BUYER_LANDING_SCROLL_100
+} from 'lib/logging'
 import {
   UnderlinedText,
   Container,
@@ -105,6 +113,12 @@ export default class BuyListing extends Component {
 
     return (
       <Container>
+        <ScrollTracker
+          onScroll25={() => {log(BUYER_LANDING_SCROLL_25)}}
+          onScroll50={() => {log(BUYER_LANDING_SCROLL_50)}}
+          onScroll75={() => {log(BUYER_LANDING_SCROLL_75)}}
+          onScroll100={() => {log(BUYER_LANDING_SCROLL_100)}}
+        />
         <Content>
           <Row justifyContent="center" px={[4, 0]}>
             <Col>

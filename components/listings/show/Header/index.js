@@ -27,6 +27,13 @@ import faCube from '@fortawesome/fontawesome-pro-light/faCube'
 import faExpand from '@fortawesome/fontawesome-pro-light/faExpandArrows'
 import faMinimize from '@fortawesome/fontawesome-pro-light/faCompressAlt'
 import {mobileMedia} from 'constants/media'
+import {
+  log,
+  LISTING_DETAIL_PHOTOS_LEFT,
+  LISTING_DETAIL_PHOTOS_RIGHT,
+  LISTING_DETAIL_PHOTOS_FULLSCREEN_OPEN,
+  LISTING_DETAIL_PHOTOS_FULLSCREEN_CLOSE,
+} from 'lib/logging'
 
 export default class ListingHeader extends Component {
   state = {
@@ -84,19 +91,28 @@ export default class ListingHeader extends Component {
   }
 
   hide3DTour = () => this.setState({show3DTour: false})
-  toggleFullScreen = () =>
+  toggleFullScreen = () => {
+    const event = this.state.isFullScreen ? LISTING_DETAIL_PHOTOS_FULLSCREEN_CLOSE : LISTING_DETAIL_PHOTOS_FULLSCREEN_OPEN
+    log(event, {listingId: this.props.listing.id})
     this.setState(({isFullScreen}) => ({isFullScreen: !isFullScreen}))
+  }
 
-  getSliderImages = () =>
-    this.props.listing.images.map(({filename}) => (
-      <SliderImage
-        key={filename}
-        src={thumbnailUrl(filename, 1920, 1080)}
-        alt={`Imagem do apartamento ID ${this.props.listing.id}`}
-        innerRef={(currentImage) => (this[filename] = currentImage)}
-        loaded={this[filename]}
-      />
-    ))
+  getSliderImages = () => {
+    const {id, images, price, address, type} = this.props.listing
+    return (
+      images.map(({filename}) => {
+        return (
+          <SliderImage
+            key={filename}
+            src={thumbnailUrl(filename, 1920, 1080)}
+            alt={`Imagem ${type === 'Apartamento' ? 'do' : 'da'} ${type} ID-${id} na ${address.street}, ${address.neighborhood}, ${address.city} - ${address.state}`}
+            innerRef={(currentImage) => (this[filename] = currentImage)}
+            loaded={this[filename]}
+          />
+        )
+      })
+    )
+  }
 
   getSliderContent = (visualizeTour) => {
     const {listing: {matterportCode, id}} = this.props
@@ -127,7 +143,7 @@ export default class ListingHeader extends Component {
   }
 
   getSliderNavigation = () => {
-    const {listing: {images, matterportCode}} = this.props
+    const {listing: {id, images, matterportCode}} = this.props
     const settings = {
       infinite: true,
       className: 'thumb-slider',
@@ -135,8 +151,8 @@ export default class ListingHeader extends Component {
       slidesToShow: this.state.slidesToShow,
       slidesToScroll: 1,
       swipeToSlide: true,
-      nextArrow: <SliderArrow icon={faAngleRight} />,
-      prevArrow: <SliderArrow icon={faAngleLeft} left={true} />,
+      nextArrow: <SliderArrow icon={faAngleRight} listingId={id} />,
+      prevArrow: <SliderArrow icon={faAngleLeft} left={true} listingId={id} />,
       centerMode: true,
       focusOnSelect: true
     }
@@ -197,8 +213,8 @@ export default class ListingHeader extends Component {
         }
       ],
       adaptiveHeight: false,
-      nextArrow: <SliderArrow icon={faAngleRight} />,
-      prevArrow: <SliderArrow icon={faAngleLeft} left={true} />
+      nextArrow: <SliderArrow icon={faAngleRight} listingId={listing.id} />,
+      prevArrow: <SliderArrow icon={faAngleLeft} left={true} listingId={listing.id} />
     }
 
     return (
@@ -210,6 +226,7 @@ export default class ListingHeader extends Component {
                 <Matterport
                   matterport_code={listing.matterportCode}
                   handleClose={this.hide3DTour}
+                  listingId={listing.id}
                 />
               )}
               <Carousel
@@ -283,9 +300,14 @@ export default class ListingHeader extends Component {
   }
 }
 
-function SliderArrow({onClick, icon, left}) {
+function SliderArrow({onClick, icon, left, listingId}) {
   return (
-    <Arrow onClick={onClick} left={left}>
+    <Arrow onClick={() => {
+      const properties = {listingId}
+      const event = left ? LISTING_DETAIL_PHOTOS_LEFT : LISTING_DETAIL_PHOTOS_RIGHT
+      log(event, properties)
+      onClick()
+    }} left={left}>
       <FontAwesomeIcon icon={icon} />
     </Arrow>
   )
