@@ -16,7 +16,6 @@ import {
   NeighborhoodsLinks,
   NeighborhoodItems,
   Neighborhood,
-  NeighborhoodImg,
   Soon,
   Spacer,
   Title,
@@ -134,7 +133,7 @@ export default class Neighborhoods extends Component {
                                   log(BUYER_LANDING_NEIGHBORHOOD_IMAGE, {neighborhood: name})
                                 }}
                               >
-                                <NeighborhoodImg
+                                <img
                                   decoding="async"
                                   src={srcImg}
                                   alt={`Imagem em destaque do bairro ${name}`}
