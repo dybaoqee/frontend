@@ -1,8 +1,5 @@
-const env = require('../env-config')
-
 const plugins = [
   ['lodash'],
-  ['transform-define', env],
   ['@babel/plugin-syntax-decorators', {legacy: true}],
   [
     'module-resolver',
