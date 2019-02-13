@@ -1,15 +1,15 @@
 import {Component} from 'react'
-import LikeButton from 'components/shared/Common/Buttons/Like'
 import Carousel from 'react-slick'
-import {thumbnailUrl} from 'utils/image_url'
-import Matterport from 'components/listings/show/Matterport'
 import {Mutation} from 'react-apollo'
-import {VISUALIZE_TOUR} from 'graphql/listings/mutations'
-import {downloadBlob} from 'utils/file-utils'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faAngleRight from '@fortawesome/fontawesome-pro-regular/faAngleRight'
 import faAngleLeft from '@fortawesome/fontawesome-pro-regular/faAngleLeft'
 import faCube from '@fortawesome/fontawesome-pro-light/faCube'
+import {VISUALIZE_TOUR} from 'graphql/listings/mutations'
+import {thumbnailUrl} from 'utils/image_url'
+import {downloadBlob} from 'utils/file-utils'
+import LikeButton from 'components/shared/Common/Buttons/Like'
+import Matterport from 'components/listings/show/Matterport'
 import {mobileMedia} from 'constants/media'
 import {
   log,
@@ -20,7 +20,6 @@ import {
 } from 'lib/logging'
 import Container, {
   Thumb,
-  SliderImage,
   Content,
   Arrow,
   TourWrapper,
@@ -96,7 +95,9 @@ export default class ListingHeader extends Component {
     return (
       images.map(({filename}) => {
         return (
-          <SliderImage
+          <img
+            className="slider-image"
+            decoding="async"
             key={filename}
             src={thumbnailUrl(filename, 1920, 1080)}
             alt={`Imagem ${type === 'Apartamento' ? 'do' : 'da'} ${type} ID-${id} na ${address.street}, ${address.neighborhood}, ${address.city} - ${address.state}`}

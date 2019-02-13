@@ -49,17 +49,6 @@ export const Thumb = styled.div`
   }
 `
 
-export const SliderImage = styled.img`
-  box-sizing: border-box;
-  cursor: pointer;
-  max-height: 343px;
-  height: 343px;
-  z-index: 2;
-  position: relative;
-  object-fit: cover;
-  width: 100%;
-`
-
 export const Content = styled.div`
   max-height: 343px;
   min-height: 343px;
@@ -251,7 +240,16 @@ export default styled.div`
   .slick-slide > div {
     height: inherit;
   }
-  ${SliderImage} {
+
+  img {
+    box-sizing: border-box;
+    cursor: pointer;
+    max-height: 343px;
+    height: 343px;
+    z-index: 2;
+    position: relative;
+    object-fit: cover;
+    width: 100%;
     ${({isFullScreen}) =>
       isFullScreen &&
       'min-height: 100%; max-height: 100%; height: 100%; flex-grow: 1; background-size: contain; '};
