@@ -192,6 +192,7 @@ class UserProfile extends Component {
       <Query query={GET_USER_INFO} variables={{id}}>
         {({loading, error, data: {userProfile}}) => {
           if (loading) return <div />
+          const { name, email } = userProfile
           if (error) return `Error!: ${error}`
               return (
                 <InitialView
@@ -202,21 +203,21 @@ class UserProfile extends Component {
                     justifyContent={'center'}
                     alignItems={'center'}
                   >
-                    {this.getUserAcronym(userProfile.name)}
+                    {name ? this.getUserAcronym(name) : ''}
                   </ProfileAvatar>
                   <Text
                     margin={6}
                     textAlign="center"
                     fontSize="large"
                   >
-                    {userProfile.name}
+                    {name ? name : 'Bem vindo(a)'}
                   </Text>
                   <Text
                     margin={6}
                     textAlign="center"
                     color="grey"
                   >
-                    {userProfile.email}
+                    {email ? email : 'Você ainda não possui nome e e-mail cadastrados.'}
                   </Text>
                   <Text
                     margin={6}
@@ -260,7 +261,8 @@ class UserProfile extends Component {
               <Query query={GET_USER_INFO} variables={{id}}>
                 {({loading, data: {userProfile}}) => {
                   if (loading) return <div />
-                  this.checkFieldsChange(userProfile.name, userProfile.email)
+                  const { name, email } = userProfile
+                  this.checkFieldsChange(name, email)
                   return (
                     <InitialView
                       flexDirection={'column'}
@@ -271,7 +273,7 @@ class UserProfile extends Component {
                         justifyContent={'center'}
                         alignItems={'center'}
                       >
-                        {this.getUserAcronym(userProfile.name)}
+                        {name ? this.getUserAcronym(userProfile.name) : ''}
                       </ProfileAvatar>
                       <Form
                         onSubmit={(e) =>
