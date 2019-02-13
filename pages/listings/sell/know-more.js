@@ -76,7 +76,7 @@ export default class SellKnowMore extends Component {
                 <p>Economize tempo e venda seu imóvel mais rápido.</p>
               </Benefit>
             </BenefitsContainer>
-            <Link passHref href="/listings/new" as="/imoveis/adicionar">
+            <Link passHref href="/listings/new-listing" as="/vender/imovel">
               <a>
                 <EmCasaButton light>Anuncie agora</EmCasaButton>
               </a>
@@ -112,7 +112,7 @@ export default class SellKnowMore extends Component {
               Agora é aguardar nosso contato para agendamento das visitas com os
               interessados em comprar o seu imóvel.
             </p>
-            <Link passHref href="/listings/new" as="/imoveis/adicionar">
+            <Link passHref href="/listings/new-listing" as="/vender/imovel">
               <a>
                 <EmCasaButton light>Anuncie agora</EmCasaButton>
               </a>

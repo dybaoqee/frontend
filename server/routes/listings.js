@@ -21,11 +21,6 @@ router.get('/:listingId/imagens', (req, res) => {
   res.locals.app.render(req, res, actualPage, queryParams)
 })
 
-router.get('/adicionar', (req, res) => {
-  const actualPage = '/listings/new'
-  res.locals.app.render(req, res, actualPage)
-})
-
 router.get('/favoritos', (req, res) => {
   return res.locals.app.render(req, res, '/listings/fav', req.query)
 })

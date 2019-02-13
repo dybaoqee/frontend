@@ -65,7 +65,7 @@ export default class MyPage extends Component {
               </ul>
             </li>
             <li>
-              <Link passHref href="/listings/new" as="/imoveis/adicionar">
+              <Link passHref href="/listings/new-listing" as="/vender/imovel">
                 <a title="Venda seu imóvel">Venda seu imóvel</a>
               </Link>
               <ul>
