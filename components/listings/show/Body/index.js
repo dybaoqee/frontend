@@ -34,7 +34,7 @@ export default class ListingMainContent extends PureComponent {
   render() {
     const {listing, handleOpenPopup, user} = this.props
     const {street, neighborhood, streetNumber} = listing.address
-    const showStatistics = user.admin || listing.owner
+    const showStatistics = listing.owner
     const paragraphs = getParagraphs(listing.description)
     const ownerOrAdmin = canEdit(user, listing)
     const listingInfo = ownerOrAdmin

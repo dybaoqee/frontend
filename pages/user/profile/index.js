@@ -81,15 +81,11 @@ class UserProfile extends Component {
     try {
       return {
         currentUser,
-        renderFooter: false,
-        newFooter: true,
-        newHeader: true
+        renderFooter: false
       }
     } catch (e) {
       return {
-        error: e.message,
-        newFooter: true,
-        newHeader: true
+        error: e.message
       }
     }
   }

@@ -59,7 +59,6 @@ class ListingSearch extends Component {
     return {
       hideSeparator: true,
       transparentHeader: false,
-      newHeader: true,
       query,
       params,
       renderFooter: false,

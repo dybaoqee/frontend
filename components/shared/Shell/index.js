@@ -3,10 +3,8 @@ import {withRouter} from 'next/router'
 import Head from 'next/head'
 import Router from 'next/router'
 import NProgress from 'nprogress'
-import Header from './Header'
 import Footer from './Footer'
-import NewFooter from './NewFooter'
-import NewHeader from './NewHeader'
+import Header from './Header'
 import Container, {Main} from './styles'
 
 Router.onRouteChangeStart = () => {
@@ -32,8 +30,8 @@ class Layout extends Component {
       router
     } = this.props
 
-    const FooterComponent = pageProps.newFooter ? NewFooter : Footer
-    const HeaderComponent = pageProps.newHeader ? NewHeader : Header
+    const FooterComponent = Footer
+    const HeaderComponent = Header
 
     return (
       <Fragment>

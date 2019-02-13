@@ -1,74 +1,139 @@
-import {Fragment} from 'react'
+import {ThemeProvider} from 'styled-components'
+import theme from '@emcasa/ui'
 import Link from 'next/link'
+import Col from '@emcasa/ui-dom/components/Col'
+import Text from '@emcasa/ui-dom/components/Text'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import faPhone from '@fortawesome/fontawesome-pro-light/faPhone'
+import faMail from '@fortawesome/fontawesome-pro-light/faEnvelope'
 import {
   faFacebook,
   faInstagram,
   faLinkedin,
-  faTwitter
+  faTwitter,
+  faWhatsapp
 } from '@fortawesome/fontawesome-free-brands'
 
-import Container, {EmCasaInfo, EmCasaContact} from './styles'
-import PreFooter from 'components/shared/Shell/Footer/PreFooter'
+import {
+  Wrapper,
+  Container,
+  TextLink,
+  AboutText,
+  AboutLogo,
+  LinkGroup
+} from './styles'
+
+const titleText = {
+  fontWeight: 'bold'
+}
 
 const Footer = () => (
-  <Fragment>
-    <PreFooter />
-    <Container>
-      <EmCasaInfo>
-        <Link passHref href="/">
-          <a>
-            <img
-              src="/static/emcasa-imobiliaria-rio-de-janeiro.png"
-              alt="Emcasa Imobiliária no Rio de Janeiro"
-            />
-          </a>
-        </Link>
-      </EmCasaInfo>
-
-      <EmCasaContact>
-        <span> CRECI-RJ J-7712</span>
-        <a href="mailto:contato@emcasa.com">contato@emcasa.com</a>
-        <Link passHref href="/sitemap">
-          <a>Mapa do site</a>
-        </Link>
-
-        <div className="icons">
-          <a
-            href="https://www.facebook.com/EmCasa"
-            target="_blank"
-            className="icon"
-          >
-            <FontAwesomeIcon icon={faFacebook} />
-          </a>
-
-          <a
-            href="https://www.instagram.com/emcasaimoveis/"
-            target="_blank"
-            className="icon"
-          >
-            <FontAwesomeIcon icon={faInstagram} />
-          </a>
-
-          <a
-            href="https://www.linkedin.com/company/emcasa/"
-            target="_blank"
-            className="icon"
-          >
-            <FontAwesomeIcon icon={faLinkedin} />
-          </a>
-
-          <a
-            href="https://twitter.com/EmCasaTech"
-            target="_blank"
-            className="icon"
-          >
-            <FontAwesomeIcon icon={faTwitter} />
-          </a>
-        </div>
-      </EmCasaContact>
-    </Container>
-  </Fragment>
+  <ThemeProvider theme={theme}>
+    <Wrapper>
+      <Container flexDirection={['column', 'row']}>
+        <Col width={[1, 6 / 12]} ml={[0, '5vw']} mt="1.5em">
+          <AboutLogo />
+          <AboutText fontSize="small">
+            A EmCasa é uma imobiliária digital tem como objetivo transformar a
+            maneira que o brasileiro compra ou vende imóvel.
+          </AboutText>
+          <Text fontSize="16px"> CRECI-RJ J-7712</Text>
+        </Col>
+        <Col width={[1, 2 / 12]}>
+          <Text {...titleText}>EmCasa</Text>
+          <LinkGroup>
+            <Link passHref href="/listings" as="/imoveis">
+              <a>
+                <TextLink>Compre</TextLink>
+              </a>
+            </Link>
+            <Link passHref href="/listings/sell" as="/vender">
+              <a>
+                <TextLink>Venda</TextLink>
+              </a>
+            </Link>
+            <a href="http://blog.emcasa.com" target="_blank">
+              <TextLink>Blog</TextLink>
+            </a>
+            <a href="https://jobs.emcasa.com/" target="_blank">
+              <TextLink>Trabalhe Conosco</TextLink>
+            </a>
+            <Link passHref href="/sitemap">
+              <a>
+                <TextLink>Mapa do Site</TextLink>
+              </a>
+            </Link>
+          </LinkGroup>
+        </Col>
+        <Col width={[1, 2 / 12]}>
+          <Text {...titleText}>Suporte</Text>
+          <LinkGroup>
+            <div>
+              <a href="tel:+5521994771868">
+                <TextLink>
+                  <FontAwesomeIcon icon={faPhone} />
+                  (21) 99477-1868
+                </TextLink>
+              </a>
+            </div>
+            <div>
+              <a href="https://wa.me/5521994771868">
+                <TextLink>
+                  <FontAwesomeIcon icon={faWhatsapp} />
+                  WhatsApp
+                </TextLink>
+              </a>
+            </div>
+            <div>
+              <a href="mailto:contato@emcasa.com">
+                <TextLink>
+                  <FontAwesomeIcon icon={faMail} />
+                  Fale com a gente
+                </TextLink>
+              </a>
+            </div>
+          </LinkGroup>
+        </Col>
+        <Col width={[1, 2 / 12]}>
+          <Text {...titleText}>Redes Sociais</Text>
+          <LinkGroup>
+            <div>
+              <a href="https://www.facebook.com/EmCasa" target="_blank">
+                <TextLink>
+                  <FontAwesomeIcon icon={faFacebook} />
+                  Facebook
+                </TextLink>
+              </a>
+            </div>
+            <div>
+              <a href="https://www.instagram.com/emcasaimoveis/" target="_blank">
+                <TextLink>
+                  <FontAwesomeIcon icon={faInstagram} />
+                  Instagram
+                </TextLink>
+              </a>
+            </div>
+            <div>
+              <a href="https://www.linkedin.com/company/emcasa/" target="_blank">
+                <TextLink>
+                  <FontAwesomeIcon icon={faLinkedin} />
+                  LinkedIn
+                </TextLink>
+              </a>
+            </div>
+            <div>
+              <a href="https://twitter.com/EmCasaTech" target="_blank">
+                <TextLink>
+                  <FontAwesomeIcon icon={faTwitter} />
+                  Twitter
+                </TextLink>
+              </a>
+            </div>
+          </LinkGroup>
+        </Col>
+      </Container>
+    </Wrapper>
+  </ThemeProvider>
 )
 
 export default Footer

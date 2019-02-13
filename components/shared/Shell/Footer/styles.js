@@ -1,109 +1,70 @@
-import * as colors from 'constants/colors'
-import {headerMobileMedia, footerMobileMedia} from 'constants/media'
 import styled from 'styled-components'
+import theme from '@emcasa/ui'
+import Text from '@emcasa/ui-dom/components/Text'
+import Row from '@emcasa/ui-dom/components/Row'
 
-export default styled.footer`
-  align-items: center;
-  background: ${colors.offWhite};
-  border-top: 1px solid ${colors.lightGray};
-  display: flex;
-  justify-content: space-between;
-  padding: 20px;
-  flex-wrap: wrap;
+const LINK_FONT_SIZE_MOBILE = '14px';
+const LINK_FONT_SIZE = '16px'
 
-  a,
-  span {
-    color: ${colors.mediumDarkGray};
-    font-size: 16px;
-    text-decoration: none;
+export const Wrapper = styled.address`
+  font-style: normal;
+`
 
-    &.icon {
-      font-size: 20px;
-    }
-  }
-
-  img {
-    width: 110px;
-  }
-
-  @media ${headerMobileMedia} {
-    img {
-      width: 100px;
-    }
-
-    a,
-    span {
-      font-size: 12px;
-    }
-  }
-
-  @media ${footerMobileMedia} {
-    flex-direction: column;
+export const Container = styled(Row)`
+  border-top: 1px solid ${theme.colors.pink};
+  margin: 50px;
+  padding-top: 20px;
+  
+  @media (max-width: ${theme.breakpoints[0]}) {
+    margin: 20px;
   }
 `
 
-export const EmCasaInfo = styled.div`
-  display: flex;
-  img {
-    margin-right: 20px;
+export const TextLink = styled(Text)`
+  cursor: pointer;
+  color: ${theme.colors.grey};
+  line-height: 0.8em;
+  font-size: ${LINK_FONT_SIZE};
+  &:hover {
+    color: ${theme.colors.pink};
   }
-
-  > a {
-    align-self: center;
-  }
-`
-
-export const EmCasaContact = styled.div`
-  display: flex;
-  a,
-  span {
-    align-self: center;
-    margin-left: 20px;
-    &.icon {
-      color: ${colors.blue.medium};
-      top: 0;
-    }
-  }
-
   svg {
-    width: 18px !important;
-    height: 18px;
+    width: ${LINK_FONT_SIZE};
+    height: ${LINK_FONT_SIZE};
+    margin-right: 5px;
+  } 
+  
+  @media (max-width: ${theme.breakpoints[0]}) {
+    line-height: 0.3em;
+    margin-right: 20px;
+    min-height: ${LINK_FONT_SIZE_MOBILE};
+    font-size: ${LINK_FONT_SIZE_MOBILE};
+    svg {
+      width: ${LINK_FONT_SIZE_MOBILE};
+      height: ${LINK_FONT_SIZE_MOBILE};
+    }
   }
+`
 
-  @media ${headerMobileMedia} {
+export const LinkGroup = styled.div`
+  @media (max-width: ${theme.breakpoints[0]}) {
+    display: flex;
+    flex-wrap: wrap; 
     flex-direction: column;
-
-    .icons {
-      display: flex;
-      justify-content: flex-end;
-    }
-
-    a {
-      order: 2;
-      margin-left: 16px;
-    }
-
-    span {
-      order: 1;
-    }
-
-    a[href='/jobs'] {
-      display: none;
-    }
-
-    a[href='/sitemap'] {
-      display: none;
-    }
+    max-height: 130px;
+    align-content: flex-start;
   }
-
-  @media ${footerMobileMedia} {
-    .icons {
-      justify-content: space-evenly;
-    }
-
-    a,
-    span {
-      margin-left: 0px;
-    }
+  
+  a {
+    text-decoration: none;
   }
+`
+
+export const AboutText = styled(Text)`
+  max-width: 350px;
+`
+
+export const AboutLogo = styled.div`
+  content: url(https://s3.amazonaws.com/emcasa-ui/logo/symbol.svg);
+  max-width: 32px;
 `
