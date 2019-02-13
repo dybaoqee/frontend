@@ -12,6 +12,10 @@ import {signUpUser} from 'lib/auth'
 import redirect from 'lib/redirect'
 import Container from './styles'
 import Router from 'next/router'
+import {
+  log,
+  SIGNUP_SUCCESS
+} from 'lib/logging'
 
 export default class UserInfo extends Component {
   state = {
@@ -54,11 +58,7 @@ export default class UserInfo extends Component {
         })
       }
 
-      window.dataLayer.push({
-        action: 'User Signed up',
-        userId: user.id,
-        event: 'user_signed_up'
-      })
+      log(SIGNUP_SUCCESS, null, {userId: user.id})
       removeCookie('accountkitinit')
 
       getCookie('redirectTo')

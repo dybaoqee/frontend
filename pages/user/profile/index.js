@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react'
+import React, {Component} from 'react'
 import {
   GET_USER_INFO,
   GET_USER_LISTINGS,
@@ -22,14 +22,9 @@ import isUndefined from 'lodash/isUndefined'
 import isEqualWith from 'lodash/isEqualWith'
 import pickBy from 'lodash/pickBy'
 import Head from 'next/head'
-import Router from 'next/router'
 import Link from 'next/link'
-import Tabs from 'components/shared/Common/Tabs'
-import EmCasaButton from 'components/shared/Common/Buttons'
-import Form, {Field} from 'components/shared/Common/Form/styles'
-import CheckBox from 'components/shared/Common/Form/CheckBox'
+import Form from 'components/shared/Common/Form/styles'
 import ListingCard from 'components/listings/shared/ListingCard'
-
 import {ThemeProvider} from 'styled-components'
 import theme from '@emcasa/ui'
 import Col from '@emcasa/ui-dom/components/Col'
@@ -39,12 +34,28 @@ import Input from '@emcasa/ui-dom/components/Input'
 import Button from '@emcasa/ui-dom/components/Button'
 import Text from '@emcasa/ui-dom/components/Text'
 import {
+  log,
+  PROFILE_OPEN,
+  PROFILE_MY_PROFILE,
+  PROFILE_MY_LISTINGS,
+  PROFILE_FAVORITES,
+  PROFILE_LOGOUT,
+  PROFILE_EDIT,
+  PROFILE_EDIT_CANCEL,
+  PROFILE_EDIT_SAVE,
+  PROFILE_FAVORITES_EXPLORE_LISTINGS
+} from 'lib/logging'
+import {
   TabWrapper,
   InitialView,
   ProfileAvatar,
   ProfileList,
   Icon
 } from './styles'
+
+const MY_PROFILE_LABEL = 'Meu Perfil'
+const MY_LISTINGS_LABEL = 'Meus Imóveis'
+const FAVORITES_LABEL = 'Favoritos'
 
 class UserProfile extends Component {
   constructor(props) {
@@ -83,6 +94,10 @@ class UserProfile extends Component {
     }
   }
 
+  componentDidMount() {
+    log(PROFILE_OPEN)
+  }
+
   checkComparison = (objValue, othValue) => {
     if (objValue === othValue || (isNull(objValue) && othValue === '')) {
       return true
@@ -102,7 +117,10 @@ class UserProfile extends Component {
     }, 300)
   }
 
-  changeProfileView = () => this.setState({ editingProfile: !this.state.editingProfile })
+  changeProfileView = () => {
+    this.state.editingProfile ? log(PROFILE_EDIT_CANCEL) : log(PROFILE_EDIT)
+    this.setState({ editingProfile: !this.state.editingProfile })
+  }
 
   getUserAcronym = (name) => name.match(/\b(\w)/g).join('').substring(0, 2)
 
@@ -112,6 +130,7 @@ class UserProfile extends Component {
   }
 
   handleProfileUpdate = async (e, editProfile, editEmail, userProfile) => {
+    log(PROFILE_EDIT_SAVE)
     const {
       name: actualName,
       email: actualEmail,
@@ -222,6 +241,7 @@ class UserProfile extends Component {
                     <Button
                       fluid
                       height="tall"
+                      onClick={() => {log(PROFILE_LOGOUT)}}
                     >
                       Sair
                     </Button>
@@ -451,6 +471,7 @@ class UserProfile extends Component {
                       active
                       fluid
                       height="tall"
+                      onClick={() => {log(PROFILE_FAVORITES_EXPLORE_LISTINGS)}}
                     >Explorar</Button>
                   </Link>
                 </Col>
@@ -467,25 +488,38 @@ class UserProfile extends Component {
     const {currentUser: {id}} = this.props
     return (
       <ThemeProvider theme={theme}>
-        <Fragment>
+        <>
           <Head>
             <title>{seoTitle}</title>
             <meta name="twitter:title" content={seoTitle} />
           </Head>
           <TabWrapper>
-            <Tab.Group>
-              <Tab label="Meu Perfil">
+            <Tab.Group onClick={(e) => {
+              if (e.target) {
+                const { target } = e
+                if (target.tagName.toLowerCase() === 'button') {
+                  if (target.innerText === MY_PROFILE_LABEL) {
+                    log(PROFILE_MY_PROFILE)
+                  } else if (target.innerText === MY_LISTINGS_LABEL) {
+                    log(PROFILE_MY_LISTINGS)
+                  } else if (target.innerText === FAVORITES_LABEL) {
+                    log(PROFILE_FAVORITES)
+                  }
+                }
+              }
+            }}>
+              <Tab label={MY_PROFILE_LABEL}>
                 {this.state.editingProfile ? this.getProfileForm() : this.getInitialView()}
               </Tab>
-              <Tab label="Meus Imóveis">
+              <Tab label={MY_LISTINGS_LABEL}>
                 {this.getUserListings()}
               </Tab>
-              <Tab label="Favoritos">
+              <Tab label={FAVORITES_LABEL}>
                 {this.getUserFavorites()}
               </Tab>
             </Tab.Group>
           </TabWrapper>
-        </Fragment>
+        </>
       </ThemeProvider>
     )
   }

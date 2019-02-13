@@ -40,16 +40,15 @@ const Container = styled(View)`
   : hover {
     border: 1px solid ${themeGet('colors.pink')};
   }
-`
 
-const ListingImage = styled(View)`
-  box-sizing: border-box;
-  background-image: ${({url}) => `url('${url}')`};
-  background-repeat: no-repeat;
-  background-size: cover;
-  width: 100%;
-  height: ${() => getCardWidth() * 0.5}px;
-  border-radius: ${themeGet('space.1')}px ${themeGet('space.1')}px 0 0;
+  img {
+    box-sizing: border-box;
+    object-fit: cover;
+    width: 100%;
+    min-height: ${() => Math.round(getCardWidth() * 0.5)}px;
+    height: ${() => Math.round(getCardWidth() * 0.5)}px;
+    border-radius: ${themeGet('space.1')}px ${themeGet('space.1')}px 0 0;
+  }
 `
 
 const LikeButtonContainer = styled.div`
@@ -60,6 +59,5 @@ const LikeButtonContainer = styled.div`
 
 export {
   Container,
-  ListingImage,
   LikeButtonContainer
 }

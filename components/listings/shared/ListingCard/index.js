@@ -20,7 +20,7 @@ import {
 import {
   log,
   LISTING_SEARCH_VIEW_LISTING
-} from 'lib/amplitude'
+} from 'lib/logging'
 
 class ListingCard extends Component {
   render() {
@@ -52,7 +52,11 @@ class ListingCard extends Component {
               log(LISTING_SEARCH_VIEW_LISTING, {listingId: listing.id})
             }
           }}>
-            <ListingImage url={thumbUrl} />
+            <img
+              decoding="async"
+              src={thumbUrl}
+              alt={`Imagem do imóvel ID-${listing.id} na ${listing.address.street}, ${listing.address.neighborhood}, ${listing.address.city} - ${listing.address.state}`}
+            />
             <Row flexDirection="column" p={2}>
               <Row><Text inline fontSize="small">{listing.address.neighborhood.toUpperCase()}</Text></Row>
               <Row><Text inline fontSize="small">{listing.address.street}</Text></Row>

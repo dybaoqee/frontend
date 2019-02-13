@@ -15,6 +15,7 @@ import {
 } from '@fortawesome/fontawesome-free-brands'
 
 import {
+  Wrapper,
   Container,
   TextLink,
   AboutText,
@@ -28,108 +29,110 @@ const titleText = {
 
 const Footer = () => (
   <ThemeProvider theme={theme}>
-    <Container flexDirection={['column', 'row']}>
-      <Col width={[1, 6 / 12]} ml={[0, '5vw']} mt="1.5em">
-        <AboutLogo />
-        <AboutText fontSize="small">
-          A EmCasa é uma imobiliária digital tem como objetivo transformar a
-          maneira que o brasileiro compra ou vende imóvel.
-        </AboutText>
-        <Text fontSize="16px"> CRECI-RJ J-7712</Text>
-      </Col>
-      <Col width={[1, 2 / 12]}>
-        <Text {...titleText}>EmCasa</Text>
-        <LinkGroup>
-          <Link passHref href="/listings" as="/imoveis">
-            <a>
-              <TextLink>Compre</TextLink>
+    <Wrapper>
+      <Container flexDirection={['column', 'row']}>
+        <Col width={[1, 6 / 12]} ml={[0, '5vw']} mt="1.5em">
+          <AboutLogo />
+          <AboutText fontSize="small">
+            A EmCasa é uma imobiliária digital tem como objetivo transformar a
+            maneira que o brasileiro compra ou vende imóvel.
+          </AboutText>
+          <Text fontSize="16px"> CRECI-RJ J-7712</Text>
+        </Col>
+        <Col width={[1, 2 / 12]}>
+          <Text {...titleText}>EmCasa</Text>
+          <LinkGroup>
+            <Link passHref href="/listings" as="/imoveis">
+              <a>
+                <TextLink>Compre</TextLink>
+              </a>
+            </Link>
+            <Link passHref href="/listings/sell" as="/vender">
+              <a>
+                <TextLink>Venda</TextLink>
+              </a>
+            </Link>
+            <a href="http://blog.emcasa.com" target="_blank">
+              <TextLink>Blog</TextLink>
             </a>
-          </Link>
-          <Link passHref href="/listings/sell" as="/vender">
-            <a>
-              <TextLink>Venda</TextLink>
+            <a href="https://jobs.emcasa.com/" target="_blank">
+              <TextLink>Trabalhe Conosco</TextLink>
             </a>
-          </Link>
-          <a href="http://blog.emcasa.com" target="_blank">
-            <TextLink>Blog</TextLink>
-          </a>
-          <a href="https://jobs.emcasa.com/" target="_blank">
-            <TextLink>Trabalhe Conosco</TextLink>
-          </a>
-          <Link passHref href="/sitemap">
-            <a>
-              <TextLink>Mapa do Site</TextLink>
-            </a>
-          </Link>
-        </LinkGroup>
-      </Col>
-      <Col width={[1, 2 / 12]}>
-        <Text {...titleText}>Suporte</Text>
-        <LinkGroup>
-          <div>
-            <a href="tel:+5521994771868">
-              <TextLink>
-                <FontAwesomeIcon icon={faPhone} />
-                (21) 99477-1868
-              </TextLink>
-            </a>
-          </div>
-          <div>
-            <a href="https://wa.me/5521994771868">
-              <TextLink>
-                <FontAwesomeIcon icon={faWhatsapp} />
-                WhatsApp
-              </TextLink>
-            </a>
-          </div>
-          <div>
-            <a href="mailto:contato@emcasa.com">
-              <TextLink>
-                <FontAwesomeIcon icon={faMail} />
-                Fale com a gente
-              </TextLink>
-            </a>
-          </div>
-        </LinkGroup>
-      </Col>
-      <Col width={[1, 2 / 12]}>
-        <Text {...titleText}>Redes Sociais</Text>
-        <LinkGroup>
-          <div>
-            <a href="https://www.facebook.com/EmCasa" target="_blank">
-              <TextLink>
-                <FontAwesomeIcon icon={faFacebook} />
-                Facebook
-              </TextLink>
-            </a>
-          </div>
-          <div>
-            <a href="https://www.instagram.com/emcasaimoveis/" target="_blank">
-              <TextLink>
-                <FontAwesomeIcon icon={faInstagram} />
-                Instagram
-              </TextLink>
-            </a>
-          </div>
-          <div>
-            <a href="https://www.linkedin.com/company/emcasa/" target="_blank">
-              <TextLink>
-                <FontAwesomeIcon icon={faLinkedin} />
-                LinkedIn
-              </TextLink>
-            </a>
-          </div>
-          <div>
-            <a href="https://twitter.com/EmCasaTech" target="_blank">
-              <TextLink>
-                <FontAwesomeIcon icon={faTwitter} />
-                Twitter
-              </TextLink>
-            </a>
-          </div>
-        </LinkGroup>
-      </Col>
-    </Container>
+            <Link passHref href="/sitemap">
+              <a>
+                <TextLink>Mapa do Site</TextLink>
+              </a>
+            </Link>
+          </LinkGroup>
+        </Col>
+        <Col width={[1, 2 / 12]}>
+          <Text {...titleText}>Suporte</Text>
+          <LinkGroup>
+            <div>
+              <a href="tel:+5521994771868">
+                <TextLink>
+                  <FontAwesomeIcon icon={faPhone} />
+                  (21) 99477-1868
+                </TextLink>
+              </a>
+            </div>
+            <div>
+              <a href="https://wa.me/5521994771868">
+                <TextLink>
+                  <FontAwesomeIcon icon={faWhatsapp} />
+                  WhatsApp
+                </TextLink>
+              </a>
+            </div>
+            <div>
+              <a href="mailto:contato@emcasa.com">
+                <TextLink>
+                  <FontAwesomeIcon icon={faMail} />
+                  Fale com a gente
+                </TextLink>
+              </a>
+            </div>
+          </LinkGroup>
+        </Col>
+        <Col width={[1, 2 / 12]}>
+          <Text {...titleText}>Redes Sociais</Text>
+          <LinkGroup>
+            <div>
+              <a href="https://www.facebook.com/EmCasa" target="_blank">
+                <TextLink>
+                  <FontAwesomeIcon icon={faFacebook} />
+                  Facebook
+                </TextLink>
+              </a>
+            </div>
+            <div>
+              <a href="https://www.instagram.com/emcasaimoveis/" target="_blank">
+                <TextLink>
+                  <FontAwesomeIcon icon={faInstagram} />
+                  Instagram
+                </TextLink>
+              </a>
+            </div>
+            <div>
+              <a href="https://www.linkedin.com/company/emcasa/" target="_blank">
+                <TextLink>
+                  <FontAwesomeIcon icon={faLinkedin} />
+                  LinkedIn
+                </TextLink>
+              </a>
+            </div>
+            <div>
+              <a href="https://twitter.com/EmCasaTech" target="_blank">
+                <TextLink>
+                  <FontAwesomeIcon icon={faTwitter} />
+                  Twitter
+                </TextLink>
+              </a>
+            </div>
+          </LinkGroup>
+        </Col>
+      </Container>
+    </Wrapper>
   </ThemeProvider>
 )
 

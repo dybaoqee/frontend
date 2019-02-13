@@ -8,7 +8,7 @@ import {canEdit} from 'permissions/listings-permissions'
 import {
   log,
   LISTING_DETAIL_OPEN
-} from 'lib/amplitude'
+} from 'lib/logging'
 import {ThemeProvider} from 'styled-components'
 import theme from '@emcasa/ui'
 
@@ -52,9 +52,7 @@ export default class ListingMainContent extends PureComponent {
               {listing.address.city}
             </h1>
             <h6>O imóvel</h6>
-            {paragraphs &&
-              paragraphs.map((paragraph, i) => <p key={i}>{paragraph}</p>)}
-
+            {paragraphs && paragraphs.map((paragraph, i) => <p key={i}>{paragraph}</p>)}
             <ListingInfo>
               <div>
                 <h6>Tipo do imóvel</h6>
@@ -62,7 +60,7 @@ export default class ListingMainContent extends PureComponent {
               </div>
               {listing.maintenanceFee && (
                 <div>
-                  <h6>Condomínio</h6>
+                  <h3>Condomínio</h3>
                   <p>
                     <NumberFormat
                       value={listing.maintenanceFee}
@@ -74,7 +72,6 @@ export default class ListingMainContent extends PureComponent {
                   </p>
                 </div>
               )}
-
               {listing.propertyTax && (
                 <div>
                   <h6>Iptu</h6>
@@ -91,7 +88,6 @@ export default class ListingMainContent extends PureComponent {
               )}
             </ListingInfo>
           </div>
-
           <CardWrapper>
             <ListingCard
               listing={listing}

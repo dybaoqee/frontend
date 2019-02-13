@@ -7,13 +7,12 @@ import {buildSlug} from 'lib/listings'
 import {
   log,
   LISTING_DETAIL_VIEW_FEATURED_LISTING
-} from 'lib/amplitude'
+} from 'lib/logging'
 
 export default class Listing extends Component {
   render() {
-    const {id, images, price, address} = this.props.listing
+    const {id, images, price, address, type} = this.props.listing
     const imgUrl = mainListingThumbnail(images)
-    const imgStyle = {backgroundImage: `url(${imgUrl})`}
 
     return (
       <Link
@@ -25,7 +24,12 @@ export default class Listing extends Component {
           <Container className="featured" onClick={() => {
             log(LISTING_DETAIL_VIEW_FEATURED_LISTING, {listingId: id})
           }}>
-            <div className="image-container" style={imgStyle} />
+            <img
+              decoding="async"
+              className="image-container"
+              alt={`asdasdaImagem ${type === 'Apartamento' ? 'do' : 'da'} ${type} ID-${id} à venda na ${address.street} - ${address.neighborhood}, ${address.city} - ${address.state}`}
+              src={imgUrl}
+            />
             <p className="price">
               <NumberFormat
                 value={price}

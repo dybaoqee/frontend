@@ -16,7 +16,7 @@ import {
   SELLER_LANDING_SCROLL_50,
   SELLER_LANDING_SCROLL_75,
   SELLER_LANDING_SCROLL_100
-} from 'lib/amplitude'
+} from 'lib/logging'
 import {
   UnderlinedText,
   Container,

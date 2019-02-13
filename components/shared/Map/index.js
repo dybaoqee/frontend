@@ -8,8 +8,10 @@ import MapMarker from 'components/shared/Map/Marker'
 import ClusterMarker from 'components/shared/Map/ClusterMarker'
 import {
   log,
-  LISTING_SEARCH_MAP_CLUSTER
-} from 'lib/amplitude'
+  LISTING_SEARCH_MAP_CLUSTER,
+  LISTING_SEARCH_MAP_PAN,
+  LISTING_SEARCH_MAP_ZOOM
+} from 'lib/logging'
 
 function createMapOptions(maps) {
   return {
@@ -142,6 +144,13 @@ export default class MapContainer extends Component {
       this.maps = maps
 
       this.fitMap(markers)
+
+      map.addListener('dragend', () => {
+        log(LISTING_SEARCH_MAP_PAN)
+      })
+      map.addListener('zoom_changed', () => {
+        log(LISTING_SEARCH_MAP_ZOOM)
+      })
     }
   }
 

@@ -17,13 +17,16 @@ import {
   NeighborhoodItems,
   Neighborhood,
   Soon,
-  Spacer
+  Spacer,
+  Title,
+  SubTitle,
+  ListTitle
 } from './styles'
 import {
   log,
   BUYER_LANDING_NEIGHBORHOOD_IMAGE,
   BUYER_LANDING_NEIGHBORHOOD_LINK
-} from 'lib/amplitude'
+} from 'lib/logging'
 
 const RJ_SLUG = 'rio-de-janeiro'
 const SP_SLUG = 'sao-paulo'
@@ -50,7 +53,7 @@ const NEIGHBORHOODS_BY_CITIES = NEIGHBORHOODS.reduce((cities, neighborhood) => {
   return cities
 }, {})
 
-const getCityNeighborhoodLinks = (citySlug) => (
+const getCityNeighborhoodLinks = (citySlug, noTitle) => (
   <NeighborhoodsLinks>
     <Query query={GET_DISTRICTS}>
       {({data: {districts}, loading}) =>
@@ -61,6 +64,7 @@ const getCityNeighborhoodLinks = (citySlug) => (
             const url = `/imoveis/${district.stateSlug}/${district.citySlug}/${slug(
               district.nameSlug.toLowerCase()
             )}`
+
             return (
               <Link
                 passHref
@@ -70,10 +74,17 @@ const getCityNeighborhoodLinks = (citySlug) => (
                   asPath: url
                 }}
               >
-                <a title={`Comprar imóvel: ${district.name}`} onClick={() => {
+                <a className="NeighborhoodLink" title={`Comprar imóvel: ${district.name}`} onClick={() => {
                   log(BUYER_LANDING_NEIGHBORHOOD_LINK, {neighborhood: district.nameSlug})
                 }}>
-                  Apartamentos em {district.name}
+                  {noTitle ? (
+                      `Apartamentos em ${district.name}`
+                    ) : (
+                      <ListTitle fontWeight="normal">
+                        Apartamentos em {district.name}
+                      </ListTitle>
+                    )
+                  }
                 </a>
               </Link>
             )
@@ -90,47 +101,57 @@ export default class Neighborhoods extends Component {
       <Container>
         <Content>
           <Header>
-            <Text fontSize="xlarge" fontWeight="bold" textAlign="center" className="title">
+            <Title fontSize="xlarge" fontWeight="bold" textAlign="center">
               Imóveis à venda no Rio de Janeiro e São Paulo
-            </Text>
+            </Title>
             <Text color="grey" textAlign="center">
               Escolha a localidade e confira os imóveis disponíveis
             </Text>
           </Header>
           <Cities>
-            {CITIES.map(({title, slug: citySlug, stateSlug}) => {
-              const links = getCityNeighborhoodLinks(citySlug)
+            {CITIES.map(({title, slug: citySlug, stateSlug}, index) => {
               return (
-                <City>
+                <City key={index}>
                   <CityTitle>
-                    <Text fontWeight="bold">
+                    <SubTitle fontWeight="bold">
                       {title}
-                    </Text>
+                    </SubTitle>
                   </CityTitle>
                   <NeighborhoodContainer>
                     <NeighborhoodItems>
-                      {NEIGHBORHOODS_BY_CITIES[citySlug].map(({name, ...props}) => (
-                        <Link
-                          passHref
-                          href={props.soon ? null : `/imoveis/${stateSlug}/${citySlug}/${slug(name.toLowerCase())}`}
-                        >
-                          <a>
-                            <Neighborhood {...props} onClick={() => {
-                              log(BUYER_LANDING_NEIGHBORHOOD_IMAGE, {neighborhood: name})
-                            }}>
-                              <Text>{name}</Text>
-                              {props.soon && <Soon />}
-                            </Neighborhood>
-                          </a>
-                        </Link>
-                      ))}
+                      {NEIGHBORHOODS_BY_CITIES[citySlug].map((props) => {
+                        const {name, thumb, soon} = props
+                        const srcImg = `https://res.cloudinary.com/emcasa/image/upload/v1543531007/bairros/${thumb + (soon ? '-em-breve' : '')}.png`
+                        return (
+                          <Link
+                            passHref
+                            href={soon ? null : `/imoveis/${stateSlug}/${citySlug}/${slug(name.toLowerCase())}`}
+                          >
+                            <a>
+                              <Neighborhood
+                                onClick={() => {
+                                  log(BUYER_LANDING_NEIGHBORHOOD_IMAGE, {neighborhood: name})
+                                }}
+                              >
+                                <img
+                                  decoding="async"
+                                  src={srcImg}
+                                  alt={`Imagem em destaque do bairro ${name}`}
+                                />
+                                <Text>{name}</Text>
+                                {soon && <Soon />}
+                              </Neighborhood>
+                            </a>
+                          </Link>
+                        )
+                      })}
                       <Spacer>
-                        {links}
+                        {getCityNeighborhoodLinks(citySlug, true)}
                       </Spacer>
                     </NeighborhoodItems>
                   </NeighborhoodContainer>
                   <CityInfo>
-                    {links}
+                    {getCityNeighborhoodLinks(citySlug)}
                   </CityInfo>
                 </City>
               )})}

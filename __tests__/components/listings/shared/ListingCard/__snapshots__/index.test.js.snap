@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<ListingCard/> should render component 1`] = `
-.c8 {
+.c7 {
   background: none;
   border: none;
   box-shadow: none;
@@ -11,13 +11,13 @@ exports[`<ListingCard/> should render component 1`] = `
   cursor: pointer;
 }
 
-.c8 svg {
+.c7 svg {
   width: 15px;
   text-shadow: 2px 2px 3px #f00;
   text-shadow: 2px 2px 3px #f00;
 }
 
-.c8 svg path {
+.c7 svg path {
   text-shadow: 2px 2px 3px #f00;
   fill: white;
   fill-opacity: 0;
@@ -25,7 +25,7 @@ exports[`<ListingCard/> should render component 1`] = `
   stroke-width: 60;
 }
 
-.c2 {
+.c1 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -36,28 +36,28 @@ exports[`<ListingCard/> should render component 1`] = `
   flex-direction: column;
 }
 
-.c3 {
+.c2 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
 }
 
-.c4 {
+.c3 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
   color: #3c4858;
   font-size: 14px;
 }
 
-.c5 {
+.c4 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
   color: #979797;
   font-size: 14px;
 }
 
-.c6 {
+.c5 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
   color: #3c4858;
@@ -80,17 +80,16 @@ exports[`<ListingCard/> should render component 1`] = `
   border: 1px solid #f50057;
 }
 
-.c1 {
+.c0 img {
   box-sizing: border-box;
-  background-image: url('https://res.cloudinary.com/emcasa/image/upload/f_auto,c_fit,h_600,w_600/v1513818385/');
-  background-repeat: no-repeat;
-  background-size: cover;
+  object-fit: cover;
   width: 100%;
+  min-height: 0px;
   height: 0px;
   border-radius: 4px 4px 0 0;
 }
 
-.c7 {
+.c6 {
   position: absolute;
   right: 10px;
   top: 10px;
@@ -110,17 +109,19 @@ exports[`<ListingCard/> should render component 1`] = `
     className="c0 "
     onClick={[Function]}
   >
-    <div
-      className="c1 "
+    <img
+      alt="Imagem do imóvel ID-undefined na Rua tal, Bairro, Rio de Janeiro - RJ"
+      decoding="async"
+      src="https://res.cloudinary.com/emcasa/image/upload/f_auto,c_fit,h_600,w_600/v1513818385/"
     />
     <div
-      className="c2"
+      className="c1"
     >
       <div
-        className="c3"
+        className="c2"
       >
         <span
-          className="c4"
+          className="c3"
           color="dark"
           fontSize="small"
         >
@@ -128,10 +129,10 @@ exports[`<ListingCard/> should render component 1`] = `
         </span>
       </div>
       <div
-        className="c3"
+        className="c2"
       >
         <span
-          className="c4"
+          className="c3"
           color="dark"
           fontSize="small"
         >
@@ -139,10 +140,10 @@ exports[`<ListingCard/> should render component 1`] = `
         </span>
       </div>
       <div
-        className="c3"
+        className="c2"
       >
         <span
-          className="c5"
+          className="c4"
           color="grey"
           fontSize="small"
         >
@@ -150,10 +151,10 @@ exports[`<ListingCard/> should render component 1`] = `
         </span>
       </div>
       <div
-        className="c3"
+        className="c2"
       >
         <span
-          className="c6"
+          className="c5"
           color="dark"
           fontSize="large"
           fontWeight="bold"
@@ -163,11 +164,11 @@ exports[`<ListingCard/> should render component 1`] = `
       </div>
     </div>
     <div
-      className="c7"
+      className="c6"
       onClick={[Function]}
     >
       <div
-        className="c8"
+        className="c7"
         onClick={[Function]}
       >
         <svg

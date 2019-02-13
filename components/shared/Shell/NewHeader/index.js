@@ -5,7 +5,6 @@ import {Component} from 'react'
 import Text from '@emcasa/ui-dom/components/Text'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
-import View from '@emcasa/ui-dom/components/View'
 import AccountKit from 'components/shared/Auth/AccountKit'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faSearch from '@fortawesome/fontawesome-pro-solid/faSearch'
@@ -18,7 +17,10 @@ import MobileAddressButton from 'components/shared/MobileAddressButton'
 import {MobileTypeaheadContainer} from 'components/shared/NeighborhoodAutoComplete/styles'
 import {isMobile} from 'lib/mobile'
 import {USE_NEW_SEARCH} from 'config/globals'
-
+import {
+  log,
+  LANDING_LOGIN
+} from 'lib/logging'
 import Container, {
   Wrapper,
   Nav,
@@ -29,7 +31,8 @@ import Container, {
   Logo,
   ShortLogo,
   Search,
-  SearchWrapper
+  SearchWrapper,
+  LabelLogo
 } from './styles'
 
 export default class Header extends Component {
@@ -138,10 +141,11 @@ export default class Header extends Component {
             <Row alignItems="center" width={[1, 1/2]} style={!search ? {height: theme.buttonHeight[1]} : null}>
               <Link passHref href="/listings/buy" as="/">
                 <a>
-                  <div style={{zIndex: 1}}>
+                  <h1 style={{zIndex: 1}}>
                     {!search && <Logo alt="EmCasa Imobiliária no Rio de Janeiro e São Paulo" />}
                     {search && <ShortLogo alt="EmCasa Imobiliária no Rio de Janeiro e São Paulo" />}
-                  </div>
+                    <LabelLogo>EmCasa Imobiliária no Rio de Janeiro e São Paulo</LabelLogo>
+                  </h1>
                 </a>
               </Link>
               <SearchWrapper>
@@ -192,7 +196,10 @@ export default class Header extends Component {
                   version="v1.0"
                 >
                   {({signIn, loading}) => (
-                    <MenuItem onClick={signIn}>
+                    <MenuItem onClick={() => {
+                      log(LANDING_LOGIN)
+                      signIn()
+                    }}>
                       <FontAwesomeIcon className="icon" icon={faSignInAlt} />
                       <Text>Entrar</Text>
                     </MenuItem>

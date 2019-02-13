@@ -6,15 +6,16 @@ import theme from '@emcasa/ui'
 import View from '@emcasa/ui-dom/components/View'
 import {ThemeProvider} from 'styled-components'
 import BuyListing from 'components/listings/buy/BuyListing'
-import Benefits from 'components/listings/buy/Benefits'
+import Benefits from 'components/listings/shared/Benefits'
 import Neighborhoods from 'components/listings/buy/Neighborhoods'
 import {desktopHeaderHeight} from 'constants/dimensions'
 import {isMobile} from 'lib/mobile'
 import {imageUrl} from 'utils/image_url'
 import {
   log,
-  BUYER_LANDING_PAGE
-} from 'lib/amplitude'
+  BUYER_LANDING_PAGE,
+  BUYER_LANDING_EXPLORE_LISTINGS
+} from 'lib/logging'
 import NextHead from 'components/shared/NextHead'
 
 const Container = styled(View)`
@@ -103,6 +104,35 @@ export default class Buy extends Component {
       city
     }
 
+    const benefitsProps = {
+      sectionTitle: 'Conheça as vantagens de comprar com a EmCasa',
+      benefitsList:  [
+        {
+          icon: 'suporte-financiamento',
+          title: 'Financiamento e FGTS',
+          description: 'Tenha suporte para o financiamento do seu imóvel e retirada de FGTS'
+        },
+        {
+          icon: 'tour-3d',
+          title: 'Tour Virtual 3D',
+          description:
+            'Visite dezenas de imóveis sem sair de casa, economize tempo e encontre o imóvel perfeito'
+        },
+        {
+          icon: 'assistencia-juridica',
+          title: 'Sem dor de cabeça',
+          description:
+            'Aqui na EmCasa cuidamos de toda burocracia, contratos e documentação'
+        }
+      ],
+      buttonHref: '/imoveis',
+      buttonLabel: 'Explorar Imóveis',
+      buttonClick: () => {
+          log(BUYER_LANDING_EXPLORE_LISTINGS)
+      },
+      isMobile: isMobile(this.state.pageWidth)
+    }
+
     return (
       <ThemeProvider theme={theme}>
         <Container>
@@ -118,7 +148,7 @@ export default class Buy extends Component {
             <BuyListing title={heroTitle} />
           </MainBlock>
           <Block>
-            <Benefits {...blockProps} />
+            <Benefits {...benefitsProps} />
           </Block>
           <Block>
             <Neighborhoods {...blockProps} />

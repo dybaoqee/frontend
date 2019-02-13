@@ -3,7 +3,6 @@ import Link from 'next/link'
 import LikeButton from 'components/shared/Common/Buttons/Like'
 import Container, {
   Thumb,
-  SliderImage,
   Content,
   Arrow,
   TourWrapper,
@@ -33,7 +32,7 @@ import {
   LISTING_DETAIL_PHOTOS_RIGHT,
   LISTING_DETAIL_PHOTOS_FULLSCREEN_OPEN,
   LISTING_DETAIL_PHOTOS_FULLSCREEN_CLOSE,
-} from 'lib/amplitude'
+} from 'lib/logging'
 
 export default class ListingHeader extends Component {
   state = {
@@ -97,16 +96,24 @@ export default class ListingHeader extends Component {
     this.setState(({isFullScreen}) => ({isFullScreen: !isFullScreen}))
   }
 
-  getSliderImages = () =>
-    this.props.listing.images.map(({filename}) => (
-      <SliderImage
-        key={filename}
-        src={thumbnailUrl(filename, 1920, 1080)}
-        alt={`Imagem do apartamento ID ${this.props.listing.id}`}
-        innerRef={(currentImage) => (this[filename] = currentImage)}
-        loaded={this[filename]}
-      />
-    ))
+  getSliderImages = () => {
+    const {id, images, price, address, type} = this.props.listing
+    return (
+      images.map(({filename}) => {
+        return (
+          <img
+            className="slider-image"
+            decoding="async"
+            key={filename}
+            src={thumbnailUrl(filename, 1920, 1080)}
+            alt={`Imagem ${type === 'Apartamento' ? 'do' : 'da'} ${type} ID-${id} na ${address.street}, ${address.neighborhood}, ${address.city} - ${address.state}`}
+            innerRef={(currentImage) => (this[filename] = currentImage)}
+            loaded={this[filename]}
+          />
+        )
+      })
+    )
+  }
 
   getSliderContent = (visualizeTour) => {
     const {listing: {matterportCode, id}} = this.props
