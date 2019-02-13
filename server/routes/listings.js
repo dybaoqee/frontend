@@ -22,7 +22,7 @@ router.get('/:listingId/imagens', (req, res) => {
 })
 
 router.get('/favoritos', (req, res) => {
-  return res.locals.app.render(req, res, '/listings/fav', req.query)
+  return res.locals.app.render(req, res, '/meu-perfil', req.query)
 })
 
 router.get('/:id(\\d+)', (req, res) => {

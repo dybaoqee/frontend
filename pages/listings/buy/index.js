@@ -1,6 +1,5 @@
 import '@emcasa/ui-dom/components/global-styles'
 import {Component} from 'react'
-import Head from 'next/head'
 import styled from 'styled-components'
 import theme from '@emcasa/ui'
 import View from '@emcasa/ui-dom/components/View'
@@ -68,9 +67,7 @@ const CONTENT = {
 export default class Buy extends Component {
   static async getInitialProps() {
     return {
-      transparentHeader: true,
-      newFooter: true,
-      newHeader: true
+      transparentHeader: true
     }
   }
 

@@ -67,9 +67,7 @@ const CONTENT = {
 export default class Sell extends Component {
   static async getInitialProps() {
     return {
-      transparentHeader: true,
-      newFooter: true,
-      newHeader: true
+      transparentHeader: true
     }
   }
 

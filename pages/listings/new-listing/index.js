@@ -41,7 +41,6 @@ class NewListing extends Component {
 
   static async getInitialProps(context) {
     return {
-      newHeader: true,
       renderFooter: false
     }
   }
