@@ -124,8 +124,9 @@ export default class Neighborhoods extends Component {
                         const srcImg = `https://res.cloudinary.com/emcasa/image/upload/v1543531007/bairros/${thumb + (soon ? '-em-breve' : '')}.png`
                         return (
                           <Link
+                            key={name}
                             passHref
-                            href={soon ? null : `/imoveis/${stateSlug}/${citySlug}/${slug(name.toLowerCase())}`}
+                            href={soon ? `` : `/imoveis/${stateSlug}/${citySlug}/${slug(name.toLowerCase())}`}
                           >
                             <a>
                               <Neighborhood

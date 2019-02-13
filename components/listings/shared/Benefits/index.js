@@ -19,7 +19,7 @@ export default class Benefits extends Component {
   
   getBenefits = (isMobile) => {
     const benefits = this.props.benefitsList.map(({icon, title, description}) => (
-      <BenefitCol width={[1, 3 / 12]}>
+      <BenefitCol width={[1, 3 / 12]} key={title}>
         <Icon name={icon} />
         <SubTitle fontSize="large" fontWeight="normal" color="dark">
           {title}
