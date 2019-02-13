@@ -242,16 +242,6 @@ export default class ListingHeader extends Component {
               </SliderNavigation>
 
               <div className="top-right">
-                {!favoritedListing.loading &&
-                  !isFullScreen && (
-                    <LikeButton
-                      buttonStyle
-                      secondary
-                      favorite={favoritedListing.favorite}
-                      listing={listing}
-                      user={currentUser}
-                    />
-                  )}
                 {(listing.images.length > 0 && isFullScreen) && (
                   <CloseButton onClick={this.toggleFullScreen}>
                     <CloseIcon name="times" color="white" size={18} />
