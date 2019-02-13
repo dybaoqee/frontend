@@ -188,6 +188,38 @@ const NEIGHBORHOODS = [
     cityValue: 'São Paulo',
     neighborhoodValue: 'Perdizes'
   },
+  {
+    state: 'sp',
+    city: 'sao-paulo',
+    neighborhood: 'perdizes',
+    stateValue: 'SP',
+    cityValue: 'São Paulo',
+    neighborhoodValue: 'Perdizes'
+  },
+  {
+    state: 'sp',
+    city: 'sao-paulo',
+    neighborhood: 'pinheiros',
+    stateValue: 'SP',
+    cityValue: 'São Paulo',
+    neighborhoodValue: 'Pinheiros'
+  },
+  {
+    state: 'sp',
+    city: 'sao-paulo',
+    neighborhood: 'pompeia',
+    stateValue: 'SP',
+    cityValue: 'São Paulo',
+    neighborhoodValue: 'Pompéia'
+  },
+  {
+    state: 'sp',
+    city: 'sao-paulo',
+    neighborhood: 'vila-pompeia',
+    stateValue: 'SP',
+    cityValue: 'São Paulo',
+    neighborhoodValue: 'Pompéia'
+  },
 ]
 
 const CUSTOM_BUY_TITLE = [
