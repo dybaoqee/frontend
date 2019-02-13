@@ -34,7 +34,7 @@ export default class Neighborhood extends Component {
         variables={{nameSlug, stateSlug, citySlug}}
       >
         {({data}) => {
-          if (!data.district) return null
+          if (!data || !data.district) return null
           neighborhoodListener(data.district.name)
 
           return (
