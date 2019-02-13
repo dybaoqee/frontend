@@ -1,31 +1,15 @@
-import {Component, Fragment} from 'react'
-import Link from 'next/link'
+import {Component} from 'react'
 import LikeButton from 'components/shared/Common/Buttons/Like'
-import Container, {
-  Thumb,
-  SliderImage,
-  Content,
-  Arrow,
-  TourWrapper,
-  SliderNavigation,
-  BottomRight
-} from './styles'
+import Carousel from 'react-slick'
+import {thumbnailUrl} from 'utils/image_url'
 import Matterport from 'components/listings/show/Matterport'
-import {canEdit} from 'permissions/listings-permissions'
-import {getListingImages} from 'services/listing-api'
 import {Mutation} from 'react-apollo'
 import {VISUALIZE_TOUR} from 'graphql/listings/mutations'
 import {downloadBlob} from 'utils/file-utils'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
-import faFileAlt from '@fortawesome/fontawesome-free-solid/faDownload'
-import EmCasaButton from 'components/shared/Common/Buttons'
-import Carousel from 'react-slick'
-import {thumbnailUrl} from 'utils/image_url'
 import faAngleRight from '@fortawesome/fontawesome-pro-regular/faAngleRight'
 import faAngleLeft from '@fortawesome/fontawesome-pro-regular/faAngleLeft'
 import faCube from '@fortawesome/fontawesome-pro-light/faCube'
-import faExpand from '@fortawesome/fontawesome-pro-light/faExpandArrows'
-import faMinimize from '@fortawesome/fontawesome-pro-light/faCompressAlt'
 import {mobileMedia} from 'constants/media'
 import {
   log,
@@ -34,6 +18,16 @@ import {
   LISTING_DETAIL_PHOTOS_FULLSCREEN_OPEN,
   LISTING_DETAIL_PHOTOS_FULLSCREEN_CLOSE,
 } from 'lib/logging'
+import Container, {
+  Thumb,
+  SliderImage,
+  Content,
+  Arrow,
+  TourWrapper,
+  SliderNavigation,
+  CloseButton,
+  CloseIcon
+} from './styles'
 
 export default class ListingHeader extends Component {
   state = {
@@ -220,7 +214,7 @@ export default class ListingHeader extends Component {
     return (
       <Mutation mutation={VISUALIZE_TOUR}>
         {(visualizeTour) => (
-          <Fragment>
+          <>
             <Container isFullScreen={isFullScreen}>
               {show3DTour && (
                 <Matterport
@@ -235,7 +229,7 @@ export default class ListingHeader extends Component {
                 ref={(slider) => (this.slider2 = slider)}
               >
                 {this.getSliderContent(visualizeTour).map((content, id) => (
-                  <Content key={content.key || id}>
+                  <Content key={content.key || id} onClick={this.toggleFullScreen}>
                     {content.props.src && <div className="spinner" />}
                     {content}
                   </Content>
@@ -257,43 +251,14 @@ export default class ListingHeader extends Component {
                       user={currentUser}
                     />
                   )}
-
-                {listing.images.length > 0 && (
-                  <EmCasaButton onClick={this.toggleFullScreen} light>
-                    <FontAwesomeIcon
-                      icon={isFullScreen ? faMinimize : faExpand}
-                    />
-                  </EmCasaButton>
+                {(listing.images.length > 0 && isFullScreen) && (
+                  <CloseButton onClick={this.toggleFullScreen}>
+                    <CloseIcon name="times" color="white" size={18} />
+                  </CloseButton>
                 )}
               </div>
-
-              {!isFullScreen && (
-                <BottomRight>
-                  {canEdit(currentUser, listing) && (
-                    <Link
-                      passHref
-                      href={`/listings/edit?id=${listing.id}`}
-                      as={`/imoveis/${listing.id}/editar`}
-                    >
-                      <a><EmCasaButton>Editar</EmCasaButton></a>
-                    </Link>
-                  )}
-                  {listing.images.length > 0 &&
-                    currentUser.admin && (
-                      <EmCasaButton
-                        className="download-images-btn"
-                        secondary
-                        disabled={downloadingImages}
-                        onClick={this.downloadImages}
-                      >
-                        <FontAwesomeIcon icon={faFileAlt} />
-                        {downloadingImages ? 'Aguarde...' : 'Download fotos'}
-                      </EmCasaButton>
-                    )}
-                </BottomRight>
-              )}
             </Container>
-          </Fragment>
+          </>
         )}
       </Mutation>
     )
