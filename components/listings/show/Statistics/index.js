@@ -28,18 +28,6 @@ export default ({listing: {insertedAt, id, isActive}, user}) => (
 
       return (
         <Container>
-          {user.admin && (
-            <Topic>
-              <Icon is_active={isActive}>
-                <FontAwesomeIcon icon={faFlag} />
-              </Icon>
-              <Title>
-                <p>Status</p>
-                <ActivateListing listing={{id, isActive}} />
-              </Title>
-            </Topic>
-          )}
-
           <Topic>
             <FontAwesomeIcon icon={faClipboard} />
             <Title>
