@@ -95,7 +95,7 @@ export default class Dashboard extends Component {
 
   render() {
     const seoImg =
-      'https://res.cloudinary.com/emcasa/image/upload/f_auto/v1513818385/home-2018-04-03_cozxd9.jpg'
+      'https://res.cloudinary.com/emcasa/image/upload/f_auto/v1513818385/home-2018-04-03_cozxd9'
     const seoTitle = 'EmCasa | Dashboard'
     const seoDescription = 'Painel de administração'
 

@@ -8,7 +8,7 @@ import PriceEstimate from 'components/shared/PriceEstimate'
 export default class EstimatePrice extends Component {
   render() {
     const seoImg = imageUrl(
-      'emcasa-saiba-mais-para-vender-share-centered-2.jpg'
+      'emcasa-saiba-mais-para-vender-share-centered-2'
     )
     const seoTitle = 'Avalie seu imóvel no Rio de Janeiro | EmCasa'
     const seoDescription =
@@ -31,7 +31,7 @@ export default class EstimatePrice extends Component {
         <Fragment>
           <Header>
             <img
-              src={imageUrl('listings_new_header.png')}
+              src={imageUrl('listings_new_header')}
               alt="Avalie seu imóvel na EmCasa"
             />
             <h1>Avalie seu imóvel no Rio de Janeiro com a EmCasa</h1>

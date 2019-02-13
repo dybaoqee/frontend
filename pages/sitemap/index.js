@@ -17,7 +17,7 @@ export default class MyPage extends Component {
   render() {
     const {search} = this.props
     const seoImg =
-      'https://res.cloudinary.com/emcasa/image/upload/f_auto/v1513818385/home-2018-04-03_cozxd9.jpg'
+      'https://res.cloudinary.com/emcasa/image/upload/f_auto/v1513818385/home-2018-04-03_cozxd9'
     const seoTitle = 'EmCasa | Mapa do Site'
     const seoDescription = 'EmCasa | Mapa do Site'
     return (

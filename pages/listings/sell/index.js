@@ -45,19 +45,19 @@ const BASE_TITLE = 'Anuncie e Venda seu Imóvel'
 const BASE_DESCRIPTION = 'com Emcasa, a startup imobiliária que tem exclusivo sistema de Tour Virtual 3D para aumentar suas chances de venda.'
 const CONTENT = {
     all: {
-      seoImg: imageUrl('sell.jpg'),
+      seoImg: imageUrl('sell'),
       seoTitle: `${BASE_TITLE} no Rio de Janeiro ou São Paulo | EmCasa`,
       seoDescription: `${BASE_TITLE} no Rio de Janeiro ou São Paulo ${BASE_DESCRIPTION}`,
       heroTitle: 'Quer vender seu imóvel?'
     },
     sp: {
-      seoImg: imageUrl('sell-sp.jpg'),
+      seoImg: imageUrl('sell-sp'),
       seoTitle: `${BASE_TITLE} em Perdizes, São Paulo | EmCasa`,
       seoDescription: `${BASE_TITLE} em Perdizes, São Paulo ${BASE_DESCRIPTION}`,
       heroTitle: 'Quer vender seu imóvel em Perdizes?'
     },
     rj: {
-      seoImg: imageUrl('sell-rj.jpg'),
+      seoImg: imageUrl('sell-rj'),
       seoTitle: `${BASE_TITLE} no Rio de Janeiro | EmCasa`,
       seoDescription: `${BASE_TITLE} no Rio de Janeiro ${BASE_DESCRIPTION}`,
       heroTitle: 'Quer vender seu imóvel na zona sul do Rio de Janeiro?'
