@@ -130,8 +130,7 @@ class UserProfile extends Component {
     const {
       name: actualName,
       email: actualEmail,
-      phone: actualPhone,
-      notificationPreferences: {email: actualEmailPreference}
+      phone: actualPhone
     } = userProfile
     e.preventDefault()
     const {currentUser: {id}} = this.props
@@ -217,7 +216,7 @@ class UserProfile extends Component {
                     textAlign="center"
                     color="grey"
                   >
-                    {email ? email : 'Você ainda não possui nome e e-mail cadastrados.'}
+                    {email ? email : 'Quer preencher seu nome e e-mail?'}
                   </Text>
                   <Text
                     margin={6}
