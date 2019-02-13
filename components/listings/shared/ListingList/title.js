@@ -14,7 +14,7 @@ import {
 function getStateTitle(state) {
   const custom = CUSTOM_BUY_TITLE.find(a => a.state === state)
   const infos = STATES.find(a => a.state === state)
-  const stateTitle = infos ? ` ${BUY_TITLE_STATE_PREPOSITION} ${infos.stateValue}` : BUY_TITLE_DEFAULT_END
+  const stateTitle = infos ? ` ${BUY_TITLE_STATE_PREPOSITION} ${infos.stateValue}` : ` ${BUY_TITLE_DEFAULT_END}`
 
   return custom ? ` ${custom.value}` : stateTitle
 }
@@ -22,7 +22,7 @@ function getStateTitle(state) {
 function getCityTitle(city) {
   const custom = CUSTOM_BUY_TITLE.find(a => a.city === city)
   const info = CITIES.find(a => a.city === city)
-  const cityTitle = info ? ` ${BUY_TITLE_CITY_PREPOSITION} ${info.cityValue} - ${info.stateValue}` : BUY_TITLE_DEFAULT_END
+  const cityTitle = info ? ` ${BUY_TITLE_CITY_PREPOSITION} ${info.cityValue} - ${info.stateValue}` : ` ${BUY_TITLE_DEFAULT_END}`
 
   return custom ? ` ${custom.value}` : cityTitle
 }
@@ -30,7 +30,7 @@ function getCityTitle(city) {
 function getNeighborhoodTitle(neighborhood) {
   const custom = CUSTOM_BUY_TITLE.find(a => a.neighborhood === neighborhood)
   const info = NEIGHBORHOODS.find(a => a.neighborhood === neighborhood)
-  let neighborhoodTitle = info ? ` ${BUY_TITLE_NEIGHBORHOOD_PREPOSITION} ${info.neighborhoodValue}, ${info.cityValue} - ${info.stateValue}` : BUY_TITLE_DEFAULT_END
+  let neighborhoodTitle = info ? ` ${BUY_TITLE_NEIGHBORHOOD_PREPOSITION} ${info.neighborhoodValue}, ${info.cityValue} - ${info.stateValue}` : ` ${BUY_TITLE_DEFAULT_END}`
 
   return custom ? ` ${custom.value}` : neighborhoodTitle
 }
