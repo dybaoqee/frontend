@@ -1,6 +1,9 @@
 import * as colors from 'constants/colors'
 import styled from 'styled-components'
 import {mobileMedia} from 'constants/media'
+import theme from '@emcasa/ui'
+import Button from '@emcasa/ui-dom/components/Button'
+import Icon from '@emcasa/ui-dom/components/Icon'
 
 export const Thumb = styled.div`
   box-sizing: border-box;
@@ -268,4 +271,22 @@ export default styled.div`
 
   ${({isFullScreen}) =>
     isFullScreen && 'position: fixed; top: 0; z-index: 9999; height: 100%; '};
+`
+
+export const CloseButton = styled.div`
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  border: none;
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  padding: 0;
+`
+
+export const CloseIcon = styled(Icon)`
+  padding-top: 6px;
 `
