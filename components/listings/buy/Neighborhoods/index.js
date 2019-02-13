@@ -127,7 +127,7 @@ export default class Neighborhoods extends Component {
                           <Link
                             key={`link-${nIndex}`}
                             passHref
-                            href={soon ? '#' : `/imoveis/${stateSlug}/${citySlug}/${slug(name.toLowerCase())}`}
+                            href={soon ? '#' : `/imoveis/${stateSlug}/${citySlug}/${thumb}`}
                           >
                             <a>
                               <Neighborhood
