@@ -46,17 +46,6 @@ export default class ListingCard extends React.Component {
             'Preço a definir'
           )}
         </span>
-
-        {user.admin &&
-          suggestedPrice && (
-            <SuggestedPrice>
-              <p>Preço sugerido:</p>
-              <span>
-                {suggestedPrice.toLocaleString('pt-BR', currencyStyle)}
-              </span>
-            </SuggestedPrice>
-          )}
-
         <div>
           <div>
             <span>Dormitórios</span>

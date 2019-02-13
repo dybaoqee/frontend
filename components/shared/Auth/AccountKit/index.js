@@ -2,14 +2,12 @@ import {Component} from 'react'
 import PropTypes from 'prop-types'
 import {Mutation} from 'react-apollo'
 import {SIGN_IN_ACCOUNT_KIT} from 'graphql/user/mutations'
-import UserInfo from 'components/shared/Auth/AccountKit/UserInfo'
 import redirect from 'lib/redirect'
 import {getCookie, setCookie} from 'lib/session'
 import {signUpUser} from 'lib/auth'
 import {
   log,
-  LOGIN_SUCCESS,
-  LOGIN_REQUEST_NAME_EMAIL
+  LOGIN_SUCCESS
 } from 'lib/logging'
 
 class AccountKit extends Component {
@@ -34,26 +32,6 @@ class AccountKit extends Component {
       if (autoLogin) {
         this.signIn()
       }
-    }
-
-    const accountkitinit = getCookie('accountkitinit')
-
-    if (accountkitinit) {
-      const jwt = getCookie('jwt')
-      const id = getCookie('currentUserId')
-      const role = getCookie('userRole')
-
-      const userInfo = {
-        jwt,
-        accountKitSignIn: {
-          user: {
-            id,
-            role
-          }
-        }
-      }
-
-      this.setState({userInfo, loading: false})
     }
   }
 
@@ -127,25 +105,16 @@ class AccountKit extends Component {
         return userInfo
       }
 
-      if (
-        userInfo.data.accountKitSignIn.user.email &&
-        userInfo.data.accountKitSignIn.user.name
-      ) {
-        log(LOGIN_SUCCESS)
-        this.setState({loading: false})
-        redirect(getCookie('redirectTo') || '/')
-      } else {
-        log(LOGIN_REQUEST_NAME_EMAIL)
-        this.setState({userInfo: userInfo.data, loading: false})
-        setCookie('accountkitinit', 1)
-      }
+      this.setState({loading: false})
+      log(LOGIN_SUCCESS)
+      redirect(getCookie('redirectTo') || '/')
     }
   }
 
   render() {
     const {signIn} = this
     const {children} = this.props
-    const {userInfo, loading} = this.state
+    const {loading} = this.state
 
     return (
       <>
@@ -159,7 +128,6 @@ class AccountKit extends Component {
             })
           }}
         </Mutation>
-        {userInfo && <UserInfo userInfo={userInfo} />}
       </>
     )
   }

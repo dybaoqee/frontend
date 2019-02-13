@@ -14,7 +14,7 @@ import Ticket from 'components/listings/new-listing/shared/Ticket'
 import { getFullTourDateDisplay } from 'components/listings/new-listing/lib/times'
 
 const ROUTE_HOME = '/'
-const ROUTE_MY_LISTINGS = '/listings/user-listings'
+const ROUTE_MY_LISTINGS = '/meu-perfil'
 
 class Success extends PureComponent {
   constructor(props) {

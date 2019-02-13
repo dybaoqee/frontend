@@ -1,10 +1,10 @@
 export const mainListingImage = (images) => {
-  const filename = images.length > 0 ? images[0].filename : 'default_w4ki8j.jpg'
+  const filename = images.length > 0 ? images[0].filename : 'default_w4ki8j'
   return imageUrl(filename)
 }
 
 export const mainListingThumbnail = (images) => {
-  const filename = images.length > 0 ? images[0].filename : 'default_w4ki8j.jpg'
+  const filename = images.length > 0 ? images[0].filename : 'default_w4ki8j'
   return thumbnailUrl(filename)
 }
 

@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components'
 import posed from 'react-pose'
 import theme from '@emcasa/ui'
 import Row from '@emcasa/ui-dom/components/Row'
-import { MAX_HEADER_HEIGHT } from 'components/shared/Shell/NewHeader/styles'
+import { MAX_HEADER_HEIGHT } from 'components/shared/Shell/Header/styles'
 import {
   EXPAND_BUTTON_SIZE
 } from './components/ExpandButton/styles'

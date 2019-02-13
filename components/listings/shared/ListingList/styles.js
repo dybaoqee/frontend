@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { themeGet } from 'styled-system'
-import { HEADER_HEIGHT } from 'components/shared/Shell/NewHeader/styles'
+import { HEADER_HEIGHT } from 'components/shared/Shell/Header/styles'
 import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
 

@@ -10,7 +10,9 @@ import faCalendar from '@fortawesome/fontawesome-pro-light/faCalendarAlt'
 import faFlag from '@fortawesome/fontawesome-pro-light/faFlag'
 import faHomeHeart from '@fortawesome/fontawesome-pro-light/faHomeHeart'
 import faHome from '@fortawesome/fontawesome-pro-light/faHome'
+import faExternalLink from '@fortawesome/fontawesome-pro-light/faExternalLink'
 import ActivateListing from 'components/shared/Common/Buttons/Activate'
+import Button from '@emcasa/ui-dom/components/Button'
 
 export default ({listing: {insertedAt, id, isActive}, user}) => (
   <Query query={GET_LISTING_STATS} variables={{id}} ssr={false}>
@@ -26,18 +28,6 @@ export default ({listing: {insertedAt, id, isActive}, user}) => (
 
       return (
         <Container>
-          {user.admin && (
-            <Topic>
-              <Icon is_active={isActive}>
-                <FontAwesomeIcon icon={faFlag} />
-              </Icon>
-              <Title>
-                <p>Status</p>
-                <ActivateListing listing={{id, isActive}} />
-              </Title>
-            </Topic>
-          )}
-
           <Topic>
             <FontAwesomeIcon icon={faClipboard} />
             <Title>
@@ -80,6 +70,18 @@ export default ({listing: {insertedAt, id, isActive}, user}) => (
               <span>{inPersonVisitCount}</span>
             </Title>
           </Topic>
+          {user.admin && (
+            <Topic>
+              <FontAwesomeIcon icon={faExternalLink} />
+              <Title>
+                <a href={`${process.env.GARAGEM_URL}/imoveis/${id}`} target="_blank">
+                  <Button link height="auto" p={0}>
+                    Ver no garagem
+                  </Button>
+                </a>
+              </Title>
+            </Topic>
+          )}
         </Container>
       )
     }}

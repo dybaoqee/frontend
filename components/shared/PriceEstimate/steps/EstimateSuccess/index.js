@@ -21,7 +21,7 @@ export default ({
         Venda seu imóvel por mais e se beneficie de taxas 40% menores que o
         mercado. Cadastre seu imóvel em menos de 5 minutos.
       </p>
-      <Link href="/listings/new" as="/imoveis/adicionar">
+      <Link href="/listings/new-listing" as="/vender/imovel">
         <EmCasaButton full light>
           Anuncie agora
         </EmCasaButton>

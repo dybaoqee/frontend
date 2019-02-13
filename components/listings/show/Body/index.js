@@ -9,6 +9,8 @@ import {
   log,
   LISTING_DETAIL_OPEN
 } from 'lib/logging'
+import {ThemeProvider} from 'styled-components'
+import theme from '@emcasa/ui'
 
 export default class ListingMainContent extends PureComponent {
   componentDidMount() {
@@ -32,7 +34,7 @@ export default class ListingMainContent extends PureComponent {
   render() {
     const {listing, handleOpenPopup, user} = this.props
     const {street, neighborhood, streetNumber} = listing.address
-    const showStatistics = user.admin || listing.owner
+    const showStatistics = listing.owner
     const paragraphs = getParagraphs(listing.description)
     const ownerOrAdmin = canEdit(user, listing)
     const listingInfo = ownerOrAdmin
@@ -42,62 +44,60 @@ export default class ListingMainContent extends PureComponent {
       : `${street}`
 
     return (
-      <Container>
-        <div className="description">
-          <h2 className="street">
-            {listing.type} na {listingInfo}, {neighborhood},{' '}
-            {listing.address.city}
-          </h2>
-          <h3>O imóvel</h3>
-          {paragraphs &&
-            paragraphs.map((paragraph, i) => <p key={i}>{paragraph}</p>)}
-
-          <ListingInfo>
-            <div>
-              <h3>Tipo do imóvel</h3>
-              <p>{listing.type}</p>
-            </div>
-            {listing.maintenanceFee && (
+      <ThemeProvider theme={theme}>
+        <Container>
+          <div className="description">
+            <h1 className="street">
+              {listing.type} na {listingInfo}, {neighborhood},{' '}
+              {listing.address.city}
+            </h1>
+            <h6>O imóvel</h6>
+            {paragraphs && paragraphs.map((paragraph, i) => <p key={i}>{paragraph}</p>)}
+            <ListingInfo>
               <div>
-                <h3>Condomínio</h3>
-                <p>
-                  <NumberFormat
-                    value={listing.maintenanceFee}
-                    displayType={'text'}
-                    thousandSeparator={'.'}
-                    prefix={'R$'}
-                    decimalSeparator={','}
-                  />
-                </p>
+                <h6>Tipo do imóvel</h6>
+                <p>{listing.type}</p>
               </div>
-            )}
-
-            {listing.propertyTax && (
-              <div>
-                <h3>Iptu</h3>
-                <p>
-                  <NumberFormat
-                    value={listing.propertyTax}
-                    displayType={'text'}
-                    thousandSeparator={'.'}
-                    prefix={'R$'}
-                    decimalSeparator={','}
-                  />
-                </p>
-              </div>
-            )}
-          </ListingInfo>
-        </div>
-
-        <CardWrapper>
-          <ListingCard
-            listing={listing}
-            handleOpenPopup={handleOpenPopup}
-            user={user}
-          />
-          {showStatistics && <Statistics listing={listing} user={user} />}
-        </CardWrapper>
-      </Container>
+              {listing.maintenanceFee && (
+                <div>
+                  <h3>Condomínio</h3>
+                  <p>
+                    <NumberFormat
+                      value={listing.maintenanceFee}
+                      displayType={'text'}
+                      thousandSeparator={'.'}
+                      prefix={'R$'}
+                      decimalSeparator={','}
+                    />
+                  </p>
+                </div>
+              )}
+              {listing.propertyTax && (
+                <div>
+                  <h6>Iptu</h6>
+                  <p>
+                    <NumberFormat
+                      value={listing.propertyTax}
+                      displayType={'text'}
+                      thousandSeparator={'.'}
+                      prefix={'R$'}
+                      decimalSeparator={','}
+                    />
+                  </p>
+                </div>
+              )}
+            </ListingInfo>
+          </div>
+          <CardWrapper>
+            <ListingCard
+              listing={listing}
+              handleOpenPopup={handleOpenPopup}
+              user={user}
+            />
+            {showStatistics && <Statistics listing={listing} user={user} />}
+          </CardWrapper>
+        </Container>
+      </ThemeProvider>
     )
   }
 }

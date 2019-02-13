@@ -1,5 +1,7 @@
-import {Component, Fragment} from 'react'
+import {Component} from 'react'
 import {Query} from 'react-apollo'
+import theme from '@emcasa/ui'
+import { ThemeProvider } from 'styled-components'
 import {GET_USER_LISTINGS_ACTIONS} from 'graphql/user/queries'
 import {GET_FULL_LISTING} from 'graphql/listings/queries'
 import {Mutation} from 'react-apollo'
@@ -11,7 +13,7 @@ import Link from 'next/link'
 import {createInterest} from 'services/interest-api'
 import isUndefined from 'lodash/isUndefined'
 import ListingHead from 'components/listings/show/Head'
-import ListingHeader from 'components/listings/show/Header'
+import ListingHeader from 'components/listings/show/ListingHeader'
 import ListingMainContent from 'components/listings/show/Body'
 import ListingMap from 'components/listings/show/Map'
 import InterestForm from 'components/listings/show/InterestForm'
@@ -80,16 +82,12 @@ class Listing extends Component {
 
       return {
         listing,
-        currentUser,
-        newFooter: true,
-        newHeader: true
+        currentUser
       }
     } else {
       return {
         listingFetchError: errors[0],
-        currentUser,
-        newFooter: true,
-        newHeader: true
+        currentUser
       }
     }
   }
@@ -223,107 +221,109 @@ class Listing extends Component {
     ]
 
     return (
-      <Mutation mutation={FAVORITE_LISTING}>
-        {(favoriteListing) => (
-          <Query
-            query={GET_USER_LISTINGS_ACTIONS}
-            skip={!currentUser.authenticated}
-          >
-            {({data: {userProfile}, loading, error}) => {
-              const {router} = this.props
-              const favorite =
-                !loading &&
-                !error &&
-                userProfile &&
-                userProfile.favorites &&
-                userProfile.favorites.filter(
-                  (listingSaved) =>
-                    listingSaved.id.toString() === listing.id.toString()
-                ).length > 0
+      <ThemeProvider theme={theme}>
+        <Mutation mutation={FAVORITE_LISTING}>
+          {(favoriteListing) => (
+            <Query
+              query={GET_USER_LISTINGS_ACTIONS}
+              skip={!currentUser.authenticated}
+            >
+              {({data: {userProfile}, loading, error}) => {
+                const {router} = this.props
+                const favorite =
+                  !loading &&
+                  !error &&
+                  userProfile &&
+                  userProfile.favorites &&
+                  userProfile.favorites.filter(
+                    (listingSaved) =>
+                      listingSaved.id.toString() === listing.id.toString()
+                  ).length > 0
 
-              if (
-                !isUndefined(router.query.f) &&
-                !loading &&
-                !favorite &&
-                !this.favMutated
-              ) {
-                this.favMutated = true
-                favoriteListing({
-                  refetchQueries: [
-                    {
-                      query: GET_USER_LISTINGS_ACTIONS
+                if (
+                  !isUndefined(router.query.f) &&
+                  !loading &&
+                  !favorite &&
+                  !this.favMutated
+                ) {
+                  this.favMutated = true
+                  favoriteListing({
+                    refetchQueries: [
+                      {
+                        query: GET_USER_LISTINGS_ACTIONS
+                      }
+                    ],
+                    variables: {
+                      id: listing.id
                     }
-                  ],
-                  variables: {
-                    id: listing.id
-                  }
-                })
-              }
+                  })
+                }
 
-              return (
-                <Fragment>
-                  <ListingHead
-                    listing={listing}
-                    routerAsPath={router.asPath}
-                  />
-
-                  <div>
-                    <ListingHeader
+                return (
+                  <>
+                    <ListingHead
                       listing={listing}
-                      handleOpenPopup={this.openPopup}
-                      handleOpenImageGallery={this.showImageGallery}
-                      handleOpen3DTour={this.show3DTour}
-                      currentUser={currentUser}
-                      favoritedListing={{loading, favorite}}
-                    />
-                    {!isActive && (
-                      <Warning green={url.query.r}>
-                        {url.query.r ? (
-                          <p>
-                            <b>Pré-cadastro feito com sucesso.</b> Nossa equipe
-                            entrará em contato via email.
-                          </p>
-                        ) : (
-                          <p>
-                            Imóvel não está visível para o público pois está em
-                            fase de moderação.
-                          </p>
-                        )}
-                      </Warning>
-                    )}
-                    <Breadcrumb paths={paths} />
-
-                    <ListingMainContent
-                      listing={listing}
-                      handleOpenPopup={this.openPopup}
-                      user={currentUser}
+                      routerAsPath={router.asPath}
                     />
 
-                    <ListingMap listing={listing} />
-
-                    <RelatedListings listings={related || []} />
-
-                    {isInterestPopupVisible && (
-                      <InterestForm
-                        data={interestForm}
-                        handleClose={this.closePopup}
-                        onChange={this.onChange}
-                        onSubmit={this.onSubmit}
+                    <div>
+                      <ListingHeader
+                        listing={listing}
+                        handleOpenPopup={this.openPopup}
+                        handleOpenImageGallery={this.showImageGallery}
+                        handleOpen3DTour={this.show3DTour}
+                        currentUser={currentUser}
+                        favoritedListing={{loading, favorite}}
                       />
-                    )}
+                      {!isActive && (
+                        <Warning green={url.query.r}>
+                          {url.query.r ? (
+                            <p>
+                              <b>Pré-cadastro feito com sucesso.</b> Nossa equipe
+                              entrará em contato via email.
+                            </p>
+                          ) : (
+                            <p>
+                              Imóvel não está visível para o público pois está em
+                              fase de moderação.
+                            </p>
+                          )}
+                        </Warning>
+                      )}
+                      <Breadcrumb paths={paths} />
 
-                    {isInterestSuccessPopupVisible && (
-                      <InterestPosted
-                        handleClose={this.closeSuccessPostPopup}
+                      <ListingMainContent
+                        listing={listing}
+                        handleOpenPopup={this.openPopup}
+                        user={currentUser}
                       />
-                    )}
-                  </div>
-                </Fragment>
-              )
-            }}
-          </Query>
-        )}
-      </Mutation>
+
+                      <ListingMap listing={listing} />
+
+                      <RelatedListings listings={related || []} />
+
+                      {isInterestPopupVisible && (
+                        <InterestForm
+                          data={interestForm}
+                          handleClose={this.closePopup}
+                          onChange={this.onChange}
+                          onSubmit={this.onSubmit}
+                        />
+                      )}
+
+                      {isInterestSuccessPopupVisible && (
+                        <InterestPosted
+                          handleClose={this.closeSuccessPostPopup}
+                        />
+                      )}
+                    </div>
+                  </>
+                )
+              }}
+            </Query>
+          )}
+        </Mutation>
+      </ThemeProvider>
     )
   }
 
@@ -344,7 +344,7 @@ class Listing extends Component {
     const {listingFetchError} = this.props
 
     return listingFetchError ? (
-      <Fragment>
+      <>
         <Head>
           <title>EmCasa</title>
         </Head>
@@ -356,7 +356,7 @@ class Listing extends Component {
             <Link href="mailto:contato@emcasa.com">contato</Link> com a gente
           </p>
         </Error>
-      </Fragment>
+      </>
     ) : (
       this.showListing()
     )

@@ -1,6 +1,5 @@
 import '@emcasa/ui-dom/components/global-styles'
 import {Component} from 'react'
-import Head from 'next/head'
 import styled from 'styled-components'
 import theme from '@emcasa/ui'
 import View from '@emcasa/ui-dom/components/View'
@@ -46,19 +45,19 @@ const BASE_DESCRIPTION = 'com o sistema exclusivo de Tour Virtual 3D do Emcasa, 
 
 const CONTENT = {
     all: {
-      seoImg: imageUrl('buy.jpg'),
+      seoImg: imageUrl('buy'),
       seoTitle: `${BASE_TITLE} no Rio de Janeiro e São Paulo | EmCasa`,
       seoDescription: `Encontre ${BASE_TITLE} no Rio de Janeiro em Ipanema, Leblon, Copacabana, Botafogo, Flamengo, Lagoa e toda Zona Sul ou São Paulo em Perdizes ${BASE_DESCRIPTION}`,
       heroTitle: 'Quer comprar um imóvel?'
     },
     sp: {
-      seoImg: imageUrl('buy-sp.jpg'),
+      seoImg: imageUrl('buy-sp'),
       seoTitle: `${BASE_TITLE} em Perdizes, São Paulo | EmCasa`,
       seoDescription: `Encontre ${BASE_TITLE} em Perdizes, São Paulo ${BASE_DESCRIPTION}`,
       heroTitle: 'Quer comprar um imóvel em Perdizes?'
     },
     rj: {
-      seoImg: imageUrl('buy-rj.jpg'),
+      seoImg: imageUrl('buy-rj'),
       seoTitle: `${BASE_TITLE} no Rio de Janeiro | EmCasa`,
       seoDescription: `Encontre ${BASE_TITLE} no Rio de Janeiro em Ipanema, Leblon, Copacabana, Botafogo, Flamengo, Lagoa e toda Zona Sul ${BASE_DESCRIPTION}`,
       heroTitle: 'Quer comprar um imóvel na zona sul do Rio de Janeiro?'
@@ -68,9 +67,7 @@ const CONTENT = {
 export default class Buy extends Component {
   static async getInitialProps() {
     return {
-      transparentHeader: true,
-      newFooter: true,
-      newHeader: true
+      transparentHeader: true
     }
   }
 

@@ -18,7 +18,7 @@ import PriceEstimate from 'components/shared/PriceEstimate'
 export default class SellKnowMore extends Component {
   render() {
     const seoImg = imageUrl(
-      'emcasa-saiba-mais-para-vender-share-centered-2.jpg'
+      'emcasa-saiba-mais-para-vender-share-centered-2'
     )
     const seoTitle = 'Anuncie e Venda seu imóvel no Rio de Janeiro | EmCasa'
     const seoDescription =
@@ -41,7 +41,7 @@ export default class SellKnowMore extends Component {
         <Fragment>
           <Header>
             <img
-              src={imageUrl('listings_new_header.png')}
+              src={imageUrl('listings_new_header')}
               alt="Venda seu imóvel na EmCasa"
             />
             <h1>Anuncie e Venda seu imóvel no Rio de Janeiro com a EmCasa</h1>
