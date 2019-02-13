@@ -1,5 +1,6 @@
 import {Component} from 'react'
 import Link from 'next/link'
+import {LazyImage} from 'react-lazy-images'
 import Text from '@emcasa/ui-dom/components/Text'
 import {Query} from 'react-apollo'
 import slug from 'slug'
@@ -119,13 +120,14 @@ export default class Neighborhoods extends Component {
                   </CityTitle>
                   <NeighborhoodContainer>
                     <NeighborhoodItems>
-                      {NEIGHBORHOODS_BY_CITIES[citySlug].map((props) => {
+                      {NEIGHBORHOODS_BY_CITIES[citySlug].map((props, nIndex) => {
                         const {name, thumb, soon} = props
-                        const srcImg = `https://res.cloudinary.com/emcasa/image/upload/v1543531007/bairros/${thumb + (soon ? '-em-breve' : '')}.png`
+                        const srcImg = `https://res.cloudinary.com/emcasa/image/upload/v1543531007/bairros/${thumb + (soon ? '-em-breve' : '')}`
                         return (
                           <Link
+                            key={`link-${nIndex}`}
                             passHref
-                            href={soon ? null : `/imoveis/${stateSlug}/${citySlug}/${slug(name.toLowerCase())}`}
+                            href={soon ? '#' : `/imoveis/${stateSlug}/${citySlug}/${slug(name.toLowerCase())}`}
                           >
                             <a>
                               <Neighborhood
@@ -133,10 +135,13 @@ export default class Neighborhoods extends Component {
                                   log(BUYER_LANDING_NEIGHBORHOOD_IMAGE, {neighborhood: name})
                                 }}
                               >
-                                <img
-                                  decoding="async"
+                                <LazyImage
                                   src={srcImg}
                                   alt={`Imagem em destaque do bairro ${name}`}
+                                  placeholder={({ imageProps, ref }) => (
+                                    <div ref={ref} />
+                                  )}
+                                  actual={({ imageProps }) => <img {...imageProps} />}
                                 />
                                 <Text>{name}</Text>
                                 {soon && <Soon />}
