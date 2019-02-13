@@ -186,7 +186,7 @@ exports[`<SellListing/> should render a clean page 1`] = `
   -webkit-align-self: stretch;
   -ms-flex-item-align: stretch;
   align-self: stretch;
-  background-image: url(https://res.cloudinary.com/emcasa/image/upload/fl_any_format/v1542831121/background/wall-large.jpg);
+  background-image: url(https://res.cloudinary.com/emcasa/image/upload/fl_any_format/v1542831121/background/wall-large);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: bottom;
@@ -245,7 +245,7 @@ exports[`<SellListing/> should render a clean page 1`] = `
 
 @media (max-width:780px) {
   .c0 {
-    background-image: url(https://res.cloudinary.com/emcasa/image/upload/fl_any_format/v1542831121/background/wall-small.jpg);
+    background-image: url(https://res.cloudinary.com/emcasa/image/upload/fl_any_format/v1542831121/background/wall-small);
   }
 }
 
@@ -255,7 +255,7 @@ exports[`<SellListing/> should render a clean page 1`] = `
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    background-image: url(https://res.cloudinary.com/emcasa/image/upload/fl_any_format/v1542831121/background/wall-small.jpg);
+    background-image: url(https://res.cloudinary.com/emcasa/image/upload/fl_any_format/v1542831121/background/wall-small);
   }
 }
 
