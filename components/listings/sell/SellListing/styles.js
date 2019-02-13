@@ -17,19 +17,19 @@ const Container = styled(View)`
   display: flex;
   justify-content: center;
   align-self: stretch;
-  background-image: url(${CLOUDINARY_URL}/wall-large.jpg);
+  background-image: url(${CLOUDINARY_URL}/wall-large);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: bottom;
 
   @media (max-width: ${theme.breakpoints[0]}){
-    background-image: url(${CLOUDINARY_URL}/wall-small.jpg);
+    background-image: url(${CLOUDINARY_URL}/wall-small);
   }
 
   @media (min-width: ${theme.breakpoints[0]}){ 
     @media (max-height: 590px) {
       align-items: center;
-      background-image: url(${CLOUDINARY_URL}/wall-small.jpg);
+      background-image: url(${CLOUDINARY_URL}/wall-small);
     }
     
     @media (max-width: 1300px) {
@@ -45,9 +45,9 @@ const Container = styled(View)`
   
   @media only screen 
     and (min-device-width : 768px) 
-    and (max-device-width : 1024px)  {
+    and (max-device-width : 1024px) {
     align-items: center;
-    background-image: url(${CLOUDINARY_URL}/wall-small.jpg);
+    background-image: url(${CLOUDINARY_URL}/wall-small);
   }
 `
 

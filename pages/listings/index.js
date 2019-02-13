@@ -142,7 +142,7 @@ class ListingSearch extends Component {
 
   getImageSrc = (params) => {
     const {state} = params
-    let imgSrc = state ? `buy-${state}.jpg` : 'buy.jpg'
+    let imgSrc = state ? `buy-${state}` : 'buy'
 
     return imageUrl(imgSrc)
   }
