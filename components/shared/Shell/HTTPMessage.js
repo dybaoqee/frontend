@@ -98,6 +98,10 @@ export default class HTTPMessage extends Component {
   }
 
   render() {
+    // If we use <Button link>{this.button}</Button> throw this error:
+    // TypeError: Cannot read property 'white' of undefined
+    // node_modules/@emcasa/ui-dom/components/Button/index.js:46:53
+
     const {statusCode} = this.props
 
     return (
@@ -117,7 +121,7 @@ export default class HTTPMessage extends Component {
           flexDirection="column"
           mb={5}
         >
-          <Link href={this.href}>{this.button}</Link>
+          <Link passHref href={this.href}><a><Text inline color="red">{this.button}</Text></a></Link>
         </Row>
       </Col>
     )
