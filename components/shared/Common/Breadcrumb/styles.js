@@ -1,6 +1,8 @@
 import styled from 'styled-components'
+import theme from '@emcasa/ui'
 import * as colors from 'constants/colors'
 import {headerMobileMedia, mobileMedia} from 'constants/media'
+import Text from '@emcasa/ui-dom/components/Text'
 
 export default styled.ul`
   box-sizing: border-box;
@@ -52,10 +54,21 @@ export const Path = styled.li`
 
   :not(:first-of-type) {
     :before {
-      content: '›';
+      content: '>';
       font-size: 14px;
       margin: 0 5px;
       position: relative;
+      color: ${theme.colors.grey};
     }
   }
+`
+
+export const BreadcrumbText = styled(Text)`
+  ${({link}) => link && `
+    cursor: pointer;
+
+    :hover {
+      color: ${theme.colors.pink};
+    }
+  `}
 `
