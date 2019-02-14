@@ -1,23 +1,19 @@
 import Link from 'next/link'
-import FontAwesomeIcon from '@fortawesome/react-fontawesome'
-import faHome from '@fortawesome/fontawesome-pro-light/faHome'
-import Container, {Path} from './styles'
+import Container, {
+  Path,
+  BreadcrumbText
+} from './styles'
 
 export default ({paths}) => (
   <Container>
-    <Path>
-      <Link href="/">
-        <FontAwesomeIcon icon={faHome} />
-      </Link>
-    </Path>
     {paths.map(({name, href, as}) => (
       <Path key={name}>
         {href ? (
           <Link href={href} as={as}>
-            {name}
+            <BreadcrumbText fontSize="small" color="grey" fontWeight="bold" inline link>{name}</BreadcrumbText>
           </Link>
         ) : (
-          <span>{name}</span>
+          <BreadcrumbText fontSize="small" color="grey" fontWeight="bold" inline>{name}</BreadcrumbText>
         )}
       </Path>
     ))}

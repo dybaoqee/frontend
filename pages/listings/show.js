@@ -202,7 +202,7 @@ class Listing extends Component {
       : ''
 
     const paths = [
-      {name: 'Comprar Imóvel', href: '/listings', as: '/imoveis'},
+      {name: 'Comprar Imóveis', href: '/listings', as: '/imoveis'},
       {
         name: listing.address.neighborhood,
         href: `/listings?bairros=${listing.address.neighborhood}`,
