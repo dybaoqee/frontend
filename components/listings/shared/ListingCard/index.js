@@ -61,14 +61,12 @@ class ListingCard extends Component {
               <Row><Text inline fontSize="small" color="grey">{listingSummary}</Text></Row>
               <Row><Text inline fontSize="large" fontWeight="bold">{intToCurrency(listing.price)}</Text></Row>
             </Row>
-            <LikeButtonContainer onClick={(e) => {e.preventDefault()}}>
-              <LikeButton
-                favorite={favorited}
-                listing={listing}
-                user={currentUser}
-                secondary
-              />
-            </LikeButtonContainer>
+            <LikeButton
+              favorite={favorited}
+              listing={listing}
+              user={currentUser}
+              secondary
+            />
           </Container>
         </a>
       </Link>

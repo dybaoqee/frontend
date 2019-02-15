@@ -51,13 +51,6 @@ const Container = styled(View)`
   }
 `
 
-const LikeButtonContainer = styled.div`
-  position: absolute;
-  right: ${themeGet('space.2')}px;
-  top: ${themeGet('space.2')}px;
-`
-
 export {
-  Container,
-  LikeButtonContainer
+  Container
 }

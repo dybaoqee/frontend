@@ -1,7 +1,18 @@
 import styled from 'styled-components'
 import * as colors from 'constants/colors'
 
-export default styled.div`
+export const Container = styled.div`
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+`
+
+export const Button = styled.div`
   background: none;
   border: none;
   box-shadow: none;
