@@ -1,6 +1,6 @@
 import {Component} from 'react'
 import {Query} from 'react-apollo'
-import theme from '@emcasa/ui'
+import theme from 'config/theme'
 import { ThemeProvider } from 'styled-components'
 import {GET_USER_LISTINGS_ACTIONS} from 'graphql/user/queries'
 import {GET_FULL_LISTING} from 'graphql/listings/queries'

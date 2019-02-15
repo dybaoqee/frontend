@@ -1,5 +1,5 @@
 import styled, {keyframes} from 'styled-components'
-import theme from '@emcasa/ui'
+import theme from 'config/theme'
 import Col from '@emcasa/ui-dom/components/Col'
 
 export const HEADER_HEIGHT = 60

@@ -1,4 +1,4 @@
-import theme from '@emcasa/ui'
+import theme from 'config/theme'
 import * as colors from 'constants/colors'
 import {mobileMedia} from 'constants/media'
 import styled from 'styled-components'

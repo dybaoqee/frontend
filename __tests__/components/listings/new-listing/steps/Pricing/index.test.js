@@ -2,7 +2,7 @@ import React from 'react'
 import Pricing from 'components/listings/new-listing/steps/Pricing'
 import renderer from 'react-test-renderer'
 import 'jest-styled-components'
-import theme from '@emcasa/ui'
+import theme from 'config/theme'
 import { ThemeProvider } from 'styled-components'
 
 it('renders an empty state', () => {

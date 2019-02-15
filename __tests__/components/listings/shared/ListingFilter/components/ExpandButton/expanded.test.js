@@ -2,7 +2,7 @@ import React from 'react'
 import ExpandButton from 'components/listings/shared/ListingFilter/components/ExpandButton'
 import renderer from 'react-test-renderer'
 import 'jest-styled-components'
-import theme from '@emcasa/ui'
+import theme from 'config/theme'
 import { ThemeProvider } from 'styled-components'
 
 describe('<ExpandButton/>', () => {

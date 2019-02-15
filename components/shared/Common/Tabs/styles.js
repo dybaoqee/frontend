@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import {mobileMedia} from 'constants/media'
-import theme from '@emcasa/ui'
+import theme from 'config/theme'
 
 export default styled.div`
   box-sizing: border-box;

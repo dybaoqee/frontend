@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import {Fragment} from 'react'
-import theme from '@emcasa/ui'
+import theme from 'config/theme'
 
 const NextHead = (props) => {
   const {title, description, imageSrc, imageWidth, imageHeight, url, canonical, children} = props

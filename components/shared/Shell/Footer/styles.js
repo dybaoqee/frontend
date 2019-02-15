@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import theme from '@emcasa/ui'
+import theme from 'config/theme'
 import Text from '@emcasa/ui-dom/components/Text'
 import Row from '@emcasa/ui-dom/components/Row'
 
@@ -14,7 +14,7 @@ export const Container = styled(Row)`
   border-top: 1px solid ${theme.colors.pink};
   margin: 50px;
   padding-top: 20px;
-  
+
   @media (max-width: ${theme.breakpoints[0]}) {
     margin: 20px;
   }
@@ -32,8 +32,8 @@ export const TextLink = styled(Text)`
     width: ${LINK_FONT_SIZE};
     height: ${LINK_FONT_SIZE};
     margin-right: 5px;
-  } 
-  
+  }
+
   @media (max-width: ${theme.breakpoints[0]}) {
     line-height: 0.3em;
     margin-right: 20px;
@@ -49,12 +49,12 @@ export const TextLink = styled(Text)`
 export const LinkGroup = styled.div`
   @media (max-width: ${theme.breakpoints[0]}) {
     display: flex;
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
     flex-direction: column;
     max-height: 130px;
     align-content: flex-start;
   }
-  
+
   a {
     text-decoration: none;
   }

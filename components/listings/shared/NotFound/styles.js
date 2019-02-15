@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import * as colors from 'constants/colors'
 import {mobileMedia} from 'constants/media'
 import {desktopHeaderAndFilterHeight} from 'constants/dimensions'
-import theme from '@emcasa/ui'
+import theme from 'config/theme'
 
 export default styled.div`
   align-items: center;

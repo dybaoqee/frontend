@@ -1,4 +1,4 @@
-import theme from '@emcasa/ui'
+import theme from 'config/theme'
 import styled from 'styled-components'
 import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import theme from '@emcasa/ui'
+import theme from 'config/theme'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faCalendar from '@fortawesome/fontawesome-pro-regular/faCalendarAlt'
 import View from '@emcasa/ui-dom/components/View'

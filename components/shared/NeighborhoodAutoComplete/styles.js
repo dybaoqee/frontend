@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { themeGet } from 'styled-system'
-import theme from '@emcasa/ui'
+import theme from 'config/theme'
 import View from '@emcasa/ui-dom/components/View'
 import Row from '@emcasa/ui-dom/components/Row'
 import Icon from '@emcasa/ui-dom/components/Icon'
@@ -21,10 +21,10 @@ const SearchResultItem = styled(View)`
   :hover {
     border: 1px solid ${themeGet('colors.pink')};
   }
-  
+
   overflow: hidden;
   white-space: nowrap;
-  
+
   p {
     overflow: hidden;
     white-space: nowrap;

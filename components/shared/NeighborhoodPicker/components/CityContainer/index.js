@@ -6,7 +6,7 @@ import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
 import Button from '@emcasa/ui-dom/components/Button'
 import Text from '@emcasa/ui-dom/components/Text'
-import theme from '@emcasa/ui'
+import theme from 'config/theme'
 import { randomKey } from 'lib/random'
 import FadeInOut from 'components/shared/Animation/FadeInOut'
 import {

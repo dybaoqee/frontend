@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { themeGet } from 'styled-system'
-import theme from '@emcasa/ui'
+import theme from 'config/theme'
 import View from '@emcasa/ui-dom/components/View'
 import {
   shouldShowMap,

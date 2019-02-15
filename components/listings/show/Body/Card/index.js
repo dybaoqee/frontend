@@ -5,7 +5,7 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faWhatsApp from '@fortawesome/fontawesome-free-brands/faWhatsapp'
 import faPhone from '@fortawesome/fontawesome-pro-light/faPhone'
 import Container, {SuggestedPrice} from './styles'
-import theme from '@emcasa/ui'
+import theme from 'config/theme'
 
 const Space = () => ' '
 

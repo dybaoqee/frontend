@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import theme from '@emcasa/ui'
+import theme from 'config/theme'
 import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import {imageUrl} from 'utils/image_url'
@@ -23,7 +23,7 @@ export const Header = styled(View)`
   ${Title} {
     margin-bottom: 0;
   }
-  
+
   @media (max-width: ${theme.breakpoints[0]}) {
     padding: 20px;
   }
@@ -58,12 +58,12 @@ export const CityInfo = styled(View)`
 
 export const NeighborhoodContainer = styled(View)`
   position: relative;
-  
+
   @media (max-width: ${theme.breakpoints[0]}) {
     &:after {
       background: linear-gradient(
         to left,
-        white, 
+        white,
         rgba(255, 255, 255, 0)
       );
       content: ' ';
@@ -100,10 +100,10 @@ export const NeighborhoodsLinks = styled(View)`
       color: inherit;
     }
   }
-  
+
   @media (max-width: ${theme.breakpoints[0]}) {
     max-height: 70px;
-    .NeighborhoodLink { 
+    .NeighborhoodLink {
       width: 130px;
       font-size: 8px;
       margin: 0 ${theme.space[2]}px 0 0;

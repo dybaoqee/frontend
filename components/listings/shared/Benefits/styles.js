@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import theme from '@emcasa/ui'
+import theme from 'config/theme'
 import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
 import View from '@emcasa/ui-dom/components/View'

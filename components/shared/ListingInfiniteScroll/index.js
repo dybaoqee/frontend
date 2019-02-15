@@ -3,7 +3,7 @@ import throttle from 'lodash/throttle'
 import {getY, getX} from 'utils/polyfills/bounding-rect'
 import { FadeLoader } from 'react-spinners'
 import Row from '@emcasa/ui-dom/components/Row'
-import theme from '@emcasa/ui'
+import theme from 'config/theme'
 import {
   log,
   LISTING_SEARCH_LOAD_MORE

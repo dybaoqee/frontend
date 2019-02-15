@@ -1,5 +1,5 @@
 import {ThemeProvider} from 'styled-components'
-import theme from '@emcasa/ui'
+import theme from 'config/theme'
 import Link from 'next/link'
 import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'

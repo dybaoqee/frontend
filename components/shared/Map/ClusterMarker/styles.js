@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import * as colors from 'constants/colors'
-import theme from '@emcasa/ui'
+import theme from 'config/theme'
 export default styled.div`
   box-sizing: border-box;
   width: 35px;
