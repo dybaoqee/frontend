@@ -1,12 +1,13 @@
 import * as colors from 'constants/colors'
 import {mobileMedia} from 'constants/media'
 import styled from 'styled-components'
+import Text from '@emcasa/ui-dom/components/Text'
 
 export default styled.div`
   box-sizing: border-box;
+  display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  display: flex;
   margin: 30px auto 40px;
   max-width: 960px;
 
@@ -15,32 +16,6 @@ export default styled.div`
     width: calc(100% - 420px);
     margin: 0 20px 40px;
     max-width: 100%;
-
-    > p {
-      margin: 0 0 20px;
-      :last-of-type {
-        padding-bottom: 36px;
-        border-bottom: 1px solid ${colors.mediumGray};
-      }
-    }
-
-    h3 {
-      font-size: 12px;
-      text-transform: uppercase;
-    }
-
-    p,
-    h1 {
-      color: ${colors.gray4a};
-      font-size: 20px;
-      font-weight: 300;
-      &.street {
-        font-weight: 400;
-        margin-bottom: 42px;
-        font-size: 22px;
-        line-height: 30px;
-      }
-    }
   }
 
   @media ${mobileMedia} {
@@ -61,23 +36,6 @@ export const CardWrapper = styled.div`
   }
 `
 
-export const ListingInfo = styled.div`
-  padding-bottom: 36px;
-  border-bottom: 1px solid ${colors.mediumGray};
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  > * {
-    margin-right: 20px;
-  }
+export const Title = Text.withComponent('h1')
 
-  p {
-    margin: 0;
-  }
-
-  @media ${mobileMedia} {
-    h3 {
-      margin: 15px 0;
-    }
-  }
-`
+export const SubTitle = Text.withComponent('h3')

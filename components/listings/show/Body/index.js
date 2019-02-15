@@ -1,16 +1,20 @@
 import React, { PureComponent } from 'react'
-import NumberFormat from 'react-number-format'
-import ListingCard from './Card'
-import Container, {CardWrapper, ListingInfo} from './styles'
-import Statistics from 'components/listings/show/Statistics'
+import {ThemeProvider} from 'styled-components'
+import theme from '@emcasa/ui'
 import {getParagraphs} from 'utils/text-utils'
+import Statistics from 'components/listings/show/Statistics'
 import {canEdit} from 'permissions/listings-permissions'
+import Text from '@emcasa/ui-dom/components/Text'
 import {
   log,
   LISTING_DETAIL_OPEN
 } from 'lib/logging'
-import {ThemeProvider} from 'styled-components'
-import theme from '@emcasa/ui'
+import ListingCard from './Card'
+import Container, {
+  CardWrapper,
+  Title,
+  SubTitle
+} from './styles'
 
 export default class ListingMainContent extends PureComponent {
   componentDidMount() {
@@ -46,47 +50,13 @@ export default class ListingMainContent extends PureComponent {
     return (
       <ThemeProvider theme={theme}>
         <Container>
-          <div className="description">
-            <h1 className="street">
+          <div>
+            <Title>
               {listing.type} na {listingInfo}, {neighborhood},{' '}
               {listing.address.city}
-            </h1>
-            <h6>O imóvel</h6>
-            {paragraphs && paragraphs.map((paragraph, i) => <p key={i}>{paragraph}</p>)}
-            <ListingInfo>
-              <div>
-                <h6>Tipo do imóvel</h6>
-                <p>{listing.type}</p>
-              </div>
-              {listing.maintenanceFee && (
-                <div>
-                  <h3>Condomínio</h3>
-                  <p>
-                    <NumberFormat
-                      value={listing.maintenanceFee}
-                      displayType={'text'}
-                      thousandSeparator={'.'}
-                      prefix={'R$'}
-                      decimalSeparator={','}
-                    />
-                  </p>
-                </div>
-              )}
-              {listing.propertyTax && (
-                <div>
-                  <h6>Iptu</h6>
-                  <p>
-                    <NumberFormat
-                      value={listing.propertyTax}
-                      displayType={'text'}
-                      thousandSeparator={'.'}
-                      prefix={'R$'}
-                      decimalSeparator={','}
-                    />
-                  </p>
-                </div>
-              )}
-            </ListingInfo>
+            </Title>
+            <SubTitle color="grey" fontSize="small">O IMÓVEL</SubTitle>
+            {paragraphs && paragraphs.map((paragraph, i) => <Text key={i}>{paragraph}</Text>)}
           </div>
           <CardWrapper>
             <ListingCard
