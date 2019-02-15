@@ -1,7 +1,6 @@
-import * as colors from 'constants/colors'
-import {mobileMedia} from 'constants/media'
 import styled from 'styled-components'
 import Text from '@emcasa/ui-dom/components/Text'
+import theme from '@emcasa/ui'
 
 export default styled.div`
   box-sizing: border-box;
@@ -18,9 +17,10 @@ export default styled.div`
     max-width: 100%;
   }
 
-  @media ${mobileMedia} {
+  @media (max-width: ${theme.breakpoints[0]}) {
     flex-direction: column;
     width: 100vw;
+    padding: 0 ${theme.space[4]}px 0 ${theme.space[4]}px;
 
     div.description {
       width: calc(100vw - 40px);
@@ -31,7 +31,8 @@ export default styled.div`
 export const CardWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  @media ${mobileMedia} {
+
+  @media (max-width: ${theme.breakpoints[0]}) {
     margin: 0 auto;
   }
 `

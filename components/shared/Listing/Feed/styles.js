@@ -6,6 +6,10 @@ export const Container = styled.div`
   position: relative;
   max-width: 960px;
   margin: auto;
+
+  @media (max-width: ${theme.breakpoints[0]}) {
+    padding: 0 ${theme.space[4]}px 0 ${theme.space[4]}px;
+  }
 `
 
 export const ListingsContainer = styled.div`
@@ -27,4 +31,7 @@ export const Gradient = styled.div`
   height: calc(100% - 96px);
   background-image: linear-gradient(to right, transparent, white);
 
+  @media (max-width: ${theme.breakpoints[0]}) {
+    right: ${theme.space[4]}px;
+  }
 `
