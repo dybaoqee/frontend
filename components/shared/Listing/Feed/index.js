@@ -3,7 +3,8 @@ import ListingCard from 'components/listings/shared/ListingCard'
 import {
   Container,
   ListingsContainer,
-  SubTitle
+  SubTitle,
+  Gradient
 } from './styles'
 
 export default class ListingFeed extends Component {
@@ -22,6 +23,7 @@ export default class ListingFeed extends Component {
             />
           ))}
         </ListingsContainer>
+        <Gradient />
       </Container>
     )
   }
