@@ -1,5 +1,6 @@
 import {Component} from 'react'
 import Link from 'next/link'
+import theme from '@emcasa/ui'
 import Text from '@emcasa/ui-dom/components/Text'
 import View from '@emcasa/ui-dom/components/View'
 import Row from '@emcasa/ui-dom/components/Row'
@@ -13,7 +14,7 @@ const Asset = Row.extend`
   position: relative;
   height: 25vmin;
   width: 100%;
-  margin: 10vmin 0 8vmin
+  margin: 8vmin 0
 
   svg {
     display: inline-block;
@@ -104,41 +105,45 @@ export default class HTTPMessage extends Component {
 
     return (
       <Col px={4} mb={5}>
-        <Text
-          textAlign="center"
-          fontSize={4}
-          fontWeight="bold"
-        >{this.title}</Text>
-        <Text textAlign="center" color="grey"
-        >{this.message}</Text>
-        <Asset justifyContent="center">
-          {this.asset}
-        </Asset>
         <Row justifyContent="center">
-          <Col width={[1, 1 / 3]}>
-            <Link passHref href={this.href}>
-              <a>
-                <Button
-                  height="tall"
-                  fluid
-                  active
-                >
-                  {this.button}
-                </Button>
-              </a>
-            </Link>
-            <View mt={2}>
-              <Link passHref href='/imoveis'>
-                <a>
-                  <Button
-                    height="tall"
-                    fluid
-                  >
-                    Explorar imóveis
-                  </Button>
-                </a>
-              </Link>
-            </View>
+          <Col width={[1, HTTPMessageSvgWidth]}>
+            <Text
+              textAlign="center"
+              fontSize={4}
+              fontWeight="bold"
+            >{this.title}</Text>
+            <Text textAlign="center" color="grey"
+            >{this.message}</Text>
+            <Asset justifyContent="center">
+              {this.asset}
+            </Asset>
+            <Row justifyContent="center">
+              <Col width={[1, 1/2]}>
+                <Link passHref href={this.href}>
+                  <a>
+                    <Button
+                      height="tall"
+                      fluid
+                      active
+                    >
+                      {this.button}
+                    </Button>
+                  </a>
+                </Link>
+                <View mt={2}>
+                  <Link passHref href='/imoveis'>
+                    <a>
+                      <Button
+                        height="tall"
+                        fluid
+                      >
+                        Explorar imóveis
+                      </Button>
+                    </a>
+                  </Link>
+                </View>
+              </Col>
+            </Row>
           </Col>
         </Row>
       </Col>
