@@ -22,29 +22,29 @@ class NotFound extends PureComponent {
     const {filters, params} = this.props
 
     return (
-      <Col px={4}>
-        <Text fontWeight="bold">Nenhum imóvel encontrado</Text>
-        <Text color="grey" my={0}>Tente alterar os critérios selecionados para encontrar outros imóveis.</Text>
-        <Query query={GET_DISTRICTS}>
-          {({loading, error, data}) => {
-            if (loading) return (<div/>)
-            if (error) return `Error! ${error.message}`
+      <Query query={GET_DISTRICTS}>
+        {({loading, error, data}) => {
+          if (loading) return (<div/>)
+          if (error) return `Error! ${error.message}`
 
-            const districts = data.districts
-            const findState = districts.find(a => a.stateSlug === params.state)
-            const findCity = districts.find(a => a.citySlug === params.city)
-            let linkHref = '/imoveis'
-            let linkLabel = 'Explorar imóveis'
+          const districts = data.districts
+          const findState = districts.find(a => a.stateSlug === params.state)
+          const findCity = districts.find(a => a.citySlug === params.city)
+          let linkHref = '/imoveis'
+          let linkLabel = 'Explorar imóveis'
 
-            if (findCity) {
-              linkHref = `/imoveis/${findCity.stateSlug}/${findCity.citySlug}`
-              linkLabel = `Explorar imóveis em ${findCity.city}`
-            } else if (findState) {
-              linkHref = `/imoveis/${findState.stateSlug}`
-              linkLabel = `Explorar imóveis em ${findState.state}`
-            }
+          if (findCity) {
+            linkHref = `/imoveis/${findCity.stateSlug}/${findCity.citySlug}`
+            linkLabel = `Explorar imóveis em ${findCity.city}`
+          } else if (findState) {
+            linkHref = `/imoveis/${findState.stateSlug}`
+            linkLabel = `Explorar imóveis em ${findState.state}`
+          }
 
-            return (
+          return (
+            <Col px={4}>
+              <Text fontWeight="bold">Nenhum imóvel encontrado</Text>
+              <Text color="grey" my={0}>Tente alterar os critérios selecionados para encontrar outros imóveis.</Text>
               <Col>
                 <Link passHref href={linkHref}>
                   <a>
@@ -56,10 +56,10 @@ class NotFound extends PureComponent {
                   </a>
                 </Link>
               </Col>
-            )
-          }}
-        </Query>
-      </Col>
+            </Col>
+          )
+        }}
+      </Query>
     )
   }
 }
