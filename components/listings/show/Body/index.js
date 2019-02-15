@@ -6,7 +6,6 @@ import Statistics from 'components/listings/show/Statistics'
 import {canEdit} from 'permissions/listings-permissions'
 import Text from '@emcasa/ui-dom/components/Text'
 import ToggleButton from './ToggleButton'
-import { isMobile } from 'lib/mobile'
 import {
   log,
   LISTING_DETAIL_OPEN
@@ -63,13 +62,12 @@ export default class ListingMainContent extends Component {
           listing.complement ? `- ${listing.complement}` : ''
         }`
       : `${street}`
-    const mobile = isMobile()
 
     return (
       <ThemeProvider theme={theme}>
         <Container>
-          <ListingDescription expanded={!mobile ? true : this.state.expanded}>
-            {mobile && <ToggleButton expanded={this.state.expanded} onClick={this.toggleBody} />}
+          <ListingDescription expanded={this.state.expanded}>
+            <ToggleButton expanded={this.state.expanded} onClick={this.toggleBody} />
             <Title fontSize="large" fontWeight="normal">
               {listing.type} na {listingInfo}, {neighborhood},{' '}
               {listing.address.city}

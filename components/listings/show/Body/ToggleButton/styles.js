@@ -7,6 +7,7 @@ const WIDTH = 44
 const HEIGHT = 32
 
 const StyledToggleButton = styled(Button)`
+  display: none;
   position: absolute;
   bottom: 0;
   right: 0;
@@ -15,10 +16,12 @@ const StyledToggleButton = styled(Button)`
   font-size: ${theme.fontSizes[1]}px;
   width: ${WIDTH}px;
   height: ${HEIGHT}px;
-
-  display: flex;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: ${theme.breakpoints[0]}) {
+    display: flex;
+  }
 `
 
 const ArrowIcon = styled(Icon)`
