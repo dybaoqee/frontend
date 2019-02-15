@@ -16,8 +16,8 @@ class ListingPanel extends React.Component {
   render() {
     const {
       handleOpenPopup,
-      favoritedListings,
-      user
+      user,
+      favorite
     } = this.props
     const {
       price,
@@ -27,16 +27,11 @@ class ListingPanel extends React.Component {
     } = this.props.listing
     const price_per_square_meter = Math.floor(price / area)
 
-    const favorited =
-      favoritedListings.filter(
-        (actual) => actual.id.toString() === this.props.listing.id.toString()
-      ).length > 0
-
     return (
       <Container>
         <LikeButton
           top={-25}
-          favorite={favorited}
+          favorite={favorite}
           listing={this.props.listing}
           user={user}
           secondary
