@@ -1,4 +1,3 @@
-import * as colors from 'constants/colors'
 import styled from 'styled-components'
 
 import {mobileMedia} from 'constants/media'
@@ -6,7 +5,6 @@ import {mobileMedia} from 'constants/media'
 export default styled.div`
   width: 100%;
   height: auto;
-  background: ${colors.offWhite};
   &::before {
     content: ' ';
     display: table;

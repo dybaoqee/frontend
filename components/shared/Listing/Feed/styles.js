@@ -1,37 +1,15 @@
-import {listingFeed, mobileMedia} from 'constants/media'
-import styled, {css} from 'styled-components'
+import styled from 'styled-components'
 
-export default styled.div`
+export const ListingsContainer = styled.div`
   box-sizing: border-box;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, 282px);
-  grid-gap: 20px;
-  justify-content: center;
-  position: relative;
-  padding: 60px 20px;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  overflow-x: scroll;
+`
 
-  @media ${listingFeed} {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  @media ${mobileMedia} {
-    grid-template-columns: 1fr;
-  }
-
-  ${({related}) =>
-    related &&
-    css`
-      margin-top: 60px;
-      > :first-child {
-        position: relative;
-        :before {
-          content: 'VEJA TAMBÉM:';
-          position: absolute;
-          font-size: 12px;
-          font-weight: 700;
-          text-transform: uppercase;
-          top: -45px;
-        }
-      }
-    `};
+export const Container = styled.div`
+  max-width: 960px;
+  margin: auto;
 `
