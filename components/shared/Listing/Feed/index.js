@@ -1,4 +1,5 @@
-import {Component} from 'react'
+import { Component } from 'react'
+import PropTypes from 'prop-types'
 import { Query } from 'react-apollo'
 import { GET_FAVORITE_LISTINGS } from 'graphql/user/queries'
 
@@ -10,9 +11,9 @@ import {
   Gradient
 } from './styles'
 
-export default class ListingFeed extends Component {
+class ListingFeed extends Component {
   render() {
-    const {listings, related} = this.props
+    const { listings, currentUser } = this.props
     return (
       <Query query={GET_FAVORITE_LISTINGS}>
         {({loading, error, data: {userProfile}}) => {
@@ -25,12 +26,12 @@ export default class ListingFeed extends Component {
           return (
             <Container>
               <SubTitle color="grey" fontSize="small">VEJA TAMBÉM</SubTitle>
-              <ListingsContainer related={related}>
+              <ListingsContainer>
                 {listings.map((listing) => (
                   <ListingCard
                     key={listing.id}
                     listing={listing}
-                    currentUser={userProfile}
+                    currentUser={currentUser}
                     favorited={favorites}
                   />
                 ))}
@@ -42,3 +43,10 @@ export default class ListingFeed extends Component {
     )
   }
 }
+
+ListingFeed.propTypes = {
+  listings: PropTypes.object,
+  currentUser: PropTypes.object
+}
+
+export default ListingFeed

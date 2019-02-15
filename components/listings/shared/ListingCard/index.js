@@ -12,8 +12,7 @@ import { intToCurrency } from 'utils/text-utils'
 import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
 import {
-  Container,
-  LikeButtonContainer
+  Container
 } from './styles'
 import {
   log,

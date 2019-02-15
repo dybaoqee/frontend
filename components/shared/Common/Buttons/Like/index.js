@@ -17,6 +17,7 @@ const LikeButton = (props) => (
     {(favoriteListing) => (
       <Container
         onClick={(e) => {
+          console.log('user:', props.user)
           e.preventDefault()
           if (props.user && props.user.authenticated) {
             log(LISTING_SEARCH_FAVORITE_LISTING, {listingId: props.listing.id, favorited: !props.favorite})

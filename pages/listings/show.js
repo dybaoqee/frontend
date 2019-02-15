@@ -302,7 +302,10 @@ class Listing extends Component {
 
                       <ListingMap listing={listing} />
 
-                      <RelatedListings listings={related || []} />
+                      <RelatedListings
+                        currentUser={currentUser}
+                        listings={related || []}
+                      />
 
                       {isInterestPopupVisible && (
                         <InterestForm
