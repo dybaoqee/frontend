@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import theme from 'config/theme'
 import Button from '@emcasa/ui-dom/components/Button'
-import { isMobile } from 'lib/mobile'
+import {breakpoint} from '@emcasa/ui/src/styles';
 
 const StyledFilterButton = styled(Button)`
   position: relative;
@@ -12,7 +12,9 @@ const StyledFilterButton = styled(Button)`
   color: ${({active, open}) => active || open ? theme.colors.white : theme.colors.pink};
   font-size: ${theme.fontSizes[1]}px;
 
-  ${({open}) => (open && !isMobile()) && `z-index: 1;`}
+  @media screen and ${breakpoint.up('tablet')} {
+    z-index: ${({open}) => (open ? 1 : 'initial')};
+  }
 
   &:last-child {
     margin-right: 0;

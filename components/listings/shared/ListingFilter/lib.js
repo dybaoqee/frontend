@@ -1,5 +1,4 @@
 import numeral from 'numeral'
-import { isMobile } from 'lib/mobile'
 import FilterButton from './components/FilterButton'
 import {
   FILTERS
@@ -114,7 +113,7 @@ function userHasSelectedType(userFilters, homeType) {
  * @param {function} showFilter function that is called when user clicks the filter button.
  * @param {function} getOpenButton function that is called to check if button is open
  */
-function getFilterButtons(filters, showFilter, getOpenButton) {
+function getFilterButtons(filters, showFilter, getOpenButton, isMobile) {
   const selectedFilters = getActiveFilters(filters)
   const selectedFiltersArray = selectedFilters.map((item) => item.filter)
 
@@ -128,7 +127,7 @@ function getFilterButtons(filters, showFilter, getOpenButton) {
     }
 
     const active = selectedFiltersArray.includes(filterItem.code)
-    if (isMobile()) {
+    if (isMobile) {
       if (active) {
         activeFilterButtons.push(getFilterButton(active, item, filterItem, filters, getOpenButton, showFilter))
       } else {

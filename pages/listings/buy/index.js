@@ -2,11 +2,11 @@ import {Component} from 'react'
 import styled from 'styled-components'
 import {themeGet} from 'styled-system'
 import View from '@emcasa/ui-dom/components/View'
+import {withBreakpoint} from '@emcasa/ui-dom/components/Breakpoint'
 import BuyListing from 'components/listings/buy/BuyListing'
 import Benefits from 'components/listings/shared/Benefits'
 import Neighborhoods from 'components/listings/buy/Neighborhoods'
 import {desktopHeaderHeight} from 'constants/dimensions'
-import {isMobile} from 'lib/mobile'
 import {imageUrl} from 'utils/image_url'
 import {
   log,
@@ -63,7 +63,7 @@ const CONTENT = {
     }
 }
 
-export default class Buy extends Component {
+class Buy extends Component {
   static async getInitialProps() {
     return {
       transparentHeader: true
@@ -91,11 +91,11 @@ export default class Buy extends Component {
   }
 
   render() {
-    const {router} = this.props
+    const {router, isMobile} = this.props
     const city = (router.query || {}).city || 'all'
     const {seoTitle, seoDescription, seoImg, heroTitle} = CONTENT[city]
     const blockProps = {
-      isMobile: isMobile(this.state.pageWidth),
+      isMobile,
       pageWidth: this.state.pageWidth,
       city
     }
@@ -126,7 +126,7 @@ export default class Buy extends Component {
       buttonClick: () => {
           log(BUYER_LANDING_EXPLORE_LISTINGS)
       },
-      isMobile: isMobile(this.state.pageWidth)
+      isMobile
     }
 
     return (
@@ -152,3 +152,5 @@ export default class Buy extends Component {
     )
   }
 }
+
+export default withBreakpoint()(Buy)

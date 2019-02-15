@@ -1,9 +1,9 @@
 import {Component} from 'react'
 import Link from 'next/link'
+import {withBreakpoint} from '@emcasa/ui-dom/components/Breakpoint'
 import Col from '@emcasa/ui-dom/components/Col'
 import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
-import {isMobile} from 'lib/mobile'
 import NeighborhoodAutoComplete from 'components/shared/NeighborhoodAutoComplete'
 import NeighborhoodPicker from 'components/shared/NeighborhoodPicker'
 import MobileAddressButton from 'components/shared/MobileAddressButton'
@@ -23,7 +23,7 @@ import {
   Content
 } from './styles'
 
-export default class BuyListing extends Component {
+class BuyListing extends Component {
   constructor(props) {
     super(props)
     this.openMobileAddressInput = this.openMobileAddressInput.bind(this)
@@ -50,7 +50,7 @@ export default class BuyListing extends Component {
   renderSearch() {
     if (USE_NEW_SEARCH) {
       return (
-        isMobile() ?
+        this.props.isMobile ?
           <Col mb={4}>
             <NeighborhoodPicker
               fromHome
@@ -68,7 +68,7 @@ export default class BuyListing extends Component {
     }
 
     return (
-      isMobile() ?
+      this.props.isMobile ?
         <Col mb={4}>
           <MobileAddressButton
             onClick={this.openMobileAddressInput}
@@ -159,3 +159,5 @@ export default class BuyListing extends Component {
     )
   }
 }
+
+export default withBreakpoint()(BuyListing)

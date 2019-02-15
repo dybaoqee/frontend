@@ -6,7 +6,6 @@ import SellListing from 'components/listings/sell/SellListing'
 import Benefits from 'components/listings/shared/Benefits'
 import HowItWorks from 'components/listings/sell/HowItWorks'
 import {desktopHeaderHeight} from 'constants/dimensions'
-import {isMobile} from 'lib/mobile'
 import {imageUrl} from 'utils/image_url'
 import {
   log,
@@ -61,7 +60,7 @@ const CONTENT = {
     }
 }
 
-export default class Sell extends Component {
+class Sell extends Component {
   static async getInitialProps() {
     return {
       transparentHeader: true,
@@ -91,8 +90,9 @@ export default class Sell extends Component {
   }
 
   render() {
+    const {isMobile} = this.props
     const blockProps = {
-      isMobile: isMobile(this.state.pageWidth),
+      isMobile,
       pageWidth: this.state.pageWidth
     }
 
@@ -127,7 +127,7 @@ export default class Sell extends Component {
       buttonClick: () => {
           log(SELLER_LANDING_EXPLORE_LISTINGS)
       },
-      isMobile: isMobile(this.state.pageWidth)
+      isMobile
     }
 
     return (
@@ -153,3 +153,5 @@ export default class Sell extends Component {
     )
   }
 }
+
+export default withBreakpoint()(Sell)

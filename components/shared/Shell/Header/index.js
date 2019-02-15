@@ -3,6 +3,7 @@ import {Component} from 'react'
 import Text from '@emcasa/ui-dom/components/Text'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
+import {withBreakpoint} from '@emcasa/ui-dom/components/Breakpoint'
 import AccountKit from 'components/shared/Auth/AccountKit'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faSearch from '@fortawesome/fontawesome-pro-solid/faSearch'
@@ -13,7 +14,6 @@ import NeighborhoodPicker from 'components/shared/NeighborhoodPicker'
 import NeighborhoodAutoComplete from 'components/shared/NeighborhoodAutoComplete'
 import MobileAddressButton from 'components/shared/MobileAddressButton'
 import {MobileTypeaheadContainer} from 'components/shared/NeighborhoodAutoComplete/styles'
-import {isMobile} from 'lib/mobile'
 import {USE_NEW_SEARCH} from 'config/globals'
 import theme from 'config/theme'
 import {
@@ -34,7 +34,7 @@ import Container, {
   LabelLogo
 } from './styles'
 
-export default class Header extends Component {
+class Header extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -77,19 +77,19 @@ export default class Header extends Component {
     if (USE_NEW_SEARCH) {
       return (
         <NeighborhoodPicker
-          onClick={isMobile() ? this.openMobileSearch : () => {}}
+          onClick={this.props.isMobile ? this.openMobileSearch : () => {}}
           query={this.props.router.query}
         />
       )
     }
 
-    const height = isMobile() ? 'tall' : 'medium'
+    const height = this.props.isMobile ? 'tall' : 'medium'
     return (
       <Search>
-        {isMobile() ? <MobileAddressButton
+        {this.props.isMobile ? <MobileAddressButton
           address="Bairro ou Cidade"
           onClick={this.openMobileSearch}
-          height={isMobile}
+          isMobile={this.props.isMobile}
         /> :
           <NeighborhoodAutoComplete height={height} />
         }
@@ -112,7 +112,7 @@ export default class Header extends Component {
             <NeighborhoodAutoComplete
               onBackPressed={this.closeMobileSearch}
               onClearInput={() => {}}
-              height={isMobile() ? 'tall' : 'medium'}
+              height={this.props.isMobile ? 'tall' : 'medium'}
             />
           }
         </Col>
@@ -206,3 +206,5 @@ export default class Header extends Component {
     )
   }
 }
+
+export default withBreakpoint()(Header)

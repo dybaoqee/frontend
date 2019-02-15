@@ -5,7 +5,7 @@ import Col from '@emcasa/ui-dom/components/Col'
 import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
-import {isMobile} from 'lib/mobile'
+import {withBreakpoint} from '@emcasa/ui-dom/components/Breakpoint'
 import AddressAutoComplete from 'components/shared/AddressAutoComplete'
 import MobileAddressButton from 'components/shared/MobileAddressButton'
 import { MobileTypeaheadContainer } from 'components/shared/AddressAutoComplete/styles'
@@ -23,7 +23,7 @@ import {
   Content
 } from './styles'
 
-export default class SellListing extends Component {
+class SellListing extends Component {
   constructor(props) {
     super(props)
     this.openMobileAddressInput = this.openMobileAddressInput.bind(this)
@@ -101,7 +101,7 @@ export default class SellListing extends Component {
           </Row>
           <Row flexDirection={['column', 'row']} px={[4, 0]}>
             <Col width={[1, 10 / 12]} mr={[0, 2]}>
-              {isMobile() ?
+              {this.props.isMobile ?
                 <Col mb={4}>
                   <MobileAddressButton
                     onClick={this.openMobileAddressInput}
@@ -149,3 +149,5 @@ export default class SellListing extends Component {
     )
   }
 }
+
+export default withBreakpoint()(SellListing)
