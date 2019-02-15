@@ -201,19 +201,21 @@ class Listing extends Component {
       ? ` de ${listing.rooms} dormitórios`
       : ''
 
+    const { neighborhood, neighborhoodSlug } = listing.address
+
     const paths = [
-      {name: 'Comprar Imóvel', href: '/listings', as: '/imoveis'},
+      {name: 'Comprar Imóveis', href: '/listings', as: '/imoveis'},
       {
-        name: listing.address.neighborhood,
-        href: `/listings?bairros=${listing.address.neighborhood}`,
-        as: `/imoveis?bairros=${listing.address.neighborhood}`
+        name: neighborhood,
+        href: `/listings?bairros=${neighborhoodSlug}`,
+        as: `/imoveis?bairros=${neighborhoodSlug}`
       },
       {
         name: listing.type + roomInformationForPath,
         href: `/listings?bairros=${
-          listing.address.neighborhood
+          neighborhoodSlug
         }&quartos_minimo=${listing.rooms}`,
-        as: `/imoveis?bairros=${listing.address.neighborhood}&quartos_minimo=${
+        as: `/imoveis?bairros=${neighborhoodSlug}&quartos_minimo=${
           listing.rooms
         }&quartos_maximo=${listing.rooms}`
       },
