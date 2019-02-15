@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import Text from '@emcasa/ui-dom/components/Text'
 
 export const ListingsContainer = styled.div`
   box-sizing: border-box;
@@ -13,3 +14,5 @@ export const Container = styled.div`
   max-width: 960px;
   margin: auto;
 `
+
+export const SubTitle = Text.withComponent('h3')

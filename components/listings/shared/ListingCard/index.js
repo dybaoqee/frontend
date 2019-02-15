@@ -14,7 +14,6 @@ import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
 import {
   Container,
-  ListingImage,
   LikeButtonContainer
 } from './styles'
 import {

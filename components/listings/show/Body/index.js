@@ -56,7 +56,7 @@ export default class ListingMainContent extends PureComponent {
               {listing.address.city}
             </Title>
             <SubTitle color="grey" fontSize="small">O IMÓVEL</SubTitle>
-            {paragraphs && paragraphs.map((paragraph, i) => <Text key={i}>{paragraph}</Text>)}
+            {paragraphs && paragraphs.map((paragraph, i) => <Text fontFamily="FaktSoftPro-Blond" key={i}>{paragraph}</Text>)}
           </div>
           <CardWrapper>
             <ListingCard

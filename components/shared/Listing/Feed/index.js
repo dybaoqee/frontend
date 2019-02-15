@@ -2,9 +2,9 @@ import {Component} from 'react'
 import ListingCard from 'components/listings/shared/ListingCard'
 import {
   Container,
-  ListingsContainer
+  ListingsContainer,
+  SubTitle
 } from './styles'
-import Text from '@emcasa/ui-dom/components/Text'
 
 export default class ListingFeed extends Component {
   render() {
@@ -12,7 +12,7 @@ export default class ListingFeed extends Component {
 
     return (
       <Container>
-        <Text>VEJA TAMBÉM</Text>
+        <SubTitle color="grey" fontSize="small">VEJA TAMBÉM</SubTitle>
         <ListingsContainer related={related}>
           {listings.map((listing) => (
             <ListingCard
