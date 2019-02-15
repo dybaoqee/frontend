@@ -88,6 +88,7 @@ export default class ListingMainContent extends Component {
               listing={listing}
               handleOpenPopup={handleOpenPopup}
               user={user}
+              favoritedListings={[]}
             />
             {showStatistics && <Statistics listing={listing} user={user} />}
           </CardWrapper>

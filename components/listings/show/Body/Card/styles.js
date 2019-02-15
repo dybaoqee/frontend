@@ -4,6 +4,7 @@ import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 
 export const Container = styled.div`
+  position: relative;
   border: 1px solid ${theme.colors.lightGrey};
   border-radius: 4px;
   box-shadow: 0 6px 16px 0 rgba(38, 38, 38, 0.15);

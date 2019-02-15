@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import NumberFormat from 'react-number-format'
 import theme from '@emcasa/ui'
+import NumberFormat from 'react-number-format'
+import LikeButton from 'components/shared/Common/Buttons/Like'
 import Button from '@emcasa/ui-dom/components/Button'
 import Text from '@emcasa/ui-dom/components/Text'
 import View from '@emcasa/ui-dom/components/View'
@@ -13,7 +14,11 @@ import {
 
 class ListingPanel extends React.Component {
   render() {
-    const { handleOpenPopup } = this.props
+    const {
+      handleOpenPopup,
+      favoritedListings,
+      user
+    } = this.props
     const {
       price,
       area,
@@ -22,8 +27,20 @@ class ListingPanel extends React.Component {
     } = this.props.listing
     const price_per_square_meter = Math.floor(price / area)
 
+    const favorited =
+      favoritedListings.filter(
+        (actual) => actual.id.toString() === this.props.listing.id.toString()
+      ).length > 0
+
     return (
       <Container>
+        <LikeButton
+          top={-25}
+          favorite={favorited}
+          listing={this.props.listing}
+          user={user}
+          secondary
+        />
         <Text style={{margin: 0}} fontSize="xlarge" fontWeight="bold" color={theme.colors.pink}>
           {price && price > 0 ?
             <>
