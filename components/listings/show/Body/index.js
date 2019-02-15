@@ -11,7 +11,7 @@ import {
   log,
   LISTING_DETAIL_OPEN
 } from 'lib/logging'
-import ListingCard from './Card'
+import ListingPanel from './Card'
 import Container, {
   CardWrapper,
   Title,
@@ -84,7 +84,7 @@ export default class ListingMainContent extends Component {
             {paragraphs && paragraphs.map((paragraph, i) => <Text fontFamily="FaktSoftPro-Blond" key={i}>{paragraph}</Text>)}
           </ListingDescription>
           <CardWrapper>
-            <ListingCard
+            <ListingPanel
               listing={listing}
               handleOpenPopup={handleOpenPopup}
               user={user}

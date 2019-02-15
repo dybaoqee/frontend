@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Router from 'next/router'
 import Link from 'next/link'
 import humps from 'humps'
 import {

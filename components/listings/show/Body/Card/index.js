@@ -9,7 +9,7 @@ import theme from '@emcasa/ui'
 
 const Space = () => ' '
 
-export default class ListingCard extends React.Component {
+export default class ListingPanel extends React.Component {
   render() {
     const {handleOpenPopup, user} = this.props
     const {
@@ -47,26 +47,6 @@ export default class ListingCard extends React.Component {
           )}
         </span>
         <div>
-          <div>
-            <span>Dormitórios</span>
-            <span>{rooms}</span>
-          </div>
-          <div>
-            <span>Banheiros</span>
-            <span>{bathrooms}</span>
-          </div>
-          <div>
-            <span>N° Vagas</span>
-            <span>{garageSpots || 0}</span>
-          </div>
-          <div>
-            <span>Andar</span>
-            <span>{floor}</span>
-          </div>
-          <div>
-            <span>Área</span>
-            <span>{area}</span>
-          </div>
           {price && price > 0 ? (
             <div>
               <span>Preço/m²</span>
