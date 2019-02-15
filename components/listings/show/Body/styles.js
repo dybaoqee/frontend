@@ -40,3 +40,9 @@ export const CardWrapper = styled.div`
 export const Title = Text.withComponent('h1')
 
 export const SubTitle = Text.withComponent('h3')
+
+export const ListingDescription = styled.div`
+  position: relative;
+  margin-bottom: ${theme.space[4]}px;
+  ${({expanded}) => expanded ? `height: auto;` : `height: 200px; overflow: hidden;`}
+`

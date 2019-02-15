@@ -3,18 +3,18 @@ import theme from '@emcasa/ui'
 import Button from '@emcasa/ui-dom/components/Button'
 import Icon from '@emcasa/ui-dom/components/Icon'
 
-const SIZE = 32
+const WIDTH = 44
+const HEIGHT = 32
 
-const StyledExpandButton = styled(Button)`
+const StyledToggleButton = styled(Button)`
   position: absolute;
-  top: 0;
+  bottom: 0;
   right: 0;
   border: 1px solid ${theme.colors.lightGrey};
   color: ${({active}) => active ? theme.colors.white : theme.colors.pink};
   font-size: ${theme.fontSizes[1]}px;
-  margin: 0 ${theme.space[4]}px ${theme.space[1]}px 0;
-  width: ${SIZE}px;
-  height: ${SIZE}px;
+  width: ${WIDTH}px;
+  height: ${HEIGHT}px;
 
   display: flex;
   justify-content: center;
@@ -24,11 +24,10 @@ const StyledExpandButton = styled(Button)`
 const ArrowIcon = styled(Icon)`
   display: flex;
   align-items: center;
-  height: ${SIZE / 2}px;
+  height: ${HEIGHT / 2}px;
 `
 
 export {
-  StyledExpandButton,
-  ArrowIcon,
-  SIZE
+  StyledToggleButton,
+  ArrowIcon
 }
