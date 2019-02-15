@@ -1,4 +1,6 @@
 import {Component} from 'react'
+import theme from '@emcasa/ui'
+import { ThemeProvider } from 'styled-components'
 import HTTPMessage from 'components/shared/Shell/HTTPMessage'
 
 export default class ErrorPage extends Component {
@@ -17,7 +19,9 @@ export default class ErrorPage extends Component {
     const {statusCode} = this.props
 
     return (
-      <HTTPMessage statusCode={statusCode} />
+      <ThemeProvider theme={theme}>
+        <HTTPMessage statusCode={statusCode} />
+      </ThemeProvider>
     )
   }
 }

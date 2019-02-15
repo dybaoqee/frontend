@@ -1,6 +1,7 @@
 import {Component} from 'react'
 import Link from 'next/link'
 import Text from '@emcasa/ui-dom/components/Text'
+import View from '@emcasa/ui-dom/components/View'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Button from '@emcasa/ui-dom/components/Button'
@@ -98,9 +99,6 @@ export default class HTTPMessage extends Component {
   }
 
   render() {
-    // If we use <Button link>{this.button}</Button> throw this error:
-    // TypeError: Cannot read property 'white' of undefined
-    // node_modules/@emcasa/ui-dom/components/Button/index.js:46:53
 
     const {statusCode} = this.props
 
@@ -108,7 +106,7 @@ export default class HTTPMessage extends Component {
       <Col px={4}>
         <Text
           textAlign="center"
-          fontSize={5}
+          fontSize={4}
           fontWeight="bold"
         >{this.title}</Text>
         <Text textAlign="center" color="grey"
@@ -116,12 +114,32 @@ export default class HTTPMessage extends Component {
         <Asset justifyContent="center">
           {this.asset}
         </Asset>
-        <Row
-          alignItems="center"
-          flexDirection="column"
-          mb={5}
-        >
-          <Link passHref href={this.href}><a><Text inline color="red">{this.button}</Text></a></Link>
+        <Row justifyContent="center" mb={5}>
+          <Col width={[1, 3 / 12]}>
+            <Link passHref href={this.href}>
+              <a>
+                <Button
+                  height="tall"
+                  fluid
+                  active
+                >
+                  {this.button}
+                </Button>
+              </a>
+            </Link>
+            <View mt={2}>
+              <Link passHref href='/imoveis'>
+                <a>
+                  <Button
+                    height="tall"
+                    fluid
+                  >
+                    Explorar imóveis
+                  </Button>
+                </a>
+              </Link>
+            </View>
+          </Col>
         </Row>
       </Col>
     )
