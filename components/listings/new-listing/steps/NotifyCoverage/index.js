@@ -7,9 +7,9 @@ import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
+import {withBreakpoint} from '@emcasa/ui-dom/components/Text'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import { getAddressInput } from 'lib/address'
-import {autoFocus} from 'components/listings/new-listing/lib/forms'
 
 class NotifyCoverage extends Component {
   constructor(props) {
@@ -30,7 +30,9 @@ class NotifyCoverage extends Component {
   }
 
   componentDidMount() {
-    autoFocus(this.nameField.current)
+    if (this.nameField.current && !this.props.isMobile) {
+      this.nameField.current.focus()
+    }
   }
 
   previousStep() {
@@ -164,4 +166,4 @@ class NotifyCoverage extends Component {
   }
 }
 
-export default NotifyCoverage
+export default withBreakpoint()(NotifyCoverage)

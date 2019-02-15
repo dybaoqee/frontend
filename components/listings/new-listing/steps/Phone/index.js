@@ -7,10 +7,10 @@ import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
+import {withBreakpoint} from '@emcasa/ui-dom/components/Text'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import { getAddressInput } from 'lib/address'
 import { estimatePrice, getPricingInput } from 'lib/listings/pricing'
-import {autoFocus} from 'components/listings/new-listing/lib/forms'
 
 const BRAZIL_CODE = '55'
 
@@ -41,7 +41,9 @@ class Phone extends Component {
 
   componentDidMount() {
     this.updateStateFromProps(this.props)
-    autoFocus(this.dddField.current)
+    if (this.dddField.current && !this.props.isMobile) {
+      this.dddField.current.focus()
+    }
   }
 
   componentWillReceiveProps(props) {
@@ -278,4 +280,4 @@ class Phone extends Component {
   }
 }
 
-export default Phone
+export default withBreakpoint()(Phone)

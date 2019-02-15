@@ -5,11 +5,11 @@ import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
+import {withBreakpoint} from '@emcasa/ui-dom/components/Text'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import { getAddressInput } from 'lib/address'
 import { estimatePrice, getPricingInput } from 'lib/listings/pricing'
 import { getUser, hasPhoneNumber } from 'components/listings/new-listing/lib/auth'
-import {autoFocus} from 'components/listings/new-listing/lib/forms'
 
 class Differential extends Component {
   constructor(props) {
@@ -32,7 +32,9 @@ class Differential extends Component {
 
   componentDidMount() {
     this.updateStateFromProps(this.props)
-    autoFocus(this.textInput.current)
+    if (this.textInput.current && !this.props.isMobile) {
+      this.textInput.current.focus()
+    }
   }
   componentWillReceiveProps(props) {
     this.updateStateFromProps(props)
@@ -192,4 +194,4 @@ class Differential extends Component {
   }
 }
 
-export default Differential
+export default withBreakpoint()(Differential)

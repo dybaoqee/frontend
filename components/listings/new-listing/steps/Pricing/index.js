@@ -8,8 +8,8 @@ import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
+import {withBreakpoint} from '@emcasa/ui-dom/components/Text'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
-import {autoFocus} from 'components/listings/new-listing/lib/forms'
 import {
   currencyInputMask,
   currencyToInt,
@@ -39,7 +39,9 @@ class Pricing extends Component {
 
   componentDidMount() {
     this.updateStateFromProps(this.props)
-    autoFocus(this.userPriceInput)
+    if (this.userPriceInput && !this.props.isMobile) {
+      this.userPriceInput.focus()
+    }
   }
 
   componentWillReceiveProps(props) {
@@ -257,4 +259,4 @@ Pricing.propTypes = {
   pricing: PropTypes.object
 }
 
-export default Pricing
+export default withBreakpoint()(Pricing)
