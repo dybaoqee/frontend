@@ -34,50 +34,30 @@ class NotFound extends PureComponent {
 
             const findState = districts.find(a => a.stateSlug === params.state)
             const findCity = districts.find(a => a.citySlug === params.city)
+            let linkHref = '/imoveis'
+            let linkLabel = 'Explorar imóveis'
 
             if (findCity) {
-              return (
-                <Col>
-                  <Link passHref href={`/imoveis/${findCity.stateSlug}/${findCity.citySlug}`}>
-                    <a>
-                      <Button
-                        height="tall"
-                      >
-                        Explorar imóveis em {`${findCity.city}`}
-                      </Button>
-                    </a>
-                  </Link>
-                </Col>
-              )
+              linkHref = `/imoveis/${findCity.stateSlug}/${findCity.citySlug}`
+              linkLabel = `Explorar imóveis em ${findCity.city}`
             } else if (findState) {
-              return (
-                <Col>
-                  <Link passHref href={`/imoveis/${findState.stateSlug}`}>
-                    <a>
-                      <Button
-                        height="tall"
-                      >
-                        Explorar imóveis em {`${findState.state}`}
-                      </Button>
-                    </a>
-                  </Link>
-                </Col>
-              )
-            } else {
-              return (
-                <Col>
-                  <Link passHref href="/imoveis">
-                    <a>
-                      <Button
-                        height="tall"
-                      >
-                        Explorar imóveis
-                      </Button>
-                    </a>
-                  </Link>
-                </Col>
-              )
+              linkHref = `/imoveis/${findState.stateSlug}`
+              linkLabel = `Explorar imóveis em ${findState.state}`
             }
+
+            return (
+              <Col>
+                <Link passHref href={linkHref}>
+                  <a>
+                    <Button
+                      height="tall"
+                    >
+                      {linkLabel}
+                    </Button>
+                  </a>
+                </Link>
+              </Col>
+            )
           }}
         </Query>
       </Col>
