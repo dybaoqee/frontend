@@ -6,6 +6,7 @@ import Statistics from 'components/listings/show/Statistics'
 import {canEdit} from 'permissions/listings-permissions'
 import Text from '@emcasa/ui-dom/components/Text'
 import ToggleButton from './ToggleButton'
+import ListingData from './ListingData'
 import {
   log,
   LISTING_DETAIL_OPEN
@@ -63,7 +64,7 @@ export default class ListingMainContent extends Component {
         }`
       : `${street}`
 
-    return (
+      return (
       <ThemeProvider theme={theme}>
         <Container>
           <ListingDescription expanded={this.state.expanded}>
@@ -72,6 +73,13 @@ export default class ListingMainContent extends Component {
               {listing.type} na {listingInfo}, {neighborhood},{' '}
               {listing.address.city}
             </Title>
+            <ListingData
+              bedrooms={listing.rooms}
+              bathrooms={listing.bathrooms}
+              garageSpots={listing.garageSpots}
+              area={listing.area}
+              floor={listing.floor}
+            />
             <SubTitle color="grey" fontSize="small">O IMÓVEL</SubTitle>
             {paragraphs && paragraphs.map((paragraph, i) => <Text fontFamily="FaktSoftPro-Blond" key={i}>{paragraph}</Text>)}
           </ListingDescription>

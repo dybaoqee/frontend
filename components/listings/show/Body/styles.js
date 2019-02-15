@@ -43,9 +43,10 @@ export const SubTitle = Text.withComponent('h3')
 
 export const ListingDescription = styled.div`
   position: relative;
-  margin-bottom: ${theme.space[4]}px;
+  margin: 0 ${theme.space[4]}px ${theme.space[4]}px 0;
 
   @media (max-width: ${theme.breakpoints[0]}) {
-    ${({expanded}) => expanded ? `height: auto;` : `height: 200px; overflow: hidden;`}
+    ${({expanded}) => expanded ? `height: auto;` : `height: 400px; overflow: hidden;`}
+    margin-right: 0;
   }
 `
