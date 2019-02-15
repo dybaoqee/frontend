@@ -244,8 +244,8 @@ export default styled.div`
   img {
     box-sizing: border-box;
     cursor: pointer;
-    max-height: 343px;
-    height: 343px;
+    max-height: 280px;
+    height: 280px;
     z-index: 2;
     position: relative;
     object-fit: cover;

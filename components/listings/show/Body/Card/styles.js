@@ -17,6 +17,7 @@ export const Container = styled.div`
     left: 0;
     bottom: 0;
     width: calc(100% - ${theme.space[4] * 2}px);
+    height: 130px;
     margin: 0;
     float: unset;
     border-radius: 0;

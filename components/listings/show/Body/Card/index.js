@@ -20,15 +20,7 @@ class ListingPanel extends React.Component {
       propertyTax,
       maintenanceFee
     } = this.props.listing
-
     const price_per_square_meter = Math.floor(price / area)
-
-    const currencyStyle = {
-      style: 'currency',
-      currency: 'BRL',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0
-    }
 
     return (
       <Container>
