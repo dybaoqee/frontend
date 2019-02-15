@@ -1,13 +1,20 @@
 import {Component} from 'react'
 import {Query} from 'react-apollo'
 import theme from '@emcasa/ui'
+import View from '@emcasa/ui-dom/components/View'
+import Row from '@emcasa/ui-dom/components/Row'
+import Col from '@emcasa/ui-dom/components/Col'
+import Text from '@emcasa/ui-dom/components/Text'
+import Button from '@emcasa/ui-dom/components/Button'
 import { ThemeProvider } from 'styled-components'
 import {GET_USER_LISTINGS_ACTIONS} from 'graphql/user/queries'
-import {GET_FULL_LISTING} from 'graphql/listings/queries'
+import {
+  GET_FULL_LISTING,
+  GET_DISTRICTS
+} from 'graphql/listings/queries'
 import {Mutation} from 'react-apollo'
 import {FAVORITE_LISTING} from 'graphql/listings/mutations'
 import {isAuthenticated, isAdmin, getCurrentUserId, getJwt} from 'lib/auth'
-import Error from 'components/shared/Shell/Error'
 import {getRelatedListings} from 'services/listing-api'
 import Link from 'next/link'
 import {createInterest} from 'services/interest-api'
@@ -329,6 +336,91 @@ class Listing extends Component {
     )
   }
 
+  showListingFetchError = (listingFetchError, asPath) => {
+    const location = asPath.split('/')
+    const state = location[1]
+    const city = location[2]
+    const neighborhood = location[3]
+
+    return (
+      <ThemeProvider theme={theme}>
+        <Row
+          justifyContent="center"
+          px={5}
+        >
+          <Row
+            flexDirection="column"
+            width={[1, '768px']}
+          >
+            <Text
+              textAlign="center"
+              fontSize="xlarge"
+            >
+              Este imóvel não está mais disponível!
+            </Text>
+
+            <Query query={GET_DISTRICTS}>
+              {({loading, error, data}) => {
+                if (loading) return (<div/>)
+                if (error) return `Error! ${error.message}`
+
+                const districts = data.districts
+                const findState = districts.find(a => a.stateSlug === state)
+                const findCity = districts.find(a => a.citySlug === city)
+                const findNeighborhood = districts.find(a => a.nameSlug === neighborhood)
+
+                let endQuestion = 'de imóveis'
+                let buttonLabel = 'Explorar imóveis'
+                let buttonHref = '/imoveis'
+
+                if (findNeighborhood) {
+                  endQuestion = ` em ${findNeighborhood.name}, ${findNeighborhood.city}`
+                  buttonLabel += ` em ${findNeighborhood.name}`
+                  buttonHref += `/${findNeighborhood.stateSlug}/${findNeighborhood.citySlug}/${findNeighborhood.nameSlug}`
+                } else if (findCity) {
+                  endQuestion = ` em ${findCity.city}, ${findCity.state}`
+                  buttonLabel += ` em ${findCity.city}`
+                  buttonHref += `/${findCity.stateSlug}/${findCity.citySlug}`
+                } else if (findState) {
+                  endQuestion = ` em ${findState.state}`
+                  buttonLabel += ` em ${findState.state}`
+                  buttonHref += `/${findState.stateSlug}`
+                }
+
+                return (
+                  <>
+                    <Text color="grey">{`Que tal olhar outras opções ${endQuestion}? Separamos alguns imóveis para você! Fique a vontade para dar uma olhada nessa lista`}
+                    </Text>
+                    <Row justifyContent="center">
+                      <Col width={[1, 2/5]}>
+                        <View mt={2}>
+                          <Link
+                            passHref
+                            href={buttonHref}
+                          >
+                            <a>
+                              <Button
+                                active
+                                fluid
+                                height="tall"
+                              >
+                                {buttonLabel}
+                              </Button>
+                            </a>
+                          </Link>
+                        </View>
+                      </Col>
+                    </Row>
+                  </>
+                )
+              }}
+            </Query>
+          </Row>
+        </Row>
+      </ThemeProvider>
+    )
+  }
+
   get error() {
     const {listingFetchError} = this.props
 
@@ -343,22 +435,10 @@ class Listing extends Component {
   }
 
   render() {
-    const {listingFetchError} = this.props
+    const {listingFetchError, url: {asPath}} = this.props
 
     return listingFetchError ? (
-      <>
-        <Head>
-          <title>EmCasa</title>
-        </Head>
-        <Error>
-          <h1>{this.error}</h1>
-          <h2>{listingFetchError.code || listingFetchError.statusCode}</h2>
-          <p>
-            Visite nossa <Link href="/">página inicial</Link> ou entre em&nbsp;
-            <Link href="mailto:contato@emcasa.com">contato</Link> com a gente
-          </p>
-        </Error>
-      </>
+      this.showListingFetchError(listingFetchError, asPath)
     ) : (
       this.showListing()
     )

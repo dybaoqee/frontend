@@ -27,11 +27,10 @@ class NotFound extends PureComponent {
         <Text color="grey" my={0}>Tente alterar os critérios selecionados para encontrar outros imóveis.</Text>
         <Query query={GET_DISTRICTS}>
           {({loading, error, data}) => {
-            const districts = data.districts
-
             if (loading) return (<div/>)
             if (error) return `Error! ${error.message}`
 
+            const districts = data.districts
             const findState = districts.find(a => a.stateSlug === params.state)
             const findCity = districts.find(a => a.citySlug === params.city)
             let linkHref = '/imoveis'
