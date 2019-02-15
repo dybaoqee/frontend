@@ -103,7 +103,7 @@ export default class HTTPMessage extends Component {
     const {statusCode} = this.props
 
     return (
-      <Col px={4}>
+      <Col px={4} mb={5}>
         <Text
           textAlign="center"
           fontSize={4}
@@ -114,8 +114,8 @@ export default class HTTPMessage extends Component {
         <Asset justifyContent="center">
           {this.asset}
         </Asset>
-        <Row justifyContent="center" mb={5}>
-          <Col width={[1, 3 / 12]}>
+        <Row justifyContent="center">
+          <Col width={[1, 1 / 3]}>
             <Link passHref href={this.href}>
               <a>
                 <Button
