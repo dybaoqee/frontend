@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 export default styled.div`
-  height: 400px;
-  margin: 100px 0 0 0;
+  height: 240px;
+  margin: 40px auto;
+  max-width: 960px;
 `
