@@ -1,6 +1,7 @@
 import {Component} from 'react'
 import styled from 'styled-components'
 import {breakpoint} from '@emcasa/ui/lib/styles'
+import {withBreakpoint} from '@emcasa/ui-dom/components/Breakpoint'
 import View from '@emcasa/ui-dom/components/View'
 import SellListing from 'components/listings/sell/SellListing'
 import Benefits from 'components/listings/shared/Benefits'

@@ -132,7 +132,7 @@ class Header extends Component {
     return (
       <Wrapper>
         <Container transparent={transparent} className={sticky && !search ? 'sticky' : null} search={search}>
-          <Row alignItems="center" width={[1, 1/2]} style={!search ? {height: theme.buttonHeight[1]} : null}>
+          <Row alignItems="center" width={[1, 1, 1,  1/2]} style={!search ? {height: theme.buttonHeight[1]} : null}>
             <Link passHref href="/listings/buy" as="/">
               <a>
                 <h1 style={{zIndex: 1}}>
@@ -153,7 +153,7 @@ class Header extends Component {
               ☰
             </NavButton>
           </Row>
-          <Col width={[0, 1/2]}>
+          <Col width={[0, 0, 0,  1/2]}>
             <Nav visible={isMobileNavVisible}>
               <CloseNavButton
                 visible={isMobileNavVisible}

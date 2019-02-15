@@ -120,7 +120,7 @@ class BuyListing extends Component {
           onScroll100={() => {log(BUYER_LANDING_SCROLL_100)}}
         />
         <Content>
-          <Row justifyContent="center" px={[4, 0]}>
+          <Row justifyContent="center" px={[4, 4, 4,  0]}>
             <Col>
               <Text
                 fontSize="xlarge"
@@ -132,7 +132,7 @@ class BuyListing extends Component {
               </Text>
             </Col>
           </Row>
-          <Row justifyContent="center" px={[4, 0]}>
+          <Row justifyContent="center" px={[4, 4, 4,  0]}>
             <Col>
               <Text color="gray" style={{margin: '0.5em'}}>
                 Comprar seu imóvel nunca foi tão fácil, informe o bairro ou cidade
@@ -140,8 +140,8 @@ class BuyListing extends Component {
               </Text>
             </Col>
           </Row>
-          <Row flexDirection={['column', 'row']} px={[4, 0]}>
-            <Col width={1} mr={[0, 2]}>
+          <Row flexDirection={['column', 'column', 'column',  'row']} px={[4, 4, 4,  0]}>
+            <Col width={1} mr={[0, 0, 0,  2]}>
               {this.renderSearch()}
             </Col>
           </Row>

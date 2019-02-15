@@ -5,7 +5,7 @@ import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
-import {withBreakpoint} from '@emcasa/ui-dom/components/Text'
+import {withBreakpoint} from '@emcasa/ui-dom/components/Breakpoint'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import { getAddressInput } from 'lib/address'
 import { estimatePrice, getPricingInput } from 'lib/listings/pricing'
@@ -138,7 +138,7 @@ class Differential extends Component {
     return (
       <div ref={this.props.hostRef}>
         <Row justifyContent="center" p={4} pt={0}>
-          <Col width={[1, 1/2]}>
+          <Col width={[1, 1, 1,  1/2]}>
             <Formik
               initialValues={{
                 text: text

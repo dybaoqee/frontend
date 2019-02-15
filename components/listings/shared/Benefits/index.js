@@ -16,10 +16,10 @@ import {
 } from './styles'
 
 export default class Benefits extends Component {
-  
+
   getBenefits = (isMobile) => {
     const benefits = this.props.benefitsList.map(({icon, title, description}) => (
-      <BenefitCol width={[1, 3 / 12]} key={title}>
+      <BenefitCol width={[1, 1, 1,  3 / 12]} key={title}>
         <Icon name={icon} />
         <SubTitle fontSize="large" fontWeight="normal" color="dark">
           {title}
@@ -59,15 +59,15 @@ export default class Benefits extends Component {
           </Row>
           <Row
             justifyContent="center"
-            flexDirection={['column', 'row']}
-            alignItems={['center', 'none']}
+            flexDirection={['column', 'column', 'column',  'row']}
+            alignItems={['center', 'center', 'center',  'none']}
           >
             <NoSSR onSSR={this.getBenefits()}>
               {this.getBenefits(isMobile)}
             </NoSSR>
           </Row>
           <Row justifyContent="center">
-            <Col width={[1, 4 / 12]}>
+            <Col width={[1, 1, 1,  4 / 12]}>
               <Link passHref href={buttonHref}>
                 <a>
                   <Button height="tall" fluid onClick={buttonClick}>
