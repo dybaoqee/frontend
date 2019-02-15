@@ -30,9 +30,9 @@ export default class HTTPMessage extends Component {
 
     switch (statusCode) {
       case 404:
-        return 'Página não encontrada'
+        return 'Opssss… Não encontramos a página'
       default:
-        return null
+        return 'Opssss… Ocorreu um erro'
     }
   }
 
@@ -41,9 +41,9 @@ export default class HTTPMessage extends Component {
 
     switch (statusCode) {
       case 404:
-        return 'O link que você clicou pode estar quebrado ou a página pode ter sido removida.'
+        return 'Desculpe, não encontramos a página. Ela pode ter sido deletada, não existir ou ser um link quebrado. Não se preocupe, você pode ir para a nossa página inicial ou explorar imóveis.'
       default:
-        return null
+        return 'Não se preocupe, você pode ir para a nossa página inicial ou explorar imóveis.'
     }
   }
 
@@ -54,7 +54,7 @@ export default class HTTPMessage extends Component {
       case 404:
         return 'Ir para página inicial'
       default:
-        return null
+        return 'Ir para página inicial'
     }
   }
 
@@ -65,7 +65,7 @@ export default class HTTPMessage extends Component {
       case 404:
         return '/'
       default:
-        return null
+        return '/'
     }
   }
 
@@ -103,7 +103,6 @@ export default class HTTPMessage extends Component {
   }
 
   render() {
-
     const {statusCode} = this.props
 
     return (
@@ -121,9 +120,11 @@ export default class HTTPMessage extends Component {
             >
               {this.message}
             </Text>
-            <Asset justifyContent="center">
-              {this.asset}
-            </Asset>
+            {this.asset && (
+              <Asset justifyContent="center">
+                {this.asset}
+              </Asset>
+            )}
             <Row justifyContent="center">
               <Col width={[1, 1/2]}>
                 <Link

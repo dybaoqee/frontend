@@ -388,6 +388,7 @@ class Listing extends Component {
                     <Title
                       textAlign="center"
                       fontSize="xlarge"
+                      fontWeight="normal"
                     >
                       {errorTitle}
                     </Title>
