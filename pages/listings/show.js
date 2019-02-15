@@ -29,13 +29,15 @@ import RelatedListings from 'components/listings/show/RelatedListings'
 import Warning from 'components/shared/Common/Warning'
 import Breadcrumb from 'components/shared/Common/Breadcrumb'
 import {buildSlug, getListingId} from 'lib/listings'
-import Head from 'next/head'
+import NextHead from 'components/shared/NextHead'
 import getApolloClient from 'lib/apollo/initApollo'
 import {
   log,
   getPreferredContactType,
   LISTING_DETAIL_SCHEDULE_VISIT
 } from 'lib/logging'
+
+export const Title = Text.withComponent('h2')
 
 class Listing extends Component {
   favMutated = false
@@ -353,6 +355,7 @@ class Listing extends Component {
             const findState = districts.find(a => a.stateSlug === state)
             const findCity = districts.find(a => a.citySlug === city)
             const findNeighborhood = districts.find(a => a.nameSlug === neighborhood)
+            let errorTitle = 'Este imóvel não está mais disponível!'
             let endQuestion = 'de imóveis'
             let buttonLabel = 'Explorar imóveis'
             let buttonHref = '/imoveis'
@@ -372,44 +375,47 @@ class Listing extends Component {
             }
 
             return (
-              <Row
-                justifyContent="center"
-                px={5}
-              >
+              <>
+                <NextHead title={`Imóvel não encontrado | EmCasa`} />
                 <Row
-                  flexDirection="column"
-                  width={[1, '768px']}
+                  justifyContent="center"
+                  px={5}
                 >
-                  <Text
-                    textAlign="center"
-                    fontSize="xlarge"
+                  <Row
+                    flexDirection="column"
+                    width={[1, '768px']}
                   >
-                    Este imóvel não está mais disponível!
-                  </Text>
-                  <Text color="grey">{`Que tal olhar outras opções ${endQuestion}? Separamos alguns imóveis para você! Fique a vontade para dar uma olhada nessa lista`}
-                  </Text>
-                  <Row justifyContent="center">
-                    <Col width={[1, 2/5]}>
-                      <View mt={2}>
-                        <Link
-                          passHref
-                          href={buttonHref}
-                        >
-                          <a>
-                            <Button
-                              active
-                              fluid
-                              height="tall"
-                            >
-                              {buttonLabel}
-                            </Button>
-                          </a>
-                        </Link>
-                      </View>
-                    </Col>
+                    <Title
+                      textAlign="center"
+                      fontSize="xlarge"
+                    >
+                      {errorTitle}
+                    </Title>
+                    <Text color="grey">{`Que tal olhar outras opções ${endQuestion}? Separamos alguns imóveis para você! Fique a vontade para dar uma olhada nessa lista`}
+                    </Text>
+                    <Row justifyContent="center">
+                      <Col width={[1, 2/5]}>
+                        <View mt={2}>
+                          <Link
+                            passHref
+                            href={buttonHref}
+                          >
+                            <a>
+                              <Button
+                                active
+                                fluid
+                                height="tall"
+                              >
+                                {buttonLabel}
+                              </Button>
+                            </a>
+                          </Link>
+                        </View>
+                      </Col>
+                    </Row>
                   </Row>
                 </Row>
-              </Row>
+              </>
             )
           }}
         </Query>
