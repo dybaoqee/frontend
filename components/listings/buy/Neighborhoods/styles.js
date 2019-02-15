@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 import theme from 'config/theme'
+import {breakpoint} from '@emcasa/ui/lib/styles'
 import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
-import {imageUrl} from 'utils/image_url'
 
 export const Container = styled(View)`
   display: flex;
@@ -24,7 +24,7 @@ export const Header = styled(View)`
     margin-bottom: 0;
   }
 
-  @media (max-width: ${theme.breakpoints[0]}) {
+  @media ${breakpoint.down('tablet')} {
     padding: 20px;
   }
 `
@@ -35,23 +35,21 @@ export const Cities = styled(View)`
   flex-direction: column;
   align-items: center;
 
-  @media (max-width: ${theme.breakpoints[0]}) {
+  @media ${breakpoint.down('tablet')} {
     align-items: unset;
   }
 `
 
-
 export const City = styled(View)`
-  @media (max-width: ${theme.breakpoints[0]}) {
+  @media ${breakpoint.down('tablet')} {
     margin-left: 20px;
   }
 `
 
-export const CityTitle = styled(View)`
-`
+export const CityTitle = styled(View)``
 
 export const CityInfo = styled(View)`
-  @media (max-width: ${theme.breakpoints[0]}) {
+  @media ${breakpoint.down('tablet')} {
     display: none;
   }
 `
@@ -59,13 +57,9 @@ export const CityInfo = styled(View)`
 export const NeighborhoodContainer = styled(View)`
   position: relative;
 
-  @media (max-width: ${theme.breakpoints[0]}) {
+  @media ${breakpoint.down('tablet')} {
     &:after {
-      background: linear-gradient(
-        to left,
-        white,
-        rgba(255, 255, 255, 0)
-      );
+      background: linear-gradient(to left, white, rgba(255, 255, 255, 0));
       content: ' ';
       position: absolute;
       top: 0;
@@ -101,7 +95,7 @@ export const NeighborhoodsLinks = styled(View)`
     }
   }
 
-  @media (max-width: ${theme.breakpoints[0]}) {
+  @media ${breakpoint.down('tablet')} {
     max-height: 70px;
     .NeighborhoodLink {
       width: 130px;
@@ -115,7 +109,7 @@ export const NeighborhoodItems = styled(View)`
   display: flex;
   flex-wrap: nowrap;
   position: relative;
-  @media (max-width: ${theme.breakpoints[0]}) {
+  @media ${breakpoint.down('tablet')} {
     overflow-y: hidden;
     overflow-x: auto;
     padding-bottom: ${theme.space[3]}px;
@@ -133,7 +127,7 @@ export const Neighborhood = styled(View)`
   max-width: 100%;
   cursor: pointer;
   border-radius: 4px;
-  box-shadow: 1px 2px 4px 0 rgba(0,0,0,0.3);
+  box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.3);
   margin-right: ${theme.space[2]}px;
 
   p {
@@ -151,7 +145,7 @@ export const Neighborhood = styled(View)`
     z-index: -1;
   }
 
-  @media (max-width: ${theme.breakpoints[0]}) {
+  @media ${breakpoint.down('tablet')} {
     width: auto;
     min-width: 130px;
     min-height: 70px;
@@ -183,7 +177,7 @@ export const Soon = styled(View)`
     content: 'Em breve';
   }
 
-  @media (max-width: ${theme.breakpoints[0]}) {
+  @media ${breakpoint.down('tablet')} {
     top: 5px;
     right: 5px;
 
@@ -195,7 +189,7 @@ export const Soon = styled(View)`
 
 export const Spacer = styled(View)`
   display: none;
-  @media (max-width: ${theme.breakpoints[0]}) {
+  @media ${breakpoint.down('tablet')} {
     display: flex;
     max-height: 70px;
     &:after {

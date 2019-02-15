@@ -1,15 +1,16 @@
 import styled from 'styled-components'
 import theme from 'config/theme'
 import Button from '@emcasa/ui-dom/components/Button'
-import {breakpoint} from '@emcasa/ui/src/styles';
+import {breakpoint} from '@emcasa/ui/lib/styles'
 
 const StyledFilterButton = styled(Button)`
   position: relative;
   height: 32px;
   margin: 0 ${theme.space[2]}px ${theme.space[1]}px 0;
   border: 1px solid ${theme.colors.pink};
-  background-color: ${({open}) => open ? theme.colors.pink : null};
-  color: ${({active, open}) => active || open ? theme.colors.white : theme.colors.pink};
+  background-color: ${({open}) => (open ? theme.colors.pink : null)};
+  color: ${({active, open}) =>
+    active || open ? theme.colors.white : theme.colors.pink};
   font-size: ${theme.fontSizes[1]}px;
 
   @media screen and ${breakpoint.up('tablet')} {
@@ -20,7 +21,9 @@ const StyledFilterButton = styled(Button)`
     margin-right: 0;
   }
 
-  ${({open}) => open ? `
+  ${({open}) =>
+    open
+      ? `
     &::before {
       content: '';
       position: absolute;
@@ -33,14 +36,12 @@ const StyledFilterButton = styled(Button)`
       background-color: ${theme.colors.white};
       box-shadow: 0px 0px 8px -1px rgba(0,0,0,0.2);
 
-      @media screen and (max-width: ${theme.breakpoints[0]}) {
+      @media screen and ${breakpoint.down('tablet')} {
         content: unset;
       }
     }
-  `: null}
-
+  `
+      : null};
 `
 
-export {
-  StyledFilterButton
-}
+export {StyledFilterButton}

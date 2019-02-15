@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import Row from '@emcasa/ui-dom/components/Row'
+import {breakpoint} from '@emcasa/ui/lib/styles'
 
 export const Container = styled(View)`
   display: flex;
@@ -14,7 +15,7 @@ export const Content = styled(View)`
   flex-direction: column;
   justify-content: space-between;
   max-width: 1100px;
-  @media (max-width: ${theme.breakpoints[0]}) {
+  @media ${breakpoint.down('tablet')} {
     padding-left: ${theme.space[4]};
     padding-right: ${theme.space[4]};
   }
@@ -24,7 +25,7 @@ export const Title = Text.withComponent('h2')
 export const SubTitle = Text.withComponent('h3')
 
 export const Icon = styled.div`
-  background-image: url('/static/svg-icons/${props => props.name}.svg');
+  background-image: url('/static/svg-icons/${(props) => props.name}.svg');
   background-repeat: no-repeat;
   background-size: cover;
   width: 70px;
@@ -67,11 +68,11 @@ export const StepArrow = styled.div`
   width: 70px;
   margin-left: ${theme.space[2]}px;
   margin-right: ${theme.space[2]}px;
-  opacity: ${props => props.isLast ? '0' : '1'};
+  opacity: ${(props) => (props.isLast ? '0' : '1')};
 `
 
 export const StepContainer = styled(Row)`
-  @media (max-width: ${theme.breakpoints[0]}) {
+  @media ${breakpoint.down('tablet')} {
     margin-top: ${theme.space[2]}px;
     margin-bottom: 70px;
   }

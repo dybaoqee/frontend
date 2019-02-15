@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import theme from 'config/theme'
 import View from '@emcasa/ui-dom/components/View'
 import Row from '@emcasa/ui-dom/components/Row'
-import Button from '@emcasa/ui-dom/components/Button'
+import {breakpoint} from '@emcasa/ui/lib/styles'
 
 const OFFSET_TOP = 26
 const WRAPPER_PADDING = theme.space[4] * 2
@@ -10,13 +10,13 @@ const MAX_FILTER_PANEL_DESKTOP_WIDTH = 300
 
 const Container = styled(View)`
   position: absolute;
-  display: ${({show}) => show ? 'block' : 'none'};
-  top: ${({top}) => top ? `calc(${top}px - ${OFFSET_TOP}px)` : '0'};
-  left: ${({left}) => left ? `${left}px` : '0'};
+  display: ${({show}) => (show ? 'block' : 'none')};
+  top: ${({top}) => (top ? `calc(${top}px - ${OFFSET_TOP}px)` : '0')};
+  left: ${({left}) => (left ? `${left}px` : '0')};
   border-radius: 4px;
-  box-shadow: 0px 0px 8px -1px rgba(0,0,0,0.2);
+  box-shadow: 0px 0px 8px -1px rgba(0, 0, 0, 0.2);
 
-  @media screen and (max-width: ${theme.breakpoints[0]}) {
+  @media screen and ${breakpoint.down('tablet')} {
     position: fixed;
     width: 100%;
     height: 100%;
@@ -34,7 +34,7 @@ const Wrapper = styled(View)`
   background-color: ${theme.colors.white};
   border-radius: 4px;
 
-  @media screen and (max-width: ${theme.breakpoints[0]}) {
+  @media screen and ${breakpoint.down('tablet')} {
     position: relative;
     height: 100%;
     padding: ${theme.space[4]}px;
@@ -49,7 +49,7 @@ const ActionsWrapper = styled(Row)`
   justify-content: space-between;
   margin-top: ${theme.space[2]}px;
   width: 100%;
-  @media screen and (max-width: ${theme.breakpoints[0]}) {
+  @media screen and ${breakpoint.down('tablet')} {
     position: absolute;
     margin: 0;
     bottom: calc(20px + ${WRAPPER_PADDING}px);
@@ -65,13 +65,13 @@ const MobileContent = styled(Row)`
   display: none;
   padding: 0;
   margin: 0;
-  @media screen and (max-width: ${theme.breakpoints[0]}) {
+  @media screen and ${breakpoint.down('tablet')} {
     display: block;
   }
 `
 
 const DesktopContent = styled(Row)`
-  @media screen and (max-width: ${theme.breakpoints[0]}) {
+  @media screen and ${breakpoint.down('tablet')} {
     display: none;
     padding: 0;
     margin: 0;

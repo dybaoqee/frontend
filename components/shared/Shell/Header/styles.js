@@ -1,6 +1,7 @@
 import styled, {keyframes} from 'styled-components'
 import theme from 'config/theme'
 import Col from '@emcasa/ui-dom/components/Col'
+import {breakpoint} from '@emcasa/ui/lib/styles'
 
 export const HEADER_HEIGHT = 60
 export const MAX_HEADER_HEIGHT = 76
@@ -28,7 +29,7 @@ export default styled.header`
   }
 
   .search {
-    ${({search}) => !search ? {height: theme.buttonHeight[1]} : null}
+    ${({search}) => (!search ? {height: theme.buttonHeight[1]} : null)};
   }
 `
 
@@ -62,7 +63,7 @@ export const Nav = styled.nav`
     text-decoration: none;
   }
 
-  @media (max-width: ${theme.breakpoints[0]}) {
+  @media ${breakpoint.down('tablet')} {
     position: absolute;
     top: 0;
     right: -${HEADER_HEIGHT}vw;
@@ -99,7 +100,7 @@ export const NavButton = styled.button`
     color: gray;
   }
 
-  @media (max-width: ${theme.breakpoints[0]}) {
+  @media ${breakpoint.down('tablet')} {
     display: ${(props) => (props.visible ? 'block' : 'none')};
   }
 `
@@ -116,7 +117,7 @@ export const CloseNavButton = styled.div`
 
   content: url(/static/assets/close.svg);
 
-  @media (max-width: ${theme.breakpoints[0]}) {
+  @media ${breakpoint.down('tablet')} {
     display: ${(props) => (props.visible ? 'block' : 'none')};
   }
 `
@@ -150,7 +151,7 @@ export const MenuItem = styled.div`
     border-bottom: 1px solid ${theme.colors.pink};
   }
 
-  @media (max-width: ${theme.breakpoints[0]}) {
+  @media ${breakpoint.down('tablet')} {
     min-height: auto;
     height: ${HEADER_HEIGHT}px;
     width: auto;
@@ -184,7 +185,7 @@ export const MenuItem = styled.div`
 export const Logo = styled.div`
   cursor: pointer;
   transform: translateZ(0);
-  @media (max-width: ${theme.breakpoints[0]}) {
+  @media ${breakpoint.down('tablet')} {
     content: url(https://s3.amazonaws.com/emcasa-ui/logo/symbol.svg);
     max-width: 32px;
   }
@@ -216,7 +217,7 @@ const fadeIn = keyframes`
 `
 
 export const Overlay = styled.div`
-  @media (min-width: ${theme.breakpoints[0]}) {
+  @media ${breakpoint.up('desktop')} {
     display: none;
   }
   position: absolute;
@@ -234,7 +235,7 @@ export const Search = styled.div`
   margin-left: 20px;
   width: 100%;
 
-  @media (max-width: ${theme.breakpoints[0]}) {
+  @media ${breakpoint.down('tablet')} {
     width: 80%;
   }
 `
@@ -244,7 +245,7 @@ export const SearchWrapper = styled(Col)`
   margin-left: ${theme.space[4]}px;
   max-width: 560px;
 
-  @media screen and (max-width: ${theme.breakpoints[0]}) {
+  @media screen and ${breakpoint.down('tablet')} {
     max-width: calc(100% - 51px);
   }
 `

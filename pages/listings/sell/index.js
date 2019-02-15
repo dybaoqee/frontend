@@ -1,6 +1,6 @@
 import {Component} from 'react'
 import styled from 'styled-components'
-import {themeGet} from 'styled-system'
+import {breakpoint} from '@emcasa/ui/lib/styles'
 import View from '@emcasa/ui-dom/components/View'
 import SellListing from 'components/listings/sell/SellListing'
 import Benefits from 'components/listings/shared/Benefits'
@@ -32,32 +32,33 @@ const Block = styled(View)`
 const MainBlock = styled(Block)`
   padding-top: 0px;
   min-height: 80vh;
-  @media (max-width: ${themeGet('breakpoints.0')}) {
+  @media ${breakpoint.down('tablet')} {
     min-height: 100vh;
   }
 `
 
 const BASE_TITLE = 'Anuncie e Venda seu Imóvel'
-const BASE_DESCRIPTION = 'com Emcasa, a startup imobiliária que tem exclusivo sistema de Tour Virtual 3D para aumentar suas chances de venda.'
+const BASE_DESCRIPTION =
+  'com Emcasa, a startup imobiliária que tem exclusivo sistema de Tour Virtual 3D para aumentar suas chances de venda.'
 const CONTENT = {
-    all: {
-      seoImg: imageUrl('sell'),
-      seoTitle: `${BASE_TITLE} no Rio de Janeiro ou São Paulo | EmCasa`,
-      seoDescription: `${BASE_TITLE} no Rio de Janeiro ou São Paulo ${BASE_DESCRIPTION}`,
-      heroTitle: 'Quer vender seu imóvel?'
-    },
-    sp: {
-      seoImg: imageUrl('sell-sp'),
-      seoTitle: `${BASE_TITLE} em Perdizes, São Paulo | EmCasa`,
-      seoDescription: `${BASE_TITLE} em Perdizes, São Paulo ${BASE_DESCRIPTION}`,
-      heroTitle: 'Quer vender seu imóvel em Perdizes?'
-    },
-    rj: {
-      seoImg: imageUrl('sell-rj'),
-      seoTitle: `${BASE_TITLE} no Rio de Janeiro | EmCasa`,
-      seoDescription: `${BASE_TITLE} no Rio de Janeiro ${BASE_DESCRIPTION}`,
-      heroTitle: 'Quer vender seu imóvel na zona sul do Rio de Janeiro?'
-    }
+  all: {
+    seoImg: imageUrl('sell'),
+    seoTitle: `${BASE_TITLE} no Rio de Janeiro ou São Paulo | EmCasa`,
+    seoDescription: `${BASE_TITLE} no Rio de Janeiro ou São Paulo ${BASE_DESCRIPTION}`,
+    heroTitle: 'Quer vender seu imóvel?'
+  },
+  sp: {
+    seoImg: imageUrl('sell-sp'),
+    seoTitle: `${BASE_TITLE} em Perdizes, São Paulo | EmCasa`,
+    seoDescription: `${BASE_TITLE} em Perdizes, São Paulo ${BASE_DESCRIPTION}`,
+    heroTitle: 'Quer vender seu imóvel em Perdizes?'
+  },
+  rj: {
+    seoImg: imageUrl('sell-rj'),
+    seoTitle: `${BASE_TITLE} no Rio de Janeiro | EmCasa`,
+    seoDescription: `${BASE_TITLE} no Rio de Janeiro ${BASE_DESCRIPTION}`,
+    heroTitle: 'Quer vender seu imóvel na zona sul do Rio de Janeiro?'
+  }
 }
 
 class Sell extends Component {
@@ -70,7 +71,7 @@ class Sell extends Component {
   }
 
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       pageWidth: process.browser ? window.innerWidth : 0
     }
@@ -102,7 +103,7 @@ class Sell extends Component {
 
     const benefitsProps = {
       sectionTitle: 'Conheça as vantagens de vender com a EmCasa',
-      benefitsList:  [
+      benefitsList: [
         {
           icon: 'tour-3d',
           title: 'Tour Virtual 3D',
@@ -125,7 +126,7 @@ class Sell extends Component {
       buttonHref: '/vender/imovel',
       buttonLabel: 'Conheça mais a EmCasa',
       buttonClick: () => {
-          log(SELLER_LANDING_EXPLORE_LISTINGS)
+        log(SELLER_LANDING_EXPLORE_LISTINGS)
       },
       isMobile
     }

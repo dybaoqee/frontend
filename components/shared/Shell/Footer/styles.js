@@ -2,8 +2,9 @@ import styled from 'styled-components'
 import theme from 'config/theme'
 import Text from '@emcasa/ui-dom/components/Text'
 import Row from '@emcasa/ui-dom/components/Row'
+import {breakpoint} from '@emcasa/ui/lib/styles'
 
-const LINK_FONT_SIZE_MOBILE = '14px';
+const LINK_FONT_SIZE_MOBILE = '14px'
 const LINK_FONT_SIZE = '16px'
 
 export const Wrapper = styled.address`
@@ -15,7 +16,7 @@ export const Container = styled(Row)`
   margin: 50px;
   padding-top: 20px;
 
-  @media (max-width: ${theme.breakpoints[0]}) {
+  @media ${breakpoint.down('tablet')} {
     margin: 20px;
   }
 `
@@ -34,7 +35,7 @@ export const TextLink = styled(Text)`
     margin-right: 5px;
   }
 
-  @media (max-width: ${theme.breakpoints[0]}) {
+  @media ${breakpoint.down('tablet')} {
     line-height: 0.3em;
     margin-right: 20px;
     min-height: ${LINK_FONT_SIZE_MOBILE};
@@ -47,7 +48,7 @@ export const TextLink = styled(Text)`
 `
 
 export const LinkGroup = styled.div`
-  @media (max-width: ${theme.breakpoints[0]}) {
+  @media ${breakpoint.down('tablet')} {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;

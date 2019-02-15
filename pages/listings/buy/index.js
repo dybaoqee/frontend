@@ -1,6 +1,6 @@
 import {Component} from 'react'
 import styled from 'styled-components'
-import {themeGet} from 'styled-system'
+import {breakpoint} from '@emcasa/ui/lib/styles'
 import View from '@emcasa/ui-dom/components/View'
 import {withBreakpoint} from '@emcasa/ui-dom/components/Breakpoint'
 import BuyListing from 'components/listings/buy/BuyListing'
@@ -33,7 +33,7 @@ const Block = styled(View)`
 const MainBlock = styled(Block)`
   padding-top: 0px;
   min-height: 80vh;
-  @media (max-width: ${themeGet('breakpoints.0')}) {
+  @media ${breakpoint.down('tablet')} {
     min-height: 100vh;
   }
 `
@@ -43,24 +43,24 @@ const BASE_DESCRIPTION =
   'com o sistema exclusivo de Tour Virtual 3D do Emcasa, a sua startup imobiliária.'
 
 const CONTENT = {
-    all: {
-      seoImg: imageUrl('buy'),
-      seoTitle: `${BASE_TITLE} no Rio de Janeiro e São Paulo | EmCasa`,
-      seoDescription: `Encontre ${BASE_TITLE} no Rio de Janeiro em Ipanema, Leblon, Copacabana, Botafogo, Flamengo, Lagoa e toda Zona Sul ou São Paulo em Perdizes ${BASE_DESCRIPTION}`,
-      heroTitle: 'Quer comprar um imóvel?'
-    },
-    sp: {
-      seoImg: imageUrl('buy-sp'),
-      seoTitle: `${BASE_TITLE} em Perdizes, São Paulo | EmCasa`,
-      seoDescription: `Encontre ${BASE_TITLE} em Perdizes, São Paulo ${BASE_DESCRIPTION}`,
-      heroTitle: 'Quer comprar um imóvel em Perdizes?'
-    },
-    rj: {
-      seoImg: imageUrl('buy-rj'),
-      seoTitle: `${BASE_TITLE} no Rio de Janeiro | EmCasa`,
-      seoDescription: `Encontre ${BASE_TITLE} no Rio de Janeiro em Ipanema, Leblon, Copacabana, Botafogo, Flamengo, Lagoa e toda Zona Sul ${BASE_DESCRIPTION}`,
-      heroTitle: 'Quer comprar um imóvel na zona sul do Rio de Janeiro?'
-    }
+  all: {
+    seoImg: imageUrl('buy'),
+    seoTitle: `${BASE_TITLE} no Rio de Janeiro e São Paulo | EmCasa`,
+    seoDescription: `Encontre ${BASE_TITLE} no Rio de Janeiro em Ipanema, Leblon, Copacabana, Botafogo, Flamengo, Lagoa e toda Zona Sul ou São Paulo em Perdizes ${BASE_DESCRIPTION}`,
+    heroTitle: 'Quer comprar um imóvel?'
+  },
+  sp: {
+    seoImg: imageUrl('buy-sp'),
+    seoTitle: `${BASE_TITLE} em Perdizes, São Paulo | EmCasa`,
+    seoDescription: `Encontre ${BASE_TITLE} em Perdizes, São Paulo ${BASE_DESCRIPTION}`,
+    heroTitle: 'Quer comprar um imóvel em Perdizes?'
+  },
+  rj: {
+    seoImg: imageUrl('buy-rj'),
+    seoTitle: `${BASE_TITLE} no Rio de Janeiro | EmCasa`,
+    seoDescription: `Encontre ${BASE_TITLE} no Rio de Janeiro em Ipanema, Leblon, Copacabana, Botafogo, Flamengo, Lagoa e toda Zona Sul ${BASE_DESCRIPTION}`,
+    heroTitle: 'Quer comprar um imóvel na zona sul do Rio de Janeiro?'
+  }
 }
 
 class Buy extends Component {
@@ -102,11 +102,12 @@ class Buy extends Component {
 
     const benefitsProps = {
       sectionTitle: 'Conheça as vantagens de comprar com a EmCasa',
-      benefitsList:  [
+      benefitsList: [
         {
           icon: 'suporte-financiamento',
           title: 'Financiamento e FGTS',
-          description: 'Tenha suporte para o financiamento do seu imóvel e retirada de FGTS'
+          description:
+            'Tenha suporte para o financiamento do seu imóvel e retirada de FGTS'
         },
         {
           icon: 'tour-3d',
@@ -124,7 +125,7 @@ class Buy extends Component {
       buttonHref: '/imoveis',
       buttonLabel: 'Explorar Imóveis',
       buttonClick: () => {
-          log(BUYER_LANDING_EXPLORE_LISTINGS)
+        log(BUYER_LANDING_EXPLORE_LISTINGS)
       },
       isMobile
     }
