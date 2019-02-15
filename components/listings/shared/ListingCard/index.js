@@ -16,6 +16,7 @@ import {
 } from './styles'
 import {
   log,
+  LISTING_DETAIL_VIEW_FEATURED_LISTING,
   LISTING_SEARCH_VIEW_LISTING
 } from 'lib/logging'
 
@@ -46,7 +47,11 @@ class ListingCard extends Component {
         <a style={{textDecoration: 'none'}}>
           <Container aria-label={`listing-${listing.id}`} onClick={(e) => {
             if (e.target.tagName !== 'path') {
-              log(LISTING_SEARCH_VIEW_LISTING, {listingId: listing.id})
+              if (this.props.related) {
+                log(LISTING_DETAIL_VIEW_FEATURED_LISTING, {listingId: listing.id})
+              } else {
+                log(LISTING_SEARCH_VIEW_LISTING, {listingId: listing.id})
+              }
             }
           }}>
             <img
@@ -76,7 +81,8 @@ class ListingCard extends Component {
 ListingCard.propTypes = {
   listing: PropTypes.object.isRequired,
   currentUser: PropTypes.object,
-  favorited: PropTypes.array.isRequired
+  favorited: PropTypes.array.isRequired,
+  related: PropTypes.bool
 }
 
 export default ListingCard

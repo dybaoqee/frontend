@@ -27,14 +27,15 @@ class ListingFeed extends Component {
             <Container>
               <SubTitle color="grey" fontSize="small">VEJA TAMBÉM</SubTitle>
               <ListingsContainer>
-                {listings.map((listing) => (
+                {listings.map((listing) =>
                   <ListingCard
                     key={listing.id}
                     listing={listing}
                     currentUser={currentUser}
                     favorited={favorites}
+                    related
                   />
-                ))}
+                )}
               </ListingsContainer>
               <Gradient />
             </Container>
