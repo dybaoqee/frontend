@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import theme from '@emcasa/ui'
 
 export default styled.div`
   box-sizing: border-box;
@@ -50,5 +51,10 @@ export const Close = styled.button`
 
   :hover {
     background-color: #f0f0f0;
+  }
+
+  @media (max-width: ${theme.breakpoints[0]}) {
+    position: fixed;
+    z-index: 1;
   }
 `

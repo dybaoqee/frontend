@@ -15,7 +15,7 @@ export default class InterestPosted extends Component {
         <Container>
           <Title fontSize="large">Notificação Enviada</Title>
           <Text>
-            Entraremos em contato o mais rápido possível para agendarmos uma sua visita!
+            Entraremos em contato o mais rápido possível para agendarmos sua visita!
           </Text>
           <Button active onClick={handleClose}>Fechar</Button>
         </Container>
