@@ -1,16 +1,33 @@
-import React, { PureComponent } from 'react'
-import NumberFormat from 'react-number-format'
-import ListingCard from './Card'
-import Container, {CardWrapper, ListingInfo} from './styles'
-import Statistics from 'components/listings/show/Statistics'
+import React, { Component } from 'react'
+import {ThemeProvider} from 'styled-components'
+import theme from '@emcasa/ui'
 import {getParagraphs} from 'utils/text-utils'
+import Statistics from 'components/listings/show/Statistics'
 import {canEdit} from 'permissions/listings-permissions'
+import Text from '@emcasa/ui-dom/components/Text'
+import ToggleButton from './ToggleButton'
+import ListingData from './ListingData'
 import {
   log,
   LISTING_DETAIL_OPEN
 } from 'lib/logging'
+import ListingPanel from './Card'
+import Container, {
+  CardWrapper,
+  Title,
+  SubTitle,
+  ListingDescription
+} from './styles'
 
-export default class ListingMainContent extends PureComponent {
+export default class ListingMainContent extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      expanded: false
+    }
+    this.toggleBody = this.toggleBody.bind(this)
+  }
+
   componentDidMount() {
     const {id, address, area, bathrooms, floor, garageSpots, price, rooms, type, maintenanceFee, propertyTax} = this.props.listing
     log(LISTING_DETAIL_OPEN, {
@@ -29,8 +46,14 @@ export default class ListingMainContent extends PureComponent {
     })
   }
 
+  toggleBody() {
+    this.setState({
+      expanded: !this.state.expanded
+    })
+  }
+
   render() {
-    const {listing, handleOpenPopup, user} = this.props
+    const {listing, handleOpenPopup, user, favorite} = this.props
     const {street, neighborhood, streetNumber} = listing.address
     const showStatistics = listing.owner
     const paragraphs = getParagraphs(listing.description)
@@ -41,55 +64,30 @@ export default class ListingMainContent extends PureComponent {
         }`
       : `${street}`
 
-    return (
+      return (
       <Container>
-        <div className="description">
-          <h1 className="street">
+        <ListingDescription expanded={this.state.expanded}>
+          <ToggleButton expanded={this.state.expanded} onClick={this.toggleBody} />
+          <Title fontSize="large" fontWeight="normal">
             {listing.type} na {listingInfo}, {neighborhood},{' '}
             {listing.address.city}
-          </h1>
-          <h6>O imóvel</h6>
-          {paragraphs && paragraphs.map((paragraph, i) => <p key={i}>{paragraph}</p>)}
-          <ListingInfo>
-            <div>
-              <h6>Tipo do imóvel</h6>
-              <p>{listing.type}</p>
-            </div>
-            {listing.maintenanceFee && (
-              <div>
-                <h3>Condomínio</h3>
-                <p>
-                  <NumberFormat
-                    value={listing.maintenanceFee}
-                    displayType={'text'}
-                    thousandSeparator={'.'}
-                    prefix={'R$'}
-                    decimalSeparator={','}
-                  />
-                </p>
-              </div>
-            )}
-            {listing.propertyTax && (
-              <div>
-                <h6>Iptu</h6>
-                <p>
-                  <NumberFormat
-                    value={listing.propertyTax}
-                    displayType={'text'}
-                    thousandSeparator={'.'}
-                    prefix={'R$'}
-                    decimalSeparator={','}
-                  />
-                </p>
-              </div>
-            )}
-          </ListingInfo>
-        </div>
+          </Title>
+          <ListingData
+            bedrooms={listing.rooms}
+            bathrooms={listing.bathrooms}
+            garageSpots={listing.garageSpots}
+            area={listing.area}
+            floor={listing.floor}
+          />
+          <SubTitle color="grey" fontSize="small">O IMÓVEL</SubTitle>
+          {paragraphs && paragraphs.map((paragraph, i) => <Text fontFamily="FaktSoftPro-Blond" key={i}>{paragraph}</Text>)}
+        </ListingDescription>
         <CardWrapper>
-          <ListingCard
+          <ListingPanel
             listing={listing}
             handleOpenPopup={handleOpenPopup}
             user={user}
+            favorite={favorite}
           />
           {showStatistics && <Statistics listing={listing} user={user} />}
         </CardWrapper>

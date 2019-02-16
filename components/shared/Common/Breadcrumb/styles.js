@@ -15,8 +15,7 @@ export default styled.ul`
   flex-wrap: wrap;
   align-items: center;
   margin: 35px auto 0;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding: 0;
 
   @media ${headerMobileMedia} {
     width: 100%;

@@ -1,4 +1,3 @@
-import Button from './styles'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faHeart from '@fortawesome/fontawesome-free-solid/faHeart'
 import {Mutation} from 'react-apollo'
@@ -7,6 +6,7 @@ import {GET_USER_LISTINGS_ACTIONS} from 'graphql/user/queries'
 import Router from 'next/router'
 import {setCookie} from 'lib/session'
 import {buildSlug} from 'lib/listings'
+import { Button, Container } from './styles'
 import {
   log,
   LISTING_SEARCH_FAVORITE_LISTING
@@ -15,9 +15,10 @@ import {
 const LikeButton = (props) => (
   <Mutation mutation={!props.favorite ? FAVORITE_LISTING : UNFAVORITE_LISTING}>
     {(favoriteListing) => (
-      <Button
-        {...props}
-        onClick={() => {
+      <Container
+        top={props.top}
+        onClick={(e) => {
+          e.preventDefault()
           if (props.user && props.user.authenticated) {
             log(LISTING_SEARCH_FAVORITE_LISTING, {listingId: props.listing.id, favorited: !props.favorite})
             favoriteListing({
@@ -77,8 +78,12 @@ const LikeButton = (props) => (
           }
         }}
       >
-        <FontAwesomeIcon icon={faHeart} />
-      </Button>
+        <Button
+          {...props}
+        >
+          <FontAwesomeIcon icon={faHeart} />
+        </Button>
+      </Container>
     )}
   </Mutation>
 )

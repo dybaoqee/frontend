@@ -17,7 +17,7 @@ export const Container = styled(Row)`
   padding-top: 20px;
 
   @media ${breakpoint.down('tablet')} {
-    margin: 20px;
+    margin: 20px 20px 170px 20px;
   }
 `
 

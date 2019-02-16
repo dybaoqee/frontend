@@ -1,77 +1,41 @@
-import * as colors from 'constants/colors'
-import {mobileMedia} from 'constants/media'
 import styled from 'styled-components'
+import theme from '@emcasa/ui'
+import Row from '@emcasa/ui-dom/components/Row'
+import Col from '@emcasa/ui-dom/components/Col'
 
-export default styled.div`
-  border: 1px solid ${colors.lightestGray};
-  border-radius: 6px;
+export const Container = styled.div`
+  position: relative;
+  border: 1px solid ${theme.colors.lightGrey};
+  border-radius: 4px;
   box-shadow: 0 6px 16px 0 rgba(38, 38, 38, 0.15);
   float: right;
-  padding: 24px;
+  padding: ${theme.space[4]}px;
   width: 260px;
   background: white;
 
-  > div {
-    border-top: 1px solid ${colors.lightestGray};
-    margin-top: 20px;
-    padding-top: 20px;
-  }
-
-  > div > div {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-    padding: 3px 0;
-    span {
-      &:first-of-type {
-        color: ${colors.mediumDarkGray};
-        font-weight: 600;
-        font-size: 12px;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-      }
-      &:last-of-type {
-        font-size: 15px;
-        font-weight: 300;
-      }
-    }
-  }
-
-  span.price {
-    font-size: 26px;
-    font-weight: 300;
-  }
-
-  .phone {
-    border-top: 1px solid ${colors.lightestGray};
-    color: ${colors.mediumDarkGray};
-    margin: 20px 0 0 0;
-    padding-top: 15px;
-    font-size: 14px;
-    a {
-      text-decoration: none;
-      color: ${colors.blue.medium};
-    }
-  }
-
-  button {
-    margin-top: 30px;
-    width: 100%;
-  }
-
-  @media ${mobileMedia} {
-    margin: 0 auto;
+  @media screen and (max-width: ${theme.breakpoints[0]}) {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: calc(100% - ${theme.space[4] * 2}px);
+    height: 130px;
+    margin: 0;
+    float: unset;
+    border-radius: 0;
+    z-index: 3;
   }
 `
 
-export const SuggestedPrice = styled.div`
+export const PricesContainer = styled(Row)`
+  flex-direction: column;
+  padding: ${theme.space[1]}px 0;
+
+  @media screen and (max-width: ${theme.breakpoints[0]}) {
+    display: none;
+  }
+`
+
+export const PriceItem = styled(Col)`
   display: flex;
-  font-size: 14px;
-  color: ${colors.mediumDarkGray};
-  p {
-    margin: 0;
-  }
-  span {
-    margin-left: 5px;
-  }
+  justify-content: space-between;
 `

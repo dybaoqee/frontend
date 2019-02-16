@@ -7,12 +7,11 @@ import faClipboard from '@fortawesome/fontawesome-pro-light/faClipboardCheck'
 import faEye from '@fortawesome/fontawesome-pro-light/faEye'
 import faHeart from '@fortawesome/fontawesome-pro-light/faHeart'
 import faCalendar from '@fortawesome/fontawesome-pro-light/faCalendarAlt'
-import faFlag from '@fortawesome/fontawesome-pro-light/faFlag'
 import faHomeHeart from '@fortawesome/fontawesome-pro-light/faHomeHeart'
 import faHome from '@fortawesome/fontawesome-pro-light/faHome'
 import faExternalLink from '@fortawesome/fontawesome-pro-light/faExternalLink'
-import ActivateListing from 'components/shared/Common/Buttons/Activate'
 import Button from '@emcasa/ui-dom/components/Button'
+import Text from '@emcasa/ui-dom/components/Text'
 
 export default ({listing: {insertedAt, id, isActive}, user}) => (
   <Query query={GET_LISTING_STATS} variables={{id}} ssr={false}>
@@ -31,43 +30,43 @@ export default ({listing: {insertedAt, id, isActive}, user}) => (
           <Topic>
             <FontAwesomeIcon icon={faClipboard} />
             <Title>
-              <p>Data de criação</p>
-              <span>{moment(insertedAt).format('DD/MM/YYYY')}</span>
+              <Text>Data de criação</Text>
+              <Text inline>{moment(insertedAt).format('DD/MM/YYYY')}</Text>
             </Title>
           </Topic>
           <Topic>
             <FontAwesomeIcon icon={faEye} />
             <Title>
-              <p>Visualizações</p>
-              <span>{listingVisualisationCount}</span>
+              <Text>Visualizações</Text>
+              <Text inline>{listingVisualisationCount}</Text>
             </Title>
           </Topic>
           <Topic>
             <FontAwesomeIcon icon={faHomeHeart} />
             <Title>
-              <p>Visualizações Tour 3D</p>
-              <span>{tourVisualisationCount}</span>
+              <Text>Visualizações Tour 3D</Text>
+              <Text inline>{tourVisualisationCount}</Text>
             </Title>
           </Topic>
           <Topic>
             <FontAwesomeIcon icon={faHeart} />
             <Title>
-              <p>Favoritado</p>
-              <span>{listingFavoriteCount}</span>
+              <Text>Favoritado</Text>
+              <Text inline>{listingFavoriteCount}</Text>
             </Title>
           </Topic>
           <Topic>
             <FontAwesomeIcon icon={faCalendar} />
             <Title>
-              <p>Visitas Marcadas</p>
-              <span>{interestCount}</span>
+              <Text>Visitas Marcadas</Text>
+              <Text inline>{interestCount}</Text>
             </Title>
           </Topic>
           <Topic>
             <FontAwesomeIcon icon={faHome} />
             <Title>
-              <p>Visitas Realizadas</p>
-              <span>{inPersonVisitCount}</span>
+              <Text>Visitas Realizadas</Text>
+              <Text inline>{inPersonVisitCount}</Text>
             </Title>
           </Topic>
           {user.admin && (

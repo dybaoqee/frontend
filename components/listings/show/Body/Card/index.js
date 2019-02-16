@@ -1,113 +1,111 @@
 import React from 'react'
-import NumberFormat from 'react-number-format'
-import NoSSR from 'react-no-ssr'
-import FontAwesomeIcon from '@fortawesome/react-fontawesome'
-import faWhatsApp from '@fortawesome/fontawesome-free-brands/faWhatsapp'
-import faPhone from '@fortawesome/fontawesome-pro-light/faPhone'
-import Container, {SuggestedPrice} from './styles'
+import PropTypes from 'prop-types'
 import theme from 'config/theme'
+import NumberFormat from 'react-number-format'
+import LikeButton from 'components/shared/Common/Buttons/Like'
+import Button from '@emcasa/ui-dom/components/Button'
+import Text from '@emcasa/ui-dom/components/Text'
+import View from '@emcasa/ui-dom/components/View'
+import {
+  Container,
+  PricesContainer,
+  PriceItem
+ } from './styles'
 
-const Space = () => ' '
-
-export default class ListingCard extends React.Component {
+class ListingPanel extends React.Component {
   render() {
-    const {handleOpenPopup, user} = this.props
+    const {
+      handleOpenPopup,
+      user,
+      favorite
+    } = this.props
     const {
       price,
-      rooms,
-      bathrooms,
-      garageSpots,
-      floor,
       area,
-      suggestedPrice
+      propertyTax,
+      maintenanceFee
     } = this.props.listing
-
     const price_per_square_meter = Math.floor(price / area)
-
-    const currencyStyle = {
-      style: 'currency',
-      currency: 'BRL',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0
-    }
 
     return (
       <Container>
-        <span className="price">
-          {price && price > 0 ? (
-            <NumberFormat
-              value={price}
-              displayType={'text'}
-              thousandSeparator={'.'}
-              prefix={'R$'}
-              decimalSeparator={','}
-            />
-          ) : (
-            'Preço a definir'
-          )}
-        </span>
-        <div>
-          <div>
-            <span>Dormitórios</span>
-            <span>{rooms}</span>
-          </div>
-          <div>
-            <span>Banheiros</span>
-            <span>{bathrooms}</span>
-          </div>
-          <div>
-            <span>N° Vagas</span>
-            <span>{garageSpots || 0}</span>
-          </div>
-          <div>
-            <span>Andar</span>
-            <span>{floor}</span>
-          </div>
-          <div>
-            <span>Área</span>
-            <span>{area}</span>
-          </div>
-          {price && price > 0 ? (
-            <div>
-              <span>Preço/m²</span>
+        <LikeButton
+          top={-25}
+          favorite={favorite}
+          listing={this.props.listing}
+          user={user}
+          secondary
+        />
+        <Text style={{margin: 0}} fontSize="xlarge" fontWeight="bold" color={theme.colors.pink}>
+          {price && price > 0 ?
+            <>
               <NumberFormat
-                value={price_per_square_meter || 0}
+                value={price}
                 displayType={'text'}
                 thousandSeparator={'.'}
                 prefix={'R$'}
                 decimalSeparator={','}
               />
-            </div>
-          ) : (
-            ''
-          )}
-
-          <button className="btn green" style={{backgroundColor: theme.colors.pink, border: 'none'}} onClick={handleOpenPopup}>
+              <Text inline color="grey" fontSize="small"> VENDA</Text>
+            </>
+          : 'Preço a definir'}
+        </Text>
+        <PricesContainer>
+          {(maintenanceFee && maintenanceFee > 0) &&
+            <PriceItem>
+              <Text inline>Condomínio</Text>
+              <Text inline>
+                <NumberFormat
+                  value={maintenanceFee || 0}
+                  displayType={'text'}
+                  thousandSeparator={'.'}
+                  prefix={'R$'}
+                  decimalSeparator={','}
+                />
+              </Text>
+            </PriceItem>
+          }
+          {(propertyTax && propertyTax > 0) &&
+            <PriceItem>
+              <Text inline>IPTU</Text>
+              <Text inline>
+                <NumberFormat
+                  value={propertyTax || 0}
+                  displayType={'text'}
+                  thousandSeparator={'.'}
+                  prefix={'R$'}
+                  decimalSeparator={','}
+                />
+              </Text>
+            </PriceItem>
+          }
+          {(price && price > 0) &&
+            <PriceItem>
+              <Text inline>Preço/m²</Text>
+              <Text inline>
+                <NumberFormat
+                  value={price_per_square_meter || 0}
+                  displayType={'text'}
+                  thousandSeparator={'.'}
+                  prefix={'R$'}
+                  decimalSeparator={','}
+                />
+              </Text>
+            </PriceItem>
+          }
+        </PricesContainer>
+        <View mt={4}>
+          <Button fluid height="tall" active onClick={handleOpenPopup}>
             Marcar Visita
-          </button>
-          <p className="phone">
-            Se preferir, entre em contato por<br />
-            <a href="https://wa.me/5521994771868">
-              <Space />
-              <NoSSR>
-                <FontAwesomeIcon icon={faWhatsApp} />
-              </NoSSR>
-              <Space />
-              WhatsApp
-            </a>
-            <Space />
-            ou
-            <a href="tel:+5521994771868">
-              <Space />
-              <NoSSR>
-                <FontAwesomeIcon icon={faPhone} />
-              </NoSSR>
-              <Space />
-              (21) 99477-1868
-            </a>
-          </p>
-        </div>
+          </Button>
+        </View>
       </Container>
     )
   }
 }
+
+ListingPanel.propTypes = {
+  listing: PropTypes.object
+}
+
+export default ListingPanel
