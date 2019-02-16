@@ -1,75 +1,23 @@
 import styled from 'styled-components'
-import * as colors from 'constants/colors'
-import {mobileMedia} from 'constants/media'
+import theme from '@emcasa/ui'
+import Text from '@emcasa/ui-dom/components/Text'
+import View from '@emcasa/ui-dom/components/View'
 
-export default styled.form`
+export const Container = styled(View)`
+  text-align: center;
+  padding: ${theme.space[4]}px;
+  box-shadow: 0 6px 16px 0 rgba(38, 38, 38, 0.15);
+`
+
+export const Form = styled.form`
   margin: auto;
   max-width: calc(100% - 80px);
-  width: 500px;
-  padding-bottom: 30px;
+  width: 400px;
+  text-align: left;
 
-  @media ${mobileMedia} {
+  @media (max-width: ${theme.breakpoints[0]}) {
     max-width: calc(100% - 20px);
   }
-
-  p.error {
-    color: ${colors.red.medium};
-  }
-
-  input[type='text'],
-  .type,
-  textarea {
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    resize: vertical;
-    border-radius: 4px;
-    clear: both;
-    display: block;
-    font-size: 14px;
-    margin: 0 auto 10px;
-    padding: 10px;
-    min-width: 100%;
-  }
-
-  .Select {
-    padding: 0px;
-    border: none;
-  }
-
-  .Select-control {
-    padding: 3px;
-    vertical-align: middle;
-  }
-
-  .Select-value,
-  .Select-placeholder {
-    align-items: center;
-    display: flex;
-    justify-content: left;
-  }
-
-  .Select-option {
-    align-items: left;
-    display: flex;
-  }
-
-  > span {
-    color: ${colors.lightGray};
-    font-weight: 400;
-    font-size: 16px;
-    display: block;
-    margin-bottom: 10px;
-
-    :before,
-    :after {
-      display: inline-block;
-      content: '—	';
-      margin: 0 2px;
-      color: ${colors.lightGray};
-    }
-  }
 `
 
-export const Container = styled.div`
-  padding: 20px;
-`
+export const Title = Text.withComponent('h1')

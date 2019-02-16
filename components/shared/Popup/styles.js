@@ -1,9 +1,10 @@
 import styled from 'styled-components'
+import theme from '@emcasa/ui'
 
 export default styled.div`
   box-sizing: border-box;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(255, 255, 255, 0.5);
   display: flex;
   position: fixed;
   height: 100vh !important;
@@ -16,7 +17,7 @@ export default styled.div`
   > div {
     box-sizing: border-box;
     background-color: white;
-    border-radius: 6px;
+    border-radius: 2px;
     max-width: calc(100% - 40px);
     position: relative;
     text-align: center;
