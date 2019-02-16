@@ -218,6 +218,8 @@ exports[`renders correctly 1`] = `
 
 .c29 {
   margin-right: 10px;
+  width: auto;
+  height: 16px;
 }
 
 .c26 {
@@ -303,6 +305,8 @@ exports[`renders correctly 1`] = `
       width={
         Array [
           1,
+          null,
+          null,
           0.5,
         ]
       }

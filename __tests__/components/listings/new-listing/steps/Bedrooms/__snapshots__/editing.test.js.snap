@@ -178,6 +178,8 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
       width={
         Array [
           1,
+          null,
+          null,
           0.5,
         ]
       }
@@ -203,6 +205,7 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
         <div
           className="c5"
           onChange={[Function]}
+          onSelect={[Function]}
         >
           <button
             className="c6"

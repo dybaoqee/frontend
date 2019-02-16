@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders an empty state 1`] = `
+.c22 {
+  width: auto;
+  height: 20px;
+}
+
 .c8 {
   box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
 }
@@ -121,7 +126,7 @@ exports[`renders an empty state 1`] = `
   justify-content: space-between;
 }
 
-.c22 {
+.c23 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -137,11 +142,11 @@ exports[`renders an empty state 1`] = `
   width: 100%;
 }
 
-.c23 {
+.c24 {
   width: 41.66666666666667%;
 }
 
-.c24 {
+.c25 {
   outline: none;
   display: block;
   cursor: pointer;
@@ -159,11 +164,11 @@ exports[`renders an empty state 1`] = `
   border-style: solid;
 }
 
-.c24 :hover {
+.c25 :hover {
   background-color: #ffffff;
 }
 
-.c25 {
+.c26 {
   outline: none;
   display: block;
   cursor: pointer;
@@ -181,7 +186,7 @@ exports[`renders an empty state 1`] = `
   border-style: solid;
 }
 
-.c25 :hover {
+.c26 :hover {
   background-color: #f50057;
 }
 
@@ -264,6 +269,8 @@ exports[`renders an empty state 1`] = `
       width={
         Array [
           1,
+          null,
+          null,
           0.5,
         ]
       }
@@ -385,7 +392,7 @@ exports[`renders an empty state 1`] = `
                     }
                   >
                     <div
-                      className=""
+                      className="c22"
                     >
                       <svg
                         height={20}
@@ -409,14 +416,14 @@ exports[`renders an empty state 1`] = `
         </div>
       </div>
       <div
-        className="c22"
+        className="c23"
       >
         <div
-          className="c23"
+          className="c24"
           width={0.4166666666666667}
         >
           <button
-            className="c24"
+            className="c25"
             fontSize="default"
             height="tall"
             onClick={[Function]}
@@ -425,11 +432,11 @@ exports[`renders an empty state 1`] = `
           </button>
         </div>
         <div
-          className="c23"
+          className="c24"
           width={0.4166666666666667}
         >
           <button
-            className="c25"
+            className="c26"
             disabled={false}
             fontSize="default"
             height="tall"

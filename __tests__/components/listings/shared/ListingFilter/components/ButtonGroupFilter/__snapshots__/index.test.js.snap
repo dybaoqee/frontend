@@ -101,9 +101,22 @@ exports[`<ButtonGroupFilter/> should render component 1`] = `
   }
 }
 
+@media screen and (min-width:480px) {
+  .c1 {
+    z-index: initial;
+  }
+}
+
+@media screen and (min-width:480px) {
+  .c3 {
+    z-index: initial;
+  }
+}
+
 <div
   className="c0"
   onChange={[Function]}
+  onSelect={[Function]}
 >
   <button
     className="c1 c2"

@@ -67,6 +67,8 @@ exports[`renders correctly 1`] = `
 
 .c5 {
   margin-right: 10px;
+  width: auto;
+  height: 20px;
 }
 
 .c3 {
@@ -105,6 +107,8 @@ exports[`renders correctly 1`] = `
       width={
         Array [
           1,
+          null,
+          null,
           0.5,
         ]
       }
@@ -318,6 +322,8 @@ exports[`renders correctly 1`] = `
           width={
             Array [
               1,
+              null,
+              null,
               0.5,
             ]
           }

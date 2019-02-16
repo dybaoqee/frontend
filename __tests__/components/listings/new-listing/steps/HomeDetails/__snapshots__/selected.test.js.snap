@@ -131,6 +131,8 @@ exports[`renders with an already selected home type 1`] = `
       width={
         Array [
           1,
+          null,
+          null,
           0.5,
         ]
       }
