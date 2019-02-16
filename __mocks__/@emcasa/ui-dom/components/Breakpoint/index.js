@@ -36,4 +36,3 @@ export class Breakpoint extends PureComponent {
 export const withBreakpoint = () => (Target) => (props) => (
   <Breakpoint>{(ctx) => <Target {...props} {...ctx} />}</Breakpoint>
 )
-

@@ -138,7 +138,7 @@ class Differential extends Component {
     return (
       <div ref={this.props.hostRef}>
         <Row justifyContent="center" p={4} pt={0}>
-          <Col width={[1, 1, 1,  1/2]}>
+          <Col width={[1,null,null,  1/2]}>
             <Formik
               initialValues={{
                 text: text

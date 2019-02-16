@@ -29,7 +29,7 @@ class Intro extends PureComponent {
     return (
       <div ref={this.props.hostRef}>
         <Row justifyContent="center" p={4} pt={0}>
-          <Col width={[1, 1/2]}>
+          <Col width={[1,null,null,1/2]}>
             <Text
               fontSize="large"
               fontWeight="bold"
@@ -55,7 +55,7 @@ class Intro extends PureComponent {
               <Arrow /><ListTitle fontWeight="normal" inline>Economize tempo e dinheiro anunciando seu imóvel com a gente</ListTitle>
             </View>
             <Row justifyContent="center" mt={4}>
-              <Col width={[1, 1/2]}>
+              <Col width={[1,null,null,1/2]}>
                 <Button
                   fluid
                   active

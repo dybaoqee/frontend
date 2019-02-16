@@ -133,7 +133,7 @@ class Pricing extends Component {
           </Col>
         </Row>
         <Row>
-          <Col width={[1, 1/2]}>
+          <Col width={[1,null,null,1/2]}>
             {this.currencyInput(errors, setFieldValue, setFieldTouched)}
           </Col>
         </Row>
@@ -184,7 +184,7 @@ class Pricing extends Component {
     return (
       <div ref={this.props.hostRef}>
         <Row justifyContent="center" p={4} pt={0}>
-          <Col width={[1, 1/2]}>
+          <Col width={[1,null,null,1/2]}>
             <Formik
               initialValues={{
                 userPrice: userPrice
