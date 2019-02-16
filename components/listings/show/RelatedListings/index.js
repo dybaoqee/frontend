@@ -7,7 +7,7 @@ export default class RelatedListings extends Component {
   render() {
     return (
       <Container>
-        <ListingFeed related {...this.props} />
+        <ListingFeed {...this.props} />
       </Container>
     )
   }

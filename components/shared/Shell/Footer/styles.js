@@ -16,7 +16,7 @@ export const Container = styled(Row)`
   padding-top: 20px;
   
   @media (max-width: ${theme.breakpoints[0]}) {
-    margin: 20px;
+    margin: 20px 20px 170px 20px;
   }
 `
 

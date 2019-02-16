@@ -24,9 +24,11 @@ import Breadcrumb from 'components/shared/Common/Breadcrumb'
 import {buildSlug, getListingId} from 'lib/listings'
 import Head from 'next/head'
 import getApolloClient from 'lib/apollo/initApollo'
+import { getUserInfo } from 'lib/user'
 import {
   log,
-  getPreferredContactType,
+  getListingInfoForLogs,
+  LISTING_DETAIL_OPEN_VISIT_FORM,
   LISTING_DETAIL_SCHEDULE_VISIT
 } from 'lib/logging'
 
@@ -118,7 +120,18 @@ class Listing extends Component {
     this.setState({is3DTourVisible: false})
   }
 
-  openPopup = () => {
+  openPopup = async (e) => {
+    const { currentUser } = this.props
+    if (currentUser && currentUser.authenticated) {
+      const userInfo = await getUserInfo(currentUser.id)
+      if (userInfo && userInfo.name && userInfo.phone) {
+        this.onSubmit(e, userInfo)
+        return
+      }
+    }
+    if (!this.state.isInterestPopupVisible) {
+      log(LISTING_DETAIL_OPEN_VISIT_FORM, getListingInfoForLogs(this.props.listing))
+    }
     this.setState({isInterestPopupVisible: true})
   }
 
@@ -136,46 +149,38 @@ class Listing extends Component {
     this.setState({interestForm})
   }
 
-  onSubmit = async (e, custom) => {
+  onSubmit = async (e, userInfo) => {
     e && e.preventDefault()
 
     const {interestForm} = this.state
     const {id} = this.props.listing
     const {listing} = this.props
 
-    const res = await createInterest(id, custom || interestForm)
+    let quickForm
+    if (userInfo) {
+      quickForm = {
+        name: userInfo.name,
+        phone: userInfo.phone
+      }
+    }
+
+    const res = await createInterest(id, quickForm || interestForm)
 
     if (res.data.errors) {
       this.setState({errors: res.data.errors})
       return
     }
 
-    const {area, bathrooms, floor, garageSpots, price, rooms, type, maintenanceFee, propertyTax} = listing
-    log(LISTING_DETAIL_SCHEDULE_VISIT, {
-      listingId: id,
-      neighborhood: listing.address.neighborhoodSlug,
-      city: listing.address.citySlug,
-      area,
-      bathrooms,
-      floor,
-      garageSpots,
-      price,
-      rooms,
-      type,
-      maintenanceFee,
-      propertyTax,
-      preferredContact: getPreferredContactType(interestForm.interest_type_id)
-    })
+    log(LISTING_DETAIL_SCHEDULE_VISIT, getListingInfoForLogs(listing))
 
     if (!res.data) {
       return res
     }
 
-    !custom &&
-      this.setState({
-        isInterestPopupVisible: false,
-        isInterestSuccessPopupVisible: true
-      })
+    this.setState({
+      isInterestPopupVisible: false,
+      isInterestSuccessPopupVisible: true
+    })
   }
 
   async componentDidMount() {
@@ -298,11 +303,15 @@ class Listing extends Component {
                         listing={listing}
                         handleOpenPopup={this.openPopup}
                         user={currentUser}
+                        favorite={favorite}
                       />
 
                       <ListingMap listing={listing} />
 
-                      <RelatedListings listings={related || []} />
+                      <RelatedListings
+                        currentUser={currentUser}
+                        listings={related}
+                      />
 
                       {isInterestPopupVisible && (
                         <InterestForm

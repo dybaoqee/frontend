@@ -184,8 +184,8 @@ class CityContainer extends Component {
 CityContainer.propTypes = {
   cities: PropTypes.array.isRequired,
   expand: PropTypes.func.isRequired,
-  expanded: PropTypes.bool.isRequired,
-  selectedNeighborhoods: PropTypes.func.isRequired,
+  expanded: PropTypes.array.isRequired,
+  selectedNeighborhoods: PropTypes.array.isRequired,
   clear: PropTypes.func.isRequired,
   apply: PropTypes.func.isRequired,
   parentRef: PropTypes.object.isRequired,
