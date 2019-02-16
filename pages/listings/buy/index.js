@@ -83,6 +83,10 @@ export default class Buy extends Component {
   }
 
   componentDidMount() {
+    if (process.browser && window) {
+      require('intersection-observer')
+    }
+
     log(BUYER_LANDING_PAGE)
     window.addEventListener('resize', this.onResize)
   }
