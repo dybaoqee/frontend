@@ -90,7 +90,7 @@ export default class ListingMainContent extends Component {
               user={user}
               favorite={favorite}
             />
-            {showStatistics && <Statistics listing={listing} user={user} />}
+            {<Statistics listing={listing} user={user} />}
           </CardWrapper>
         </Container>
       </ThemeProvider>
