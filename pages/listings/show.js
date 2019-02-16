@@ -120,11 +120,14 @@ class Listing extends Component {
     this.setState({is3DTourVisible: false})
   }
 
-  openPopup = () => {
+  openPopup = async (e) => {
     const { currentUser } = this.props
     if (currentUser && currentUser.authenticated) {
-      this.onSubmit()
-      return
+      const userInfo = await getUserInfo(currentUser.id)
+      if (userInfo && userInfo.name && userInfo.phone) {
+        this.onSubmit(e, userInfo)
+        return
+      }
     }
     if (!this.state.isInterestPopupVisible) {
       log(LISTING_DETAIL_OPEN_VISIT_FORM, getListingInfoForLogs(this.props.listing))
@@ -146,22 +149,18 @@ class Listing extends Component {
     this.setState({interestForm})
   }
 
-  onSubmit = async (e) => {
+  onSubmit = async (e, userInfo) => {
     e && e.preventDefault()
 
     const {interestForm} = this.state
     const {id} = this.props.listing
-    const {listing, currentUser} = this.props
+    const {listing} = this.props
 
-    let quickForm = {}
-    if (currentUser && currentUser.id) {
-      const userInfo = await getUserInfo(currentUser.id)
-      if (userInfo && userInfo.phone) {
-        quickForm = {}
-        if (userInfo.name) {
-          quickForm.name = userInfo.name
-        }
-        quickForm.phone = userInfo.phone
+    let quickForm
+    if (userInfo) {
+      quickForm = {
+        name: userInfo.name,
+        phone: userInfo.phone
       }
     }
 
