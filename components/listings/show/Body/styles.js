@@ -33,7 +33,7 @@ export const CardWrapper = styled.div`
   flex-direction: column;
 
   @media (max-width: ${theme.breakpoints[0]}) {
-    margin: 0 auto;
+    margin: 0;
   }
 `
 

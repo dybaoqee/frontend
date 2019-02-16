@@ -53,7 +53,7 @@ export default class ListingMainContent extends Component {
   }
 
   render() {
-    const {listing, handleOpenPopup, user} = this.props
+    const {listing, handleOpenPopup, user, favorite} = this.props
     const {street, neighborhood, streetNumber} = listing.address
     const showStatistics = listing.owner
     const paragraphs = getParagraphs(listing.description)
@@ -88,6 +88,7 @@ export default class ListingMainContent extends Component {
               listing={listing}
               handleOpenPopup={handleOpenPopup}
               user={user}
+              favorite={favorite}
             />
             {showStatistics && <Statistics listing={listing} user={user} />}
           </CardWrapper>

@@ -1,15 +1,21 @@
 import styled from 'styled-components'
 import * as colors from 'constants/colors'
+import theme from '@emcasa/ui'
 
 export const Container = styled.div`
   position: absolute;
-  right: 0;
-  top: 0;
+  cursor: pointer;
+  right: 20px;
+  top: ${({top}) => top ? `${top}px` : `115px`};
   display: flex;
   justify-content: center;
   align-items: center;
   width: 50px;
   height: 50px;
+  border-radius: 50%;
+  background-color: ${theme.colors.white};
+  border: 1px solid ${theme.colors.lightGrey};
+  box-shadow: 0 6px 16px 0 rgba(38, 38, 38, 0.15);
 `
 
 export const Button = styled.div`
@@ -27,9 +33,9 @@ export const Button = styled.div`
 
     path {
       text-shadow: 2px 2px 3px #f00;
-      fill: ${({favorite}) => (favorite ? colors.red.medium : 'white')};
+      fill: ${({favorite}) => (favorite ? theme.colors.pink : theme.colors.white)};
+      stroke: ${({favorite}) => (favorite ? theme.colors.pink : theme.colors.dark)};
       fill-opacity: ${({favorite}) => (favorite ? 1 : 0)};
-      stroke: white;
       stroke-width: 60;
     }
   }

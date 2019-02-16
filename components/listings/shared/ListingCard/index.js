@@ -12,10 +12,12 @@ import { intToCurrency } from 'utils/text-utils'
 import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
 import {
-  Container
+  Container,
+  getCardWidth
 } from './styles'
 import {
   log,
+  LISTING_DETAIL_VIEW_FEATURED_LISTING,
   LISTING_SEARCH_VIEW_LISTING
 } from 'lib/logging'
 
@@ -46,7 +48,11 @@ class ListingCard extends Component {
         <a style={{textDecoration: 'none'}}>
           <Container aria-label={`listing-${listing.id}`} onClick={(e) => {
             if (e.target.tagName !== 'path') {
-              log(LISTING_SEARCH_VIEW_LISTING, {listingId: listing.id})
+              if (this.props.related) {
+                log(LISTING_DETAIL_VIEW_FEATURED_LISTING, {listingId: listing.id})
+              } else {
+                log(LISTING_SEARCH_VIEW_LISTING, {listingId: listing.id})
+              }
             }
           }}>
             <img
@@ -61,6 +67,7 @@ class ListingCard extends Component {
               <Row><Text inline fontSize="large" fontWeight="bold">{intToCurrency(listing.price)}</Text></Row>
             </Row>
             <LikeButton
+              top={Math.round(getCardWidth() * 0.5 - 25)}
               favorite={favorited}
               listing={listing}
               user={currentUser}
@@ -76,7 +83,8 @@ class ListingCard extends Component {
 ListingCard.propTypes = {
   listing: PropTypes.object.isRequired,
   currentUser: PropTypes.object,
-  favorited: PropTypes.array.isRequired
+  favorited: PropTypes.array.isRequired,
+  related: PropTypes.bool
 }
 
 export default ListingCard

@@ -16,6 +16,7 @@ const LikeButton = (props) => (
   <Mutation mutation={!props.favorite ? FAVORITE_LISTING : UNFAVORITE_LISTING}>
     {(favoriteListing) => (
       <Container
+        top={props.top}
         onClick={(e) => {
           e.preventDefault()
           if (props.user && props.user.authenticated) {
