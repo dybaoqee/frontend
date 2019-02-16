@@ -311,7 +311,7 @@ class Listing extends Component {
 
                       <RelatedListings
                         currentUser={currentUser}
-                        listings={related || []}
+                        listings={related}
                       />
 
                       {isInterestPopupVisible && (

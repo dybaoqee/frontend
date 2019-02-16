@@ -15,10 +15,17 @@ class ListingFeed extends Component {
   render() {
     const { listings, currentUser } = this.props
     return (
-      <Query query={GET_FAVORITE_LISTINGS}>
-        {({loading, error, data: {userProfile}}) => {
-          if (loading) return <div />
-          if (error) return `Error!: ${error}`
+      <Query
+        query={GET_FAVORITE_LISTINGS}
+        skip={!currentUser || !currentUser.authenticated}
+      >
+        {({error, data: {userProfile}}) => {
+          if (!listings) {
+            return null
+          }
+          if (error) {
+            return `Error!: ${error}`
+          }
           let favorites = []
           if (userProfile && userProfile.favorites) {
             favorites = userProfile.favorites
@@ -27,15 +34,15 @@ class ListingFeed extends Component {
             <Container>
               <SubTitle color="grey" fontSize="small">VEJA TAMBÉM</SubTitle>
               <ListingsContainer>
-                {listings.map((listing) =>
-                  <ListingCard
+                {listings.map((listing) => {
+                  return <ListingCard
                     key={listing.id}
                     listing={listing}
                     currentUser={currentUser}
                     favorited={favorites}
                     related
                   />
-                )}
+                })}                
               </ListingsContainer>
               <Gradient />
             </Container>

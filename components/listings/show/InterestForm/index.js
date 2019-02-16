@@ -1,5 +1,4 @@
 import { Component } from 'react'
-import Head from 'next/head'
 import Popup from 'components/shared/Popup'
 import Text from '@emcasa/ui-dom/components/Text'
 import Input from '@emcasa/ui-dom/components/Input'
