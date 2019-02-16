@@ -16,7 +16,10 @@ class Item extends PureComponent {
 
 Item.propTypes = {
   title: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ])
 }
 
 export default Item

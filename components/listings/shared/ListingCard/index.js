@@ -12,7 +12,8 @@ import { intToCurrency } from 'utils/text-utils'
 import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
 import {
-  Container
+  Container,
+  getCardWidth
 } from './styles'
 import {
   log,
@@ -66,6 +67,7 @@ class ListingCard extends Component {
               <Row><Text inline fontSize="large" fontWeight="bold">{intToCurrency(listing.price)}</Text></Row>
             </Row>
             <LikeButton
+              top={Math.round(getCardWidth() * 0.5 - 25)}
               favorite={favorited}
               listing={listing}
               user={currentUser}

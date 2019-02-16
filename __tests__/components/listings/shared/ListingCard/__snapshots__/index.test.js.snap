@@ -5,7 +5,7 @@ exports[`<ListingCard/> should render component 1`] = `
   position: absolute;
   cursor: pointer;
   right: 20px;
-  top: 115px;
+  top: -25px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;

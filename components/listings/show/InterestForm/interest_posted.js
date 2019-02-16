@@ -1,21 +1,23 @@
-import {Component} from 'react'
-
+import { Component } from 'react'
 import Popup from 'components/shared/Popup'
-import {Container} from './styles'
+import Text from '@emcasa/ui-dom/components/Text'
+import Button from '@emcasa/ui-dom/components/Button'
+import {
+  Container,
+  Title
+} from './styles'
 
 export default class InterestPosted extends Component {
   render() {
     const {handleClose} = this.props
-
     return (
       <Popup handleClose={handleClose}>
         <Container>
-          <h1>Agente EmCasa Notificado</h1>
-          <p>
-            Entraremos em contato o mais rápido possível para agendarmos uma
-            visita!
-          </p>
-          <button className="btn" onClick={handleClose}>Fechar</button>
+          <Title fontSize="large">Notificação Enviada</Title>
+          <Text>
+            Entraremos em contato o mais rápido possível para agendarmos sua visita!
+          </Text>
+          <Button active onClick={handleClose}>Fechar</Button>
         </Container>
       </Popup>
     )
