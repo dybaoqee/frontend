@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import theme from '@emcasa/ui'
 
 export default styled.div`
   box-sizing: border-box;

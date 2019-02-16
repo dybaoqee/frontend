@@ -7,6 +7,16 @@ export const Container = styled(View)`
   text-align: center;
   padding: ${theme.space[4]}px;
   box-shadow: 0 6px 16px 0 rgba(38, 38, 38, 0.15);
+  background-color: ${theme.colors.white};
+  max-width: 400px;
+
+  @media (max-width: ${theme.breakpoints[0]}) {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+  }
 `
 
 export const Form = styled.form`

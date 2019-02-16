@@ -34,7 +34,7 @@ export default class InterestForm extends Component {
     return (
       <Popup handleClose={handleClose}>
         <Container>
-          <Title>Marcar Visita</Title>
+          <Title fontSize="large">Marcar Visita</Title>
           <Text>
             Por favor, informe seu nome e telefone.
           </Text>

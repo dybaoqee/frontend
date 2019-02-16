@@ -24,9 +24,11 @@ import Breadcrumb from 'components/shared/Common/Breadcrumb'
 import {buildSlug, getListingId} from 'lib/listings'
 import Head from 'next/head'
 import getApolloClient from 'lib/apollo/initApollo'
+import { getUserInfo } from 'lib/user'
 import {
   log,
-  getPreferredContactType,
+  getListingInfoForLogs,
+  LISTING_DETAIL_OPEN_VISIT_FORM,
   LISTING_DETAIL_SCHEDULE_VISIT
 } from 'lib/logging'
 
@@ -119,6 +121,14 @@ class Listing extends Component {
   }
 
   openPopup = () => {
+    const { currentUser } = this.props
+    if (currentUser && currentUser.authenticated) {
+      this.onSubmit()
+      return
+    }
+    if (!this.state.isInterestPopupVisible) {
+      log(LISTING_DETAIL_OPEN_VISIT_FORM, getListingInfoForLogs(this.props.listing))
+    }
     this.setState({isInterestPopupVisible: true})
   }
 
@@ -136,46 +146,42 @@ class Listing extends Component {
     this.setState({interestForm})
   }
 
-  onSubmit = async (e, custom) => {
+  onSubmit = async (e) => {
     e && e.preventDefault()
 
     const {interestForm} = this.state
     const {id} = this.props.listing
-    const {listing} = this.props
+    const {listing, currentUser} = this.props
 
-    const res = await createInterest(id, custom || interestForm)
+    let quickForm = {}
+    if (currentUser && currentUser.id) {
+      const userInfo = await getUserInfo(currentUser.id)
+      if (userInfo && userInfo.phone) {
+        quickForm = {}
+        if (userInfo.name) {
+          quickForm.name = userInfo.name
+        }
+        quickForm.phone = userInfo.phone
+      }
+    }
+
+    const res = await createInterest(id, quickForm || interestForm)
 
     if (res.data.errors) {
       this.setState({errors: res.data.errors})
       return
     }
 
-    const {area, bathrooms, floor, garageSpots, price, rooms, type, maintenanceFee, propertyTax} = listing
-    log(LISTING_DETAIL_SCHEDULE_VISIT, {
-      listingId: id,
-      neighborhood: listing.address.neighborhoodSlug,
-      city: listing.address.citySlug,
-      area,
-      bathrooms,
-      floor,
-      garageSpots,
-      price,
-      rooms,
-      type,
-      maintenanceFee,
-      propertyTax,
-      preferredContact: getPreferredContactType(interestForm.interest_type_id)
-    })
+    log(LISTING_DETAIL_SCHEDULE_VISIT, getListingInfoForLogs(listing))
 
     if (!res.data) {
       return res
     }
 
-    !custom &&
-      this.setState({
-        isInterestPopupVisible: false,
-        isInterestSuccessPopupVisible: true
-      })
+    this.setState({
+      isInterestPopupVisible: false,
+      isInterestSuccessPopupVisible: true
+    })
   }
 
   async componentDidMount() {
