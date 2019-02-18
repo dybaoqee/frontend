@@ -67,9 +67,9 @@ class Pricing extends Component {
     const intSuggestedPrice = parseInt(this.state.suggestedPrice)
     if (this.state.suggestedPrice && this.state.editingPrice) {
       log(SELLER_ONBOARDING_EDIT_PRICE_CONFIRM, {
-        suggestedPrice: intSuggestedPrice,
+        suggestedPrice: roundUpPrice(intSuggestedPrice),
         userPrice: intUserPrice,
-        difference: (intUserPrice - intSuggestedPrice)
+        difference: (intUserPrice - roundUpPrice(intSuggestedPrice))
       })
       this.setState({editingPrice: false})
       return
