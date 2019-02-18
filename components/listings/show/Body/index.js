@@ -2,11 +2,12 @@ import React, { Component } from 'react'
 import {ThemeProvider} from 'styled-components'
 import theme from '@emcasa/ui'
 import {getParagraphs} from 'utils/text-utils'
-import Statistics from 'components/listings/show/Statistics'
 import {canEdit} from 'permissions/listings-permissions'
 import Text from '@emcasa/ui-dom/components/Text'
 import ToggleButton from './ToggleButton'
 import ListingData from './ListingData'
+import Button from '@emcasa/ui-dom/components/Button'
+import View from '@emcasa/ui-dom/components/View'
 import {
   log,
   LISTING_DETAIL_OPEN
@@ -55,7 +56,6 @@ export default class ListingMainContent extends Component {
   render() {
     const {listing, handleOpenPopup, user, favorite} = this.props
     const {street, neighborhood, streetNumber} = listing.address
-    const showStatistics = listing.owner
     const paragraphs = getParagraphs(listing.description)
     const ownerOrAdmin = canEdit(user, listing)
     const listingInfo = ownerOrAdmin
@@ -90,7 +90,15 @@ export default class ListingMainContent extends Component {
               user={user}
               favorite={favorite}
             />
-            {showStatistics && <Statistics listing={listing} user={user} />}
+            {user.admin &&
+              <View my={4} style={{textAlign: 'center'}}>
+                <a href={`${process.env.GARAGEM_URL}/imoveis/${listing.id}`} target="_blank">
+                  <Button link height="auto" p={0}>
+                    Ver no garagem
+                  </Button>
+                </a>
+              </View>
+            }
           </CardWrapper>
         </Container>
       </ThemeProvider>
