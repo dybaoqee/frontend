@@ -1,7 +1,6 @@
 import {Component} from 'react'
 import NextHead from 'components/shared/NextHead'
 import Router from 'next/router'
-import View from '@emcasa/ui-dom/components/View'
 import {
   treatParams,
   getListingFiltersFromState,
@@ -182,12 +181,10 @@ class ListingSearch extends Component {
     return (
       <>
         {this.getHead()}
-        <View ml={4} mr={6}>
-          <ListingFilter
-            onSubmit={this.onChangeFilter}
-            values={filters}
-          />
-        </View>
+        <ListingFilter
+          onSubmit={this.onChangeFilter}
+          values={filters}
+        />
         <ListingList
           query={query}
           params={params}
