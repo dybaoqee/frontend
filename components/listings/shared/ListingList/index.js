@@ -169,7 +169,10 @@ class ListingList extends Component {
       )
     } else {
       return (
-        <ListingsNotFound filter={filters} params={params} />
+        <ListingsNotFound
+          filters={this.props.filters}
+          params={this.props.params}
+        />
       )
     }
   }

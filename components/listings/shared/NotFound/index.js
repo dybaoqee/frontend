@@ -30,8 +30,8 @@ class NotFound extends PureComponent {
           const districts = data.districts
           const findState = districts.find(a => a.stateSlug === params.state)
           const findCity = districts.find(a => a.citySlug === params.city)
-          let linkHref = '/imoveis'
-          let linkLabel = 'Explorar imóveis'
+          let linkHref = undefined
+          let linkLabel = undefined
 
           if (findCity) {
             linkHref = `/imoveis/${findCity.stateSlug}/${findCity.citySlug}`
@@ -45,17 +45,19 @@ class NotFound extends PureComponent {
             <Col px={4}>
               <Text fontWeight="bold">Nenhum imóvel encontrado</Text>
               <Text color="grey" my={0}>Tente alterar os critérios selecionados para encontrar outros imóveis.</Text>
-              <Col>
-                <Link passHref href={linkHref}>
-                  <a>
-                    <Button
-                      height="tall"
-                    >
-                      {linkLabel}
-                    </Button>
-                  </a>
-                </Link>
-              </Col>
+              {linkHref && linkLabel && (
+                <Col>
+                  <Link passHref href={linkHref}>
+                    <a>
+                      <Button
+                        height="tall"
+                      >
+                        {linkLabel}
+                      </Button>
+                    </a>
+                  </Link>
+                </Col>
+              )}
             </Col>
           )
         }}
@@ -65,8 +67,8 @@ class NotFound extends PureComponent {
 }
 
 NotFound.propTypes = {
-  filters: PropTypes.object.isRequired,
-  params: PropTypes.object.isRequired
+  filters: PropTypes.object,
+  params: PropTypes.object
 }
 
 export default NotFound
