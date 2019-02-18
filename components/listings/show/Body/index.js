@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import {ThemeProvider} from 'styled-components'
 import theme from '@emcasa/ui'
 import {getParagraphs} from 'utils/text-utils'
@@ -8,19 +9,24 @@ import ToggleButton from './ToggleButton'
 import ListingData from './ListingData'
 import Button from '@emcasa/ui-dom/components/Button'
 import View from '@emcasa/ui-dom/components/View'
+import Row from '@emcasa/ui-dom/components/Row'
+import Col from '@emcasa/ui-dom/components/Col'
 import {
   log,
-  LISTING_DETAIL_OPEN
+  getListingInfoForLogs,
+  LISTING_DETAIL_OPEN,
+  LISTING_DETAIL_EXPAND_DESCRIPTION
 } from 'lib/logging'
-import ListingPanel from './Card'
+import ListingPanel from './ListingPanel'
 import Container, {
   CardWrapper,
   Title,
   SubTitle,
-  ListingDescription
+  ListingDescription,
+  MobileInfo
 } from './styles'
 
-export default class ListingMainContent extends Component {
+class ListingMainContent extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -30,27 +36,14 @@ export default class ListingMainContent extends Component {
   }
 
   componentDidMount() {
-    const {id, address, area, bathrooms, floor, garageSpots, price, rooms, type, maintenanceFee, propertyTax} = this.props.listing
-    log(LISTING_DETAIL_OPEN, {
-      listingId: id,
-      neighborhood: address.neighborhoodSlug,
-      city: address.citySlug,
-      area,
-      bathrooms,
-      floor,
-      garageSpots,
-      price,
-      rooms,
-      type,
-      maintenanceFee,
-      propertyTax,
-    })
+    log(LISTING_DETAIL_OPEN, getListingInfoForLogs(this.props.listing))
   }
 
   toggleBody() {
-    this.setState({
-      expanded: !this.state.expanded
-    })
+    if (!this.state.expanded) {
+      log(LISTING_DETAIL_EXPAND_DESCRIPTION, getListingInfoForLogs(this.props.listing))
+    }
+    this.setState({ expanded: !this.state.expanded })
   }
 
   render() {
@@ -83,6 +76,13 @@ export default class ListingMainContent extends Component {
             <SubTitle color="grey" fontSize="small">O IMÓVEL</SubTitle>
             {paragraphs && paragraphs.map((paragraph, i) => <Text fontFamily="FaktSoftPro-Blond" key={i}>{paragraph}</Text>)}
           </ListingDescription>
+          <MobileInfo>
+              <Row px={4} flexDirection="column">
+                <Col></Col>
+                <Col></Col>
+                <Col></Col>
+              </Row>
+            </MobileInfo>
           <CardWrapper>
             <ListingPanel
               listing={listing}
@@ -105,3 +105,12 @@ export default class ListingMainContent extends Component {
     )
   }
 }
+
+ListingMainContent.propTypes = {
+  listing: PropTypes.object.isRequired,
+  handleOpenPopup: PropTypes.func.isRequired,
+  user: PropTypes.object,
+  favorite: PropTypes.bool
+}
+
+export default ListingMainContent
