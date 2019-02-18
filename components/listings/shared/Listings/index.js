@@ -129,8 +129,8 @@ export default class Listings extends Component {
     } else {
       return (
         <ListingsNotFound
-          filtered={!isEmpty(filters)}
-          resetAllParams={resetFilters}
+          filters={this.props.filters}
+          params={this.props.params}
         />
       )
     }
