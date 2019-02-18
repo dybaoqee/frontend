@@ -63,14 +63,18 @@ class Pricing extends Component {
   }
 
   nextStep() {
+    const intUserPrice = this.state.userPrice ? parseInt(this.state.userPrice) : roundUpPrice(this.state.suggestedPrice)
+    const intSuggestedPrice = parseInt(this.state.suggestedPrice)
     if (this.state.suggestedPrice && this.state.editingPrice) {
-      log(SELLER_ONBOARDING_EDIT_PRICE_CONFIRM)
+      log(SELLER_ONBOARDING_EDIT_PRICE_CONFIRM, {
+        suggestedPrice: intSuggestedPrice,
+        userPrice: intUserPrice,
+        difference: (intUserPrice - intSuggestedPrice)
+      })
       this.setState({editingPrice: false})
       return
     }
     const { navigateTo, updatePricing } = this.props
-    const intUserPrice = this.state.userPrice ? parseInt(this.state.userPrice) : roundUpPrice(this.state.suggestedPrice)
-    const intSuggestedPrice = parseInt(this.state.suggestedPrice)
     const newPricing = {
       userPrice: intUserPrice,
       suggestedPrice: intSuggestedPrice,
