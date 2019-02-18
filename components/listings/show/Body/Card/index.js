@@ -67,7 +67,7 @@ class ListingPanel extends React.Component {
           }
           {(propertyTax && propertyTax > 0) &&
             <PriceItem>
-              <Text inline>IPTU</Text>
+              <Text inline>IPTU/ano</Text>
               <Text inline>
                 <NumberFormat
                   value={propertyTax || 0}
