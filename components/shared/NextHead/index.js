@@ -15,8 +15,8 @@ const NextHead = (props) => {
         </Fragment>
       )}
 
-      <meta property="fb:app_id" content="246686149385389" />
-      <meta property="fb:pages" content="148121295288259"/>
+      <meta property="fb:app_id" content={process.env.FACEBOOK_APP_ID} />
+      <meta property="fb:pages" content={process.env.FACEBOOK_PAGES}/>
 
       {description && (
         <Fragment>
