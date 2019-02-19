@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Formik, Field } from 'formik'
 import MaskedInput from 'react-text-mask'
-
 import Icon from '@emcasa/ui-dom/components/Icon'
 import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
@@ -16,7 +15,13 @@ import {
   intToCurrency,
   roundUpPrice
 } from 'utils/text-utils'
-import Ticket from 'components/listings/new-listing/shared/Ticket';
+import Ticket from 'components/listings/new-listing/shared/Ticket'
+import {
+  log,
+  SELLER_ONBOARDING_EDIT_PRICE,
+  SELLER_ONBOARDING_EDIT_PRICE_CANCEL,
+  SELLER_ONBOARDING_EDIT_PRICE_CONFIRM
+} from 'lib/logging'
 
 class Pricing extends Component {
   constructor(props) {
@@ -58,13 +63,18 @@ class Pricing extends Component {
   }
 
   nextStep() {
+    const intUserPrice = this.state.userPrice ? parseInt(this.state.userPrice) : roundUpPrice(this.state.suggestedPrice)
+    const intSuggestedPrice = parseInt(this.state.suggestedPrice)
     if (this.state.suggestedPrice && this.state.editingPrice) {
+      log(SELLER_ONBOARDING_EDIT_PRICE_CONFIRM, {
+        suggestedPrice: roundUpPrice(intSuggestedPrice),
+        userPrice: intUserPrice,
+        difference: (intUserPrice - roundUpPrice(intSuggestedPrice))
+      })
       this.setState({editingPrice: false})
       return
     }
     const { navigateTo, updatePricing } = this.props
-    const intUserPrice = this.state.userPrice ? parseInt(this.state.userPrice) : roundUpPrice(this.state.suggestedPrice)
-    const intSuggestedPrice = parseInt(this.state.suggestedPrice)
     const newPricing = {
       userPrice: intUserPrice,
       suggestedPrice: intSuggestedPrice,
@@ -76,6 +86,7 @@ class Pricing extends Component {
 
   previousStep() {
     if (this.state.suggestedPrice && this.state.editingPrice) {
+      log(SELLER_ONBOARDING_EDIT_PRICE_CANCEL)
       this.setState({
         editingPrice: false,
         userPrice: this.props.pricing.userPrice
@@ -221,7 +232,12 @@ class Pricing extends Component {
                                 :
                                   <>
                                     <Text inline fontSize="large" fontWeight="bold">{this.state.userPrice ? intToCurrency(this.state.userPrice) : intToCurrency(roundUpPrice(suggestedPrice))}</Text>
-                                    <Col onClick={() => {this.setState({editingPrice: true})}} style={{cursor: 'pointer', marginTop: 8}}>
+                                    <Col onClick={() => {
+                                      if (!this.state.editingPrice) {
+                                        log(SELLER_ONBOARDING_EDIT_PRICE)
+                                      }
+                                      this.setState({editingPrice: true})
+                                    }} style={{cursor: 'pointer', marginTop: 8}}>
                                       <Icon name="pen" />
                                     </Col>
                                   </>
