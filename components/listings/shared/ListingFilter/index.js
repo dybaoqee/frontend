@@ -314,7 +314,7 @@ class ListingFilter extends Component {
           clear={this.resetFilter.bind(this, FILTERS.ROOMS.code)}
         >
           <ButtonGroupFilter
-            initialValue={rooms}
+            initialValue={rooms || 0}
             userValue={userRooms && userRooms.min}
             onChange={(value) => {this.sliderChanged(FILTERS.ROOMS.code, value, true)}}
             values={[
@@ -335,7 +335,7 @@ class ListingFilter extends Component {
           clear={this.resetFilter.bind(this, FILTERS.GARAGE_SPOTS.code)}
         >
           <ButtonGroupFilter
-            initialValue={garageSpots}
+            initialValue={garageSpots || 0}
             userValue={userGarageSpots && userGarageSpots.min}
             onChange={(value) => {this.sliderChanged(FILTERS.GARAGE_SPOTS.code, value, true)}}
             values={[

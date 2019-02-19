@@ -64,7 +64,7 @@ FilterPanel.propTypes = {
   apply: PropTypes.func.isRequired,
   clear: PropTypes.func.isRequired,
   close: PropTypes.func.isRequired,
-  panelPosition: PropTypes.object.isRequired
+  panelPosition: PropTypes.object
 }
 
 export default FilterPanel

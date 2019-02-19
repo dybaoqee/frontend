@@ -101,7 +101,6 @@ export default class ListingHeader extends Component {
             key={filename}
             src={thumbnailUrl(filename, 1920, 1080)}
             alt={`Imagem ${type === 'Apartamento' ? 'do' : 'da'} ${type} ID-${id} na ${address.street}, ${address.neighborhood}, ${address.city} - ${address.state}`}
-            innerRef={(currentImage) => (this[filename] = currentImage)}
             loaded={this[filename]}
           />
         )
