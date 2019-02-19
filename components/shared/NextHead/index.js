@@ -15,6 +15,8 @@ const NextHead = (props) => {
         </Fragment>
       )}
 
+      <meta property="fb:app_id" content="246686149385389" />
+
       {description && (
         <Fragment>
           <meta name="description" content={description} />
