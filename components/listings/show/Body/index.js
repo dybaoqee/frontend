@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {ThemeProvider} from 'styled-components'
+import NumberFormat from 'react-number-format'
 import theme from '@emcasa/ui'
 import {getParagraphs} from 'utils/text-utils'
 import {canEdit} from 'permissions/listings-permissions'
@@ -56,8 +57,15 @@ class ListingMainContent extends Component {
           listing.complement ? `- ${listing.complement}` : ''
         }`
       : `${street}`
+    const {
+        price,
+        area,
+        propertyTax,
+        maintenanceFee
+      } = this.props.listing
+      const pricePerSquareMeter = Math.floor(price / area)
 
-      return (
+    return (
       <ThemeProvider theme={theme}>
         <Container>
           <ListingDescription expanded={this.state.expanded}>
@@ -78,9 +86,42 @@ class ListingMainContent extends Component {
           </ListingDescription>
           <MobileInfo>
               <Row px={4} flexDirection="column">
-                <Col></Col>
-                <Col></Col>
-                <Col></Col>
+                {maintenanceFee && <Row justifyContent="space-between" mb={2}>
+                  <Col>Condomínio</Col>
+                  <Col>
+                    <NumberFormat
+                      value={maintenanceFee || 0}
+                      displayType="text"
+                      thousandSeparator="."
+                      prefix="R$"
+                      decimalSeparator=","
+                    />
+                  </Col>
+                </Row>}
+                {propertyTax && <Row justifyContent="space-between" mb={2}>
+                  <Col>IPTU/ano</Col>
+                  <Col>
+                    <NumberFormat
+                      value={propertyTax || 0}
+                      displayType="text"
+                      thousandSeparator="."
+                      prefix="R$"
+                      decimalSeparator=","
+                    />
+                  </Col>
+                </Row>}
+                {pricePerSquareMeter && <Row justifyContent="space-between">
+                  <Col>Preço/m²</Col>
+                  <Col>
+                    <NumberFormat
+                      value={pricePerSquareMeter || 0}
+                      displayType="text"
+                      thousandSeparator="."
+                      prefix="R$"
+                      decimalSeparator=","
+                    />
+                  </Col>
+                </Row>}
               </Row>
             </MobileInfo>
           <CardWrapper>
