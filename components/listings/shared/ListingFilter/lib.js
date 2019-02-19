@@ -1,5 +1,6 @@
 import numeral from 'numeral'
 import { isMobile } from 'lib/mobile'
+import { randomKey } from 'lib/random'
 import FilterButton from './components/FilterButton'
 import {
   FILTERS
@@ -130,12 +131,12 @@ function getFilterButtons(filters, showFilter, getOpenButton) {
     const active = selectedFiltersArray.includes(filterItem.code)
     if (isMobile()) {
       if (active) {
-        activeFilterButtons.push(getFilterButton(active, item, filterItem, filters, getOpenButton, showFilter))
+        activeFilterButtons.push(getFilterButton(active, filterItem, filters, getOpenButton, showFilter))
       } else {
-        inactiveFilterButtons.push(getFilterButton(active, item, filterItem, filters, getOpenButton, showFilter))
+        inactiveFilterButtons.push(getFilterButton(active, filterItem, filters, getOpenButton, showFilter))
       }
     } else {
-      activeFilterButtons.push(getFilterButton(active, item, filterItem, filters, getOpenButton, showFilter))
+      activeFilterButtons.push(getFilterButton(active, filterItem, filters, getOpenButton, showFilter))
     }
   })
 
@@ -147,10 +148,10 @@ function getFilterButtons(filters, showFilter, getOpenButton) {
   )
 }
 
-function getFilterButton(active, item, filterItem, filters, getOpenButton, showFilter) {
+function getFilterButton(active, filterItem, filters, getOpenButton, showFilter) {
   return (
     <FilterButton
-      key={item.code}
+      key={randomKey()}
       active={active}
       open={getOpenButton(filterItem.code)}
       onClick={(e) => { showFilter(filterItem.code, e) }}

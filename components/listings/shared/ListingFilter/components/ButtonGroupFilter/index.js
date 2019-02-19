@@ -42,9 +42,9 @@ class ButtonGroupFilter extends PureComponent {
 
 ButtonGroupFilter.propTypes = {
   initialValue: PropTypes.number.isRequired,
-  userValue: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired,
-  values: PropTypes.array.isRequired
+  values: PropTypes.array.isRequired,
+  userValue: PropTypes.number
 }
 
 /**
