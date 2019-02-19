@@ -53,7 +53,7 @@ class ListingFeed extends Component {
 }
 
 ListingFeed.propTypes = {
-  listings: PropTypes.object,
+  listings: PropTypes.array,
   currentUser: PropTypes.object
 }
 
