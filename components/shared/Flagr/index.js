@@ -56,8 +56,8 @@ class Flagr extends PureComponent {
 
   render() {
     const { variant, fetched } = this.state
-    const { children } = this.props
-    if (!fetched && variant === DEFAULT) {
+    const { children, renderDefault } = this.props
+    if (!fetched && !renderDefault) {
       return null
     }
     return children.find((child) => child.props.variant === variant)
@@ -65,7 +65,9 @@ class Flagr extends PureComponent {
 }
 
 Flagr.propTypes = {
-  flagKey: PropTypes.string.isRequired
+  flagKey: PropTypes.string.isRequired,
+  renderDefault: PropTypes.bool,
+  children: PropTypes.node
 }
 
 export default Flagr
