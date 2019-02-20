@@ -47,6 +47,9 @@ class Flagr extends PureComponent {
       this.setState({ fetched: true })
       if (result && result.variantKey) {
         this.setState({ variant: result.variantKey })
+        // Set user property for this test in Amplitude
+        let identify = new amplitude.Identify().set(flagKey, result.variantKey)
+        amplitude.identify(identify)
       }
     })
     .catch((error) => {
