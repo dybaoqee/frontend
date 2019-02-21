@@ -29,5 +29,6 @@ module.exports = {
   'process.env.ADMIN_MESSENGER_ID': process.env.ADMIN_MESSENGER_ID || 30,
   'process.env.FACEBOOK_APP_ID': process.env.FACEBOOK_APP_ID || null,
   'process.env.FACEBOOK_PAGES': process.env.FACEBOOK_PAGES || '',
-  'process.env.ACCOUNT_KIT_APP_SECRET': process.env.ACCOUNT_KIT_APP_SECRET || null
+  'process.env.ACCOUNT_KIT_APP_SECRET': process.env.ACCOUNT_KIT_APP_SECRET || null,
+  'process.env.FLAGR_URL': process.env.FLAGR_URL || null
 }

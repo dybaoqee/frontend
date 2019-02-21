@@ -10,12 +10,14 @@ import {isAuthenticated, isAdmin, getCurrentUserId} from 'lib/auth'
 import withApolloClient from 'lib/apollo/withApolloClient'
 import {ApolloProvider} from 'react-apollo'
 import {getJwt} from 'lib/auth'
-import {getCookie, removeCookie} from 'lib/session'
+import {getCookie, removeCookie, setCookie} from 'lib/session'
 import Router from 'next/router'
 import Link from 'next/link'
 import Error from 'components/shared/Shell/Error'
 import codes from 'constants/statusCodes'
 import makeStore from 'redux/store'
+import { DEVICE_ID_COOKIE } from 'components/shared/Flagr'
+import uuid from 'utils/uuid'
 
 class MyApp extends App {
   static async getInitialProps(ctx) {
@@ -57,6 +59,12 @@ class MyApp extends App {
       removeCookie('userRole')
       removeCookie('resetAuth')
       Router.push('/auth/login')
+    }
+
+    // Set deviceId for Flagr
+    const deviceId = uuid()
+    if (!getCookie(DEVICE_ID_COOKIE) && deviceId) {
+      setCookie(DEVICE_ID_COOKIE, deviceId)
     }
 
     if (!document.documentElement.classList.contains('wf-active')) {
