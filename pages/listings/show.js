@@ -1,3 +1,4 @@
+import '@emcasa/ui-dom/components/global-styles'
 import {Component} from 'react'
 import {Query} from 'react-apollo'
 import theme from '@emcasa/ui'
