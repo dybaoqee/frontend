@@ -59,6 +59,12 @@ class MyApp extends App {
       Router.push('/auth/login')
     }
 
+    // Set deviceId for Flagr
+    const deviceId = amplitude.getInstance().options.deviceId
+    if (!getCookie('deviceId') && deviceId) {
+      setCookie('deviceId', deviceId)
+    }
+
     if (!document.documentElement.classList.contains('wf-active')) {
       import('webfontloader').then((WebFont) =>
         WebFont.load({
