@@ -10,7 +10,7 @@ export default ({paths}) => (
       <Path key={name}>
         {href ? (
           <Link href={href} as={as}>
-            <BreadcrumbText fontSize="small" color="grey" fontWeight="bold" inline link>{name}</BreadcrumbText>
+            <BreadcrumbText fontSize="small" color="grey" fontWeight="bold" inline link="true">{name}</BreadcrumbText>
           </Link>
         ) : (
           <BreadcrumbText fontSize="small" color="grey" fontWeight="bold" inline>{name}</BreadcrumbText>

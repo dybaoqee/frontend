@@ -106,14 +106,8 @@ export default class Listings extends Component {
     } else {
       return (
         <ListingsNotFound
-          filtered={!isEmpty(filters)}
-          resetAllParams={resetFilters}
-          messages={[
-            'Nenhum imóvel encontrado.',
-            'Clique aqui para ver os imóveis disponíveis.'
-          ]}
-          href="/listings"
-          as="/imoveis"
+          filters={this.props.filters}
+          params={this.props.params}
         />
       )
     }

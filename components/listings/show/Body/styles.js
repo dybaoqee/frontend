@@ -1,6 +1,7 @@
 import styled from 'styled-components'
-import Text from '@emcasa/ui-dom/components/Text'
 import theme from '@emcasa/ui'
+import Text from '@emcasa/ui-dom/components/Text'
+import View from '@emcasa/ui-dom/components/View'
 
 export default styled.div`
   box-sizing: border-box;
@@ -34,6 +35,19 @@ export const CardWrapper = styled.div`
 
   @media (max-width: ${theme.breakpoints[0]}) {
     margin: 0;
+  }
+`
+
+export const MobileInfo = styled(View)`
+  display: none;
+  padding: ${theme.space[4]}px 0 ${theme.space[4]}px 0;
+  width: 100%;
+  border: 1px solid ${theme.colors.lightGrey};
+  border-radius: 4px;
+  box-shadow: 0 6px 16px 0 rgba(38, 38, 38, 0.15);
+
+  @media (max-width: ${theme.breakpoints[0]}) {
+    display: block;
   }
 `
 

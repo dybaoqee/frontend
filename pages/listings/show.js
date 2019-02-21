@@ -1,13 +1,18 @@
 import {Component} from 'react'
 import {Query} from 'react-apollo'
-import theme from 'config/theme'
-import { ThemeProvider } from 'styled-components'
+import View from '@emcasa/ui-dom/components/View'
+import Row from '@emcasa/ui-dom/components/Row'
+import Col from '@emcasa/ui-dom/components/Col'
+import Text from '@emcasa/ui-dom/components/Text'
+import Button from '@emcasa/ui-dom/components/Button'
 import {GET_USER_LISTINGS_ACTIONS} from 'graphql/user/queries'
-import {GET_FULL_LISTING} from 'graphql/listings/queries'
+import {
+  GET_FULL_LISTING,
+  GET_DISTRICTS
+} from 'graphql/listings/queries'
 import {Mutation} from 'react-apollo'
 import {FAVORITE_LISTING} from 'graphql/listings/mutations'
 import {isAuthenticated, isAdmin, getCurrentUserId, getJwt} from 'lib/auth'
-import Error from 'components/shared/Shell/Error'
 import {getRelatedListings} from 'services/listing-api'
 import Link from 'next/link'
 import {createInterest} from 'services/interest-api'
@@ -22,7 +27,7 @@ import RelatedListings from 'components/listings/show/RelatedListings'
 import Warning from 'components/shared/Common/Warning'
 import Breadcrumb from 'components/shared/Common/Breadcrumb'
 import {buildSlug, getListingId} from 'lib/listings'
-import Head from 'next/head'
+import NextHead from 'components/shared/NextHead'
 import getApolloClient from 'lib/apollo/initApollo'
 import { getUserInfo } from 'lib/user'
 import {
@@ -31,6 +36,8 @@ import {
   LISTING_DETAIL_OPEN_VISIT_FORM,
   LISTING_DETAIL_SCHEDULE_VISIT
 } from 'lib/logging'
+
+export const Title = Text.withComponent('h2')
 
 class Listing extends Component {
   favMutated = false
@@ -228,113 +235,184 @@ class Listing extends Component {
     ]
 
     return (
-      <ThemeProvider theme={theme}>
-        <Mutation mutation={FAVORITE_LISTING}>
-          {(favoriteListing) => (
-            <Query
-              query={GET_USER_LISTINGS_ACTIONS}
-              skip={!currentUser.authenticated}
-            >
-              {({data: {userProfile}, loading, error}) => {
-                const {router} = this.props
-                const favorite =
-                  !loading &&
-                  !error &&
-                  userProfile &&
-                  userProfile.favorites &&
-                  userProfile.favorites.filter(
-                    (listingSaved) =>
-                      listingSaved.id.toString() === listing.id.toString()
-                  ).length > 0
-
-                if (
-                  !isUndefined(router.query.f) &&
-                  !loading &&
-                  !favorite &&
-                  !this.favMutated
-                ) {
-                  this.favMutated = true
-                  favoriteListing({
-                    refetchQueries: [
-                      {
-                        query: GET_USER_LISTINGS_ACTIONS
-                      }
-                    ],
-                    variables: {
-                      id: listing.id
+      <Mutation mutation={FAVORITE_LISTING}>
+        {(favoriteListing) => (
+          <Query
+            query={GET_USER_LISTINGS_ACTIONS}
+            skip={!currentUser.authenticated}
+          >
+            {({data: {userProfile}, loading, error}) => {
+              const {router} = this.props
+              const favorite =
+                !loading &&
+                !error &&
+                userProfile &&
+                userProfile.favorites &&
+                userProfile.favorites.filter(
+                  (listingSaved) =>
+                    listingSaved.id.toString() === listing.id.toString()
+                ).length > 0
+              if (
+                !isUndefined(router.query.f) &&
+                !loading &&
+                !favorite &&
+                !this.favMutated
+              ) {
+                this.favMutated = true
+                favoriteListing({
+                  refetchQueries: [
+                    {
+                      query: GET_USER_LISTINGS_ACTIONS
                     }
-                  })
-                }
-
-                return (
-                  <>
-                    <ListingHead
+                  ],
+                  variables: {
+                    id: listing.id
+                  }
+                })
+              }
+              return (
+                <>
+                  <ListingHead
+                    listing={listing}
+                    routerAsPath={router.asPath}
+                  />
+                  <div>
+                    <ListingHeader
                       listing={listing}
-                      routerAsPath={router.asPath}
+                      handleOpenPopup={this.openPopup}
+                      handleOpenImageGallery={this.showImageGallery}
+                      handleOpen3DTour={this.show3DTour}
+                      currentUser={currentUser}
+                      favoritedListing={{loading, favorite}}
                     />
-
-                    <div>
-                      <ListingHeader
-                        listing={listing}
-                        handleOpenPopup={this.openPopup}
-                        handleOpenImageGallery={this.showImageGallery}
-                        handleOpen3DTour={this.show3DTour}
-                        currentUser={currentUser}
-                        favoritedListing={{loading, favorite}}
+                    {!isActive && (
+                      <Warning green={url.query.r}>
+                        {url.query.r ? (
+                          <p>
+                            <b>Pré-cadastro feito com sucesso.</b> Nossa equipe
+                            entrará em contato via email.
+                          </p>
+                        ) : (
+                          <p>
+                            Imóvel não está visível para o público pois está em
+                            fase de moderação.
+                          </p>
+                        )}
+                      </Warning>
+                    )}
+                    <Breadcrumb paths={paths} />
+                    <ListingMainContent
+                      listing={listing}
+                      handleOpenPopup={this.openPopup}
+                      user={currentUser}
+                      favorite={favorite}
+                    />
+                    <ListingMap listing={listing} />
+                    <RelatedListings
+                      currentUser={currentUser}
+                      listings={related}
+                    />
+                    {isInterestPopupVisible && (
+                      <InterestForm
+                        data={interestForm}
+                        handleClose={this.closePopup}
+                        onChange={this.onChange}
+                        onSubmit={this.onSubmit}
                       />
-                      {!isActive && (
-                        <Warning green={url.query.r}>
-                          {url.query.r ? (
-                            <p>
-                              <b>Pré-cadastro feito com sucesso.</b> Nossa equipe
-                              entrará em contato via email.
-                            </p>
-                          ) : (
-                            <p>
-                              Imóvel não está visível para o público pois está em
-                              fase de moderação.
-                            </p>
-                          )}
-                        </Warning>
-                      )}
-                      <Breadcrumb paths={paths} />
-
-                      <ListingMainContent
-                        listing={listing}
-                        handleOpenPopup={this.openPopup}
-                        user={currentUser}
-                        favorite={favorite}
+                    )}
+                    {isInterestSuccessPopupVisible && (
+                      <InterestPosted
+                        handleClose={this.closeSuccessPostPopup}
                       />
+                    )}
+                  </div>
+                </>
+              )
+            }}
+          </Query>
+        )}
+      </Mutation>
+    )
+  }
 
-                      <ListingMap listing={listing} />
+  showListingFetchError = (listingFetchError, asPath) => {
+    const location = asPath.split('/')
+    const state = location[1]
+    const city = location[2]
+    const neighborhood = location[3]
 
-                      <RelatedListings
-                        currentUser={currentUser}
-                        listings={related}
-                      />
-
-                      {isInterestPopupVisible && (
-                        <InterestForm
-                          data={interestForm}
-                          handleClose={this.closePopup}
-                          onChange={this.onChange}
-                          onSubmit={this.onSubmit}
-                        />
-                      )}
-
-                      {isInterestSuccessPopupVisible && (
-                        <InterestPosted
-                          handleClose={this.closeSuccessPostPopup}
-                        />
-                      )}
-                    </div>
-                  </>
-                )
-              }}
-            </Query>
-          )}
-        </Mutation>
-      </ThemeProvider>
+    return (
+      <Query query={GET_DISTRICTS}>
+        {({loading, error, data}) => {
+          if (loading) return (<div/>)
+          if (error) return `Error! ${error.message}`
+          const districts = data.districts
+          const findState = districts.find(a => a.stateSlug === state)
+          const findCity = districts.find(a => a.citySlug === city)
+          const findNeighborhood = districts.find(a => a.nameSlug === neighborhood)
+          let errorTitle = 'Este imóvel não está mais disponível!'
+          let endQuestion = 'de imóveis'
+          let buttonLabel = 'Explorar imóveis'
+          let buttonHref = '/imoveis'
+          if (findNeighborhood) {
+            endQuestion = ` em ${findNeighborhood.name}, ${findNeighborhood.city}`
+            buttonLabel += ` em ${findNeighborhood.name}`
+            buttonHref += `/${findNeighborhood.stateSlug}/${findNeighborhood.citySlug}/${findNeighborhood.nameSlug}`
+          } else if (findCity) {
+            endQuestion = ` em ${findCity.city}, ${findCity.state}`
+            buttonLabel += ` em ${findCity.city}`
+            buttonHref += `/${findCity.stateSlug}/${findCity.citySlug}`
+          } else if (findState) {
+            endQuestion = ` em ${findState.state}`
+            buttonLabel += ` em ${findState.state}`
+            buttonHref += `/${findState.stateSlug}`
+          }
+          return (
+            <>
+              <NextHead title={`Imóvel não encontrado | EmCasa`} />
+              <Row
+                justifyContent="center"
+                px={5}
+              >
+                <Row
+                  flexDirection="column"
+                  width={[1, null, null, '768px']}
+                >
+                  <Title
+                    textAlign="center"
+                    fontSize="xlarge"
+                    fontWeight="normal"
+                  >
+                    {errorTitle}
+                  </Title>
+                  <Text color="grey">{`Que tal olhar outras opções ${endQuestion}? Separamos alguns imóveis para você! Fique a vontade para dar uma olhada nessa lista`}
+                  </Text>
+                  <Row justifyContent="center">
+                    <Col width={[1, null, null, 2/5]}>
+                      <View mt={2}>
+                        <Link
+                          passHref
+                          href={buttonHref}
+                        >
+                          <a>
+                            <Button
+                              active
+                              fluid
+                              height="tall"
+                            >
+                              {buttonLabel}
+                            </Button>
+                          </a>
+                        </Link>
+                      </View>
+                    </Col>
+                  </Row>
+                </Row>
+              </Row>
+            </>
+          )
+        }}
+      </Query>
     )
   }
 
@@ -352,22 +430,10 @@ class Listing extends Component {
   }
 
   render() {
-    const {listingFetchError} = this.props
+    const {listingFetchError, url: {asPath}} = this.props
 
     return listingFetchError ? (
-      <>
-        <Head>
-          <title>EmCasa</title>
-        </Head>
-        <Error>
-          <h1>{this.error}</h1>
-          <h2>{listingFetchError.code || listingFetchError.statusCode}</h2>
-          <p>
-            Visite nossa <Link href="/">página inicial</Link> ou entre em&nbsp;
-            <Link href="mailto:contato@emcasa.com">contato</Link> com a gente
-          </p>
-        </Error>
-      </>
+      this.showListingFetchError(listingFetchError, asPath)
     ) : (
       this.showListing()
     )

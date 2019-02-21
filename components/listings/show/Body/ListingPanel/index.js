@@ -36,7 +36,7 @@ class ListingPanel extends React.Component {
           user={user}
           secondary
         />
-        <Text style={{margin: 0}} fontSize="xlarge" fontWeight="bold" color={theme.colors.pink}>
+        <Text style={{margin: `0 0 ${theme.space[2]}px 0`}} fontSize="xlarge" fontWeight="bold" color={theme.colors.pink}>
           {price && price > 0 ?
             <>
               <NumberFormat
@@ -52,7 +52,7 @@ class ListingPanel extends React.Component {
         </Text>
         <PricesContainer>
           {(maintenanceFee && maintenanceFee > 0) &&
-            <PriceItem>
+            <PriceItem mb={2}>
               <Text inline>Condomínio</Text>
               <Text inline>
                 <NumberFormat
@@ -66,8 +66,8 @@ class ListingPanel extends React.Component {
             </PriceItem>
           }
           {(propertyTax && propertyTax > 0) &&
-            <PriceItem>
-              <Text inline>IPTU</Text>
+            <PriceItem mb={2}>
+              <Text inline>IPTU/ano</Text>
               <Text inline>
                 <NumberFormat
                   value={propertyTax || 0}
