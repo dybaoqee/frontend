@@ -16,9 +16,8 @@ import Link from 'next/link'
 import Error from 'components/shared/Shell/Error'
 import codes from 'constants/statusCodes'
 import makeStore from 'redux/store'
-import {
-  DEVICE_ID_COOKIE
-} from 'components/shared/Flagr'
+import { DEVICE_ID_COOKIE } from 'components/shared/Flagr'
+import uuid from 'utils/uuid'
 
 class MyApp extends App {
   static async getInitialProps(ctx) {
@@ -63,7 +62,7 @@ class MyApp extends App {
     }
 
     // Set deviceId for Flagr
-    const deviceId = amplitude.getInstance().options.deviceId
+    const deviceId = uuid()
     if (!getCookie(DEVICE_ID_COOKIE) && deviceId) {
       setCookie(DEVICE_ID_COOKIE, deviceId)
     }

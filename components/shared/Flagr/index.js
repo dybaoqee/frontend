@@ -2,9 +2,6 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
 export const DEVICE_ID_COOKIE = 'flagrDeviceId'
-const LOCAL_URL = 'http://localhost:18000'
-const STAGING_URL = 'https://flagr.staging.emcasa.com'
-const PRODUCTION_URL = 'https://flagr.staging.emcasa.com'
 const FLAGR_EVALUATION_URL = '/api/v1/evaluation/'
 const DEFAULT = 'default'
 
@@ -14,7 +11,7 @@ const DEFAULT = 'default'
  * @param entityID user identifier.
  */
 export const fetchFlag = async (flagKey, entityID) => {
-  const url = `${getUrl()}${FLAGR_EVALUATION_URL}`
+  const url = `${process.env.FLAGR_URL}${FLAGR_EVALUATION_URL}`
   const params = {
     flagKey,
     entityID,
