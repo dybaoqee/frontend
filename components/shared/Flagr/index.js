@@ -1,75 +1,70 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
+export const DEVICE_ID_COOKIE = 'flagrDeviceId'
 const LOCAL_URL = 'http://localhost:18000'
 const STAGING_URL = 'https://flagr.staging.emcasa.com'
 const PRODUCTION_URL = 'https://flagr.staging.emcasa.com'
 const FLAGR_EVALUATION_URL = '/api/v1/evaluation/'
 const DEFAULT = 'default'
 
+/**
+ * Fetches the result of a flag.
+ * @param flagKey
+ * @param entityID user identifier.
+ */
+export const fetchFlag = async (flagKey, entityID) => {
+  const url = `${getUrl()}${FLAGR_EVALUATION_URL}`
+  const params = {
+    flagKey,
+    entityID,
+    enableDebug: false
+  }
+  const result = await fetch(url, {
+    method: 'post', headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(params)}).then((response) => {
+      return response.json()
+  }).then((result) => {
+    if (result && result.variantKey) {
+      return result.variantKey
+    }
+    return DEFAULT
+  })
+  .catch((error) => {
+    return DEFAULT
+  })
+  return result
+}
+
+function getUrl() {
+  if (process.env.NODE_ENV === 'production') {
+    return PRODUCTION_URL
+  } else if (process.env.IS_STAGING === 'true') {
+    return STAGING_URL
+  }
+  return LOCAL_URL
+}
+
 class Flagr extends PureComponent {
-  constructor(props) {
-    super(props)
-    this.state = {
-      fetched: false,
-      variant: DEFAULT
-    }
-  }
-
-  getUrl() {
-    if (process.env.NODE_ENV === 'production') {
-      return PRODUCTION_URL
-    } else if (process.env.IS_STAGING === 'true') {
-      return STAGING_URL
-    }
-    return LOCAL_URL
-  }
-
   componentDidMount() {
-    const { flagKey } = this.props
+    const { flagKey, flagrFlags } = this.props
     if (!flagKey) {
       console.error('flagKey is required in Flagr')
       return null
     }
-
-    const entityID = amplitude.getInstance().options.deviceId
-    const url = `${this.getUrl()}${FLAGR_EVALUATION_URL}`
-    const params = {
-      flagKey,
-      entityID,
-      enableDebug: false
-    }
-    fetch(url, {
-      method: 'post', headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(params)}).then((response) => {
-        return response.json()
-    }).then((result) => {
-      this.setState({ fetched: true })
-      if (result && result.variantKey) {
-        this.setState({ variant: result.variantKey })
-        // Set user property for this test in Amplitude
-        let identify = new amplitude.Identify().set(flagKey, result.variantKey)
-        amplitude.identify(identify)
-      }
-    })
-    .catch((error) => {
-      this.setState({ fetched: true })
-    })
+    // Set user property for this test in Amplitude
+    let identify = new amplitude.Identify().set(flagKey, flagrFlags[flagKey])
+    amplitude.identify(identify)
   }
 
   render() {
-    const { variant, fetched } = this.state
-    const { children, renderDefault } = this.props
-    if (!fetched && !renderDefault) {
-      return null
-    }
-    return children.find((child) => child.props.variant === variant)
+    const { children, flagKey, flagrFlags } = this.props
+    return children.find((child) => child.props.variant === flagrFlags[flagKey]) || null
   }
 }
 
 Flagr.propTypes = {
   flagKey: PropTypes.string.isRequired,
-  renderDefault: PropTypes.bool,
   children: PropTypes.node
 }
 

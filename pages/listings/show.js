@@ -32,6 +32,11 @@ import {buildSlug, getListingId} from 'lib/listings'
 import NextHead from 'components/shared/NextHead'
 import getApolloClient from 'lib/apollo/initApollo'
 import { getUserInfo } from 'lib/user'
+import { getCookie } from 'lib/session'
+import {
+  fetchFlag,
+  DEVICE_ID_COOKIE
+} from 'components/shared/Flagr'
 import {
   log,
   getListingInfoForLogs,
@@ -82,6 +87,13 @@ class Listing extends Component {
     const listing = serverResponse.data.listing
     const errors = serverResponse.errors
 
+    // Flagr
+    const deviceId = getCookie(DEVICE_ID_COOKIE, context.req)
+    const flagKey = 'test_schedule_visit_cta_2'
+    const flagrFlags = {
+      [flagKey]: await fetchFlag(flagKey, deviceId)
+    }
+
     if (listing) {
       if (asPath && res) {
         const urlParams = asPath.split('/').length
@@ -93,12 +105,14 @@ class Listing extends Component {
 
       return {
         listing,
-        currentUser
+        currentUser,
+        flagrFlags
       }
     } else {
       return {
         listingFetchError: errors[0],
-        currentUser
+        currentUser,
+        flagrFlags
       }
     }
   }
@@ -313,6 +327,7 @@ class Listing extends Component {
                         handleOpenPopup={this.openPopup}
                         user={currentUser}
                         favorite={favorite}
+                        flagrFlags={this.props.flagrFlags}
                       />
 
                       <ListingMap listing={listing} />

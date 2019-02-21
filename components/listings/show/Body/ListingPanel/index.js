@@ -100,7 +100,7 @@ class ListingPanel extends React.Component {
           }
         </PricesContainer>
         <View mt={4}>
-          <Flagr flagKey={TEST_SCHEDULE_VISIT_CTA}>
+          <Flagr flagKey={TEST_SCHEDULE_VISIT_CTA} flagrFlags={this.props.flagrFlags}>
             <Case variant="default">
               <Button fluid height="tall" active onClick={handleOpenPopup}>Marcar visita</Button>
             </Case>
