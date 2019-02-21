@@ -33,15 +33,6 @@ export const fetchFlag = async (flagKey, entityID) => {
   return result
 }
 
-function getUrl() {
-  if (process.env.NODE_ENV === 'production') {
-    return PRODUCTION_URL
-  } else if (process.env.IS_STAGING === 'true') {
-    return STAGING_URL
-  }
-  return LOCAL_URL
-}
-
 class Flagr extends PureComponent {
   componentDidMount() {
     const { flagKey, flagrFlags } = this.props
