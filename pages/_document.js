@@ -86,7 +86,14 @@ export default class AppDocument extends Document {
               e=(!e||e.length===0?"$default_instance":e).toLowerCase()
               ;if(!n._iq.hasOwnProperty(e)){n._iq[e]={_q:[]};v(n._iq[e])}return n._iq[e]}
               ;e.amplitude=n})(window,document);
-              amplitude.getInstance().init("${process.env.AMPLITUDE_API_KEY}");`}}
+              amplitude.getInstance().init("${process.env.AMPLITUDE_API_KEY}", {
+                saveEvents: true,
+                saveParamsReferrerOncePerSession: true,
+                includeReferrer: true,
+                includeUtm: true,
+                includeGclid: true,
+                forceHttps: true
+              });`}}
           />
           {styleTags}
           {globalStyles}
