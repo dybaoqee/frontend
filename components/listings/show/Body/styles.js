@@ -51,7 +51,7 @@ export const MobileInfo = styled(View)`
   }
 `
 
-export const Title = Text.withComponent('h1')
+export const Title = Text.withComponent('h2')
 
 export const SubTitle = Text.withComponent('h3')
 
