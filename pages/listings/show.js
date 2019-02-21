@@ -37,6 +37,7 @@ import {
   fetchFlag,
   DEVICE_ID_COOKIE
 } from 'components/shared/Flagr'
+import { TEST_SCHEDULE_VISIT_CTA } from 'components/shared/Flagr/tests'
 import {
   log,
   getListingInfoForLogs,
@@ -89,9 +90,8 @@ class Listing extends Component {
 
     // Flagr
     const deviceId = getCookie(DEVICE_ID_COOKIE, context.req)
-    const flagKey = 'test_schedule_visit_cta_2'
     const flagrFlags = {
-      [flagKey]: await fetchFlag(flagKey, deviceId)
+      [TEST_SCHEDULE_VISIT_CTA]: await fetchFlag(TEST_SCHEDULE_VISIT_CTA, deviceId)
     }
 
     if (listing) {
