@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import Link from 'next/link'
-import Container from './styles'
 import {
   log,
   LISTING_SEARCH_NOT_FOUND
 } from 'lib/logging'
+import Col from '@emcasa/ui-dom/components/Col'
+import Text from '@emcasa/ui-dom/components/Text'
 
 class NotFound extends PureComponent {
   componentDidMount() {
@@ -13,43 +13,18 @@ class NotFound extends PureComponent {
   }
 
   render() {
-    const {
-      resetAllParams,
-      filtered,
-      messages,
-      href = '/listings',
-      as = '/imoveis'
-    } = this.props
-
-    if (filtered) {
-      return (
-        <Container onClick={resetAllParams}>
-          <div>
-            <p>Não encontramos imóveis com base nesses critérios, tente alterar os filtros para outros resultados</p>
-          </div>
-        </Container>
-      )
-    }
-
     return (
-      <Link href={href} as={as}>
-        <Container>
-          <div>
-            {messages &&
-              messages.map((message) => <p key={message}>{message}</p>)}
-          </div>
-        </Container>
-      </Link>
+      <Col px={4}>
+        <Text fontWeight="bold">Nenhum imóvel encontrado</Text>
+        <Text color="grey" my={0}>Tente alterar os critérios selecionados para encontrar outros imóveis.</Text>
+      </Col>
     )
   }
 }
 
 NotFound.propTypes = {
-  resetAllParams: PropTypes.func.isRequired,
-  filtered: PropTypes.bool.isRequired,
-  messages: PropTypes.string.isRequired,
-  href: PropTypes.string,
-  as: PropTypes.string
+  filters: PropTypes.object,
+  params: PropTypes.object
 }
 
 export default NotFound

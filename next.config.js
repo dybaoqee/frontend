@@ -30,6 +30,15 @@ module.exports = {
     )
     config.plugins.push(new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/))
 
+    const originalEntry = config.entry
+    config.entry = async () => {
+      const entries = await originalEntry()
+      if (entries['main.js'] && !entries['main.js'].includes('./utils/polyfills/intersection-observer.js')) {
+        entries['main.js'].unshift('./utils/polyfills/intersection-observer.js')
+      }
+      return entries
+    }
+
     if (BUILD) {
       config.mode = 'production'
 
