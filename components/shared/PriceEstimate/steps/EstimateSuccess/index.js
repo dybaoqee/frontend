@@ -4,7 +4,8 @@ import EmCasaButton from 'components/shared/Common/Buttons'
 import Link from 'next/link'
 import {
   log,
-  ESTIMATE_PRICE_SUCCESS
+  ESTIMATE_PRICE_SUCCESS,
+  ESTIMATE_PRICE_PUBLISH_LISTING
 } from 'lib/logging'
 
 export default class EstimateSuccess extends PureComponent {
@@ -37,7 +38,14 @@ export default class EstimateSuccess extends PureComponent {
             mercado. Cadastre seu imóvel em menos de 5 minutos.
           </p>
           <Link href="/listings/new-listing" as="/vender/imovel">
-            <EmCasaButton full light>
+            <EmCasaButton full light onClick={() => {
+              const { listing: { address: {neighborhood, city}, suggestedPrice }} = this.props
+              log(ESTIMATE_PRICE_PUBLISH_LISTING, {
+                city,
+                neighborhood,
+                suggestedPrice
+              })
+            }}>
               Anuncie agora
             </EmCasaButton>
           </Link>
