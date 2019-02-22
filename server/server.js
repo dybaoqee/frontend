@@ -137,6 +137,10 @@ const startServer = () => {
         return app.render(req, res, '/listings/buy', {city: 'sp'})
       })
 
+      server.get('/perdizes', (req, res) => {
+        return app.render(req, res, '/listings/buy', {city: 'sp'})
+      })
+
       server.get('/rio-de-janeiro', (req, res) => {
         return app.render(req, res, '/listings/buy', {city: 'rj'})
       })
