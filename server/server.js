@@ -158,6 +158,10 @@ const startServer = () => {
         return res.redirect(301, '/vender')
       })
 
+      server.get('/sobmedida', (req, res) => {
+        return res.redirect(301, 'https://pages.emcasa.com/sobmedida/')
+      })
+
       server.get('/avaliacao-imovel', (req, res) => {
         return app.render(req, res, '/listings/estimate-price', req.query)
       })
