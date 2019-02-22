@@ -17,17 +17,18 @@ import {
 
 class Ticket extends PureComponent {
   render() {
+    const { topRender, bottomRender, hideSeparator } = this.props
     return (
       <TicketContainer>
         <Row flexDirection="column">
           <View elevation={4} style={{borderRadius: 4}}>
-            {this.props.topRender()}
+            {topRender && topRender()}
             <CornerContainer>
               <Row justifyContent="space-between">
                 <TopLeftCorner />
                 <TopRightCorner />
               </Row>
-              {!this.props.hideSeparator &&
+              {!hideSeparator &&
                 <SeparatorContainer>
                   <Separator />
                 </SeparatorContainer>
@@ -37,7 +38,7 @@ class Ticket extends PureComponent {
                 <BottomRightCorner />
               </Row>
             </CornerContainer>
-            {this.props.bottomRender()}
+            {bottomRender && bottomRender()}
           </View>
         </Row>
       </TicketContainer>

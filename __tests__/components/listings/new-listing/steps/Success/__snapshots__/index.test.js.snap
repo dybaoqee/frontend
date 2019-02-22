@@ -1,11 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly 1`] = `
-.c8 {
-  box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
-}
-
-.c9 {
+.c7 {
   padding: 20px;
 }
 
@@ -29,7 +25,7 @@ exports[`renders correctly 1`] = `
   display: flex;
 }
 
-.c5 {
+.c6 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -41,82 +37,38 @@ exports[`renders correctly 1`] = `
   justify-content: center;
 }
 
-.c7 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-}
-
-.c11 {
+.c9 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   margin-bottom: 10px;
-}
-
-.c18 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-}
-
-.c25 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  padding: 20px;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-}
-
-.c28 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
 }
 
 .c1 {
   width: 100%;
 }
 
-.c13 {
+.c11 {
   width: 50%;
 }
 
-.c14 {
+.c12 {
   margin-right: 2px;
   padding-top: 2px;
   width: 16.666666666666664%;
 }
 
-.c16 {
+.c14 {
   width: 83.33333333333334%;
 }
 
-.c31 {
+.c15 {
   margin-bottom: 10px;
   width: 100%;
 }
 
-.c33 {
+.c17 {
   width: 100%;
 }
 
@@ -136,14 +88,14 @@ exports[`renders correctly 1`] = `
   font-size: 18px;
 }
 
-.c10 {
+.c8 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
   color: #979797;
   font-size: 14px;
 }
 
-.c12 {
+.c10 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
   color: #3c4858;
@@ -151,28 +103,14 @@ exports[`renders correctly 1`] = `
   font-weight: bold;
 }
 
-.c15 {
+.c13 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
   color: #3c4858;
   font-size: 12px;
 }
 
-.c27 {
-  -webkit-font-smoothing: antialiased;
-  font-family: FaktSoftPro-Normal;
-  color: #f50057;
-  font-size: 18px;
-}
-
-.c30 {
-  -webkit-font-smoothing: antialiased;
-  font-family: FaktSoftPro-Normal;
-  color: #f50057;
-  font-size: 14px;
-}
-
-.c32 {
+.c16 {
   outline: none;
   display: block;
   cursor: pointer;
@@ -190,11 +128,11 @@ exports[`renders correctly 1`] = `
   border-style: solid;
 }
 
-.c32 :hover {
+.c16 :hover {
   background-color: #f50057;
 }
 
-.c34 {
+.c18 {
   outline: none;
   display: block;
   cursor: pointer;
@@ -212,80 +150,14 @@ exports[`renders correctly 1`] = `
   border-style: solid;
 }
 
-.c34 :hover {
+.c18 :hover {
   background-color: #ffffff;
 }
 
-.c29 {
-  margin-right: 10px;
-}
-
-.c26 {
-  cursor: pointer;
-}
-
-.c6 {
-  min-width: 300px;
-  max-width: 300px;
-}
-
-.c22 {
-  height: 1px;
-  width: 220px;
-  background-color: #e0e6ed;
-}
-
-.c19 {
-  margin-top: -2px;
-  margin-left: 4px;
-  width: 10px;
-  height: 10px;
-  border-top: 1px solid rgba(0,0,0,0.4);
-  border-radius: 0 100% 0 0;
-  box-shadow: rgba(0,0,0,0.2) -1px 1px 2px 0px inset;
-  background-color: #fff;
-}
-
-.c23 {
-  margin-left: 4px;
-  width: 10px;
-  height: 10px;
-  border-bottom: 1px solid rgba(0,0,0,0.2);
-  border-radius: 0 0 100% 0;
-  box-shadow: rgba(0,0,0,0.2) -1px -1px 1px 0px inset;
-  background-color: #fff;
-}
-
-.c20 {
-  margin-top: -2px;
-  margin-right: 4px;
-  width: 10px;
-  height: 10px;
-  border-top: 1px solid rgba(0,0,0,0.4);
-  border-radius: 100% 0 0 0;
-  box-shadow: rgba(0,0,0,0.2) 1px 1px 2px 0px inset;
-  background-color: #fff;
-}
-
-.c24 {
-  margin-right: 4px;
-  width: 10px;
-  height: 10px;
-  border-bottom: 1px solid rgba(0,0,0,0.2);
-  border-radius: 0 0 0 100%;
-  box-shadow: rgba(0,0,0,0.2) 1px -1px 2px 0px inset;
-  background-color: #fff;
-}
-
-.c21 {
-  position: absolute;
-  margin-left: 45px;
-}
-
-.c17 {
-  background-color: #fff;
-  width: calc(100% + 10px);
-  margin-left: -5px;
+.c5 {
+  border: 1px solid #e0e6ed;
+  box-shadow: 0px 2px 2px rgba(0,0,0,0.3);
+  border-radius: 2px;
 }
 
 @media screen and (min-width:780px) {
@@ -328,232 +200,140 @@ exports[`renders correctly 1`] = `
         </p>
       </div>
       <div
-        className="c5"
+        className="c5 c6"
       >
         <div
-          className="c6 c3"
+          className="c7"
         >
           <div
-            className="c7"
+            className="c3"
           >
             <div
-              className="c8"
-              elevation={4}
-              style={
-                Object {
-                  "borderRadius": 4,
-                }
-              }
+              className=""
+            >
+              <span
+                className="c8"
+                color="grey"
+                fontSize="small"
+              >
+                Endereço
+              </span>
+            </div>
+          </div>
+          <div
+            className="c9"
+          >
+            <div
+              className=""
+            >
+              <span
+                className="c10"
+                color="dark"
+                fontSize="small"
+                fontWeight="bold"
+              >
+                Av. Vieira Souto, 600
+              </span>
+            </div>
+          </div>
+          <div
+            className="c3"
+          >
+            <div
+              className="c11"
+              width={0.5}
+            >
+              <span
+                className="c8"
+                color="grey"
+                fontSize="small"
+              >
+                Valor
+              </span>
+            </div>
+            <div
+              className="c11"
+              width={0.5}
+            >
+              <span
+                className="c8"
+                color="grey"
+                fontSize="small"
+              >
+                Data para visita
+              </span>
+            </div>
+          </div>
+          <div
+            className="c3"
+          >
+            <div
+              className="c11"
+              width={0.5}
+            >
+              <span
+                className="c10"
+                color="dark"
+                fontSize="small"
+                fontWeight="bold"
+              >
+                R$1,000,000
+              </span>
+            </div>
+            <div
+              className="c11"
+              width={0.5}
+            >
+              <span
+                className="c10"
+                color="dark"
+                fontSize="small"
+                fontWeight="bold"
+              >
+                00/00/0000 - entre 00h e 00h
+              </span>
+            </div>
+          </div>
+          <div
+            className="c3"
+          >
+            <div
+              className="c11"
+              width={0.5}
+            >
+               
+            </div>
+            <div
+              className="c11"
+              width={0.5}
             >
               <div
-                className="c9"
+                className="c3"
               >
                 <div
-                  className="c3"
+                  className="c12"
+                  width={0.16666666666666666}
                 >
-                  <div
-                    className=""
-                  >
-                    <span
-                      className="c10"
-                      color="grey"
-                      fontSize="small"
-                    >
-                      Endereço
-                    </span>
-                  </div>
-                </div>
-                <div
-                  className="c11"
-                >
-                  <div
-                    className=""
-                  >
-                    <span
-                      className="c12"
-                      color="dark"
-                      fontSize="small"
-                      fontWeight="bold"
-                    >
-                      Av. Vieira Souto, 600
-                    </span>
-                  </div>
-                </div>
-                <div
-                  className="c3"
-                >
-                  <div
+                  <span
                     className="c13"
-                    width={0.5}
+                    color="dark"
+                    fontSize={12}
                   >
-                    <span
-                      className="c10"
-                      color="grey"
-                      fontSize="small"
-                    >
-                      Valor
-                    </span>
-                  </div>
-                  <div
-                    className="c13"
-                    width={0.5}
-                  >
-                    <span
-                      className="c10"
-                      color="grey"
-                      fontSize="small"
-                    >
-                      Data para visita
-                    </span>
-                  </div>
+                    📞
+                  </span>
                 </div>
                 <div
-                  className="c3"
+                  className="c14"
+                  width={0.8333333333333334}
                 >
-                  <div
-                    className="c13"
-                    width={0.5}
+                  <span
+                    className="c8"
+                    color="grey"
+                    fontSize="small"
                   >
-                    <span
-                      className="c12"
-                      color="dark"
-                      fontSize="small"
-                      fontWeight="bold"
-                    >
-                      R$1,000,000
-                    </span>
-                  </div>
-                  <div
-                    className="c13"
-                    width={0.5}
-                  >
-                    <span
-                      className="c12"
-                      color="dark"
-                      fontSize="small"
-                      fontWeight="bold"
-                    >
-                      00/00/0000 - entre 00h e 00h
-                    </span>
-                  </div>
+                     Aguarde a confirmação da visita.
+                  </span>
                 </div>
-                <div
-                  className="c3"
-                >
-                  <div
-                    className="c13"
-                    width={0.5}
-                  >
-                     
-                  </div>
-                  <div
-                    className="c13"
-                    width={0.5}
-                  >
-                    <div
-                      className="c3"
-                    >
-                      <div
-                        className="c14"
-                        width={0.16666666666666666}
-                      >
-                        <span
-                          className="c15"
-                          color="dark"
-                          fontSize={12}
-                        >
-                          📞
-                        </span>
-                      </div>
-                      <div
-                        className="c16"
-                        width={0.8333333333333334}
-                      >
-                        <span
-                          className="c10"
-                          color="grey"
-                          fontSize="small"
-                        >
-                           Aguarde a confirmação da visita.
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                className="c17 "
-              >
-                <div
-                  className="c18"
-                >
-                  <div
-                    className="c19"
-                  />
-                  <div
-                    className="c20"
-                  />
-                </div>
-                <div
-                  className="c21 c3"
-                >
-                  <div
-                    className="c22 "
-                  />
-                </div>
-                <div
-                  className="c18"
-                >
-                  <div
-                    className="c23"
-                  />
-                  <div
-                    className="c24"
-                  />
-                </div>
-              </div>
-              <div
-                className="c25"
-              >
-                <span
-                  className="c26 c27"
-                  color="pink"
-                  fontSize="default"
-                  onClick={[Function]}
-                >
-                  <a>
-                    <div
-                      className="c28"
-                    >
-                      <div
-                        className="c29"
-                      >
-                        <svg
-                          height={16}
-                          version="1.1"
-                          viewBox="0 0 448 512"
-                          x={0}
-                          y={0}
-                        >
-                          <path
-                            d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
-                            fill="#f50057"
-                            mr={2}
-                            name="plus"
-                            type="default"
-                          />
-                        </svg>
-                      </div>
-                      <span
-                        className="c30"
-                        color="pink"
-                        fontSize="small"
-                      >
-                        Adicionar fotos
-                      </span>
-                    </div>
-                  </a>
-                </span>
               </div>
             </div>
           </div>
@@ -563,11 +343,11 @@ exports[`renders correctly 1`] = `
         className="c3"
       >
         <div
-          className="c31"
+          className="c15"
           width={1}
         >
           <button
-            className="c32"
+            className="c16"
             fontSize="default"
             height="tall"
             onClick={[Function]}
@@ -580,11 +360,11 @@ exports[`renders correctly 1`] = `
         className="c3"
       >
         <div
-          className="c33"
+          className="c17"
           width={1}
         >
           <button
-            className="c34"
+            className="c18"
             fontSize="default"
             height="tall"
             onClick={[Function]}
