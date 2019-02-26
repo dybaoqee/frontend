@@ -13,6 +13,7 @@ import {autoFocus} from 'components/listings/new-listing/lib/forms'
 import {
   SELLER_ONBOARDING_PHONE_LOGIN_START,
   SELLER_ONBOARDING_PHONE_LOGIN_SUCCESS,
+  SELLER_ONBOARDING_PHONE_LOGIN_CANCEL
   log
 } from 'lib/logging'
 
