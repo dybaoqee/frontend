@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Formik } from 'formik'
 import moment from 'moment'
 import * as Sentry from '@sentry/browser'
-
 import { INSERT_LISTING, TOUR_SCHEDULE } from 'graphql/listings/mutations'
 import { TOUR_OPTIONS } from 'graphql/listings/queries'
 import Button from '@emcasa/ui-dom/components/Button'
@@ -14,6 +13,11 @@ import ImageLabel from 'components/listings/new-listing/shared/ImageLabel'
 import { getAddressInput } from 'lib/address'
 import { SchedulingButton } from './styles'
 import { getFullTourDateDisplay } from 'components/listings/new-listing/lib/times'
+import {
+  SELLER_ONBOARDING_SERVICES_SCHEDULE,
+  SELLER_ONBOARDING_SERVICES_SKIP,
+  log
+} from 'lib/logging'
 
 class Services extends Component {
   constructor(props) {
@@ -192,6 +196,7 @@ class Services extends Component {
   }
 
   skipStep() {
+    log(SELLER_ONBOARDING_SERVICES_SKIP)
     const { updateServices } = this.props
     updateServices({
       wantsTour: false
@@ -200,6 +205,9 @@ class Services extends Component {
   }
 
   nextStep() {
+    if (this.state.wantsTour) {
+      log(SELLER_ONBOARDING_SERVICES_SCHEDULE)
+    }
     const { navigateTo, updateListing } = this.props
     updateListing({id: this.state.listingId})
     navigateTo('success')
