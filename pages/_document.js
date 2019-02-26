@@ -7,18 +7,20 @@ const RD_STATION_SCRIPT =
   'https://d335luupugsy2.cloudfront.net/js/loader-scripts/10ac8a83-57de-4007-b3e7-532ac8ee60ac-loader.js'
 
 export default class AppDocument extends Document {
-  static getInitialProps({renderPage}) {
+  static getInitialProps({req, renderPage}) {
     const sheet = new ServerStyleSheet()
     const page = renderPage((App) => (props) =>
       sheet.collectStyles(<App {...props} />)
     )
     const styleTags = [sheet.getStyleElement()]
-    return {...page, styleTags, prod: process.env.NODE_ENV === 'production'}
+    const userAgent = req ? req.headers['user-agent'] : navigator.userAgent
+    return {...page, styleTags, userAgent, prod: process.env.NODE_ENV === 'production'}
   }
 
   render() {
-    const {styleTags, prod} = this.props
+    const {styleTags, userAgent, prod} = this.props
     const currentUser = get(this, 'props.__NEXT_DATA__.props.initialProps.currentUser')
+    const includeStyles = !userAgent.startsWith('facebookexternalhit')
     let isAdmin = currentUser && currentUser.isAdmin
 
     return (
@@ -95,8 +97,8 @@ export default class AppDocument extends Document {
                 forceHttps: true
               });`}}
           />
-          {styleTags}
-          {globalStyles}
+          {includeStyles ? styleTags : null}
+          {includeStyles ? globalStyles : null}
           <meta
             name="viewport"
             content="initial-scale=1.0, width=device-width"
