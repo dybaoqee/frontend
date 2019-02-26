@@ -45,18 +45,23 @@ function getTitleTextByFilters(neighborhoodsSlugs) {
       return a
     }, [])
 
-    const sameState = neighborhoodsFilter.reduce((a, b) => a.state === b.state ? a : false)
+    if(neighborhoodsFilter.length) {
+      const sameState = neighborhoodsFilter.reduce((a, b) => a.state === b.state ? a : false)
 
-    if (sameState) {
-      const sameCity = neighborhoodsFilter.reduce((a, b) => a.city === b.city ? a : false)
-      if (sameCity) {
-        h1Content += getCityTitle(neighborhoodsFilter[0].city)
+      if (sameState) {
+        const sameCity = neighborhoodsFilter.reduce((a, b) => a.city === b.city ? a : false)
+        if (sameCity) {
+          h1Content += getCityTitle(neighborhoodsFilter[0].city)
+        } else {
+          h1Content += getStateTitle(neighborhoodsFilter[0].state)
+        }
       } else {
-        h1Content += getStateTitle(neighborhoodsFilter[0].state)
+        h1Content += ` ${BUY_TITLE_DEFAULT_END}`
       }
     } else {
       h1Content += ` ${BUY_TITLE_DEFAULT_END}`
     }
+
   } else {
     h1Content += getNeighborhoodTitle(neighborhoodsSlugs[0])
   }
