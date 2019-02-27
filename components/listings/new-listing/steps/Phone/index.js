@@ -184,7 +184,7 @@ class Phone extends Component {
                     textAlign="center">
                     Qual o número do seu celular?
                   </Text>
-                  <Text color="grey">Fique tranquilo(a), seu celular não será divulgado.</Text>
+                  <Text color="grey">Ao avançar, será enviado um código de validação para garantir que o número é seu.</Text>
                   <Row>
                     <Col width={3/12} mr={5}>
                       <Field
