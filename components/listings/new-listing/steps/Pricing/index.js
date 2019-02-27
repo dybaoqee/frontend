@@ -16,6 +16,7 @@ import {
   roundUpPrice
 } from 'utils/text-utils'
 import Ticket from 'components/listings/new-listing/shared/Ticket'
+import LoadingText from './LoadingText'
 import {
   log,
   SELLER_ONBOARDING_EDIT_PRICE,
@@ -209,6 +210,13 @@ class Pricing extends Component {
                     textAlign="center">
                     Qual o valor do seu imóvel?
                   </Text>
+                  <LoadingText
+                    sentences={[
+                      'Buscando imóveis do mesmo padrão na região',
+                      'Avaliando média do m²',
+                      'Comparando valores de imóveis na mesma rua'
+                    ]}
+                  />
                   <Row alignItems="center" flexDirection="column">
                     {suggestedPrice && <Text color="grey">Nossa avaliação é precisa de acordo com os valores de mercado da sua região. Você mesmo pode editar este valor ou conversar com um de nossos especialistas no final do processo.</Text>}
                     <Ticket
