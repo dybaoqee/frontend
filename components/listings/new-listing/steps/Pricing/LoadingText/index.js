@@ -58,7 +58,6 @@ class LoadingText extends Component {
           <FadeLoader
             width={10}
             height={10}
-            margin={2}
             radius={8}
             color={theme.colors.pink}
           />
