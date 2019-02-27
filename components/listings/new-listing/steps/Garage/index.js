@@ -92,7 +92,6 @@ class Garage extends Component {
                     textAlign="center">
                     Tem vagas de garagem?
                   </Text>
-                  <Text color="grey">Seu imóvel tem vagas de garagem?</Text>
                   <Row mb={4}>
                     <Field
                       name="spots"
@@ -112,7 +111,7 @@ class Garage extends Component {
                       }/>
                   </Row>
                   {this.state.spots > 0 && <>
-                    <Text color="grey">As vagas estão na Escritura do imóvel ou são do Condomínio?</Text>
+                    <Text color="grey">As vagas estão na escritura do imóvel ou são do condomínio?</Text>
                     <Row mb={4}>
                       <Col width={1}>
                         <Field
@@ -126,9 +125,9 @@ class Garage extends Component {
                                 setFieldTouched('spotType')
                                 this.setState({spotType: value})
                               }}>
-                              <RadioButton label="Vagas na Escritura" value="deed"/>
+                              <RadioButton label="Vagas na escritura" value="deed"/>
                               <View mb={2}></View>
-                              <RadioButton label="Vagas no Condomínio" value="condominium" />
+                              <RadioButton label="Vagas no condomínio" value="condominium" />
                             </RadioButton.Group>
                           )} />
                       </Col>

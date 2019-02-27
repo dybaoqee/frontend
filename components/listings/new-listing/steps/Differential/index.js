@@ -150,7 +150,7 @@ class Differential extends Component {
                     textAlign="center">
                     Seu imóvel tem algum diferencial?
                   </Text>
-                  <Text color="grey">Conte pra gente algum diferencial do seu imóvel.</Text>
+                  <Text color="grey">Conte pra gente.</Text>
                   <Row mb={4}>
                     <Col width={1}>
                       <Field

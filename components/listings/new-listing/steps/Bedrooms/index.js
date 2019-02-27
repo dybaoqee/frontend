@@ -213,7 +213,7 @@ class Bedrooms extends Component {
                     </Row>
                   </>}
                   {this.state.showBathrooms && <>
-                    <Text color="grey">Quantos banheiros? (Sem contar os lavabos e suítes)</Text>
+                    <Text color="grey">Sem contar lavabos e suítes, ele tem quantos banheiros?</Text>
                     <Row mb={4}>
                       <Field
                         name="bathroom"

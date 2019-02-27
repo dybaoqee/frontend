@@ -37,24 +37,19 @@ class Intro extends PureComponent {
             >
               Como funciona vender seu imóvel aqui na EmCasa?
             </Text>
-            <Title fontWeight="normal" color="grey">Venda seu imóvel de um jeito fácil e seguro.</Title>
             <View mb={2}>
-              <Arrow /><ListTitle fontWeight="normal" inline>Cadastre seu imóvel no nosso site</ListTitle>
+              <Arrow /><ListTitle fontWeight="normal" inline>Cadastre as informações básicas do imóvel no nosso site</ListTitle>
             </View>
             <View mb={2}>
-              <Arrow /><ListTitle fontWeight="normal" inline>Agende Tour Virtual 3D / Fotos grátis</ListTitle>
+              <Arrow /><ListTitle fontWeight="normal" inline>Visualize nossa avaliação online do seu imóvel</ListTitle>
             </View>
             <View mb={2}>
-              <Arrow /><ListTitle fontWeight="normal" inline>Avaliação online do seu imóvel</ListTitle>
+              <Arrow /><ListTitle fontWeight="normal" inline>Agende Tour Virtual 3D ou fotos profissionais sem custo</ListTitle>
             </View>
             <View mb={2}>
-              <Arrow /><ListTitle fontWeight="normal" inline>Cuidamos de toda burocracia, contratos e documentação
-            </ListTitle>
+              <Arrow /><ListTitle fontWeight="normal" inline>Cuidamos de toda burocracia, contratos e documentação</ListTitle>
             </View>
-            <View mb={2}>
-              <Arrow /><ListTitle fontWeight="normal" inline>Economize tempo e dinheiro anunciando seu imóvel com a gente</ListTitle>
-            </View>
-            <Row justifyContent="center" mt={4}>
+           <Row justifyContent="center" mt={4}>
               <Col width={[1, 1/2]}>
                 <Button
                   fluid
