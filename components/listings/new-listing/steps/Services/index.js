@@ -95,7 +95,7 @@ class Services extends Component {
   getListingInput() {
     const { location, homeDetails, rooms, garage, differential, phone, pricing } = this.props
     const { addressData, complement } = location
-    const { area, floor, type, maintenanceFee, propertyTax } = homeDetails
+    const { area, floor, type, maintenanceFee } = homeDetails
     const { bathrooms, bedrooms, suites } = rooms
     const { spots } = garage
     const { userPrice } = pricing
@@ -114,7 +114,6 @@ class Services extends Component {
       maintenanceFee: parseInt(maintenanceFee),
       phone: internationalCode + localAreaCode + number,
       price: userPrice,
-      propertyTax: parseInt(propertyTax),
       rooms: bedrooms,
       suites,
       type
