@@ -14,7 +14,7 @@ exports[`renders correctly 1`] = `
   justify-content: center;
 }
 
-.c8 {
+.c7 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -26,7 +26,7 @@ exports[`renders correctly 1`] = `
   justify-content: center;
 }
 
-.c9 {
+.c8 {
   outline: none;
   display: block;
   cursor: pointer;
@@ -44,7 +44,7 @@ exports[`renders correctly 1`] = `
   border-style: solid;
 }
 
-.c9 :hover {
+.c8 :hover {
   background-color: #f50057;
 }
 
@@ -52,7 +52,7 @@ exports[`renders correctly 1`] = `
   width: 100%;
 }
 
-.c4 {
+.c3 {
   margin-bottom: 10px;
 }
 
@@ -65,19 +65,11 @@ exports[`renders correctly 1`] = `
   text-align: center;
 }
 
-.c5 {
+.c4 {
   margin-right: 10px;
 }
 
-.c3 {
-  -webkit-font-smoothing: antialiased;
-  font-family: FaktSoftPro-Normal;
-  color: #979797;
-  font-size: 18px;
-  font-weight: normal;
-}
-
-.c7 {
+.c6 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
   color: #3c4858;
@@ -85,7 +77,7 @@ exports[`renders correctly 1`] = `
   font-weight: normal;
 }
 
-.c6 {
+.c5 {
   display: inline;
   margin: 0;
 }
@@ -117,19 +109,11 @@ exports[`renders correctly 1`] = `
       >
         Como funciona vender seu imóvel aqui na EmCasa?
       </p>
-      <h2
+      <div
         className="c3"
-        color="grey"
-        fontSize="default"
-        fontWeight="normal"
-      >
-        Venda seu imóvel de um jeito fácil e seguro.
-      </h2>
-      <div
-        className="c4"
       >
         <div
-          className="c5"
+          className="c4"
           style={
             Object {
               "display": "inline",
@@ -154,19 +138,19 @@ exports[`renders correctly 1`] = `
           </svg>
         </div>
         <h3
-          className="c6 c7"
+          className="c5 c6"
           color="dark"
           fontSize="default"
           fontWeight="normal"
         >
-          Cadastre seu imóvel no nosso site
+          Cadastre as informações básicas do imóvel no nosso site
         </h3>
       </div>
       <div
-        className="c4"
+        className="c3"
       >
         <div
-          className="c5"
+          className="c4"
           style={
             Object {
               "display": "inline",
@@ -191,19 +175,19 @@ exports[`renders correctly 1`] = `
           </svg>
         </div>
         <h3
-          className="c6 c7"
+          className="c5 c6"
           color="dark"
           fontSize="default"
           fontWeight="normal"
         >
-          Agende Tour Virtual 3D / Fotos grátis
+          Visualize nossa avaliação online do seu imóvel
         </h3>
       </div>
       <div
-        className="c4"
+        className="c3"
       >
         <div
-          className="c5"
+          className="c4"
           style={
             Object {
               "display": "inline",
@@ -228,19 +212,19 @@ exports[`renders correctly 1`] = `
           </svg>
         </div>
         <h3
-          className="c6 c7"
+          className="c5 c6"
           color="dark"
           fontSize="default"
           fontWeight="normal"
         >
-          Avaliação online do seu imóvel
+          Agende Tour Virtual 3D ou fotos profissionais sem custo
         </h3>
       </div>
       <div
-        className="c4"
+        className="c3"
       >
         <div
-          className="c5"
+          className="c4"
           style={
             Object {
               "display": "inline",
@@ -265,7 +249,7 @@ exports[`renders correctly 1`] = `
           </svg>
         </div>
         <h3
-          className="c6 c7"
+          className="c5 c6"
           color="dark"
           fontSize="default"
           fontWeight="normal"
@@ -274,44 +258,7 @@ exports[`renders correctly 1`] = `
         </h3>
       </div>
       <div
-        className="c4"
-      >
-        <div
-          className="c5"
-          style={
-            Object {
-              "display": "inline",
-              "verticalAlign": "sub",
-            }
-          }
-        >
-          <svg
-            height={20}
-            version="1.1"
-            viewBox="0 0 512 512"
-            x={0}
-            y={0}
-          >
-            <path
-              d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm113.9 231L234.4 103.5c-9.4-9.4-24.6-9.4-33.9 0l-17 17c-9.4 9.4-9.4 24.6 0 33.9L285.1 256 183.5 357.6c-9.4 9.4-9.4 24.6 0 33.9l17 17c9.4 9.4 24.6 9.4 33.9 0L369.9 273c9.4-9.4 9.4-24.6 0-34z"
-              fill="#1fb6ff"
-              mr={2}
-              name="chevron-circle-right"
-              type="default"
-            />
-          </svg>
-        </div>
-        <h3
-          className="c6 c7"
-          color="dark"
-          fontSize="default"
-          fontWeight="normal"
-        >
-          Economize tempo e dinheiro anunciando seu imóvel com a gente
-        </h3>
-      </div>
-      <div
-        className="c8"
+        className="c7"
       >
         <div
           className="c1"
@@ -323,7 +270,7 @@ exports[`renders correctly 1`] = `
           }
         >
           <button
-            className="c9"
+            className="c8"
             fontSize="default"
             height="tall"
             onClick={[Function]}

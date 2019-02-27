@@ -14,7 +14,7 @@ exports[`renders correctly 1`] = `
   justify-content: center;
 }
 
-.c4 {
+.c3 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -22,7 +22,7 @@ exports[`renders correctly 1`] = `
   margin-bottom: 20px;
 }
 
-.c5 {
+.c4 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -32,7 +32,7 @@ exports[`renders correctly 1`] = `
   flex-wrap: wrap;
 }
 
-.c7 {
+.c6 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -44,7 +44,7 @@ exports[`renders correctly 1`] = `
   justify-content: space-between;
 }
 
-.c6 {
+.c5 {
   outline: none;
   cursor: pointer;
   padding: 0 20px 0 20px;
@@ -64,11 +64,11 @@ exports[`renders correctly 1`] = `
   border-style: solid;
 }
 
-.c6 :hover {
+.c5 :hover {
   background-color: #ffffff;
 }
 
-.c9 {
+.c8 {
   outline: none;
   display: block;
   cursor: pointer;
@@ -86,11 +86,11 @@ exports[`renders correctly 1`] = `
   border-style: solid;
 }
 
-.c9 :hover {
+.c8 :hover {
   background-color: #ffffff;
 }
 
-.c10 {
+.c9 {
   outline: none;
   display: block;
   cursor: default;
@@ -108,7 +108,7 @@ exports[`renders correctly 1`] = `
   border-style: solid;
 }
 
-.c10 :hover {
+.c9 :hover {
   background-color: #ffffff;
 }
 
@@ -116,7 +116,7 @@ exports[`renders correctly 1`] = `
   width: 100%;
 }
 
-.c8 {
+.c7 {
   width: 41.66666666666667%;
 }
 
@@ -127,13 +127,6 @@ exports[`renders correctly 1`] = `
   font-size: 24px;
   font-weight: bold;
   text-align: center;
-}
-
-.c3 {
-  -webkit-font-smoothing: antialiased;
-  font-family: FaktSoftPro-Normal;
-  color: #979797;
-  font-size: 18px;
 }
 
 @media screen and (min-width:780px) {
@@ -163,22 +156,15 @@ exports[`renders correctly 1`] = `
       >
         Tem vagas de garagem?
       </p>
-      <p
-        className="c3"
-        color="grey"
-        fontSize="default"
-      >
-        Seu imóvel tem vagas de garagem?
-      </p>
       <div
-        className="c4"
+        className="c3"
       >
         <div
-          className="c5"
+          className="c4"
           onChange={[Function]}
         >
           <button
-            className="c6"
+            className="c5"
             fontSize="default"
             height="tall"
             onClick={[Function]}
@@ -188,7 +174,7 @@ exports[`renders correctly 1`] = `
             Não tem
           </button>
           <button
-            className="c6"
+            className="c5"
             fontSize="default"
             height="tall"
             onClick={[Function]}
@@ -198,7 +184,7 @@ exports[`renders correctly 1`] = `
             1
           </button>
           <button
-            className="c6"
+            className="c5"
             fontSize="default"
             height="tall"
             onClick={[Function]}
@@ -208,7 +194,7 @@ exports[`renders correctly 1`] = `
             2
           </button>
           <button
-            className="c6"
+            className="c5"
             fontSize="default"
             height="tall"
             onClick={[Function]}
@@ -218,7 +204,7 @@ exports[`renders correctly 1`] = `
             3
           </button>
           <button
-            className="c6"
+            className="c5"
             fontSize="default"
             height="tall"
             onClick={[Function]}
@@ -230,14 +216,14 @@ exports[`renders correctly 1`] = `
         </div>
       </div>
       <div
-        className="c7"
+        className="c6"
       >
         <div
-          className="c8"
+          className="c7"
           width={0.4166666666666667}
         >
           <button
-            className="c9"
+            className="c8"
             fontSize="default"
             height="tall"
             onClick={[Function]}
@@ -246,11 +232,11 @@ exports[`renders correctly 1`] = `
           </button>
         </div>
         <div
-          className="c8"
+          className="c7"
           width={0.4166666666666667}
         >
           <button
-            className="c10"
+            className="c9"
             disabled={true}
             fontSize="default"
             height="tall"
