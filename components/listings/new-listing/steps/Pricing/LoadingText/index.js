@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { PoseGroup } from 'react-pose'
+import { FadeLoader } from 'react-spinners'
+import theme from '@emcasa/ui'
 import Text from '@emcasa/ui-dom/components/Text'
 import Row from '@emcasa/ui-dom/components/Row'
 import FadeInOut from 'components/shared/Animation/FadeInOut'
@@ -38,19 +40,30 @@ class LoadingText extends Component {
   render() {
     const { sentences } = this.props
     return (
-      <PoseGroup>
-        {sentences.map((sentence, index) => {
-          if (this.state.currentSentence === index) {
-            return (
-              <FadeInOut key={randomKey()}>
-                <Row width={1} justifyContent="center">
-                  <Text key={index}>{sentence}</Text>
-                </Row>
-              </FadeInOut>
-            )
-          }
-        })}
-      </PoseGroup>
+      <>
+        <PoseGroup>
+          {sentences.map((sentence, index) => {
+            if (this.state.currentSentence === index) {
+              return (
+                <FadeInOut key={randomKey()}>
+                  <Row width={1} justifyContent="center">
+                    <Text key={index}>{sentence}</Text>
+                  </Row>
+                </FadeInOut>
+              )
+            }
+          })}
+        </PoseGroup>
+        <Row mt={4} flexDirection="column" alignItems="center" width={1}>
+          <FadeLoader
+            width={10}
+            height={10}
+            margin={2}
+            radius={8}
+            color={theme.colors.pink}
+          />
+        </Row>
+      </>
     )
   }
 }
