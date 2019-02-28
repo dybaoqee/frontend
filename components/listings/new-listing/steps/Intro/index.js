@@ -14,6 +14,19 @@ const ListTitle = styled(SubTitle)`
   margin: 0;
 `
 
+const Background = styled(Row)`
+  padding-top: 0;
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  justify-content: center;
+  background-image: url(https://res.cloudinary.com/emcasa/image/upload/fl_any_format/v1542831121/background/wall-small);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: bottom;
+`
+
 class Intro extends PureComponent {
   constructor(props) {
     super(props)
@@ -28,8 +41,9 @@ class Intro extends PureComponent {
   render() {
     return (
       <div ref={this.props.hostRef}>
+      <Background>
         <Row justifyContent="center" p={4} pt={0}>
-          <Col width={[1, 1/2]}>
+          <Col width={1}>
             <Text
               fontSize="large"
               fontWeight="bold"
@@ -60,6 +74,7 @@ class Intro extends PureComponent {
             </Row>
           </Col>
         </Row>
+        </Background>
       </div>
     )
   }
