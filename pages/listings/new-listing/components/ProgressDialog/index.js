@@ -4,11 +4,12 @@ import Button from '@emcasa/ui-dom/components/Button'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
+import Container from 'components/listings/new-listing/shared/Container'
 
 class ProgressDialog extends Component {
   render() {
     return (
-      <Row m={4} justifyContent="center">
+      <Container>
         <Col width={[1, 1/2]}>
           <Row>
             <Text>Você já estava cadastrando seu imóvel da {this.props.address}. Gostaria de continuar de onde parou?</Text>
@@ -22,7 +23,7 @@ class ProgressDialog extends Component {
             </Col>
           </Row>
         </Col>
-      </Row>
+      </Container>
     )
   }
 

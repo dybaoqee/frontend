@@ -6,6 +6,7 @@ import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import Arrow from 'components/listings/new-listing/shared/Arrow'
+import Container from 'components/listings/new-listing/shared/Container'
 
 const Title = Text.withComponent('h2')
 const SubTitle = Text.withComponent('h3')
@@ -41,7 +42,7 @@ class Intro extends PureComponent {
     return (
       <div ref={this.props.hostRef}>
         <Background>
-          <Row justifyContent="center" p={4} pt={0}>
+          <Container>
             <Col width={1}>
               <Text
                 fontSize="large"
@@ -72,7 +73,7 @@ class Intro extends PureComponent {
                 </Col>
               </Row>
             </Col>
-          </Row>
+          </Container>
         </Background>
       </div>
     )

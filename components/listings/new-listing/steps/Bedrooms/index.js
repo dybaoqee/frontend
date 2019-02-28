@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 import { Formik, Field } from 'formik'
-
 import Button from '@emcasa/ui-dom/components/Button'
 import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
-import View from '@emcasa/ui-dom/components/View'
+import Container from 'components/listings/new-listing/shared/Container'
 import Text from '@emcasa/ui-dom/components/Text'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 
@@ -164,7 +163,7 @@ class Bedrooms extends Component {
     }
     return (
       <div ref={this.props.hostRef}>
-        <Row justifyContent="center" p={4} pt={0}>
+        <Container>
           <Col width={[1, 1/2]}>
             <Formik
               initialValues={{
@@ -230,7 +229,7 @@ class Bedrooms extends Component {
               )}
             />
           </Col>
-        </Row>
+        </Container>
       </div>
     )
   }

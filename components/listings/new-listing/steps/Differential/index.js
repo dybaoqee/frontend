@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Formik, Field } from 'formik'
-
 import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
@@ -10,6 +9,7 @@ import { getAddressInput } from 'lib/address'
 import { estimatePrice, getPricingInput } from 'lib/listings/pricing'
 import { getUser, hasPhoneNumber } from 'components/listings/new-listing/lib/auth'
 import {autoFocus} from 'components/listings/new-listing/lib/forms'
+import Container from 'components/listings/new-listing/shared/Container'
 
 class Differential extends Component {
   constructor(props) {
@@ -135,7 +135,7 @@ class Differential extends Component {
     }
     return (
       <div ref={this.props.hostRef}>
-        <Row justifyContent="center" p={4} pt={0}>
+        <Container>
           <Col width={[1, 1/2]}>
             <Formik
               initialValues={{
@@ -186,7 +186,7 @@ class Differential extends Component {
               )}
             />
           </Col>
-        </Row>
+        </Container>
       </div>
     )
   }

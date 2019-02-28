@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { Formik, Field } from 'formik'
 import MaskedInput from 'react-text-mask'
-
 import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
 import Select from '@emcasa/ui-dom/components/Select'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
+import Container from 'components/listings/new-listing/shared/Container'
 import {
   currencyInputMask,
   currencyToInt
@@ -88,7 +88,7 @@ class HomeDetails extends Component {
 
     return (
       <div ref={this.props.hostRef}>
-        <Row justifyContent="center" p={4} pt={0}>
+        <Container>
           <Col width={[1, 1/2]}>
             <Formik
               initialValues={{
@@ -216,7 +216,7 @@ class HomeDetails extends Component {
               )}
             />
           </Col>
-        </Row>
+        </Container>
       </div>
     )
   }

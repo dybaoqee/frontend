@@ -13,6 +13,7 @@ import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import { getAddressInput } from 'lib/address'
 import { estimatePrice, getPricingInput } from 'lib/listings/pricing'
 import {autoFocus} from 'components/listings/new-listing/lib/forms'
+import Container from 'components/listings/new-listing/shared/Container'
 import {
   SELLER_ONBOARDING_PHONE_LOGIN_START,
   SELLER_ONBOARDING_PHONE_LOGIN_SUCCESS,
@@ -168,7 +169,7 @@ class Phone extends Component {
     }
     return (
       <div ref={this.props.hostRef}>
-        <Row justifyContent="center" p={4} pt={0}>
+        <Container>
           <Col width={[1, 1/2]}>
             <Formik
               initialValues={{
@@ -268,7 +269,7 @@ class Phone extends Component {
               )}
             />
           </Col>
-        </Row>
+        </Container>
       </div>
     )
   }
