@@ -8,6 +8,12 @@ import BuyListing from 'components/listings/buy/BuyListing'
 import Benefits from 'components/listings/shared/Benefits'
 import Neighborhoods from 'components/listings/buy/Neighborhoods'
 import {desktopHeaderHeight} from 'constants/dimensions'
+import {
+  SchemaWebSite,
+  SchemaWebPage,
+  SchemaRealEstateAgent,
+  SchemaOrganization
+} from 'constants/ld-json'
 import {isMobile} from 'lib/mobile'
 import {imageUrl} from 'utils/image_url'
 import {
@@ -141,6 +147,15 @@ export default class Buy extends Component {
             imageHeight={'838'}
             url={'https://www.emcasa.com/'}
           />
+          <script type="application/ld+json">
+             {JSON.stringify(SchemaWebSite)}
+          </script>
+          <script type="application/ld+json">
+             {JSON.stringify(SchemaWebPage)}
+          </script>
+          <script type="application/ld+json">
+             {JSON.stringify(SchemaRealEstateAgent)}
+          </script>
           <MainBlock>
             <BuyListing title={heroTitle} />
           </MainBlock>
