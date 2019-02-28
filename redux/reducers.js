@@ -26,7 +26,6 @@ const initialState = {
   },
   homeDetails: {
     type: null,
-    floor: null,
     area: null,
     maintenanceFee: null
   },

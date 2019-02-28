@@ -26,7 +26,6 @@ class HomeDetails extends Component {
 
   state = {
     type: null,
-    floor: null,
     area: null,
     maintenanceFee: null
   }
@@ -44,7 +43,6 @@ class HomeDetails extends Component {
     if (homeDetails) {
       this.setState({
         type: homeDetails.type,
-        floor: homeDetails.floor,
         area: homeDetails.area,
         maintenanceFee: homeDetails.maintenanceFee
       })
@@ -76,15 +74,13 @@ class HomeDetails extends Component {
 
   render() {
     const { homeDetails } = this.props
-    let type, floor, area, maintenanceFee
+    let type, area, maintenanceFee
     if (homeDetails) {
       type = homeDetails.type
-      floor = homeDetails.floor
       area = homeDetails.area
       maintenanceFee = homeDetails.maintenanceFee
     }
     const selectedHomeType = this.state.type !== null && this.state.type !== HOME_TYPES.placeholder
-    const showFloorNumber = this.state.type !== null && this.state.type !== HOME_TYPES.house
 
     return (
       <div ref={this.props.hostRef}>
@@ -93,7 +89,6 @@ class HomeDetails extends Component {
             <Formik
               initialValues={{
                 type: type,
-                floor: floor,
                 area: area,
                 maintenanceFee: maintenanceFee
               }}
@@ -133,7 +128,7 @@ class HomeDetails extends Component {
                   {selectedHomeType &&
                     <>
                       <Row mb={4}>
-                        <Col width={1}>
+                        <Col width={1/2} mr={2}>
                           <Field
                             name="area"
                             validate={this.validateArea}
@@ -153,13 +148,7 @@ class HomeDetails extends Component {
                                 />
                             )}/>
                         </Col>
-                      </Row>
-                      <Row>
-                        <Col width={1/2} mb={1}><Text inline fontSize="small">Valor mensal do condomínio</Text></Col>
-                        {showFloorNumber && <Row alignItems="flex-end" width={1/2}><Col width={1} ml={2} mb={1}><Text inline fontSize="small">Nº andar</Text></Col></Row>}
-                      </Row>
-                      <Row mb={4}>
-                        <Col width={showFloorNumber ? 1/2 : 1}>
+                        <Col width={1/2}>
                           <Field
                             name="maintenanceFee"
                             render={() =>
@@ -168,7 +157,7 @@ class HomeDetails extends Component {
                                 render={(ref, props) =>
                                   <Input
                                     {...props}
-                                    hideLabelView
+                                    label="Valor mensal do condomínio"
                                     placeholder="Cond (R$)"
                                     error={errors.maintenanceFee}
                                     defaultValue={maintenanceFee}
@@ -184,26 +173,6 @@ class HomeDetails extends Component {
                               />
                             }/>
                         </Col>
-                        {showFloorNumber && (
-                          <Col width={1/2} ml={2}>
-                            <Field
-                              name="floor"
-                              render={() => (
-                                <Input
-                                  hideLabelView
-                                  placeholder="Nº andar"
-                                  type="number"
-                                  error={errors.floor}
-                                  defaultValue={floor}
-                                  onChange={(e) => {
-                                    const { value } = e.target
-                                    setFieldValue('floor', value)
-                                    this.setState({floor: value})
-                                  }}
-                                />
-                              )}/>
-                          </Col>
-                        )}
                       </Row>
                     </>
                   }
