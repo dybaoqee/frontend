@@ -12,7 +12,8 @@ import {
   SchemaWebSite,
   SchemaWebPage,
   SchemaRealEstateAgent,
-  SchemaOrganization
+  SchemaOrganization,
+  SchemaBreadcrumbList
 } from 'constants/ld-json'
 import {isMobile} from 'lib/mobile'
 import {imageUrl} from 'utils/image_url'
@@ -147,18 +148,26 @@ export default class Buy extends Component {
             imageHeight={'838'}
             url={'https://www.emcasa.com/'}
           />
-          <script type="application/ld+json">
-             {JSON.stringify(SchemaWebSite)}
-          </script>
-          <script type="application/ld+json">
-             {JSON.stringify(SchemaWebPage)}
-          </script>
-          <script type="application/ld+json">
-             {JSON.stringify(SchemaRealEstateAgent)}
-          </script>
-          <script type="application/ld+json">
-             {JSON.stringify(SchemaOrganization)}
-          </script>
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaWebSite) }}
+            />
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaWebPage) }}
+            />
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaRealEstateAgent) }}
+            />
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaOrganization) }}
+            />
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaBreadcrumbList) }}
+            />
           <MainBlock>
             <BuyListing title={heroTitle} />
           </MainBlock>
