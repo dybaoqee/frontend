@@ -6,6 +6,11 @@ import globalStyles from 'styles/global'
 const RD_STATION_SCRIPT =
   'https://d335luupugsy2.cloudfront.net/js/loader-scripts/10ac8a83-57de-4007-b3e7-532ac8ee60ac-loader.js'
 
+const CRAWLERS_USER_AGENT = [
+  'facebookexternalhit',
+  'WhatsApp'
+]
+
 export default class AppDocument extends Document {
   static getInitialProps({req, renderPage}) {
     const sheet = new ServerStyleSheet()
@@ -20,7 +25,7 @@ export default class AppDocument extends Document {
   render() {
     const {styleTags, userAgent, prod} = this.props
     const currentUser = get(this, 'props.__NEXT_DATA__.props.initialProps.currentUser')
-    const includeStyles = !userAgent.startsWith('facebookexternalhit')
+    const includeStyles = !CRAWLERS_USER_AGENT.some(ua => userAgent.startsWith(ua))
     let isAdmin = currentUser && currentUser.isAdmin
 
     return (
