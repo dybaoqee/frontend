@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Formik, Field } from 'formik'
-
+import Container from 'components/listings/new-listing/shared/Container'
 import { ADDRESS_IS_COVERED } from 'graphql/listings/queries'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
@@ -130,7 +130,7 @@ class AddressInput extends Component {
     }
     return (
       <div ref={this.props.hostRef}>
-        <Row justifyContent="center" p={4} pt={0}>
+        <Container>
           <Col width={[1, 1/2]}>
             <Formik
               initialValues={{
@@ -209,7 +209,7 @@ class AddressInput extends Component {
               )}
             />
           </Col>
-        </Row>
+        </Container>
       </div>
     )
   }

@@ -9,6 +9,7 @@ import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import {autoFocus} from 'components/listings/new-listing/lib/forms'
+import Container from 'components/listings/new-listing/shared/Container'
 import {
   currencyInputMask,
   currencyToInt,
@@ -214,7 +215,7 @@ class Pricing extends Component {
     const showEditingPriceLabels = this.state.suggestedPrice && this.state.editingPrice
     return (
       <div ref={this.props.hostRef}>
-        <Row justifyContent="center" p={4} pt={0}>
+        <Container>
           <Col width={[1, 1/2]}>
             <Formik
               initialValues={{
@@ -297,7 +298,7 @@ class Pricing extends Component {
               )}
             />
           </Col>
-        </Row>
+        </Container>
       </div>
     )
   }

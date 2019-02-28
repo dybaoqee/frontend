@@ -11,6 +11,7 @@ import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import { getAddressInput } from 'lib/address'
 import { getFullTourDateDisplay } from 'components/listings/new-listing/lib/times'
+import Container from 'components/listings/new-listing/shared/Container'
 import {
   SELLER_ONBOARDING_SERVICES_SCHEDULE,
   SELLER_ONBOARDING_SERVICES_SKIP,
@@ -220,7 +221,7 @@ class Services extends Component {
     const tourScheduled = tour && tour.day && tour.time
     return (
       <div ref={this.props.hostRef}>
-        <Row justifyContent="center" p={4} pt={0}>
+        <Container>
           <Col width={[1, 1/2]}>
             <Formik
               render={() => (
@@ -280,7 +281,7 @@ class Services extends Component {
               )}
             />
           </Col>
-        </Row>
+        </Container>
       </div>
     )
   }

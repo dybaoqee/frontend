@@ -1,12 +1,12 @@
 import React, { PureComponent } from 'react'
 import Router from 'next/router'
 import routerEvents from 'next-router-events'
-
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Icon from '@emcasa/ui-dom/components/Icon'
 import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
+import Container from 'components/listings/new-listing/shared/Container'
 
 class NotifyCoverageSuccess extends PureComponent {
   constructor(props) {
@@ -30,7 +30,7 @@ class NotifyCoverageSuccess extends PureComponent {
   render() {
     return (
       <div ref={this.props.hostRef}>
-        <Row justifyContent="center" p={4} pt={0}>
+        <Container>
           <Col width={[1, 1/2]}>
             <Text
               fontSize="large"
@@ -46,7 +46,7 @@ class NotifyCoverageSuccess extends PureComponent {
             </Row>
             <Button active fluid height="tall" onClick={this.finish}>OK</Button>
           </Col>
-        </Row>
+        </Container>
       </div>
     )
   }

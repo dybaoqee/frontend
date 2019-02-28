@@ -9,6 +9,7 @@ import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import CustomTime from './components/CustomTime'
 import TourMonths from './components/TourMonths'
 import TourDays from './components/TourDays'
+import Container from 'components/listings/new-listing/shared/Container'
 import {
   getTourDays,
   getTourMonths,
@@ -171,7 +172,7 @@ class Tour extends Component {
 
     return (
       <div ref={this.props.hostRef}>
-        <Row justifyContent="center" p={4} pt={0}>
+        <Container>
           <Col width={[1, 1/2]}>
             <Formik
               initialValues={{
@@ -274,7 +275,7 @@ class Tour extends Component {
               )}
             />
           </Col>
-        </Row>
+        </Container>
       </div>
     )
   }

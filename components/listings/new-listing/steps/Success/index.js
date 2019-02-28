@@ -7,12 +7,10 @@ import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
-import Icon from '@emcasa/ui-dom/components/Icon'
 import { intToCurrency } from 'utils/text-utils'
-import Link from 'components/listings/new-listing/shared/Link'
-import Ticket from 'components/listings/new-listing/shared/Ticket'
 import { getFullTourDateDisplay } from 'components/listings/new-listing/lib/times'
 import { Box } from './styles'
+import Container from 'components/listings/new-listing/shared/Container'
 
 const ROUTE_HOME = '/'
 const ROUTE_MY_LISTINGS = '/meu-perfil'
@@ -55,19 +53,19 @@ class Success extends PureComponent {
     const { userPrice } = pricing
     return (
       <div ref={this.props.hostRef}>
-        <Row justifyContent="center" p={4} pt={0}>
+        <Container>
           <Col width={[1, 1/2]}>
             <Text
               fontSize="large"
               fontWeight="bold"
               textAlign="center">
-              Parabéns, seu imóvel foi salvo com sucesso!
+              Parabéns, seu imóvel foi salvo com sucesso.
             </Text>
             <Row>
               <Text color="grey">
-                Muito obrigado por confiar na EmCasa!
-                {day ? ' Aguarde o contato do nosso time por telefone em breve para confirmar a visita.'
-                     : ' Aguarde o contato do nosso time por telefone em breve.'}</Text>
+                Muito obrigado por confiar na EmCasa.
+                {day ? ' Aguarde o contato do nosso especialista para confirmar a visita.'
+                     : ' Aguarde o contato do nosso especialista.'}</Text>
             </Row>
             <Box justifyContent="center" mb={4}>
               <View p={4}>
@@ -123,7 +121,7 @@ class Success extends PureComponent {
               </Col>
             </Row>
           </Col>
-        </Row>
+        </Container>
       </div>
     )
   }

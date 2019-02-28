@@ -5,20 +5,7 @@ exports[`renders correctly 1`] = `
   padding: 20px;
 }
 
-.c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  padding: 20px;
-  padding-top: 0px;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-}
-
-.c3 {
+.c1 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -45,7 +32,7 @@ exports[`renders correctly 1`] = `
   margin-bottom: 10px;
 }
 
-.c1 {
+.c2 {
   width: 100%;
 }
 
@@ -72,7 +59,7 @@ exports[`renders correctly 1`] = `
   width: 100%;
 }
 
-.c2 {
+.c3 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
   color: #3c4858;
@@ -160,18 +147,26 @@ exports[`renders correctly 1`] = `
   border-radius: 2px;
 }
 
+.c0 {
+  padding: 80px 20px 20px 20px;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
 @media screen and (min-width:780px) {
-  .c1 {
+  .c2 {
     width: 50%;
   }
 }
 
 <div>
   <div
-    className="c0"
+    className="c0 c1"
   >
     <div
-      className="c1"
+      className="c2"
       width={
         Array [
           1,
@@ -180,23 +175,23 @@ exports[`renders correctly 1`] = `
       }
     >
       <p
-        className="c2"
+        className="c3"
         color="dark"
         fontSize="large"
         fontWeight="bold"
       >
-        Parabéns, seu imóvel foi salvo com sucesso!
+        Parabéns, seu imóvel foi salvo com sucesso.
       </p>
       <div
-        className="c3"
+        className="c1"
       >
         <p
           className="c4"
           color="grey"
           fontSize="default"
         >
-          Muito obrigado por confiar na EmCasa!
-           Aguarde o contato do nosso time por telefone em breve para confirmar a visita.
+          Muito obrigado por confiar na EmCasa.
+           Aguarde o contato do nosso especialista para confirmar a visita.
         </p>
       </div>
       <div
@@ -206,7 +201,7 @@ exports[`renders correctly 1`] = `
           className="c7"
         >
           <div
-            className="c3"
+            className="c1"
           >
             <div
               className=""
@@ -237,7 +232,7 @@ exports[`renders correctly 1`] = `
             </div>
           </div>
           <div
-            className="c3"
+            className="c1"
           >
             <div
               className="c11"
@@ -265,7 +260,7 @@ exports[`renders correctly 1`] = `
             </div>
           </div>
           <div
-            className="c3"
+            className="c1"
           >
             <div
               className="c11"
@@ -295,7 +290,7 @@ exports[`renders correctly 1`] = `
             </div>
           </div>
           <div
-            className="c3"
+            className="c1"
           >
             <div
               className="c11"
@@ -308,7 +303,7 @@ exports[`renders correctly 1`] = `
               width={0.5}
             >
               <div
-                className="c3"
+                className="c1"
               >
                 <div
                   className="c12"
@@ -340,7 +335,7 @@ exports[`renders correctly 1`] = `
         </div>
       </div>
       <div
-        className="c3"
+        className="c1"
       >
         <div
           className="c15"
@@ -357,7 +352,7 @@ exports[`renders correctly 1`] = `
         </div>
       </div>
       <div
-        className="c3"
+        className="c1"
       >
         <div
           className="c17"

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Router from 'next/router'
-import Head from 'next/head'
 import * as Sentry from '@sentry/browser'
 import { connect } from 'react-redux'
 import { PoseGroup } from 'react-pose'
@@ -41,7 +40,8 @@ class NewListing extends Component {
 
   static async getInitialProps(context) {
     return {
-      renderFooter: false
+      renderFooter: false,
+      transparentHeader: true
     }
   }
 
