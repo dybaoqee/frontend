@@ -107,6 +107,9 @@ class ListingPanel extends React.Component {
             <Case variant="interested">
               <Button fluid height="tall" active onClick={handleOpenPopup}>Tenho interesse</Button>
             </Case>
+            <Case variant="specialist">
+              <Button fluid height="tall" active onClick={handleOpenPopup}>Falar com especialista</Button>
+            </Case>
           </Flagr>
         </View>
       </Container>

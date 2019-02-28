@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Formik, Field } from 'formik'
 import { get } from 'lodash'
-
 import AccountKit from 'components/shared/Auth/AccountKit'
 import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
@@ -11,6 +10,12 @@ import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import { getAddressInput } from 'lib/address'
 import { estimatePrice, getPricingInput } from 'lib/listings/pricing'
 import {autoFocus} from 'components/listings/new-listing/lib/forms'
+import {
+  SELLER_ONBOARDING_PHONE_LOGIN_START,
+  SELLER_ONBOARDING_PHONE_LOGIN_SUCCESS,
+  SELLER_ONBOARDING_PHONE_LOGIN_CANCEL,
+  log
+} from 'lib/logging'
 
 const BRAZIL_CODE = '55'
 
@@ -61,6 +66,7 @@ class Phone extends Component {
 
   onLoginSuccess(userInfo) {
     if (!userInfo) {
+      log(SELLER_ONBOARDING_PHONE_LOGIN_CANCEL)
       this.setState({loading: false})
       return
     }
@@ -82,6 +88,7 @@ class Phone extends Component {
       email
     })
 
+    log(SELLER_ONBOARDING_PHONE_LOGIN_SUCCESS)
     if (name) {
       this.estimatePrice({name, email})
     } else {
@@ -259,6 +266,7 @@ class Phone extends Component {
                       <NavButtons
                         previousStep={this.previousStep}
                         onSubmit={() => {
+                          log(SELLER_ONBOARDING_PHONE_LOGIN_START)
                           this.setState({loading: true}, () => {
                             signIn()
                           })
