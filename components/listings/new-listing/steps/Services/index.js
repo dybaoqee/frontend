@@ -95,7 +95,7 @@ class Services extends Component {
   getListingInput() {
     const { location, homeDetails, rooms, garage, differential, phone, pricing } = this.props
     const { addressData, complement } = location
-    const { area, floor, type, maintenanceFee, propertyTax } = homeDetails
+    const { area, floor, type, maintenanceFee } = homeDetails
     const { bathrooms, bedrooms, suites } = rooms
     const { spots } = garage
     const { userPrice } = pricing
@@ -114,7 +114,6 @@ class Services extends Component {
       maintenanceFee: parseInt(maintenanceFee),
       phone: internationalCode + localAreaCode + number,
       price: userPrice,
-      propertyTax: parseInt(propertyTax),
       rooms: bedrooms,
       suites,
       type
@@ -234,18 +233,14 @@ class Services extends Component {
                     Um de nossos agentes fará uma visita ao seu imóvel para tiramos fotos com qualidade profissional e fazer um Tour Virtual 3D sem custo nenhum. Diga-nos aqui qual o melhor horário pra você:
                   </Text>
                   <Row justifyContent="center" flexWrap="wrap">
-                    <Col mr={2}>
-                      <ImageLabel
-                        image="tour"
-                        text="Tour Virtual 3D"
-                      />
-                    </Col>
-                    <Col>
-                      <ImageLabel
-                        image="camera"
-                        text="Fotos Profissionais"
-                      />
-                    </Col>
+                    <video
+                      style={{width: "100%"}}
+                      src="https://s3.amazonaws.com/emcasa-ui/videos/tour-compressed.mp4"
+                      type="video/mp4"
+                      loop="loop"
+                      muted="muted"
+                      autoplay="autoplay">
+                    </video>
                   </Row>
                   <Row>
                     <Col width={1} mt={2}>

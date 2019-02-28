@@ -20,7 +20,6 @@ class HomeDetails extends Component {
     this.nextStep = this.nextStep.bind(this)
     this.previousStep = this.previousStep.bind(this)
     this.validateArea = this.validateArea.bind(this)
-    this.validatePropertyTax = this.validatePropertyTax.bind(this)
     this.validateType = this.validateType.bind(this)
     this.updateStateFromProps = this.updateStateFromProps.bind(this)
   }
@@ -29,8 +28,7 @@ class HomeDetails extends Component {
     type: null,
     floor: null,
     area: null,
-    maintenanceFee: null,
-    propertyTax: null
+    maintenanceFee: null
   }
 
   componentDidMount() {
@@ -48,8 +46,7 @@ class HomeDetails extends Component {
         type: homeDetails.type,
         floor: homeDetails.floor,
         area: homeDetails.area,
-        maintenanceFee: homeDetails.maintenanceFee,
-        propertyTax: homeDetails.propertyTax
+        maintenanceFee: homeDetails.maintenanceFee
       })
     }
   }
@@ -71,12 +68,6 @@ class HomeDetails extends Component {
     }
   }
 
-  validatePropertyTax(value) {
-    if (!value) {
-      return "É necessário informar o valor do IPTU do imóvel."
-    }
-  }
-
   validateType(value) {
     if (!value || value === HOME_TYPES.placeholder) {
       return "É necessário informar o tipo do imóvel."
@@ -85,13 +76,12 @@ class HomeDetails extends Component {
 
   render() {
     const { homeDetails } = this.props
-    let type, floor, area, maintenanceFee, propertyTax
+    let type, floor, area, maintenanceFee
     if (homeDetails) {
       type = homeDetails.type
       floor = homeDetails.floor
       area = homeDetails.area
       maintenanceFee = homeDetails.maintenanceFee
-      propertyTax = homeDetails.propertyTax
     }
     const selectedHomeType = this.state.type !== null && this.state.type !== HOME_TYPES.placeholder
     const showFloorNumber = this.state.type !== null && this.state.type !== HOME_TYPES.house
@@ -105,11 +95,10 @@ class HomeDetails extends Component {
                 type: type,
                 floor: floor,
                 area: area,
-                maintenanceFee: maintenanceFee,
-                propertyTax: propertyTax
+                maintenanceFee: maintenanceFee
               }}
               isInitialValid={() => {
-                return area !== null && propertyTax !== null
+                return area !== null
               }}
               render={({isValid, setFieldTouched, setFieldValue, errors}) => (
                 <>
@@ -144,7 +133,7 @@ class HomeDetails extends Component {
                   {selectedHomeType &&
                     <>
                       <Row mb={4}>
-                        <Col width={1/2}>
+                        <Col width={1}>
                           <Field
                             name="area"
                             validate={this.validateArea}
@@ -163,33 +152,6 @@ class HomeDetails extends Component {
                                 }}
                                 />
                             )}/>
-                        </Col>
-                        <Col width={1/2} ml={2}>
-                          <Field
-                            name="propertyTax"
-                            validate={this.validatePropertyTax}
-                            render={({form}) =>
-                              <MaskedInput
-                                mask={currencyInputMask}
-                                render={(ref, props) =>
-                                  <Input
-                                    {...props}
-                                    label="Valor do IPTU anual*"
-                                    placeholder="IPTU (R$/ano)"
-                                    error={form.touched.propertyTax ? errors.propertyTax : null}
-                                    defaultValue={propertyTax}
-                                    type="tel"
-                                    ref={(input) => ref(input)}
-                                    onChange={(e) => {
-                                      const value = currencyToInt(e.target.value)
-                                      setFieldValue('propertyTax', value)
-                                      setFieldTouched('propertyTax')
-                                      this.setState({propertyTax: value})
-                                    }}
-                                  />
-                                }
-                              />
-                            }/>
                         </Col>
                       </Row>
                       <Row>

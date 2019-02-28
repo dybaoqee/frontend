@@ -28,8 +28,7 @@ const initialState = {
     type: null,
     floor: null,
     area: null,
-    maintenanceFee: null,
-    propertyTax: null
+    maintenanceFee: null
   },
   rooms: {
     bedrooms: null,

@@ -52,6 +52,10 @@ class NewListing extends Component {
   }
 
   componentDidMount() {
+    // Tag as new seller on-boarding version
+    let identify = new amplitude.Identify().set('seller-onboarding-version', '2')
+    amplitude.identify(identify)
+
     // Browser back button
     Router.beforePopState(({ url, as, options }) => {
       const { navigateTo } = this.props

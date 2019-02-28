@@ -189,7 +189,7 @@ exports[`renders correctly 1`] = `
         color="grey"
         fontSize="default"
       >
-        Conte pra gente algum diferencial do seu imóvel.
+        Conte pra gente.
       </p>
       <div
         className="c4"
