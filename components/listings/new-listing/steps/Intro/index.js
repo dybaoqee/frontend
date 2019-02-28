@@ -15,7 +15,6 @@ const ListTitle = styled(SubTitle)`
 `
 
 const Background = styled(Row)`
-  padding-top: 0;
   display: flex;
   height: 100vh;
   width: 100vw;
@@ -41,39 +40,39 @@ class Intro extends PureComponent {
   render() {
     return (
       <div ref={this.props.hostRef}>
-      <Background>
-        <Row justifyContent="center" p={4} pt={0}>
-          <Col width={1}>
-            <Text
-              fontSize="large"
-              fontWeight="bold"
-              textAlign="center"
-            >
-              Como funciona vender seu imóvel aqui na EmCasa?
-            </Text>
-            <View mb={2}>
-              <Arrow /><ListTitle fontWeight="normal" inline>Cadastre as informações básicas do imóvel no nosso site</ListTitle>
-            </View>
-            <View mb={2}>
-              <Arrow /><ListTitle fontWeight="normal" inline>Visualize nossa avaliação online do seu imóvel</ListTitle>
-            </View>
-            <View mb={2}>
-              <Arrow /><ListTitle fontWeight="normal" inline>Agende Tour Virtual 3D ou fotos profissionais sem custo</ListTitle>
-            </View>
-            <View mb={2}>
-              <Arrow /><ListTitle fontWeight="normal" inline>Cuidamos de toda burocracia, contratos e documentação</ListTitle>
-            </View>
-           <Row justifyContent="center" mt={4}>
-              <Col width={[1, 1/2]}>
-                <Button
-                  fluid
-                  active
-                  height="tall"
-                  onClick={this.nextStep}>Quero Vender</Button>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
+        <Background>
+          <Row justifyContent="center" p={4} pt={0}>
+            <Col width={1}>
+              <Text
+                fontSize="large"
+                fontWeight="bold"
+                textAlign="center"
+              >
+                Como funciona vender seu imóvel aqui na EmCasa?
+              </Text>
+              <View mb={2}>
+                <Arrow /><ListTitle fontWeight="normal" inline>Cadastre as informações básicas do imóvel no nosso site</ListTitle>
+              </View>
+              <View mb={2}>
+                <Arrow /><ListTitle fontWeight="normal" inline>Visualize nossa avaliação online do seu imóvel</ListTitle>
+              </View>
+              <View mb={2}>
+                <Arrow /><ListTitle fontWeight="normal" inline>Agende Tour Virtual 3D ou fotos profissionais sem custo</ListTitle>
+              </View>
+              <View mb={2}>
+                <Arrow /><ListTitle fontWeight="normal" inline>Cuidamos de toda burocracia, contratos e documentação</ListTitle>
+              </View>
+            <Row justifyContent="center" mt={4}>
+                <Col width={[1, 1/2]}>
+                  <Button
+                    fluid
+                    active
+                    height="tall"
+                    onClick={this.nextStep}>Quero Vender</Button>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
         </Background>
       </div>
     )
