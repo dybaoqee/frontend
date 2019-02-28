@@ -6,11 +6,6 @@ import LikeButton from 'components/shared/Common/Buttons/Like'
 import Button from '@emcasa/ui-dom/components/Button'
 import Text from '@emcasa/ui-dom/components/Text'
 import View from '@emcasa/ui-dom/components/View'
-import Flagr from 'components/shared/Flagr'
-import Case from 'components/shared/Flagr/Case'
-import {
-  TEST_SCHEDULE_VISIT_CTA
-} from 'components/shared/Flagr/tests'
 import {
   Container,
   PricesContainer,
@@ -100,17 +95,7 @@ class ListingPanel extends React.Component {
           }
         </PricesContainer>
         <View mt={4}>
-          <Flagr flagKey={TEST_SCHEDULE_VISIT_CTA} flagrFlags={this.props.flagrFlags}>
-            <Case variant="default">
-              <Button fluid height="tall" active onClick={handleOpenPopup}>Marcar visita</Button>
-            </Case>
-            <Case variant="interested">
-              <Button fluid height="tall" active onClick={handleOpenPopup}>Tenho interesse</Button>
-            </Case>
-            <Case variant="specialist">
-              <Button fluid height="tall" active onClick={handleOpenPopup}>Falar com especialista</Button>
-            </Case>
-          </Flagr>
+          <Button fluid height="tall" active onClick={handleOpenPopup}>Falar com especialista</Button>
         </View>
       </Container>
     )
