@@ -119,7 +119,7 @@ const SchemaBreadcrumbList = {
       "@type": "ListItem",
       "position": 1,
       "item": {
-        "@id": "http://www.emcasa.com/",
+        "@id": "http://www.emcasa.com",
         "name": "Página Inicial"
       }
     },
@@ -143,7 +143,7 @@ const SchemaBreadcrumbList = {
       "@type": "ListItem",
       "position": 4,
       "item": {
-        "@id": "http://blog.emcasa.com/",
+        "@id": "http://blog.emcasa.com",
         "name": "Blog"
       }
     },
@@ -151,7 +151,7 @@ const SchemaBreadcrumbList = {
       "@type": "ListItem",
       "position": 4,
       "item": {
-        "@id": "https://jobs.emcasa.com/",
+        "@id": "https://jobs.emcasa.com",
         "name": "Trabalhe Conosco"
       }
     }
