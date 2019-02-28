@@ -59,13 +59,13 @@ class Success extends PureComponent {
               fontSize="large"
               fontWeight="bold"
               textAlign="center">
-              Parabéns, seu imóvel foi salvo com sucesso!
+              Parabéns, seu imóvel foi salvo com sucesso.
             </Text>
             <Row>
               <Text color="grey">
-                Muito obrigado por confiar na EmCasa!
-                {day ? ' Aguarde o contato do nosso time por telefone em breve para confirmar a visita.'
-                     : ' Aguarde o contato do nosso time por telefone em breve.'}</Text>
+                Muito obrigado por confiar na EmCasa.
+                {day ? ' Aguarde o contato do nosso especialista para confirmar a visita.'
+                     : ' Aguarde o contato do nosso especialista.'}</Text>
             </Row>
             <Box justifyContent="center" mb={4}>
               <View p={4}>
