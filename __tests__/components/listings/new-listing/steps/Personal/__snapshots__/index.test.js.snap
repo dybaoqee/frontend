@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly 1`] = `
-.c2 {
+.c3 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
   color: #3c4858;
@@ -10,7 +10,7 @@ exports[`renders correctly 1`] = `
   text-align: center;
 }
 
-.c3 {
+.c4 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
   color: #979797;
@@ -83,20 +83,7 @@ exports[`renders correctly 1`] = `
   color: #8492a6;
 }
 
-.c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  padding: 20px;
-  padding-top: 0px;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-}
-
-.c4 {
+.c1 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -115,7 +102,7 @@ exports[`renders correctly 1`] = `
   justify-content: space-between;
 }
 
-.c1 {
+.c2 {
   width: 100%;
 }
 
@@ -172,18 +159,26 @@ exports[`renders correctly 1`] = `
   background-color: #ffffff;
 }
 
+.c0 {
+  padding: 80px 20px 20px 20px;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
 @media screen and (min-width:780px) {
-  .c1 {
+  .c2 {
     width: 50%;
   }
 }
 
 <div>
   <div
-    className="c0"
+    className="c0 c1"
   >
     <div
-      className="c1"
+      className="c2"
       width={
         Array [
           1,
@@ -192,7 +187,7 @@ exports[`renders correctly 1`] = `
       }
     >
       <p
-        className="c2"
+        className="c3"
         color="dark"
         fontSize="large"
         fontWeight="bold"
@@ -200,14 +195,14 @@ exports[`renders correctly 1`] = `
         Qual seu nome e e-mail?
       </p>
       <p
-        className="c3"
+        className="c4"
         color="grey"
         fontSize="default"
       >
         Não se preocupe, não vamos encher sua caixa de spam.
       </p>
       <div
-        className="c4"
+        className="c1"
       >
         <div
           className="c5"
@@ -233,7 +228,7 @@ exports[`renders correctly 1`] = `
         </div>
       </div>
       <div
-        className="c4"
+        className="c1"
       >
         <div
           className="c5"
