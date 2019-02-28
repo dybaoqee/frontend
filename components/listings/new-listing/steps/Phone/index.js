@@ -2,10 +2,13 @@ import React, { Component } from 'react'
 import { Formik, Field } from 'formik'
 import { get } from 'lodash'
 import AccountKit from 'components/shared/Auth/AccountKit'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import faWhatsApp from '@fortawesome/fontawesome-free-brands/faWhatsapp'
 import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
+import View from '@emcasa/ui-dom/components/View'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import { getAddressInput } from 'lib/address'
 import { estimatePrice, getPricingInput } from 'lib/listings/pricing'
@@ -188,35 +191,15 @@ class Phone extends Component {
                   <Row>
                     <Col width={3/12} mr={5}>
                       <Field
-                        name="internationalCode"
-                        validate={this.validateInternationalCode}
-                        render={({form}) => (
-                          <Input
-                            hideLabelView
-                            type="tel"
-                            placeholder="DDI*"
-                            error={form.touched.internationalCode ? errors.internationalCode : null}
-                            defaultValue={internationalCode}
-                            onChange={(e) => {
-                              const { value } = e.target
-                              setFieldValue('internationalCode', value)
-                              setFieldTouched('internationalCode')
-                              this.setState({internationalCode: value})
-                            }}
-                          />
-                        )}/>
-                    </Col>
-                    <Col width={3/12} mr={5}>
-                      <Field
                         name="localAreaCode"
                         validate={this.validateLocalAreaCode}
                         render={({form}) => (
                           <Input
                             hideLabelView
+                            hideErrorView
                             type="tel"
                             ref={this.dddField}
                             placeholder="DDD*"
-                            error={form.touched.localAreaCode ? errors.localAreaCode : null}
                             defaultValue={localAreaCode}
                             onChange={(e) => {
                               const { value } = e.target
@@ -237,10 +220,10 @@ class Phone extends Component {
                         render={({form}) => (
                           <Input
                             hideLabelView
+                            hideErrorView
                             type="tel"
                             ref={this.phoneNumberField}
                             placeholder="Celular*"
-                            error={form.touched.number ? errors.number : null}
                             defaultValue={number}
                             maxLength={9}
                             onChange={(e) => {
@@ -252,6 +235,11 @@ class Phone extends Component {
                           />
                         )}/>
                     </Col>
+                  </Row>
+                  <Row alignItems="center">
+                    <Text color="grey">O contato inicial será feito pelo WhatsApp.</Text>
+                    <View mr={3}></View>
+                    <FontAwesomeIcon icon={faWhatsApp} size="2x" color="#22cd5b" />
                   </Row>
                   <Text color="red">{this.state.error}</Text>
                   <AccountKit

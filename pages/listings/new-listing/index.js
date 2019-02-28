@@ -116,13 +116,12 @@ class NewListing extends Component {
       this.setState({
         checkedProgress: true
       })
-      const { updateLocation, resetStore, navigateTo } = this.props
+      const { updateLocation, resetStore } = this.props
       resetStore()
       updateLocation({
         address: sellerAddressFormatted,
         addressData: JSON.parse(sellerAddressData)
       })
-      navigateTo('addressInput')
     }
   }
 

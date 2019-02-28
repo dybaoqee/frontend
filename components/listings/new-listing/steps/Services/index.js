@@ -9,15 +9,17 @@ import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
-import ImageLabel from 'components/listings/new-listing/shared/ImageLabel'
 import { getAddressInput } from 'lib/address'
-import { SchedulingButton } from './styles'
 import { getFullTourDateDisplay } from 'components/listings/new-listing/lib/times'
 import {
   SELLER_ONBOARDING_SERVICES_SCHEDULE,
   SELLER_ONBOARDING_SERVICES_SKIP,
   log
 } from 'lib/logging'
+import {
+  SchedulingButton,
+  VideoContainer
+} from './styles'
 
 class Services extends Component {
   constructor(props) {
@@ -227,12 +229,12 @@ class Services extends Component {
                     fontSize="large"
                     fontWeight="bold"
                     textAlign="center">
-                    Agende uma visita com nossos especialistas
+                    Podemos visitar seu imóvel?
                   </Text>
                   <Text color="grey">
-                    Um de nossos agentes fará uma visita ao seu imóvel para tiramos fotos com qualidade profissional e fazer um Tour Virtual 3D sem custo nenhum. Diga-nos aqui qual o melhor horário pra você:
+                    Nossos especialistas vão tirar fotos profissionais e fazer um Tour Virtual 3D sem custo nenhum.
                   </Text>
-                  <Row justifyContent="center" flexWrap="wrap">
+                  <VideoContainer>
                     <video
                       style={{width: "100%"}}
                       src="https://s3.amazonaws.com/emcasa-ui/videos/tour-compressed.mp4"
@@ -241,10 +243,10 @@ class Services extends Component {
                       muted="muted"
                       autoplay="autoplay">
                     </video>
-                  </Row>
+                  </VideoContainer>
                   <Row>
                     <Col width={1} mt={2}>
-                    <View><Text inline fontSize="small">Qual o melhor dia e horário pra você?</Text></View>
+                    <View><Text inline fontSize="small">Qual o melhor dia e horário?</Text></View>
                     <SchedulingButton
                       height="tall"
                       fluid

@@ -4,6 +4,7 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faCalendar from '@fortawesome/fontawesome-pro-regular/faCalendarAlt'
 import View from '@emcasa/ui-dom/components/View'
 import Button from '@emcasa/ui-dom/components/Button'
+import Row from '@emcasa/ui-dom/components/Row'
 
 const StyledSchedulingButton = styled(Button)`
   display: flex;
@@ -25,6 +26,16 @@ const SchedulingButton = (props) => {
   )
 }
 
+const VideoContainer = styled(Row)`
+  justify-content: center;
+  flex-wrap: wrap;
+
+  @media screen and (max-width: ${theme.breakpoints[0]}) {
+    align-items: center;
+  }
+`
+
 export {
-  SchedulingButton
+  SchedulingButton,
+  VideoContainer
 }
