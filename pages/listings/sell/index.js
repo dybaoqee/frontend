@@ -9,6 +9,12 @@ import SellListing from 'components/listings/sell/SellListing'
 import Benefits from 'components/listings/shared/Benefits'
 import HowItWorks from 'components/listings/sell/HowItWorks'
 import {desktopHeaderHeight} from 'constants/dimensions'
+import {
+  SchemaWebSite,
+  SchemaRealEstateAgent,
+  SchemaOrganization,
+  SchemaBreadcrumbList
+} from 'constants/ld-json'
 import {isMobile} from 'lib/mobile'
 import {imageUrl} from 'utils/image_url'
 import {
@@ -143,6 +149,22 @@ export default class Sell extends Component {
             imageWidth={'1476'}
             imageHeight={'838'}
             url={'https://www.emcasa.com/vender'}
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaWebSite) }}
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaRealEstateAgent) }}
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaOrganization) }}
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaBreadcrumbList) }}
           />
           <MainBlock>
             <SellListing title={heroTitle} />
