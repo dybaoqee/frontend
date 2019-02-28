@@ -156,6 +156,9 @@ export default class Buy extends Component {
           <script type="application/ld+json">
              {JSON.stringify(SchemaRealEstateAgent)}
           </script>
+          <script type="application/ld+json">
+             {JSON.stringify(SchemaOrganization)}
+          </script>
           <MainBlock>
             <BuyListing title={heroTitle} />
           </MainBlock>
