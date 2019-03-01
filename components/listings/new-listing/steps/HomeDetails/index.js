@@ -157,8 +157,8 @@ class HomeDetails extends Component {
                                 render={(ref, props) =>
                                   <Input
                                     {...props}
-                                    label="Valor mensal do condomínio"
-                                    placeholder="Cond (R$)"
+                                    label="Condomínio mensal"
+                                    placeholder="Valor em R$"
                                     error={errors.maintenanceFee}
                                     defaultValue={maintenanceFee}
                                     type="tel"
