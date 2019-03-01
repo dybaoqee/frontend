@@ -235,7 +235,7 @@ class Services extends Component {
                       loop="loop"
                       muted="muted"
                       autoplay="autoplay"
-                      playsinline>
+                      playsInline="playsinline">
                     </video>
                   </VideoContainer>
                   <Text color="red">{this.state.error}</Text>
