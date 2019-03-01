@@ -4,7 +4,7 @@ import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import {desktopHeaderHeight} from 'constants/dimensions'
 
-const CLOUDINARY_URL = 'https://res.cloudinary.com/emcasa/image/upload/fl_any_format/v1542831121/background'
+const CLOUDINARY_URL = 'https://res.cloudinary.com/emcasa/image/upload/f_auto/v1542831121/background'
 
 const UnderlinedText = styled(Text)`
   margin-top: 0;
