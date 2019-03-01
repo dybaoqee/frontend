@@ -71,17 +71,6 @@ export default class MyPage extends Component {
                 <Link passHref href="/listings/new-listing" as="/vender">
                   <a title="Venda seu imóvel">Venda seu imóvel</a>
                 </Link>
-                <ul>
-                  <li>
-                    <Link
-                      passHref
-                      href="/listings/sell/know-more"
-                      as="/saiba-mais-para-vender"
-                    >
-                      <a title="Saiba mais para vender">Saiba mais para vender</a>
-                    </Link>
-                  </li>
-                </ul>
               </li>
               <li>
                 <Link passHref href="http://blog.emcasa.com">
