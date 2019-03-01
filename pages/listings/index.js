@@ -24,6 +24,12 @@ import {
   getTitleTextByParams
 } from 'components/listings/shared/ListingList/title'
 import {NEIGHBORHOODS} from 'constants/listing-locations'
+import {
+  SchemaWebSite,
+  SchemaRealEstateAgent,
+  SchemaOrganization,
+  SchemaBreadcrumbList
+} from 'constants/ld-json'
 
 const BASE_URL = 'https://www.emcasa.com/imoveis'
 
@@ -187,6 +193,22 @@ class ListingSearch extends Component {
       <ThemeProvider theme={theme}>
         <>
           {this.getHead()}
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaWebSite) }}
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaRealEstateAgent) }}
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaOrganization) }}
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaBreadcrumbList) }}
+          />
           <ListingFilter
             filters={filters}
             neighborhoods={neighborhoods}
