@@ -20,8 +20,14 @@ import {
   FINAL_STEPS
 } from './navigation'
 import ProgressDialog from './components/ProgressDialog'
-import {imageUrl} from 'utils/image_url'
 import NextHead from 'components/shared/NextHead'
+import {imageUrl} from 'utils/image_url'
+import {
+  SchemaWebSite,
+  SchemaRealEstateAgent,
+  SchemaOrganization,
+  SchemaBreadcrumbList
+} from 'constants/ld-json'
 
 const seoImg = imageUrl('sell')
 const seoTitle = 'Anuncie e Venda seu Imóvel no Rio de Janeiro ou em São Paulo'
@@ -216,6 +222,22 @@ class NewListing extends Component {
             imageWidth={'1476'}
             imageHeight={'838'}
             url={'https://www.emcasa.com/vender/imovel'}
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaWebSite) }}
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaRealEstateAgent) }}
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaOrganization) }}
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaBreadcrumbList) }}
           />
           {this.state.resuming ?
             <ProgressDialog
