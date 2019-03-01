@@ -5,7 +5,9 @@ import Text from '@emcasa/ui-dom/components/Text'
 export const Title = Text.withComponent('h2')
 
 export default styled.div`
+  max-width: ${theme.breakpoints[0]};
   margin: 0 0 ${theme.space[6]}px;
+
   ul {
     list-style: none;
     margin: 0;
@@ -20,9 +22,11 @@ export default styled.div`
     }
 
     a {
+      display: block;
       text-decoration: none;
       color: ${theme.colors.dark};
       font-size: ${theme.fontSizes[1]}px;
+      padding: ${theme.space[1]}px 0;
       font-weight: 600;
 
       &::before {
@@ -34,9 +38,7 @@ export default styled.div`
       }
 
       @media screen and (max-width: ${theme.breakpoints[0]}) {
-        display: block;
         font-size: ${theme.fontSizes[2]}px;
-        padding: ${theme.space[1]}px 0;
       }
     }
 
