@@ -101,12 +101,12 @@ const steps = {
   },
   tour: {
     component: Tour,
-    canNavigateTo: ['services'],
+    canNavigateTo: ['services', 'success'],
     display: 'tour'
   },
   success: {
     component: Success,
-    canNavigateTo: ['services'],
+    canNavigateTo: ['services', 'tour'],
     display: 'sucesso'
   }
 }

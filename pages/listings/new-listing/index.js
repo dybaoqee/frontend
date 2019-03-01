@@ -69,7 +69,7 @@ class NewListing extends Component {
       const key = getKeyFromDisplay(display)
 
       // User is trying to back from final screen. Reset store
-      if (this.props.listing && this.props.listing.id && key === 'services') {
+      if (this.props.listing && this.props.listing.id && (key === 'services' || key === 'tour')) {
         this.restartForm()
         return
       }

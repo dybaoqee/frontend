@@ -7,20 +7,15 @@ import { TOUR_OPTIONS } from 'graphql/listings/queries'
 import Button from '@emcasa/ui-dom/components/Button'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
-import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import { getAddressInput } from 'lib/address'
-import { getFullTourDateDisplay } from 'components/listings/new-listing/lib/times'
 import Container from 'components/listings/new-listing/shared/Container'
 import {
   SELLER_ONBOARDING_SERVICES_SCHEDULE,
   SELLER_ONBOARDING_SERVICES_SKIP,
   log
 } from 'lib/logging'
-import {
-  SchedulingButton,
-  VideoContainer
-} from './styles'
+import { VideoContainer } from './styles'
 
 class Services extends Component {
   constructor(props) {
@@ -216,9 +211,6 @@ class Services extends Component {
   }
 
   render() {
-    const { tour } = this.props
-    const fullTourDateDisplay = getFullTourDateDisplay(tour)
-    const tourScheduled = tour && tour.day && tour.time
     return (
       <div ref={this.props.hostRef}>
         <Container>
@@ -242,22 +234,10 @@ class Services extends Component {
                       type="video/mp4"
                       loop="loop"
                       muted="muted"
-                      autoplay="autoplay">
+                      autoplay="autoplay"
+                      playsinline>
                     </video>
                   </VideoContainer>
-                  <Row>
-                    <Col width={1} mt={2}>
-                    <View><Text inline fontSize="small">Qual o melhor dia e horário?</Text></View>
-                    <SchedulingButton
-                      height="tall"
-                      fluid
-                      onClick={this.getAvailableTimes}
-                      color={fullTourDateDisplay ? 'dark' : 'grey'}
-                    >
-                    {fullTourDateDisplay}
-                    </SchedulingButton>
-                    </Col>
-                  </Row>
                   <Text color="red">{this.state.error}</Text>
                   <Row justifyContent="space-between" mt={4}>
                     <Col width={5/12}>
@@ -269,10 +249,9 @@ class Services extends Component {
                     <Col width={5/12}>
                       <Button
                         fluid
+                        active
                         height="tall"
-                        active={!this.state.loading && tourScheduled}
-                        disabled={this.state.loading || !tourScheduled}
-                        onClick={this.save}>
+                        onClick={this.getAvailableTimes}>
                         Agendar
                       </Button>
                     </Col>
