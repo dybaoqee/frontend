@@ -1,8 +1,13 @@
 import {Component, Fragment} from 'react'
-import Head from 'next/head'
-import Link from 'next/link'
 import {getNeighborhoods} from 'services/neighborhood-api'
-import Container from './styles'
+import theme from '@emcasa/ui'
+import {ThemeProvider} from 'styled-components'
+import {imageUrl} from 'utils/image_url'
+import NextHead from 'components/shared/NextHead'
+import Link from 'next/link'
+import View from '@emcasa/ui-dom/components/View'
+import Container, {Title} from './styles'
+
 const slugify = require('slug')
 
 export default class MyPage extends Component {
@@ -16,83 +21,82 @@ export default class MyPage extends Component {
 
   render() {
     const {search} = this.props
-    const seoImg =
-      'https://res.cloudinary.com/emcasa/image/upload/f_auto/v1513818385/home-2018-04-03_cozxd9'
-    const seoTitle = 'EmCasa | Mapa do Site'
-    const seoDescription = 'EmCasa | Mapa do Site'
+    const seoTitle = 'Mapa do Site | EmCasa'
+    const seoDescription = 'Encontre Imóveis, Casas e Apartamentos à Venda no Rio de Janeiro em Ipanema, Leblon, Copacabana, Botafogo, Flamengo, Lagoa e toda Zona Sul ou São Paulo em Perdizes com o sistema exclusivo de Tour Virtual 3D do Emcasa, a sua startup imobiliária.'
+    const seoImg = imageUrl('buy')
     return (
-      <Fragment>
-        <Head>
-          <title>{seoTitle}</title>
-          <meta name="description" content={seoDescription} />
-          <meta property="og:description" content={seoDescription} />
-          <meta property="og:image" content={seoImg} />
-          <meta property="og:image:height" content="838" />
-          <meta property="og:image:width" content="1476" />
-          <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:title" content={seoTitle} />
-          <meta name="twitter:description" content={seoDescription} />
-          <meta name="twitter:image" content={seoImg} />
-        </Head>
-        <Container>
-          <h1>Mapa do site</h1>
-          <ul>
-            <li>
-              <Link passHref href="/">
-                <a title="EmCasa">EmCasa</a>
-              </Link>
-            </li>
-            <li>
-              <Link passHref href="/listings" as="/imoveis/rj/rio-de-janeiro">
-                <a title="Compre seu imóvel">Compre seu imóvel</a>
-              </Link>
-              <ul>
-                {search.neighborhoods.map((neighborhood) => (
-                  <li key={neighborhood}>
+      <ThemeProvider theme={theme}>
+        <Fragment>
+          <NextHead
+            title={seoTitle}
+            description={seoDescription}
+            imageSrc={seoImg}
+            imageWidth={'1476'}
+            imageHeight={'838'}
+            url={'https://www.emcasa.com/sitemap'}
+          />
+          <Container>
+            <View px={5}>
+              <Title fontSize="xlarge" fontWeight="normal">Mapa do site</Title>
+            </View>
+            <ul>
+              <li>
+                <Link passHref href="/">
+                  <a title="EmCasa">Página inicial</a>
+                </Link>
+              </li>
+              <li>
+                <Link passHref href="/listings" as="/imoveis">
+                  <a title="Compre seu imóvel">Compre seu imóvel</a>
+                </Link>
+                <ul>
+                  {search.neighborhoods.map((neighborhood) => (
+                    <li key={neighborhood}>
+                      <Link
+                        passHref
+                        href={`/listings/?bairros=${neighborhood}`}
+                        as={`/imoveis/rj/rio-de-janeiro/${slugify(
+                          neighborhood.toLowerCase()
+                        )}`}
+                      >
+                        <a title={`Comprar imóvel: ${neighborhood}`}>
+                          {neighborhood}
+                        </a>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+              <li>
+                <Link passHref href="/listings/new-listing" as="/vender">
+                  <a title="Venda seu imóvel">Venda seu imóvel</a>
+                </Link>
+                <ul>
+                  <li>
                     <Link
                       passHref
-                      href={`/listings/?bairros=${neighborhood}`}
-                      as={`/imoveis/rj/rio-de-janeiro/${slugify(
-                        neighborhood.toLowerCase()
-                      )}`}
+                      href="/listings/sell/know-more"
+                      as="/saiba-mais-para-vender"
                     >
-                      <a title={`Comprar imóvel: ${neighborhood}`}>
-                        {neighborhood}
-                      </a>
+                      <a title="Saiba mais para vender">Saiba mais para vender</a>
                     </Link>
                   </li>
-                ))}
-              </ul>
-            </li>
-            <li>
-              <Link passHref href="/listings/new-listing" as="/vender/imovel">
-                <a title="Venda seu imóvel">Venda seu imóvel</a>
-              </Link>
-              <ul>
-                <li>
-                  <Link
-                    passHref
-                    href="/listings/sell/know-more"
-                    as="/saiba-mais-para-vender"
-                  >
-                    <a title="Saiba mais para vender">Saiba mais para vender</a>
-                  </Link>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <Link passHref href="http://blog.emcasa.com">
-                <a title="Blog">Blog</a>
-              </Link>
-            </li>
-            <li>
-              <Link passHref href="https://jobs.emcasa.com/">
-                <a title="Trabalhe Conosco">Trabalhe Conosco</a>
-              </Link>
-            </li>
-          </ul>
-        </Container>
-      </Fragment>
+                </ul>
+              </li>
+              <li>
+                <Link passHref href="http://blog.emcasa.com">
+                  <a title="Blog">Blog</a>
+                </Link>
+              </li>
+              <li>
+                <Link passHref href="https://jobs.emcasa.com/">
+                  <a title="Trabalhe Conosco">Trabalhe Conosco</a>
+                </Link>
+              </li>
+            </ul>
+          </Container>
+        </Fragment>
+      </ThemeProvider>
     )
   }
 }
