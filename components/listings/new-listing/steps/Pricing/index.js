@@ -26,6 +26,7 @@ import {
 } from 'lib/logging'
 
 const LOADING_TIME = 9000
+const MIN_ALLOWED_PRICE = 250000
 
 class Pricing extends Component {
   constructor(props) {
@@ -202,6 +203,9 @@ class Pricing extends Component {
     }
     if (!value || value === 'R$ ') {
       return 'É necessário informar um preço de venda.'
+    }
+    if (value < MIN_ALLOWED_PRICE) {
+      return 'O preço mínimo permitido é R$ 250.000.'
     }
   }
 
