@@ -37,8 +37,7 @@ const initialState = {
     enterMoreBathrooms: false
   },
   garage: {
-    spots: null,
-    spotType: null
+    spots: null
   },
   differential: {
     text: null
