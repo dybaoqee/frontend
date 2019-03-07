@@ -59,17 +59,26 @@ class Bedrooms extends Component {
     if (!value) {
       return 'É necessário informar o número de quartos.'
     }
+    if (value < 0) {
+      return 'Insira um valor positivo.'
+    }
   }
 
   validateSuite(value) {
     if (typeof value !== 'number') {
       return 'É necessário informar o número de suítes.'
     }
+    if (value < 0) {
+      return 'Insira um valor positivo.'
+    }
   }
 
   validateBathroom(value) {
     if (!value) {
       return 'É necessário informar o número de banheiros.'
+    }
+    if (value < 0) {
+      return 'Insira um valor positivo.'
     }
   }
 
