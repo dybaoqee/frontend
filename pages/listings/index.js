@@ -173,6 +173,33 @@ class ListingSearch extends Component {
     )
   }
 
+  getBreadcrumbList = () => {
+    let itemListElement = [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "http://www.emcasa.com",
+          "name": "Página Inicial"
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "item": {
+          "@id": "http://www.emcasa.com/imoveis",
+          "name": "Comprar"
+        }
+      }
+    ]
+
+    return {
+      "@context": "http://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": itemListElement
+    }
+  }
+
   render() {
     const {neighborhoods, query, params, user, client} = this.props
     const {filters} = this.state
@@ -207,7 +234,7 @@ class ListingSearch extends Component {
           />
           <script
             type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaBreadcrumbList) }}
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(this.getBreadcrumbList) }}
           />
           <ListingFilter
             filters={filters}
