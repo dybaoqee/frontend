@@ -237,7 +237,38 @@ class NewListing extends Component {
           />
           <script
             type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaBreadcrumbList) }}
+            dangerouslySetInnerHTML={{__html: JSON.stringify(
+              {
+                "@context": "http://schema.org",
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                  {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "item": {
+                      "@id": "http://www.emcasa.com",
+                      "name": "Página Inicial"
+                    }
+                  },
+                  {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "item": {
+                      "@id": "http://www.emcasa.com/vender",
+                      "name": "Vender"
+                    }
+                  },
+                  {
+                    "@type": "ListItem",
+                    "position": 3,
+                    "item": {
+                      "@id": "http://www.emcasa.com/vender/imovel",
+                      "name": "Vender imóvel"
+                    }
+                  }
+                ]
+              }
+            )}}
           />
           {this.state.resuming ?
             <ProgressDialog
