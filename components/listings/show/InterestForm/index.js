@@ -33,7 +33,7 @@ export default class InterestForm extends Component {
     return (
       <Popup handleClose={handleClose}>
         <Container>
-          <Title fontSize="large">Marcar Visita</Title>
+          <Title fontSize="large">Contato</Title>
           <Text>
             Por favor, informe seu nome e telefone.
           </Text>
@@ -54,7 +54,7 @@ export default class InterestForm extends Component {
               onChange={onChange}
               required
             />
-            <Button fluid height="tall" active>Marcar</Button>
+            <Button fluid height="tall" active>Enviar</Button>
           </Form>
         </Container>
       </Popup>

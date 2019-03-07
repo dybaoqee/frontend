@@ -2,18 +2,20 @@ import React, { Component } from 'react'
 import { Formik } from 'formik'
 import moment from 'moment'
 import * as Sentry from '@sentry/browser'
-
 import { INSERT_LISTING, TOUR_SCHEDULE } from 'graphql/listings/mutations'
 import { TOUR_OPTIONS } from 'graphql/listings/queries'
 import Button from '@emcasa/ui-dom/components/Button'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
-import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
-import ImageLabel from 'components/listings/new-listing/shared/ImageLabel'
 import { getAddressInput } from 'lib/address'
-import { SchedulingButton } from './styles'
-import { getFullTourDateDisplay } from 'components/listings/new-listing/lib/times'
+import Container from 'components/listings/new-listing/shared/Container'
+import {
+  SELLER_ONBOARDING_SERVICES_SCHEDULE,
+  SELLER_ONBOARDING_SERVICES_SKIP,
+  log
+} from 'lib/logging'
+import { VideoContainer } from './styles'
 
 class Services extends Component {
   constructor(props) {
@@ -91,7 +93,7 @@ class Services extends Component {
   getListingInput() {
     const { location, homeDetails, rooms, garage, differential, phone, pricing } = this.props
     const { addressData, complement } = location
-    const { area, floor, type, maintenanceFee, propertyTax } = homeDetails
+    const { area, floor, type, maintenanceFee } = homeDetails
     const { bathrooms, bedrooms, suites } = rooms
     const { spots } = garage
     const { userPrice } = pricing
@@ -110,7 +112,6 @@ class Services extends Component {
       maintenanceFee: parseInt(maintenanceFee),
       phone: internationalCode + localAreaCode + number,
       price: userPrice,
-      propertyTax: parseInt(propertyTax),
       rooms: bedrooms,
       suites,
       type
@@ -192,6 +193,7 @@ class Services extends Component {
   }
 
   skipStep() {
+    log(SELLER_ONBOARDING_SERVICES_SKIP)
     const { updateServices } = this.props
     updateServices({
       wantsTour: false
@@ -200,19 +202,19 @@ class Services extends Component {
   }
 
   nextStep() {
+    if (this.state.wantsTour) {
+      log(SELLER_ONBOARDING_SERVICES_SCHEDULE)
+    }
     const { navigateTo, updateListing } = this.props
     updateListing({id: this.state.listingId})
     navigateTo('success')
   }
 
   render() {
-    const { tour } = this.props
-    const fullTourDateDisplay = getFullTourDateDisplay(tour)
-    const tourScheduled = tour && tour.day && tour.time
     return (
       <div ref={this.props.hostRef}>
-        <Row justifyContent="center" p={4} pt={0}>
-          <Col width={[1,null,null, 1/2]}>
+        <Container>
+          <Col width={[1,null,null,1/2]}>
             <Formik
               render={() => (
                 <>
@@ -220,38 +222,22 @@ class Services extends Component {
                     fontSize="large"
                     fontWeight="bold"
                     textAlign="center">
-                    Agende uma visita com nossos especialistas
+                    Podemos visitar seu imóvel?
                   </Text>
                   <Text color="grey">
-                    Um de nossos agentes fará uma visita ao seu imóvel para tiramos fotos com qualidade profissional e fazer um Tour Virtual 3D sem custo nenhum. Diga-nos aqui qual o melhor horário pra você:
+                    Nossos especialistas vão tirar fotos profissionais e fazer um Tour Virtual 3D sem custo nenhum.
                   </Text>
-                  <Row justifyContent="center" flexWrap="wrap">
-                    <Col mr={2}>
-                      <ImageLabel
-                        image="tour"
-                        text="Tour Virtual 3D"
-                      />
-                    </Col>
-                    <Col>
-                      <ImageLabel
-                        image="camera"
-                        text="Fotos Profissionais"
-                      />
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col width={1} mt={2}>
-                    <View><Text inline fontSize="small">Qual o melhor dia e horário pra você?</Text></View>
-                    <SchedulingButton
-                      height="tall"
-                      fluid
-                      onClick={this.getAvailableTimes}
-                      color={fullTourDateDisplay ? 'dark' : 'grey'}
-                    >
-                    {fullTourDateDisplay}
-                    </SchedulingButton>
-                    </Col>
-                  </Row>
+                  <VideoContainer>
+                    <video
+                      style={{width: "100%"}}
+                      src="https://s3.amazonaws.com/emcasa-ui/videos/tour-compressed.mp4"
+                      type="video/mp4"
+                      loop="loop"
+                      muted="muted"
+                      autoplay="autoplay"
+                      playsInline="playsinline">
+                    </video>
+                  </VideoContainer>
                   <Text color="red">{this.state.error}</Text>
                   <Row justifyContent="space-between" mt={4}>
                     <Col width={5/12}>
@@ -263,10 +249,9 @@ class Services extends Component {
                     <Col width={5/12}>
                       <Button
                         fluid
+                        active
                         height="tall"
-                        active={!this.state.loading && tourScheduled}
-                        disabled={this.state.loading || !tourScheduled}
-                        onClick={this.save}>
+                        onClick={this.getAvailableTimes}>
                         Agendar
                       </Button>
                     </Col>
@@ -275,7 +260,7 @@ class Services extends Component {
               )}
             />
           </Col>
-        </Row>
+        </Container>
       </div>
     )
   }

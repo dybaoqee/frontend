@@ -1,7 +1,8 @@
 import styled from 'styled-components'
-import theme from '@emcasa/ui'
+import theme from 'config/theme'
 import Button from '@emcasa/ui-dom/components/Button'
 import Icon from '@emcasa/ui-dom/components/Icon'
+import {breakpoint} from '@emcasa/ui/lib/styles'
 
 const WIDTH = 44
 const HEIGHT = 32
@@ -19,7 +20,7 @@ const StyledToggleButton = styled(Button)`
   justify-content: center;
   align-items: center;
 
-  @media (max-width: ${theme.breakpoints[0]}) {
+  @media ${breakpoint.down('tablet')} {
     display: flex;
   }
 `

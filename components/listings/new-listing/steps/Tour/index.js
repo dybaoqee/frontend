@@ -1,14 +1,18 @@
 import React, { Fragment, Component } from 'react'
 import { Formik, Field } from 'formik'
-
+import * as Sentry from '@sentry/browser'
 import RadioButton from '@emcasa/ui-dom/components/RadioButton'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
+import Text from '@emcasa/ui-dom/components/Text'
 import View from '@emcasa/ui-dom/components/View'
-import NavButtons from 'components/listings/new-listing/shared/NavButtons'
+import Button from '@emcasa/ui-dom/components/Button'
+import { INSERT_LISTING, TOUR_SCHEDULE } from 'graphql/listings/mutations'
+import { getAddressInput } from 'lib/address'
 import CustomTime from './components/CustomTime'
 import TourMonths from './components/TourMonths'
 import TourDays from './components/TourDays'
+import Container from 'components/listings/new-listing/shared/Container'
 import {
   getTourDays,
   getTourMonths,
@@ -21,7 +25,7 @@ import {
 class Tour extends Component {
   constructor(props) {
     super(props)
-    this.done = this.done.bind(this)
+    this.nextStep = this.nextStep.bind(this)
     this.previousStep = this.previousStep.bind(this)
 
     this.onMonthChanged = this.onMonthChanged.bind(this)
@@ -30,6 +34,11 @@ class Tour extends Component {
     this.selectTime = this.selectTime.bind(this)
     this.hasCustomTime = this.hasCustomTime.bind(this)
     this.selectCustomTime = this.selectCustomTime.bind(this)
+
+    this.getListingInput = this.getListingInput.bind(this)
+    this.createListing = this.createListing.bind(this)
+    this.createTour = this.createTour.bind(this)
+    this.save = this.save.bind(this)
   }
 
   state = {
@@ -39,7 +48,12 @@ class Tour extends Component {
     timeRange: null,
     customTime: false,
     monthOffset: 0,
-    dayOffset: 0
+    dayOffset: 0,
+    loading: false,
+    listingCreted: false,
+    tourCreated: false,
+    error: null,
+    listingId: null
   }
 
   componentDidMount() {
@@ -68,18 +82,121 @@ class Tour extends Component {
     }
   }
 
-  done() {
-    const { navigateTo, services, updateTour, updateServices } = this.props
+  nextStep() {
+    const { navigateTo, services, updateTour, updateServices, updateListing } = this.props
     updateTour(this.state)
     updateServices({
       wantsTour: true,
       tourOptions: services.tourOptions
     })
-    navigateTo('services')
+    updateListing({id: this.state.listingId})
+    navigateTo('success')
   }
 
   previousStep() {
     this.props.navigateTo('services')
+  }
+
+  getListingInput() {
+    const { location, homeDetails, rooms, garage, differential, phone, pricing } = this.props
+    const { addressData, complement } = location
+    const { area, floor, type, maintenanceFee } = homeDetails
+    const { bathrooms, bedrooms, suites } = rooms
+    const { spots } = garage
+    const { userPrice } = pricing
+    const { text } = differential
+    const { internationalCode, localAreaCode, number } = phone
+
+    const address = getAddressInput(addressData)
+    return {
+      address,
+      area: parseInt(area),
+      bathrooms,
+      complement,
+      description: text,
+      floor,
+      garageSpots: spots,
+      maintenanceFee: parseInt(maintenanceFee),
+      phone: internationalCode + localAreaCode + number,
+      price: userPrice,
+      rooms: bedrooms,
+      suites,
+      type
+    }
+  }
+
+  async createListing() {
+    this.setState({loading: true})
+
+    try {
+      const input = this.getListingInput()
+      const { data } = await apolloClient.mutate({
+        mutation: INSERT_LISTING,
+        variables: {
+          input
+        }
+      })
+
+      if (data) {
+        this.setState({
+          listingCreated: true,
+          listingId: data.insertListing.id
+        })
+      }
+    } catch (e) {
+      Sentry.captureException(e)
+      this.setState({
+        loading: false,
+        error: 'Ocorreu um erro. Por favor, tente novamente.'
+      })
+    }
+  }
+
+  async createTour() {
+    this.setState({loading: true})
+
+    try {
+      const { tour, services } = this.props
+      const { day, time } = tour
+      const { wantsTour } = services
+
+      const datetime = moment(day + time, 'YYYY-MM-DD HH').toDate()
+      const { data } = await apolloClient.mutate({
+        mutation: TOUR_SCHEDULE,
+        variables: {
+          input: {
+            listingId: this.state.listingId,
+            options: {
+              datetime
+            },
+            wantsTour,
+            wantsPictures: wantsTour
+          }
+        }
+      })
+
+      if (data) {
+        this.setState({tourCreated: true})
+      }
+    } catch (e) {
+      Sentry.captureException(e)
+      this.setState({
+        loading: false,
+        error: 'Ocorreu um erro. Por favor, tente novamente.'
+      })
+    }
+  }
+
+  async save() {
+    if (!this.state.listingCreated) {
+      await this.createListing()
+    }
+    if (this.state.listingCreated && !this.state.tourCreated && this.state.wantsTour) {
+      await this.createTour()
+    }
+    if (this.state.listingCreated && this.state.tourCreated || (this.state.listingCreated && !this.state.wantsTour)) {
+      this.nextStep()
+    }
   }
 
   onMonthChanged(month, monthOffset) {
@@ -171,8 +288,8 @@ class Tour extends Component {
 
     return (
       <div ref={this.props.hostRef}>
-        <Row justifyContent="center" p={4} pt={0}>
-          <Col width={[1,null,null, 1/2]}>
+        <Container>
+          <Col width={[1,null,null,1/2]}>
             <Formik
               initialValues={{
                 month,
@@ -265,16 +382,30 @@ class Tour extends Component {
                         </Col>
                       }/>
                   </Row>}
-                  <NavButtons
-                    previousStep={this.previousStep}
-                    onSubmit={this.done}
-                    submitEnabled={isValid}
-                  />
+                  <Text color="red">{this.state.error}</Text>
+                  <Row justifyContent="space-between" mt={4}>
+                    <Col width={5/12}>
+                      <Button
+                        fluid
+                        height="tall"
+                        onClick={this.previousStep}>Voltar</Button>
+                    </Col>
+                    <Col width={5/12}>
+                      <Button
+                        fluid
+                        height="tall"
+                        active={!this.state.loading && isValid}
+                        disabled={!isValid || this.state.loading}
+                        onClick={this.save}>
+                        Agendar
+                      </Button>
+                    </Col>
+                  </Row>
                 </>
               )}
             />
           </Col>
-        </Row>
+        </Container>
       </div>
     )
   }

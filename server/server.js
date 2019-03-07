@@ -137,6 +137,10 @@ const startServer = () => {
         return app.render(req, res, '/listings/buy', {city: 'sp'})
       })
 
+      server.get('/perdizes', (req, res) => {
+        return app.render(req, res, '/listings/buy', {city: 'sp'})
+      })
+
       server.get('/rio-de-janeiro', (req, res) => {
         return app.render(req, res, '/listings/buy', {city: 'rj'})
       })
@@ -156,6 +160,10 @@ const startServer = () => {
 
       server.get('/saiba-mais-para-vender', (req, res) => {
         return res.redirect(301, '/vender')
+      })
+
+      server.get('/sobmedida', (req, res) => {
+        return res.redirect(301, 'https://pages.emcasa.com/sobmedida/')
       })
 
       server.get('/avaliacao-imovel', (req, res) => {

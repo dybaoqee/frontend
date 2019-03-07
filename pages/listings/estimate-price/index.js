@@ -2,10 +2,17 @@ import {Component, Fragment} from 'react'
 import Head from 'next/head'
 import {imageUrl} from 'utils/image_url'
 import Container, {Header} from './styles'
-
 import PriceEstimate from 'components/shared/PriceEstimate'
+import {
+  log,
+  ESTIMATE_PRICE_OPEN
+} from 'lib/logging'
 
 export default class EstimatePrice extends Component {
+  componentDidMount() {
+    log(ESTIMATE_PRICE_OPEN)
+  }
+
   render() {
     const seoImg = imageUrl(
       'emcasa-saiba-mais-para-vender-share-centered-2'

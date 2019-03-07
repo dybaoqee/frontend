@@ -3,8 +3,16 @@ import {InputWithMask, Field} from 'components/listings/shared/styles'
 import Form from 'components/shared/Common/Form'
 import {FieldContainer} from './styles'
 import Counter from 'components/shared/Common/Counter'
+import {
+  log,
+  ESTIMATE_PRICE_HOME_DETAILS
+} from 'lib/logging'
 
 export default class PropertyInfo extends Component {
+  componentDidMount() {
+    log(ESTIMATE_PRICE_HOME_DETAILS)
+  }
+
   render() {
     const {onChange, errors} = this.props
 

@@ -5,6 +5,7 @@ import {breakpoint} from '@emcasa/ui/lib/styles'
 
 export const HEADER_HEIGHT = 60
 export const MAX_HEADER_HEIGHT = 76
+export const NAV_ZINDEX = 110
 
 export default styled.header`
   display: flex;
@@ -64,6 +65,7 @@ export const Nav = styled.nav`
   }
 
   @media ${breakpoint.down('tablet')} {
+    z-index: ${NAV_ZINDEX};
     position: absolute;
     top: 0;
     right: -${HEADER_HEIGHT}vw;
@@ -185,10 +187,6 @@ export const MenuItem = styled.div`
 export const Logo = styled.div`
   cursor: pointer;
   transform: translateZ(0);
-  @media ${breakpoint.down('tablet')} {
-    content: url(https://s3.amazonaws.com/emcasa-ui/logo/symbol.svg);
-    max-width: 32px;
-  }
   content: url(https://s3.amazonaws.com/emcasa-ui/logo/logo.svg);
   max-width: 118px;
 `
@@ -228,7 +226,7 @@ export const Overlay = styled.div`
   background: black;
   opacity: 0;
   animation: ${fadeIn} 0.3s 0s both;
-  z-index: 1;
+  z-index: ${NAV_ZINDEX - 1};
 `
 
 export const Search = styled.div`

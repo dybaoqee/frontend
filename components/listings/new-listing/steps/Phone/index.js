@@ -1,16 +1,23 @@
 import React, { Component } from 'react'
 import { Formik, Field } from 'formik'
 import { get } from 'lodash'
-
 import AccountKit from 'components/shared/Auth/AccountKit'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import faWhatsApp from '@fortawesome/fontawesome-free-brands/faWhatsapp'
 import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
 import {withBreakpoint} from '@emcasa/ui-dom/components/Breakpoint'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
-import { getAddressInput } from 'lib/address'
-import { estimatePrice, getPricingInput } from 'lib/listings/pricing'
+import View from '@emcasa/ui-dom/components/View'
+import Container from 'components/listings/new-listing/shared/Container'
+import {
+  SELLER_ONBOARDING_PHONE_LOGIN_START,
+  SELLER_ONBOARDING_PHONE_LOGIN_SUCCESS,
+  SELLER_ONBOARDING_PHONE_LOGIN_CANCEL,
+  log
+} from 'lib/logging'
 
 const BRAZIL_CODE = '55'
 
@@ -63,6 +70,7 @@ class Phone extends Component {
 
   onLoginSuccess(userInfo) {
     if (!userInfo) {
+      log(SELLER_ONBOARDING_PHONE_LOGIN_CANCEL)
       this.setState({loading: false})
       return
     }
@@ -84,6 +92,7 @@ class Phone extends Component {
       email
     })
 
+    log(SELLER_ONBOARDING_PHONE_LOGIN_SUCCESS)
     if (name) {
       this.estimatePrice({name, email})
     } else {
@@ -160,8 +169,8 @@ class Phone extends Component {
     }
     return (
       <div ref={this.props.hostRef}>
-        <Row justifyContent="center" p={4} pt={0}>
-          <Col width={[1,null,null, 1/2]}>
+        <Container>
+          <Col width={[1,null,null,1/2]}>
             <Formik
               initialValues={{
                 internationalCode: internationalCode,
@@ -179,28 +188,8 @@ class Phone extends Component {
                     textAlign="center">
                     Qual o número do seu celular?
                   </Text>
-                  <Text color="grey">Fique tranquilo(a), seu celular não será divulgado.</Text>
+                  <Text color="grey">Ao avançar, será enviado um código de segurança para validar que o número é seu.</Text>
                   <Row>
-                    <Col width={3/12} mr={5}>
-                      <Field
-                        name="internationalCode"
-                        validate={this.validateInternationalCode}
-                        render={({form}) => (
-                          <Input
-                            hideLabelView
-                            type="tel"
-                            placeholder="DDI*"
-                            error={form.touched.internationalCode ? errors.internationalCode : null}
-                            defaultValue={internationalCode}
-                            onChange={(e) => {
-                              const { value } = e.target
-                              setFieldValue('internationalCode', value)
-                              setFieldTouched('internationalCode')
-                              this.setState({internationalCode: value})
-                            }}
-                          />
-                        )}/>
-                    </Col>
                     <Col width={3/12} mr={5}>
                       <Field
                         name="localAreaCode"
@@ -208,10 +197,10 @@ class Phone extends Component {
                         render={({form}) => (
                           <Input
                             hideLabelView
+                            hideErrorView
                             type="tel"
                             ref={this.dddField}
                             placeholder="DDD*"
-                            error={form.touched.localAreaCode ? errors.localAreaCode : null}
                             defaultValue={localAreaCode}
                             onChange={(e) => {
                               const { value } = e.target
@@ -232,10 +221,10 @@ class Phone extends Component {
                         render={({form}) => (
                           <Input
                             hideLabelView
+                            hideErrorView
                             type="tel"
                             ref={this.phoneNumberField}
                             placeholder="Celular*"
-                            error={form.touched.number ? errors.number : null}
                             defaultValue={number}
                             maxLength={9}
                             onChange={(e) => {
@@ -247,6 +236,11 @@ class Phone extends Component {
                           />
                         )}/>
                     </Col>
+                  </Row>
+                  <Row alignItems="center">
+                    <Text color="grey">O contato inicial será feito pelo WhatsApp.</Text>
+                    <View mr={3}></View>
+                    <FontAwesomeIcon icon={faWhatsApp} size="2x" color="#22cd5b" />
                   </Row>
                   <Text color="red">{this.state.error}</Text>
                   <AccountKit
@@ -261,6 +255,7 @@ class Phone extends Component {
                       <NavButtons
                         previousStep={this.previousStep}
                         onSubmit={() => {
+                          log(SELLER_ONBOARDING_PHONE_LOGIN_START)
                           this.setState({loading: true}, () => {
                             signIn()
                           })
@@ -274,7 +269,7 @@ class Phone extends Component {
               )}
             />
           </Col>
-        </Row>
+        </Container>
       </div>
     )
   }

@@ -95,9 +95,7 @@ class ListingPanel extends React.Component {
           }
         </PricesContainer>
         <View mt={4}>
-          <Button fluid height="tall" active onClick={handleOpenPopup}>
-            Marcar Visita
-          </Button>
+          <Button fluid height="tall" active onClick={handleOpenPopup}>Falar com especialista</Button>
         </View>
       </Container>
     )

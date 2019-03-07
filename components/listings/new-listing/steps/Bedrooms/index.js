@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 import { Formik, Field } from 'formik'
-
 import Button from '@emcasa/ui-dom/components/Button'
 import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
-import View from '@emcasa/ui-dom/components/View'
+import Container from 'components/listings/new-listing/shared/Container'
 import Text from '@emcasa/ui-dom/components/Text'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 
@@ -60,17 +59,26 @@ class Bedrooms extends Component {
     if (!value) {
       return 'É necessário informar o número de quartos.'
     }
+    if (value < 0) {
+      return 'Insira um valor positivo.'
+    }
   }
 
   validateSuite(value) {
     if (typeof value !== 'number') {
       return 'É necessário informar o número de suítes.'
     }
+    if (value < 0) {
+      return 'Insira um valor positivo.'
+    }
   }
 
   validateBathroom(value) {
     if (!value) {
       return 'É necessário informar o número de banheiros.'
+    }
+    if (value < 0) {
+      return 'Insira um valor positivo.'
     }
   }
 
@@ -164,7 +172,7 @@ class Bedrooms extends Component {
     }
     return (
       <div ref={this.props.hostRef}>
-        <Row justifyContent="center" p={4} pt={0}>
+        <Container>
           <Col width={[1,null,null,1/2]}>
             <Formik
               initialValues={{
@@ -213,7 +221,7 @@ class Bedrooms extends Component {
                     </Row>
                   </>}
                   {this.state.showBathrooms && <>
-                    <Text color="grey">Quantos banheiros? (Sem contar os lavabos e suítes)</Text>
+                    <Text color="grey">Sem contar lavabos e suítes, ele tem quantos banheiros?</Text>
                     <Row mb={4}>
                       <Field
                         name="bathroom"
@@ -230,7 +238,7 @@ class Bedrooms extends Component {
               )}
             />
           </Col>
-        </Row>
+        </Container>
       </div>
     )
   }

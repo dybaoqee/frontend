@@ -1,15 +1,14 @@
 import React, { Component } from 'react'
 import { Formik, Field } from 'formik'
-
 import { NOTIFY_WHEN_COVERED } from 'graphql/listings/mutations'
 import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
-import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import {withBreakpoint} from '@emcasa/ui-dom/components/Breakpoint'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import { getAddressInput } from 'lib/address'
+import Container from 'components/listings/new-listing/shared/Container'
 
 class NotifyCoverage extends Component {
   constructor(props) {
@@ -91,8 +90,8 @@ class NotifyCoverage extends Component {
   render() {
     return (
       <div ref={this.props.hostRef}>
-        <Row justifyContent="center" p={4} pt={0}>
-          <Col width={[1,null,null, 1/2]}>
+        <Container>
+          <Col width={[1,null,null,1/2]}>
             <Formik
               isInitialValid={() => {
                 return false
@@ -160,7 +159,7 @@ class NotifyCoverage extends Component {
               )}
             />
           </Col>
-        </Row>
+        </Container>
       </div>
     )
   }

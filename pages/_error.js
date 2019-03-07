@@ -16,11 +16,10 @@ export default class ErrorPage extends Component {
   }
 
   render() {
-    const {statusCode} = this.props
-
+    const {statusCode, url:{asPath}} = this.props
     return (
       <ThemeProvider theme={theme}>
-        <HTTPMessage statusCode={statusCode} />
+        <HTTPMessage asPath={asPath} statusCode={statusCode} />
       </ThemeProvider>
     )
   }
