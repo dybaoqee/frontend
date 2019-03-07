@@ -62,16 +62,16 @@ class HomeDetails extends Component {
 
   validateArea(value) {
     if (!value) {
-      return "É necessário informar a área do imóvel."
+      return 'É necessário informar a área do imóvel.'
     }
     if (value < 0) {
-      return "Insira um valor positivo."
+      return 'Insira um valor positivo.'
     }
   }
 
   validateType(value) {
     if (!value || value === HOME_TYPES.placeholder) {
-      return "É necessário informar o tipo do imóvel."
+      return 'É necessário informar o tipo do imóvel.'
     }
   }
 
