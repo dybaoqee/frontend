@@ -164,7 +164,30 @@ export default class Sell extends Component {
           />
           <script
             type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaBreadcrumbList) }}
+            dangerouslySetInnerHTML={{__html: JSON.stringify(
+              {
+                "@context": "http://schema.org",
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                  {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "item": {
+                      "@id": "http://www.emcasa.com",
+                      "name": "Página Inicial"
+                    }
+                  },
+                  {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "item": {
+                      "@id": "http://www.emcasa.com/vender",
+                      "name": "Vender"
+                    }
+                  }
+                ]
+              }
+            )}}
           />
           <MainBlock>
             <SellListing title={heroTitle} />
