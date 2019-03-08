@@ -111,7 +111,7 @@ class Sell extends Component {
   }
 
   render() {
-    const {isMobile} = this.props
+    const { isMobile, user, client } = this.props
     const blockProps = {
       isMobile,
       pageWidth: this.state.pageWidth
@@ -196,7 +196,11 @@ class Sell extends Component {
           dangerouslySetInnerHTML={{__html: JSON.stringify(seoBreadcrumb)}}
         />
         <MainBlock>
-          <NewListing title={heroTitle} />
+          <NewListing
+            client={client}
+            user={user}
+            title={heroTitle}
+          />
         </MainBlock>
         <Block>
           <Benefits {...benefitsProps} />
