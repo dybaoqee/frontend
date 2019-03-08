@@ -86,16 +86,8 @@ export default class SellListing extends Component {
                 color="dark"
                 fontWeight="bold"
                 textAlign="center"
-                style={{marginBottom: 0, marginTop: 0}}>
+                style={{marginTop: 0}}>
                 {this.props.title}
-              </Text>
-            </Col>
-          </Row>
-          <Row justifyContent="center" px={[4, 0]}>
-            <Col>
-              <Text color="gray" style={{margin: '0.5em'}}>
-                Vender seu imóvel nunca foi tão fácil, informe o endereço do seu imóvel
-                e receba agora uma avaliação grátis
               </Text>
             </Col>
           </Row>
