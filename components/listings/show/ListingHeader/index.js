@@ -19,6 +19,7 @@ import {
   LISTING_DETAIL_PHOTOS_FULLSCREEN_CLOSE,
 } from 'lib/logging'
 import Container, {
+  Spinner,
   Thumb,
   Content,
   Arrow,
@@ -240,7 +241,7 @@ export default class ListingHeader extends Component {
               >
                 {this.getSliderContent(visualizeTour).map((content, id) => (
                   <Content key={content.key || id} onClick={() => {this.toggleFullScreen(id)}}>
-                    {content.props.src && <div className="spinner" />}
+                    {content.props.src && <div className="spinner"><Spinner /></div>}
                     {content}
                   </Content>
                 ))}

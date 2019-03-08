@@ -16,6 +16,8 @@ export default styled.ul`
   align-items: center;
   margin: 35px auto 0;
   padding: 0;
+  width: 960px;
+  max-width: calc(100vw - ${theme.space[4] * 2}px);
 
   @media ${headerMobileMedia} {
     width: 100%;
