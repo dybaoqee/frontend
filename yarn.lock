@@ -1954,7 +1954,7 @@
     styled-icons "^3.0.0"
     styled-system "3.1.6"
 
-"@emcasa/ui@^0.9.8-rc.1+4148f63", "@emcasa/ui@^0.9.8.-rc.1":
+"@emcasa/ui@^0.9.8-rc.1", "@emcasa/ui@^0.9.8-rc.1+4148f63":
   version "0.9.8-rc.1"
   resolved "https://registry.yarnpkg.com/@emcasa/ui/-/ui-0.9.8-rc.1.tgz#56a220a10acf1c6e8e11916ba3e0c00946891ea3"
   dependencies:
