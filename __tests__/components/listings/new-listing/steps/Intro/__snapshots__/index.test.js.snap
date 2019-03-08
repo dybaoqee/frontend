@@ -70,6 +70,7 @@ exports[`renders correctly 1`] = `
 }
 
 .c2 {
+  width: calc(100vw - 40px);
   padding: 80px 20px 20px 20px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;

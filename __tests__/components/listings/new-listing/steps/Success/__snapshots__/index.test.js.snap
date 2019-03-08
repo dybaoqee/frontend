@@ -55,10 +55,6 @@ exports[`renders correctly 1`] = `
   width: 100%;
 }
 
-.c17 {
-  width: 100%;
-}
-
 .c3 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
@@ -119,28 +115,6 @@ exports[`renders correctly 1`] = `
   background-color: #f50057;
 }
 
-.c18 {
-  outline: none;
-  display: block;
-  cursor: pointer;
-  padding: 0 20px 0 20px;
-  border-color: #e0e6ed;
-  background-color: #ffffff;
-  border-radius: 4px;
-  border-width: 1px;
-  width: 100%;
-  height: 60px;
-  color: #3c4858;
-  font-family: FaktSoftPro-Normal;
-  font-size: 18px;
-  -webkit-font-smoothing: antialiased;
-  border-style: solid;
-}
-
-.c18 :hover {
-  background-color: #ffffff;
-}
-
 .c5 {
   border: 1px solid #e0e6ed;
   box-shadow: 0px 2px 2px rgba(0,0,0,0.3);
@@ -148,6 +122,7 @@ exports[`renders correctly 1`] = `
 }
 
 .c0 {
+  width: calc(100vw - 40px);
   padding: 80px 20px 20px 20px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
@@ -350,23 +325,6 @@ exports[`renders correctly 1`] = `
             onClick={[Function]}
           >
             Ver Meus Imóveis
-          </button>
-        </div>
-      </div>
-      <div
-        className="c1"
-      >
-        <div
-          className="c17"
-          width={1}
-        >
-          <button
-            className="c18"
-            fontSize="default"
-            height="tall"
-            onClick={[Function]}
-          >
-            Fale com a EmCasa
           </button>
         </div>
       </div>

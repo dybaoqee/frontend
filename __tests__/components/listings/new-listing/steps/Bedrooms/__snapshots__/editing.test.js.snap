@@ -158,6 +158,7 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
 }
 
 .c0 {
+  width: calc(100vw - 40px);
   padding: 80px 20px 20px 20px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;

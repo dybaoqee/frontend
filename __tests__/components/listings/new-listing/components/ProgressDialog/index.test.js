@@ -1,5 +1,5 @@
 import React from 'react'
-import ProgressDialog from 'pages/listings/new-listing/components/ProgressDialog'
+import ProgressDialog from 'components/listings/new-listing/components/ProgressDialog'
 import renderer from 'react-test-renderer'
 import 'jest-styled-components'
 import theme from 'config/theme'
