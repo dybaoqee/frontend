@@ -29,6 +29,10 @@ import {
 const MAX_INITIAL_ITEMS = 3
 
 class CityContainer extends Component {
+  static defaultProps = {
+    cities: []
+  }
+
   constructor(props) {
     super(props)
     this.getNeighborhoodButton = this.getNeighborhoodButton.bind(this)
