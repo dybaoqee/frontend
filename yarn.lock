@@ -1936,11 +1936,11 @@
   dependencies:
     lodash.once "^4.1.1"
 
-"@emcasa/ui-dom@^0.9.6":
-  version "0.9.6"
-  resolved "https://registry.yarnpkg.com/@emcasa/ui-dom/-/ui-dom-0.9.6.tgz#0de018b1d555c5893ca0464585d93958d56aebee"
+"@emcasa/ui-dom@^0.9.8-rc.1":
+  version "0.9.8-rc.1"
+  resolved "https://registry.yarnpkg.com/@emcasa/ui-dom/-/ui-dom-0.9.8-rc.1.tgz#bc57617b61c9f08e6f27408244cb193628123a0b"
   dependencies:
-    "@emcasa/ui" "^0.9.6"
+    "@emcasa/ui" "^0.9.8-rc.1+4148f63"
     "@rebass/grid" "6.0.0-4"
     classnames "^2.2.6"
     element-class "^0.2.2"
@@ -1954,9 +1954,9 @@
     styled-icons "^3.0.0"
     styled-system "3.1.6"
 
-"@emcasa/ui@^0.9.6":
-  version "0.9.6"
-  resolved "https://registry.yarnpkg.com/@emcasa/ui/-/ui-0.9.6.tgz#a2b654495452c29588b51b0885a12c7ff5a502db"
+"@emcasa/ui@^0.9.8-rc.1+4148f63", "@emcasa/ui@^0.9.8.-rc.1":
+  version "0.9.8-rc.1"
+  resolved "https://registry.yarnpkg.com/@emcasa/ui/-/ui-0.9.8-rc.1.tgz#56a220a10acf1c6e8e11916ba3e0c00946891ea3"
   dependencies:
     "@fortawesome/free-solid-svg-icons" "^5.4.1"
     everpolate "^0.0.3"
