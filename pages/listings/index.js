@@ -3,7 +3,6 @@ import NextHead from 'components/shared/NextHead'
 import Router from 'next/router'
 import {
   treatParams,
-  getDerivedParams,
   getListingFiltersFromState,
   getNewFiltersFromQuery,
   getLocationFromPath
@@ -184,7 +183,6 @@ class ListingSearch extends Component {
     }
 
     const listingFilters = getListingFiltersFromState(filters)
-    const initialFilters = query ? getDerivedParams(query) : {}
 
     return (
       <>
@@ -206,11 +204,8 @@ class ListingSearch extends Component {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaBreadcrumbList) }}
         />
         <ListingFilter
-          filters={filters}
-          neighborhoods={neighborhoods}
-          onChange={this.onChangeFilter}
-          onReset={this.onResetFilter}
-          initialFilters={initialFilters}
+          onSubmit={this.onChangeFilter}
+          values={filters}
         />
         <ListingList
           query={query}
