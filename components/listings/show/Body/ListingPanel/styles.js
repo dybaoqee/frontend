@@ -16,6 +16,8 @@ export const Container = styled.div`
 
   @media screen and ${breakpoint.down('tablet')} {
     position: fixed;
+    border: none;
+    border-top: 1px solid ${theme.colors.lightGrey};
     left: 0;
     bottom: 0;
     width: calc(100% - ${theme.space[4] * 2}px);
