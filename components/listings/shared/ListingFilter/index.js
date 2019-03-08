@@ -25,8 +25,7 @@ const ListingFilter = styled(function ListingFilter(props) {
   width: auto;
   top: ${MAX_HEADER_HEIGHT}px;
   padding-left: ${themeGet('space.4')}px;
-  padding-right: ${themeGet('space.6')}px;
-  padding-bottom: ${themeGet('space.2')}px;
+  padding-right: 50px;
   background-color: white;
 `
 
