@@ -1,5 +1,5 @@
 import {ThemeProvider} from 'styled-components'
-import theme from '@emcasa/ui'
+import theme from 'config/theme'
 import Link from 'next/link'
 import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
@@ -30,8 +30,8 @@ const titleText = {
 const Footer = () => (
   <ThemeProvider theme={theme}>
     <Wrapper>
-      <Container flexDirection={['column', 'row']}>
-        <Col width={[1, 6 / 12]} ml={[0, '5vw']} mt="1.5em">
+      <Container flexDirection={['column',null,null,  'row']}>
+        <Col width={[1,null,null,  6 / 12]} ml={[0,null,null,  '5vw']} mt="1.5em">
           <AboutLogo />
           <AboutText fontSize="small">
             A EmCasa é uma imobiliária digital tem como objetivo transformar a
@@ -39,7 +39,7 @@ const Footer = () => (
           </AboutText>
           <Text fontSize="16px"> CRECI-RJ J-7712</Text>
         </Col>
-        <Col width={[1, 2 / 12]}>
+        <Col width={[1,null,null,  2 / 12]}>
           <Text {...titleText}>EmCasa</Text>
           <LinkGroup>
             <Link passHref href="/listings" as="/imoveis">
@@ -65,7 +65,7 @@ const Footer = () => (
             </Link>
           </LinkGroup>
         </Col>
-        <Col width={[1, 2 / 12]}>
+        <Col width={[1,null,null,  2 / 12]}>
           <Text {...titleText}>Suporte</Text>
           <LinkGroup>
             <div>
@@ -94,7 +94,7 @@ const Footer = () => (
             </div>
           </LinkGroup>
         </Col>
-        <Col width={[1, 2 / 12]}>
+        <Col width={[1,null,null,  2 / 12]}>
           <Text {...titleText}>Redes Sociais</Text>
           <LinkGroup>
             <div>

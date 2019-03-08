@@ -1,10 +1,9 @@
-import {ThemeProvider} from 'styled-components'
 import Link from 'next/link'
-import theme from '@emcasa/ui'
 import {Component} from 'react'
 import Text from '@emcasa/ui-dom/components/Text'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
+import {withBreakpoint} from '@emcasa/ui-dom/components/Breakpoint'
 import AccountKit from 'components/shared/Auth/AccountKit'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faSearch from '@fortawesome/fontawesome-pro-solid/faSearch'
@@ -15,8 +14,8 @@ import NeighborhoodPicker from 'components/shared/NeighborhoodPicker'
 import NeighborhoodAutoComplete from 'components/shared/NeighborhoodAutoComplete'
 import MobileAddressButton from 'components/shared/MobileAddressButton'
 import {MobileTypeaheadContainer} from 'components/shared/NeighborhoodAutoComplete/styles'
-import {isMobile} from 'lib/mobile'
 import {USE_NEW_SEARCH} from 'config/globals'
+import theme from 'config/theme'
 import {
   log,
   LANDING_LOGIN
@@ -35,7 +34,7 @@ import Container, {
   LabelLogo
 } from './styles'
 
-export default class Header extends Component {
+class Header extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -78,19 +77,19 @@ export default class Header extends Component {
     if (USE_NEW_SEARCH) {
       return (
         <NeighborhoodPicker
-          onClick={isMobile() ? this.openMobileSearch : () => {}}
+          onClick={this.props.isMobile ? this.openMobileSearch : () => {}}
           query={this.props.router.query}
         />
       )
     }
 
-    const height = isMobile() ? 'tall' : 'medium'
+    const height = this.props.isMobile ? 'tall' : 'medium'
     return (
       <Search>
-        {isMobile() ? <MobileAddressButton
+        {this.props.isMobile ? <MobileAddressButton
           address="Bairro ou Cidade"
           onClick={this.openMobileSearch}
-          height={isMobile}
+          isMobile={this.props.isMobile}
         /> :
           <NeighborhoodAutoComplete height={height} />
         }
@@ -113,7 +112,7 @@ export default class Header extends Component {
             <NeighborhoodAutoComplete
               onBackPressed={this.closeMobileSearch}
               onClearInput={() => {}}
-              height={isMobile() ? 'tall' : 'medium'}
+              height={this.props.isMobile ? 'tall' : 'medium'}
             />
           }
         </Col>
@@ -127,89 +126,85 @@ export default class Header extends Component {
     const currentPath = router.asPath
 
     if (showFullScreenSearch) {
-      return (
-        <ThemeProvider theme={theme}>
-          {this.renderFullScreenSearch()}
-        </ThemeProvider>
-      )
+      return (this.renderFullScreenSearch())
     }
 
     return (
-      <ThemeProvider theme={theme}>
-        <Wrapper>
-          <Container transparent={transparent} className={sticky && !search ? 'sticky' : null} search={search}>
-            <Row alignItems="center" width={[1, 1/2]} style={!search ? {height: theme.buttonHeight[1]} : null}>
-              <Link passHref href="/listings/buy" as="/">
+      <Wrapper>
+        <Container transparent={transparent} className={sticky && !search ? 'sticky' : null} search={search}>
+          <Row alignItems="center" width={[1,null,null,  1/2]} style={!search ? {height: theme.buttonHeight[1]} : null}>
+            <Link passHref href="/listings/buy" as="/">
+              <a>
+                <h1 style={{zIndex: 1}}>
+                  {!search && <Logo alt="EmCasa Imobiliária no Rio de Janeiro e São Paulo" />}
+                  {search && <ShortLogo alt="EmCasa Imobiliária no Rio de Janeiro e São Paulo" />}
+                  <LabelLogo>EmCasa Imobiliária no Rio de Janeiro e São Paulo</LabelLogo>
+                </h1>
+              </a>
+            </Link>
+            <SearchWrapper>
+              {search && this.renderSearch()}
+            </SearchWrapper>
+            {isMobileNavVisible && <Overlay onClick={this.toggleMobileNavVisibility} />}
+            <NavButton
+              visible={!isMobileNavVisible && !search}
+              onClick={this.toggleMobileNavVisibility}
+            >
+              ☰
+            </NavButton>
+          </Row>
+          <Col width={[0,null,null,  1/2]}>
+            <Nav visible={isMobileNavVisible}>
+              <CloseNavButton
+                visible={isMobileNavVisible}
+                onClick={this.toggleMobileNavVisibility} />
+              <Link passHref href="/listings" as="/imoveis">
                 <a>
-                  <h1 style={{zIndex: 1}}>
-                    {!search && <Logo alt="EmCasa Imobiliária no Rio de Janeiro e São Paulo" />}
-                    {search && <ShortLogo alt="EmCasa Imobiliária no Rio de Janeiro e São Paulo" />}
-                    <LabelLogo>EmCasa Imobiliária no Rio de Janeiro e São Paulo</LabelLogo>
-                  </h1>
+                  <MenuItem className={router.route === '/listings' ? 'active' :  null}>
+                    <FontAwesomeIcon icon={faSearch} className="icon" />
+                    <Text>Comprar</Text>
+                  </MenuItem>
                 </a>
               </Link>
-              <SearchWrapper>
-                {search && this.renderSearch()}
-              </SearchWrapper>
-              {isMobileNavVisible && <Overlay onClick={this.toggleMobileNavVisibility} />}
-              <NavButton
-                visible={!isMobileNavVisible && !search}
-                onClick={this.toggleMobileNavVisibility}
+              <Link passHref href="/vender">
+                <a>
+                  <MenuItem className={currentPath.startsWith('/vender') ? 'active' :  null}>
+                    <FontAwesomeIcon className="icon" icon={faFlag} />
+                    <Text>Vender</Text>
+                  </MenuItem>
+                </a>
+              </Link>
+              {authenticated && (
+                <Link passHref href="/meu-perfil">
+                  <a>
+                    <MenuItem className={currentPath.startsWith('/meu-perfil') ? 'active' :  null}>
+                      <FontAwesomeIcon className="icon" icon={faUser} />
+                      <Text>Meu Perfil</Text>
+                    </MenuItem>
+                  </a>
+                </Link>
+              )}
+              {!authenticated && (<AccountKit
+                appId={process.env.FACEBOOK_APP_ID}
+                appSecret={process.env.ACCOUNT_KIT_APP_SECRET}
+                version="v1.0"
               >
-                ☰
-              </NavButton>
-            </Row>
-            <Col width={[0, 1/2]}>
-              <Nav visible={isMobileNavVisible}>
-                <CloseNavButton
-                  visible={isMobileNavVisible}
-                  onClick={this.toggleMobileNavVisibility} />
-                <Link passHref href="/listings" as="/imoveis">
-                  <a>
-                    <MenuItem className={router.route === '/listings' ? 'active' :  null}>
-                      <FontAwesomeIcon icon={faSearch} className="icon" />
-                      <Text>Comprar</Text>
-                    </MenuItem>
-                  </a>
-                </Link>
-                <Link passHref href="/vender">
-                  <a>
-                    <MenuItem className={currentPath.startsWith('/vender') ? 'active' :  null}>
-                      <FontAwesomeIcon className="icon" icon={faFlag} />
-                      <Text>Vender</Text>
-                    </MenuItem>
-                  </a>
-                </Link>
-                {authenticated && (
-                  <Link passHref href="/meu-perfil">
-                    <a>
-                      <MenuItem className={currentPath.startsWith('/meu-perfil') ? 'active' :  null}>
-                        <FontAwesomeIcon className="icon" icon={faUser} />
-                        <Text>Meu Perfil</Text>
-                      </MenuItem>
-                    </a>
-                  </Link>
+                {({signIn, loading}) => (
+                  <MenuItem onClick={() => {
+                    log(LANDING_LOGIN)
+                    signIn()
+                  }}>
+                    <FontAwesomeIcon className="icon" icon={faSignInAlt} />
+                    <Text>Entrar</Text>
+                  </MenuItem>
                 )}
-                {!authenticated && (<AccountKit
-                  appId={process.env.FACEBOOK_APP_ID}
-                  appSecret={process.env.ACCOUNT_KIT_APP_SECRET}
-                  version="v1.0"
-                >
-                  {({signIn, loading}) => (
-                    <MenuItem onClick={() => {
-                      log(LANDING_LOGIN)
-                      signIn()
-                    }}>
-                      <FontAwesomeIcon className="icon" icon={faSignInAlt} />
-                      <Text>Entrar</Text>
-                    </MenuItem>
-                  )}
-                </AccountKit>)}
-              </Nav>
-            </Col>
-          </Container>
-        </Wrapper>
-      </ThemeProvider>
+              </AccountKit>)}
+            </Nav>
+          </Col>
+        </Container>
+      </Wrapper>
     )
   }
 }
+
+export default withBreakpoint()(Header)

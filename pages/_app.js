@@ -15,11 +15,12 @@ import Router from 'next/router'
 import Link from 'next/link'
 import codes from 'constants/statusCodes'
 import makeStore from 'redux/store'
+import {ThemeProvider} from 'styled-components'
+import theme from 'config/theme'
+import '@emcasa/ui-dom/components/global-styles'
 import { DEVICE_ID_COOKIE } from 'components/shared/Flagr'
 import uuid from 'utils/uuid'
 import HTTPMessage from 'components/shared/Shell/HTTPMessage'
-import theme from '@emcasa/ui'
-import { ThemeProvider } from 'styled-components'
 
 class MyApp extends App {
   static async getInitialProps(ctx) {
@@ -81,14 +82,14 @@ class MyApp extends App {
   }
 
   componentDidCatch(error, errorInfo) {
-    Sentry.withScope(scope => {
+    Sentry.withScope((scope) => {
       if (errorInfo) {
-        Object.keys(errorInfo).forEach(key => {
+        Object.keys(errorInfo).forEach((key) => {
           scope.setExtra(key, errorInfo[key])
         })
       }
       Sentry.captureException(error)
-    });
+    })
   }
 
   render() {
@@ -105,37 +106,37 @@ class MyApp extends App {
       store
     } = this.props
     return (
-      <Container>
-        <ApolloProvider client={apolloClient}>
-          <Provider store={store}>
-            <Layout
-              authenticated={authenticated}
-              isAdmin={isAdmin}
-              renderFooter={isUndefined(pageProps.renderFooter) ? true : false}
-              pageProps={pageProps}
-              router={router}
-            >
-              {error ? (
-                <ThemeProvider theme={theme}>
+      <ThemeProvider theme={theme}>
+        <Container>
+          <ApolloProvider client={apolloClient}>
+            <Provider store={store}>
+              <Layout
+                authenticated={authenticated}
+                isAdmin={isAdmin}
+                renderFooter={
+                  isUndefined(pageProps.renderFooter) ? true : false
+                }
+                pageProps={pageProps}
+                router={router}
+              >
+                {error ? (
                   <HTTPMessage asPath={url.asPath} statusCode={error.code} />
-                </ThemeProvider>
-              ) : (
-                <Component
-                  {...pageProps}
-                  url={url}
-                  router={router}
-                  user={currentUser}
-                  client={apolloClient}
-                />
-              )}
-            </Layout>
-          </Provider>
-        </ApolloProvider>
-      </Container>
+                ) : (
+                  <Component
+                    {...pageProps}
+                    url={url}
+                    router={router}
+                    user={currentUser}
+                    client={apolloClient}
+                  />
+                )}
+              </Layout>
+            </Provider>
+          </ApolloProvider>
+        </Container>
+      </ThemeProvider>
     )
   }
 }
 
-export default withApolloClient(
-  withRedux(makeStore)(MyApp)
-)
+export default withApolloClient(withRedux(makeStore)(MyApp))

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import theme from '@emcasa/ui'
+import theme from 'config/theme'
 import * as colors from 'constants/colors'
 import {headerMobileMedia, mobileMedia} from 'constants/media'
 import Text from '@emcasa/ui-dom/components/Text'
@@ -16,6 +16,8 @@ export default styled.ul`
   align-items: center;
   margin: 35px auto 0;
   padding: 0;
+  width: 960px;
+  max-width: calc(100vw - ${theme.space[4] * 2}px);
 
   @media ${headerMobileMedia} {
     width: 100%;

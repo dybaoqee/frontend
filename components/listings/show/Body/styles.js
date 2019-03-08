@@ -1,7 +1,8 @@
 import styled from 'styled-components'
-import theme from '@emcasa/ui'
+import theme from 'config/theme'
 import Text from '@emcasa/ui-dom/components/Text'
 import View from '@emcasa/ui-dom/components/View'
+import {breakpoint} from '@emcasa/ui/lib/styles'
 
 export default styled.div`
   box-sizing: border-box;
@@ -9,7 +10,8 @@ export default styled.div`
   justify-content: space-between;
   align-items: flex-start;
   margin: 30px auto 40px;
-  max-width: 960px;
+  width: 960px;
+  max-width: calc(100vw - ${theme.space[4] * 2}px);
 
   div.description {
     box-sizing: border-box;
@@ -18,9 +20,10 @@ export default styled.div`
     max-width: 100%;
   }
 
-  @media (max-width: ${theme.breakpoints[0]}) {
+  @media ${breakpoint.down('tablet')} {
     flex-direction: column;
     width: 100vw;
+    max-width: unset;
     padding: 0 ${theme.space[4]}px 0 ${theme.space[4]}px;
 
     div.description {
@@ -33,7 +36,7 @@ export const CardWrapper = styled.div`
   display: flex;
   flex-direction: column;
 
-  @media (max-width: ${theme.breakpoints[0]}) {
+  @media ${breakpoint.down('tablet')} {
     margin: 0;
   }
 `
@@ -46,7 +49,7 @@ export const MobileInfo = styled(View)`
   border-radius: 4px;
   box-shadow: 0 6px 16px 0 rgba(38, 38, 38, 0.15);
 
-  @media (max-width: ${theme.breakpoints[0]}) {
+  @media ${breakpoint.down('tablet')} {
     display: block;
   }
 `
@@ -59,7 +62,7 @@ export const ListingDescription = styled.div`
   position: relative;
   margin: 0 ${theme.space[4]}px ${theme.space[4]}px 0;
 
-  @media (max-width: ${theme.breakpoints[0]}) {
+  @media ${breakpoint.down('tablet')} {
     ${({expanded}) => expanded ? `height: auto;` : `height: 400px; overflow: hidden;`}
     margin-right: 0;
   }

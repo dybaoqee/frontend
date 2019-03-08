@@ -106,6 +106,8 @@ exports[`<ProgressDialog/> should render component 1`] = `
     width={
       Array [
         1,
+        null,
+        null,
         0.5,
       ]
     }
@@ -131,6 +133,8 @@ exports[`<ProgressDialog/> should render component 1`] = `
         width={
           Array [
             0.3333333333333333,
+            null,
+            null,
             0.4166666666666667,
           ]
         }
@@ -149,6 +153,8 @@ exports[`<ProgressDialog/> should render component 1`] = `
         width={
           Array [
             0.3333333333333333,
+            null,
+            null,
             0.4166666666666667,
           ]
         }

@@ -1,10 +1,8 @@
-import '@emcasa/ui-dom/components/global-styles'
 import {Component} from 'react'
-import Head from 'next/head'
 import styled from 'styled-components'
-import theme from '@emcasa/ui'
+import {breakpoint} from '@emcasa/ui/lib/styles'
+import {withBreakpoint} from '@emcasa/ui-dom/components/Breakpoint'
 import View from '@emcasa/ui-dom/components/View'
-import {ThemeProvider} from 'styled-components'
 import SellListing from 'components/listings/sell/SellListing'
 import Benefits from 'components/listings/shared/Benefits'
 import HowItWorks from 'components/listings/sell/HowItWorks'
@@ -14,7 +12,6 @@ import {
   SchemaRealEstateAgent,
   SchemaOrganization
 } from 'constants/ld-json'
-import {isMobile} from 'lib/mobile'
 import {imageUrl} from 'utils/image_url'
 import {
   log,
@@ -41,32 +38,33 @@ const Block = styled(View)`
 const MainBlock = styled(Block)`
   padding-top: 0px;
   min-height: 80vh;
-  @media (max-width: ${theme.breakpoints[0]}) {
+  @media ${breakpoint.down('tablet')} {
     min-height: 100vh;
   }
 `
 
 const BASE_TITLE = 'Anuncie e Venda seu Imóvel'
-const BASE_DESCRIPTION = 'com Emcasa, a startup imobiliária que tem exclusivo sistema de Tour Virtual 3D para aumentar suas chances de venda.'
+const BASE_DESCRIPTION =
+  'com Emcasa, a startup imobiliária que tem exclusivo sistema de Tour Virtual 3D para aumentar suas chances de venda.'
 const CONTENT = {
-    all: {
-      seoImg: imageUrl('sell'),
-      seoTitle: `${BASE_TITLE} no Rio de Janeiro ou São Paulo | EmCasa`,
-      seoDescription: `${BASE_TITLE} no Rio de Janeiro ou São Paulo ${BASE_DESCRIPTION}`,
-      heroTitle: 'Quer vender seu imóvel?'
-    },
-    sp: {
-      seoImg: imageUrl('sell-sp'),
-      seoTitle: `${BASE_TITLE} em Perdizes, São Paulo | EmCasa`,
-      seoDescription: `${BASE_TITLE} em Perdizes, São Paulo ${BASE_DESCRIPTION}`,
-      heroTitle: 'Quer vender seu imóvel em Perdizes?'
-    },
-    rj: {
-      seoImg: imageUrl('sell-rj'),
-      seoTitle: `${BASE_TITLE} no Rio de Janeiro | EmCasa`,
-      seoDescription: `${BASE_TITLE} no Rio de Janeiro ${BASE_DESCRIPTION}`,
-      heroTitle: 'Quer vender seu imóvel na zona sul do Rio de Janeiro?'
-    }
+  all: {
+    seoImg: imageUrl('sell'),
+    seoTitle: `${BASE_TITLE} no Rio de Janeiro ou São Paulo | EmCasa`,
+    seoDescription: `${BASE_TITLE} no Rio de Janeiro ou São Paulo ${BASE_DESCRIPTION}`,
+    heroTitle: 'Quer vender seu imóvel?'
+  },
+  sp: {
+    seoImg: imageUrl('sell-sp'),
+    seoTitle: `${BASE_TITLE} em Perdizes, São Paulo | EmCasa`,
+    seoDescription: `${BASE_TITLE} em Perdizes, São Paulo ${BASE_DESCRIPTION}`,
+    heroTitle: 'Quer vender seu imóvel em Perdizes?'
+  },
+  rj: {
+    seoImg: imageUrl('sell-rj'),
+    seoTitle: `${BASE_TITLE} no Rio de Janeiro | EmCasa`,
+    seoDescription: `${BASE_TITLE} no Rio de Janeiro ${BASE_DESCRIPTION}`,
+    heroTitle: 'Quer vender seu imóvel na zona sul do Rio de Janeiro?'
+  }
 }
 
 const seoBreadcrumb = {
@@ -94,7 +92,7 @@ const seoBreadcrumb = {
   ]
 }
 
-export default class Sell extends Component {
+class Sell extends Component {
   static async getInitialProps() {
     return {
       transparentHeader: true,
@@ -104,7 +102,7 @@ export default class Sell extends Component {
   }
 
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       pageWidth: process.browser ? window.innerWidth : 0
     }
@@ -124,8 +122,9 @@ export default class Sell extends Component {
   }
 
   render() {
+    const {isMobile} = this.props
     const blockProps = {
-      isMobile: isMobile(this.state.pageWidth),
+      isMobile,
       pageWidth: this.state.pageWidth
     }
 
@@ -135,7 +134,7 @@ export default class Sell extends Component {
 
     const benefitsProps = {
       sectionTitle: 'Conheça as vantagens de vender com a EmCasa',
-      benefitsList:  [
+      benefitsList: [
         {
           icon: 'tour-3d',
           title: 'Tour Virtual 3D',
@@ -158,61 +157,61 @@ export default class Sell extends Component {
       buttonHref: '/vender/imovel',
       buttonLabel: 'Conheça mais a EmCasa',
       buttonClick: () => {
-          log(SELLER_LANDING_EXPLORE_LISTINGS)
+        log(SELLER_LANDING_EXPLORE_LISTINGS)
       },
-      isMobile: isMobile(this.state.pageWidth)
+      isMobile
     }
 
     return (
-      <ThemeProvider theme={theme}>
-        <Container>
-          <NextHead
-            title={seoTitle}
-            description={seoDescription}
-            imageSrc={seoImg}
-            imageWidth={'1476'}
-            imageHeight={'838'}
-            url={'https://www.emcasa.com/vender'}
-          />
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaWebSite) }}
-          />
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaRealEstateAgent) }}
-          />
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaOrganization) }}
-          />
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify({
-              "@context": "http://schema.org",
-              "@type": "WebPage",
-              "@id": "https://www.emcasa.com/vender/#webpage",
-              "url": "https://www.emcasa.com/vender",
-              "name": seoTitle,
-              "description": seoDescription,
-              "breadcrumb": seoBreadcrumb
-            })}}
-          />
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{__html: JSON.stringify(seoBreadcrumb)}}
-          />
-          <MainBlock>
-            <SellListing title={heroTitle} />
-          </MainBlock>
-          <Block>
-            <Benefits {...benefitsProps} />
-          </Block>
-          <Block>
-            <HowItWorks {...blockProps} />
-          </Block>
-        </Container>
-      </ThemeProvider>
+      <Container>
+        <NextHead
+          title={seoTitle}
+          description={seoDescription}
+          imageSrc={seoImg}
+          imageWidth={'1476'}
+          imageHeight={'838'}
+          url={'https://www.emcasa.com/vender'}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaWebSite) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaRealEstateAgent) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaOrganization) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify({
+            "@context": "http://schema.org",
+            "@type": "WebPage",
+            "@id": "https://www.emcasa.com/vender/#webpage",
+            "url": "https://www.emcasa.com/vender",
+            "name": seoTitle,
+            "description": seoDescription,
+            "breadcrumb": seoBreadcrumb
+          })}}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{__html: JSON.stringify(seoBreadcrumb)}}
+        />
+        <MainBlock>
+          <SellListing title={heroTitle} />
+        </MainBlock>
+        <Block>
+          <Benefits {...benefitsProps} />
+        </Block>
+        <Block>
+          <HowItWorks {...blockProps} />
+        </Block>
+      </Container>
     )
   }
 }
+
+export default withBreakpoint()(Sell)

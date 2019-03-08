@@ -1,6 +1,7 @@
 import styled from 'styled-components'
-import { themeGet } from 'styled-system'
-import theme from '@emcasa/ui'
+import {themeGet} from 'styled-system'
+import {breakpoint} from '@emcasa/ui/lib/styles'
+import theme from 'config/theme'
 import View from '@emcasa/ui-dom/components/View'
 import Row from '@emcasa/ui-dom/components/Row'
 import Icon from '@emcasa/ui-dom/components/Icon'
@@ -13,7 +14,8 @@ const SearchResultItem = styled(View)`
   align-items: center;
   box-sizing: border-box;
   padding: ${themeGet('space.1')}px;
-  height: ${(props) => (props.height && props.height === 'medium') ? HEIGHT_MEDIUM : HEIGHT_TALL}px;
+  height: ${(props) =>
+    props.height && props.height === 'medium' ? HEIGHT_MEDIUM : HEIGHT_TALL}px;
   border: 1px solid ${themeGet('colors.lightGrey')};
   border-radius: ${themeGet('space.1')}px;
   background-color: ${themeGet('colors.white')};
@@ -21,10 +23,10 @@ const SearchResultItem = styled(View)`
   :hover {
     border: 1px solid ${themeGet('colors.pink')};
   }
-  
+
   overflow: hidden;
   white-space: nowrap;
-  
+
   p {
     overflow: hidden;
     white-space: nowrap;
@@ -36,12 +38,12 @@ const SearchResultItem = styled(View)`
 const SearchResultContainer = styled(Row)`
   position: absolute;
   z-index: 1;
-  width: ${({width}) => width ? `${width}px` : '100%'};
+  width: ${({width}) => (width ? `${width}px` : '100%')};
   max-height: 220px;
   overflow-y: scroll;
   overflow-x: hidden;
 
-  @media only screen and (max-width: ${themeGet('breakpoints.0')}) {
+  @media only screen and ${breakpoint.down('tablet')} {
     max-height: 100%;
   }
 `
@@ -55,7 +57,8 @@ const InputContainer = styled(Row)`
 `
 
 const BackIcon = styled(Icon)`
-  margin: ${themeGet('space.1')}px ${themeGet('space.3')}px 0 ${themeGet('space.3')}px;
+  margin: ${themeGet('space.1')}px ${themeGet('space.3')}px 0
+    ${themeGet('space.3')}px;
 `
 
 const MobileTypeaheadContainer = styled(Row)`
@@ -67,7 +70,7 @@ const MobileTypeaheadContainer = styled(Row)`
   z-index: 5;
   background-color: ${themeGet('colors.white')};
 
-  @media only screen and (max-width: ${theme.breakpoints[0]}) {
+  @media only screen and ${breakpoint.down('tablet')} {
     overflow-y: scroll;
     padding-bottom: ${theme.space[4]}px;
   }

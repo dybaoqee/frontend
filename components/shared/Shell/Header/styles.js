@@ -1,9 +1,11 @@
 import styled, {keyframes} from 'styled-components'
-import theme from '@emcasa/ui'
+import theme from 'config/theme'
 import Col from '@emcasa/ui-dom/components/Col'
+import {breakpoint} from '@emcasa/ui/lib/styles'
 
 export const HEADER_HEIGHT = 60
 export const MAX_HEADER_HEIGHT = 76
+export const NAV_ZINDEX = 110
 
 export default styled.header`
   display: flex;
@@ -20,11 +22,15 @@ export default styled.header`
   z-index: 1;
   transition: background 0.3s ease-out;
   transition: height 0.3s ease-out;
-  background: ${props => props.transparent ? 'transparent' : 'white'};
+  background: ${(props) => (props.transparent ? 'transparent' : 'white')};
 
   &.sticky {
     background: white;
     height: ${HEADER_HEIGHT}px;
+  }
+
+  .search {
+    ${({search}) => (!search ? {height: theme.buttonHeight[1]} : null)};
   }
 `
 
@@ -35,7 +41,6 @@ export const Wrapper = styled.div`
   z-index: 5;
   width: 100vw;
 `
-
 
 const slideFromRight = keyframes`
   from { right: -${HEADER_HEIGHT}vw; }
@@ -59,7 +64,8 @@ export const Nav = styled.nav`
     text-decoration: none;
   }
 
-  @media (max-width: ${theme.breakpoints[0]}) {
+  @media ${breakpoint.down('tablet')} {
+    z-index: ${NAV_ZINDEX};
     position: absolute;
     top: 0;
     right: -${HEADER_HEIGHT}vw;
@@ -79,7 +85,6 @@ export const Nav = styled.nav`
   }
 `
 
-
 export const NavButton = styled.button`
   display: none;
   cursor: pointer;
@@ -97,7 +102,7 @@ export const NavButton = styled.button`
     color: gray;
   }
 
-  @media (max-width: ${theme.breakpoints[0]}) {
+  @media ${breakpoint.down('tablet')} {
     display: ${(props) => (props.visible ? 'block' : 'none')};
   }
 `
@@ -114,7 +119,7 @@ export const CloseNavButton = styled.div`
 
   content: url(/static/assets/close.svg);
 
-  @media (max-width: ${theme.breakpoints[0]}) {
+  @media ${breakpoint.down('tablet')} {
     display: ${(props) => (props.visible ? 'block' : 'none')};
   }
 `
@@ -143,11 +148,12 @@ export const MenuItem = styled.div`
     text-align: center;
   }
 
-  &:hover, &.active {
+  &:hover,
+  &.active {
     border-bottom: 1px solid ${theme.colors.pink};
   }
 
-  @media (max-width: ${theme.breakpoints[0]}) {
+  @media ${breakpoint.down('tablet')} {
     min-height: auto;
     height: ${HEADER_HEIGHT}px;
     width: auto;
@@ -170,11 +176,11 @@ export const MenuItem = styled.div`
     border-left: 7px solid transparent;
     padding-left: 20px;
 
-    &:hover, &.active {
+    &:hover,
+    &.active {
       border-left: 7px solid ${theme.colors.pink};
       border-bottom: none;
     }
-
   }
 `
 
@@ -209,7 +215,7 @@ const fadeIn = keyframes`
 `
 
 export const Overlay = styled.div`
-  @media (min-width: ${theme.breakpoints[0]}) {
+  @media ${breakpoint.up('desktop')} {
     display: none;
   }
   position: absolute;
@@ -220,15 +226,14 @@ export const Overlay = styled.div`
   background: black;
   opacity: 0;
   animation: ${fadeIn} 0.3s 0s both;
-  z-index: 1;
+  z-index: ${NAV_ZINDEX - 1};
 `
-
 
 export const Search = styled.div`
   margin-left: 20px;
   width: 100%;
 
-  @media (max-width: ${theme.breakpoints[0]}) {
+  @media ${breakpoint.down('tablet')} {
     width: 80%;
   }
 `
@@ -238,7 +243,7 @@ export const SearchWrapper = styled(Col)`
   margin-left: ${theme.space[4]}px;
   max-width: 560px;
 
-  @media screen and (max-width: ${theme.breakpoints[0]}) {
+  @media screen and ${breakpoint.down('tablet')} {
     max-width: calc(100% - 51px);
   }
 `

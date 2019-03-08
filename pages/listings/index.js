@@ -1,12 +1,8 @@
-import '@emcasa/ui-dom/components/global-styles'
 import {Component} from 'react'
-import {ThemeProvider} from 'styled-components'
-import theme from '@emcasa/ui'
 import NextHead from 'components/shared/NextHead'
 import Router from 'next/router'
 import {
   treatParams,
-  getDerivedParams,
   getListingFiltersFromState,
   getNewFiltersFromQuery,
   getLocationFromPath
@@ -229,54 +225,48 @@ class ListingSearch extends Component {
     }
 
     const listingFilters = getListingFiltersFromState(filters)
-    const initialFilters = query ? getDerivedParams(query) : {}
 
     return (
-      <ThemeProvider theme={theme}>
-        <>
-          {this.getHead()}
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaWebSite) }}
-          />
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaRealEstateAgent) }}
-          />
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaOrganization) }}
-          />
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(this.getWebPage()) }}
-          />
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(this.getBreadcrumbList()) }}
-          />
-          <ListingFilter
-            filters={filters}
-            neighborhoods={neighborhoods}
-            onChange={this.onChangeFilter}
-            onReset={this.onResetFilter}
-            initialFilters={initialFilters}
-          />
-          <ListingList
-            query={query}
-            params={params}
-            user={user}
-            resetFilters={this.onResetFilter}
-            filters={listingFilters}
-            apolloClient={client}
-            neighborhoodListener={(neighborhood) => {
-              if (!this.state.neighborhood) {
-                this.setState({neighborhood: neighborhood})
-              }
-            }}
-          />
-        </>
-      </ThemeProvider>
+      <>
+        {this.getHead()}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaWebSite) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaRealEstateAgent) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaOrganization) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(this.getWebPage()) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(this.getBreadcrumbList()) }}
+        />
+        <ListingFilter
+          onSubmit={this.onChangeFilter}
+          values={filters}
+        />
+        <ListingList
+          query={query}
+          params={params}
+          user={user}
+          resetFilters={this.onResetFilter}
+          filters={listingFilters}
+          apolloClient={client}
+          neighborhoodListener={(neighborhood) => {
+            if (!this.state.neighborhood) {
+              this.setState({neighborhood: neighborhood})
+            }
+          }}
+        />
+      </>
     )
   }
 }
