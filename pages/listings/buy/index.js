@@ -8,11 +8,10 @@ import Benefits from 'components/listings/shared/Benefits'
 import Neighborhoods from 'components/listings/buy/Neighborhoods'
 import {desktopHeaderHeight} from 'constants/dimensions'
 import {
+  sameAs,
   SchemaWebSite,
-  SchemaWebPage,
   SchemaRealEstateAgent,
-  SchemaOrganization,
-  SchemaBreadcrumbList
+  SchemaOrganization
 } from 'constants/ld-json'
 import {imageUrl} from 'utils/image_url'
 import {
@@ -153,10 +152,6 @@ class Buy extends Component {
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaWebPage) }}
-        />
-        <script
-          type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaRealEstateAgent) }}
         />
         <script
@@ -165,7 +160,15 @@ class Buy extends Component {
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaBreadcrumbList) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify({
+            "@context": "http://schema.org",
+            "@type": "WebPage",
+            "@id": "https://www.emcasa.com/#webpage",
+            "name": seoTitle,
+            "description": seoDescription,
+            "sameAs": sameAs,
+            "url": "https://www.emcasa.com"
+          })}}
         />
         <MainBlock>
           <BuyListing title={heroTitle} />

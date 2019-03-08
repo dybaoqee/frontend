@@ -22,14 +22,48 @@ import {imageUrl} from 'utils/image_url'
 import {
   SchemaWebSite,
   SchemaRealEstateAgent,
-  SchemaOrganization,
-  SchemaBreadcrumbList
+  SchemaOrganization
 } from 'constants/ld-json'
 
 const seoImg = imageUrl('sell')
 const seoTitle = 'Anuncie e Venda seu Imóvel no Rio de Janeiro ou em São Paulo'
 const seoDescription =
   'Anuncie e Venda seu Imóvel no Rio de Janeiro ou em São Paulo com Emcasa, a startup imobiliária que tem exclusivo sistema de Tour Virtual 3D para aumentar suas chances de venda.'
+const seoURL = 'https://www.emcasa.com/vender/imovel'
+const seoBreadcrumb = {
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "@id": "http://www.emcasa.com",
+        "name": "Página Inicial",
+        "url": "http://www.emcasa.com"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "item": {
+        "@id": "http://www.emcasa.com/vender",
+        "name": "Vender imóvel",
+        "url": "http://www.emcasa.com/vender"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "item": {
+        "@id": "http://www.emcasa.com/vender/imovel",
+        "name": "Avaliar imóvel",
+        "url": "http://www.emcasa.com/vender/imovel"
+      }
+    }
+  ]
+}
+
 
 class NewListing extends Component {
   constructor(props) {
@@ -217,7 +251,7 @@ class NewListing extends Component {
           imageSrc={seoImg}
           imageWidth={'1476'}
           imageHeight={'838'}
-          url={'https://www.emcasa.com/vender/imovel'}
+          url={seoURL}
         />
         <script
           type="application/ld+json"
@@ -233,7 +267,19 @@ class NewListing extends Component {
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaBreadcrumbList) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify({
+            "@context": "http://schema.org",
+            "@type": "WebPage",
+            "@id": "https://www.emcasa.com/vender/#webpage",
+            "url": seoURL,
+            "name": seoTitle,
+            "description": seoDescription,
+            "breadcrumb": seoBreadcrumb
+          })}}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{__html: JSON.stringify(seoBreadcrumb)}}
         />
         {this.state.resuming ?
           <ProgressDialog

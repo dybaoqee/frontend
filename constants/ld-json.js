@@ -111,53 +111,6 @@ const image = [
   }
 ]
 
-const SchemaBreadcrumbList = {
-  "@context": "http://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "item": {
-        "@id": "http://www.emcasa.com",
-        "name": "Página Inicial"
-      }
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "item": {
-        "@id": "http://www.emcasa.com/imoveis",
-        "name": "Compre"
-      }
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "item": {
-        "@id": "http://www.emcasa.com/vender",
-        "name": "Venda"
-      }
-    },
-    {
-      "@type": "ListItem",
-      "position": 4,
-      "item": {
-        "@id": "http://blog.emcasa.com",
-        "name": "Blog"
-      }
-    },
-    {
-      "@type": "ListItem",
-      "position": 4,
-      "item": {
-        "@id": "https://jobs.emcasa.com",
-        "name": "Trabalhe Conosco"
-      }
-    }
-  ]
-}
-
 const SchemaWebSite = {
   "@context": "https://schema.org",
   "@id": "https://www.emcasa.com/#website",
@@ -165,16 +118,6 @@ const SchemaWebSite = {
   "name": "EmCasa",
   "description": description,
   "url": "https://www.emcasa.com",
-  "sameAs": sameAs
-}
-
-const SchemaWebPage = {
-  "@context": "http://schema.org",
-  "@id": "https://www.emcasa.com/#webpage",
-  "@type": "WebPage",
-  "name": "EmCasa",
-  "description": description,
-  "breadcrumb": SchemaBreadcrumbList,
   "sameAs": sameAs
 }
 
@@ -211,9 +154,9 @@ const SchemaOrganization = {
 }
 
 export {
-  SchemaBreadcrumbList,
+  description,
+  sameAs,
   SchemaWebSite,
-  SchemaWebPage,
   SchemaRealEstateAgent,
   SchemaOrganization
 }
