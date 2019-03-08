@@ -146,6 +146,8 @@ exports[`renders correctly 1`] = `
       width={
         Array [
           1,
+          null,
+          null,
           0.5,
         ]
       }
@@ -164,6 +166,7 @@ exports[`renders correctly 1`] = `
         <div
           className="c5"
           onChange={[Function]}
+          onSelect={[Function]}
         >
           <button
             className="c6"

@@ -1,7 +1,7 @@
 import * as colors from 'constants/colors'
 import styled from 'styled-components'
 import {mobileMedia} from 'constants/media'
-import theme from '@emcasa/ui'
+import theme from 'config/theme'
 import Button from '@emcasa/ui-dom/components/Button'
 import Icon from '@emcasa/ui-dom/components/Icon'
 

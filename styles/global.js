@@ -1,6 +1,6 @@
 import {injectGlobal} from 'styled-components'
 import {mobileMedia} from 'constants/media'
-import theme from '@emcasa/ui'
+import theme from 'config/theme'
 import * as colors from 'constants/colors'
 
 export default injectGlobal`

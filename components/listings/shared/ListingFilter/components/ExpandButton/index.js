@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import theme from '@emcasa/ui'
+import theme from 'config/theme'
 import {
   StyledExpandButton,
   ArrowIcon

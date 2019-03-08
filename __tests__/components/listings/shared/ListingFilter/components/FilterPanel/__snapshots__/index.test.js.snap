@@ -20,11 +20,11 @@ exports[`<FilterPanel/> should render component 1`] = `
   justify-content: flex-end;
 }
 
-.c8 {
+.c9 {
   width: 33.33333333333333%;
 }
 
-.c9 {
+.c10 {
   outline: none;
   display: block;
   cursor: pointer;
@@ -44,11 +44,11 @@ exports[`<FilterPanel/> should render component 1`] = `
   border-style: solid;
 }
 
-.c9 :hover {
+.c10 :hover {
   background-color: #ffffff;
 }
 
-.c10 {
+.c11 {
   outline: none;
   display: block;
   cursor: pointer;
@@ -67,11 +67,11 @@ exports[`<FilterPanel/> should render component 1`] = `
   border-style: solid;
 }
 
-.c10 :hover {
+.c11 :hover {
   background-color: #f50057;
 }
 
-.c12 {
+.c13 {
   outline: none;
   cursor: pointer;
   padding: 0 20px 0 20px;
@@ -79,6 +79,7 @@ exports[`<FilterPanel/> should render component 1`] = `
   background-color: #ffffff;
   border-radius: 0;
   border-width: 0;
+  background-color: unset;
   width: auto;
   height: 32px;
   padding: 0px;
@@ -90,11 +91,11 @@ exports[`<FilterPanel/> should render component 1`] = `
   border-style: solid;
 }
 
-.c12 :hover {
+.c13 :hover {
   background-color: #ffffff;
 }
 
-.c13 {
+.c14 {
   outline: none;
   cursor: pointer;
   padding: 0 20px 0 20px;
@@ -102,6 +103,7 @@ exports[`<FilterPanel/> should render component 1`] = `
   background-color: #ffffff;
   border-radius: 0;
   border-width: 0;
+  background-color: unset;
   width: auto;
   height: 32px;
   padding: 0px;
@@ -112,11 +114,16 @@ exports[`<FilterPanel/> should render component 1`] = `
   border-style: solid;
 }
 
-.c13 :hover {
+.c14 :hover {
   background-color: #ffffff;
 }
 
 .c5 {
+  width: auto;
+  height: 20px;
+}
+
+.c6 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
   color: #3c4858;
@@ -140,14 +147,14 @@ exports[`<FilterPanel/> should render component 1`] = `
   border-radius: 4px;
 }
 
-.c6 {
+.c7 {
   -webkit-box-pack: start;
   -webkit-justify-content: flex-start;
   -ms-flex-pack: start;
   justify-content: flex-start;
 }
 
-.c7 {
+.c8 {
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
@@ -156,7 +163,7 @@ exports[`<FilterPanel/> should render component 1`] = `
   width: 100%;
 }
 
-.c7 Button {
+.c8 Button {
   font-size: 14px;
 }
 
@@ -166,7 +173,7 @@ exports[`<FilterPanel/> should render component 1`] = `
   margin: 0;
 }
 
-@media screen and (max-width:780px) {
+@media screen and (max-width:779px) {
   .c0 {
     position: fixed;
     width: 100%;
@@ -178,7 +185,7 @@ exports[`<FilterPanel/> should render component 1`] = `
   }
 }
 
-@media screen and (max-width:780px) {
+@media screen and (max-width:779px) {
   .c1 {
     position: relative;
     height: 100%;
@@ -186,8 +193,8 @@ exports[`<FilterPanel/> should render component 1`] = `
   }
 }
 
-@media screen and (max-width:780px) {
-  .c7 {
+@media screen and (max-width:779px) {
+  .c8 {
     position: absolute;
     margin: 0;
     bottom: calc(20px + 40px);
@@ -195,14 +202,14 @@ exports[`<FilterPanel/> should render component 1`] = `
   }
 }
 
-@media screen and (max-width:780px) {
+@media screen and (max-width:779px) {
   .c2 {
     display: block;
   }
 }
 
-@media screen and (max-width:780px) {
-  .c11 {
+@media screen and (max-width:779px) {
+  .c12 {
     display: none;
     padding: 0;
     margin: 0;
@@ -224,7 +231,7 @@ exports[`<FilterPanel/> should render component 1`] = `
         width={1}
       >
         <div
-          className=""
+          className="c5"
         >
           <svg
             height={20}
@@ -245,7 +252,7 @@ exports[`<FilterPanel/> should render component 1`] = `
         className="c3"
       >
         <p
-          className="c5"
+          className="c6"
           color="dark"
           fontSize="default"
         >
@@ -254,20 +261,20 @@ exports[`<FilterPanel/> should render component 1`] = `
       </div>
     </div>
     <div
-      className="c6 c3"
+      className="c7 c3"
     />
     <div
       className="c2 c3"
     >
       <div
-        className="c7 c3"
+        className="c8 c3"
       >
         <div
-          className="c8"
+          className="c9"
           width={0.3333333333333333}
         >
           <button
-            className="c9"
+            className="c10"
             color="dark"
             fontSize="default"
             height="tall"
@@ -277,7 +284,7 @@ exports[`<FilterPanel/> should render component 1`] = `
           </button>
         </div>
         <div
-          className="c8"
+          className="c9"
           style={
             Object {
               "display": "flex",
@@ -287,7 +294,7 @@ exports[`<FilterPanel/> should render component 1`] = `
           width={0.3333333333333333}
         >
           <button
-            className="c10"
+            className="c11"
             fontSize="default"
             height="tall"
             onClick={[Function]}
@@ -298,17 +305,17 @@ exports[`<FilterPanel/> should render component 1`] = `
       </div>
     </div>
     <div
-      className="c11 c3"
+      className="c12 c3"
     >
       <div
-        className="c7 c3"
+        className="c8 c3"
       >
         <div
-          className="c8"
+          className="c9"
           width={0.3333333333333333}
         >
           <button
-            className="c12"
+            className="c13"
             color="dark"
             fontSize="default"
             height="short"
@@ -318,7 +325,7 @@ exports[`<FilterPanel/> should render component 1`] = `
           </button>
         </div>
         <div
-          className="c8"
+          className="c9"
           style={
             Object {
               "display": "flex",
@@ -328,7 +335,7 @@ exports[`<FilterPanel/> should render component 1`] = `
           width={0.3333333333333333}
         >
           <button
-            className="c13"
+            className="c14"
             fontSize="default"
             height="short"
             onClick={[Function]}

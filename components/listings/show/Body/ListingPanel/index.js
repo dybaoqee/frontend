@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import theme from '@emcasa/ui'
+import theme from 'config/theme'
 import NumberFormat from 'react-number-format'
 import LikeButton from 'components/shared/Common/Buttons/Like'
 import Button from '@emcasa/ui-dom/components/Button'

@@ -25,8 +25,6 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Form from 'components/shared/Common/Form/styles'
 import ListingCard from 'components/listings/shared/ListingCard'
-import {ThemeProvider} from 'styled-components'
-import theme from '@emcasa/ui'
 import Col from '@emcasa/ui-dom/components/Col'
 import Row from '@emcasa/ui-dom/components/Row'
 import Tab from '@emcasa/ui-dom/components/Tab'
@@ -484,40 +482,38 @@ class UserProfile extends Component {
     const seoTitle = 'EmCasa | Meu Perfil'
     const {currentUser: {id}} = this.props
     return (
-      <ThemeProvider theme={theme}>
-        <>
-          <Head>
-            <title>{seoTitle}</title>
-            <meta name="twitter:title" content={seoTitle} />
-          </Head>
-          <TabWrapper>
-            <Tab.Group onClick={(e) => {
-              if (e.target) {
-                const { target } = e
-                if (target.tagName.toLowerCase() === 'button') {
-                  if (target.innerText === MY_PROFILE_LABEL) {
-                    log(PROFILE_MY_PROFILE)
-                  } else if (target.innerText === MY_LISTINGS_LABEL) {
-                    log(PROFILE_MY_LISTINGS)
-                  } else if (target.innerText === FAVORITES_LABEL) {
-                    log(PROFILE_FAVORITES)
-                  }
+      <>
+        <Head>
+          <title>{seoTitle}</title>
+          <meta name="twitter:title" content={seoTitle} />
+        </Head>
+        <TabWrapper>
+          <Tab.Group onClick={(e) => {
+            if (e.target) {
+              const { target } = e
+              if (target.tagName.toLowerCase() === 'button') {
+                if (target.innerText === MY_PROFILE_LABEL) {
+                  log(PROFILE_MY_PROFILE)
+                } else if (target.innerText === MY_LISTINGS_LABEL) {
+                  log(PROFILE_MY_LISTINGS)
+                } else if (target.innerText === FAVORITES_LABEL) {
+                  log(PROFILE_FAVORITES)
                 }
               }
-            }}>
-              <Tab label={MY_PROFILE_LABEL}>
-                {this.state.editingProfile ? this.getProfileForm() : this.getInitialView()}
-              </Tab>
-              <Tab label={MY_LISTINGS_LABEL}>
-                {this.getUserListings()}
-              </Tab>
-              <Tab label={FAVORITES_LABEL}>
-                {this.getUserFavorites()}
-              </Tab>
-            </Tab.Group>
-          </TabWrapper>
-        </>
-      </ThemeProvider>
+            }
+          }}>
+            <Tab label={MY_PROFILE_LABEL}>
+              {this.state.editingProfile ? this.getProfileForm() : this.getInitialView()}
+            </Tab>
+            <Tab label={MY_LISTINGS_LABEL}>
+              {this.getUserListings()}
+            </Tab>
+            <Tab label={FAVORITES_LABEL}>
+              {this.getUserFavorites()}
+            </Tab>
+          </Tab.Group>
+        </TabWrapper>
+      </>
     )
   }
 }

@@ -10,7 +10,7 @@ class FilterButton extends PureComponent {
       <StyledFilterButton
         mr={2}
         mb={2}
-        px={[2, 3]}
+        px={[2,null,null,  3]}
         active={this.props.active}
         open={this.props.open}
         onClick={this.props.onClick}

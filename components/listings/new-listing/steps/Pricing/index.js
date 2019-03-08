@@ -7,8 +7,8 @@ import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
+import {withBreakpoint} from '@emcasa/ui-dom/components/Breakpoint'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
-import {autoFocus} from 'components/listings/new-listing/lib/forms'
 import Container from 'components/listings/new-listing/shared/Container'
 import {
   currencyInputMask,
@@ -52,7 +52,9 @@ class Pricing extends Component {
 
   componentDidMount() {
     this.updateStateFromProps(this.props)
-    autoFocus(this.userPriceInput)
+    if (this.userPriceInput && !this.props.isMobile) {
+      this.userPriceInput.focus()
+    }
     this.loadingTimeout = setTimeout(this.showPrice, LOADING_TIME)
   }
 
@@ -141,7 +143,10 @@ class Pricing extends Component {
                   placeholder="R$ 000.000"
                   defaultValue={defaultValue}
                   type="tel"
-                  ref={(input) => ref(input)}
+                  ref={(input) => {
+                    ref(input)
+                    this.userPriceInput = input
+                  }}
                   onChange={(e) => {
                     const value = currencyToInt(e.target.value)
                     setFieldValue('userPrice', value)
@@ -166,7 +171,7 @@ class Pricing extends Component {
           </Col>
         </Row>
         <Row>
-          <Col width={[1, 1/2]}>
+          <Col width={[1,null,null,1/2]}>
             {this.currencyInput(errors, setFieldValue, setFieldTouched)}
           </Col>
         </Row>
@@ -220,7 +225,7 @@ class Pricing extends Component {
     return (
       <div ref={this.props.hostRef}>
         <Container>
-          <Col width={[1, 1/2]}>
+          <Col width={[1,null,null,1/2]}>
             <Formik
               initialValues={{
                 userPrice: userPrice
@@ -312,4 +317,4 @@ Pricing.propTypes = {
   pricing: PropTypes.object
 }
 
-export default Pricing
+export default withBreakpoint()(Pricing)

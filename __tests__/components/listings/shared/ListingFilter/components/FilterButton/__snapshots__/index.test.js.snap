@@ -46,6 +46,12 @@ exports[`<FilterButton/> should render component 1`] = `
   }
 }
 
+@media screen and (min-width:480px) {
+  .c0 {
+    z-index: initial;
+  }
+}
+
 <button
   className="c0 c1"
   fontSize="default"

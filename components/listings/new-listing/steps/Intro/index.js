@@ -64,7 +64,7 @@ class Intro extends PureComponent {
                 <Arrow /><ListTitle fontWeight="normal" inline>Cuidamos de toda burocracia, contratos e documentação</ListTitle>
               </View>
             <Row justifyContent="center" mt={4}>
-                <Col width={[1, 1/2]}>
+              <Col width={[1,null,null,1/2]}>
                   <Button
                     fluid
                     active

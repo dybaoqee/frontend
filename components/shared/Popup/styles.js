@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import theme from '@emcasa/ui'
+import {breakpoint} from '@emcasa/ui/lib/styles'
 
 export default styled.div`
   box-sizing: border-box;
@@ -53,7 +53,7 @@ export const Close = styled.button`
     background-color: #f0f0f0;
   }
 
-  @media (max-width: ${theme.breakpoints[0]}) {
+  @media ${breakpoint.down('tablet')} {
     position: fixed;
     z-index: 1;
   }

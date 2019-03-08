@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { isMobile } from 'lib/mobile'
+import {withBreakpoint} from '@emcasa/ui-dom/components/Breakpoint'
 import {
   Container,
   MobileAddressTextContainer,
@@ -9,12 +9,12 @@ import {
 
 class MobileAddressButton extends PureComponent {
   render() {
-    const { address, onClick } = this.props
+    const { address, onClick, isMobile } = this.props
 
     return (
       <Container
         fluid
-        height={isMobile() ? 'tall' : 'medium'}
+        height={isMobile ? 'tall' : 'medium'}
         onClick={onClick}>
         <MobileAddressTextContainer>
           <MobileAddressText
@@ -34,4 +34,4 @@ MobileAddressButton.propTypes = {
   address: PropTypes.string
 }
 
-export default MobileAddressButton
+export default withBreakpoint()(MobileAddressButton)

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import includes from 'lodash/includes'
 import remove from 'lodash/remove'
 import { PoseGroup } from 'react-pose'
+import {withBreakpoint} from '@emcasa/ui-dom/components/Breakpoint'
 import FadeInOut from 'components/shared/Animation/FadeInOut'
 import NewSlider from 'components/shared/Common/NewSlider'
 import Background from 'components/shared/Background'
@@ -11,7 +12,6 @@ import FilterButton from './components/FilterButton'
 import ButtonGroupFilter from './components/ButtonGroupFilter'
 import ExpandButton from './components/ExpandButton'
 import { clone } from 'utils/clone'
-import { isMobile } from 'lib/mobile'
 import {
   log,
   LISTING_SEARCH_FILTER_OPEN,
@@ -228,7 +228,12 @@ class ListingFilter extends Component {
       <Container isFilterOpen={isFilterOpen}>
         <PoseGroup>
           <ButtonsWrapperBase expanded={expanded} key={1} pose={expanded ? 'open' : 'closed'}>
-            {getFilterButtons(this.props.filters, this.showFilter, this.getOpenButton)}
+            {getFilterButtons(
+              this.props.filters,
+              this.showFilter,
+              this.getOpenButton,
+              this.props.isMobile
+            )}
             <ExpandButton
               expanded={expanded}
               onClick={this.toggleFilters}
@@ -349,7 +354,7 @@ class ListingFilter extends Component {
           />
         </FilterPanel>
         <PoseGroup>
-          {(isFilterOpen && !isMobile()) &&
+          {(isFilterOpen && this.props.isMobile) &&
             <FadeInOut key={1}>
               <Background onClick={() => {
                 this.hideAllFilters()
@@ -371,4 +376,4 @@ ListingFilter.propTypes = {
   initialFilters: PropTypes.object
 }
 
-export default ListingFilter
+export default withBreakpoint()(ListingFilter)
