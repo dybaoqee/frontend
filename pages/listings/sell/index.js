@@ -27,9 +27,7 @@ import {
 import {
   Container,
   Block,
-  MainBlock,
-  SofaContainer,
-  Content
+  MainBlock
 } from './styles'
 
 const BASE_TITLE = 'Anuncie e Venda seu Imóvel'
@@ -158,7 +156,7 @@ export default class Sell extends Component {
             dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaBreadcrumbList) }}
           />
           <MainBlock>
-            <NewListing />
+            <NewListing title={heroTitle} />
           </MainBlock>
           <Block>
             <Benefits {...benefitsProps} />

@@ -35,23 +35,18 @@ import Success from 'components/listings/new-listing/steps/Success'
 // Navigation steps
 const steps = {
   intro: {
-    component: Intro,
-    canNavigateTo: [],
-    display: 'bem-vindo'
-  },
-  addressInput: {
     component: AddressInput,
-    canNavigateTo: ['homeDetails', 'intro', 'notifyCoverage', 'addressInputMobile'],
+    canNavigateTo: ['homeDetails', 'notifyCoverage', 'addressInputMobile'],
     display: 'endereco'
   },
   addressInputMobile: {
     component: AddressInputMobile,
-    canNavigateTo: ['addressInput'],
+    canNavigateTo: ['intro'],
     display: 'endereco-mobile'
   },
   notifyCoverage: {
     component: NotifyCoverage,
-    canNavigateTo: ['addressInput', 'notifyCoverageSuccess'],
+    canNavigateTo: ['intro', 'notifyCoverageSuccess'],
     display: 'notificar'
   },
   notifyCoverageSuccess: {
@@ -181,7 +176,7 @@ const getStepEntry = (key) => {
  * Returns the Screen Component with the given key.
  */
 const getScreen = (screenProps) => {
-  const { step, client, user } = screenProps
+  const { step, client, user, title } = screenProps
   const entry = getStepEntry(step)
   const Screen = entry.component
   const AnimatedScreen = getAnimatedScreen(Screen)
@@ -191,6 +186,7 @@ const getScreen = (screenProps) => {
       key={step}
       client={client}
       user={user}
+      title={title}
     />
   )
 }

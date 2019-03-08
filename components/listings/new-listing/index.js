@@ -198,13 +198,14 @@ class NewListing extends Component {
   }
 
   render() {
-    const { client, user } = this.props
+    const { client, user, title } = this.props
     const step = this.props.step || 'intro'
     const { address } = this.props.location
     const screenProps = {
       step,
       client,
-      user
+      user,
+      title
     }
     return (
       <ThemeProvider theme={theme}>

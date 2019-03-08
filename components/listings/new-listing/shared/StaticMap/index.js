@@ -35,6 +35,9 @@ class StaticMap extends PureComponent {
   }
 
   render() {
+    if (!process.browser) {
+      return null
+    }
     const {animated, addressData} = this.props
     const mapWidth = window.innerWidth
     const {geometry: {location: {lat, lng}}} = addressData || {geometry: {location: {lat: 0, lng: 0}}}

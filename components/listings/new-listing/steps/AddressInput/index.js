@@ -13,11 +13,12 @@ import {isMobile} from 'lib/mobile'
 import AddressAutoComplete from 'components/shared/AddressAutoComplete'
 import MobileAddressButton from 'components/shared/MobileAddressButton'
 
+const Header = Text.withComponent('h1')
+
 class AddressInput extends Component {
   constructor(props) {
     super(props)
     this.nextStep = this.nextStep.bind(this)
-    this.previousStep = this.previousStep.bind(this)
     this.updateLocation = this.updateLocation.bind(this)
     this.checkAddressCoverage = this.checkAddressCoverage.bind(this)
     this.validateAddress = this.validateAddress.bind(this)
@@ -72,11 +73,6 @@ class AddressInput extends Component {
   nextStep() {
     const { navigateTo } = this.props
     navigateTo('homeDetails')
-  }
-
-  previousStep() {
-    const { navigateTo } = this.props
-    navigateTo('intro')
   }
 
   async checkAddressCoverage() {
@@ -142,12 +138,11 @@ class AddressInput extends Component {
               }}
               render={({isValid, setFieldValue, errors}) => (
                 <>
-                  <Text
-                    fontSize="large"
-                    fontWeight="bold"
-                    textAlign="center">
-                    Qual o endereço do seu imóvel?
-                  </Text>
+                  <Row justifyContent="center">
+                    <Header fontSize="large">
+                      {this.props.title}
+                    </Header>
+                  </Row>
                   <Col>
                     <StaticMap animated={true} addressData={this.state.addressData} />
                   </Col>
@@ -198,7 +193,6 @@ class AddressInput extends Component {
                     />
                   </Col>
                   <NavButtons
-                    previousStep={this.previousStep}
                     onSubmit={() => {
                       this.checkAddressCoverage()
                     }}
