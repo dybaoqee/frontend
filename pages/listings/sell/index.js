@@ -10,8 +10,7 @@ import {desktopHeaderHeight} from 'constants/dimensions'
 import {
   SchemaWebSite,
   SchemaRealEstateAgent,
-  SchemaOrganization,
-  SchemaBreadcrumbList
+  SchemaOrganization
 } from 'constants/ld-json'
 import {imageUrl} from 'utils/image_url'
 import {
@@ -66,6 +65,31 @@ const CONTENT = {
     seoDescription: `${BASE_TITLE} no Rio de Janeiro ${BASE_DESCRIPTION}`,
     heroTitle: 'Quer vender seu imóvel na zona sul do Rio de Janeiro?'
   }
+}
+
+const seoBreadcrumb = {
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "@id": "http://www.emcasa.com",
+        "name": "Página Inicial",
+        "url": "http://www.emcasa.com"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "item": {
+        "@id": "http://www.emcasa.com/vender",
+        "name": "Vender imóvel",
+        "url": "http://www.emcasa.com/vender"
+      }
+    }
+  ]
 }
 
 class Sell extends Component {
@@ -162,7 +186,19 @@ class Sell extends Component {
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaBreadcrumbList) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify({
+            "@context": "http://schema.org",
+            "@type": "WebPage",
+            "@id": "https://www.emcasa.com/vender/#webpage",
+            "url": "https://www.emcasa.com/vender",
+            "name": seoTitle,
+            "description": seoDescription,
+            "breadcrumb": seoBreadcrumb
+          })}}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{__html: JSON.stringify(seoBreadcrumb)}}
         />
         <MainBlock>
           <SellListing title={heroTitle} />
