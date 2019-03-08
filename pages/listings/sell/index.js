@@ -1,13 +1,12 @@
 import '@emcasa/ui-dom/components/global-styles'
 import {Component} from 'react'
-import styled from 'styled-components'
 import theme from '@emcasa/ui'
-import View from '@emcasa/ui-dom/components/View'
 import {ThemeProvider} from 'styled-components'
 import SellListing from 'components/listings/sell/SellListing'
 import Benefits from 'components/listings/shared/Benefits'
 import HowItWorks from 'components/listings/sell/HowItWorks'
-import {desktopHeaderHeight} from 'constants/dimensions'
+import NextHead from 'components/shared/NextHead'
+import NewListing from 'pages/listings/new-listing'
 import {
   SchemaWebSite,
   SchemaRealEstateAgent,
@@ -21,30 +20,11 @@ import {
   SELLER_LANDING_PAGE,
   SELLER_LANDING_EXPLORE_LISTINGS
 } from 'lib/logging'
-import NextHead from 'components/shared/NextHead'
-
-const Container = styled(View)`
-  display: flex;
-  flex-direction: column;
-`
-
-const Block = styled(View)`
-  display: flex;
-  flex: 1;
-  min-height: 60vh;
-  max-width: 100vw;
-  overflow: hidden;
-  justify-content: center;
-  padding-top: ${desktopHeaderHeight}px;
-`
-
-const MainBlock = styled(Block)`
-  padding-top: 0px;
-  min-height: 80vh;
-  @media (max-width: ${theme.breakpoints[0]}) {
-    min-height: 100vh;
-  }
-`
+import {
+  Container,
+  Block,
+  MainBlock
+} from './styles'
 
 const BASE_TITLE = 'Anuncie e Venda seu Imóvel'
 const BASE_DESCRIPTION = 'com Emcasa, a startup imobiliária que tem exclusivo sistema de Tour Virtual 3D para aumentar suas chances de venda.'
@@ -166,7 +146,7 @@ export default class Sell extends Component {
             dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaBreadcrumbList) }}
           />
           <MainBlock>
-            <SellListing title={heroTitle} />
+            <NewListing />
           </MainBlock>
           <Block>
             <Benefits {...benefitsProps} />

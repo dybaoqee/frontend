@@ -44,13 +44,6 @@ class NewListing extends Component {
     this.restartForm = this.restartForm.bind(this)
   }
 
-  static async getInitialProps(context) {
-    return {
-      renderFooter: false,
-      transparentHeader: true
-    }
-  }
-
   state = {
     startedAt: Date.now(),
     checkedProgress: false,
