@@ -27,8 +27,7 @@ import {NEIGHBORHOODS} from 'constants/listing-locations'
 import {
   SchemaWebSite,
   SchemaRealEstateAgent,
-  SchemaOrganization,
-  SchemaBreadcrumbList
+  SchemaOrganization
 } from 'constants/ld-json'
 
 const BASE_URL = 'https://www.emcasa.com/imoveis'
@@ -173,6 +172,20 @@ class ListingSearch extends Component {
     )
   }
 
+  getWebPage = () => {
+    let schema = {
+      "@context": "http://schema.org",
+      "@type": "WebPage",
+      "@id": "https://www.emcasa.com/imoveis/#webpage",
+      "url": "https://www.emcasa.com/imoveis",
+      "name": 'Apartamentos e Casas à venda na Zona Sul do Rio de Janeiro e em São Paulo',
+      "description": 'Conheça em Compre Apartamentos e Casas à venda na Zona Sul do Rio de Janeiro e em São Paulo com o sistema exclusivo de Tour Virtual 3D do Emcasa, a sua startup imobiliária.',
+      "breadcrumb": this.getBreadcrumbList()
+    }
+
+    return schema
+  }
+
   getBreadcrumbList = () => {
     let itemListElement = [
       {
@@ -180,6 +193,7 @@ class ListingSearch extends Component {
         "position": 1,
         "item": {
           "@id": "http://www.emcasa.com",
+          "url": "http://www.emcasa.com",
           "name": "Página Inicial"
         }
       },
@@ -188,7 +202,8 @@ class ListingSearch extends Component {
         "position": 2,
         "item": {
           "@id": "http://www.emcasa.com/imoveis",
-          "name": "Comprar"
+          "url": "http://www.emcasa.com/imoveis",
+          "name": "Comprar imóvel"
         }
       }
     ]
@@ -234,7 +249,11 @@ class ListingSearch extends Component {
           />
           <script
             type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(this.getBreadcrumbList) }}
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(this.getWebPage()) }}
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(this.getBreadcrumbList()) }}
           />
           <ListingFilter
             filters={filters}
