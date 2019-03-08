@@ -6,10 +6,10 @@ import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
 import Input from '@emcasa/ui-dom/components/Input'
+import {withBreakpoint} from '@emcasa/ui-dom/components/Breakpoint'
 import StaticMap from 'components/listings/new-listing/shared/StaticMap'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import { getAddressInput } from 'lib/address'
-import {isMobile} from 'lib/mobile'
 import AddressAutoComplete from 'components/shared/AddressAutoComplete'
 import MobileAddressButton from 'components/shared/MobileAddressButton'
 
@@ -131,7 +131,7 @@ class AddressInput extends Component {
     return (
       <div ref={this.props.hostRef}>
         <Container>
-          <Col width={[1, 1/2]}>
+          <Col width={[1,null,null,1/2]}>
             <Formik
               initialValues={{
                 address: address,
@@ -151,7 +151,7 @@ class AddressInput extends Component {
                   <Col>
                     <StaticMap animated={true} addressData={this.state.addressData} />
                   </Col>
-                  {isMobile() ?
+                  {this.props.isMobile ?
                     <Col mb={4}>
                       <MobileAddressButton
                         onClick={this.openMobileAddressInput}
@@ -215,4 +215,4 @@ class AddressInput extends Component {
   }
 }
 
-export default AddressInput
+export default withBreakpoint()(AddressInput)

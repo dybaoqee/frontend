@@ -252,114 +252,104 @@ class Listing extends Component {
     ]
 
     return (
-      <ThemeProvider theme={theme}>
-        <Mutation mutation={FAVORITE_LISTING}>
-          {(favoriteListing) => (
-            <Query
-              query={GET_USER_LISTINGS_ACTIONS}
-              skip={!currentUser.authenticated}
-            >
-              {({data: {userProfile}, loading, error}) => {
-                const {router} = this.props
-                const favorite =
-                  !loading &&
-                  !error &&
-                  userProfile &&
-                  userProfile.favorites &&
-                  userProfile.favorites.filter(
-                    (listingSaved) =>
-                      listingSaved.id.toString() === listing.id.toString()
-                  ).length > 0
-
-                if (
-                  !isUndefined(router.query.f) &&
-                  !loading &&
-                  !favorite &&
-                  !this.favMutated
-                ) {
-                  this.favMutated = true
-                  favoriteListing({
-                    refetchQueries: [
-                      {
-                        query: GET_USER_LISTINGS_ACTIONS
-                      }
-                    ],
-                    variables: {
-                      id: listing.id
+      <Mutation mutation={FAVORITE_LISTING}>
+        {(favoriteListing) => (
+          <Query
+            query={GET_USER_LISTINGS_ACTIONS}
+            skip={!currentUser.authenticated}
+          >
+            {({data: {userProfile}, loading, error}) => {
+              const {router} = this.props
+              const favorite =
+                !loading &&
+                !error &&
+                userProfile &&
+                userProfile.favorites &&
+                userProfile.favorites.filter(
+                  (listingSaved) =>
+                    listingSaved.id.toString() === listing.id.toString()
+                ).length > 0
+              if (
+                !isUndefined(router.query.f) &&
+                !loading &&
+                !favorite &&
+                !this.favMutated
+              ) {
+                this.favMutated = true
+                favoriteListing({
+                  refetchQueries: [
+                    {
+                      query: GET_USER_LISTINGS_ACTIONS
                     }
-                  })
-                }
-
-                return (
-                  <>
-                    <ListingHead
+                  ],
+                  variables: {
+                    id: listing.id
+                  }
+                })
+              }
+              return (
+                <>
+                  <ListingHead
+                    listing={listing}
+                    routerAsPath={router.asPath}
+                  />
+                  <div>
+                    <ListingHeader
                       listing={listing}
-                      routerAsPath={router.asPath}
+                      handleOpenPopup={this.openPopup}
+                      handleOpenImageGallery={this.showImageGallery}
+                      handleOpen3DTour={this.show3DTour}
+                      currentUser={currentUser}
+                      favoritedListing={{loading, favorite}}
                     />
-
-                    <div>
-                      <ListingHeader
-                        listing={listing}
-                        handleOpenPopup={this.openPopup}
-                        handleOpenImageGallery={this.showImageGallery}
-                        handleOpen3DTour={this.show3DTour}
-                        currentUser={currentUser}
-                        favoritedListing={{loading, favorite}}
+                    {!isActive && (
+                      <Warning green={url.query.r}>
+                        {url.query.r ? (
+                          <p>
+                            <b>Pré-cadastro feito com sucesso.</b> Nossa equipe
+                            entrará em contato via email.
+                          </p>
+                        ) : (
+                          <p>
+                            Imóvel não está visível para o público pois está em
+                            fase de moderação.
+                          </p>
+                        )}
+                      </Warning>
+                    )}
+                    <Breadcrumb paths={paths} />
+                    <ListingMainContent
+                      listing={listing}
+                      handleOpenPopup={this.openPopup}
+                      user={currentUser}
+                      favorite={favorite}
+                      flagrFlags={this.props.flagrFlags}
+                    />
+                    <ListingMap listing={listing} />
+                    <RelatedListings
+                      currentUser={currentUser}
+                      listings={related}
+                    />
+                    {isInterestPopupVisible && (
+                      <InterestForm
+                        data={interestForm}
+                        handleClose={this.closePopup}
+                        onChange={this.onChange}
+                        onSubmit={this.onSubmit}
                       />
-                      {!isActive && (
-                        <Warning green={url.query.r}>
-                          {url.query.r ? (
-                            <p>
-                              <b>Pré-cadastro feito com sucesso.</b> Nossa equipe
-                              entrará em contato via email.
-                            </p>
-                          ) : (
-                            <p>
-                              Imóvel não está visível para o público pois está em
-                              fase de moderação.
-                            </p>
-                          )}
-                        </Warning>
-                      )}
-                      <Breadcrumb paths={paths} />
-
-                      <ListingMainContent
-                        listing={listing}
-                        handleOpenPopup={this.openPopup}
-                        user={currentUser}
-                        favorite={favorite}
-                        flagrFlags={this.props.flagrFlags}
+                    )}
+                    {isInterestSuccessPopupVisible && (
+                      <InterestPosted
+                        handleClose={this.closeSuccessPostPopup}
                       />
-
-                      <ListingMap listing={listing} />
-
-                      <RelatedListings
-                        currentUser={currentUser}
-                        listings={related}
-                      />
-
-                      {isInterestPopupVisible && (
-                        <InterestForm
-                          data={interestForm}
-                          handleClose={this.closePopup}
-                          onChange={this.onChange}
-                          onSubmit={this.onSubmit}
-                        />
-                      )}
-
-                      {isInterestSuccessPopupVisible && (
-                        <InterestPosted
-                          handleClose={this.closeSuccessPostPopup}
-                        />
-                      )}
-                    </div>
-                  </>
-                )
-              }}
-            </Query>
-          )}
-        </Mutation>
-      </ThemeProvider>
+                    )}
+                  </div>
+                </>
+              )
+            }}
+          </Query>
+        )}
+      </Mutation>
     )
   }
 
@@ -408,7 +398,7 @@ class Listing extends Component {
                 >
                   <Row
                     flexDirection="column"
-                    width={[1, '768px']}
+                    width={[1,null,null,'768px']}
                   >
                     <Title
                       textAlign="center"
@@ -420,7 +410,7 @@ class Listing extends Component {
                     <Text color="grey">{`Que tal olhar outras opções ${endQuestion}? Separamos alguns imóveis para você! Fique a vontade para dar uma olhada nessa lista`}
                     </Text>
                     <Row justifyContent="center">
-                      <Col width={[1, 2/5]}>
+                      <Col width={[1,null,null,2/5]}>
                         <View mt={2}>
                           <Link
                             passHref

@@ -9,9 +9,6 @@ import {
   start,
   resetStore
 } from 'redux/actions'
-import { ThemeProvider } from 'styled-components'
-import '@emcasa/ui-dom/components/global-styles'
-import theme from '@emcasa/ui'
 import {
   getScreen,
   getStepEntry,
@@ -213,45 +210,43 @@ class NewListing extends Component {
       user
     }
     return (
-      <ThemeProvider theme={theme}>
-        <>
-          <NextHead
-            title={seoTitle}
-            description={seoDescription}
-            imageSrc={seoImg}
-            imageWidth={'1476'}
-            imageHeight={'838'}
-            url={'https://www.emcasa.com/vender/imovel'}
+      <>
+        <NextHead
+          title={seoTitle}
+          description={seoDescription}
+          imageSrc={seoImg}
+          imageWidth={'1476'}
+          imageHeight={'838'}
+          url={'https://www.emcasa.com/vender/imovel'}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaWebSite) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaRealEstateAgent) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaOrganization) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaBreadcrumbList) }}
+        />
+        {this.state.resuming ?
+          <ProgressDialog
+            address={address}
+            onReset={this.onReset}
+            onResume={this.onResume}
           />
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaWebSite) }}
-          />
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaRealEstateAgent) }}
-          />
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaOrganization) }}
-          />
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaBreadcrumbList) }}
-          />
-          {this.state.resuming ?
-            <ProgressDialog
-              address={address}
-              onReset={this.onReset}
-              onResume={this.onResume}
-            />
-            :
-            <PoseGroup>
-              {getScreen(screenProps)}
-            </PoseGroup>
-          }
-        </>
-      </ThemeProvider>
+          :
+          <PoseGroup>
+            {getScreen(screenProps)}
+          </PoseGroup>
+        }
+      </>
     )
   }
 }

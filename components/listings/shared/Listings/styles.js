@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import {mobileMedia} from 'constants/media'
-import {desktopFilterHeight} from 'constants/dimensions'
+import {ROW_HEIGHT as FILTER_ROW_HEIGHT} from '@emcasa/ui-dom/components/Filters/constants'
 
 export const ListingsContainer = styled.div`
   box-sizing: border-box;
@@ -48,7 +48,7 @@ margin: 20px 0 0 20px;
 `
 
 export default styled.div`
-  margin-top: ${desktopFilterHeight}px;
+  margin-top: ${FILTER_ROW_HEIGHT}px;
   box-sizing: border-box;
 
   .gm-style-pbc {

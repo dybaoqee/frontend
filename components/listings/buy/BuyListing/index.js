@@ -1,9 +1,9 @@
 import {Component} from 'react'
 import Link from 'next/link'
+import {withBreakpoint} from '@emcasa/ui-dom/components/Breakpoint'
 import Col from '@emcasa/ui-dom/components/Col'
 import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
-import {isMobile} from 'lib/mobile'
 import NeighborhoodAutoComplete from 'components/shared/NeighborhoodAutoComplete'
 import NeighborhoodPicker from 'components/shared/NeighborhoodPicker'
 import MobileAddressButton from 'components/shared/MobileAddressButton'
@@ -23,7 +23,7 @@ import {
   Content
 } from './styles'
 
-export default class BuyListing extends Component {
+class BuyListing extends Component {
   constructor(props) {
     super(props)
     this.openMobileAddressInput = this.openMobileAddressInput.bind(this)
@@ -50,7 +50,7 @@ export default class BuyListing extends Component {
   renderSearch() {
     if (USE_NEW_SEARCH) {
       return (
-        isMobile() ?
+        this.props.isMobile ?
           <Col mb={4}>
             <NeighborhoodPicker
               fromHome
@@ -68,7 +68,7 @@ export default class BuyListing extends Component {
     }
 
     return (
-      isMobile() ?
+      this.props.isMobile ?
         <Col mb={4}>
           <MobileAddressButton
             onClick={this.openMobileAddressInput}
@@ -120,7 +120,7 @@ export default class BuyListing extends Component {
           onScroll100={() => {log(BUYER_LANDING_SCROLL_100)}}
         />
         <Content>
-          <Row justifyContent="center" px={[4, 0]}>
+          <Row justifyContent="center" px={[4,null,null,  0]}>
             <Col>
               <Text
                 fontSize="xlarge"
@@ -132,7 +132,7 @@ export default class BuyListing extends Component {
               </Text>
             </Col>
           </Row>
-          <Row justifyContent="center" px={[4, 0]}>
+          <Row justifyContent="center" px={[4,null,null,  0]}>
             <Col>
               <Text color="gray" style={{margin: '0.5em'}}>
                 Comprar seu imóvel nunca foi tão fácil, informe o bairro ou cidade
@@ -140,8 +140,8 @@ export default class BuyListing extends Component {
               </Text>
             </Col>
           </Row>
-          <Row flexDirection={['column', 'row']} px={[4, 0]}>
-            <Col width={1} mr={[0, 2]}>
+          <Row flexDirection={['column',null,null,  'row']} px={[4,null,null,  0]}>
+            <Col width={1} mr={[0,null,null,  2]}>
               {this.renderSearch()}
             </Col>
           </Row>
@@ -159,3 +159,5 @@ export default class BuyListing extends Component {
     )
   }
 }
+
+export default withBreakpoint()(BuyListing)

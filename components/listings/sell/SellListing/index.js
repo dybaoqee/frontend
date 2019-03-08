@@ -5,7 +5,7 @@ import Col from '@emcasa/ui-dom/components/Col'
 import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
-import {isMobile} from 'lib/mobile'
+import {withBreakpoint} from '@emcasa/ui-dom/components/Breakpoint'
 import AddressAutoComplete from 'components/shared/AddressAutoComplete'
 import MobileAddressButton from 'components/shared/MobileAddressButton'
 import { MobileTypeaheadContainer } from 'components/shared/AddressAutoComplete/styles'
@@ -23,7 +23,7 @@ import {
   Content
 } from './styles'
 
-export default class SellListing extends Component {
+class SellListing extends Component {
   constructor(props) {
     super(props)
     this.openMobileAddressInput = this.openMobileAddressInput.bind(this)
@@ -79,7 +79,7 @@ export default class SellListing extends Component {
           onScroll100={() => {log(SELLER_LANDING_SCROLL_100)}}
         />
         <Content>
-          <Row justifyContent="center" px={[4, 0]}>
+          <Row justifyContent="center" px={[4,null,null,  0]}>
             <Col>
               <Text
                 fontSize="xlarge"
@@ -91,7 +91,7 @@ export default class SellListing extends Component {
               </Text>
             </Col>
           </Row>
-          <Row justifyContent="center" px={[4, 0]}>
+          <Row justifyContent="center" px={[4,null,null,  0]}>
             <Col>
               <Text color="gray" style={{margin: '0.5em'}}>
                 Vender seu imóvel nunca foi tão fácil, informe o endereço do seu imóvel
@@ -99,9 +99,9 @@ export default class SellListing extends Component {
               </Text>
             </Col>
           </Row>
-          <Row flexDirection={['column', 'row']} px={[4, 0]}>
-            <Col width={[1, 10 / 12]} mr={[0, 2]}>
-              {isMobile() ?
+          <Row flexDirection={['column',null,null,  'row']} px={[4,null,null,  0]}>
+            <Col width={[1,null,null,  10 / 12]} mr={[0,null,null,  2]}>
+              {this.props.isMobile ?
                 <Col mb={4}>
                   <MobileAddressButton
                     onClick={this.openMobileAddressInput}
@@ -123,7 +123,7 @@ export default class SellListing extends Component {
                 </Col>
               }
             </Col>
-            <Col width={[1, 2 / 12]} mb={[5, 0]}>
+            <Col width={[1,null,null,  2 / 12]} mb={[5,null,null,  0]}>
               <Button height="tall" active fluid onClick={() => {
                 localStorage.removeItem('persist:step')
                 if (this.state.addressFormatted && this.state.addressData) {
@@ -150,3 +150,5 @@ export default class SellListing extends Component {
     )
   }
 }
+
+export default withBreakpoint()(SellListing)

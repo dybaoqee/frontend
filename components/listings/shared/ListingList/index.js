@@ -294,15 +294,13 @@ class ListingList extends Component {
         {({data: {listings}, fetchMore}) => {
           const hasListings = listings && listings.listings && listings.listings.length > 0
           return (
-            <>
-              <Title fontWeight="normal">
-                {h1Content}
-              </Title>
-              <Container>
+            <Container>
+              <div>
+                <Title fontWeight="normal">{h1Content}</Title>
                 {this.getListings(listings, fetchMore)}
-                {(this.state.renderMap && hasListings) && this.getMap()}
-              </Container>
-            </>
+              </div>
+              {(this.state.renderMap && hasListings) && this.getMap()}
+            </Container>
           )
         }}
       </Query>

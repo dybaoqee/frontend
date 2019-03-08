@@ -62,13 +62,16 @@ class HomeDetails extends Component {
 
   validateArea(value) {
     if (!value) {
-      return "É necessário informar a área do imóvel."
+      return 'É necessário informar a área do imóvel.'
+    }
+    if (value < 0) {
+      return 'Insira um valor positivo.'
     }
   }
 
   validateType(value) {
     if (!value || value === HOME_TYPES.placeholder) {
-      return "É necessário informar o tipo do imóvel."
+      return 'É necessário informar o tipo do imóvel.'
     }
   }
 
@@ -85,7 +88,7 @@ class HomeDetails extends Component {
     return (
       <div ref={this.props.hostRef}>
         <Container>
-          <Col width={[1, 1/2]}>
+          <Col width={[1,null,null,1/2]}>
             <Formik
               initialValues={{
                 type: type,

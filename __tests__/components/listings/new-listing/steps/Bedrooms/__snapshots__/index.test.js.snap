@@ -156,6 +156,8 @@ exports[`<AddressInput/> should render a clean page 1`] = `
       width={
         Array [
           1,
+          null,
+          null,
           0.5,
         ]
       }
@@ -181,6 +183,7 @@ exports[`<AddressInput/> should render a clean page 1`] = `
         <div
           className="c6"
           onChange={[Function]}
+          onSelect={[Function]}
         >
           <button
             className="c7"

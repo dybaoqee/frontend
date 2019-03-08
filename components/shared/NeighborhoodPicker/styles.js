@@ -1,10 +1,11 @@
 import styled from 'styled-components'
-import theme from '@emcasa/ui'
+import theme from 'config/theme'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Icon from '@emcasa/ui-dom/components/Icon'
 import Button from '@emcasa/ui-dom/components/Button'
 import Text from '@emcasa/ui-dom/components/Text'
+import {breakpoint} from '@emcasa/ui/lib/styles'
 
 const MARGINS = theme.space[4] * 2
 
@@ -21,7 +22,8 @@ const InputWrapper = styled(Col)`
 
 const InputContainer = styled(Row)`
   cursor: pointer;
-  border: 1px solid ${({selected}) => selected ? theme.colors.blue : theme.colors.lightGrey}};
+  border: 1px solid
+    ${({selected}) => (selected ? theme.colors.blue : theme.colors.lightGrey)}};
   border-radius: ${theme.space[1]}px;
   display: flex;
   align-items: center;
@@ -31,7 +33,7 @@ const InputContainer = styled(Row)`
   height: ${theme.buttonHeight[0]}px;
   box-sizing: border-box;
 
-  @media (max-width: ${theme.breakpoints[0]}) {
+  @media ${breakpoint.down('tablet')} {
     max-width: none;
   }
 `
@@ -41,7 +43,7 @@ const SearchTextContainer = styled(Row)`
   flex-direction: row;
   align-items: center;
 
-  @media (max-width: ${theme.breakpoints[0]}) {
+  @media ${breakpoint.down('tablet')} {
     width: calc(100% - ${MARGINS}px);
   }
 `
