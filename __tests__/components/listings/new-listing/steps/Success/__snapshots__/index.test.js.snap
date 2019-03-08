@@ -298,7 +298,7 @@ exports[`renders correctly 1`] = `
               className="c11"
               width={0.5}
             >
-
+               
             </div>
             <div
               className="c11"
