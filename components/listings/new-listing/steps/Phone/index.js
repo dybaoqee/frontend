@@ -12,6 +12,8 @@ import {withBreakpoint} from '@emcasa/ui-dom/components/Breakpoint'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import View from '@emcasa/ui-dom/components/View'
 import Container from 'components/listings/new-listing/shared/Container'
+import { getAddressInput } from 'lib/address'
+import { estimatePrice, getPricingInput } from 'lib/listings/pricing'
 import {
   SELLER_ONBOARDING_PHONE_LOGIN_START,
   SELLER_ONBOARDING_PHONE_LOGIN_SUCCESS,
