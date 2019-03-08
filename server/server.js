@@ -126,7 +126,7 @@ const startServer = () => {
       })
 
       server.get('/vender/imovel', (req, res) => {
-        return app.render(req, res, '/listings/new-listing', req.query)
+        return app.render(req, res, '/listings/sell', req.query)
       })
 
       server.get('/', (req, res) => {

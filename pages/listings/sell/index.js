@@ -6,7 +6,7 @@ import SellListing from 'components/listings/sell/SellListing'
 import Benefits from 'components/listings/shared/Benefits'
 import HowItWorks from 'components/listings/sell/HowItWorks'
 import NextHead from 'components/shared/NextHead'
-import NewListing from 'pages/listings/new-listing'
+import NewListing from 'components/listings/new-listing'
 import {
   SchemaWebSite,
   SchemaRealEstateAgent,

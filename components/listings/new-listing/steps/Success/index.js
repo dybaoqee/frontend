@@ -115,11 +115,6 @@ class Success extends PureComponent {
                 <Button active fluid height="tall" onClick={this.viewMyListings}>Ver Meus Imóveis</Button>
               </Col>
             </Row>
-            <Row>
-              <Col width={1}>
-                <Button fluid height="tall" onClick={this.goHome}>Fale com a EmCasa</Button>
-              </Col>
-            </Row>
           </Col>
         </Container>
       </div>
