@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import {themeGet} from 'styled-system'
 import {breakpoint} from '@emcasa/ui/lib/styles'
 
 export default styled.div`
@@ -48,6 +49,7 @@ export const Close = styled.button`
   position: absolute;
   right: 0;
   top: 0;
+  cursor: pointer;
 
   :hover {
     background-color: #f0f0f0;
@@ -56,5 +58,8 @@ export const Close = styled.button`
   @media ${breakpoint.down('tablet')} {
     position: fixed;
     z-index: 1;
+  }
+  @media ${breakpoint.up('desktop')} {
+    margin: ${themeGet('space.2')}px;
   }
 `

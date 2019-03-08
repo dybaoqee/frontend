@@ -9,7 +9,6 @@ export const Container = styled(View)`
   padding: ${theme.space[4]}px;
   box-shadow: 0 6px 16px 0 rgba(38, 38, 38, 0.15);
   background-color: ${theme.colors.white};
-  max-width: 400px;
 
   @media ${breakpoint.down('tablet')} {
     position: fixed;
@@ -17,6 +16,9 @@ export const Container = styled(View)`
     top: 0;
     right: 0;
     bottom: 0;
+  }
+  @media ${breakpoint.up('desktop')} {
+    max-width: 400px;
   }
 `
 
