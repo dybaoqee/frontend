@@ -1,12 +1,11 @@
 import styled from 'styled-components'
-import theme from '@emcasa/ui'
+import theme from 'config/theme'
 
 export default styled.div`
   height: 240px;
   margin: 40px auto 0;
-  max-width: 960px;
-
-  @media (max-width: ${theme.breakpoints[0]}) {
-    padding: 0 ${theme.space[4]}px 0 ${theme.space[4]}px;
-  }
+  width: 960px;
+  max-width: calc(100vw - ${theme.space[4] * 2}px);
+  border-radius: 4px;
+  overflow: hidden;
 `

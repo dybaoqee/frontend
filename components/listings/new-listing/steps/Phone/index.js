@@ -8,11 +8,9 @@ import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
-import View from '@emcasa/ui-dom/components/View'
+import {withBreakpoint} from '@emcasa/ui-dom/components/Breakpoint'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
-import { getAddressInput } from 'lib/address'
-import { estimatePrice, getPricingInput } from 'lib/listings/pricing'
-import {autoFocus} from 'components/listings/new-listing/lib/forms'
+import View from '@emcasa/ui-dom/components/View'
 import Container from 'components/listings/new-listing/shared/Container'
 import {
   SELLER_ONBOARDING_PHONE_LOGIN_START,
@@ -50,7 +48,9 @@ class Phone extends Component {
 
   componentDidMount() {
     this.updateStateFromProps(this.props)
-    autoFocus(this.dddField.current)
+    if (this.dddField.current && !this.props.isMobile) {
+      this.dddField.current.focus()
+    }
   }
 
   componentWillReceiveProps(props) {
@@ -170,7 +170,7 @@ class Phone extends Component {
     return (
       <div ref={this.props.hostRef}>
         <Container>
-          <Col width={[1, 1/2]}>
+          <Col width={[1,null,null,1/2]}>
             <Formik
               initialValues={{
                 internationalCode: internationalCode,
@@ -275,4 +275,4 @@ class Phone extends Component {
   }
 }
 
-export default Phone
+export default withBreakpoint()(Phone)

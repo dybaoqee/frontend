@@ -5,8 +5,7 @@ import Text from '@emcasa/ui-dom/components/Text'
 import Icon from '@emcasa/ui-dom/components/Icon'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
-
-import {isMobile} from 'lib/mobile'
+import {withBreakpoint} from '@emcasa/ui-dom/components/Breakpoint'
 
 import {
   PageButton,
@@ -35,12 +34,12 @@ class Slider extends PureComponent {
       onNext
     } = this.props
 
-    const arrowMargin = isMobile() ? 0 : 4
+    const arrowMargin = this.props.isMobile ? 0 : 4
     return (
       <Row
         width={1}
         alignItems="center"
-        justifyContent={isMobile() ? 'space-between' : 'center'}
+        justifyContent={this.props.isMobile ? 'space-between' : 'center'}
       >
         <Col mr={arrowMargin}>
           <PageButton
@@ -96,4 +95,4 @@ Slider.Button = ({day, dayOfWeek, onClick, selected}) => {
   )
 }
 
-export default Slider
+export default withBreakpoint()(Slider)

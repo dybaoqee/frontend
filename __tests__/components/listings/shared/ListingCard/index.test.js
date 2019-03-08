@@ -2,7 +2,7 @@ import React from 'react'
 import ListingCard from 'components/listings/shared/ListingCard'
 import renderer from 'react-test-renderer'
 import 'jest-styled-components'
-import theme from '@emcasa/ui'
+import theme from 'config/theme'
 import { ThemeProvider } from 'styled-components'
 import { MockedProvider } from 'react-apollo/test-utils'
 

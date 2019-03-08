@@ -1,3 +1,4 @@
+import React from 'react'
 import { connect } from 'react-redux'
 import { getAnimatedScreen } from './animation'
 import {
@@ -166,11 +167,7 @@ const mapDispatchToProps = dispatch => {
 /**
  * Returns the navigation step object with the given key.
  */
-const getStepEntry = (key) => {
-  return Object.entries(steps).find((step) => {
-    return step[0] === key
-  })[1]
-}
+const getStepEntry = (key) => steps[key]
 
 /**
  * Returns the Screen Component with the given key.
@@ -179,8 +176,13 @@ const getScreen = (screenProps) => {
   const { step, client, user, title } = screenProps
   const entry = getStepEntry(step)
   const Screen = entry.component
-  const AnimatedScreen = getAnimatedScreen(Screen)
-  const ConnectedScreen = connect(mapStateToProps, mapDispatchToProps)(AnimatedScreen)
+  const AnimatedScreen = getAnimatedScreen(
+    React.forwardRef((props, ref) => <Screen hostRef={ref} {...props} />)
+  )
+  const ConnectedScreen = connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )((props) => <AnimatedScreen {...props} />)
   return (
     <ConnectedScreen
       key={step}

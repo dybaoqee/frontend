@@ -182,6 +182,8 @@ exports[`renders correctly 1`] = `
       width={
         Array [
           1,
+          null,
+          null,
           0.5,
         ]
       }

@@ -1,11 +1,12 @@
 import styled from 'styled-components'
-import theme from '@emcasa/ui'
+import theme from 'config/theme'
 import Text from '@emcasa/ui-dom/components/Text'
+import {breakpoint} from '@emcasa/ui/lib/styles'
 
 export const Title = Text.withComponent('h2')
 
 export default styled.div`
-  max-width: ${theme.breakpoints[0]};
+  max-width: ${theme.breakpoints[theme.breakpointNames.indexOf('tablet')]};
   margin: 0 0 ${theme.space[6]}px;
 
   ul {
@@ -37,7 +38,7 @@ export default styled.div`
         color: ${theme.colors.pink};
       }
 
-      @media screen and (max-width: ${theme.breakpoints[0]}) {
+      @media screen and ${breakpoint.down('tablet')} {
         font-size: ${theme.fontSizes[2]}px;
       }
     }

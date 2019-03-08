@@ -1,12 +1,8 @@
-import '@emcasa/ui-dom/components/global-styles'
 import {Component} from 'react'
-import {ThemeProvider} from 'styled-components'
-import theme from '@emcasa/ui'
 import NextHead from 'components/shared/NextHead'
 import Router from 'next/router'
 import {
   treatParams,
-  getDerivedParams,
   getListingFiltersFromState,
   getNewFiltersFromQuery,
   getLocationFromPath
@@ -27,8 +23,7 @@ import {NEIGHBORHOODS} from 'constants/listing-locations'
 import {
   SchemaWebSite,
   SchemaRealEstateAgent,
-  SchemaOrganization,
-  SchemaBreadcrumbList
+  SchemaOrganization
 } from 'constants/ld-json'
 
 const BASE_URL = 'https://www.emcasa.com/imoveis'
@@ -173,6 +168,49 @@ class ListingSearch extends Component {
     )
   }
 
+  getWebPage = () => {
+    let schema = {
+      "@context": "http://schema.org",
+      "@type": "WebPage",
+      "@id": "https://www.emcasa.com/imoveis/#webpage",
+      "url": "https://www.emcasa.com/imoveis",
+      "name": 'Apartamentos e Casas à venda na Zona Sul do Rio de Janeiro e em São Paulo',
+      "description": 'Conheça em Compre Apartamentos e Casas à venda na Zona Sul do Rio de Janeiro e em São Paulo com o sistema exclusivo de Tour Virtual 3D do Emcasa, a sua startup imobiliária.',
+      "breadcrumb": this.getBreadcrumbList()
+    }
+
+    return schema
+  }
+
+  getBreadcrumbList = () => {
+    let itemListElement = [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "http://www.emcasa.com",
+          "url": "http://www.emcasa.com",
+          "name": "Página Inicial"
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "item": {
+          "@id": "http://www.emcasa.com/imoveis",
+          "url": "http://www.emcasa.com/imoveis",
+          "name": "Comprar imóvel"
+        }
+      }
+    ]
+
+    return {
+      "@context": "http://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": itemListElement
+    }
+  }
+
   render() {
     const {neighborhoods, query, params, user, client} = this.props
     const {filters} = this.state
@@ -187,50 +225,48 @@ class ListingSearch extends Component {
     }
 
     const listingFilters = getListingFiltersFromState(filters)
-    const initialFilters = query ? getDerivedParams(query) : {}
 
     return (
-      <ThemeProvider theme={theme}>
-        <>
-          {this.getHead()}
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaWebSite) }}
-          />
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaRealEstateAgent) }}
-          />
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaOrganization) }}
-          />
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaBreadcrumbList) }}
-          />
-          <ListingFilter
-            filters={filters}
-            neighborhoods={neighborhoods}
-            onChange={this.onChangeFilter}
-            onReset={this.onResetFilter}
-            initialFilters={initialFilters}
-          />
-          <ListingList
-            query={query}
-            params={params}
-            user={user}
-            resetFilters={this.onResetFilter}
-            filters={listingFilters}
-            apolloClient={client}
-            neighborhoodListener={(neighborhood) => {
-              if (!this.state.neighborhood) {
-                this.setState({neighborhood: neighborhood})
-              }
-            }}
-          />
-        </>
-      </ThemeProvider>
+      <>
+        {this.getHead()}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaWebSite) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaRealEstateAgent) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaOrganization) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(this.getWebPage()) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(this.getBreadcrumbList()) }}
+        />
+        <ListingFilter
+          onSubmit={this.onChangeFilter}
+          values={filters}
+        />
+        <ListingList
+          query={query}
+          params={params}
+          user={user}
+          resetFilters={this.onResetFilter}
+          filters={listingFilters}
+          apolloClient={client}
+          neighborhoodListener={(neighborhood) => {
+            if (!this.state.neighborhood) {
+              this.setState({neighborhood: neighborhood})
+            }
+          }}
+        />
+      </>
     )
   }
 }

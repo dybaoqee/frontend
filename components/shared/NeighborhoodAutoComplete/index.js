@@ -6,8 +6,8 @@ import {Query} from 'react-apollo'
 import { MoonLoader } from 'react-spinners'
 import Fuse from 'fuse.js'
 import {GET_DISTRICTS} from 'graphql/listings/queries'
-import {isMobile} from 'lib/mobile'
-import theme from '@emcasa/ui'
+import theme from 'config/theme'
+import {withBreakpoint} from '@emcasa/ui-dom/components/Breakpoint'
 import Input from '@emcasa/ui-dom/components/Input'
 import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
@@ -24,7 +24,7 @@ import {
   BackIcon
 } from './styles'
 
-export default class NeighborhoodAutoComplete extends Component {
+class NeighborhoodAutoComplete extends Component {
   constructor(props) {
     super(props)
     this.timer = null
@@ -69,7 +69,7 @@ export default class NeighborhoodAutoComplete extends Component {
   }
 
   componentDidMount() {
-    if (this.searchInput.current && isMobile()) {
+    if (this.searchInput.current && this.props.isMobile) {
       this.searchInput.current.focus()
     }
   }
@@ -266,3 +266,5 @@ export default class NeighborhoodAutoComplete extends Component {
     )
   }
 }
+
+export default withBreakpoint()(NeighborhoodAutoComplete)

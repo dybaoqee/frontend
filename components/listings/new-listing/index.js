@@ -9,9 +9,6 @@ import {
   start,
   resetStore
 } from 'redux/actions'
-import { ThemeProvider } from 'styled-components'
-import '@emcasa/ui-dom/components/global-styles'
-import theme from '@emcasa/ui'
 import {
   getScreen,
   getStepEntry,
@@ -25,8 +22,7 @@ import {imageUrl} from 'utils/image_url'
 import {
   SchemaWebSite,
   SchemaRealEstateAgent,
-  SchemaOrganization,
-  SchemaBreadcrumbList
+  SchemaOrganization
 } from 'constants/ld-json'
 import { SofaContainer } from './styles'
 
@@ -34,6 +30,41 @@ const seoImg = imageUrl('sell')
 const seoTitle = 'Anuncie e Venda seu Imóvel no Rio de Janeiro ou em São Paulo'
 const seoDescription =
   'Anuncie e Venda seu Imóvel no Rio de Janeiro ou em São Paulo com Emcasa, a startup imobiliária que tem exclusivo sistema de Tour Virtual 3D para aumentar suas chances de venda.'
+const seoURL = 'https://www.emcasa.com/vender/imovel'
+const seoBreadcrumb = {
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "@id": "http://www.emcasa.com",
+        "name": "Página Inicial",
+        "url": "http://www.emcasa.com"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "item": {
+        "@id": "http://www.emcasa.com/vender",
+        "name": "Vender imóvel",
+        "url": "http://www.emcasa.com/vender"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "item": {
+        "@id": "http://www.emcasa.com/vender/imovel",
+        "name": "Avaliar imóvel",
+        "url": "http://www.emcasa.com/vender/imovel"
+      }
+    }
+  ]
+}
+
 
 class NewListing extends Component {
   constructor(props) {
@@ -208,47 +239,57 @@ class NewListing extends Component {
       title
     }
     return (
-      <ThemeProvider theme={theme}>
-        <>
-          <NextHead
-            title={seoTitle}
-            description={seoDescription}
-            imageSrc={seoImg}
-            imageWidth={'1476'}
-            imageHeight={'838'}
-            url={'https://www.emcasa.com/vender'}
-          />
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaWebSite) }}
-          />
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaRealEstateAgent) }}
-          />
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaOrganization) }}
-          />
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaBreadcrumbList) }}
-          />
-          <SofaContainer showBackground={step === 'intro'}>
-            {this.state.resuming ?
-              <ProgressDialog
-                address={address}
-                onReset={this.onReset}
-                onResume={this.onResume}
-              />
-              :
-              <PoseGroup>
-                {getScreen(screenProps)}
-              </PoseGroup>
-            }
-          </SofaContainer>
-        </>
-      </ThemeProvider>
+      <>
+        <NextHead
+          title={seoTitle}
+          description={seoDescription}
+          imageSrc={seoImg}
+          imageWidth={'1476'}
+          imageHeight={'838'}
+          url={seoURL}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaWebSite) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaRealEstateAgent) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaOrganization) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify({
+            "@context": "http://schema.org",
+            "@type": "WebPage",
+            "@id": "https://www.emcasa.com/vender/#webpage",
+            "url": seoURL,
+            "name": seoTitle,
+            "description": seoDescription,
+            "breadcrumb": seoBreadcrumb
+          })}}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{__html: JSON.stringify(seoBreadcrumb)}}
+        />
+        <SofaContainer showBackground={step === 'intro'}>
+          {this.state.resuming ?
+            <ProgressDialog
+              address={address}
+              onReset={this.onReset}
+              onResume={this.onResume}
+            />
+            :
+            <PoseGroup>
+              {getScreen(screenProps)}
+            </PoseGroup>
+          }
+        </SofaContainer>
+      </>
     )
   }
 }

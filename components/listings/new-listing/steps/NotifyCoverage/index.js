@@ -5,9 +5,9 @@ import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
+import {withBreakpoint} from '@emcasa/ui-dom/components/Breakpoint'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import { getAddressInput } from 'lib/address'
-import {autoFocus} from 'components/listings/new-listing/lib/forms'
 import Container from 'components/listings/new-listing/shared/Container'
 
 class NotifyCoverage extends Component {
@@ -29,7 +29,9 @@ class NotifyCoverage extends Component {
   }
 
   componentDidMount() {
-    autoFocus(this.nameField.current)
+    if (this.nameField.current && !this.props.isMobile) {
+      this.nameField.current.focus()
+    }
   }
 
   previousStep() {
@@ -89,7 +91,7 @@ class NotifyCoverage extends Component {
     return (
       <div ref={this.props.hostRef}>
         <Container>
-          <Col width={[1, 1/2]}>
+          <Col width={[1,null,null,1/2]}>
             <Formik
               isInitialValid={() => {
                 return false
@@ -163,4 +165,4 @@ class NotifyCoverage extends Component {
   }
 }
 
-export default NotifyCoverage
+export default withBreakpoint()(NotifyCoverage)

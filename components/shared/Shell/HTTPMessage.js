@@ -124,7 +124,7 @@ export default class HTTPMessage extends Component {
         />
         <Col px={4}>
           <Row justifyContent="center">
-            <Col width={[1, HTTPMessageSvgWidth]}>
+            <Col width={[1,null,null,HTTPMessageSvgWidth]}>
               <Text
                 fontSize={4}
                 fontWeight="bold"
@@ -142,7 +142,7 @@ export default class HTTPMessage extends Component {
                 </Asset>
               )}
               <Row justifyContent="center">
-                <Col width={[1, 1/2]}>
+                <Col width={[1,null,null,1/2]}>
                   <Link
                     passHref
                     href={this.href}

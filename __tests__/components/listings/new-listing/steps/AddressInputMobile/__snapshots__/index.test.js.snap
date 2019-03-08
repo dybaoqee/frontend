@@ -5,7 +5,7 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   width: 100%;
 }
 
-.c6 {
+.c7 {
   -webkit-font-smoothing: antialiased;
   display: block;
   box-sizing: border-box;
@@ -25,7 +25,7 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   letter-spacing: 0px;
 }
 
-.c6:focus {
+.c7:focus {
   border-radius: 4px;
   border: 1px solid;
   border-color: #1fb6ff;
@@ -33,19 +33,19 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   height: 60px;
 }
 
-.c6::-webkit-input-placeholder {
+.c7::-webkit-input-placeholder {
   color: #8492a6;
 }
 
-.c6::-moz-placeholder {
+.c7::-moz-placeholder {
   color: #8492a6;
 }
 
-.c6:-ms-input-placeholder {
+.c7:-ms-input-placeholder {
   color: #8492a6;
 }
 
-.c6::placeholder {
+.c7::placeholder {
   color: #8492a6;
 }
 
@@ -66,6 +66,11 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+}
+
+.c6 {
+  width: auto;
+  height: 20px;
 }
 
 .c3 {
@@ -109,7 +114,7 @@ exports[`<AddressInput/> should render a clean page 1`] = `
           className="c3 c4"
         >
           <div
-            className="c5 "
+            className="c5 c6"
           >
             <svg
               height={20}
@@ -136,7 +141,7 @@ exports[`<AddressInput/> should render a clean page 1`] = `
             >
               <input
                 autoComplete="off"
-                className="c6"
+                className="c7"
                 fontSize="default"
                 height="tall"
                 letterSpacing="default"

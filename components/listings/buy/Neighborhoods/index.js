@@ -7,18 +7,13 @@ import slug from 'slug'
 import {GET_DISTRICTS} from 'graphql/listings/queries'
 import {
   Container,
-  Content,
   Header,
   Cities,
   City,
-  CityTitle,
-  CityInfo,
-  NeighborhoodContainer,
   NeighborhoodsLinks,
-  NeighborhoodItems,
+  NeighborhoodsHighlights,
   Neighborhood,
   Soon,
-  Spacer,
   Title,
   SubTitle,
   ListTitle
@@ -54,7 +49,7 @@ const NEIGHBORHOODS_BY_CITIES = NEIGHBORHOODS.reduce((cities, neighborhood) => {
   return cities
 }, {})
 
-const getCityNeighborhoodLinks = (citySlug, noTitle) => (
+const getCityNeighborhoodLinks = (citySlug) => (
   <NeighborhoodsLinks>
     <Query query={GET_DISTRICTS}>
       {({data: {districts}, loading}) =>
@@ -78,14 +73,9 @@ const getCityNeighborhoodLinks = (citySlug, noTitle) => (
                 <a className="NeighborhoodLink" title={`Comprar imóvel: ${district.name}`} onClick={() => {
                   log(BUYER_LANDING_NEIGHBORHOOD_LINK, {neighborhood: district.nameSlug})
                 }}>
-                  {noTitle ? (
-                      `Apartamentos em ${district.name}`
-                    ) : (
-                      <ListTitle fontWeight="normal">
-                        Apartamentos em {district.name}
-                      </ListTitle>
-                    )
-                  }
+                  <ListTitle fontWeight="normal">
+                    {district.name}
+                  </ListTitle>
                 </a>
               </Link>
             )
@@ -100,68 +90,55 @@ export default class Neighborhoods extends Component {
   render() {
     return (
       <Container>
-        <Content>
-          <Header>
-            <Title fontSize="xlarge" fontWeight="bold" textAlign="center">
-              Imóveis à venda no Rio de Janeiro e São Paulo
-            </Title>
-            <Text color="grey" textAlign="center">
-              Escolha a localidade e confira os imóveis disponíveis
-            </Text>
-          </Header>
-          <Cities>
-            {CITIES.map(({title, slug: citySlug, stateSlug}, index) => {
-              return (
-                <City key={index}>
-                  <CityTitle>
-                    <SubTitle fontWeight="bold">
-                      {title}
-                    </SubTitle>
-                  </CityTitle>
-                  <NeighborhoodContainer>
-                    <NeighborhoodItems>
-                      {NEIGHBORHOODS_BY_CITIES[citySlug].map((props, nIndex) => {
-                        const {name, thumb, soon} = props
-                        const srcImg = `https://res.cloudinary.com/emcasa/image/upload/v1543531007/bairros/${thumb + (soon ? '-em-breve' : '')}`
-                        return (
-                          <Link
-                            key={`link-${nIndex}`}
-                            passHref
-                            href={soon ? '#' : `/imoveis/${stateSlug}/${citySlug}/${thumb}`}
-                          >
-                            <a>
-                              <Neighborhood
-                                onClick={() => {
-                                  log(BUYER_LANDING_NEIGHBORHOOD_IMAGE, {neighborhood: name})
-                                }}
-                              >
-                                <LazyImage
-                                  src={srcImg}
-                                  alt={`Imagem em destaque do bairro ${name}`}
-                                  placeholder={({ imageProps, ref }) => (
-                                    <div ref={ref} />
-                                  )}
-                                  actual={({ imageProps }) => <img {...imageProps} />}
-                                />
-                                <Text>{name}</Text>
-                                {soon && <Soon />}
-                              </Neighborhood>
-                            </a>
-                          </Link>
-                        )
-                      })}
-                      <Spacer>
-                        {getCityNeighborhoodLinks(citySlug, true)}
-                      </Spacer>
-                    </NeighborhoodItems>
-                  </NeighborhoodContainer>
-                  <CityInfo>
-                    {getCityNeighborhoodLinks(citySlug)}
-                  </CityInfo>
-                </City>
-              )})}
-          </Cities>
-        </Content>
+        <Header>
+          <Title fontSize="xlarge" fontWeight="bold" textAlign="center">
+            Imóveis à venda no Rio de Janeiro e São Paulo
+          </Title>
+          <Text color="grey" textAlign="center">
+            Escolha a localidade e confira os imóveis disponíveis
+          </Text>
+        </Header>
+        <Cities>
+          {CITIES.map(({title, slug: citySlug, stateSlug}, index) => {
+            return (
+              <City key={index}>
+                <SubTitle fontWeight="bold">
+                  {title}
+                </SubTitle>
+                <NeighborhoodsHighlights>
+                  {NEIGHBORHOODS_BY_CITIES[citySlug].map((props, nIndex) => {
+                    const {name, thumb, soon} = props
+                    const srcImg = `https://res.cloudinary.com/emcasa/image/upload/v1543531007/bairros/${thumb + (soon ? '-em-breve' : '')}`
+                    return (
+                      <Link
+                        key={`link-${nIndex}`}
+                        passHref
+                        href={soon ? '#' : `/imoveis/${stateSlug}/${citySlug}/${thumb}`}
+                      >
+                        <Neighborhood
+                          onClick={() => {
+                            log(BUYER_LANDING_NEIGHBORHOOD_IMAGE, {neighborhood: name})
+                          }}
+                        >
+                          <LazyImage
+                            src={srcImg}
+                            alt={`Imagem em destaque do bairro ${name}`}
+                            placeholder={({ imageProps, ref }) => (
+                              <div ref={ref} />
+                            )}
+                            actual={({ imageProps }) => <img {...imageProps} />}
+                          />
+                          <Text>{name}</Text>
+                          {soon && <Soon>Em breve</Soon>}
+                        </Neighborhood>
+                      </Link>
+                    )
+                  })}
+                </NeighborhoodsHighlights>
+                {getCityNeighborhoodLinks(citySlug)}
+              </City>
+            )})}
+        </Cities>
       </Container>
     )
   }

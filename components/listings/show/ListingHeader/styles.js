@@ -1,9 +1,15 @@
 import * as colors from 'constants/colors'
 import styled from 'styled-components'
 import {mobileMedia} from 'constants/media'
-import theme from '@emcasa/ui'
-import Button from '@emcasa/ui-dom/components/Button'
+import MoonLoader from 'react-spinners/MoonLoader'
 import Icon from '@emcasa/ui-dom/components/Icon'
+
+const SPINNER_SIZE = 40
+
+export const Spinner = styled(MoonLoader).attrs({
+  color: ({theme}) => theme.colors.pink,
+  size: SPINNER_SIZE
+})``
 
 export const Thumb = styled.div`
   box-sizing: border-box;
@@ -59,17 +65,10 @@ export const Content = styled.div`
   background: ${colors.lightestGray};
 
   .spinner {
-    content: '';
-    width: 30px;
-    height: 30px;
-    border: 6px solid ${colors.blue.medium};
-    border-left-color: ${colors.blue.light};
-    border-radius: 50%;
     z-index: 1;
-    top: calc(50% - 20px);
-    left: calc(50% - 20px);
+    top: calc(50% - ${SPINNER_SIZE}px);
+    left: calc(50% - ${SPINNER_SIZE}px);
     position: absolute;
-    animation: spin 1s linear infinite;
   }
 
   @keyframes spin {

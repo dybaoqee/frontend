@@ -29,7 +29,7 @@ const STEPS = [
 
 const getSteps = (isMobile) => {
   const steps = STEPS.map(({title, icon}, index) => (
-    <Col width={[1, 2 / 12]}>
+    <Col width={[1,null,null,  2 / 12]}>
       <StepContainer justifyContent="center">
         <Row justifyContent="center">
           <StepIndex>
@@ -92,7 +92,7 @@ export default class HowItWorks extends Component {
             </NoSSR>
           </Steps>
           <Row justifyContent="center">
-            <Col width={[1, 4 / 12]}>
+            <Col width={[1,null,null,  4 / 12]}>
               <Link passHref href="/vender">
                 <a>
                   <Button height="tall" fluid>
