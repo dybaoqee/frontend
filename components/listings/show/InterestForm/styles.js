@@ -1,7 +1,8 @@
 import styled from 'styled-components'
-import theme from '@emcasa/ui'
+import theme from 'config/theme'
 import Text from '@emcasa/ui-dom/components/Text'
 import View from '@emcasa/ui-dom/components/View'
+import {breakpoint} from '@emcasa/ui/lib/styles'
 
 export const Container = styled(View)`
   text-align: center;
@@ -10,7 +11,7 @@ export const Container = styled(View)`
   background-color: ${theme.colors.white};
   max-width: 400px;
 
-  @media (max-width: ${theme.breakpoints[0]}) {
+  @media ${breakpoint.down('tablet')} {
     position: fixed;
     left: 0;
     top: 0;
@@ -25,7 +26,7 @@ export const Form = styled.form`
   width: 400px;
   text-align: left;
 
-  @media (max-width: ${theme.breakpoints[0]}) {
+  @media ${breakpoint.down('tablet')} {
     max-width: calc(100% - 20px);
   }
 `

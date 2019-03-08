@@ -127,6 +127,7 @@ class ListingMainContent extends Component {
             handleOpenPopup={handleOpenPopup}
             user={user}
             favorite={favorite}
+            flagrFlags={this.props.flagrFlags}
           />
           {user.admin &&
             <View my={4} style={{textAlign: 'center'}}>

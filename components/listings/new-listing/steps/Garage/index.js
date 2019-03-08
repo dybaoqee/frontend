@@ -1,13 +1,11 @@
 import React, { Component } from 'react'
 import { Formik, Field } from 'formik'
-
 import Button from '@emcasa/ui-dom/components/Button'
-import RadioButton from '@emcasa/ui-dom/components/RadioButton'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
-import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
+import Container from 'components/listings/new-listing/shared/Container'
 
 class Garage extends Component {
   constructor(props) {
@@ -15,13 +13,11 @@ class Garage extends Component {
     this.nextStep = this.nextStep.bind(this)
     this.previousStep = this.previousStep.bind(this)
     this.validateSpots = this.validateSpots.bind(this)
-    this.validateSpotType = this.validateSpotType.bind(this)
     this.updateStateFromProps = this.updateStateFromProps.bind(this)
   }
 
   state = {
-    spots: null,
-    spotType: null
+    spots: null
   }
 
   componentDidMount() {
@@ -36,8 +32,7 @@ class Garage extends Component {
     const { garage } = props
     if (garage) {
       this.setState({
-        spots: garage.spots,
-        spotType: garage.spotType
+        spots: garage.spots
       })
     }
   }
@@ -59,32 +54,24 @@ class Garage extends Component {
     }
   }
 
-  validateSpotType(spotType) {
-    if (this.state.spots > 0 && !spotType) {
-      return "É necessário informar o tipo de vaga"
-    }
-  }
-
   render() {
     const { garage } = this.props
-    let spots, spotType
+    let spots
     if (garage) {
       spots = garage.spots
-      spotType = garage.spotType
     }
     return (
       <div ref={this.props.hostRef}>
-        <Row justifyContent="center" p={4} pt={0}>
-          <Col width={[1, null, null, 1/2]}>
+        <Container>
+          <Col width={[1,null,null,1/2]}>
             <Formik
               initialValues={{
-                spots: spots,
-                spotType: spotType
+                spots: spots
               }}
               isInitialValid={() => {
-                return !(this.validateSpots(spots) || this.validateSpotType(spotType))
+                return !this.validateSpots(spots)
               }}
-              render={({isValid, setFieldTouched, setFieldValue, errors}) => (
+              render={({isValid, setFieldTouched, setFieldValue}) => (
                 <>
                   <Text
                     fontSize="large"
@@ -92,7 +79,6 @@ class Garage extends Component {
                     textAlign="center">
                     Tem vagas de garagem?
                   </Text>
-                  <Text color="grey">Seu imóvel tem vagas de garagem?</Text>
                   <Row mb={4}>
                     <Field
                       name="spots"
@@ -111,29 +97,6 @@ class Garage extends Component {
                         </Button.Group>
                       }/>
                   </Row>
-                  {this.state.spots > 0 && <>
-                    <Text color="grey">As vagas estão na Escritura do imóvel ou são do Condomínio?</Text>
-                    <Row mb={4}>
-                      <Col width={1}>
-                        <Field
-                          name="spotType"
-                          validate={this.validateSpotType}
-                          render={() => (
-                            <RadioButton.Group
-                              selectedValue={this.state.spotType}
-                              onChange={(value) => {
-                                setFieldValue('spotType', value)
-                                setFieldTouched('spotType')
-                                this.setState({spotType: value})
-                              }}>
-                              <RadioButton label="Vagas na Escritura" value="deed"/>
-                              <View mb={2}></View>
-                              <RadioButton label="Vagas no Condomínio" value="condominium" />
-                            </RadioButton.Group>
-                          )} />
-                      </Col>
-                    </Row>
-                  </>}
                   <NavButtons
                     previousStep={this.previousStep}
                     onSubmit={this.nextStep}
@@ -143,7 +106,7 @@ class Garage extends Component {
               )}
             />
           </Col>
-        </Row>
+        </Container>
       </div>
     )
   }

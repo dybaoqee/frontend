@@ -125,6 +125,7 @@ class SellListing extends Component {
             </Col>
             <Col width={[1,null,null,  2 / 12]} mb={[5,null,null,  0]}>
               <Button height="tall" active fluid onClick={() => {
+                localStorage.removeItem('persist:step')
                 if (this.state.addressFormatted && this.state.addressData) {
                   localStorage.setItem('sellerAddressFormatted', this.state.addressFormatted)
                   localStorage.setItem('sellerAddressData', JSON.stringify(this.state.addressData))

@@ -3,8 +3,16 @@ import {InputWithMask, Field} from 'components/listings/shared/styles'
 import Form from 'components/shared/Common/Form'
 import {FieldContainer} from './styles'
 import emailMask from 'text-mask-addons/dist/emailMask'
+import {
+  log,
+  ESTIMATE_PRICE_USER_INFO
+} from 'lib/logging'
 
 export default class PropertyInfo extends Component {
+  componentDidMount() {
+    log(ESTIMATE_PRICE_USER_INFO)
+  }
+
   render() {
     const {onChange} = this.props
     return (

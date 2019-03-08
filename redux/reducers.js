@@ -26,10 +26,8 @@ const initialState = {
   },
   homeDetails: {
     type: null,
-    floor: null,
     area: null,
-    maintenanceFee: null,
-    propertyTax: null
+    maintenanceFee: null
   },
   rooms: {
     bedrooms: null,
@@ -39,8 +37,7 @@ const initialState = {
     enterMoreBathrooms: false
   },
   garage: {
-    spots: null,
-    spotType: null
+    spots: null
   },
   differential: {
     text: null

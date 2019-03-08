@@ -84,10 +84,20 @@ export default class ListingHeader extends Component {
   }
 
   hide3DTour = () => this.setState({show3DTour: false})
-  toggleFullScreen = () => {
+
+  toggleFullScreen = (index) => {
     const event = this.state.isFullScreen ? LISTING_DETAIL_PHOTOS_FULLSCREEN_CLOSE : LISTING_DETAIL_PHOTOS_FULLSCREEN_OPEN
     log(event, {listingId: this.props.listing.id})
-    this.setState(({isFullScreen}) => ({isFullScreen: !isFullScreen}))
+    this.setState({isFullScreen: !this.state.isFullScreen}, () => {
+      setTimeout(() => {
+        if (this.slider1) {
+          this.slider1.slickGoTo(index)
+        }
+        if (this.slider2) {
+          this.slider2.slickGoTo(index)
+        }
+      }, 100)
+    })
   }
 
   getSliderImages = () => {
@@ -229,7 +239,7 @@ export default class ListingHeader extends Component {
                 ref={(slider) => (this.slider2 = slider)}
               >
                 {this.getSliderContent(visualizeTour).map((content, id) => (
-                  <Content key={content.key || id} onClick={this.toggleFullScreen}>
+                  <Content key={content.key || id} onClick={() => {this.toggleFullScreen(id)}}>
                     {content.props.src && <div className="spinner" />}
                     {content}
                   </Content>

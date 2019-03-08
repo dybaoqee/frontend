@@ -29,6 +29,7 @@ export default class ListingHead extends Component {
         imageWidth={'1024'}
         imageHeight={'768'}
         url={`${BASE_URL}${routerAsPath}`}
+        canonical={`${BASE_URL}${routerAsPath}`}
       >
         <link
           rel="stylesheet"

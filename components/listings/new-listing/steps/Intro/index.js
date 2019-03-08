@@ -6,12 +6,25 @@ import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import Arrow from 'components/listings/new-listing/shared/Arrow'
+import Container from 'components/listings/new-listing/shared/Container'
 
 const Title = Text.withComponent('h2')
 const SubTitle = Text.withComponent('h3')
 const ListTitle = styled(SubTitle)`
   display: inline;
   margin: 0;
+`
+
+const Background = styled(Row)`
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  justify-content: center;
+  background-image: url(https://res.cloudinary.com/emcasa/image/upload/fl_any_format/v1542831121/background/wall-small);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: bottom;
 `
 
 class Intro extends PureComponent {
@@ -28,43 +41,40 @@ class Intro extends PureComponent {
   render() {
     return (
       <div ref={this.props.hostRef}>
-        <Row justifyContent="center" p={4} pt={0}>
-          <Col width={[1,null,null,1/2]}>
-            <Text
-              fontSize="large"
-              fontWeight="bold"
-              textAlign="center"
-            >
-              Como funciona vender seu imóvel aqui na EmCasa?
-            </Text>
-            <Title fontWeight="normal" color="grey">Venda seu imóvel de um jeito fácil e seguro.</Title>
-            <View mb={2}>
-              <Arrow /><ListTitle fontWeight="normal" inline>Cadastre seu imóvel no nosso site</ListTitle>
-            </View>
-            <View mb={2}>
-              <Arrow /><ListTitle fontWeight="normal" inline>Agende Tour Virtual 3D / Fotos grátis</ListTitle>
-            </View>
-            <View mb={2}>
-              <Arrow /><ListTitle fontWeight="normal" inline>Avaliação online do seu imóvel</ListTitle>
-            </View>
-            <View mb={2}>
-              <Arrow /><ListTitle fontWeight="normal" inline>Cuidamos de toda burocracia, contratos e documentação
-            </ListTitle>
-            </View>
-            <View mb={2}>
-              <Arrow /><ListTitle fontWeight="normal" inline>Economize tempo e dinheiro anunciando seu imóvel com a gente</ListTitle>
-            </View>
+        <Background>
+          <Container>
+            <Col width={1}>
+              <Text
+                fontSize="large"
+                fontWeight="bold"
+                textAlign="center"
+              >
+                Como funciona vender seu imóvel aqui na EmCasa?
+              </Text>
+              <View mb={2}>
+                <Arrow /><ListTitle fontWeight="normal" inline>Cadastre as informações básicas do imóvel no nosso site</ListTitle>
+              </View>
+              <View mb={2}>
+                <Arrow /><ListTitle fontWeight="normal" inline>Visualize nossa avaliação online do seu imóvel</ListTitle>
+              </View>
+              <View mb={2}>
+                <Arrow /><ListTitle fontWeight="normal" inline>Agende Tour Virtual 3D ou fotos profissionais sem custo</ListTitle>
+              </View>
+              <View mb={2}>
+                <Arrow /><ListTitle fontWeight="normal" inline>Cuidamos de toda burocracia, contratos e documentação</ListTitle>
+              </View>
             <Row justifyContent="center" mt={4}>
               <Col width={[1,null,null,1/2]}>
-                <Button
-                  fluid
-                  active
-                  height="tall"
-                  onClick={this.nextStep}>Quero Vender</Button>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
+                  <Button
+                    fluid
+                    active
+                    height="tall"
+                    onClick={this.nextStep}>Quero Vender</Button>
+                </Col>
+              </Row>
+            </Col>
+          </Container>
+        </Background>
       </div>
     )
   }

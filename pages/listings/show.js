@@ -1,10 +1,13 @@
+import '@emcasa/ui-dom/components/global-styles'
 import {Component} from 'react'
 import {Query} from 'react-apollo'
+import theme from '@emcasa/ui'
 import View from '@emcasa/ui-dom/components/View'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
+import { ThemeProvider } from 'styled-components'
 import {GET_USER_LISTINGS_ACTIONS} from 'graphql/user/queries'
 import {
   GET_FULL_LISTING,
@@ -30,6 +33,12 @@ import {buildSlug, getListingId} from 'lib/listings'
 import NextHead from 'components/shared/NextHead'
 import getApolloClient from 'lib/apollo/initApollo'
 import { getUserInfo } from 'lib/user'
+import { getCookie } from 'lib/session'
+import {
+  fetchFlag,
+  DEVICE_ID_COOKIE
+} from 'components/shared/Flagr'
+import { TEST_SCHEDULE_VISIT_CTA } from 'components/shared/Flagr/tests'
 import {
   log,
   getListingInfoForLogs,
@@ -80,6 +89,12 @@ class Listing extends Component {
     const listing = serverResponse.data.listing
     const errors = serverResponse.errors
 
+    // Flagr
+    const deviceId = getCookie(DEVICE_ID_COOKIE, context.req)
+    const flagrFlags = {
+      [TEST_SCHEDULE_VISIT_CTA]: await fetchFlag(TEST_SCHEDULE_VISIT_CTA, deviceId)
+    }
+
     if (listing) {
       if (asPath && res) {
         const urlParams = asPath.split('/').length
@@ -91,12 +106,14 @@ class Listing extends Component {
 
       return {
         listing,
-        currentUser
+        currentUser,
+        flagrFlags
       }
     } else {
       return {
         listingFetchError: errors[0],
-        currentUser
+        currentUser,
+        flagrFlags
       }
     }
   }
@@ -306,6 +323,7 @@ class Listing extends Component {
                       handleOpenPopup={this.openPopup}
                       user={currentUser}
                       favorite={favorite}
+                      flagrFlags={this.props.flagrFlags}
                     />
                     <ListingMap listing={listing} />
                     <RelatedListings
@@ -342,77 +360,82 @@ class Listing extends Component {
     const neighborhood = location[3]
 
     return (
-      <Query query={GET_DISTRICTS}>
-        {({loading, error, data}) => {
-          if (loading) return (<div/>)
-          if (error) return `Error! ${error.message}`
-          const districts = data.districts
-          const findState = districts.find(a => a.stateSlug === state)
-          const findCity = districts.find(a => a.citySlug === city)
-          const findNeighborhood = districts.find(a => a.nameSlug === neighborhood)
-          let errorTitle = 'Este imóvel não está mais disponível!'
-          let endQuestion = 'de imóveis'
-          let buttonLabel = 'Explorar imóveis'
-          let buttonHref = '/imoveis'
-          if (findNeighborhood) {
-            endQuestion = ` em ${findNeighborhood.name}, ${findNeighborhood.city}`
-            buttonLabel += ` em ${findNeighborhood.name}`
-            buttonHref += `/${findNeighborhood.stateSlug}/${findNeighborhood.citySlug}/${findNeighborhood.nameSlug}`
-          } else if (findCity) {
-            endQuestion = ` em ${findCity.city}, ${findCity.state}`
-            buttonLabel += ` em ${findCity.city}`
-            buttonHref += `/${findCity.stateSlug}/${findCity.citySlug}`
-          } else if (findState) {
-            endQuestion = ` em ${findState.state}`
-            buttonLabel += ` em ${findState.state}`
-            buttonHref += `/${findState.stateSlug}`
-          }
-          return (
-            <>
-              <NextHead title={`Imóvel não encontrado | EmCasa`} />
-              <Row
-                justifyContent="center"
-                px={5}
-              >
+      <ThemeProvider theme={theme}>
+        <Query query={GET_DISTRICTS}>
+          {({loading, error, data}) => {
+            if (loading) return (<div/>)
+            if (error) return `Error! ${error.message}`
+
+            const districts = data.districts
+            const findState = districts.find(a => a.stateSlug === state)
+            const findCity = districts.find(a => a.citySlug === city)
+            const findNeighborhood = districts.find(a => a.nameSlug === neighborhood)
+            let errorTitle = 'Este imóvel não está mais disponível!'
+            let endQuestion = 'de imóveis'
+            let buttonLabel = 'Explorar imóveis'
+            let buttonHref = '/imoveis'
+
+            if (findNeighborhood) {
+              endQuestion = ` em ${findNeighborhood.name}, ${findNeighborhood.city}`
+              buttonLabel += ` em ${findNeighborhood.name}`
+              buttonHref += `/${findNeighborhood.stateSlug}/${findNeighborhood.citySlug}/${findNeighborhood.nameSlug}`
+            } else if (findCity) {
+              endQuestion = ` em ${findCity.city}, ${findCity.state}`
+              buttonLabel += ` em ${findCity.city}`
+              buttonHref += `/${findCity.stateSlug}/${findCity.citySlug}`
+            } else if (findState) {
+              endQuestion = ` em ${findState.state}`
+              buttonLabel += ` em ${findState.state}`
+              buttonHref += `/${findState.stateSlug}`
+            }
+
+            return (
+              <>
+                <NextHead title={`Imóvel não encontrado | EmCasa`} />
                 <Row
-                  flexDirection="column"
-                  width={[1, null, null, '768px']}
+                  justifyContent="center"
+                  px={5}
                 >
-                  <Title
-                    textAlign="center"
-                    fontSize="xlarge"
-                    fontWeight="normal"
+                  <Row
+                    flexDirection="column"
+                    width={[1,null,null,'768px']}
                   >
-                    {errorTitle}
-                  </Title>
-                  <Text color="grey">{`Que tal olhar outras opções ${endQuestion}? Separamos alguns imóveis para você! Fique a vontade para dar uma olhada nessa lista`}
-                  </Text>
-                  <Row justifyContent="center">
-                    <Col width={[1, null, null, 2/5]}>
-                      <View mt={2}>
-                        <Link
-                          passHref
-                          href={buttonHref}
-                        >
-                          <a>
-                            <Button
-                              active
-                              fluid
-                              height="tall"
-                            >
-                              {buttonLabel}
-                            </Button>
-                          </a>
-                        </Link>
-                      </View>
-                    </Col>
+                    <Title
+                      textAlign="center"
+                      fontSize="xlarge"
+                      fontWeight="normal"
+                    >
+                      {errorTitle}
+                    </Title>
+                    <Text color="grey">{`Que tal olhar outras opções ${endQuestion}? Separamos alguns imóveis para você! Fique a vontade para dar uma olhada nessa lista`}
+                    </Text>
+                    <Row justifyContent="center">
+                      <Col width={[1,null,null,2/5]}>
+                        <View mt={2}>
+                          <Link
+                            passHref
+                            href={buttonHref}
+                          >
+                            <a>
+                              <Button
+                                active
+                                fluid
+                                height="tall"
+                              >
+                                {buttonLabel}
+                              </Button>
+                            </a>
+                          </Link>
+                        </View>
+                      </Col>
+                    </Row>
                   </Row>
                 </Row>
-              </Row>
-            </>
-          )
-        }}
-      </Query>
+              </>
+            )
+          }}
+        </Query>
+      </ThemeProvider>
     )
   }
 

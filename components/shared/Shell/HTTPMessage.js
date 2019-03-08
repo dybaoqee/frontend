@@ -6,6 +6,8 @@ import View from '@emcasa/ui-dom/components/View'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Button from '@emcasa/ui-dom/components/Button'
+import NextHead from 'components/shared/NextHead'
+import {imageUrl} from 'utils/image_url'
 
 const HTTPMessageSvgWidth = 723
 const HTTPMessageSvgHeight = 281
@@ -59,9 +61,7 @@ export default class HTTPMessage extends Component {
   }
 
   get href() {
-    const {statusCode} = this.props
-
-    switch (statusCode) {
+    switch (this.props.statusCode) {
       case 404:
         return '/'
       default:
@@ -102,65 +102,82 @@ export default class HTTPMessage extends Component {
     }
   }
 
-  render() {
-    const {statusCode} = this.props
+  get url() {
+    return `https://www.emcasa.com${this.props.asPath}`
+  }
 
+  get canonical() {
+    return `https://www.emcasa.com/404`
+  }
+
+  render() {
     return (
-      <Col px={4}>
-        <Row justifyContent="center">
-          <Col width={[1, null, null, HTTPMessageSvgWidth]}>
-            <Text
-              fontSize={4}
-              fontWeight="bold"
-              textAlign="center"
-            >{this.title}</Text>
-            <Text
-              textAlign="center"
-              color="grey"
-            >
-              {this.message}
-            </Text>
-            {this.asset && (
-              <Asset justifyContent="center">
-                {this.asset}
-              </Asset>
-            )}
-            <Row justifyContent="center">
-              <Col width={[1, null, null, 1/2]}>
-                <Link
-                  passHref
-                  href={this.href}
-                >
-                  <a>
-                    <Button
-                      fluid
-                      active
-                      height="tall"
-                    >
-                      {this.button}
-                    </Button>
-                  </a>
-                </Link>
-                <View mt={2}>
+      <>
+        <NextHead
+          title={`${this.title} | EmCasa`}
+          description={this.message}
+          imageSrc={imageUrl('buy')}
+          imageWidth={'1024'}
+          imageHeight={'768'}
+          url={this.url}
+          canonical={this.canonical}
+        />
+        <Col px={4}>
+          <Row justifyContent="center">
+            <Col width={[1,null,null,HTTPMessageSvgWidth]}>
+              <Text
+                fontSize={4}
+                fontWeight="bold"
+                textAlign="center"
+              >{this.title}</Text>
+              <Text
+                textAlign="center"
+                color="grey"
+              >
+                {this.message}
+              </Text>
+              {this.asset && (
+                <Asset justifyContent="center">
+                  {this.asset}
+                </Asset>
+              )}
+              <Row justifyContent="center">
+                <Col width={[1,null,null,1/2]}>
                   <Link
                     passHref
-                    href='/imoveis'
+                    href={this.href}
                   >
                     <a>
                       <Button
                         fluid
+                        active
                         height="tall"
                       >
-                        Explorar imóveis
+                        {this.button}
                       </Button>
                     </a>
                   </Link>
-                </View>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-      </Col>
+                  <View mt={2}>
+                    <Link
+                      passHref
+                      href='/imoveis'
+                    >
+                      <a>
+                        <Button
+                          fluid
+                          height="tall"
+                        >
+                          Explorar imóveis
+                        </Button>
+                      </a>
+                    </Link>
+                  </View>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </Col>
+      </>
     )
   }
 }

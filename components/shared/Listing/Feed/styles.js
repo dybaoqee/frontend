@@ -1,13 +1,14 @@
 import styled from 'styled-components'
 import Text from '@emcasa/ui-dom/components/Text'
-import theme from '@emcasa/ui'
+import {breakpoint} from '@emcasa/ui/lib/styles'
+import theme from 'config/theme'
 
 export const Container = styled.div`
   position: relative;
   max-width: 960px;
   margin: auto;
 
-  @media (max-width: ${theme.breakpoints[0]}) {
+  @media ${breakpoint.down('tablet')} {
     padding: 0 ${theme.space[4]}px 0 ${theme.space[4]}px;
   }
 `
@@ -32,7 +33,7 @@ export const Gradient = styled.div`
   height: calc(100% - 96px);
   background-image: linear-gradient(to right, transparent, white);
 
-  @media (max-width: ${theme.breakpoints[0]}) {
+  @media ${breakpoint.down('tablet')} {
     right: ${theme.space[4]}px;
   }
 `

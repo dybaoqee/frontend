@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Router from 'next/router'
-import Head from 'next/head'
 import * as Sentry from '@sentry/browser'
 import { connect } from 'react-redux'
 import { PoseGroup } from 'react-pose'
@@ -18,8 +17,14 @@ import {
   FINAL_STEPS
 } from './navigation'
 import ProgressDialog from './components/ProgressDialog'
-import {imageUrl} from 'utils/image_url'
 import NextHead from 'components/shared/NextHead'
+import {imageUrl} from 'utils/image_url'
+import {
+  SchemaWebSite,
+  SchemaRealEstateAgent,
+  SchemaOrganization,
+  SchemaBreadcrumbList
+} from 'constants/ld-json'
 
 const seoImg = imageUrl('sell')
 const seoTitle = 'Anuncie e Venda seu Imóvel no Rio de Janeiro ou em São Paulo'
@@ -38,7 +43,8 @@ class NewListing extends Component {
 
   static async getInitialProps(context) {
     return {
-      renderFooter: false
+      renderFooter: false,
+      transparentHeader: true
     }
   }
 
@@ -49,6 +55,10 @@ class NewListing extends Component {
   }
 
   componentDidMount() {
+    // Tag as new seller on-boarding version
+    let identify = new amplitude.Identify().set('seller-onboarding-version', '2')
+    amplitude.identify(identify)
+
     // Browser back button
     Router.beforePopState(({ url, as, options }) => {
       const { navigateTo } = this.props
@@ -56,7 +66,7 @@ class NewListing extends Component {
       const key = getKeyFromDisplay(display)
 
       // User is trying to back from final screen. Reset store
-      if (this.props.listing && this.props.listing.id && key === 'services') {
+      if (this.props.listing && this.props.listing.id && (key === 'services' || key === 'tour')) {
         this.restartForm()
         return
       }
@@ -109,13 +119,12 @@ class NewListing extends Component {
       this.setState({
         checkedProgress: true
       })
-      const { updateLocation, resetStore, navigateTo } = this.props
+      const { updateLocation, resetStore } = this.props
       resetStore()
       updateLocation({
         address: sellerAddressFormatted,
         addressData: JSON.parse(sellerAddressData)
       })
-      navigateTo('addressInput')
     }
   }
 
@@ -209,6 +218,22 @@ class NewListing extends Component {
           imageWidth={'1476'}
           imageHeight={'838'}
           url={'https://www.emcasa.com/vender/imovel'}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaWebSite) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaRealEstateAgent) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaOrganization) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaBreadcrumbList) }}
         />
         {this.state.resuming ?
           <ProgressDialog

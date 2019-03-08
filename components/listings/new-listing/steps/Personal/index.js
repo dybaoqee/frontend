@@ -11,6 +11,7 @@ import { getAddressInput } from 'lib/address'
 import { estimatePrice, getPricingInput } from 'lib/listings/pricing'
 import { getUserInfo } from 'lib/user'
 import {EDIT_PROFILE, EDIT_EMAIL} from 'graphql/user/mutations'
+import Container from 'components/listings/new-listing/shared/Container'
 
 class Personal extends Component {
   constructor(props) {
@@ -167,7 +168,7 @@ class Personal extends Component {
     }
     return (
       <div ref={this.props.hostRef}>
-        <Row justifyContent="center" p={4} pt={0}>
+        <Container>
           <Col width={[1,null,null,1/2]}>
             <Formik
               initialValues={{
@@ -242,7 +243,7 @@ class Personal extends Component {
               )}
             />
           </Col>
-        </Row>
+        </Container>
       </div>
     )
   }

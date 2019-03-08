@@ -1,7 +1,8 @@
 import styled from 'styled-components'
-import theme from '@emcasa/ui'
+import theme from 'config/theme'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
+import {breakpoint} from '@emcasa/ui/lib/styles'
 
 export const Container = styled.div`
   position: relative;
@@ -13,7 +14,7 @@ export const Container = styled.div`
   width: 260px;
   background: white;
 
-  @media screen and (max-width: ${theme.breakpoints[0]}) {
+  @media screen and ${breakpoint.down('tablet')} {
     position: fixed;
     left: 0;
     bottom: 0;
@@ -30,7 +31,7 @@ export const PricesContainer = styled(Row)`
   flex-direction: column;
   padding: ${theme.space[1]}px 0;
 
-  @media screen and (max-width: ${theme.breakpoints[0]}) {
+  @media screen and ${breakpoint.down('tablet')} {
     display: none;
   }
 `
