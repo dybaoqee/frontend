@@ -5,6 +5,7 @@ import Row from '@emcasa/ui-dom/components/Row'
 const PADDING = `${theme.space[4]}px`
 
 const Container = styled(Row)`
+  width: 100vw;
   padding: 80px ${PADDING} ${PADDING} ${PADDING};
   justify-content: center;
 `

@@ -116,7 +116,7 @@ export default class Sell extends Component {
             'Aqui na EmCasa cuidamos de toda burocracia, contratos e documentação'
         }
       ],
-      buttonHref: '/vender/imovel',
+      buttonHref: '/vender',
       buttonLabel: 'Conheça mais a EmCasa',
       buttonClick: () => {
           log(SELLER_LANDING_EXPLORE_LISTINGS)
@@ -158,11 +158,7 @@ export default class Sell extends Component {
             dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaBreadcrumbList) }}
           />
           <MainBlock>
-            <SofaContainer>
-
-                <NewListing />
-
-            </SofaContainer>
+            <NewListing />
           </MainBlock>
           <Block>
             <Benefits {...benefitsProps} />

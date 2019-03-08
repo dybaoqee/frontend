@@ -37,7 +37,7 @@ export default class EstimateSuccess extends PureComponent {
             Venda seu imóvel por mais e se beneficie de taxas 40% menores que o
             mercado. Cadastre seu imóvel em menos de 5 minutos.
           </p>
-          <Link href="/listings/new-listing" as="/vender/imovel">
+          <Link href="/listings/new-listing" as="/vender">
             <EmCasaButton full light onClick={() => {
               const { listing: { address: {neighborhood, city}, suggestedPrice }} = this.props
               log(ESTIMATE_PRICE_PUBLISH_LISTING, {

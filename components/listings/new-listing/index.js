@@ -28,6 +28,7 @@ import {
   SchemaOrganization,
   SchemaBreadcrumbList
 } from 'constants/ld-json'
+import { SofaContainer } from './styles'
 
 const seoImg = imageUrl('sell')
 const seoTitle = 'Anuncie e Venda seu Imóvel no Rio de Janeiro ou em São Paulo'
@@ -151,7 +152,7 @@ class NewListing extends Component {
 
   restartForm() {
     this.props.resetStore()
-    Router.replace('/vender/imovel')
+    Router.replace('/vender')
     return
   }
 
@@ -192,7 +193,7 @@ class NewListing extends Component {
       throw Error('Navigation key ' + nextStep + ' not found in ' + currentStep)
     }
     const stepDisplay = getStepDisplay(nextStep)
-    Router.push('/vender/imovel', `/vender/imovel#${stepDisplay}`, {shallow: true})
+    Router.push('/vender', `/vender#${stepDisplay}`, {shallow: true})
     window.scrollTo(0, 0)
   }
 
@@ -214,7 +215,7 @@ class NewListing extends Component {
             imageSrc={seoImg}
             imageWidth={'1476'}
             imageHeight={'838'}
-            url={'https://www.emcasa.com/vender/imovel'}
+            url={'https://www.emcasa.com/vender'}
           />
           <script
             type="application/ld+json"
@@ -232,17 +233,19 @@ class NewListing extends Component {
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaBreadcrumbList) }}
           />
-          {this.state.resuming ?
-            <ProgressDialog
-              address={address}
-              onReset={this.onReset}
-              onResume={this.onResume}
-            />
-            :
-            <PoseGroup>
-              {getScreen(screenProps)}
-            </PoseGroup>
-          }
+          <SofaContainer showBackground={step === 'intro'}>
+            {this.state.resuming ?
+              <ProgressDialog
+                address={address}
+                onReset={this.onReset}
+                onResume={this.onResume}
+              />
+              :
+              <PoseGroup>
+                {getScreen(screenProps)}
+              </PoseGroup>
+            }
+          </SofaContainer>
         </>
       </ThemeProvider>
     )

@@ -93,7 +93,7 @@ export default class HowItWorks extends Component {
           </Steps>
           <Row justifyContent="center">
             <Col width={[1, 4 / 12]}>
-              <Link passHref href="/vender/imovel">
+              <Link passHref href="/vender">
                 <a>
                   <Button height="tall" fluid>
                     Quero vender meu imóvel
