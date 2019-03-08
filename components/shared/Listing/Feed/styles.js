@@ -5,12 +5,9 @@ import theme from 'config/theme'
 
 export const Container = styled.div`
   position: relative;
-  max-width: 960px;
+  width: 960px;
+  max-width: calc(100vw - ${theme.space[4] * 2}px);
   margin: auto;
-
-  @media ${breakpoint.down('tablet')} {
-    padding: 0 ${theme.space[4]}px 0 ${theme.space[4]}px;
-  }
 `
 
 export const ListingsContainer = styled.div`
