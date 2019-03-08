@@ -25,7 +25,7 @@ export const SofaContainer = styled(View)`
         background-image: url(${CLOUDINARY_URL}/wall-small);
       }
 
-      @media (max-width: 1300px) {
+      @media (max-width: 1499px) {
         align-items: center;
         margin-top: -20vh;
       }

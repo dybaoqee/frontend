@@ -6,9 +6,9 @@ import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
 import Input from '@emcasa/ui-dom/components/Input'
+import Button from '@emcasa/ui-dom/components/Button'
 import {withBreakpoint} from '@emcasa/ui-dom/components/Breakpoint'
 import StaticMap from 'components/listings/new-listing/shared/StaticMap'
-import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import { getAddressInput } from 'lib/address'
 import AddressAutoComplete from 'components/shared/AddressAutoComplete'
 import MobileAddressButton from 'components/shared/MobileAddressButton'
@@ -139,7 +139,7 @@ class AddressInput extends Component {
               render={({isValid, setFieldValue, errors}) => (
                 <>
                   <Row justifyContent="center">
-                    <Header fontSize="large">
+                    <Header fontSize="large" textAlign="center">
                       {this.props.title}
                     </Header>
                   </Row>
@@ -174,31 +174,39 @@ class AddressInput extends Component {
                       />
                     </Col>
                   }
-                  <Col>
-                    <Field
-                      name="complement"
-                      render={() => (
-                        <Input
-                          hideLabelView
-                          hideErrorView
-                          placeholder="Complemento"
-                          defaultValue={complement}
-                          onChange={(e) => {
-                            const { value } = e.target
-                            setFieldValue('complement', value)
-                            this.setState({complement: value})
-                          }}
-                        />
-                      )}
-                    />
-                  </Col>
-                  <NavButtons
-                    onSubmit={() => {
-                      this.checkAddressCoverage()
-                    }}
-                    submitEnabled={isValid}
-                    loading={this.state.loading}
-                  />
+                  <Row justifyContent="space-between">
+                    <Col width={1/2} mr={2}>
+                      <Field
+                        name="complement"
+                        render={() => (
+                          <Input
+                            hideLabelView
+                            hideErrorView
+                            placeholder="Complemento"
+                            defaultValue={complement}
+                            onChange={(e) => {
+                              const { value } = e.target
+                              setFieldValue('complement', value)
+                              this.setState({complement: value})
+                            }}
+                          />
+                        )}
+                      />
+                    </Col>
+                    <Col width={[3/12, 1/2]} ml={2}>
+                      <Button
+                        active
+                        fluid
+                        height="tall"
+                        onClick={() => {
+                          this.checkAddressCoverage()
+                        }}
+                        enabled={isValid && !this.state.loading}
+                      >
+                        {this.state.loading ? 'Aguarde...' : 'Avançar'}
+                      </Button>
+                    </Col>
+                  </Row>
                 </>
               )}
             />

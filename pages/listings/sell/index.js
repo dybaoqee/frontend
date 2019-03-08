@@ -40,19 +40,19 @@ const CONTENT = {
     seoImg: imageUrl('sell'),
     seoTitle: `${BASE_TITLE} no Rio de Janeiro ou São Paulo | EmCasa`,
     seoDescription: `${BASE_TITLE} no Rio de Janeiro ou São Paulo ${BASE_DESCRIPTION}`,
-    heroTitle: 'Descubra por quanto vender seu imóvel'
+    heroTitle: 'Descubra agora por quanto vender seu imóvel'
   },
   sp: {
     seoImg: imageUrl('sell-sp'),
     seoTitle: `${BASE_TITLE} em Perdizes, São Paulo | EmCasa`,
     seoDescription: `${BASE_TITLE} em Perdizes, São Paulo ${BASE_DESCRIPTION}`,
-    heroTitle: 'Descubra por quanto vender seu imóvel em Perdizes'
+    heroTitle: 'Descubra agora por quanto vender seu imóvel em Perdizes'
   },
   rj: {
     seoImg: imageUrl('sell-rj'),
     seoTitle: `${BASE_TITLE} no Rio de Janeiro | EmCasa`,
     seoDescription: `${BASE_TITLE} no Rio de Janeiro ${BASE_DESCRIPTION}`,
-    heroTitle: 'Descubra por quanto vender seu imóvel na zona sul do Rio de Janeiro'
+    heroTitle: 'Descubra agora por quanto vender seu imóvel na zona sul do Rio de Janeiro'
   }
 }
 

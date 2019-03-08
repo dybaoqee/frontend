@@ -107,9 +107,7 @@ class Bedrooms extends Component {
             const intValue = parseInt(value)
             setFieldValue('bedroom', intValue)
             setFieldTouched('bedroom')
-            this.setState({bedrooms: intValue, showSuites: true}, () => {
-              window.scrollTo(0, document.body.scrollHeight)
-            })
+            this.setState({bedrooms: intValue, showSuites: true})
           }
         }}>
         <Button name="1" px={3} mr={2} value={1} height="tall">1</Button>
@@ -134,9 +132,7 @@ class Bedrooms extends Component {
             const intValue = parseInt(value)
             setFieldValue('bathroom', intValue)
             setFieldTouched('bathroom')
-            this.setState({bathrooms: intValue}, () => {
-              window.scrollTo(0, document.body.scrollHeight)
-            })
+            this.setState({bathrooms: intValue})
           }} defaultValue={bathrooms} />
         </Col>
       )
@@ -207,9 +203,7 @@ class Bedrooms extends Component {
                           <Button.Group flexWrap="wrap" initialValue={suites} onChange={(value) => {
                             setFieldValue('suite', value)
                             setFieldTouched('suite')
-                            this.setState({suites: value, showBathrooms: true}, () => {
-                              window.scrollTo(0, document.body.scrollHeight)
-                            })
+                            this.setState({suites: value, showBathrooms: true})
                             }}>
                             <Button mr={2} px={3} value={0} height="tall">Sem suíte</Button>
                             <Button mr={2} px={3} value={1} height="tall">1</Button>
