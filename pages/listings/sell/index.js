@@ -2,10 +2,10 @@ import '@emcasa/ui-dom/components/global-styles'
 import {Component} from 'react'
 import theme from '@emcasa/ui'
 import {ThemeProvider} from 'styled-components'
-import SellListing from 'components/listings/sell/SellListing'
 import Benefits from 'components/listings/shared/Benefits'
 import HowItWorks from 'components/listings/sell/HowItWorks'
 import NextHead from 'components/shared/NextHead'
+import ScrollTracker from 'components/shared/ScrollTracker'
 import NewListing from 'components/listings/new-listing'
 import {
   SchemaWebSite,
@@ -18,12 +18,18 @@ import {imageUrl} from 'utils/image_url'
 import {
   log,
   SELLER_LANDING_PAGE,
-  SELLER_LANDING_EXPLORE_LISTINGS
+  SELLER_LANDING_EXPLORE_LISTINGS,
+  SELLER_LANDING_SCROLL_25,
+  SELLER_LANDING_SCROLL_50,
+  SELLER_LANDING_SCROLL_75,
+  SELLER_LANDING_SCROLL_100
 } from 'lib/logging'
 import {
   Container,
   Block,
-  MainBlock
+  MainBlock,
+  SofaContainer,
+  Content
 } from './styles'
 
 const BASE_TITLE = 'Anuncie e Venda seu Imóvel'
@@ -121,6 +127,12 @@ export default class Sell extends Component {
     return (
       <ThemeProvider theme={theme}>
         <Container>
+          <ScrollTracker
+            onScroll25={() => {log(SELLER_LANDING_SCROLL_25)}}
+            onScroll50={() => {log(SELLER_LANDING_SCROLL_50)}}
+            onScroll75={() => {log(SELLER_LANDING_SCROLL_75)}}
+            onScroll100={() => {log(SELLER_LANDING_SCROLL_100)}}
+          />
           <NextHead
             title={seoTitle}
             description={seoDescription}
@@ -146,7 +158,11 @@ export default class Sell extends Component {
             dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaBreadcrumbList) }}
           />
           <MainBlock>
-            <NewListing />
+            <SofaContainer>
+
+                <NewListing />
+
+            </SofaContainer>
           </MainBlock>
           <Block>
             <Benefits {...benefitsProps} />

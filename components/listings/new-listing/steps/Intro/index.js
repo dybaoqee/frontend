@@ -16,15 +16,7 @@ const ListTitle = styled(SubTitle)`
 `
 
 const Background = styled(Row)`
-  display: flex;
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden;
-  justify-content: center;
-  background-image: url(https://res.cloudinary.com/emcasa/image/upload/fl_any_format/v1542831121/background/wall-small);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: bottom;
+
 `
 
 class Intro extends PureComponent {
