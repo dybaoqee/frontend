@@ -102,7 +102,8 @@ exports[`<ListingCard/> should render component 1`] = `
 }
 
 .c0:hover {
-  border: 1px solid #f50057;
+  border-color: #f50057;
+  box-shadow: 0 0 2px #f50057;
 }
 
 .c0 img {

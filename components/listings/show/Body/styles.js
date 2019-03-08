@@ -10,7 +10,8 @@ export default styled.div`
   justify-content: space-between;
   align-items: flex-start;
   margin: 30px auto 40px;
-  max-width: 960px;
+  width: 960px;
+  max-width: calc(100vw - ${theme.space[4] * 2}px);
 
   div.description {
     box-sizing: border-box;
@@ -22,6 +23,7 @@ export default styled.div`
   @media ${breakpoint.down('tablet')} {
     flex-direction: column;
     width: 100vw;
+    max-width: unset;
     padding: 0 ${theme.space[4]}px 0 ${theme.space[4]}px;
 
     div.description {

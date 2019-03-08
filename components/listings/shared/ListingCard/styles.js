@@ -37,8 +37,9 @@ const Container = styled(View)`
   border-radius: ${themeGet('space.1')}px;
   margin: 0 ${themeGet('space.4')}px ${themeGet('space.4')}px 0;
 
-  : hover {
-    border: 1px solid ${themeGet('colors.pink')};
+  :hover {
+    border-color: ${themeGet('colors.pink')};
+    box-shadow: 0 0 2px ${themeGet('colors.pink')};
   }
 
   img {
