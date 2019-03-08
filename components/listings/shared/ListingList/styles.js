@@ -1,9 +1,11 @@
 import styled from 'styled-components'
 import { themeGet } from 'styled-system'
-import { HEADER_HEIGHT } from 'components/shared/Shell/Header/styles'
+import {ROW_HEIGHT as FILTER_ROW_HEIGHT} from '@emcasa/ui-dom/components/Filters/constants'
+import { MAX_HEADER_HEIGHT } from 'components/shared/Shell/Header/styles'
 import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
 
+const MAP_OFFSET = (props) => FILTER_ROW_HEIGHT(props) + MAX_HEADER_HEIGHT
 const MIN_WIDTH_FOR_MAP_RENDER = 1279
 const MAP_WIDTH_PERCENT = 30
 
@@ -27,14 +29,14 @@ const Container = styled(Row)`
 
 const MapContainer = styled.div`
   position: sticky;
-  top: ${HEADER_HEIGHT}px;
+  top: ${MAP_OFFSET}px;
   margin-right: ${themeGet('space.4')}px;
   overflow: hidden;
   box-sizing: border-box;
   background: white;
   border-radius: 4px;
   min-width: ${MAP_WIDTH_PERCENT}%;
-  height: calc(100vh - ${HEADER_HEIGHT}px);
+  height: calc(100vh - ${MAP_OFFSET}px - ${themeGet('space.2')}px);
 `
 
 const Loading = styled.div`
