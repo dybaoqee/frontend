@@ -120,14 +120,6 @@ exports[`renders correctly 1`] = `
   >
     <div
       className="c2 c1"
-      width={
-        Array [
-          1,
-          null,
-          null,
-          0.5,
-        ]
-      }
     >
       <div
         className="c3"
@@ -291,20 +283,14 @@ exports[`renders correctly 1`] = `
         </div>
         <div
           className="c9"
-          width={
-            Array [
-              1,
-              null,
-              null,
-              0.5,
-            ]
-          }
         >
           <div
             className="c10"
             width={
               Array [
                 1,
+                null,
+                null,
                 0.5,
               ]
             }
