@@ -39,6 +39,10 @@ const startServer = () => {
         next()
       })
 
+      server.use('/imoveis/adicionar', (req, res) => {
+        return app.render(req, res, '/listings/sell')
+      })
+
       server.use('/imoveis', listingsRouter)
 
       server.get(
