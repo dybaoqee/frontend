@@ -24,8 +24,7 @@ const ListingFilter = styled(function ListingFilter(props) {
   position: sticky !important;
   width: auto !important;
   top: ${MAX_HEADER_HEIGHT}px;
-  padding-left: ${themeGet('space.4')}px;
-  padding-right: 50px;
+  padding: 0 ${themeGet('space.4')}px;
   background-color: white;
 `
 
