@@ -17,7 +17,6 @@ import {
   updateTour,
   updateListing
 } from 'redux/actions'
-import Intro from 'components/listings/new-listing/steps/Intro'
 import AddressInput from 'components/listings/new-listing/steps/AddressInput'
 import AddressInputMobile from 'components/listings/new-listing/steps/AddressInputMobile'
 import HomeDetails from 'components/listings/new-listing/steps/HomeDetails'
