@@ -30,7 +30,7 @@ import {
   MainBlock
 } from './styles'
 
-const BASE_TITLE = 'Anuncie e Venda seu Imóvel'
+const BASE_TITLE = 'Descubra agora por quanto vender seu imóvel'
 const BASE_DESCRIPTION =
   'com Emcasa, a startup imobiliária que tem exclusivo sistema de Tour Virtual 3D para aumentar suas chances de venda.'
 const CONTENT = {
@@ -42,9 +42,9 @@ const CONTENT = {
   },
   sp: {
     seoImg: imageUrl('sell-sp'),
-    seoTitle: `${BASE_TITLE} em Perdizes, São Paulo | EmCasa`,
-    seoDescription: `${BASE_TITLE} em Perdizes, São Paulo ${BASE_DESCRIPTION}`,
-    heroTitle: 'Descubra agora por quanto vender seu imóvel em Perdizes'
+    seoTitle: `${BASE_TITLE} em São Paulo | EmCasa`,
+    seoDescription: `${BASE_TITLE} em São Paulo ${BASE_DESCRIPTION}`,
+    heroTitle: 'Descubra agora por quanto vender seu imóvel em São Paulo'
   },
   rj: {
     seoImg: imageUrl('sell-rj'),
