@@ -5,9 +5,7 @@ import styled from 'styled-components'
 import {breakpoint} from '@emcasa/ui/lib/styles'
 import {withBreakpoint} from '@emcasa/ui-dom/components/Breakpoint'
 import View from '@emcasa/ui-dom/components/View'
-import SellListing from 'components/listings/sell/SellListing'
 import Benefits from 'components/listings/shared/Benefits'
-import HowItWorks from 'components/listings/sell/HowItWorks'
 import NextHead from 'components/shared/NextHead'
 import ScrollTracker from 'components/shared/ScrollTracker'
 import NewListing from 'components/listings/new-listing'
@@ -122,25 +120,19 @@ class Sell extends Component {
     const {seoTitle, seoDescription, seoImg, heroTitle} = CONTENT[city]
 
     const benefitsProps = {
-      sectionTitle: 'Conheça as vantagens de vender com a EmCasa',
+      sectionTitle: 'Aumente as chances de vender com o Tour Virtual',
       benefitsList: [
         {
-          icon: 'tour-3d',
-          title: 'Tour Virtual 3D',
           description:
-            'Atraia mais compradores interessados no seu imóvel com Tour 3D'
+            'Mais compradores visitam seu imóvel virtualmente.'
         },
         {
-          icon: 'avaliacao-precisa',
-          title: 'Avaliação online',
           description:
-            'Nossa avaliação online é precisa de acordo com os valores de mercado da sua região'
+            'Visitas físicas apenas com compradores realmente interessados.'
         },
         {
-          icon: 'assistencia-juridica',
-          title: 'Sem dor de cabeça',
           description:
-            'Aqui na EmCasa cuidamos de toda burocracia, contratos e documentação'
+            'Nossos especialistas irão acompanhar as visitas pessoalmente.'
         }
       ],
       buttonHref: '/vender',
@@ -204,9 +196,6 @@ class Sell extends Component {
         </MainBlock>
         <Block>
           <Benefits {...benefitsProps} />
-        </Block>
-        <Block>
-          <HowItWorks {...blockProps} />
         </Block>
       </Container>
     )

@@ -3,6 +3,7 @@ import {breakpoint} from '@emcasa/ui/lib/styles'
 import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
 import View from '@emcasa/ui-dom/components/View'
+import Row from '@emcasa/ui-dom/components/Row'
 
 export const Container = styled(View)`
   display: flex;
@@ -24,15 +25,6 @@ export const Title = Text.withComponent('h2')
 
 export const SubTitle = Text.withComponent('h3')
 
-export const Icon = styled.div`
-  background-image: url('/static/svg-icons/${(props) => props.name}.svg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  width: 70px;
-  height: 70px;
-  margin-bottom: 30px;
-`
-
 export const BenefitCol = styled(Col)`
   display: flex;
   flex-direction: column;
@@ -43,5 +35,14 @@ export const BenefitCol = styled(Col)`
   }
   @media ${breakpoint.down('tablet')} {
     padding-bottom: 50px;
+  }
+`
+
+export const VideoContainer = styled(Row)`
+  justify-content: center;
+  flex-wrap: wrap;
+
+  @media screen and ${breakpoint.down('tablet')} {
+    align-items: center;
   }
 `

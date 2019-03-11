@@ -11,8 +11,8 @@ import {
   Content,
   Title,
   SubTitle,
-  Icon,
-  BenefitCol
+  BenefitCol,
+  VideoContainer
 } from './styles'
 
 export default class Benefits extends Component {
@@ -20,7 +20,6 @@ export default class Benefits extends Component {
   getBenefits = (isMobile) => {
     const benefits = this.props.benefitsList.map(({icon, title, description}) => (
       <BenefitCol width={[1,null,null,  3 / 12]} key={title}>
-        <Icon name={icon} />
         <SubTitle fontSize="large" fontWeight="normal" color="dark">
           {title}
         </SubTitle>
@@ -57,10 +56,23 @@ export default class Benefits extends Component {
               </Title>
             </Col>
           </Row>
+          <Row justifyContent="center">
+            <VideoContainer>
+              <video
+                style={{width: "100%"}}
+                src="https://s3.amazonaws.com/emcasa-ui/videos/tour-compressed.mp4"
+                type="video/mp4"
+                loop="loop"
+                muted="muted"
+                autoplay="autoplay"
+                playsInline="playsinline">
+              </video>
+            </VideoContainer>
+          </Row>
           <Row
             justifyContent="center"
             flexDirection={['column',null,null,  'row']}
-            alignItems={['center',null,null,  'none']}
+            alignItems={['flex-start',null,null,  'none']}
           >
             <NoSSR onSSR={this.getBenefits()}>
               {this.getBenefits(isMobile)}
