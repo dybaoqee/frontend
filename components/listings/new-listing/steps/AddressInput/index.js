@@ -193,10 +193,9 @@ class AddressInput extends Component {
                         )}
                       />
                     </Col>
-                    <Col width={[3/12, 1/2]} ml={2}>
+                    <Col ml={2}>
                       <Button
                         active
-                        fluid
                         height="tall"
                         onClick={() => {
                           this.checkAddressCoverage()
