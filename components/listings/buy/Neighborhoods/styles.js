@@ -65,6 +65,7 @@ export const Neighborhood = styled('a')`
   max-width: 100%;
   border-radius: 4px;
   box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.3);
+  overflow: hidden;
 
   @media ${breakpoint.down('tablet')} {
     flex: 1 1 100%;
