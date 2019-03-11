@@ -139,7 +139,7 @@ class AddressInput extends Component {
               render={({isValid, setFieldValue, errors}) => (
                 <>
                   <Row justifyContent="center">
-                    <Header fontSize="large" textAlign="center">
+                    <Header fontSize="xlarge" textAlign="center">
                       {this.props.title}
                     </Header>
                   </Row>
