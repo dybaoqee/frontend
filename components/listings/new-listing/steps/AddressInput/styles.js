@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import theme from '@emcasa/ui'
 import Button from '@emcasa/ui-dom/components/Button'
 import Text from '@emcasa/ui-dom/components/Text'
 

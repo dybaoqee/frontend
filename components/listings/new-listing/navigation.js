@@ -1,4 +1,5 @@
 import React from 'react'
+import * as Sentry from '@sentry/browser'
 import { connect } from 'react-redux'
 import { getAnimatedScreen } from './animation'
 import {
@@ -195,7 +196,9 @@ const getScreen = (screenProps) => {
 const getStepDisplay = (key) => {
   const step = steps[key]
   if (!step) {
-    throw `No step found with key ${key}`
+    const errorMessage = `No step found with key ${key}`
+    Sentry.captureException(new Error(errorMessage))
+    resetStore()
   }
   return step.display
 }

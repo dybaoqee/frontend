@@ -214,6 +214,10 @@ class NewListing extends Component {
 
   onResume() {
     this.setState({resuming: false})
+    const { onChangeStep, step } = this.props
+    if (onChangeStep) {
+      onChangeStep(step)
+    }
   }
 
   navigate(nextStep) {

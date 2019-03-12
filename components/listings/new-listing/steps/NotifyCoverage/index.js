@@ -36,7 +36,7 @@ class NotifyCoverage extends Component {
 
   previousStep() {
     const { navigateTo } = this.props
-    navigateTo('addressInput')
+    navigateTo('intro')
   }
 
   nextStep() {

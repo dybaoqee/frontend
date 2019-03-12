@@ -34,7 +34,7 @@ export const BenefitCol = styled(Col)`
     margin: 0;
   }
   @media ${breakpoint.down('tablet')} {
-    padding-bottom: 50px;
+    padding-bottom: 30px;
   }
 `
 
