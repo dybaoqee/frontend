@@ -8,6 +8,7 @@ import Input from '@emcasa/ui-dom/components/Input'
 import {withBreakpoint} from '@emcasa/ui-dom/components/Breakpoint'
 import StaticMap from 'components/listings/new-listing/shared/StaticMap'
 import { getAddressInput } from 'lib/address'
+import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import AddressAutoComplete from 'components/shared/AddressAutoComplete'
 import MobileAddressButton from 'components/shared/MobileAddressButton'
 import {
@@ -19,6 +20,7 @@ class AddressInput extends Component {
   constructor(props) {
     super(props)
     this.nextStep = this.nextStep.bind(this)
+    this.previousStep = this.previousStep.bind(this)
     this.updateLocation = this.updateLocation.bind(this)
     this.checkAddressCoverage = this.checkAddressCoverage.bind(this)
     this.validateAddress = this.validateAddress.bind(this)
@@ -68,6 +70,11 @@ class AddressInput extends Component {
       address: null,
       addressData: null
     })
+  }
+
+  previousStep() {
+    const { navigateTo } = this.props
+    navigateTo('intro')
   }
 
   nextStep() {
@@ -139,8 +146,8 @@ class AddressInput extends Component {
               render={({isValid, setFieldValue, errors}) => (
                 <>
                   <Row justifyContent="center">
-                    <Header fontSize="xlarge" textAlign="center">
-                      {this.props.title}
+                    <Header fontSize="large" textAlign="center">
+                      Qual o endereço do seu imóvel?
                     </Header>
                   </Row>
                   <Col>
@@ -174,8 +181,8 @@ class AddressInput extends Component {
                       />
                     </Col>
                   }
-                  <Row justifyContent="space-between">
-                    <Col width={1/2} mr={2}>
+                  <Row>
+                    <Col width={1}>
                       <Field
                         name="complement"
                         render={() => (
@@ -193,17 +200,17 @@ class AddressInput extends Component {
                         )}
                       />
                     </Col>
-                    <Col ml={2}>
-                      <NextButton
-                        active
-                        height="tall"
-                        onClick={() => {
+                  </Row>
+                  <Row>
+                    <Col width={1}>
+                      <NavButtons
+                        submitEnabled={isValid}
+                        loading={this.state.loading}
+                        previousStep={this.previousStep}
+                        onSubmit={() => {
                           this.checkAddressCoverage()
                         }}
-                        disabled={!isValid || this.state.loading}a
-                      >
-                        {this.state.loading ? 'Aguarde...' : 'Avançar'}
-                      </NextButton>
+                      />
                     </Col>
                   </Row>
                 </>

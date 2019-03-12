@@ -18,6 +18,7 @@ import {
   updateTour,
   updateListing
 } from 'redux/actions'
+import Intro from 'components/listings/new-listing/steps/Intro'
 import AddressInput from 'components/listings/new-listing/steps/AddressInput'
 import AddressInputMobile from 'components/listings/new-listing/steps/AddressInputMobile'
 import HomeDetails from 'components/listings/new-listing/steps/HomeDetails'
@@ -36,8 +37,13 @@ import Success from 'components/listings/new-listing/steps/Success'
 // Navigation steps
 const steps = {
   intro: {
+    component: Intro,
+    canNavigateTo: ['addressInput'],
+    display: 'bem-vindo'
+  },
+  addressInput: {
     component: AddressInput,
-    canNavigateTo: ['homeDetails', 'notifyCoverage', 'addressInputMobile'],
+    canNavigateTo: ['intro', 'homeDetails', 'notifyCoverage', 'addressInputMobile'],
     display: 'endereco'
   },
   addressInputMobile: {
@@ -47,7 +53,7 @@ const steps = {
   },
   notifyCoverage: {
     component: NotifyCoverage,
-    canNavigateTo: ['intro', 'notifyCoverageSuccess'],
+    canNavigateTo: ['addressInput', 'notifyCoverageSuccess'],
     display: 'notificar'
   },
   notifyCoverageSuccess: {

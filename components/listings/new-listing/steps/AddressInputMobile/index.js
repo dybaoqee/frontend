@@ -25,7 +25,7 @@ class AddressInputMobile extends Component {
 
   close() {
     const { navigateTo } = this.props
-    navigateTo('intro')
+    navigateTo('addressInput')
   }
 
   render() {

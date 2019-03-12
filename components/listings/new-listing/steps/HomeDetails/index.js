@@ -57,7 +57,7 @@ class HomeDetails extends Component {
 
   previousStep() {
     const { navigateTo } = this.props
-    navigateTo('intro')
+    navigateTo('addressInput')
   }
 
   validateArea(value) {
