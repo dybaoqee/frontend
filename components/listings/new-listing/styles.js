@@ -11,14 +11,14 @@ export const SofaContainer = styled(View)`
   justify-content: center;
   align-self: stretch;
 
-  ${({showBackground}) => showBackground && `
-    background-image: url(${CLOUDINARY_URL}/wall-large);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: bottom;
+  background-image: url(${CLOUDINARY_URL}/wall-large);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: bottom;
 
-    @media ${breakpoint.up('phone')} {
-      background-image: url(${CLOUDINARY_URL}/wall-small);
-    }
-  `}
+  @media ${breakpoint.only('phone')} {
+    background-image: url(${CLOUDINARY_URL}/wall-small);
+  }
+
+  ${({showBackground}) => !showBackground && `background-image: none;`}
 `

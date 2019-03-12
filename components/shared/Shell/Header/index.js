@@ -34,6 +34,8 @@ import Container, {
   LabelLogo
 } from './styles'
 
+const HEADER_STICKY_THRESHOLD = 60
+
 class Header extends Component {
   constructor(props) {
     super(props)
@@ -45,7 +47,7 @@ class Header extends Component {
   }
 
   onScroll = () => {
-    this.setState({sticky: window.scrollY > 100})
+    this.setState({sticky: window.scrollY > HEADER_STICKY_THRESHOLD})
   }
 
   openMobileSearch = () => {
