@@ -4,16 +4,16 @@ import Container from 'components/listings/new-listing/shared/Container'
 import { ADDRESS_IS_COVERED } from 'graphql/listings/queries'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
-import Text from '@emcasa/ui-dom/components/Text'
 import Input from '@emcasa/ui-dom/components/Input'
-import Button from '@emcasa/ui-dom/components/Button'
 import {withBreakpoint} from '@emcasa/ui-dom/components/Breakpoint'
 import StaticMap from 'components/listings/new-listing/shared/StaticMap'
 import { getAddressInput } from 'lib/address'
 import AddressAutoComplete from 'components/shared/AddressAutoComplete'
 import MobileAddressButton from 'components/shared/MobileAddressButton'
-
-const Header = Text.withComponent('h1')
+import {
+  Header,
+  NextButton
+} from './styles'
 
 class AddressInput extends Component {
   constructor(props) {
@@ -194,16 +194,16 @@ class AddressInput extends Component {
                       />
                     </Col>
                     <Col ml={2}>
-                      <Button
+                      <NextButton
                         active
                         height="tall"
                         onClick={() => {
                           this.checkAddressCoverage()
                         }}
-                        enabled={isValid && !this.state.loading}
+                        disabled={!isValid || this.state.loading}a
                       >
                         {this.state.loading ? 'Aguarde...' : 'Avançar'}
-                      </Button>
+                      </NextButton>
                     </Col>
                   </Row>
                 </>
