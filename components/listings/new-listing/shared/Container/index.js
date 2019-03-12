@@ -9,6 +9,11 @@ const Container = styled(Row)`
   width: calc(100vw - 40px);
   padding: 80px ${PADDING} ${PADDING} ${PADDING};
   justify-content: center;
+
+  @media ${breakpoint.only('tablet')} {
+    padding-top: 180px;
+    width: calc(100vw - 220px);
+  }
 `
 
 export default Container

@@ -76,8 +76,8 @@ export default class Benefits extends Component {
           <Row
             mt={2}
             justifyContent="center"
-            flexDirection={['column',null,null,  'row']}
-            alignItems={['flex-start',null,null,  'none']}
+            flexDirection={['column', null, null, 'row']}
+            alignItems={['center', null, null, 'flex-start']}
           >
             <NoSSR onSSR={this.getBenefits()}>
               {this.getBenefits(isMobile, showTour)}
