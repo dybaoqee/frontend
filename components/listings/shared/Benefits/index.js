@@ -18,7 +18,7 @@ import {
 
 export default class Benefits extends Component {
 
-  getBenefits = (isMobile) => {
+  getBenefits = (isMobile, showTour) => {
     const benefits = this.props.benefitsList.map(({icon, title, description}) => (
       <BenefitCol width={[1,null,null,  3 / 12]} key={title}>
         {icon && <Icon name={icon} />}
@@ -29,7 +29,7 @@ export default class Benefits extends Component {
       </BenefitCol>
     ))
 
-    if (isMobile) {
+    if (isMobile && !showTour) {
       return (
         <Carousel
           renderCenterLeftControls={() => null}
@@ -79,7 +79,7 @@ export default class Benefits extends Component {
             alignItems={['flex-start',null,null,  'none']}
           >
             <NoSSR onSSR={this.getBenefits()}>
-              {this.getBenefits(isMobile)}
+              {this.getBenefits(isMobile, showTour)}
             </NoSSR>
           </Row>
           <Row justifyContent="center">
