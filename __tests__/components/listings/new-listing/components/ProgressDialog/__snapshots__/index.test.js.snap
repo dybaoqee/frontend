@@ -99,6 +99,13 @@ exports[`<ProgressDialog/> should render component 1`] = `
   }
 }
 
+@media (min-width:480px) and (max-width:779px) {
+  .c0 {
+    padding-top: 180px;
+    width: calc(100vw - 220px);
+  }
+}
+
 <div
   className="c0 c1"
 >
