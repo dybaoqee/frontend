@@ -171,7 +171,7 @@ const startServer = () => {
       })
 
       server.get('/avaliacao-imovel', (req, res) => {
-        return app.render(req, res, '/listings/estimate-price', req.query)
+        return app.render(req, res, '/listings/sell', req.query)
       })
 
       server.get('/meu-perfil', (req, res) => {
