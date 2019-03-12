@@ -7,7 +7,8 @@ jobs:
     - checkout
     - setup_remote_docker
     - restore_cache:
-        key: npm-deps-{{ checksum "package.json" }}
+        name: Restore Yarn Package Cache
+        key: yarn-packages-{{ checksum "yarn.lock" }}
     - run:
         name: Install dependencies
         command: yarn
@@ -18,6 +19,7 @@ jobs:
         name: Build application
         command: yarn build
     - save_cache:
-        key: npm-deps-{{ checksum "package.json" }}
+        name: Save Yarn Package cache
+        key: yarn-packages-{{ checksum "yarn.lock" }}
         paths: 
-          - node_modules
+          - ~/.cache/yarn
