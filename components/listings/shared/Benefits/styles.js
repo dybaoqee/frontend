@@ -46,3 +46,12 @@ export const VideoContainer = styled(Row)`
     align-items: center;
   }
 `
+
+export const Icon = styled.div`
+  background-image: url('/static/svg-icons/${(props) => props.name}.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 70px;
+  height: 70px;
+  margin-bottom: 30px;
+`

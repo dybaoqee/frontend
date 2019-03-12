@@ -140,7 +140,8 @@ class Sell extends Component {
       buttonClick: () => {
         log(SELLER_LANDING_EXPLORE_LISTINGS)
       },
-      isMobile
+      isMobile,
+      showTour: true
     }
 
     return (
