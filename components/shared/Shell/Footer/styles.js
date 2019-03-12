@@ -66,6 +66,6 @@ export const AboutText = styled(Text)`
 `
 
 export const AboutLogo = styled.div`
-  content: url(https://s3.amazonaws.com/emcasa-ui/logo/symbol.svg);
-  max-width: 32px;
+  content: url(https://s3.amazonaws.com/emcasa-ui/logo/logo.svg);
+  max-width: 110px;
 `
