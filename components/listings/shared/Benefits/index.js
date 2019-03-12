@@ -74,6 +74,7 @@ export default class Benefits extends Component {
             </Row>
           }
           <Row
+            mt={2}
             justifyContent="center"
             flexDirection={['column',null,null,  'row']}
             alignItems={['flex-start',null,null,  'none']}
@@ -82,7 +83,7 @@ export default class Benefits extends Component {
               {this.getBenefits(isMobile, showTour)}
             </NoSSR>
           </Row>
-          <Row justifyContent="center">
+          {!showTour && <Row justifyContent="center">
             <Col width={[1,null,null,  4 / 12]}>
               <Link passHref href={buttonHref}>
                 <a>
@@ -92,7 +93,7 @@ export default class Benefits extends Component {
                 </a>
               </Link>
             </Col>
-          </Row>
+          </Row>}
         </Content>
       </Container>
     )

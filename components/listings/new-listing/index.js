@@ -226,6 +226,11 @@ class NewListing extends Component {
     const stepDisplay = getStepDisplay(nextStep)
     Router.push('/vender', `/vender#${stepDisplay}`, {shallow: true})
     window.scrollTo(0, 0)
+
+    const { onChangeStep } = this.props
+    if (onChangeStep) {
+      onChangeStep(nextStep)
+    }
   }
 
   render() {
