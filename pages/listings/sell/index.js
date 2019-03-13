@@ -90,9 +90,7 @@ class Sell extends Component {
 
   constructor(props) {
     super(props)
-    this.onChangeStep = this.onChangeStep.bind(this)
     this.state = {
-      showBottomContent: true,
       pageWidth: process.browser ? window.innerWidth : 0
     }
   }
@@ -110,18 +108,8 @@ class Sell extends Component {
     window.removeEventListener('resize', this.onResize)
   }
 
-  onChangeStep(step) {
-    const { showBottomContent } = this.state
-    if (step !== 'intro' && showBottomContent) {
-      this.setState({ showBottomContent: false })
-    } else if (!showBottomContent && step === 'intro') {
-      this.setState({ showBottomContent: true })
-    }
-  }
-
   render() {
     const { isMobile, user, client } = this.props
-    const { showBottomContent } = this.state
     const blockProps = {
       isMobile,
       pageWidth: this.state.pageWidth
@@ -205,12 +193,8 @@ class Sell extends Component {
             client={client}
             user={user}
             title={heroTitle}
-            onChangeStep={this.onChangeStep}
           />
         </MainBlock>
-        {showBottomContent && <Block>
-          <Benefits {...benefitsProps} />
-        </Block>}
       </Container>
     )
   }
