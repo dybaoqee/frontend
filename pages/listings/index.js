@@ -1,4 +1,4 @@
-import {Component} from 'react'
+import {Component, Fragment} from 'react'
 import NextHead from 'components/shared/NextHead'
 import Router from 'next/router'
 import {
@@ -25,6 +25,8 @@ import {
   SchemaRealEstateAgent,
   SchemaOrganization
 } from 'constants/ld-json'
+import {Query} from 'react-apollo'
+import {GET_DISTRICTS} from 'graphql/listings/queries'
 
 const BASE_URL = 'https://www.emcasa.com/imoveis'
 
@@ -124,10 +126,10 @@ class ListingSearch extends Component {
     Router.push('/listings', '/imoveis', {shallow: true})
   }
 
-  getCanonical = (neighborhoodsSlugs) => {
-    const info = NEIGHBORHOODS.find(a => a.neighborhood === neighborhoodsSlugs[0])
+  getCanonical = (neighborhoodsSlugs, districts) => {
+    const info = districts.find(a => a.nameSlug === neighborhoodsSlugs[0])
 
-    return info && info.state ? `/${info.state}/${info.city}/${info.neighborhood}` : `${BASE_URL}${this.props.url.asPath}`
+    return info && info.stateSlug ? `/${info.stateSlug}/${info.citySlug}/${info.nameSlug}` : `${BASE_URL}${this.props.url.asPath}`
   }
 
   getURL = (params) => {
@@ -148,12 +150,12 @@ class ListingSearch extends Component {
     return imageUrl(imgSrc)
   }
 
-  getHead = () => {
+  getHead = (districts) => {
     const {filters} = this.state
     const {params} = this.props
-    const titleContent = filters && filters.neighborhoods ? getTitleTextByFilters(filters.neighborhoods) : getTitleTextByParams(params)
+    const titleContent = filters && filters.neighborhoods ? getTitleTextByFilters(filters.neighborhoods, districts) : getTitleTextByParams(params, districts)
     const url = params && params.state ? this.getURL(params) : BASE_URL
-    const canonical = filters.neighborhoods && filters.neighborhoods.length === 1 ? `${BASE_URL}${this.getCanonical(filters.neighborhoods)}` : null
+    const canonical = filters.neighborhoods && filters.neighborhoods.length === 1 ? this.getCanonical(filters.neighborhoods, districts) : null
     const imageSrc = this.getImageSrc(params)
 
     return (
@@ -227,46 +229,56 @@ class ListingSearch extends Component {
     const listingFilters = getListingFiltersFromState(filters)
 
     return (
-      <>
-        {this.getHead()}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaWebSite) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaRealEstateAgent) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaOrganization) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(this.getWebPage()) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(this.getBreadcrumbList()) }}
-        />
-        <ListingFilter
-          onSubmit={this.onChangeFilter}
-          values={filters}
-        />
-        <ListingList
-          query={query}
-          params={params}
-          user={user}
-          resetFilters={this.onResetFilter}
-          filters={listingFilters}
-          apolloClient={client}
-          neighborhoodListener={(neighborhood) => {
-            if (!this.state.neighborhood) {
-              this.setState({neighborhood: neighborhood})
-            }
-          }}
-        />
-      </>
+      <Query query={GET_DISTRICTS}>
+      {({data: {districts}, loading, error}) => {
+        if (loading) return <div />
+        if (error) return <p>ERROR</p>
+
+        return (
+          <Fragment>
+            {this.getHead(districts)}
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaWebSite) }}
+            />
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaRealEstateAgent) }}
+            />
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaOrganization) }}
+            />
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{ __html: JSON.stringify(this.getWebPage()) }}
+            />
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{ __html: JSON.stringify(this.getBreadcrumbList()) }}
+            />
+            <ListingFilter
+              onSubmit={this.onChangeFilter}
+              values={filters}
+            />
+            <ListingList
+              query={query}
+              params={params}
+              user={user}
+              resetFilters={this.onResetFilter}
+              filters={listingFilters}
+              apolloClient={client}
+              districts={districts}
+              neighborhoodListener={(neighborhood) => {
+                if (!this.state.neighborhood) {
+                  this.setState({neighborhood: neighborhood})
+                }
+              }}
+            />
+          </Fragment>
+        )
+      }}
+      </Query>
     )
   }
 }
