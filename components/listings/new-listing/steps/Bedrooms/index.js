@@ -7,17 +7,23 @@ import Col from '@emcasa/ui-dom/components/Col'
 import Container from 'components/listings/new-listing/shared/Container'
 import Text from '@emcasa/ui-dom/components/Text'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
+import { getAddressInput } from 'lib/address'
+import { estimatePrice, getPricingInput } from 'lib/listings/pricing'
+import { getUser, hasPhoneNumber } from 'components/listings/new-listing/lib/auth'
 
 class Bedrooms extends Component {
   constructor(props) {
     super(props)
-    this.nextStep = this.nextStep.bind(this)
     this.previousStep = this.previousStep.bind(this)
     this.validateBedroom = this.validateBedroom.bind(this)
     this.validateSuite = this.validateSuite.bind(this)
     this.validateBathroom = this.validateBathroom.bind(this)
     this.updateStateFromProps = this.updateStateFromProps.bind(this)
     this.validateSpots = this.validateSpots.bind(this)
+
+    this.checkUserInfo = this.checkUserInfo.bind(this)
+    this.estimatePrice = this.estimatePrice.bind(this)
+    this.submit = this.submit.bind(this)
   }
 
   state = {
@@ -29,7 +35,9 @@ class Bedrooms extends Component {
     enterMoreBathrooms: false,
     showSuites: false,
     showBathrooms: false,
-    showSpots: false
+    showSpots: false,
+    loading: false,
+    error: null
   }
 
   componentDidMount() {
@@ -47,10 +55,88 @@ class Bedrooms extends Component {
     }
   }
 
-  nextStep() {
-    const { navigateTo, updateRooms } = this.props
-    updateRooms(this.state)
-    navigateTo('garage')
+  async checkUserInfo() {
+    const { updateRooms, user } = this.props
+    updateRooms({
+      bedrooms: this.state.bedrooms,
+      suites: this.state.suites,
+      bathrooms: this.state.bathrooms,
+      spots: this.state.spots,
+      enterMoreBedrooms: this.state.enterMoreBedrooms,
+      enterMoreBathrooms: this.state.enterMoreBathrooms,
+      showSuites: this.state.showSuites,
+      showBathrooms: this.state.showBathrooms,
+      showSpots: this.state.showSpots,
+    })
+    const authenticated = user && user.authenticated
+
+    // Old site auth
+    if (authenticated) {
+      const { updatePhone, updatePersonal } = this.props
+      try {
+        const userInfo = await getUser(user.id, updatePhone, updatePersonal)
+        await this.estimatePrice(userInfo)
+        return
+      } catch (e) {
+        this.setState({
+          loading: false,
+          error: 'Ocorreu um erro. Por favor, tente novamente.'
+        })
+        return
+      }
+    }
+
+    // User has already input phone number
+    const { phone } = this.props
+    if (hasPhoneNumber(phone)) {
+      const { personal } = this.props
+      if (personal && personal.name) {
+        await this.estimatePrice()
+        return
+      } else {
+        this.props.navigateTo('personal')
+        return
+      }
+    }
+
+    this.props.navigateTo('phone')
+  }
+
+  async estimatePrice(userInfo) {
+    // Prepare input
+    const { personal, homeDetails, rooms, location } = this.props
+    const addressInput = getAddressInput(location.addressData)
+    const pricingInput = getPricingInput(addressInput, homeDetails, rooms, personal, userInfo)
+
+    // Run mutation
+    const response = await estimatePrice(apolloClient, pricingInput)
+    if (response.error) {
+      this.setState({
+        loading: false,
+        error: response.error
+      })
+    }
+
+    // Handle result
+    if (response.result) {
+      const { suggestedPrice, userPrice } = response.result
+      const { navigateTo, updatePricing, pricing } = this.props
+      updatePricing({
+        ...pricing,
+        suggestedPrice,
+        userPrice
+      })
+      this.setState({
+        loading: false,
+        error: null
+      })
+      navigateTo('pricing')
+    }
+  }
+
+  submit() {
+    this.setState({loading: true})
+    this.checkUserInfo()
   }
 
   previousStep() {
@@ -260,10 +346,12 @@ class Bedrooms extends Component {
                       }/>
                   </Row>
                   </>}
+                  <Text color="red">{this.state.error}</Text>
                   <NavButtons
                     previousStep={this.previousStep}
-                    onSubmit={this.nextStep}
-                    submitEnabled={isValid}
+                    onSubmit={this.submit}
+                    loading={this.state.loading}
+                    submitEnabled={isValid && !this.state.loading}
                   />
                 </>
               )}

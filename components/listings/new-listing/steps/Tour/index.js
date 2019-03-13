@@ -99,13 +99,11 @@ class Tour extends Component {
   }
 
   getListingInput() {
-    const { location, homeDetails, rooms, garage, differential, phone, pricing } = this.props
+    const { location, homeDetails, rooms, phone, pricing } = this.props
     const { addressData, complement } = location
     const { area, floor, type, maintenanceFee } = homeDetails
-    const { bathrooms, bedrooms, suites } = rooms
-    const { spots } = garage
+    const { bathrooms, bedrooms, suites, spots } = rooms
     const { userPrice } = pricing
-    const { text } = differential
     const { internationalCode, localAreaCode, number } = phone
 
     const address = getAddressInput(addressData)
@@ -114,7 +112,6 @@ class Tour extends Component {
       area: parseInt(area),
       bathrooms,
       complement,
-      description: text,
       floor,
       garageSpots: spots,
       maintenanceFee: parseInt(maintenanceFee),

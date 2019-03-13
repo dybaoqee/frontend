@@ -64,7 +64,7 @@ const steps = {
   },
   bedrooms: {
     component: Bedrooms,
-    canNavigateTo: ['homeDetails', 'phone', 'pricing'],
+    canNavigateTo: ['homeDetails', 'phone', 'pricing', 'personal'],
     display: 'quartos'
   },
   phone: {

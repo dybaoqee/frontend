@@ -140,7 +140,7 @@ class Phone extends Component {
 
   previousStep() {
     const { navigateTo } = this.props
-    navigateTo('differential')
+    navigateTo('bedrooms')
   }
 
   validateInternationalCode(value) {

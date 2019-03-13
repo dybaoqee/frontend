@@ -114,7 +114,7 @@ class Pricing extends Component {
     }
 
     const { navigateTo } = this.props
-    navigateTo('differential')
+    navigateTo('bedrooms')
   }
 
   currencyInput(errors, setFieldValue, setFieldTouched) {
@@ -184,12 +184,11 @@ class Pricing extends Component {
   }
 
   getListingSummary() {
-    const { homeDetails, rooms, garage } = this.props
+    const { homeDetails, rooms } = this.props
     let listingSummary = ''
-    if (homeDetails && rooms && garage) {
+    if (homeDetails && rooms) {
       const { area } = homeDetails
-      const { bedrooms, suites, bathrooms } = rooms
-      const { spots } = garage
+      const { bedrooms, suites, bathrooms, spots } = rooms
       listingSummary = `
         ${area}m² -
         ${bedrooms} Quarto${this.plural(bedrooms)}

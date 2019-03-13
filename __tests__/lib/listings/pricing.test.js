@@ -6,11 +6,10 @@ describe('pricing functions', () => {
   it('should create the correct input for the pricing query', () => {
     const addressInput = {}
     const homeDetails = {area: 100}
-    const homeRooms = {bathrooms: 2, bedrooms: 3}
-    const garage = {spots: 1}
+    const homeRooms = {bathrooms: 2, bedrooms: 3, spots: 1}
     const personal = {name: 'name', email: 'email@email.com'}
 
-    const pricingInput = getPricingInput(addressInput, homeDetails, homeRooms, garage, personal)
+    const pricingInput = getPricingInput(addressInput, homeDetails, homeRooms, personal)
     const { address, area, bathrooms, rooms, name, email, garageSpots, isCovered } = pricingInput
 
     expect(address).toEqual({})

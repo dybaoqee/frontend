@@ -33,7 +33,10 @@ const initialState = {
     bathrooms: null,
     spots: null,
     enterMoreBedrooms: false,
-    enterMoreBathrooms: false
+    enterMoreBathrooms: false,
+    showSuites: false,
+    showBathrooms: false,
+    showSpots: false
   },
   phone: {
     internationalCode: null,
