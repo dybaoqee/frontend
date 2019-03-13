@@ -186,6 +186,10 @@ const startServer = () => {
         return app.render(req, res, '/search', req.query)
       })
 
+      server.get('/ping', (req, res) => {
+        res.status(200).send(`Ping ${new Date() * 1}`)
+      })
+
       server.get('/google1e5ce96173e3bf9d.html', (req, res) => {
         app.serveStatic(
           req,
