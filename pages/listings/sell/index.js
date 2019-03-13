@@ -90,7 +90,9 @@ class Sell extends Component {
 
   constructor(props) {
     super(props)
+    this.onChangeStep = this.onChangeStep.bind(this)
     this.state = {
+      hideFooter: false,
       pageWidth: process.browser ? window.innerWidth : 0
     }
   }
@@ -106,6 +108,24 @@ class Sell extends Component {
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.onResize)
+  }
+
+  onChangeStep(step) {
+    if (step === 'intro') {
+      this.showFooter()
+    } else {
+      this.hideFooter()
+    }
+  }
+
+  showFooter() {
+    const footer = document.getElementsByTagName('address')[0]
+    footer.style.display = 'block'
+  }
+
+  hideFooter() {
+    const footer = document.getElementsByTagName('address')[0]
+    footer.style.display = 'none'
   }
 
   render() {
@@ -193,6 +213,7 @@ class Sell extends Component {
             client={client}
             user={user}
             title={heroTitle}
+            onChangeStep={this.onChangeStep}
           />
         </MainBlock>
       </Container>

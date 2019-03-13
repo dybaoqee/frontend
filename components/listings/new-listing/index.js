@@ -214,6 +214,10 @@ class NewListing extends Component {
 
   onResume() {
     this.setState({resuming: false})
+    const { onChangeStep, step } = this.props
+    if (onChangeStep) {
+      onChangeStep(step)
+    }
   }
 
   navigate(nextStep) {
@@ -226,6 +230,11 @@ class NewListing extends Component {
     const stepDisplay = getStepDisplay(nextStep)
     Router.push('/vender', `/vender#${stepDisplay}`, {shallow: true})
     window.scrollTo(0, 0)
+
+    const { onChangeStep } = this.props
+    if (onChangeStep) {
+      onChangeStep(nextStep)
+    }
   }
 
   render() {
