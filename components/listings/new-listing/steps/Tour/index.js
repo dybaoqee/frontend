@@ -21,6 +21,7 @@ import {
   EARLY,
   LATE,
 } from 'components/listings/new-listing/lib/times'
+import { BUTTON_WIDTH } from 'components/listings/new-listing/styles'
 
 class Tour extends Component {
   constructor(props) {
@@ -384,15 +385,15 @@ class Tour extends Component {
                   </Row>}
                   <Text color="red">{this.state.error}</Text>
                   <Row justifyContent="space-between" mt={4}>
-                    <Col width={5/12}>
+                    <Col>
                       <Button
-                        fluid
+                        style={{width: BUTTON_WIDTH}}
                         height="tall"
                         onClick={this.previousStep}>Voltar</Button>
                     </Col>
-                    <Col width={5/12}>
+                    <Col>
                       <Button
-                        fluid
+                        style={{width: BUTTON_WIDTH}}
                         height="tall"
                         active={!this.state.loading && isValid}
                         disabled={!isValid || this.state.loading}

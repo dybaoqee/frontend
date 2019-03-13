@@ -7,6 +7,7 @@ import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import Arrow from 'components/listings/new-listing/shared/Arrow'
 import Container from 'components/listings/new-listing/shared/Container'
+import { LARGE_BUTTON_WIDTH } from 'components/listings/new-listing/styles'
 
 const Title = Text.withComponent('h2')
 const SubTitle = Text.withComponent('h3')
@@ -64,9 +65,9 @@ class Intro extends PureComponent {
                 <Arrow /><ListTitle fontWeight="normal" inline>Cuidamos de toda burocracia, contratos e documentação</ListTitle>
               </View>
             <Row justifyContent="center" mt={4}>
-              <Col width={[1,null,null,1/2]}>
+              <Col>
                   <Button
-                    fluid
+                    style={{width: LARGE_BUTTON_WIDTH}}
                     active
                     height="tall"
                     onClick={this.nextStep}>Quero Vender</Button>

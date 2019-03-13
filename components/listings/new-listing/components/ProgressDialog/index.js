@@ -5,6 +5,7 @@ import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
 import Container from 'components/listings/new-listing/shared/Container'
+import { BUTTON_WIDTH } from 'components/listings/new-listing/styles'
 
 class ProgressDialog extends Component {
   render() {
@@ -15,11 +16,11 @@ class ProgressDialog extends Component {
             <Text>Você já estava cadastrando seu imóvel da {this.props.address}. Gostaria de continuar de onde parou?</Text>
           </Row>
           <Row justifyContent="space-between">
-            <Col width={[1/3,null,null,  5/12]}>
-              <Button fluid onClick={this.props.onReset}>Não</Button>
+            <Col>
+              <Button style={{width: BUTTON_WIDTH}} fluid onClick={this.props.onReset}>Não</Button>
             </Col>
-            <Col width={[1/3,null,null,  5/12]}>
-              <Button fluid active onClick={this.props.onResume}>Sim</Button>
+            <Col>
+              <Button style={{width: BUTTON_WIDTH}} fluid active onClick={this.props.onResume}>Sim</Button>
             </Col>
           </Row>
         </Col>

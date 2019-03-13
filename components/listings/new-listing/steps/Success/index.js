@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react'
 import Router from 'next/router'
 import routerEvents from 'next-router-events'
-
 import View from '@emcasa/ui-dom/components/View'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
@@ -11,6 +10,7 @@ import { intToCurrency } from 'utils/text-utils'
 import { getFullTourDateDisplay } from 'components/listings/new-listing/lib/times'
 import { Box } from './styles'
 import Container from 'components/listings/new-listing/shared/Container'
+import { LARGE_BUTTON_WIDTH } from 'components/listings/new-listing/styles'
 
 const ROUTE_HOME = '/'
 const ROUTE_MY_LISTINGS = '/meu-perfil'
@@ -110,9 +110,9 @@ class Success extends PureComponent {
                 </Row>}
               </View>
             </Box>
-            <Row>
-              <Col width={1} mb={2}>
-                <Button active fluid height="tall" onClick={this.viewMyListings}>Ver Meus Imóveis</Button>
+            <Row justifyContent="center">
+              <Col>
+                <Button active style={{width: LARGE_BUTTON_WIDTH}} height="tall" onClick={this.viewMyListings}>Ver Meus Imóveis</Button>
               </Col>
             </Row>
           </Col>

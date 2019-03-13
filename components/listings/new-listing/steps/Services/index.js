@@ -16,6 +16,7 @@ import {
   log
 } from 'lib/logging'
 import { VideoContainer } from './styles'
+import { BUTTON_WIDTH } from 'components/listings/new-listing/styles'
 
 class Services extends Component {
   constructor(props) {
@@ -240,15 +241,15 @@ class Services extends Component {
                   </VideoContainer>
                   <Text color="red">{this.state.error}</Text>
                   <Row justifyContent="space-between" mt={4}>
-                    <Col width={5/12}>
+                    <Col>
                       <Button
-                        fluid
+                        style={{width: BUTTON_WIDTH}}
                         height="tall"
                         onClick={this.skipStep}>Pular</Button>
                     </Col>
-                    <Col width={5/12}>
+                    <Col>
                       <Button
-                        fluid
+                        style={{width: BUTTON_WIDTH}}
                         active
                         height="tall"
                         onClick={this.getAvailableTimes}>

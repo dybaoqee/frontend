@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Button from '@emcasa/ui-dom/components/Button'
+import { BUTTON_WIDTH } from 'components/listings/new-listing/styles'
 
 const NEXT_LABEL = 'Avançar'
 const LOADING_LABEL = 'Aguarde...'
@@ -52,15 +52,15 @@ class NavButtons extends PureComponent {
   render() {
     return (
       <Row justifyContent="space-between" mt={4}>
-        <Col width={5/12}>
+        <Col>
           <Button
-            fluid
+            style={{width: BUTTON_WIDTH}}
             height="tall"
             onClick={this.props.previousStep}>{this.getPreviousLabel()}</Button>
         </Col>
-        <Col width={5/12}>
+        <Col>
           <Button
-            fluid
+            style={{width: BUTTON_WIDTH}}
             height="tall"
             active={!this.props.loading}
             disabled={this.props.loading || !this.props.submitEnabled}
