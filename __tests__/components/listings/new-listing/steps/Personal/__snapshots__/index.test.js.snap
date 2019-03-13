@@ -112,19 +112,14 @@ exports[`renders correctly 1`] = `
 }
 
 .c11 {
-  width: 41.66666666666667%;
-}
-
-.c12 {
   outline: none;
-  display: block;
   cursor: pointer;
   padding: 0 20px 0 20px;
   border-color: #e0e6ed;
   background-color: #ffffff;
   border-radius: 4px;
   border-width: 1px;
-  width: 100%;
+  width: auto;
   height: 60px;
   color: #3c4858;
   font-family: FaktSoftPro-Normal;
@@ -133,20 +128,19 @@ exports[`renders correctly 1`] = `
   border-style: solid;
 }
 
-.c12 :hover {
+.c11 :hover {
   background-color: #ffffff;
 }
 
-.c13 {
+.c12 {
   outline: none;
-  display: block;
   cursor: default;
   padding: 0 20px 0 20px;
   border-color: #e0e6ed;
   background-color: #ffffff;
   border-radius: 4px;
   border-width: 1px;
-  width: 100%;
+  width: auto;
   height: 60px;
   color: #8492a6;
   font-family: FaktSoftPro-Normal;
@@ -155,7 +149,7 @@ exports[`renders correctly 1`] = `
   border-style: solid;
 }
 
-.c13 :hover {
+.c12 :hover {
   background-color: #ffffff;
 }
 
@@ -272,28 +266,36 @@ exports[`renders correctly 1`] = `
         className="c10"
       >
         <div
-          className="c11"
-          width={0.4166666666666667}
+          className=""
         >
           <button
-            className="c12"
+            className="c11"
             fontSize="default"
             height="tall"
             onClick={[Function]}
+            style={
+              Object {
+                "width": 130,
+              }
+            }
           >
             Voltar
           </button>
         </div>
         <div
-          className="c11"
-          width={0.4166666666666667}
+          className=""
         >
           <button
-            className="c13"
+            className="c12"
             disabled={true}
             fontSize="default"
             height="tall"
             onClick={[Function]}
+            style={
+              Object {
+                "width": 130,
+              }
+            }
           >
             Avançar
           </button>

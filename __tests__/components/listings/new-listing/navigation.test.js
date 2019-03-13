@@ -20,7 +20,7 @@ describe('new-listing navigation functions', () => {
   it('should return the correct step entry given a navigation key', () => {
     const key = 'intro'
     const step = getStepEntry(key)
-    expect(step).toEqual({"canNavigateTo": ["homeDetails", "notifyCoverage", "addressInputMobile"], "component": expect.any(Function), "display": "endereco"})
+    expect(step).toEqual({"canNavigateTo": ["addressInput"], "component": expect.any(Function), "display": "bem-vindo"})
   })
 
   it('should return the correct step display given a navigation key', () => {

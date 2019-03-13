@@ -19,7 +19,7 @@ exports[`<ProgressDialog/> should render component 1`] = `
   justify-content: space-between;
 }
 
-.c6 {
+.c5 {
   outline: none;
   display: block;
   cursor: pointer;
@@ -37,11 +37,11 @@ exports[`<ProgressDialog/> should render component 1`] = `
   border-style: solid;
 }
 
-.c6 :hover {
+.c5 :hover {
   background-color: #ffffff;
 }
 
-.c7 {
+.c6 {
   outline: none;
   display: block;
   cursor: pointer;
@@ -59,16 +59,12 @@ exports[`<ProgressDialog/> should render component 1`] = `
   border-style: solid;
 }
 
-.c7 :hover {
+.c6 :hover {
   background-color: #f50057;
 }
 
 .c2 {
   width: 100%;
-}
-
-.c5 {
-  width: 33.33333333333333%;
 }
 
 .c3 {
@@ -90,12 +86,6 @@ exports[`<ProgressDialog/> should render component 1`] = `
 @media screen and (min-width:780px) {
   .c2 {
     width: 50%;
-  }
-}
-
-@media screen and (min-width:780px) {
-  .c5 {
-    width: 41.66666666666667%;
   }
 }
 
@@ -137,41 +127,35 @@ exports[`<ProgressDialog/> should render component 1`] = `
       className="c4"
     >
       <div
-        className="c5"
-        width={
-          Array [
-            0.3333333333333333,
-            null,
-            null,
-            0.4166666666666667,
-          ]
-        }
+        className=""
+      >
+        <button
+          className="c5"
+          fontSize="default"
+          height="medium"
+          onClick={[Function]}
+          style={
+            Object {
+              "width": 130,
+            }
+          }
+        >
+          Não
+        </button>
+      </div>
+      <div
+        className=""
       >
         <button
           className="c6"
           fontSize="default"
           height="medium"
           onClick={[Function]}
-        >
-          Não
-        </button>
-      </div>
-      <div
-        className="c5"
-        width={
-          Array [
-            0.3333333333333333,
-            null,
-            null,
-            0.4166666666666667,
-          ]
-        }
-      >
-        <button
-          className="c7"
-          fontSize="default"
-          height="medium"
-          onClick={[Function]}
+          style={
+            Object {
+              "width": 130,
+            }
+          }
         >
           Sim
         </button>

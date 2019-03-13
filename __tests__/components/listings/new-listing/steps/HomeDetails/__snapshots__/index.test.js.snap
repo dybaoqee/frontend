@@ -44,10 +44,6 @@ exports[`renders correctly 1`] = `
   margin-bottom: 20px;
 }
 
-.c8 {
-  width: 41.66666666666667%;
-}
-
 .c6 {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -66,16 +62,15 @@ exports[`renders correctly 1`] = `
   font-family: FaktSoftPro-Normal;
 }
 
-.c9 {
+.c8 {
   outline: none;
-  display: block;
   cursor: pointer;
   padding: 0 20px 0 20px;
   border-color: #e0e6ed;
   background-color: #ffffff;
   border-radius: 4px;
   border-width: 1px;
-  width: 100%;
+  width: auto;
   height: 60px;
   color: #3c4858;
   font-family: FaktSoftPro-Normal;
@@ -84,20 +79,19 @@ exports[`renders correctly 1`] = `
   border-style: solid;
 }
 
-.c9 :hover {
+.c8 :hover {
   background-color: #ffffff;
 }
 
-.c10 {
+.c9 {
   outline: none;
-  display: block;
   cursor: pointer;
   padding: 0 20px 0 20px;
   border-color: #f50057;
   background-color: #f50057;
   border-radius: 4px;
   border-width: 1px;
-  width: 100%;
+  width: auto;
   height: 60px;
   color: #ffffff;
   font-family: FaktSoftPro-Normal;
@@ -106,7 +100,7 @@ exports[`renders correctly 1`] = `
   border-style: solid;
 }
 
-.c10 :hover {
+.c9 :hover {
   background-color: #f50057;
 }
 
@@ -200,28 +194,36 @@ exports[`renders correctly 1`] = `
         className="c7"
       >
         <div
-          className="c8"
-          width={0.4166666666666667}
+          className=""
         >
           <button
-            className="c9"
+            className="c8"
             fontSize="default"
             height="tall"
             onClick={[Function]}
+            style={
+              Object {
+                "width": 130,
+              }
+            }
           >
             Voltar
           </button>
         </div>
         <div
-          className="c8"
-          width={0.4166666666666667}
+          className=""
         >
           <button
-            className="c10"
+            className="c9"
             disabled={false}
             fontSize="default"
             height="tall"
             onClick={[Function]}
+            style={
+              Object {
+                "width": 130,
+              }
+            }
           >
             Avançar
           </button>
