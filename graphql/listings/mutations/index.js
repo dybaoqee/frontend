@@ -63,7 +63,7 @@ export const ESTIMATE_PRICE = gql`
     $bathrooms: Int!
     $email: String
     $garageSpots: Int!
-    $name: String!
+    $name: String
     $rooms: Int!
     $isCovered: Boolean!
   ) {

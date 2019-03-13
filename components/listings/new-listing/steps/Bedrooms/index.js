@@ -17,16 +17,19 @@ class Bedrooms extends Component {
     this.validateSuite = this.validateSuite.bind(this)
     this.validateBathroom = this.validateBathroom.bind(this)
     this.updateStateFromProps = this.updateStateFromProps.bind(this)
+    this.validateSpots = this.validateSpots.bind(this)
   }
 
   state = {
     bedrooms: 0,
     suites: 0,
     bathrooms: 0,
+    spots: null,
     enterMoreBedrooms: false,
     enterMoreBathrooms: false,
     showSuites: false,
-    showBathrooms: false
+    showBathrooms: false,
+    showSpots: false
   }
 
   componentDidMount() {
@@ -82,6 +85,12 @@ class Bedrooms extends Component {
     }
   }
 
+  validateSpots(spots) {
+    if (typeof spots !== 'number') {
+      return "É necessário informar o número de vagas"
+    }
+  }
+
   bedroomSelection(setFieldTouched, setFieldValue, error, touched) {
     const { rooms } = this.props
     let bedrooms
@@ -132,7 +141,7 @@ class Bedrooms extends Component {
             const intValue = parseInt(value)
             setFieldValue('bathroom', intValue)
             setFieldTouched('bathroom')
-            this.setState({bathrooms: intValue})
+            this.setState({showSpots: true, bathrooms: intValue})
           }} defaultValue={bathrooms} />
         </Col>
       )
@@ -145,7 +154,7 @@ class Bedrooms extends Component {
             const intValue = parseInt(value)
             setFieldValue('bathroom', intValue)
             setFieldTouched('bathroom')
-            this.setState({bathrooms: intValue})
+            this.setState({showSpots: true, bathrooms: intValue})
           }
         }}>
         <Button mr={2} px={2} value={1} height="tall">1</Button>
@@ -160,11 +169,12 @@ class Bedrooms extends Component {
 
   render() {
     const { rooms } = this.props
-    let bedrooms, bathrooms, suites
+    let bedrooms, bathrooms, suites, spots
     if (rooms) {
       bedrooms = rooms.bedrooms
       bathrooms = rooms.bathrooms
       suites = rooms.suites
+      spots = rooms.spots
     }
     return (
       <div ref={this.props.hostRef}>
@@ -174,10 +184,16 @@ class Bedrooms extends Component {
               initialValues={{
                 bedroom: bedrooms,
                 suite: suites,
-                bathroom: bathrooms
+                bathroom: bathrooms,
+                spots: spots
               }}
               isInitialValid={() => {
-                return !(this.validateBedroom(bedrooms) && this.validateSuite(suites) && this.validateBathroom(bathrooms))
+                return !(
+                  this.validateBedroom(bedrooms) &&
+                  this.validateSuite(suites) &&
+                  this.validateBathroom(bathrooms) &&
+                  this.validateSpots(spots)
+                )
               }}
               render={({isValid, setFieldTouched, setFieldValue, errors}) => (
                 <>
@@ -222,6 +238,27 @@ class Bedrooms extends Component {
                         validate={this.validateBathroom}
                         render={({form}) => this.bathroomSelection(setFieldTouched, setFieldValue, errors.bathroom, form.touched.bathroom)} />
                     </Row>
+                  </>}
+                  {this.state.showSpots && <>
+                    <Text color="grey">Possui vagas de garagem?</Text>
+                    <Row mb={4}>
+                    <Field
+                      name="spots"
+                      validate={this.validateSpots}
+                      render={() =>
+                        <Button.Group flexWrap="wrap" initialValue={spots} onChange={(value) => {
+                          setFieldValue('spots', value)
+                          setFieldTouched('spots')
+                          this.setState({spots: value})
+                          }}>
+                          <Button mr={2} px={3} value={0} height="tall">Não tem</Button>
+                          <Button mr={2} px={3} value={1} height="tall">1</Button>
+                          <Button mr={2} px={3} value={2} height="tall">2</Button>
+                          <Button mr={2} px={3} value={3} height="tall">3</Button>
+                          <Button mr={2} px={3} value={4} height="tall">4</Button>
+                        </Button.Group>
+                      }/>
+                  </Row>
                   </>}
                   <NavButtons
                     previousStep={this.previousStep}

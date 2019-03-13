@@ -9,8 +9,6 @@ import {
   updateLocation,
   updateHomeDetails,
   updateRooms,
-  updateGarage,
-  updateDifferential,
   updatePhone,
   updatePersonal,
   updatePricing,
@@ -23,8 +21,6 @@ import AddressInput from 'components/listings/new-listing/steps/AddressInput'
 import AddressInputMobile from 'components/listings/new-listing/steps/AddressInputMobile'
 import HomeDetails from 'components/listings/new-listing/steps/HomeDetails'
 import Bedrooms from 'components/listings/new-listing/steps/Bedrooms'
-import Garage from 'components/listings/new-listing/steps/Garage'
-import Differential from 'components/listings/new-listing/steps/Differential'
 import Phone from 'components/listings/new-listing/steps/Phone'
 import Personal from 'components/listings/new-listing/steps/Personal'
 import Pricing from 'components/listings/new-listing/steps/Pricing'
@@ -68,32 +64,22 @@ const steps = {
   },
   bedrooms: {
     component: Bedrooms,
-    canNavigateTo: ['homeDetails', 'garage'],
+    canNavigateTo: ['homeDetails', 'phone', 'pricing'],
     display: 'quartos'
-  },
-  garage: {
-    component: Garage,
-    canNavigateTo: ['bedrooms', 'differential'],
-    display: 'vagas'
-  },
-  differential: {
-    component: Differential,
-    canNavigateTo: ['garage', 'phone', 'personal', 'pricing'],
-    display: 'diferencial'
   },
   phone: {
     component: Phone,
-    canNavigateTo: ['differential', 'personal', 'pricing'],
+    canNavigateTo: ['personal', 'pricing', 'bedrooms'],
     display: 'telefone'
   },
   personal: {
     component: Personal,
-    canNavigateTo: ['differential', 'pricing'],
+    canNavigateTo: ['pricing', 'bedrooms'],
     display: 'pessoal'
   },
   pricing: {
     component: Pricing,
-    canNavigateTo: ['services', 'differential'],
+    canNavigateTo: ['services', 'bedrooms'],
     display: 'preco'
   },
   services: {
@@ -136,12 +122,6 @@ const mapDispatchToProps = dispatch => {
     },
     updateRooms: value => {
       dispatch(updateRooms(value))
-    },
-    updateGarage: value => {
-      dispatch(updateGarage(value))
-    },
-    updateDifferential: value => {
-      dispatch(updateDifferential(value))
     },
     updatePhone: value => {
       dispatch(updatePhone(value))
