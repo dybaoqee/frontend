@@ -28,6 +28,7 @@ class Phone extends Component {
     super(props)
     this.nextStep = this.nextStep.bind(this)
     this.previousStep = this.previousStep.bind(this)
+    this.validateName = this.validateName.bind(this)
     this.validateInternationalCode = this.validateInternationalCode.bind(this)
     this.validateLocalAreaCode = this.validateLocalAreaCode.bind(this)
     this.validateNumber = this.validateNumber.bind(this)
@@ -37,9 +38,11 @@ class Phone extends Component {
 
     this.dddField = React.createRef()
     this.phoneNumberField = React.createRef()
+    this.nameField = React.createRef()
   }
 
   state = {
+    name: null,
     internationalCode: null,
     localAreaCode: null,
     number: null,
@@ -50,8 +53,8 @@ class Phone extends Component {
 
   componentDidMount() {
     this.updateStateFromProps(this.props)
-    if (this.dddField.current && !this.props.isMobile) {
-      this.dddField.current.focus()
+    if (this.nameField.current && !this.props.isMobile) {
+      this.nameField.current.focus()
     }
   }
 
@@ -161,10 +164,17 @@ class Phone extends Component {
     }
   }
 
+  validateName(value) {
+    if (!value) {
+      return "Informe seu nome."
+    }
+  }
+
   render() {
     const { phone } = this.props
-    let internationalCode, localAreaCode, number
+    let internationalCode, localAreaCode, number, name
     if (phone) {
+      name = phone.name
       internationalCode = phone.internationalCode || BRAZIL_CODE
       localAreaCode = phone.localAreaCode
       number = phone.number
@@ -175,12 +185,18 @@ class Phone extends Component {
           <Col width={[1,null,null,1/2]}>
             <Formik
               initialValues={{
+                name: name,
                 internationalCode: internationalCode,
                 localAreaCode: localAreaCode,
                 number: number
               }}
               isInitialValid={() => {
-                return !(this.validateInternationalCode(internationalCode) || this.validateLocalAreaCode(localAreaCode) || this.validateNumber(number))
+                return !(
+                  this.validateInternationalCode(internationalCode) &&
+                  this.validateLocalAreaCode(localAreaCode) &&
+                  this.validateNumber(number) &&
+                  this.validateName(name)
+                )
               }}
               render={({isValid, setFieldTouched, setFieldValue, errors}) => (
                 <>
@@ -188,9 +204,31 @@ class Phone extends Component {
                     fontSize="large"
                     fontWeight="bold"
                     textAlign="center">
-                    Qual o número do seu celular?
+                    Nome e celular
                   </Text>
                   <Text color="grey">Ao avançar, será enviado um código de segurança para validar que o número é seu.</Text>
+                  <Row>
+                    <Col width={1} mr={4}>
+                      <Field
+                        name="name"
+                        validate={this.validateName}
+                        render={({form}) => (
+                          <Input
+                            hideLabelView
+                            ref={this.nameField}
+                            placeholder="Nome*"
+                            error={form.touched.name ? errors.name : null}
+                            defaultValue={name}
+                            onChange={(e) => {
+                              const { value } = e.target
+                              setFieldValue('name', value)
+                              setFieldTouched('name')
+                              this.setState({name: value})
+                            }}
+                          />
+                        )}/>
+                    </Col>
+                  </Row>
                   <Row>
                     <Col width={3/12} mr={5}>
                       <Field

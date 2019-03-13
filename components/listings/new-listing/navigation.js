@@ -10,7 +10,6 @@ import {
   updateHomeDetails,
   updateRooms,
   updatePhone,
-  updatePersonal,
   updatePricing,
   updateServices,
   updateTour,
@@ -22,7 +21,6 @@ import AddressInputMobile from 'components/listings/new-listing/steps/AddressInp
 import HomeDetails from 'components/listings/new-listing/steps/HomeDetails'
 import Bedrooms from 'components/listings/new-listing/steps/Bedrooms'
 import Phone from 'components/listings/new-listing/steps/Phone'
-import Personal from 'components/listings/new-listing/steps/Personal'
 import Pricing from 'components/listings/new-listing/steps/Pricing'
 import Services from 'components/listings/new-listing/steps/Services'
 import NotifyCoverage from 'components/listings/new-listing/steps/NotifyCoverage'
@@ -64,18 +62,13 @@ const steps = {
   },
   bedrooms: {
     component: Bedrooms,
-    canNavigateTo: ['homeDetails', 'phone', 'pricing', 'personal'],
+    canNavigateTo: ['homeDetails', 'phone', 'pricing'],
     display: 'quartos'
   },
   phone: {
     component: Phone,
-    canNavigateTo: ['personal', 'pricing', 'bedrooms'],
-    display: 'telefone'
-  },
-  personal: {
-    component: Personal,
     canNavigateTo: ['pricing', 'bedrooms'],
-    display: 'pessoal'
+    display: 'telefone'
   },
   pricing: {
     component: Pricing,
@@ -125,9 +118,6 @@ const mapDispatchToProps = dispatch => {
     },
     updatePhone: value => {
       dispatch(updatePhone(value))
-    },
-    updatePersonal: value => {
-      dispatch(updatePersonal(value))
     },
     updatePricing: value => {
       dispatch(updatePricing(value))

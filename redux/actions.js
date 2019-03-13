@@ -12,7 +12,6 @@ export const UPDATE_LOCATION = 'UPDATE_LOCATION'
 export const UPDATE_HOME_DETAILS = 'UPDATE_HOME_DETAILS'
 export const UPDATE_ROOMS = 'UPDATE_ROOMS'
 export const UPDATE_PHONE = 'UPDATE_PHONE'
-export const UPDATE_PERSONAL = 'UPDATE_PERSONAL'
 export const UPDATE_PRICING = 'UPDATE_PRICING'
 export const UPDATE_SERVICES = 'UPDATE_SERVICES'
 export const UPDATE_TOUR = 'UPDATE_TOUR'
@@ -70,13 +69,6 @@ export const updateRooms = (value) => {
 export const updatePhone = (value) => {
   return {
     type: UPDATE_PHONE,
-    value: value
-  }
-}
-
-export const updatePersonal = (value) => {
-  return {
-    type: UPDATE_PERSONAL,
     value: value
   }
 }

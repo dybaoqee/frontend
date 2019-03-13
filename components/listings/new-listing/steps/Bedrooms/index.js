@@ -72,12 +72,13 @@ class Bedrooms extends Component {
 
     // Old site auth
     if (authenticated) {
-      const { updatePhone, updatePersonal } = this.props
+      const { updatePhone } = this.props
       try {
-        const userInfo = await getUser(user.id, updatePhone, updatePersonal)
+        const userInfo = await getUser(user.id, updatePhone)
         await this.estimatePrice(userInfo)
         return
       } catch (e) {
+        console.log(e)
         this.setState({
           loading: false,
           error: 'Ocorreu um erro. Por favor, tente novamente.'
@@ -94,7 +95,7 @@ class Bedrooms extends Component {
         await this.estimatePrice()
         return
       } else {
-        this.props.navigateTo('personal')
+        this.props.navigateTo('phone')
         return
       }
     }
