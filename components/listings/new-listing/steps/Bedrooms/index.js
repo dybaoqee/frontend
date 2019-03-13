@@ -78,7 +78,6 @@ class Bedrooms extends Component {
         await this.estimatePrice(userInfo)
         return
       } catch (e) {
-        console.log(e)
         this.setState({
           loading: false,
           error: 'Ocorreu um erro. Por favor, tente novamente.'
@@ -90,12 +89,8 @@ class Bedrooms extends Component {
     // User has already input phone number
     const { phone } = this.props
     if (hasPhoneNumber(phone)) {
-      const { personal } = this.props
-      if (personal && personal.name) {
+      if (phone.name) {
         await this.estimatePrice()
-        return
-      } else {
-        this.props.navigateTo('phone')
         return
       }
     }
@@ -105,9 +100,9 @@ class Bedrooms extends Component {
 
   async estimatePrice(userInfo) {
     // Prepare input
-    const { personal, homeDetails, rooms, location } = this.props
+    const { homeDetails, rooms, location } = this.props
     const addressInput = getAddressInput(location.addressData)
-    const pricingInput = getPricingInput(addressInput, homeDetails, rooms, personal, userInfo)
+    const pricingInput = getPricingInput(addressInput, homeDetails, rooms, userInfo)
 
     // Run mutation
     const response = await estimatePrice(apolloClient, pricingInput)

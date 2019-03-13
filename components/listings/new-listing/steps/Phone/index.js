@@ -26,7 +26,6 @@ const BRAZIL_CODE = '55'
 class Phone extends Component {
   constructor(props) {
     super(props)
-    this.nextStep = this.nextStep.bind(this)
     this.previousStep = this.previousStep.bind(this)
     this.validateName = this.validateName.bind(this)
     this.validateInternationalCode = this.validateInternationalCode.bind(this)
@@ -80,36 +79,25 @@ class Phone extends Component {
       return
     }
     const { updatePhone } = this.props
+    const id = get(userInfo, 'data.accountKitSignIn.user.id', null)
+    const name = get(userInfo, 'data.accountKitSignIn.user.name', null)
     updatePhone({
       internationalCode: this.state.internationalCode || BRAZIL_CODE,
       localAreaCode: this.state.localAreaCode,
-      number: this.state.number
-    })
-
-    const id = get(userInfo, 'data.accountKitSignIn.user.id', null)
-    const name = get(userInfo, 'data.accountKitSignIn.user.name', null)
-    const email = get(userInfo, 'data.accountKitSignIn.user.email', null)
-
-    const { updatePersonal } = this.props
-    updatePersonal({
+      number: this.state.number,
       id,
-      name,
-      email
+      name
     })
 
     log(SELLER_ONBOARDING_PHONE_LOGIN_SUCCESS)
-    if (name) {
-      this.estimatePrice({name, email})
-    } else {
-      this.nextStep()
-    }
+    this.estimatePrice({name})
   }
 
   async estimatePrice(userInfo) {
     // Prepare input
-    const { personal, homeDetails, rooms, garage, location } = this.props
+    const { homeDetails, rooms, garage, location } = this.props
     const addressInput = getAddressInput(location.addressData)
-    const pricingInput = getPricingInput(addressInput, homeDetails, rooms, garage, personal, userInfo)
+    const pricingInput = getPricingInput(addressInput, homeDetails, rooms, garage, userInfo)
 
     // Run mutation
     const response = await estimatePrice(apolloClient, pricingInput)
@@ -129,16 +117,6 @@ class Phone extends Component {
       })
       navigateTo('pricing')
     }
-  }
-
-  nextStep() {
-    const { updatePhone, navigateTo } = this.props
-    updatePhone({
-      internationalCode: this.state.internationalCode || BRAZIL_CODE,
-      localAreaCode: this.state.localAreaCode,
-      number: this.state.number
-    })
-    navigateTo('personal')
   }
 
   previousStep() {
