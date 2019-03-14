@@ -3,10 +3,9 @@ import styled from 'styled-components'
 import Button from '@emcasa/ui-dom/components/Button'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
-import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
-import Arrow from 'components/listings/new-listing/shared/Arrow'
 import Container from 'components/listings/new-listing/shared/Container'
+import NumberedList from 'components/shared/NumberedList'
 import { LARGE_BUTTON_WIDTH } from 'components/listings/new-listing/styles'
 
 const Title = Text.withComponent('h2')
@@ -54,18 +53,14 @@ class Intro extends PureComponent {
               </Text>
               <Row justifyContent="center">
                 <Col>
-                  <View mb={2}>
-                    <Arrow /><ListTitle fontWeight="normal" inline>Preencha as informações básicas do imóvel</ListTitle>
-                  </View>
-                  <View mb={2}>
-                    <Arrow /><ListTitle fontWeight="normal" inline>Veja nossa recomendação do valor de venda sem compromisso</ListTitle>
-                  </View>
-                  <View mb={2}>
-                    <Arrow /><ListTitle fontWeight="normal" inline>
-                      {this.props.evaluation ? "Conheça nosso Tour Virtual e aumente as chances de vender" :
-                      "Aumente as chances de vender com o Tour Virtual"}
-                    </ListTitle>
-                  </View>
+                  <NumberedList
+                    content={[
+                      "Preencha as informações básicas do imóvel",
+                      "Veja nossa recomendação do valor de venda sem compromisso",
+                      this.props.evaluation ? "Conheça nosso Tour Virtual e aumente as chances de vender" :
+                      "Aumente as chances de vender com o Tour Virtual"
+                    ]}
+                  />
                 </Col>
               </Row>
               <Row justifyContent="center" mt={4}>

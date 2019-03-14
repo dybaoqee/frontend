@@ -11,6 +11,7 @@ import { intToCurrency } from 'utils/text-utils'
 import { getFullTourDateDisplay } from 'components/listings/new-listing/lib/times'
 import Container from 'components/listings/new-listing/shared/Container'
 import { LARGE_BUTTON_WIDTH } from 'components/listings/new-listing/styles'
+import NumberedList from 'components/shared/NumberedList'
 import {
   Box,
   Bullet
@@ -115,12 +116,14 @@ class Success extends PureComponent {
             </Row>
             <Row justifyContent="center" mb={4}>
               <Col>
-                <ul>
-                  <Bullet><Text>Aguarde nosso contato para confirmar o agendamento da visita. Vamos aproveitar para pedir algumas informações adicionais sobre o imóvel.</Text></Bullet>
-                  <Bullet><Text>Após a captação do tour e das fotos, em até 48h o imóvel será publicado e vamos te enviar o link.</Text></Bullet>
-                  <Bullet><Text>A cada interessado, vamos agendar a visita e acompanhá-la.</Text></Bullet>
-                  <Bullet><Text>Vamos te passar a percepção de cada possível comprador, além de te orientar sobre negociação no valor ao longo do processo.</Text></Bullet>
-                </ul>
+                <NumberedList
+                  content={[
+                    'Aguarde nosso contato para confirmar o agendamento da visita. Vamos aproveitar para pedir algumas informações adicionais sobre o imóvel.',
+                    'Após a captação do tour e das fotos, em até 48h o imóvel será publicado e vamos te enviar o link.',
+                    'A cada interessado, vamos agendar a visita e acompanhá-la.',
+                    'Vamos te passar a percepção de cada possível comprador, além de te orientar sobre negociação no valor ao longo do processo.'
+                  ]}
+                />
               </Col>
             </Row>
             <Row justifyContent="center">
