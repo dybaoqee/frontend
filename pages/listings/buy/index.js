@@ -59,7 +59,7 @@ const CONTENT = {
   sp: {
     seoURL: 'http://www.emcasa.com/sao-paulo',
     seoImg: imageUrl('buy-sp'),
-    seoTitle: `${BASE_TITLE} em Perdizes, São Paulo | EmCasa`,
+    seoTitle: `${BASE_TITLE} em São Paulo | EmCasa`,
     seoDescription: `Encontre ${BASE_TITLE} em São Paulo ${BASE_DESCRIPTION}`,
     heroTitle: 'Quer comprar um imóvel em São Paulo?'
   },
