@@ -50,18 +50,21 @@ const BASE_DESCRIPTION =
 
 const CONTENT = {
   all: {
+    seoURL: 'http://www.emcasa.com',
     seoImg: imageUrl('buy'),
     seoTitle: `${BASE_TITLE} no Rio de Janeiro e São Paulo | EmCasa`,
-    seoDescription: `Encontre ${BASE_TITLE} no Rio de Janeiro em Ipanema, Leblon, Copacabana, Botafogo, Flamengo, Lagoa e toda Zona Sul ou São Paulo em Perdizes ${BASE_DESCRIPTION}`,
+    seoDescription: `Encontre ${BASE_TITLE} no Rio de Janeiro em Ipanema, Leblon, Copacabana, Botafogo, Flamengo, Lagoa e toda Zona Sul ou em São Paulo ${BASE_DESCRIPTION}`,
     heroTitle: 'Quer comprar um imóvel?'
   },
   sp: {
+    seoURL: 'http://www.emcasa.com/sao-paulo',
     seoImg: imageUrl('buy-sp'),
     seoTitle: `${BASE_TITLE} em Perdizes, São Paulo | EmCasa`,
-    seoDescription: `Encontre ${BASE_TITLE} em Perdizes, São Paulo ${BASE_DESCRIPTION}`,
-    heroTitle: 'Quer comprar um imóvel em Perdizes?'
+    seoDescription: `Encontre ${BASE_TITLE} em São Paulo ${BASE_DESCRIPTION}`,
+    heroTitle: 'Quer comprar um imóvel em São Paulo?'
   },
   rj: {
+    seoURL: 'http://www.emcasa.com/rio-de-janeiro',
     seoImg: imageUrl('buy-rj'),
     seoTitle: `${BASE_TITLE} no Rio de Janeiro | EmCasa`,
     seoDescription: `Encontre ${BASE_TITLE} no Rio de Janeiro em Ipanema, Leblon, Copacabana, Botafogo, Flamengo, Lagoa e toda Zona Sul ${BASE_DESCRIPTION}`,
@@ -99,7 +102,7 @@ class Buy extends Component {
   render() {
     const {router, isMobile} = this.props
     const city = (router.query || {}).city || 'all'
-    const {seoTitle, seoDescription, seoImg, heroTitle} = CONTENT[city]
+    const {seoURL, seoTitle, seoDescription, seoImg, heroTitle} = CONTENT[city]
     const blockProps = {
       isMobile,
       pageWidth: this.state.pageWidth,
@@ -144,7 +147,7 @@ class Buy extends Component {
           imageSrc={seoImg}
           imageWidth={'1476'}
           imageHeight={'838'}
-          url={'https://www.emcasa.com/'}
+          url={seoURL}
         />
         <script
           type="application/ld+json"
