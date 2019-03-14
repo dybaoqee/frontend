@@ -65,7 +65,9 @@ class UserProfile extends Component {
     editingProfile: false,
     editedProfile: false,
     hasChanged: false,
-    errors: {}
+    errors: {},
+    nameFieldValue: '',
+    emailFieldValue: ''
   }
 
   static async getInitialProps(context) {
@@ -249,7 +251,7 @@ class UserProfile extends Component {
 
   getProfileForm = () => {
     const {currentUser: {id}} = this.props
-    const {errors, editedProfile} = this.state
+    const {errors, editedProfile, nameFieldValue, emailFieldValue} = this.state
     return (
       <Mutation mutation={EDIT_EMAIL}>
         {(editEmail, {loading: updatingEmail}) => (
@@ -260,6 +262,10 @@ class UserProfile extends Component {
                   if (loading) return <div />
                   const { name, email } = userProfile
                   this.checkFieldsChange(name, email)
+                  this.setState({
+                    nameFieldValue: name,
+                    emailFieldValue: email
+                  })
                   return (
                     <InitialView
                       flexDirection={'column'}
@@ -289,7 +295,7 @@ class UserProfile extends Component {
                           name="name"
                           type="text"
                           ref={this.nameField}
-                          defaultValue={userProfile.name}
+                          defaultValue={nameFieldValue}
                           onChange={(e) => {
                             this.checkFieldsChange(userProfile.name, userProfile.email)
                           }}
@@ -301,7 +307,7 @@ class UserProfile extends Component {
                           name="email"
                           type="email"
                           ref={this.emailField}
-                          defaultValue={userProfile.email}
+                          defaultValue={emailFieldValue}
                           onChange={(e) => {
                             this.checkFieldsChange(userProfile.name, userProfile.email)
                           }}
