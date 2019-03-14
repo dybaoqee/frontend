@@ -166,6 +166,14 @@ const startServer = () => {
         return res.redirect(301, 'https://pages.emcasa.com/sobmedida/')
       })
 
+      server.get('/corretor-parceiro-sp', (req, res) => {
+        return res.redirect(301, 'https://pages.emcasa.com/corretor-emcasa-sp/')
+      })
+
+      server.get('/corretor-parceiro-rj', (req, res) => {
+        return res.redirect(301, 'https://pages.emcasa.com/programa-corretor-emcasa/')
+      })
+
       server.get('/avaliacao-imovel', (req, res) => {
         return app.render(req, res, '/listings/estimate-price', req.query)
       })
