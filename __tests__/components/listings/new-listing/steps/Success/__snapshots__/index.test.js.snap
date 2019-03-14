@@ -106,14 +106,14 @@ exports[`renders correctly 1`] = `
   font-size: 24px;
 }
 
-.c18 {
+.c21 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
   color: #3c4858;
   font-size: 18px;
 }
 
-.c19 {
+.c23 {
   outline: none;
   cursor: pointer;
   padding: 0 20px 0 20px;
@@ -130,7 +130,7 @@ exports[`renders correctly 1`] = `
   border-style: solid;
 }
 
-.c19 :hover {
+.c23 :hover {
   background-color: #f50057;
 }
 
@@ -143,14 +143,89 @@ exports[`renders correctly 1`] = `
   justify-content: center;
 }
 
+.c17 {
+  width: 100%;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c18 {
+  position: relative;
+  box-sizing: border-box;
+  margin: 10px 0 10px 0;
+}
+
+.c20 {
+  -webkit-font-smoothing: antialiased;
+  font-family: FaktSoftPro-Normal;
+  color: #ffffff;
+  font-size: 18px;
+}
+
+.c19 {
+  z-index: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-flex: 0 0 30px;
+  -ms-flex: 0 0 30px;
+  flex: 0 0 30px;
+  width: 30px;
+  height: 30px;
+  background: #f50057;
+  border-radius: 100%;
+  margin-right: 14px;
+}
+
+.c19::before {
+  z-index: 0;
+  content: '';
+  position: absolute;
+  top: 30px;
+  left: 15px;
+  width: 0;
+  height: 100%;
+  border-right: 1px dashed #979797;
+}
+
+.c22 {
+  z-index: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-flex: 0 0 30px;
+  -ms-flex: 0 0 30px;
+  flex: 0 0 30px;
+  width: 30px;
+  height: 30px;
+  background: #f50057;
+  border-radius: 100%;
+  margin-right: 14px;
+}
+
 .c5 {
   border: 1px solid #e0e6ed;
   box-shadow: 0px 2px 2px rgba(0,0,0,0.3);
   border-radius: 2px;
-}
-
-.c17 {
-  margin-bottom: 10px;
 }
 
 @media screen and (min-width:780px) {
@@ -367,52 +442,82 @@ exports[`renders correctly 1`] = `
         <div
           className=""
         >
-          <ul>
-            <li
-              className="c17"
+          <div
+            className="c17 c1"
+          >
+            <div
+              className="c18 c1"
             >
-              <p
-                className="c18"
+              <span
+                className="c19 c20"
+                color="white"
+                fontSize="default"
+              >
+                1
+              </span>
+              <span
+                className="c21"
                 color="dark"
                 fontSize="default"
               >
                 Aguarde nosso contato para confirmar o agendamento da visita. Vamos aproveitar para pedir algumas informações adicionais sobre o imóvel.
-              </p>
-            </li>
-            <li
-              className="c17"
+              </span>
+            </div>
+            <div
+              className="c18 c1"
             >
-              <p
-                className="c18"
+              <span
+                className="c19 c20"
+                color="white"
+                fontSize="default"
+              >
+                2
+              </span>
+              <span
+                className="c21"
                 color="dark"
                 fontSize="default"
               >
                 Após a captação do tour e das fotos, em até 48h o imóvel será publicado e vamos te enviar o link.
-              </p>
-            </li>
-            <li
-              className="c17"
+              </span>
+            </div>
+            <div
+              className="c18 c1"
             >
-              <p
-                className="c18"
+              <span
+                className="c19 c20"
+                color="white"
+                fontSize="default"
+              >
+                3
+              </span>
+              <span
+                className="c21"
                 color="dark"
                 fontSize="default"
               >
                 A cada interessado, vamos agendar a visita e acompanhá-la.
-              </p>
-            </li>
-            <li
-              className="c17"
+              </span>
+            </div>
+            <div
+              className="c18 c1"
             >
-              <p
-                className="c18"
+              <span
+                className="c22 c20"
+                color="white"
+                fontSize="default"
+              >
+                4
+              </span>
+              <span
+                className="c21"
                 color="dark"
                 fontSize="default"
               >
                 Vamos te passar a percepção de cada possível comprador, além de te orientar sobre negociação no valor ao longo do processo.
-              </p>
-            </li>
-          </ul>
+              </span>
+            </div>
+          </div>
         </div>
       </div>
       <div
@@ -422,7 +527,7 @@ exports[`renders correctly 1`] = `
           className=""
         >
           <button
-            className="c19"
+            className="c23"
             fontSize="default"
             height="tall"
             onClick={[Function]}
