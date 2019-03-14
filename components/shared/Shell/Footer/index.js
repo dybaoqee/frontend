@@ -58,6 +58,16 @@ const Footer = () => (
             <a href="https://jobs.emcasa.com/" target="_blank">
               <TextLink>Trabalhe Conosco</TextLink>
             </a>
+            <Link passHref href="/corretor-parceiro-rj">
+              <a title="Seja um corretor parceiro no RJ">
+                <TextLink>Seja um corretor parceiro no RJ</TextLink>
+              </a>
+            </Link>
+            <Link passHref href="/corretor-parceiro-sp">
+              <a title="Seja um corretor parceiro em SP">
+                <TextLink>Seja um corretor parceiro em SP</TextLink>
+              </a>
+            </Link>
             <Link passHref href="/sitemap">
               <a>
                 <TextLink>Mapa do Site</TextLink>
