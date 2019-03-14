@@ -1,6 +1,7 @@
 import React, { Fragment, Component } from 'react'
 import { Formik, Field } from 'formik'
 import * as Sentry from '@sentry/browser'
+import moment from 'moment'
 import RadioButton from '@emcasa/ui-dom/components/RadioButton'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
@@ -86,7 +87,6 @@ class Tour extends Component {
     const { navigateTo, services, updateTour, updateServices, updateListing } = this.props
     updateTour(this.state)
     updateServices({
-      wantsTour: true,
       tourOptions: services.tourOptions
     })
     updateListing({id: this.state.listingId})
@@ -156,9 +156,7 @@ class Tour extends Component {
     this.setState({loading: true})
 
     try {
-      const { tour, services } = this.props
-      const { day, time } = tour
-      const { wantsTour } = services
+      const { day, time } = this.state
 
       const datetime = moment(day + time, 'YYYY-MM-DD HH').toDate()
       const { data } = await apolloClient.mutate({
@@ -169,8 +167,8 @@ class Tour extends Component {
             options: {
               datetime
             },
-            wantsTour,
-            wantsPictures: wantsTour
+            wantsTour: true,
+            wantsPictures: true
           }
         }
       })
@@ -191,10 +189,10 @@ class Tour extends Component {
     if (!this.state.listingCreated) {
       await this.createListing()
     }
-    if (this.state.listingCreated && !this.state.tourCreated && this.state.wantsTour) {
+    if (this.state.listingCreated && !this.state.tourCreated) {
       await this.createTour()
     }
-    if (this.state.listingCreated && this.state.tourCreated || (this.state.listingCreated && !this.state.wantsTour)) {
+    if (this.state.listingCreated && this.state.tourCreated) {
       this.nextStep()
     }
   }
