@@ -38,7 +38,7 @@ export const Number = styled(InlineText)`
       top: ${SIZE}px;
       left: ${SIZE / 2}px;
       width: 0;
-      height: 150%;
+      height: 100%;
       border-right: 1px dashed #979797;
     }
   `}
