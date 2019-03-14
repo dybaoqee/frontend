@@ -50,7 +50,7 @@ class Intro extends PureComponent {
                 fontWeight="bold"
                 textAlign="center"
               >
-                Como funciona vender seu imóvel aqui na EmCasa?
+                {this.props.evaluation ? "Descubra agora por quanto vender seu imóvel" : "Como funciona vender seu imóvel aqui na EmCasa?"}
               </Text>
               <Row justifyContent="center">
                 <Col>
@@ -74,7 +74,7 @@ class Intro extends PureComponent {
                     style={{width: LARGE_BUTTON_WIDTH}}
                     active
                     height="tall"
-                    onClick={this.nextStep}>Quero Vender</Button>
+                    onClick={this.nextStep}>{this.props.evaluation ? "Avaliar" : "Quero Vender"}</Button>
                 </Col>
               </Row>
             </Col>
