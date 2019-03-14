@@ -282,8 +282,8 @@ class ListingList extends Component {
   }
 
   render() {
-    const {filters, params} = this.props
-    const h1Content = filters && filters.neighborhoodsSlugs ? getTitleTextByFilters(filters.neighborhoodsSlugs) : getTitleTextByParams(params)
+    const {filters, params, districts} = this.props
+    const h1Content = filters && filters.neighborhoodsSlugs ? getTitleTextByFilters(filters.neighborhoodsSlugs, districts) : getTitleTextByParams(params, districts)
 
     return (
       <Query
