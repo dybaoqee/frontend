@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import Router from 'next/router'
+import theme from '@emcasa/ui'
 import routerEvents from 'next-router-events'
 import View from '@emcasa/ui-dom/components/View'
 import Row from '@emcasa/ui-dom/components/Row'
@@ -8,18 +9,19 @@ import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
 import { intToCurrency } from 'utils/text-utils'
 import { getFullTourDateDisplay } from 'components/listings/new-listing/lib/times'
-import { Box } from './styles'
 import Container from 'components/listings/new-listing/shared/Container'
 import { LARGE_BUTTON_WIDTH } from 'components/listings/new-listing/styles'
+import {
+  Box,
+  Bullet
+} from './styles'
 
-const ROUTE_HOME = '/'
 const ROUTE_MY_LISTINGS = '/meu-perfil'
 
 class Success extends PureComponent {
   constructor(props) {
     super(props)
     this.viewMyListings = this.viewMyListings.bind(this)
-    this.goHome = this.goHome.bind(this)
     this.reset = this.reset.bind(this)
   }
 
@@ -39,10 +41,6 @@ class Success extends PureComponent {
 
   viewMyListings() {
     Router.push(ROUTE_MY_LISTINGS)
-  }
-
-  goHome() {
-    Router.push(ROUTE_HOME)
   }
 
   render() {
@@ -110,6 +108,21 @@ class Success extends PureComponent {
                 </Row>}
               </View>
             </Box>
+            <Row justifyContent="center">
+              <Col>
+                <Text style={{marginBottom: theme.space[3]}} color="pink" fontSize="large">Próximos passos</Text>
+              </Col>
+            </Row>
+            <Row justifyContent="center" mb={4}>
+              <Col>
+                <ul>
+                  <Bullet><Text>Aguarde nosso contato para confirmar o agendamento da visita. Vamos aproveitar para pedir algumas informações adicionais sobre o imóvel.</Text></Bullet>
+                  <Bullet><Text>Após a captação do tour e das fotos, em até 48h o imóvel será publicado e vamos te enviar o link.</Text></Bullet>
+                  <Bullet><Text>A cada interessado, vamos agendar a visita e acompanhá-la.</Text></Bullet>
+                  <Bullet><Text>Vamos te passar a percepção de cada possível comprador, além de te orientar sobre negociação no valor ao longo do processo.</Text></Bullet>
+                </ul>
+              </Col>
+            </Row>
             <Row justifyContent="center">
               <Col>
                 <Button active style={{width: LARGE_BUTTON_WIDTH}} height="tall" onClick={this.viewMyListings}>Ver Meus Imóveis</Button>
