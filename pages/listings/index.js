@@ -132,15 +132,21 @@ class ListingSearch extends Component {
     return info && info.stateSlug ? `/${info.stateSlug}/${info.citySlug}/${info.nameSlug}` : `${BASE_URL}${this.props.url.asPath}`
   }
 
-  getURL = (params) => {
+  getURL = (baseURL, params, asPath) => {
     const {state, city, neighborhood} = params
+    const startParams = asPath.indexOf('?')
+    const urlParams = startParams ? asPath.slice(startParams, asPath.length) : ''
+    let url = baseURL
+
     if (neighborhood) {
-      return `${BASE_URL}/${state}/${city}/${neighborhood}`
+      url += `/${state}/${city}/${neighborhood}`
     } else if (city) {
-      return `${BASE_URL}/${state}/${city}`
-    } else {
-      return `${BASE_URL}/${state}`
+      url += `/${state}/${city}`
+    } else if (state) {
+      url += `/${state}`
     }
+
+    return url += urlParams
   }
 
   getImageSrc = (params) => {
@@ -152,9 +158,9 @@ class ListingSearch extends Component {
 
   getHead = (districts) => {
     const {filters} = this.state
-    const {params} = this.props
+    const {params, url: {asPath}} = this.props
     const titleContent = filters && filters.neighborhoods ? getTitleTextByFilters(filters.neighborhoods, districts) : getTitleTextByParams(params, districts)
-    const url = params && params.state ? this.getURL(params) : BASE_URL
+    const url = this.getURL(BASE_URL, params, asPath)
     const canonical = filters.neighborhoods && filters.neighborhoods.length === 1 ? this.getCanonical(filters.neighborhoods, districts) : null
     const imageSrc = this.getImageSrc(params)
 
