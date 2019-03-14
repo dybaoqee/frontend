@@ -228,7 +228,8 @@ class NewListing extends Component {
       throw Error('Navigation key ' + nextStep + ' not found in ' + currentStep)
     }
     const stepDisplay = getStepDisplay(nextStep)
-    Router.push('/vender', `/vender#${stepDisplay}`, {shallow: true})
+    const currentPath = Router.router.asPath.split('#')[0]
+    Router.push(currentPath, `${currentPath}#${stepDisplay}`, {shallow: true})
     window.scrollTo(0, 0)
 
     const { onChangeStep } = this.props
@@ -238,14 +239,15 @@ class NewListing extends Component {
   }
 
   render() {
-    const { client, user, title } = this.props
+    const { client, user, title, evaluation } = this.props
     const step = this.props.step || 'intro'
     const { address } = this.props.location
     const screenProps = {
       step,
       client,
       user,
-      title
+      title,
+      evaluation
     }
     return (
       <>

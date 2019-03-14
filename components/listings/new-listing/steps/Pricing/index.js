@@ -213,6 +213,24 @@ class Pricing extends Component {
     }
   }
 
+  getNextButtonLabel(showEditingPriceLabels) {
+    if (showEditingPriceLabels) {
+      return 'OK'
+    }
+    if (this.props.evaluation) {
+      return 'Quero vender'
+    } else {
+      return 'Avançar'
+    }
+  }
+
+  getPreviousButtonLabel(showEditingPriceLabels) {
+    if (showEditingPriceLabels) {
+      return 'Cancelar'
+    }
+    return 'Voltar'
+  }
+
   render() {
     const { pricing, location } = this.props
     let suggestedPrice, userPrice
@@ -221,6 +239,8 @@ class Pricing extends Component {
       userPrice = pricing.userPrice
     }
     const showEditingPriceLabels = this.state.suggestedPrice && this.state.editingPrice
+    const nextButtonLabel = this.getNextButtonLabel(showEditingPriceLabels)
+    const previousButtonLabel = this.getPreviousButtonLabel(showEditingPriceLabels)
     return (
       <div ref={this.props.hostRef}>
         <Container>
@@ -238,12 +258,12 @@ class Pricing extends Component {
                     fontSize="large"
                     fontWeight="bold"
                     textAlign="center">
-                    Qual o valor do seu imóvel?
+                    Valor do seu imóvel
                   </Text>
                     {this.state.showPrice ?
                       <>
                         <Row alignItems="center" flexDirection="column">
-                          {suggestedPrice && <Text color="grey">Nossa avaliação é precisa de acordo com os valores de mercado da sua região. Você mesmo pode editar este valor ou conversar com um de nossos especialistas no final do processo.</Text>}
+                          {suggestedPrice && <Text color="grey">Nossa avaliação é feita de acordo com os valores de mercado da sua região. Você pode editar este valor ou conversar com um de nossos especialistas no final do processo.</Text>}
                           <Ticket
                             hideSeparator={!suggestedPrice}
                             topRender={() =>
@@ -286,8 +306,10 @@ class Pricing extends Component {
                         </Row>
                         {!suggestedPrice && this.noPriceSuggestion(errors, setFieldValue, setFieldTouched)}
                         <NavButtons
-                          nextLabel={showEditingPriceLabels ? 'OK' : 'Avançar'}
-                          previousLabel={showEditingPriceLabels ? 'Cancelar' : 'Voltar'}
+                          nextButtonWidth={150}
+                          previousButtonWidth={90}
+                          nextLabel={nextButtonLabel}
+                          previousLabel={previousButtonLabel}
                           previousStep={this.previousStep}
                           onSubmit={this.nextStep}
                           submitEnabled={isValid}

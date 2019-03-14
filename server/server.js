@@ -179,7 +179,10 @@ const startServer = () => {
       })
 
       server.get('/avaliacao-imovel', (req, res) => {
-        return app.render(req, res, '/listings/sell', req.query)
+        const query = Object.assign(req.query, {
+          evaluation: true
+        })
+        return app.render(req, res, '/listings/sell', query)
       })
 
       server.get('/meu-perfil', (req, res) => {

@@ -50,17 +50,18 @@ class NavButtons extends PureComponent {
   }
 
   render() {
+    const { nextButtonWidth, previousButtonWidth } = this.props
     return (
       <Row justifyContent="space-between" mt={4}>
         <Col>
           <Button
-            style={{width: BUTTON_WIDTH}}
+            style={{width: previousButtonWidth ? previousButtonWidth : BUTTON_WIDTH}}
             height="tall"
             onClick={this.props.previousStep}>{this.getPreviousLabel()}</Button>
         </Col>
         <Col>
           <Button
-            style={{width: BUTTON_WIDTH}}
+            style={{width: nextButtonWidth ? nextButtonWidth : BUTTON_WIDTH}}
             height="tall"
             active={!this.props.loading}
             disabled={this.props.loading || !this.props.submitEnabled}
@@ -79,7 +80,9 @@ class NavButtons extends PureComponent {
     onSubmit: PropTypes.func,
     submitEnabled: PropTypes.bool.isRequired,
     loading: PropTypes.bool,
-    disableEnterToSubmit: PropTypes.bool
+    disableEnterToSubmit: PropTypes.bool,
+    nextButtonWidth: PropTypes.number,
+    previousButtonWidth: PropTypes.number
   }
 
   static defaultProps = {

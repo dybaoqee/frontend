@@ -61,7 +61,10 @@ class Intro extends PureComponent {
                     <Arrow /><ListTitle fontWeight="normal" inline>Veja nossa recomendação do valor de venda sem compromisso</ListTitle>
                   </View>
                   <View mb={2}>
-                    <Arrow /><ListTitle fontWeight="normal" inline>Aumente as chances de vender com o Tour Virtual</ListTitle>
+                    <Arrow /><ListTitle fontWeight="normal" inline>
+                      {this.props.evaluation ? "Conheça nosso Tour Virtual e aumente as chances de vender" :
+                      "Aumente as chances de vender com o Tour Virtual"}
+                    </ListTitle>
                   </View>
                 </Col>
               </Row>

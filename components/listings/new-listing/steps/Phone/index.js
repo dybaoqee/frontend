@@ -182,9 +182,11 @@ class Phone extends Component {
                     fontSize="large"
                     fontWeight="bold"
                     textAlign="center">
-                    Nome e celular
+                    Qual o número do seu celular?
                   </Text>
-                  <Text color="grey">Ao avançar, será enviado um código de segurança para validar que o número é seu.</Text>
+                  <Text color="grey">
+                    {this.props.evaluation ? "Deixe seu contato para visualizar a avaliação." : "Vamos precisar confirmar algumas informações do seu imóvel."}
+                  </Text>
                   <Row>
                     <Col width={1} mr={4}>
                       <Field

@@ -149,7 +149,7 @@ const getStepEntry = (key) => steps[key]
  * Returns the Screen Component with the given key.
  */
 const getScreen = (screenProps) => {
-  const { step, client, user, title } = screenProps
+  const { step, client, user, title, evaluation } = screenProps
   const entry = getStepEntry(step)
   const Screen = entry.component
   const AnimatedScreen = getAnimatedScreen(
@@ -165,6 +165,7 @@ const getScreen = (screenProps) => {
       client={client}
       user={user}
       title={title}
+      evaluation={evaluation}
     />
   )
 }

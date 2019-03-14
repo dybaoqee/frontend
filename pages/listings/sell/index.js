@@ -80,11 +80,13 @@ const seoBreadcrumb = {
 }
 
 class Sell extends Component {
-  static async getInitialProps() {
+  static async getInitialProps(context) {
+    const evaluation = (context && context.req && context.req.query) ? context.req.query.evaluation : false
     return {
       transparentHeader: true,
       newFooter: true,
-      newHeader: true
+      newHeader: true,
+      evaluation: evaluation
     }
   }
 
@@ -129,13 +131,7 @@ class Sell extends Component {
   }
 
   render() {
-    const { isMobile, user, client } = this.props
-    const blockProps = {
-      isMobile,
-      pageWidth: this.state.pageWidth
-    }
-
-    const {router} = this.props
+    const { isMobile, user, client, evaluation, router } = this.props
     const city = (router.query || {}).city || 'all'
     const {seoTitle, seoDescription, seoImg, heroTitle} = CONTENT[city]
 
@@ -214,6 +210,7 @@ class Sell extends Component {
             user={user}
             title={heroTitle}
             onChangeStep={this.onChangeStep}
+            evaluation={evaluation}
           />
         </MainBlock>
       </Container>
