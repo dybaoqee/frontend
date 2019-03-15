@@ -47,7 +47,7 @@ class LoadingText extends Component {
               return (
                 <FadeInOut key={randomKey()}>
                   <Row width={1} justifyContent="center">
-                    <Text key={index}>{sentence}</Text>
+                    <Text textAlign="center" key={index}>{sentence}</Text>
                   </Row>
                 </FadeInOut>
               )

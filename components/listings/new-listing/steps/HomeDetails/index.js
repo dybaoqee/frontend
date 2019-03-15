@@ -8,6 +8,7 @@ import Text from '@emcasa/ui-dom/components/Text'
 import Select from '@emcasa/ui-dom/components/Select'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import Container from 'components/listings/new-listing/shared/Container'
+import Steps from 'components/listings/new-listing/shared/Steps'
 import {
   currencyInputMask,
   currencyToInt
@@ -106,6 +107,7 @@ class HomeDetails extends Component {
                     textAlign="center">
                     Por favor, informe os detalhes do seu imóvel
                   </Text>
+                  <Steps currentStep="info" />
                   <Text color="grey">Com base nos detalhes do seu imóvel, calcularemos um valor médio de venda.</Text>
                   <Col mb={4}>
                     <Field

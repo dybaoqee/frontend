@@ -10,6 +10,7 @@ import Text from '@emcasa/ui-dom/components/Text'
 import {withBreakpoint} from '@emcasa/ui-dom/components/Breakpoint'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import Container from 'components/listings/new-listing/shared/Container'
+import Steps from 'components/listings/new-listing/shared/Steps'
 import {
   currencyInputMask,
   currencyToInt,
@@ -205,7 +206,7 @@ class Pricing extends Component {
     if (!this.state.editingPrice) {
       return
     }
-    if (!value || value === 'R$ ') {
+    if (!value) {
       return 'É necessário informar um preço de venda.'
     }
     if (value < MIN_ALLOWED_PRICE) {
@@ -262,6 +263,7 @@ class Pricing extends Component {
                   </Text>
                     {this.state.showPrice ?
                       <>
+                        <Steps currentStep="value" />
                         <Row alignItems="center" flexDirection="column">
                           {suggestedPrice && <Text color="grey">Nossa avaliação é feita de acordo com os valores de mercado da sua região. Você pode editar este valor ou conversar com um de nossos especialistas no final do processo.</Text>}
                           <Ticket

@@ -38,7 +38,6 @@ const initialState = {
     showSpots: false
   },
   phone: {
-    internationalCode: null,
     localAreaCode: null,
     number: null,
     name: null,

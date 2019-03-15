@@ -11,9 +11,9 @@ import { getAddressInput } from 'lib/address'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import AddressAutoComplete from 'components/shared/AddressAutoComplete'
 import MobileAddressButton from 'components/shared/MobileAddressButton'
+import Steps from 'components/listings/new-listing/shared/Steps'
 import {
-  Header,
-  NextButton
+  Header
 } from './styles'
 
 class AddressInput extends Component {
@@ -150,6 +150,7 @@ class AddressInput extends Component {
                       Qual o endereço do seu imóvel?
                     </Header>
                   </Row>
+                  <Steps currentStep="address" />
                   <Col>
                     <StaticMap animated={true} addressData={this.state.addressData} />
                   </Col>

@@ -4,6 +4,7 @@ import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Container from 'components/listings/new-listing/shared/Container'
 import NumberedList from 'components/shared/NumberedList'
+import Steps from 'components/listings/new-listing/shared/Steps'
 import { LARGE_BUTTON_WIDTH } from 'components/listings/new-listing/styles'
 import {
   Space,
@@ -36,6 +37,7 @@ class Intro extends PureComponent {
               >
                 {this.props.evaluation ? "Descubra agora por quanto vender seu imóvel" : "Como funciona vender seu imóvel aqui na EmCasa?"}
               </Title>
+              <Steps currentStep="address" />
               <Row justifyContent="center">
                 <Col>
                   <NumberedList

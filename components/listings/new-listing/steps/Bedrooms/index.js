@@ -10,6 +10,7 @@ import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import { getAddressInput } from 'lib/address'
 import { estimatePrice, getPricingInput } from 'lib/listings/pricing'
 import { getUser, hasPhoneNumber } from 'components/listings/new-listing/lib/auth'
+import Steps from 'components/listings/new-listing/shared/Steps'
 
 class Bedrooms extends Component {
   constructor(props) {
@@ -198,7 +199,9 @@ class Bedrooms extends Component {
             const intValue = parseInt(value)
             setFieldValue('bedroom', intValue)
             setFieldTouched('bedroom')
-            this.setState({bedrooms: intValue, showSuites: true})
+            this.setState({bedrooms: intValue, showSuites: true}, () => {
+              window.scrollTo(0, document.body.scrollHeight)
+            })
           }
         }}>
         <Button name="1" px={3} mr={2} value={1} height="tall">1</Button>
@@ -236,7 +239,9 @@ class Bedrooms extends Component {
             const intValue = parseInt(value)
             setFieldValue('bathroom', intValue)
             setFieldTouched('bathroom')
-            this.setState({showSpots: true, bathrooms: intValue})
+            this.setState({showSpots: true, bathrooms: intValue}, () => {
+              window.scrollTo(0, document.body.scrollHeight)
+            })
           }
         }}>
         <Button mr={2} px={2} value={1} height="tall">1</Button>
@@ -286,6 +291,7 @@ class Bedrooms extends Component {
                     Quantos quartos?
                   </Text>
                   <Text color="grey">Quantos quartos tem no seu imóvel?</Text>
+                  <Steps currentStep="info" />
                   <Row mb={4} flexWrap="wrap">
                     <Field
                       name="bedroom"
@@ -301,7 +307,9 @@ class Bedrooms extends Component {
                           <Button.Group flexWrap="wrap" initialValue={suites} onChange={(value) => {
                             setFieldValue('suite', value)
                             setFieldTouched('suite')
-                            this.setState({suites: value, showBathrooms: true})
+                            this.setState({suites: value, showBathrooms: true}, () => {
+                              window.scrollTo(0, document.body.scrollHeight)
+                            })
                             }}>
                             <Button mr={2} px={3} value={0} height="tall">Sem suíte</Button>
                             <Button mr={2} px={3} value={1} height="tall">1</Button>
@@ -331,7 +339,9 @@ class Bedrooms extends Component {
                         <Button.Group flexWrap="wrap" initialValue={spots} onChange={(value) => {
                           setFieldValue('spots', value)
                           setFieldTouched('spots')
-                          this.setState({spots: value})
+                          this.setState({spots: value}, () => {
+                            window.scrollTo(0, document.body.scrollHeight)
+                          })
                           }}>
                           <Button mr={2} px={3} value={0} height="tall">Não tem</Button>
                           <Button mr={2} px={3} value={1} height="tall">1</Button>

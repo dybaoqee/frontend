@@ -9,6 +9,7 @@ export const LARGE_BUTTON_WIDTH = 260
 export const SofaContainer = styled(View)`
   width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-self: stretch;
 

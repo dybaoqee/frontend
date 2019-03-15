@@ -14,6 +14,7 @@ import View from '@emcasa/ui-dom/components/View'
 import Container from 'components/listings/new-listing/shared/Container'
 import { getAddressInput } from 'lib/address'
 import { estimatePrice, getPricingInput } from 'lib/listings/pricing'
+import Steps from 'components/listings/new-listing/shared/Steps'
 import {
   SELLER_ONBOARDING_PHONE_LOGIN_START,
   SELLER_ONBOARDING_PHONE_LOGIN_SUCCESS,
@@ -28,7 +29,6 @@ class Phone extends Component {
     super(props)
     this.previousStep = this.previousStep.bind(this)
     this.validateName = this.validateName.bind(this)
-    this.validateInternationalCode = this.validateInternationalCode.bind(this)
     this.validateLocalAreaCode = this.validateLocalAreaCode.bind(this)
     this.validateNumber = this.validateNumber.bind(this)
     this.updateStateFromProps = this.updateStateFromProps.bind(this)
@@ -42,7 +42,6 @@ class Phone extends Component {
 
   state = {
     name: null,
-    internationalCode: null,
     localAreaCode: null,
     number: null,
     userInfo: null,
@@ -65,9 +64,9 @@ class Phone extends Component {
     const { phone } = props
     if (phone) {
       this.setState({
-        internationalCode: phone.internationalCode,
         localAreaCode: phone.localAreaCode,
-        number: phone.number
+        number: phone.number,
+        name: phone.name
       })
     }
   }
@@ -82,7 +81,6 @@ class Phone extends Component {
     const id = get(userInfo, 'data.accountKitSignIn.user.id', null)
     const name = get(userInfo, 'data.accountKitSignIn.user.name', null)
     updatePhone({
-      internationalCode: this.state.internationalCode || BRAZIL_CODE,
       localAreaCode: this.state.localAreaCode,
       number: this.state.number,
       id,
@@ -124,12 +122,6 @@ class Phone extends Component {
     navigateTo('bedrooms')
   }
 
-  validateInternationalCode(value) {
-    if (!value) {
-      return "É necessário informar o DDI."
-    }
-  }
-
   validateLocalAreaCode(value) {
     if (!value) {
       return "É necessário informar o DDD."
@@ -150,10 +142,9 @@ class Phone extends Component {
 
   render() {
     const { phone } = this.props
-    let internationalCode, localAreaCode, number, name
+    let localAreaCode, number, name
     if (phone) {
       name = phone.name
-      internationalCode = phone.internationalCode || BRAZIL_CODE
       localAreaCode = phone.localAreaCode
       number = phone.number
     }
@@ -164,17 +155,14 @@ class Phone extends Component {
             <Formik
               initialValues={{
                 name: name,
-                internationalCode: internationalCode,
                 localAreaCode: localAreaCode,
                 number: number
               }}
               isInitialValid={() => {
-                return !(
-                  this.validateInternationalCode(internationalCode) &&
-                  this.validateLocalAreaCode(localAreaCode) &&
-                  this.validateNumber(number) &&
-                  this.validateName(name)
-                )
+                const localValid = this.validateLocalAreaCode(localAreaCode)
+                const numberValid = this.validateNumber(number)
+                const nameValid = this.validateName(name)
+                return !(localValid && numberValid && nameValid)
               }}
               render={({isValid, setFieldTouched, setFieldValue, errors}) => (
                 <>
@@ -184,6 +172,7 @@ class Phone extends Component {
                     textAlign="center">
                     Qual o número do seu celular?
                   </Text>
+                  <Steps currentStep="contact" />
                   <Text color="grey">
                     {this.props.evaluation ? "Deixe seu contato para visualizar a avaliação." : "Vamos precisar confirmar algumas informações do seu imóvel."}
                   </Text>
