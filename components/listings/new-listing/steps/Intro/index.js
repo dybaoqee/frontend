@@ -1,31 +1,15 @@
 import React, { PureComponent } from 'react'
-import styled from 'styled-components'
 import Button from '@emcasa/ui-dom/components/Button'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
-import Text from '@emcasa/ui-dom/components/Text'
 import Container from 'components/listings/new-listing/shared/Container'
 import NumberedList from 'components/shared/NumberedList'
 import { LARGE_BUTTON_WIDTH } from 'components/listings/new-listing/styles'
-
-const Title = Text.withComponent('h2')
-const SubTitle = Text.withComponent('h3')
-const ListTitle = styled(SubTitle)`
-  display: inline;
-  margin: 0;
-`
-
-const Background = styled(Row)`
-  display: flex;
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden;
-  justify-content: center;
-  background-image: url(https://res.cloudinary.com/emcasa/image/upload/fl_any_format/v1542831121/background/wall-small);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: bottom;
-`
+import {
+  Space,
+  Title,
+  Background
+} from './styles'
 
 class Intro extends PureComponent {
   constructor(props) {
@@ -44,13 +28,14 @@ class Intro extends PureComponent {
         <Background>
           <Container>
             <Col width={1}>
-              <Text
-                fontSize="large"
+              <Space />
+              <Title
+                fontSize="xlarge"
                 fontWeight="bold"
                 textAlign="center"
               >
                 {this.props.evaluation ? "Descubra agora por quanto vender seu imóvel" : "Como funciona vender seu imóvel aqui na EmCasa?"}
-              </Text>
+              </Title>
               <Row justifyContent="center">
                 <Col>
                   <NumberedList

@@ -84,7 +84,7 @@ class NewListing extends Component {
 
   componentDidMount() {
     // Tag as new seller on-boarding version
-    let identify = new amplitude.Identify().set('seller-onboarding-version', '2')
+    let identify = new amplitude.Identify().set('seller-onboarding-version', '3')
     amplitude.identify(identify)
 
     // Browser back button
