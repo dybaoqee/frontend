@@ -109,7 +109,11 @@ class UserProfile extends Component {
 
     clearTimeout(this.timer)
     this.timer = setTimeout(() => {
-      this.setState({hasChanged: hasBeenChanged})
+      this.setState({
+        hasChanged: hasBeenChanged,
+        nameFieldValue: userName,
+        emailFieldValue: userEmail
+      })
     }, 300)
   }
 
@@ -262,10 +266,7 @@ class UserProfile extends Component {
                   if (loading) return <div />
                   const { name, email } = userProfile
                   this.checkFieldsChange(name, email)
-                  this.setState({
-                    nameFieldValue: name,
-                    emailFieldValue: email
-                  })
+
                   return (
                     <InitialView
                       flexDirection={'column'}
