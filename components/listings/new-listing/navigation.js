@@ -42,7 +42,7 @@ const steps = {
   },
   addressInputMobile: {
     component: AddressInputMobile,
-    canNavigateTo: ['intro'],
+    canNavigateTo: ['intro', 'addressInput'],
     display: 'endereco-mobile'
   },
   notifyCoverage: {
