@@ -27,7 +27,7 @@ class NumberedList extends PureComponent {
 }
 
 NumberedList.propTypes = {
-  content: PropTypes.array
+  content: PropTypes.array.isRequired
 }
 
 export default NumberedList
