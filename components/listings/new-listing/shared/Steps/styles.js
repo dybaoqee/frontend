@@ -7,6 +7,7 @@ const DASH_WIDTH = 40
 
 export const Container = styled(Row)`
   width: 100%;
+  justify-content: center;
   flex-direction: row;
 `
 
