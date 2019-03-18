@@ -145,12 +145,12 @@ class AddressInput extends Component {
               }}
               render={({isValid, setFieldValue, errors}) => (
                 <>
+                  <Steps currentStep="address" />
                   <Row justifyContent="center">
                     <Header fontSize="large" textAlign="center">
                       Qual o endereço do seu imóvel?
                     </Header>
                   </Row>
-                  <Steps currentStep="address" />
                   <Col>
                     <StaticMap animated={true} addressData={this.state.addressData} />
                   </Col>

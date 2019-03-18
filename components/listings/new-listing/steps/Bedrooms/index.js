@@ -284,6 +284,7 @@ class Bedrooms extends Component {
               }}
               render={({isValid, setFieldTouched, setFieldValue, errors}) => (
                 <>
+                  <Steps currentStep="info" />
                   <Text
                     fontSize="large"
                     fontWeight="bold"
@@ -291,7 +292,6 @@ class Bedrooms extends Component {
                     Quantos quartos?
                   </Text>
                   <Text color="grey">Quantos quartos tem no seu imóvel?</Text>
-                  <Steps currentStep="info" />
                   <Row mb={4} flexWrap="wrap">
                     <Field
                       name="bedroom"

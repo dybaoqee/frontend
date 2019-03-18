@@ -255,6 +255,7 @@ class Pricing extends Component {
               }}
               render={({isValid, setFieldTouched, setFieldValue, errors}) => (
                 <>
+                  {this.state.showPrice && <Steps currentStep="value" />}
                   <Text
                     fontSize="large"
                     fontWeight="bold"
@@ -263,7 +264,6 @@ class Pricing extends Component {
                   </Text>
                     {this.state.showPrice ?
                       <>
-                        <Steps currentStep="value" />
                         <Row alignItems="center" flexDirection="column">
                           {suggestedPrice && <Text color="grey">Nossa avaliação é feita de acordo com os valores de mercado da sua região. Você pode editar este valor ou conversar com um de nossos especialistas no final do processo.</Text>}
                           <Ticket

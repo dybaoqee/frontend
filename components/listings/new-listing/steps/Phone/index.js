@@ -166,13 +166,13 @@ class Phone extends Component {
               }}
               render={({isValid, setFieldTouched, setFieldValue, errors}) => (
                 <>
+                  <Steps currentStep="contact" />
                   <Text
                     fontSize="large"
                     fontWeight="bold"
                     textAlign="center">
                     Qual o número do seu celular?
                   </Text>
-                  <Steps currentStep="contact" />
                   <Text color="grey">
                     {this.props.evaluation ? "Deixe seu contato para visualizar a avaliação." : "Vamos precisar confirmar algumas informações do seu imóvel."}
                   </Text>
@@ -245,11 +245,6 @@ class Phone extends Component {
                           />
                         )}/>
                     </Col>
-                  </Row>
-                  <Row alignItems="center">
-                    <Text color="grey">O contato inicial será feito pelo WhatsApp.</Text>
-                    <View mr={3}></View>
-                    <FontAwesomeIcon icon={faWhatsApp} size="2x" color="#22cd5b" />
                   </Row>
                   <Text color="red">{this.state.error}</Text>
                   <AccountKit

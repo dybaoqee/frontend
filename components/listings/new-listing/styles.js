@@ -10,7 +10,7 @@ export const SofaContainer = styled(View)`
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-self: stretch;
 
   background-image: url(${CLOUDINARY_URL}/wall-small);

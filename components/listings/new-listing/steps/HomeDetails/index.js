@@ -101,13 +101,13 @@ class HomeDetails extends Component {
               }}
               render={({isValid, setFieldTouched, setFieldValue, errors}) => (
                 <>
+                  <Steps currentStep="info" />
                   <Text
                     fontSize="large"
                     fontWeight="bold"
                     textAlign="center">
                     Por favor, informe os detalhes do seu imóvel
                   </Text>
-                  <Steps currentStep="info" />
                   <Text color="grey">Com base nos detalhes do seu imóvel, calcularemos um valor médio de venda.</Text>
                   <Col mb={4}>
                     <Field
