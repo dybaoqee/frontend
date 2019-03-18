@@ -57,15 +57,10 @@ class Success extends PureComponent {
             <Text
               fontSize="large"
               fontWeight="bold"
-              textAlign="center">
-              Parabéns, seu imóvel foi salvo com sucesso.
+              textAlign="center"
+              color="green">
+              Parabéns, sua solicitação foi recebida com sucesso.
             </Text>
-            <Row>
-              <Text color="grey">
-                Muito obrigado por confiar na EmCasa.
-                {day ? ' Aguarde o contato do nosso especialista para confirmar a visita.'
-                     : ' Aguarde o contato do nosso especialista.'}</Text>
-            </Row>
             <Box justifyContent="center" mb={4}>
               <View p={4}>
                 <Row>
@@ -111,17 +106,18 @@ class Success extends PureComponent {
             </Box>
             <Row justifyContent="center">
               <Col>
-                <Text style={{marginBottom: theme.space[3]}} color="pink" fontSize="large">Próximos passos</Text>
+                <Text style={{marginBottom: theme.space[3]}} fontSize="large">Próximos passos</Text>
               </Col>
             </Row>
             <Row justifyContent="center" mb={4}>
               <Col>
                 <NumberedList
+                  textColor="grey"
                   content={[
-                    'Aguarde nosso contato para confirmar o agendamento da visita. Vamos aproveitar para pedir algumas informações adicionais sobre o imóvel.',
-                    'Após a captação do tour e das fotos, em até 48h o imóvel será publicado e vamos te enviar o link.',
-                    'A cada interessado, vamos agendar a visita e acompanhá-la.',
-                    'Vamos te passar a percepção de cada possível comprador, além de te orientar sobre negociação no valor ao longo do processo.'
+                    'Nossa equipe entra em contato para confirmar a visita.',
+                    'Após a produção do Tour Virtual 3D ou das fotos, seu imóvel é publicado em até 48h.',
+                    'Vamos agendar e acompanhar cada visita.',
+                    'Em caso de proposta, conduzimos a negociação até o final do processo.'
                   ]}
                 />
               </Col>

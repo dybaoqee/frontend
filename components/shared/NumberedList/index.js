@@ -9,7 +9,7 @@ import {
 
 class NumberedList extends PureComponent {
   render() {
-    const { content } = this.props
+    const { content, textColor } = this.props
     return (
       <Container>
         {content.map((item, index) => {
@@ -17,7 +17,7 @@ class NumberedList extends PureComponent {
           return (
             <Item key={index}>
               <Number color="white" last={last}>{index + 1}</Number>
-              <Text inline>{item}</Text>
+              <Text inline color={textColor ? textColor : 'dark'}>{item}</Text>
             </Item>
           )
         })}
@@ -27,7 +27,8 @@ class NumberedList extends PureComponent {
 }
 
 NumberedList.propTypes = {
-  content: PropTypes.array.isRequired
+  content: PropTypes.array.isRequired,
+  textColor: PropTypes.string
 }
 
 export default NumberedList

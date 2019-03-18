@@ -265,7 +265,6 @@ class Pricing extends Component {
                     {this.state.showPrice ?
                       <>
                         <Row alignItems="center" flexDirection="column">
-                          {suggestedPrice && <Text color="grey">Nossa avaliação é feita de acordo com os valores de mercado da sua região. Você pode editar este valor ou conversar com um de nossos especialistas no final do processo.</Text>}
                           <Ticket
                             hideSeparator={!suggestedPrice}
                             topRender={() =>
@@ -305,11 +304,12 @@ class Pricing extends Component {
                               </Row>
                             }
                           />
+                          {suggestedPrice && <Text color="grey">Nossa avaliação é feita de acordo com os valores de mercado da sua região. Você pode editar este valor ou conversar com um de nossos especialistas no final do processo.</Text>}
                         </Row>
                         {!suggestedPrice && this.noPriceSuggestion(errors, setFieldValue, setFieldTouched)}
                         <NavButtons
-                          nextButtonWidth={150}
-                          previousButtonWidth={90}
+                          nextButtonWidth={this.state.editingPrice ? 120 : 150}
+                          previousButtonWidth={this.state.editingPrice ? 120 : 90}
                           nextLabel={nextButtonLabel}
                           previousLabel={previousButtonLabel}
                           previousStep={this.previousStep}

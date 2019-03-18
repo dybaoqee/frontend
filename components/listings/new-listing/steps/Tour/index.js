@@ -297,6 +297,12 @@ class Tour extends Component {
               }}
               render={({isValid, setFieldTouched, setFieldValue}) => (
                 <>
+                  <Text
+                    fontSize="large"
+                    fontWeight="bold"
+                    textAlign="center">
+                    Escolha a melhor data
+                  </Text>
                   <Row mb={4}>
                     <Field
                       name="month"
@@ -378,6 +384,7 @@ class Tour extends Component {
                         </Col>
                       }/>
                   </Row>}
+                  <Text color="grey">Lembre-se, sua casa bem arrumada aumenta a qualidade do Tour Virtual 3D e das fotos.</Text>
                   <Text color="red">{this.state.error}</Text>
                   <Row justifyContent="space-between" mt={4}>
                     <Col>

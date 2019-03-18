@@ -16,7 +16,6 @@ import {
   log
 } from 'lib/logging'
 import { VideoContainer } from './styles'
-import { BUTTON_WIDTH } from 'components/listings/new-listing/styles'
 
 class Services extends Component {
   constructor(props) {
@@ -220,10 +219,7 @@ class Services extends Component {
                     fontSize="large"
                     fontWeight="bold"
                     textAlign="center">
-                    Podemos visitar seu imóvel?
-                  </Text>
-                  <Text color="grey">
-                    Nossos especialistas vão tirar fotos profissionais e fazer um Tour Virtual 3D sem custo nenhum.
+                    Gostaria de produzir um Tour Virtual 3D do seu imóvel?
                   </Text>
                   <VideoContainer>
                     <video
@@ -236,21 +232,23 @@ class Services extends Component {
                       playsInline="playsinline">
                     </video>
                   </VideoContainer>
+                  <Text color="grey">
+                    Nossa equipe utiliza uma câmera especial para criar um modelo 3D do seu imóvel. Através dele, as pessoas podem visita-lo antes de agendar a visita presencial.
+                  </Text>
                   <Text color="red">{this.state.error}</Text>
                   <Row justifyContent="space-between" mt={4}>
                     <Col>
                       <Button
-                        style={{width: BUTTON_WIDTH}}
+                        style={{width: 90}}
                         height="tall"
                         onClick={this.skipStep}>Pular</Button>
                     </Col>
                     <Col>
                       <Button
-                        style={{width: BUTTON_WIDTH}}
                         active
                         height="tall"
                         onClick={this.getAvailableTimes}>
-                        Agendar
+                        Escolher data
                       </Button>
                     </Col>
                   </Row>

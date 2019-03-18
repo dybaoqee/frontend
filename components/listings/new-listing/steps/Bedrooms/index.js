@@ -289,7 +289,7 @@ class Bedrooms extends Component {
                     fontSize="large"
                     fontWeight="bold"
                     textAlign="center">
-                    Quantos quartos?
+                    Por favor, informe mais detalhes do seu imóvel
                   </Text>
                   <Text color="grey">Quantos quartos tem no seu imóvel?</Text>
                   <Row mb={4} flexWrap="wrap">

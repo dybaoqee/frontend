@@ -106,9 +106,8 @@ class HomeDetails extends Component {
                     fontSize="large"
                     fontWeight="bold"
                     textAlign="center">
-                    Por favor, informe os detalhes do seu imóvel
+                    De qual tipo de imóvel estamos falando?
                   </Text>
-                  <Text color="grey">Com base nos detalhes do seu imóvel, calcularemos um valor médio de venda.</Text>
                   <Col mb={4}>
                     <Field
                       name="type"
