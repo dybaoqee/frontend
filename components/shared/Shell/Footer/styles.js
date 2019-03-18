@@ -52,7 +52,6 @@ export const LinkGroup = styled.div`
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-    max-height: 130px;
     align-content: flex-start;
   }
 
