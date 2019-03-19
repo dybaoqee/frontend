@@ -14,7 +14,7 @@ const logo = [
 
 const telephone = "+55-21-3195-6541"
 
-const email = "contato@emcasa.com"
+const email = "mailto:contato@emcasa.com"
 
 const contactPoint =  [
   {
@@ -149,7 +149,6 @@ const SchemaRealEstateAgent = {
   "email" : email,
   "telephone" : telephone,
   "contactPoint": contactPoint,
-  "email": "mailto:contato@emcasa.com",
   "url": "https://www.emcasa.com",
   "photo": photo,
   "image": image,
@@ -168,7 +167,6 @@ const SchemaOrganization = {
   "email" : email,
   "telephone" : telephone,
   "contactPoint": contactPoint,
-  "email": "mailto:contato@emcasa.com",
   "url": "https://www.emcasa.com",
   "logo": logo,
   "image": image,
