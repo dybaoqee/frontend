@@ -11,6 +11,10 @@ const MIN_CARD_WIDTH = 280
 const CARD_MARGIN = theme.space[4]
 
 const getCardWidth = () => {
+  if (!process.browser) {
+    return
+  }
+
   const clientWidth = Math.floor(document.documentElement.clientWidth)
   // Two margins (each corner of the document: left of list, right of map)
   const pageMargins = CARD_MARGIN * 2

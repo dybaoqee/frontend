@@ -12,6 +12,7 @@ import { getFullTourDateDisplay } from 'components/listings/new-listing/lib/time
 import Container from 'components/listings/new-listing/shared/Container'
 import { LARGE_BUTTON_WIDTH } from 'components/listings/new-listing/styles'
 import NumberedList from 'components/shared/NumberedList'
+import { MY_LISTINGS_TAB } from 'pages/user/profile'
 import {
   Box,
   Bullet
@@ -41,7 +42,7 @@ class Success extends PureComponent {
   }
 
   viewMyListings() {
-    Router.push(ROUTE_MY_LISTINGS)
+    Router.push(`${ROUTE_MY_LISTINGS}?tab=${MY_LISTINGS_TAB}`)
   }
 
   render() {
