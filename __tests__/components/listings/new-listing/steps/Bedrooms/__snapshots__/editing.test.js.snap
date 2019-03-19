@@ -8,7 +8,7 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
   display: flex;
 }
 
-.c6 {
+.c4 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -18,7 +18,7 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
   flex-direction: row;
 }
 
-.c11 {
+.c12 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -27,9 +27,13 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
 }
 
-.c12 {
+.c13 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -39,7 +43,7 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
   flex-wrap: wrap;
 }
 
-.c16 {
+.c17 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -51,35 +55,11 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
   justify-content: space-between;
 }
 
-.c13 {
-  outline: none;
-  cursor: pointer;
-  padding: 0 20px 0 20px;
-  border-color: #e0e6ed;
-  background-color: #ffffff;
-  border-radius: 4px;
-  border-width: 1px;
-  width: auto;
-  height: 60px;
-  margin-right: 10px;
-  padding-left: 14px;
-  padding-right: 14px;
-  color: #3c4858;
-  font-family: FaktSoftPro-Normal;
-  font-size: 18px;
-  -webkit-font-smoothing: antialiased;
-  border-style: solid;
-}
-
-.c13 :hover {
-  background-color: #ffffff;
-}
-
 .c14 {
   outline: none;
   cursor: pointer;
   padding: 0 20px 0 20px;
-  border-color: #f50057;
+  border-color: #e0e6ed;
   background-color: #ffffff;
   border-radius: 4px;
   border-width: 1px;
@@ -99,7 +79,31 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
   background-color: #ffffff;
 }
 
-.c17 {
+.c15 {
+  outline: none;
+  cursor: pointer;
+  padding: 0 20px 0 20px;
+  border-color: #f50057;
+  background-color: #ffffff;
+  border-radius: 4px;
+  border-width: 1px;
+  width: auto;
+  height: 60px;
+  margin-right: 10px;
+  padding-left: 14px;
+  padding-right: 14px;
+  color: #3c4858;
+  font-family: FaktSoftPro-Normal;
+  font-size: 18px;
+  -webkit-font-smoothing: antialiased;
+  border-style: solid;
+}
+
+.c15 :hover {
+  background-color: #ffffff;
+}
+
+.c18 {
   outline: none;
   cursor: pointer;
   padding: 0 20px 0 20px;
@@ -116,11 +120,11 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
   border-style: solid;
 }
 
-.c17 :hover {
+.c18 :hover {
   background-color: #ffffff;
 }
 
-.c18 {
+.c19 {
   outline: none;
   cursor: pointer;
   padding: 0 20px 0 20px;
@@ -137,11 +141,27 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
   border-style: solid;
 }
 
-.c18 :hover {
+.c19 :hover {
   background-color: #f50057;
 }
 
-.c3 {
+.c7 {
+  -webkit-font-smoothing: antialiased;
+  font-family: FaktSoftPro-Normal;
+  color: #3c4858;
+  font-size: 14px;
+  text-align: center;
+}
+
+.c9 {
+  -webkit-font-smoothing: antialiased;
+  font-family: FaktSoftPro-Normal;
+  color: #e0e6ed;
+  font-size: 14px;
+  text-align: center;
+}
+
+.c10 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
   color: #3c4858;
@@ -150,22 +170,15 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
   text-align: center;
 }
 
-.c4 {
+.c11 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
   color: #979797;
   font-size: 18px;
-}
-
-.c9 {
-  -webkit-font-smoothing: antialiased;
-  font-family: FaktSoftPro-Normal;
-  color: #3c4858;
-  font-size: 14px;
   text-align: center;
 }
 
-.c15 {
+.c16 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
   color: #ff4949;
@@ -185,12 +198,12 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
   justify-content: center;
 }
 
-.c8 {
+.c6 {
   width: auto;
   height: 22px;
 }
 
-.c5 {
+.c3 {
   width: 100%;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
@@ -201,7 +214,7 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
   flex-direction: row;
 }
 
-.c7 {
+.c5 {
   position: relative;
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
@@ -219,7 +232,7 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
   margin: 10px 0 10px 0;
 }
 
-.c10 {
+.c8 {
   position: absolute;
   margin-top: 20px;
   margin-left: 59px;
@@ -256,32 +269,17 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
         ]
       }
     >
-      <p
-        className="c3"
-        color="dark"
-        fontSize="large"
-        fontWeight="bold"
-      >
-        Quantos quartos?
-      </p>
-      <p
-        className="c4"
-        color="grey"
-        fontSize="default"
-      >
-        Quantos quartos tem no seu imóvel?
-      </p>
       <div
-        className="c5 c1"
+        className="c3 c1"
       >
         <div
-          className="c6"
+          className="c4"
         >
           <div
-            className="c7 c1"
+            className="c5 c1"
           >
             <div
-              className="c8"
+              className="c6"
             >
               <svg
                 height={22}
@@ -299,7 +297,7 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
               </svg>
             </div>
             <span
-              className="c9"
+              className="c7"
               color="dark"
               fontSize="small"
             >
@@ -307,14 +305,14 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
             </span>
           </div>
           <div
-            className="c10 "
+            className="c8 "
           />
         </div>
         <div
-          className="c6"
+          className="c4"
         >
           <div
-            className="c7 c1"
+            className="c5 c1"
           >
             <svg
               aria-hidden="true"
@@ -339,7 +337,7 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
               />
             </svg>
             <span
-              className="c9"
+              className="c7"
               color="dark"
               fontSize="small"
             >
@@ -347,19 +345,19 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
             </span>
           </div>
           <div
-            className="c10 "
+            className="c8 "
           />
         </div>
         <div
-          className="c6"
+          className="c4"
         >
           <div
-            className="c7 c1"
+            className="c5 c1"
           >
             <svg
               aria-hidden="true"
               className="svg-inline--fa fa-circle fa-w-16 fa-2x "
-              color="#979797"
+              color="#e0e6ed"
               data-icon="circle"
               data-prefix="far"
               role="img"
@@ -380,26 +378,26 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
             </svg>
             <span
               className="c9"
-              color="dark"
+              color="lightGrey"
               fontSize="small"
             >
               Contato
             </span>
           </div>
           <div
-            className="c10 "
+            className="c8 "
           />
         </div>
         <div
-          className="c6"
+          className="c4"
         >
           <div
-            className="c7 c1"
+            className="c5 c1"
           >
             <svg
               aria-hidden="true"
               className="svg-inline--fa fa-circle fa-w-16 fa-2x "
-              color="#979797"
+              color="#e0e6ed"
               data-icon="circle"
               data-prefix="far"
               role="img"
@@ -420,24 +418,39 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
             </svg>
             <span
               className="c9"
-              color="dark"
+              color="lightGrey"
               fontSize="small"
             >
-              Valor do imóvel
+              Valor
             </span>
           </div>
         </div>
       </div>
-      <div
+      <p
+        className="c10"
+        color="dark"
+        fontSize="large"
+        fontWeight="bold"
+      >
+        Por favor, informe mais detalhes do seu imóvel
+      </p>
+      <p
         className="c11"
+        color="grey"
+        fontSize="default"
+      >
+        Quantos quartos tem no seu imóvel?
+      </p>
+      <div
+        className="c12"
       >
         <div
-          className="c12"
+          className="c13"
           onChange={[Function]}
           onSelect={[Function]}
         >
           <button
-            className="c13"
+            className="c14"
             fontSize="default"
             height="tall"
             name="1"
@@ -448,7 +461,7 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
             1
           </button>
           <button
-            className="c13"
+            className="c14"
             fontSize="default"
             height="tall"
             name="2"
@@ -459,7 +472,7 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
             2
           </button>
           <button
-            className="c14"
+            className="c15"
             fontSize="default"
             height="tall"
             name="3"
@@ -470,7 +483,7 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
             3
           </button>
           <button
-            className="c13"
+            className="c14"
             fontSize="default"
             height="tall"
             name="4"
@@ -481,7 +494,7 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
             4
           </button>
           <button
-            className="c13"
+            className="c14"
             fontSize="default"
             height="tall"
             name="5"
@@ -492,7 +505,7 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
             5
           </button>
           <button
-            className="c13"
+            className="c14"
             fontSize="default"
             height="tall"
             name="more"
@@ -505,18 +518,18 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
         </div>
       </div>
       <p
-        className="c15"
+        className="c16"
         color="red"
         fontSize="default"
       />
       <div
-        className="c16"
+        className="c17"
       >
         <div
           className=""
         >
           <button
-            className="c17"
+            className="c18"
             fontSize="default"
             height="tall"
             onClick={[Function]}
@@ -533,7 +546,7 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
           className=""
         >
           <button
-            className="c18"
+            className="c19"
             disabled={false}
             fontSize="default"
             height="tall"
