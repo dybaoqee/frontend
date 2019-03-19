@@ -7,26 +7,38 @@ import Col from '@emcasa/ui-dom/components/Col'
 import Container from 'components/listings/new-listing/shared/Container'
 import Text from '@emcasa/ui-dom/components/Text'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
+import { getAddressInput } from 'lib/address'
+import { estimatePrice, getPricingInput } from 'lib/listings/pricing'
+import { getUser, hasPhoneNumber } from 'components/listings/new-listing/lib/auth'
+import Steps from 'components/listings/new-listing/shared/Steps'
 
 class Bedrooms extends Component {
   constructor(props) {
     super(props)
-    this.nextStep = this.nextStep.bind(this)
     this.previousStep = this.previousStep.bind(this)
     this.validateBedroom = this.validateBedroom.bind(this)
     this.validateSuite = this.validateSuite.bind(this)
     this.validateBathroom = this.validateBathroom.bind(this)
     this.updateStateFromProps = this.updateStateFromProps.bind(this)
+    this.validateSpots = this.validateSpots.bind(this)
+
+    this.checkUserInfo = this.checkUserInfo.bind(this)
+    this.estimatePrice = this.estimatePrice.bind(this)
+    this.submit = this.submit.bind(this)
   }
 
   state = {
     bedrooms: 0,
     suites: 0,
     bathrooms: 0,
+    spots: null,
     enterMoreBedrooms: false,
     enterMoreBathrooms: false,
     showSuites: false,
-    showBathrooms: false
+    showBathrooms: false,
+    showSpots: false,
+    loading: false,
+    error: null
   }
 
   componentDidMount() {
@@ -44,10 +56,84 @@ class Bedrooms extends Component {
     }
   }
 
-  nextStep() {
-    const { navigateTo, updateRooms } = this.props
-    updateRooms(this.state)
-    navigateTo('garage')
+  async checkUserInfo() {
+    const { updateRooms, user } = this.props
+    updateRooms({
+      bedrooms: this.state.bedrooms,
+      suites: this.state.suites,
+      bathrooms: this.state.bathrooms,
+      spots: this.state.spots,
+      enterMoreBedrooms: this.state.enterMoreBedrooms,
+      enterMoreBathrooms: this.state.enterMoreBathrooms,
+      showSuites: this.state.showSuites,
+      showBathrooms: this.state.showBathrooms,
+      showSpots: this.state.showSpots,
+    })
+    const authenticated = user && user.authenticated
+
+    // Old site auth
+    if (authenticated) {
+      const { updatePhone } = this.props
+      try {
+        const userInfo = await getUser(user.id, updatePhone)
+        await this.estimatePrice(userInfo)
+        return
+      } catch (e) {
+        this.setState({
+          loading: false,
+          error: 'Ocorreu um erro. Por favor, tente novamente.'
+        })
+        return
+      }
+    }
+
+    // User has already input phone number
+    const { phone } = this.props
+    if (hasPhoneNumber(phone)) {
+      if (phone.name) {
+        await this.estimatePrice()
+        return
+      }
+    }
+
+    this.props.navigateTo('phone')
+  }
+
+  async estimatePrice(userInfo) {
+    // Prepare input
+    const { homeDetails, rooms, location } = this.props
+    const addressInput = getAddressInput(location.addressData)
+    const pricingInput = getPricingInput(addressInput, homeDetails, rooms, userInfo)
+
+    // Run mutation
+    const response = await estimatePrice(apolloClient, pricingInput)
+    if (response.error) {
+      this.setState({
+        loading: false,
+        error: response.error
+      })
+    }
+
+    // Handle result
+    if (response.result) {
+      const { suggestedPrice, userPrice } = response.result
+      const { navigateTo, updatePricing, pricing } = this.props
+      updatePricing({
+        ...pricing,
+        suggestedPrice,
+        userPrice
+      })
+      this.setState({
+        loading: false,
+        error: null
+      })
+      navigateTo('pricing')
+    }
+  }
+
+  submit() {
+    this.setState({loading: true})
+    this.checkUserInfo()
   }
 
   previousStep() {
@@ -79,6 +165,12 @@ class Bedrooms extends Component {
     }
     if (value < 0) {
       return 'Insira um valor positivo.'
+    }
+  }
+
+  validateSpots(spots) {
+    if (typeof spots !== 'number') {
+      return "É necessário informar o número de vagas"
     }
   }
 
@@ -134,9 +226,7 @@ class Bedrooms extends Component {
             const intValue = parseInt(value)
             setFieldValue('bathroom', intValue)
             setFieldTouched('bathroom')
-            this.setState({bathrooms: intValue}, () => {
-              window.scrollTo(0, document.body.scrollHeight)
-            })
+            this.setState({showSpots: true, bathrooms: intValue})
           }} defaultValue={bathrooms} />
         </Col>
       )
@@ -149,7 +239,9 @@ class Bedrooms extends Component {
             const intValue = parseInt(value)
             setFieldValue('bathroom', intValue)
             setFieldTouched('bathroom')
-            this.setState({bathrooms: intValue})
+            this.setState({showSpots: true, bathrooms: intValue}, () => {
+              window.scrollTo(0, document.body.scrollHeight)
+            })
           }
         }}>
         <Button mr={2} px={2} value={1} height="tall">1</Button>
@@ -164,11 +256,12 @@ class Bedrooms extends Component {
 
   render() {
     const { rooms } = this.props
-    let bedrooms, bathrooms, suites
+    let bedrooms, bathrooms, suites, spots
     if (rooms) {
       bedrooms = rooms.bedrooms
       bathrooms = rooms.bathrooms
       suites = rooms.suites
+      spots = rooms.spots
     }
     return (
       <div ref={this.props.hostRef}>
@@ -178,28 +271,35 @@ class Bedrooms extends Component {
               initialValues={{
                 bedroom: bedrooms,
                 suite: suites,
-                bathroom: bathrooms
+                bathroom: bathrooms,
+                spots: spots
               }}
               isInitialValid={() => {
-                return !(this.validateBedroom(bedrooms) && this.validateSuite(suites) && this.validateBathroom(bathrooms))
+                return !(
+                  this.validateBedroom(bedrooms) &&
+                  this.validateSuite(suites) &&
+                  this.validateBathroom(bathrooms) &&
+                  this.validateSpots(spots)
+                )
               }}
               render={({isValid, setFieldTouched, setFieldValue, errors}) => (
                 <>
+                  <Steps currentStep="info" />
                   <Text
                     fontSize="large"
                     fontWeight="bold"
                     textAlign="center">
-                    Quantos quartos?
+                    Por favor, informe mais detalhes do seu imóvel
                   </Text>
-                  <Text color="grey">Quantos quartos tem no seu imóvel?</Text>
-                  <Row mb={4} flexWrap="wrap">
+                  <Text textAlign="center" color="grey">Quantos quartos tem no seu imóvel?</Text>
+                  <Row mb={4} flexWrap="wrap" justifyContent="center">
                     <Field
                       name="bedroom"
                       validate={this.validateBedroom}
                       render={({form}) => this.bedroomSelection(setFieldTouched, setFieldValue, errors.bedroom, form.touched.bedroom)} />
                   </Row>
-                  {this.state.showSuites && <> <Text color="grey">Algum deles é suíte? Quantos?</Text>
-                    <Row mb={4} flexWrap="wrap">
+                  {this.state.showSuites && <> <Text textAlign="center" color="grey">Algum deles é suíte? Quantos?</Text>
+                    <Row mb={4} flexWrap="wrap" justifyContent="center">
                       <Field
                         name="suite"
                         validate={this.validateSuite}
@@ -221,18 +321,43 @@ class Bedrooms extends Component {
                     </Row>
                   </>}
                   {this.state.showBathrooms && <>
-                    <Text color="grey">Sem contar lavabos e suítes, ele tem quantos banheiros?</Text>
-                    <Row mb={4}>
+                    <Text textAlign="center" color="grey">Sem contar lavabos e suítes, ele tem quantos banheiros?</Text>
+                    <Row mb={4} justifyContent="center">
                       <Field
                         name="bathroom"
                         validate={this.validateBathroom}
                         render={({form}) => this.bathroomSelection(setFieldTouched, setFieldValue, errors.bathroom, form.touched.bathroom)} />
                     </Row>
                   </>}
+                  {this.state.showSpots && <>
+                    <Text textAlign="center" color="grey">Possui vagas de garagem?</Text>
+                    <Row mb={4} justifyContent="center">
+                      <Field
+                        name="spots"
+                        validate={this.validateSpots}
+                        render={() =>
+                          <Button.Group flexWrap="wrap" initialValue={spots} onChange={(value) => {
+                            setFieldValue('spots', value)
+                            setFieldTouched('spots')
+                            this.setState({spots: value}, () => {
+                              window.scrollTo(0, document.body.scrollHeight)
+                            })
+                            }}>
+                            <Button mr={2} px={3} value={0} height="tall">Não tem</Button>
+                            <Button mr={2} px={3} value={1} height="tall">1</Button>
+                            <Button mr={2} px={3} value={2} height="tall">2</Button>
+                            <Button mr={2} px={3} value={3} height="tall">3</Button>
+                            <Button mr={2} px={3} value={4} height="tall">4</Button>
+                          </Button.Group>
+                      }/>
+                    </Row>
+                  </>}
+                  <Text color="red">{this.state.error}</Text>
                   <NavButtons
                     previousStep={this.previousStep}
-                    onSubmit={this.nextStep}
-                    submitEnabled={isValid}
+                    onSubmit={this.submit}
+                    loading={this.state.loading}
+                    submitEnabled={isValid && !this.state.loading}
                   />
                 </>
               )}

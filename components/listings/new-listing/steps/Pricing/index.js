@@ -10,6 +10,7 @@ import Text from '@emcasa/ui-dom/components/Text'
 import {withBreakpoint} from '@emcasa/ui-dom/components/Breakpoint'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import Container from 'components/listings/new-listing/shared/Container'
+import Steps from 'components/listings/new-listing/shared/Steps'
 import {
   currencyInputMask,
   currencyToInt,
@@ -114,7 +115,7 @@ class Pricing extends Component {
     }
 
     const { navigateTo } = this.props
-    navigateTo('differential')
+    navigateTo('bedrooms')
   }
 
   currencyInput(errors, setFieldValue, setFieldTouched) {
@@ -167,10 +168,10 @@ class Pricing extends Component {
       <>
         <Row>
           <Col>
-            <Text color="grey">Seu imóvel será avaliado por um de nossos agentes, mas conte pra gente por quanto você gostaria de vender seu imóvel.</Text>
+            <Text textAlign="center" color="grey">Seu imóvel será avaliado por um de nossos agentes, mas conte pra gente por quanto você gostaria de vender seu imóvel.</Text>
           </Col>
         </Row>
-        <Row>
+        <Row justifyContent="center">
           <Col width={[1,null,null,1/2]}>
             {this.currencyInput(errors, setFieldValue, setFieldTouched)}
           </Col>
@@ -184,12 +185,11 @@ class Pricing extends Component {
   }
 
   getListingSummary() {
-    const { homeDetails, rooms, garage } = this.props
+    const { homeDetails, rooms } = this.props
     let listingSummary = ''
-    if (homeDetails && rooms && garage) {
+    if (homeDetails && rooms) {
       const { area } = homeDetails
-      const { bedrooms, suites, bathrooms } = rooms
-      const { spots } = garage
+      const { bedrooms, suites, bathrooms, spots } = rooms
       listingSummary = `
         ${area}m² -
         ${bedrooms} Quarto${this.plural(bedrooms)}
@@ -206,12 +206,30 @@ class Pricing extends Component {
     if (!this.state.editingPrice) {
       return
     }
-    if (!value || value === 'R$ ') {
+    if (!value) {
       return 'É necessário informar um preço de venda.'
     }
     if (value < MIN_ALLOWED_PRICE) {
       return 'O preço mínimo permitido é R$ 250.000.'
     }
+  }
+
+  getNextButtonLabel(showEditingPriceLabels) {
+    if (showEditingPriceLabels) {
+      return 'OK'
+    }
+    if (this.props.evaluation) {
+      return 'Quero vender'
+    } else {
+      return 'Avançar'
+    }
+  }
+
+  getPreviousButtonLabel(showEditingPriceLabels) {
+    if (showEditingPriceLabels) {
+      return 'Cancelar'
+    }
+    return 'Voltar'
   }
 
   render() {
@@ -222,6 +240,8 @@ class Pricing extends Component {
       userPrice = pricing.userPrice
     }
     const showEditingPriceLabels = this.state.suggestedPrice && this.state.editingPrice
+    const nextButtonLabel = this.getNextButtonLabel(showEditingPriceLabels)
+    const previousButtonLabel = this.getPreviousButtonLabel(showEditingPriceLabels)
     return (
       <div ref={this.props.hostRef}>
         <Container>
@@ -235,16 +255,16 @@ class Pricing extends Component {
               }}
               render={({isValid, setFieldTouched, setFieldValue, errors}) => (
                 <>
+                  {this.state.showPrice && <Steps currentStep="value" />}
                   <Text
                     fontSize="large"
                     fontWeight="bold"
                     textAlign="center">
-                    Qual o valor do seu imóvel?
+                    Valor do seu imóvel
                   </Text>
                     {this.state.showPrice ?
                       <>
                         <Row alignItems="center" flexDirection="column">
-                          {suggestedPrice && <Text color="grey">Nossa avaliação é precisa de acordo com os valores de mercado da sua região. Você mesmo pode editar este valor ou conversar com um de nossos especialistas no final do processo.</Text>}
                           <Ticket
                             hideSeparator={!suggestedPrice}
                             topRender={() =>
@@ -284,11 +304,14 @@ class Pricing extends Component {
                               </Row>
                             }
                           />
+                          {suggestedPrice && <Text textAlign="center" color="grey">Nossa avaliação é feita de acordo com os valores de mercado da sua região. Você pode editar este valor ou conversar com um de nossos especialistas no final do processo.</Text>}
                         </Row>
                         {!suggestedPrice && this.noPriceSuggestion(errors, setFieldValue, setFieldTouched)}
                         <NavButtons
-                          nextLabel={showEditingPriceLabels ? 'OK' : 'Avançar'}
-                          previousLabel={showEditingPriceLabels ? 'Cancelar' : 'Voltar'}
+                          nextButtonWidth={this.state.editingPrice ? 120 : 150}
+                          previousButtonWidth={this.state.editingPrice ? 120 : 90}
+                          nextLabel={nextButtonLabel}
+                          previousLabel={previousButtonLabel}
                           previousStep={this.previousStep}
                           onSubmit={this.nextStep}
                           submitEnabled={isValid}

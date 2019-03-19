@@ -13,6 +13,12 @@ describe('currency formatting', () => {
     expect(intValue).toBe(200000)
   })
 
+  it('should transform currency values with more than one thousand separator into an integer', () =>{
+    const displayValue = 'R$ 50.200.000'
+    const intValue = currencyToInt(displayValue)
+    expect(intValue).toBe(50200000)
+  })
+
   it('should round up a price value', () => {
     const price = 1234567
     const roundedPrice = roundUpPrice(price)

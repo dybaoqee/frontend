@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import Router from 'next/router'
+import theme from '@emcasa/ui'
 import routerEvents from 'next-router-events'
-
 import View from '@emcasa/ui-dom/components/View'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
@@ -9,17 +9,21 @@ import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
 import { intToCurrency } from 'utils/text-utils'
 import { getFullTourDateDisplay } from 'components/listings/new-listing/lib/times'
-import { Box } from './styles'
 import Container from 'components/listings/new-listing/shared/Container'
+import { LARGE_BUTTON_WIDTH } from 'components/listings/new-listing/styles'
+import NumberedList from 'components/shared/NumberedList'
+import { MY_LISTINGS_TAB } from 'pages/user/profile'
+import {
+  Box,
+  Bullet
+} from './styles'
 
-const ROUTE_HOME = '/'
 const ROUTE_MY_LISTINGS = '/meu-perfil'
 
 class Success extends PureComponent {
   constructor(props) {
     super(props)
     this.viewMyListings = this.viewMyListings.bind(this)
-    this.goHome = this.goHome.bind(this)
     this.reset = this.reset.bind(this)
   }
 
@@ -38,11 +42,7 @@ class Success extends PureComponent {
   }
 
   viewMyListings() {
-    Router.push(ROUTE_MY_LISTINGS)
-  }
-
-  goHome() {
-    Router.push(ROUTE_HOME)
+    Router.push(`${ROUTE_MY_LISTINGS}?tab=${MY_LISTINGS_TAB}`)
   }
 
   render() {
@@ -58,15 +58,10 @@ class Success extends PureComponent {
             <Text
               fontSize="large"
               fontWeight="bold"
-              textAlign="center">
-              Parabéns, seu imóvel foi salvo com sucesso.
+              textAlign="center"
+              color="green">
+              Parabéns, sua solicitação foi recebida com sucesso.
             </Text>
-            <Row>
-              <Text color="grey">
-                Muito obrigado por confiar na EmCasa.
-                {day ? ' Aguarde o contato do nosso especialista para confirmar a visita.'
-                     : ' Aguarde o contato do nosso especialista.'}</Text>
-            </Row>
             <Box justifyContent="center" mb={4}>
               <View p={4}>
                 <Row>
@@ -110,14 +105,27 @@ class Success extends PureComponent {
                 </Row>}
               </View>
             </Box>
-            <Row>
-              <Col width={1} mb={2}>
-                <Button active fluid height="tall" onClick={this.viewMyListings}>Ver Meus Imóveis</Button>
+            <Row justifyContent="center">
+              <Col>
+                <Text style={{marginBottom: theme.space[3]}} fontSize="large">Próximos passos</Text>
               </Col>
             </Row>
-            <Row>
-              <Col width={1}>
-                <Button fluid height="tall" onClick={this.goHome}>Fale com a EmCasa</Button>
+            <Row justifyContent="center" mb={4}>
+              <Col>
+                <NumberedList
+                  textColor="grey"
+                  content={[
+                    'Nossa equipe entra em contato para confirmar a visita.',
+                    'Após a produção do Tour Virtual 3D ou das fotos, seu imóvel é publicado em até 48h.',
+                    'Vamos agendar e acompanhar cada visita.',
+                    'Em caso de proposta, conduzimos a negociação até o final do processo.'
+                  ]}
+                />
+              </Col>
+            </Row>
+            <Row justifyContent="center">
+              <Col>
+                <Button active style={{width: LARGE_BUTTON_WIDTH}} height="tall" onClick={this.viewMyListings}>Ver Meus Imóveis</Button>
               </Col>
             </Row>
           </Col>

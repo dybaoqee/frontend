@@ -39,6 +39,10 @@ const startServer = () => {
         next()
       })
 
+      server.use('/imoveis/adicionar', (req, res) => {
+        return app.render(req, res, '/listings/sell')
+      })
+
       server.use('/imoveis', listingsRouter)
 
       server.get(
@@ -126,7 +130,7 @@ const startServer = () => {
       })
 
       server.get('/vender/imovel', (req, res) => {
-        return app.render(req, res, '/listings/new-listing', req.query)
+        return app.render(req, res, '/listings/sell', req.query)
       })
 
       server.get('/', (req, res) => {
@@ -175,7 +179,10 @@ const startServer = () => {
       })
 
       server.get('/avaliacao-imovel', (req, res) => {
-        return app.render(req, res, '/listings/estimate-price', req.query)
+        const query = Object.assign(req.query, {
+          evaluation: true
+        })
+        return app.render(req, res, '/listings/sell', query)
       })
 
       server.get('/meu-perfil', (req, res) => {

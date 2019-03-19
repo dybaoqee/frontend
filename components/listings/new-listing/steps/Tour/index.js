@@ -22,6 +22,7 @@ import {
   EARLY,
   LATE,
 } from 'components/listings/new-listing/lib/times'
+import { BUTTON_WIDTH } from 'components/listings/new-listing/styles'
 
 class Tour extends Component {
   constructor(props) {
@@ -98,13 +99,11 @@ class Tour extends Component {
   }
 
   getListingInput() {
-    const { location, homeDetails, rooms, garage, differential, phone, pricing } = this.props
+    const { location, homeDetails, rooms, phone, pricing } = this.props
     const { addressData, complement } = location
     const { area, floor, type, maintenanceFee } = homeDetails
-    const { bathrooms, bedrooms, suites } = rooms
-    const { spots } = garage
+    const { bathrooms, bedrooms, suites, spots } = rooms
     const { userPrice } = pricing
-    const { text } = differential
     const { internationalCode, localAreaCode, number } = phone
 
     const address = getAddressInput(addressData)
@@ -113,7 +112,6 @@ class Tour extends Component {
       area: parseInt(area),
       bathrooms,
       complement,
-      description: text,
       floor,
       garageSpots: spots,
       maintenanceFee: parseInt(maintenanceFee),
@@ -299,6 +297,12 @@ class Tour extends Component {
               }}
               render={({isValid, setFieldTouched, setFieldValue}) => (
                 <>
+                  <Text
+                    fontSize="large"
+                    fontWeight="bold"
+                    textAlign="center">
+                    Escolha a melhor data
+                  </Text>
                   <Row mb={4}>
                     <Field
                       name="month"
@@ -380,17 +384,18 @@ class Tour extends Component {
                         </Col>
                       }/>
                   </Row>}
+                  <Text textAlign="center" color="grey">Lembre-se, sua casa bem arrumada aumenta a qualidade do Tour Virtual 3D e das fotos.</Text>
                   <Text color="red">{this.state.error}</Text>
                   <Row justifyContent="space-between" mt={4}>
-                    <Col width={5/12}>
+                    <Col>
                       <Button
-                        fluid
+                        style={{width: BUTTON_WIDTH}}
                         height="tall"
                         onClick={this.previousStep}>Voltar</Button>
                     </Col>
-                    <Col width={5/12}>
+                    <Col>
                       <Button
-                        fluid
+                        style={{width: BUTTON_WIDTH}}
                         height="tall"
                         active={!this.state.loading && isValid}
                         disabled={!isValid || this.state.loading}

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly 1`] = `
-.c7 {
+.c6 {
   padding: 20px;
 }
 
@@ -12,7 +12,7 @@ exports[`renders correctly 1`] = `
   display: flex;
 }
 
-.c6 {
+.c5 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -24,7 +24,7 @@ exports[`renders correctly 1`] = `
   justify-content: center;
 }
 
-.c9 {
+.c8 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -32,57 +32,52 @@ exports[`renders correctly 1`] = `
   margin-bottom: 10px;
 }
 
+.c14 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
 .c2 {
   width: 100%;
 }
 
-.c11 {
+.c10 {
   width: 50%;
 }
 
-.c12 {
+.c11 {
   margin-right: 2px;
   padding-top: 2px;
   width: 16.666666666666664%;
 }
 
-.c14 {
+.c13 {
   width: 83.33333333333334%;
-}
-
-.c15 {
-  margin-bottom: 10px;
-  width: 100%;
-}
-
-.c17 {
-  width: 100%;
 }
 
 .c3 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
-  color: #3c4858;
+  color: #13ce66;
   font-size: 24px;
   font-weight: bold;
   text-align: center;
 }
 
-.c4 {
-  -webkit-font-smoothing: antialiased;
-  font-family: FaktSoftPro-Normal;
-  color: #979797;
-  font-size: 18px;
-}
-
-.c8 {
+.c7 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
   color: #979797;
   font-size: 14px;
 }
 
-.c10 {
+.c9 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
   color: #3c4858;
@@ -90,23 +85,36 @@ exports[`renders correctly 1`] = `
   font-weight: bold;
 }
 
-.c13 {
+.c12 {
   -webkit-font-smoothing: antialiased;
   font-family: FaktSoftPro-Normal;
   color: #3c4858;
   font-size: 12px;
 }
 
-.c16 {
+.c15 {
+  -webkit-font-smoothing: antialiased;
+  font-family: FaktSoftPro-Normal;
+  color: #3c4858;
+  font-size: 24px;
+}
+
+.c20 {
+  -webkit-font-smoothing: antialiased;
+  font-family: FaktSoftPro-Normal;
+  color: #979797;
+  font-size: 18px;
+}
+
+.c22 {
   outline: none;
-  display: block;
   cursor: pointer;
   padding: 0 20px 0 20px;
   border-color: #f50057;
   background-color: #f50057;
   border-radius: 4px;
   border-width: 1px;
-  width: 100%;
+  width: auto;
   height: 60px;
   color: #ffffff;
   font-family: FaktSoftPro-Normal;
@@ -115,39 +123,12 @@ exports[`renders correctly 1`] = `
   border-style: solid;
 }
 
-.c16 :hover {
+.c22 :hover {
   background-color: #f50057;
 }
 
-.c18 {
-  outline: none;
-  display: block;
-  cursor: pointer;
-  padding: 0 20px 0 20px;
-  border-color: #e0e6ed;
-  background-color: #ffffff;
-  border-radius: 4px;
-  border-width: 1px;
-  width: 100%;
-  height: 60px;
-  color: #3c4858;
-  font-family: FaktSoftPro-Normal;
-  font-size: 18px;
-  -webkit-font-smoothing: antialiased;
-  border-style: solid;
-}
-
-.c18 :hover {
-  background-color: #ffffff;
-}
-
-.c5 {
-  border: 1px solid #e0e6ed;
-  box-shadow: 0px 2px 2px rgba(0,0,0,0.3);
-  border-radius: 2px;
-}
-
 .c0 {
+  width: calc(100vw - 40px);
   padding: 80px 20px 20px 20px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
@@ -155,9 +136,101 @@ exports[`renders correctly 1`] = `
   justify-content: center;
 }
 
+.c16 {
+  width: 100%;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c17 {
+  position: relative;
+  box-sizing: border-box;
+  margin: 10px 0 10px 0;
+}
+
+.c19 {
+  -webkit-font-smoothing: antialiased;
+  font-family: FaktSoftPro-Normal;
+  color: #ffffff;
+  font-size: 18px;
+}
+
+.c18 {
+  z-index: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-flex: 0 0 30px;
+  -ms-flex: 0 0 30px;
+  flex: 0 0 30px;
+  width: 30px;
+  height: 30px;
+  background: #f50057;
+  border-radius: 100%;
+  margin-right: 14px;
+}
+
+.c18::before {
+  z-index: 0;
+  content: '';
+  position: absolute;
+  top: 30px;
+  left: 15px;
+  width: 0;
+  height: 100%;
+  border-right: 1px dashed #979797;
+}
+
+.c21 {
+  z-index: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-flex: 0 0 30px;
+  -ms-flex: 0 0 30px;
+  flex: 0 0 30px;
+  width: 30px;
+  height: 30px;
+  background: #f50057;
+  border-radius: 100%;
+  margin-right: 14px;
+}
+
+.c4 {
+  border: 1px solid #e0e6ed;
+  box-shadow: 0px 2px 2px rgba(0,0,0,0.3);
+  border-radius: 2px;
+}
+
 @media screen and (min-width:780px) {
   .c2 {
     width: 50%;
+  }
+}
+
+@media (min-width:480px) and (max-width:779px) {
+  .c0 {
+    padding-top: 180px;
+    width: calc(100vw - 220px);
   }
 }
 
@@ -178,29 +251,17 @@ exports[`renders correctly 1`] = `
     >
       <p
         className="c3"
-        color="dark"
+        color="green"
         fontSize="large"
         fontWeight="bold"
       >
-        Parabéns, seu imóvel foi salvo com sucesso.
+        Parabéns, sua solicitação foi recebida com sucesso.
       </p>
       <div
-        className="c1"
-      >
-        <p
-          className="c4"
-          color="grey"
-          fontSize="default"
-        >
-          Muito obrigado por confiar na EmCasa.
-           Aguarde o contato do nosso especialista para confirmar a visita.
-        </p>
-      </div>
-      <div
-        className="c5 c6"
+        className="c4 c5"
       >
         <div
-          className="c7"
+          className="c6"
         >
           <div
             className="c1"
@@ -209,7 +270,7 @@ exports[`renders correctly 1`] = `
               className=""
             >
               <span
-                className="c8"
+                className="c7"
                 color="grey"
                 fontSize="small"
               >
@@ -218,13 +279,13 @@ exports[`renders correctly 1`] = `
             </div>
           </div>
           <div
-            className="c9"
+            className="c8"
           >
             <div
               className=""
             >
               <span
-                className="c10"
+                className="c9"
                 color="dark"
                 fontSize="small"
                 fontWeight="bold"
@@ -237,11 +298,11 @@ exports[`renders correctly 1`] = `
             className="c1"
           >
             <div
-              className="c11"
+              className="c10"
               width={0.5}
             >
               <span
-                className="c8"
+                className="c7"
                 color="grey"
                 fontSize="small"
               >
@@ -249,11 +310,11 @@ exports[`renders correctly 1`] = `
               </span>
             </div>
             <div
-              className="c11"
+              className="c10"
               width={0.5}
             >
               <span
-                className="c8"
+                className="c7"
                 color="grey"
                 fontSize="small"
               >
@@ -265,11 +326,11 @@ exports[`renders correctly 1`] = `
             className="c1"
           >
             <div
-              className="c11"
+              className="c10"
               width={0.5}
             >
               <span
-                className="c10"
+                className="c9"
                 color="dark"
                 fontSize="small"
                 fontWeight="bold"
@@ -278,11 +339,11 @@ exports[`renders correctly 1`] = `
               </span>
             </div>
             <div
-              className="c11"
+              className="c10"
               width={0.5}
             >
               <span
-                className="c10"
+                className="c9"
                 color="dark"
                 fontSize="small"
                 fontWeight="bold"
@@ -295,24 +356,24 @@ exports[`renders correctly 1`] = `
             className="c1"
           >
             <div
-              className="c11"
+              className="c10"
               width={0.5}
             >
                
             </div>
             <div
-              className="c11"
+              className="c10"
               width={0.5}
             >
               <div
                 className="c1"
               >
                 <div
-                  className="c12"
+                  className="c11"
                   width={0.16666666666666666}
                 >
                   <span
-                    className="c13"
+                    className="c12"
                     color="dark"
                     fontSize={12}
                   >
@@ -320,11 +381,11 @@ exports[`renders correctly 1`] = `
                   </span>
                 </div>
                 <div
-                  className="c14"
+                  className="c13"
                   width={0.8333333333333334}
                 >
                   <span
-                    className="c8"
+                    className="c7"
                     color="grey"
                     fontSize="small"
                   >
@@ -337,36 +398,127 @@ exports[`renders correctly 1`] = `
         </div>
       </div>
       <div
-        className="c1"
+        className="c14"
       >
         <div
-          className="c15"
-          width={1}
+          className=""
         >
-          <button
-            className="c16"
-            fontSize="default"
-            height="tall"
-            onClick={[Function]}
+          <p
+            className="c15"
+            color="dark"
+            fontSize="large"
+            style={
+              Object {
+                "marginBottom": 14,
+              }
+            }
           >
-            Ver Meus Imóveis
-          </button>
+            Próximos passos
+          </p>
         </div>
       </div>
       <div
-        className="c1"
+        className="c5"
       >
         <div
-          className="c17"
-          width={1}
+          className=""
+        >
+          <div
+            className="c16 c1"
+          >
+            <div
+              className="c17 c1"
+            >
+              <span
+                className="c18 c19"
+                color="white"
+                fontSize="default"
+              >
+                1
+              </span>
+              <span
+                className="c20"
+                color="grey"
+                fontSize="default"
+              >
+                Nossa equipe entra em contato para confirmar a visita.
+              </span>
+            </div>
+            <div
+              className="c17 c1"
+            >
+              <span
+                className="c18 c19"
+                color="white"
+                fontSize="default"
+              >
+                2
+              </span>
+              <span
+                className="c20"
+                color="grey"
+                fontSize="default"
+              >
+                Após a produção do Tour Virtual 3D ou das fotos, seu imóvel é publicado em até 48h.
+              </span>
+            </div>
+            <div
+              className="c17 c1"
+            >
+              <span
+                className="c18 c19"
+                color="white"
+                fontSize="default"
+              >
+                3
+              </span>
+              <span
+                className="c20"
+                color="grey"
+                fontSize="default"
+              >
+                Vamos agendar e acompanhar cada visita.
+              </span>
+            </div>
+            <div
+              className="c17 c1"
+            >
+              <span
+                className="c21 c19"
+                color="white"
+                fontSize="default"
+              >
+                4
+              </span>
+              <span
+                className="c20"
+                color="grey"
+                fontSize="default"
+              >
+                Em caso de proposta, conduzimos a negociação até o final do processo.
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="c14"
+      >
+        <div
+          className=""
         >
           <button
-            className="c18"
+            className="c22"
             fontSize="default"
             height="tall"
             onClick={[Function]}
+            style={
+              Object {
+                "width": 260,
+              }
+            }
           >
-            Fale com a EmCasa
+            Ver Meus Imóveis
           </button>
         </div>
       </div>

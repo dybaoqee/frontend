@@ -1,0 +1,166 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ProgressDialog/> should render component 1`] = `
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.c5 {
+  outline: none;
+  display: block;
+  cursor: pointer;
+  padding: 0 20px 0 20px;
+  border-color: #e0e6ed;
+  background-color: #ffffff;
+  border-radius: 4px;
+  border-width: 1px;
+  width: 100%;
+  height: 40px;
+  color: #3c4858;
+  font-family: FaktSoftPro-Normal;
+  font-size: 18px;
+  -webkit-font-smoothing: antialiased;
+  border-style: solid;
+}
+
+.c5 :hover {
+  background-color: #ffffff;
+}
+
+.c6 {
+  outline: none;
+  display: block;
+  cursor: pointer;
+  padding: 0 20px 0 20px;
+  border-color: #f50057;
+  background-color: #f50057;
+  border-radius: 4px;
+  border-width: 1px;
+  width: 100%;
+  height: 40px;
+  color: #ffffff;
+  font-family: FaktSoftPro-Normal;
+  font-size: 18px;
+  -webkit-font-smoothing: antialiased;
+  border-style: solid;
+}
+
+.c6 :hover {
+  background-color: #f50057;
+}
+
+.c2 {
+  width: 100%;
+}
+
+.c3 {
+  -webkit-font-smoothing: antialiased;
+  font-family: FaktSoftPro-Normal;
+  color: #3c4858;
+  font-size: 18px;
+}
+
+.c0 {
+  width: calc(100vw - 40px);
+  padding: 80px 20px 20px 20px;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+@media screen and (min-width:780px) {
+  .c2 {
+    width: 50%;
+  }
+}
+
+@media (min-width:480px) and (max-width:779px) {
+  .c0 {
+    padding-top: 180px;
+    width: calc(100vw - 220px);
+  }
+}
+
+<div
+  className="c0 c1"
+>
+  <div
+    className="c2"
+    width={
+      Array [
+        1,
+        null,
+        null,
+        0.5,
+      ]
+    }
+  >
+    <div
+      className="c1"
+    >
+      <p
+        className="c3"
+        color="dark"
+        fontSize="default"
+      >
+        Você já estava cadastrando seu imóvel da 
+        Rua tal
+        . Gostaria de continuar de onde parou?
+      </p>
+    </div>
+    <div
+      className="c4"
+    >
+      <div
+        className=""
+      >
+        <button
+          className="c5"
+          fontSize="default"
+          height="medium"
+          onClick={[Function]}
+          style={
+            Object {
+              "width": 130,
+            }
+          }
+        >
+          Não
+        </button>
+      </div>
+      <div
+        className=""
+      >
+        <button
+          className="c6"
+          fontSize="default"
+          height="medium"
+          onClick={[Function]}
+          style={
+            Object {
+              "width": 130,
+            }
+          }
+        >
+          Sim
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;

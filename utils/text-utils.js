@@ -27,7 +27,7 @@ const arrayToString = (arr) => {
 }
 
 const currencyToInt = (displayPrice) => {
-  const cleanPrice = displayPrice.replace(PREFIX, '').replace(THOUSANDS_SEPARATOR_SYMBOL, '')
+  const cleanPrice = displayPrice.replace(PREFIX, '').split(THOUSANDS_SEPARATOR_SYMBOL).join('')
   const intPrice = parseInt(cleanPrice)
   return intPrice
 }

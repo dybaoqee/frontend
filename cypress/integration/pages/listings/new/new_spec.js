@@ -31,7 +31,7 @@ describe('Add Listing', () => {
   Cypress.Cookies.debug(true, {verbose: false})
   context('Unauthenticated', () => {
     it('should redirect to login page', () => {
-      cy.visit('/vender/imovel').then((resp) => {
+      cy.visit('/vender').then((resp) => {
         expect(resp.location.pathname).to.include('/login')
       })
     })

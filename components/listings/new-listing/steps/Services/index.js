@@ -91,13 +91,11 @@ class Services extends Component {
   }
 
   getListingInput() {
-    const { location, homeDetails, rooms, garage, differential, phone, pricing } = this.props
+    const { location, homeDetails, rooms, phone, pricing } = this.props
     const { addressData, complement } = location
     const { area, floor, type, maintenanceFee } = homeDetails
-    const { bathrooms, bedrooms, suites } = rooms
-    const { spots } = garage
+    const { bathrooms, bedrooms, suites, spots } = rooms
     const { userPrice } = pricing
-    const { text } = differential
     const { internationalCode, localAreaCode, number } = phone
 
     const address = getAddressInput(addressData)
@@ -106,7 +104,6 @@ class Services extends Component {
       area: parseInt(area),
       bathrooms,
       complement,
-      description: text,
       floor,
       garageSpots: spots,
       maintenanceFee: parseInt(maintenanceFee),
@@ -222,10 +219,7 @@ class Services extends Component {
                     fontSize="large"
                     fontWeight="bold"
                     textAlign="center">
-                    Podemos visitar seu imóvel?
-                  </Text>
-                  <Text color="grey">
-                    Nossos especialistas vão tirar fotos profissionais e fazer um Tour Virtual 3D sem custo nenhum.
+                    Gostaria de produzir um Tour Virtual 3D do seu imóvel?
                   </Text>
                   <VideoContainer>
                     <video
@@ -238,21 +232,23 @@ class Services extends Component {
                       playsInline="playsinline">
                     </video>
                   </VideoContainer>
+                  <Text textAlign="center" color="grey">
+                    Nossa equipe utiliza uma câmera especial para criar um modelo 3D do seu imóvel. Através dele, as pessoas podem visitá-lo antes de agendar a visita presencial.
+                  </Text>
                   <Text color="red">{this.state.error}</Text>
                   <Row justifyContent="space-between" mt={4}>
-                    <Col width={5/12}>
+                    <Col>
                       <Button
-                        fluid
+                        style={{width: 90}}
                         height="tall"
                         onClick={this.skipStep}>Pular</Button>
                     </Col>
-                    <Col width={5/12}>
+                    <Col>
                       <Button
-                        fluid
                         active
                         height="tall"
                         onClick={this.getAvailableTimes}>
-                        Agendar
+                        Escolher data
                       </Button>
                     </Col>
                   </Row>

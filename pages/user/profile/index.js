@@ -55,6 +55,10 @@ const MY_PROFILE_LABEL = 'Meu Perfil'
 const MY_LISTINGS_LABEL = 'Meus Imóveis'
 const FAVORITES_LABEL = 'Favoritos'
 
+export const MY_PROFILE_TAB = 'profile'
+export const MY_LISTINGS_TAB = 'listings'
+export const FAVORITES_TAB = 'favorites'
+
 class UserProfile extends Component {
   constructor(props) {
     super(props)
@@ -67,7 +71,8 @@ class UserProfile extends Component {
     hasChanged: false,
     errors: {},
     nameFieldValue: '',
-    emailFieldValue: ''
+    emailFieldValue: '',
+    initialTabApplied: false
   }
 
   static async getInitialProps(context) {
@@ -75,11 +80,12 @@ class UserProfile extends Component {
       return {}
     }
 
-    const currentUser = {
-      id: getCurrentUserId(context)
-    }
+    const initialTab = context && context.req && context.req.query && context.req.query.tab ? context.req.query.tab : MY_PROFILE_TAB
+    const currentUser = {id: getCurrentUserId(context)}
+
     try {
       return {
+        initialTab,
         currentUser,
         renderFooter: false
       }
@@ -402,7 +408,7 @@ class UserProfile extends Component {
                   textAlign="center"
                   color="gray"
                 >Venda seu imóvel de um jeito fácil e seguro.<br /> Quer anunciar aqui na EmCasa?</Text>
-                <Link href="/vender/imovel">
+                <Link href="/vender">
                   <Button
                     active
                     fluid
@@ -487,7 +493,18 @@ class UserProfile extends Component {
 
   render() {
     const seoTitle = 'EmCasa | Meu Perfil'
-    const {currentUser: {id}} = this.props
+    const { currentUser: { id }, initialTab} = this.props
+    const { initialTabApplied } = this.state
+
+    let profileLabelProps = {}
+    let listingsLabelProps = {}
+    let favoritesLabelProps = {}
+    if (!initialTabApplied) {
+      profileLabelProps = {selected: initialTabApplied ? null : initialTab === MY_PROFILE_TAB}
+      listingsLabelProps = {selected: initialTabApplied ? null : initialTab === MY_LISTINGS_TAB}
+      favoritesLabelProps = {selected: initialTabApplied ? null : initialTab === FAVORITES_TAB}
+    }
+
     return (
       <>
         <Head>
@@ -496,6 +513,9 @@ class UserProfile extends Component {
         </Head>
         <TabWrapper>
           <Tab.Group onClick={(e) => {
+            this.setState({
+              initialTabApplied: true
+            })
             if (e.target) {
               const { target } = e
               if (target.tagName.toLowerCase() === 'button') {
@@ -509,13 +529,13 @@ class UserProfile extends Component {
               }
             }
           }}>
-            <Tab label={MY_PROFILE_LABEL}>
+            <Tab label={MY_PROFILE_LABEL} {...profileLabelProps}>
               {this.state.editingProfile ? this.getProfileForm() : this.getInitialView()}
             </Tab>
-            <Tab label={MY_LISTINGS_LABEL}>
+            <Tab label={MY_LISTINGS_LABEL} {...listingsLabelProps}>
               {this.getUserListings()}
             </Tab>
-            <Tab label={FAVORITES_LABEL}>
+            <Tab label={FAVORITES_LABEL} {...favoritesLabelProps}>
               {this.getUserFavorites()}
             </Tab>
           </Tab.Group>

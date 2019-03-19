@@ -46,15 +46,15 @@ class LoadingText extends Component {
             if (this.state.currentSentence === index) {
               return (
                 <FadeInOut key={randomKey()}>
-                  <Row width={1} justifyContent="center">
-                    <Text key={index}>{sentence}</Text>
+                  <Row justifyContent="center">
+                    <Text textAlign="center" key={index}>{sentence}</Text>
                   </Row>
                 </FadeInOut>
               )
             }
           })}
         </PoseGroup>
-        <Row mt={4} flexDirection="column" alignItems="center" width={1}>
+        <Row mt={4} flexDirection="column" alignItems="center">
           <FadeLoader
             width={10}
             height={10}

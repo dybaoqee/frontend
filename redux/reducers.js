@@ -3,10 +3,7 @@ import {
   UPDATE_LOCATION,
   UPDATE_HOME_DETAILS,
   UPDATE_ROOMS,
-  UPDATE_GARAGE,
-  UPDATE_DIFFERENTIAL,
   UPDATE_PHONE,
-  UPDATE_PERSONAL,
   UPDATE_PRICING,
   UPDATE_SERVICES,
   UPDATE_TOUR,
@@ -33,24 +30,18 @@ const initialState = {
     bedrooms: null,
     suites: null,
     bathrooms: null,
+    spots: null,
     enterMoreBedrooms: false,
-    enterMoreBathrooms: false
-  },
-  garage: {
-    spots: null
-  },
-  differential: {
-    text: null
+    enterMoreBathrooms: false,
+    showSuites: false,
+    showBathrooms: false,
+    showSpots: false
   },
   phone: {
-    internationalCode: null,
     localAreaCode: null,
-    number: null
-  },
-  personal: {
-    id: null,
+    number: null,
     name: null,
-    email: null
+    id: null
   },
   pricing: {
     suggestedPrice: null,
@@ -101,25 +92,10 @@ const reducer = (state = initialState, action) => {
         ...state,
         rooms: action.value
       }
-    case UPDATE_GARAGE:
-      return {
-        ...state,
-        garage: action.value
-      }
-    case UPDATE_DIFFERENTIAL:
-      return {
-        ...state,
-        differential: action.value
-      }
     case UPDATE_PHONE:
       return {
         ...state,
         phone: action.value
-      }
-    case UPDATE_PERSONAL:
-      return {
-        ...state,
-        personal: action.value
       }
     case UPDATE_PRICING:
       return {

@@ -9,18 +9,19 @@ import Button from '@emcasa/ui-dom/components/Button'
 import {
   Container,
   Content,
+  Icon,
   Title,
   SubTitle,
-  Icon,
-  BenefitCol
+  BenefitCol,
+  VideoContainer
 } from './styles'
 
 export default class Benefits extends Component {
 
-  getBenefits = (isMobile) => {
+  getBenefits = (isMobile, showTour) => {
     const benefits = this.props.benefitsList.map(({icon, title, description}) => (
       <BenefitCol width={[1,null,null,  3 / 12]} key={title}>
-        <Icon name={icon} />
+        {icon && <Icon name={icon} />}
         <SubTitle fontSize="large" fontWeight="normal" color="dark">
           {title}
         </SubTitle>
@@ -28,7 +29,7 @@ export default class Benefits extends Component {
       </BenefitCol>
     ))
 
-    if (isMobile) {
+    if (isMobile && !showTour) {
       return (
         <Carousel
           renderCenterLeftControls={() => null}
@@ -45,7 +46,7 @@ export default class Benefits extends Component {
   }
 
   render() {
-    const {sectionTitle, buttonHref, buttonLabel, buttonClick, isMobile} = this.props
+    const {sectionTitle, buttonHref, buttonLabel, buttonClick, isMobile, showTour} = this.props
 
     return (
       <Container>
@@ -57,16 +58,32 @@ export default class Benefits extends Component {
               </Title>
             </Col>
           </Row>
+          {showTour &&
+            <Row justifyContent="center">
+              <VideoContainer>
+                <video
+                  style={{width: "100%"}}
+                  src="https://s3.amazonaws.com/emcasa-ui/videos/tour-compressed.mp4"
+                  type="video/mp4"
+                  loop="loop"
+                  muted="muted"
+                  autoplay="autoplay"
+                  playsInline="playsinline">
+                </video>
+              </VideoContainer>
+            </Row>
+          }
           <Row
+            mt={2}
             justifyContent="center"
-            flexDirection={['column',null,null,  'row']}
-            alignItems={['center',null,null,  'none']}
+            flexDirection={['column', null, null, 'row']}
+            alignItems={['center', null, null, 'flex-start']}
           >
             <NoSSR onSSR={this.getBenefits()}>
-              {this.getBenefits(isMobile)}
+              {this.getBenefits(isMobile, showTour)}
             </NoSSR>
           </Row>
-          <Row justifyContent="center">
+          {!showTour && <Row justifyContent="center">
             <Col width={[1,null,null,  4 / 12]}>
               <Link passHref href={buttonHref}>
                 <a>
@@ -76,7 +93,7 @@ export default class Benefits extends Component {
                 </a>
               </Link>
             </Col>
-          </Row>
+          </Row>}
         </Content>
       </Container>
     )

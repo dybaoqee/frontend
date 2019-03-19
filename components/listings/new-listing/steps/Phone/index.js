@@ -14,6 +14,7 @@ import View from '@emcasa/ui-dom/components/View'
 import Container from 'components/listings/new-listing/shared/Container'
 import { getAddressInput } from 'lib/address'
 import { estimatePrice, getPricingInput } from 'lib/listings/pricing'
+import Steps from 'components/listings/new-listing/shared/Steps'
 import {
   SELLER_ONBOARDING_PHONE_LOGIN_START,
   SELLER_ONBOARDING_PHONE_LOGIN_SUCCESS,
@@ -26,9 +27,8 @@ const BRAZIL_CODE = '55'
 class Phone extends Component {
   constructor(props) {
     super(props)
-    this.nextStep = this.nextStep.bind(this)
     this.previousStep = this.previousStep.bind(this)
-    this.validateInternationalCode = this.validateInternationalCode.bind(this)
+    this.validateName = this.validateName.bind(this)
     this.validateLocalAreaCode = this.validateLocalAreaCode.bind(this)
     this.validateNumber = this.validateNumber.bind(this)
     this.updateStateFromProps = this.updateStateFromProps.bind(this)
@@ -37,10 +37,11 @@ class Phone extends Component {
 
     this.dddField = React.createRef()
     this.phoneNumberField = React.createRef()
+    this.nameField = React.createRef()
   }
 
   state = {
-    internationalCode: null,
+    name: null,
     localAreaCode: null,
     number: null,
     userInfo: null,
@@ -50,8 +51,8 @@ class Phone extends Component {
 
   componentDidMount() {
     this.updateStateFromProps(this.props)
-    if (this.dddField.current && !this.props.isMobile) {
-      this.dddField.current.focus()
+    if (this.nameField.current && !this.props.isMobile) {
+      this.nameField.current.focus()
     }
   }
 
@@ -63,9 +64,9 @@ class Phone extends Component {
     const { phone } = props
     if (phone) {
       this.setState({
-        internationalCode: phone.internationalCode,
         localAreaCode: phone.localAreaCode,
-        number: phone.number
+        number: phone.number,
+        name: phone.name
       })
     }
   }
@@ -77,36 +78,24 @@ class Phone extends Component {
       return
     }
     const { updatePhone } = this.props
-    updatePhone({
-      internationalCode: this.state.internationalCode || BRAZIL_CODE,
-      localAreaCode: this.state.localAreaCode,
-      number: this.state.number
-    })
-
     const id = get(userInfo, 'data.accountKitSignIn.user.id', null)
     const name = get(userInfo, 'data.accountKitSignIn.user.name', null)
-    const email = get(userInfo, 'data.accountKitSignIn.user.email', null)
-
-    const { updatePersonal } = this.props
-    updatePersonal({
+    updatePhone({
+      localAreaCode: this.state.localAreaCode,
+      number: this.state.number,
       id,
-      name,
-      email
+      name
     })
 
     log(SELLER_ONBOARDING_PHONE_LOGIN_SUCCESS)
-    if (name) {
-      this.estimatePrice({name, email})
-    } else {
-      this.nextStep()
-    }
+    this.estimatePrice({name})
   }
 
   async estimatePrice(userInfo) {
     // Prepare input
-    const { personal, homeDetails, rooms, garage, location } = this.props
+    const { homeDetails, rooms, garage, location } = this.props
     const addressInput = getAddressInput(location.addressData)
-    const pricingInput = getPricingInput(addressInput, homeDetails, rooms, garage, personal, userInfo)
+    const pricingInput = getPricingInput(addressInput, homeDetails, rooms, garage, userInfo)
 
     // Run mutation
     const response = await estimatePrice(apolloClient, pricingInput)
@@ -128,25 +117,9 @@ class Phone extends Component {
     }
   }
 
-  nextStep() {
-    const { updatePhone, navigateTo } = this.props
-    updatePhone({
-      internationalCode: this.state.internationalCode || BRAZIL_CODE,
-      localAreaCode: this.state.localAreaCode,
-      number: this.state.number
-    })
-    navigateTo('personal')
-  }
-
   previousStep() {
     const { navigateTo } = this.props
-    navigateTo('differential')
-  }
-
-  validateInternationalCode(value) {
-    if (!value) {
-      return "É necessário informar o DDI."
-    }
+    navigateTo('bedrooms')
   }
 
   validateLocalAreaCode(value) {
@@ -161,11 +134,17 @@ class Phone extends Component {
     }
   }
 
+  validateName(value) {
+    if (!value) {
+      return "Informe seu nome."
+    }
+  }
+
   render() {
     const { phone } = this.props
-    let internationalCode, localAreaCode, number
+    let localAreaCode, number, name
     if (phone) {
-      internationalCode = phone.internationalCode || BRAZIL_CODE
+      name = phone.name
       localAreaCode = phone.localAreaCode
       number = phone.number
     }
@@ -175,22 +154,50 @@ class Phone extends Component {
           <Col width={[1,null,null,1/2]}>
             <Formik
               initialValues={{
-                internationalCode: internationalCode,
+                name: name,
                 localAreaCode: localAreaCode,
                 number: number
               }}
               isInitialValid={() => {
-                return !(this.validateInternationalCode(internationalCode) || this.validateLocalAreaCode(localAreaCode) || this.validateNumber(number))
+                const localValid = this.validateLocalAreaCode(localAreaCode)
+                const numberValid = this.validateNumber(number)
+                const nameValid = this.validateName(name)
+                return !(localValid && numberValid && nameValid)
               }}
               render={({isValid, setFieldTouched, setFieldValue, errors}) => (
                 <>
+                  <Steps currentStep="contact" />
                   <Text
                     fontSize="large"
                     fontWeight="bold"
                     textAlign="center">
                     Qual o número do seu celular?
                   </Text>
-                  <Text color="grey">Ao avançar, será enviado um código de segurança para validar que o número é seu.</Text>
+                  <Text color="grey">
+                    {this.props.evaluation ? "Deixe seu contato para visualizar a avaliação." : "Vamos precisar confirmar algumas informações do seu imóvel."}
+                  </Text>
+                  <Row>
+                    <Col width={1} mr={4}>
+                      <Field
+                        name="name"
+                        validate={this.validateName}
+                        render={({form}) => (
+                          <Input
+                            hideLabelView
+                            ref={this.nameField}
+                            placeholder="Nome*"
+                            error={form.touched.name ? errors.name : null}
+                            defaultValue={name}
+                            onChange={(e) => {
+                              const { value } = e.target
+                              setFieldValue('name', value)
+                              setFieldTouched('name')
+                              this.setState({name: value})
+                            }}
+                          />
+                        )}/>
+                    </Col>
+                  </Row>
                   <Row>
                     <Col width={3/12} mr={5}>
                       <Field
@@ -238,11 +245,6 @@ class Phone extends Component {
                           />
                         )}/>
                     </Col>
-                  </Row>
-                  <Row alignItems="center">
-                    <Text color="grey">O contato inicial será feito pelo WhatsApp.</Text>
-                    <View mr={3}></View>
-                    <FontAwesomeIcon icon={faWhatsApp} size="2x" color="#22cd5b" />
                   </Row>
                   <Text color="red">{this.state.error}</Text>
                   <AccountKit

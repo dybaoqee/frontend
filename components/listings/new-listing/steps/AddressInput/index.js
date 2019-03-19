@@ -4,14 +4,17 @@ import Container from 'components/listings/new-listing/shared/Container'
 import { ADDRESS_IS_COVERED } from 'graphql/listings/queries'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
-import Text from '@emcasa/ui-dom/components/Text'
 import Input from '@emcasa/ui-dom/components/Input'
 import {withBreakpoint} from '@emcasa/ui-dom/components/Breakpoint'
 import StaticMap from 'components/listings/new-listing/shared/StaticMap'
-import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import { getAddressInput } from 'lib/address'
+import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import AddressAutoComplete from 'components/shared/AddressAutoComplete'
 import MobileAddressButton from 'components/shared/MobileAddressButton'
+import Steps from 'components/listings/new-listing/shared/Steps'
+import {
+  Header
+} from './styles'
 
 class AddressInput extends Component {
   constructor(props) {
@@ -69,14 +72,14 @@ class AddressInput extends Component {
     })
   }
 
-  nextStep() {
-    const { navigateTo } = this.props
-    navigateTo('homeDetails')
-  }
-
   previousStep() {
     const { navigateTo } = this.props
     navigateTo('intro')
+  }
+
+  nextStep() {
+    const { navigateTo } = this.props
+    navigateTo('homeDetails')
   }
 
   async checkAddressCoverage() {
@@ -142,12 +145,12 @@ class AddressInput extends Component {
               }}
               render={({isValid, setFieldValue, errors}) => (
                 <>
-                  <Text
-                    fontSize="large"
-                    fontWeight="bold"
-                    textAlign="center">
-                    Qual o endereço do seu imóvel?
-                  </Text>
+                  <Steps currentStep="address" />
+                  <Row justifyContent="center">
+                    <Header fontSize="large" textAlign="center">
+                      Qual o endereço do seu imóvel?
+                    </Header>
+                  </Row>
                   <Col>
                     <StaticMap animated={true} addressData={this.state.addressData} />
                   </Col>
@@ -179,32 +182,38 @@ class AddressInput extends Component {
                       />
                     </Col>
                   }
-                  <Col>
-                    <Field
-                      name="complement"
-                      render={() => (
-                        <Input
-                          hideLabelView
-                          hideErrorView
-                          placeholder="Complemento"
-                          defaultValue={complement}
-                          onChange={(e) => {
-                            const { value } = e.target
-                            setFieldValue('complement', value)
-                            this.setState({complement: value})
-                          }}
-                        />
-                      )}
-                    />
-                  </Col>
-                  <NavButtons
-                    previousStep={this.previousStep}
-                    onSubmit={() => {
-                      this.checkAddressCoverage()
-                    }}
-                    submitEnabled={isValid}
-                    loading={this.state.loading}
-                  />
+                  <Row>
+                    <Col width={1}>
+                      <Field
+                        name="complement"
+                        render={() => (
+                          <Input
+                            hideLabelView
+                            hideErrorView
+                            placeholder="Complemento"
+                            defaultValue={complement}
+                            onChange={(e) => {
+                              const { value } = e.target
+                              setFieldValue('complement', value)
+                              this.setState({complement: value})
+                            }}
+                          />
+                        )}
+                      />
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col width={1}>
+                      <NavButtons
+                        submitEnabled={isValid}
+                        loading={this.state.loading}
+                        previousStep={this.previousStep}
+                        onSubmit={() => {
+                          this.checkAddressCoverage()
+                        }}
+                      />
+                    </Col>
+                  </Row>
                 </>
               )}
             />
