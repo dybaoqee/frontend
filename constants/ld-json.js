@@ -12,9 +12,28 @@ const logo = [
   }
 ]
 
+const telephone = "+55-21-3195-6541"
+
+const email = "mailto:contato@emcasa.com"
+
+const contactPoint =  [
+  {
+    "@type": "ContactPoint",
+    "telephone": telephone,
+    "email": email,
+    "contactType": "customer service",
+    "areaServed": "BR",
+    "availableLanguage": "Portuguese"
+  }
+]
+
 const address = {
   "@type": "PostalAddress",
-  "addressCountry": "Brasil"
+  "streetAddress": "Rua Visconde de Piraja, 495 - sala 102",
+  "addressLocality": "Rio de Janeiro",
+  "addressRegion": "RJ",
+  "addressCountry": "BR",
+  "postalCode": "22410-003"
 }
 
 const sameAs = [
@@ -125,17 +144,18 @@ const SchemaRealEstateAgent = {
   "@context": "http://schema.org",
   "@id": "https://www.emcasa.com/#realestateagent",
   "@type": "RealEstateAgent",
-    "name": "EmCasa",
-    "description": description,
-    "telephone": "55 (21) 99477-1868",
-    "email": "mailto:contato@emcasa.com",
-    "url": "https://www.emcasa.com",
-    "photo": photo,
-    "image": image,
-    "logo": logo,
-    "address": address,
-    "sameAs": sameAs,
-    "priceRange": "R$250.000 - R$2.000.000"
+  "name": "EmCasa",
+  "description": description,
+  "email" : email,
+  "telephone" : telephone,
+  "contactPoint": contactPoint,
+  "url": "https://www.emcasa.com",
+  "photo": photo,
+  "image": image,
+  "logo": logo,
+  "address": address,
+  "sameAs": sameAs,
+  "priceRange": "R$250.000 - R$2.000.000"
 }
 
 const SchemaOrganization = {
@@ -144,8 +164,9 @@ const SchemaOrganization = {
   "@type": "Organization",
   "name": "EmCasa",
   "description": description,
-  "telephone": "55 (21) 99477-1868",
-  "email": "mailto:contato@emcasa.com",
+  "email" : email,
+  "telephone" : telephone,
+  "contactPoint": contactPoint,
   "url": "https://www.emcasa.com",
   "logo": logo,
   "image": image,
