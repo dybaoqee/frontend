@@ -232,8 +232,8 @@ class Services extends Component {
                       playsInline="playsinline">
                     </video>
                   </VideoContainer>
-                  <Text color="grey">
-                    Nossa equipe utiliza uma câmera especial para criar um modelo 3D do seu imóvel. Através dele, as pessoas podem visita-lo antes de agendar a visita presencial.
+                  <Text textAlign="center" color="grey">
+                    Nossa equipe utiliza uma câmera especial para criar um modelo 3D do seu imóvel. Através dele, as pessoas podem visitá-lo antes de agendar a visita presencial.
                   </Text>
                   <Text color="red">{this.state.error}</Text>
                   <Row justifyContent="space-between" mt={4}>

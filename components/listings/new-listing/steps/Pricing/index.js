@@ -168,10 +168,10 @@ class Pricing extends Component {
       <>
         <Row>
           <Col>
-            <Text color="grey">Seu imóvel será avaliado por um de nossos agentes, mas conte pra gente por quanto você gostaria de vender seu imóvel.</Text>
+            <Text textAlign="center" color="grey">Seu imóvel será avaliado por um de nossos agentes, mas conte pra gente por quanto você gostaria de vender seu imóvel.</Text>
           </Col>
         </Row>
-        <Row>
+        <Row justifyContent="center">
           <Col width={[1,null,null,1/2]}>
             {this.currencyInput(errors, setFieldValue, setFieldTouched)}
           </Col>
@@ -304,7 +304,7 @@ class Pricing extends Component {
                               </Row>
                             }
                           />
-                          {suggestedPrice && <Text color="grey">Nossa avaliação é feita de acordo com os valores de mercado da sua região. Você pode editar este valor ou conversar com um de nossos especialistas no final do processo.</Text>}
+                          {suggestedPrice && <Text textAlign="center" color="grey">Nossa avaliação é feita de acordo com os valores de mercado da sua região. Você pode editar este valor ou conversar com um de nossos especialistas no final do processo.</Text>}
                         </Row>
                         {!suggestedPrice && this.noPriceSuggestion(errors, setFieldValue, setFieldTouched)}
                         <NavButtons

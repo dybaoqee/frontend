@@ -384,7 +384,7 @@ class Tour extends Component {
                         </Col>
                       }/>
                   </Row>}
-                  <Text color="grey">Lembre-se, sua casa bem arrumada aumenta a qualidade do Tour Virtual 3D e das fotos.</Text>
+                  <Text textAlign="center" color="grey">Lembre-se, sua casa bem arrumada aumenta a qualidade do Tour Virtual 3D e das fotos.</Text>
                   <Text color="red">{this.state.error}</Text>
                   <Row justifyContent="space-between" mt={4}>
                     <Col>

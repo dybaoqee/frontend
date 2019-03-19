@@ -291,15 +291,15 @@ class Bedrooms extends Component {
                     textAlign="center">
                     Por favor, informe mais detalhes do seu imóvel
                   </Text>
-                  <Text color="grey">Quantos quartos tem no seu imóvel?</Text>
-                  <Row mb={4} flexWrap="wrap">
+                  <Text textAlign="center" color="grey">Quantos quartos tem no seu imóvel?</Text>
+                  <Row mb={4} flexWrap="wrap" justifyContent="center">
                     <Field
                       name="bedroom"
                       validate={this.validateBedroom}
                       render={({form}) => this.bedroomSelection(setFieldTouched, setFieldValue, errors.bedroom, form.touched.bedroom)} />
                   </Row>
-                  {this.state.showSuites && <> <Text color="grey">Algum deles é suíte? Quantos?</Text>
-                    <Row mb={4} flexWrap="wrap">
+                  {this.state.showSuites && <> <Text textAlign="center" color="grey">Algum deles é suíte? Quantos?</Text>
+                    <Row mb={4} flexWrap="wrap" justifyContent="center">
                       <Field
                         name="suite"
                         validate={this.validateSuite}
@@ -321,8 +321,8 @@ class Bedrooms extends Component {
                     </Row>
                   </>}
                   {this.state.showBathrooms && <>
-                    <Text color="grey">Sem contar lavabos e suítes, ele tem quantos banheiros?</Text>
-                    <Row mb={4}>
+                    <Text textAlign="center" color="grey">Sem contar lavabos e suítes, ele tem quantos banheiros?</Text>
+                    <Row mb={4} justifyContent="center">
                       <Field
                         name="bathroom"
                         validate={this.validateBathroom}
@@ -330,27 +330,27 @@ class Bedrooms extends Component {
                     </Row>
                   </>}
                   {this.state.showSpots && <>
-                    <Text color="grey">Possui vagas de garagem?</Text>
-                    <Row mb={4}>
-                    <Field
-                      name="spots"
-                      validate={this.validateSpots}
-                      render={() =>
-                        <Button.Group flexWrap="wrap" initialValue={spots} onChange={(value) => {
-                          setFieldValue('spots', value)
-                          setFieldTouched('spots')
-                          this.setState({spots: value}, () => {
-                            window.scrollTo(0, document.body.scrollHeight)
-                          })
-                          }}>
-                          <Button mr={2} px={3} value={0} height="tall">Não tem</Button>
-                          <Button mr={2} px={3} value={1} height="tall">1</Button>
-                          <Button mr={2} px={3} value={2} height="tall">2</Button>
-                          <Button mr={2} px={3} value={3} height="tall">3</Button>
-                          <Button mr={2} px={3} value={4} height="tall">4</Button>
-                        </Button.Group>
+                    <Text textAlign="center" color="grey">Possui vagas de garagem?</Text>
+                    <Row mb={4} justifyContent="center">
+                      <Field
+                        name="spots"
+                        validate={this.validateSpots}
+                        render={() =>
+                          <Button.Group flexWrap="wrap" initialValue={spots} onChange={(value) => {
+                            setFieldValue('spots', value)
+                            setFieldTouched('spots')
+                            this.setState({spots: value}, () => {
+                              window.scrollTo(0, document.body.scrollHeight)
+                            })
+                            }}>
+                            <Button mr={2} px={3} value={0} height="tall">Não tem</Button>
+                            <Button mr={2} px={3} value={1} height="tall">1</Button>
+                            <Button mr={2} px={3} value={2} height="tall">2</Button>
+                            <Button mr={2} px={3} value={3} height="tall">3</Button>
+                            <Button mr={2} px={3} value={4} height="tall">4</Button>
+                          </Button.Group>
                       }/>
-                  </Row>
+                    </Row>
                   </>}
                   <Text color="red">{this.state.error}</Text>
                   <NavButtons
