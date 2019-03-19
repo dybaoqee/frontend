@@ -24,7 +24,7 @@ export const Container = styled(Row)`
 export const TextLink = styled(Text)`
   cursor: pointer;
   color: ${theme.colors.grey};
-  line-height: 0.8em;
+  line-height: 1.2;
   font-size: ${LINK_FONT_SIZE};
   &:hover {
     color: ${theme.colors.pink};
