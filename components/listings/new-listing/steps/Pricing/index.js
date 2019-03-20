@@ -168,7 +168,7 @@ class Pricing extends Component {
       <>
         <Row>
           <Col>
-            <Text textAlign="center" color="grey">Seu imóvel será avaliado por um de nossos agentes, mas conte pra gente por quanto você gostaria de vender seu imóvel.</Text>
+            <Text textAlign="center" color="grey">Não conseguimos concluir sua avaliação. Nesse caso, nossos especialistas irão enviar uma avaliação para você. Fique a vontade para preencher com o valor você gostaria de vender seu imóvel.</Text>
           </Col>
         </Row>
         <Row justifyContent="center">
