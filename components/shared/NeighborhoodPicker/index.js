@@ -116,7 +116,7 @@ class NeighborhoodPicker extends Component {
 
   getCities(data) {
     try {
-      if (data) {
+      if (data && data.districts) {
         let citiesNeighborhoods = cities
         citiesNeighborhoods.forEach((city) => city.neighborhoods = [])
         data.districts.forEach((item) => {
