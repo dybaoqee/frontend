@@ -163,7 +163,7 @@ class Bedrooms extends Component {
   }
 
   validateBathroom(value) {
-    if (!value) {
+    if (typeof value !== 'number') {
       return 'É necessário informar o número de banheiros.'
     }
     if (value < 0) {
@@ -247,6 +247,7 @@ class Bedrooms extends Component {
             })
           }
         }}>
+        <Button mr={2} px={2} value={0} height="tall">Nenhum</Button>
         <Button mr={2} px={2} value={1} height="tall">1</Button>
         <Button mr={2} px={3} value={2} height="tall">2</Button>
         <Button mr={2} px={3} value={3} height="tall">3</Button>
