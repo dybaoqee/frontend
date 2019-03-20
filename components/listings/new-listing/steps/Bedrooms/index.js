@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import * as Sentry from '@sentry/browser'
 import { Formik, Field } from 'formik'
 import Button from '@emcasa/ui-dom/components/Button'
 import Input from '@emcasa/ui-dom/components/Input'
@@ -79,6 +80,7 @@ class Bedrooms extends Component {
         await this.estimatePrice(userInfo)
         return
       } catch (e) {
+        Sentry.captureException(new Error(e))
         this.setState({
           loading: false,
           error: 'Ocorreu um erro. Por favor, tente novamente.'
@@ -108,6 +110,7 @@ class Bedrooms extends Component {
     // Run mutation
     const response = await estimatePrice(apolloClient, pricingInput)
     if (response.error) {
+      Sentry.captureException(new Error(response.error))
       this.setState({
         loading: false,
         error: response.error
