@@ -127,6 +127,7 @@ class NeighborhoodPicker extends Component {
       }
     } catch (e) {
       Sentry.captureException(e)
+      return []
     }
   }
 
