@@ -12,6 +12,10 @@ import { getAddressInput } from 'lib/address'
 import { estimatePrice, getPricingInput } from 'lib/listings/pricing'
 import { getUser, hasPhoneNumber } from 'components/listings/new-listing/lib/auth'
 import Steps from 'components/listings/new-listing/shared/Steps'
+import {
+  log,
+  SELLER_ONBOARDING_PRICING_FAILED
+} from 'lib/logging'
 
 class Bedrooms extends Component {
   constructor(props) {
@@ -120,6 +124,9 @@ class Bedrooms extends Component {
     // Handle result
     if (response.result) {
       const { suggestedPrice, userPrice } = response.result
+      if (!suggestedPrice) {
+        log(SELLER_ONBOARDING_PRICING_FAILED)
+      }
       const { navigateTo, updatePricing, pricing } = this.props
       updatePricing({
         ...pricing,

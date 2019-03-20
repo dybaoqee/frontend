@@ -104,7 +104,7 @@ class Sell extends Component {
   }
 
   componentDidMount() {
-    log(SELLER_LANDING_PAGE)
+    log(SELLER_LANDING_PAGE, {evaluation: Boolean(this.props.evaluation).toString()})
     window.addEventListener('resize', this.onResize)
   }
 
