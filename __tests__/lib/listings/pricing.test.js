@@ -21,6 +21,24 @@ describe('pricing functions', () => {
     expect(isCovered).toBe(true)
   })
 
+  it('should create pricing input for users without a name', () => {
+    const addressInput = {}
+    const homeDetails = {area: 100}
+    const homeRooms = {bathrooms: 2, bedrooms: 3, spots: 1}
+    const phone = {name: null}
+
+    const pricingInput = getPricingInput(addressInput, homeDetails, homeRooms, phone)
+    const { address, area, bathrooms, rooms, name, garageSpots, isCovered } = pricingInput
+
+    expect(address).toEqual({})
+    expect(area).toBe(100)
+    expect(bathrooms).toBe(2)
+    expect(rooms).toBe(3)
+    expect(garageSpots).toBe(1)
+    expect(name).toBe(null)
+    expect(isCovered).toBe(true)
+  })
+
   it('should calculate pricing', async () => {
     ApolloClient.mockImplementation(() => {
       return {
