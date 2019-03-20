@@ -73,6 +73,11 @@ export default class MyPage extends Component {
                 </Link>
               </li>
               <li>
+                <Link passHref href="/avaliacao-imovel">
+                  <a title="Avalie seu imóvel">Avalie seu imóvel</a>
+                </Link>
+              </li>
+              <li>
                 <Link passHref href="/corretor-parceiro-rj">
                   <a title="Seja um corretor parceiro no RJ">Seja um corretor parceiro no RJ</a>
                 </Link>
@@ -90,11 +95,6 @@ export default class MyPage extends Component {
               <li>
                 <Link passHref href="http://blog.emcasa.com">
                   <a title="Blog">Blog</a>
-                </Link>
-              </li>
-              <li>
-                <Link passHref href="https://jobs.emcasa.com/">
-                  <a title="Trabalhe Conosco">Trabalhe Conosco</a>
                 </Link>
               </li>
             </ul>
