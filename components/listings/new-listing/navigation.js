@@ -173,9 +173,10 @@ const getScreen = (screenProps) => {
 const getStepDisplay = (key) => {
   const step = steps[key]
   if (!step) {
-    const errorMessage = `No step found with key ${key}`
+    const errorMessage = `No step found with key ${key}. Resetting store.`
     Sentry.captureException(new Error(errorMessage))
     resetStore()
+    return steps.intro.display
   }
   return step.display
 }
