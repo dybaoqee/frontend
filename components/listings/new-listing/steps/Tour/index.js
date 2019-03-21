@@ -104,7 +104,7 @@ class Tour extends Component {
     const { area, floor, type, maintenanceFee } = homeDetails
     const { bathrooms, bedrooms, suites, spots } = rooms
     const { userPrice } = pricing
-    const { internationalCode, localAreaCode, number } = phone
+    const { localAreaCode, number } = phone
 
     const address = getAddressInput(addressData)
     return {
@@ -115,7 +115,7 @@ class Tour extends Component {
       floor,
       garageSpots: spots,
       maintenanceFee: parseInt(maintenanceFee),
-      phone: internationalCode + localAreaCode + number,
+      phone: localAreaCode + number,
       price: userPrice,
       rooms: bedrooms,
       suites,

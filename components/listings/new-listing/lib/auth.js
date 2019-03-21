@@ -8,7 +8,6 @@ const getUser = async (id, updatePhone) => {
     const name = userInfo.name
     updatePhone({
       name: name,
-      internationalCode: fullPhone.internationalCode,
       localAreaCode: fullPhone.localAreaCode,
       number: fullPhone.number
     })
@@ -21,9 +20,8 @@ const hasPhoneNumber = (phone) => {
   if (!phone) {
     return false
   }
-  const { internationalCode, localAreaCode, number } = phone
+  const { localAreaCode, number } = phone
   return (
-    internationalCode !== null &&
     localAreaCode !== null &&
     number !== null
   )
