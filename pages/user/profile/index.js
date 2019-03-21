@@ -31,6 +31,7 @@ import Tab from '@emcasa/ui-dom/components/Tab'
 import Input from '@emcasa/ui-dom/components/Input'
 import Button from '@emcasa/ui-dom/components/Button'
 import Text from '@emcasa/ui-dom/components/Text'
+import { getPhoneParts, getPhoneDisplay } from 'lib/user'
 import {
   log,
   PROFILE_OPEN,
@@ -201,7 +202,9 @@ class UserProfile extends Component {
       <Query query={GET_USER_INFO} variables={{id}}>
         {({loading, error, data: {userProfile}}) => {
           if (loading) return <div />
-          const { name, email } = userProfile
+          const { name, email, phone } = userProfile
+          const phoneParts = getPhoneParts(phone)
+          const phoneDisplay = getPhoneDisplay(phoneParts)
           if (error) return `Error!: ${error}`
               return (
                 <InitialView
@@ -233,7 +236,7 @@ class UserProfile extends Component {
                     textAlign="center"
                     color="grey"
                   >
-                    {userProfile.phone}
+                    {phoneDisplay}
                   </Text>
                   <Button
                     active
