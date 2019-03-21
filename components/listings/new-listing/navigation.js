@@ -29,7 +29,7 @@ import Tour from 'components/listings/new-listing/steps/Tour'
 import Success from 'components/listings/new-listing/steps/Success'
 
 // Navigation steps
-const steps = {
+export const steps = {
   intro: {
     component: Intro,
     canNavigateTo: ['addressInput'],
@@ -141,9 +141,16 @@ const mapDispatchToProps = dispatch => {
 }
 
 /**
- * Returns the navigation step object with the given key.
+ * Returns the navigation step object with the given key. If a step with that key is not found (because it's been)
+ * removed, for example), return the intro step.
  */
-const getStepEntry = (key) => steps[key]
+const getStepEntry = (key) => {
+  const navigationStep = steps[key]
+  if (!navigationStep) {
+    return steps.intro
+  }
+  return navigationStep
+}
 
 /**
  * Returns the Screen Component with the given key.

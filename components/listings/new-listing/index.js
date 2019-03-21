@@ -24,6 +24,7 @@ import {
   SchemaRealEstateAgent,
   SchemaOrganization
 } from 'constants/ld-json'
+import { steps } from './navigation'
 import { SofaContainer } from './styles'
 
 const seoImg = imageUrl('sell')
