@@ -126,15 +126,15 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
 
 .c19 {
   outline: none;
-  cursor: pointer;
+  cursor: default;
   padding: 0 20px 0 20px;
-  border-color: #f50057;
-  background-color: #f50057;
+  border-color: #e0e6ed;
+  background-color: #ffffff;
   border-radius: 4px;
   border-width: 1px;
   width: auto;
   height: 60px;
-  color: #ffffff;
+  color: #8492a6;
   font-family: FaktSoftPro-Normal;
   font-size: 18px;
   -webkit-font-smoothing: antialiased;
@@ -142,7 +142,7 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
 }
 
 .c19 :hover {
-  background-color: #f50057;
+  background-color: #ffffff;
 }
 
 .c7 {
@@ -547,7 +547,7 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
         >
           <button
             className="c19"
-            disabled={false}
+            disabled={true}
             fontSize="default"
             height="tall"
             onClick={[Function]}
