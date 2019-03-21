@@ -1,28 +1,26 @@
 import React, { Component } from 'react'
 import { Formik, Field } from 'formik'
+import * as Sentry from '@sentry/browser'
 import { get } from 'lodash'
 import AccountKit from 'components/shared/Auth/AccountKit'
-import FontAwesomeIcon from '@fortawesome/react-fontawesome'
-import faWhatsApp from '@fortawesome/fontawesome-free-brands/faWhatsapp'
 import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
 import {withBreakpoint} from '@emcasa/ui-dom/components/Breakpoint'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
-import View from '@emcasa/ui-dom/components/View'
 import Container from 'components/listings/new-listing/shared/Container'
 import { getAddressInput } from 'lib/address'
 import { estimatePrice, getPricingInput } from 'lib/listings/pricing'
 import Steps from 'components/listings/new-listing/shared/Steps'
+import { EDIT_PROFILE } from 'graphql/user/mutations'
 import {
   SELLER_ONBOARDING_PHONE_LOGIN_START,
   SELLER_ONBOARDING_PHONE_LOGIN_SUCCESS,
   SELLER_ONBOARDING_PHONE_LOGIN_CANCEL,
+  SELLER_ONBOARDING_UPDATE_USER_NAME,
   log
 } from 'lib/logging'
-
-const BRAZIL_CODE = '55'
 
 class Phone extends Component {
   constructor(props) {
@@ -34,6 +32,7 @@ class Phone extends Component {
     this.updateStateFromProps = this.updateStateFromProps.bind(this)
     this.onLoginSuccess = this.onLoginSuccess.bind(this)
     this.estimatePrice = this.estimatePrice.bind(this)
+    this.updateUserProfile = this.updateUserProfile.bind(this)
 
     this.dddField = React.createRef()
     this.phoneNumberField = React.createRef()
@@ -67,6 +66,32 @@ class Phone extends Component {
         localAreaCode: phone.localAreaCode,
         number: phone.number,
         name: phone.name
+      })
+    }
+  }
+
+  async updateUserProfile() {
+    try {
+      // Update user mutation
+      const { id } = this.props.user
+      const response = await apolloClient.mutate({
+        mutation: EDIT_PROFILE,
+        variables: {
+          id: id,
+          name: this.state.name
+        }
+      })
+
+      // Handle result
+      if (response && response.data) {
+        log(SELLER_ONBOARDING_UPDATE_USER_NAME)
+        this.estimatePrice({name: response.data.editUserProfile.name})
+      }
+    } catch (e) {
+      Sentry.captureException(e)
+      this.setState({
+        loading: false,
+        error: 'Ocorreu um erro. Por favor, tente novamente.'
       })
     }
   }
@@ -259,10 +284,17 @@ class Phone extends Component {
                       <NavButtons
                         previousStep={this.previousStep}
                         onSubmit={() => {
-                          log(SELLER_ONBOARDING_PHONE_LOGIN_START)
-                          this.setState({loading: true}, () => {
-                            signIn()
-                          })
+                          const { user } = this.props
+                          if (user && user.authenticated) {
+                            this.setState({loading: true}, () => {
+                              this.updateUserProfile()
+                            })
+                          } else {
+                            log(SELLER_ONBOARDING_PHONE_LOGIN_START)
+                            this.setState({loading: true}, () => {
+                              signIn()
+                            })
+                          }
                         }}
                         loading={this.state.loading}
                         submitEnabled={isValid}
