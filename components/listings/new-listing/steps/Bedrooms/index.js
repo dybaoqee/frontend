@@ -76,28 +76,22 @@ class Bedrooms extends Component {
     })
     const authenticated = user && user.authenticated
 
-    // Old site auth
+    // Check user info
     if (authenticated) {
       const { updatePhone } = this.props
       try {
         const userInfo = await getUser(user.id, updatePhone)
-        await this.estimatePrice(userInfo)
-        return
+        // Get pricing if user has both name and phone
+        if (userInfo && userInfo.name && userInfo.phone) {
+          await this.estimatePrice(userInfo)
+          return
+        }
       } catch (e) {
         Sentry.captureException(new Error(e))
         this.setState({
           loading: false,
           error: 'Ocorreu um erro. Por favor, tente novamente.'
         })
-        return
-      }
-    }
-
-    // User has already input phone number
-    const { phone } = this.props
-    if (hasPhoneNumber(phone)) {
-      if (phone.name) {
-        await this.estimatePrice()
         return
       }
     }
@@ -287,9 +281,9 @@ class Bedrooms extends Component {
               }}
               isInitialValid={() => {
                 return !(
-                  this.validateBedroom(bedrooms) &&
-                  this.validateSuite(suites) &&
-                  this.validateBathroom(bathrooms) &&
+                  this.validateBedroom(bedrooms) ||
+                  this.validateSuite(suites) ||
+                  this.validateBathroom(bathrooms) ||
                   this.validateSpots(spots)
                 )
               }}
