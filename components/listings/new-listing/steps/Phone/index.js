@@ -18,7 +18,7 @@ import {
   SELLER_ONBOARDING_PHONE_LOGIN_START,
   SELLER_ONBOARDING_PHONE_LOGIN_SUCCESS,
   SELLER_ONBOARDING_PHONE_LOGIN_CANCEL,
-  SELLER_ONBOARDING_UPDATE_USER_NAME,
+  SELLER_ONBOARDING_PHONE_UPDATE_USER_NAME,
   log
 } from 'lib/logging'
 
@@ -84,7 +84,7 @@ class Phone extends Component {
 
       // Handle result
       if (response && response.data) {
-        log(SELLER_ONBOARDING_UPDATE_USER_NAME)
+        log(SELLER_ONBOARDING_PHONE_UPDATE_USER_NAME)
         this.estimatePrice({name: response.data.editUserProfile.name})
       }
     } catch (e) {
@@ -187,7 +187,7 @@ class Phone extends Component {
                 const localValid = this.validateLocalAreaCode(localAreaCode)
                 const numberValid = this.validateNumber(number)
                 const nameValid = this.validateName(name)
-                return !(localValid && numberValid && nameValid)
+                return !(localValid || numberValid || nameValid)
               }}
               render={({isValid, setFieldTouched, setFieldValue, errors}) => (
                 <>

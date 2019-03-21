@@ -281,9 +281,9 @@ class Bedrooms extends Component {
               }}
               isInitialValid={() => {
                 return !(
-                  this.validateBedroom(bedrooms) &&
-                  this.validateSuite(suites) &&
-                  this.validateBathroom(bathrooms) &&
+                  this.validateBedroom(bedrooms) ||
+                  this.validateSuite(suites) ||
+                  this.validateBathroom(bathrooms) ||
                   this.validateSpots(spots)
                 )
               }}
