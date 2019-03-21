@@ -129,7 +129,7 @@ class NewListing extends Component {
 
     // Keep navigation state
     const nextStep = props.step
-    if (this.props.step !== nextStep) {
+    if (nextStep && this.props.step !== nextStep) {
       this.navigate(nextStep)
     }
 
@@ -221,12 +221,16 @@ class NewListing extends Component {
   }
 
   navigate(nextStep) {
+    // Check if it's allowed to navigate to that step
     const currentStep = this.props.step
     const stepEntry = getStepEntry(currentStep)
-    const nextKey = stepEntry.canNavigateTo.find((item) => item === nextStep)
-    if (!nextKey && currentStep !== 'intro' && nextStep !== 'intro') {
-      throw Error('Navigation key ' + nextStep + ' not found in ' + currentStep)
+    if (stepEntry) {
+      const nextKey = stepEntry.canNavigateTo.find((item) => item === nextStep)
+      if (!nextKey && currentStep !== 'intro' && nextStep !== 'intro') {
+        throw Error('Navigation key ' + nextStep + ' not found in ' + currentStep)
+      }
     }
+
     const stepDisplay = getStepDisplay(nextStep)
     const currentPath = Router.router.asPath.split('#')[0]
     Router.push(currentPath, `${currentPath}#${stepDisplay}`, {shallow: true})
