@@ -84,8 +84,13 @@ class Phone extends Component {
 
       // Handle result
       if (response && response.data) {
-        log(SELLER_ONBOARDING_PHONE_UPDATE_USER_NAME)
-        this.estimatePrice({name: response.data.editUserProfile.name})
+        const name = response.data.editUserProfile.name
+        const phone = response.data.editUserProfile.phone
+        log(SELLER_ONBOARDING_PHONE_UPDATE_USER_NAME, {
+          name: name,
+          phone: phone
+        })
+        this.estimatePrice({name: name})
       }
     } catch (e) {
       Sentry.captureException(e)
@@ -160,7 +165,7 @@ class Phone extends Component {
   }
 
   validateName(value) {
-    if (!value) {
+    if (!value || !value.trim()) {
       return "Informe seu nome."
     }
   }
@@ -290,7 +295,10 @@ class Phone extends Component {
                               this.updateUserProfile()
                             })
                           } else {
-                            log(SELLER_ONBOARDING_PHONE_LOGIN_START)
+                            log(SELLER_ONBOARDING_PHONE_LOGIN_START, {
+                              name: this.state.name,
+                              phone: `${this.state.localAreaCode}${this.state.number}`
+                            })
                             this.setState({loading: true}, () => {
                               signIn()
                             })
