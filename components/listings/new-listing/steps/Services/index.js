@@ -8,8 +8,8 @@ import Button from '@emcasa/ui-dom/components/Button'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
-import { getAddressInput } from 'lib/address'
 import Container from 'components/listings/new-listing/shared/Container'
+import { getListingInput } from 'lib/listings/insert'
 import {
   SELLER_ONBOARDING_SERVICES_SCHEDULE,
   SELLER_ONBOARDING_SERVICES_SKIP,
@@ -27,7 +27,6 @@ class Services extends Component {
 
     this.getAvailableTimes = this.getAvailableTimes.bind(this)
 
-    this.getListingInput = this.getListingInput.bind(this)
     this.createListing = this.createListing.bind(this)
     this.createTour = this.createTour.bind(this)
     this.save = this.save.bind(this)
@@ -90,36 +89,11 @@ class Services extends Component {
     navigateTo('tour')
   }
 
-  getListingInput() {
-    const { location, homeDetails, rooms, phone, pricing } = this.props
-    const { addressData, complement } = location
-    const { area, floor, type, maintenanceFee } = homeDetails
-    const { bathrooms, bedrooms, suites, spots } = rooms
-    const { userPrice } = pricing
-    const { localAreaCode, number } = phone
-
-    const address = getAddressInput(addressData)
-    return {
-      address,
-      area: parseInt(area),
-      bathrooms,
-      complement,
-      floor,
-      garageSpots: spots,
-      maintenanceFee: parseInt(maintenanceFee),
-      phone: localAreaCode + number,
-      price: userPrice,
-      rooms: bedrooms,
-      suites,
-      type
-    }
-  }
-
   async createListing() {
     this.setState({loading: true})
 
     try {
-      const input = this.getListingInput()
+      const input = getListingInput(this.props)
       const { data } = await apolloClient.mutate({
         mutation: INSERT_LISTING,
         variables: {
