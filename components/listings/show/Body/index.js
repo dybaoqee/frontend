@@ -35,7 +35,7 @@ class ListingMainContent extends Component {
   }
 
   componentDidMount() {
-    log(LISTING_DETAIL_OPEN, getListingInfoForLogs(this.props.listing), getListingInfoForLogs(this.props.listing))
+    log(LISTING_DETAIL_OPEN, getListingInfoForLogs(this.props.listing))
   }
 
   toggleBody() {

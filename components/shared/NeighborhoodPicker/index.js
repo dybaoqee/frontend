@@ -88,8 +88,6 @@ class NeighborhoodPicker extends Component {
       log(LISTING_SEARCH_NEIGHBORHOOD_APPLY, {
         neighborhoods: this.state.selectedNeighborhoods,
         fromHome: this.props.fromHome
-      }, {
-        neighborhoods: this.state.selectedNeighborhoods,
       })
       this.toggleCitiesDisplay()
       if (this.props.onBackPressed) {
