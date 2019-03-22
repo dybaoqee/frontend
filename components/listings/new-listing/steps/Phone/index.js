@@ -15,11 +15,12 @@ import { estimatePrice, getPricingInput } from 'lib/listings/pricing'
 import Steps from 'components/listings/new-listing/shared/Steps'
 import { EDIT_PROFILE } from 'graphql/user/mutations'
 import {
+  log,
+  getSellerEventPrefix,
   SELLER_ONBOARDING_PHONE_LOGIN_START,
   SELLER_ONBOARDING_PHONE_LOGIN_SUCCESS,
   SELLER_ONBOARDING_PHONE_LOGIN_CANCEL,
-  SELLER_ONBOARDING_PHONE_UPDATE_USER_NAME,
-  log
+  SELLER_ONBOARDING_PHONE_UPDATE_USER_NAME
 } from 'lib/logging'
 
 class Phone extends Component {
@@ -86,7 +87,7 @@ class Phone extends Component {
       if (response && response.data) {
         const name = response.data.editUserProfile.name
         const phone = response.data.editUserProfile.phone
-        log(SELLER_ONBOARDING_PHONE_UPDATE_USER_NAME, {
+        log(`${getSellerEventPrefix(this.props.evaluation)}${SELLER_ONBOARDING_PHONE_UPDATE_USER_NAME}`, {
           name: name,
           phone: phone
         })
@@ -103,7 +104,7 @@ class Phone extends Component {
 
   onLoginSuccess(userInfo) {
     if (!userInfo) {
-      log(SELLER_ONBOARDING_PHONE_LOGIN_CANCEL)
+      log(`${getSellerEventPrefix(this.props.evaluation)}${SELLER_ONBOARDING_PHONE_LOGIN_CANCEL}`)
       this.setState({loading: false})
       return
     }
@@ -117,7 +118,7 @@ class Phone extends Component {
       name
     })
 
-    log(SELLER_ONBOARDING_PHONE_LOGIN_SUCCESS)
+    log(`${getSellerEventPrefix(this.props.evaluation)}${SELLER_ONBOARDING_PHONE_LOGIN_SUCCESS}`)
     this.estimatePrice({name})
   }
 
@@ -295,7 +296,7 @@ class Phone extends Component {
                               this.updateUserProfile()
                             })
                           } else {
-                            log(SELLER_ONBOARDING_PHONE_LOGIN_START, {
+                            log(`${getSellerEventPrefix(this.props.evaluation)}${SELLER_ONBOARDING_PHONE_LOGIN_START}`, {
                               name: this.state.name,
                               phone: `${this.state.localAreaCode}${this.state.number}`
                             })

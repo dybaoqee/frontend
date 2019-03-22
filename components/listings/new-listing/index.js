@@ -20,6 +20,10 @@ import ProgressDialog from './components/ProgressDialog'
 import NextHead from 'components/shared/NextHead'
 import {imageUrl} from 'utils/image_url'
 import {
+  log,
+  getSellerEventPrefix
+} from 'lib/logging'
+import {
   SchemaWebSite,
   SchemaRealEstateAgent,
   SchemaOrganization
@@ -234,6 +238,8 @@ class NewListing extends Component {
     const currentPath = Router.router.asPath.split('#')[0]
     Router.push(currentPath, `${currentPath}#${stepDisplay}`, {shallow: true})
     window.scrollTo(0, 0)
+
+    log(`${getSellerEventPrefix(this.props.evaluation, nextStep)}${nextStep}`)
 
     const { onChangeStep } = this.props
     if (onChangeStep) {
