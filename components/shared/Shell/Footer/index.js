@@ -61,6 +61,11 @@ const Footer = () => (
                   <TextLink>Venda</TextLink>
                 </a>
               </Link>
+              <Link passHref href="/avaliacao-imovel">
+                <a>
+                  <TextLink>Avalie seu imóvel</TextLink>
+                </a>
+              </Link>
               <a href="http://blog.emcasa.com" target="_blank">
                 <TextLink>Blog</TextLink>
               </a>

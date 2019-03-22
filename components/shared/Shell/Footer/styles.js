@@ -29,14 +29,14 @@ export const AboutContainer = styled(Row)`
   flex-direction: column;
 `
 
-export const AboutText = styled(Text)`
-  max-width: 350px;
-`
-
 export const AboutLogo = styled.div`
   content: url(https://s3.amazonaws.com/emcasa-ui/logo/logo.svg);
   max-width: 110px;
   margin-top: 1.5em;
+`
+
+export const AboutText = styled(Text)`
+  max-width: 350px;
 `
 
 export const LinksContainer = styled('div')`
