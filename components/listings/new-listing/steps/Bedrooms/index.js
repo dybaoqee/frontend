@@ -10,10 +10,11 @@ import Text from '@emcasa/ui-dom/components/Text'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import { getAddressInput } from 'lib/address'
 import { estimatePrice, getPricingInput } from 'lib/listings/pricing'
-import { getUser, hasPhoneNumber } from 'components/listings/new-listing/lib/auth'
+import { getUser } from 'components/listings/new-listing/lib/auth'
 import Steps from 'components/listings/new-listing/shared/Steps'
 import {
   log,
+  getSellerEventPrefix,
   SELLER_ONBOARDING_PRICING_SUCCESS,
   SELLER_ONBOARDING_PRICING_FAILED
 } from 'lib/logging'
@@ -120,14 +121,14 @@ class Bedrooms extends Component {
     if (response.result) {
       const { suggestedPrice, userPrice } = response.result
       if (suggestedPrice) {
-        log(SELLER_ONBOARDING_PRICING_SUCCESS, {
+        log(`${getSellerEventPrefix(this.props.evaluation)}${SELLER_ONBOARDING_PRICING_SUCCESS}`, {
           name: userInfo.name,
           phone: userInfo.phone,
           pricingInput,
           suggestedPrice: suggestedPrice
         })
       } else {
-        log(SELLER_ONBOARDING_PRICING_FAILED, {
+        log(`${getSellerEventPrefix(this.props.evaluation)}${SELLER_ONBOARDING_PRICING_FAILED}`, {
           name: userInfo.name,
           phone: userInfo.phone,
           pricingInput

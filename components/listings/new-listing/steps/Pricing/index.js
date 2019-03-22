@@ -21,9 +21,11 @@ import Ticket from 'components/listings/new-listing/shared/Ticket'
 import LoadingText from './LoadingText'
 import {
   log,
+  getSellerEventPrefix,
   SELLER_ONBOARDING_EDIT_PRICE,
   SELLER_ONBOARDING_EDIT_PRICE_CANCEL,
-  SELLER_ONBOARDING_EDIT_PRICE_CONFIRM
+  SELLER_ONBOARDING_EDIT_PRICE_CONFIRM,
+  SELLER_EVALUATION_SUCCESS
 } from 'lib/logging'
 
 const LOADING_TIME = 9000
@@ -86,7 +88,7 @@ class Pricing extends Component {
     const intUserPrice = this.state.userPrice ? parseInt(this.state.userPrice) : roundUpPrice(this.state.suggestedPrice)
     const intSuggestedPrice = parseInt(this.state.suggestedPrice)
     if (this.state.suggestedPrice && this.state.editingPrice) {
-      log(SELLER_ONBOARDING_EDIT_PRICE_CONFIRM, {
+      log(`${getSellerEventPrefix(this.props.evaluation)}${SELLER_ONBOARDING_EDIT_PRICE_CONFIRM}`, {
         suggestedPrice: roundUpPrice(intSuggestedPrice),
         userPrice: intUserPrice,
         difference: (intUserPrice - roundUpPrice(intSuggestedPrice))
@@ -100,13 +102,16 @@ class Pricing extends Component {
       suggestedPrice: intSuggestedPrice,
       editingPrice: this.state.editingPrice
     }
+    if (this.props.evaluation) {
+      log(SELLER_EVALUATION_SUCCESS)
+    }
     updatePricing(newPricing)
     navigateTo('services')
   }
 
   previousStep() {
     if (this.state.suggestedPrice && this.state.editingPrice) {
-      log(SELLER_ONBOARDING_EDIT_PRICE_CANCEL)
+      log(`${getSellerEventPrefix(this.props.evaluation)}${SELLER_ONBOARDING_EDIT_PRICE_CANCEL}`)
       this.setState({
         editingPrice: false,
         userPrice: this.props.pricing.userPrice
@@ -288,7 +293,7 @@ class Pricing extends Component {
                                           <Text inline fontSize="large" fontWeight="bold">{this.state.userPrice ? intToCurrency(this.state.userPrice) : intToCurrency(roundUpPrice(suggestedPrice))}</Text>
                                           <Col onClick={() => {
                                             if (!this.state.editingPrice) {
-                                              log(SELLER_ONBOARDING_EDIT_PRICE)
+                                              log(`${getSellerEventPrefix(this.props.evaluation)}${SELLER_ONBOARDING_EDIT_PRICE}`)
                                             }
                                             this.setState({ editingPrice: true })
                                           }} style={{cursor: 'pointer', marginTop: 8}}>
