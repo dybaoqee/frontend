@@ -1,6 +1,8 @@
 import { getUserInfo, getPhoneParts } from 'lib/user'
 
-const getUser = async (id, updatePhone) => {
+export const BRAZIL_CODE = '+55'
+
+export const getUser = async (id, updatePhone) => {
   const userInfo = await getUserInfo(id)
   if (userInfo && !userInfo.error) {
     // Update user info in redux
@@ -16,7 +18,7 @@ const getUser = async (id, updatePhone) => {
   return userInfo
 }
 
-const hasPhoneNumber = (phone) => {
+export const hasPhoneNumber = (phone) => {
   if (!phone) {
     return false
   }
@@ -25,9 +27,4 @@ const hasPhoneNumber = (phone) => {
     localAreaCode !== null &&
     number !== null
   )
-}
-
-export {
-  getUser,
-  hasPhoneNumber
 }

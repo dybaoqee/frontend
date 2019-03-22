@@ -9,11 +9,11 @@ import Text from '@emcasa/ui-dom/components/Text'
 import View from '@emcasa/ui-dom/components/View'
 import Button from '@emcasa/ui-dom/components/Button'
 import { INSERT_LISTING, TOUR_SCHEDULE } from 'graphql/listings/mutations'
-import { getAddressInput } from 'lib/address'
 import CustomTime from './components/CustomTime'
 import TourMonths from './components/TourMonths'
 import TourDays from './components/TourDays'
 import Container from 'components/listings/new-listing/shared/Container'
+import { getListingInput } from 'lib/listings/insert'
 import {
   getTourDays,
   getTourMonths,
@@ -37,7 +37,6 @@ class Tour extends Component {
     this.hasCustomTime = this.hasCustomTime.bind(this)
     this.selectCustomTime = this.selectCustomTime.bind(this)
 
-    this.getListingInput = this.getListingInput.bind(this)
     this.createListing = this.createListing.bind(this)
     this.createTour = this.createTour.bind(this)
     this.save = this.save.bind(this)
@@ -98,36 +97,11 @@ class Tour extends Component {
     this.props.navigateTo('services')
   }
 
-  getListingInput() {
-    const { location, homeDetails, rooms, phone, pricing } = this.props
-    const { addressData, complement } = location
-    const { area, floor, type, maintenanceFee } = homeDetails
-    const { bathrooms, bedrooms, suites, spots } = rooms
-    const { userPrice } = pricing
-    const { localAreaCode, number } = phone
-
-    const address = getAddressInput(addressData)
-    return {
-      address,
-      area: parseInt(area),
-      bathrooms,
-      complement,
-      floor,
-      garageSpots: spots,
-      maintenanceFee: parseInt(maintenanceFee),
-      phone: localAreaCode + number,
-      price: userPrice,
-      rooms: bedrooms,
-      suites,
-      type
-    }
-  }
-
   async createListing() {
     this.setState({loading: true})
 
     try {
-      const input = this.getListingInput()
+      const input = getListingInput(this.props)
       const { data } = await apolloClient.mutate({
         mutation: INSERT_LISTING,
         variables: {
