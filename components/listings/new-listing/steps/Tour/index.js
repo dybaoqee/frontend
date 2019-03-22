@@ -22,6 +22,13 @@ import {
   EARLY,
   LATE,
 } from 'components/listings/new-listing/lib/times'
+import {
+  log,
+  SELLER_ONBOARDING_LISTING_CREATION_SUCCESS,
+  SELLER_ONBOARDING_LISTING_CREATION_ERROR,
+  SELLER_ONBOARDING_TOUR_CREATION_SUCCESS,
+  SELLER_ONBOARDING_TOUR_CREATION_ERROR
+} from 'lib/logging'
 import { BUTTON_WIDTH } from 'components/listings/new-listing/styles'
 
 class Tour extends Component {
@@ -110,6 +117,7 @@ class Tour extends Component {
       })
 
       if (data) {
+        log(SELLER_ONBOARDING_LISTING_CREATION_SUCCESS, {listing: input})
         this.setState({
           listingCreated: true,
           listingId: data.insertListing.id
@@ -117,6 +125,10 @@ class Tour extends Component {
       }
     } catch (e) {
       Sentry.captureException(e)
+      log(SELLER_ONBOARDING_LISTING_CREATION_ERROR, {
+        listing: input,
+        error: e && e.message ? e.message : ''
+      })
       this.setState({
         loading: false,
         error: 'Ocorreu um erro. Por favor, tente novamente.'
@@ -146,10 +158,19 @@ class Tour extends Component {
       })
 
       if (data) {
+        log(SELLER_ONBOARDING_TOUR_CREATION_SUCCESS, {
+          listingId: this.state.listingId,
+          options: datetime
+        })
         this.setState({tourCreated: true})
       }
     } catch (e) {
       Sentry.captureException(e)
+      log(SELLER_ONBOARDING_TOUR_CREATION_ERROR, {
+        listingId: this.state.listingId,
+        options: datetime,
+        error: e && e.message ? e.message : ''
+      })
       this.setState({
         loading: false,
         error: 'Ocorreu um erro. Por favor, tente novamente.'

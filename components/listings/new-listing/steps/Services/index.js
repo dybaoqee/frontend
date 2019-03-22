@@ -13,6 +13,8 @@ import { getListingInput } from 'lib/listings/insert'
 import {
   SELLER_ONBOARDING_SERVICES_SCHEDULE,
   SELLER_ONBOARDING_SERVICES_SKIP,
+  SELLER_ONBOARDING_LISTING_CREATION_SUCCESS,
+  SELLER_ONBOARDING_LISTING_CREATION_ERROR,
   log
 } from 'lib/logging'
 import { VideoContainer } from './styles'
@@ -102,6 +104,7 @@ class Services extends Component {
       })
 
       if (data) {
+        log(SELLER_ONBOARDING_LISTING_CREATION_SUCCESS, {listing: input})
         this.setState({
           listingCreated: true,
           listingId: data.insertListing.id
@@ -109,6 +112,10 @@ class Services extends Component {
       }
     } catch (e) {
       Sentry.captureException(e)
+      log(SELLER_ONBOARDING_LISTING_CREATION_ERROR, {
+        listing: input,
+        error: e && e.message ? e.message : ''
+      })
       this.setState({
         loading: false,
         error: 'Ocorreu um erro. Por favor, tente novamente.'
