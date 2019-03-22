@@ -14,6 +14,7 @@ import { getUser, hasPhoneNumber } from 'components/listings/new-listing/lib/aut
 import Steps from 'components/listings/new-listing/shared/Steps'
 import {
   log,
+  SELLER_ONBOARDING_PRICING_SUCCESS,
   SELLER_ONBOARDING_PRICING_FAILED
 } from 'lib/logging'
 
@@ -118,8 +119,19 @@ class Bedrooms extends Component {
     // Handle result
     if (response.result) {
       const { suggestedPrice, userPrice } = response.result
-      if (!suggestedPrice) {
-        log(SELLER_ONBOARDING_PRICING_FAILED)
+      if (suggestedPrice) {
+        log(SELLER_ONBOARDING_PRICING_SUCCESS, {
+          name: userInfo.name,
+          phone: userInfo.phone,
+          pricingInput,
+          suggestedPrice: suggestedPrice
+        })
+      } else {
+        log(SELLER_ONBOARDING_PRICING_FAILED, {
+          name: userInfo.name,
+          phone: userInfo.phone,
+          pricingInput
+        })
       }
       const { navigateTo, updatePricing, pricing } = this.props
       updatePricing({
