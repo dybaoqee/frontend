@@ -120,7 +120,12 @@ class Phone extends Component {
       name
     })
 
-    log(`${getSellerEventPrefix(this.props.evaluation)}${SELLER_ONBOARDING_PHONE_LOGIN_SUCCESS}`)
+    log(`${getSellerEventPrefix(this.props.evaluation)}${SELLER_ONBOARDING_PHONE_LOGIN_SUCCESS}`, {
+      id: id,
+      name: name,
+      localAreaCode: this.state.localAreaCode,
+      number: this.state.number
+    })
     this.estimatePrice({name})
   }
 
