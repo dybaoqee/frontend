@@ -73,10 +73,12 @@ class Phone extends Component {
     }
   }
 
-  async updateUserProfile() {
+  async updateUserProfile(id) {
     try {
       // Update user mutation
-      const { id } = this.props.user
+      if (!id) {
+        id = this.props.user.id
+      }
       const response = await apolloClient.mutate({
         mutation: EDIT_PROFILE,
         variables: {
@@ -104,21 +106,24 @@ class Phone extends Component {
     }
   }
 
-  onLoginSuccess(userInfo) {
+  async onLoginSuccess(userInfo) {
     if (!userInfo) {
       log(`${getSellerEventPrefix(this.props.evaluation)}${SELLER_ONBOARDING_PHONE_LOGIN_CANCEL}`)
       this.setState({loading: false})
       return
     }
+
     const { updatePhone } = this.props
     const id = get(userInfo, 'data.accountKitSignIn.user.id', null)
-    const name = get(userInfo, 'data.accountKitSignIn.user.name', null)
+    const name = get(userInfo, 'data.accountKitSignIn.user.name') || this.state.name
     updatePhone({
       localAreaCode: this.state.localAreaCode,
       number: this.state.number,
       id,
       name
     })
+
+    await this.updateUserProfile(id)
 
     log(`${getSellerEventPrefix(this.props.evaluation)}${SELLER_ONBOARDING_PHONE_LOGIN_SUCCESS}`, {
       id: id,
