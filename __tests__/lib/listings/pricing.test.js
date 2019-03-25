@@ -21,13 +21,14 @@ describe('pricing functions', () => {
     expect(isCovered).toBe(true)
   })
 
-  it('should create pricing input for users without a name', () => {
+  it('should create the correct input for the pricing query', () => {
     const addressInput = {}
     const homeDetails = {area: 100}
     const homeRooms = {bathrooms: 2, bedrooms: 3, spots: 1}
     const phone = {name: null}
+    const userInfo = {name: 'test'}
 
-    const pricingInput = getPricingInput(addressInput, homeDetails, homeRooms, phone)
+    const pricingInput = getPricingInput(addressInput, homeDetails, homeRooms, phone, userInfo)
     const { address, area, bathrooms, rooms, name, garageSpots, isCovered } = pricingInput
 
     expect(address).toEqual({})
@@ -35,7 +36,7 @@ describe('pricing functions', () => {
     expect(bathrooms).toBe(2)
     expect(rooms).toBe(3)
     expect(garageSpots).toBe(1)
-    expect(name).toBe(null)
+    expect(name).toBe('test')
     expect(isCovered).toBe(true)
   })
 
