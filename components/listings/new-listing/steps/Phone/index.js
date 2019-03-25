@@ -20,7 +20,9 @@ import {
   SELLER_ONBOARDING_PHONE_LOGIN_START,
   SELLER_ONBOARDING_PHONE_LOGIN_SUCCESS,
   SELLER_ONBOARDING_PHONE_LOGIN_CANCEL,
-  SELLER_ONBOARDING_PHONE_UPDATE_USER_NAME
+  SELLER_ONBOARDING_PHONE_UPDATE_USER_NAME,
+  SELLER_ONBOARDING_PRICING_SUCCESS,
+  SELLER_ONBOARDING_PRICING_FAILED
 } from 'lib/logging'
 
 class Phone extends Component {
@@ -130,14 +132,31 @@ class Phone extends Component {
 
     // Run mutation
     const response = await estimatePrice(apolloClient, pricingInput)
-    this.setState({
-      loading: false,
-      error: response.error
-    })
+    if (response.error) {
+      Sentry.captureException(new Error(response.error))
+      this.setState({
+        loading: false,
+        error: response.error
+      })
+    }
 
     // Handle result
     if (response.result) {
       const { suggestedPrice, userPrice } = response.result
+      if (suggestedPrice) {
+        log(`${getSellerEventPrefix(this.props.evaluation)}${SELLER_ONBOARDING_PRICING_SUCCESS}`, {
+          name: userInfo.name,
+          phone: userInfo.phone,
+          pricingInput,
+          suggestedPrice: suggestedPrice
+        })
+      } else {
+        log(`${getSellerEventPrefix(this.props.evaluation)}${SELLER_ONBOARDING_PRICING_FAILED}`, {
+          name: userInfo.name,
+          phone: userInfo.phone,
+          pricingInput
+        })
+      }
       const { navigateTo, updatePricing, pricing } = this.props
       updatePricing({
         ...pricing,
