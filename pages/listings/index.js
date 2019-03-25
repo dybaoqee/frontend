@@ -126,17 +126,20 @@ class ListingSearch extends Component {
     Router.push('/listings', '/imoveis', {shallow: true})
   }
 
-  getCanonical = (neighborhoodsSlugs, districts) => {
-    const info = districts.find(a => a.nameSlug === neighborhoodsSlugs[0])
+  getCanonical = (districts) => {
+    const {filters} = this.state
+    const {params, url: {asPath}} = this.props
+    const info = filters && filters.neighborhoods ? districts.find(a => a.nameSlug === filters.neighborhoods[0]) : null
 
-    return info && info.stateSlug ? `/${info.stateSlug}/${info.citySlug}/${info.nameSlug}` : `${BASE_URL}${this.props.url.asPath}`
+    return info && info.stateSlug ? `/${info.stateSlug}/${info.citySlug}/${info.nameSlug}` : `${BASE_URL}`
   }
 
-  getURL = (baseURL, params, asPath) => {
+  getURL = () => {
+    const {params, url: {asPath}} = this.props
     const {state, city, neighborhood} = params
     const startParams = asPath.indexOf('?')
-    const urlParams = startParams ? asPath.slice(startParams, asPath.length) : ''
-    let url = baseURL
+    const urlParams = startParams && startParams != -1 ? asPath.slice(startParams, asPath.length) : ''
+    let url = BASE_URL
 
     if (neighborhood) {
       url += `/${state}/${city}/${neighborhood}`
@@ -149,8 +152,8 @@ class ListingSearch extends Component {
     return url += urlParams
   }
 
-  getImageSrc = (params) => {
-    const {state} = params
+  getImageSrc = () => {
+    const {params: {state}} = this.props
     let imgSrc = state ? `buy-${state}` : 'buy'
 
     return imageUrl(imgSrc)
@@ -160,9 +163,9 @@ class ListingSearch extends Component {
     const {filters} = this.state
     const {params, url: {asPath}} = this.props
     const titleContent = filters && filters.neighborhoods ? getTitleTextByFilters(filters.neighborhoods, districts) : getTitleTextByParams(params, districts)
-    const url = this.getURL(BASE_URL, params, asPath)
-    const canonical = filters.neighborhoods && filters.neighborhoods.length === 1 ? this.getCanonical(filters.neighborhoods, districts) : null
-    const imageSrc = this.getImageSrc(params)
+    const url = this.getURL()
+    const canonical = filters.neighborhoods && filters.neighborhoods.length === 1 ? this.getCanonical(districts) : null
+    const imageSrc = this.getImageSrc()
 
     return (
       <NextHead
