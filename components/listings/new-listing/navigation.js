@@ -72,7 +72,7 @@ export const steps = {
   },
   pricing: {
     component: Pricing,
-    canNavigateTo: ['services', 'bedrooms'],
+    canNavigateTo: ['services', 'bedrooms', 'phone'],
     display: 'preco'
   },
   services: {

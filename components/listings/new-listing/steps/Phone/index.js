@@ -20,7 +20,9 @@ import {
   SELLER_ONBOARDING_PHONE_LOGIN_START,
   SELLER_ONBOARDING_PHONE_LOGIN_SUCCESS,
   SELLER_ONBOARDING_PHONE_LOGIN_CANCEL,
-  SELLER_ONBOARDING_PHONE_UPDATE_USER_NAME
+  SELLER_ONBOARDING_PHONE_UPDATE_USER_NAME,
+  SELLER_ONBOARDING_PRICING_SUCCESS,
+  SELLER_ONBOARDING_PRICING_FAILED
 } from 'lib/logging'
 
 class Phone extends Component {
@@ -71,10 +73,12 @@ class Phone extends Component {
     }
   }
 
-  async updateUserProfile() {
+  async updateUserProfile(id) {
     try {
       // Update user mutation
-      const { id } = this.props.user
+      if (!id) {
+        id = this.props.user.id
+      }
       const response = await apolloClient.mutate({
         mutation: EDIT_PROFILE,
         variables: {
@@ -102,15 +106,16 @@ class Phone extends Component {
     }
   }
 
-  onLoginSuccess(userInfo) {
+  async onLoginSuccess(userInfo) {
     if (!userInfo) {
       log(`${getSellerEventPrefix(this.props.evaluation)}${SELLER_ONBOARDING_PHONE_LOGIN_CANCEL}`)
       this.setState({loading: false})
       return
     }
+
     const { updatePhone } = this.props
     const id = get(userInfo, 'data.accountKitSignIn.user.id', null)
-    const name = get(userInfo, 'data.accountKitSignIn.user.name', null)
+    const name = get(userInfo, 'data.accountKitSignIn.user.name') || this.state.name
     updatePhone({
       localAreaCode: this.state.localAreaCode,
       number: this.state.number,
@@ -118,7 +123,14 @@ class Phone extends Component {
       name
     })
 
-    log(`${getSellerEventPrefix(this.props.evaluation)}${SELLER_ONBOARDING_PHONE_LOGIN_SUCCESS}`)
+    await this.updateUserProfile(id)
+
+    log(`${getSellerEventPrefix(this.props.evaluation)}${SELLER_ONBOARDING_PHONE_LOGIN_SUCCESS}`, {
+      id: id,
+      name: name,
+      localAreaCode: this.state.localAreaCode,
+      number: this.state.number
+    })
     this.estimatePrice({name})
   }
 
@@ -130,14 +142,31 @@ class Phone extends Component {
 
     // Run mutation
     const response = await estimatePrice(apolloClient, pricingInput)
-    this.setState({
-      loading: false,
-      error: response.error
-    })
+    if (response.error) {
+      Sentry.captureException(new Error(response.error))
+      this.setState({
+        loading: false,
+        error: response.error
+      })
+    }
 
     // Handle result
     if (response.result) {
       const { suggestedPrice, userPrice } = response.result
+      if (suggestedPrice) {
+        log(`${getSellerEventPrefix(this.props.evaluation)}${SELLER_ONBOARDING_PRICING_SUCCESS}`, {
+          name: userInfo.name,
+          phone: userInfo.phone,
+          pricingInput,
+          suggestedPrice: suggestedPrice
+        })
+      } else {
+        log(`${getSellerEventPrefix(this.props.evaluation)}${SELLER_ONBOARDING_PRICING_FAILED}`, {
+          name: userInfo.name,
+          phone: userInfo.phone,
+          pricingInput
+        })
+      }
       const { navigateTo, updatePricing, pricing } = this.props
       updatePricing({
         ...pricing,
