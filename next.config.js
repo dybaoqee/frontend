@@ -13,6 +13,7 @@ const shouldUseAssetPrefix = !isEmpty(AWS_S3_BUCKET_NAME)
 module.exports = {
   assetPrefix: shouldUseAssetPrefix ? s3URL : '',
   webpack: function(config, {isServer}) {
+    config.node = { fs: "empty"};
     if (ANALYZE) {
       config.plugins.push(new WebpackBundleSizeAnalyzerPlugin('stats.txt'))
       config.plugins.push(

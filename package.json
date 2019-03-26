@@ -140,7 +140,6 @@
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "^7.6.0",
-    "fs": "0.0.1-security",
     "jest-styled-components": "^6.2.2",
     "path": "^0.12.7",
     "prettier": "1.10.2",
