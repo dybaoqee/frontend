@@ -5,7 +5,7 @@ import {
 import NextHead from 'components/shared/NextHead'
 import {
   mainListingImage,
-  thumbnailUrl
+  imageUrl
 } from 'utils/image_url'
 import {buildSlug} from 'lib/listings'
 import {
@@ -38,7 +38,7 @@ export default class ListingHead extends Component {
     images.map((img, imgIndex) => {
       photos.push({
         '@type': 'ImageObject',
-        'url': thumbnailUrl(img.filename),
+        'url': imageUrl(img.filename),
         'name': `Foto ${imgIndex + 1} - ${name}`
       })
     })
