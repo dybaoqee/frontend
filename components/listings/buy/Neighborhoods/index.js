@@ -72,7 +72,7 @@ const getCityNeighborhoodLinks = (citySlug) => (
                 <a className="NeighborhoodLink" title={`Comprar imóvel: ${district.name}`} onClick={() => {
                   log(BUYER_LANDING_NEIGHBORHOOD_LINK, {neighborhood: district.nameSlug})
                 }}>
-                  <ListTitle fontWeight="normal">
+                  <ListTitle color="inherit" fontWeight="normal">
                     {district.name}
                   </ListTitle>
                 </a>
@@ -127,7 +127,9 @@ export default class Neighborhoods extends Component {
                             )}
                             actual={({ imageProps }) => <img {...imageProps} />}
                           />
-                          <Text>{name}</Text>
+                          <ListTitle fontWeight="normal">
+                            {name}
+                          </ListTitle>
                           {soon && <Soon>Em breve</Soon>}
                         </Neighborhood>
                       </Link>
