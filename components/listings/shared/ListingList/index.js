@@ -298,7 +298,7 @@ class ListingList extends Component {
       listing.images.map((img, imgIndex) => {
         photos.push({
           '@type': 'ImageObject',
-          'url': thumbnailUrl(img.fileName, 600, 600),
+          'url': thumbnailUrl(img.filename),
           'name': `Foto ${imgIndex + 1} - ${name}`
         })
       })
