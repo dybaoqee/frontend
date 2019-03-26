@@ -32,6 +32,8 @@ import {
   Loading,
   Title
 } from './styles'
+import {buildSlug} from 'lib/listings'
+import {thumbnailUrl} from 'utils/image_url'
 
 class ListingList extends Component {
   constructor(props) {
@@ -286,6 +288,61 @@ class ListingList extends Component {
     if (process.browser) {
       log(LISTING_SEARCH_RESULTS, {listings})
     }
+
+    const itemListElement = []
+
+    listings.map((listing, index) => {
+      const name = `${listing.type} à venda na ${listing.address.street} - ${listing.address.neighborhood}, ${listing.address.city} - ID${listing.id}`
+      const photos = []
+
+      listing.images.map((img, imgIndex) => {
+        photos.push({
+          '@type': 'ImageObject',
+          'url': thumbnailUrl(img.fileName, 600, 600),
+          'name': `Foto ${imgIndex + 1} - ${name}`
+        })
+      })
+
+      itemListElement.push({
+        '@type': 'ListItem',
+        'position': index + 1,
+        'item': {
+          '@type': listing.type === 'Casa' ? 'House' : 'Apartment',
+          '@id': 'https://www.emcasa.com' + buildSlug(listing),
+          'url': 'https://www.emcasa.com' + buildSlug(listing),
+          'name': name,
+          'description': listing.description,
+          'address': {
+            '@context': 'http://schema.org',
+            '@type': 'PostalAddress',
+            'streetAddress': listing.address.street,
+            'addressLocality': listing.address.city,
+            'addressRegion': listing.address.state,
+            'addressCountry': 'BR',
+            'postalCode': listing.address.postalCode
+          },
+          'geo': {
+            '@type': 'GeoCoordinates',
+            'latitude': listing.address.lat,
+            'longitude': listing.address.lng
+          },
+          'photo': photos,
+          'image': photos,
+          'numberOfRooms': listing.rooms
+        }
+      })
+    })
+
+    return (
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'ItemList',
+          'itemListElement': itemListElement
+        })}}
+      />
+    )
   }
 
   render() {
