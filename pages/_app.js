@@ -1,5 +1,6 @@
 import {Fragment} from 'react'
 import {Provider} from 'react-redux'
+import webfontloader from 'webfontloader'
 import * as Sentry from '@sentry/browser'
 import withRedux from 'next-redux-wrapper'
 import App, {Container} from 'next/app'
@@ -71,7 +72,7 @@ class MyApp extends App {
     }
 
     if (!document.documentElement.classList.contains('wf-active')) {
-      import('webfontloader').then((WebFont) =>
+      webfontloader.then((WebFont) =>
         WebFont.load({
           google: {
             families: ['Open+Sans:300,400,600,700']
