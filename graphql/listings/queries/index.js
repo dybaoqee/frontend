@@ -26,7 +26,9 @@ export const GET_LISTINGS = gql`
           city
           lat
           lng
+          postalCode
         }
+        type
       }
     }
   }
