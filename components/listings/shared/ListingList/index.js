@@ -284,7 +284,7 @@ class ListingList extends Component {
 
   getItemList = (listings) => {
     if (process.browser) {
-      log(LISTING_SEARCH_RESULTS, {listings: listings})
+      log(LISTING_SEARCH_RESULTS, {listings})
     }
   }
 
