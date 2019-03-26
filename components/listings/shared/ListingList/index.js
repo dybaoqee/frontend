@@ -22,7 +22,8 @@ import {
 } from './title'
 import {
   log,
-  LISTING_SEARCH_MAP_PIN
+  LISTING_SEARCH_MAP_PIN,
+  LISTING_SEARCH_RESULTS
 } from 'lib/logging'
 import {
   MIN_WIDTH_FOR_MAP_RENDER,
@@ -281,6 +282,12 @@ class ListingList extends Component {
     )
   }
 
+  getItemList = (listings) => {
+    if (process.browser) {
+      log(LISTING_SEARCH_RESULTS, {listings})
+    }
+  }
+
   render() {
     const {filters, params, districts} = this.props
     const h1Content = filters && filters.neighborhoodsSlugs ? getTitleTextByFilters(filters.neighborhoodsSlugs, districts) : getTitleTextByParams(params, districts)
@@ -295,6 +302,7 @@ class ListingList extends Component {
           const hasListings = listings && listings.listings && listings.listings.length > 0
           return (
             <Container>
+              {this.getItemList(listings.listings)}
               <div>
                 <Title fontWeight="normal">{h1Content}</Title>
                 {this.getListings(listings, fetchMore)}
