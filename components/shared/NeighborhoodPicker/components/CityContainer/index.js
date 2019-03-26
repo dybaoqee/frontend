@@ -1,14 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { PoseGroup } from 'react-pose'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
 import Button from '@emcasa/ui-dom/components/Button'
 import Text from '@emcasa/ui-dom/components/Text'
 import theme from 'config/theme'
-import { randomKey } from 'lib/random'
-import FadeInOut from 'components/shared/Animation/FadeInOut'
 import {
   log,
   LISTING_SEARCH_NEIGHBORHOOD_SELECT_ALL
@@ -151,14 +148,14 @@ class CityContainer extends Component {
                         Todos
                       </NeighborhoodButton>
                   </View>
-                  <PoseGroup>
+                  <>
                     {selectedNeighborhoodList.map((Item) => {
                       buttonsRendered++
                       showExpandAll = buttonsRendered > MAX_INITIAL_ITEMS
                       if (!isCityExpanded && showExpandAll) {
                         return null
                       }
-                      return <FadeInOut key={randomKey()}>{Item}</FadeInOut>
+                      return Item
                     })}
                     {deselectedNeighborhoodList.map((Item) => {
                       buttonsRendered++
@@ -166,9 +163,9 @@ class CityContainer extends Component {
                       if (!isCityExpanded && showExpandAll) {
                         return null
                       }
-                      return <FadeInOut key={randomKey()}>{Item}</FadeInOut>
+                      return Item
                     })}
-                  </PoseGroup>
+                  </>
                   {(showExpandAll && !isCityExpanded) && <Button p={0} link onClick={() => {expand(city)}}>Ver mais</Button>}
                 </Row>
               </Col>
