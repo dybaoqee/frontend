@@ -142,6 +142,7 @@
     "eslint-plugin-react": "^7.6.0",
     "fs": "0.0.1-security",
     "jest-styled-components": "^6.2.2",
+    "path": "^0.12.7",
     "prettier": "1.10.2",
     "s3": "^4.4.0",
     "start-server-and-test": "^1.1.0"
