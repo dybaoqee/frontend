@@ -93,13 +93,7 @@ export default class ListingHead extends Component {
               'streetAddress': address.street,
               'addressLocality': address.city,
               'addressRegion': address.state,
-              'addressCountry': 'BR',
-              'postalCode': address.postalCode
-            },
-            'geo': {
-              '@type': 'GeoCoordinates',
-              'latitude': address.lat,
-              'longitude': address.lng
+              'addressCountry': 'BR'
             },
             'photo': photos,
             'image': photos,

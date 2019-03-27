@@ -318,13 +318,7 @@ class ListingList extends Component {
             'streetAddress': listing.address.street,
             'addressLocality': listing.address.city,
             'addressRegion': listing.address.state,
-            'addressCountry': 'BR',
-            'postalCode': listing.address.postalCode
-          },
-          'geo': {
-            '@type': 'GeoCoordinates',
-            'latitude': listing.address.lat,
-            'longitude': listing.address.lng
+            'addressCountry': 'BR'
           },
           'photo': photos,
           'image': photos,
