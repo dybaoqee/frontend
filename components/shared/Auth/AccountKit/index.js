@@ -39,13 +39,15 @@ class AccountKit extends Component {
 
   onLoad = () => {
     const {appId, csrf, version, autoLogin} = this.props
-    window.AccountKit.init({
+    const accountKitProps = {
       appId,
       state: csrf,
       version,
       fbAppEventsEnabled: true,
-      display: 'modal'
-    })
+      display: 'modal',
+      debug: process.env.NODE_ENV !== 'production'
+    }
+    window.AccountKit.init(accountKitProps)
     if (autoLogin) {
       this.signIn()
     }
