@@ -7,7 +7,8 @@ import {getCookie, setCookie} from 'lib/session'
 import {signUpUser} from 'lib/auth'
 import {
   log,
-  LOGIN_SUCCESS
+  LOGIN_SUCCESS,
+  LOGIN_ERROR
 } from 'lib/logging'
 
 class AccountKit extends Component {
@@ -16,6 +17,7 @@ class AccountKit extends Component {
     signingIn: false,
     loading: false
   }
+
   setAccountKit = () => (window.AccountKit_OnInteractive = this.onLoad)
 
   componentDidMount() {
@@ -78,7 +80,7 @@ class AccountKit extends Component {
     const {code} = resp
     const {appId, appSecret, skipRedirect} = this.props
 
-    if (code) {
+    if (resp.status === 'PARTIALLY_AUTHENTICATED' && code) {
       this.setState({loading: true})
       const data = await fetch(
         `https://graph.accountkit.com/v1.0/access_token?grant_type=authorization_code&code=${code}&
@@ -108,6 +110,10 @@ class AccountKit extends Component {
       this.setState({loading: false})
       log(LOGIN_SUCCESS)
       redirect(getCookie('redirectTo') || '/')
+    } else if (resp.status === 'NOT_AUTHENTICATED') {
+      log(LOGIN_ERROR, resp)
+    } else if (resp.status === 'BAD_PARAMS') {
+      log(LOGIN_ERROR, resp)
     }
   }
 
