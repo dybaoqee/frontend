@@ -1,7 +1,6 @@
 import {Component} from 'react'
 import ListingTable from '../Table'
 import Container from './styles'
-import LikeButton from 'components/shared/Common/Buttons/Like'
 
 export default class TextContainer extends Component {
   truncateDescription = () => {
