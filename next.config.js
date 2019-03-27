@@ -13,7 +13,7 @@ const shouldUseAssetPrefix = !isEmpty(AWS_S3_BUCKET_NAME)
 module.exports = {
   assetPrefix: shouldUseAssetPrefix ? s3URL : '',
   webpack: function(config, {isServer}) {
-    config.node = { fs: "empty"};
+    config.node = {fs: 'empty'}
     if (ANALYZE) {
       config.plugins.push(new WebpackBundleSizeAnalyzerPlugin('stats.txt'))
       config.plugins.push(
@@ -34,7 +34,12 @@ module.exports = {
     const originalEntry = config.entry
     config.entry = async () => {
       const entries = await originalEntry()
-      if (entries['main.js'] && !entries['main.js'].includes('./utils/polyfills/intersection-observer.js')) {
+      if (
+        entries['main.js'] &&
+        !entries['main.js'].includes(
+          './utils/polyfills/intersection-observer.js'
+        )
+      ) {
         entries['main.js'].unshift('./utils/polyfills/intersection-observer.js')
       }
       return entries
