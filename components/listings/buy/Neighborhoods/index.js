@@ -37,7 +37,7 @@ const NEIGHBORHOODS = [
   {name: 'Ipanema', thumb: 'ipanema', city: RJ_SLUG},
   {name: 'Leblon', thumb: 'leblon', city: RJ_SLUG},
   {name: 'Perdizes', thumb: 'perdizes', city: SP_SLUG},
-  {name: 'Pompéia', thumb: 'vila-pompeia', city: SP_SLUG},
+  {name: 'Vila Pompéia', thumb: 'vila-pompeia', city: SP_SLUG},
   {name: 'Pinheiros', thumb: 'pinheiros', soon: true, city: SP_SLUG}
 ]
 
@@ -56,11 +56,10 @@ const getCityNeighborhoodLinks = (citySlug) => (
         loading ? (
           <div />
         ) : (
-          districts.filter(d => d.citySlug === citySlug).map((district) => {
+          districts.filter(d => d.citySlug === citySlug && !NEIGHBORHOODS.find(n => d.name === n.name)).map((district) => {
             const url = `/imoveis/${district.stateSlug}/${district.citySlug}/${slug(
               district.nameSlug.toLowerCase()
             )}`
-
             return (
               <Link
                 passHref
@@ -73,7 +72,7 @@ const getCityNeighborhoodLinks = (citySlug) => (
                 <a className="NeighborhoodLink" title={`Comprar imóvel: ${district.name}`} onClick={() => {
                   log(BUYER_LANDING_NEIGHBORHOOD_LINK, {neighborhood: district.nameSlug})
                 }}>
-                  <ListTitle fontWeight="normal">
+                  <ListTitle color="inherit" fontWeight="normal">
                     {district.name}
                   </ListTitle>
                 </a>
@@ -128,7 +127,9 @@ export default class Neighborhoods extends Component {
                             )}
                             actual={({ imageProps }) => <img {...imageProps} />}
                           />
-                          <Text>{name}</Text>
+                          <ListTitle fontWeight="normal">
+                            {name}
+                          </ListTitle>
                           {soon && <Soon>Em breve</Soon>}
                         </Neighborhood>
                       </Link>
