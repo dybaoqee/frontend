@@ -353,7 +353,7 @@ class ListingList extends Component {
           const hasListings = listings && listings.listings && listings.listings.length > 0
           return (
             <Container>
-              {this.getItemList(listings.listings)}
+              {hasListings && this.getItemList(listings.listings)}
               <div>
                 <Title fontWeight="normal">{h1Content}</Title>
                 {this.getListings(listings, fetchMore)}
