@@ -1,13 +1,11 @@
 import '@emcasa/ui-dom/components/global-styles'
 import {Component} from 'react'
 import {Query} from 'react-apollo'
-import theme from '@emcasa/ui'
 import View from '@emcasa/ui-dom/components/View'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
-import { ThemeProvider } from 'styled-components'
 import {GET_USER_LISTINGS_ACTIONS} from 'graphql/user/queries'
 import {
   GET_FULL_LISTING,
@@ -360,82 +358,80 @@ class Listing extends Component {
     const neighborhood = location[3]
 
     return (
-      <ThemeProvider theme={theme}>
-        <Query query={GET_DISTRICTS}>
-          {({loading, error, data}) => {
-            if (loading) return (<div/>)
-            if (error || !data || !data.districts) return `Error! ${error.message}`
+      <Query query={GET_DISTRICTS}>
+        {({loading, error, data}) => {
+          if (loading) return (<div/>)
+          if (error || !data || !data.districts) return `Error! ${error.message}`
 
-            const districts = data.districts
-            const findState = districts.find(a => a.stateSlug === state)
-            const findCity = districts.find(a => a.citySlug === city)
-            const findNeighborhood = districts.find(a => a.nameSlug === neighborhood)
-            let errorTitle = 'Este imóvel não está mais disponível!'
-            let endQuestion = 'de imóveis'
-            let buttonLabel = 'Explorar imóveis'
-            let buttonHref = '/imoveis'
+          const districts = data.districts
+          const findState = districts.find(a => a.stateSlug === state)
+          const findCity = districts.find(a => a.citySlug === city)
+          const findNeighborhood = districts.find(a => a.nameSlug === neighborhood)
+          let errorTitle = 'Este imóvel não está mais disponível!'
+          let endQuestion = 'de imóveis'
+          let buttonLabel = 'Explorar imóveis'
+          let buttonHref = '/imoveis'
 
-            if (findNeighborhood) {
-              endQuestion = ` em ${findNeighborhood.name}, ${findNeighborhood.city}`
-              buttonLabel += ` em ${findNeighborhood.name}`
-              buttonHref += `/${findNeighborhood.stateSlug}/${findNeighborhood.citySlug}/${findNeighborhood.nameSlug}`
-            } else if (findCity) {
-              endQuestion = ` em ${findCity.city}, ${findCity.state}`
-              buttonLabel += ` em ${findCity.city}`
-              buttonHref += `/${findCity.stateSlug}/${findCity.citySlug}`
-            } else if (findState) {
-              endQuestion = ` em ${findState.state}`
-              buttonLabel += ` em ${findState.state}`
-              buttonHref += `/${findState.stateSlug}`
-            }
+          if (findNeighborhood) {
+            endQuestion = ` em ${findNeighborhood.name}, ${findNeighborhood.city}`
+            buttonLabel += ` em ${findNeighborhood.name}`
+            buttonHref += `/${findNeighborhood.stateSlug}/${findNeighborhood.citySlug}/${findNeighborhood.nameSlug}`
+          } else if (findCity) {
+            endQuestion = ` em ${findCity.city}, ${findCity.state}`
+            buttonLabel += ` em ${findCity.city}`
+            buttonHref += `/${findCity.stateSlug}/${findCity.citySlug}`
+          } else if (findState) {
+            endQuestion = ` em ${findState.state}`
+            buttonLabel += ` em ${findState.state}`
+            buttonHref += `/${findState.stateSlug}`
+          }
 
-            return (
-              <>
-                <NextHead title={`Imóvel não encontrado | EmCasa`} />
+          return (
+            <>
+              <NextHead title={`Imóvel não encontrado | EmCasa`} />
+              <Row
+                justifyContent="center"
+                px={5}
+              >
                 <Row
-                  justifyContent="center"
-                  px={5}
+                  flexDirection="column"
+                  width={[1,null,null,'768px']}
                 >
-                  <Row
-                    flexDirection="column"
-                    width={[1,null,null,'768px']}
+                  <Title
+                    textAlign="center"
+                    fontSize="xlarge"
+                    fontWeight="normal"
                   >
-                    <Title
-                      textAlign="center"
-                      fontSize="xlarge"
-                      fontWeight="normal"
-                    >
-                      {errorTitle}
-                    </Title>
-                    <Text color="grey">{`Que tal olhar outras opções ${endQuestion}? Separamos alguns imóveis para você! Fique a vontade para dar uma olhada nessa lista`}
-                    </Text>
-                    <Row justifyContent="center">
-                      <Col width={[1,null,null,2/5]}>
-                        <View mt={2}>
-                          <Link
-                            passHref
-                            href={buttonHref}
-                          >
-                            <a>
-                              <Button
-                                active
-                                fluid
-                                height="tall"
-                              >
-                                {buttonLabel}
-                              </Button>
-                            </a>
-                          </Link>
-                        </View>
-                      </Col>
-                    </Row>
+                    {errorTitle}
+                  </Title>
+                  <Text color="grey">{`Que tal olhar outras opções ${endQuestion}? Separamos alguns imóveis para você! Fique a vontade para dar uma olhada nessa lista`}
+                  </Text>
+                  <Row justifyContent="center">
+                    <Col width={[1,null,null,2/5]}>
+                      <View mt={2}>
+                        <Link
+                          passHref
+                          href={buttonHref}
+                        >
+                          <a>
+                            <Button
+                              active
+                              fluid
+                              height="tall"
+                            >
+                              {buttonLabel}
+                            </Button>
+                          </a>
+                        </Link>
+                      </View>
+                    </Col>
                   </Row>
                 </Row>
-              </>
-            )
-          }}
-        </Query>
-      </ThemeProvider>
+              </Row>
+            </>
+          )
+        }}
+      </Query>
     )
   }
 
