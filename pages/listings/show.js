@@ -1,7 +1,6 @@
 import '@emcasa/ui-dom/components/global-styles'
 import {Component} from 'react'
 import {Query} from 'react-apollo'
-import View from '@emcasa/ui-dom/components/View'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
@@ -406,24 +405,22 @@ class Listing extends Component {
                   </Title>
                   <Text color="grey">{`Que tal olhar outras opções ${endQuestion}? Separamos alguns imóveis para você! Fique a vontade para dar uma olhada nessa lista`}
                   </Text>
-                  <Row justifyContent="center">
-                    <Col width={[1,null,null,2/5]}>
-                      <View mt={2}>
-                        <Link
-                          passHref
-                          href={buttonHref}
-                        >
-                          <a>
-                            <Button
-                              active
-                              fluid
-                              height="tall"
-                            >
-                              {buttonLabel}
-                            </Button>
-                          </a>
-                        </Link>
-                      </View>
+                  <Row justifyContent="center" mt={2}>
+                    <Col width={[1,null,null,3/5]}>
+                      <Link
+                        passHref
+                        href={buttonHref}
+                      >
+                        <a>
+                          <Button
+                            active
+                            fluid
+                            height="tall"
+                          >
+                            {buttonLabel}
+                          </Button>
+                        </a>
+                      </Link>
                     </Col>
                   </Row>
                 </Row>
