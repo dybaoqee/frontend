@@ -73,7 +73,7 @@ export const Neighborhood = styled('a')`
     margin-bottom: ${theme.space[2]}px;
   }
 
-  p {
+  h4 {
     color: white;
     font-size: 20px;
   }
