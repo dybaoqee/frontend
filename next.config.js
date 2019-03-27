@@ -1,5 +1,6 @@
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer')
 const CompressionPlugin = require('compression-webpack-plugin')
+const withSourceMaps = require('@zeit/next-source-maps')
 const webpack = require('webpack')
 const isEmpty = require('lodash').isEmpty
 const {
@@ -10,7 +11,7 @@ const {ANALYZE, BUILD, AWS_DEFAULT_REGION, AWS_S3_BUCKET_NAME} = process.env
 const s3URL = `https://s3-${AWS_DEFAULT_REGION}.amazonaws.com/${AWS_S3_BUCKET_NAME}`
 const shouldUseAssetPrefix = !isEmpty(AWS_S3_BUCKET_NAME)
 
-module.exports = {
+module.exports = withSourceMaps({
   assetPrefix: shouldUseAssetPrefix ? s3URL : '',
   webpack: function(config, {isServer}) {
     config.node = {fs: 'empty'}
@@ -61,4 +62,4 @@ module.exports = {
 
     return config
   }
-}
+})
