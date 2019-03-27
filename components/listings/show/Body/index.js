@@ -46,7 +46,7 @@ class ListingMainContent extends Component {
   }
 
   render() {
-    const {listing, handleOpenPopup, user, favorite} = this.props
+    const {listing, openContactForm, user, favorite} = this.props
     const {street, neighborhood, streetNumber} = listing.address
     const paragraphs = getParagraphs(listing.description)
     const ownerOrAdmin = canEdit(user, listing)
@@ -124,7 +124,7 @@ class ListingMainContent extends Component {
         <CardWrapper>
           <ListingPanel
             listing={listing}
-            handleOpenPopup={handleOpenPopup}
+            openContactForm={openContactForm}
             user={user}
             favorite={favorite}
             flagrFlags={this.props.flagrFlags}
@@ -146,7 +146,7 @@ class ListingMainContent extends Component {
 
 ListingMainContent.propTypes = {
   listing: PropTypes.object.isRequired,
-  handleOpenPopup: PropTypes.func.isRequired,
+  openContactForm: PropTypes.func.isRequired,
   user: PropTypes.object,
   favorite: PropTypes.bool
 }

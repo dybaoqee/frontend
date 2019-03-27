@@ -144,7 +144,7 @@ class Listing extends Component {
     this.setState({is3DTourVisible: false})
   }
 
-  openPopup = async (e) => {
+  openContactForm = async (e) => {
     const { currentUser } = this.props
     if (currentUser && currentUser.authenticated) {
       const userInfo = await getUserInfo(currentUser.id)
@@ -296,7 +296,6 @@ class Listing extends Component {
                   <div>
                     <ListingHeader
                       listing={listing}
-                      handleOpenPopup={this.openPopup}
                       handleOpenImageGallery={this.showImageGallery}
                       handleOpen3DTour={this.show3DTour}
                       currentUser={currentUser}
@@ -320,7 +319,7 @@ class Listing extends Component {
                     <Breadcrumb paths={paths} />
                     <ListingMainContent
                       listing={listing}
-                      handleOpenPopup={this.openPopup}
+                      openContactForm={this.openContactForm}
                       user={currentUser}
                       favorite={favorite}
                       flagrFlags={this.props.flagrFlags}

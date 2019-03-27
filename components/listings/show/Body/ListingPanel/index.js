@@ -15,7 +15,7 @@ import {
 class ListingPanel extends React.Component {
   render() {
     const {
-      handleOpenPopup,
+      openContactForm,
       user,
       favorite
     } = this.props
@@ -95,7 +95,7 @@ class ListingPanel extends React.Component {
           }
         </PricesContainer>
         <View mt={4}>
-          <Button fluid height="tall" active onClick={handleOpenPopup}>Falar com especialista</Button>
+          <Button fluid height="tall" active onClick={openContactForm}>Falar com especialista</Button>
         </View>
       </Container>
     )
@@ -103,7 +103,10 @@ class ListingPanel extends React.Component {
 }
 
 ListingPanel.propTypes = {
-  listing: PropTypes.object
+  openContactForm: PropTypes.func.isRequired,
+  listing: PropTypes.object,
+  favorite: PropTypes.bool,
+  user: PropTypes.object
 }
 
 export default ListingPanel
