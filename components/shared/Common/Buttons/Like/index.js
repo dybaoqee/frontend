@@ -3,9 +3,6 @@ import faHeart from '@fortawesome/fontawesome-free-solid/faHeart'
 import {Mutation} from 'react-apollo'
 import {FAVORITE_LISTING, UNFAVORITE_LISTING} from 'graphql/listings/mutations'
 import {GET_USER_LISTINGS_ACTIONS} from 'graphql/user/queries'
-import Router from 'next/router'
-import {setCookie} from 'lib/session'
-import {buildSlug} from 'lib/listings'
 import { Button, Container } from './styles'
 import {
   log,
@@ -66,15 +63,9 @@ const LikeButton = (props) => (
               }
             })
           } else {
-            setCookie(
-              'redirectTo',
-              `/listings/show?id=${props.listing.id}&f#as#${buildSlug(
-                props.listing
-              )}&f`
-            )
-            Router.push({
-              pathname: '/auth/login'
-            })
+            if (this.props.openLoginForm) {
+              this.props.openLoginForm()
+            }
           }
         }}
       >

@@ -101,10 +101,6 @@ const startServer = () => {
         return app.render(req, res, '/auth/logout', req.query)
       })
 
-      server.get('/login', (req, res) => {
-        return app.render(req, res, '/auth/login', req.query)
-      })
-
       server.get('/lembrar_senha', (req, res) => {
         return app.render(req, res, '/auth/password_recovery', req.query)
       })

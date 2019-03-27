@@ -13,8 +13,7 @@ html {
 }
 
 html.wf-active {
-  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Helvetica, Arial, sans-serif;
+  font-family: sans-serif;
 }
 
 body {
