@@ -116,7 +116,7 @@ export default class Listings extends Component {
   loadListing = async (id) => {
     const {apolloClient} = this.props
     const footer = document.querySelector('.infinite-scroll-footer')
-    footer.scrollIntoView({block: 'end', behavior: 'smooth'})
+    footer && footer.scrollIntoView({block: 'end', behavior: 'smooth'})
 
     const loadedListings = apolloClient.readQuery({
       query: GET_LISTINGS
@@ -145,7 +145,7 @@ export default class Listings extends Component {
     const element = document.querySelector(
       `[aria-label=listing-${data.listing.id}]`
     )
-    element.scrollIntoView({block: 'end', behavior: 'smooth'})
+    element && element.scrollIntoView({block: 'end', behavior: 'smooth'})
   }
 
   onSelectListing = (id, position) => {
