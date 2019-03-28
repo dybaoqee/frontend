@@ -8,14 +8,11 @@ import {
 } from 'graphql/listings/queries'
 import differenceBy from 'lodash/differenceBy'
 import map from 'lodash/map'
-import isEmpty from 'lodash/isEmpty'
 import ListingInfiniteScroll from 'components/shared/ListingInfiniteScroll'
 import ListingCard from 'components/listings/shared/ListingCard'
 import Map from 'components/listings/shared/Map'
 import ListingsNotFound from 'components/listings/shared/NotFound'
 import Neighborhood from 'components/listings/shared/Neighborhood'
-import Text from '@emcasa/ui-dom/components/Text'
-import View from '@emcasa/ui-dom/components/View'
 import {
   getTitleTextByFilters,
   getTitleTextByParams
