@@ -7,6 +7,10 @@ import {breakpoint} from '@emcasa/ui/lib/styles'
 
 export const Container = styled(Col)`
   flex: 1 1 100%;
+
+  @media screen and ${breakpoint.up('desktop')} {
+    margin-right: ${theme.space[6]}px;
+  }
 `
 
 export const PriceItem = styled(Text)`

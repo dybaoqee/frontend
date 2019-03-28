@@ -86,8 +86,6 @@ class ListingPanel extends React.Component {
           area={area}
           floor={floor}
         />
-
-
         <Text style={{margin: `0 0 ${theme.space[2]}px 0`}} fontSize="xlarge" fontWeight="bold" color={theme.colors.pink}>
           {price && price > 0 ?
             <>

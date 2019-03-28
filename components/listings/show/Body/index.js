@@ -75,18 +75,18 @@ class ListingMainContent extends Component {
           />
           <ListingDescription expanded={this.state.expanded}>
             <ToggleButton expanded={this.state.expanded} onClick={this.toggleBody} />
-            <SubTitle color="grey" fontSize="small">O IMÓVEL</SubTitle>
-            {paragraphs && paragraphs.map((paragraph, i) => <Text fontFamily="FaktSoftPro-Blond" key={i}>{paragraph}</Text>)}
+            <SubTitle>O imóvel</SubTitle>
+            {paragraphs && paragraphs.map((paragraph, i) => <Text key={i}>{paragraph}</Text>)}
+            {user.admin &&
+              <View my={4} style={{textAlign: 'center'}}>
+                <a href={`${process.env.GARAGEM_URL}/imoveis/${listing.id}`} target="_blank">
+                  <Button link height="auto" p={0}>
+                    Ver no garagem
+                  </Button>
+                </a>
+              </View>
+            }
           </ListingDescription>
-          {user.admin &&
-            <View my={4} style={{textAlign: 'center'}}>
-              <a href={`${process.env.GARAGEM_URL}/imoveis/${listing.id}`} target="_blank">
-                <Button link height="auto" p={0}>
-                  Ver no garagem
-                </Button>
-              </a>
-            </View>
-          }
         </Container>
       </Row>
     )
