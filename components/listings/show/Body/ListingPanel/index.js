@@ -4,12 +4,14 @@ import theme from 'config/theme'
 import NumberFormat from 'react-number-format'
 import LikeButton from 'components/shared/Common/Buttons/Like'
 import Button from '@emcasa/ui-dom/components/Button'
-import Text from '@emcasa/ui-dom/components/Text'
 import View from '@emcasa/ui-dom/components/View'
+import Row from '@emcasa/ui-dom/components/Row'
+import Text from '@emcasa/ui-dom/components/Text'
 import {
   Container,
-  PricesContainer,
-  PriceItem
+  Title,
+  PriceItem,
+  PriceItemSpacer
  } from './styles'
 
 class ListingPanel extends React.Component {
@@ -17,7 +19,8 @@ class ListingPanel extends React.Component {
     const {
       handleOpenPopup,
       user,
-      favorite
+      favorite,
+      title
     } = this.props
     const {
       price,
@@ -29,13 +32,48 @@ class ListingPanel extends React.Component {
 
     return (
       <Container>
-        <LikeButton
-          top={-25}
-          favorite={favorite}
-          listing={this.props.listing}
-          user={user}
-          secondary
-        />
+        <Title fontWeight="bold">{title}</Title>
+        <Row flexDirection="column">
+          {(maintenanceFee && maintenanceFee > 0) &&
+            <PriceItem mb={2}>
+              <Text inline>Condomínio</Text>
+              <PriceItemSpacer />
+              <NumberFormat
+                value={maintenanceFee || 0}
+                displayType={'text'}
+                thousandSeparator={'.'}
+                prefix={'R$'}
+                decimalSeparator={','}
+              />
+            </PriceItem>
+          }
+          {(propertyTax && propertyTax > 0) &&
+            <PriceItem mb={2}>
+              <Text inline>IPTU/ano</Text>
+              <PriceItemSpacer />
+              <NumberFormat
+                value={propertyTax || 0}
+                displayType={'text'}
+                thousandSeparator={'.'}
+                prefix={'R$'}
+                decimalSeparator={','}
+              />
+            </PriceItem>
+          }
+          {(price && price > 0) &&
+            <PriceItem>
+              <Text inline>Preço/m²</Text>
+              <PriceItemSpacer />
+              <NumberFormat
+                value={price_per_square_meter || 0}
+                displayType={'text'}
+                thousandSeparator={'.'}
+                prefix={'R$'}
+                decimalSeparator={','}
+              />
+            </PriceItem>
+          }
+        </Row>
         <Text style={{margin: `0 0 ${theme.space[2]}px 0`}} fontSize="xlarge" fontWeight="bold" color={theme.colors.pink}>
           {price && price > 0 ?
             <>
@@ -50,53 +88,16 @@ class ListingPanel extends React.Component {
             </>
           : 'Preço a definir'}
         </Text>
-        <PricesContainer>
-          {(maintenanceFee && maintenanceFee > 0) &&
-            <PriceItem mb={2}>
-              <Text inline>Condomínio</Text>
-              <Text inline>
-                <NumberFormat
-                  value={maintenanceFee || 0}
-                  displayType={'text'}
-                  thousandSeparator={'.'}
-                  prefix={'R$'}
-                  decimalSeparator={','}
-                />
-              </Text>
-            </PriceItem>
-          }
-          {(propertyTax && propertyTax > 0) &&
-            <PriceItem mb={2}>
-              <Text inline>IPTU/ano</Text>
-              <Text inline>
-                <NumberFormat
-                  value={propertyTax || 0}
-                  displayType={'text'}
-                  thousandSeparator={'.'}
-                  prefix={'R$'}
-                  decimalSeparator={','}
-                />
-              </Text>
-            </PriceItem>
-          }
-          {(price && price > 0) &&
-            <PriceItem>
-              <Text inline>Preço/m²</Text>
-              <Text inline>
-                <NumberFormat
-                  value={price_per_square_meter || 0}
-                  displayType={'text'}
-                  thousandSeparator={'.'}
-                  prefix={'R$'}
-                  decimalSeparator={','}
-                />
-              </Text>
-            </PriceItem>
-          }
-        </PricesContainer>
         <View mt={4}>
           <Button fluid height="tall" active onClick={handleOpenPopup}>Falar com especialista</Button>
         </View>
+        <LikeButton
+          top={-25}
+          favorite={favorite}
+          listing={this.props.listing}
+          user={user}
+          secondary
+        />
       </Container>
     )
   }

@@ -17,9 +17,9 @@ import {
   LISTING_DETAIL_EXPAND_DESCRIPTION
 } from 'lib/logging'
 import ListingPanel from './ListingPanel'
-import Container, {
+import {
+  Container,
   CardWrapper,
-  Title,
   SubTitle,
   ListingDescription,
   MobileInfo
@@ -64,40 +64,39 @@ class ListingMainContent extends Component {
       const pricePerSquareMeter = Math.floor(price / area)
 
     return (
-      <Container>
-        <ListingDescription expanded={this.state.expanded}>
-          <ToggleButton expanded={this.state.expanded} onClick={this.toggleBody} />
-          <Title fontSize="large" fontWeight="normal">
-            {listing.type} na {listingInfo}, {neighborhood},{' '}
-            {listing.address.city}
-          </Title>
-          <ListingData
-            bedrooms={listing.rooms}
-            bathrooms={listing.bathrooms}
-            garageSpots={listing.garageSpots}
-            area={listing.area}
-            floor={listing.floor}
+      <Row justifyContent="center" width="100%">
+        <Container>
+          <ListingPanel
+            listing={listing}
+            handleOpenPopup={handleOpenPopup}
+            user={user}
+            favorite={favorite}
+            flagrFlags={this.props.flagrFlags}
+            title={`${listing.type} na ${listingInfo}, ${neighborhood}, ${listing.address.city}`}
           />
-          <SubTitle color="grey" fontSize="small">O IMÓVEL</SubTitle>
-          {paragraphs && paragraphs.map((paragraph, i) => <Text fontFamily="FaktSoftPro-Blond" key={i}>{paragraph}</Text>)}
-        </ListingDescription>
-        <ListingPanel
-          listing={listing}
-          handleOpenPopup={handleOpenPopup}
-          user={user}
-          favorite={favorite}
-          flagrFlags={this.props.flagrFlags}
-        />
-        {user.admin &&
-          <View my={4} style={{textAlign: 'center'}}>
-            <a href={`${process.env.GARAGEM_URL}/imoveis/${listing.id}`} target="_blank">
-              <Button link height="auto" p={0}>
-                Ver no garagem
-              </Button>
-            </a>
-          </View>
-        }
-      </Container>
+          <ListingDescription expanded={this.state.expanded}>
+            <ToggleButton expanded={this.state.expanded} onClick={this.toggleBody} />
+            <ListingData
+              bedrooms={listing.rooms}
+              bathrooms={listing.bathrooms}
+              garageSpots={listing.garageSpots}
+              area={listing.area}
+              floor={listing.floor}
+            />
+            <SubTitle color="grey" fontSize="small">O IMÓVEL</SubTitle>
+            {paragraphs && paragraphs.map((paragraph, i) => <Text fontFamily="FaktSoftPro-Blond" key={i}>{paragraph}</Text>)}
+          </ListingDescription>
+          {user.admin &&
+            <View my={4} style={{textAlign: 'center'}}>
+              <a href={`${process.env.GARAGEM_URL}/imoveis/${listing.id}`} target="_blank">
+                <Button link height="auto" p={0}>
+                  Ver no garagem
+                </Button>
+              </a>
+            </View>
+          }
+        </Container>
+      </Row>
     )
   }
 }

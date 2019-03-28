@@ -2,43 +2,38 @@ import styled from 'styled-components'
 import theme from 'config/theme'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
+import Text from '@emcasa/ui-dom/components/Text'
 import {breakpoint} from '@emcasa/ui/lib/styles'
 
-export const Container = styled.div`
-  position: relative;
-  border: 1px solid ${theme.colors.lightGrey};
-  border-radius: 4px;
-  box-shadow: 0 6px 16px 0 rgba(38, 38, 38, 0.15);
-  float: right;
-  padding: ${theme.space[4]}px;
-  width: 260px;
-  background: white;
+export const Container = styled(Col)`
+  flex: 1 1 100%;
 
-  @media screen and ${breakpoint.down('tablet')} {
-    position: fixed;
-    border: none;
-    border-top: 1px solid ${theme.colors.lightGrey};
-    left: 0;
-    bottom: 0;
-    width: calc(100% - ${theme.space[4] * 2}px);
-    height: 130px;
-    margin: 0;
-    float: unset;
-    border-radius: 0;
-    z-index: 3;
-  }
+  position: relative; // should be delete
 `
 
-export const PricesContainer = styled(Row)`
-  flex-direction: column;
-  padding: ${theme.space[1]}px 0;
-
-  @media screen and ${breakpoint.down('tablet')} {
-    display: none;
-  }
-`
-
-export const PriceItem = styled(Col)`
+export const PriceItem = styled(Text)`
   display: flex;
   justify-content: space-between;
+  margin: 0;
+`
+
+export const PriceItemSpacer = styled('span')`
+  flex: 1 1 100%;
+  flex-direction: column;
+  justify-content: flex-end;
+  display: flex;
+  padding: 0 ${theme.space[4]}px ${theme.space[2]}px;
+
+  &::before {
+    content: '';
+    width: 100%;
+    height: 1px;
+    background-color: ${theme.colors.grey};
+  }
+`
+
+export const TextTitle = Text.withComponent('h2')
+
+export const Title = styled(TextTitle)`
+  margin: 0 0 ${theme.space[5]}px;
 `
