@@ -121,13 +121,13 @@ const Footer = () => (
                   Facebook
                 </TextLink>
               </a>
-              <a href="https://www.instagram.com/emcasaimoveis/" target="_blank">
+              <a href="https://www.instagram.com/emcasa" target="_blank">
                 <TextLink>
                   <FontAwesomeIcon icon={faInstagram} />
                   Instagram
                 </TextLink>
               </a>
-              <a href="https://www.linkedin.com/company/emcasa/" target="_blank">
+              <a href="https://www.linkedin.com/company/emcasa" target="_blank">
                 <TextLink>
                   <FontAwesomeIcon icon={faLinkedin} />
                   LinkedIn

@@ -1,5 +1,10 @@
 # Real Estate Web Client
 
+## Pre-requisites
+
+ - Node (10.9.x)
+ - Yarn
+
 ## Install
 
 `yarn install`
@@ -9,6 +14,7 @@
 1. Make sure you have our [backend][0] up and running.
 1. Then, go to your AccountKit settings and get both your App Id and App Secret.
 1. Run `FACEBOOK_APP_ID=yourAppId ACCOUNT_KIT_APP_SECRET=yourAppSecret yarn start`
+1. Check `http://localhost:3000/`
 
 ### With docker
 
