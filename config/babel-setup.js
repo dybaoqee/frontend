@@ -22,7 +22,8 @@ const plugins = [
   [
     'babel-plugin-styled-components',
     {
-      ssr: true
+      ssr: true,
+      pure: true
     }
   ]
 ]
