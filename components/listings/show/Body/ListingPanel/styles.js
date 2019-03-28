@@ -7,8 +7,6 @@ import {breakpoint} from '@emcasa/ui/lib/styles'
 
 export const Container = styled(Col)`
   flex: 1 1 100%;
-
-  position: relative; // should be delete
 `
 
 export const PriceItem = styled(Text)`

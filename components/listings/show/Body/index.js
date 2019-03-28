@@ -5,7 +5,6 @@ import {getParagraphs} from 'utils/text-utils'
 import {canEdit} from 'permissions/listings-permissions'
 import Text from '@emcasa/ui-dom/components/Text'
 import ToggleButton from './ToggleButton'
-import ListingData from './ListingData'
 import Button from '@emcasa/ui-dom/components/Button'
 import View from '@emcasa/ui-dom/components/View'
 import Row from '@emcasa/ui-dom/components/Row'
@@ -61,7 +60,7 @@ class ListingMainContent extends Component {
         propertyTax,
         maintenanceFee
       } = this.props.listing
-      const pricePerSquareMeter = Math.floor(price / area)
+    const pricePerSquareMeter = Math.floor(price / area)
 
     return (
       <Row justifyContent="center" width="100%">
@@ -76,13 +75,6 @@ class ListingMainContent extends Component {
           />
           <ListingDescription expanded={this.state.expanded}>
             <ToggleButton expanded={this.state.expanded} onClick={this.toggleBody} />
-            <ListingData
-              bedrooms={listing.rooms}
-              bathrooms={listing.bathrooms}
-              garageSpots={listing.garageSpots}
-              area={listing.area}
-              floor={listing.floor}
-            />
             <SubTitle color="grey" fontSize="small">O IMÓVEL</SubTitle>
             {paragraphs && paragraphs.map((paragraph, i) => <Text fontFamily="FaktSoftPro-Blond" key={i}>{paragraph}</Text>)}
           </ListingDescription>

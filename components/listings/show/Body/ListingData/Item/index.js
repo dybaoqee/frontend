@@ -6,9 +6,9 @@ import { Container } from './styles'
 class Item extends PureComponent {
   render() {
     return (
-      <Container>
-        <Text inline color="grey">{this.props.title}</Text><br/>
-        <Text inline>{this.props.value}</Text>
+      <Container flexDirection="column">
+        <Text>{this.props.value}</Text>
+        <Text fontSize="small">{this.props.title}</Text>
       </Container>
     )
   }

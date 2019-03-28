@@ -7,6 +7,7 @@ import Button from '@emcasa/ui-dom/components/Button'
 import View from '@emcasa/ui-dom/components/View'
 import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
+import ListingData from '../ListingData'
 import {
   Container,
   Title,
@@ -24,7 +25,11 @@ class ListingPanel extends React.Component {
     } = this.props
     const {
       price,
+      rooms,
+      bathrooms,
+      garageSpots,
       area,
+      floor,
       propertyTax,
       maintenanceFee
     } = this.props.listing
@@ -33,7 +38,7 @@ class ListingPanel extends React.Component {
     return (
       <Container>
         <Title fontWeight="bold">{title}</Title>
-        <Row flexDirection="column">
+        <Row flexDirection="column" mb={5}>
           {(maintenanceFee && maintenanceFee > 0) &&
             <PriceItem mb={2}>
               <Text inline>Condomínio</Text>
@@ -74,6 +79,15 @@ class ListingPanel extends React.Component {
             </PriceItem>
           }
         </Row>
+        <ListingData
+          bedrooms={rooms}
+          bathrooms={bathrooms}
+          garageSpots={garageSpots}
+          area={area}
+          floor={floor}
+        />
+
+
         <Text style={{margin: `0 0 ${theme.space[2]}px 0`}} fontSize="xlarge" fontWeight="bold" color={theme.colors.pink}>
           {price && price > 0 ?
             <>

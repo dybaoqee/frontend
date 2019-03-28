@@ -2,8 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import Item from './Item'
 import {
-  Container,
-  Separator
+  Container
 } from './styles'
 
 class ListingData extends PureComponent {
@@ -19,14 +18,13 @@ class ListingData extends PureComponent {
     return (
       <>
         <Container>
-          {bedrooms && <Item title="QUARTOS" value={bedrooms} />}
-          {suites && <Item title="SUÍTES" value={suites} />}
-          {bathrooms && <Item title="BANHEIROS" value={bathrooms} />}
-          {garageSpots && <Item title="VAGAS" value={garageSpots} />}
-          {area && <Item title="ÁREA" value={`${area}m²`} />}
-          {floor && <Item title="ANDAR" value={`${floor}º`} />}
+          {bedrooms && <Item title="Quartos" value={bedrooms} />}
+          {suites && <Item title="Suítes" value={suites} />}
+          {bathrooms && <Item title="Banheiros" value={bathrooms} />}
+          {garageSpots && <Item title="Vagas" value={garageSpots} />}
+          {area && <Item title="Área" value={`${area}m²`} />}
+          {floor && <Item title="Andar" value={`${floor}º`} />}
         </Container>
-        <Separator />
       </>
     )
   }
