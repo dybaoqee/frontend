@@ -183,7 +183,7 @@ class ListingList extends Component {
   loadListing = async (id) => {
     const {apolloClient, filters} = this.props
     const footer = document.querySelector('.infinite-scroll-footer')
-    footer.scrollIntoView({block: 'end', behavior: 'smooth'})
+    footer && footer.scrollIntoView({block: 'end', behavior: 'smooth'})
 
     log(LISTING_SEARCH_MAP_PIN, {listingId: id, filters: filters})
 
@@ -216,7 +216,7 @@ class ListingList extends Component {
     const element = document.querySelector(
       `[aria-label=listing-${data.listing.id}]`
     )
-    element.scrollIntoView({block: 'end', behavior: 'smooth'})
+    element && element.scrollIntoView({block: 'end', behavior: 'smooth'})
   }
 
   onSelectListing = (id, position) => {
@@ -353,7 +353,7 @@ class ListingList extends Component {
           const hasListings = listings && listings.listings && listings.listings.length > 0
           return (
             <Container>
-              {this.getItemList(listings.listings)}
+              {hasListings && this.getItemList(listings.listings)}
               <div>
                 <Title fontWeight="normal">{h1Content}</Title>
                 {this.getListings(listings, fetchMore)}
