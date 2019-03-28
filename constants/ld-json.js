@@ -38,9 +38,9 @@ const address = {
 
 const sameAs = [
   "https://www.facebook.com/EmCasa",
-  "https://www.instagram.com/emcasaimoveis/",
+  "https://www.instagram.com/emcasa",
   "https://twitter.com/EmCasaTech",
-  "https://www.linkedin.com/company/emcasa/"
+  "https://www.linkedin.com/company/emcasa"
 ]
 
 const photo = [

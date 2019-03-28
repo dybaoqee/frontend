@@ -30,5 +30,6 @@ module.exports = {
   'process.env.FACEBOOK_APP_ID': process.env.FACEBOOK_APP_ID || null,
   'process.env.FACEBOOK_PAGES': process.env.FACEBOOK_PAGES || '',
   'process.env.ACCOUNT_KIT_APP_SECRET': process.env.ACCOUNT_KIT_APP_SECRET || null,
-  'process.env.FLAGR_URL': process.env.FLAGR_URL || null
+  'process.env.FLAGR_URL': process.env.FLAGR_URL || null,
+  'process.env.SENTRY_RELEASE': process.env.SOURCE_VERSION || process.env.HEROKU_SLUG_COMMIT
 }

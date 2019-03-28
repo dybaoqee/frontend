@@ -364,7 +364,7 @@ class Listing extends Component {
         <Query query={GET_DISTRICTS}>
           {({loading, error, data}) => {
             if (loading) return (<div/>)
-            if (error) return `Error! ${error.message}`
+            if (error || !data || !data.districts) return `Error! ${error.message}`
 
             const districts = data.districts
             const findState = districts.find(a => a.stateSlug === state)
