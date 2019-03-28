@@ -4,54 +4,12 @@ import Text from '@emcasa/ui-dom/components/Text'
 import View from '@emcasa/ui-dom/components/View'
 import {breakpoint} from '@emcasa/ui/lib/styles'
 
+export const LISTING_DETAILS_MAX_WIDTH = 1004
+
 export default styled.div`
-  box-sizing: border-box;
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin: 30px auto 40px;
-  width: 960px;
-  max-width: calc(100vw - ${theme.space[4] * 2}px);
-
-  div.description {
-    box-sizing: border-box;
-    width: calc(100% - 420px);
-    margin: 0 20px 40px;
-    max-width: 100%;
-  }
-
-  @media ${breakpoint.down('tablet')} {
-    flex-direction: column;
-    width: 100vw;
-    max-width: unset;
-    padding: 0 ${theme.space[4]}px 0 ${theme.space[4]}px;
-
-    div.description {
-      width: calc(100vw - 40px);
-    }
-  }
-`
-
-export const CardWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  @media ${breakpoint.down('tablet')} {
-    margin: 0;
-  }
-`
-
-export const MobileInfo = styled(View)`
-  display: none;
-  padding: ${theme.space[4]}px 0 ${theme.space[4]}px 0;
   width: 100%;
-  border: 1px solid ${theme.colors.lightGrey};
-  border-radius: 4px;
-  box-shadow: 0 6px 16px 0 rgba(38, 38, 38, 0.15);
-
-  @media ${breakpoint.down('tablet')} {
-    display: block;
-  }
+  max-width: ${LISTING_DETAILS_MAX_WIDTH}px;
 `
 
 export const Title = Text.withComponent('h2')
