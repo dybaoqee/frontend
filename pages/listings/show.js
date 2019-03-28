@@ -290,7 +290,10 @@ class Listing extends Component {
                     listing={listing}
                     routerAsPath={router.asPath}
                   />
-                  <div>
+                  <Row
+                    flexDirection="column"
+                    alignItems="center"
+                  >
                     <ListingHeader
                       listing={listing}
                       handleOpenPopup={this.openPopup}
@@ -340,7 +343,7 @@ class Listing extends Component {
                         handleClose={this.closeSuccessPostPopup}
                       />
                     )}
-                  </div>
+                  </Row>
                 </>
               )
             }}
