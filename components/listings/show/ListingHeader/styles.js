@@ -198,8 +198,8 @@ export const NavigationButton = styled.div`
 
 export default styled.div`
   position: relative;
-  width: 100vw;
-  max-width: 100vw;
+  width: 100%;
+  max-width: 100%;
   background-color: ${({isFullScreen}) =>
     isFullScreen ? 'rgba(0, 0, 0, 0.9)' : 'white'};
 
