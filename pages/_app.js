@@ -55,7 +55,10 @@ class MyApp extends App {
   }
 
   componentDidMount() {
-    Sentry.init({dsn: this.props.SENTRY_DSN})
+    Sentry.init({
+      release: process.env.SENTRY_RELEASE,
+      dsn: this.props.SENTRY_DSN
+    })
     if (getCookie('resetAuth')) {
       removeCookie('jwt')
       removeCookie('currentUserId')
