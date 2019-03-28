@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import NumberFormat from 'react-number-format'
 import {getParagraphs} from 'utils/text-utils'
@@ -81,64 +81,22 @@ class ListingMainContent extends Component {
           <SubTitle color="grey" fontSize="small">O IMÓVEL</SubTitle>
           {paragraphs && paragraphs.map((paragraph, i) => <Text fontFamily="FaktSoftPro-Blond" key={i}>{paragraph}</Text>)}
         </ListingDescription>
-        <MobileInfo>
-            <Row px={4} flexDirection="column">
-              {maintenanceFee && <Row justifyContent="space-between" mb={2}>
-                <Col>Condomínio</Col>
-                <Col>
-                  <NumberFormat
-                    value={maintenanceFee || 0}
-                    displayType="text"
-                    thousandSeparator="."
-                    prefix="R$"
-                    decimalSeparator=","
-                  />
-                </Col>
-              </Row>}
-              {propertyTax && <Row justifyContent="space-between" mb={2}>
-                <Col>IPTU/ano</Col>
-                <Col>
-                  <NumberFormat
-                    value={propertyTax || 0}
-                    displayType="text"
-                    thousandSeparator="."
-                    prefix="R$"
-                    decimalSeparator=","
-                  />
-                </Col>
-              </Row>}
-              {pricePerSquareMeter && <Row justifyContent="space-between">
-                <Col>Preço/m²</Col>
-                <Col>
-                  <NumberFormat
-                    value={pricePerSquareMeter || 0}
-                    displayType="text"
-                    thousandSeparator="."
-                    prefix="R$"
-                    decimalSeparator=","
-                  />
-                </Col>
-              </Row>}
-            </Row>
-          </MobileInfo>
-        <CardWrapper>
-          <ListingPanel
-            listing={listing}
-            handleOpenPopup={handleOpenPopup}
-            user={user}
-            favorite={favorite}
-            flagrFlags={this.props.flagrFlags}
-          />
-          {user.admin &&
-            <View my={4} style={{textAlign: 'center'}}>
-              <a href={`${process.env.GARAGEM_URL}/imoveis/${listing.id}`} target="_blank">
-                <Button link height="auto" p={0}>
-                  Ver no garagem
-                </Button>
-              </a>
-            </View>
-          }
-        </CardWrapper>
+        <ListingPanel
+          listing={listing}
+          handleOpenPopup={handleOpenPopup}
+          user={user}
+          favorite={favorite}
+          flagrFlags={this.props.flagrFlags}
+        />
+        {user.admin &&
+          <View my={4} style={{textAlign: 'center'}}>
+            <a href={`${process.env.GARAGEM_URL}/imoveis/${listing.id}`} target="_blank">
+              <Button link height="auto" p={0}>
+                Ver no garagem
+              </Button>
+            </a>
+          </View>
+        }
       </Container>
     )
   }
