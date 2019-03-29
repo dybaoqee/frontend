@@ -1,4 +1,5 @@
 import {Component} from 'react'
+import PropTypes from 'prop-types'
 import Container from './styles'
 
 export default class MapMarker extends Component {
@@ -19,4 +20,13 @@ export default class MapMarker extends Component {
       </Container>
     )
   }
+}
+
+MapMarker.propTypes = {
+  id: PropTypes.number,
+  lat: PropTypes.string,
+  lng: PropTypes.string,
+  text: PropTypes.string,
+  onSelect: PropTypes.func,
+  highlight: PropTypes.bool
 }
