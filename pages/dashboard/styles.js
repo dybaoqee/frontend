@@ -4,7 +4,7 @@ export default styled.div``
 
 export const TabContainer = styled.div`
   span.highlight {
-    font-weight: 700;
+    font-weight: 500;
     font-size: 22px;
   }
 `

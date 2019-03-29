@@ -51,6 +51,7 @@ export const LinksContainer = styled('div')`
 `
 
 export const TitleLinks = styled(Text)`
+  font-weight: 500;
   white-space: nowrap;
 `
 
