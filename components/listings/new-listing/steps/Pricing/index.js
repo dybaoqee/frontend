@@ -263,7 +263,7 @@ class Pricing extends Component {
                   {this.state.showPrice && <Steps currentStep="value" />}
                   <Text
                     fontSize="large"
-                    fontWeight="500"
+                    fontWeight="bold"
                     textAlign="center">
                     Valor do seu imóvel
                   </Text>
@@ -274,7 +274,7 @@ class Pricing extends Component {
                             hideSeparator={!suggestedPrice}
                             topRender={() =>
                               <Row px={4} pt={4} pb={suggestedPrice ? 4 : 0} flexDirection="column">
-                                <Text inline fontSize="small" fontWeight="500">{location.address}</Text>
+                                <Text inline fontSize="small" fontWeight="bold">{location.address}</Text>
                                 {suggestedPrice ? <Row mt={2}><Text inline fontSize="xsmall" color="grey">{this.getListingSummary()}</Text></Row> : null}
                               </Row>
                             }
@@ -290,7 +290,7 @@ class Pricing extends Component {
                                         </>
                                       :
                                         <>
-                                          <Text inline fontSize="large" fontWeight="500">{this.state.userPrice ? intToCurrency(this.state.userPrice) : intToCurrency(roundUpPrice(suggestedPrice))}</Text>
+                                          <Text inline fontSize="large" fontWeight="bold">{this.state.userPrice ? intToCurrency(this.state.userPrice) : intToCurrency(roundUpPrice(suggestedPrice))}</Text>
                                           <Col onClick={() => {
                                             if (!this.state.editingPrice) {
                                               log(`${getSellerEventPrefix(this.props.evaluation)}${SELLER_ONBOARDING_EDIT_PRICE}`)

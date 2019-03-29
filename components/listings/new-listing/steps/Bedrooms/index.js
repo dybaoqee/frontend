@@ -305,7 +305,7 @@ class Bedrooms extends Component {
                   <Steps currentStep="info" />
                   <Text
                     fontSize="large"
-                    fontWeight="500"
+                    fontWeight="bold"
                     textAlign="center">
                     Por favor, informe mais detalhes do seu imóvel
                   </Text>

@@ -53,7 +53,7 @@ export default class Benefits extends Component {
         <Content>
           <Row justifyContent="center">
             <Col>
-              <Title fontSize="large" color="dark" fontWeight="500" textAlign="center">
+              <Title fontSize="large" color="dark" fontWeight="bold" textAlign="center">
                 {sectionTitle}
               </Title>
             </Col>

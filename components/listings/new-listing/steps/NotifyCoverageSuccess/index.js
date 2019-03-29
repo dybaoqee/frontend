@@ -34,7 +34,7 @@ class NotifyCoverageSuccess extends PureComponent {
           <Col width={[1,null,null,1/2]}>
             <Text
               fontSize="large"
-              fontWeight="500"
+              fontWeight="bold"
               textAlign="center">
               Seu e-mail foi salvo com sucesso!
             </Text>

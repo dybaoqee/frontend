@@ -125,7 +125,7 @@ class BuyListing extends Component {
               <Text
                 fontSize="xlarge"
                 color="dark"
-                fontWeight="500"
+                fontWeight="bold"
                 textAlign="center"
                 style={{marginBottom: 0, marginTop: 0}}>
                 {this.props.title}

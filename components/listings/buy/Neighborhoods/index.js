@@ -93,7 +93,7 @@ export default class Neighborhoods extends Component {
     return (
       <Container>
         <Header>
-          <Title fontSize="xlarge" fontWeight="500" textAlign="center">
+          <Title fontSize="xlarge" fontWeight="bold" textAlign="center">
             Imóveis à venda no Rio de Janeiro e São Paulo
           </Title>
           <Text color="grey" textAlign="center">
@@ -104,7 +104,7 @@ export default class Neighborhoods extends Component {
           {CITIES.map(({title, slug: citySlug, stateSlug}, index) => {
             return (
               <City key={index}>
-                <SubTitle fontWeight="500">
+                <SubTitle fontWeight="bold">
                   {title}
                 </SubTitle>
                 <NeighborhoodsHighlights>
