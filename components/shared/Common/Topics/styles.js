@@ -35,7 +35,6 @@ export const TopicsContainer = styled.div`
     box-sizing: border-box;
     font-weight: normal;
     width: 100%;
-    font-family: 'Open Sans';
     font-size: 16px;
     line-height: 28px;
     text-align: center;
@@ -82,7 +81,6 @@ export const TopicsContainer = styled.div`
           `> :nth-child(${index + 1}):before{
       content: "${number + 1}";
       font-size: 30px;
-      font-family: "Open Sans";
       font-weight: 500;
       background: ${colors.blue.medium};
       color: white;

@@ -17,7 +17,7 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   padding: 0px 10px 0px 10px;
   height: 60px;
   color: #3c4858;
-  font-family: FaktSoftPro-Normal;
+  font-family: Rubik;
   font-size: 18px;
   -webkit-letter-spacing: 0px;
   -moz-letter-spacing: 0px;

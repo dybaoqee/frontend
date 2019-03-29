@@ -18,7 +18,6 @@ import {
 import ListingPanel from './ListingPanel'
 import {
   Container,
-  CardWrapper,
   SubTitle,
   ListingDescription,
   MobileInfo
