@@ -78,7 +78,7 @@ exports[`<ListingCard/> should render component 1`] = `
 .c4 {
   -webkit-font-smoothing: antialiased;
   font-family: Rubik;
-  color: #979797;
+  color: #1D1919;
   font-size: 14px;
 }
 
@@ -87,7 +87,7 @@ exports[`<ListingCard/> should render component 1`] = `
   font-family: Rubik;
   color: #3c4858;
   font-size: 24px;
-  font-weight: bold;
+  font-weight: 500;
 }
 
 .c0 {
