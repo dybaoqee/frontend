@@ -399,7 +399,7 @@ class UserProfile extends Component {
                 <Text
                   textAlign="center"
                   fontSize="large"
-                  fontWeight="bold"
+                  fontWeight="500"
                 >Você não tem nenhum imóvel anunciado</Text>
                 <Row
                   justifyContent="center"
@@ -465,7 +465,7 @@ class UserProfile extends Component {
                   <Text
                     textAlign="center"
                     fontSize="large"
-                    fontWeight="bold"
+                    fontWeight="500"
                   >Você não cadastrou nenhum imóvel</Text>
                   <Row
                     justifyContent="center"

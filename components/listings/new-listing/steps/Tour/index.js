@@ -294,7 +294,7 @@ class Tour extends Component {
                 <>
                   <Text
                     fontSize="large"
-                    fontWeight="bold"
+                    fontWeight="500"
                     textAlign="center">
                     Escolha a melhor data
                   </Text>

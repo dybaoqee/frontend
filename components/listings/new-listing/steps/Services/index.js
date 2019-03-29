@@ -198,7 +198,7 @@ class Services extends Component {
                 <>
                   <Text
                     fontSize="large"
-                    fontWeight="bold"
+                    fontWeight="500"
                     textAlign="center">
                     Gostaria de produzir um Tour Virtual 3D do seu imóvel?
                   </Text>

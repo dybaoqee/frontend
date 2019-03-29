@@ -15,7 +15,7 @@ class NotFound extends PureComponent {
   render() {
     return (
       <Col px={4}>
-        <Text fontWeight="bold">Nenhum imóvel encontrado</Text>
+        <Text fontWeight="500">Nenhum imóvel encontrado</Text>
         <Text color="grey" my={0}>Tente alterar os critérios selecionados para encontrar outros imóveis.</Text>
       </Col>
     )

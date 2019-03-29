@@ -36,7 +36,7 @@ class ListingPanel extends React.Component {
           user={user}
           secondary
         />
-        <Text style={{margin: `0 0 ${theme.space[2]}px 0`}} fontSize="xlarge" fontWeight="bold" color={theme.colors.pink}>
+        <Text style={{margin: `0 0 ${theme.space[2]}px 0`}} fontSize="xlarge" fontWeight="500" color={theme.colors.pink}>
           {price && price > 0 ?
             <>
               <NumberFormat

@@ -57,7 +57,7 @@ class Success extends PureComponent {
           <Col width={[1,null,null,1/2]}>
             <Text
               fontSize="large"
-              fontWeight="bold"
+              fontWeight="500"
               textAlign="center"
               color="green">
               Parabéns, sua solicitação foi recebida com sucesso.
@@ -71,7 +71,7 @@ class Success extends PureComponent {
                 </Row>
                 <Row mb={2}>
                   <Col>
-                    <Text inline fontSize="small" fontWeight="bold">{address}</Text>
+                    <Text inline fontSize="small" fontWeight="500">{address}</Text>
                   </Col>
                 </Row>
                 <Row>
@@ -84,10 +84,10 @@ class Success extends PureComponent {
                 </Row>
                 <Row>
                   <Col width={1/2}>
-                  {userPrice && <Text inline fontSize="small" fontWeight="bold">{intToCurrency(userPrice)}</Text>}
+                  {userPrice && <Text inline fontSize="small" fontWeight="500">{intToCurrency(userPrice)}</Text>}
                   </Col>
                   {day && <Col width={1/2}>
-                    <Text inline fontSize="small" fontWeight="bold">{getFullTourDateDisplay(tour)}</Text>
+                    <Text inline fontSize="small" fontWeight="500">{getFullTourDateDisplay(tour)}</Text>
                   </Col>}
                 </Row>
                 {day && <Row>

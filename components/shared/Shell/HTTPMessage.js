@@ -127,7 +127,7 @@ export default class HTTPMessage extends Component {
             <Col width={[1,null,null,HTTPMessageSvgWidth]}>
               <Text
                 fontSize={4}
-                fontWeight="bold"
+                fontWeight="500"
                 textAlign="center"
               >{this.title}</Text>
               <Text

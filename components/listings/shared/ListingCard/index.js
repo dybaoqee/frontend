@@ -64,7 +64,7 @@ class ListingCard extends Component {
               <Row><Text inline fontSize="small">{listing.address.neighborhood.toUpperCase()}</Text></Row>
               <Row><Text inline fontSize="small">{listing.address.street}</Text></Row>
               <Row><Text inline fontSize="small" color="grey">{listingSummary}</Text></Row>
-              <Row><Text inline fontSize="large" fontWeight="bold">{intToCurrency(listing.price)}</Text></Row>
+              <Row><Text inline fontSize="large" fontWeight="500">{intToCurrency(listing.price)}</Text></Row>
             </Row>
             <LikeButton
               top={Math.round(getCardWidth() * 0.5 - 25)}

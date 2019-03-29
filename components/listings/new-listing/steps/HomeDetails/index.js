@@ -104,7 +104,7 @@ class HomeDetails extends Component {
                   <Steps currentStep="info" />
                   <Text
                     fontSize="large"
-                    fontWeight="bold"
+                    fontWeight="500"
                     textAlign="center">
                     De qual tipo de imóvel estamos falando?
                   </Text>

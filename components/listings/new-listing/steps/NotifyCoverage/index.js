@@ -100,7 +100,7 @@ class NotifyCoverage extends Component {
                 <>
                   <Text
                     fontSize="large"
-                    fontWeight="bold"
+                    fontWeight="500"
                     textAlign="center">
                     Infelizmente ainda não atendemos essa região
                   </Text>

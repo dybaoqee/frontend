@@ -28,7 +28,7 @@ export default styled.div`
       color: ${theme.colors.dark};
       font-size: ${theme.fontSizes[1]}px;
       padding: ${theme.space[1]}px 0;
-      font-weight: 600;
+      font-weight: 500;
 
       &::before {
         content: '• '

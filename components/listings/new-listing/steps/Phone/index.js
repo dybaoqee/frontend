@@ -229,7 +229,7 @@ class Phone extends Component {
                   <Steps currentStep="contact" />
                   <Text
                     fontSize="large"
-                    fontWeight="bold"
+                    fontWeight="500"
                     textAlign="center">
                     Qual o número do seu celular?
                   </Text>

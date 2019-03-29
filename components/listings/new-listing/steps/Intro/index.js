@@ -31,7 +31,7 @@ class Intro extends PureComponent {
               <Space />
               <Title
                 fontSize="xlarge"
-                fontWeight="bold"
+                fontWeight="500"
                 textAlign="center"
               >
                 {this.props.evaluation ? "Descubra agora por quanto vender seu imóvel" : "Como vender seu imóvel na EmCasa?"}
