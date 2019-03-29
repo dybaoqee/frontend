@@ -3,7 +3,7 @@
 exports[`renders with an already selected home type 1`] = `
 .c7 {
   -webkit-font-smoothing: antialiased;
-  font-family: Rubik;
+  font-family: FaktSoftPro-Normal;
   color: #3c4858;
   font-size: 14px;
   text-align: center;
@@ -11,7 +11,7 @@ exports[`renders with an already selected home type 1`] = `
 
 .c9 {
   -webkit-font-smoothing: antialiased;
-  font-family: Rubik;
+  font-family: FaktSoftPro-Normal;
   color: #e0e6ed;
   font-size: 14px;
   text-align: center;
@@ -19,7 +19,7 @@ exports[`renders with an already selected home type 1`] = `
 
 .c10 {
   -webkit-font-smoothing: antialiased;
-  font-family: Rubik;
+  font-family: FaktSoftPro-Normal;
   color: #3c4858;
   font-size: 24px;
   font-weight: bold;
@@ -78,7 +78,7 @@ exports[`renders with an already selected home type 1`] = `
   color: #3c4858;
   font-size: 18px;
   height: 60px;
-  font-family: Rubik;
+  font-family: FaktSoftPro-Normal;
 }
 
 .c14 {
@@ -92,7 +92,7 @@ exports[`renders with an already selected home type 1`] = `
   width: auto;
   height: 60px;
   color: #3c4858;
-  font-family: Rubik;
+  font-family: FaktSoftPro-Normal;
   font-size: 18px;
   -webkit-font-smoothing: antialiased;
   border-style: solid;
@@ -113,7 +113,7 @@ exports[`renders with an already selected home type 1`] = `
   width: auto;
   height: 60px;
   color: #ffffff;
-  font-family: Rubik;
+  font-family: FaktSoftPro-Normal;
   font-size: 18px;
   -webkit-font-smoothing: antialiased;
   border-style: solid;

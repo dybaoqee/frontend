@@ -13,7 +13,7 @@ exports[`<MobileAddressButton/> should render component on desktop 1`] = `
   width: 100%;
   height: 40px;
   color: #3c4858;
-  font-family: Rubik;
+  font-family: FaktSoftPro-Normal;
   font-size: 18px;
   -webkit-font-smoothing: antialiased;
   border-style: solid;
@@ -25,7 +25,7 @@ exports[`<MobileAddressButton/> should render component on desktop 1`] = `
 
 .c4 {
   -webkit-font-smoothing: antialiased;
-  font-family: Rubik;
+  font-family: FaktSoftPro-Normal;
   color: #3c4858;
   font-size: 18px;
 }
