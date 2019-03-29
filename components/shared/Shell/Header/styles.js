@@ -142,7 +142,6 @@ export const MenuItem = styled.div`
   p {
     font-size: 16px;
     color: ${theme.colors.dark};
-    font-weight: 'Blond';
     line-height: 24px;
     text-align: center;
   }
