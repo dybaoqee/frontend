@@ -143,7 +143,6 @@ export const MenuItem = styled.div`
     font-size: 16px;
     color: ${theme.colors.dark};
     font-weight: 'Blond';
-    font-family: 'FaktSoftPro-Blond';
     line-height: 24px;
     text-align: center;
   }
@@ -163,7 +162,6 @@ export const MenuItem = styled.div`
 
     p {
       text-align: left;
-      font-family: 'FaktSoftPro-Normal';
       font-weight: 500;
       color: ${theme.colors.dark};
     }
