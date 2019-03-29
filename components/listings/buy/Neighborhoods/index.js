@@ -52,11 +52,13 @@ const NEIGHBORHOODS_BY_CITIES = NEIGHBORHOODS.reduce((cities, neighborhood) => {
 const getCityNeighborhoodLinks = (citySlug) => (
   <NeighborhoodsLinks>
     <Query query={GET_DISTRICTS}>
-      {({data: {districts}, loading}) =>
-        loading ? (
-          <div />
-        ) : (
-          districts.filter(d => d.citySlug === citySlug && !NEIGHBORHOODS.find(n => d.name === n.name)).map((district) => {
+      {({data, loading}) => {
+        if (loading) {
+          return <div />
+        }
+
+        if (data && data.districts) {
+          data.districts.filter(d => d.citySlug === citySlug && !NEIGHBORHOODS.find(n => d.name === n.name)).map((district) => {
             const url = `/imoveis/${district.stateSlug}/${district.citySlug}/${slug(
               district.nameSlug.toLowerCase()
             )}`
@@ -79,8 +81,9 @@ const getCityNeighborhoodLinks = (citySlug) => (
               </Link>
             )
           })
-        )
-      }
+        }
+        return <div />
+      }}
     </Query>
   </NeighborhoodsLinks>
 )

@@ -57,7 +57,9 @@ export const GET_LISTING = gql`
         city
         lat
         lng
+        postalCode
       }
+      type
     }
   }
 `
