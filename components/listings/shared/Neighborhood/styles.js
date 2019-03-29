@@ -13,7 +13,6 @@ export const Container = styled.div`
 `
 
 export const Title = styled.div`
-  font-family: FaktSoftPro-Normal;
   box-sizing: border-box;
   cursor: pointer;
   user-select: none;
@@ -32,7 +31,6 @@ export const Title = styled.div`
 
 export const Info = styled.p`
   overflow: hidden;
-  font-family: FaktSoftPro-Normal;
   color: #979797;
   font-size: 12px;
   padding-top: ${({opened}) => (opened ? '10px' : '0')};
