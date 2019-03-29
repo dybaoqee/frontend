@@ -15,18 +15,3 @@ export const authenticate = async (email, password) => {
       : 'E-mail ou senha inválidos.'
   }
 }
-
-export const confirmUser = async (token) => {
-  try {
-    const res = await put('/users/confirm', {
-      user: {
-        token
-      }
-    })
-    return res
-  } catch (error) {
-    throw error.response && error.response.status === 404
-      ? 'Esse link expirou.'
-      : 'Ocorreu um erro desconhecido. Por favor, tente novamente.'
-  }
-}
