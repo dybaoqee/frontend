@@ -18,6 +18,7 @@ import Link from 'next/link'
 import {createInterest} from 'services/interest-api'
 import isUndefined from 'lodash/isUndefined'
 import ListingHead from 'components/listings/show/Head'
+import PriceBar from 'components/listings/show/PriceBar'
 import ListingHeader from 'components/listings/show/ListingHeader'
 import ListingMainContent from 'components/listings/show/Body'
 import ListingMap from 'components/listings/show/Map'
@@ -291,6 +292,7 @@ class Listing extends Component {
                     routerAsPath={router.asPath}
                   />
                   <Row flexDirection="column">
+                    <Breadcrumb paths={paths} />
                     <ListingHeader
                       listing={listing}
                       handleOpenPopup={this.openPopup}
@@ -314,7 +316,10 @@ class Listing extends Component {
                         )}
                       </Warning>
                     )}
-                    <Breadcrumb paths={paths} />
+                    <PriceBar
+                      type={listing.type}
+                      price={listing.price}
+                    />
                     <ListingMainContent
                       listing={listing}
                       handleOpenPopup={this.openPopup}

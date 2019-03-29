@@ -1,4 +1,4 @@
- import React, { Component } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import NumberFormat from 'react-number-format'
 import {getParagraphs} from 'utils/text-utils'
