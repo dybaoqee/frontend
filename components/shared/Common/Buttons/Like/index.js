@@ -98,7 +98,10 @@ class LikeButton extends Component {
 }
 
 LikeButton.propTypes = {
-
+  favorite: PropTypes.bool,
+  top: PropTypes.number,
+  user: PropTypes.object,
+  listing: PropTypes.object
 }
 
 export default LikeButton
