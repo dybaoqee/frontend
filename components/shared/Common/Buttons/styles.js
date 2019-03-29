@@ -20,8 +20,6 @@ const LegacyButton = styled.button`
 `
 
 export const BaseButton = LegacyButton.extend`
-  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Helvetica, Arial, sans-serif;
   font-size: 14px;
   font-weight: 600;
   box-sizing: border-box;
