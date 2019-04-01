@@ -2,8 +2,9 @@ import styled, {keyframes} from 'styled-components'
 import theme from 'config/theme'
 import Col from '@emcasa/ui-dom/components/Col'
 import {breakpoint} from '@emcasa/ui/lib/styles'
+import {desktopHeaderHeight} from 'constants/dimensions'
 
-export const HEADER_HEIGHT = 60
+export const HEADER_HEIGHT = desktopHeaderHeight
 export const MAX_HEADER_HEIGHT = 76
 export const NAV_ZINDEX = 110
 
@@ -16,8 +17,7 @@ export default styled.header`
 
   box-sizing: border-box;
   width: 100%;
-  height: 76px;
-  max-height: 76px;
+  height: ${HEADER_HEIGHT}px;
   padding: ${theme.space[2]}px ${theme.space[4]}px 0 ${theme.space[4]}px;
   z-index: 1;
   transition: background 0.3s ease-out;
@@ -26,7 +26,6 @@ export default styled.header`
 
   &.sticky {
     background: white;
-    height: ${HEADER_HEIGHT}px;
   }
 
   .search {

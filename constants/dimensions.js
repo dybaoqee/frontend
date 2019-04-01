@@ -1,4 +1,4 @@
-export const desktopHeaderHeight = 76
+export const desktopHeaderHeight = 60
 export const desktopFilterHeight = 62
 
 export const desktopHeaderAndFilterHeight =
