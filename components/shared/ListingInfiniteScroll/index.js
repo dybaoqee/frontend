@@ -30,11 +30,14 @@ class ListingInfiniteScroll extends Component {
   componentDidMount() {
     document.addEventListener('mousewheel', this.onScroll)
     document.addEventListener('touchmove', this.onScroll)
+    window.onscroll = this.onScroll
+
   }
 
   componentWillUnmount() {
     document.removeEventListener('mousewheel', this.onScroll)
     document.removeEventListener('touchmove', this.onScroll)
+    window.onscroll = null
   }
 
   // Distance from the bottom of the viewport to the footer element
