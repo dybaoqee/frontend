@@ -64,23 +64,12 @@ class MyApp extends App {
       removeCookie('currentUserId')
       removeCookie('userRole')
       removeCookie('resetAuth')
-      Router.push('/auth/login')
     }
 
     // Set deviceId for Flagr
     const deviceId = uuid()
     if (!getCookie(DEVICE_ID_COOKIE) && deviceId) {
       setCookie(DEVICE_ID_COOKIE, deviceId)
-    }
-
-    if (!document.documentElement.classList.contains('wf-active')) {
-      import('webfontloader').then((WebFont) =>
-        WebFont.load({
-          google: {
-            families: ['Open+Sans:300,400,600,700']
-          }
-        })
-      )
     }
   }
 

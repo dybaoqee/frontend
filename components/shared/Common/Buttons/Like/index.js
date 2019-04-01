@@ -1,91 +1,108 @@
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import Router from 'next/router'
+import {Mutation} from 'react-apollo'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faHeart from '@fortawesome/fontawesome-free-solid/faHeart'
-import {Mutation} from 'react-apollo'
+import AccountKit from 'components/shared/Auth/AccountKit'
 import {FAVORITE_LISTING, UNFAVORITE_LISTING} from 'graphql/listings/mutations'
 import {GET_USER_LISTINGS_ACTIONS} from 'graphql/user/queries'
-import Router from 'next/router'
-import {setCookie} from 'lib/session'
-import {buildSlug} from 'lib/listings'
 import { Button, Container } from './styles'
 import {
   log,
   LISTING_SEARCH_FAVORITE_LISTING
 } from 'lib/logging'
 
-const LikeButton = (props) => (
-  <Mutation mutation={!props.favorite ? FAVORITE_LISTING : UNFAVORITE_LISTING}>
-    {(favoriteListing) => (
-      <Container
-        top={props.top}
-        onClick={(e) => {
-          e.preventDefault()
-          if (props.user && props.user.authenticated) {
-            log(LISTING_SEARCH_FAVORITE_LISTING, {listingId: props.listing.id, favorited: !props.favorite})
-            favoriteListing({
-              refetchQueries: [
-                {
-                  query: GET_USER_LISTINGS_ACTIONS
-                }
-              ],
-              variables: {
-                id: props.listing.id
-              },
-              optimisticResponse: {
-                __typename: 'Query',
-                [!props.favorite ? 'favoriteListing' : 'unfavoriteListing']: {
-                  __typename: 'ListingUser',
-                  listing: {
-                    __typename: 'Listing',
-                    id: props.listing.id
-                  }
-                }
-              },
-              update: (proxy) => {
-                // Read the data from our cache for this query.
-                let data = proxy.readQuery({
-                  query: GET_USER_LISTINGS_ACTIONS
-                })
-                if (!props.favorite) {
-                  data.userProfile.favorites.push({
-                    id: props.listing.id.toString(),
-                    __typename: 'Listing'
-                  })
-                } else {
-                  const removed = data.userProfile.favorites.filter(
-                    (listing) =>
-                      listing.id.toString() !== props.listing.id.toString()
-                  )
-                  data.userProfile.favorites = removed
-                }
+class LikeButton extends Component {
+  render() {
+    const { favorite, top, user, listing } = this.props
+    return (
+      <Mutation mutation={!favorite ? FAVORITE_LISTING : UNFAVORITE_LISTING}>
+          {(favoriteListing) => (
+            <AccountKit
+              appId={process.env.FACEBOOK_APP_ID}
+              appSecret={process.env.ACCOUNT_KIT_APP_SECRET}
+              version="v1.0"
+              skipRedirect
+              onSuccess={() => {
+                Router.replace(location.pathname)
+              }}
+            >
+            {({signIn}) =>
+              <Container
+                top={top}
+                onClick={(e) => {
+                  e.preventDefault()
+                  if (user && user.authenticated) {
+                    log(LISTING_SEARCH_FAVORITE_LISTING, {listingId: listing.id, favorited: !favorite})
+                    favoriteListing({
+                      refetchQueries: [
+                        {
+                          query: GET_USER_LISTINGS_ACTIONS
+                        }
+                      ],
+                      variables: {
+                        id: listing.id
+                      },
+                      optimisticResponse: {
+                        __typename: 'Query',
+                        [!favorite ? 'favoriteListing' : 'unfavoriteListing']: {
+                          __typename: 'ListingUser',
+                          listing: {
+                            __typename: 'Listing',
+                            id: listing.id
+                          }
+                        }
+                      },
+                      update: (proxy) => {
+                        // Read the data from our cache for this query.
+                        let data = proxy.readQuery({
+                          query: GET_USER_LISTINGS_ACTIONS
+                        })
+                        if (!favorite) {
+                          data.userProfile.favorites.push({
+                            id: listing.id.toString(),
+                            __typename: 'Listing'
+                          })
+                        } else {
+                          const removed = data.userProfile.favorites.filter(
+                            (listing) =>
+                              listing.id.toString() !== listing.id.toString()
+                          )
+                          data.userProfile.favorites = removed
+                        }
 
-                // Write our data back to the cache.
-                proxy.writeQuery({
-                  query: GET_USER_LISTINGS_ACTIONS,
-                  data
-                })
-              }
-            })
-          } else {
-            setCookie(
-              'redirectTo',
-              `/listings/show?id=${props.listing.id}&f#as#${buildSlug(
-                props.listing
-              )}&f`
-            )
-            Router.push({
-              pathname: '/auth/login'
-            })
+                        // Write our data back to the cache.
+                        proxy.writeQuery({
+                          query: GET_USER_LISTINGS_ACTIONS,
+                          data
+                        })
+                      }
+                    })
+                  } else {
+                    signIn()
+                  }
+                }}
+              >
+                <Button
+                  {...this.props}
+                >
+                  <FontAwesomeIcon icon={faHeart} />
+                </Button>
+              </Container>
           }
-        }}
-      >
-        <Button
-          {...props}
-        >
-          <FontAwesomeIcon icon={faHeart} />
-        </Button>
-      </Container>
-    )}
-  </Mutation>
-)
+        </AccountKit>
+          )}
+        </Mutation>
+    )
+  }
+}
+
+LikeButton.propTypes = {
+  favorite: PropTypes.bool,
+  top: PropTypes.number,
+  user: PropTypes.object,
+  listing: PropTypes.object
+}
 
 export default LikeButton

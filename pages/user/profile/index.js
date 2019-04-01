@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import Router from 'next/router'
 import {
   GET_USER_INFO,
   GET_USER_LISTINGS,
@@ -13,10 +14,7 @@ import {
   Query
 } from 'react-apollo'
 import {isEmailValid} from 'lib/validation'
-import {
-  getCurrentUserId,
-  redirectIfNotAuthenticated
-} from 'lib/auth'
+import {getCurrentUserId} from 'lib/auth'
 import isNull from 'lodash/isNull'
 import isUndefined from 'lodash/isUndefined'
 import isEqualWith from 'lodash/isEqualWith'
@@ -77,12 +75,13 @@ class UserProfile extends Component {
   }
 
   static async getInitialProps(context) {
-    if (redirectIfNotAuthenticated(context)) {
+    const userId = getCurrentUserId(context)
+    if (!userId) {
       return {}
     }
 
+    const currentUser = {id: userId}
     const initialTab = context && context.req && context.req.query && context.req.query.tab ? context.req.query.tab : MY_PROFILE_TAB
-    const currentUser = {id: getCurrentUserId(context)}
 
     try {
       return {
@@ -98,7 +97,13 @@ class UserProfile extends Component {
   }
 
   componentDidMount() {
-    log(PROFILE_OPEN)
+    if (process.browser) {
+      if (!this.props.currentUser) {
+        Router.push('/')
+        return
+      }
+      log(PROFILE_OPEN)
+    }
   }
 
   checkComparison = (objValue, othValue) => {
@@ -264,7 +269,7 @@ class UserProfile extends Component {
 
   getProfileForm = () => {
     const {currentUser: {id}} = this.props
-    const {errors, editedProfile, nameFieldValue, emailFieldValue} = this.state
+    const {errors, nameFieldValue, emailFieldValue} = this.state
     return (
       <Mutation mutation={EDIT_EMAIL}>
         {(editEmail, {loading: updatingEmail}) => (
@@ -496,8 +501,11 @@ class UserProfile extends Component {
 
   render() {
     const seoTitle = 'EmCasa | Meu Perfil'
-    const { currentUser: { id }, initialTab} = this.props
+    const { initialTab, currentUser } = this.props
     const { initialTabApplied } = this.state
+    if (!currentUser) {
+      return null
+    }
 
     let profileLabelProps = {}
     let listingsLabelProps = {}
