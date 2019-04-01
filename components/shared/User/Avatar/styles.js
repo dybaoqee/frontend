@@ -14,7 +14,7 @@ export default styled.div`
   align-items: center;
   font-size: 22px;
   color: ${colors.blue.medium};
-  font-weight: bold;
+  font-weight: 500;
 
   img {
     width: 70%;
