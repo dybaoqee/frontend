@@ -7,6 +7,7 @@ import faHeart from '@fortawesome/fontawesome-free-solid/faHeart'
 import AccountKit from 'components/shared/Auth/AccountKit'
 import {FAVORITE_LISTING, UNFAVORITE_LISTING} from 'graphql/listings/mutations'
 import {GET_USER_LISTINGS_ACTIONS} from 'graphql/user/queries'
+import FavoriteLogin from './FavoriteLogin'
 import { Button, Container } from './styles'
 import {
   log,
@@ -14,6 +15,10 @@ import {
 } from 'lib/logging'
 
 class LikeButton extends Component {
+  state = {
+    showLogin: false
+  }
+
   render() {
     const { favorite, top, user, listing } = this.props
     return (
@@ -80,20 +85,23 @@ class LikeButton extends Component {
                       }
                     })
                   } else {
-                    signIn()
+                    this.setState({ showLogin: true })
                   }
                 }}
               >
-                <Button
-                  {...this.props}
-                >
+                <Button {...this.props}>
                   <FontAwesomeIcon icon={faHeart} />
                 </Button>
+                {this.state.showLogin &&
+                  <FavoriteLogin
+                    onClose={() => { this.setState({ showLogin: false }) }}
+                  />
+                }
               </Container>
-          }
-        </AccountKit>
-          )}
-        </Mutation>
+            }
+          </AccountKit>
+        )}
+      </Mutation>
     )
   }
 }
