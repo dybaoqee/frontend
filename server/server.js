@@ -101,22 +101,6 @@ const startServer = () => {
         return app.render(req, res, '/auth/logout', req.query)
       })
 
-      server.get('/login', (req, res) => {
-        return app.render(req, res, '/auth/login', req.query)
-      })
-
-      server.get('/lembrar_senha', (req, res) => {
-        return app.render(req, res, '/auth/password_recovery', req.query)
-      })
-
-      server.get('/resetar_senha/:token', (req, res) => {
-        return app.render(req, res, '/auth/password_reset', req.query)
-      })
-
-      server.get('/confirmar_cadastro/:token', (req, res) => {
-        app.render(req, res, '/auth/confirm', req.query)
-      })
-
       server.get('/vender', (req, res) => {
         return app.render(req, res, '/listings/sell', req.query)
       })
