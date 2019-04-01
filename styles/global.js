@@ -17,6 +17,7 @@ body {
   margin: 0;
   padding: 0;
 
+  font-family: ${theme.fontFamily};
   font-size: 1rem;
   line-height: 1.5;
 }
