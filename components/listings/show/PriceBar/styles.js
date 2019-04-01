@@ -11,6 +11,7 @@ export const Wrapper = styled(Row)`
   margin-bottom: ${theme.space[5]}px;
   border-top: 1px solid ${theme.colors.lightGrey};
   border-bottom: 1px solid ${theme.colors.lightGrey};
+  box-sizing: border-box;
 
   @media screen and ${breakpoint.up('desktop')} {
     position: fixed;
