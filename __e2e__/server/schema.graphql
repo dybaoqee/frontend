@@ -321,9 +321,6 @@ type RootMutationType {
   # Mark message as read
   markAsRead(id: ID!): Message
 
-  # Request password redefinition
-  redefinePassword(newPassword: String!, resetToken: String!): User
-
   # Register
   register(
     deviceToken: String
@@ -352,9 +349,6 @@ type RootMutationType {
     name: String!
     rooms: Int!
   ): PriceRequest
-
-  # Request password reset
-  resetPassword(email: String!): User
 
   # Send message
   sendMessage(listingId: ID!, message: String, receiverId: ID!): Message
