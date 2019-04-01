@@ -43,6 +43,8 @@ import {
   LISTING_DETAIL_OPEN_VISIT_FORM,
   LISTING_DETAIL_SCHEDULE_VISIT
 } from 'lib/logging'
+import { desktopHeaderHeight } from 'constants/dimensions'
+
 
 export const Title = Text.withComponent('h2')
 
@@ -291,47 +293,49 @@ class Listing extends Component {
                     listing={listing}
                     routerAsPath={router.asPath}
                   />
-                  <Row flexDirection="column">
+                  <Row flexDirection={['column-reverse', null, null, 'column']} mt={[null, null, null, `${desktopHeaderHeight}px`]}>
                     <Breadcrumb paths={paths} />
-                    <ListingHeader
-                      listing={listing}
-                      handleOpenPopup={this.openPopup}
-                      handleOpenImageGallery={this.showImageGallery}
-                      handleOpen3DTour={this.show3DTour}
-                      currentUser={currentUser}
-                      favoritedListing={{loading, favorite}}
-                    />
-                    {!isActive && (
-                      <Warning green={url.query.r}>
-                        {url.query.r ? (
-                          <p>
-                            <b>Pré-cadastro feito com sucesso.</b> Nossa equipe
-                            entrará em contato via email.
-                          </p>
-                        ) : (
-                          <p>
-                            Imóvel não está visível para o público pois está em
-                            fase de moderação.
-                          </p>
-                        )}
-                      </Warning>
-                    )}
-                    <PriceBar
-                      type={listing.type}
-                      price={listing.price}
-                    />
-                    <ListingMainContent
-                      listing={listing}
-                      handleOpenPopup={this.openPopup}
-                      user={currentUser}
-                      favorite={favorite}
-                      flagrFlags={this.props.flagrFlags}
-                    />
-                    <ListingMap listing={listing} />
-                    <RelatedListings
-                      currentUser={currentUser}
-                      listings={related}
-                    />
+                    <Row flexDirection="column">
+                      <ListingHeader
+                        listing={listing}
+                        handleOpenPopup={this.openPopup}
+                        handleOpenImageGallery={this.showImageGallery}
+                        handleOpen3DTour={this.show3DTour}
+                        currentUser={currentUser}
+                        favoritedListing={{loading, favorite}}
+                      />
+                      {!isActive && (
+                        <Warning green={url.query.r}>
+                          {url.query.r ? (
+                            <p>
+                              <b>Pré-cadastro feito com sucesso.</b> Nossa equipe
+                              entrará em contato via email.
+                            </p>
+                          ) : (
+                            <p>
+                              Imóvel não está visível para o público pois está em
+                              fase de moderação.
+                            </p>
+                          )}
+                        </Warning>
+                      )}
+                      <PriceBar
+                        type={listing.type}
+                        price={listing.price}
+                      />
+                      <ListingMainContent
+                        listing={listing}
+                        handleOpenPopup={this.openPopup}
+                        user={currentUser}
+                        favorite={favorite}
+                        flagrFlags={this.props.flagrFlags}
+                      />
+                      <ListingMap listing={listing} />
+                      <RelatedListings
+                        currentUser={currentUser}
+                        listings={related}
+                      />
+                    </Row>
                     {isInterestPopupVisible && (
                       <InterestForm
                         data={interestForm}

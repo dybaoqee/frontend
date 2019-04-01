@@ -23,10 +23,6 @@ export default styled.ul`
     width: 100%;
   }
 
-  @media ${mobileMedia} {
-    display: none;
-  }
-
   a,
   :visited {
     text-decoration: none;
