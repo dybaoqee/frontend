@@ -20,6 +20,8 @@ import {
   BUYER_LANDING_EXPLORE_LISTINGS
 } from 'lib/logging'
 import NextHead from 'components/shared/NextHead'
+import {GET_DISTRICTS} from 'graphql/listings/queries'
+import {Query} from 'react-apollo'
 
 const Container = styled(View)`
   display: flex;
@@ -140,49 +142,60 @@ class Buy extends Component {
     }
 
     return (
-      <Container>
-        <NextHead
-          title={seoTitle}
-          description={seoDescription}
-          imageSrc={seoImg}
-          imageWidth={'1476'}
-          imageHeight={'838'}
-          url={seoURL}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaWebSite) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaRealEstateAgent) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaOrganization) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify({
-            "@context": "http://schema.org",
-            "@type": "WebPage",
-            "@id": "https://www.emcasa.com/#webpage",
-            "name": seoTitle,
-            "description": seoDescription,
-            "sameAs": sameAs,
-            "url": "https://www.emcasa.com"
-          })}}
-        />
-        <MainBlock>
-          <BuyListing title={heroTitle} />
-        </MainBlock>
-        <Block>
-          <Benefits {...benefitsProps} />
-        </Block>
-        <Block>
-          <Neighborhoods {...blockProps} />
-        </Block>
-      </Container>
+      <Query query={GET_DISTRICTS} ssr={true}>
+        {({ loading, error, data }) => {
+          if (loading) return <div />
+          if (error) return (<div>{`Error! ${error.message}`}</div>)
+
+          return (
+            <Container>
+              <NextHead
+                title={seoTitle}
+                description={seoDescription}
+                imageSrc={seoImg}
+                imageWidth={'1476'}
+                imageHeight={'838'}
+                url={seoURL}
+              />
+              <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaWebSite) }}
+              />
+              <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaRealEstateAgent) }}
+              />
+              <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaOrganization) }}
+              />
+              <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify({
+                  "@context": "http://schema.org",
+                  "@type": "WebPage",
+                  "@id": "https://www.emcasa.com/#webpage",
+                  "name": seoTitle,
+                  "description": seoDescription,
+                  "sameAs": sameAs,
+                  "url": "https://www.emcasa.com"
+                })}}
+              />
+              <MainBlock>
+                <BuyListing title={heroTitle} />
+              </MainBlock>
+              <Block>
+                <Benefits {...benefitsProps} />
+              </Block>
+              {data && data.districts ? (
+                <Block>
+                  <Neighborhoods districts={data.districts} {...blockProps} />
+                </Block>
+              ) : null}
+            </Container>
+          )
+        }}
+      </Query>
     )
   }
 }
