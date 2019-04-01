@@ -49,47 +49,73 @@ const NEIGHBORHOODS_BY_CITIES = NEIGHBORHOODS.reduce((cities, neighborhood) => {
   return cities
 }, {})
 
-const getCityNeighborhoodLinks = (citySlug) => (
-  <NeighborhoodsLinks>
-    <Query query={GET_DISTRICTS}>
-      {({data, loading}) => {
-        if (loading) {
-          return <div />
-        }
+const getCityNeighborhoodHighlights = (districts, citySlug, stateSlug) => {
+  const highlightButtons = NEIGHBORHOODS_BY_CITIES[citySlug].map((props, nIndex) => {
+    const {name, thumb, soon} = props
+    const srcImg = `https://res.cloudinary.com/emcasa/image/upload/v1543531007/bairros/${thumb + (soon ? '-em-breve' : '')}`
+    return (
+      <Link
+        key={`link-${nIndex}`}
+        passHref
+        href={soon ? '' : `/imoveis/${stateSlug}/${citySlug}/${thumb}`}
+      >
+        <Neighborhood
+          onClick={() => {
+            log(BUYER_LANDING_NEIGHBORHOOD_IMAGE, {neighborhood: name})
+          }}
+        >
+          <LazyImage
+            src={srcImg}
+            alt={`Imagem em destaque do bairro ${name}`}
+            placeholder={({ imageProps, ref }) => (
+              <div ref={ref} />
+            )}
+            actual={({ imageProps }) => <img {...imageProps} />}
+          />
+          <ListTitle fontWeight="normal">
+            {name}
+          </ListTitle>
+          {soon && <Soon>Em breve</Soon>}
+        </Neighborhood>
+      </Link>
+    )
+  })
 
-        if (data && data.districts) {
-          data.districts.filter(d => d.citySlug === citySlug && !NEIGHBORHOODS.find(n => d.name === n.name)).map((district) => {
-            const url = `/imoveis/${district.stateSlug}/${district.citySlug}/${slug(
-              district.nameSlug.toLowerCase()
-            )}`
-            return (
-              <Link
-                passHref
-                key={district.nameSlug}
-                href={{
-                  pathname: url,
-                  asPath: url
-                }}
-              >
-                <a className="NeighborhoodLink" title={`Comprar imóvel: ${district.name}`} onClick={() => {
-                  log(BUYER_LANDING_NEIGHBORHOOD_LINK, {neighborhood: district.nameSlug})
-                }}>
-                  <ListTitle color="inherit" fontWeight="normal">
-                    {district.name}
-                  </ListTitle>
-                </a>
-              </Link>
-            )
-          })
-        }
-        return <div />
-      }}
-    </Query>
-  </NeighborhoodsLinks>
-)
+  return highlightButtons
+}
+
+const getCityNeighborhoodLinks = (districts, citySlug) => {
+  const districtsButtons = districts.filter(d => d.citySlug === citySlug && !NEIGHBORHOODS.find(n => d.name === n.name)).map((district) => {
+    const url = `/imoveis/${district.stateSlug}/${district.citySlug}/${slug(
+      district.nameSlug.toLowerCase()
+    )}`
+    return (
+      <Link
+        passHref
+        key={district.nameSlug}
+        href={{
+          pathname: url,
+          asPath: url
+        }}
+      >
+        <a className="NeighborhoodLink" title={`Comprar imóvel: ${district.name}`} onClick={() => {
+          log(BUYER_LANDING_NEIGHBORHOOD_LINK, {neighborhood: district.nameSlug})
+        }}>
+          <ListTitle color="inherit" fontWeight="normal">
+            {district.name}
+          </ListTitle>
+        </a>
+      </Link>
+    )
+  })
+  return districtsButtons
+}
 
 export default class Neighborhoods extends Component {
+
   render() {
+    const {districts} = this.props
+
     return (
       <Container>
         <Header>
@@ -108,38 +134,11 @@ export default class Neighborhoods extends Component {
                   {title}
                 </SubTitle>
                 <NeighborhoodsHighlights>
-                  {NEIGHBORHOODS_BY_CITIES[citySlug].map((props, nIndex) => {
-                    const {name, thumb, soon} = props
-                    const srcImg = `https://res.cloudinary.com/emcasa/image/upload/v1543531007/bairros/${thumb + (soon ? '-em-breve' : '')}`
-                    return (
-                      <Link
-                        key={`link-${nIndex}`}
-                        passHref
-                        href={soon ? '#' : `/imoveis/${stateSlug}/${citySlug}/${thumb}`}
-                      >
-                        <Neighborhood
-                          onClick={() => {
-                            log(BUYER_LANDING_NEIGHBORHOOD_IMAGE, {neighborhood: name})
-                          }}
-                        >
-                          <LazyImage
-                            src={srcImg}
-                            alt={`Imagem em destaque do bairro ${name}`}
-                            placeholder={({ imageProps, ref }) => (
-                              <div ref={ref} />
-                            )}
-                            actual={({ imageProps }) => <img {...imageProps} />}
-                          />
-                          <ListTitle fontWeight="normal">
-                            {name}
-                          </ListTitle>
-                          {soon && <Soon>Em breve</Soon>}
-                        </Neighborhood>
-                      </Link>
-                    )
-                  })}
+                  {districts && getCityNeighborhoodHighlights(districts, citySlug, stateSlug)}
                 </NeighborhoodsHighlights>
-                {getCityNeighborhoodLinks(citySlug)}
+                <NeighborhoodsLinks>
+                  {districts && getCityNeighborhoodLinks(districts, citySlug)}
+                </NeighborhoodsLinks>
               </City>
             )})}
         </Cities>
