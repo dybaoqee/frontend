@@ -3,7 +3,7 @@ import theme from '@emcasa/ui'
 import View from '@emcasa/ui-dom/components/View'
 import {breakpoint} from '@emcasa/ui/lib/styles'
 
-const WIDTH = 480
+const WIDTH = 360
 const HEIGHT = 640
 
 export const Background = styled(View)`
@@ -17,16 +17,23 @@ export const Background = styled(View)`
 `
 
 export const Container = styled(View)`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
   cursor: default;
   background-color: white;
   width: ${WIDTH}px;
   height: ${HEIGHT}px;
   margin: calc((100vh - ${HEIGHT}px) / 2) auto;
+  padding: 0 80px;
   z-index: 1;
 
-  @media ${breakpoint.only('mobile')} {
-    width: 100%;
+  @media ${breakpoint.only('phone')} {
+    width: auto;
     height: 100%;
+    margin: 0;
+    padding: ${theme.space[4]}px;
   }
 `
 

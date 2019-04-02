@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import enhanceWithClickOutside from 'react-click-outside'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faHeart from '@fortawesome/fontawesome-free-solid/faHeart'
-import View from '@emcasa/ui-dom/components/View'
+import Button from '@emcasa/ui-dom/components/Button'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
@@ -33,11 +33,25 @@ class FavoriteLogin extends Component {
               <FontAwesomeIcon icon={faHeart} />
             </HeartContainer>
           </Row>
-          <Text>Salvar imóvel</Text>
-          <Text>Este imóvel será salvo na sua aba de favoritos. Para isso, só precisamos do seu nome e telefone.</Text>
-          <Input
-            label="Nome"
-          />
+          <Row m={2} justifyContent="center">
+            <Text inline fontWeight="bold" textAlign="center">Salvar imóvel</Text>
+          </Row>
+          <Text inline textAlign="center">Este imóvel será salvo na sua aba de favoritos. Para isso, só precisamos do seu nome e telefone.</Text>
+          <Row justifyContent="center">
+            <Col width={3/4} mt="40px">
+              <Input
+                fluid
+                label="Nome"
+              />
+            </Col>
+          </Row>
+          <Row justifyContent="center">
+            <Col mt="40px">
+              <Button height="tall" active>
+                Continuar
+              </Button>
+            </Col>
+          </Row>
         </EnhancedContainer>
       </Background>
     )
