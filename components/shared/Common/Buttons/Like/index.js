@@ -26,8 +26,9 @@ class LikeButton extends Component {
     const { favorite, top, user, listing } = this.props
     return (
       <Mutation mutation={!favorite ? FAVORITE_LISTING : UNFAVORITE_LISTING}>
-          {(favoriteListing) => (
-            <AccountKit
+        {(favoriteListing) =>
+          <>
+            {this.state.showLogin && <AccountKit
               appId={process.env.FACEBOOK_APP_ID}
               appSecret={process.env.ACCOUNT_KIT_APP_SECRET}
               version="v1.0"
@@ -36,80 +37,75 @@ class LikeButton extends Component {
                 Router.replace(location.pathname)
               }}
             >
-            {({signIn}) => {
-              if (this.state.showLogin) {
-                return (
-                  <FavoriteLogin
-                    onClose={() => { this.setState({ showLogin: false }) }}
-                  />
-                )
+              {({signIn}) =>
+                <FavoriteLogin
+                  onClose={() => { this.setState({ showLogin: false }) }}
+                  onSignIn={signIn}
+                />
               }
-
-              return (
-                <Circle
-                  top={top}
-                  onClick={(e) => {
-                    e.preventDefault()
-                    if (user && user.authenticated) {
-                      log(LISTING_SEARCH_FAVORITE_LISTING, {listingId: listing.id, favorited: !favorite})
-                      favoriteListing({
-                        refetchQueries: [
-                          {
-                            query: GET_USER_LISTINGS_ACTIONS
-                          }
-                        ],
-                        variables: {
+            </AccountKit>}
+            <Circle
+              top={top}
+              onClick={(e) => {
+                e.preventDefault()
+                if (user && user.authenticated) {
+                  log(LISTING_SEARCH_FAVORITE_LISTING, {listingId: listing.id, favorited: !favorite})
+                  favoriteListing({
+                    refetchQueries: [
+                      {
+                        query: GET_USER_LISTINGS_ACTIONS
+                      }
+                    ],
+                    variables: {
+                      id: listing.id
+                    },
+                    optimisticResponse: {
+                      __typename: 'Query',
+                      [!favorite ? 'favoriteListing' : 'unfavoriteListing']: {
+                        __typename: 'ListingUser',
+                        listing: {
+                          __typename: 'Listing',
                           id: listing.id
-                        },
-                        optimisticResponse: {
-                          __typename: 'Query',
-                          [!favorite ? 'favoriteListing' : 'unfavoriteListing']: {
-                            __typename: 'ListingUser',
-                            listing: {
-                              __typename: 'Listing',
-                              id: listing.id
-                            }
-                          }
-                        },
-                        update: (proxy) => {
-                          // Read the data from our cache for this query.
-                          let data = proxy.readQuery({
-                            query: GET_USER_LISTINGS_ACTIONS
-                          })
-                          if (!favorite) {
-                            data.userProfile.favorites.push({
-                              id: listing.id.toString(),
-                              __typename: 'Listing'
-                            })
-                          } else {
-                            const removed = data.userProfile.favorites.filter(
-                              (listing) =>
-                                listing.id.toString() !== listing.id.toString()
-                            )
-                            data.userProfile.favorites = removed
-                          }
-
-                          // Write our data back to the cache.
-                          proxy.writeQuery({
-                            query: GET_USER_LISTINGS_ACTIONS,
-                            data
-                          })
                         }
+                      }
+                    },
+                    update: (proxy) => {
+                      // Read the data from our cache for this query.
+                      let data = proxy.readQuery({
+                        query: GET_USER_LISTINGS_ACTIONS
                       })
-                    } else {
-                      this.setState({ showLogin: true })
+                      if (!favorite) {
+                        data.userProfile.favorites.push({
+                          id: listing.id.toString(),
+                          __typename: 'Listing'
+                        })
+                      } else {
+                        const removed = data.userProfile.favorites.filter(
+                          (listing) =>
+                            listing.id.toString() !== listing.id.toString()
+                        )
+                        data.userProfile.favorites = removed
+                      }
+
+                      // Write our data back to the cache.
+                      proxy.writeQuery({
+                        query: GET_USER_LISTINGS_ACTIONS,
+                        data
+                      })
                     }
-                  }}
-                  {...this.props}
-                >
-                  <Button>
-                    <FontAwesomeIcon icon={faHeart} />
-                  </Button>
-                </Circle>
-              )
-            }}
-          </AccountKit>
-        )}
+                  })
+                } else {
+                  this.setState({ showLogin: true })
+                }
+              }}
+              {...this.props}
+            >
+              <Button>
+                <FontAwesomeIcon icon={faHeart} />
+              </Button>
+            </Circle>
+            </>
+          }
       </Mutation>
     )
   }
