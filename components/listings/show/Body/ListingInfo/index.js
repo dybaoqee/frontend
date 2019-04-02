@@ -2,25 +2,22 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import theme from 'config/theme'
 import NumberFormat from 'react-number-format'
-import LikeButton from 'components/shared/Common/Buttons/Like'
-import Button from '@emcasa/ui-dom/components/Button'
 import View from '@emcasa/ui-dom/components/View'
 import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
-import ListingData from '../ListingData'
+
 import {
   Container,
   Title,
   PriceItem,
-  PriceItemSpacer
+  PriceItemSpacer,
+  ValuesContainer,
+  ValuesItem
  } from './styles'
 
-class ListingPanel extends React.Component {
+class ListingInfo extends React.Component {
   render() {
     const {
-      handleOpenPopup,
-      user,
-      favorite,
       title
     } = this.props
     const {
@@ -79,44 +76,45 @@ class ListingPanel extends React.Component {
             </PriceItem>
           }
         </Row>
-        <ListingData
-          bedrooms={rooms}
-          bathrooms={bathrooms}
-          garageSpots={garageSpots}
-          area={area}
-          floor={floor}
-        />
-        <Text style={{margin: `0 0 ${theme.space[2]}px 0`}} fontSize="xlarge" fontWeight="bold" color={theme.colors.pink}>
-          {price && price > 0 ?
-            <>
-              <NumberFormat
-                value={price}
-                displayType={'text'}
-                thousandSeparator={'.'}
-                prefix={'R$'}
-                decimalSeparator={','}
-              />
-              <Text inline color="grey" fontSize="small"> VENDA</Text>
-            </>
-          : 'Preço a definir'}
-        </Text>
-        <View mt={4}>
-          <Button fluid height="tall" active onClick={handleOpenPopup}>Falar com especialista</Button>
-        </View>
-        <LikeButton
-          top={-25}
-          favorite={favorite}
-          listing={this.props.listing}
-          user={user}
-          secondary
-        />
+        <ValuesContainer>
+          {rooms ? (
+            <ValuesItem flexDirection="column">
+              <Text>{rooms}</Text>
+              <Text fontSize="small">dorm.</Text>
+            </ValuesItem>
+          ) : null}
+          {bathrooms ? (
+            <ValuesItem flexDirection="column">
+              <Text>{bathrooms}</Text>
+              <Text fontSize="small">banh.</Text>
+            </ValuesItem>
+          ) : null}
+          {garageSpots ? (
+            <ValuesItem flexDirection="column">
+              <Text>{garageSpots}</Text>
+              <Text fontSize="small">vagas</Text>
+            </ValuesItem>
+          ) : null}
+          {area ? (
+            <ValuesItem flexDirection="column">
+              <Text>{area}</Text>
+              <Text fontSize="small">área/m2</Text>
+            </ValuesItem>
+          ) : null}
+          {floor ? (
+            <ValuesItem flexDirection="column">
+              <Text>{floor}</Text>
+              <Text fontSize="small">andar</Text>
+            </ValuesItem>
+          ) : null}
+        </ValuesContainer>
       </Container>
     )
   }
 }
 
-ListingPanel.propTypes = {
+ListingInfo.propTypes = {
   listing: PropTypes.object
 }
 
-export default ListingPanel
+export default ListingInfo

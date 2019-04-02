@@ -3,19 +3,20 @@ import PropTypes from 'prop-types'
 import NumberFormat from 'react-number-format'
 import {getParagraphs} from 'utils/text-utils'
 import {canEdit} from 'permissions/listings-permissions'
-import Text from '@emcasa/ui-dom/components/Text'
-import ToggleButton from './ToggleButton'
-import Button from '@emcasa/ui-dom/components/Button'
-import View from '@emcasa/ui-dom/components/View'
-import Row from '@emcasa/ui-dom/components/Row'
-import Col from '@emcasa/ui-dom/components/Col'
 import {
   log,
   getListingInfoForLogs,
   LISTING_DETAIL_OPEN,
   LISTING_DETAIL_EXPAND_DESCRIPTION
 } from 'lib/logging'
-import ListingPanel from './ListingPanel'
+import Text from '@emcasa/ui-dom/components/Text'
+import Button from '@emcasa/ui-dom/components/Button'
+import View from '@emcasa/ui-dom/components/View'
+import Row from '@emcasa/ui-dom/components/Row'
+import Col from '@emcasa/ui-dom/components/Col'
+import ToggleButton from './ToggleButton'
+import LikeButton from 'components/shared/Common/Buttons/Like'
+import ListingInfo from './ListingInfo'
 import {
   Container,
   SubTitle,
@@ -48,7 +49,7 @@ class ListingMainContent extends Component {
     const {street, neighborhood, streetNumber} = listing.address
     const paragraphs = getParagraphs(listing.description)
     const ownerOrAdmin = canEdit(user, listing)
-    const listingInfo = ownerOrAdmin
+    const listingUserInfo = ownerOrAdmin
       ? `${street}, ${streetNumber} ${
           listing.complement ? `- ${listing.complement}` : ''
         }`
@@ -64,13 +65,11 @@ class ListingMainContent extends Component {
     return (
       <Row justifyContent="center" width="100%">
         <Container>
-          <ListingPanel
+          <ListingInfo
             listing={listing}
-            handleOpenPopup={handleOpenPopup}
             user={user}
-            favorite={favorite}
             flagrFlags={this.props.flagrFlags}
-            title={`${listing.type} na ${listingInfo}, ${neighborhood}, ${listing.address.city}`}
+            title={`${listing.type} na ${listingUserInfo}, ${neighborhood}, ${listing.address.city}`}
           />
           <ListingDescription expanded={this.state.expanded}>
             <ToggleButton expanded={this.state.expanded} onClick={this.toggleBody} />
@@ -87,6 +86,16 @@ class ListingMainContent extends Component {
             }
           </ListingDescription>
         </Container>
+        <View mt={4}>
+          <Button fluid height="tall" active onClick={handleOpenPopup}>Falar com especialista</Button>
+        </View>
+        <LikeButton
+          top={-25}
+          favorite={favorite}
+          listing={listing}
+          user={user}
+          secondary
+        />
       </Row>
     )
   }

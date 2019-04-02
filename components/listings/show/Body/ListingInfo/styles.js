@@ -39,3 +39,21 @@ export const TextTitle = Text.withComponent('h2')
 export const Title = styled(TextTitle)`
   margin: 0 0 ${theme.space[5]}px;
 `
+
+export const ValuesContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+
+  @media screen and ${breakpoint.up('tablet')} {
+    justify-content: space-between;
+  }
+`
+
+export const ValuesItem = styled(Row)`
+  margin: 0 ${theme.space[5]}px ${theme.space[2]}px 0;
+
+  ${Text} {
+    margin: 0;
+  }
+`
+
