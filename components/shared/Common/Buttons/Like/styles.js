@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import * as colors from 'constants/colors'
 import theme from '@emcasa/ui'
 
-export const Container = styled.div`
+export const Circle = styled.div`
   position: absolute;
   cursor: pointer;
   right: 20px;

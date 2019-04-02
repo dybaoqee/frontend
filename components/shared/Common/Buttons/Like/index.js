@@ -8,7 +8,10 @@ import AccountKit from 'components/shared/Auth/AccountKit'
 import {FAVORITE_LISTING, UNFAVORITE_LISTING} from 'graphql/listings/mutations'
 import {GET_USER_LISTINGS_ACTIONS} from 'graphql/user/queries'
 import FavoriteLogin from './FavoriteLogin'
-import { Button, Container } from './styles'
+import {
+  Button,
+  Circle
+} from './styles'
 import {
   log,
   LISTING_SEARCH_FAVORITE_LISTING
@@ -33,72 +36,78 @@ class LikeButton extends Component {
                 Router.replace(location.pathname)
               }}
             >
-            {({signIn}) =>
-              <Container
-                top={top}
-                onClick={(e) => {
-                  e.preventDefault()
-                  if (user && user.authenticated) {
-                    log(LISTING_SEARCH_FAVORITE_LISTING, {listingId: listing.id, favorited: !favorite})
-                    favoriteListing({
-                      refetchQueries: [
-                        {
-                          query: GET_USER_LISTINGS_ACTIONS
-                        }
-                      ],
-                      variables: {
-                        id: listing.id
-                      },
-                      optimisticResponse: {
-                        __typename: 'Query',
-                        [!favorite ? 'favoriteListing' : 'unfavoriteListing']: {
-                          __typename: 'ListingUser',
-                          listing: {
-                            __typename: 'Listing',
-                            id: listing.id
-                          }
-                        }
-                      },
-                      update: (proxy) => {
-                        // Read the data from our cache for this query.
-                        let data = proxy.readQuery({
-                          query: GET_USER_LISTINGS_ACTIONS
-                        })
-                        if (!favorite) {
-                          data.userProfile.favorites.push({
-                            id: listing.id.toString(),
-                            __typename: 'Listing'
-                          })
-                        } else {
-                          const removed = data.userProfile.favorites.filter(
-                            (listing) =>
-                              listing.id.toString() !== listing.id.toString()
-                          )
-                          data.userProfile.favorites = removed
-                        }
-
-                        // Write our data back to the cache.
-                        proxy.writeQuery({
-                          query: GET_USER_LISTINGS_ACTIONS,
-                          data
-                        })
-                      }
-                    })
-                  } else {
-                    this.setState({ showLogin: true })
-                  }
-                }}
-              >
-                <Button {...this.props}>
-                  <FontAwesomeIcon icon={faHeart} />
-                </Button>
-                {this.state.showLogin &&
+            {({signIn}) => {
+              if (this.state.showLogin) {
+                return (
                   <FavoriteLogin
                     onClose={() => { this.setState({ showLogin: false }) }}
                   />
-                }
-              </Container>
-            }
+                )
+              }
+
+              return (
+                <Circle
+                  top={top}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    if (user && user.authenticated) {
+                      log(LISTING_SEARCH_FAVORITE_LISTING, {listingId: listing.id, favorited: !favorite})
+                      favoriteListing({
+                        refetchQueries: [
+                          {
+                            query: GET_USER_LISTINGS_ACTIONS
+                          }
+                        ],
+                        variables: {
+                          id: listing.id
+                        },
+                        optimisticResponse: {
+                          __typename: 'Query',
+                          [!favorite ? 'favoriteListing' : 'unfavoriteListing']: {
+                            __typename: 'ListingUser',
+                            listing: {
+                              __typename: 'Listing',
+                              id: listing.id
+                            }
+                          }
+                        },
+                        update: (proxy) => {
+                          // Read the data from our cache for this query.
+                          let data = proxy.readQuery({
+                            query: GET_USER_LISTINGS_ACTIONS
+                          })
+                          if (!favorite) {
+                            data.userProfile.favorites.push({
+                              id: listing.id.toString(),
+                              __typename: 'Listing'
+                            })
+                          } else {
+                            const removed = data.userProfile.favorites.filter(
+                              (listing) =>
+                                listing.id.toString() !== listing.id.toString()
+                            )
+                            data.userProfile.favorites = removed
+                          }
+
+                          // Write our data back to the cache.
+                          proxy.writeQuery({
+                            query: GET_USER_LISTINGS_ACTIONS,
+                            data
+                          })
+                        }
+                      })
+                    } else {
+                      this.setState({ showLogin: true })
+                    }
+                  }}
+                  {...this.props}
+                >
+                  <Button>
+                    <FontAwesomeIcon icon={faHeart} />
+                  </Button>
+                </Circle>
+              )
+            }}
           </AccountKit>
         )}
       </Mutation>

@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import theme from '@emcasa/ui'
 import View from '@emcasa/ui-dom/components/View'
+import Button from '@emcasa/ui-dom/components/Button'
 import {breakpoint} from '@emcasa/ui/lib/styles'
 
 const WIDTH = 360
@@ -20,6 +21,7 @@ export const Container = styled(View)`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  position: relative;
 
   cursor: default;
   background-color: white;
@@ -58,5 +60,4 @@ export const HeartContainer = styled(View)`
       stroke-width: 60;
     }
   }
-
 `
