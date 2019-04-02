@@ -1,6 +1,46 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<ListingCard/> should render component 1`] = `
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 10px;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c3 {
+  -webkit-font-smoothing: antialiased;
+  font-family: Rubik;
+  color: #3c4858;
+  font-size: 14px;
+}
+
+.c4 {
+  -webkit-font-smoothing: antialiased;
+  font-family: Rubik;
+  color: #1D1919;
+  font-size: 14px;
+}
+
+.c5 {
+  -webkit-font-smoothing: antialiased;
+  font-family: Rubik;
+  color: #3c4858;
+  font-size: 24px;
+  font-weight: 500;
+}
+
 .c6 {
   position: absolute;
   cursor: pointer;
@@ -48,46 +88,6 @@ exports[`<ListingCard/> should render component 1`] = `
   stroke: #3c4858;
   fill-opacity: 0;
   stroke-width: 60;
-}
-
-.c1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  padding: 10px;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-}
-
-.c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.c3 {
-  -webkit-font-smoothing: antialiased;
-  font-family: Rubik;
-  color: #3c4858;
-  font-size: 14px;
-}
-
-.c4 {
-  -webkit-font-smoothing: antialiased;
-  font-family: Rubik;
-  color: #1D1919;
-  font-size: 14px;
-}
-
-.c5 {
-  -webkit-font-smoothing: antialiased;
-  font-family: Rubik;
-  color: #3c4858;
-  font-size: 24px;
-  font-weight: 500;
 }
 
 .c0 {

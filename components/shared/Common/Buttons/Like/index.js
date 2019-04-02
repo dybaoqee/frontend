@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import * as Sentry from '@sentry/browser'
+import get from 'lodash/get'
 import Router from 'next/router'
 import {Mutation} from 'react-apollo'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
@@ -27,6 +29,7 @@ import {
 
 class LikeButton extends Component {
   state = {
+    name: null,
     showLogin: false,
     showSuccess: false,
   }
@@ -37,13 +40,16 @@ class LikeButton extends Component {
       return
     }
 
-    // Update user name
     try {
+      const id = get(userInfo, 'data.accountKitSignIn.user.id', null)
+      if (!id) {
+        throw new Error('User ID not found after authentication')
+      }
       const response = await apolloClient.mutate({
         mutation: EDIT_PROFILE,
         variables: {
           id: id,
-          name: ''
+          name: this.state.name
         }
       })
 
@@ -76,8 +82,11 @@ class LikeButton extends Component {
                     log(LISTING_SAVE_LOGIN_CLOSE)
                     this.setState({ showLogin: false })
                   }}
-                  onSignIn={() => {
-                    this.setState({ showLogin: false}, () => {
+                  onSignIn={(name) => {
+                    this.setState({
+                      showLogin: false,
+                      name
+                    }, () => {
                       log(LISTING_SAVE_LOGIN_ACCOUNT_KIT)
                       signIn()
                     })

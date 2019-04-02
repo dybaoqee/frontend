@@ -25,6 +25,20 @@ class ContainerClickOutside extends Container {
 const EnhancedContainer = enhanceWithClickOutside(ContainerClickOutside)
 
 class FavoriteLogin extends Component {
+  constructor(props) {
+    super(props)
+    this.nameField = React.createRef()
+  }
+
+  state = {
+    nameFieldValid: false
+  }
+
+  validateNameField = (event) => {
+    const valid = event && event.target && event.target.value && event.target.value.trim()
+    this.setState({ nameFieldValid: valid })
+  }
+
   render() {
     return (
       <Background>
@@ -45,12 +59,22 @@ class FavoriteLogin extends Component {
                 fluid
                 label="Nome"
                 height="medium"
+                onChange={this.validateNameField}
+                ref={this.nameField}
               />
             </Col>
           </Row>
           <Row justifyContent="center">
             <Col mt="40px">
-              <Button active height="tall" onClick={this.props.onSignIn}>
+              <Button
+                active
+                height="tall"
+                onClick={() => {
+                  const name = (this.nameField && this.nameField.current) ? this.nameField.current.value : ''
+                  this.props.onSignIn(name)
+                }}
+                disabled={!this.state.nameFieldValid}
+              >
                 Continuar
               </Button>
             </Col>
@@ -63,7 +87,7 @@ class FavoriteLogin extends Component {
 
 FavoriteLogin.propTypes = {
   onClose: PropTypes.func.isRequired,
-  onSignin: PropTypes.func.isRequired,
+  onSignIn: PropTypes.func.isRequired,
 }
 
 export default FavoriteLogin
