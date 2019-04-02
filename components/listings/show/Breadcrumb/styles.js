@@ -44,23 +44,6 @@ export const Container = styled('ul')`
   }
 `
 
-
-export default styled.ul`
-  box-sizing: border-box;
-  width: 960px;
-  list-style: none;
-  text-transform: uppercase;
-  font-size: 10px;
-  font-weight: 500;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  margin: 35px auto 0;
-  padding: 0 ${theme.space[4]}px;
-  width: 100%;
-  max-width: ${LISTING_DETAILS_MAX_WIDTH}px;
-`
-
 export const Path = styled.li`
   :not(:first-of-type) {
     :before {
@@ -72,15 +55,10 @@ export const Path = styled.li`
     }
   }
 
-  a,
-  :visited {
-    text-decoration: none;
-    color: ${theme.colors.grey};
-    font-weight: 700;
-  }
-
   a {
     cursor: pointer;
+    text-decoration: none;
+    color: ${theme.colors.grey};
 
     &:hover {
       color: ${theme.colors.pink};
