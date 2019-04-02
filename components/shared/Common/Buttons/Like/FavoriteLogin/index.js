@@ -10,10 +10,6 @@ import Text from '@emcasa/ui-dom/components/Text'
 import Input from '@emcasa/ui-dom/components/Input'
 import CloseButton from 'components/shared/CloseButton'
 import {
-  log,
-  LISTING_DETAIL_SAVE_LISTING_OPEN
-} from 'lib/logging'
-import {
   Background,
   Container,
   HeartContainer
@@ -29,15 +25,11 @@ class ContainerClickOutside extends Container {
 const EnhancedContainer = enhanceWithClickOutside(ContainerClickOutside)
 
 class FavoriteLogin extends Component {
-  componentDidMount() {
-
-  }
-
   render() {
     return (
       <Background>
-        <EnhancedContainer onClose={this.props.onClose}>
-          <CloseButton onClick={(e) => {e.preventDefault(); this.props.onClose()}} />
+        <EnhancedContainer onClose={this.props.onClose} onClick={(e) => {e.preventDefault()}}>
+          <CloseButton onClick={this.props.onClose} />
           <Row justifyContent="center">
             <HeartContainer>
               <FontAwesomeIcon icon={faHeart} />
@@ -58,7 +50,7 @@ class FavoriteLogin extends Component {
           </Row>
           <Row justifyContent="center">
             <Col mt="40px">
-              <Button height="tall" active>
+              <Button active height="tall" onClick={this.props.onSignIn}>
                 Continuar
               </Button>
             </Col>
@@ -70,7 +62,8 @@ class FavoriteLogin extends Component {
 }
 
 FavoriteLogin.propTypes = {
-  onClose: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
+  onSignin: PropTypes.func.isRequired,
 }
 
 export default FavoriteLogin

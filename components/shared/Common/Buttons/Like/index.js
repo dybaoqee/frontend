@@ -6,6 +6,7 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faHeart from '@fortawesome/fontawesome-free-solid/faHeart'
 import AccountKit from 'components/shared/Auth/AccountKit'
 import {FAVORITE_LISTING, UNFAVORITE_LISTING} from 'graphql/listings/mutations'
+import { EDIT_PROFILE } from 'graphql/user/mutations'
 import {GET_USER_LISTINGS_ACTIONS} from 'graphql/user/queries'
 import FavoriteLogin from './FavoriteLogin'
 import {
@@ -14,12 +15,46 @@ import {
 } from './styles'
 import {
   log,
-  LISTING_SEARCH_FAVORITE_LISTING
+  LISTING_SEARCH_FAVORITE_LISTING,
+
+  LISTING_SAVE_LOGIN_OPEN,
+  LISTING_SAVE_LOGIN_ACCOUNT_KIT,
+  LISTING_SAVE_LOGIN_SUCCESS,
+  LISTING_SAVE_LOGIN_FAILED,
+  LISTING_SAVE_LOGIN_DONE,
+  LISTING_SAVE_LOGIN_CLOSE
 } from 'lib/logging'
 
 class LikeButton extends Component {
   state = {
-    showLogin: false
+    showLogin: false,
+    showSuccess: false,
+  }
+
+  onLoginSuccess = async (userInfo) => {
+    if (!userInfo) {
+      log(LISTING_SAVE_LOGIN_FAILED)
+      return
+    }
+
+    // Update user name
+    try {
+      const response = await apolloClient.mutate({
+        mutation: EDIT_PROFILE,
+        variables: {
+          id: id,
+          name: ''
+        }
+      })
+
+      if (response && response.data) {
+        log(LISTING_SAVE_LOGIN_SUCCESS)
+        this.setState({ showSuccess: true })
+      }
+    } catch (e) {
+      Sentry.captureException(e)
+      log(LISTING_SAVE_LOGIN_FAILED)
+    }
   }
 
   render() {
@@ -33,14 +68,20 @@ class LikeButton extends Component {
               appSecret={process.env.ACCOUNT_KIT_APP_SECRET}
               version="v1.0"
               skipRedirect
-              onSuccess={() => {
-                Router.replace(location.pathname)
-              }}
+              onSuccess={this.onLoginSuccess}
             >
               {({signIn}) =>
                 <FavoriteLogin
-                  onClose={() => { this.setState({ showLogin: false }) }}
-                  onSignIn={signIn}
+                  onClose={() => {
+                    log(LISTING_SAVE_LOGIN_CLOSE)
+                    this.setState({ showLogin: false })
+                  }}
+                  onSignIn={() => {
+                    this.setState({ showLogin: false}, () => {
+                      log(LISTING_SAVE_LOGIN_ACCOUNT_KIT)
+                      signIn()
+                    })
+                  }}
                 />
               }
             </AccountKit>}
@@ -95,12 +136,12 @@ class LikeButton extends Component {
                     }
                   })
                 } else {
+                  log(LISTING_SAVE_LOGIN_OPEN)
                   this.setState({ showLogin: true })
                 }
               }}
-              {...this.props}
             >
-              <Button>
+              <Button {...this.props}>
                 <FontAwesomeIcon icon={faHeart} />
               </Button>
             </Circle>
