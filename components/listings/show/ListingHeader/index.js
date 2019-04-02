@@ -8,7 +8,6 @@ import faCube from '@fortawesome/fontawesome-pro-light/faCube'
 import {VISUALIZE_TOUR} from 'graphql/listings/mutations'
 import {thumbnailUrl} from 'utils/image_url'
 import {downloadBlob} from 'utils/file-utils'
-import LikeButton from 'components/shared/Common/Buttons/Like'
 import Matterport from 'components/listings/show/Matterport'
 import {mobileMedia} from 'constants/media'
 import {

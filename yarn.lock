@@ -1945,12 +1945,12 @@
   dependencies:
     lodash.once "^4.1.1"
 
-"@emcasa/ui-dom@0.9.11":
-  version "0.9.11"
-  resolved "https://registry.yarnpkg.com/@emcasa/ui-dom/-/ui-dom-0.9.11.tgz#b2fc4bbc9065a31fc3bd733b2659604a07d0c008"
-  integrity sha512-Fzht8czMW+HlbxU4FsQ2jY1p1KZLCUKl8Fqm7TE6xZOk13K+uOoYYzlq13gWmtren3cPGGDesc7D/tUzadsUnw==
+"@emcasa/ui-dom@0.9.14":
+  version "0.9.14"
+  resolved "https://registry.yarnpkg.com/@emcasa/ui-dom/-/ui-dom-0.9.14.tgz#bedf381153b2a46aa3dedda8e8b3b47defd4d9d8"
+  integrity sha512-d1HX8hE5VyZJMphHkMFqAwt7WjUGKm66GHWfBPjzrWvUXZHXoMdvN/bHdzhMysjcNVoDhYa0O6zOKjcz28HuqA==
   dependencies:
-    "@emcasa/ui" "^0.9.11"
+    "@emcasa/ui" "^0.9.14"
     "@rebass/grid" "6.0.0-4"
     classnames "^2.2.6"
     element-class "^0.2.2"
@@ -1964,10 +1964,10 @@
     styled-icons "^3.0.0"
     styled-system "3.1.6"
 
-"@emcasa/ui@0.9.11", "@emcasa/ui@^0.9.11":
-  version "0.9.11"
-  resolved "https://registry.yarnpkg.com/@emcasa/ui/-/ui-0.9.11.tgz#fb67c9238a4d6bb9c5ef27213ebd38fa964d2dfc"
-  integrity sha512-cnDut/nWRp+KbHlxKhz2rrxrR2CjrR/tSPeA4KnB/OoHTzqoHNLhIDRiR0KIjtUJ71H/jnI09vqtK5nLPrtXrA==
+"@emcasa/ui@0.9.14", "@emcasa/ui@^0.9.14":
+  version "0.9.14"
+  resolved "https://registry.yarnpkg.com/@emcasa/ui/-/ui-0.9.14.tgz#6eba87ff69750d237a8897ccc2d688d5a1381588"
+  integrity sha512-gJOyKIFnx5weyfFcLjd19x3p0T5L6+cRaaMaNYJFg0xSv29K9s17s3SruTLGbAlAYZft7omA/FkQDQl4Ph7VqA==
   dependencies:
     "@fortawesome/free-solid-svg-icons" "^5.4.1"
     everpolate "^0.0.3"
