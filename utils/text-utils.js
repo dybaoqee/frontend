@@ -32,10 +32,13 @@ const currencyToInt = (displayPrice) => {
   return intPrice
 }
 
-const intToCurrency = (value) => {
-  const currencyValue = value.toLocaleString('pt-BR', currencyStyle)
-  return currencyValue
-}
+const intToCurrency = (val) =>
+  Number(val || 0).toLocaleString('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
+  })
 
 const roundUpPrice = (price) => {
   const base = 10000
