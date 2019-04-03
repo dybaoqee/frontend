@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import theme from '@emcasa/ui'
+import theme from 'config/theme'
 import View from '@emcasa/ui-dom/components/View'
 import Button from '@emcasa/ui-dom/components/Button'
 import Text from '@emcasa/ui-dom/components/Text'

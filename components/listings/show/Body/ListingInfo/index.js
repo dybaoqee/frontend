@@ -5,10 +5,17 @@ import NumberFormat from 'react-number-format'
 import View from '@emcasa/ui-dom/components/View'
 import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
+import Button from '@emcasa/ui-dom/components/Button'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import faCube from '@fortawesome/fontawesome-free-solid/faCube'
+import faMap from '@fortawesome/fontawesome-free-solid/faMap'
+import faStreetView from '@fortawesome/fontawesome-free-solid/faStreetView'
 
 import {
   Container,
   Title,
+  ButtonsContainer,
+  OpenMatterportButton,
   PriceItem,
   PriceItemSpacer,
   ValuesContainer,
@@ -35,6 +42,11 @@ class ListingInfo extends React.Component {
     return (
       <Container>
         <Title fontWeight="bold">{title}</Title>
+        <ButtonsContainer>
+          <OpenMatterportButton><FontAwesomeIcon icon={faCube} />Ver por dentro</OpenMatterportButton>
+          <Button><FontAwesomeIcon icon={faMap} color={theme.colors.blue} />Mapa</Button>
+          <Button><FontAwesomeIcon icon={faStreetView} color={theme.colors.blue} />Rua</Button>
+        </ButtonsContainer>
         <Row flexDirection="column" mb={5}>
           {(maintenanceFee && maintenanceFee > 0) &&
             <PriceItem mb={2}>
