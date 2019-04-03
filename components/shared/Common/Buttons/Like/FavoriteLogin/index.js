@@ -52,7 +52,7 @@ class FavoriteLogin extends Component {
 
   render() {
     return (
-      <Modal onClose={this.props.onClose} justifyContent="center">
+      <Modal onClose={this.props.onClose} justifyContent="center" padding>
         <CloseButton onClick={this.props.onClose} />
         <Row justifyContent="center">
           <HeartContainer>

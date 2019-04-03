@@ -27,6 +27,8 @@ export const Container = styled(View)`
   height: ${HEIGHT}px;
   margin: calc((100vh - ${HEIGHT}px) / 2) auto;
   z-index: 1;
+  ${({padding}) => padding ? `padding: 0 20px;` : ``}
+
 
   @media ${breakpoint.only('phone')} {
     width: auto;
