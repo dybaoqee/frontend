@@ -23,7 +23,6 @@ import ListingMainContent from 'components/listings/show/Body'
 import Breadcrumb from 'components/listings/show/Breadcrumb'
 import PriceBar from 'components/listings/show/PriceBar'
 import ButtonsBar from 'components/listings/show/ButtonsBar'
-import ListingMap from 'components/listings/show/Map'
 import InterestForm from 'components/listings/show/InterestForm'
 import InterestPosted from 'components/listings/show/InterestForm/interest_posted'
 import RelatedListings from 'components/listings/show/RelatedListings'
@@ -328,7 +327,6 @@ class Listing extends Component {
                         favorite={favorite}
                         flagrFlags={this.props.flagrFlags}
                       />
-                      <ListingMap listing={listing} />
                       <RelatedListings
                         currentUser={currentUser}
                         listings={related}
