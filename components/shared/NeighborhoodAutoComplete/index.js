@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import Link from 'next/link'
 import slug from 'slug'
 import PropTypes from 'prop-types'
 import {Query} from 'react-apollo'
-import { MoonLoader } from 'react-spinners'
+import {MoonLoader} from 'react-spinners'
 import Fuse from 'fuse.js'
 import {GET_DISTRICTS} from 'graphql/listings/queries'
 import theme from 'config/theme'
@@ -82,7 +82,7 @@ class NeighborhoodAutoComplete extends Component {
     this.setState({
       showPredictions: true,
       input: input,
-      predictionSelected: 0,
+      predictionSelected: 0
     })
   }
 
@@ -93,37 +93,67 @@ class NeighborhoodAutoComplete extends Component {
 
   getSearchResults = () => {
     return (
-      <Query query={GET_DISTRICTS}>
-        {({data: {districts}, loading}) => {
+      <Query query={GET_DISTRICTS} ssr={true}>
+        {({data, loading}) => {
           if (loading) {
             return null
           }
+          const districts = data ? data.districts : []
           const cities = [
-            {name: 'São Paulo', citySlug: 'sao-paulo', stateSlug: 'sp', state: 'SP'},
-            {name: 'Rio de Janeiro', citySlug: 'rio-de-janeiro', stateSlug: 'rj', state: 'RJ'}
+            {
+              name: 'São Paulo',
+              citySlug: 'sao-paulo',
+              stateSlug: 'sp',
+              state: 'SP'
+            },
+            {
+              name: 'Rio de Janeiro',
+              citySlug: 'rio-de-janeiro',
+              stateSlug: 'rj',
+              state: 'RJ'
+            }
           ]
 
-          const districtsSP = districts.filter(({stateSlug}) => stateSlug === 'sp')
-          const districtsRJ = districts.filter(({stateSlug}) => stateSlug === 'rj')
+          const districtsSP = districts.filter(
+            ({stateSlug}) => stateSlug === 'sp'
+          )
+          const districtsRJ = districts.filter(
+            ({stateSlug}) => stateSlug === 'rj'
+          )
           const items = cities.concat(districtsSP).concat(districtsRJ)
-          const itemsToSearch = new Fuse(items, {threshold: 0.1 , keys: ['name', 'city', 'state']})
-          const results = this.state.input ? itemsToSearch.search(this.state.input) : items
-          return results.filter(d => d.name).map((item, index) => {
+          const itemsToSearch = new Fuse(items, {
+            threshold: 0.1,
+            keys: ['name', 'city', 'state']
+          })
+          const results = this.state.input
+            ? itemsToSearch.search(this.state.input)
+            : items
+          return results.filter((d) => d.name).map((item, index) => {
             let url = `/imoveis/${item.stateSlug}/${item.citySlug}`
             if (item.nameSlug) {
               url += `/${slug(item.nameSlug.toLowerCase())}`
             }
             return (
-              <Link key={index} href={{
-                pathname: url,
-                asPath: url,
-                search: (window && window.location && window.location.search) ? window.location.search : null
-              }}>
+              <Link
+                key={index}
+                href={{
+                  pathname: url,
+                  asPath: url,
+                  search:
+                    window && window.location && window.location.search
+                      ? window.location.search
+                      : null
+                }}
+              >
                 <SearchResultItem
-                  onClick={() => {this.logLocationSelection(item)}}
+                  onClick={() => {
+                    this.logLocationSelection(item)
+                  }}
                   height={this.props.height}
                 >
-                  <Text>{item.name}, {item.nameSlug ? item.city : item.state}</Text>
+                  <Text>
+                    {item.name}, {item.nameSlug ? item.city : item.state}
+                  </Text>
                 </SearchResultItem>
               </Link>
             )
@@ -187,7 +217,7 @@ class NeighborhoodAutoComplete extends Component {
     clearTimeout(this.timer)
     this.timer = setTimeout(this.searchPlaces.bind(null, value), 300)
 
-    const { onClearInput } = this.props
+    const {onClearInput} = this.props
     if (onClearInput) {
       if (!value || value === '') {
         onClearInput()
@@ -213,7 +243,7 @@ class NeighborhoodAutoComplete extends Component {
       errors
     } = this.state
     const value = place.description || search
-    const { onBackPressed, defaultValue, height } = this.props
+    const {onBackPressed, defaultValue, height} = this.props
 
     let suggestionsWidth = null
     if (this.inputContainer && this.inputContainer.current) {
@@ -222,9 +252,9 @@ class NeighborhoodAutoComplete extends Component {
     return (
       <div ref={this.inputContainer}>
         <InputContainer>
-          {onBackPressed &&
+          {onBackPressed && (
             <BackIcon name="arrow-left" color="dark" onClick={onBackPressed} />
-          }
+          )}
           <Col width={1}>
             <Input
               onBlur={this.onBlur}
@@ -243,7 +273,7 @@ class NeighborhoodAutoComplete extends Component {
               height={height ? height : 'tall'}
             />
           </Col>
-          {loadingPlaceInfo &&
+          {loadingPlaceInfo && (
             <View mr={2}>
               <MoonLoader
                 size={24}
@@ -252,16 +282,18 @@ class NeighborhoodAutoComplete extends Component {
                 loading={loadingPlaceInfo}
               />
             </View>
-          }
+          )}
         </InputContainer>
-        {errors.length > 0 && <Text inline color="red" fontSize="small">{errors[0]}</Text>}
-        {showPredictions &&
+        {errors.length > 0 && (
+          <Text inline color="red" fontSize="small">
+            {errors[0]}
+          </Text>
+        )}
+        {showPredictions && (
           <SearchResultContainer width={suggestionsWidth}>
-            <Col width={[1]}>
-              {this.getSearchResults()}
-            </Col>
+            <Col width={[1]}>{this.getSearchResults()}</Col>
           </SearchResultContainer>
-        }
+        )}
       </div>
     )
   }

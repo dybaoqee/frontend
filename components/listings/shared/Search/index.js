@@ -196,7 +196,8 @@ export default class Filter extends Component {
 
     return (
       <Query query={GET_NEIGHBORHOODS} ssr={false}>
-        {({data: {neighborhoods = []}}) => {
+        {({data}) => {
+          const neighborhoods = data ? data.neighborhoods : []
           const neighborhoodsOptions = neighborhoodOptions(neighborhoods)
           return (
             <Container>
