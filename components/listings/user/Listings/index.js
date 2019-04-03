@@ -206,7 +206,8 @@ export default class Listings extends Component {
         variables={{pagination: this.pagination, filters}}
         fetchPolicy="cache-and-network"
       >
-        {({data: {userProfile}, fetchMore}) => {
+        {({data, fetchMore}) => {
+          const userProfile = data ? data.userProfile : {}
           const filtered = !isEmpty(filters)
           const listings = filtered
             ? filterListings(userProfile.listings, filters)

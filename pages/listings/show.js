@@ -258,7 +258,8 @@ class Listing extends Component {
             query={GET_USER_LISTINGS_ACTIONS}
             skip={!currentUser.authenticated}
           >
-            {({data: {userProfile}, loading, error}) => {
+            {({data, loading, error}) => {
+              const userProfile = data ? data.userProfile : null
               const {router} = this.props
               const favorite =
                 !loading &&
