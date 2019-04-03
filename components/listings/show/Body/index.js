@@ -9,6 +9,7 @@ import {
   LISTING_DETAIL_OPEN,
   LISTING_DETAIL_EXPAND_DESCRIPTION
 } from 'lib/logging'
+import {listingDetailsBarHeightDesktop} from 'constants/dimensions'
 import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
 import View from '@emcasa/ui-dom/components/View'
@@ -61,7 +62,7 @@ class ListingMainContent extends Component {
     const pricePerSquareMeter = Math.floor(price / area)
 
     return (
-      <Row justifyContent="center" width="100%">
+      <Row justifyContent="center" width="100%" mt={[5, null, null, 6]}>
         <Container>
           <ListingInfo
             listing={listing}

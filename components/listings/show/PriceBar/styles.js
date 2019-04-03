@@ -15,7 +15,6 @@ export const Wrapper = styled(Row)`
   align-items: center;
   justify-content: center;
   padding: ${theme.space[4]}px ${theme.space[4]}px;
-  margin-bottom: ${theme.space[5]}px;
   border-top: 1px solid ${theme.colors.lightGrey};
   border-bottom: 1px solid ${theme.colors.lightGrey};
   box-sizing: border-box;
@@ -27,7 +26,6 @@ export const Wrapper = styled(Row)`
     width: 100%;
     height: ${listingDetailsBarHeightDesktop}px;
     padding: 0 ${theme.space[4]}px;
-    margin-bottom: 0;
     background: ${theme.colors.white};
   }
 
