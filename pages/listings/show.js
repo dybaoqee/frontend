@@ -96,14 +96,6 @@ class Listing extends Component {
     }
 
     if (listing) {
-      if (asPath && res) {
-        const urlParams = asPath.split('/').length
-        //If client is trying to access old slugs then redirect
-        if (urlParams <= 3 || urlParams === 5) {
-          res.redirect(301, buildSlug(listing))
-        }
-      }
-
       return {
         listing,
         currentUser,
