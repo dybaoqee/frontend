@@ -9,20 +9,8 @@ import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
 import Input from '@emcasa/ui-dom/components/Input'
 import CloseButton from 'components/shared/CloseButton'
-import {
-  Background,
-  Container,
-  HeartContainer
-} from './styles'
-
-class ContainerClickOutside extends Container {
-  handleClickOutside(e) {
-    e.preventDefault()
-    this.props.onClose()
-  }
-}
-
-const EnhancedContainer = enhanceWithClickOutside(ContainerClickOutside)
+import Modal from '../Modal'
+import { HeartContainer } from './styles'
 
 class FavoriteLogin extends Component {
   constructor(props) {
@@ -64,43 +52,41 @@ class FavoriteLogin extends Component {
 
   render() {
     return (
-      <Background>
-        <EnhancedContainer onClose={this.props.onClose} onClick={(e) => {e.preventDefault()}}>
-          <CloseButton onClick={this.props.onClose} />
-          <Row justifyContent="center">
-            <HeartContainer>
-              <FontAwesomeIcon icon={faHeart} />
-            </HeartContainer>
-          </Row>
-          <Row m={2} justifyContent="center">
-            <Text inline fontWeight="bold" textAlign="center">Salvar imóvel</Text>
-          </Row>
-          <Text inline textAlign="center">Este imóvel será salvo na sua aba de favoritos. Para isso, só precisamos do seu nome e telefone.</Text>
-          <Row justifyContent="center">
-            <Col width={3/4} mt="40px">
-              <Input
-                fluid
-                label="Nome"
-                height="medium"
-                onChange={this.validateNameField}
-                ref={this.nameField}
-              />
-            </Col>
-          </Row>
-          <Row justifyContent="center">
-            <Col mt="40px">
-              <Button
-                active
-                height="tall"
-                onClick={this.submit}
-                disabled={!this.state.nameFieldValid}
-              >
-                Continuar
-              </Button>
-            </Col>
-          </Row>
-        </EnhancedContainer>
-      </Background>
+      <Modal onClose={this.props.onClose} justifyContent="center">
+        <CloseButton onClick={this.props.onClose} />
+        <Row justifyContent="center">
+          <HeartContainer>
+            <FontAwesomeIcon icon={faHeart} />
+          </HeartContainer>
+        </Row>
+        <Row m={2} justifyContent="center">
+          <Text inline fontWeight="bold" textAlign="center">Salvar imóvel</Text>
+        </Row>
+        <Text inline textAlign="center">Este imóvel será salvo na sua aba de favoritos. Para isso, só precisamos do seu nome e telefone.</Text>
+        <Row justifyContent="center">
+          <Col width={3/4} mt="40px">
+            <Input
+              fluid
+              label="Nome"
+              height="medium"
+              onChange={this.validateNameField}
+              ref={this.nameField}
+            />
+          </Col>
+        </Row>
+        <Row justifyContent="center">
+          <Col mt="40px">
+            <Button
+              active
+              height="tall"
+              onClick={this.submit}
+              disabled={!this.state.nameFieldValid}
+            >
+              Continuar
+            </Button>
+          </Col>
+        </Row>
+      </Modal>
     )
   }
 }

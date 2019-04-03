@@ -41,6 +41,31 @@ exports[`<ListingCard/> should render component 1`] = `
   font-weight: 500;
 }
 
+.c0 {
+  position: relative;
+  box-sizing: border-box;
+  cursor: pointer;
+  width: px;
+  height: auto;
+  border: 1px solid #e0e6ed;
+  border-radius: 4px;
+  margin: 0 20px 20px 0;
+}
+
+.c0:hover {
+  border-color: #f50057;
+  box-shadow: 0 0 2px #f50057;
+}
+
+.c0 img {
+  box-sizing: border-box;
+  object-fit: cover;
+  width: 100%;
+  min-height: NaNpx;
+  height: NaNpx;
+  border-radius: 4px 4px 0 0;
+}
+
 .c6 {
   position: absolute;
   cursor: pointer;
@@ -88,31 +113,6 @@ exports[`<ListingCard/> should render component 1`] = `
   stroke: #3c4858;
   fill-opacity: 0;
   stroke-width: 60;
-}
-
-.c0 {
-  position: relative;
-  box-sizing: border-box;
-  cursor: pointer;
-  width: px;
-  height: auto;
-  border: 1px solid #e0e6ed;
-  border-radius: 4px;
-  margin: 0 20px 20px 0;
-}
-
-.c0:hover {
-  border-color: #f50057;
-  box-shadow: 0 0 2px #f50057;
-}
-
-.c0 img {
-  box-sizing: border-box;
-  object-fit: cover;
-  width: 100%;
-  min-height: NaNpx;
-  height: NaNpx;
-  border-radius: 4px 4px 0 0;
 }
 
 <a
