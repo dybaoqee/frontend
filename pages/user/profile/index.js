@@ -205,8 +205,9 @@ class UserProfile extends Component {
 
     return (
       <Query query={GET_USER_INFO} variables={{id}}>
-        {({loading, error, data: {userProfile}}) => {
+        {({loading, error, data}) => {
           if (loading) return <div />
+          const userProfile = data ? data.userProfile : null
           const { name, email, phone } = userProfile
           const phoneParts = getPhoneParts(phone)
           const phoneDisplay = getPhoneDisplay(phoneParts)
@@ -276,8 +277,9 @@ class UserProfile extends Component {
           <Mutation mutation={EDIT_PROFILE}>
             {(editProfile, {loading: updatingProfile}) => (
               <Query query={GET_USER_INFO} variables={{id}}>
-                {({loading, data: {userProfile}}) => {
+                {({loading, data}) => {
                   if (loading) return <div />
+                  const userProfile = data ? data.userProfile : null
                   const { name, email } = userProfile
                   this.checkFieldsChange(name, email)
 
@@ -371,9 +373,10 @@ class UserProfile extends Component {
     const {user} = this.props
     return (
       <Query query={GET_USER_LISTINGS}>
-        {({loading, error, data: {userProfile}}) => {
+        {({loading, error, data}) => {
           if (loading) return <div />
           if (error) return `Error!: ${error}`
+          const userProfile = data ? data.userProfile : null
           if (userProfile.listings.length > 0) {
             return (
               <ProfileList
@@ -436,10 +439,10 @@ class UserProfile extends Component {
     const {user} = this.props
     return (
       <Query query={GET_FAVORITE_LISTINGS}>
-        {({loading, error, data: {userProfile}}) => {
+        {({loading, error, data}) => {
           if (loading) return <div />
           if (error) return `Error!: ${error}`
-
+          const userProfile = data ? data.userProfile : null
           if (userProfile.favorites.length > 0) {
             return (
               <ProfileList

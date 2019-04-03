@@ -11,15 +11,11 @@ import ListingFilter from 'components/listings/shared/ListingFilter'
 import ListingList from 'components/listings/shared/ListingList'
 import {getUrlVars} from 'utils/text-utils'
 import {imageUrl} from 'utils/image_url'
-import {
-  log,
-  LISTING_SEARCH_OPEN
-} from 'lib/logging'
+import {log, LISTING_SEARCH_OPEN} from 'lib/logging'
 import {
   getTitleTextByFilters,
   getTitleTextByParams
 } from 'components/listings/shared/ListingList/title'
-import {NEIGHBORHOODS} from 'constants/listing-locations'
 import {
   SchemaWebSite,
   SchemaRealEstateAgent,
@@ -49,7 +45,7 @@ class ListingSearch extends Component {
     if (context.req && context.req.params) {
       params = context.req.params
     } else {
-      const { asPath } = context
+      const {asPath} = context
       params = getLocationFromPath(asPath)
     }
 
@@ -90,8 +86,12 @@ class ListingSearch extends Component {
     // responsible for controlling neighborhood filters is not in the same context as
     // this ListingSearch or the ListingFilter.
     let newFilters = getNewFiltersFromQuery(Router.query)
-    const newNeighborhoods = newFilters.neighborhoods ? newFilters.neighborhoods.toString() : ''
-    const currentNeighborhoods = this.state.filters.neighborhoods ? this.state.filters.neighborhoods.toString() : ''
+    const newNeighborhoods = newFilters.neighborhoods
+      ? newFilters.neighborhoods.toString()
+      : ''
+    const currentNeighborhoods = this.state.filters.neighborhoods
+      ? this.state.filters.neighborhoods.toString()
+      : ''
     if (newNeighborhoods !== currentNeighborhoods) {
       delete newFilters.citiesSlug
       this.setState({
@@ -103,18 +103,23 @@ class ListingSearch extends Component {
 
   onChangeFilter = (filters) => {
     // Add neighborhoods to new filters from Router.query
-    const neighborhoodFilters = getNewFiltersFromQuery(Router.query).neighborhoods
+    const neighborhoodFilters = getNewFiltersFromQuery(Router.query)
+      .neighborhoods
     filters.neighborhoods = neighborhoodFilters
     const newQuery = treatParams(filters)
 
-    const { params } = this.props
+    const {params} = this.props
     let route = ''
     if (params && Object.keys(params).length > 0) {
-      route = `/${params.state}/${params.city}${params.neighborhood ? `/${params.neighborhood}` : ``}`
+      route = `/${params.state}/${params.city}${
+        params.neighborhood ? `/${params.neighborhood}` : ''
+      }`
     }
 
     const query = newQuery.length > 0 ? `?${newQuery}` : ''
-    Router.push(`/listings${query}`, `/imoveis${route}${query}`, {shallow: true})
+    Router.push(`/listings${query}`, `/imoveis${route}${query}`, {
+      shallow: true
+    })
 
     this.setState({filters: filters})
     window.scrollTo(0, 0)
@@ -128,17 +133,24 @@ class ListingSearch extends Component {
 
   getCanonical = (districts) => {
     const {filters} = this.state
-    const {params, url: {asPath}} = this.props
-    const info = filters && filters.neighborhoods ? districts.find(a => a.nameSlug === filters.neighborhoods[0]) : null
+    const info =
+      filters && filters.neighborhoods
+        ? districts.find((a) => a.nameSlug === filters.neighborhoods[0])
+        : null
 
-    return info && info.stateSlug ? `/${info.stateSlug}/${info.citySlug}/${info.nameSlug}` : `${BASE_URL}`
+    return info && info.stateSlug
+      ? `/${info.stateSlug}/${info.citySlug}/${info.nameSlug}`
+      : `${BASE_URL}`
   }
 
   getURL = () => {
     const {params, url: {asPath}} = this.props
     const {state, city, neighborhood} = params
     const startParams = asPath.indexOf('?')
-    const urlParams = startParams && startParams != -1 ? asPath.slice(startParams, asPath.length) : ''
+    const urlParams =
+      startParams && startParams != -1
+        ? asPath.slice(startParams, asPath.length)
+        : ''
     let url = BASE_URL
 
     if (neighborhood) {
@@ -149,7 +161,7 @@ class ListingSearch extends Component {
       url += `/${state}`
     }
 
-    return url += urlParams
+    return (url += urlParams)
   }
 
   getImageSrc = () => {
@@ -161,10 +173,16 @@ class ListingSearch extends Component {
 
   getHead = (districts) => {
     const {filters} = this.state
-    const {params, url: {asPath}} = this.props
-    const titleContent = filters && filters.neighborhoods ? getTitleTextByFilters(filters.neighborhoods, districts) : getTitleTextByParams(params, districts)
+    const {params} = this.props
+    const titleContent =
+      filters && filters.neighborhoods
+        ? getTitleTextByFilters(filters.neighborhoods, districts)
+        : getTitleTextByParams(params, districts)
     const url = this.getURL()
-    const canonical = filters.neighborhoods && filters.neighborhoods.length === 1 ? this.getCanonical(districts) : null
+    const canonical =
+      filters.neighborhoods && filters.neighborhoods.length === 1
+        ? this.getCanonical(districts)
+        : null
     const imageSrc = this.getImageSrc()
 
     return (
@@ -174,20 +192,21 @@ class ListingSearch extends Component {
         imageSrc={imageSrc}
         url={url}
         canonical={canonical}
-
       />
     )
   }
 
   getWebPage = () => {
     let schema = {
-      "@context": "http://schema.org",
-      "@type": "WebPage",
-      "@id": "https://www.emcasa.com/imoveis/#webpage",
-      "url": "https://www.emcasa.com/imoveis",
-      "name": 'Apartamentos e Casas à venda na Zona Sul do Rio de Janeiro e em São Paulo',
-      "description": 'Conheça em Compre Apartamentos e Casas à venda na Zona Sul do Rio de Janeiro e em São Paulo com o sistema exclusivo de Tour Virtual 3D do Emcasa, a sua startup imobiliária.',
-      "breadcrumb": this.getBreadcrumbList()
+      '@context': 'http://schema.org',
+      '@type': 'WebPage',
+      '@id': 'https://www.emcasa.com/imoveis/#webpage',
+      url: 'https://www.emcasa.com/imoveis',
+      name:
+        'Apartamentos e Casas à venda na Zona Sul do Rio de Janeiro e em São Paulo',
+      description:
+        'Conheça em Compre Apartamentos e Casas à venda na Zona Sul do Rio de Janeiro e em São Paulo com o sistema exclusivo de Tour Virtual 3D do Emcasa, a sua startup imobiliária.',
+      breadcrumb: this.getBreadcrumbList()
     }
 
     return schema
@@ -196,34 +215,34 @@ class ListingSearch extends Component {
   getBreadcrumbList = () => {
     let itemListElement = [
       {
-        "@type": "ListItem",
-        "position": 1,
-        "item": {
-          "@id": "http://www.emcasa.com",
-          "url": "http://www.emcasa.com",
-          "name": "Página Inicial"
+        '@type': 'ListItem',
+        position: 1,
+        item: {
+          '@id': 'http://www.emcasa.com',
+          url: 'http://www.emcasa.com',
+          name: 'Página Inicial'
         }
       },
       {
-        "@type": "ListItem",
-        "position": 2,
-        "item": {
-          "@id": "http://www.emcasa.com/imoveis",
-          "url": "http://www.emcasa.com/imoveis",
-          "name": "Comprar imóvel"
+        '@type': 'ListItem',
+        position: 2,
+        item: {
+          '@id': 'http://www.emcasa.com/imoveis',
+          url: 'http://www.emcasa.com/imoveis',
+          name: 'Comprar imóvel'
         }
       }
     ]
 
     return {
-      "@context": "http://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": itemListElement
+      '@context': 'http://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: itemListElement
     }
   }
 
   render() {
-    const {neighborhoods, query, params, user, client} = this.props
+    const {query, params, user, client} = this.props
     const {filters} = this.state
 
     if (params && !filters.neighborhoods) {
@@ -239,54 +258,61 @@ class ListingSearch extends Component {
 
     return (
       <Query query={GET_DISTRICTS}>
-      {({data: {districts}, loading, error}) => {
-        if (loading) return <div />
-        if (error) return <p>ERROR</p>
-
-        return (
-          <Fragment>
-            {this.getHead(districts)}
-            <script
-              type="application/ld+json"
-              dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaWebSite) }}
-            />
-            <script
-              type="application/ld+json"
-              dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaRealEstateAgent) }}
-            />
-            <script
-              type="application/ld+json"
-              dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaOrganization) }}
-            />
-            <script
-              type="application/ld+json"
-              dangerouslySetInnerHTML={{ __html: JSON.stringify(this.getWebPage()) }}
-            />
-            <script
-              type="application/ld+json"
-              dangerouslySetInnerHTML={{ __html: JSON.stringify(this.getBreadcrumbList()) }}
-            />
-            <ListingFilter
-              onSubmit={this.onChangeFilter}
-              values={filters}
-            />
-            <ListingList
-              query={query}
-              params={params}
-              user={user}
-              resetFilters={this.onResetFilter}
-              filters={listingFilters}
-              apolloClient={client}
-              districts={districts}
-              neighborhoodListener={(neighborhood) => {
-                if (!this.state.neighborhood) {
-                  this.setState({neighborhood: neighborhood})
-                }
-              }}
-            />
-          </Fragment>
-        )
-      }}
+        {({data, loading, error}) => {
+          if (loading) return <div />
+          if (error) return <p>ERROR</p>
+          const districts = data ? data.districts : []
+          return (
+            <Fragment>
+              {this.getHead(districts)}
+              <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                  __html: JSON.stringify(SchemaWebSite)
+                }}
+              />
+              <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                  __html: JSON.stringify(SchemaRealEstateAgent)
+                }}
+              />
+              <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                  __html: JSON.stringify(SchemaOrganization)
+                }}
+              />
+              <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                  __html: JSON.stringify(this.getWebPage())
+                }}
+              />
+              <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                  __html: JSON.stringify(this.getBreadcrumbList())
+                }}
+              />
+              <ListingFilter onSubmit={this.onChangeFilter} values={filters} />
+              <ListingList
+                query={query}
+                params={params}
+                user={user}
+                resetFilters={this.onResetFilter}
+                filters={listingFilters}
+                apolloClient={client}
+                districts={districts}
+                neighborhoodListener={(neighborhood) => {
+                  if (!this.state.neighborhood) {
+                    this.setState({neighborhood: neighborhood})
+                  }
+                }}
+              />
+            </Fragment>
+          )
+        }}
       </Query>
     )
   }

@@ -1,9 +1,6 @@
 import {Component, Fragment} from 'react'
 import {Query} from 'react-apollo'
-import {
-  GET_FAVORITE_LISTINGS_IDS,
-  GET_FAVORITE_LISTINGS
-} from 'graphql/user/queries'
+import {GET_FAVORITE_LISTINGS} from 'graphql/user/queries'
 import {GET_LISTINGS, GET_LISTING} from 'graphql/listings/queries'
 import map from 'lodash/map'
 import isEmpty from 'lodash/isEmpty'
@@ -29,14 +26,7 @@ export default class Listings extends Component {
   }
 
   getListings = (result, userProf, fetchMore) => {
-    const {
-      user,
-      resetFilters,
-      filters,
-      onHoverListing,
-      onLeaveListing,
-      highlight
-    } = this.props
+    const {user, onHoverListing, onLeaveListing, highlight} = this.props
 
     const {mapOpened} = this.state
 
@@ -44,64 +34,57 @@ export default class Listings extends Component {
 
     if (result && result.length > 0) {
       return (
-        <Query query={GET_FAVORITE_LISTINGS_IDS} skip={!user.authenticated}>
-          {({data: {userProfile}}) => {
-            return (
-              <InfiniteScroll
-                title={h1Content}
-                entries={result}
-                remaining_count={0}
-                onLoad={async () => {
-                  const loadedListings = await fetchMore({
-                    variables: {
-                      pagination: {
-                        ...this.pagination,
-                        excludedListingIds: map(result, 'id')
-                      }
-                    },
-                    updateQuery: (
-                      prev,
-                      {fetchMoreResult, variables: {pagination}}
-                    ) => {
-                      if (!fetchMoreResult) return prev
-                      this.pagination = pagination
-                      const result = {
-                        ...prev,
-                        listings: {
-                          ...prev.listings,
-                          remainingCount:
-                            fetchMoreResult.listings.remainingCount,
-                          listings: [
-                            ...prev.listings.listings,
-                            ...fetchMoreResult.listings.listings
-                          ]
-                        }
-                      }
-                      return result
-                    }
-                  })
+        <InfiniteScroll
+          title={h1Content}
+          entries={result}
+          remaining_count={0}
+          onLoad={async () => {
+            const loadedListings = await fetchMore({
+              variables: {
+                pagination: {
+                  ...this.pagination,
+                  excludedListingIds: map(result, 'id')
+                }
+              },
+              updateQuery: (
+                prev,
+                {fetchMoreResult, variables: {pagination}}
+              ) => {
+                if (!fetchMoreResult) return prev
+                this.pagination = pagination
+                const result = {
+                  ...prev,
+                  listings: {
+                    ...prev.listings,
+                    remainingCount: fetchMoreResult.listings.remainingCount,
+                    listings: [
+                      ...prev.listings.listings,
+                      ...fetchMoreResult.listings.listings
+                    ]
+                  }
+                }
+                return result
+              }
+            })
 
-                  return loadedListings
-                }}
-                horizontal={mapOpened}
-              >
-                {(listing) => (
-                  <Listing
-                    onMouseEnter={onHoverListing}
-                    onMouseLeave={onLeaveListing}
-                    highlight={highlight}
-                    key={listing.id}
-                    listing={listing}
-                    currentUser={user}
-                    loading={this.loading}
-                    resumedInfo={mapOpened}
-                    favorited={result || []}
-                  />
-                )}
-              </InfiniteScroll>
-            )
+            return loadedListings
           }}
-        </Query>
+          horizontal={mapOpened}
+        >
+          {(listing) => (
+            <Listing
+              onMouseEnter={onHoverListing}
+              onMouseLeave={onLeaveListing}
+              highlight={highlight}
+              key={listing.id}
+              listing={listing}
+              currentUser={user}
+              loading={this.loading}
+              resumedInfo={mapOpened}
+              favorited={result || []}
+            />
+          )}
+        </InfiniteScroll>
       )
     } else {
       return (
@@ -217,7 +200,8 @@ export default class Listings extends Component {
         variables={{pagination: this.pagination, filters}}
         fetchPolicy="cache-and-network"
       >
-        {({data: {userProfile}, fetchMore}) => {
+        {({data, fetchMore}) => {
+          const userProfile = data ? data.userProfile : {}
           const filtered = !isEmpty(filters)
           const listings = filtered
             ? filterListings(userProfile.favorites, filters)
