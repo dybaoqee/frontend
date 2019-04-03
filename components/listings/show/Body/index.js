@@ -14,13 +14,11 @@ import Button from '@emcasa/ui-dom/components/Button'
 import View from '@emcasa/ui-dom/components/View'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
-import ToggleButton from './ToggleButton'
-import LikeButton from 'components/shared/Common/Buttons/Like'
 import ListingInfo from './ListingInfo'
+import ListingDescription from './ListingDescription'
 import {
   Container,
   SubTitle,
-  ListingDescription,
   MobileInfo
 } from './styles'
 
@@ -45,7 +43,7 @@ class ListingMainContent extends Component {
   }
 
   render() {
-    const {listing, handleOpenPopup, user, favorite} = this.props
+    const {listing, user, favorite} = this.props
     const {street, neighborhood, streetNumber} = listing.address
     const paragraphs = getParagraphs(listing.description)
     const ownerOrAdmin = canEdit(user, listing)
@@ -71,31 +69,14 @@ class ListingMainContent extends Component {
             flagrFlags={this.props.flagrFlags}
             title={`${listing.type} na ${listingUserInfo}, ${neighborhood}, ${listing.address.city}`}
           />
-          <ListingDescription expanded={this.state.expanded}>
-            <ToggleButton expanded={this.state.expanded} onClick={this.toggleBody} />
-            <SubTitle>O imóvel</SubTitle>
-            {paragraphs && paragraphs.map((paragraph, i) => <Text key={i}>{paragraph}</Text>)}
-            {user.admin &&
-              <View my={4} style={{textAlign: 'center'}}>
-                <a href={`${process.env.GARAGEM_URL}/imoveis/${listing.id}`} target="_blank">
-                  <Button link height="auto" p={0}>
-                    Ver no garagem
-                  </Button>
-                </a>
-              </View>
-            }
-          </ListingDescription>
+          <ListingDescription
+            expanded={this.state.expanded}
+            listing={listing}
+            toggleBody={this.toggleBody}
+            paragraphs={paragraphs}
+            user={user}
+          />
         </Container>
-        <View mt={4}>
-          <Button fluid height="tall" active onClick={handleOpenPopup}>Falar com especialista</Button>
-        </View>
-        <LikeButton
-          top={-25}
-          favorite={favorite}
-          listing={listing}
-          user={user}
-          secondary
-        />
       </Row>
     )
   }
@@ -103,7 +84,6 @@ class ListingMainContent extends Component {
 
 ListingMainContent.propTypes = {
   listing: PropTypes.object.isRequired,
-  handleOpenPopup: PropTypes.func.isRequired,
   user: PropTypes.object,
   favorite: PropTypes.bool
 }

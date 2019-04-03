@@ -56,4 +56,3 @@ export const ValuesItem = styled(Row)`
     margin: 0;
   }
 `
-

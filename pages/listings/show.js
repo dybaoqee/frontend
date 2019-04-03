@@ -18,10 +18,11 @@ import Link from 'next/link'
 import {createInterest} from 'services/interest-api'
 import isUndefined from 'lodash/isUndefined'
 import ListingHead from 'components/listings/show/Head'
-import Breadcrumb from 'components/listings/show/Breadcrumb'
-import PriceBar from 'components/listings/show/PriceBar'
 import ListingHeader from 'components/listings/show/ListingHeader'
 import ListingMainContent from 'components/listings/show/Body'
+import Breadcrumb from 'components/listings/show/Breadcrumb'
+import PriceBar from 'components/listings/show/PriceBar'
+import ButtonsBar from 'components/listings/show/ButtonsBar'
 import ListingMap from 'components/listings/show/Map'
 import InterestForm from 'components/listings/show/InterestForm'
 import InterestPosted from 'components/listings/show/InterestForm/interest_posted'
@@ -30,20 +31,20 @@ import Warning from 'components/shared/Common/Warning'
 import {buildSlug, getListingId} from 'lib/listings'
 import NextHead from 'components/shared/NextHead'
 import getApolloClient from 'lib/apollo/initApollo'
-import { getUserInfo } from 'lib/user'
-import { getCookie } from 'lib/session'
+import {getUserInfo} from 'lib/user'
+import {getCookie} from 'lib/session'
 import {
   fetchFlag,
   DEVICE_ID_COOKIE
 } from 'components/shared/Flagr'
-import { TEST_SCHEDULE_VISIT_CTA } from 'components/shared/Flagr/tests'
+import {TEST_SCHEDULE_VISIT_CTA} from 'components/shared/Flagr/tests'
 import {
   log,
   getListingInfoForLogs,
   LISTING_DETAIL_OPEN_VISIT_FORM,
   LISTING_DETAIL_SCHEDULE_VISIT
 } from 'lib/logging'
-import { desktopHeaderHeight } from 'constants/dimensions'
+import {desktopHeaderHeight} from 'constants/dimensions'
 
 
 export const Title = Text.withComponent('h2')
@@ -109,7 +110,7 @@ class Listing extends Component {
         currentUser,
         flagrFlags
       }
-    } else {
+   } else {
       return {
         listingFetchError: errors[0],
         currentUser,
@@ -145,7 +146,7 @@ class Listing extends Component {
   }
 
   openPopup = async (e) => {
-    const { currentUser } = this.props
+    const {currentUser} = this.props
     if (currentUser && currentUser.authenticated) {
       const userInfo = await getUserInfo(currentUser.id)
       if (userInfo && userInfo.name && userInfo.phone) {
@@ -224,13 +225,13 @@ class Listing extends Component {
       isInterestPopupVisible,
       isInterestSuccessPopupVisible,
       interestForm
-    } = this.state
+   } = this.state
 
     const roomInformationForPath = listing.rooms
       ? ` de ${listing.rooms} dormitórios`
       : ''
 
-    const { neighborhood, neighborhoodSlug } = listing.address
+    const {neighborhood, neighborhoodSlug} = listing.address
 
     const paths = [
       {name: 'Comprar Imóveis', href: '/listings', as: '/imoveis'},
@@ -323,9 +324,14 @@ class Listing extends Component {
                         type={listing.type}
                         price={listing.price}
                       />
+                      <ButtonsBar
+                        handleOpenPopup={this.openPopup}
+                        favorite={favorite}
+                        listing={listing}
+                        user={currentUser}
+                      />
                       <ListingMainContent
                         listing={listing}
-                        handleOpenPopup={this.openPopup}
                         user={currentUser}
                         favorite={favorite}
                         flagrFlags={this.props.flagrFlags}
@@ -384,11 +390,11 @@ class Listing extends Component {
             endQuestion = ` em ${findNeighborhood.name}, ${findNeighborhood.city}`
             buttonLabel += ` em ${findNeighborhood.name}`
             buttonHref += `/${findNeighborhood.stateSlug}/${findNeighborhood.citySlug}/${findNeighborhood.nameSlug}`
-          } else if (findCity) {
+         } else if (findCity) {
             endQuestion = ` em ${findCity.city}, ${findCity.state}`
             buttonLabel += ` em ${findCity.city}`
             buttonHref += `/${findCity.stateSlug}/${findCity.citySlug}`
-          } else if (findState) {
+         } else if (findState) {
             endQuestion = ` em ${findState.state}`
             buttonLabel += ` em ${findState.state}`
             buttonHref += `/${findState.stateSlug}`

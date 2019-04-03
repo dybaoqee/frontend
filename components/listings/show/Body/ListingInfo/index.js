@@ -114,7 +114,8 @@ class ListingInfo extends React.Component {
 }
 
 ListingInfo.propTypes = {
-  listing: PropTypes.object
+  listing: PropTypes.object,
+  title: PropTypes.string
 }
 
 export default ListingInfo
