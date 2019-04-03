@@ -11,6 +11,7 @@ import {
 } from 'constants/dimensions'
 
 export const Wrapper = styled(Row)`
+  z-index: 2;
   align-items: center;
   justify-content: center;
   padding: ${theme.space[4]}px ${theme.space[4]}px;
