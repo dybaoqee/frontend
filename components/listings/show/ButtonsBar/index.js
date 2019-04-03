@@ -17,12 +17,12 @@ class ButtonsBar extends Component {
     return (
       <Wrapper>
         <Container>
-          <Button active onClick={handleOpenPopup}>Falar com especialista</Button>
           <LikeButton
             favorite={favorite}
             listing={listing}
             user={user}
           />
+          <Button active onClick={handleOpenPopup}>Falar com especialista</Button>
         </Container>
       </Wrapper>
     )

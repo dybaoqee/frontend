@@ -16,7 +16,6 @@ class PriceBar extends Component {
         <Container>
           <Text>
             {`${this.props.type} à venda por `}
-
             <Text inline color="pink">
               <NumberFormat
                 value={this.props.price}

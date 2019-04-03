@@ -7,7 +7,7 @@ import {
 } from 'constants/media'
 import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
-import {LISTING_DETAILS_MAX_WIDTH} from 'constants/dimensions'
+import {listingDetailsMaxWidth} from 'constants/dimensions'
 
 export const Wrapper = styled(Row)`
   justify-content: center;
@@ -21,7 +21,7 @@ export const Container = styled('ul')`
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  max-width: ${LISTING_DETAILS_MAX_WIDTH}px;
+  max-width: ${listingDetailsMaxWidth}px;
   margin: 0;
   padding: 0;
 
