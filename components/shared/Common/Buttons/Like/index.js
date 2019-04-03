@@ -11,6 +11,7 @@ import {FAVORITE_LISTING, UNFAVORITE_LISTING} from 'graphql/listings/mutations'
 import { EDIT_PROFILE } from 'graphql/user/mutations'
 import {GET_USER_LISTINGS_ACTIONS} from 'graphql/user/queries'
 import FavoriteLogin from './FavoriteLogin'
+import FavoriteLoginSuccess from './FavoriteLoginSuccess'
 import {
   Button,
   Circle
@@ -94,6 +95,14 @@ class LikeButton extends Component {
                 />
               }
             </AccountKit>}
+            {this.state.showSuccess &&
+              <FavoriteLoginSuccess
+                onClose={() => {
+                  this.setState({ showSuccess: false })
+                  Router.replace(location.pathname)
+                }}
+              />
+            }
             <Circle
               top={top}
               onClick={(e) => {

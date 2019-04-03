@@ -10,7 +10,6 @@ const CloseButtonContainer = styled.div`
   right: ${theme.space[2]}px;
   justify-content: center;
   align-items: center;
-  background-color: rgba(255, 255, 255, 0.3);
   border-radius: 2px;
   border: none;
   width: 40px;
@@ -25,7 +24,7 @@ const CloseIcon = styled(Icon)`
 
 const CloseButton = (props) =>
   <CloseButtonContainer onClick={props.onClick}>
-    <CloseIcon name="times" color={theme.colors.dark} size={18} />
+    <CloseIcon name="times" color={props.color ? props.color : theme.colors.dark} size={18} />
   </CloseButtonContainer>
 
 export default CloseButton

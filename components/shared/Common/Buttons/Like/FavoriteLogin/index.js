@@ -34,9 +34,32 @@ class FavoriteLogin extends Component {
     nameFieldValid: false
   }
 
+  componentDidMount() {
+    document.addEventListener('keypress', this.onPressEnter)
+    if (this.nameField && this.nameField.current) {
+      this.nameField.current.focus()
+    }
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keypress', this.onPressEnter)
+  }
+
+  onPressEnter = (e) => {
+    if (e.key !== 'Enter') return
+    if (this.state.nameFieldValid) {
+      this.submit()
+    }
+  }
+
   validateNameField = (event) => {
     const valid = event && event.target && event.target.value && event.target.value.trim()
     this.setState({ nameFieldValid: valid })
+  }
+
+  submit = () => {
+    const name = (this.nameField && this.nameField.current) ? this.nameField.current.value : ''
+    this.props.onSignIn(name)
   }
 
   render() {
@@ -69,10 +92,7 @@ class FavoriteLogin extends Component {
               <Button
                 active
                 height="tall"
-                onClick={() => {
-                  const name = (this.nameField && this.nameField.current) ? this.nameField.current.value : ''
-                  this.props.onSignIn(name)
-                }}
+                onClick={this.submit}
                 disabled={!this.state.nameFieldValid}
               >
                 Continuar
