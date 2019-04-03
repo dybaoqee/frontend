@@ -52,12 +52,13 @@ export default class Listings extends Component {
     if (result && result.listings.length > 0) {
       return (
         <Query query={GET_USER_LISTINGS_ACTIONS} skip={!user.authenticated}>
-          {({data: {userProfile}, loading}) => {
+          {({data, loading}) => {
+            if (loading) {
+              return <div />
+            }
+            const userProfile = data ? data.userProfile : null
             const favorites = userProfile ? userProfile.favorites : []
-            const filteredListings = differenceBy(
-              result.listings,
-              'id'
-            )
+            const filteredListings = differenceBy(result.listings, 'id')
             return (
               <InfiniteScroll
                 title={h1Content}
@@ -250,7 +251,8 @@ export default class Listings extends Component {
         variables={{pagination: this.pagination, filters}}
         fetchPolicy="cache-and-network"
       >
-        {({data: {listings}, fetchMore}) => {
+        {({data, fetchMore}) => {
+          const listings = data ? data.listings : null
           return (
             <Container opened={mapOpened}>
               {this.getMap()}

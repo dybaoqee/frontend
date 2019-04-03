@@ -1,55 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<ListingCard/> should render component 1`] = `
-.c6 {
-  position: absolute;
-  cursor: pointer;
-  right: 20px;
-  top: 115px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: #ffffff;
-  border: 1px solid #e0e6ed;
-  box-shadow: 0 6px 16px 0 rgba(38,38,38,0.15);
-}
-
-.c7 {
-  background: none;
-  border: none;
-  box-shadow: none;
-  box-sizing: border-box;
-  pointer-events: all;
-  cursor: pointer;
-  cursor: pointer;
-}
-
-.c7 svg {
-  width: 15px;
-  text-shadow: 2px 2px 3px #f00;
-  text-shadow: 2px 2px 3px #f00;
-}
-
-.c7 svg path {
-  text-shadow: 2px 2px 3px #f00;
-  fill: #ffffff;
-  stroke: #3c4858;
-  fill-opacity: 0;
-  stroke-width: 60;
-}
-
 .c1 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -113,6 +64,55 @@ exports[`<ListingCard/> should render component 1`] = `
   min-height: NaNpx;
   height: NaNpx;
   border-radius: 4px 4px 0 0;
+}
+
+.c6 {
+  position: absolute;
+  cursor: pointer;
+  right: 20px;
+  top: 115px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  border: 1px solid #e0e6ed;
+  box-shadow: 0 6px 16px 0 rgba(38,38,38,0.15);
+}
+
+.c7 {
+  background: none;
+  border: none;
+  box-shadow: none;
+  box-sizing: border-box;
+  pointer-events: all;
+  cursor: pointer;
+  cursor: pointer;
+}
+
+.c7 svg {
+  width: 15px;
+  text-shadow: 2px 2px 3px #f00;
+  text-shadow: 2px 2px 3px #f00;
+}
+
+.c7 svg path {
+  text-shadow: 2px 2px 3px #f00;
+  fill: #ffffff;
+  stroke: #3c4858;
+  fill-opacity: 0;
+  stroke-width: 60;
 }
 
 <a

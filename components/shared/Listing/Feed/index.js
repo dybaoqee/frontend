@@ -1,25 +1,21 @@
-import { Component } from 'react'
+import {Component} from 'react'
 import PropTypes from 'prop-types'
-import { Query } from 'react-apollo'
-import { GET_FAVORITE_LISTINGS } from 'graphql/user/queries'
+import {Query} from 'react-apollo'
+import {GET_FAVORITE_LISTINGS} from 'graphql/user/queries'
 
 import ListingCard from 'components/listings/shared/ListingCard'
-import {
-  Container,
-  ListingsContainer,
-  SubTitle,
-  Gradient
-} from './styles'
+import {Container, ListingsContainer, SubTitle, Gradient} from './styles'
 
 class ListingFeed extends Component {
   render() {
-    const { listings, currentUser } = this.props
+    const {listings, currentUser} = this.props
     return (
       <Query
         query={GET_FAVORITE_LISTINGS}
         skip={!currentUser || !currentUser.authenticated}
+        ssr={true}
       >
-        {({error, data: {userProfile}}) => {
+        {({error, data}) => {
           if (!listings) {
             return null
           }
@@ -27,26 +23,32 @@ class ListingFeed extends Component {
             return `Error!: ${error}`
           }
           let favorites = []
+          const userProfile = data ? data.userProfile : null
           if (userProfile && userProfile.favorites) {
             favorites = userProfile.favorites
           }
           return (
             <Container>
-              <SubTitle color="grey" fontSize="small">VEJA TAMBÉM</SubTitle>
+              <SubTitle color="grey" fontSize="small">
+                VEJA TAMBÉM
+              </SubTitle>
               <ListingsContainer>
                 {listings.map((listing) => {
-                  return <ListingCard
-                    key={listing.id}
-                    listing={listing}
-                    currentUser={currentUser}
-                    favorited={favorites}
-                    related
-                  />
-                })}                
+                  return (
+                    <ListingCard
+                      key={listing.id}
+                      listing={listing}
+                      currentUser={currentUser}
+                      favorited={favorites}
+                      related
+                    />
+                  )
+                })}
               </ListingsContainer>
               <Gradient />
             </Container>
-        )}}
+          )
+        }}
       </Query>
     )
   }

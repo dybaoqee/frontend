@@ -74,7 +74,7 @@
     "points-cluster": "0.1.4",
     "postcss-nested": "3.0.0",
     "react": "16.5.2",
-    "react-apollo": "2.1.11",
+    "react-apollo": "2.5.3",
     "react-click-outside": "3.0.1",
     "react-dnd": "5.0.0",
     "react-dnd-html5-backend": "2.6.0",

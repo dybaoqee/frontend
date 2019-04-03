@@ -13,15 +13,8 @@ import ListingCard from 'components/listings/shared/ListingCard'
 import Map from 'components/listings/shared/Map'
 import ListingsNotFound from 'components/listings/shared/NotFound'
 import Neighborhood from 'components/listings/shared/Neighborhood'
-import {
-  getTitleTextByFilters,
-  getTitleTextByParams
-} from './title'
-import {
-  log,
-  LISTING_SEARCH_MAP_PIN,
-  LISTING_SEARCH_RESULTS
-} from 'lib/logging'
+import {getTitleTextByFilters, getTitleTextByParams} from './title'
+import {log, LISTING_SEARCH_MAP_PIN, LISTING_SEARCH_RESULTS} from 'lib/logging'
 import {
   MIN_WIDTH_FOR_MAP_RENDER,
   Container,
@@ -97,12 +90,13 @@ class ListingList extends Component {
     if (result && result.listings.length > 0) {
       return (
         <Query query={GET_USER_LISTINGS_ACTIONS} skip={!user.authenticated}>
-          {({data: {userProfile}, loading}) => {
+          {({data, loading}) => {
+            if (loading) {
+              return <div />
+            }
+            const userProfile = data ? data.userProfile : null
             const favorites = userProfile ? userProfile.favorites : []
-            const filteredListings = differenceBy(
-              result.listings,
-              'id'
-            )
+            const filteredListings = differenceBy(result.listings, 'id')
             return (
               <ListingInfiniteScroll
                 titleComponent={
@@ -150,7 +144,7 @@ class ListingList extends Component {
                   return loadedListings
                 }}
               >
-                {(listing) =>
+                {(listing) => (
                   <ListingCard
                     onMouseEnter={onHoverListing}
                     onMouseLeave={onLeaveListing}
@@ -161,7 +155,7 @@ class ListingList extends Component {
                     loading={loading}
                     favorited={favorites || []}
                   />
-                }
+                )}
               </ListingInfiniteScroll>
             )
           }}
@@ -289,37 +283,39 @@ class ListingList extends Component {
     const itemListElement = []
 
     listings.map((listing, index) => {
-      const name = `${listing.type} à venda na ${listing.address.street} - ${listing.address.neighborhood}, ${listing.address.city} - ID${listing.id}`
+      const name = `${listing.type} à venda na ${listing.address.street} - ${
+        listing.address.neighborhood
+      }, ${listing.address.city} - ID${listing.id}`
       const photos = []
 
       listing.images.map((img, imgIndex) => {
         photos.push({
           '@type': 'ImageObject',
-          'url': thumbnailUrl(img.filename),
-          'name': `Foto ${imgIndex + 1} - ${name}`
+          url: thumbnailUrl(img.filename),
+          name: `Foto ${imgIndex + 1} - ${name}`
         })
       })
 
       itemListElement.push({
         '@type': 'ListItem',
-        'position': index + 1,
-        'item': {
+        position: index + 1,
+        item: {
           '@type': listing.type === 'Casa' ? 'House' : 'Apartment',
           '@id': 'https://www.emcasa.com' + buildSlug(listing),
-          'url': 'https://www.emcasa.com' + buildSlug(listing),
-          'name': name,
-          'description': listing.description,
-          'address': {
+          url: 'https://www.emcasa.com' + buildSlug(listing),
+          name: name,
+          description: listing.description,
+          address: {
             '@context': 'http://schema.org',
             '@type': 'PostalAddress',
-            'streetAddress': listing.address.street,
-            'addressLocality': listing.address.city,
-            'addressRegion': listing.address.state,
-            'addressCountry': 'BR'
+            streetAddress: listing.address.street,
+            addressLocality: listing.address.city,
+            addressRegion: listing.address.state,
+            addressCountry: 'BR'
           },
-          'photo': photos,
-          'image': photos,
-          'numberOfRooms': listing.rooms
+          photo: photos,
+          image: photos,
+          numberOfRooms: listing.rooms
         }
       })
     })
@@ -327,27 +323,35 @@ class ListingList extends Component {
     return (
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify({
-          '@context': 'https://schema.org',
-          '@type': 'ItemList',
-          'itemListElement': itemListElement
-        })}}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'ItemList',
+            itemListElement: itemListElement
+          })
+        }}
       />
     )
   }
 
   render() {
     const {filters, params, districts} = this.props
-    const h1Content = filters && filters.neighborhoodsSlugs ? getTitleTextByFilters(filters.neighborhoodsSlugs, districts) : getTitleTextByParams(params, districts)
+    const h1Content =
+      filters && filters.neighborhoodsSlugs
+        ? getTitleTextByFilters(filters.neighborhoodsSlugs, districts)
+        : getTitleTextByParams(params, districts)
 
     return (
       <Query
         query={GET_LISTINGS}
         variables={{pagination: this.pagination, filters}}
         fetchPolicy="cache-and-network"
+        ssr={true}
       >
-        {({data: {listings}, fetchMore}) => {
-          const hasListings = listings && listings.listings && listings.listings.length > 0
+        {({data, fetchMore}) => {
+          const listings = data ? data.listings : null
+          const hasListings =
+            listings && listings.listings && listings.listings.length > 0
           return (
             <Container>
               {hasListings && this.getItemList(listings.listings)}
@@ -355,7 +359,7 @@ class ListingList extends Component {
                 <Title fontWeight="normal">{h1Content}</Title>
                 {this.getListings(listings, fetchMore)}
               </div>
-              {(this.state.renderMap && hasListings) && this.getMap()}
+              {this.state.renderMap && hasListings && this.getMap()}
             </Container>
           )
         }}

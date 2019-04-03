@@ -17,8 +17,7 @@ import {
 } from './styles'
 import {
   log,
-  LISTING_DETAIL_VIEW_FEATURED_LISTING,
-  LISTING_SEARCH_VIEW_LISTING
+  LISTING_DETAIL_VIEW_FEATURED_LISTING
 } from 'lib/logging'
 
 class ListingCard extends Component {
@@ -50,8 +49,6 @@ class ListingCard extends Component {
             if (e.target.tagName !== 'path') {
               if (this.props.related) {
                 log(LISTING_DETAIL_VIEW_FEATURED_LISTING, {listingId: listing.id})
-              } else {
-                log(LISTING_SEARCH_VIEW_LISTING, {listingId: listing.id})
               }
             }
           }}>

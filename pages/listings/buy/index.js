@@ -143,9 +143,9 @@ class Buy extends Component {
 
     return (
       <Query query={GET_DISTRICTS} ssr={true}>
-        {({ loading, error, data }) => {
+        {({loading, error, data}) => {
           if (loading) return <div />
-          if (error) return (<div>{`Error! ${error.message}`}</div>)
+          if (error) return <div>{`Error! ${error.message}`}</div>
 
           return (
             <Container>
@@ -159,27 +159,35 @@ class Buy extends Component {
               />
               <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaWebSite) }}
+                dangerouslySetInnerHTML={{
+                  __html: JSON.stringify(SchemaWebSite)
+                }}
               />
               <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaRealEstateAgent) }}
+                dangerouslySetInnerHTML={{
+                  __html: JSON.stringify(SchemaRealEstateAgent)
+                }}
               />
               <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(SchemaOrganization) }}
+                dangerouslySetInnerHTML={{
+                  __html: JSON.stringify(SchemaOrganization)
+                }}
               />
               <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify({
-                  "@context": "http://schema.org",
-                  "@type": "WebPage",
-                  "@id": "https://www.emcasa.com/#webpage",
-                  "name": seoTitle,
-                  "description": seoDescription,
-                  "sameAs": sameAs,
-                  "url": "https://www.emcasa.com"
-                })}}
+                dangerouslySetInnerHTML={{
+                  __html: JSON.stringify({
+                    '@context': 'http://schema.org',
+                    '@type': 'WebPage',
+                    '@id': 'https://www.emcasa.com/#webpage',
+                    name: seoTitle,
+                    description: seoDescription,
+                    sameAs: sameAs,
+                    url: 'https://www.emcasa.com'
+                  })
+                }}
               />
               <MainBlock>
                 <BuyListing title={heroTitle} />
