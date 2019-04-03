@@ -7,7 +7,7 @@ import {
 } from 'constants/media'
 import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
-import { LISTING_DETAILS_MAX_WIDTH } from 'components/listings/show/Body/styles'
+import {LISTING_DETAILS_MAX_WIDTH} from 'constants/dimensions'
 
 export const Wrapper = styled(Row)`
   justify-content: center;

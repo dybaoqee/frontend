@@ -2,8 +2,7 @@ import styled from 'styled-components'
 import theme from 'config/theme'
 import Row from '@emcasa/ui-dom/components/Row'
 import {breakpoint} from '@emcasa/ui/lib/styles'
-
-export const LISTING_DETAILS_MAX_WIDTH = 1174
+import {LISTING_DETAILS_MAX_WIDTH} from 'constants/dimensions'
 
 export const Container = styled(Row)`
   width: 100%;

@@ -1,9 +1,8 @@
 import styled from 'styled-components'
 import theme from 'config/theme'
-import { breakpoint} from '@emcasa/ui/lib/styles'
+import {breakpoint} from '@emcasa/ui/lib/styles'
 import Row from '@emcasa/ui-dom/components/Row'
-import { LISTING_DETAILS_MAX_WIDTH } from 'components/listings/show/Body/styles'
-import { desktopHeaderHeight } from 'constants/dimensions'
+import { desktopHeaderHeight, LISTING_DETAILS_MAX_WIDTH } from 'constants/dimensions'
 
 export const Wrapper = styled(Row)`
   position: fixed;
