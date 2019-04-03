@@ -12,6 +12,10 @@ import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
 import CloseButton from 'components/shared/CloseButton'
 import {
+  log,
+  LISTING_SAVE_LOGIN_VIEW_FAVORITES
+} from 'lib/logging'
+import {
   CheckContainer,
   GreenBox
 } from './styles'
@@ -45,7 +49,7 @@ class FavoriteLoginSuccess extends Component {
           <Row alignItems="center" flexDirection="column">
             <Col mt="40px">
               <Link href={{pathname: '/meu-perfil', query: {tab: FAVORITES_TAB}}}><a>
-                <Button>Ver Favoritos</Button>
+                <Button onClick={() => {log(LISTING_SAVE_LOGIN_VIEW_FAVORITES)}}>Ver Favoritos</Button>
               </a></Link>
             </Col>
             <Col mt={4}>

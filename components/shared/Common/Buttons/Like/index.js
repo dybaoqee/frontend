@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import * as Sentry from '@sentry/browser'
+import { captureException } from '@sentry/browser'
 import get from 'lodash/get'
 import Router from 'next/router'
 import {Mutation} from 'react-apollo'
@@ -19,7 +19,6 @@ import {
 import {
   log,
   LISTING_SEARCH_FAVORITE_LISTING,
-
   LISTING_SAVE_LOGIN_OPEN,
   LISTING_SAVE_LOGIN_ACCOUNT_KIT,
   LISTING_SAVE_LOGIN_SUCCESS,
@@ -35,7 +34,7 @@ class LikeButton extends Component {
     showSuccess: false,
   }
 
-  onLoginSuccess = async (userInfo) => {
+  onLoginSuccess = async (userInfo, favoriteListing) => {
     if (!userInfo) {
       log(LISTING_SAVE_LOGIN_FAILED)
       return
@@ -56,10 +55,11 @@ class LikeButton extends Component {
 
       if (response && response.data) {
         log(LISTING_SAVE_LOGIN_SUCCESS)
+        favoriteListing({variables: {id: this.props.listing.id}})
         this.setState({ showSuccess: true })
       }
     } catch (e) {
-      Sentry.captureException(e)
+      captureException(e)
       log(LISTING_SAVE_LOGIN_FAILED)
     }
   }
@@ -75,7 +75,7 @@ class LikeButton extends Component {
               appSecret={process.env.ACCOUNT_KIT_APP_SECRET}
               version="v1.0"
               skipRedirect
-              onSuccess={this.onLoginSuccess}
+              onSuccess={(userInfo) => {this.onLoginSuccess(userInfo, favoriteListing)}}
             >
               {({signIn}) =>
                 <FavoriteLogin
@@ -99,6 +99,7 @@ class LikeButton extends Component {
               <FavoriteLoginSuccess
                 onClose={() => {
                   this.setState({ showSuccess: false })
+                  log(LISTING_SAVE_LOGIN_DONE)
                   Router.replace(location.pathname)
                 }}
               />

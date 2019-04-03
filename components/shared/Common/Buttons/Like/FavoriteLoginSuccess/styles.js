@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import theme from '@emcasa/ui'
 import View from '@emcasa/ui-dom/components/View'
-import {breakpoint} from '@emcasa/ui/lib/styles'
 
 export const CheckContainer = styled(View)`
   position: relative;

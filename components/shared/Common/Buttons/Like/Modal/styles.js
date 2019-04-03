@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import theme from '@emcasa/ui'
 import {breakpoint} from '@emcasa/ui/lib/styles'
 import View from '@emcasa/ui-dom/components/View'
 
