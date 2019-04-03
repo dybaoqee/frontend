@@ -109,7 +109,10 @@ class LikeButton extends Component {
               onClick={(e) => {
                 e.preventDefault()
                 if (user && user.authenticated) {
-                  log(LISTING_SEARCH_FAVORITE_LISTING, {listingId: listing.id, favorited: !favorite})
+                  log(LISTING_SEARCH_FAVORITE_LISTING, {
+                    listingId: listing.id,
+                    favorited: !favorite
+                  })
                   favoriteListing({
                     refetchQueries: [
                       {
@@ -140,10 +143,7 @@ class LikeButton extends Component {
                           __typename: 'Listing'
                         })
                       } else {
-                        const removed = data.userProfile.favorites.filter(
-                          (listing) =>
-                            listing.id.toString() !== listing.id.toString()
-                        )
+                        const removed = data.userProfile.favorites.filter((item) => item.id.toString() !== listing.id.toString())
                         data.userProfile.favorites = removed
                       }
 
@@ -164,8 +164,8 @@ class LikeButton extends Component {
                 <FontAwesomeIcon icon={faHeart} />
               </Button>
             </Circle>
-            </>
-          }
+          </>
+        }
       </Mutation>
     )
   }
