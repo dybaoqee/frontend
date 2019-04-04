@@ -1,14 +1,11 @@
 import {Component} from 'react'
 import Carousel from 'react-slick'
-import {Mutation} from 'react-apollo'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faAngleRight from '@fortawesome/fontawesome-pro-regular/faAngleRight'
 import faAngleLeft from '@fortawesome/fontawesome-pro-regular/faAngleLeft'
 import faCube from '@fortawesome/fontawesome-pro-light/faCube'
-import {VISUALIZE_TOUR} from 'graphql/listings/mutations'
 import {thumbnailUrl} from 'utils/image_url'
 import {downloadBlob} from 'utils/file-utils'
-import Matterport from 'components/listings/show/Matterport'
 import {mobileMedia} from 'constants/media'
 import {
   log,
@@ -33,7 +30,6 @@ export default class ListingHeader extends Component {
     downloadingImages: false,
     nav1: null,
     nav2: null,
-    show3DTour: false,
     isFullScreen: false,
     slidesToShow: 10
   }
@@ -83,8 +79,6 @@ export default class ListingHeader extends Component {
     this.setState({downloadingImages: false})
   }
 
-  hide3DTour = () => this.setState({show3DTour: false})
-
   toggleFullScreen = (index) => {
     const event = this.state.isFullScreen ? LISTING_DETAIL_PHOTOS_FULLSCREEN_CLOSE : LISTING_DETAIL_PHOTOS_FULLSCREEN_OPEN
     log(event, {listingId: this.props.listing.id})
@@ -118,36 +112,8 @@ export default class ListingHeader extends Component {
     )
   }
 
-  getSliderContent = (visualizeTour) => {
-    const {listing: {matterportCode, id}} = this.props
-    const src = `https://my.matterport.com/show/?m=${matterportCode}`
-    const sliderContent = this.getSliderImages()
-    if (matterportCode) {
-      sliderContent.unshift(
-        <TourWrapper isFullScreen={this.state.isFullScreen}>
-          <iframe
-            width="100%"
-            height="400px"
-            src={src}
-            frameBorder="0"
-            allowFullScreen
-          />
-          <div
-            className="overlay"
-            onClick={() => {
-              visualizeTour({variables: {id}})
-              this.setState({show3DTour: true})
-            }}
-          />
-        </TourWrapper>
-      )
-    }
-
-    return sliderContent
-  }
-
   getSliderNavigation = () => {
-    const {listing: {id, images, matterportCode}} = this.props
+    const {listing: {id, images}} = this.props
     const settings = {
       infinite: true,
       className: 'thumb-slider',
@@ -167,12 +133,6 @@ export default class ListingHeader extends Component {
           asNavFor={this.state.nav2}
           ref={(slider) => (this.slider1 = slider)}
         >
-          {matterportCode && (
-            <Thumb key={'tour'} alwaysVisible>
-              <FontAwesomeIcon icon={faCube} />
-              <span>Tour 3D</span>
-            </Thumb>
-          )}
           {images.map(({filename}) => (
             <Thumb
               key={filename}
@@ -186,7 +146,7 @@ export default class ListingHeader extends Component {
 
   render() {
     const {listing, currentUser, favoritedListing} = this.props
-    const {downloadingImages, show3DTour, isFullScreen} = this.state
+    const {downloadingImages, isFullScreen} = this.state
 
     const settings = {
       dots: false,
@@ -222,45 +182,32 @@ export default class ListingHeader extends Component {
     }
 
     return (
-      <Mutation mutation={VISUALIZE_TOUR}>
-        {(visualizeTour) => (
-          <>
-            <Container isFullScreen={isFullScreen}>
-              {show3DTour && (
-                <Matterport
-                  matterport_code={listing.matterportCode}
-                  handleClose={this.hide3DTour}
-                  listingId={listing.id}
-                />
-              )}
-              <Carousel
-                {...settings}
-                asNavFor={this.state.nav1}
-                ref={(slider) => (this.slider2 = slider)}
-              >
-                {this.getSliderContent(visualizeTour).map((content, id) => (
-                  <Content key={content.key || id} onClick={() => {this.toggleFullScreen(id)}}>
-                    {content.props.src && <div className="spinner"><Spinner /></div>}
-                    {content}
-                  </Content>
-                ))}
-              </Carousel>
+      <Container isFullScreen={isFullScreen}>
+        <Carousel
+          {...settings}
+          asNavFor={this.state.nav1}
+          ref={(slider) => (this.slider2 = slider)}
+        >
+          {this.getSliderImages().map((content, id) => (
+            <Content key={content.key || id} onClick={() => {this.toggleFullScreen(id)}}>
+              {content.props.src && <div className="spinner"><Spinner /></div>}
+              {content}
+            </Content>
+          ))}
+        </Carousel>
 
-              <SliderNavigation show={isFullScreen}>
-                {this.getSliderNavigation()}
-              </SliderNavigation>
+        <SliderNavigation show={isFullScreen}>
+          {this.getSliderNavigation()}
+        </SliderNavigation>
 
-              <div className="top-right">
-                {(listing.images.length > 0 && isFullScreen) && (
-                  <CloseButton onClick={this.toggleFullScreen}>
-                    <CloseIcon name="times" color="white" size={18} />
-                  </CloseButton>
-                )}
-              </div>
-            </Container>
-          </>
-        )}
-      </Mutation>
+        <div className="top-right">
+          {(listing.images.length > 0 && isFullScreen) && (
+            <CloseButton onClick={this.toggleFullScreen}>
+              <CloseIcon name="times" color="white" size={18} />
+            </CloseButton>
+          )}
+        </div>
+      </Container>
     )
   }
 }
