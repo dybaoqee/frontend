@@ -1,5 +1,6 @@
 import {Component} from 'react'
 import Carousel from 'react-slick'
+import CloseButton from 'components/shared/CloseButton'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faAngleRight from '@fortawesome/fontawesome-pro-regular/faAngleRight'
 import faAngleLeft from '@fortawesome/fontawesome-pro-regular/faAngleLeft'
@@ -20,9 +21,7 @@ import Container, {
   Content,
   Arrow,
   TourWrapper,
-  SliderNavigation,
-  CloseButton,
-  CloseIcon
+  SliderNavigation
 } from './styles'
 
 export default class ListingHeader extends Component {
@@ -200,13 +199,7 @@ export default class ListingHeader extends Component {
           {this.getSliderNavigation()}
         </SliderNavigation>
 
-        <div className="top-right">
-          {(listing.images.length > 0 && isFullScreen) && (
-            <CloseButton onClick={this.toggleFullScreen}>
-              <CloseIcon name="times" color="white" size={18} />
-            </CloseButton>
-          )}
-        </div>
+        {(listing.images.length > 0 && isFullScreen) && <CloseButton onClick={this.toggleFullScreen} />}
       </Container>
     )
   }

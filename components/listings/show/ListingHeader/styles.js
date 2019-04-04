@@ -4,6 +4,9 @@ import {mobileMedia} from 'constants/media'
 import MoonLoader from 'react-spinners/MoonLoader'
 import Icon from '@emcasa/ui-dom/components/Icon'
 
+import theme from 'config/theme'
+import Button from '@emcasa/ui-dom/components/Button'
+
 const SPINNER_SIZE = 40
 
 export const Spinner = styled(MoonLoader).attrs({
@@ -202,10 +205,16 @@ export default styled.div`
   max-width: 100%;
   background-color: ${({isFullScreen}) =>
     isFullScreen ? 'rgba(0, 0, 0, 0.9)' : 'white'};
-
   box-sizing: border-box;
-
   min-height: 150px;
+
+  ${Button} {
+    z-index: 5;
+    position: absolute;
+    top: ${theme.space[2]}px;
+    right: ${theme.space[2]}px;
+  }
+
 
   ${BottomRight}, .top-right {
     position: absolute;
@@ -270,22 +279,4 @@ export default styled.div`
 
   ${({isFullScreen}) =>
     isFullScreen && 'position: fixed; top: 0; z-index: 9999; height: 100%; '};
-`
-
-export const CloseButton = styled.div`
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(255, 255, 255, 0.3);
-  border-radius: 2px;
-  border: none;
-  width: 40px;
-  height: 40px;
-  margin: 0;
-  padding: 0;
-`
-
-export const CloseIcon = styled(Icon)`
-  padding-top: 6px;
 `
