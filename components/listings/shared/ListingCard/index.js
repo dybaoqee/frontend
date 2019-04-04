@@ -8,7 +8,6 @@ import {
 } from 'lib/listings'
 import LikeButton from 'components/shared/Common/Buttons/Like'
 import { thumbnailUrl } from 'utils/image_url'
-import { intToCurrency } from 'utils/text-utils'
 import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
 import {

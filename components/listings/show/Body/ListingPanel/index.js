@@ -1,32 +1,57 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import theme from 'config/theme'
 import NumberFormat from 'react-number-format'
 import LikeButton from 'components/shared/Common/Buttons/Like'
 import Button from '@emcasa/ui-dom/components/Button'
 import Text from '@emcasa/ui-dom/components/Text'
 import View from '@emcasa/ui-dom/components/View'
+import {getListingValueRange} from 'lib/listings'
 import {
   Container,
   PricesContainer,
-  PriceItem
- } from './styles'
+  PriceItem,
+  MainPriceContainer
+} from './styles'
+
+const isNotEmpty = (val) => !isNaN(val) && val > 0
+
+const isRange = ([min, max] = []) => min !== max
+
+function NumberRangeFormat({values, ...props}) {
+  if (!isRange(values)) return <NumberFormat value={values[0]} {...props} />
+  return (
+    <Text
+      inline
+      style={{display: 'inline-flex', alignItems: 'center'}}
+      color="inherit"
+      fontSize="75%"
+    >
+      <NumberFormat value={values[0]} {...props} />
+      <Text inline style={{margin: '0 5px'}} color="grey" fontSize="small">
+        -
+      </Text>
+      <NumberFormat value={values[1]} {...props} />
+    </Text>
+  )
+}
 
 class ListingPanel extends React.Component {
   render() {
     const {
+      listing,
       handleOpenPopup,
       user,
-      favorite
+      favorite,
+      isMobile
     } = this.props
-    const {
-      price,
-      area,
-      propertyTax,
-      maintenanceFee
-    } = this.props.listing
-    const price_per_square_meter = Math.floor(price / area)
-
+    const areaRange = getListingValueRange(listing, 'area')
+    const priceRange = getListingValueRange(listing, 'price')
+    const maintenanceFeeRange = getListingValueRange(listing, 'maintenanceFee')
+    const propertyTaxRange = getListingValueRange(listing, 'propertyTax')
+    const pricePerSquareMeter = [
+      Math.round(priceRange[0] / areaRange[0]),
+      Math.round(priceRange[1] / areaRange[1])
+    ]
     return (
       <Container>
         <LikeButton
@@ -36,11 +61,11 @@ class ListingPanel extends React.Component {
           user={user}
           secondary
         />
-        <Text style={{margin: `0 0 ${theme.space[2]}px 0`}} fontSize="xlarge" fontWeight="bold" color={theme.colors.pink}>
-          {price && price > 0 ?
+        <MainPriceContainer isRange={isRange(priceRange)}>
+          {priceRange.find(isNotEmpty) ?
             <>
-              <NumberFormat
-                value={price}
+              <NumberRangeFormat
+                values={priceRange}
                 displayType={'text'}
                 thousandSeparator={'.'}
                 prefix={'R$'}
@@ -49,14 +74,14 @@ class ListingPanel extends React.Component {
               <Text inline color="grey" fontSize="small"> VENDA</Text>
             </>
           : 'Preço a definir'}
-        </Text>
+        </MainPriceContainer>
         <PricesContainer>
-          {(maintenanceFee && maintenanceFee > 0) &&
+          {maintenanceFeeRange.find(isNotEmpty) &&
             <PriceItem mb={2}>
               <Text inline>Condomínio</Text>
               <Text inline>
-                <NumberFormat
-                  value={maintenanceFee || 0}
+                <NumberRangeFormat
+                  values={maintenanceFeeRange}
                   displayType={'text'}
                   thousandSeparator={'.'}
                   prefix={'R$'}
@@ -65,12 +90,12 @@ class ListingPanel extends React.Component {
               </Text>
             </PriceItem>
           }
-          {(propertyTax && propertyTax > 0) &&
+          {propertyTaxRange.find(isNotEmpty) &&
             <PriceItem mb={2}>
               <Text inline>IPTU/ano</Text>
               <Text inline>
-                <NumberFormat
-                  value={propertyTax || 0}
+                <NumberRangeFormat
+                  values={propertyTaxRange}
                   displayType={'text'}
                   thousandSeparator={'.'}
                   prefix={'R$'}
@@ -79,12 +104,12 @@ class ListingPanel extends React.Component {
               </Text>
             </PriceItem>
           }
-          {(price && price > 0) &&
+          {pricePerSquareMeter.filter(isNotEmpty).length === 2 &&
             <PriceItem>
               <Text inline>Preço/m²</Text>
               <Text inline>
-                <NumberFormat
-                  value={price_per_square_meter || 0}
+                <NumberRangeFormat
+                  values={pricePerSquareMeter}
                   displayType={'text'}
                   thousandSeparator={'.'}
                   prefix={'R$'}

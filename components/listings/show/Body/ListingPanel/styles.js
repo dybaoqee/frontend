@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import theme from 'config/theme'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
+import Text from '@emcasa/ui-dom/components/Text'
 import {breakpoint} from '@emcasa/ui/lib/styles'
 
 export const Container = styled.div`
@@ -35,6 +36,17 @@ export const PricesContainer = styled(Row)`
 
   @media screen and ${breakpoint.down('tablet')} {
     display: none;
+  }
+`
+
+export const MainPriceContainer = styled(Text)`
+  margin: 0 0 ${theme.space[2]}px 0;
+  font-size: ${({isRange, theme}) => theme.fontSizes[isRange ? 3 : 4]}px;
+  font-weight: bold;
+  color: ${theme.colors.pink};
+
+  @media screen and ${breakpoint.down('tablet')} {
+    font-size: ${theme.fontSizes[4]}px;
   }
 `
 
