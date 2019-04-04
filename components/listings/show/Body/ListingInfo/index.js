@@ -26,7 +26,8 @@ class ListingInfo extends React.Component {
   render() {
     const {
       title,
-      openMatterportPopup
+      openMatterportPopup,
+      openMapPopup
     } = this.props
     const {
       price,
@@ -46,7 +47,7 @@ class ListingInfo extends React.Component {
         <Title fontWeight="bold">{title}</Title>
         <ButtonsContainer>
           {matterportCode && <OpenMatterportButton onClick={openMatterportPopup}><FontAwesomeIcon icon={faCube} />Ver por dentro</OpenMatterportButton>}
-          <Button><FontAwesomeIcon icon={faMap} color={theme.colors.blue} />Mapa</Button>
+          <Button onClick={openMapPopup}><FontAwesomeIcon icon={faMap} color={theme.colors.blue} />Mapa</Button>
           <Button><FontAwesomeIcon icon={faStreetView} color={theme.colors.blue} />Rua</Button>
         </ButtonsContainer>
         <Row flexDirection="column" mb={5}>

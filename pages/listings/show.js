@@ -27,6 +27,7 @@ import Breadcrumb from 'components/listings/show/Breadcrumb'
 import PriceBar from 'components/listings/show/PriceBar'
 import ButtonsBar from 'components/listings/show/ButtonsBar'
 import MatterportPopup from 'components/listings/show/MatterportPopup'
+import MapPopup from 'components/listings/show/MapPopup'
 import InterestForm from 'components/listings/show/InterestForm'
 import InterestPosted from 'components/listings/show/InterestForm/interest_posted'
 import RelatedListings from 'components/listings/show/RelatedListings'
@@ -62,7 +63,8 @@ class Listing extends Component {
     },
     isInterestPopupVisible: false,
     isInterestSuccessPopupVisible: false,
-    isMatterportPopupVisible: false
+    isMatterportPopupVisible: false,
+    isMapPopupVisible: false
   }
 
   static async getInitialProps(context) {
@@ -123,6 +125,14 @@ class Listing extends Component {
 
   closeMatterportPopup = () => {
     this.setState({isMatterportPopupVisible: false})
+  }
+
+  openMapPopup = () => {
+    this.setState({isMapPopupVisible: true})
+  }
+
+  closeMapPopup = () => {
+    this.setState({isMapPopupVisible: false})
   }
 
   openInterestPopup = async (e) => {
@@ -198,7 +208,7 @@ class Listing extends Component {
 
   showListing = () => {
     const {user: currentUser, url, listing, router} = this.props
-    const {related, isMatterportPopupVisible} = this.state
+    const {related, isMatterportPopupVisible, isMapPopupVisible} = this.state
     const {isActive} = listing
 
     const {
@@ -304,6 +314,7 @@ class Listing extends Component {
                         favorite={favorite}
                         flagrFlags={this.props.flagrFlags}
                         openMatterportPopup={this.openMatterportPopup}
+                        openMapPopup={this.openMapPopup}
                       />
 
                       <Mutation mutation={VISUALIZE_TOUR}>
@@ -320,6 +331,11 @@ class Listing extends Component {
                           )
                         }}
                       </Mutation>
+                      <MapPopup
+                        listing={listing}
+                        isMapPopupVisible={isMapPopupVisible}
+                        closeMapPopup={this.closeMapPopup}
+                      />
                       <PriceBar
                         type={listing.type}
                         price={listing.price}

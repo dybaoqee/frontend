@@ -49,6 +49,7 @@ class ListingMainContent extends Component {
       user,
       favorite,
       openMatterportPopup,
+      openMapPopup,
       handleOpen3DTour
     } = this.props
     const {
@@ -80,6 +81,7 @@ class ListingMainContent extends Component {
             flagrFlags={this.props.flagrFlags}
             title={`${listing.type} na ${listingUserInfo}, ${neighborhood}, ${listing.address.city}`}
             openMatterportPopup={openMatterportPopup}
+            openMapPopup={openMapPopup}
             handleOpen3DTour={handleOpen3DTour}
           />
           <ListingDescription
@@ -101,6 +103,7 @@ ListingMainContent.propTypes = {
   user: PropTypes.object,
   favorite: PropTypes.bool,
   openMatterportPopup: PropTypes.func,
+  openMapPopup: PropTypes.func,
   handleOpen3DTour: PropTypes.func
 }
 
