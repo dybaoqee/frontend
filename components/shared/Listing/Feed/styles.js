@@ -1,12 +1,12 @@
 import styled from 'styled-components'
-import Text from '@emcasa/ui-dom/components/Text'
-import {breakpoint} from '@emcasa/ui/lib/styles'
 import theme from 'config/theme'
+import {breakpoint} from '@emcasa/ui/lib/styles'
+import {listingDetailsMaxWidth} from 'constants/dimensions'
+import Text from '@emcasa/ui-dom/components/Text'
 
 export const Container = styled.div`
   position: relative;
-  width: 960px;
-  max-width: calc(100vw - ${theme.space[4] * 2}px);
+  max-width: ${listingDetailsMaxWidth}px;
   margin: auto;
 `
 

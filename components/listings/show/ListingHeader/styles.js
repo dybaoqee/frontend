@@ -112,13 +112,14 @@ export const CarouselItem = styled.div`
 `
 
 export const Arrow = styled.div`
-  color: white;
-  cursor: pointer;
+  z-index: 3;
   position: absolute;
   top: calc(50% - 20px);
   ${({left}) => (!left ? 'right: 20px' : 'left: 20px')};
-  z-index: 3;
+  color: white;
+  cursor: pointer;
   filter: drop-shadow(1px 1px 4px ${theme.colors.dark});
+
   svg {
     width: 40px !important;
     height: 40px;
