@@ -25,7 +25,8 @@ import {
 class ListingInfo extends React.Component {
   render() {
     const {
-      title
+      title,
+      openMatterportPopup
     } = this.props
     const {
       price,
@@ -35,7 +36,8 @@ class ListingInfo extends React.Component {
       area,
       floor,
       propertyTax,
-      maintenanceFee
+      maintenanceFee,
+      matterportCode
     } = this.props.listing
     const price_per_square_meter = Math.floor(price / area)
 
@@ -43,7 +45,7 @@ class ListingInfo extends React.Component {
       <Container>
         <Title fontWeight="bold">{title}</Title>
         <ButtonsContainer>
-          <OpenMatterportButton><FontAwesomeIcon icon={faCube} />Ver por dentro</OpenMatterportButton>
+          {matterportCode && <OpenMatterportButton onClick={openMatterportPopup}><FontAwesomeIcon icon={faCube} />Ver por dentro</OpenMatterportButton>}
           <Button><FontAwesomeIcon icon={faMap} color={theme.colors.blue} />Mapa</Button>
           <Button><FontAwesomeIcon icon={faStreetView} color={theme.colors.blue} />Rua</Button>
         </ButtonsContainer>
@@ -127,7 +129,8 @@ class ListingInfo extends React.Component {
 
 ListingInfo.propTypes = {
   listing: PropTypes.object,
-  title: PropTypes.string
+  title: PropTypes.string,
+  openMatterportPopup: PropTypes.func
 }
 
 export default ListingInfo
