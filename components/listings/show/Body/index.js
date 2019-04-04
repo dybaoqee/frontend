@@ -44,8 +44,18 @@ class ListingMainContent extends Component {
   }
 
   render() {
-    const {listing, user, favorite} = this.props
-    const {street, neighborhood, streetNumber} = listing.address
+    const {
+      listing,
+      user,
+      favorite,
+      openMatterportPopup,
+      handleOpen3DTour
+    } = this.props
+    const {
+      street,
+      neighborhood,
+      streetNumber
+    } = listing.address
     const paragraphs = getParagraphs(listing.description)
     const ownerOrAdmin = canEdit(user, listing)
     const listingUserInfo = ownerOrAdmin
@@ -69,6 +79,8 @@ class ListingMainContent extends Component {
             user={user}
             flagrFlags={this.props.flagrFlags}
             title={`${listing.type} na ${listingUserInfo}, ${neighborhood}, ${listing.address.city}`}
+            openMatterportPopup={openMatterportPopup}
+            handleOpen3DTour={handleOpen3DTour}
           />
           <ListingDescription
             expanded={this.state.expanded}
@@ -83,10 +95,13 @@ class ListingMainContent extends Component {
   }
 }
 
+
 ListingMainContent.propTypes = {
   listing: PropTypes.object.isRequired,
   user: PropTypes.object,
-  favorite: PropTypes.bool
+  favorite: PropTypes.bool,
+  openMatterportPopup: PropTypes.func,
+  handleOpen3DTour: PropTypes.func
 }
 
 export default ListingMainContent

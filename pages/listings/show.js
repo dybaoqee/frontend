@@ -11,7 +11,10 @@ import {
   GET_DISTRICTS
 } from 'graphql/listings/queries'
 import {Mutation} from 'react-apollo'
-import {FAVORITE_LISTING} from 'graphql/listings/mutations'
+import {
+  FAVORITE_LISTING,
+  VISUALIZE_TOUR
+} from 'graphql/listings/mutations'
 import {isAuthenticated, isAdmin, getCurrentUserId, getJwt} from 'lib/auth'
 import {getRelatedListings} from 'services/listing-api'
 import Link from 'next/link'
@@ -23,6 +26,7 @@ import ListingMainContent from 'components/listings/show/Body'
 import Breadcrumb from 'components/listings/show/Breadcrumb'
 import PriceBar from 'components/listings/show/PriceBar'
 import ButtonsBar from 'components/listings/show/ButtonsBar'
+import MatterportPopup from 'components/listings/show/MatterportPopup'
 import InterestForm from 'components/listings/show/InterestForm'
 import InterestPosted from 'components/listings/show/InterestForm/interest_posted'
 import RelatedListings from 'components/listings/show/RelatedListings'
@@ -58,9 +62,7 @@ class Listing extends Component {
     },
     isInterestPopupVisible: false,
     isInterestSuccessPopupVisible: false,
-    isImageGalleryVisible: false,
-    is3DTourVisible: false,
-    imageIndex: 0
+    isMatterportPopupVisible: false
   }
 
   static async getInitialProps(context) {
@@ -109,33 +111,21 @@ class Listing extends Component {
     }
   }
 
-  showImageGallery = () => {
-    this.setState({isImageGalleryVisible: true})
+  openMatterportPopup = () => {
+    const {listing: {id}} = this.props
+
+    if (this.visualizeTour) {
+      this.visualizeTour({variables: {id}})
+    }
+
+    this.setState({isMatterportPopupVisible: true})
   }
 
-  hideImageGallery = () => {
-    this.setState({isImageGalleryVisible: false})
+  closeMatterportPopup = () => {
+    this.setState({isMatterportPopupVisible: false})
   }
 
-  showNextImage = () => {
-    const {imageIndex} = this.state
-    this.setState({imageIndex: imageIndex + 1})
-  }
-
-  showPreviousImage = () => {
-    const {imageIndex} = this.state
-    this.setState({imageIndex: imageIndex - 1})
-  }
-
-  show3DTour = async () => {
-    await this.setState({is3DTourVisible: true})
-  }
-
-  hide3DTour = () => {
-    this.setState({is3DTourVisible: false})
-  }
-
-  openPopup = async (e) => {
+  openInterestPopup = async (e) => {
     const {currentUser} = this.props
     if (currentUser && currentUser.authenticated) {
       const userInfo = await getUserInfo(currentUser.id)
@@ -150,11 +140,11 @@ class Listing extends Component {
     this.setState({isInterestPopupVisible: true})
   }
 
-  closePopup = () => {
+  closeInterestPopup = () => {
     this.setState({isInterestPopupVisible: false})
   }
 
-  closeSuccessPostPopup = () => {
+  closeSuccessPostInterestPopup = () => {
     this.setState({isInterestSuccessPopupVisible: false})
   }
 
@@ -208,7 +198,7 @@ class Listing extends Component {
 
   showListing = () => {
     const {user: currentUser, url, listing, router} = this.props
-    const {related} = this.state
+    const {related, isMatterportPopupVisible} = this.state
     const {isActive} = listing
 
     const {
@@ -290,9 +280,6 @@ class Listing extends Component {
                     <Row flexDirection="column">
                       <ListingHeader
                         listing={listing}
-                        handleOpenPopup={this.openPopup}
-                        handleOpenImageGallery={this.showImageGallery}
-                        handleOpen3DTour={this.show3DTour}
                         currentUser={currentUser}
                         favoritedListing={{loading, favorite}}
                       />
@@ -311,21 +298,37 @@ class Listing extends Component {
                           )}
                         </Warning>
                       )}
-                      <PriceBar
-                        type={listing.type}
-                        price={listing.price}
-                      />
-                      <ButtonsBar
-                        handleOpenPopup={this.openPopup}
-                        favorite={favorite}
-                        listing={listing}
-                        user={currentUser}
-                      />
                       <ListingMainContent
                         listing={listing}
                         user={currentUser}
                         favorite={favorite}
                         flagrFlags={this.props.flagrFlags}
+                        openMatterportPopup={this.openMatterportPopup}
+                      />
+
+                      <Mutation mutation={VISUALIZE_TOUR}>
+                        {(visualizeTour) => {
+                          if (!this.visualizeTour) {
+                            this.visualizeTour = visualizeTour
+                          }
+                          return (
+                            <MatterportPopup
+                              listing={listing}
+                              isMatterportPopupVisible={isMatterportPopupVisible}
+                              closeMatterportPopup={this.closeMatterportPopup}
+                            />
+                          )
+                        }}
+                      </Mutation>
+                      <PriceBar
+                        type={listing.type}
+                        price={listing.price}
+                      />
+                      <ButtonsBar
+                        handleOpenInterestPopup={this.openInterestPopup}
+                        favorite={favorite}
+                        listing={listing}
+                        user={currentUser}
                       />
                       <RelatedListings
                         currentUser={currentUser}
@@ -335,14 +338,14 @@ class Listing extends Component {
                     {isInterestPopupVisible && (
                       <InterestForm
                         data={interestForm}
-                        handleClose={this.closePopup}
+                        handleClose={this.closeInterestPopup}
                         onChange={this.onChange}
                         onSubmit={this.onSubmit}
                       />
                     )}
                     {isInterestSuccessPopupVisible && (
                       <InterestPosted
-                        handleClose={this.closeSuccessPostPopup}
+                        handleClose={this.closeSuccessPostInterestPopup}
                       />
                     )}
                   </Row>
