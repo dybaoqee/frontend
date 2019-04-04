@@ -1,9 +1,9 @@
-import * as colors from 'constants/colors'
 import styled from 'styled-components'
 import theme from 'config/theme'
 import {
   listingDetailsHeaderHeight,
-  listingDetailsHeaderHeightOffset
+  listingDetailsHeaderHeightOffset,
+  listingDetailsSliderNavigationHeight
 } from 'constants/dimensions'
 import {mobileMedia} from 'constants/media'
 import {breakpoint} from '@emcasa/ui/lib/styles'
@@ -11,6 +11,53 @@ import Button from '@emcasa/ui-dom/components/Button'
 import MoonLoader from 'react-spinners/MoonLoader'
 
 export const SPINNER_SIZE = 40
+
+export default styled.div`
+  z-index: ${({isFullScreen}) => isFullScreen ? '9999' : null};
+  position: ${({isFullScreen}) => isFullScreen ? 'fixed' : 'relative'};
+  top: ${({isFullScreen}) => isFullScreen ? '0' : null};
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: ${({isFullScreen}) => isFullScreen ? '100%' : `calc(100vh - ${listingDetailsHeaderHeightOffset * 2}px)`};
+  max-width: 100%;
+  min-height: ${({isFullScreen}) => isFullScreen ? null : `${listingDetailsHeaderHeight / 2}px`};
+  overflow: hidden;
+  background-color: ${({isFullScreen}) => isFullScreen ? theme.colors.dark : theme.colors.white};
+  box-sizing: border-box;
+
+  @media screen and ${breakpoint.up('desktop')} {
+    height: ${({isFullScreen}) => isFullScreen ? null : `${listingDetailsHeaderHeight}px`};
+  }
+
+  ${Button} {
+    z-index: 5;
+    position: absolute;
+    top: ${theme.space[2]}px;
+    right: ${theme.space[2]}px;
+  }
+
+  .slick-list,
+  .slick-track,
+  .slick-slide > div {
+    height: 100%;
+  }
+
+  .images-slider {
+    overflow: hidden;
+    ${({isFullScreen}) => isFullScreen ? 'flex: 1 1 100%;' : 'height: 100%;'};
+  }
+
+  .slider-image {
+    z-index: 2;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    object-fit: cover;
+    box-sizing: border-box;
+  }
+`
 
 export const SpinnerWrapper = styled.div`
   z-index: 1;
@@ -27,35 +74,15 @@ export const Spinner = styled(MoonLoader).attrs({
 
 export const Thumb = styled.div`
   box-sizing: border-box;
-  padding: 10px;
   max-height: 100%;
-  height: 70px;
-  background: ${colors.blue.darker};
-  font-size: 12px;
-  color: white;
-  text-transform: uppercase;
+  height: ${listingDetailsSliderNavigationHeight}px;
+  background: ${theme.colors.dark};
   background-image: url(${({background}) => background});
-  font-weight: 600;
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
   cursor: pointer;
   outline: none;
-
-  display: flex !important;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  svg {
-    width: 20px !important;
-    height: 20px;
-  }
-  span {
-    margin-top: 5px;
-    text-align: center;
-  }
-
-  border-right: 2px solid ${colors.gray4a};
 
   opacity: ${({alwaysVisible}) => (alwaysVisible ? 1 : 1)};
   filter: grayscale(${({alwaysVisible}) => (alwaysVisible ? 0 : 100)}%);
@@ -75,7 +102,7 @@ export const CarouselItem = styled.div`
   outline: none;
   box-sizing: border-box;
   position: relative;
-  background: ${colors.lightestGray};
+  background: ${theme.colors.dark};
 
   @keyframes spin {
     to {
@@ -91,7 +118,7 @@ export const Arrow = styled.div`
   top: calc(50% - 20px);
   ${({left}) => (!left ? 'right: 20px' : 'left: 20px')};
   z-index: 3;
-  filter: drop-shadow(1px 1px 4px ${colors.text});
+  filter: drop-shadow(1px 1px 4px ${theme.colors.dark});
   svg {
     width: 40px !important;
     height: 40px;
@@ -99,8 +126,9 @@ export const Arrow = styled.div`
 `
 
 export const SliderNavigation = styled.div`
+  flex: 0 0 ${listingDetailsSliderNavigationHeight}px;
+  height: ${listingDetailsSliderNavigationHeight}px;
   box-sizing: border-box;
-  height: 70px;
   display: ${({show}) => (show ? 'flex' : 'none')};
 
   * {
@@ -120,7 +148,7 @@ export const SliderNavigation = styled.div`
   }
 
   .slick-current {
-    border: 2px solid ${colors.gray4a};
+    border: 2px solid ${theme.colors.pink};
     opacity: 1;
     filter: grayscale(0%);
 
@@ -132,116 +160,7 @@ export const SliderNavigation = styled.div`
     box-shadow: 2px 2px 20px 5px rgba(0, 0, 0, 0.61);
   }
 
-  @media ${mobileMedia} {
-    ${Arrow} {
-      top: calc(50% - 10px);
-      svg {
-        width: 20px !important;
-        height: 20px;
-      }
-    }
-  }
-`
-
-export const NavigationButton = styled.div`
-  box-sizing: border-box;
-  max-height: 70px;
-  background: white;
-  min-width: 80px;
-  color: ${colors.blue.dark};
-  cursor: pointer;
-  font-weight: 600;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: 12px;
-  border-right: 1px solid ${colors.lightestGray};
-
-  svg {
-    width: 20px !important;
-    height: 20px;
-  }
-  span {
-    margin-top: 5px;
-    text-align: center;
-  }
-`
-
-export default styled.div`
-  position: relative;
-  width: 100%;
-  max-width: 100%;
-  height: calc(100vh - ${listingDetailsHeaderHeightOffset * 2}px);
-  min-height: ${listingDetailsHeaderHeight / 2}px;
-  background-color: ${({isFullScreen}) => isFullScreen ? theme.colors.dark : theme.colors.white};
-  box-sizing: border-box;
-
-  @media screen and ${breakpoint.up('desktop')} {
-    height: ${listingDetailsHeaderHeight}px;
-  }
-
-  ${({isFullScreen}) =>
-    isFullScreen && 'position: fixed; top: 0; z-index: 9999; height: 100%; '};
-
-  ${Button} {
-    z-index: 5;
-    position: absolute;
-    top: ${theme.space[2]}px;
-    right: ${theme.space[2]}px;
-  }
-
-  .slick-slider,
-  .slick-list,
-  .slick-track,
-  .slick-slide > div,
-  .slider-image {
-    height: 100%;
-  }
-
-  & div.top-right {
-    justify-content: space-between;
-    top: 20px;
-    right: 20px;
-    display: flex;
-    button {
-      margin-left: 10px;
-    }
-  }
-
-  .images-slider {
-    ${({isFullScreen}) => isFullScreen && 'height: calc(100% - 70px);'};
-  }
-
-  @media ${mobileMedia} {
-    .images-slider {
-      ${({isFullScreen}) => isFullScreen && 'height: calc(100% - 95px);'};
-    }
-  }
-
-  img {
-    box-sizing: border-box;
-    cursor: pointer;
-    z-index: 2;
-    position: relative;
-    object-fit: cover;
-    width: 100%;
-    ${({isFullScreen}) =>
-      isFullScreen &&
-      'min-height: 100%; max-height: 100%; height: 100%; flex-grow: 1; background-size: contain; '};
-  }
-
-  ${CarouselItem} {
-    ${({isFullScreen}) =>
-      isFullScreen &&
-      `min-height: 100%;
-       max-height: 100%;
-        height: calc(100vh - 70px);
-        background: none;
-        display: flex !important;
-         iframe {
-
-        height: inherit;
-      }`};
+  ${Arrow} {
+    display: none;
   }
 `

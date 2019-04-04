@@ -6,3 +6,4 @@ export const listingDetailsBarHeight = 72
 export const listingDetailsHeaderHeight = 454
 export const listingDetailsHeaderHeightOffset = desktopHeaderHeight + listingDetailsBarHeight + 20
 export const listingDetailsHeaderHeightDesktop = 454
+export const listingDetailsSliderNavigationHeight = 70
