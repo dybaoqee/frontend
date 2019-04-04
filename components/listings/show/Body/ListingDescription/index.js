@@ -21,7 +21,7 @@ class ListingDescription extends React.Component {
 
     return (
       <Container expanded={expanded} mt={[5, null, null, 0]}>
-        <ToggleButton expanded={expanded} onClick={toggleBody} />
+        {false && <ToggleButton expanded={expanded} onClick={toggleBody} />}
         <Title fontWeight="normal">O imóvel</Title>
         {paragraphs && paragraphs.map((paragraph, i) => <Text key={i}>{paragraph}</Text>)}
         {user.admin &&
