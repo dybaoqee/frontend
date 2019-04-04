@@ -4,7 +4,6 @@ import Col from '@emcasa/ui-dom/components/Col'
 import {breakpoint} from '@emcasa/ui/lib/styles'
 import {desktopHeaderHeight} from 'constants/dimensions'
 
-export const HEADER_HEIGHT = desktopHeaderHeight
 export const MAX_HEADER_HEIGHT = 76
 export const NAV_ZINDEX = 110
 
@@ -14,10 +13,9 @@ export default styled.header`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-
   box-sizing: border-box;
   width: 100%;
-  height: ${HEADER_HEIGHT}px;
+  height: ${props => props.search ? MAX_HEADER_HEIGHT : desktopHeaderHeight}px;
   padding: ${theme.space[2]}px ${theme.space[4]}px 0 ${theme.space[4]}px;
   z-index: 1;
   transition: background 0.3s ease-out;
@@ -42,7 +40,7 @@ export const Wrapper = styled.div`
 `
 
 const slideFromRight = keyframes`
-  from { right: -${HEADER_HEIGHT}vw; }
+  from { right: -${desktopHeaderHeight}vw; }
   to   { right: 0; }
 `
 
@@ -67,7 +65,7 @@ export const Nav = styled.nav`
     z-index: ${NAV_ZINDEX};
     position: absolute;
     top: 0;
-    right: -${HEADER_HEIGHT}vw;
+    right: -${desktopHeaderHeight}vw;
     animation: ${slideFromRight} 0.3s 0s both;
 
     display: ${(props) => (props.visible ? 'flex' : 'none')};
@@ -75,7 +73,7 @@ export const Nav = styled.nav`
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    width: ${HEADER_HEIGHT}vw;
+    width: ${desktopHeaderHeight}vw;
     height: 100vh;
 
     > :nth-child(n + 2) {
@@ -152,7 +150,7 @@ export const MenuItem = styled.div`
 
   @media ${breakpoint.down('tablet')} {
     min-height: auto;
-    height: ${HEADER_HEIGHT}px;
+    height: ${desktopHeaderHeight}px;
     width: auto;
 
     align-items: center;
