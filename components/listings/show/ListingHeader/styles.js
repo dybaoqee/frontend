@@ -5,6 +5,7 @@ import MoonLoader from 'react-spinners/MoonLoader'
 import Icon from '@emcasa/ui-dom/components/Icon'
 
 import theme from 'config/theme'
+import {listingDetailsHeaderHeight} from 'constants/dimensions'
 import Button from '@emcasa/ui-dom/components/Button'
 
 const SPINNER_SIZE = 40
@@ -59,8 +60,8 @@ export const Thumb = styled.div`
 `
 
 export const Content = styled.div`
-  max-height: 343px;
-  min-height: 343px;
+  max-height: ${listingDetailsHeaderHeight}px;
+  min-height: ${listingDetailsHeaderHeight}px;
   cursor: pointer;
   outline: none;
   box-sizing: border-box;
@@ -107,7 +108,7 @@ export const TourWrapper = styled.div`
     box-sizing: border-box;
     width: 100%;
     height: ${({isFullScreen}) =>
-      isFullScreen ? 'calc(100% - 70px)' : '343px'};
+      isFullScreen ? 'calc(100% - 70px)' : '${listingDetailsHeaderHeight}px'};
   }
 
   .overlay {
@@ -252,8 +253,8 @@ export default styled.div`
   img {
     box-sizing: border-box;
     cursor: pointer;
-    max-height: 343px;
-    height: 343px;
+    max-height: ${listingDetailsHeaderHeight}px;
+    height: ${listingDetailsHeaderHeight}px;
     z-index: 2;
     position: relative;
     object-fit: cover;

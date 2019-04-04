@@ -6,8 +6,7 @@ import Button from '@emcasa/ui-dom/components/Button'
 import {
   desktopHeaderHeight,
   listingDetailsMaxWidth,
-  listingDetailsBarHeight,
-  listingDetailsBarHeightDesktop
+  listingDetailsBarHeight
 } from 'constants/dimensions'
 
 export const Wrapper = styled(Row)`
@@ -26,7 +25,7 @@ export const Wrapper = styled(Row)`
   @media screen and ${breakpoint.up('desktop')} {
     bottom: initial;
     top: ${desktopHeaderHeight}px;
-    height: ${listingDetailsBarHeightDesktop}px;
+    height: ${listingDetailsBarHeight}px;
     padding: 0 ${theme.space[4]}px;
     background: none;
     box-shadow: none;
@@ -34,10 +33,11 @@ export const Wrapper = styled(Row)`
 `
 
 export const Container = styled(Row)`
+  align-items: center;
   justify-content: space-between;
   width: 100%;
+  height: ${listingDetailsBarHeight}px;
   max-width: ${listingDetailsMaxWidth}px;
-  margin: ${theme.space[4]}px 0;
 
   @media screen and ${breakpoint.up('desktop')} {
     justify-content: flex-end;

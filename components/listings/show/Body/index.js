@@ -9,7 +9,6 @@ import {
   LISTING_DETAIL_OPEN,
   LISTING_DETAIL_EXPAND_DESCRIPTION
 } from 'lib/logging'
-import {listingDetailsBarHeightDesktop} from 'constants/dimensions'
 import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
 import View from '@emcasa/ui-dom/components/View'

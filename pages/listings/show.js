@@ -48,7 +48,7 @@ import {
   LISTING_DETAIL_OPEN_VISIT_FORM,
   LISTING_DETAIL_SCHEDULE_VISIT
 } from 'lib/logging'
-import {listingDetailsBarHeightDesktop} from 'constants/dimensions'
+import {listingDetailsBarHeight} from 'constants/dimensions'
 
 export const Title = Text.withComponent('h2')
 
@@ -294,7 +294,7 @@ class Listing extends Component {
                     listing={listing}
                     routerAsPath={router.asPath}
                   />
-                  <Row flexDirection={['column-reverse', null, null, 'column']} mt={[null, null, null, `${listingDetailsBarHeightDesktop}px`]}>
+                  <Row flexDirection={['column-reverse', null, null, 'column']} mt={[null, null, null, `${listingDetailsBarHeight}px`]}>
                     <Breadcrumb paths={paths} />
                     <Row flexDirection="column">
                       <ListingHeader

@@ -6,8 +6,7 @@ import Text from '@emcasa/ui-dom/components/Text'
 import {
   desktopHeaderHeight,
   listingDetailsMaxWidth,
-  listingDetailsBarHeight,
-  listingDetailsBarHeightDesktop
+  listingDetailsBarHeight
 } from 'constants/dimensions'
 
 export const Wrapper = styled(Row)`
@@ -24,7 +23,7 @@ export const Wrapper = styled(Row)`
     left: 0;
     top: ${desktopHeaderHeight}px;
     width: 100%;
-    height: ${listingDetailsBarHeightDesktop}px;
+    height: ${listingDetailsBarHeight}px;
     padding: 0 ${theme.space[4]}px;
     background: ${theme.colors.white};
   }
