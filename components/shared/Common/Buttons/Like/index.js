@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { captureException } from '@sentry/browser'
 import get from 'lodash/get'
-import Router from 'next/router'
 import {Mutation} from 'react-apollo'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faHeart from '@fortawesome/fontawesome-free-solid/faHeart'
@@ -100,7 +99,6 @@ class LikeButton extends Component {
                 onClose={() => {
                   this.setState({ showSuccess: false })
                   log(LISTING_SAVE_LOGIN_DONE)
-                  Router.replace(location.pathname)
                 }}
               />
             }
