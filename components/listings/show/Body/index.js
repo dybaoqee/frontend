@@ -71,13 +71,7 @@ class ListingMainContent extends Component {
             {listing.type} na {listingInfo}, {neighborhood},{' '}
             {listing.address.city}
           </Title>
-          <ListingData
-            bedrooms={listing.rooms}
-            bathrooms={listing.bathrooms}
-            garageSpots={listing.garageSpots}
-            area={listing.area}
-            floor={listing.floor}
-          />
+          <ListingData listing={listing} />
           <SubTitle color="grey" fontSize="small">O IMÓVEL</SubTitle>
           {paragraphs && paragraphs.map((paragraph, i) => <Text key={i}>{paragraph}</Text>)}
         </ListingDescription>
