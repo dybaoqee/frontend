@@ -8,13 +8,27 @@ export const GET_LISTINGS = gql`
       listings {
         id
         area
-        rooms
         floor
-        garageSpots
-        area
-        bathrooms
         price
+        rooms
+        suites
+        bathrooms
+        garageSpots
         description
+        development {
+          uuid
+          name
+        }
+        units {
+          uuid
+          area
+          floor
+          price
+          rooms
+          suites
+          bathrooms
+          garageSpots
+        }
         images(limit: 5, isActive: true) {
           filename
           position
@@ -39,13 +53,27 @@ export const GET_LISTING = gql`
     listing(id: $id) {
       id
       area
-      rooms
       floor
-      garageSpots
-      area
-      bathrooms
       price
+      rooms
+      suites
+      bathrooms
+      garageSpots
       description
+      development {
+        uuid
+        name
+      }
+      units {
+        uuid
+        area
+        floor
+        price
+        rooms
+        suites
+        bathrooms
+        garageSpots
+      }
       images(limit: 1, isActive: true) {
         filename
         position
@@ -82,32 +110,48 @@ export const GET_FULL_LISTING = gql`
         streetNumber
         streetSlug
       }
-      area
-      balconies
-      bathrooms
-      complement
-      dependencies
-      description
       insertedAt
-      floor
-      garageSpots
       hasElevator
+      type
+      area
+      floor
+      complement
+      price
+      propertyTax
+      maintenanceFee
+      suggestedPrice
+      isActive
+      rooms
+      suites
+      bathrooms
+      garageSpots
+      description
+      development {
+        uuid
+        name
+        images(isActive: true) {
+          filename
+          position
+        }
+      }
+      units {
+        uuid
+        area
+        floor
+        price
+        rooms
+        suites
+        bathrooms
+        garageSpots
+      }
       images(isActive: true) {
         id
         filename
       }
-      isActive
-      maintenanceFee
       matterportCode
       owner {
         id
       }
-      price
-      propertyTax
-      restrooms
-      rooms
-      type
-      suggestedPrice
     }
   }
 `

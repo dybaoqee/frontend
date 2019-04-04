@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
-import humps from 'humps'
 import {
   buildSlug,
-  getListingSummary
+  getListingSummary,
+  getListingPrice
 } from 'lib/listings'
 import LikeButton from 'components/shared/Common/Buttons/Like'
 import { thumbnailUrl } from 'utils/image_url'
@@ -27,7 +27,6 @@ class ListingCard extends Component {
       currentUser,
       favorited: favoritedListings
     } = this.props
-    listing = humps.decamelizeKeys(listing)
 
     const favorited =
       favoritedListings.filter(
@@ -61,7 +60,7 @@ class ListingCard extends Component {
               <Row><Text inline fontSize="small">{listing.address.neighborhood.toUpperCase()}</Text></Row>
               <Row><Text inline fontSize="small">{listing.address.street}</Text></Row>
               <Row><Text inline fontSize="small" color="grey">{listingSummary}</Text></Row>
-              <Row><Text inline fontSize="large" fontWeight="bold">{intToCurrency(listing.price)}</Text></Row>
+              <Row><Text inline fontSize="large" fontWeight="bold">{getListingPrice(listing)}</Text></Row>
             </Row>
             <LikeButton
               top={Math.round(getCardWidth() * 0.5 - 25)}

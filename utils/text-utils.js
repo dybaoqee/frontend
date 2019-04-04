@@ -61,6 +61,13 @@ const currencyInputMask = createNumberMask({
   integerLimit: 12
 })
 
+const formatRange = (values, formatFn = (x) => x) => {
+  const min = Math.min(...values)
+  const max = Math.max(...values)
+  if (min == max) return formatFn(min)
+  else return `${formatFn(min)} - ${formatFn(max)}`
+}
+
 export {
   getParagraphs,
   getUrlVars,
@@ -70,6 +77,7 @@ export {
   intToCurrency,
   roundUpPrice,
   arrayToString,
+  formatRange,
 
   PREFIX,
   THOUSANDS_SEPARATOR_SYMBOL
