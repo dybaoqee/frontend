@@ -41,7 +41,7 @@ class ListingDescription extends React.Component {
 ListingDescription.propTypes = {
   expanded: PropTypes.bool.isRequired,
   listing: PropTypes.object.isRequired,
-  paragraphs: PropTypes.object,
+  paragraphs: PropTypes.array,
   toggleBody: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired
 }
