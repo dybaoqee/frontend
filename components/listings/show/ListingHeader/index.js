@@ -16,11 +16,11 @@ import {
   LISTING_DETAIL_PHOTOS_FULLSCREEN_CLOSE,
 } from 'lib/logging'
 import Container, {
+  SpinnerWrapper,
   Spinner,
   Thumb,
-  Content,
+  CarouselItem,
   Arrow,
-  TourWrapper,
   SliderNavigation
 } from './styles'
 
@@ -188,10 +188,10 @@ export default class ListingHeader extends Component {
           ref={(slider) => (this.slider2 = slider)}
         >
           {this.getSliderImages().map((content, id) => (
-            <Content key={content.key || id} onClick={() => {this.toggleFullScreen(id)}}>
-              {content.props.src && <div className="spinner"><Spinner /></div>}
+            <CarouselItem key={content.key || id} onClick={() => {this.toggleFullScreen(id)}}>
+              {content.props.src && <SpinnerWrapper><Spinner /></SpinnerWrapper>}
               {content}
-            </Content>
+            </CarouselItem>
           ))}
         </Carousel>
 

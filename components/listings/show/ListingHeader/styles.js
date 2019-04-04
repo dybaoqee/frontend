@@ -1,14 +1,24 @@
 import * as colors from 'constants/colors'
 import styled from 'styled-components'
-import {mobileMedia} from 'constants/media'
-import MoonLoader from 'react-spinners/MoonLoader'
-import Icon from '@emcasa/ui-dom/components/Icon'
-
 import theme from 'config/theme'
-import {listingDetailsHeaderHeight} from 'constants/dimensions'
+import {
+  listingDetailsHeaderHeight,
+  listingDetailsHeaderHeightOffset
+} from 'constants/dimensions'
+import {mobileMedia} from 'constants/media'
+import {breakpoint} from '@emcasa/ui/lib/styles'
 import Button from '@emcasa/ui-dom/components/Button'
+import MoonLoader from 'react-spinners/MoonLoader'
 
-const SPINNER_SIZE = 40
+export const SPINNER_SIZE = 40
+
+export const SpinnerWrapper = styled.div`
+  z-index: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+`
 
 export const Spinner = styled(MoonLoader).attrs({
   color: ({theme}) => theme.colors.pink,
@@ -59,21 +69,13 @@ export const Thumb = styled.div`
   }
 `
 
-export const Content = styled.div`
-  max-height: ${listingDetailsHeaderHeight}px;
-  min-height: ${listingDetailsHeaderHeight}px;
+export const CarouselItem = styled.div`
+  height: 100%;
   cursor: pointer;
   outline: none;
   box-sizing: border-box;
   position: relative;
   background: ${colors.lightestGray};
-
-  .spinner {
-    z-index: 1;
-    top: calc(50% - ${SPINNER_SIZE}px);
-    left: calc(50% - ${SPINNER_SIZE}px);
-    position: absolute;
-  }
 
   @keyframes spin {
     to {
@@ -93,32 +95,6 @@ export const Arrow = styled.div`
   svg {
     width: 40px !important;
     height: 40px;
-  }
-`
-
-export const TourWrapper = styled.div`
-  box-sizing: border-box;
-  position: relative;
-  cursor: pointer;
-  width: 100%;
-  height: 100%;
-
-  iframe {
-    z-index: 2;
-    box-sizing: border-box;
-    width: 100%;
-    height: ${({isFullScreen}) =>
-      isFullScreen ? 'calc(100% - 70px)' : '${listingDetailsHeaderHeight}px'};
-  }
-
-  .overlay {
-    width: 100%;
-    height: 100%;
-    background: blue;
-    position: absolute;
-    top: 0;
-    z-index: 2;
-    opacity: 0;
   }
 `
 
@@ -167,14 +143,6 @@ export const SliderNavigation = styled.div`
   }
 `
 
-export const BottomRight = styled.div`
-  bottom: 20px;
-  right: 20px;
-  button {
-    margin-left: 10px;
-  }
-`
-
 export const NavigationButton = styled.div`
   box-sizing: border-box;
   max-height: 70px;
@@ -204,10 +172,17 @@ export default styled.div`
   position: relative;
   width: 100%;
   max-width: 100%;
-  background-color: ${({isFullScreen}) =>
-    isFullScreen ? 'rgba(0, 0, 0, 0.9)' : 'white'};
+  height: calc(100vh - ${listingDetailsHeaderHeightOffset * 2}px);
+  min-height: ${listingDetailsHeaderHeight / 2}px;
+  background-color: ${({isFullScreen}) => isFullScreen ? theme.colors.dark : theme.colors.white};
   box-sizing: border-box;
-  min-height: 150px;
+
+  @media screen and ${breakpoint.up('desktop')} {
+    height: ${listingDetailsHeaderHeight}px;
+  }
+
+  ${({isFullScreen}) =>
+    isFullScreen && 'position: fixed; top: 0; z-index: 9999; height: 100%; '};
 
   ${Button} {
     z-index: 5;
@@ -216,9 +191,12 @@ export default styled.div`
     right: ${theme.space[2]}px;
   }
 
-
-  ${BottomRight}, .top-right {
-    position: absolute;
+  .slick-slider,
+  .slick-list,
+  .slick-track,
+  .slick-slide > div,
+  .slider-image {
+    height: 100%;
   }
 
   & div.top-right {
@@ -235,26 +213,15 @@ export default styled.div`
     ${({isFullScreen}) => isFullScreen && 'height: calc(100% - 70px);'};
   }
 
-  @@media ${mobileMedia} {
+  @media ${mobileMedia} {
     .images-slider {
       ${({isFullScreen}) => isFullScreen && 'height: calc(100% - 95px);'};
     }
-  }
-  .slick-list,
-  .slick-track {
-    height: 100%;
-    min-height: 100%;
-  }
-
-  .slick-slide > div {
-    height: inherit;
   }
 
   img {
     box-sizing: border-box;
     cursor: pointer;
-    max-height: ${listingDetailsHeaderHeight}px;
-    height: ${listingDetailsHeaderHeight}px;
     z-index: 2;
     position: relative;
     object-fit: cover;
@@ -264,7 +231,7 @@ export default styled.div`
       'min-height: 100%; max-height: 100%; height: 100%; flex-grow: 1; background-size: contain; '};
   }
 
-  ${Content} {
+  ${CarouselItem} {
     ${({isFullScreen}) =>
       isFullScreen &&
       `min-height: 100%;
@@ -277,7 +244,4 @@ export default styled.div`
         height: inherit;
       }`};
   }
-
-  ${({isFullScreen}) =>
-    isFullScreen && 'position: fixed; top: 0; z-index: 9999; height: 100%; '};
 `
