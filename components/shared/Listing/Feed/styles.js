@@ -27,10 +27,10 @@ export const SubTitle = Text.withComponent('h3')
 export const Gradient = styled.div`
   pointer-events: none;
   position: absolute;
-  top: 74px;
-  right: 0;
+  top: 0;
+  right: ${theme.space[4]}px;
   width: 60px;
-  height: calc(100% - 96px);
+  height: 100%;
   background-image: linear-gradient(to right, transparent, white);
 
   @media ${breakpoint.down('tablet')} {
