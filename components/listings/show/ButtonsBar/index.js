@@ -12,7 +12,7 @@ import {
 
 class ButtonsBar extends Component {
   render() {
-    const {listing, handleOpenPopup, user, favorite} = this.props
+    const {listing, handleOpenInterestPopup, user, favorite} = this.props
 
     return (
       <Wrapper>
@@ -22,7 +22,7 @@ class ButtonsBar extends Component {
             listing={listing}
             user={user}
           />
-          <Button active onClick={handleOpenPopup}>Falar com especialista</Button>
+          <Button active onClick={handleOpenInterestPopup}>Falar com especialista</Button>
         </Container>
       </Wrapper>
     )
