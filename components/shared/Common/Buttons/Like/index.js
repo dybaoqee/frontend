@@ -30,7 +30,7 @@ class LikeButton extends Component {
   state = {
     name: null,
     showLogin: false,
-    showSuccess: false,
+    showSuccess: false
   }
 
   onLoginSuccess = async (userInfo, favoriteListing) => {
@@ -54,7 +54,7 @@ class LikeButton extends Component {
 
       if (response && response.data) {
         log(LISTING_SAVE_LOGIN_SUCCESS)
-        favoriteListing({variables: {id: this.props.listing.id}})
+        favoriteListing({refetchQueries: [{query: GET_USER_LISTINGS_ACTIONS}], variables: {id: this.props.listing.id}})
         this.setState({ showSuccess: true })
       }
     } catch (e) {
