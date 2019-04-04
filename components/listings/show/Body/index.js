@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import NumberFormat from 'react-number-format'
 import {getParagraphs} from 'utils/text-utils'
@@ -17,11 +17,7 @@ import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import ListingInfo from './ListingInfo'
 import ListingDescription from './ListingDescription'
-import {
-  Container,
-  SubTitle,
-  MobileInfo
-} from './styles'
+import {Container} from './styles'
 
 class ListingMainContent extends Component {
   constructor(props) {
@@ -50,7 +46,7 @@ class ListingMainContent extends Component {
       favorite,
       openMatterportPopup,
       openMapPopup,
-      handleOpen3DTour
+      openStreetViewPopup
     } = this.props
     const {
       street,
@@ -82,7 +78,7 @@ class ListingMainContent extends Component {
             title={`${listing.type} na ${listingUserInfo}, ${neighborhood}, ${listing.address.city}`}
             openMatterportPopup={openMatterportPopup}
             openMapPopup={openMapPopup}
-            handleOpen3DTour={handleOpen3DTour}
+            openStreetViewPopup={openStreetViewPopup}
           />
           <ListingDescription
             expanded={this.state.expanded}
@@ -104,7 +100,7 @@ ListingMainContent.propTypes = {
   favorite: PropTypes.bool,
   openMatterportPopup: PropTypes.func,
   openMapPopup: PropTypes.func,
-  handleOpen3DTour: PropTypes.func
+  openStreetViewPopup: PropTypes.func
 }
 
 export default ListingMainContent

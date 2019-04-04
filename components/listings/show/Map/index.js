@@ -1,13 +1,32 @@
-import React from 'react'
+import {Component} from 'react'
+import ReactDOM from 'react-dom'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faHome from '@fortawesome/fontawesome-free-solid/faHome'
 import Container from './styles'
 import GoogleMapReact from 'google-map-react'
 import MapMarker from 'components/shared/Map/Marker'
 
-export default class ListingMap extends React.Component {
+export default class ListingMap extends Component {
+  loadStreetView = (map, maps) => {
+    const {listing, streetView} = this.props
+    if (streetView) {
+      const {lat, lng} = listing.address
+      const panorama = new maps.StreetViewPanorama(
+        ReactDOM.findDOMNode(this.refs.panorama), {
+          position: {lat: lat, lng: lng},
+          pov: {
+            heading: 34,
+            pitch: 10
+          },
+          visible: true
+        }
+      )
+      map.setStreetView(panorama)
+    }
+  }
+
   render() {
-    const {listing} = this.props
+    const {listing, streetView} = this.props
     const {lat, lng} = listing.address
     const text = <FontAwesomeIcon icon={faHome} />
 
@@ -21,8 +40,10 @@ export default class ListingMap extends React.Component {
           }}
           zoom={16}
           center={{lat, lng}}
+          onGoogleApiLoaded={({ map, maps }) => this.loadStreetView(map, maps)}
+          ref={'panorama'}
         >
-          <MapMarker lat={lat} lng={lng} text={text} />
+          {!streetView && <MapMarker lat={lat} lng={lng} text={text} />}
         </GoogleMapReact>
       </Container>
     )

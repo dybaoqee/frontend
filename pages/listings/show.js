@@ -28,6 +28,7 @@ import PriceBar from 'components/listings/show/PriceBar'
 import ButtonsBar from 'components/listings/show/ButtonsBar'
 import MatterportPopup from 'components/listings/show/MatterportPopup'
 import MapPopup from 'components/listings/show/MapPopup'
+import StreetViewPopup from 'components/listings/show/StreetViewPopup'
 import InterestForm from 'components/listings/show/InterestForm'
 import InterestPosted from 'components/listings/show/InterestForm/interest_posted'
 import RelatedListings from 'components/listings/show/RelatedListings'
@@ -64,7 +65,8 @@ class Listing extends Component {
     isInterestPopupVisible: false,
     isInterestSuccessPopupVisible: false,
     isMatterportPopupVisible: false,
-    isMapPopupVisible: false
+    isMapPopupVisible: false,
+    isStreetViewPopupVisible: false
   }
 
   static async getInitialProps(context) {
@@ -133,6 +135,14 @@ class Listing extends Component {
 
   closeMapPopup = () => {
     this.setState({isMapPopupVisible: false})
+  }
+
+  openStreetViewPopup = () => {
+    this.setState({isStreetViewPopupVisible: true})
+  }
+
+  closeStreetViewPopup = () => {
+    this.setState({isStreetViewPopupVisible: false})
   }
 
   openInterestPopup = async (e) => {
@@ -208,7 +218,7 @@ class Listing extends Component {
 
   showListing = () => {
     const {user: currentUser, url, listing, router} = this.props
-    const {related, isMatterportPopupVisible, isMapPopupVisible} = this.state
+    const {related, isMatterportPopupVisible, isMapPopupVisible, isStreetViewPopupVisible} = this.state
     const {isActive} = listing
 
     const {
@@ -315,6 +325,7 @@ class Listing extends Component {
                         flagrFlags={this.props.flagrFlags}
                         openMatterportPopup={this.openMatterportPopup}
                         openMapPopup={this.openMapPopup}
+                        openStreetViewPopup={this.openStreetViewPopup}
                       />
 
                       <Mutation mutation={VISUALIZE_TOUR}>
@@ -335,6 +346,11 @@ class Listing extends Component {
                         listing={listing}
                         isMapPopupVisible={isMapPopupVisible}
                         closeMapPopup={this.closeMapPopup}
+                      />
+                      <StreetViewPopup
+                        listing={listing}
+                        isStreetViewPopupVisible={isStreetViewPopupVisible}
+                        closeStreetViewPopup={this.closeStreetViewPopup}
                       />
                       <PriceBar
                         type={listing.type}
