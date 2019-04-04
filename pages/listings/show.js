@@ -317,6 +317,10 @@ class Listing extends Component {
                           )}
                         </Warning>
                       )}
+                      <PriceBar
+                        type={listing.type}
+                        price={listing.price}
+                      />
                       <ListingMainContent
                         listing={listing}
                         user={currentUser}
@@ -351,10 +355,6 @@ class Listing extends Component {
                         listing={listing}
                         isMapPopupVisible={isStreetViewPopupVisible}
                         closeMapPopup={this.closeStreetViewPopup}
-                      />
-                      <PriceBar
-                        type={listing.type}
-                        price={listing.price}
                       />
                       <ButtonsBar
                         handleOpenInterestPopup={this.openInterestPopup}
