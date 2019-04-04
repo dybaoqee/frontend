@@ -16,6 +16,6 @@ export default styled.div`
     z-index: 5;
     position: absolute;
     top: ${theme.space[2]}px;
-    left: ${theme.space[2]}px;
+    right: ${theme.space[2]}px;
   }
 `

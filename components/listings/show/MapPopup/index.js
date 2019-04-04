@@ -1,14 +1,15 @@
 import React, {Component } from 'react'
 import theme from 'config/theme'
-import Button from '@emcasa/ui-dom/components/Button'
 import Container from './styles'
 import GMap from 'components/listings/show/Map'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faTimes from '@fortawesome/fontawesome-free-solid/faTimes'
+import CloseButton from 'components/shared/CloseButton'
 
 class MapPopup extends Component {
   render() {
     const {
+      streetView,
       listing,
       isMapPopupVisible,
       closeMapPopup
@@ -16,8 +17,8 @@ class MapPopup extends Component {
 
     return (
       <Container open={isMapPopupVisible}>
-        <Button onClick={closeMapPopup}><FontAwesomeIcon icon={faTimes} /></Button>
-        <GMap listing={listing} />
+        <CloseButton onClick={closeMapPopup} />
+        <GMap listing={listing} streetView={streetView} />
       </Container>
     )
   }
