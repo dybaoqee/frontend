@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import Router from 'next/router'
 import Link from 'next/link'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faCheck from '@fortawesome/fontawesome-free-solid/faCheck'
@@ -21,6 +22,10 @@ import {
 } from './styles'
 
 class FavoriteLoginSuccess extends Component {
+  componentDidMount() {
+    Router.prefetch(location.pathname)
+  }
+
   render() {
     return (
       <Modal
