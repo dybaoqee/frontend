@@ -6,8 +6,11 @@ import Text from '@emcasa/ui-dom/components/Text'
 
 export const Container = styled.div`
   position: relative;
+  width: 100%;
   max-width: ${listingDetailsMaxWidth}px;
   margin: auto;
+  padding: 0 ${theme.space[4]}px;
+  box-sizing: border-box;
 `
 
 export const ListingsContainer = styled.div`
