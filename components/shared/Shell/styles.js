@@ -1,12 +1,13 @@
 import styled, { css } from 'styled-components'
-import * as constants from 'constants/dimensions'
+import {desktopHeaderHeight} from 'constants/dimensions'
+import {MAX_HEADER_HEIGHT} from 'components/shared/Shell/Header/styles'
 
 export default styled.div`
-  margin-top: ${(props) => props.transparentHeader ? 0 : constants.desktopHeaderHeight}px;
   display: flex;
-  box-sizing: border-box;
-  min-height: calc(100vh - ${constants.desktopHeaderHeight}px);
   flex-direction: column;
+  min-height: ${props => props.search ? `calc(100vh - ${MAX_HEADER_HEIGHT}px)` : `calc(100vh - ${desktopHeaderHeight}px)`};
+  margin-top: ${(props) => props.transparentHeader ? null : `${props.search ? MAX_HEADER_HEIGHT : desktopHeaderHeight}px`};
+  box-sizing: border-box;
 `
 
 export const Main = styled.main`
