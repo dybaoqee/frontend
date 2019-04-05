@@ -59,6 +59,15 @@ export const PriceItem = styled(Text)`
   display: flex;
   justify-content: space-between;
   margin: 0;
+  font-size: ${theme.fontSizes[1]}px;
+
+  @media screen and ${breakpoint.up('desktop')} {
+    font-size: ${theme.fontSizes[2]}px;
+  }
+
+  span {
+    font-size: inherit; 
+  }
 `
 
 export const PriceItemSpacer = styled('span')`
@@ -72,7 +81,7 @@ export const PriceItemSpacer = styled('span')`
     content: '';
     width: 100%;
     height: 1px;
-    background-color: ${theme.colors.grey};
+    background-color: ${theme.colors.lightGrey};
   }
 `
 
