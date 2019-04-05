@@ -1,9 +1,8 @@
 import styled from 'styled-components'
 import theme from 'config/theme'
 import {
-  listingDetailsHeaderHeight,
-  listingDetailsHeaderHeightOffset,
-  listingDetailsSliderNavigationHeight
+  desktopHeaderHeight,
+  listingDetailsBarHeight
 } from 'constants/dimensions'
 import {mobileMedia} from 'constants/media'
 import {breakpoint} from '@emcasa/ui/lib/styles'
@@ -11,6 +10,9 @@ import Button from '@emcasa/ui-dom/components/Button'
 import MoonLoader from 'react-spinners/MoonLoader'
 
 export const SPINNER_SIZE = 40
+export const LISTINGSLIDER_HEIGHT = 454
+export const LISTINGSLIDER_OFFSET = (desktopHeaderHeight + listingDetailsBarHeight * 4)
+export const LISTINGSLIDER_NAVIGATION_HEIGHT = 70
 
 export default styled.div`
   z-index: ${({isFullScreen}) => isFullScreen ? '9999' : null};
@@ -19,15 +21,15 @@ export default styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: ${({isFullScreen}) => isFullScreen ? '100%' : `calc(100vh - ${listingDetailsHeaderHeightOffset * 2}px)`};
+  height: ${({isFullScreen}) => isFullScreen ? '100%' : `calc(100vh - ${LISTINGSLIDER_OFFSET}px)`};
   max-width: 100%;
-  min-height: ${({isFullScreen}) => isFullScreen ? null : `${listingDetailsHeaderHeight / 2}px`};
+  min-height: ${({isFullScreen}) => isFullScreen ? null : `${LISTINGSLIDER_HEIGHT / 2}px`};
   overflow: hidden;
   background-color: ${({isFullScreen}) => isFullScreen ? theme.colors.dark : theme.colors.white};
   box-sizing: border-box;
 
   @media screen and ${breakpoint.up('desktop')} {
-    height: ${({isFullScreen}) => isFullScreen ? null : `${listingDetailsHeaderHeight}px`};
+    height: ${({isFullScreen}) => isFullScreen ? null : `${LISTINGSLIDER_HEIGHT}px`};
   }
 
   > ${Button} {
@@ -75,7 +77,7 @@ export const Spinner = styled(MoonLoader).attrs({
 export const Thumb = styled.div`
   box-sizing: border-box;
   max-height: 100%;
-  height: ${listingDetailsSliderNavigationHeight}px;
+  height: ${LISTINGSLIDER_NAVIGATION_HEIGHT}px;
   background: ${theme.colors.dark};
   background-image: url(${({background}) => background});
   background-repeat: no-repeat;
@@ -136,8 +138,8 @@ export const Arrow = styled(Button)`
 `
 
 export const SliderNavigation = styled.div`
-  flex: 0 0 ${listingDetailsSliderNavigationHeight}px;
-  height: ${listingDetailsSliderNavigationHeight}px;
+  flex: 0 0 ${LISTINGSLIDER_NAVIGATION_HEIGHT}px;
+  height: ${LISTINGSLIDER_NAVIGATION_HEIGHT}px;
   box-sizing: border-box;
   display: ${({show}) => (show ? 'flex' : 'none')};
 
