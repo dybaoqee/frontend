@@ -23,9 +23,6 @@ class FavoriteLogin extends Component {
 
   componentDidMount() {
     document.addEventListener('keypress', this.onPressEnter)
-    if (this.nameField && this.nameField.current) {
-      this.nameField.current.focus()
-    }
   }
 
   componentWillUnmount() {
