@@ -30,7 +30,7 @@ export default styled.div`
     height: ${({isFullScreen}) => isFullScreen ? null : `${listingDetailsHeaderHeight}px`};
   }
 
-  ${Button} {
+  > ${Button} {
     z-index: 5;
     position: absolute;
     top: ${theme.space[2]}px;
@@ -111,18 +111,27 @@ export const CarouselItem = styled.div`
   }
 `
 
-export const Arrow = styled.div`
+export const Arrow = styled(Button)`
   z-index: 3;
   position: absolute;
-  top: calc(50% - 20px);
-  ${({left}) => (!left ? 'right: 20px' : 'left: 20px')};
+  top: calc(50% - ${theme.space[2]}px);
+  ${({left}) => (!left ? `right: 0` : `left: 0`)};
   color: white;
   cursor: pointer;
-  filter: drop-shadow(1px 1px 4px ${theme.colors.dark});
+  padding: 0;
+  background: 0;
+  border: 0;
+
+  &:hover {
+    svg {
+      background: 0;
+    }
+  }
 
   svg {
     width: 40px !important;
     height: 40px;
+    filter: drop-shadow(1px 1px 4px ${theme.colors.dark});
   }
 `
 
