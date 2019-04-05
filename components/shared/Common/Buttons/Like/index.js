@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { captureException } from '@sentry/browser'
 import get from 'lodash/get'
-import Router from 'next/router'
 import {Mutation} from 'react-apollo'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faHeart from '@fortawesome/fontawesome-free-solid/faHeart'
@@ -31,7 +30,7 @@ class LikeButton extends Component {
   state = {
     name: null,
     showLogin: false,
-    showSuccess: false,
+    showSuccess: false
   }
 
   onLoginSuccess = async (userInfo, favoriteListing) => {
@@ -55,7 +54,7 @@ class LikeButton extends Component {
 
       if (response && response.data) {
         log(LISTING_SAVE_LOGIN_SUCCESS)
-        favoriteListing({variables: {id: this.props.listing.id}})
+        favoriteListing({refetchQueries: [{query: GET_USER_LISTINGS_ACTIONS}], variables: {id: this.props.listing.id}})
         this.setState({ showSuccess: true })
       }
     } catch (e) {
@@ -100,7 +99,6 @@ class LikeButton extends Component {
                 onClose={() => {
                   this.setState({ showSuccess: false })
                   log(LISTING_SAVE_LOGIN_DONE)
-                  Router.replace(location.pathname)
                 }}
               />
             }

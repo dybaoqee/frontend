@@ -104,6 +104,9 @@ class AccountKit extends Component {
       }
 
       signUpUser(user)
+      dispatchEvent(new CustomEvent('onLogin', {
+        detail: {userInfo}
+      }))
 
       if (skipRedirect) {
         return userInfo
@@ -123,7 +126,6 @@ class AccountKit extends Component {
     const {signIn} = this
     const {children} = this.props
     const {loading} = this.state
-
     return (
       <>
         <Mutation mutation={SIGN_IN_ACCOUNT_KIT}>
