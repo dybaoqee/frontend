@@ -24,7 +24,7 @@ class ListingDescription extends React.Component {
         {false && <ToggleButton expanded={expanded} onClick={toggleBody} />}
         <Title fontWeight="bold">O imóvel</Title>
         {paragraphs && paragraphs.map((paragraph, i) => <Text fontSize={[1, null, null, 2]} key={i}>{paragraph}</Text>)}
-        {user.admin &&
+        {user && user.admin &&
           <View my={4} style={{textAlign: 'center'}}>
             <a href={`${process.env.GARAGEM_URL}/imoveis/${listing.id}`} target="_blank">
               <Button link height="auto" p={0}>
