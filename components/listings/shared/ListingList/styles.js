@@ -25,7 +25,7 @@ const Title = styled(H2Title)`
 
 const Container = styled(Row)`
   justify-content: space-between;
-  margin: ${theme.space[3]}px auto 0;
+  margin-top: ${theme.space[3]}px;
 `
 
 const MapContainer = styled.div`
