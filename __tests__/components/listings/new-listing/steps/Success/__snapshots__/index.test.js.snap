@@ -63,46 +63,46 @@ exports[`renders correctly 1`] = `
 
 .c3 {
   -webkit-font-smoothing: antialiased;
-  font-family: Rubik;
+  font-family: FaktSoftPro-Normal;
   color: #13ce66;
   font-size: 24px;
-  font-weight: 500;
+  font-weight: bold;
   text-align: center;
 }
 
 .c7 {
   -webkit-font-smoothing: antialiased;
-  font-family: Rubik;
-  color: #1D1919;
+  font-family: FaktSoftPro-Normal;
+  color: #979797;
   font-size: 14px;
 }
 
 .c9 {
   -webkit-font-smoothing: antialiased;
-  font-family: Rubik;
+  font-family: FaktSoftPro-Normal;
   color: #3c4858;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: bold;
 }
 
 .c12 {
   -webkit-font-smoothing: antialiased;
-  font-family: Rubik;
+  font-family: FaktSoftPro-Normal;
   color: #3c4858;
   font-size: 12px;
 }
 
 .c15 {
   -webkit-font-smoothing: antialiased;
-  font-family: Rubik;
+  font-family: FaktSoftPro-Normal;
   color: #3c4858;
   font-size: 24px;
 }
 
 .c20 {
   -webkit-font-smoothing: antialiased;
-  font-family: Rubik;
-  color: #1D1919;
+  font-family: FaktSoftPro-Normal;
+  color: #979797;
   font-size: 18px;
 }
 
@@ -117,7 +117,7 @@ exports[`renders correctly 1`] = `
   width: auto;
   height: 60px;
   color: #ffffff;
-  font-family: Rubik;
+  font-family: FaktSoftPro-Normal;
   font-size: 18px;
   -webkit-font-smoothing: antialiased;
   border-style: solid;
@@ -151,7 +151,7 @@ exports[`renders correctly 1`] = `
 
 .c19 {
   -webkit-font-smoothing: antialiased;
-  font-family: Rubik;
+  font-family: FaktSoftPro-Normal;
   color: #ffffff;
   font-size: 18px;
 }
@@ -359,7 +359,7 @@ exports[`renders correctly 1`] = `
               className="c10"
               width={0.5}
             >
-               
+
             </div>
             <div
               className="c10"

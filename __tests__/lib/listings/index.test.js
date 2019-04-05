@@ -20,7 +20,7 @@ describe('Listing', () => {
 
   it('should return the correct plural given a number', () => {
     let item = 0
-    expect(plural(item)).toBe('')
+    expect(plural(item)).toBe('s')
     item = 1
     expect(plural(item)).toBe('')
     item = 2
@@ -31,10 +31,10 @@ describe('Listing', () => {
     const listing = {
       area: 500,
       bathrooms: 3,
-      garage_spots: 2,
+      garageSpots: 2,
       rooms: 4
     }
-    const listingSummary = getListingSummary(listing)
+    const listingSummary = getListingSummary(listing, ' - ')
     expect(listingSummary).toBe('500m² - 4 quartos - 2 vagas')
   })
 

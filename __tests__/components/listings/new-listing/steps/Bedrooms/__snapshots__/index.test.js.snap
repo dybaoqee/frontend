@@ -69,7 +69,7 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   padding-left: 14px;
   padding-right: 14px;
   color: #3c4858;
-  font-family: Rubik;
+  font-family: FaktSoftPro-Normal;
   font-size: 18px;
   -webkit-font-smoothing: antialiased;
   border-style: solid;
@@ -90,7 +90,7 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   width: auto;
   height: 60px;
   color: #3c4858;
-  font-family: Rubik;
+  font-family: FaktSoftPro-Normal;
   font-size: 18px;
   -webkit-font-smoothing: antialiased;
   border-style: solid;
@@ -111,7 +111,7 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   width: auto;
   height: 60px;
   color: #8492a6;
-  font-family: Rubik;
+  font-family: FaktSoftPro-Normal;
   font-size: 18px;
   -webkit-font-smoothing: antialiased;
   border-style: solid;
@@ -123,7 +123,7 @@ exports[`<AddressInput/> should render a clean page 1`] = `
 
 .c7 {
   -webkit-font-smoothing: antialiased;
-  font-family: Rubik;
+  font-family: FaktSoftPro-Normal;
   color: #3c4858;
   font-size: 14px;
   text-align: center;
@@ -131,7 +131,7 @@ exports[`<AddressInput/> should render a clean page 1`] = `
 
 .c9 {
   -webkit-font-smoothing: antialiased;
-  font-family: Rubik;
+  font-family: FaktSoftPro-Normal;
   color: #e0e6ed;
   font-size: 14px;
   text-align: center;
@@ -139,24 +139,24 @@ exports[`<AddressInput/> should render a clean page 1`] = `
 
 .c10 {
   -webkit-font-smoothing: antialiased;
-  font-family: Rubik;
+  font-family: FaktSoftPro-Normal;
   color: #3c4858;
   font-size: 24px;
-  font-weight: 500;
+  font-weight: bold;
   text-align: center;
 }
 
 .c11 {
   -webkit-font-smoothing: antialiased;
-  font-family: Rubik;
-  color: #1D1919;
+  font-family: FaktSoftPro-Normal;
+  color: #979797;
   font-size: 18px;
   text-align: center;
 }
 
 .c15 {
   -webkit-font-smoothing: antialiased;
-  font-family: Rubik;
+  font-family: FaktSoftPro-Normal;
   color: #ff4949;
   font-size: 18px;
 }

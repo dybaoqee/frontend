@@ -21,24 +21,24 @@ exports[`<ListingCard/> should render component 1`] = `
 
 .c3 {
   -webkit-font-smoothing: antialiased;
-  font-family: Rubik;
+  font-family: FaktSoftPro-Normal;
   color: #3c4858;
   font-size: 14px;
 }
 
 .c4 {
   -webkit-font-smoothing: antialiased;
-  font-family: Rubik;
-  color: #1D1919;
+  font-family: FaktSoftPro-Normal;
+  color: #979797;
   font-size: 14px;
 }
 
 .c5 {
   -webkit-font-smoothing: antialiased;
-  font-family: Rubik;
+  font-family: FaktSoftPro-Normal;
   color: #3c4858;
   font-size: 24px;
-  font-weight: 500;
+  font-weight: bold;
 }
 
 .c0 {
@@ -167,7 +167,7 @@ exports[`<ListingCard/> should render component 1`] = `
           color="grey"
           fontSize="small"
         >
-          undefinedm² - undefined quarto
+
         </span>
       </div>
       <div
