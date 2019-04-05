@@ -21,7 +21,7 @@ import Link from 'next/link'
 import {createInterest} from 'services/interest-api'
 import isUndefined from 'lodash/isUndefined'
 import ListingHead from 'components/listings/show/Head'
-import ListingHeader from 'components/listings/show/ListingHeader'
+import ListingSlider from 'components/listings/show/ListingSlider'
 import ListingMainContent from 'components/listings/show/Body'
 import Breadcrumb from 'components/listings/show/Breadcrumb'
 import PriceBar from 'components/listings/show/PriceBar'
@@ -297,7 +297,7 @@ class Listing extends Component {
                   <Row flexDirection={['column-reverse', null, null, 'column']} mt={[null, null, null, `${listingDetailsBarHeight}px`]}>
                     <Breadcrumb paths={paths} />
                     <Row flexDirection="column">
-                      <ListingHeader
+                      <ListingSlider
                         listing={listing}
                         currentUser={currentUser}
                         favoritedListing={{loading, favorite}}

@@ -24,7 +24,7 @@ import Container, {
   SliderNavigation
 } from './styles'
 
-export default class ListingHeader extends Component {
+export default class ListingGallery extends Component {
   state = {
     downloadingImages: false,
     nav1: null,
