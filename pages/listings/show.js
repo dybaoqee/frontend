@@ -374,14 +374,14 @@ class Listing extends Component {
                     {isInterestPopupVisible && (
                       <InterestForm
                         data={interestForm}
-                        handleClose={this.closeInterestPopup}
+                        onClose={this.closeInterestPopup}
                         onChange={this.onChange}
                         onSubmit={this.onSubmit}
                       />
                     )}
                     {isInterestSuccessPopupVisible && (
                       <InterestPosted
-                        handleClose={this.closeSuccessPostInterestPopup}
+                        onClose={this.closeSuccessPostPopup}
                       />
                     )}
                   </Row>

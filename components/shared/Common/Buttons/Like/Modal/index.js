@@ -18,7 +18,7 @@ const EnhancedContainer = enhanceWithClickOutside(ContainerClickOutside)
 class Modal extends Component {
   render() {
     return (
-      <Background>
+      <Background onClick={(e) => {e.preventDefault()}}>
         <EnhancedContainer
           padding={this.props.padding}
           justifyContent={this.props.justifyContent}
