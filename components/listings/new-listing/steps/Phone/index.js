@@ -308,7 +308,6 @@ class Phone extends Component {
                   </Row>
                   <Text color="red">{this.state.error}</Text>
                   <AccountKit
-                    skipRedirect
                     appId={process.env.FACEBOOK_APP_ID}
                     appSecret={process.env.ACCOUNT_KIT_APP_SECRET}
                     phoneNumber={this.state.localAreaCode + this.state.number}

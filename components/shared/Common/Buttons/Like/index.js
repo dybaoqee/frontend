@@ -73,7 +73,6 @@ class LikeButton extends Component {
               appId={process.env.FACEBOOK_APP_ID}
               appSecret={process.env.ACCOUNT_KIT_APP_SECRET}
               version="v1.0"
-              skipRedirect
               onSuccess={(userInfo) => {this.onLoginSuccess(userInfo, favoriteListing)}}
             >
               {({signIn}) =>
