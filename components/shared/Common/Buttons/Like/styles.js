@@ -13,7 +13,6 @@ export const TextButton = styled(Button)`
 
   svg {
     width: 15px;
-    margin-right: ${theme.space[2]}px;
 
     path {
       fill: ${({favorite}) => (favorite ? theme.colors.pink : theme.colors.white)};
@@ -24,7 +23,7 @@ export const TextButton = styled(Button)`
   }
 `
 
-export const Circle = styled.div`
+export const Circle = styled(Button)`
   position: absolute;
   cursor: pointer;
   right: 20px;
@@ -35,9 +34,21 @@ export const Circle = styled.div`
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background-color: ${theme.colors.white};
-  border: 1px solid ${theme.colors.lightGrey};
   box-shadow: 0 6px 16px 0 rgba(38, 38, 38, 0.15);
+
+  svg {
+    width: 15px;
+    text-shadow: 2px 2px 3px #f00;
+    text-shadow: 2px 2px 3px #f00;
+
+    path {
+      text-shadow: 2px 2px 3px #f00;
+      fill: ${({favorite}) => (favorite ? theme.colors.pink : theme.colors.white)};
+      stroke: ${({favorite}) => (favorite ? theme.colors.pink : theme.colors.dark)};
+      fill-opacity: ${({favorite}) => (favorite ? 1 : 0)};
+      stroke-width: 60;
+    }
+  }
 `
 
 export const IconButton = styled.div`

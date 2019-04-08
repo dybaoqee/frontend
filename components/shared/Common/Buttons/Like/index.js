@@ -13,7 +13,6 @@ import FavoriteLogin from './FavoriteLogin'
 import FavoriteLoginSuccess from './FavoriteLoginSuccess'
 import {
   Circle,
-  IconButton,
   TextButton
 } from './styles'
 import {
@@ -158,11 +157,9 @@ class LikeButton extends Component {
                   this.setState({ showLogin: true })
                 }
               }}
+              {...this.props}
             >
-              <IconButton {...this.props}>
-                <FontAwesomeIcon icon={faHeart} />
-                {textButton && 'Salvar'}
-              </IconButton>
+              <FontAwesomeIcon icon={faHeart} size="1x" />
             </ButtonContainer>
           </>
         }
