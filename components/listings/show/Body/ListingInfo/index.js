@@ -14,6 +14,7 @@ import faStreetView from '@fortawesome/fontawesome-free-solid/faStreetView'
 import {
   Container,
   Title,
+  ExtraTitleSEO,
   ButtonsContainer,
   OpenMatterportButton,
   PriceItem,
@@ -39,13 +40,14 @@ class ListingInfo extends React.Component {
       floor,
       propertyTax,
       maintenanceFee,
-      matterportCode
+      matterportCode,
+      type
     } = this.props.listing
     const price_per_square_meter = Math.floor(price / area)
 
     return (
       <Container>
-        <Title fontWeight="bold">{title}</Title>
+        <Title fontWeight="bold"><ExtraTitleSEO>{type} na </ExtraTitleSEO>{title}</Title>
         <ButtonsContainer>
           {matterportCode && <OpenMatterportButton onClick={openMatterportPopup}><FontAwesomeIcon icon={faCube} />Ver por dentro</OpenMatterportButton>}
           <Button onClick={openMapPopup}><FontAwesomeIcon icon={faMap} color={theme.colors.blue} />Mapa</Button>
