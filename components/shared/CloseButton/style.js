@@ -3,6 +3,7 @@ import theme from 'config/theme'
 import Button from '@emcasa/ui-dom/components/Button'
 
 export default styled(Button)`
+  z-index: 5;
   position: absolute;
   top: ${theme.space[2]}px;
   right: ${theme.space[2]}px;
