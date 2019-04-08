@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
-import theme from 'config/theme'
-import View from '@emcasa/ui-dom/components/View'
 import Button from '@emcasa/ui-dom/components/Button'
-import Text from '@emcasa/ui-dom/components/Text'
-import LikeButton from './LikeButton'
+import LikeButton from 'components/shared/Common/Buttons/Like'
 
 import {
   Wrapper,
@@ -18,6 +15,7 @@ class ButtonsBar extends Component {
       <Wrapper>
         <Container>
           <LikeButton
+            textButton
             favorite={favorite}
             listing={listing}
             user={user}
