@@ -1,11 +1,10 @@
 import { Component } from 'react'
-import Popup from 'components/shared/Popup'
 import Text from '@emcasa/ui-dom/components/Text'
 import Input from '@emcasa/ui-dom/components/Input'
 import Button from '@emcasa/ui-dom/components/Button'
+import Modal from 'components/shared/Common/Buttons/Like/Modal'
+import CloseButton from 'components/shared/CloseButton'
 import {
-  Container,
-  Form,
   Title
 } from './styles'
 
@@ -31,33 +30,32 @@ export default class InterestForm extends Component {
     } = data
 
     return (
-      <Popup handleClose={handleClose}>
-        <Container>
-          <Title fontSize="large">Contato</Title>
-          <Text>
-            Por favor, informe seu nome e telefone.
-          </Text>
-          <Form onSubmit={onSubmit}>
-            <Input
-              type="text"
-              name="name"
-              label="Nome"
-              value={name}
-              onChange={onChange}
-              required
-            />
+      <Modal onClose={handleClose} justifyContent="center" padding>
+        <CloseButton onClick={handleClose} />
+        <Title fontSize="large" textAlign="center">Contato</Title>
+        <Text textAlign="center">
+          Por favor, informe seu nome e telefone.
+        </Text>
+        <form onSubmit={onSubmit}>
           <Input
-              type="text"
-              name="phone"
-              label="Telefone"
-              value={phone}
-              onChange={onChange}
-              required
-            />
-            <Button fluid height="tall" active>Enviar</Button>
-          </Form>
-        </Container>
-      </Popup>
+            type="text"
+            name="name"
+            label="Nome"
+            value={name}
+            onChange={onChange}
+            required
+          />
+          <Input
+            type="text"
+            name="phone"
+            label="Telefone"
+            value={phone}
+            onChange={onChange}
+            required
+          />
+          <Button fluid height="tall" active>Enviar</Button>
+        </form>
+      </Modal>
     )
   }
 }
