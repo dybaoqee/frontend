@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import {themeGet} from 'styled-system'
 import {breakpoint} from '@emcasa/ui/lib/styles'
+import Button from '@emcasa/ui-dom/components/Button'
 
 export default styled.div`
   box-sizing: border-box;
@@ -32,34 +32,14 @@ export default styled.div`
         width: 100vw;
         border-radius: 0px;
       }`};
-  }
-`
 
-export const Close = styled.button`
-  background-color: transparent;
-  border: none;
-  border-radius: 6px;
-  box-shadow: none;
-  color: #8c8c8c;
-  float: right;
-  font-size: 40px;
-  font-weight: lighter;
-  line-height: 36px;
-  padding: 4px 12px 10px;
-  position: absolute;
-  right: 0;
-  top: 0;
-  cursor: pointer;
+    > ${Button} {
+      position: fixed;
+      z-index: 1;
 
-  :hover {
-    background-color: #f0f0f0;
-  }
-
-  @media ${breakpoint.down('tablet')} {
-    position: fixed;
-    z-index: 1;
-  }
-  @media ${breakpoint.up('desktop')} {
-    margin: ${themeGet('space.2')}px;
+      @media screen and ${breakpoint.up('tablet')} {
+        position: absolute;
+      }
+    }
   }
 `

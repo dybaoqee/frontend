@@ -1,5 +1,6 @@
 import Container from './styles'
 import {Close} from './styles'
+import CloseButton from 'components/shared/CloseButton'
 
 export default ({handleClose, children, hideClose, ...props}) =>
   <Container
@@ -11,7 +12,7 @@ export default ({handleClose, children, hideClose, ...props}) =>
     }}
   >
     <div>
-      {!hideClose && <Close onClick={handleClose.bind(null, false)}>×</Close>}
+      {!hideClose && <CloseButton unstyled onClick={handleClose.bind(null, false)}>×</CloseButton>}
       {children}
     </div>
   </Container>
