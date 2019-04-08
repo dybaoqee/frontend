@@ -49,6 +49,7 @@ import {
   LISTING_DETAIL_SCHEDULE_VISIT
 } from 'lib/logging'
 import {listingDetailsBarHeight} from 'constants/dimensions'
+import {captureException} from '@sentry/browser'
 
 export const Title = Text.withComponent('h2')
 
@@ -209,6 +210,9 @@ class Listing extends Component {
 
   async componentDidMount() {
     const {listing} = this.props
+
+    this.checkListing(listing)¡™
+
     if (listing && listing.id) {
       const related = await getRelatedListings(listing.id).then(({data}) => data.listings)
       this.setState({related})
@@ -482,6 +486,12 @@ class Listing extends Component {
         return 'Internal Server Error'
       default:
         return 'Erro desconhecido'
+    }
+  }
+
+  checkListing(listing) {
+    if (!listing.type) {
+      captureException(new Error("Type is null in listing id ", listing.id));
     }
   }
 
