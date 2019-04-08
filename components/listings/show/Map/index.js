@@ -43,7 +43,7 @@ export default class ListingMap extends Component {
           onGoogleApiLoaded={({ map, maps }) => this.loadStreetView(map, maps)}
           ref={'panorama'}
         >
-          {!streetView && <MapMarker lat={lat} lng={lng} text={text} />}
+          {!streetView && <MapMarker lat={lat.toString()} lng={lng.toString()} text={text} />}
         </GoogleMapReact>
       </Container>
     )
