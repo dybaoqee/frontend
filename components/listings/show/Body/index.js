@@ -74,7 +74,7 @@ class ListingMainContent extends Component {
             listing={listing}
             user={user}
             flagrFlags={this.props.flagrFlags}
-            title={`${listing.type} na ${listingUserInfo}, ${neighborhood}, ${listing.address.city}`}
+            title={`${listingUserInfo}, ${neighborhood}, ${listing.address.city}`}
             openMatterportPopup={openMatterportPopup}
             openMapPopup={openMapPopup}
             openStreetViewPopup={openStreetViewPopup}
