@@ -15,8 +15,7 @@ class ListingDescription extends React.Component {
       expanded,
       listing,
       paragraphs,
-      toggleBody,
-      user
+      toggleBody
     } = this.props
 
     return (
@@ -24,15 +23,6 @@ class ListingDescription extends React.Component {
         {false && <ToggleButton expanded={expanded} onClick={toggleBody} />}
         <Title fontWeight="bold">O imóvel</Title>
         {paragraphs && paragraphs.map((paragraph, i) => <Text fontSize={[1, null, null, 2]} key={i}>{paragraph}</Text>)}
-        {user && user.admin &&
-          <View my={4} style={{textAlign: 'center'}}>
-            <a href={`${process.env.GARAGEM_URL}/imoveis/${listing.id}`} target="_blank">
-              <Button link height="auto" p={0}>
-                Ver no garagem
-              </Button>
-            </a>
-          </View>
-        }
       </Container>
     )
   }
@@ -42,8 +32,7 @@ ListingDescription.propTypes = {
   expanded: PropTypes.bool.isRequired,
   listing: PropTypes.object.isRequired,
   paragraphs: PropTypes.array,
-  toggleBody: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired
+  toggleBody: PropTypes.func.isRequired
 }
 
 export default ListingDescription

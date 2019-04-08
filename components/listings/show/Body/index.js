@@ -72,8 +72,6 @@ class ListingMainContent extends Component {
         <Container>
           <ListingInfo
             listing={listing}
-            user={user}
-            flagrFlags={this.props.flagrFlags}
             title={`${listingUserInfo}, ${neighborhood}, ${listing.address.city}`}
             openMatterportPopup={openMatterportPopup}
             openMapPopup={openMapPopup}
@@ -84,7 +82,6 @@ class ListingMainContent extends Component {
             listing={listing}
             toggleBody={this.toggleBody}
             paragraphs={paragraphs}
-            user={user}
           />
         </Container>
       </Row>
