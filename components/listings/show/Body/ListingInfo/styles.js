@@ -56,6 +56,7 @@ export const OpenMatterportButton = styled(Button)`
   position: absolute;
   top: ${theme.space[5]}px;
   left: 50%;
+  flex: 1;
   transform: translateX(-50%);
   color: ${theme.colors.white};
   background-color: ${theme.colors.blue};
