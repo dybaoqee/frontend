@@ -14,7 +14,6 @@ import faStreetView from '@fortawesome/fontawesome-free-solid/faStreetView'
 import {
   Container,
   Title,
-  ExtraTitleSEO,
   ButtonsContainer,
   OpenMatterportButton,
   PriceItem,
@@ -47,7 +46,7 @@ class ListingInfo extends React.Component {
 
     return (
       <Container>
-        <Title fontWeight="bold"><ExtraTitleSEO>{type} na </ExtraTitleSEO>{title}</Title>
+        <Title fontWeight="bold">{type} na {title}</Title>
         <ButtonsContainer>
           {matterportCode && <OpenMatterportButton onClick={openMatterportPopup}><FontAwesomeIcon icon={faCube} />Ver por dentro</OpenMatterportButton>}
           <Button onClick={openMapPopup}><FontAwesomeIcon icon={faMap} color={theme.colors.blue} />Mapa</Button>

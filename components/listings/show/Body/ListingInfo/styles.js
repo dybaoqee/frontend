@@ -21,14 +21,6 @@ export const Title = styled(TextTitle)`
   margin: 0;
 `
 
-export const ExtraTitleSEO = styled.span`
-  position: fixed;
-  top: -100vh;
-  pointer-events: none;
-  user-select: none;
-  left: -100vw;
-`
-
 export const ButtonsContainer = styled(Row)`
   margin: ${theme.space[5]}px 0;
 
