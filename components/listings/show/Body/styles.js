@@ -9,6 +9,7 @@ export const Container = styled(Row)`
   max-width: ${listingDetailsMaxWidth}px;
   flex-direction: column;
   padding: 0 ${theme.space[4]}px;
+  box-sizing: border-box;
 
   @media screen and ${breakpoint.up('desktop')} {
     flex-direction: row;
