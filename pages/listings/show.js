@@ -46,7 +46,9 @@ import {
   log,
   getListingInfoForLogs,
   LISTING_DETAIL_OPEN_VISIT_FORM,
-  LISTING_DETAIL_SCHEDULE_VISIT
+  LISTING_DETAIL_SCHEDULE_VISIT,
+  LISTING_DETAIL_MATTERPORT_OPEN,
+  LISTING_DETAIL_MATTERPORT_CLOSE
 } from 'lib/logging'
 import {listingDetailsBarHeight} from 'constants/dimensions'
 import {captureException} from '@sentry/browser'
@@ -122,10 +124,12 @@ class Listing extends Component {
       this.visualizeTour({variables: {id}})
     }
 
+    log(LISTING_DETAIL_MATTERPORT_OPEN, {listingId: id})
     this.setState({isMatterportPopupVisible: true})
   }
 
   closeMatterportPopup = () => {
+    log(LISTING_DETAIL_MATTERPORT_CLOSE, {listingId: this.props.listing.id})
     this.setState({isMatterportPopupVisible: false})
   }
 
