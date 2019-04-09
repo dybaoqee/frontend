@@ -10,7 +10,7 @@ import {
 } from 'constants/dimensions'
 
 export const Wrapper = styled(Row)`
-  z-index: 2;
+  z-index: 6;
   position: fixed;
   right: 0;
   bottom: 0;
