@@ -48,7 +48,11 @@ import {
   LISTING_DETAIL_OPEN_VISIT_FORM,
   LISTING_DETAIL_SCHEDULE_VISIT,
   LISTING_DETAIL_MATTERPORT_OPEN,
-  LISTING_DETAIL_MATTERPORT_CLOSE
+  LISTING_DETAIL_MATTERPORT_CLOSE,
+  LISTING_DETAIL_MAP_OPEN,
+  LISTING_DETAIL_MAP_CLOSE,
+  LISTING_DETAIL_STREETVIEW_OPEN,
+  LISTING_DETAIL_STREETVIEW_CLOSE
 } from 'lib/logging'
 import {listingDetailsBarHeight} from 'constants/dimensions'
 import {captureException} from '@sentry/browser'
@@ -134,18 +138,22 @@ class Listing extends Component {
   }
 
   openMapPopup = () => {
+    log(LISTING_DETAIL_MAP_OPEN)
     this.setState({isMapPopupVisible: true})
   }
 
   closeMapPopup = () => {
+    log(LISTING_DETAIL_MAP_CLOSE)
     this.setState({isMapPopupVisible: false})
   }
 
   openStreetViewPopup = () => {
+    log(LISTING_DETAIL_STREETVIEW_OPEN)
     this.setState({isStreetViewPopupVisible: true})
   }
 
   closeStreetViewPopup = () => {
+    log(LISTING_DETAIL_STREETVIEW_CLOSE)
     this.setState({isStreetViewPopupVisible: false})
   }
 
