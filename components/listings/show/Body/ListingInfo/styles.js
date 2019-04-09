@@ -21,6 +21,14 @@ export const Title = styled(TextTitle)`
   margin: 0;
 `
 
+export const ExtraTitleSEO = styled.span`
+  position: fixed;
+  top: -100vh;
+  pointer-events: none;
+  user-select: none;
+  left: -100vw;
+`
+
 export const ButtonsContainer = styled(Row)`
   margin: ${theme.space[5]}px 0;
 
@@ -58,7 +66,7 @@ export const OpenMatterportButton = styled(Button)`
 export const PriceItem = styled(Text)`
   display: flex;
   justify-content: space-between;
-  margin: 0;
+  margin: 0 0 ${theme.space[3]}px;
   font-size: ${theme.fontSizes[1]}px;
 
   @media screen and ${breakpoint.up('desktop')} {
