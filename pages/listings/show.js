@@ -381,7 +381,7 @@ class Listing extends Component {
                     )}
                     {isInterestSuccessPopupVisible && (
                       <InterestPosted
-                        onClose={this.closeSuccessPostPopup}
+                        onClose={this.closeSuccessPostInterestPopup}
                       />
                     )}
                   </Row>
