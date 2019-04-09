@@ -46,7 +46,7 @@ class Layout extends Component {
           hideSeparator={pageProps.hideSeparator}
           transparent={pageProps.transparentHeader}
         />
-        <Container transparentHeader={pageProps.transparentHeader}>
+        <Container transparentHeader={pageProps.transparentHeader} search={pageProps.headerSearch}>
           <Main>{this.props.children}</Main>
           {renderFooter && <FooterComponent />}
         </Container>

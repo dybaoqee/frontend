@@ -12,8 +12,8 @@ import {GET_USER_LISTINGS_ACTIONS} from 'graphql/user/queries'
 import FavoriteLogin from './FavoriteLogin'
 import FavoriteLoginSuccess from './FavoriteLoginSuccess'
 import {
-  Button,
-  Circle
+  Circle,
+  TextButton
 } from './styles'
 import {
   log,
@@ -64,7 +64,8 @@ class LikeButton extends Component {
   }
 
   render() {
-    const { favorite, top, user, listing } = this.props
+    const { favorite, top, user, listing, textButton } = this.props
+    const ButtonContainer = textButton ? TextButton : Circle
     return (
       <Mutation mutation={!favorite ? FAVORITE_LISTING : UNFAVORITE_LISTING}>
         {(favoriteListing) =>
@@ -101,7 +102,7 @@ class LikeButton extends Component {
                 }}
               />
             }
-            <Circle
+            <ButtonContainer
               top={top}
               onClick={(e) => {
                 e.preventDefault()
@@ -156,11 +157,10 @@ class LikeButton extends Component {
                   this.setState({ showLogin: true })
                 }
               }}
+              {...this.props}
             >
-              <Button {...this.props}>
-                <FontAwesomeIcon icon={faHeart} />
-              </Button>
-            </Circle>
+              <FontAwesomeIcon icon={faHeart} size="1x" />
+            </ButtonContainer>
           </>
         }
       </Mutation>
@@ -172,7 +172,8 @@ LikeButton.propTypes = {
   favorite: PropTypes.bool,
   top: PropTypes.number,
   user: PropTypes.object,
-  listing: PropTypes.object
+  listing: PropTypes.object,
+  textButton: PropTypes.bool
 }
 
 export default LikeButton

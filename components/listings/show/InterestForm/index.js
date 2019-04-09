@@ -4,8 +4,7 @@ import Text from '@emcasa/ui-dom/components/Text'
 import Row from '@emcasa/ui-dom/components/Row'
 import Input from '@emcasa/ui-dom/components/Input'
 import Button from '@emcasa/ui-dom/components/Button'
-import Modal from 'components/shared/Common/Buttons/Like/Modal'
-import CloseButton from 'components/shared/CloseButton'
+import Modal from 'components/shared/Modal'
 import {isMobile} from 'lib/mobile'
 import {
   log,
@@ -42,8 +41,7 @@ export default class InterestForm extends Component {
     const mobile = isMobile()
 
     return (
-      <Modal onClose={onClose} justifyContent="center" padding>
-        <CloseButton onClick={onClose} />
+      <Modal onClose={onClose} justifyContent="center" padding unstyledCloseButton>
         <Title fontSize="large" textAlign="center">Contato</Title>
         <Row my={2} justifyContent="center"><Text inline textAlign="center">Por favor, informe seu nome e telefone.</Text></Row>
         <Input

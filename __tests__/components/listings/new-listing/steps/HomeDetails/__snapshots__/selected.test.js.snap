@@ -90,6 +90,9 @@ exports[`renders with an already selected home type 1`] = `
   border-radius: 4px;
   border-width: 1px;
   width: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   height: 60px;
   color: #3c4858;
   font-family: Rubik;
@@ -111,6 +114,9 @@ exports[`renders with an already selected home type 1`] = `
   border-radius: 4px;
   border-width: 1px;
   width: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   height: 60px;
   color: #ffffff;
   font-family: Rubik;
