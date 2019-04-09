@@ -41,6 +41,12 @@ export const ButtonsContainer = styled(Row)`
 
     svg {
       margin-right: ${theme.space[2]}px;
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      overflow: visible;
+      vertical-align: -.125em;
+      font-size: inherit;
     }
   }
 `
@@ -96,10 +102,7 @@ export const PriceItemSpacer = styled('span')`
 export const ValuesContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-
-  @media screen and ${breakpoint.up('desktop')} {
-    justify-content: space-between;
-  }
+  justify-content: space-between;
 `
 
 export const ValuesItem = styled(Row)`
