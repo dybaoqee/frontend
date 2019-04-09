@@ -1,15 +1,16 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import enhanceWithClickOutside from 'react-click-outside'
-import {
-  Background,
-  Container
-} from './styles'
+import {Background, Container} from './styles'
 
-class ContainerClickOutside extends Container {
+class ContainerClickOutside extends Component {
   handleClickOutside(e) {
     e.preventDefault()
     this.props.onClose()
+  }
+
+  render() {
+    return <Container {...this.props} />
   }
 }
 
@@ -23,7 +24,9 @@ class Modal extends Component {
           padding={this.props.padding}
           justifyContent={this.props.justifyContent}
           onClose={this.props.onClose}
-          onClick={(e) => {e.preventDefault()}}
+          onClick={(e) => {
+            e.preventDefault()
+          }}
         >
           {this.props.children}
         </EnhancedContainer>
