@@ -7,8 +7,7 @@ import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
 import Input from '@emcasa/ui-dom/components/Input'
-import CloseButton from 'components/shared/CloseButton'
-import Modal from '../Modal'
+import Modal from 'components/shared/Modal'
 import { HeartContainer } from './styles'
 
 class FavoriteLogin extends Component {
@@ -48,8 +47,7 @@ class FavoriteLogin extends Component {
 
   render() {
     return (
-      <Modal onClose={this.props.onClose} justifyContent="center" padding>
-        <CloseButton unstyled onClick={this.props.onClose} />
+      <Modal onClose={this.props.onClose} justifyContent="center" padding unstyledCloseButton>
         <Row justifyContent="center">
           <HeartContainer>
             <FontAwesomeIcon icon={faHeart} />
