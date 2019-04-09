@@ -29,8 +29,8 @@ class ListingFeed extends Component {
           }
           return (
             <Container>
-              <SubTitle color="grey" fontSize="small">
-                VEJA TAMBÉM
+              <SubTitle color="grey" fontWeight="bold">
+                Outros apartamentos no bairro
               </SubTitle>
               <ListingsContainer>
                 {listings.map((listing) => {

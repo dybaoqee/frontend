@@ -1,50 +1,61 @@
 import '@emcasa/ui-dom/components/global-styles'
 import {Component} from 'react'
 import {Query} from 'react-apollo'
-import theme from '@emcasa/ui'
-import View from '@emcasa/ui-dom/components/View'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
-import { ThemeProvider } from 'styled-components'
 import {GET_USER_LISTINGS_ACTIONS} from 'graphql/user/queries'
 import {
   GET_FULL_LISTING,
   GET_DISTRICTS
 } from 'graphql/listings/queries'
 import {Mutation} from 'react-apollo'
-import {FAVORITE_LISTING} from 'graphql/listings/mutations'
+import {
+  FAVORITE_LISTING,
+  VISUALIZE_TOUR
+} from 'graphql/listings/mutations'
 import {isAuthenticated, isAdmin, getCurrentUserId, getJwt} from 'lib/auth'
 import {getRelatedListings} from 'services/listing-api'
 import Link from 'next/link'
 import {createInterest} from 'services/interest-api'
 import isUndefined from 'lodash/isUndefined'
 import ListingHead from 'components/listings/show/Head'
-import ListingHeader from 'components/listings/show/ListingHeader'
+import ListingSlider from 'components/listings/show/ListingSlider'
 import ListingMainContent from 'components/listings/show/Body'
-import ListingMap from 'components/listings/show/Map'
+import Breadcrumb from 'components/listings/show/Breadcrumb'
+import PriceBar from 'components/listings/show/PriceBar'
+import ButtonsBar from 'components/listings/show/ButtonsBar'
+import MatterportPopup from 'components/listings/show/MatterportPopup'
+import MapPopup from 'components/listings/show/MapPopup'
 import InterestForm from 'components/listings/show/InterestForm'
 import InterestPosted from 'components/listings/show/InterestForm/interest_posted'
 import RelatedListings from 'components/listings/show/RelatedListings'
 import Warning from 'components/shared/Common/Warning'
-import Breadcrumb from 'components/shared/Common/Breadcrumb'
 import {buildSlug, getListingId} from 'lib/listings'
 import NextHead from 'components/shared/NextHead'
 import getApolloClient from 'lib/apollo/initApollo'
-import { getUserInfo } from 'lib/user'
-import { getCookie } from 'lib/session'
+import {getUserInfo} from 'lib/user'
+import {getCookie} from 'lib/session'
 import {
   fetchFlag,
   DEVICE_ID_COOKIE
 } from 'components/shared/Flagr'
-import { TEST_SCHEDULE_VISIT_CTA } from 'components/shared/Flagr/tests'
+import {TEST_SCHEDULE_VISIT_CTA} from 'components/shared/Flagr/tests'
 import {
   log,
   getListingInfoForLogs,
   LISTING_DETAIL_OPEN_VISIT_FORM,
-  LISTING_DETAIL_SCHEDULE_VISIT
+  LISTING_DETAIL_SCHEDULE_VISIT,
+  LISTING_DETAIL_MATTERPORT_OPEN,
+  LISTING_DETAIL_MATTERPORT_CLOSE,
+  LISTING_DETAIL_MAP_OPEN,
+  LISTING_DETAIL_MAP_CLOSE,
+  LISTING_DETAIL_STREETVIEW_OPEN,
+  LISTING_DETAIL_STREETVIEW_CLOSE
 } from 'lib/logging'
+import {listingDetailsBarHeight} from 'constants/dimensions'
+import {captureException} from '@sentry/browser'
 
 export const Title = Text.withComponent('h2')
 
@@ -59,9 +70,9 @@ class Listing extends Component {
     },
     isInterestPopupVisible: false,
     isInterestSuccessPopupVisible: false,
-    isImageGalleryVisible: false,
-    is3DTourVisible: false,
-    imageIndex: 0
+    isMatterportPopupVisible: false,
+    isMapPopupVisible: false,
+    isStreetViewPopupVisible: false
   }
 
   static async getInitialProps(context) {
@@ -101,7 +112,7 @@ class Listing extends Component {
         currentUser,
         flagrFlags
       }
-    } else {
+   } else {
       return {
         listingFetchError: errors[0],
         currentUser,
@@ -110,34 +121,44 @@ class Listing extends Component {
     }
   }
 
-  showImageGallery = () => {
-    this.setState({isImageGalleryVisible: true})
+  openMatterportPopup = () => {
+    const {listing: {id}} = this.props
+
+    if (this.visualizeTour) {
+      this.visualizeTour({variables: {id}})
+    }
+
+    log(LISTING_DETAIL_MATTERPORT_OPEN, {listingId: id})
+    this.setState({isMatterportPopupVisible: true})
   }
 
-  hideImageGallery = () => {
-    this.setState({isImageGalleryVisible: false})
+  closeMatterportPopup = () => {
+    log(LISTING_DETAIL_MATTERPORT_CLOSE, {listingId: this.props.listing.id})
+    this.setState({isMatterportPopupVisible: false})
   }
 
-  showNextImage = () => {
-    const {imageIndex} = this.state
-    this.setState({imageIndex: imageIndex + 1})
+  openMapPopup = () => {
+    log(LISTING_DETAIL_MAP_OPEN)
+    this.setState({isMapPopupVisible: true})
   }
 
-  showPreviousImage = () => {
-    const {imageIndex} = this.state
-    this.setState({imageIndex: imageIndex - 1})
+  closeMapPopup = () => {
+    log(LISTING_DETAIL_MAP_CLOSE)
+    this.setState({isMapPopupVisible: false})
   }
 
-  show3DTour = async () => {
-    await this.setState({is3DTourVisible: true})
+  openStreetViewPopup = () => {
+    log(LISTING_DETAIL_STREETVIEW_OPEN)
+    this.setState({isStreetViewPopupVisible: true})
   }
 
-  hide3DTour = () => {
-    this.setState({is3DTourVisible: false})
+  closeStreetViewPopup = () => {
+    log(LISTING_DETAIL_STREETVIEW_CLOSE)
+    this.setState({isStreetViewPopupVisible: false})
   }
 
-  openPopup = async (e) => {
-    const { currentUser } = this.props
+  openInterestPopup = async (e) => {
+    const {currentUser} = this.props
     if (currentUser && currentUser.authenticated) {
       const userInfo = await getUserInfo(currentUser.id)
       if (userInfo && userInfo.name && userInfo.phone) {
@@ -151,11 +172,11 @@ class Listing extends Component {
     this.setState({isInterestPopupVisible: true})
   }
 
-  closePopup = () => {
+  closeInterestPopup = () => {
     this.setState({isInterestPopupVisible: false})
   }
 
-  closeSuccessPostPopup = () => {
+  closeSuccessPostInterestPopup = () => {
     this.setState({isInterestSuccessPopupVisible: false})
   }
 
@@ -201,6 +222,9 @@ class Listing extends Component {
 
   async componentDidMount() {
     const {listing} = this.props
+
+    this.checkListing(listing)
+
     if (listing && listing.id) {
       const related = await getRelatedListings(listing.id).then(({data}) => data.listings)
       this.setState({related})
@@ -209,20 +233,20 @@ class Listing extends Component {
 
   showListing = () => {
     const {user: currentUser, url, listing, router} = this.props
-    const {related} = this.state
+    const {related, isMatterportPopupVisible, isMapPopupVisible, isStreetViewPopupVisible} = this.state
     const {isActive} = listing
 
     const {
       isInterestPopupVisible,
       isInterestSuccessPopupVisible,
       interestForm
-    } = this.state
+   } = this.state
 
     const roomInformationForPath = listing.rooms
       ? ` de ${listing.rooms} dormitórios`
       : ''
 
-    const { neighborhood, neighborhoodSlug } = listing.address
+    const {neighborhood, neighborhoodSlug} = listing.address
 
     const paths = [
       {name: 'Comprar Imóveis', href: '/listings', as: '/imoveis'},
@@ -286,57 +310,93 @@ class Listing extends Component {
                     listing={listing}
                     routerAsPath={router.asPath}
                   />
-                  <div>
-                    <ListingHeader
-                      listing={listing}
-                      handleOpenPopup={this.openPopup}
-                      handleOpenImageGallery={this.showImageGallery}
-                      handleOpen3DTour={this.show3DTour}
-                      currentUser={currentUser}
-                      favoritedListing={{loading, favorite}}
-                    />
-                    {!isActive && (
-                      <Warning green={url.query.r}>
-                        {url.query.r ? (
-                          <p>
-                            <b>Pré-cadastro feito com sucesso.</b> Nossa equipe
-                            entrará em contato via email.
-                          </p>
-                        ) : (
-                          <p>
-                            Imóvel não está visível para o público pois está em
-                            fase de moderação.
-                          </p>
-                        )}
-                      </Warning>
-                    )}
+                  <Row flexDirection={['column-reverse', null, null, 'column']} mt={[null, null, null, `${listingDetailsBarHeight}px`]}>
                     <Breadcrumb paths={paths} />
-                    <ListingMainContent
-                      listing={listing}
-                      handleOpenPopup={this.openPopup}
-                      user={currentUser}
-                      favorite={favorite}
-                      flagrFlags={this.props.flagrFlags}
-                    />
-                    <ListingMap listing={listing} />
-                    <RelatedListings
-                      currentUser={currentUser}
-                      listings={related}
-                    />
+                    <Row flexDirection="column">
+                      <ListingSlider
+                        listing={listing}
+                        currentUser={currentUser}
+                        favoritedListing={{loading, favorite}}
+                      />
+                      {!isActive && (
+                        <Warning green={url.query.r}>
+                          {url.query.r ? (
+                            <p>
+                              <b>Pré-cadastro feito com sucesso.</b> Nossa equipe
+                              entrará em contato via email.
+                            </p>
+                          ) : (
+                            <p>
+                              Imóvel não está visível para o público pois está em
+                              fase de moderação.
+                            </p>
+                          )}
+                        </Warning>
+                      )}
+                      <PriceBar
+                        type={listing.type}
+                        price={listing.price}
+                      />
+                      <ListingMainContent
+                        listing={listing}
+                        user={currentUser}
+                        favorite={favorite}
+                        flagrFlags={this.props.flagrFlags}
+                        openMatterportPopup={this.openMatterportPopup}
+                        openMapPopup={this.openMapPopup}
+                        openStreetViewPopup={this.openStreetViewPopup}
+                      />
+
+                      <Mutation mutation={VISUALIZE_TOUR}>
+                        {(visualizeTour) => {
+                          if (!this.visualizeTour) {
+                            this.visualizeTour = visualizeTour
+                          }
+                          return (
+                            <MatterportPopup
+                              listing={listing}
+                              isMatterportPopupVisible={isMatterportPopupVisible}
+                              closeMatterportPopup={this.closeMatterportPopup}
+                            />
+                          )
+                        }}
+                      </Mutation>
+                      <MapPopup
+                        listing={listing}
+                        isMapPopupVisible={isMapPopupVisible}
+                        closeMapPopup={this.closeMapPopup}
+                      />
+                      <MapPopup
+                        streetView
+                        listing={listing}
+                        isMapPopupVisible={isStreetViewPopupVisible}
+                        closeMapPopup={this.closeStreetViewPopup}
+                      />
+                      <ButtonsBar
+                        handleOpenInterestPopup={this.openInterestPopup}
+                        favorite={favorite}
+                        listing={listing}
+                        user={currentUser}
+                      />
+                      <RelatedListings
+                        currentUser={currentUser}
+                        listings={related}
+                      />
+                    </Row>
                     {isInterestPopupVisible && (
                       <InterestForm
                         data={interestForm}
-                        handleClose={this.closePopup}
+                        onClose={this.closeInterestPopup}
                         onChange={this.onChange}
                         onSubmit={this.onSubmit}
                       />
                     )}
                     {isInterestSuccessPopupVisible && (
                       <InterestPosted
-                        handleClose={this.closeSuccessPostPopup}
+                        onClose={this.closeSuccessPostInterestPopup}
                       />
                     )}
-                  </div>
+                  </Row>
                 </>
               )
             }}
@@ -353,82 +413,78 @@ class Listing extends Component {
     const neighborhood = location[3]
 
     return (
-      <ThemeProvider theme={theme}>
-        <Query query={GET_DISTRICTS}>
-          {({loading, error, data}) => {
-            if (loading) return (<div/>)
-            if (error || !data || !data.districts) return `Error! ${error.message}`
+      <Query query={GET_DISTRICTS}>
+        {({loading, error, data}) => {
+          if (loading) return (<div/>)
+          if (error || !data || !data.districts) return `Error! ${error.message}`
 
-            const districts = data.districts
-            const findState = districts.find(a => a.stateSlug === state)
-            const findCity = districts.find(a => a.citySlug === city)
-            const findNeighborhood = districts.find(a => a.nameSlug === neighborhood)
-            let errorTitle = 'Este imóvel não está mais disponível!'
-            let endQuestion = 'de imóveis'
-            let buttonLabel = 'Explorar imóveis'
-            let buttonHref = '/imoveis'
+          const districts = data.districts
+          const findState = districts.find(a => a.stateSlug === state)
+          const findCity = districts.find(a => a.citySlug === city)
+          const findNeighborhood = districts.find(a => a.nameSlug === neighborhood)
+          let errorTitle = 'Este imóvel não está mais disponível!'
+          let endQuestion = 'de imóveis'
+          let buttonLabel = 'Explorar imóveis'
+          let buttonHref = '/imoveis'
 
-            if (findNeighborhood) {
-              endQuestion = ` em ${findNeighborhood.name}, ${findNeighborhood.city}`
-              buttonLabel += ` em ${findNeighborhood.name}`
-              buttonHref += `/${findNeighborhood.stateSlug}/${findNeighborhood.citySlug}/${findNeighborhood.nameSlug}`
-            } else if (findCity) {
-              endQuestion = ` em ${findCity.city}, ${findCity.state}`
-              buttonLabel += ` em ${findCity.city}`
-              buttonHref += `/${findCity.stateSlug}/${findCity.citySlug}`
-            } else if (findState) {
-              endQuestion = ` em ${findState.state}`
-              buttonLabel += ` em ${findState.state}`
-              buttonHref += `/${findState.stateSlug}`
-            }
+          if (findNeighborhood) {
+            endQuestion = ` em ${findNeighborhood.name}, ${findNeighborhood.city}`
+            buttonLabel += ` em ${findNeighborhood.name}`
+            buttonHref += `/${findNeighborhood.stateSlug}/${findNeighborhood.citySlug}/${findNeighborhood.nameSlug}`
+         } else if (findCity) {
+            endQuestion = ` em ${findCity.city}, ${findCity.state}`
+            buttonLabel += ` em ${findCity.city}`
+            buttonHref += `/${findCity.stateSlug}/${findCity.citySlug}`
+         } else if (findState) {
+            endQuestion = ` em ${findState.state}`
+            buttonLabel += ` em ${findState.state}`
+            buttonHref += `/${findState.stateSlug}`
+          }
 
-            return (
-              <>
-                <NextHead title={`Imóvel não encontrado | EmCasa`} />
+          return (
+            <>
+              <NextHead title={`Imóvel não encontrado | EmCasa`} />
+              <Row
+                justifyContent="center"
+                px={5}
+              >
                 <Row
-                  justifyContent="center"
-                  px={5}
+                  flexDirection="column"
+                  width={[1,null,null,'768px']}
                 >
-                  <Row
-                    flexDirection="column"
-                    width={[1,null,null,'768px']}
+                  <Title
+                    textAlign="center"
+                    fontSize="xlarge"
+                    fontWeight="normal"
                   >
-                    <Title
-                      textAlign="center"
-                      fontSize="xlarge"
-                      fontWeight="normal"
-                    >
-                      {errorTitle}
-                    </Title>
-                    <Text color="grey">{`Que tal olhar outras opções ${endQuestion}? Separamos alguns imóveis para você! Fique a vontade para dar uma olhada nessa lista`}
-                    </Text>
-                    <Row justifyContent="center">
-                      <Col width={[1,null,null,2/5]}>
-                        <View mt={2}>
-                          <Link
-                            passHref
-                            href={buttonHref}
+                    {errorTitle}
+                  </Title>
+                  <Text color="grey">{`Que tal olhar outras opções ${endQuestion}? Separamos alguns imóveis para você! Fique a vontade para dar uma olhada nessa lista`}
+                  </Text>
+                  <Row justifyContent="center" mt={2}>
+                    <Col width={[1,null,null,3/5]}>
+                      <Link
+                        passHref
+                        href={buttonHref}
+                      >
+                        <a>
+                          <Button
+                            active
+                            fluid
+                            height="tall"
                           >
-                            <a>
-                              <Button
-                                active
-                                fluid
-                                height="tall"
-                              >
-                                {buttonLabel}
-                              </Button>
-                            </a>
-                          </Link>
-                        </View>
-                      </Col>
-                    </Row>
+                            {buttonLabel}
+                          </Button>
+                        </a>
+                      </Link>
+                    </Col>
                   </Row>
                 </Row>
-              </>
-            )
-          }}
-        </Query>
-      </ThemeProvider>
+              </Row>
+            </>
+          )
+        }}
+      </Query>
     )
   }
 
@@ -442,6 +498,12 @@ class Listing extends Component {
         return 'Internal Server Error'
       default:
         return 'Erro desconhecido'
+    }
+  }
+
+  checkListing(listing) {
+    if (!listing.type) {
+      captureException(new Error("Type is null in listing id ", listing.id));
     }
   }
 

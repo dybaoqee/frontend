@@ -2,8 +2,6 @@ import {Component} from 'react'
 import PropTypes from 'prop-types'
 import {Mutation} from 'react-apollo'
 import {SIGN_IN_ACCOUNT_KIT} from 'graphql/user/mutations'
-import redirect from 'lib/redirect'
-import {getCookie, setCookie} from 'lib/session'
 import {signUpUser} from 'lib/auth'
 import {
   log,
@@ -80,7 +78,7 @@ class AccountKit extends Component {
 
   onSuccess = async (resp) => {
     const {code} = resp
-    const {appId, appSecret, skipRedirect} = this.props
+    const {appId, appSecret} = this.props
 
     if (resp.status === 'PARTIALLY_AUTHENTICATED' && code) {
       this.setState({loading: true})
@@ -104,14 +102,13 @@ class AccountKit extends Component {
       }
 
       signUpUser(user)
+      dispatchEvent(new CustomEvent('onLogin', {
+        detail: {userInfo}
+      }))
 
-      if (skipRedirect) {
-        return userInfo
-      }
-
-      this.setState({loading: false})
       log(LOGIN_SUCCESS)
-      redirect(getCookie('redirectTo') || '/')
+      this.setState({loading: false})
+      return userInfo
     } else if (resp.status === 'NOT_AUTHENTICATED') {
       log(LOGIN_ERROR, resp)
     } else if (resp.status === 'BAD_PARAMS') {
@@ -123,7 +120,6 @@ class AccountKit extends Component {
     const {signIn} = this
     const {children} = this.props
     const {loading} = this.state
-
     return (
       <>
         <Mutation mutation={SIGN_IN_ACCOUNT_KIT}>
@@ -153,8 +149,7 @@ AccountKit.propTypes = {
   countryCode: PropTypes.string,
   phoneNumber: PropTypes.string,
   emailAddress: PropTypes.string,
-  autoLogin: PropTypes.bool,
-  skipRedirect: PropTypes.bool
+  autoLogin: PropTypes.bool
 }
 
 AccountKit.defaultProps = {
@@ -162,8 +157,7 @@ AccountKit.defaultProps = {
   loginType: 'PHONE',
   countryCode: '+55',
   phoneNumber: '',
-  csrf: 'RANDOMCSRF',
-  skipRedirect: false
+  csrf: 'RANDOMCSRF'
 }
 
 export default AccountKit

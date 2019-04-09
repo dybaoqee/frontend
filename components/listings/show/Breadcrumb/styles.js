@@ -1,31 +1,28 @@
 import styled from 'styled-components'
 import theme from 'config/theme'
 import * as colors from 'constants/colors'
-import {headerMobileMedia, mobileMedia} from 'constants/media'
+import {
+  headerMobileMedia,
+  mobileMedia
+} from 'constants/media'
+import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
+import {listingDetailsMaxWidth} from 'constants/dimensions'
 
-export default styled.ul`
+export const Wrapper = styled(Row)`
+  justify-content: center;
+  padding: 0 ${theme.space[4]}px;
+  margin: ${theme.space[5]}px 0;
+`
+
+export const Container = styled('ul')`
   box-sizing: border-box;
-  width: 960px;
   list-style: none;
-  text-transform: uppercase;
-  font-size: 10px;
-  font-weight: 500;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  margin: 35px auto 0;
+  width: 100%;
+  margin: 0;
   padding: 0;
-  width: 960px;
-  max-width: calc(100vw - ${theme.space[4] * 2}px);
-
-  @media ${headerMobileMedia} {
-    width: 100%;
-  }
-
-  @media ${mobileMedia} {
-    display: none;
-  }
 
   a,
   :visited {
@@ -47,12 +44,6 @@ export default styled.ul`
 `
 
 export const Path = styled.li`
-  height: 100%;
-  margin-bottom: 10px;
-  :hover: {
-    cursor: pointer;
-  }
-
   :not(:first-of-type) {
     :before {
       content: '>';
@@ -62,14 +53,14 @@ export const Path = styled.li`
       color: ${theme.colors.grey};
     }
   }
-`
 
-export const BreadcrumbText = styled(Text)`
-  ${({link}) => link && `
+  a {
     cursor: pointer;
+    text-decoration: none;
+    color: ${theme.colors.grey};
 
-    :hover {
+    &:hover {
       color: ${theme.colors.pink};
     }
-  `}
+  }
 `

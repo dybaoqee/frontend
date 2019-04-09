@@ -1,5 +1,6 @@
 import {Provider} from 'react-redux'
 import * as Sentry from '@sentry/browser'
+import get from 'lodash/get'
 import withRedux from 'next-redux-wrapper'
 import App, {Container} from 'next/app'
 import isUndefined from 'lodash/isUndefined'
@@ -49,6 +50,13 @@ class MyApp extends App {
     }
   }
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      currentUser: null
+    }
+  }
+
   componentDidMount() {
     Sentry.init({
       release: process.env.SENTRY_RELEASE,
@@ -61,10 +69,20 @@ class MyApp extends App {
       removeCookie('resetAuth')
     }
 
+    if (process.browser) {
+      window.addEventListener('onLogin', this.updateSession)
+    }
+
     // Set deviceId for Flagr
     const deviceId = uuid()
     if (!getCookie(DEVICE_ID_COOKIE) && deviceId) {
       setCookie(DEVICE_ID_COOKIE, deviceId)
+    }
+  }
+
+  componentWillUnmount() {
+    if (process.browser) {
+      window.removeEventListener('onLogin', this.updateSession)
     }
   }
 
@@ -79,8 +97,23 @@ class MyApp extends App {
     })
   }
 
+  updateSession = (event) => {
+    const { userInfo } = event.detail
+    const isAdmin = get(userInfo, 'data.accountKitSignIn.user.role', '') === 'admin'
+    const jwt = get(userInfo, 'data.accountKitSignIn.jwt', '')
+    const id = get(userInfo, 'data.accountKitSignIn.user.id', '')
+    this.setState({
+      currentUser: {
+        authenticated: true,
+        jwt,
+        id,
+        isAdmin
+      }
+    })
+  }
+
   render() {
-    const {
+    let {
       Component,
       pageProps,
       url,
@@ -92,6 +125,14 @@ class MyApp extends App {
       error,
       store
     } = this.props
+
+    if (this.state.currentUser) {
+      currentUser = this.state.currentUser
+      authenticated = this.state.currentUser.authenticated
+      isAdmin = this.state.currentUser.isAdmin
+      pageProps.currentUser = currentUser
+    }
+
     return (
       <ThemeProvider theme={theme}>
         <Container>
