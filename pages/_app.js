@@ -17,6 +17,7 @@ import '@emcasa/ui-dom/components/global-styles'
 import { DEVICE_ID_COOKIE } from 'components/shared/Flagr'
 import uuid from 'utils/uuid'
 import HTTPMessage from 'components/shared/Shell/HTTPMessage'
+import GlobalStyles from 'styles/global'
 
 class MyApp extends App {
   static async getInitialProps(ctx) {
@@ -147,6 +148,7 @@ class MyApp extends App {
                 pageProps={pageProps}
                 router={router}
               >
+                <GlobalStyles />
                 {error ? (
                   <HTTPMessage asPath={url.asPath} statusCode={error.code} />
                 ) : (
