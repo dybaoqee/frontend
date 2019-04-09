@@ -39,5 +39,4 @@ export const Wrapper = styled(Row)`
 
 export const Container = styled('div')`
   width: 100%;
-  max-width: ${listingDetailsMaxWidth}px;
 `

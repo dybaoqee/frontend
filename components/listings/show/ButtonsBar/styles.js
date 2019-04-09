@@ -37,7 +37,6 @@ export const Container = styled(Row)`
   justify-content: space-between;
   width: 100%;
   height: ${listingDetailsBarHeight}px;
-  max-width: ${listingDetailsMaxWidth}px;
 
   @media screen and ${breakpoint.up('desktop')} {
     justify-content: flex-end;

@@ -21,7 +21,6 @@ export const Container = styled('ul')`
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  max-width: ${listingDetailsMaxWidth}px;
   margin: 0;
   padding: 0;
 
