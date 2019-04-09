@@ -4,7 +4,7 @@ import Text from '@emcasa/ui-dom/components/Text'
 import Row from '@emcasa/ui-dom/components/Row'
 import Input from '@emcasa/ui-dom/components/Input'
 import Button from '@emcasa/ui-dom/components/Button'
-import Modal from 'components/shared/Common/Buttons/Like/Modal'
+import Modal from 'components/shared/Modal'
 import CloseButton from 'components/shared/CloseButton'
 import {isMobile} from 'lib/mobile'
 import {
