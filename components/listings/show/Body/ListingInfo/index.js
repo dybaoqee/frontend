@@ -56,32 +56,32 @@ class ListingInfo extends React.Component {
         <ValuesContainer>
           {rooms ? (
             <ValuesItem flexDirection="column">
-              <Text>{rooms}</Text>
-              <Text fontSize="small">dorm.</Text>
+              <Text fontSize={2}>{rooms}</Text>
+              <Text fontSize={[1, null, null, 2]}>dorm.</Text>
             </ValuesItem>
           ) : null}
           {bathrooms ? (
             <ValuesItem flexDirection="column">
-              <Text>{bathrooms}</Text>
-              <Text fontSize="small">banh.</Text>
+              <Text fontSize={2}>{bathrooms}</Text>
+              <Text fontSize={[1, null, null, 2]}>banh.</Text>
             </ValuesItem>
           ) : null}
           {garageSpots ? (
             <ValuesItem flexDirection="column">
-              <Text>{garageSpots}</Text>
-              <Text fontSize="small">vagas</Text>
+              <Text fontSize={2}>{garageSpots}</Text>
+              <Text fontSize={[1, null, null, 2]}>vagas</Text>
             </ValuesItem>
           ) : null}
           {area ? (
             <ValuesItem flexDirection="column">
-              <Text>{area}</Text>
-              <Text fontSize="small">área/m²</Text>
+              <Text fontSize={2}>{area}</Text>
+              <Text fontSize={[1, null, null, 2]}>área/m²</Text>
             </ValuesItem>
           ) : null}
           {floor ? (
             <ValuesItem flexDirection="column">
-              <Text>{floor}</Text>
-              <Text fontSize="small">andar</Text>
+              <Text fontSize={2}>{floor}</Text>
+              <Text fontSize={[1, null, null, 2]}>andar</Text>
             </ValuesItem>
           ) : null}
         </ValuesContainer>
