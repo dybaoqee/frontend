@@ -75,7 +75,7 @@ class ListingInfo extends React.Component {
           {area ? (
             <ValuesItem flexDirection="column">
               <Text>{area}</Text>
-              <Text fontSize="small">área/m2</Text>
+              <Text fontSize="small">área/m²</Text>
             </ValuesItem>
           ) : null}
           {floor ? (
