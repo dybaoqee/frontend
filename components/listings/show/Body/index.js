@@ -6,8 +6,7 @@ import {canEdit} from 'permissions/listings-permissions'
 import {
   log,
   getListingInfoForLogs,
-  LISTING_DETAIL_OPEN,
-  LISTING_DETAIL_EXPAND_DESCRIPTION
+  LISTING_DETAIL_OPEN
 } from 'lib/logging'
 import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
@@ -19,23 +18,8 @@ import ListingDescription from './ListingDescription'
 import {Container} from './styles'
 
 class ListingMainContent extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      expanded: false
-    }
-    this.toggleBody = this.toggleBody.bind(this)
-  }
-
   componentDidMount() {
     log(LISTING_DETAIL_OPEN, getListingInfoForLogs(this.props.listing))
-  }
-
-  toggleBody() {
-    if (!this.state.expanded) {
-      log(LISTING_DETAIL_EXPAND_DESCRIPTION, getListingInfoForLogs(this.props.listing))
-    }
-    this.setState({ expanded: !this.state.expanded })
   }
 
   render() {
@@ -78,9 +62,7 @@ class ListingMainContent extends Component {
             openStreetViewPopup={openStreetViewPopup}
           />
           <ListingDescription
-            expanded={this.state.expanded}
             listing={listing}
-            toggleBody={this.toggleBody}
             paragraphs={paragraphs}
           />
         </Container>
