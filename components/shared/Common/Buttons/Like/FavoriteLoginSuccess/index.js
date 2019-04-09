@@ -3,14 +3,12 @@ import PropTypes from 'prop-types'
 import Link from 'next/link'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faCheck from '@fortawesome/fontawesome-free-solid/faCheck'
-import theme from '@emcasa/ui'
 import { FAVORITES_TAB } from 'pages/user/profile'
 import Modal from 'components/shared/Modal'
 import Button from '@emcasa/ui-dom/components/Button'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
-import CloseButton from 'components/shared/CloseButton'
 import {
   log,
   LISTING_SAVE_LOGIN_VIEW_FAVORITES
@@ -29,10 +27,6 @@ class FavoriteLoginSuccess extends Component {
         justifyContent="start"
       >
         <GreenBox>
-          <CloseButton
-            color={theme.colors.white}
-            onClick={this.props.onClose}
-          />
           <Row justifyContent="center">
             <CheckContainer>
               <FontAwesomeIcon icon={faCheck} />
