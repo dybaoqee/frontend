@@ -1,10 +1,12 @@
 import {Component} from 'react'
 import PropTypes from 'prop-types'
 import Text from '@emcasa/ui-dom/components/Text'
+import Row from '@emcasa/ui-dom/components/Row'
 import Input from '@emcasa/ui-dom/components/Input'
 import Button from '@emcasa/ui-dom/components/Button'
 import Modal from 'components/shared/Common/Buttons/Like/Modal'
 import CloseButton from 'components/shared/CloseButton'
+import {isMobile} from 'lib/mobile'
 import {
   log,
   LISTING_DETAIL_VISIT_FORM_NAME_INPUT,
@@ -37,15 +39,15 @@ export default class InterestForm extends Component {
   render() {
     const {onClose, onSubmit, data, onChange} = this.props
     const {name, phone} = data
+    const mobile = isMobile()
 
     return (
       <Modal onClose={onClose} justifyContent="center" padding>
         <CloseButton onClick={onClose} />
         <Title fontSize="large" textAlign="center">Contato</Title>
-        <Text textAlign="center">
-          Por favor, informe seu nome e telefone.
-        </Text>
+        <Row my={2} justifyContent="center"><Text inline textAlign="center">Por favor, informe seu nome e telefone.</Text></Row>
         <Input
+          height={mobile ? "medium" : "tall"}
           type="text"
           name="name"
           label="Nome"
@@ -57,6 +59,7 @@ export default class InterestForm extends Component {
           required
         />
         <Input
+          height={mobile ? "medium" : "tall"}
           type="text"
           name="phone"
           label="Telefone"
