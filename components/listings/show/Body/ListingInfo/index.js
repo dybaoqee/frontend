@@ -53,7 +53,39 @@ class ListingInfo extends React.Component {
           <Button onClick={openMapPopup}><FontAwesomeIcon icon={faMap} color={theme.colors.blue} />Mapa</Button>
           <Button onClick={openStreetViewPopup}><FontAwesomeIcon icon={faStreetView} color={theme.colors.blue} />Rua</Button>
         </ButtonsContainer>
-        <Row flexDirection="column" mb={5}>
+        <ValuesContainer>
+          {rooms ? (
+            <ValuesItem flexDirection="column">
+              <Text>{rooms}</Text>
+              <Text fontSize="small">dorm.</Text>
+            </ValuesItem>
+          ) : null}
+          {bathrooms ? (
+            <ValuesItem flexDirection="column">
+              <Text>{bathrooms}</Text>
+              <Text fontSize="small">banh.</Text>
+            </ValuesItem>
+          ) : null}
+          {garageSpots ? (
+            <ValuesItem flexDirection="column">
+              <Text>{garageSpots}</Text>
+              <Text fontSize="small">vagas</Text>
+            </ValuesItem>
+          ) : null}
+          {area ? (
+            <ValuesItem flexDirection="column">
+              <Text>{area}</Text>
+              <Text fontSize="small">área/m2</Text>
+            </ValuesItem>
+          ) : null}
+          {floor ? (
+            <ValuesItem flexDirection="column">
+              <Text>{floor}</Text>
+              <Text fontSize="small">andar</Text>
+            </ValuesItem>
+          ) : null}
+        </ValuesContainer>
+        <Row flexDirection="column" mt={5}>
           {(maintenanceFee && maintenanceFee > 0) &&
             <PriceItem mb={2}>
               <Text inline>Condomínio</Text>
@@ -94,38 +126,6 @@ class ListingInfo extends React.Component {
             </PriceItem>
           }
         </Row>
-        <ValuesContainer>
-          {rooms ? (
-            <ValuesItem flexDirection="column">
-              <Text>{rooms}</Text>
-              <Text fontSize="small">dorm.</Text>
-            </ValuesItem>
-          ) : null}
-          {bathrooms ? (
-            <ValuesItem flexDirection="column">
-              <Text>{bathrooms}</Text>
-              <Text fontSize="small">banh.</Text>
-            </ValuesItem>
-          ) : null}
-          {garageSpots ? (
-            <ValuesItem flexDirection="column">
-              <Text>{garageSpots}</Text>
-              <Text fontSize="small">vagas</Text>
-            </ValuesItem>
-          ) : null}
-          {area ? (
-            <ValuesItem flexDirection="column">
-              <Text>{area}</Text>
-              <Text fontSize="small">área/m2</Text>
-            </ValuesItem>
-          ) : null}
-          {floor ? (
-            <ValuesItem flexDirection="column">
-              <Text>{floor}</Text>
-              <Text fontSize="small">andar</Text>
-            </ValuesItem>
-          ) : null}
-        </ValuesContainer>
       </Container>
     )
   }
