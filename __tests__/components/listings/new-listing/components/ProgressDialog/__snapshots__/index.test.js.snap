@@ -1,12 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<ProgressDialog/> should render component 1`] = `
-.c2 {
+.c1 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  box-sizing: border-box;
 }
 
 .c4 {
@@ -14,14 +13,13 @@ exports[`<ProgressDialog/> should render component 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  box-sizing: border-box;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
   justify-content: space-between;
 }
 
-.c6 {
+.c5 {
   outline: none;
   display: block;
   cursor: pointer;
@@ -42,11 +40,11 @@ exports[`<ProgressDialog/> should render component 1`] = `
   border-style: solid;
 }
 
-.c6 :hover {
+.c5 :hover {
   background-color: #ffffff;
 }
 
-.c7 {
+.c6 {
   outline: none;
   display: block;
   cursor: pointer;
@@ -67,17 +65,12 @@ exports[`<ProgressDialog/> should render component 1`] = `
   border-style: solid;
 }
 
-.c7 :hover {
+.c6 :hover {
   background-color: #f50057;
 }
 
-.c1 {
-  box-sizing: border-box;
+.c2 {
   width: 100%;
-}
-
-.c5 {
-  box-sizing: border-box;
 }
 
 .c3 {
@@ -88,11 +81,6 @@ exports[`<ProgressDialog/> should render component 1`] = `
 }
 
 .c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  box-sizing: border-box;
   width: calc(100vw - 40px);
   padding: 80px 20px 20px 20px;
   -webkit-box-pack: center;
@@ -102,7 +90,7 @@ exports[`<ProgressDialog/> should render component 1`] = `
 }
 
 @media screen and (min-width:780px) {
-  .c1 {
+  .c2 {
     width: 50%;
   }
 }
@@ -115,10 +103,10 @@ exports[`<ProgressDialog/> should render component 1`] = `
 }
 
 <div
-  className="c0"
+  className="c0 c1"
 >
   <div
-    className="c1"
+    className="c2"
     width={
       Array [
         1,
@@ -129,7 +117,7 @@ exports[`<ProgressDialog/> should render component 1`] = `
     }
   >
     <div
-      className="c2"
+      className="c1"
     >
       <p
         className="c3"
@@ -145,10 +133,10 @@ exports[`<ProgressDialog/> should render component 1`] = `
       className="c4"
     >
       <div
-        className="c5"
+        className=""
       >
         <button
-          className="c6"
+          className="c5"
           fontSize="default"
           height="medium"
           onClick={[Function]}
@@ -162,10 +150,10 @@ exports[`<ProgressDialog/> should render component 1`] = `
         </button>
       </div>
       <div
-        className="c5"
+        className=""
       >
         <button
-          className="c7"
+          className="c6"
           fontSize="default"
           height="medium"
           onClick={[Function]}

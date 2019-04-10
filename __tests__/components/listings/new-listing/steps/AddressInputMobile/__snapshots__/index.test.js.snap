@@ -1,12 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<AddressInput/> should render a clean page 1`] = `
-.c1 {
-  box-sizing: border-box;
+.c2 {
   width: 100%;
 }
 
-.c4 {
+.c7 {
   -webkit-font-smoothing: antialiased;
   display: block;
   box-sizing: border-box;
@@ -26,7 +25,7 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   letter-spacing: 0px;
 }
 
-.c4:focus {
+.c7:focus {
   border-radius: 4px;
   border: 1px solid;
   border-color: #1fb6ff;
@@ -34,28 +33,47 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   height: 60px;
 }
 
-.c4::-webkit-input-placeholder {
+.c7::-webkit-input-placeholder {
   color: #8492a6;
 }
 
-.c4::-moz-placeholder {
+.c7::-moz-placeholder {
   color: #8492a6;
 }
 
-.c4:-ms-input-placeholder {
+.c7:-ms-input-placeholder {
   color: #8492a6;
 }
 
-.c4::placeholder {
+.c7::placeholder {
   color: #8492a6;
 }
 
-.c2 {
+.c1 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  box-sizing: border-box;
+  padding: 20px;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c6 {
+  width: auto;
+  height: 20px;
+}
+
+.c3 {
   border: 1px solid #e0e6ed;
   border-radius: 4px;
   display: -webkit-box;
@@ -69,23 +87,11 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   background-color: #ffffff;
 }
 
-.c3 {
-  width: auto;
-  height: 20px;
+.c5 {
   margin: 4px 14px 0 14px;
 }
 
 .c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  box-sizing: border-box;
-  padding: 20px;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
   position: fixed;
   top: 0;
   right: 0;
@@ -97,18 +103,18 @@ exports[`<AddressInput/> should render a clean page 1`] = `
 
 <div>
   <div
-    className="c0"
+    className="c0 c1"
   >
     <div
-      className="c1"
+      className="c2"
       width={1}
     >
       <div>
         <div
-          className="c2"
+          className="c3 c4"
         >
           <div
-            className="c3"
+            className="c5 c6"
           >
             <svg
               height={20}
@@ -127,7 +133,7 @@ exports[`<AddressInput/> should render a clean page 1`] = `
             </svg>
           </div>
           <div
-            className="c1"
+            className="c2"
             width={1}
           >
             <div
@@ -135,7 +141,7 @@ exports[`<AddressInput/> should render a clean page 1`] = `
             >
               <input
                 autoComplete="off"
-                className="c4"
+                className="c7"
                 fontSize="default"
                 height="tall"
                 letterSpacing="default"

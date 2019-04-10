@@ -1,23 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<AddressInput/> should render a clean page 1`] = `
-.c3 {
+.c1 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  box-sizing: border-box;
+}
+
+.c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
 }
 
-.c11 {
+.c12 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  box-sizing: border-box;
   margin-bottom: 20px;
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
@@ -28,23 +33,21 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   justify-content: center;
 }
 
-.c12 {
+.c13 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  box-sizing: border-box;
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
 }
 
-.c15 {
+.c16 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  box-sizing: border-box;
   margin-top: 20px;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
@@ -52,7 +55,7 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   justify-content: space-between;
 }
 
-.c13 {
+.c14 {
   outline: none;
   cursor: pointer;
   padding: 0 20px 0 20px;
@@ -75,7 +78,7 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   border-style: solid;
 }
 
-.c13 :hover {
+.c14 :hover {
   background-color: #ffffff;
 }
 
@@ -127,7 +130,7 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   background-color: #ffffff;
 }
 
-.c6 {
+.c7 {
   -webkit-font-smoothing: antialiased;
   font-family: Rubik;
   color: #3c4858;
@@ -135,7 +138,7 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   text-align: center;
 }
 
-.c8 {
+.c9 {
   -webkit-font-smoothing: antialiased;
   font-family: Rubik;
   color: #e0e6ed;
@@ -143,7 +146,7 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   text-align: center;
 }
 
-.c9 {
+.c10 {
   -webkit-font-smoothing: antialiased;
   font-family: Rubik;
   color: #3c4858;
@@ -152,7 +155,7 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   text-align: center;
 }
 
-.c10 {
+.c11 {
   -webkit-font-smoothing: antialiased;
   font-family: Rubik;
   color: #1D1919;
@@ -160,28 +163,18 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   text-align: center;
 }
 
-.c14 {
+.c15 {
   -webkit-font-smoothing: antialiased;
   font-family: Rubik;
   color: #ff4949;
   font-size: 18px;
 }
 
-.c1 {
-  box-sizing: border-box;
+.c2 {
   width: 100%;
 }
 
-.c16 {
-  box-sizing: border-box;
-}
-
 .c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  box-sizing: border-box;
   width: calc(100vw - 40px);
   padding: 80px 20px 20px 20px;
   -webkit-box-pack: center;
@@ -190,17 +183,12 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   justify-content: center;
 }
 
-.c5 {
+.c6 {
   width: auto;
   height: 22px;
 }
 
-.c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  box-sizing: border-box;
+.c3 {
   width: 100%;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
@@ -211,12 +199,7 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   flex-direction: row;
 }
 
-.c4 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  box-sizing: border-box;
+.c5 {
   position: relative;
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
@@ -234,7 +217,7 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   margin: 10px 0 10px 0;
 }
 
-.c7 {
+.c8 {
   position: absolute;
   margin-top: 20px;
   margin-left: 59px;
@@ -244,7 +227,7 @@ exports[`<AddressInput/> should render a clean page 1`] = `
 }
 
 @media screen and (min-width:780px) {
-  .c1 {
+  .c2 {
     width: 50%;
   }
 }
@@ -258,10 +241,10 @@ exports[`<AddressInput/> should render a clean page 1`] = `
 
 <div>
   <div
-    className="c0"
+    className="c0 c1"
   >
     <div
-      className="c1"
+      className="c2"
       width={
         Array [
           1,
@@ -272,16 +255,16 @@ exports[`<AddressInput/> should render a clean page 1`] = `
       }
     >
       <div
-        className="c2"
+        className="c3 c1"
       >
         <div
-          className="c3"
+          className="c4"
         >
           <div
-            className="c4"
+            className="c5 c1"
           >
             <div
-              className="c5"
+              className="c6"
             >
               <svg
                 height={22}
@@ -299,7 +282,7 @@ exports[`<AddressInput/> should render a clean page 1`] = `
               </svg>
             </div>
             <span
-              className="c6"
+              className="c7"
               color="dark"
               fontSize="small"
             >
@@ -307,14 +290,14 @@ exports[`<AddressInput/> should render a clean page 1`] = `
             </span>
           </div>
           <div
-            className="c7"
+            className="c8 "
           />
         </div>
         <div
-          className="c3"
+          className="c4"
         >
           <div
-            className="c4"
+            className="c5 c1"
           >
             <svg
               aria-hidden="true"
@@ -339,7 +322,7 @@ exports[`<AddressInput/> should render a clean page 1`] = `
               />
             </svg>
             <span
-              className="c6"
+              className="c7"
               color="dark"
               fontSize="small"
             >
@@ -347,14 +330,14 @@ exports[`<AddressInput/> should render a clean page 1`] = `
             </span>
           </div>
           <div
-            className="c7"
+            className="c8 "
           />
         </div>
         <div
-          className="c3"
+          className="c4"
         >
           <div
-            className="c4"
+            className="c5 c1"
           >
             <svg
               aria-hidden="true"
@@ -379,7 +362,7 @@ exports[`<AddressInput/> should render a clean page 1`] = `
               />
             </svg>
             <span
-              className="c8"
+              className="c9"
               color="lightGrey"
               fontSize="small"
             >
@@ -387,14 +370,14 @@ exports[`<AddressInput/> should render a clean page 1`] = `
             </span>
           </div>
           <div
-            className="c7"
+            className="c8 "
           />
         </div>
         <div
-          className="c3"
+          className="c4"
         >
           <div
-            className="c4"
+            className="c5 c1"
           >
             <svg
               aria-hidden="true"
@@ -419,7 +402,7 @@ exports[`<AddressInput/> should render a clean page 1`] = `
               />
             </svg>
             <span
-              className="c8"
+              className="c9"
               color="lightGrey"
               fontSize="small"
             >
@@ -429,7 +412,7 @@ exports[`<AddressInput/> should render a clean page 1`] = `
         </div>
       </div>
       <p
-        className="c9"
+        className="c10"
         color="dark"
         fontSize="large"
         fontWeight="bold"
@@ -437,22 +420,22 @@ exports[`<AddressInput/> should render a clean page 1`] = `
         Por favor, informe mais detalhes do seu imóvel
       </p>
       <p
-        className="c10"
+        className="c11"
         color="grey"
         fontSize="default"
       >
         Quantos quartos tem no seu imóvel?
       </p>
       <div
-        className="c11"
+        className="c12"
       >
         <div
-          className="c12"
+          className="c13"
           onChange={[Function]}
           onSelect={[Function]}
         >
           <button
-            className="c13"
+            className="c14"
             fontSize="default"
             height="tall"
             name="1"
@@ -463,7 +446,7 @@ exports[`<AddressInput/> should render a clean page 1`] = `
             1
           </button>
           <button
-            className="c13"
+            className="c14"
             fontSize="default"
             height="tall"
             name="2"
@@ -474,7 +457,7 @@ exports[`<AddressInput/> should render a clean page 1`] = `
             2
           </button>
           <button
-            className="c13"
+            className="c14"
             fontSize="default"
             height="tall"
             name="3"
@@ -485,7 +468,7 @@ exports[`<AddressInput/> should render a clean page 1`] = `
             3
           </button>
           <button
-            className="c13"
+            className="c14"
             fontSize="default"
             height="tall"
             name="4"
@@ -496,7 +479,7 @@ exports[`<AddressInput/> should render a clean page 1`] = `
             4
           </button>
           <button
-            className="c13"
+            className="c14"
             fontSize="default"
             height="tall"
             name="5"
@@ -507,7 +490,7 @@ exports[`<AddressInput/> should render a clean page 1`] = `
             5
           </button>
           <button
-            className="c13"
+            className="c14"
             fontSize="default"
             height="tall"
             name="more"
@@ -520,15 +503,15 @@ exports[`<AddressInput/> should render a clean page 1`] = `
         </div>
       </div>
       <p
-        className="c14"
+        className="c15"
         color="red"
         fontSize="default"
       />
       <div
-        className="c15"
+        className="c16"
       >
         <div
-          className="c16"
+          className=""
         >
           <button
             className="c17"
@@ -545,7 +528,7 @@ exports[`<AddressInput/> should render a clean page 1`] = `
           </button>
         </div>
         <div
-          className="c16"
+          className=""
         >
           <button
             className="c18"
