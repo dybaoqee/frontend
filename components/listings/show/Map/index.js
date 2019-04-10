@@ -7,6 +7,14 @@ import GoogleMapReact from 'google-map-react'
 import MapMarker from 'components/shared/Map/Marker'
 
 export default class ListingMap extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      map: null,
+      maps: null
+    }
+  }
+
   loadStreetView = (map, maps) => {
     const {listing, streetView} = this.props
     if (streetView) {
@@ -14,14 +22,26 @@ export default class ListingMap extends Component {
       const panorama = new maps.StreetViewPanorama(
         ReactDOM.findDOMNode(this.refs.panorama), {
           position: {lat: lat, lng: lng},
-          pov: {
-            heading: 34,
-            pitch: 10
-          },
-          visible: true
+          visible: false,
+          addressControl: false,
+          fullscreenControl: false
         }
       )
       map.setStreetView(panorama)
+    }
+
+    this.setState({
+      map: map,
+      maps: maps
+    })
+  }
+
+  componentDidUpdate() {
+    const {isVisible, streetView} = this.props
+    const {map, maps} = this.state
+    if (streetView && map && maps) {
+      const panorama = map.getStreetView()
+      panorama.setVisible(isVisible)
     }
   }
 
