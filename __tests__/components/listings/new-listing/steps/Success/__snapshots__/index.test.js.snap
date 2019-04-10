@@ -375,7 +375,7 @@ exports[`renders correctly 1`] = `
                 fontSize="small"
                 fontWeight="bold"
               >
-                R$ 1,000,000
+                R$1,000,000
               </span>
             </div>
             <div
