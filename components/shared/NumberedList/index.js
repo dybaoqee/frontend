@@ -16,7 +16,7 @@ class NumberedList extends PureComponent {
           const last = index === content.length - 1
           return (
             <Item key={index}>
-              <Number color="white" last={last}>{index + 1}</Number>
+              <Number color="white" last={last ? 1 : 0}>{index + 1}</Number>
               <Text inline color={textColor ? textColor : 'dark'}>{item}</Text>
             </Item>
           )
