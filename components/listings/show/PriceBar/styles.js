@@ -29,10 +29,17 @@ export const Wrapper = styled(Row)`
   }
 
   ${Text} {
+    display: flex;
+    justify-content: space-between;
     margin: 0;
 
     @media screen and ${breakpoint.up('desktop')} {
+      justify-content: flex-start;
       white-space: nowrap;
+    }
+
+    span {
+      margin-left: ${theme.space[1]}px;
     }
   }
 `
