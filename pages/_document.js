@@ -1,8 +1,7 @@
 import get from 'lodash/get'
 import Document, {Main, NextScript} from 'next/document'
 import {ServerStyleSheet} from 'styled-components'
-import globalStyles from 'styles/global'
-import Head from './_head';
+import Head from './_head'
 
 const RD_STATION_SCRIPT =
   'https://d335luupugsy2.cloudfront.net/js/loader-scripts/10ac8a83-57de-4007-b3e7-532ac8ee60ac-loader.js'
@@ -104,7 +103,6 @@ export default class AppDocument extends Document {
               });`}}
           />
           {includeStyles ? styleTags : null}
-          {includeStyles ? globalStyles : null}
           <meta
             name="viewport"
             content="initial-scale=1.0, width=device-width"

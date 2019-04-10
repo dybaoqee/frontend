@@ -1,4 +1,4 @@
-import {injectGlobal} from 'styled-components'
+import {createGlobalStyle as injectGlobal} from 'styled-components'
 import {mobileMedia} from 'constants/media'
 import theme from 'config/theme'
 import * as colors from 'constants/colors'
