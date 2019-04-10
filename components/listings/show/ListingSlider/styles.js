@@ -104,7 +104,7 @@ export const CarouselItem = styled.div`
   outline: none;
   box-sizing: border-box;
   position: relative;
-  background: ${theme.colors.dark};
+  background: ${theme.colors.smoke};
 
   @keyframes spin {
     to {
