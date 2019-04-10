@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders with an already selected home type 1`] = `
-.c6 {
+.c7 {
   -webkit-font-smoothing: antialiased;
   font-family: Rubik;
   color: #3c4858;
@@ -9,7 +9,7 @@ exports[`renders with an already selected home type 1`] = `
   text-align: center;
 }
 
-.c8 {
+.c9 {
   -webkit-font-smoothing: antialiased;
   font-family: Rubik;
   color: #e0e6ed;
@@ -17,7 +17,7 @@ exports[`renders with an already selected home type 1`] = `
   text-align: center;
 }
 
-.c9 {
+.c10 {
   -webkit-font-smoothing: antialiased;
   font-family: Rubik;
   color: #3c4858;
@@ -26,23 +26,28 @@ exports[`renders with an already selected home type 1`] = `
   text-align: center;
 }
 
-.c3 {
+.c1 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  box-sizing: border-box;
+}
+
+.c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
 }
 
-.c12 {
+.c13 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  box-sizing: border-box;
   margin-top: 20px;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
@@ -50,21 +55,15 @@ exports[`renders with an already selected home type 1`] = `
   justify-content: space-between;
 }
 
-.c1 {
-  box-sizing: border-box;
+.c2 {
   width: 100%;
 }
 
-.c10 {
-  box-sizing: border-box;
+.c11 {
   margin-bottom: 20px;
 }
 
-.c13 {
-  box-sizing: border-box;
-}
-
-.c11 {
+.c12 {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -131,11 +130,6 @@ exports[`renders with an already selected home type 1`] = `
 }
 
 .c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  box-sizing: border-box;
   width: calc(100vw - 40px);
   padding: 80px 20px 20px 20px;
   -webkit-box-pack: center;
@@ -144,17 +138,12 @@ exports[`renders with an already selected home type 1`] = `
   justify-content: center;
 }
 
-.c5 {
+.c6 {
   width: auto;
   height: 22px;
 }
 
-.c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  box-sizing: border-box;
+.c3 {
   width: 100%;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
@@ -165,12 +154,7 @@ exports[`renders with an already selected home type 1`] = `
   flex-direction: row;
 }
 
-.c4 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  box-sizing: border-box;
+.c5 {
   position: relative;
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
@@ -188,7 +172,7 @@ exports[`renders with an already selected home type 1`] = `
   margin: 10px 0 10px 0;
 }
 
-.c7 {
+.c8 {
   position: absolute;
   margin-top: 20px;
   margin-left: 59px;
@@ -198,7 +182,7 @@ exports[`renders with an already selected home type 1`] = `
 }
 
 @media screen and (min-width:780px) {
-  .c1 {
+  .c2 {
     width: 50%;
   }
 }
@@ -212,10 +196,10 @@ exports[`renders with an already selected home type 1`] = `
 
 <div>
   <div
-    className="c0"
+    className="c0 c1"
   >
     <div
-      className="c1"
+      className="c2"
       width={
         Array [
           1,
@@ -226,16 +210,16 @@ exports[`renders with an already selected home type 1`] = `
       }
     >
       <div
-        className="c2"
+        className="c3 c1"
       >
         <div
-          className="c3"
+          className="c4"
         >
           <div
-            className="c4"
+            className="c5 c1"
           >
             <div
-              className="c5"
+              className="c6"
             >
               <svg
                 height={22}
@@ -253,7 +237,7 @@ exports[`renders with an already selected home type 1`] = `
               </svg>
             </div>
             <span
-              className="c6"
+              className="c7"
               color="dark"
               fontSize="small"
             >
@@ -261,14 +245,14 @@ exports[`renders with an already selected home type 1`] = `
             </span>
           </div>
           <div
-            className="c7"
+            className="c8 "
           />
         </div>
         <div
-          className="c3"
+          className="c4"
         >
           <div
-            className="c4"
+            className="c5 c1"
           >
             <svg
               aria-hidden="true"
@@ -293,7 +277,7 @@ exports[`renders with an already selected home type 1`] = `
               />
             </svg>
             <span
-              className="c6"
+              className="c7"
               color="dark"
               fontSize="small"
             >
@@ -301,14 +285,14 @@ exports[`renders with an already selected home type 1`] = `
             </span>
           </div>
           <div
-            className="c7"
+            className="c8 "
           />
         </div>
         <div
-          className="c3"
+          className="c4"
         >
           <div
-            className="c4"
+            className="c5 c1"
           >
             <svg
               aria-hidden="true"
@@ -333,7 +317,7 @@ exports[`renders with an already selected home type 1`] = `
               />
             </svg>
             <span
-              className="c8"
+              className="c9"
               color="lightGrey"
               fontSize="small"
             >
@@ -341,14 +325,14 @@ exports[`renders with an already selected home type 1`] = `
             </span>
           </div>
           <div
-            className="c7"
+            className="c8 "
           />
         </div>
         <div
-          className="c3"
+          className="c4"
         >
           <div
-            className="c4"
+            className="c5 c1"
           >
             <svg
               aria-hidden="true"
@@ -373,7 +357,7 @@ exports[`renders with an already selected home type 1`] = `
               />
             </svg>
             <span
-              className="c8"
+              className="c9"
               color="lightGrey"
               fontSize="small"
             >
@@ -383,7 +367,7 @@ exports[`renders with an already selected home type 1`] = `
         </div>
       </div>
       <p
-        className="c9"
+        className="c10"
         color="dark"
         fontSize="large"
         fontWeight="bold"
@@ -391,10 +375,10 @@ exports[`renders with an already selected home type 1`] = `
         De qual tipo de imóvel estamos falando?
       </p>
       <div
-        className="c10"
+        className="c11"
       >
         <select
-          className="c11"
+          className="c12"
           color="dark"
           defaultValue="_placeholder"
           fontSize="default"
@@ -425,10 +409,10 @@ exports[`renders with an already selected home type 1`] = `
         </select>
       </div>
       <div
-        className="c12"
+        className="c13"
       >
         <div
-          className="c13"
+          className=""
         >
           <button
             className="c14"
@@ -445,7 +429,7 @@ exports[`renders with an already selected home type 1`] = `
           </button>
         </div>
         <div
-          className="c13"
+          className=""
         >
           <button
             className="c15"

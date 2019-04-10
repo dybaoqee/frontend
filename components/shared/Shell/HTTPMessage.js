@@ -1,6 +1,6 @@
 import {Component} from 'react'
 import Link from 'next/link'
-import styled from 'styled-components'
+import theme from '@emcasa/ui'
 import Text from '@emcasa/ui-dom/components/Text'
 import View from '@emcasa/ui-dom/components/View'
 import Row from '@emcasa/ui-dom/components/Row'
@@ -12,7 +12,7 @@ import {imageUrl} from 'utils/image_url'
 const HTTPMessageSvgWidth = 723
 const HTTPMessageSvgHeight = 281
 
-const Asset = styled(Row)`
+const Asset = Row.extend`
   position: relative;
   height: 25vmin;
   width: 100%;

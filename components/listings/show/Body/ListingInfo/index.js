@@ -80,7 +80,7 @@ class ListingInfo extends React.Component {
           ) : null}
           {floor ? (
             <ValuesItem flexDirection="column">
-              <Text fontSize={2}>{floor}</Text>
+              <Text fontSize={2}>{floor}°</Text>
               <Text fontSize={[1, null, null, 2]}>andar</Text>
             </ValuesItem>
           ) : null}

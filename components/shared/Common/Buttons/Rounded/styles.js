@@ -1,8 +1,7 @@
 import * as colors from 'constants/colors'
 import {BaseButton} from '../styles'
-import styled from 'styled-components'
 
-export default styled(BaseButton)`
+export default BaseButton.extend`
   box-shadow: none;
   background-color: ${({light}) => (light ? 'white' : colors.blue.medium)};
   color: ${({light}) => (light ? colors.blue.medium : 'white')};
