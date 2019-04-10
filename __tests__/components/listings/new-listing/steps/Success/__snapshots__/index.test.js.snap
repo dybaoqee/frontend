@@ -148,7 +148,6 @@ exports[`renders correctly 1`] = `
   display: -ms-flexbox;
   display: flex;
   box-sizing: border-box;
-  width: calc(100vw - 40px);
   padding: 80px 20px 20px 20px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
@@ -376,7 +375,7 @@ exports[`renders correctly 1`] = `
                 fontSize="small"
                 fontWeight="bold"
               >
-                R$1,000,000
+                R$ 1,000,000
               </span>
             </div>
             <div
@@ -474,7 +473,7 @@ exports[`renders correctly 1`] = `
                 className="c19"
                 color="white"
                 fontSize="default"
-                last={false}
+                last={0}
               >
                 1
               </p>
@@ -493,7 +492,7 @@ exports[`renders correctly 1`] = `
                 className="c19"
                 color="white"
                 fontSize="default"
-                last={false}
+                last={0}
               >
                 2
               </p>
@@ -512,7 +511,7 @@ exports[`renders correctly 1`] = `
                 className="c19"
                 color="white"
                 fontSize="default"
-                last={false}
+                last={0}
               >
                 3
               </p>
@@ -531,7 +530,7 @@ exports[`renders correctly 1`] = `
                 className="c21"
                 color="white"
                 fontSize="default"
-                last={true}
+                last={1}
               >
                 4
               </p>

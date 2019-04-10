@@ -136,7 +136,6 @@ exports[`renders with an already selected home type 1`] = `
   display: -ms-flexbox;
   display: flex;
   box-sizing: border-box;
-  width: calc(100vw - 40px);
   padding: 80px 20px 20px 20px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
