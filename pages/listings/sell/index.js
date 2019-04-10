@@ -1,14 +1,14 @@
 import {Component} from 'react'
-import theme from '@emcasa/ui'
-import {ThemeProvider} from 'styled-components'
-import styled from 'styled-components'
-import {breakpoint} from '@emcasa/ui/lib/styles'
 import {withBreakpoint} from '@emcasa/ui-dom/components/Breakpoint'
-import View from '@emcasa/ui-dom/components/View'
-import Benefits from 'components/listings/shared/Benefits'
 import NextHead from 'components/shared/NextHead'
 import ScrollTracker from 'components/shared/ScrollTracker'
 import NewListing from 'components/listings/new-listing'
+import {
+  showHeader,
+  hideHeader,
+  showFooter,
+  hideFooter
+} from 'lib/page'
 import {
   SchemaWebSite,
   SchemaRealEstateAgent,
@@ -26,7 +26,6 @@ import {
 } from 'lib/logging'
 import {
   Container,
-  Block,
   MainBlock
 } from './styles'
 
@@ -114,51 +113,21 @@ class Sell extends Component {
 
   onChangeStep(step) {
     if (step === 'intro') {
-      this.showFooter()
+      showFooter()
     } else {
-      this.hideFooter()
+      hideFooter()
     }
-  }
-
-  showFooter() {
-    const footer = document.getElementsByTagName('address')[0]
-    footer.style.display = 'block'
-  }
-
-  hideFooter() {
-    const footer = document.getElementsByTagName('address')[0]
-    footer.style.display = 'none'
+    if (step === 'addressInputMobile') {
+      hideHeader()
+    } else {
+      showHeader()
+    }
   }
 
   render() {
     const { isMobile, user, client, evaluation, router } = this.props
     const city = (router.query || {}).city || 'all'
     const {seoTitle, seoDescription, seoImg, heroTitle} = CONTENT[city]
-
-    const benefitsProps = {
-      sectionTitle: 'Aumente as chances de vender com o Tour Virtual',
-      benefitsList: [
-        {
-          description:
-            'Mais compradores visitam seu imóvel virtualmente.'
-        },
-        {
-          description:
-            'Visitas físicas apenas com compradores realmente interessados.'
-        },
-        {
-          description:
-            'Nossos especialistas irão acompanhar as visitas pessoalmente.'
-        }
-      ],
-      buttonHref: '/vender',
-      buttonLabel: 'Conheça mais a EmCasa',
-      buttonClick: () => {
-        log(SELLER_LANDING_EXPLORE_LISTINGS)
-      },
-      isMobile,
-      showTour: true
-    }
 
     return (
       <Container>
