@@ -1,9 +1,9 @@
-import {injectGlobal} from 'styled-components'
+import {createGlobalStyle} from 'styled-components'
 import {mobileMedia} from 'constants/media'
 import theme from 'config/theme'
 import * as colors from 'constants/colors'
 
-export default injectGlobal`
+export default createGlobalStyle`
 @font-face {
   font-family: 'Rubik';
   font-style: normal;

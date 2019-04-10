@@ -21,14 +21,12 @@ export const Content = styled(View)`
   }
 `
 
-export const SubTitle = styled(Text)
-
 export const BenefitCol = styled(Col)`
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  ${SubTitle} {
+  h2 {
     margin: 0;
   }
   @media ${breakpoint.down('tablet')} {

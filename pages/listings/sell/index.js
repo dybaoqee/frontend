@@ -26,7 +26,6 @@ import {
 } from 'lib/logging'
 import {
   Container,
-  Block,
   MainBlock
 } from './styles'
 
