@@ -1,10 +1,8 @@
-import {Component} from 'react'
+import React, {Component} from 'react'
 import Link from 'next/link'
 import {LazyImage} from 'react-lazy-images'
 import Text from '@emcasa/ui-dom/components/Text'
-import {Query} from 'react-apollo'
 import slug from 'slug'
-import {GET_DISTRICTS} from 'graphql/listings/queries'
 import {
   Container,
   Header,
@@ -14,8 +12,6 @@ import {
   NeighborhoodsHighlights,
   Neighborhood,
   Soon,
-  Title,
-  SubTitle,
   ListTitle
 } from './styles'
 import {
@@ -50,78 +46,87 @@ const NEIGHBORHOODS_BY_CITIES = NEIGHBORHOODS.reduce((cities, neighborhood) => {
 }, {})
 
 const getCityNeighborhoodHighlights = (districts, citySlug, stateSlug) => {
-  const highlightButtons = NEIGHBORHOODS_BY_CITIES[citySlug].map((props, nIndex) => {
-    const {name, thumb, soon} = props
-    const srcImg = `https://res.cloudinary.com/emcasa/image/upload/v1543531007/bairros/${thumb + (soon ? '-em-breve' : '')}`
-    return (
-      <Link
-        key={`link-${nIndex}`}
-        passHref
-        href={soon ? '' : `/imoveis/${stateSlug}/${citySlug}/${thumb}`}
-      >
-        <Neighborhood
-          onClick={() => {
-            log(BUYER_LANDING_NEIGHBORHOOD_IMAGE, {neighborhood: name})
-          }}
+  const highlightButtons = NEIGHBORHOODS_BY_CITIES[citySlug].map(
+    (props, nIndex) => {
+      const {name, thumb, soon} = props
+      const srcImg = `https://res.cloudinary.com/emcasa/image/upload/v1543531007/bairros/${thumb +
+        (soon ? '-em-breve' : '')}`
+      return (
+        <Link
+          key={`link-${nIndex}`}
+          passHref
+          href={soon ? '' : `/imoveis/${stateSlug}/${citySlug}/${thumb}`}
         >
-          <LazyImage
-            src={srcImg}
-            alt={`Imagem em destaque do bairro ${name}`}
-            placeholder={({ imageProps, ref }) => (
-              <div ref={ref} />
-            )}
-            actual={({ imageProps }) => <img {...imageProps} />}
-          />
-          <ListTitle fontWeight="normal">
-            {name}
-          </ListTitle>
-          {soon && <Soon>Em breve</Soon>}
-        </Neighborhood>
-      </Link>
-    )
-  })
+          <Neighborhood
+            onClick={() => {
+              log(BUYER_LANDING_NEIGHBORHOOD_IMAGE, {neighborhood: name})
+            }}
+          >
+            <LazyImage
+              src={srcImg}
+              alt={`Imagem em destaque do bairro ${name}`}
+              placeholder={({ref}) => <div ref={ref} />}
+              actual={({imageProps}) => <img {...imageProps} />}
+            />
+            <ListTitle as="h4" fontWeight="normal">{name}</ListTitle>
+            {soon && <Soon>Em breve</Soon>}
+          </Neighborhood>
+        </Link>
+      )
+    }
+  )
 
   return highlightButtons
 }
 
 const getCityNeighborhoodLinks = (districts, citySlug) => {
-  const districtsButtons = districts.filter(d => d.citySlug === citySlug && !NEIGHBORHOODS.find(n => d.name === n.name)).map((district) => {
-    const url = `/imoveis/${district.stateSlug}/${district.citySlug}/${slug(
-      district.nameSlug.toLowerCase()
-    )}`
-    return (
-      <Link
-        passHref
-        key={district.nameSlug}
-        href={{
-          pathname: url,
-          asPath: url
-        }}
-      >
-        <a className="NeighborhoodLink" title={`Comprar imóvel: ${district.name}`} onClick={() => {
-          log(BUYER_LANDING_NEIGHBORHOOD_LINK, {neighborhood: district.nameSlug})
-        }}>
-          <ListTitle color="inherit" fontWeight="normal">
-            {district.name}
-          </ListTitle>
-        </a>
-      </Link>
+  const districtsButtons = districts
+    .filter(
+      (d) =>
+        d.citySlug === citySlug && !NEIGHBORHOODS.find((n) => d.name === n.name)
     )
-  })
+    .map((district) => {
+      const url = `/imoveis/${district.stateSlug}/${district.citySlug}/${slug(
+        district.nameSlug.toLowerCase()
+      )}`
+      return (
+        <Link
+          passHref
+          key={district.nameSlug}
+          href={{
+            pathname: url,
+            asPath: url
+          }}
+        >
+          <a
+            className="NeighborhoodLink"
+            title={`Comprar imóvel: ${district.name}`}
+            onClick={() => {
+              log(BUYER_LANDING_NEIGHBORHOOD_LINK, {
+                neighborhood: district.nameSlug
+              })
+            }}
+          >
+            <ListTitle as="h4" color="inherit" fontWeight="normal">
+              {district.name}
+            </ListTitle>
+          </a>
+        </Link>
+      )
+    })
   return districtsButtons
 }
 
 export default class Neighborhoods extends Component {
-
   render() {
     const {districts} = this.props
 
     return (
       <Container>
         <Header>
-          <Title fontSize="xlarge" fontWeight="bold" textAlign="center">
+          <Text fontSize="xlarge" fontWeight="bold" textAlign="center" as="h2">
             Imóveis à venda no Rio de Janeiro e São Paulo
-          </Title>
+          </Text>
           <Text color="grey" textAlign="center">
             Escolha a localidade e confira os imóveis disponíveis
           </Text>
@@ -130,17 +135,23 @@ export default class Neighborhoods extends Component {
           {CITIES.map(({title, slug: citySlug, stateSlug}, index) => {
             return (
               <City key={index}>
-                <SubTitle fontWeight="bold">
+                <Text as="h3" fontWeight="bold">
                   {title}
-                </SubTitle>
+                </Text>
                 <NeighborhoodsHighlights>
-                  {districts && getCityNeighborhoodHighlights(districts, citySlug, stateSlug)}
+                  {districts &&
+                    getCityNeighborhoodHighlights(
+                      districts,
+                      citySlug,
+                      stateSlug
+                    )}
                 </NeighborhoodsHighlights>
                 <NeighborhoodsLinks>
                   {districts && getCityNeighborhoodLinks(districts, citySlug)}
                 </NeighborhoodsLinks>
               </City>
-            )})}
+            )
+          })}
         </Cities>
       </Container>
     )

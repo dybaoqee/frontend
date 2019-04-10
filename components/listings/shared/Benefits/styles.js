@@ -21,9 +21,7 @@ export const Content = styled(View)`
   }
 `
 
-export const Title = Text.withComponent('h2')
-
-export const SubTitle = Text.withComponent('h3')
+export const SubTitle = styled(Text)
 
 export const BenefitCol = styled(Col)`
   display: flex;

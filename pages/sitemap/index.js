@@ -1,12 +1,13 @@
-import {Component, Fragment} from 'react'
+import React, {Component, Fragment} from 'react'
 import {getNeighborhoods} from 'services/neighborhood-api'
 import theme from '@emcasa/ui'
 import {ThemeProvider} from 'styled-components'
 import {imageUrl} from 'utils/image_url'
 import NextHead from 'components/shared/NextHead'
 import Link from 'next/link'
+import Text from '@emcasa/ui-dom/components/Text'
 import View from '@emcasa/ui-dom/components/View'
-import Container, {Title} from './styles'
+import Container from './styles'
 
 const slugify = require('slug')
 
@@ -37,7 +38,7 @@ export default class MyPage extends Component {
           />
           <Container>
             <View px={5}>
-              <Title fontSize="xlarge" fontWeight="normal">Mapa do site</Title>
+              <Text as="h2" fontSize="xlarge" fontWeight="normal">Mapa do site</Text>
             </View>
             <ul>
               <li>

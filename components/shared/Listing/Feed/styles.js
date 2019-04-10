@@ -24,8 +24,6 @@ export const ListingsContainer = styled.div`
   }
 `
 
-export const SubTitle = Text.withComponent('h3')
-
 export const Gradient = styled.div`
   pointer-events: none;
 

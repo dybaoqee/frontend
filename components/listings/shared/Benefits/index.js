@@ -10,7 +10,6 @@ import {
   Container,
   Content,
   Icon,
-  Title,
   SubTitle,
   BenefitCol,
   VideoContainer
@@ -22,7 +21,7 @@ export default class Benefits extends Component {
     const benefits = this.props.benefitsList.map(({icon, title, description}) => (
       <BenefitCol width={[1,null,null,  3 / 12]} key={title}>
         {icon && <Icon name={icon} />}
-        <SubTitle fontSize="large" fontWeight="normal" color="dark">
+        <SubTitle as="h2" fontSize="large" fontWeight="normal" color="dark">
           {title}
         </SubTitle>
         <Text color="gray">{description}</Text>
@@ -53,9 +52,9 @@ export default class Benefits extends Component {
         <Content>
           <Row justifyContent="center">
             <Col>
-              <Title fontSize="large" color="dark" fontWeight="bold" textAlign="center">
+              <Text as="h1" fontSize="large" color="dark" fontWeight="bold" textAlign="center">
                 {sectionTitle}
-              </Title>
+              </Text>
             </Col>
           </Row>
           {showTour &&

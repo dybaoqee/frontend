@@ -1,9 +1,6 @@
 import styled from 'styled-components'
 import theme from 'config/theme'
-import Text from '@emcasa/ui-dom/components/Text'
 import {breakpoint} from '@emcasa/ui/lib/styles'
-
-export const Title = Text.withComponent('h2')
 
 export default styled.div`
   max-width: ${theme.breakpoints[theme.breakpointNames.indexOf('tablet')]};
@@ -31,7 +28,7 @@ export default styled.div`
       font-weight: 500;
 
       &::before {
-        content: '• '
+        content: '• ';
       }
 
       &:hover {

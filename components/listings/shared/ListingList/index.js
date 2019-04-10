@@ -356,7 +356,7 @@ class ListingList extends Component {
             <Container>
               {hasListings && this.getItemList(listings.listings)}
               <div>
-                <Title fontWeight="normal">{h1Content}</Title>
+                <Title as="h2" fontWeight="normal">{h1Content}</Title>
                 {this.getListings(listings, fetchMore)}
               </div>
               {this.state.renderMap && hasListings && this.getMap()}

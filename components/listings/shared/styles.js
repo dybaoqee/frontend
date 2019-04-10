@@ -31,56 +31,10 @@ export const Field = styled.div`
   }
 `
 
-export const StepContainer = styled.div`
-  margin: 0 40px;
-  box-sizing: border-box;
-  padding: 0 10px;
-  flex: 1;
+export const Input = styled.input
 
-  @media ${mobileMedia} {
-    padding-top: 10px;
-    width: 100vw;
-  }
-`
+export const InputWithMask = styled(MaskedInput)
 
-export const Step = styled.div`
-  box-sizing: border-box;
-  min-width: 330px;
-  max-width: 600px;
-  margin: 40px auto 0;
-
-  @media ${mobileMedia} {
-    margin: 0;
-    min-width: 100%;
-  }
-`
-export const Input = styled.input``
-
-export const InputWithMask = Input.withComponent(MaskedInput)
-
-export const ButtonControls = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-  padding: 10px;
-
-  > :last-child {
-    margin-left: auto;
-  }
-`
-
-export const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  flex-wrap: wrap;
-  margin-bottom: 10px;
-
-  a {
-    text-decoration: none;
-    color: ${colors.blue.medium};
-  }
-`
 export const Container = styled.div`
   box-sizing: border-box;
   display: flex;
@@ -91,13 +45,5 @@ export const Container = styled.div`
   @media ${headerMobileMedia} {
     padding-top: 20px;
     flex-direction: row;
-  }
-`
-
-export const EditButtons = styled.div`
-  box-sizing: border-box;
-
-  > :first-child {
-    margin-right: 10px;
   }
 `
