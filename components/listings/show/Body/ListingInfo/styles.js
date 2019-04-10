@@ -30,7 +30,7 @@ export const ExtraTitleSEO = styled.span`
 `
 
 export const ButtonsContainer = styled(Row)`
-  margin: ${theme.space[5]}px 0;
+  margin-top: ${theme.space[5]}px;
 
   ${Button} {
     margin-right: ${theme.space[2]}px;
@@ -104,6 +104,7 @@ export const ValuesContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  margin-top: ${theme.space[5]}px;
 `
 
 export const ValuesItem = styled(Row)`
