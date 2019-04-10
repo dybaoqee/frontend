@@ -16,7 +16,7 @@ class MapPopup extends Component {
     return (
       <Container open={isMapPopupVisible}>
         <CloseButton onClick={closeMapPopup} />
-        <GMap listing={listing} streetView={streetView} />
+        <GMap isVisible={isMapPopupVisible} listing={listing} streetView={streetView} />
       </Container>
     )
   }
