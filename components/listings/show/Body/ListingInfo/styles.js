@@ -8,9 +8,8 @@ import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
 
 export const Container = styled(Col)`
-  flex: 1 1 100%;
-
   @media screen and ${breakpoint.up('desktop')} {
+    flex: 1 1 100%;
     margin-right: ${theme.space[6]}px;
   }
 `
