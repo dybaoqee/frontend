@@ -20,6 +20,8 @@ class ContactForm extends Component {
   }
 
   state = {
+    nameFieldValid: false,
+    phoneFieldValid: false,
     showSuccess: false
   }
 
@@ -38,21 +40,21 @@ class ContactForm extends Component {
     }
   }
 
-  validateNameField() {
+  validateNameField = (event) => {
     const valid = event && event.target && event.target.value && event.target.value.trim()
     this.setState({nameFieldValid: valid})
   }
 
-  validatePhoneField() {
+  validatePhoneField = (event) => {
     const valid = event && event.target && event.target.value && event.target.value.trim()
-    this.setState({nameFieldValid: valid})
+    this.setState({phoneFieldValid: valid})
   }
 
-  submit = () => {
+  submit = (e) => {
     if (this.nameField && this.nameField.current && this.phoneField && this.phoneField.current) {
       const name = this.nameField.current.value ? this.nameField.current.value.trim() : ''
       const phone = this.phoneField.current.value ? this.phoneField.current.value.trim() : ''
-      this.props.obSubmit(name, phone)
+      this.props.onSubmit(e, {name, phone})
     }
   }
 
