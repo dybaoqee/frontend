@@ -1,6 +1,10 @@
 import React, {Component} from 'react'
+import theme from '@emcasa/ui'
 import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
+import Icon from '@emcasa/ui-dom/components/Icon'
+import Row from '@emcasa/ui-dom/components/Row'
+import Col from '@emcasa/ui-dom/components/Col'
 
 const TIME = 6000
 
@@ -49,6 +53,20 @@ class InstructionText extends Component {
       <View m={4}>
         <Text textAlign="center" fontWeight="bold">{INSTRUCTIONS[this.state.textDisplay].title}</Text>
         <Text textAlign="center">{INSTRUCTIONS[this.state.textDisplay].description}</Text>
+        <Row width="30px" justifyContent="space-between" margin="auto">
+            {INSTRUCTIONS.map((item, index) => {
+              const active = this.state.textDisplay === index
+              return (
+                <Icon
+                  key={index}
+                  name="circle"
+                  color={active ? theme.colors.blue : theme.colors.extraDarkSmoke}
+                  size={active ? 10 : 6}
+                  marginTop="-2px"
+                />
+              )
+            })}
+        </Row>
       </View>
     )
   }

@@ -71,7 +71,7 @@ class ContactForm extends Component {
         </PinkBox>
         <InstructionText />
         <Row justifyContent="space-around">
-          <Col width={1/2} mt="40px" ml={4} mr={2}>
+          <Col width={1/2} ml={4} mr={2}>
             <Input
               fluid
               label="Nome"
@@ -80,21 +80,21 @@ class ContactForm extends Component {
               ref={this.nameField}
             />
           </Col>
-          <Col width={1/2} mt="40px" ml={2} mr={4}>
+          <Col width={1/2} ml={2} mr={4}>
             <Input
               fluid
               label="Telefone"
               height="medium"
+              type="tel"
               onChange={this.validatePhoneField}
               ref={this.phoneField}
             />
           </Col>
         </Row>
         <Row justifyContent="center">
-          <Col mt="40px">
+          <Col>
             <Button
               active
-              height="tall"
               onClick={this.submit}
               disabled={!(this.state.nameFieldValid && this.state.phoneFieldValid)}
             >
