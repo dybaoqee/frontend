@@ -55,7 +55,7 @@ export default class Benefits extends Component {
           <Row justifyContent="center">
             <Col>
               <Text
-                as="h1"
+                as="h2"
                 fontSize="large"
                 color="dark"
                 fontWeight="bold"
