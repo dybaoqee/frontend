@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import {breakpoint} from '@emcasa/ui/lib/styles'
 import View from '@emcasa/ui-dom/components/View'
+import {zIndexModal} from 'constants/zIndex'
 
 const WIDTH = 420
 const HEIGHT = 640
@@ -12,7 +13,7 @@ export const Background = styled(View)`
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 5;
+  z-index: ${zIndexModal};
 `
 
 export const Container = styled(View)`

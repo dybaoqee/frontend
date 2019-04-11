@@ -2,10 +2,11 @@ import styled, {keyframes} from 'styled-components'
 import theme from 'config/theme'
 import Col from '@emcasa/ui-dom/components/Col'
 import {breakpoint} from '@emcasa/ui/lib/styles'
+import {zIndexHeader} from 'constants/zIndex'
 import {desktopHeaderHeight} from 'constants/dimensions'
 
 export const MAX_HEADER_HEIGHT = 76
-export const NAV_ZINDEX = 110
+export const NAV_ZINDEX = 2
 
 export default styled.header`
   display: flex;
@@ -35,7 +36,7 @@ export const Wrapper = styled.div`
   box-sizing: border-box;
   position: fixed;
   top: 0;
-  z-index: 10;
+  z-index: ${zIndexHeader};
   width: 100vw;
 `
 

@@ -8,9 +8,10 @@ import {
   listingDetailsMaxWidth,
   listingDetailsBarHeight
 } from 'constants/dimensions'
+import {zIndexModal} from 'constants/zIndex'
 
 export const Wrapper = styled(Row)`
-  z-index: 6;
+  z-index: ${zIndexModal - 1};
   position: fixed;
   right: 0;
   bottom: 0;
