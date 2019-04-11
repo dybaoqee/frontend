@@ -28,6 +28,7 @@ import PriceBar from 'components/listings/show/PriceBar'
 import ButtonsBar from 'components/listings/show/ButtonsBar'
 import MatterportPopup from 'components/listings/show/MatterportPopup'
 import MapPopup from 'components/listings/show/MapPopup'
+import ContactForm from 'components/listings/show/ContactForm'
 import InterestForm from 'components/listings/show/InterestForm'
 import InterestPosted from 'components/listings/show/InterestForm/interest_posted'
 import RelatedListings from 'components/listings/show/RelatedListings'
@@ -384,7 +385,7 @@ class Listing extends Component {
                       />
                     </Row>
                     {isInterestPopupVisible && (
-                      <InterestForm
+                      <ContactForm
                         data={interestForm}
                         onClose={this.closeInterestPopup}
                         onChange={this.onChange}
