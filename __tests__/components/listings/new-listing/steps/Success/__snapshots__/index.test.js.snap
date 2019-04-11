@@ -126,7 +126,7 @@ exports[`renders correctly 1`] = `
   border-style: solid;
 }
 
-.c21 :hover {
+.c21:hover {
   background-color: #f50057;
 }
 

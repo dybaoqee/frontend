@@ -40,7 +40,7 @@ exports[`<ProgressDialog/> should render component 1`] = `
   border-style: solid;
 }
 
-.c5 :hover {
+.c5:hover {
   background-color: #ffffff;
 }
 
@@ -65,7 +65,7 @@ exports[`<ProgressDialog/> should render component 1`] = `
   border-style: solid;
 }
 
-.c6 :hover {
+.c6:hover {
   background-color: #f50057;
 }
 

@@ -71,7 +71,7 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
   border-style: solid;
 }
 
-.c13 :hover {
+.c13:hover {
   background-color: #ffffff;
 }
 
@@ -98,7 +98,7 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
   border-style: solid;
 }
 
-.c14 :hover {
+.c14:hover {
   background-color: #ffffff;
 }
 
@@ -122,7 +122,7 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
   border-style: solid;
 }
 
-.c17 :hover {
+.c17:hover {
   background-color: #ffffff;
 }
 
@@ -146,7 +146,7 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
   border-style: solid;
 }
 
-.c18 :hover {
+.c18:hover {
   background-color: #ffffff;
 }
 
@@ -207,6 +207,14 @@ exports[`<AddressInput/> should render previously selected bedroom options 1`] =
 }
 
 .c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
   width: auto;
   height: 22px;
 }
