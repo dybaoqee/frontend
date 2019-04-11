@@ -18,7 +18,7 @@ export const Wrapper = styled(Row)`
   box-sizing: border-box;
 
   @media screen and ${breakpoint.up('desktop')} {
-    z-index: 1;
+    z-index: 6;
     position: fixed;
     left: 0;
     top: ${desktopHeaderHeight}px;
