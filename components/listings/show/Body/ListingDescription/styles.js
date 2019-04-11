@@ -40,7 +40,7 @@ export const Content = styled(Row)`
       left: 0;
       height: 100px;
       width: 100%;
-      background-image: linear-gradient(to bottom, transparent, white);
+      background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), white);
     }
   `}
 

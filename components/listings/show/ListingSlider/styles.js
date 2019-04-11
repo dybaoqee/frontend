@@ -11,7 +11,7 @@ import MoonLoader from 'react-spinners/MoonLoader'
 
 export const SPINNER_SIZE = 40
 export const LISTINGSLIDER_HEIGHT = 454
-export const LISTINGSLIDER_OFFSET = (desktopHeaderHeight + listingDetailsBarHeight * 4)
+export const LISTINGSLIDER_OFFSET = (desktopHeaderHeight + listingDetailsBarHeight)
 export const LISTINGSLIDER_NAVIGATION_HEIGHT = 70
 
 export default styled.div`
@@ -21,7 +21,7 @@ export default styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: ${({isFullScreen}) => isFullScreen ? '100%' : `calc(100vh - ${LISTINGSLIDER_OFFSET}px)`};
+  height: ${({isFullScreen}) => isFullScreen ? '100%' : `calc(62vh - ${LISTINGSLIDER_OFFSET}px)`};
   max-width: 100%;
   min-height: ${({isFullScreen}) => isFullScreen ? null : `${LISTINGSLIDER_HEIGHT / 2}px`};
   overflow: hidden;

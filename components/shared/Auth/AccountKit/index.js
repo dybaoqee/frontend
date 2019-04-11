@@ -8,6 +8,7 @@ import {
   LOGIN_SUCCESS,
   LOGIN_ERROR
 } from 'lib/logging'
+import {zIndexModal} from 'constants/zIndex'
 
 class AccountKit extends Component {
   state = {
@@ -73,7 +74,7 @@ class AccountKit extends Component {
     })
 
     const divs = document.getElementsByTagName('div')
-    divs[divs.length - 1].style.zIndex = 5
+    divs[divs.length - 1].style.zIndex = zIndexModal - 1
   }
 
   onSuccess = async (resp) => {
