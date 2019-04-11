@@ -29,6 +29,28 @@ import {
   ValuesItem
  } from './styles'
 
+const hasValues = (range = []) => range.find((val) => val && val > 0)
+
+const isRange = ([min, max] = []) => min !== max
+
+function NumberRangeFormat({values, ...props}) {
+  if (!isRange(values)) return <NumberFormat value={values[0]} {...props} />
+  return (
+    <Text
+      inline
+      style={{display: 'inline-flex', alignItems: 'center'}}
+      color="inherit"
+      fontSize="75%"
+    >
+      <NumberFormat value={values[0]} {...props} />
+      <Text inline style={{margin: '0 5px'}} color="grey" fontSize="small">
+        -
+      </Text>
+      <NumberFormat value={values[1]} {...props} />
+    </Text>
+  )
+}
+
 class ListingInfo extends React.Component {
   render() {
     const {
@@ -38,24 +60,23 @@ class ListingInfo extends React.Component {
       openMapPopup,
       openStreetViewPopup
     } = this.props
-    const {
-      price,
-      matterportCode,
-      type
-    } = listing
-    const price_per_square_meter = Math.floor(price / 1)
+    const {matterportCode, type} = listing
+    const price = getListingValueRange(listing, 'price')
+    const maintenanceFee = getListingValueRange(listing, 'maintenanceFee')
+    const propertyTax = getListingValueRange(listing, 'propertyTax')
     const rooms = getListingValueRange(listing, 'rooms')
     const bathrooms = getListingValueRange(listing, 'bathrooms')
     const garageSpots = getListingValueRange(listing, 'garageSpots')
     const area = getListingValueRange(listing, 'area')
     const suites = getListingValueRange(listing, 'suites')
-    const maintenanceFee = getListingValueRange(listing, 'maintenanceFee')
-    const propertyTax = getListingValueRange(listing, 'propertyTax')
     const floor = uniq(getListingValues(listing, 'floor'))
       .filter(Boolean)
       .map((num) => isNaN(num) ? num : `${num}°`)
       .sort()
-    const hasValues = (range = []) => range.find((val) => val && val > 0)
+    const pricePerSquareMeter = [
+      Math.floor(price[0] / area[0]),
+      Math.floor(price[1] / area[1])
+    ]
     return (
       <Container>
         <Title fontWeight="bold"><ExtraTitleSEO>{type} na </ExtraTitleSEO>{title}</Title>
@@ -103,12 +124,12 @@ class ListingInfo extends React.Component {
           <Button onClick={openStreetViewPopup}><FontAwesomeIcon icon={faStreetView} color={theme.colors.blue} />Rua</Button>
         </ButtonsContainer>
         <Row flexDirection="column" mt={5}>
-          {(maintenanceFee && maintenanceFee > 0) &&
+          {hasValues(maintenanceFee) &&
             <PriceItem mb={2}>
               <Text inline>Condomínio</Text>
               <PriceItemSpacer />
-              <NumberFormat
-                value={maintenanceFee || 0}
+              <NumberRangeFormat
+                values={maintenanceFee}
                 displayType={'text'}
                 thousandSeparator={'.'}
                 prefix={'R$'}
@@ -116,12 +137,12 @@ class ListingInfo extends React.Component {
               />
             </PriceItem>
           }
-          {(propertyTax && propertyTax > 0) &&
+          {hasValues(propertyTax) &&
             <PriceItem mb={2}>
               <Text inline>IPTU/ano</Text>
               <PriceItemSpacer />
-              <NumberFormat
-                value={propertyTax || 0}
+              <NumberRangeFormat
+                values={propertyTax}
                 displayType={'text'}
                 thousandSeparator={'.'}
                 prefix={'R$'}
@@ -129,12 +150,12 @@ class ListingInfo extends React.Component {
               />
             </PriceItem>
           }
-          {(price && price > 0) &&
+          {hasValues(pricePerSquareMeter) &&
             <PriceItem>
               <Text inline>Preço/m²</Text>
               <PriceItemSpacer />
-              <NumberFormat
-                value={price_per_square_meter || 0}
+              <NumberRangeFormat
+                values={pricePerSquareMeter}
                 displayType={'text'}
                 thousandSeparator={'.'}
                 prefix={'R$'}
