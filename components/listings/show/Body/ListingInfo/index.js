@@ -1,3 +1,4 @@
+import uniq from 'lodash/uniq'
 import React from 'react'
 import PropTypes from 'prop-types'
 import theme from 'config/theme'
@@ -10,6 +11,11 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faCube from '@fortawesome/fontawesome-free-solid/faCube'
 import faMap from '@fortawesome/fontawesome-free-solid/faMap'
 import faStreetView from '@fortawesome/fontawesome-free-solid/faStreetView'
+import {intToCurrency, formatRange} from 'utils/text-utils'
+import {
+  getListingValues,
+  getListingValueRange
+} from 'lib/listings'
 
 import {
   Container,
@@ -27,55 +33,66 @@ class ListingInfo extends React.Component {
   render() {
     const {
       title,
+      listing,
       openMatterportPopup,
       openMapPopup,
       openStreetViewPopup
     } = this.props
     const {
       price,
-      rooms,
-      bathrooms,
-      garageSpots,
-      area,
-      floor,
-      propertyTax,
-      maintenanceFee,
       matterportCode,
       type
-    } = this.props.listing
-    const price_per_square_meter = Math.floor(price / area)
-
+    } = listing
+    const price_per_square_meter = Math.floor(price / 1)
+    const rooms = getListingValueRange(listing, 'rooms')
+    const bathrooms = getListingValueRange(listing, 'bathrooms')
+    const garageSpots = getListingValueRange(listing, 'garageSpots')
+    const area = getListingValueRange(listing, 'area')
+    const suites = getListingValueRange(listing, 'suites')
+    const maintenanceFee = getListingValueRange(listing, 'maintenanceFee')
+    const propertyTax = getListingValueRange(listing, 'propertyTax')
+    const floor = uniq(getListingValues(listing, 'floor'))
+      .filter(Boolean)
+      .map((num) => isNaN(num) ? num : `${num}°`)
+      .sort()
+    const hasValues = (range = []) => range.find((val) => val && val > 0)
     return (
       <Container>
         <Title fontWeight="bold"><ExtraTitleSEO>{type} na </ExtraTitleSEO>{title}</Title>
         <ValuesContainer>
-          {rooms ? (
+          {hasValues(rooms) ? (
             <ValuesItem flexDirection="column">
-              <Text fontSize={2}>{rooms}</Text>
+              <Text fontSize={2}>{formatRange(rooms)}</Text>
               <Text fontSize={[1, null, null, 2]}>dorm.</Text>
             </ValuesItem>
           ) : null}
-          {bathrooms ? (
+          {hasValues(suites) ? (
             <ValuesItem flexDirection="column">
-              <Text fontSize={2}>{bathrooms}</Text>
+              <Text fontSize={2}>{formatRange(suites)}</Text>
+              <Text fontSize={[1, null, null, 2]}>suítes</Text>
+            </ValuesItem>
+          ) : null}
+          {hasValues(bathrooms) ? (
+            <ValuesItem flexDirection="column">
+              <Text fontSize={2}>{formatRange(bathrooms)}</Text>
               <Text fontSize={[1, null, null, 2]}>banh.</Text>
             </ValuesItem>
           ) : null}
-          {garageSpots ? (
+          {hasValues(garageSpots) ? (
             <ValuesItem flexDirection="column">
-              <Text fontSize={2}>{garageSpots}</Text>
+              <Text fontSize={2}>{formatRange(garageSpots)}</Text>
               <Text fontSize={[1, null, null, 2]}>vagas</Text>
             </ValuesItem>
           ) : null}
-          {area ? (
+          {hasValues(area) ? (
             <ValuesItem flexDirection="column">
-              <Text fontSize={2}>{area}</Text>
+              <Text fontSize={2}>{formatRange(area)}</Text>
               <Text fontSize={[1, null, null, 2]}>área/m²</Text>
             </ValuesItem>
           ) : null}
-          {floor ? (
+          {hasValues(floor) ? (
             <ValuesItem flexDirection="column">
-              <Text fontSize={2}>{floor}°</Text>
+              <Text fontSize={2}>{floor.join(', ')}</Text>
               <Text fontSize={[1, null, null, 2]}>andar</Text>
             </ValuesItem>
           ) : null}

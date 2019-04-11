@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
-import humps from 'humps'
 import {
   buildSlug,
-  getListingSummary
+  getListingSummary,
+  getListingPrice,
+  getListingValueRange
 } from 'lib/listings'
 import LikeButton from 'components/shared/Common/Buttons/Like'
 import { thumbnailUrl } from 'utils/image_url'
-import { intToCurrency } from 'utils/text-utils'
 import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
 import {
@@ -27,7 +27,6 @@ class ListingCard extends Component {
       currentUser,
       favorited: favoritedListings
     } = this.props
-    listing = humps.decamelizeKeys(listing)
 
     const favorited =
       favoritedListings.filter(
@@ -37,6 +36,8 @@ class ListingCard extends Component {
     const thumbFilename = listing.images && listing.images[0] ? listing.images[0].filename : ''
     const thumbUrl = thumbnailUrl(thumbFilename, 600, 600)
     const listingSummary = getListingSummary(listing)
+    const priceRange = getListingValueRange(listing, 'price')
+    const priceRangeDelta = priceRange[1] - priceRange[0]
 
     return (
       <Link
@@ -61,7 +62,13 @@ class ListingCard extends Component {
               <Row><Text inline fontSize="small">{listing.address.neighborhood.toUpperCase()}</Text></Row>
               <Row><Text inline fontSize="small">{listing.address.street}</Text></Row>
               <Row><Text inline fontSize="small" color="grey">{listingSummary}</Text></Row>
-              <Row><Text inline fontSize="large" fontWeight="bold">{intToCurrency(listing.price)}</Text></Row>
+              <Row>
+                <Text inline fontSize="large" fontWeight="bold">
+                  <span style={{lineHeight: '100%', fontSize: `${(priceRangeDelta == 0 ? 1 : 0.8) * 100}%`}}>
+                    {getListingPrice(listing)}
+                  </span>
+                </Text>
+              </Row>
             </Row>
             <LikeButton
               top={Math.round(getCardWidth() * 0.5 - 25)}

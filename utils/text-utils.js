@@ -1,5 +1,5 @@
-import createNumberMask from 'text-mask-addons/dist/createNumberMask'
-import startCase from 'lodash/startCase'
+const createNumberMask = require('text-mask-addons/dist/createNumberMask').default
+const startCase = require('lodash/startCase')
 
 const getParagraphs = (text) => {
   if (text) {
@@ -61,7 +61,14 @@ const currencyInputMask = createNumberMask({
   integerLimit: 12
 })
 
-export {
+const formatRange = (values, formatFn = (x) => x) => {
+  const min = Math.min(...values)
+  const max = Math.max(...values)
+  if (min == max) return formatFn(min)
+  else return `${formatFn(min)} - ${formatFn(max)}`
+}
+
+module.exports = {
   getParagraphs,
   getUrlVars,
   currencyStyle,
@@ -70,6 +77,7 @@ export {
   intToCurrency,
   roundUpPrice,
   arrayToString,
+  formatRange,
 
   PREFIX,
   THOUSANDS_SEPARATOR_SYMBOL
