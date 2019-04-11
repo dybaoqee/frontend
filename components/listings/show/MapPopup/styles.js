@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 import theme from 'config/theme'
-import Button from '@emcasa/ui-dom/components/Button'
+import {zIndexModal} from 'constants/zIndex'
 
 export default styled.div`
-  z-index: 9999;
+  z-index: ${zIndexModal};
   position: fixed;
   top: 0;
   left: 0;
