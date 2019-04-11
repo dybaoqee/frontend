@@ -52,7 +52,7 @@ class ListingMainContent extends Component {
     const pricePerSquareMeter = Math.floor(price / area)
 
     return (
-      <Row justifyContent="center" width="100%" mt={[5, null, null, 6]}>
+      <Row justifyContent="center" width="100%" mt={5}>
         <Container>
           <ListingInfo
             listing={listing}
