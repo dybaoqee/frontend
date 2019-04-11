@@ -7,6 +7,7 @@ import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Input from '@emcasa/ui-dom/components/Input'
 import Modal from 'components/shared/Modal'
+import InstructionText from './InstructionText'
 import {
   PinkBox,
   Logo
@@ -68,6 +69,7 @@ class ContactForm extends Component {
             <Text textAlign="center" color="white">Olá, você está mais perto de encontrar sua nova casa.</Text>
           </View>
         </PinkBox>
+        <InstructionText />
         <Row justifyContent="space-around">
           <Col width={1/2} mt="40px" ml={4} mr={2}>
             <Input
