@@ -35,6 +35,6 @@ export const Gradient = styled.div`
     right: ${theme.space[4]}px;
     width: 60px;
     height: 100%;
-    background-image: linear-gradient(to right, transparent, white);
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0), white);
   }
 `
