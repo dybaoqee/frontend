@@ -8,9 +8,10 @@ import {
   listingDetailsMaxWidth,
   listingDetailsBarHeight
 } from 'constants/dimensions'
+import {zIndexModal} from 'constants/zIndex'
 
 export const Wrapper = styled(Row)`
-  z-index: 6;
+  z-index: ${zIndexModal - 1};
   position: fixed;
   right: 0;
   bottom: 0;
@@ -20,7 +21,7 @@ export const Wrapper = styled(Row)`
   padding: 0 ${theme.space[4]}px;
   box-sizing: border-box;
   background: ${theme.colors.white};
-  box-shadow: 0 0 5px 0 rgba(0,0,0,0.5);
+  border-top: 1px solid ${theme.colors.smoke};
 
   @media screen and ${breakpoint.up('desktop')} {
     bottom: initial;

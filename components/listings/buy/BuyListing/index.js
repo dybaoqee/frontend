@@ -11,6 +11,10 @@ import { MobileTypeaheadContainer } from 'components/shared/NeighborhoodAutoComp
 import { USE_NEW_SEARCH } from 'config/globals'
 import ScrollTracker from 'components/shared/ScrollTracker'
 import {
+  showHeader,
+  hideHeader
+} from 'lib/page'
+import {
   log,
   BUYER_LANDING_SCROLL_25,
   BUYER_LANDING_SCROLL_50,
@@ -36,15 +40,13 @@ class BuyListing extends Component {
   }
 
   openMobileAddressInput() {
-    this.setState({
-      showMobileAddressInput: true
-    })
+    hideHeader()
+    this.setState({showMobileAddressInput: true})
   }
 
   close() {
-    this.setState({
-      showMobileAddressInput: false
-    })
+    showHeader()
+    this.setState({showMobileAddressInput: false})
   }
 
   renderSearch() {

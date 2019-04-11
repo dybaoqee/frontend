@@ -47,11 +47,6 @@ class ListingInfo extends React.Component {
     return (
       <Container>
         <Title as="h2" fontWeight="bold"><ExtraTitleSEO>{type} na </ExtraTitleSEO>{title}</Title>
-        <ButtonsContainer>
-          {matterportCode && <OpenMatterportButton onClick={openMatterportPopup}><FontAwesomeIcon icon={faCube} />Ver por dentro</OpenMatterportButton>}
-          <Button onClick={openMapPopup}><FontAwesomeIcon icon={faMap} color={theme.colors.blue} />Mapa</Button>
-          <Button onClick={openStreetViewPopup}><FontAwesomeIcon icon={faStreetView} color={theme.colors.blue} />Rua</Button>
-        </ButtonsContainer>
         <ValuesContainer>
           {rooms ? (
             <ValuesItem flexDirection="column">
@@ -125,6 +120,11 @@ class ListingInfo extends React.Component {
             </PriceItem>
           }
         </Row>
+        <ButtonsContainer>
+          {matterportCode && <OpenMatterportButton onClick={openMatterportPopup}><FontAwesomeIcon icon={faCube} />Ver por dentro</OpenMatterportButton>}
+          <Button onClick={openMapPopup}><FontAwesomeIcon icon={faMap} color={theme.colors.blue} />Mapa</Button>
+          <Button onClick={openStreetViewPopup}><FontAwesomeIcon icon={faStreetView} color={theme.colors.blue} />Rua</Button>
+        </ButtonsContainer>
       </Container>
     )
   }
