@@ -6,7 +6,6 @@ exports[`<ProgressDialog/> should render component 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  box-sizing: border-box;
 }
 
 .c4 {
@@ -14,14 +13,13 @@ exports[`<ProgressDialog/> should render component 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  box-sizing: border-box;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
   justify-content: space-between;
 }
 
-.c6 {
+.c5 {
   outline: none;
   display: block;
   cursor: pointer;
@@ -42,11 +40,11 @@ exports[`<ProgressDialog/> should render component 1`] = `
   border-style: solid;
 }
 
-.c6 :hover {
+.c5 :hover {
   background-color: #ffffff;
 }
 
-.c7 {
+.c6 {
   outline: none;
   display: block;
   cursor: pointer;
@@ -67,17 +65,12 @@ exports[`<ProgressDialog/> should render component 1`] = `
   border-style: solid;
 }
 
-.c7 :hover {
+.c6 :hover {
   background-color: #f50057;
 }
 
 .c1 {
-  box-sizing: border-box;
   width: 100%;
-}
-
-.c5 {
-  box-sizing: border-box;
 }
 
 .c3 {
@@ -92,7 +85,6 @@ exports[`<ProgressDialog/> should render component 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  box-sizing: border-box;
   padding: 80px 20px 20px 20px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
@@ -144,10 +136,10 @@ exports[`<ProgressDialog/> should render component 1`] = `
       className="c4"
     >
       <div
-        className="c5"
+        className=""
       >
         <button
-          className="c6"
+          className="c5"
           fontSize="default"
           height="medium"
           onClick={[Function]}
@@ -161,10 +153,10 @@ exports[`<ProgressDialog/> should render component 1`] = `
         </button>
       </div>
       <div
-        className="c5"
+        className=""
       >
         <button
-          className="c7"
+          className="c6"
           fontSize="default"
           height="medium"
           onClick={[Function]}

@@ -46,7 +46,6 @@ exports[`<AddressAutoComplete/> should render component 1`] = `
 }
 
 .c2 {
-  box-sizing: border-box;
   width: 100%;
 }
 
@@ -55,7 +54,6 @@ exports[`<AddressAutoComplete/> should render component 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  box-sizing: border-box;
   border: 1px solid #e0e6ed;
   border-radius: 4px;
   display: -webkit-box;
@@ -121,7 +119,7 @@ exports[`<AddressAutoComplete/> should render component 1`] = `
             }
           }
           type="text"
-          value={null}
+          value=""
         />
       </div>
     </div>

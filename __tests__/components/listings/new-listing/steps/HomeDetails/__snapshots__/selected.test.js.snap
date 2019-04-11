@@ -31,7 +31,6 @@ exports[`renders with an already selected home type 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  box-sizing: border-box;
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
@@ -42,7 +41,6 @@ exports[`renders with an already selected home type 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  box-sizing: border-box;
   margin-top: 20px;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
@@ -51,17 +49,11 @@ exports[`renders with an already selected home type 1`] = `
 }
 
 .c1 {
-  box-sizing: border-box;
   width: 100%;
 }
 
 .c10 {
-  box-sizing: border-box;
   margin-bottom: 20px;
-}
-
-.c13 {
-  box-sizing: border-box;
 }
 
 .c11 {
@@ -82,7 +74,7 @@ exports[`renders with an already selected home type 1`] = `
   font-family: Rubik;
 }
 
-.c14 {
+.c13 {
   outline: none;
   cursor: pointer;
   padding: 0 20px 0 20px;
@@ -102,11 +94,11 @@ exports[`renders with an already selected home type 1`] = `
   border-style: solid;
 }
 
-.c14 :hover {
+.c13 :hover {
   background-color: #ffffff;
 }
 
-.c15 {
+.c14 {
   outline: none;
   cursor: pointer;
   padding: 0 20px 0 20px;
@@ -126,7 +118,7 @@ exports[`renders with an already selected home type 1`] = `
   border-style: solid;
 }
 
-.c15 :hover {
+.c14 :hover {
   background-color: #f50057;
 }
 
@@ -135,7 +127,6 @@ exports[`renders with an already selected home type 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  box-sizing: border-box;
   padding: 80px 20px 20px 20px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
@@ -153,7 +144,6 @@ exports[`renders with an already selected home type 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  box-sizing: border-box;
   width: 100%;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
@@ -169,7 +159,6 @@ exports[`renders with an already selected home type 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  box-sizing: border-box;
   position: relative;
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
@@ -427,10 +416,10 @@ exports[`renders with an already selected home type 1`] = `
         className="c12"
       >
         <div
-          className="c13"
+          className=""
         >
           <button
-            className="c14"
+            className="c13"
             fontSize="default"
             height="tall"
             onClick={[Function]}
@@ -444,10 +433,10 @@ exports[`renders with an already selected home type 1`] = `
           </button>
         </div>
         <div
-          className="c13"
+          className=""
         >
           <button
-            className="c15"
+            className="c14"
             disabled={false}
             fontSize="default"
             height="tall"

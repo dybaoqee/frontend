@@ -6,7 +6,6 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  box-sizing: border-box;
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
@@ -17,7 +16,6 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  box-sizing: border-box;
   margin-bottom: 20px;
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
@@ -33,7 +31,6 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  box-sizing: border-box;
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
@@ -44,7 +41,6 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  box-sizing: border-box;
   margin-top: 20px;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
@@ -79,7 +75,7 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   background-color: #ffffff;
 }
 
-.c17 {
+.c16 {
   outline: none;
   cursor: pointer;
   padding: 0 20px 0 20px;
@@ -99,11 +95,11 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   border-style: solid;
 }
 
-.c17 :hover {
+.c16 :hover {
   background-color: #ffffff;
 }
 
-.c18 {
+.c17 {
   outline: none;
   cursor: default;
   padding: 0 20px 0 20px;
@@ -123,7 +119,7 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   border-style: solid;
 }
 
-.c18 :hover {
+.c17 :hover {
   background-color: #ffffff;
 }
 
@@ -168,12 +164,7 @@ exports[`<AddressInput/> should render a clean page 1`] = `
 }
 
 .c1 {
-  box-sizing: border-box;
   width: 100%;
-}
-
-.c16 {
-  box-sizing: border-box;
 }
 
 .c0 {
@@ -181,7 +172,6 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  box-sizing: border-box;
   padding: 80px 20px 20px 20px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
@@ -199,7 +189,6 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  box-sizing: border-box;
   width: 100%;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
@@ -215,7 +204,6 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  box-sizing: border-box;
   position: relative;
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
@@ -527,10 +515,10 @@ exports[`<AddressInput/> should render a clean page 1`] = `
         className="c15"
       >
         <div
-          className="c16"
+          className=""
         >
           <button
-            className="c17"
+            className="c16"
             fontSize="default"
             height="tall"
             onClick={[Function]}
@@ -544,10 +532,10 @@ exports[`<AddressInput/> should render a clean page 1`] = `
           </button>
         </div>
         <div
-          className="c16"
+          className=""
         >
           <button
-            className="c18"
+            className="c17"
             disabled={true}
             fontSize="default"
             height="tall"

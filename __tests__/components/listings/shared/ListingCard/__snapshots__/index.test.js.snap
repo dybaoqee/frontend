@@ -6,7 +6,6 @@ exports[`<ListingCard/> should render component 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  box-sizing: border-box;
   padding: 10px;
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
@@ -18,7 +17,6 @@ exports[`<ListingCard/> should render component 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  box-sizing: border-box;
 }
 
 .c3 {
@@ -190,7 +188,7 @@ exports[`<ListingCard/> should render component 1`] = `
           fontSize="large"
           fontWeight="bold"
         >
-          R$1,000,000
+          R$ 1,000,000
         </span>
       </div>
     </div>
