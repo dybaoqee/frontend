@@ -44,3 +44,11 @@ export const Container = styled(Row)`
     margin: 0;
   }
 `
+
+export const ContactButton = styled(Button)`
+  flex: 1;
+
+  @media screen and ${breakpoint.up('desktop')} {
+    flex: 0 1 auto;
+  }
+`

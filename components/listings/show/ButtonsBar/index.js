@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import Button from '@emcasa/ui-dom/components/Button'
 import LikeButton from 'components/shared/Common/Buttons/Like'
 
 import {
   Wrapper,
-  Container
+  Container,
+  ContactButton
 } from './styles'
 
 class ButtonsBar extends Component {
@@ -20,7 +20,7 @@ class ButtonsBar extends Component {
             listing={listing}
             user={user}
           />
-          <Button active onClick={handleOpenInterestPopup}>Falar com especialista</Button>
+          <ContactButton active onClick={handleOpenInterestPopup}>Falar com especialista</ContactButton>
         </Container>
       </Wrapper>
     )
