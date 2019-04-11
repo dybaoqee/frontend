@@ -124,7 +124,7 @@ class AddressInput extends Component {
 
   render() {
     const { location } = this.props
-    let address, complement
+    let address = '', complement
     if (location) {
       address = location.address
       complement = location.complement

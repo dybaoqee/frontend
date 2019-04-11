@@ -124,7 +124,7 @@ class DraggableImage extends Component {
     return (
       <DraggableWrapper
         isDragging={isDragging}
-        innerRef={(instance) => {
+        ref={(instance) => {
           connectDragSource(instance)
           connectDropTarget(instance)
         }}
