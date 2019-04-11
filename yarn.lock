@@ -2000,29 +2000,31 @@
   dependencies:
     lodash.once "^4.1.1"
 
-"@emcasa/ui-dom@2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@emcasa/ui-dom/-/ui-dom-2.0.1.tgz#12cb51e858865a5322a03ec6ea4585f3b81ebf9d"
-  integrity sha512-USyP2hbYeEdxmZQwrHfnkdcF3DiZGWxI82Tok6GUWbRdlUk/Kr7A+gWIiVN6sxNPLLzfKU/WcsuyooJc5YEOHA==
+"@emcasa/ui-dom@2.0.3":
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/@emcasa/ui-dom/-/ui-dom-2.0.3.tgz#c830386ed0c653aa41f805329315719223d4ae81"
+  integrity sha512-8K7l/F6exjvfSSY3K9kbTXoI+PGQALm3Wd0g2VI6AznuqsH98gwfhfEz3tyqUhbTLMi9+Jp+u1jWsfRR0PiNHg==
   dependencies:
-    "@emcasa/ui" "^2.0.1"
+    "@emcasa/ui" "^2.0.3"
     "@rebass/grid" "6.0.0-4"
     classnames "^2.2.6"
     element-class "^0.2.2"
     fbjs "^1.0.0"
     google-map-react "^1.1.2"
     hoist-non-react-statics "^3.3.0"
+    md5.js "^1.3.5"
     number-abbreviate "^2.0.0"
     numeral "^2.0.6"
     points-cluster "^0.1.4"
     recompose "~0.30.0"
     styled-icons "7.9.0"
     styled-system "4.1.0"
+    tinycolor2 "^1.4.1"
 
-"@emcasa/ui@2.0.1", "@emcasa/ui@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@emcasa/ui/-/ui-2.0.1.tgz#1b90b338fedd2926fed8a753b94bb9a9ec76a032"
-  integrity sha512-K6z2ZvgkcybenXACkrUYTGmKi1PnoENddrGcpbnD6nUqybJPetU3sjuMpZsNhr7xd5jWzqAD6YFqgQ5i5jJSew==
+"@emcasa/ui@2.0.3", "@emcasa/ui@^2.0.3":
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/@emcasa/ui/-/ui-2.0.3.tgz#4e09c024dca7d0cc8a21855dae1ae92a02fef714"
+  integrity sha512-8lgwDu6Q6pqYD09jQVNE4LCWnrLrVtGr/lgNEXUQy3lU1ykt7RQMp91xQBq980HR6M4BITyyXuQMLpE6DIQcHg==
   dependencies:
     "@fortawesome/free-solid-svg-icons" "^5.4.1"
     everpolate "^0.0.3"
@@ -8493,6 +8495,15 @@ md5.js@^1.3.4:
     hash-base "^3.0.0"
     inherits "^2.0.1"
 
+md5.js@^1.3.5:
+  version "1.3.5"
+  resolved "https://registry.yarnpkg.com/md5.js/-/md5.js-1.3.5.tgz#b5d07b8e3216e3e27cd728d72f70d1e6a342005f"
+  integrity sha512-xitP+WxNPcTTOgnTJcrhM0xvdPepipPSf3I8EIpGKeFLjt3PlJLIDG3u8EX53ZIubkb+5U2+3rELYpEhHhzdkg==
+  dependencies:
+    hash-base "^3.0.0"
+    inherits "^2.0.1"
+    safe-buffer "^5.1.2"
+
 media-typer@0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/media-typer/-/media-typer-0.3.0.tgz#8710d7af0aa626f8fffa1ce00168545263255748"
@@ -11698,6 +11709,11 @@ timers-browserify@^2.0.4:
 tiny-emitter@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/tiny-emitter/-/tiny-emitter-2.0.2.tgz#82d27468aca5ade8e5fd1e6d22b57dd43ebdfb7c"
+
+tinycolor2@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/tinycolor2/-/tinycolor2-1.4.1.tgz#f4fad333447bc0b07d4dc8e9209d8f39a8ac77e8"
+  integrity sha1-9PrTM0R7wLB9TcjpIJ2POaisd+g=
 
 tmp@0.0.31:
   version "0.0.31"
