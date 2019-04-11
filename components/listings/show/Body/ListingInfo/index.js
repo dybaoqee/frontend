@@ -80,6 +80,11 @@ class ListingInfo extends React.Component {
             </ValuesItem>
           ) : null}
         </ValuesContainer>
+        <ButtonsContainer>
+          {matterportCode && <OpenMatterportButton onClick={openMatterportPopup}><FontAwesomeIcon icon={faCube} />Ver por dentro</OpenMatterportButton>}
+          <Button onClick={openMapPopup}><FontAwesomeIcon icon={faMap} color={theme.colors.blue} />Mapa</Button>
+          <Button onClick={openStreetViewPopup}><FontAwesomeIcon icon={faStreetView} color={theme.colors.blue} />Rua</Button>
+        </ButtonsContainer>
         <Row flexDirection="column" mt={5}>
           {(maintenanceFee && maintenanceFee > 0) &&
             <PriceItem mb={2}>
@@ -121,11 +126,6 @@ class ListingInfo extends React.Component {
             </PriceItem>
           }
         </Row>
-        <ButtonsContainer>
-          {matterportCode && <OpenMatterportButton onClick={openMatterportPopup}><FontAwesomeIcon icon={faCube} />Ver por dentro</OpenMatterportButton>}
-          <Button onClick={openMapPopup}><FontAwesomeIcon icon={faMap} color={theme.colors.blue} />Mapa</Button>
-          <Button onClick={openStreetViewPopup}><FontAwesomeIcon icon={faStreetView} color={theme.colors.blue} />Rua</Button>
-        </ButtonsContainer>
       </Container>
     )
   }
