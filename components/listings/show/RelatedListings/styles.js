@@ -4,5 +4,5 @@ import Row from '@emcasa/ui-dom/components/Row'
 
 export default styled(Row)`
   width: 100%;
-  padding: ${theme.space[6]}px 0 ${theme.space[6]}px;
+  padding: ${theme.space[5]}px 0;
 `
