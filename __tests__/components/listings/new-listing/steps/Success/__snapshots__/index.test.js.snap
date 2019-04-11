@@ -469,14 +469,14 @@ exports[`renders correctly 1`] = `
             <div
               className="c18"
             >
-              <p
+              <span
                 className="c19"
                 color="white"
                 fontSize="default"
                 last={0}
               >
                 1
-              </p>
+              </span>
               <span
                 className="c20"
                 color="grey"
@@ -488,14 +488,14 @@ exports[`renders correctly 1`] = `
             <div
               className="c18"
             >
-              <p
+              <span
                 className="c19"
                 color="white"
                 fontSize="default"
                 last={0}
               >
                 2
-              </p>
+              </span>
               <span
                 className="c20"
                 color="grey"
@@ -507,14 +507,14 @@ exports[`renders correctly 1`] = `
             <div
               className="c18"
             >
-              <p
+              <span
                 className="c19"
                 color="white"
                 fontSize="default"
                 last={0}
               >
                 3
-              </p>
+              </span>
               <span
                 className="c20"
                 color="grey"
@@ -526,14 +526,14 @@ exports[`renders correctly 1`] = `
             <div
               className="c18"
             >
-              <p
+              <span
                 className="c21"
                 color="white"
                 fontSize="default"
                 last={1}
               >
                 4
-              </p>
+              </span>
               <span
                 className="c20"
                 color="grey"
