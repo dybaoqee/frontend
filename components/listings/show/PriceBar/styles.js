@@ -10,7 +10,6 @@ import {
 } from 'constants/dimensions'
 
 export const Wrapper = styled(Row)`
-  z-index: 5;
   align-items: center;
   justify-content: center;
   padding: ${theme.space[4]}px ${theme.space[4]}px;
@@ -19,6 +18,7 @@ export const Wrapper = styled(Row)`
   box-sizing: border-box;
 
   @media screen and ${breakpoint.up('desktop')} {
+    z-index: 1;
     position: fixed;
     left: 0;
     top: ${desktopHeaderHeight}px;
