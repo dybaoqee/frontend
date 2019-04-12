@@ -6,7 +6,14 @@ import Col from '@emcasa/ui-dom/components/Col'
 import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
-import {Container, Content, Icon, BenefitCol, VideoContainer} from './styles'
+import {
+  Container,
+  Content,
+  Icon,
+  BenefitCol,
+  VideoContainer,
+  CarouselWrapper
+} from './styles'
 
 export default class Benefits extends Component {
   getBenefits = (isMobile, showTour) => {
@@ -80,7 +87,7 @@ export default class Benefits extends Component {
               </VideoContainer>
             </Row>
           )}
-          <Row
+          <CarouselWrapper
             mt={2}
             justifyContent="center"
             flexDirection={['column', null, null, 'row']}
@@ -89,7 +96,7 @@ export default class Benefits extends Component {
             <NoSSR onSSR={this.getBenefits()}>
               {this.getBenefits(isMobile, showTour)}
             </NoSSR>
-          </Row>
+          </CarouselWrapper>
           {!showTour && (
             <Row justifyContent="center">
               <Col width={[1, null, null, 4 / 12]}>
