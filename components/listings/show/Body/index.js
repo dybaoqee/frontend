@@ -16,6 +16,7 @@ import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import ListingInfo from './ListingInfo'
 import ListingDescription from './ListingDescription'
+import DevelopmentPhase from './DevelopmentPhase'
 import {Container, DevelopmentContainer} from './styles'
 
 class ListingMainContent extends Component {
@@ -66,8 +67,11 @@ class ListingMainContent extends Component {
             openStreetViewPopup={openStreetViewPopup}
           />
           <View flex="1 1 100%" pb={5}>
+            {listing.development && (
+              <DevelopmentPhase phase={listing.development.phase} />
+            )}
             <ListingDescription
-              collapsedHeight="250px"
+              collapsedHeight="215px"
               title="Sobre o imóvel"
               paragraphs={getParagraphs(listing.description)}
               onExpand={this.onExpandDescription}

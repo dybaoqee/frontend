@@ -7,9 +7,10 @@ import Button from '@emcasa/ui-dom/components/Button'
 
 export const TITLE_HEIGHT = 50
 
-const animation = '250ms ease-in-out'
+const animation = '350ms ease-in-out'
 
 export default styled(Row)`
+  z-index: 0;
   box-sizing: border-box;
   flex: 1 1 100%;
   ${bgColor};
@@ -20,7 +21,7 @@ export const Content = styled(Row)`
   min-height: ${(props) => props.collapsedHeight};
   transition: all ${animation};
   ${({expanded, collapsedHeight}) => expanded ? `
-    max-height: 100vh;
+    max-height: 350em;
   ` : `
     overflow: hidden;
     position: relative;
@@ -30,6 +31,11 @@ export const Content = styled(Row)`
     content: ' ';
     display: table;
     height: ${themeGet('space.4')}px;
+  }
+  &:after {
+    content: ' ';
+    display: table;
+    height: ${TITLE_HEIGHT}px;
   }
   ${Text} {
     margin: 0 0 ${theme.space[5]}px;
@@ -81,4 +87,3 @@ export const BottomRow = styled(Row)`
     }
   }
 `
-//      background-image: linear-gradient(to bottom, transparent, ${bgColor(props).backgroundColor});
