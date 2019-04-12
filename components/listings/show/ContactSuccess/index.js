@@ -8,6 +8,7 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faCheck from '@fortawesome/fontawesome-free-solid/faCheck'
 import Button from '@emcasa/ui-dom/components/Button'
 import Modal from 'components/shared/Modal'
+import AccountKit from 'components/shared/Auth/AccountKit'
 import {
   GreenBox,
   CheckContainer
@@ -16,6 +17,10 @@ import {
 class ContactSuccess extends Component {
   constructor(props) {
     super(props)
+  }
+
+  onLoginSuccess = (userInfo, favoriteListing) => {
+
   }
 
   render() {
@@ -34,7 +39,15 @@ class ContactSuccess extends Component {
             <Text textAlign="center" fontSize="small">Enquanto isso, salve alguns imóveis. Isso nos ajuda a montar a lista de imóveis perfeita para você.</Text>
           </Col>
           <Col m="auto" mt={2}>
-            <Button>Salvar este imóvel</Button>
+            <AccountKit
+              appId={process.env.FACEBOOK_APP_ID}
+              appSecret={process.env.ACCOUNT_KIT_APP_SECRET}
+              version="v1.0"
+              onSuccess={(userInfo) => {this.onLoginSuccess(userInfo, null)}}
+              phoneNumber={this.props.userInfo.phone}
+            >
+              {({signIn}) => <Button onClick={signIn}>Salvar este imóvel</Button>}
+            </AccountKit>
           </Col>
           <Col m="auto" mt={2}>
             <Button onClick={this.props.onClose}>Ver outros imóveis</Button>
