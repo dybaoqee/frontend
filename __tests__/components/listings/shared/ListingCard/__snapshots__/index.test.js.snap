@@ -179,7 +179,7 @@ exports[`<ListingCard/> should render component 1`] = `
           color="grey"
           fontSize="small"
         >
-          
+
         </span>
       </div>
       <div
@@ -199,7 +199,7 @@ exports[`<ListingCard/> should render component 1`] = `
               }
             }
           >
-            R$ 1,000,000
+            R$1,000,000
           </span>
         </span>
       </div>
