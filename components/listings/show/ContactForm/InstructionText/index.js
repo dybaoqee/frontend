@@ -51,9 +51,9 @@ class InstructionText extends Component {
   render() {
     return (
       <View m={4}>
-        <Text textAlign="center" fontWeight="bold">{INSTRUCTIONS[this.state.textDisplay].title}</Text>
-        <Text textAlign="center">{INSTRUCTIONS[this.state.textDisplay].description}</Text>
-        <Row width="30px" justifyContent="space-between" margin="auto">
+        <Text fontSize="small" textAlign="center" fontWeight="bold">{INSTRUCTIONS[this.state.textDisplay].title}</Text>
+        <Text fontSize="small" textAlign="center">{INSTRUCTIONS[this.state.textDisplay].description}</Text>
+        <Row width="30px" justifyContent="space-between" m="auto">
             {INSTRUCTIONS.map((item, index) => {
               const active = this.state.textDisplay === index
               return (
@@ -62,7 +62,7 @@ class InstructionText extends Component {
                   name="circle"
                   color={active ? theme.colors.blue : theme.colors.extraDarkSmoke}
                   size={active ? 10 : 6}
-                  marginTop="-2px"
+                  style={{marginTop: active ? 0 : -2}}
                 />
               )
             })}
