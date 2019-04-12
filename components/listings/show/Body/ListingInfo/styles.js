@@ -8,9 +8,8 @@ import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
 
 export const Container = styled(Col)`
-  flex: 1 1 100%;
-
   @media screen and ${breakpoint.up('desktop')} {
+    flex: 1 1 100%;
     margin-right: ${theme.space[6]}px;
   }
 `
@@ -29,8 +28,23 @@ export const ExtraTitleSEO = styled.span`
   left: -100vw;
 `
 
-export const ButtonsContainer = styled(Row)`
+export const ValuesContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   margin-top: ${theme.space[5]}px;
+`
+
+export const ValuesItem = styled(Row)`
+  margin: 0 ${theme.space[5]}px ${theme.space[2]}px 0;
+
+  ${Text} {
+    margin: 0;
+  }
+`
+
+export const ButtonsContainer = styled(Row)`
+  margin-top: ${theme.space[4]}px;
 
   ${Button} {
     margin-right: ${theme.space[2]}px;
@@ -97,20 +111,5 @@ export const PriceItemSpacer = styled('span')`
     width: 100%;
     height: 1px;
     background-color: ${theme.colors.lightGrey};
-  }
-`
-
-export const ValuesContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin-top: ${theme.space[5]}px;
-`
-
-export const ValuesItem = styled(Row)`
-  margin: 0 ${theme.space[5]}px ${theme.space[2]}px 0;
-
-  ${Text} {
-    margin: 0;
   }
 `

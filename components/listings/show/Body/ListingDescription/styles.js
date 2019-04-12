@@ -6,12 +6,14 @@ import Button from '@emcasa/ui-dom/components/Button'
 import {breakpoint} from '@emcasa/ui/lib/styles'
 
 export default styled(Row)`
-  flex: 1 1 100%;
+  @media screen and ${breakpoint.up('desktop')} {
+    flex: 1 1 100%;
+  }
 
   ${Button} {
     display: flex;
     align-self: flex-end;
-    align-item: center;
+    align-items: center;
     justify-content: center;
     font-size: ${theme.fontSizes[1]}px;
 
@@ -40,7 +42,7 @@ export const Content = styled(Row)`
       left: 0;
       height: 100px;
       width: 100%;
-      background-image: linear-gradient(to bottom, transparent, white);
+      background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), white);
     }
   `}
 
