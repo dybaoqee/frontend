@@ -79,7 +79,12 @@ class ListingInfo extends React.Component {
     ]
     return (
       <Container>
-        <Title fontWeight="bold"><ExtraTitleSEO>{type} na </ExtraTitleSEO>{title}</Title>
+        <Title fontWeight="bold">
+          {listing.development && <span>{listing.development.name}</span>}
+          <span style={{fontWeight: listing.development ? 'normal' : 'inherit'}}>
+            <ExtraTitleSEO>{type} na </ExtraTitleSEO>{title}
+          </span>
+        </Title>
         <ValuesContainer>
           {hasValues(rooms) ? (
             <ValuesItem flexDirection="column">

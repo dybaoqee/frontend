@@ -6,7 +6,8 @@ import {canEdit} from 'permissions/listings-permissions'
 import {
   log,
   getListingInfoForLogs,
-  LISTING_DETAIL_OPEN
+  LISTING_DETAIL_OPEN,
+  LISTING_DETAIL_EXPAND_DESCRIPTION
 } from 'lib/logging'
 import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
@@ -15,11 +16,15 @@ import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import ListingInfo from './ListingInfo'
 import ListingDescription from './ListingDescription'
-import {Container} from './styles'
+import {Container, DevelopmentContainer} from './styles'
 
 class ListingMainContent extends Component {
   componentDidMount() {
     log(LISTING_DETAIL_OPEN, getListingInfoForLogs(this.props.listing))
+  }
+
+  onExpandDescription = () => {
+    log(LISTING_DETAIL_EXPAND_DESCRIPTION, getListingInfoForLogs(this.props.listing))
   }
 
   render() {
@@ -36,7 +41,6 @@ class ListingMainContent extends Component {
       neighborhood,
       streetNumber
     } = listing.address
-    const paragraphs = getParagraphs(listing.description)
     const ownerOrAdmin = canEdit(user, listing)
     const listingUserInfo = ownerOrAdmin
       ? `${street}, ${streetNumber} ${
@@ -52,7 +56,7 @@ class ListingMainContent extends Component {
     const pricePerSquareMeter = Math.floor(price / area)
 
     return (
-      <Row justifyContent="center" width="100%" mt={5}>
+      <Col alignItems="center" width="100%" mt={5}>
         <Container>
           <ListingInfo
             listing={listing}
@@ -61,12 +65,25 @@ class ListingMainContent extends Component {
             openMapPopup={openMapPopup}
             openStreetViewPopup={openStreetViewPopup}
           />
-          <ListingDescription
-            listing={listing}
-            paragraphs={paragraphs}
-          />
+          <View flex="1 1 100%" pb={5}>
+            <ListingDescription
+              collapsedHeight="250px"
+              title="Sobre o imóvel"
+              paragraphs={getParagraphs(listing.description)}
+              onExpand={this.onExpandDescription}
+            />
+          </View>
         </Container>
-      </Row>
+        {listing.development && (
+          <DevelopmentContainer>
+            <ListingDescription
+              bg="snow"
+              title="Sobre o empreendimento"
+              paragraphs={getParagraphs(listing.development.description)}
+            />
+          </DevelopmentContainer>
+        )}
+      </Col>
     )
   }
 }

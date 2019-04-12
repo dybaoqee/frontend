@@ -19,6 +19,8 @@ export const TextTitle = Text.withComponent('h2')
 
 export const Title = styled(TextTitle)`
   margin: 0;
+  display: flex;
+  flex-direction: column;
 `
 
 export const ExtraTitleSEO = styled.span`
@@ -96,7 +98,7 @@ export const PriceItem = styled(Text)`
   }
 
   span {
-    font-size: inherit; 
+    font-size: inherit;
   }
 `
 

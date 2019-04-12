@@ -1,17 +1,72 @@
 import styled from 'styled-components'
 import theme from 'config/theme'
+import {themeGet, bgColor} from 'styled-system'
 import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
-import {breakpoint} from '@emcasa/ui/lib/styles'
+
+export const TITLE_HEIGHT = 50
+
+const animation = '250ms ease-in-out'
 
 export default styled(Row)`
+  box-sizing: border-box;
   flex: 1 1 100%;
+  ${bgColor};
+  overflow: hidden;
+`
+
+export const Content = styled(Row)`
+  min-height: ${(props) => props.collapsedHeight};
+  transition: all ${animation};
+  ${({expanded, collapsedHeight}) => expanded ? `
+    max-height: 100vh;
+  ` : `
+    overflow: hidden;
+    position: relative;
+    max-height: ${collapsedHeight};
+  `}
+  &:before {
+    content: ' ';
+    display: table;
+    height: ${themeGet('space.4')}px;
+  }
+  ${Text} {
+    margin: 0 0 ${theme.space[5]}px;
+  }
+`
+
+Content.defaultProps = {
+  collapsedHeight: '0px'
+}
+
+export const TitleText = Text.withComponent('h3')
+
+export const Title = styled(TitleText)`
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  height: ${TITLE_HEIGHT}px;
+  margin: 0;
+  pointer-events: none;
+  span {
+    pointer-events: all;
+  }
+`
+
+export const BottomRow = styled(Row)`
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: -${TITLE_HEIGHT}px;
+  height: ${TITLE_HEIGHT}px;
+  background: linear-gradient(to bottom, transparent, 50%, ${props => bgColor(props).backgroundColor});
+  transition: all ${animation};
 
   ${Button} {
     display: flex;
-    align-self: flex-end;
-    align-item: center;
+    align-items: center;
     justify-content: center;
     font-size: ${theme.fontSizes[1]}px;
 
@@ -26,30 +81,4 @@ export default styled(Row)`
     }
   }
 `
-
-export const Content = styled(Row)`
-  ${({expanded}) => expanded ? null : `
-    height: 215px;
-    overflow: hidden;
-    position: relative;
-
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      height: 100px;
-      width: 100%;
-      background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), white);
-    }
-  `}
-
-  ${Text} {
-    margin: 0 0 ${theme.space[5]}px;
-  }
-`
-
-export const TitleText = Text.withComponent('h3')
-export const Title = styled(TitleText)`
-  margin: 0 0 ${theme.space[5]}px;
-`
+//      background-image: linear-gradient(to bottom, transparent, ${bgColor(props).backgroundColor});

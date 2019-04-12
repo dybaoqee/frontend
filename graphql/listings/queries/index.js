@@ -129,6 +129,7 @@ export const GET_FULL_LISTING = gql`
       development {
         uuid
         name
+        description
         images(isActive: true) {
           filename
           position
