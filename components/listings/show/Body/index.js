@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import NumberFormat from 'react-number-format'
 import {getParagraphs} from 'utils/text-utils'
 import {canEdit} from 'permissions/listings-permissions'
 import {
@@ -9,10 +8,7 @@ import {
   LISTING_DETAIL_OPEN,
   LISTING_DETAIL_EXPAND_DESCRIPTION
 } from 'lib/logging'
-import Text from '@emcasa/ui-dom/components/Text'
-import Button from '@emcasa/ui-dom/components/Button'
 import View from '@emcasa/ui-dom/components/View'
-import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import ListingInfo from './ListingInfo'
 import ListingDescription from './ListingDescription'
@@ -32,7 +28,6 @@ class ListingMainContent extends Component {
     const {
       listing,
       user,
-      favorite,
       openMatterportPopup,
       openMapPopup,
       openStreetViewPopup
@@ -48,13 +43,6 @@ class ListingMainContent extends Component {
           listing.complement ? `- ${listing.complement}` : ''
         }`
       : `${street}`
-    const {
-        price,
-        area,
-        propertyTax,
-        maintenanceFee
-      } = this.props.listing
-    const pricePerSquareMeter = Math.floor(price / area)
 
     return (
       <Col alignItems="center" width="100%" mt={5}>
@@ -91,7 +79,6 @@ class ListingMainContent extends Component {
     )
   }
 }
-
 
 ListingMainContent.propTypes = {
   listing: PropTypes.object.isRequired,

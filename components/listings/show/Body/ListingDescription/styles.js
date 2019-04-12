@@ -4,6 +4,7 @@ import {themeGet, bgColor} from 'styled-system'
 import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
+import breakpoint from '@emcasa/ui/lib/styles/breakpoint';
 
 export const TITLE_HEIGHT = 50
 
@@ -15,6 +16,9 @@ export default styled(Row)`
   flex: 1 1 100%;
   ${bgColor};
   overflow: hidden;
+  @media screen and ${breakpoint.up('desktop')} {
+    flex: 1 1 100%;
+  }
 `
 
 export const Content = styled(Row)`
@@ -38,7 +42,7 @@ export const Content = styled(Row)`
     height: ${TITLE_HEIGHT}px;
   }
   ${Text} {
-    margin: 0 0 ${theme.space[5]}px;
+    margin: 0 0 ${theme.space[5]}px !important;
   }
 `
 

@@ -5,12 +5,10 @@ import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
 import {
   desktopHeaderHeight,
-  listingDetailsMaxWidth,
   listingDetailsBarHeight
 } from 'constants/dimensions'
 
 export const Wrapper = styled(Row)`
-  z-index: 10;
   align-items: center;
   justify-content: center;
   padding: ${theme.space[4]}px ${theme.space[4]}px;
@@ -19,7 +17,7 @@ export const Wrapper = styled(Row)`
   box-sizing: border-box;
 
   @media screen and ${breakpoint.up('desktop')} {
-    z-index: 1;
+    z-index: 6;
     position: fixed;
     left: 0;
     top: ${desktopHeaderHeight}px;
