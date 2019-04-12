@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import theme from 'config/theme'
 import {breakpoint} from '@emcasa/ui/lib/styles'
 import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
@@ -24,6 +25,14 @@ export const Content = styled(View)`
 export const Title = Text.withComponent('h2')
 
 export const SubTitle = Text.withComponent('h3')
+
+export const CarouselWrapper = styled(Row)`
+  > div {
+    padding-bottom: ${theme.space[5] * 2}px;
+    margin-bottom: ${theme.space[4]}px;
+  }
+
+`
 
 export const BenefitCol = styled(Col)`
   display: flex;
