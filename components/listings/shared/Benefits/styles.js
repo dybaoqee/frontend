@@ -17,8 +17,8 @@ export const Content = styled(View)`
   justify-content: space-between;
   max-width: 1100px;
   @media ${breakpoint.down('tablet')} {
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: ${theme.space[4]}px;
+    padding-right: ${theme.space[4]}px;
   }
 `
 
@@ -31,7 +31,6 @@ export const CarouselWrapper = styled(Row)`
     padding-bottom: ${theme.space[5] * 2}px;
     margin-bottom: ${theme.space[4]}px;
   }
-
 `
 
 export const BenefitCol = styled(Col)`
