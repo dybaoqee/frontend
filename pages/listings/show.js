@@ -29,7 +29,7 @@ import ButtonsBar from 'components/listings/show/ButtonsBar'
 import MatterportPopup from 'components/listings/show/MatterportPopup'
 import MapPopup from 'components/listings/show/MapPopup'
 import ContactForm from 'components/listings/show/ContactForm'
-import InterestPosted from 'components/listings/show/InterestForm/interest_posted'
+import ContactSuccess from 'components/listings/show/ContactSuccess'
 import RelatedListings from 'components/listings/show/RelatedListings'
 import Warning from 'components/shared/Common/Warning'
 import {buildSlug, getListingId} from 'lib/listings'
@@ -66,7 +66,9 @@ class Listing extends Component {
     isInterestSuccessPopupVisible: false,
     isMatterportPopupVisible: false,
     isMapPopupVisible: false,
-    isStreetViewPopupVisible: false
+    isStreetViewPopupVisible: false,
+    userName: null,
+    userPhone: null
   }
 
   static async getInitialProps(context) {
@@ -180,15 +182,7 @@ class Listing extends Component {
     const {id} = this.props.listing
     const {listing} = this.props
 
-    let quickForm
-    if (userInfo) {
-      quickForm = {
-        name: userInfo.name,
-        phone: userInfo.phone
-      }
-    }
-
-    const res = await createInterest(id, quickForm)
+    const res = await createInterest(id, {name: userInfo.name, phone: userInfo.phone})
 
     if (res.data.errors) {
       this.setState({errors: res.data.errors})
@@ -203,7 +197,9 @@ class Listing extends Component {
 
     this.setState({
       isInterestPopupVisible: false,
-      isInterestSuccessPopupVisible: true
+      isInterestSuccessPopupVisible: true,
+      userName: userInfo.name,
+      userPhone: userInfo.phone
     })
   }
 
@@ -376,8 +372,10 @@ class Listing extends Component {
                       />
                     )}
                     {isInterestSuccessPopupVisible && (
-                      <InterestPosted
+                      <ContactSuccess
                         onClose={this.closeSuccessPostInterestPopup}
+                        listing={listing}
+                        userInfo={{name: this.state.userName, phone: this.state.userPhone}}
                       />
                     )}
                   </Row>
