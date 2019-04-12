@@ -9,6 +9,11 @@ import Input from '@emcasa/ui-dom/components/Input'
 import Modal from 'components/shared/Modal'
 import InstructionText from './InstructionText'
 import {
+  log,
+  LISTING_DETAIL_VISIT_FORM_NAME_INPUT,
+  LISTING_DETAIL_VISIT_FORM_PHONE_INPUT
+} from 'lib/logging'
+import {
   PinkBox,
   Logo
 } from './styles'
@@ -24,7 +29,9 @@ class ContactForm extends Component {
     nameFieldValid: false,
     phoneFieldValid: false,
     showSuccess: false,
-    mobileKeyboard: false
+    mobileKeyboard: false,
+    nameTouched: false,
+    phoneTouched: false
   }
 
   componentDidMount() {
@@ -60,8 +67,18 @@ class ContactForm extends Component {
     }
   }
 
+  logInputTouched = (e, stateKey, eventName) => {
+    const {value} = e.target
+    if (!this.state[stateKey] && value) {
+      log(eventName)
+    }
+    if (value) {
+      this.setState({[stateKey]: true})
+    }
+  }
+
   render() {
-    const {onClose, onChange} = this.props
+    const {onClose} = this.props
     return (
       <Modal onClose={onClose} mobileKeyboard={this.state.mobileKeyboard}>
         <PinkBox>
@@ -79,7 +96,10 @@ class ContactForm extends Component {
               height="medium"
               onFocus={() => {this.setState({mobileKeyboard: true})}}
               onBlur={() => {this.setState({mobileKeyboard: false})}}
-              onChange={this.validateNameField}
+              onChange={(e) => {
+                this.logInputTouched(e, 'nameTouched', LISTING_DETAIL_VISIT_FORM_NAME_INPUT)
+                this.validateNameField(e)
+              }}
               ref={this.nameField}
             />
           </Col>
@@ -91,7 +111,10 @@ class ContactForm extends Component {
               type="tel"
               onFocus={() => {this.setState({mobileKeyboard: true})}}
               onBlur={() => {this.setState({mobileKeyboard: false})}}
-              onChange={this.validatePhoneField}
+              onChange={(e) => {
+                this.logInputTouched(e, 'phoneTouched', LISTING_DETAIL_VISIT_FORM_PHONE_INPUT)
+                this.validatePhoneField(e)
+              }}
               ref={this.phoneField}
             />
           </Col>
@@ -114,8 +137,7 @@ class ContactForm extends Component {
 
 ContactForm.propTypes = {
   onClose: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired
+  onSubmit: PropTypes.func.isRequired
 }
 
 export default ContactForm

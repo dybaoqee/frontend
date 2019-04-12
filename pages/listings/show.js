@@ -29,7 +29,6 @@ import ButtonsBar from 'components/listings/show/ButtonsBar'
 import MatterportPopup from 'components/listings/show/MatterportPopup'
 import MapPopup from 'components/listings/show/MapPopup'
 import ContactForm from 'components/listings/show/ContactForm'
-import InterestForm from 'components/listings/show/InterestForm'
 import InterestPosted from 'components/listings/show/InterestForm/interest_posted'
 import RelatedListings from 'components/listings/show/RelatedListings'
 import Warning from 'components/shared/Common/Warning'
@@ -63,12 +62,6 @@ export const Title = Text.withComponent('h2')
 class Listing extends Component {
   favMutated = false
   state = {
-    interestForm: {
-      name: '',
-      email: '',
-      phone: '',
-      message: ''
-    },
     isInterestPopupVisible: false,
     isInterestSuccessPopupVisible: false,
     isMatterportPopupVisible: false,
@@ -181,16 +174,9 @@ class Listing extends Component {
     this.setState({isInterestSuccessPopupVisible: false})
   }
 
-  onChange = (e) => {
-    const {interestForm} = this.state
-    interestForm[e.target.name] = e.target.value
-    this.setState({interestForm})
-  }
-
   onSubmit = async (e, userInfo) => {
     e && e.preventDefault()
 
-    const {interestForm} = this.state
     const {id} = this.props.listing
     const {listing} = this.props
 
@@ -202,7 +188,7 @@ class Listing extends Component {
       }
     }
 
-    const res = await createInterest(id, quickForm || interestForm)
+    const res = await createInterest(id, quickForm)
 
     if (res.data.errors) {
       this.setState({errors: res.data.errors})
@@ -239,8 +225,7 @@ class Listing extends Component {
 
     const {
       isInterestPopupVisible,
-      isInterestSuccessPopupVisible,
-      interestForm
+      isInterestSuccessPopupVisible
    } = this.state
 
     const roomInformationForPath = listing.rooms
@@ -387,7 +372,6 @@ class Listing extends Component {
                     {isInterestPopupVisible && (
                       <ContactForm
                         onClose={this.closeInterestPopup}
-                        onChange={this.onChange}
                         onSubmit={this.onSubmit}
                       />
                     )}
