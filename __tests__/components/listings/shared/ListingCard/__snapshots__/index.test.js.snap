@@ -179,7 +179,7 @@ exports[`<ListingCard/> should render component 1`] = `
           color="grey"
           fontSize="small"
         >
-          undefinedm² - undefined quarto
+          
         </span>
       </div>
       <div
@@ -191,7 +191,16 @@ exports[`<ListingCard/> should render component 1`] = `
           fontSize="large"
           fontWeight="bold"
         >
-          R$1,000,000
+          <span
+            style={
+              Object {
+                "fontSize": "100%",
+                "lineHeight": "100%",
+              }
+            }
+          >
+            R$ 1,000,000
+          </span>
         </span>
       </div>
     </div>
