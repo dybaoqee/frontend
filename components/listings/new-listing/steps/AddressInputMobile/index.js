@@ -12,7 +12,7 @@ class AddressInputMobile extends Component {
   }
 
   state = {
-    address: null
+    address: ''
   }
 
   selectAddress(addressFormatted, addressData) {

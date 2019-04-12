@@ -32,7 +32,7 @@ import InterestForm from 'components/listings/show/InterestForm'
 import InterestPosted from 'components/listings/show/InterestForm/interest_posted'
 import RelatedListings from 'components/listings/show/RelatedListings'
 import Warning from 'components/shared/Common/Warning'
-import {buildSlug, getListingId} from 'lib/listings'
+import {getListingId} from 'lib/listings'
 import NextHead from 'components/shared/NextHead'
 import getApolloClient from 'lib/apollo/initApollo'
 import {getUserInfo} from 'lib/user'
@@ -57,7 +57,6 @@ import {
 import {listingDetailsBarHeight} from 'constants/dimensions'
 import {captureException} from '@sentry/browser'
 
-export const Title = Text.withComponent('h2')
 
 class Listing extends Component {
   favMutated = false
@@ -452,13 +451,14 @@ class Listing extends Component {
                   flexDirection="column"
                   width={[1,null,null,'768px']}
                 >
-                  <Title
+                  <Text
+                    as="h2"
                     textAlign="center"
                     fontSize="xlarge"
                     fontWeight="normal"
                   >
                     {errorTitle}
-                  </Title>
+                  </Text>
                   <Text color="grey">{`Que tal olhar outras opções ${endQuestion}? Separamos alguns imóveis para você! Fique a vontade para dar uma olhada nessa lista`}
                   </Text>
                   <Row justifyContent="center" mt={2}>

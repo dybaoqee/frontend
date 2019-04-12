@@ -10,25 +10,24 @@ import {
   Container,
   Content,
   Icon,
-  Title,
-  SubTitle,
-  CarouselWrapper,
   BenefitCol,
-  VideoContainer
+  VideoContainer,
+  CarouselWrapper
 } from './styles'
 
 export default class Benefits extends Component {
-
   getBenefits = (isMobile, showTour) => {
-    const benefits = this.props.benefitsList.map(({icon, title, description}) => (
-      <BenefitCol width={[1,null,null,  3 / 12]} key={title}>
-        {icon && <Icon name={icon} />}
-        <SubTitle fontSize="large" fontWeight="normal" color="dark">
-          {title}
-        </SubTitle>
-        <Text color="gray">{description}</Text>
-      </BenefitCol>
-    ))
+    const benefits = this.props.benefitsList.map(
+      ({icon, title, description}) => (
+        <BenefitCol width={[1, null, null, 3 / 12]} key={title}>
+          {icon && <Icon name={icon} />}
+          <Text as="h2" fontSize="large" fontWeight="normal" color="dark">
+            {title}
+          </Text>
+          <Text color="gray">{description}</Text>
+        </BenefitCol>
+      )
+    )
 
     if (isMobile && !showTour) {
       return (
@@ -37,7 +36,8 @@ export default class Benefits extends Component {
           renderCenterRightControls={() => null}
           width="300px"
           initialSlideHeight={0}
-          heightMode="max">
+          heightMode="max"
+        >
           {benefits}
         </Carousel>
       )
@@ -47,33 +47,46 @@ export default class Benefits extends Component {
   }
 
   render() {
-    const {sectionTitle, buttonHref, buttonLabel, buttonClick, isMobile, showTour} = this.props
+    const {
+      sectionTitle,
+      buttonHref,
+      buttonLabel,
+      buttonClick,
+      isMobile,
+      showTour
+    } = this.props
 
     return (
       <Container>
         <Content>
           <Row justifyContent="center">
             <Col>
-              <Title fontSize="large" color="dark" fontWeight="bold" textAlign="center">
+              <Text
+                as="h2"
+                fontSize="large"
+                color="dark"
+                fontWeight="bold"
+                textAlign="center"
+              >
                 {sectionTitle}
-              </Title>
+              </Text>
             </Col>
           </Row>
-          {showTour &&
+          {showTour && (
             <Row justifyContent="center">
               <VideoContainer>
                 <video
-                  style={{width: "100%"}}
+                  style={{width: '100%'}}
                   src="https://s3.amazonaws.com/emcasa-ui/videos/tour-compressed.mp4"
                   type="video/mp4"
                   loop="loop"
                   muted="muted"
                   autoplay="autoplay"
-                  playsInline="playsinline">
-                </video>
+                  playsInline="playsinline"
+                />
               </VideoContainer>
             </Row>
-          }
+          )}
           <CarouselWrapper
             mt={2}
             justifyContent="center"
@@ -84,17 +97,19 @@ export default class Benefits extends Component {
               {this.getBenefits(isMobile, showTour)}
             </NoSSR>
           </CarouselWrapper>
-          {!showTour && <Row justifyContent="center">
-            <Col width={[1,null,null,  4 / 12]}>
-              <Link passHref href={buttonHref}>
-                <a>
-                  <Button height="tall" fluid onClick={buttonClick}>
-                    {buttonLabel}
-                  </Button>
-                </a>
-              </Link>
-            </Col>
-          </Row>}
+          {!showTour && (
+            <Row justifyContent="center">
+              <Col width={[1, null, null, 4 / 12]}>
+                <Link passHref href={buttonHref}>
+                  <a>
+                    <Button height="tall" fluid onClick={buttonClick}>
+                      {buttonLabel}
+                    </Button>
+                  </a>
+                </Link>
+              </Col>
+            </Row>
+          )}
         </Content>
       </Container>
     )

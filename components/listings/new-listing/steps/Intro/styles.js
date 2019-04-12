@@ -1,8 +1,6 @@
 import styled from 'styled-components'
-import theme from '@emcasa/ui'
 import {breakpoint} from '@emcasa/ui/lib/styles'
 import View from '@emcasa/ui-dom/components/View'
-import Text from '@emcasa/ui-dom/components/Text'
 import Row from '@emcasa/ui-dom/components/Row'
 
 export const Space = styled(View)`
@@ -14,8 +12,6 @@ export const Space = styled(View)`
     height: 5vh;
   }
 `
-
-export const Title = Text.withComponent('h1')
 
 export const Background = styled(Row)`
   display: flex;

@@ -1,10 +1,9 @@
-import {Fragment} from 'react'
+import React from 'react'
 import {Provider} from 'react-redux'
 import * as Sentry from '@sentry/browser'
 import get from 'lodash/get'
 import withRedux from 'next-redux-wrapper'
 import App, {Container} from 'next/app'
-import Head from 'next/head'
 import isUndefined from 'lodash/isUndefined'
 import Layout from 'components/shared/Shell'
 import {isAuthenticated, isAdmin, getCurrentUserId} from 'lib/auth'
@@ -12,9 +11,6 @@ import withApolloClient from 'lib/apollo/withApolloClient'
 import {ApolloProvider} from 'react-apollo'
 import {getJwt} from 'lib/auth'
 import {getCookie, removeCookie, setCookie} from 'lib/session'
-import Router from 'next/router'
-import Link from 'next/link'
-import codes from 'constants/statusCodes'
 import makeStore from 'redux/store'
 import {ThemeProvider} from 'styled-components'
 import theme from 'config/theme'
@@ -22,6 +18,7 @@ import '@emcasa/ui-dom/components/global-styles'
 import { DEVICE_ID_COOKIE } from 'components/shared/Flagr'
 import uuid from 'utils/uuid'
 import HTTPMessage from 'components/shared/Shell/HTTPMessage'
+import GlobalStyles from 'styles/global'
 
 class MyApp extends App {
   static async getInitialProps(ctx) {
@@ -152,6 +149,7 @@ class MyApp extends App {
                 pageProps={pageProps}
                 router={router}
               >
+                <GlobalStyles/>
                 {error ? (
                   <HTTPMessage asPath={url.asPath} statusCode={error.code} />
                 ) : (

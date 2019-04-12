@@ -1,7 +1,6 @@
 import get from 'lodash/get'
 import Document, {Main, NextScript} from 'next/document'
 import {ServerStyleSheet} from 'styled-components'
-import globalStyles from 'styles/global'
 import Head from './_head';
 
 const RD_STATION_SCRIPT =
@@ -104,7 +103,6 @@ export default class AppDocument extends Document {
               });`}}
           />
           {includeStyles ? styleTags : null}
-          {includeStyles ? globalStyles : null}
           <meta
             name="viewport"
             content="initial-scale=1.0, width=device-width"

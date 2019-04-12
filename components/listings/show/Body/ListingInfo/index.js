@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import theme from 'config/theme'
 import NumberFormat from 'react-number-format'
-import View from '@emcasa/ui-dom/components/View'
 import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
@@ -47,7 +46,7 @@ class ListingInfo extends React.Component {
 
     return (
       <Container>
-        <Title fontWeight="bold"><ExtraTitleSEO>{type} na </ExtraTitleSEO>{title}</Title>
+        <Title as="h2" fontWeight="bold"><ExtraTitleSEO>{type} na </ExtraTitleSEO>{title}</Title>
         <ValuesContainer>
           {rooms ? (
             <ValuesItem flexDirection="column">

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly 1`] = `
-.c7 {
+.c6 {
   -webkit-font-smoothing: antialiased;
   font-family: Rubik;
   color: #3c4858;
@@ -9,7 +9,7 @@ exports[`renders correctly 1`] = `
   text-align: center;
 }
 
-.c9 {
+.c8 {
   -webkit-font-smoothing: antialiased;
   font-family: Rubik;
   color: #e0e6ed;
@@ -17,7 +17,7 @@ exports[`renders correctly 1`] = `
   text-align: center;
 }
 
-.c10 {
+.c9 {
   -webkit-font-smoothing: antialiased;
   font-family: Rubik;
   color: #3c4858;
@@ -26,14 +26,7 @@ exports[`renders correctly 1`] = `
   text-align: center;
 }
 
-.c1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.c4 {
+.c3 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -43,7 +36,7 @@ exports[`renders correctly 1`] = `
   flex-direction: row;
 }
 
-.c13 {
+.c12 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -55,15 +48,15 @@ exports[`renders correctly 1`] = `
   justify-content: space-between;
 }
 
-.c2 {
+.c1 {
   width: 100%;
 }
 
-.c11 {
+.c10 {
   margin-bottom: 20px;
 }
 
-.c12 {
+.c11 {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -81,7 +74,7 @@ exports[`renders correctly 1`] = `
   font-family: Rubik;
 }
 
-.c14 {
+.c13 {
   outline: none;
   cursor: pointer;
   padding: 0 20px 0 20px;
@@ -101,11 +94,11 @@ exports[`renders correctly 1`] = `
   border-style: solid;
 }
 
-.c14 :hover {
+.c13:hover {
   background-color: #ffffff;
 }
 
-.c15 {
+.c14 {
   outline: none;
   cursor: pointer;
   padding: 0 20px 0 20px;
@@ -125,12 +118,15 @@ exports[`renders correctly 1`] = `
   border-style: solid;
 }
 
-.c15 :hover {
+.c14:hover {
   background-color: #f50057;
 }
 
 .c0 {
-  width: calc(100vw - 40px);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   padding: 80px 20px 20px 20px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
@@ -138,12 +134,24 @@ exports[`renders correctly 1`] = `
   justify-content: center;
 }
 
-.c6 {
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
   width: auto;
   height: 22px;
 }
 
-.c3 {
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   width: 100%;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
@@ -154,7 +162,11 @@ exports[`renders correctly 1`] = `
   flex-direction: row;
 }
 
-.c5 {
+.c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   position: relative;
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
@@ -172,7 +184,7 @@ exports[`renders correctly 1`] = `
   margin: 10px 0 10px 0;
 }
 
-.c8 {
+.c7 {
   position: absolute;
   margin-top: 20px;
   margin-left: 59px;
@@ -182,7 +194,7 @@ exports[`renders correctly 1`] = `
 }
 
 @media screen and (min-width:780px) {
-  .c2 {
+  .c1 {
     width: 50%;
   }
 }
@@ -196,10 +208,10 @@ exports[`renders correctly 1`] = `
 
 <div>
   <div
-    className="c0 c1"
+    className="c0"
   >
     <div
-      className="c2"
+      className="c1"
       width={
         Array [
           1,
@@ -210,16 +222,16 @@ exports[`renders correctly 1`] = `
       }
     >
       <div
-        className="c3 c1"
+        className="c2"
       >
         <div
-          className="c4"
+          className="c3"
         >
           <div
-            className="c5 c1"
+            className="c4"
           >
             <div
-              className="c6"
+              className="c5"
             >
               <svg
                 height={22}
@@ -237,7 +249,7 @@ exports[`renders correctly 1`] = `
               </svg>
             </div>
             <span
-              className="c7"
+              className="c6"
               color="dark"
               fontSize="small"
             >
@@ -245,14 +257,14 @@ exports[`renders correctly 1`] = `
             </span>
           </div>
           <div
-            className="c8 "
+            className="c7"
           />
         </div>
         <div
-          className="c4"
+          className="c3"
         >
           <div
-            className="c5 c1"
+            className="c4"
           >
             <svg
               aria-hidden="true"
@@ -277,7 +289,7 @@ exports[`renders correctly 1`] = `
               />
             </svg>
             <span
-              className="c7"
+              className="c6"
               color="dark"
               fontSize="small"
             >
@@ -285,14 +297,14 @@ exports[`renders correctly 1`] = `
             </span>
           </div>
           <div
-            className="c8 "
+            className="c7"
           />
         </div>
         <div
-          className="c4"
+          className="c3"
         >
           <div
-            className="c5 c1"
+            className="c4"
           >
             <svg
               aria-hidden="true"
@@ -317,7 +329,7 @@ exports[`renders correctly 1`] = `
               />
             </svg>
             <span
-              className="c9"
+              className="c8"
               color="lightGrey"
               fontSize="small"
             >
@@ -325,14 +337,14 @@ exports[`renders correctly 1`] = `
             </span>
           </div>
           <div
-            className="c8 "
+            className="c7"
           />
         </div>
         <div
-          className="c4"
+          className="c3"
         >
           <div
-            className="c5 c1"
+            className="c4"
           >
             <svg
               aria-hidden="true"
@@ -357,7 +369,7 @@ exports[`renders correctly 1`] = `
               />
             </svg>
             <span
-              className="c9"
+              className="c8"
               color="lightGrey"
               fontSize="small"
             >
@@ -367,7 +379,7 @@ exports[`renders correctly 1`] = `
         </div>
       </div>
       <p
-        className="c10"
+        className="c9"
         color="dark"
         fontSize="large"
         fontWeight="bold"
@@ -375,10 +387,10 @@ exports[`renders correctly 1`] = `
         De qual tipo de imóvel estamos falando?
       </p>
       <div
-        className="c11"
+        className="c10"
       >
         <select
-          className="c12"
+          className="c11"
           color="dark"
           defaultValue="_placeholder"
           fontSize="default"
@@ -409,13 +421,13 @@ exports[`renders correctly 1`] = `
         </select>
       </div>
       <div
-        className="c13"
+        className="c12"
       >
         <div
           className=""
         >
           <button
-            className="c14"
+            className="c13"
             fontSize="default"
             height="tall"
             onClick={[Function]}
@@ -432,7 +444,7 @@ exports[`renders correctly 1`] = `
           className=""
         >
           <button
-            className="c15"
+            className="c14"
             disabled={false}
             fontSize="default"
             height="tall"

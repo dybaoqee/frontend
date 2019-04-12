@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<MobileAddressButton/> should render component on mobile 1`] = `
-.c1 {
+.c0 {
   outline: none;
   display: block;
   cursor: pointer;
@@ -20,46 +20,40 @@ exports[`<MobileAddressButton/> should render component on mobile 1`] = `
   font-size: 18px;
   -webkit-font-smoothing: antialiased;
   border-style: solid;
-}
-
-.c1 :hover {
-  background-color: #ffffff;
-}
-
-.c4 {
-  -webkit-font-smoothing: antialiased;
-  font-family: Rubik;
-  color: #3c4858;
-  font-size: 18px;
-}
-
-.c0 {
   font-size: 18px;
   text-align: left;
   padding: 0 10px 0 10px;
 }
 
-.c3 {
+.c0:hover {
+  background-color: #ffffff;
+}
+
+.c2 {
+  -webkit-font-smoothing: antialiased;
+  font-family: Rubik;
+  color: #3c4858;
+  font-size: 18px;
   white-space: nowrap;
   color: #3c4858;
 }
 
-.c2 {
+.c1 {
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 <button
-  className="c0 c1"
+  className="c0"
   fontSize="default"
   height="tall"
   onClick={[Function]}
 >
   <div
-    className="c2"
+    className="c1"
   >
     <span
-      className="c3 c4"
+      className="c2"
       color="dark"
       fontSize="default"
       hasAddress={true}

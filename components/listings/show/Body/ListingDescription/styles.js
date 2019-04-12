@@ -51,7 +51,6 @@ export const Content = styled(Row)`
   }
 `
 
-export const TitleText = Text.withComponent('h3')
-export const Title = styled(TitleText)`
+export const Title = styled(Text)`
   margin: 0 0 ${theme.space[5]}px;
 `

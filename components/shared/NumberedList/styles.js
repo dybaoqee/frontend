@@ -16,9 +16,7 @@ export const Item = styled(Row)`
   margin: ${theme.space[2]}px 0 ${theme.space[2]}px 0;
 `
 
-const InlineText = Text.withComponent('span')
-
-export const Number = styled(InlineText)`
+export const Number = styled(Text)`
   z-index: 1;
   display: flex;
   align-items: center;

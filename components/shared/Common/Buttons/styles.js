@@ -19,7 +19,7 @@ const LegacyButton = styled.button`
   }
 `
 
-export const BaseButton = LegacyButton.extend`
+export const BaseButton = styled(LegacyButton)`
   font-size: 14px;
   font-weight: 600;
   box-sizing: border-box;
@@ -27,7 +27,7 @@ export const BaseButton = LegacyButton.extend`
   padding: 7px 12px 9px;
 `
 
-export default BaseButton.extend`
+export default styled(BaseButton)`
   background-color: ${({light, secondary}) =>
     light ? 'white' : secondary ? colors.green.medium : colors.blue.medium};
   color: ${({light, secondary}) =>

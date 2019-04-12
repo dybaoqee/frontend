@@ -14,9 +14,7 @@ export const Container = styled(Col)`
   }
 `
 
-export const TextTitle = Text.withComponent('h2')
-
-export const Title = styled(TextTitle)`
+export const Title = styled(Text)`
   margin: 0;
 `
 
