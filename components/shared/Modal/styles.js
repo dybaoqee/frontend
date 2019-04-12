@@ -5,6 +5,7 @@ import {zIndexModal} from 'constants/zIndex'
 
 const WIDTH = 420
 const HEIGHT = 640
+const MOBILE_KEYBOARD_HEIGHT = 240
 
 export const Background = styled(View)`
   position: fixed;
@@ -34,5 +35,10 @@ export const Container = styled(View)`
     width: auto;
     height: 100%;
     margin: 0;
+
+    ${({mobileKeyboard}) => mobileKeyboard && `
+      height: calc(100% + ${MOBILE_KEYBOARD_HEIGHT}px);
+      margin-top: ${-MOBILE_KEYBOARD_HEIGHT}px;
+    `}
   }
 `

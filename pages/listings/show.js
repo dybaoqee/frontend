@@ -386,7 +386,6 @@ class Listing extends Component {
                     </Row>
                     {isInterestPopupVisible && (
                       <ContactForm
-                        data={interestForm}
                         onClose={this.closeInterestPopup}
                         onChange={this.onChange}
                         onSubmit={this.onSubmit}

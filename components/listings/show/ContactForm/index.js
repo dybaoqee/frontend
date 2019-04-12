@@ -23,7 +23,8 @@ class ContactForm extends Component {
   state = {
     nameFieldValid: false,
     phoneFieldValid: false,
-    showSuccess: false
+    showSuccess: false,
+    mobileKeyboard: false
   }
 
   componentDidMount() {
@@ -60,9 +61,9 @@ class ContactForm extends Component {
   }
 
   render() {
-    const {onClose, onSubmit, data, onChange} = this.props
+    const {onClose, onChange} = this.props
     return (
-      <Modal onClose={onClose}>
+      <Modal onClose={onClose} mobileKeyboard={this.state.mobileKeyboard}>
         <PinkBox>
           <Logo />
           <View px={4} pt={4}>
@@ -76,6 +77,8 @@ class ContactForm extends Component {
               fluid
               label="Nome"
               height="medium"
+              onFocus={() => {this.setState({mobileKeyboard: true})}}
+              onBlur={() => {this.setState({mobileKeyboard: false})}}
               onChange={this.validateNameField}
               ref={this.nameField}
             />
@@ -86,6 +89,8 @@ class ContactForm extends Component {
               label="Telefone"
               height="medium"
               type="tel"
+              onFocus={() => {this.setState({mobileKeyboard: true})}}
+              onBlur={() => {this.setState({mobileKeyboard: false})}}
               onChange={this.validatePhoneField}
               ref={this.phoneField}
             />
@@ -110,7 +115,6 @@ class ContactForm extends Component {
 ContactForm.propTypes = {
   onClose: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
-  data: PropTypes.object,
   onChange: PropTypes.func.isRequired
 }
 

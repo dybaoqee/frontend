@@ -25,6 +25,7 @@ class Modal extends Component {
           justifyContent={this.props.justifyContent}
           onClose={this.props.onClose}
           onClick={(e) => {e.preventDefault()}}
+          mobileKeyboard={this.props.mobileKeyboard}
         >
           <CloseButton unstyled={this.props.unstyledCloseButton} onClick={this.props.onClose} />
           {this.props.children}
@@ -37,7 +38,8 @@ class Modal extends Component {
 Modal.propTypes = {
   onClose: PropTypes.func.isRequired,
   justifyContent: PropTypes.string,
-  unstyledCloseButton: PropTypes.bool
+  unstyledCloseButton: PropTypes.bool,
+  mobileKeyboard: PropTypes.bool
 }
 
 export default Modal
