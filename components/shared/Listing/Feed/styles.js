@@ -1,15 +1,14 @@
 import styled from 'styled-components'
-import theme from 'config/theme'
+import {themeGet} from 'styled-system'
 import {breakpoint} from '@emcasa/ui/lib/styles'
 import {listingDetailsMaxWidth} from 'constants/dimensions'
-import Text from '@emcasa/ui-dom/components/Text'
 
 export const Container = styled.div`
   position: relative;
   width: 100%;
   max-width: ${listingDetailsMaxWidth}px;
   margin: auto;
-  padding: 0 ${theme.space[4]}px;
+  padding: 0 ${themeGet('space.4')}px;
   box-sizing: border-box;
 `
 
@@ -30,7 +29,7 @@ export const Gradient = styled.div`
   @media ${breakpoint.up('desktop')} {
     position: absolute;
     top: 0;
-    right: ${theme.space[4]}px;
+    right: ${themeGet('space.4')}px;
     width: 60px;
     height: 100%;
     background-image: linear-gradient(to right, rgba(255, 255, 255, 0), white);

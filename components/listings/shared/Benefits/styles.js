@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import theme from 'config/theme'
+import {themeGet} from 'styled-system'
 import {breakpoint} from '@emcasa/ui/lib/styles'
 import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
@@ -16,15 +16,15 @@ export const Content = styled(View)`
   justify-content: space-between;
   max-width: 1100px;
   @media ${breakpoint.down('tablet')} {
-    padding-left: ${theme.space[4]}px;
-    padding-right: ${theme.space[4]}px;
+    padding-left: ${themeGet('space.4')}px;
+    padding-right: ${themeGet('space.4')}px;
   }
 `
 
 export const CarouselWrapper = styled(Row)`
   > div {
-    padding-bottom: ${theme.space[5] * 2}px;
-    margin-bottom: ${theme.space[4]}px;
+    padding-bottom: ${(props) => themeGet('space.5')(props) * 2}px;
+    margin-bottom: ${themeGet('space.4')}px;
   }
 `
 

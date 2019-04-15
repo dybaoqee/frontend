@@ -1,6 +1,6 @@
 import {createGlobalStyle} from 'styled-components'
+import {themeGet} from 'styled-system'
 import {mobileMedia} from 'constants/media'
-import theme from 'config/theme'
 import * as colors from 'constants/colors'
 
 export default createGlobalStyle`
@@ -31,7 +31,7 @@ body {
   margin: 0;
   padding: 0;
 
-  font-family: ${theme.fontFamily};
+  font-family: ${themeGet('fontFamily')};
   font-size: 1rem;
   line-height: 1.5;
 }
@@ -123,7 +123,7 @@ form {
 }
 
 #nprogress .bar {
-  background: ${theme.colors.pink};
+  background: ${themeGet('colors.pink')};
 
   position: fixed;
   z-index: 9999;

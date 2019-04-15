@@ -1,20 +1,19 @@
 import styled from 'styled-components'
-import theme from 'config/theme'
+import {themeGet} from 'styled-system'
 import {breakpoint} from '@emcasa/ui/lib/styles'
 import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
 import {
   desktopHeaderHeight,
-  listingDetailsMaxWidth,
   listingDetailsBarHeight
 } from 'constants/dimensions'
 
 export const Wrapper = styled(Row)`
   align-items: center;
   justify-content: center;
-  padding: ${theme.space[4]}px ${theme.space[4]}px;
-  border-top: 1px solid ${theme.colors.lightGrey};
-  border-bottom: 1px solid ${theme.colors.lightGrey};
+  padding: ${themeGet('space.4')}px ${themeGet('space.4')}px;
+  border-top: 1px solid ${themeGet('colors.lightGrey')};
+  border-bottom: 1px solid ${themeGet('colors.lightGrey')};
   box-sizing: border-box;
 
   @media screen and ${breakpoint.up('desktop')} {
@@ -24,8 +23,8 @@ export const Wrapper = styled(Row)`
     top: ${desktopHeaderHeight}px;
     width: 100%;
     height: ${listingDetailsBarHeight}px;
-    padding: 0 ${theme.space[4]}px;
-    background: ${theme.colors.white};
+    padding: 0 ${themeGet('space.4')}px;
+    background: ${themeGet('colors.white')};
   }
 
   ${Text} {
@@ -39,7 +38,7 @@ export const Wrapper = styled(Row)`
     }
 
     span {
-      margin-left: ${theme.space[1]}px;
+      margin-left: ${themeGet('space.1')}px;
     }
   }
 `

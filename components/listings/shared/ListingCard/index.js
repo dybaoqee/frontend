@@ -19,6 +19,7 @@ import {
   log,
   LISTING_DETAIL_VIEW_FEATURED_LISTING
 } from 'lib/logging'
+import {withTheme} from 'styled-components'
 
 class ListingCard extends Component {
   render() {
@@ -64,7 +65,7 @@ class ListingCard extends Component {
               <Row><Text inline fontSize="large" fontWeight="bold">{intToCurrency(listing.price)}</Text></Row>
             </Row>
             <LikeButton
-              top={Math.round(getCardWidth() * 0.5 - 25)}
+              top={Math.round(getCardWidth(this.props) * 0.5 - 25)}
               favorite={favorited}
               listing={listing}
               user={currentUser}
@@ -84,4 +85,4 @@ ListingCard.propTypes = {
   related: PropTypes.bool
 }
 
-export default ListingCard
+export default withTheme(ListingCard)
