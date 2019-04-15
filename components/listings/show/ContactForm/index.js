@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
+import theme from '@emcasa/ui'
 import Text from '@emcasa/ui-dom/components/Text'
 import View from '@emcasa/ui-dom/components/View'
 import Button from '@emcasa/ui-dom/components/Button'
@@ -80,7 +81,12 @@ class ContactForm extends Component {
   render() {
     const {onClose} = this.props
     return (
-      <Modal onClose={onClose} mobileKeyboard={this.state.mobileKeyboard} unstyledCloseButton>
+      <Modal
+        onClose={onClose}
+        mobileKeyboard={this.state.mobileKeyboard}
+        closeButtonStyle={{backgroundColor: 'transparent', border: 0}}
+        closeIconColor={theme.colors.white}
+      >
         <PinkBox>
           <Logo />
           <View px={4} pt={4}>
