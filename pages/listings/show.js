@@ -32,7 +32,7 @@ import InterestForm from 'components/listings/show/InterestForm'
 import InterestPosted from 'components/listings/show/InterestForm/interest_posted'
 import RelatedListings from 'components/listings/show/RelatedListings'
 import Warning from 'components/shared/Common/Warning'
-import {getListingId} from 'lib/listings'
+import {buildSlug, getListingId} from 'lib/listings'
 import NextHead from 'components/shared/NextHead'
 import getApolloClient from 'lib/apollo/initApollo'
 import {getUserInfo} from 'lib/user'
@@ -106,6 +106,14 @@ class Listing extends Component {
     }
 
     if (listing) {
+      if (asPath && res) {
+        const urlParams = asPath.split('/').length
+        //If client is trying to access old slugs then redirect
+        if (urlParams <= 3 || urlParams === 5) {
+          res.redirect(301, buildSlug(listing))
+        }
+      }
+
       return {
         listing,
         currentUser,
