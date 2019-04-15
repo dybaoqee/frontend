@@ -1,12 +1,25 @@
 import styled from 'styled-components'
 import theme from 'config/theme'
 import Button from '@emcasa/ui-dom/components/Button'
+import Icon from '@emcasa/ui-dom/components/Icon'
 
-export default styled(Button)`
+export const StyledCloseButton = styled(Button)`
   z-index: 5;
   position: absolute;
   top: ${theme.space[2]}px;
   right: ${theme.space[2]}px;
-  background-color: ${({unstyled}) => unstyled ? 'transparent' : null };
-  border: ${({unstyled}) => unstyled ? '0' : null };
+`
+
+export const CloseIcon = styled(Icon)`
+  ${({color}) => color && `
+    svg, path {
+      :hover {
+        background-color: transparent;
+      }
+    }
+
+    :hover {
+      background-color: transparent;
+    }
+  `}
 `
