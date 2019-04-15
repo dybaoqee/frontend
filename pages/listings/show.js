@@ -45,6 +45,8 @@ import {TEST_SCHEDULE_VISIT_CTA} from 'components/shared/Flagr/tests'
 import {
   log,
   getListingInfoForLogs,
+  LISTING_DETAIL_CANCEL_VISIT_FORM,
+  LISTING_DETAIL_CLOSE_VISIT_FORM,
   LISTING_DETAIL_OPEN_VISIT_FORM,
   LISTING_DETAIL_SCHEDULE_VISIT,
   LISTING_DETAIL_MATTERPORT_OPEN,
@@ -169,10 +171,12 @@ class Listing extends Component {
   }
 
   closeInterestPopup = () => {
+    log(LISTING_DETAIL_CANCEL_VISIT_FORM)
     this.setState({isInterestPopupVisible: false})
   }
 
   closeSuccessPostInterestPopup = () => {
+    log(LISTING_DETAIL_CLOSE_VISIT_FORM)
     this.setState({isInterestSuccessPopupVisible: false})
   }
 

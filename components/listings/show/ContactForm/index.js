@@ -80,7 +80,7 @@ class ContactForm extends Component {
   render() {
     const {onClose} = this.props
     return (
-      <Modal onClose={onClose} mobileKeyboard={this.state.mobileKeyboard}>
+      <Modal onClose={onClose} mobileKeyboard={this.state.mobileKeyboard} unstyledCloseButton>
         <PinkBox>
           <Logo />
           <View px={4} pt={4}>

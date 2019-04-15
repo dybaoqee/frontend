@@ -13,6 +13,13 @@ import Button from '@emcasa/ui-dom/components/Button'
 import Modal from 'components/shared/Modal'
 import AccountKit from 'components/shared/Auth/AccountKit'
 import {
+  log,
+  LISTING_DETAIL_VISIT_FORM_SAVE_LISTING_BUTTON,
+  LISTING_DETAIL_VISIT_FORM_SAVE_LISTING_LOGIN_CANCEL,
+  LISTING_DETAIL_VISIT_FORM_SAVE_LISTING_LOGIN_SUCCESS,
+  LISTING_DETAIL_VISIT_FORM_SAVE_LISTING_SUCCESS
+} from 'lib/logging'
+import {
   GreenBox,
   CheckContainer
 } from './styles'
@@ -23,8 +30,14 @@ class ContactSuccess extends Component {
   }
 
   onLoginSuccess = (userInfo, favoriteListing) => {
+    if (!userInfo) {
+      log(LISTING_DETAIL_VISIT_FORM_SAVE_LISTING_LOGIN_CANCEL, {listingId: this.props.listing.id})
+      return
+    }
+    log(LISTING_DETAIL_VISIT_FORM_SAVE_LISTING_LOGIN_SUCCESS, {listingId: this.props.listing.id})
     try {
       favoriteListing({refetchQueries: [{query: GET_USER_LISTINGS_ACTIONS}], variables: {id: this.props.listing.id}})
+      log(LISTING_DETAIL_VISIT_FORM_SAVE_LISTING_SUCCESS, {listingId: this.props.listing.id})
       this.props.onClose()
     } catch (e) {
       captureException(e)
@@ -56,7 +69,10 @@ class ContactSuccess extends Component {
                   onSuccess={(userInfo) => {this.onLoginSuccess(userInfo, favoriteListing)}}
                   phoneNumber={this.props.userInfo.phone}
                 >
-                  {({signIn}) => <Button onClick={signIn}>Salvar este imóvel</Button>}
+                  {({signIn}) => <Button onClick={() => {
+                    log(LISTING_DETAIL_VISIT_FORM_SAVE_LISTING_BUTTON, {listingId: this.props.listing.id})
+                    signIn()
+                  }}>Salvar este imóvel</Button>}
                 </AccountKit>
               }
             </Mutation>
