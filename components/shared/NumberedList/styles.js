@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {themeGet} from 'styled-system'
+import theme from '@emcasa/ui'
 import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
 
@@ -13,7 +13,7 @@ export const Container = styled(Row)`
 export const Item = styled(Row)`
   position: relative;
   box-sizing: border-box;
-  margin: ${themeGet('space.2')}px 0 ${themeGet('space.2')}px 0;
+  margin: ${theme.space[2]}px 0 ${theme.space[2]}px 0;
 `
 
 export const Number = styled(Text)`
@@ -24,13 +24,11 @@ export const Number = styled(Text)`
   flex: 0 0 ${SIZE}px;
   width: ${SIZE}px;
   height: ${SIZE}px;
-  background: ${themeGet('colors.pink')};
+  background: ${theme.colors.pink};
   border-radius: 100%;
-  margin-right: ${themeGet('space.3')}px;
+  margin-right: ${theme.space[3]}px;
 
-  ${({last}) =>
-    !last &&
-    `
+  ${({last}) => !last && `
     ::before {
       z-index: 0;
       content: '';
@@ -41,5 +39,5 @@ export const Number = styled(Text)`
       height: 100%;
       border-right: 1px dashed #979797;
     }
-  `};
+  `}
 `

@@ -1,9 +1,10 @@
 import styled from 'styled-components'
-import {themeGet} from 'styled-system'
+import theme from 'config/theme'
 import {
   desktopHeaderHeight,
   listingDetailsBarHeight
 } from 'constants/dimensions'
+import {mobileMedia} from 'constants/media'
 import {breakpoint} from '@emcasa/ui/lib/styles'
 import Button from '@emcasa/ui-dom/components/Button'
 import MoonLoader from 'react-spinners/MoonLoader'
@@ -24,7 +25,7 @@ export default styled.div`
   max-width: 100%;
   min-height: ${({isFullScreen}) => isFullScreen ? null : `${LISTINGSLIDER_HEIGHT / 2}px`};
   overflow: hidden;
-  background-color: ${({isFullScreen, theme}) => isFullScreen ? theme.colors.dark : theme.colors.white};
+  background-color: ${({isFullScreen}) => isFullScreen ? theme.colors.dark : theme.colors.white};
   box-sizing: border-box;
 
   @media screen and ${breakpoint.up('desktop')} {
@@ -34,8 +35,8 @@ export default styled.div`
   > ${Button} {
     z-index: 5;
     position: absolute;
-    top: ${themeGet('space.2')}px;
-    right: ${themeGet('space.2')}px;
+    top: ${theme.space[2]}px;
+    right: ${theme.space[2]}px;
   }
 
   .slick-list,
@@ -77,7 +78,7 @@ export const Thumb = styled.div`
   box-sizing: border-box;
   max-height: 100%;
   height: ${LISTINGSLIDER_NAVIGATION_HEIGHT}px;
-  background: ${themeGet('colors.dark')};
+  background: ${theme.colors.dark};
   background-image: url(${({background}) => background});
   background-repeat: no-repeat;
   background-position: center center;
@@ -103,7 +104,7 @@ export const CarouselItem = styled.div`
   outline: none;
   box-sizing: border-box;
   position: relative;
-  background: ${themeGet('colors.smoke')};
+  background: ${theme.colors.smoke};
 
   @keyframes spin {
     to {
@@ -115,7 +116,7 @@ export const CarouselItem = styled.div`
 export const Arrow = styled(Button)`
   z-index: 3;
   position: absolute;
-  top: calc(50% - ${themeGet('space.2')}px);
+  top: calc(50% - ${theme.space[2]}px);
   ${({left}) => (!left ? `right: 0` : `left: 0`)};
   color: white;
   cursor: pointer;
@@ -132,7 +133,7 @@ export const Arrow = styled(Button)`
   svg {
     width: 40px !important;
     height: 40px;
-    filter: drop-shadow(1px 1px 4px ${themeGet('colors.dark')});
+    filter: drop-shadow(1px 1px 4px ${theme.colors.dark});
   }
 `
 
@@ -159,7 +160,7 @@ export const SliderNavigation = styled.div`
   }
 
   .slick-current {
-    border: 2px solid ${themeGet('colors.pink')};
+    border: 2px solid ${theme.colors.pink};
     opacity: 1;
     filter: grayscale(0%);
 

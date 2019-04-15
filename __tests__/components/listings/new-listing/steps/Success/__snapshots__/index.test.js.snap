@@ -413,7 +413,7 @@ exports[`renders correctly 1`] = `
                     color="grey"
                     fontSize="small"
                   >
-                    Aguarde a confirmação da visita.
+                     Aguarde a confirmação da visita.
                   </span>
                 </div>
               </div>

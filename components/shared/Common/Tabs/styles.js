@@ -1,14 +1,13 @@
 import styled from 'styled-components'
-import {themeGet} from 'styled-system'
 import {mobileMedia} from 'constants/media'
+import theme from 'config/theme'
 
 export default styled.div`
   box-sizing: border-box;
   width: 100%;
   max-width: ${({full}) => (full ? null : '700px')};
-  margin: ${({full, theme}) =>
-    full ? '0 auto 20px' : `50px auto ${theme.space[5]}px`};
-  padding: ${({full, theme}) => (full ? '40px' : `${theme.space[2]}px`)};
+  margin: ${({full}) => (full ? '0 auto 20px' : `50px auto ${theme.space[5]}px`)};
+  padding: ${({full}) => (full ? '40px' : `${theme.space[2]}px`)};
 
   @media ${mobileMedia} {
     padding: 10px;
@@ -18,7 +17,7 @@ export default styled.div`
 
 export const TabTitles = styled.div`
   display: flex;
-  margin-bottom: ${themeGet('space.5')}px;
+  margin-bottom: ${theme.space[5]}px;
 `
 
 export const TabTitle = styled.div`
@@ -27,13 +26,12 @@ export const TabTitle = styled.div`
   cursor: pointer;
   height: 30px;
   width: auto;
-  font-size: ${themeGet('fontSizes.1')}px;
+  font-size: ${theme.fontSizes[1]}px;
   letter-spacing: -0.1px;
   line-height: 22px;
   text-align: center;
-  padding: 0px ${themeGet('space.1')}px;
-  color: ${themeGet('colors.dark')};
+  padding: 0px ${theme.space[1]}px;
+  color: ${theme.colors.dark};
   transition: color 0.3s;
-  border-bottom: ${({active, theme}) =>
-    active ? `1px solid ${theme.colors.pink}` : null};
+  border-bottom: ${({active}) => active ? `1px solid ${theme.colors.pink}` : null};
 `

@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import {themeGet} from 'styled-system'
-
+import * as colors from 'constants/colors'
+import theme from 'config/theme'
 export default styled.div`
   box-sizing: border-box;
   width: 35px;
@@ -11,7 +11,7 @@ export default styled.div`
   color: #fff;
   border: 2px solid #fff;
   border-radius: 100%;
-  background-color: ${themeGet('colors.pink')};
+  background-color: ${theme.colors.pink};
   box-shadow: 1px 3px 6px rgba(0, 0, 0, 0.3);
 
   > span {
@@ -26,12 +26,13 @@ export default styled.div`
 
   ${({highlight}) =>
     highlight
-      ? `background-color: white; color: ${themeGet('colors.pink')}; 
-          border: 2px solid ${themeGet('colors.pink')};`
+      ? `background-color: white; color: ${
+          theme.colors.pink
+        }; border: 2px solid ${theme.colors.pink};`
       : ''};
   :hover {
     cursor: pointer;
-    color: ${themeGet('colors.pink')};
+    color: ${theme.colors.pink};
     background-color: white;
   }
 `

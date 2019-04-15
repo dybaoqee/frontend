@@ -1,7 +1,8 @@
 import styled from 'styled-components'
-import {themeGet} from 'styled-system'
+import theme from 'config/theme'
 import {ROW_HEIGHT as FILTER_ROW_HEIGHT} from '@emcasa/ui-dom/components/Filters/constants'
 import {MAX_HEADER_HEIGHT} from 'components/shared/Shell/Header/styles'
+import {desktopFilterHeight} from 'constants/dimensions'
 import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
 
@@ -17,24 +18,24 @@ const shouldShowMap = () => {
 }
 
 const Title = styled(Text)`
-  margin: 0 ${themeGet('space.4')}px ${themeGet('space.3')}px;
+  margin: 0 ${theme.space[4]}px ${theme.space[3]}px;
 `
 
 const Container = styled(Row)`
   justify-content: space-between;
-  margin-top: ${themeGet('space.3')}px;
+  margin-top: ${theme.space[3]}px;
 `
 
 const MapContainer = styled.div`
   position: sticky;
   top: ${MAP_OFFSET}px;
-  margin-right: ${themeGet('space.4')}px;
+  margin-right: ${theme.space[4]}px;
   overflow: hidden;
   box-sizing: border-box;
   background: white;
   border-radius: 4px;
   min-width: ${MAP_WIDTH_PERCENT}%;
-  height: calc(100vh - ${MAP_OFFSET}px - ${themeGet('space.2')}px);
+  height: calc(100vh - ${MAP_OFFSET}px - ${theme.space[2]}px);
 `
 
 const Loading = styled.div`

@@ -1,12 +1,18 @@
 import styled from 'styled-components'
-import {themeGet} from 'styled-system'
+import theme from 'config/theme'
 import * as colors from 'constants/colors'
+import {
+  headerMobileMedia,
+  mobileMedia
+} from 'constants/media'
 import Row from '@emcasa/ui-dom/components/Row'
+import Text from '@emcasa/ui-dom/components/Text'
+import {listingDetailsMaxWidth} from 'constants/dimensions'
 
 export const Wrapper = styled(Row)`
   justify-content: center;
-  padding: 0 ${themeGet('space.4')}px;
-  margin: ${themeGet('space.5')}px 0;
+  padding: 0 ${theme.space[4]}px;
+  margin: ${theme.space[5]}px 0;
 `
 
 export const Container = styled('ul')`
@@ -44,17 +50,17 @@ export const Path = styled.li`
       font-size: 14px;
       margin: 0 5px;
       position: relative;
-      color: ${themeGet('colors.grey')};
+      color: ${theme.colors.grey};
     }
   }
 
   a {
     cursor: pointer;
     text-decoration: none;
-    color: ${themeGet('colors.grey')};
+    color: ${theme.colors.grey};
 
     &:hover {
-      color: ${themeGet('colors.pink')};
+      color: ${theme.colors.pink};
     }
   }
 `

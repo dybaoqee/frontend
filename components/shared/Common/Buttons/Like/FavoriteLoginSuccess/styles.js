@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {themeGet} from 'styled-system'
+import theme from '@emcasa/ui'
 import View from '@emcasa/ui-dom/components/View'
 
 export const CheckContainer = styled(View)`
@@ -8,7 +8,7 @@ export const CheckContainer = styled(View)`
   justify-content: center;
   align-items: center;
 
-  border: 2px solid ${themeGet('colors.white')};
+  border: 2px solid ${theme.colors.white};
   width: 42px;
   height: 42px;
   border-radius: 50%;
@@ -17,8 +17,8 @@ export const CheckContainer = styled(View)`
     width: 15px;
 
     path {
-      fill: ${themeGet('colors.white')};
-      stroke: ${themeGet('colors.white')};
+      fill: ${theme.colors.white};
+      stroke: ${theme.colors.white};
       fill-opacity: 1;
       stroke-width: 1;
     }
@@ -31,5 +31,5 @@ export const GreenBox = styled(View)`
   justify-content: center;
   width: 100%;
   height: 40%;
-  background-color: ${themeGet('colors.green')};
+  background-color: ${theme.colors.green};
 `

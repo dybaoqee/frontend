@@ -1,12 +1,13 @@
 import styled from 'styled-components'
-import {themeGet} from 'styled-system'
+import theme from 'config/theme'
+
+import * as colors from 'constants/colors'
 
 export default styled.div`
-  background: ${({highlight, theme}) =>
-    highlight ? 'white' : theme.colors.pink};
+  background: ${({highlight}) => (highlight ? 'white' : theme.colors.pink)};
   border-radius: 4px;
   box-shadow: 1px 3px 6px rgba(0, 0, 0, 0.3);
-  color: ${({highlight, theme}) => (highlight ? theme.colors.pink : 'white')};
+  color: ${({highlight}) => (highlight ? theme.colors.pink : 'white')};
   font-size: 12px;
   font-weight: 400;
   margin-top: -6px;
@@ -22,18 +23,18 @@ export default styled.div`
     transform: scale(1);
     z-index: 1;
     cursor: pointer;
-    color: ${themeGet('colors.pink')};
+    color: ${theme.colors.pink};
     &:after {
       border-top: 8px solid white;
     }
   }
   ${({text}) =>
     typeof text !== 'string'
-      ? `&:hover {cursor: grab;  background: ${themeGet(
-          'colors.pink'
-      )}; color: white;
+      ? `&:hover {cursor: grab;  background: ${
+          theme.colors.pink
+        }; color: white;
         &:after {
-          border-top: 8px solid ${themeGet('colors.pink')};
+          border-top: 8px solid ${theme.colors.pink};
         }}`
       : ''};
 
@@ -48,6 +49,6 @@ export default styled.div`
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
     border-top: 8px solid
-      ${({highlight, theme}) => (highlight ? 'white' : theme.colors.pink)};
+      ${({highlight}) => (highlight ? 'white' : theme.colors.pink)};
   }
 `

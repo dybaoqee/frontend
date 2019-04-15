@@ -1,22 +1,21 @@
 import styled from 'styled-components'
 import {themeGet} from 'styled-system'
 import {breakpoint} from '@emcasa/ui/lib/styles'
+import theme from 'config/theme'
 import View from '@emcasa/ui-dom/components/View'
 import Row from '@emcasa/ui-dom/components/Row'
 import Icon from '@emcasa/ui-dom/components/Icon'
 
-const HEIGHT_TALL = themeGet('buttonHeight.0')
-const HEIGHT_MEDIUM = themeGet('buttonHeight.0')
+const HEIGHT_TALL = theme.buttonHeight[0]
+const HEIGHT_MEDIUM = theme.buttonHeight[1]
 
 const SearchResultItem = styled(View)`
   display: flex;
   align-items: center;
   box-sizing: border-box;
   padding: ${themeGet('space.1')}px;
-  height: ${({height, ...props}) =>
-    height && height === 'medium'
-      ? HEIGHT_MEDIUM(props)
-      : HEIGHT_TALL(props)}px;
+  height: ${(props) =>
+    props.height && props.height === 'medium' ? HEIGHT_MEDIUM : HEIGHT_TALL}px;
   border: 1px solid ${themeGet('colors.lightGrey')};
   border-radius: ${themeGet('space.1')}px;
   background-color: ${themeGet('colors.white')};
@@ -73,7 +72,7 @@ const MobileTypeaheadContainer = styled(Row)`
 
   @media only screen and ${breakpoint.down('tablet')} {
     overflow-y: scroll;
-    padding-bottom: ${themeGet('space.4')}px;
+    padding-bottom: ${theme.space[4]}px;
   }
 `
 

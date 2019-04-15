@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
 import Link from 'next/link'
 import slug from 'slug'
-import {withTheme} from 'styled-components'
 import PropTypes from 'prop-types'
 import {Query} from 'react-apollo'
 import {MoonLoader} from 'react-spinners'
 import Fuse from 'fuse.js'
 import {GET_DISTRICTS} from 'graphql/listings/queries'
+import theme from 'config/theme'
 import {withBreakpoint} from '@emcasa/ui-dom/components/Breakpoint'
 import Input from '@emcasa/ui-dom/components/Input'
 import Col from '@emcasa/ui-dom/components/Col'
@@ -55,8 +55,7 @@ class NeighborhoodAutoComplete extends Component {
     onSelectAddress: PropTypes.func.isRequired,
     onClearInput: PropTypes.func,
     onBackPressed: PropTypes.func,
-    mountWithVisiblePredictions: PropTypes.bool,
-    theme: PropTypes.object
+    mountWithVisiblePredictions: PropTypes.bool
   }
 
   static defaultProps = {
@@ -244,7 +243,7 @@ class NeighborhoodAutoComplete extends Component {
       errors
     } = this.state
     const value = place.description || search
-    const {onBackPressed, defaultValue, height, theme} = this.props
+    const {onBackPressed, defaultValue, height} = this.props
 
     let suggestionsWidth = null
     if (this.inputContainer && this.inputContainer.current) {
@@ -300,4 +299,4 @@ class NeighborhoodAutoComplete extends Component {
   }
 }
 
-export default withTheme(withBreakpoint()(NeighborhoodAutoComplete))
+export default withBreakpoint()(NeighborhoodAutoComplete)
