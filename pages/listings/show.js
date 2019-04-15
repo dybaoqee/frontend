@@ -28,8 +28,8 @@ import PriceBar from 'components/listings/show/PriceBar'
 import ButtonsBar from 'components/listings/show/ButtonsBar'
 import MatterportPopup from 'components/listings/show/MatterportPopup'
 import MapPopup from 'components/listings/show/MapPopup'
-import InterestForm from 'components/listings/show/InterestForm'
-import InterestPosted from 'components/listings/show/InterestForm/interest_posted'
+import ContactForm from 'components/listings/show/ContactForm'
+import ContactSuccess from 'components/listings/show/ContactSuccess'
 import RelatedListings from 'components/listings/show/RelatedListings'
 import Warning from 'components/shared/Common/Warning'
 import {buildSlug, getListingId} from 'lib/listings'
@@ -45,6 +45,8 @@ import {TEST_SCHEDULE_VISIT_CTA} from 'components/shared/Flagr/tests'
 import {
   log,
   getListingInfoForLogs,
+  LISTING_DETAIL_CANCEL_VISIT_FORM,
+  LISTING_DETAIL_CLOSE_VISIT_FORM,
   LISTING_DETAIL_OPEN_VISIT_FORM,
   LISTING_DETAIL_SCHEDULE_VISIT,
   LISTING_DETAIL_MATTERPORT_OPEN,
@@ -61,17 +63,13 @@ import {captureException} from '@sentry/browser'
 class Listing extends Component {
   favMutated = false
   state = {
-    interestForm: {
-      name: '',
-      email: '',
-      phone: '',
-      message: ''
-    },
     isInterestPopupVisible: false,
     isInterestSuccessPopupVisible: false,
     isMatterportPopupVisible: false,
     isMapPopupVisible: false,
-    isStreetViewPopupVisible: false
+    isStreetViewPopupVisible: false,
+    userName: null,
+    userPhone: null
   }
 
   static async getInitialProps(context) {
@@ -180,35 +178,22 @@ class Listing extends Component {
   }
 
   closeInterestPopup = () => {
+    log(LISTING_DETAIL_CANCEL_VISIT_FORM)
     this.setState({isInterestPopupVisible: false})
   }
 
   closeSuccessPostInterestPopup = () => {
+    log(LISTING_DETAIL_CLOSE_VISIT_FORM)
     this.setState({isInterestSuccessPopupVisible: false})
-  }
-
-  onChange = (e) => {
-    const {interestForm} = this.state
-    interestForm[e.target.name] = e.target.value
-    this.setState({interestForm})
   }
 
   onSubmit = async (e, userInfo) => {
     e && e.preventDefault()
 
-    const {interestForm} = this.state
     const {id} = this.props.listing
     const {listing} = this.props
 
-    let quickForm
-    if (userInfo) {
-      quickForm = {
-        name: userInfo.name,
-        phone: userInfo.phone
-      }
-    }
-
-    const res = await createInterest(id, quickForm || interestForm)
+    const res = await createInterest(id, {name: userInfo.name, phone: userInfo.phone})
 
     if (res.data.errors) {
       this.setState({errors: res.data.errors})
@@ -223,7 +208,9 @@ class Listing extends Component {
 
     this.setState({
       isInterestPopupVisible: false,
-      isInterestSuccessPopupVisible: true
+      isInterestSuccessPopupVisible: true,
+      userName: userInfo.name,
+      userPhone: userInfo.phone
     })
   }
 
@@ -245,8 +232,7 @@ class Listing extends Component {
 
     const {
       isInterestPopupVisible,
-      isInterestSuccessPopupVisible,
-      interestForm
+      isInterestSuccessPopupVisible
    } = this.state
 
     const roomInformationForPath = listing.rooms
@@ -391,16 +377,16 @@ class Listing extends Component {
                       />
                     </Row>
                     {isInterestPopupVisible && (
-                      <InterestForm
-                        data={interestForm}
+                      <ContactForm
                         onClose={this.closeInterestPopup}
-                        onChange={this.onChange}
                         onSubmit={this.onSubmit}
                       />
                     )}
                     {isInterestSuccessPopupVisible && (
-                      <InterestPosted
+                      <ContactSuccess
                         onClose={this.closeSuccessPostInterestPopup}
+                        listing={listing}
+                        userInfo={{name: this.state.userName, phone: this.state.userPhone}}
                       />
                     )}
                   </Row>
