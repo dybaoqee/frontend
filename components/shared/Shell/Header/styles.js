@@ -1,5 +1,5 @@
 import styled, {keyframes} from 'styled-components'
-import {themeGet} from 'styled-system'
+import theme from 'config/theme'
 import Col from '@emcasa/ui-dom/components/Col'
 import {breakpoint} from '@emcasa/ui/lib/styles'
 import {zIndexHeader} from 'constants/zIndex'
@@ -17,7 +17,7 @@ export default styled.header`
   box-sizing: border-box;
   width: 100%;
   height: ${props => props.search ? MAX_HEADER_HEIGHT : desktopHeaderHeight}px;
-  padding: ${themeGet('space.2')}px ${themeGet('space.4')}px 0 ${themeGet('space.4')}px;
+  padding: ${theme.space[2]}px ${theme.space[4]}px 0 ${theme.space[4]}px;
   z-index: 1;
   transition: background 0.3s ease-out;
   transition: height 0.3s ease-out;
@@ -28,7 +28,7 @@ export default styled.header`
   }
 
   .search {
-    ${({search, theme}) => (!search ? {height: theme.buttonHeight[1]} : null)};
+    ${({search}) => (!search ? {height: theme.buttonHeight[1]} : null)};
   }
 `
 
@@ -111,7 +111,7 @@ export const CloseNavButton = styled.div`
   background: transparent;
   border: none;
   box-shadow: none;
-  color: ${themeGet('colors.dark')};
+  color: ${theme.colors.dark};
   margin: 30px;
   align-self: flex-end;
 
@@ -139,14 +139,14 @@ export const MenuItem = styled.div`
 
   p {
     font-size: 16px;
-    color: ${themeGet('colors.dark')};
+    color: ${theme.colors.dark};
     line-height: 24px;
     text-align: center;
   }
 
   &:hover,
   &.active {
-    border-bottom: 1px solid ${themeGet('colors.pink')};
+    border-bottom: 1px solid ${theme.colors.pink};
   }
 
   @media ${breakpoint.down('tablet')} {
@@ -160,7 +160,7 @@ export const MenuItem = styled.div`
     p {
       text-align: left;
       font-weight: 500;
-      color: ${themeGet('colors.dark')};
+      color: ${theme.colors.dark};
     }
 
     .icon {
@@ -173,7 +173,7 @@ export const MenuItem = styled.div`
 
     &:hover,
     &.active {
-      border-left: 7px solid ${themeGet('colors.pink')};
+      border-left: 7px solid ${theme.colors.pink};
       border-bottom: none;
     }
   }
@@ -235,7 +235,7 @@ export const Search = styled.div`
 
 export const SearchWrapper = styled(Col)`
   width: 100%;
-  margin-left: ${themeGet('space.4')}px;
+  margin-left: ${theme.space[4]}px;
   max-width: 560px;
 
   @media screen and ${breakpoint.down('tablet')} {

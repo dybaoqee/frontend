@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import theme from 'config/theme'
 import NumberFormat from 'react-number-format'
 import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
@@ -8,7 +9,6 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faCube from '@fortawesome/fontawesome-free-solid/faCube'
 import faMap from '@fortawesome/fontawesome-free-solid/faMap'
 import faStreetView from '@fortawesome/fontawesome-free-solid/faStreetView'
-import {withTheme} from 'styled-components'
 
 import {
   Container,
@@ -20,7 +20,7 @@ import {
   PriceItemSpacer,
   ValuesContainer,
   ValuesItem
-} from './styles'
+ } from './styles'
 
 class ListingInfo extends React.Component {
   render() {
@@ -28,8 +28,7 @@ class ListingInfo extends React.Component {
       title,
       openMatterportPopup,
       openMapPopup,
-      openStreetViewPopup,
-      theme
+      openStreetViewPopup
     } = this.props
     const {
       price,
@@ -47,10 +46,7 @@ class ListingInfo extends React.Component {
 
     return (
       <Container>
-        <Title as="h2" fontWeight="bold">
-          <ExtraTitleSEO>{type} na </ExtraTitleSEO>
-          {title}
-        </Title>
+        <Title as="h2" fontWeight="bold"><ExtraTitleSEO>{type} na </ExtraTitleSEO>{title}</Title>
         <ValuesContainer>
           {rooms ? (
             <ValuesItem flexDirection="column">
@@ -84,21 +80,12 @@ class ListingInfo extends React.Component {
           ) : null}
         </ValuesContainer>
         <ButtonsContainer>
-          {matterportCode && (
-            <OpenMatterportButton onClick={openMatterportPopup}>
-              <FontAwesomeIcon icon={faCube} />Ver por dentro
-            </OpenMatterportButton>
-          )}
-          <Button onClick={openMapPopup}>
-            <FontAwesomeIcon icon={faMap} color={theme.colors.blue} />Mapa
-          </Button>
-          <Button onClick={openStreetViewPopup}>
-            <FontAwesomeIcon icon={faStreetView} color={theme.colors.blue} />Rua
-          </Button>
+          {matterportCode && <OpenMatterportButton onClick={openMatterportPopup}><FontAwesomeIcon icon={faCube} />Ver por dentro</OpenMatterportButton>}
+          <Button onClick={openMapPopup}><FontAwesomeIcon icon={faMap} color={theme.colors.blue} />Mapa</Button>
+          <Button onClick={openStreetViewPopup}><FontAwesomeIcon icon={faStreetView} color={theme.colors.blue} />Rua</Button>
         </ButtonsContainer>
         <Row flexDirection="column" mt={5}>
-          {maintenanceFee &&
-            maintenanceFee > 0 && (
+          {(maintenanceFee && maintenanceFee > 0) &&
             <PriceItem mb={2}>
               <Text inline>Condomínio</Text>
               <PriceItemSpacer />
@@ -110,9 +97,8 @@ class ListingInfo extends React.Component {
                 decimalSeparator={','}
               />
             </PriceItem>
-          )}
-          {propertyTax &&
-            propertyTax > 0 && (
+          }
+          {(propertyTax && propertyTax > 0) &&
             <PriceItem mb={2}>
               <Text inline>IPTU/ano</Text>
               <PriceItemSpacer />
@@ -124,9 +110,8 @@ class ListingInfo extends React.Component {
                 decimalSeparator={','}
               />
             </PriceItem>
-          )}
-          {price &&
-            price > 0 && (
+          }
+          {(price && price > 0) &&
             <PriceItem>
               <Text inline>Preço/m²</Text>
               <PriceItemSpacer />
@@ -138,7 +123,7 @@ class ListingInfo extends React.Component {
                 decimalSeparator={','}
               />
             </PriceItem>
-          )}
+          }
         </Row>
       </Container>
     )
@@ -153,4 +138,4 @@ ListingInfo.propTypes = {
   openStreetViewPopup: PropTypes.func
 }
 
-export default withTheme(ListingInfo)
+export default ListingInfo

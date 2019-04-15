@@ -1,29 +1,22 @@
 import styled from 'styled-components'
-import {themeGet} from 'styled-system'
+import * as colors from 'constants/colors'
+import theme from '@emcasa/ui'
 import {breakpoint} from '@emcasa/ui/lib/styles'
 import Button from '@emcasa/ui-dom/components/Button'
 
 export const TextButton = styled(Button)`
-  margin-right: ${themeGet('space.2')}px;
+  margin-right: ${theme.space[2]}px;
 
   @media screen and ${breakpoint.up('desktop')} {
-    margin-right: ${themeGet('space.4')}px;
+    margin-right: ${theme.space[4]}px;
   }
 
   svg {
     width: 15px;
 
     path {
-      fill: ${({favorite, ...props}) => {
-        return favorite
-          ? themeGet('colors.pink')(props)
-          : themeGet('colors.white')(props)
-      }};
-      stroke: ${({favorite, ...props}) => {
-        return favorite
-          ? themeGet('colors.pink')(props)
-          : themeGet('colors.dark')(props)
-      }};
+      fill: ${({favorite}) => (favorite ? theme.colors.pink : theme.colors.white)};
+      stroke: ${({favorite}) => (favorite ? theme.colors.pink : theme.colors.dark)};
       fill-opacity: ${({favorite}) => (favorite ? 1 : 0)};
       stroke-width: 40;
     }
@@ -34,7 +27,7 @@ export const Circle = styled(Button)`
   position: absolute;
   cursor: pointer;
   right: 20px;
-  top: ${({top}) => (top ? `${top}px` : '115px')};
+  top: ${({top}) => top ? `${top}px` : `115px`};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -50,16 +43,8 @@ export const Circle = styled(Button)`
 
     path {
       text-shadow: 2px 2px 3px #f00;
-      fill: ${({favorite, ...props}) => {
-        return favorite
-          ? themeGet('colors.pink')(props)
-          : themeGet('colors.white')(props)
-      }};
-      stroke: ${({favorite, ...props}) => {
-        return favorite
-          ? themeGet('colors.pink')(props)
-          : themeGet('colors.dark')(props)
-      }};
+      fill: ${({favorite}) => (favorite ? theme.colors.pink : theme.colors.white)};
+      stroke: ${({favorite}) => (favorite ? theme.colors.pink : theme.colors.dark)};
       fill-opacity: ${({favorite}) => (favorite ? 1 : 0)};
       stroke-width: 60;
     }

@@ -1,12 +1,12 @@
-import React, {Component, Fragment} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {PoseGroup} from 'react-pose'
-import {FadeLoader} from 'react-spinners'
+import { PoseGroup } from 'react-pose'
+import { FadeLoader } from 'react-spinners'
+import theme from '@emcasa/ui'
 import Text from '@emcasa/ui-dom/components/Text'
 import Row from '@emcasa/ui-dom/components/Row'
 import FadeInOut from 'components/shared/Animation/FadeInOut'
-import {randomKey} from 'lib/random'
-import {withTheme} from 'styled-components'
+import { randomKey } from 'lib/random'
 
 const TIME_PER_SENTENCE = 3000
 
@@ -29,27 +29,25 @@ class LoadingText extends Component {
   }
 
   swapSentence() {
-    const {sentences} = this.props
+    const { sentences } = this.props
     let nextSentence = ++this.state.currentSentence
     if (nextSentence >= sentences.length) {
       nextSentence = 0
     }
-    this.setState({currentSentence: nextSentence})
+    this.setState({ currentSentence: nextSentence})
   }
 
   render() {
-    const {sentences, theme} = this.props
+    const { sentences } = this.props
     return (
-      <Fragment>
+      <>
         <PoseGroup>
           {sentences.map((sentence, index) => {
             if (this.state.currentSentence === index) {
               return (
                 <FadeInOut key={randomKey()}>
                   <Row justifyContent="center">
-                    <Text textAlign="center" key={index}>
-                      {sentence}
-                    </Text>
+                    <Text textAlign="center" key={index}>{sentence}</Text>
                   </Row>
                 </FadeInOut>
               )
@@ -64,7 +62,7 @@ class LoadingText extends Component {
             color={theme.colors.pink}
           />
         </Row>
-      </Fragment>
+      </>
     )
   }
 }
@@ -73,4 +71,4 @@ LoadingText.propTypes = {
   sentences: PropTypes.array.isRequired
 }
 
-export default withTheme(LoadingText)
+export default LoadingText

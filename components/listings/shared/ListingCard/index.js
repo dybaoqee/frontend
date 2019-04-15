@@ -65,7 +65,7 @@ class ListingCard extends Component {
               <Row><Text inline fontSize="large" fontWeight="bold">{intToCurrency(listing.price)}</Text></Row>
             </Row>
             <LikeButton
-              top={Math.round(getCardWidth(this.props) * 0.5 - 25)}
+              top={Math.round(getCardWidth() * 0.5 - 25)}
               favorite={favorited}
               listing={listing}
               user={currentUser}

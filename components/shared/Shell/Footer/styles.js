@@ -1,7 +1,8 @@
 import styled from 'styled-components'
-import {themeGet} from 'styled-system'
+import theme from 'config/theme'
 import Text from '@emcasa/ui-dom/components/Text'
 import Row from '@emcasa/ui-dom/components/Row'
+import Col from '@emcasa/ui-dom/components/Col'
 import {breakpoint} from '@emcasa/ui/lib/styles'
 
 const LINK_FONT_SIZE_MOBILE = '14px'
@@ -12,14 +13,14 @@ export const Wrapper = styled.address`
 `
 
 export const Container = styled(Row)`
-  border-top: 1px solid ${themeGet('colors.pink')};
+  border-top: 1px solid ${theme.colors.pink};
   margin: 50px;
-  padding: ${themeGet('space.4')}px 2.5vw 0 5vw;
+  padding: ${theme.space[4]}px 2.5vw 0 5vw;
 
   @media (max-width: 1024px) {
-    margin: ${themeGet('space.4')}px ${themeGet('space.4')}px 170px;
+    margin: ${theme.space[4]}px ${theme.space[4]}px 170px;
     flex-direction: column;
-    padding: ${themeGet('space.4')}px 5vmin 0;
+    padding: ${theme.space[4]}px 5vmin 0;
   }
 `
 
@@ -42,7 +43,7 @@ export const LinksContainer = styled('div')`
   flex: 1 1 100%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: 0 ${({theme}) => theme.space[5] * 2}px;
+  grid-gap: 0 ${theme.space[5] * 2}px;
 
   @media ${breakpoint.down('tablet')} {
     grid-template-columns: 1fr;
@@ -56,13 +57,13 @@ export const TitleLinks = styled(Text)`
 
 export const TextLink = styled(Text)`
   cursor: pointer;
-  color: ${themeGet('colors.grey')};
+  color: ${theme.colors.grey};
   line-height: 1.2;
   font-size: ${LINK_FONT_SIZE};
   white-space: nowrap;
 
   &:hover {
-    color: ${themeGet('colors.pink')};
+    color: ${theme.colors.pink};
   }
 
   svg {
