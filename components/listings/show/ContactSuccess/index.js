@@ -1,5 +1,6 @@
 import {Component} from 'react'
 import PropTypes from 'prop-types'
+import theme from '@emcasa/ui'
 import {Mutation} from 'react-apollo'
 import {FAVORITE_LISTING} from 'graphql/listings/mutations'
 import {GET_USER_LISTINGS_ACTIONS} from 'graphql/user/queries'
@@ -46,7 +47,11 @@ class ContactSuccess extends Component {
 
   render() {
     return (
-      <Modal onClose={this.props.onClose} unstyledCloseButton>
+      <Modal
+        onClose={this.props.onClose}
+        closeButtonStyle={{backgroundColor: 'transparent', border: 0}}
+        closeIconColor={theme.colors.white}
+      >
         <GreenBox>
           <CheckContainer>
             <FontAwesomeIcon icon={faCheck} />
