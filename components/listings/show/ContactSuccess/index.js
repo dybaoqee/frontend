@@ -1,5 +1,8 @@
 import {Component} from 'react'
 import PropTypes from 'prop-types'
+import {Mutation} from 'react-apollo'
+import {FAVORITE_LISTING} from 'graphql/listings/mutations'
+import {GET_USER_LISTINGS_ACTIONS} from 'graphql/user/queries'
 import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import Row from '@emcasa/ui-dom/components/Row'
@@ -20,7 +23,12 @@ class ContactSuccess extends Component {
   }
 
   onLoginSuccess = (userInfo, favoriteListing) => {
-
+    try {
+      favoriteListing({refetchQueries: [{query: GET_USER_LISTINGS_ACTIONS}], variables: {id: this.props.listing.id}})
+      this.props.onClose()
+    } catch (e) {
+      captureException(e)
+    }
   }
 
   render() {
@@ -39,15 +47,19 @@ class ContactSuccess extends Component {
             <Text textAlign="center" fontSize="small">Enquanto isso, salve alguns imóveis. Isso nos ajuda a montar a lista de imóveis perfeita para você.</Text>
           </Col>
           <Col m="auto" mt={2}>
-            <AccountKit
-              appId={process.env.FACEBOOK_APP_ID}
-              appSecret={process.env.ACCOUNT_KIT_APP_SECRET}
-              version="v1.0"
-              onSuccess={(userInfo) => {this.onLoginSuccess(userInfo, null)}}
-              phoneNumber={this.props.userInfo.phone}
-            >
-              {({signIn}) => <Button onClick={signIn}>Salvar este imóvel</Button>}
-            </AccountKit>
+            <Mutation mutation={FAVORITE_LISTING}>
+              {(favoriteListing) =>
+                <AccountKit
+                  appId={process.env.FACEBOOK_APP_ID}
+                  appSecret={process.env.ACCOUNT_KIT_APP_SECRET}
+                  version="v1.0"
+                  onSuccess={(userInfo) => {this.onLoginSuccess(userInfo, favoriteListing)}}
+                  phoneNumber={this.props.userInfo.phone}
+                >
+                  {({signIn}) => <Button onClick={signIn}>Salvar este imóvel</Button>}
+                </AccountKit>
+              }
+            </Mutation>
           </Col>
           <Col m="auto" mt={2}>
             <Button onClick={this.props.onClose}>Ver outros imóveis</Button>
@@ -60,7 +72,8 @@ class ContactSuccess extends Component {
 
 ContactSuccess.propTypes = {
   onClose: PropTypes.func.isRequired,
-  userInfo: PropTypes.object.isRequired
+  userInfo: PropTypes.object.isRequired,
+  listing: PropTypes.object.isRequired
 }
 
 export default ContactSuccess
