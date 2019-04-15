@@ -34,7 +34,7 @@ const InputContainer = styled(Row)`
   flex-direction: row;
   justify-content: space-between;
   background-color: ${themeGet('colors.white')};
-  height: ${themeGet('buttonHeight[0]')}px;
+  height: ${themeGet('buttonHeight.0')}px;
   box-sizing: border-box;
 
   @media ${breakpoint.down('tablet')} {

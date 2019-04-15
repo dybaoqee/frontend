@@ -19,6 +19,7 @@ import {
   log,
   LISTING_DETAIL_VIEW_FEATURED_LISTING
 } from 'lib/logging'
+import {withTheme} from 'styled-components'
 
 class ListingCard extends Component {
   render() {
@@ -84,4 +85,4 @@ ListingCard.propTypes = {
   related: PropTypes.bool
 }
 
-export default ListingCard
+export default withTheme(ListingCard)

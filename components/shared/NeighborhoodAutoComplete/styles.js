@@ -5,8 +5,8 @@ import View from '@emcasa/ui-dom/components/View'
 import Row from '@emcasa/ui-dom/components/Row'
 import Icon from '@emcasa/ui-dom/components/Icon'
 
-const HEIGHT_TALL = themeGet('buttonHeight[0]')
-const HEIGHT_MEDIUM = themeGet('buttonHeight[0]')
+const HEIGHT_TALL = themeGet('buttonHeight.0')
+const HEIGHT_MEDIUM = themeGet('buttonHeight.0')
 
 const SearchResultItem = styled(View)`
   display: flex;
