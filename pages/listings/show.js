@@ -59,7 +59,6 @@ import {
 import {listingDetailsBarHeight} from 'constants/dimensions'
 import {captureException} from '@sentry/browser'
 
-export const Title = Text.withComponent('h2')
 
 class Listing extends Component {
   favMutated = false
@@ -105,6 +104,14 @@ class Listing extends Component {
     }
 
     if (listing) {
+      if (asPath && res) {
+        const urlParams = asPath.split('/').length
+        //If client is trying to access old slugs then redirect
+        if (urlParams <= 3 || urlParams === 5) {
+          res.redirect(301, buildSlug(listing))
+        }
+      }
+
       return {
         listing,
         currentUser,
@@ -438,13 +445,14 @@ class Listing extends Component {
                   flexDirection="column"
                   width={[1,null,null,'768px']}
                 >
-                  <Title
+                  <Text
+                    as="h2"
                     textAlign="center"
                     fontSize="xlarge"
                     fontWeight="normal"
                   >
                     {errorTitle}
-                  </Title>
+                  </Text>
                   <Text color="grey">{`Que tal olhar outras opções ${endQuestion}? Separamos alguns imóveis para você! Fique a vontade para dar uma olhada nessa lista`}
                   </Text>
                   <Row justifyContent="center" mt={2}>

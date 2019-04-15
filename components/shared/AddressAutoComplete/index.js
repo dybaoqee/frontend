@@ -1,9 +1,8 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import axios from 'axios'
-import { filterComponent } from 'services/google-maps-api'
-import { MoonLoader } from 'react-spinners';
-import theme from 'config/theme'
+import {filterComponent} from 'services/google-maps-api'
+import {MoonLoader} from 'react-spinners'
 import Input from '@emcasa/ui-dom/components/Input'
 import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
@@ -14,8 +13,9 @@ import {
   InputContainer,
   BackIcon
 } from './styles'
+import {withTheme} from 'styled-components'
 
-export default class AddressAutoComplete extends Component {
+class AddressAutoComplete extends Component {
   constructor(props) {
     super(props)
     this.timer = null
@@ -45,7 +45,7 @@ export default class AddressAutoComplete extends Component {
   }
 
   static defaultProps = {
-    defaultValue: null
+    defaultValue: ''
   }
 
   componentDidMount() {
@@ -112,7 +112,7 @@ export default class AddressAutoComplete extends Component {
       )
       return
     }
-    const { onSelectAddress } = this.props
+    const {onSelectAddress} = this.props
     this.setState({place, predictions: [], loadingPlaceInfo: true, errors: []})
     try {
       const response = await axios.get(
@@ -142,9 +142,11 @@ export default class AddressAutoComplete extends Component {
         throw {reason: 'Não encontramos um endereço válido com esse número.'}
       }
 
-      const addressFormatted = structured_formatting.main_text + ' - ' + structured_formatting.secondary_text
+      const addressFormatted =
+        structured_formatting.main_text +
+        ' - ' +
+        structured_formatting.secondary_text
       onSelectAddress(addressFormatted, addressData)
-
     } catch (e) {
       console.log(e)
       this.setState({
@@ -168,10 +170,7 @@ export default class AddressAutoComplete extends Component {
     const regex = new RegExp('(' + words.join('|') + ')', 'ig')
     this.predictionsIds = []
     return predictions.map((prediction, id) => {
-      const formattedOutput = prediction.description.replace(
-        regex,
-        '$1'
-      )
+      const formattedOutput = prediction.description.replace(regex, '$1')
 
       this.predictionsIds.push(prediction.description)
 
@@ -241,7 +240,7 @@ export default class AddressAutoComplete extends Component {
     clearTimeout(this.timer)
     this.timer = setTimeout(this.searchPlaces.bind(null, value), 300)
 
-    const { onClearInput } = this.props
+    const {onClearInput} = this.props
     if (onClearInput) {
       if (!value || value === '') {
         onClearInput()
@@ -258,9 +257,8 @@ export default class AddressAutoComplete extends Component {
       showPredictions,
       errors
     } = this.state
-    const value = place.description || search
-    const { onBackPressed, defaultValue } = this.props
-
+    const value = place.description ? place.description : search
+    const {onBackPressed, defaultValue, theme} = this.props
     let suggestionsWidth = null
     if (this.inputContainer && this.inputContainer.current) {
       suggestionsWidth = this.inputContainer.current.offsetWidth
@@ -268,9 +266,9 @@ export default class AddressAutoComplete extends Component {
     return (
       <div ref={this.inputContainer}>
         <InputContainer>
-          {onBackPressed &&
+          {onBackPressed && (
             <BackIcon name="arrow-left" color="dark" onClick={onBackPressed} />
-          }
+          )}
           <Col width={1}>
             <Input
               style={{border: 0}}
@@ -286,7 +284,7 @@ export default class AddressAutoComplete extends Component {
               autoComplete="off"
             />
           </Col>
-          {loadingPlaceInfo &&
+          {loadingPlaceInfo && (
             <View mr={2}>
               <MoonLoader
                 size={24}
@@ -295,17 +293,21 @@ export default class AddressAutoComplete extends Component {
                 loading={loadingPlaceInfo}
               />
             </View>
-          }
+          )}
         </InputContainer>
-        {errors.length > 0 && <Text inline color="red" fontSize="small">{errors[0]}</Text>}
-        {showPredictions &&
+        {errors.length > 0 && (
+          <Text inline color="red" fontSize="small">
+            {errors[0]}
+          </Text>
+        )}
+        {showPredictions && (
           <SearchResultContainer width={suggestionsWidth}>
-            <Col width={[1]}>
-              {this.getSearchResults()}
-            </Col>
+            <Col width={[1]}>{this.getSearchResults()}</Col>
           </SearchResultContainer>
-        }
+        )}
       </div>
     )
   }
 }
+
+export default withTheme(AddressAutoComplete)

@@ -1,11 +1,10 @@
 import styled from 'styled-components'
-import theme from 'config/theme'
+import {themeGet} from 'styled-system'
 import {breakpoint} from '@emcasa/ui/lib/styles'
 import Row from '@emcasa/ui-dom/components/Row'
 import Button from '@emcasa/ui-dom/components/Button'
 import {
   desktopHeaderHeight,
-  listingDetailsMaxWidth,
   listingDetailsBarHeight
 } from 'constants/dimensions'
 import {zIndexModal} from 'constants/zIndex'
@@ -18,16 +17,16 @@ export const Wrapper = styled(Row)`
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 0 ${theme.space[4]}px;
+  padding: 0 ${themeGet('space.4')}px;
   box-sizing: border-box;
-  background: ${theme.colors.white};
-  border-top: 1px solid ${theme.colors.smoke};
+  background: ${themeGet('colors.white')};
+  border-top: 1px solid ${themeGet('colors.smoke')};
 
   @media screen and ${breakpoint.up('desktop')} {
     bottom: initial;
     top: ${desktopHeaderHeight}px;
     height: ${listingDetailsBarHeight}px;
-    padding: 0 ${theme.space[4]}px;
+    padding: 0 ${themeGet('space.4')}px;
     background: none;
     box-shadow: none;
   }

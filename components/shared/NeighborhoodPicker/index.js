@@ -153,7 +153,7 @@ class NeighborhoodPicker extends Component {
           const availableCities = this.getCities(data)
           const buttonText = this.getButtonText()
           return (
-            <SearchContainer innerRef={this.containerRef} onClick={this.props.onClick} mobile={this.props.mobile}>
+            <SearchContainer ref={this.containerRef} onClick={this.props.onClick} mobile={this.props.mobile}>
               <InputWrapper>
                 <InputContainer onClick={this.toggleCitiesDisplay} selected={this.state.showCities}>
                   <SearchTextContainer>

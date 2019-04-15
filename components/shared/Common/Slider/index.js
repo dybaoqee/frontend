@@ -194,14 +194,14 @@ export default class Slider extends Component {
           )}`}</RangeValues>
         )}
         <Rail
-          innerRef={this.rail}
+          ref={this.rail}
           showValues={showValue}
           min={valuesFormatter(min)}
           max={valuesFormatter(max)}
         >
-          {isRange && <Bar innerRef={this.bar} />}
+          {isRange && <Bar ref={this.bar} />}
           {isRange && (
-            <Thumb aria-label="min" innerRef={this.minThumb} tabIndex="0">
+            <Thumb aria-label="min" ref={this.minThumb} tabIndex="0">
               {showTutorial &&
                 !used && (
                   <Tutorial>
@@ -216,7 +216,7 @@ export default class Slider extends Component {
               {showValue && <Tip>R$ {minValue.toLocaleString('pt-BR')}</Tip>}
             </Thumb>
           )}
-          <Thumb aria-label="max" innerRef={this.maxThumb} tabIndex="0">
+          <Thumb aria-label="max" ref={this.maxThumb} tabIndex="0">
             {showTutorial &&
               !used && (
                 <Tutorial>

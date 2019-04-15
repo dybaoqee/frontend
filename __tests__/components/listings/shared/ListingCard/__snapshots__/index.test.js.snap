@@ -19,30 +19,6 @@ exports[`<ListingCard/> should render component 1`] = `
   display: flex;
 }
 
-.c7 {
-  outline: none;
-  cursor: pointer;
-  padding: 0 20px 0 20px;
-  border-color: #e0e6ed;
-  background-color: #ffffff;
-  border-radius: 4px;
-  border-width: 1px;
-  width: auto;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  height: 40px;
-  color: #3c4858;
-  font-family: Rubik;
-  font-size: 18px;
-  -webkit-font-smoothing: antialiased;
-  border-style: solid;
-}
-
-.c7 :hover {
-  background-color: #ffffff;
-}
-
 .c3 {
   -webkit-font-smoothing: antialiased;
   font-family: Rubik;
@@ -91,6 +67,23 @@ exports[`<ListingCard/> should render component 1`] = `
 }
 
 .c6 {
+  outline: none;
+  cursor: pointer;
+  padding: 0 20px 0 20px;
+  border-color: #e0e6ed;
+  background-color: #ffffff;
+  border-radius: 4px;
+  border-width: 1px;
+  width: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  height: 40px;
+  color: #3c4858;
+  font-family: Rubik;
+  font-size: 18px;
+  -webkit-font-smoothing: antialiased;
+  border-style: solid;
   position: absolute;
   cursor: pointer;
   right: 20px;
@@ -111,6 +104,10 @@ exports[`<ListingCard/> should render component 1`] = `
   height: 50px;
   border-radius: 50%;
   box-shadow: 0 6px 16px 0 rgba(38,38,38,0.15);
+}
+
+.c6:hover {
+  background-color: #ffffff;
 }
 
 .c6 svg {
@@ -138,7 +135,7 @@ exports[`<ListingCard/> should render component 1`] = `
 >
   <div
     aria-label="listing-undefined"
-    className="c0 "
+    className="c0"
     onClick={[Function]}
   >
     <img
@@ -196,7 +193,7 @@ exports[`<ListingCard/> should render component 1`] = `
       </div>
     </div>
     <button
-      className="c6 c7"
+      className="c6"
       fontSize="default"
       height="medium"
       onClick={[Function]}

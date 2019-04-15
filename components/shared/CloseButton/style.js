@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import theme from 'config/theme'
+import {themeGet} from 'styled-system'
 import Button from '@emcasa/ui-dom/components/Button'
 import Icon from '@emcasa/ui-dom/components/Icon'
 

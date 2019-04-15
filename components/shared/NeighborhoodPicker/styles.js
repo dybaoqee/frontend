@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import theme from 'config/theme'
+import {themeGet} from 'styled-system'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Icon from '@emcasa/ui-dom/components/Icon'
@@ -7,7 +7,7 @@ import Button from '@emcasa/ui-dom/components/Button'
 import Text from '@emcasa/ui-dom/components/Text'
 import {breakpoint} from '@emcasa/ui/lib/styles'
 
-const MARGINS = theme.space[4] * 2
+const MARGINS = (props) => themeGet('space.4')(props) * 2
 
 const SearchContainer = styled(Row)`
   height: 100%;
@@ -23,14 +23,18 @@ const InputWrapper = styled(Col)`
 const InputContainer = styled(Row)`
   cursor: pointer;
   border: 1px solid
-    ${({selected}) => (selected ? theme.colors.blue : theme.colors.lightGrey)}};
-  border-radius: ${theme.space[1]}px;
+    ${({selected, ...props}) => {
+      return selected 
+        ? themeGet('colors.blue')(props) 
+        : themeGet('colors.lightGrey')(props)
+    }};
+  border-radius: ${themeGet('space.1')}px;
   display: flex;
   align-items: center;
   flex-direction: row;
   justify-content: space-between;
-  background-color: ${theme.colors.white};
-  height: ${theme.buttonHeight[0]}px;
+  background-color: ${themeGet('colors.white')};
+  height: ${themeGet('buttonHeight.0')}px;
   box-sizing: border-box;
 
   @media ${breakpoint.down('tablet')} {
@@ -49,7 +53,8 @@ const SearchTextContainer = styled(Row)`
 `
 
 const BackIcon = styled(Icon)`
-  margin: ${theme.space[1]}px ${theme.space[3]}px 0 ${theme.space[3]}px;
+  margin: ${themeGet('space.1')}px ${themeGet('space.3')}px 0
+    ${themeGet('space.3')}px;
 `
 
 const BackButton = styled(Button)`

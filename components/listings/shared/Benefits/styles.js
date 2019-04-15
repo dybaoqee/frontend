@@ -1,7 +1,7 @@
 import styled from 'styled-components'
+import {themeGet} from 'styled-system'
 import {breakpoint} from '@emcasa/ui/lib/styles'
 import Col from '@emcasa/ui-dom/components/Col'
-import Text from '@emcasa/ui-dom/components/Text'
 import View from '@emcasa/ui-dom/components/View'
 import Row from '@emcasa/ui-dom/components/Row'
 
@@ -16,21 +16,24 @@ export const Content = styled(View)`
   justify-content: space-between;
   max-width: 1100px;
   @media ${breakpoint.down('tablet')} {
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: ${themeGet('space.4')}px;
+    padding-right: ${themeGet('space.4')}px;
   }
 `
 
-export const Title = Text.withComponent('h2')
-
-export const SubTitle = Text.withComponent('h3')
+export const CarouselWrapper = styled(Row)`
+  > div {
+    padding-bottom: ${(props) => themeGet('space.5')(props) * 2}px;
+    margin-bottom: ${themeGet('space.4')}px;
+  }
+`
 
 export const BenefitCol = styled(Col)`
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  ${SubTitle} {
+  h2 {
     margin: 0;
   }
   @media ${breakpoint.down('tablet')} {

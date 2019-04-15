@@ -2,9 +2,9 @@ import {Component} from 'react'
 import PropTypes from 'prop-types'
 import {Query} from 'react-apollo'
 import {GET_FAVORITE_LISTINGS} from 'graphql/user/queries'
-
+import Text from '@emcasa/ui-dom/components/Text'
 import ListingCard from 'components/listings/shared/ListingCard'
-import {Container, ListingsContainer, SubTitle, Gradient} from './styles'
+import {Container, ListingsContainer, Gradient} from './styles'
 
 class ListingFeed extends Component {
   render() {
@@ -29,9 +29,9 @@ class ListingFeed extends Component {
           }
           return (
             <Container>
-              <SubTitle color="grey" fontWeight="bold">
+              <Text as="h3" color="grey" fontWeight="bold">
                 Veja também
-              </SubTitle>
+              </Text>
               <ListingsContainer>
                 {listings.map((listing) => {
                   return (

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import enhanceWithClickOutside from 'react-click-outside'
 import CloseButton from 'components/shared/CloseButton'
@@ -7,10 +7,14 @@ import {
   Container
 } from './styles'
 
-class ContainerClickOutside extends Container {
+class ContainerClickOutside extends Component {
   handleClickOutside(e) {
     e.preventDefault()
     this.props.onClose()
+  }
+
+  render() {
+    return <Container {...this.props} />
   }
 }
 
