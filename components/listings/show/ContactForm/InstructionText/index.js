@@ -62,7 +62,7 @@ class InstructionText extends Component {
                   name="circle"
                   color={active ? theme.colors.blue : theme.colors.extraDarkSmoke}
                   size={active ? 10 : 6}
-                  style={{marginTop: active ? 0 : -2}}
+                  style={{marginTop: active ? 0 : 2}}
                 />
               )
             })}
