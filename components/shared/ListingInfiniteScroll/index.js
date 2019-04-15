@@ -1,18 +1,11 @@
 import {Component} from 'react'
 import throttle from 'lodash/throttle'
 import {getY, getX} from 'utils/polyfills/bounding-rect'
-import { FadeLoader } from 'react-spinners'
+import {FadeLoader} from 'react-spinners'
 import Row from '@emcasa/ui-dom/components/Row'
-import theme from 'config/theme'
-import {
-  log,
-  LISTING_SEARCH_LOAD_MORE
-} from 'lib/logging'
-import {
-  Container,
-  ListContainer,
-  Footer,
-} from './styles'
+import {log, LISTING_SEARCH_LOAD_MORE} from 'lib/logging'
+import {Container, ListContainer, Footer} from './styles'
+import {withTheme} from 'styled-components'
 
 class ListingInfiniteScroll extends Component {
   static defaultProps = {
@@ -53,7 +46,10 @@ class ListingInfiniteScroll extends Component {
     const {onLoad} = this.props
     this.setState({loading: true})
     const loadedValues = await onLoad()
-    log(LISTING_SEARCH_LOAD_MORE, {remaining: this.props.remaining_count, filters: this.props.filters})
+    log(LISTING_SEARCH_LOAD_MORE, {
+      remaining: this.props.remaining_count,
+      filters: this.props.filters
+    })
     this.setState({loading: false})
   }
 
@@ -71,7 +67,8 @@ class ListingInfiniteScroll extends Component {
       titleComponent,
       remaining_count,
       horizontal,
-      children: renderEntry
+      children: renderEntry,
+      theme
     } = this.props
     return (
       <Container
@@ -79,9 +76,7 @@ class ListingInfiniteScroll extends Component {
         ref={(wrapper) => (this.wrapper = wrapper)}
       >
         {titleComponent && !horizontal && titleComponent}
-        <ListContainer>
-          {entries.map(renderEntry)}
-        </ListContainer>
+        <ListContainer>{entries.map(renderEntry)}</ListContainer>
         {remaining_count > 0 && (
           <Footer
             className="infinite-scroll-footer"
@@ -92,15 +87,15 @@ class ListingInfiniteScroll extends Component {
               onClick={() => !this.state.loading && this.loadMore()}
               title="Próxima página"
             >
-            <Row justifyContent="center">
-              <FadeLoader
-                width={10}
-                height={10}
-                margin={2}
-                radius={8}
-                color={theme.colors.pink}
-              />
-            </Row>
+              <Row justifyContent="center">
+                <FadeLoader
+                  width={10}
+                  height={10}
+                  margin={2}
+                  radius={8}
+                  color={theme.colors.pink}
+                />
+              </Row>
             </a>
           </Footer>
         )}
@@ -109,4 +104,4 @@ class ListingInfiniteScroll extends Component {
   }
 }
 
-export default ListingInfiniteScroll
+export default withTheme(ListingInfiniteScroll)

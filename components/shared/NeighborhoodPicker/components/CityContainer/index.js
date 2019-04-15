@@ -1,15 +1,11 @@
-import React, { Component } from 'react'
+import React, {Component, Fragment} from 'react'
 import PropTypes from 'prop-types'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
 import Button from '@emcasa/ui-dom/components/Button'
 import Text from '@emcasa/ui-dom/components/Text'
-import theme from 'config/theme'
-import {
-  log,
-  LISTING_SEARCH_NEIGHBORHOOD_SELECT_ALL
-} from 'lib/logging'
+import {log, LISTING_SEARCH_NEIGHBORHOOD_SELECT_ALL} from 'lib/logging'
 import {
   isNeighborhoodSelected,
   updateSelection,
@@ -17,11 +13,8 @@ import {
   selectCity,
   sortByPopularity
 } from './selection'
-import {
-  CitiesWrapper,
-  NeighborhoodButton,
-  Separator
-} from './styles'
+import {CitiesWrapper, NeighborhoodButton, Separator} from './styles'
+import {withTheme} from 'styled-components'
 
 const MAX_INITIAL_ITEMS = 3
 
@@ -48,8 +41,12 @@ class CityContainer extends Component {
 
   selectCity(cities, citySlug) {
     log(LISTING_SEARCH_NEIGHBORHOOD_SELECT_ALL, {city: citySlug})
-    const newSelection = selectCity(cities, this.state.currentSelection, citySlug)
-    this.setState({ currentSelection: newSelection })
+    const newSelection = selectCity(
+      cities,
+      this.state.currentSelection,
+      citySlug
+    )
+    this.setState({currentSelection: newSelection})
   }
 
   getNeighborhoodButton(key, isNewSelection, neighborhood) {
@@ -69,8 +66,11 @@ class CityContainer extends Component {
   }
 
   updateCurrentSelection(neighborhood) {
-    const newSelection = updateSelection(this.state.currentSelection, neighborhood)
-    this.setState({ currentSelection: newSelection })
+    const newSelection = updateSelection(
+      this.state.currentSelection,
+      neighborhood
+    )
+    this.setState({currentSelection: newSelection})
   }
 
   render() {
@@ -81,7 +81,8 @@ class CityContainer extends Component {
       selectedNeighborhoods,
       clear,
       apply,
-      parentRef
+      parentRef,
+      theme
     } = this.props
 
     let pos = {}
@@ -96,7 +97,7 @@ class CityContainer extends Component {
       <CitiesWrapper
         p={2}
         width={pos.width}
-        top={(pos.top + topOffset)}
+        top={pos.top + topOffset}
         left={pos.left}
         fromHome={this.props.fromHome}
         fullscreen={this.props.fullscreen}
@@ -111,22 +112,38 @@ class CityContainer extends Component {
           }
           let showExpandAll = false
           let isCityExpanded = expanded.includes(city)
-          const citySelected = isCitySelected(cities, this.state.currentSelection, city.citySlug)
+          const citySelected = isCitySelected(
+            cities,
+            this.state.currentSelection,
+            city.citySlug
+          )
           const showSeparator = i <= cities.length - 1
 
           const selectedNeighborhoodList = []
           let deselectedNeighborhoodList = []
           city.neighborhoods.forEach((neighborhood, j) => {
-            const isSelected = isNeighborhoodSelected(selectedNeighborhoods, neighborhood.nameSlug)
-            const isNewSelection = isNeighborhoodSelected(this.state.currentSelection, neighborhood.nameSlug)
+            const isSelected = isNeighborhoodSelected(
+              selectedNeighborhoods,
+              neighborhood.nameSlug
+            )
+            const isNewSelection = isNeighborhoodSelected(
+              this.state.currentSelection,
+              neighborhood.nameSlug
+            )
             if (isSelected) {
-              selectedNeighborhoodList.push(this.getNeighborhoodButton(j, isNewSelection, neighborhood))
+              selectedNeighborhoodList.push(
+                this.getNeighborhoodButton(j, isNewSelection, neighborhood)
+              )
             } else {
-              deselectedNeighborhoodList.push(this.getNeighborhoodButton(j, isNewSelection, neighborhood))
+              deselectedNeighborhoodList.push(
+                this.getNeighborhoodButton(j, isNewSelection, neighborhood)
+              )
             }
           })
           if (!isExpanded) {
-            deselectedNeighborhoodList = sortByPopularity(deselectedNeighborhoodList)
+            deselectedNeighborhoodList = sortByPopularity(
+              deselectedNeighborhoodList
+            )
           }
 
           let buttonsRendered = 0
@@ -136,7 +153,15 @@ class CityContainer extends Component {
               <Col>
                 <Row flexDirection="row" alignItems="center">
                   <Text fontSize="small">{city.name}</Text>
-                  {isExpanded && <Button link fontSize={theme.fontSizes[1]} onClick={this.props.showAllCities}>Trocar cidade</Button>}
+                  {isExpanded && (
+                    <Button
+                      link
+                      fontSize={theme.fontSizes[1]}
+                      onClick={this.props.showAllCities}
+                    >
+                      Trocar cidade
+                    </Button>
+                  )}
                 </Row>
               </Col>
               <Col>
@@ -144,11 +169,14 @@ class CityContainer extends Component {
                   <View mr={2} mb={2}>
                     <NeighborhoodButton
                       active={citySelected}
-                      onClick={() => {this.selectCity(cities, city.citySlug)}}>
-                        Todos
-                      </NeighborhoodButton>
+                      onClick={() => {
+                        this.selectCity(cities, city.citySlug)
+                      }}
+                    >
+                      Todos
+                    </NeighborhoodButton>
                   </View>
-                  <>
+                  <Fragment>
                     {selectedNeighborhoodList.map((Item) => {
                       buttonsRendered++
                       showExpandAll = buttonsRendered > MAX_INITIAL_ITEMS
@@ -165,17 +193,37 @@ class CityContainer extends Component {
                       }
                       return Item
                     })}
-                  </>
-                  {(showExpandAll && !isCityExpanded) && <Button p={0} link onClick={() => {expand(city)}}>Ver mais</Button>}
+                  </Fragment>
+                  {showExpandAll
+                  && !isCityExpanded
+                  && (
+                    <Button p={0} link onClick={() => expand(city)}>
+                        Ver mais
+                    </Button>
+                  )}
                 </Row>
               </Col>
-              {showSeparator && <Col mt={2}><Separator /></Col>}
+              {showSeparator && (
+                <Col mt={2}>
+                  <Separator />
+                </Col>
+              )}
             </Row>
           )
         })}
         <Row justifyContent="space-between">
-          <Button p={0} link color="dark" onClick={clear}>Limpar</Button>
-          <Button p={0} link onClick={() => {apply(this.state.currentSelection)}}>{this.props.fromHome ? 'Pesquisar' : 'Aplicar'}</Button>
+          <Button p={0} link color="dark" onClick={clear}>
+            Limpar
+          </Button>
+          <Button
+            p={0}
+            link
+            onClick={() => {
+              apply(this.state.currentSelection)
+            }}
+          >
+            {this.props.fromHome ? 'Pesquisar' : 'Aplicar'}
+          </Button>
         </Row>
       </CitiesWrapper>
     )
@@ -195,4 +243,4 @@ CityContainer.propTypes = {
   fullscreen: PropTypes.bool
 }
 
-export default CityContainer
+export default withTheme(CityContainer)

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import theme from 'config/theme'
+import {themeGet} from 'styled-system'
 import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
@@ -12,14 +12,14 @@ export const PROFILE_INITIALVIEW_MAX_WIDTH = 414
 export const ProfileAvatar = styled(Row)`
   width: 100px;
   height: 100px;
-  font-size: ${theme.fontSizes[4]}px;
-  color: ${theme.colors.white};
-  background-color: ${theme.colors.blue};
+  font-size: ${themeGet('fontSizes.4')}px;
+  color: ${themeGet('colors.white')};
+  background-color: ${themeGet('colors.blue')};
   border-radius: 100%;
 `
 
 export const Icon = styled.div`
-  background-image: url(${props => props.icon});
+  background-image: url(${(props) => props.icon});
   background-repeat: no-repeat;
   background-size: cover;
   width: 70px;
@@ -29,27 +29,28 @@ export const Icon = styled.div`
 export const TabWrapper = styled.div`
   box-sizing: border-box;
   width: 100%;
-  margin: ${theme.space[5]}px auto;
-  padding: 0 ${theme.space[4]}px;
+  margin: ${themeGet('space.5')}px auto;
+  padding: 0 ${themeGet('space.4')}px;
   max-width: ${PROFILE_TABWRAPPER_MAX_WIDTH}px;
 `
 
 export const InitialView = styled(Row)`
   width: 100%;
-  margin: ${theme.space[6]}px auto ${theme.space[4]}px;
-  max-width: ${({maxWidth}) => maxWidth ? maxWidth : `${PROFILE_INITIALVIEW_MAX_WIDTH}px`};
+  margin: ${themeGet('space.6')}px auto ${themeGet('space.4')}px;
+  max-width: ${({maxWidth}) =>
+    maxWidth ? maxWidth : `${PROFILE_INITIALVIEW_MAX_WIDTH}px`};
 
   ${ProfileAvatar} {
-    margin: 0 auto ${theme.space[5]}px;
+    margin: 0 auto ${themeGet('space.5')}px;
   }
 
   ${Text} {
     display: block;
-    margin: ${theme.space[1]}px 0;
+    margin: ${themeGet('space.1')}px 0;
   }
 
   ${Text} + ${Button} {
-    margin: ${theme.space[5]}px 0 ${theme.space[2]}px;
+    margin: ${themeGet('space.5')}px 0 ${themeGet('space.2')}px;
   }
 `
 
@@ -57,12 +58,22 @@ export const ProfileList = styled.div`
   width: 100%;
   display: grid;
   grid-template-columns: 33% 33% 33%;
-  grid-column-gap: ${theme.space[2]}px;
-  grid-row-gap: ${theme.space[2]}px;
-  margin: ${theme.space[5]}px 0 0;
+  grid-column-gap: ${themeGet('space.2')}px;
+  grid-row-gap: ${themeGet('space.2')}px;
+  margin: ${themeGet('space.5')}px 0 0;
 
   @media ${PROFILE_GRID_MEDIAQUERY} {
-    grid-template-columns: repeat(auto-fill, minmax(${Math.round((PROFILE_TABWRAPPER_MAX_WIDTH / 3) - (theme.space[2] * 2))}px, 1fr));
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(
+        ${(props) => {
+          Math.round(
+            PROFILE_TABWRAPPER_MAX_WIDTH / 3 - themeGet('space.2')(props) * 2
+          )
+        }}px,
+        1fr
+      )
+    );
   }
 
   ${Container} {

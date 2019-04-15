@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import theme from '@emcasa/ui'
+import {themeGet} from 'styled-system'
 import Row from '@emcasa/ui-dom/components/Row'
 import View from '@emcasa/ui-dom/components/View'
 
@@ -18,7 +18,7 @@ export const Item = styled(Row)`
   justify-content: flex-start;
   align-items: center;
   width: 80px;
-  margin: ${theme.space[2]}px 0 ${theme.space[2]}px 0;
+  margin: ${themeGet('space.2')}px 0 ${themeGet('space.2')}px 0;
 `
 
 export const Dash = styled(View)`
@@ -27,5 +27,5 @@ export const Dash = styled(View)`
   margin-left: 59px;
   width: ${DASH_WIDTH}px;
   height: 0px;
-  border: 1px solid ${theme.colors.lightGrey};
+  border: 1px solid ${themeGet('colors.lightGrey')};
 `

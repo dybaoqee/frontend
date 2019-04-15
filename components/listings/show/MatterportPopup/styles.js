@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import theme from 'config/theme'
+import {themeGet} from 'styled-system'
 import {zIndexModal} from 'constants/zIndex'
 
 export default styled.div`
@@ -9,6 +9,6 @@ export default styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: ${theme.colors.dark};
-  display: ${props => props.open ? null : 'none'};
+  background: ${themeGet('colors.dark')};
+  display: ${(props) => (props.open ? null : 'none')};
 `

@@ -1,19 +1,19 @@
 import styled from 'styled-components'
-import theme from 'config/theme'
+import {themeGet} from 'styled-system'
 import {breakpoint} from '@emcasa/ui/lib/styles'
 import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 
 export const Container = styled(View)`
   width: 100%;
-  max-width: ${1204 + theme.space[4]}px;
+  max-width: ${(props) => 1204 + themeGet('space.4')(props)}px;
   display: flex;
   flex-direction: column;
-  padding: 0 ${theme.space[4]}px;
+  padding: 0 ${themeGet('space.4')}px;
 `
 
 export const Header = styled(View)`
-  margin-bottom: ${theme.space[4]}px;
+  margin-bottom: ${themeGet('space.4')}px;
 
   h2 {
     margin: 0;
@@ -32,7 +32,7 @@ export const Cities = styled(View)`
 export const City = styled(View)`
   display: flex;
   flex-direction: column;
-  margin-bottom: ${theme.space[2]}px;
+  margin-bottom: ${themeGet('space.2')}px;
 
   h3 {
     margin-bottom: 0;
@@ -43,7 +43,7 @@ export const NeighborhoodsHighlights = styled(View)`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 0 10px;
-  margin: ${theme.space[3]}px 0 0;
+  margin: ${themeGet('space.3')}px 0 0;
 
   @media ${breakpoint.down('tablet')} {
     grid-template-columns: 1fr;
@@ -65,7 +65,7 @@ export const Neighborhood = styled('a')`
   @media ${breakpoint.down('tablet')} {
     flex: 1 1 100%;
     height: 125px;
-    margin-bottom: ${theme.space[2]}px;
+    margin-bottom: ${themeGet('space.2')}px;
   }
 
   h4 {
@@ -86,38 +86,38 @@ export const Neighborhood = styled('a')`
 
 export const Soon = styled(View)`
   position: absolute;
-  right: ${theme.space[3]}px;
-  top: ${theme.space[3]}px;
+  right: ${themeGet('space.3')}px;
+  top: ${themeGet('space.3')}px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: ${theme.colors.pink};
-  padding: ${theme.space[1]}px ${theme.space[2]}px;
+  background: ${themeGet('colors.pink')};
+  padding: ${themeGet('space.1')}px ${themeGet('space.2')}px;
   border-radius: 4px;
   color: white;
-  font-size: ${theme.fontSizes[1]}px;
+  font-size: ${themeGet('fontSizes.1')}px;
 `
 
 export const NeighborhoodsLinks = styled(View)`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 0 10px;
-  margin: ${theme.space[3]}px 0;
+  margin: ${themeGet('space.3')}px 0;
 
   @media ${breakpoint.down('tablet')} {
     grid-template-columns: repeat(2, 1fr);
   }
 
   .NeighborhoodLink {
-    font-size: ${theme.fontSizes[2]}px;
-    padding: ${theme.space[1]}px 0;
+    font-size: ${themeGet('fontSizes.2')}px;
+    padding: ${themeGet('space.1')}px 0;
 
     &:hover {
-      color: ${theme.colors.pink};
+      color: ${themeGet('colors.pink')};
     }
 
     @media ${breakpoint.down('tablet')} {
-      padding: ${theme.space[2]}px 0;
+      padding: ${themeGet('space.2')}px 0;
     }
   }
 `

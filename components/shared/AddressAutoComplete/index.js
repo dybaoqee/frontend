@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import axios from 'axios'
 import {filterComponent} from 'services/google-maps-api'
 import {MoonLoader} from 'react-spinners'
-import theme from 'config/theme'
 import Input from '@emcasa/ui-dom/components/Input'
 import Col from '@emcasa/ui-dom/components/Col'
 import View from '@emcasa/ui-dom/components/View'
@@ -14,8 +13,9 @@ import {
   InputContainer,
   BackIcon
 } from './styles'
+import {withTheme} from 'styled-components'
 
-export default class AddressAutoComplete extends Component {
+class AddressAutoComplete extends Component {
   constructor(props) {
     super(props)
     this.timer = null
@@ -258,7 +258,7 @@ export default class AddressAutoComplete extends Component {
       errors
     } = this.state
     const value = place.description ? place.description : search
-    const {onBackPressed, defaultValue} = this.props
+    const {onBackPressed, defaultValue, theme} = this.props
     let suggestionsWidth = null
     if (this.inputContainer && this.inputContainer.current) {
       suggestionsWidth = this.inputContainer.current.offsetWidth
@@ -309,3 +309,5 @@ export default class AddressAutoComplete extends Component {
     )
   }
 }
+
+export default withTheme(AddressAutoComplete)
