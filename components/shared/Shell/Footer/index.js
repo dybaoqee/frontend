@@ -1,7 +1,7 @@
 import {ThemeProvider} from 'styled-components'
 import theme from 'config/theme'
 import Link from 'next/link'
-import Col from '@emcasa/ui-dom/components/Col'
+import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faPhone from '@fortawesome/fontawesome-pro-light/faPhone'
@@ -19,7 +19,6 @@ import {
   AboutContainer,
   AboutText,
   LogoWrapper,
-  LinksItem,
   LinksContainer,
   TitleLinks,
   TextLink
@@ -45,66 +44,66 @@ const Footer = () => (
           <AboutText fontSize="small" color="disabled">CRECI-RJ J-7712</AboutText>
         </AboutContainer>
         <LinksContainer>
-          <LinksItem flexDirection="column">
+          <Row flexDirection="column">
             <TitleLinks {...titleText}>EmCasa</TitleLinks>
             <Link passHref href="/sobmedida">
-              <TextLink as="a">EmCasa Sob Medida</TextLink>
+              <TextLink as="a" fontSize={[1, null, null, 2]}>EmCasa Sob Medida</TextLink>
             </Link>
             <Link passHref href="/listings" as="/imoveis">
-              <TextLink as="a">Compre</TextLink>
+              <TextLink as="a" fontSize={[1, null, null, 2]}>Compre</TextLink>
             </Link>
             <Link passHref href="/listings/sell" as="/vender">
-              <TextLink as="a">Venda</TextLink>
+              <TextLink as="a" fontSize={[1, null, null, 2]}>Venda</TextLink>
             </Link>
             <Link passHref href="/avaliacao-imovel">
-              <TextLink as="a">Avalie seu imóvel</TextLink>
+              <TextLink as="a" fontSize={[1, null, null, 2]}>Avalie seu imóvel</TextLink>
             </Link>
-            <TextLink as="a" href="http://blog.emcasa.com" target="_blank">Blog</TextLink>
-            <TextLink as="a" href="https://jobs.emcasa.com/" target="_blank">Trabalhe Conosco</TextLink>
+            <TextLink as="a" fontSize={[1, null, null, 2]} href="http://blog.emcasa.com" target="_blank">Blog</TextLink>
+            <TextLink as="a" fontSize={[1, null, null, 2]} href="https://jobs.emcasa.com/" target="_blank">Trabalhe Conosco</TextLink>
             <Link passHref href="/corretor-parceiro-rj">
-              <TextLink as="a">Seja um corretor parceiro no RJ</TextLink>
+              <TextLink as="a" fontSize={[1, null, null, 2]}>Seja um corretor parceiro no RJ</TextLink>
             </Link>
             <Link passHref href="/corretor-parceiro-sp">
-              <TextLink as="a">Seja um corretor parceiro em SP</TextLink>
+              <TextLink as="a" fontSize={[1, null, null, 2]}>Seja um corretor parceiro em SP</TextLink>
             </Link>
             <Link passHref href="/sitemap">
-              <TextLink as="a">Mapa do Site</TextLink>
+              <TextLink as="a" fontSize={[1, null, null, 2]}>Mapa do Site</TextLink>
             </Link>
-          </LinksItem>
-          <LinksItem flexDirection="column">
+          </Row>
+          <Row flexDirection="column">
             <TitleLinks {...titleText}>Suporte</TitleLinks>
-            <TextLink as="a" href="tel:+5521994771868">
+            <TextLink as="a" fontSize={[1, null, null, 2]} href="tel:+5521994771868">
               <FontAwesomeIcon icon={faPhone} />
               (21) 99477-1868
             </TextLink>
-            <TextLink as="a" href="https://wa.me/5521994771868">
+            <TextLink as="a" fontSize={[1, null, null, 2]} href="https://wa.me/5521994771868">
               <FontAwesomeIcon icon={faWhatsapp} />
               WhatsApp
             </TextLink>
-            <TextLink as="a" href="mailto:contato@emcasa.com">
+            <TextLink as="a" fontSize={[1, null, null, 2]} href="mailto:contato@emcasa.com">
               <FontAwesomeIcon icon={faMail} />
               Fale com a gente
             </TextLink>
-          </LinksItem>
-          <LinksItem flexDirection="column">
+          </Row>
+          <Row flexDirection="column">
             <TitleLinks {...titleText}>Redes Sociais</TitleLinks>
-            <TextLink as="a" href="https://www.facebook.com/EmCasa" target="_blank">
+            <TextLink as="a" fontSize={[1, null, null, 2]} href="https://www.facebook.com/EmCasa" target="_blank">
               <FontAwesomeIcon icon={faFacebook} />
               Facebook
             </TextLink>
-            <TextLink as="a" href="https://www.instagram.com/emcasa" target="_blank">
+            <TextLink as="a" fontSize={[1, null, null, 2]} href="https://www.instagram.com/emcasa" target="_blank">
               <FontAwesomeIcon icon={faInstagram} />
               Instagram
             </TextLink>
-            <TextLink as="a" href="https://www.linkedin.com/company/emcasa" target="_blank">
+            <TextLink as="a" fontSize={[1, null, null, 2]} href="https://www.linkedin.com/company/emcasa" target="_blank">
               <FontAwesomeIcon icon={faLinkedin} />
               LinkedIn
             </TextLink>
-            <TextLink as="a" href="https://twitter.com/EmCasaTech" target="_blank">
+            <TextLink as="a" fontSize={[1, null, null, 2]} href="https://twitter.com/EmCasaTech" target="_blank">
               <FontAwesomeIcon icon={faTwitter} />
               Twitter
             </TextLink>
-          </LinksItem>
+          </Row>
         </LinksContainer>
       </Container>
     </Wrapper>

@@ -6,8 +6,7 @@ import Col from '@emcasa/ui-dom/components/Col'
 import {breakpoint} from '@emcasa/ui/lib/styles'
 import {listingDetailsMaxWidth, listingDetailsBarHeight} from 'constants/dimensions.js'
 
-const LINK_FONT_SIZE_MOBILE = '14px'
-const LINK_FONT_SIZE = '16px'
+const MAX_WIDTH_LOGO = 110
 
 export const Wrapper = styled.address`
   font-style: normal;
@@ -17,17 +16,25 @@ export const Wrapper = styled.address`
 export const Container = styled(Row)`
   flex-direction: column;
   margin: 0 auto;
-  padding: ${theme.space[5]}px ${theme.space[4]}px ${listingDetailsBarHeight + theme.space[6]}px;
-  max-width: ${listingDetailsMaxWidth}px;
+  padding: ${theme.space[5]}px ${theme.space[4]}px ${listingDetailsBarHeight + (theme.space[5] * 2)}px;
+  max-width: ${listingDetailsMaxWidth + 420}px;
+  box-sizing: border-box;
+
+  @media screen and ${breakpoint.up('desktop')} {
+    flex-direction: row;
+    padding: ${theme.space[5] * 2}px ${theme.space[4]}px ${theme.space[6]}px;
+  }
 `
 
 export const AboutContainer = styled(Row)`
   flex: 1 1 100%;
+  min-width: ${MAX_WIDTH_LOGO}px;
   flex-direction: column;
+  margin: 0 ${theme.space[5]}px ${theme.space[5]}px 0;
 `
 
 export const LogoWrapper = styled.div`
-  max-width: 110px;
+  max-width: ${MAX_WIDTH_LOGO}px;
 `
 
 export const AboutText = styled(Text)`
@@ -36,46 +43,36 @@ export const AboutText = styled(Text)`
 `
 
 export const LinksContainer = styled(Row)`
-  flex-wrap: wrap;
-`
+  flex: 1 1 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: ${theme.space[5]}px ${theme.space[4] * 2}px;
 
-export const LinksItem = styled(Row)`
-  flex: 0 0 50%;
-  padding-right: ${theme.space[2]}px;
-  box-sizing: border-box;
+  @media screen and ${breakpoint.up('desktop')} {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 `
 
 export const TitleLinks = styled(Text)`
   margin: 0 0 ${theme.space[2]}px;
   color: ${theme.colors.white};
+  white-space: nowrap;
 `
 
 export const TextLink = styled(Text)`
-  cursor: pointer;
+  margin: ${theme.space[3]}px 0 0;
   color: ${theme.colors.disabled};
-  line-height: 1.2;
-  font-size: ${LINK_FONT_SIZE};
-  margin: ${theme.space[2]}px 0 0;
+  white-space: nowrap;
 
   &:hover {
     color: ${theme.colors.white};
   }
 
   svg {
-    width: ${LINK_FONT_SIZE};
-    height: ${LINK_FONT_SIZE};
-    margin-right: 5px;
+    width: 1em;
+    height: 1em;
+    margin-right: ${theme.space[2]}px;
     color: ${theme.colors.white};
-  }
-
-  @media ${breakpoint.down('tablet')} {
-    min-height: ${LINK_FONT_SIZE_MOBILE};
-    font-size: ${LINK_FONT_SIZE_MOBILE};
-
-    svg {
-      width: ${LINK_FONT_SIZE_MOBILE};
-      height: ${LINK_FONT_SIZE_MOBILE};
-    }
   }
 `
 
