@@ -3,13 +3,15 @@ import theme from 'config/theme'
 import {breakpoint} from '@emcasa/ui/lib/styles'
 import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
+import {listingDetailsMaxWidth} from 'constants/dimensions'
 
 export const Container = styled(View)`
   width: 100%;
-  max-width: ${1204 + theme.space[4]}px;
+  max-width: ${listingDetailsMaxWidth}px;
   display: flex;
   flex-direction: column;
   padding: 0 ${theme.space[4]}px;
+  box-sizing: border-box;
 `
 
 export const Header = styled(View)`
