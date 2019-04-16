@@ -32,7 +32,8 @@ class ContactForm extends Component {
     showSuccess: false,
     mobileKeyboard: false,
     nameTouched: false,
-    phoneTouched: false
+    phoneTouched: false,
+    loading: false
   }
 
   componentDidMount() {
@@ -64,7 +65,13 @@ class ContactForm extends Component {
     if (this.nameField && this.nameField.current && this.phoneField && this.phoneField.current) {
       const name = this.nameField.current.value ? this.nameField.current.value.trim() : ''
       const phone = this.phoneField.current.value ? this.phoneField.current.value.trim() : ''
-      this.props.onSubmit(e, {name, phone})
+      this.setState({loading: true})
+      this.props.onSubmit(e, {name, phone}, (error) => {
+        this.setState({
+          loading: false,
+          error
+        })
+      })
     }
   }
 
@@ -112,9 +119,10 @@ class ContactForm extends Component {
           <Col width={1/2} ml={2} mr={4}>
             <Input
               fluid
-              label="Telefone"
+              label="Celular"
               height="medium"
               type="tel"
+              placeholder="(11) 11111-1111"
               onFocus={() => {this.setState({mobileKeyboard: true})}}
               onBlur={() => {this.setState({mobileKeyboard: false})}}
               onChange={(e) => {
@@ -125,16 +133,15 @@ class ContactForm extends Component {
             />
           </Col>
         </Row>
-        <Row justifyContent="center">
-          <Col>
-            <Button
-              active
-              onClick={this.submit}
-              disabled={!(this.state.nameFieldValid && this.state.phoneFieldValid)}
-            >
-              Solicitar atendimento
-            </Button>
-          </Col>
+        <Row alignItems="center" flexDirection="column">
+          <Button
+            active
+            onClick={this.submit}
+            disabled={!(this.state.nameFieldValid && this.state.phoneFieldValid) || this.state.loading}
+          >
+            Solicitar atendimento
+          </Button>
+          {!this.state.loading && <Text textAlign="center" color={theme.colors.red}>{this.state.error && 'Ocorreu um erro. Por favor, tente novamente.'}</Text>}
         </Row>
       </Modal>
     )
