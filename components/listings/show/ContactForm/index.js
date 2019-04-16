@@ -12,7 +12,8 @@ import InstructionText from './InstructionText'
 import {
   log,
   LISTING_DETAIL_VISIT_FORM_NAME_INPUT,
-  LISTING_DETAIL_VISIT_FORM_PHONE_INPUT
+  LISTING_DETAIL_VISIT_FORM_PHONE_INPUT,
+  LISTING_DETAIL_VISIT_FORM_ERROR
 } from 'lib/logging'
 import {
   PinkBox,
@@ -67,6 +68,12 @@ class ContactForm extends Component {
       const phone = this.phoneField.current.value ? this.phoneField.current.value.trim() : ''
       this.setState({loading: true})
       this.props.onSubmit(e, {name, phone}, (error) => {
+        log(LISTING_DETAIL_VISIT_FORM_ERROR, {
+          listingId: this.props.listing.id,
+          name,
+          phone,
+          error
+        })
         this.setState({
           loading: false,
           error
@@ -150,7 +157,9 @@ class ContactForm extends Component {
 
 ContactForm.propTypes = {
   onClose: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired
+  onSubmit: PropTypes.func.isRequired,
+  listing: PropTypes.object.isRequired,
+  error: PropTypes.string
 }
 
 export default ContactForm

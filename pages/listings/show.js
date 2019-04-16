@@ -382,6 +382,7 @@ class Listing extends Component {
                       <ContactForm
                         onClose={this.closeInterestPopup}
                         onSubmit={this.onSubmit}
+                        listing={listing}
                       />
                     )}
                     {isInterestSuccessPopupVisible && (
