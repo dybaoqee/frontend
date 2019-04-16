@@ -187,7 +187,7 @@ class Listing extends Component {
     this.setState({isInterestSuccessPopupVisible: false})
   }
 
-  onSubmit = async (e, userInfo) => {
+  onSubmit = async (e, userInfo, callback) => {
     e && e.preventDefault()
 
     const {id} = this.props.listing
@@ -195,14 +195,16 @@ class Listing extends Component {
 
     const res = await createInterest(id, {name: userInfo.name, phone: userInfo.phone})
 
-    if (res.data.errors) {
+    if (res && res.data && res.data.errors) {
       this.setState({errors: res.data.errors})
+      callback(res.data.errors)
       return
     }
 
     log(LISTING_DETAIL_SCHEDULE_VISIT, getListingInfoForLogs(listing))
 
     if (!res.data) {
+      callback(res)
       return res
     }
 
@@ -380,6 +382,7 @@ class Listing extends Component {
                       <ContactForm
                         onClose={this.closeInterestPopup}
                         onSubmit={this.onSubmit}
+                        listing={listing}
                       />
                     )}
                     {isInterestSuccessPopupVisible && (
