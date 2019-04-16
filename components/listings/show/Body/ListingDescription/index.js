@@ -14,6 +14,8 @@ class ListingDescription extends React.Component {
     this.toggleBody = this.toggleBody.bind(this)
   }
 
+  static P = P
+
   toggleBody = () => {
     this.setState({ expanded: !this.state.expanded }, () => {
       if (this.state.expanded && this.props.onExpand) this.props.onExpand()
@@ -26,7 +28,8 @@ class ListingDescription extends React.Component {
       bg = 'white',
       title,
       collapsedHeight,
-      paragraphs
+      paragraphs,
+      children
     } = this.props
     const {expanded} = this.state
 
@@ -46,6 +49,7 @@ class ListingDescription extends React.Component {
                 {paragraph}
               </P>
             ))}
+          {children}
         </Content>
         <BottomRow bg={bg} expanded={expanded}>
           <Button expanded={expanded} onClick={this.toggleBody}>

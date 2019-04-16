@@ -131,6 +131,33 @@ export const GET_FULL_LISTING = gql`
         name
         phase
         description
+        listings {
+          id
+          type
+          address {
+            street
+            neighborhood
+            state
+            city
+            lat
+            lng
+            postalCode
+          }
+          images(isActive: true, limit: 1) {
+            id
+            filename
+          }
+          units {
+            uuid
+            area
+            floor
+            price
+            rooms
+            suites
+            bathrooms
+            garageSpots
+          }
+        }
         images(isActive: true) {
           filename
           position

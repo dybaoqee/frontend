@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import theme from 'config/theme'
+import {backgroundColor} from 'styled-system'
 import {breakpoint} from '@emcasa/ui/lib/styles'
 import {listingDetailsMaxWidth} from 'constants/dimensions'
 import Text from '@emcasa/ui-dom/components/Text'
@@ -33,6 +34,10 @@ export const Gradient = styled.div`
     right: ${theme.space[4]}px;
     width: 60px;
     height: 100%;
-    background-image: linear-gradient(to right, rgba(255, 255, 255, 0), white);
+    background-image: linear-gradient(
+      to right,
+      transparent,
+      ${(props) => backgroundColor(props).backgroundColor}
+    );
   }
 `

@@ -13,6 +13,7 @@ import Col from '@emcasa/ui-dom/components/Col'
 import ListingInfo from './ListingInfo'
 import ListingDescription from './ListingDescription'
 import DevelopmentPhase from './DevelopmentPhase'
+import ListingsFeed from 'components/shared/Listing/Feed'
 import {Container, DevelopmentContainer} from './styles'
 
 class ListingMainContent extends Component {
@@ -43,7 +44,11 @@ class ListingMainContent extends Component {
           listing.complement ? `- ${listing.complement}` : ''
         }`
       : `${street}`
-
+    const developmentListings = listing.development
+        ? listing.development.listings.filter(
+          ({id}) => id !== listing.id
+        )
+        : []
     return (
       <Col alignItems="center" width="100%" mt={5}>
         <Container>
@@ -72,7 +77,17 @@ class ListingMainContent extends Component {
               bg="snow"
               title="Sobre o empreendimento"
               paragraphs={getParagraphs(listing.development.description)}
-            />
+            >
+              {developmentListings.length && (
+                <View className="listingsFeed" width="100vw">
+                  <ListingsFeed
+                    bg="snow"
+                    title="Imóveis do empreendimento"
+                    listings={developmentListings}
+                  />
+                </View>
+              )}
+            </ListingDescription>
           </DevelopmentContainer>
         )}
       </Col>

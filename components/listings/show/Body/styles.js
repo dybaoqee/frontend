@@ -27,4 +27,11 @@ export const DevelopmentContainer = styled(Row)`
     margin: auto;
     padding: ${themeGet('space.4')}px;
   }
+  .listingsFeed {
+    margin-left: -${themeGet('space.4')}px;
+    margin-right: -${themeGet('space.4')}px;
+    & > div {
+      margin: 0;
+    }
+  }
 `
