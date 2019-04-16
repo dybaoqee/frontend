@@ -76,7 +76,7 @@ class ListingInfiniteScroll extends Component {
     return (
       <Container
         style={{position: 'relative'}}
-        innerRef={(wrapper) => (this.wrapper = wrapper)}
+        ref={(wrapper) => (this.wrapper = wrapper)}
       >
         {titleComponent && !horizontal && titleComponent}
         <ListContainer>
@@ -85,7 +85,7 @@ class ListingInfiniteScroll extends Component {
         {remaining_count > 0 && (
           <Footer
             className="infinite-scroll-footer"
-            innerRef={this.footerRef}
+            ref={this.footerRef}
             horizontal={horizontal}
           >
             <a

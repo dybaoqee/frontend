@@ -4,6 +4,7 @@ import Container from 'components/listings/new-listing/shared/Container'
 import { ADDRESS_IS_COVERED } from 'graphql/listings/queries'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
+import Text from '@emcasa/ui-dom/components/Text'
 import Input from '@emcasa/ui-dom/components/Input'
 import {withBreakpoint} from '@emcasa/ui-dom/components/Breakpoint'
 import StaticMap from 'components/listings/new-listing/shared/StaticMap'
@@ -12,9 +13,6 @@ import NavButtons from 'components/listings/new-listing/shared/NavButtons'
 import AddressAutoComplete from 'components/shared/AddressAutoComplete'
 import MobileAddressButton from 'components/shared/MobileAddressButton'
 import Steps from 'components/listings/new-listing/shared/Steps'
-import {
-  Header
-} from './styles'
 
 class AddressInput extends Component {
   constructor(props) {
@@ -126,7 +124,7 @@ class AddressInput extends Component {
 
   render() {
     const { location } = this.props
-    let address, complement
+    let address = '', complement
     if (location) {
       address = location.address
       complement = location.complement
@@ -147,9 +145,9 @@ class AddressInput extends Component {
                 <>
                   <Steps currentStep="address" />
                   <Row justifyContent="center">
-                    <Header fontSize="large" textAlign="center">
+                    <Text as="h1" fontSize="large" textAlign="center">
                       Qual o endereço do seu imóvel?
-                    </Header>
+                    </Text>
                   </Row>
                   <Col>
                     <StaticMap animated={true} addressData={this.state.addressData} />

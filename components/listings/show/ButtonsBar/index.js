@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import LikeButton from 'components/shared/Common/Buttons/Like'
-
+import {
+  log,
+  LISTING_DETAIL_CONTACT_BUTTON
+} from 'lib/logging'
 import {
   Wrapper,
   Container,
@@ -20,7 +23,10 @@ class ButtonsBar extends Component {
             listing={listing}
             user={user}
           />
-          <ContactButton active onClick={handleOpenInterestPopup}>Falar com especialista</ContactButton>
+          <ContactButton active onClick={() => {
+            log(LISTING_DETAIL_CONTACT_BUTTON, {listingId: listing.id})
+            handleOpenInterestPopup()
+          }}>Falar com especialista</ContactButton>
         </Container>
       </Wrapper>
     )

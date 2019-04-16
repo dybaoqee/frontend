@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
 import Icon from '@emcasa/ui-dom/components/Icon'
-import Container, {Title, Content, BottomRow} from './styles'
+import Container, {P, Title, Content, BottomRow} from './styles'
 
 class ListingDescription extends React.Component {
   constructor(props) {
@@ -26,24 +26,30 @@ class ListingDescription extends React.Component {
       bg = 'white',
       title,
       collapsedHeight,
-      listing,
       paragraphs
     } = this.props
     const {expanded} = this.state
 
     return (
       <Container bg={bg} flexDirection="column">
-        <Title fontWeight="bold"><span>{title}</span></Title>
+        <Title as="h3" fontWeight="bold">
+          <span>{title}</span>
+        </Title>
         <Content
           expanded={expanded}
           flexDirection="column"
           collapsedHeight={collapsedHeight}
         >
-          {paragraphs && paragraphs.map((paragraph, i) => <Text fontSize={[1, null, null, 2]} key={i}>{paragraph}</Text>)}
+          {paragraphs &&
+            paragraphs.map((paragraph, i) => (
+              <P fontSize={[1, null, null, 2]} key={i}>
+                {paragraph}
+              </P>
+            ))}
         </Content>
-        <BottomRow bg={bg}>
+        <BottomRow bg={bg} expanded={expanded}>
           <Button expanded={expanded} onClick={this.toggleBody}>
-            <Icon name={expanded ? 'chevron-up' : 'chevron-down'}/>
+            <Icon name={expanded ? 'chevron-up' : 'chevron-down'} />
             {expanded ? 'Fechar' : 'Ler mais'}
           </Button>
         </BottomRow>

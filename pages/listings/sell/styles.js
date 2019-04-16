@@ -18,9 +18,6 @@ export const Block = styled(View)`
   overflow: hidden;
   justify-content: center;
   padding-top: ${desktopHeaderHeight}px;
-  @media ${breakpoint.down('tablet')} {
-    padding-top: 40px;
-  }
 `
 
 export const MainBlock = styled(Block)`

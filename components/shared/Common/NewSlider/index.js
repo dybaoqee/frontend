@@ -207,16 +207,16 @@ class NewSlider extends Component {
             </RangeValues>
         )}
         <Rail
-          innerRef={this.rail}
+          ref={this.rail}
           showValues={showValue}
           min={valuesFormatter(min)}
           max={valuesFormatter(max)}
         >
-          {isRange && <Bar innerRef={this.bar} />}
+          {isRange && <Bar ref={this.bar} />}
           {isRange && (
-            <Thumb aria-label="min" innerRef={this.minThumb} tabIndex="0" isOnTheFront={minThumbOnTheFront} />
+            <Thumb aria-label="min" ref={this.minThumb} tabIndex="0" isOnTheFront={minThumbOnTheFront} />
           )}
-          <Thumb aria-label="max" innerRef={this.maxThumb} tabIndex="0" isOnTheFront={!minThumbOnTheFront} />
+          <Thumb aria-label="max" ref={this.maxThumb} tabIndex="0" isOnTheFront={!minThumbOnTheFront} />
         </Rail>
       </Container>
     )

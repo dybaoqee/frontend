@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<ProgressDialog/> should render component 1`] = `
-.c1 {
+.c2 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -40,7 +40,7 @@ exports[`<ProgressDialog/> should render component 1`] = `
   border-style: solid;
 }
 
-.c5 :hover {
+.c5:hover {
   background-color: #ffffff;
 }
 
@@ -65,11 +65,11 @@ exports[`<ProgressDialog/> should render component 1`] = `
   border-style: solid;
 }
 
-.c6 :hover {
+.c6:hover {
   background-color: #f50057;
 }
 
-.c2 {
+.c1 {
   width: 100%;
 }
 
@@ -81,7 +81,10 @@ exports[`<ProgressDialog/> should render component 1`] = `
 }
 
 .c0 {
-  width: calc(100vw - 40px);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   padding: 80px 20px 20px 20px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
@@ -90,7 +93,7 @@ exports[`<ProgressDialog/> should render component 1`] = `
 }
 
 @media screen and (min-width:780px) {
-  .c2 {
+  .c1 {
     width: 50%;
   }
 }
@@ -103,10 +106,10 @@ exports[`<ProgressDialog/> should render component 1`] = `
 }
 
 <div
-  className="c0 c1"
+  className="c0"
 >
   <div
-    className="c2"
+    className="c1"
     width={
       Array [
         1,
@@ -117,7 +120,7 @@ exports[`<ProgressDialog/> should render component 1`] = `
     }
   >
     <div
-      className="c1"
+      className="c2"
     >
       <p
         className="c3"

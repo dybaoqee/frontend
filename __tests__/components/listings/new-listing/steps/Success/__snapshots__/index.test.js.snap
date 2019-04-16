@@ -1,18 +1,37 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly 1`] = `
-.c6 {
+.c4 {
   padding: 20px;
 }
 
-.c1 {
+.c5 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
 }
 
-.c5 {
+.c7 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.c13 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c15 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -24,44 +43,25 @@ exports[`renders correctly 1`] = `
   justify-content: center;
 }
 
-.c8 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  margin-bottom: 10px;
-}
-
-.c14 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-}
-
-.c2 {
+.c1 {
   width: 100%;
 }
 
-.c10 {
+.c9 {
   width: 50%;
 }
 
-.c11 {
+.c10 {
   margin-right: 2px;
   padding-top: 2px;
   width: 16.666666666666664%;
 }
 
-.c13 {
+.c12 {
   width: 83.33333333333334%;
 }
 
-.c3 {
+.c2 {
   -webkit-font-smoothing: antialiased;
   font-family: Rubik;
   color: #13ce66;
@@ -70,14 +70,14 @@ exports[`renders correctly 1`] = `
   text-align: center;
 }
 
-.c7 {
+.c6 {
   -webkit-font-smoothing: antialiased;
   font-family: Rubik;
   color: #1D1919;
   font-size: 14px;
 }
 
-.c9 {
+.c8 {
   -webkit-font-smoothing: antialiased;
   font-family: Rubik;
   color: #3c4858;
@@ -85,28 +85,28 @@ exports[`renders correctly 1`] = `
   font-weight: 500;
 }
 
-.c12 {
+.c11 {
   -webkit-font-smoothing: antialiased;
   font-family: Rubik;
   color: #3c4858;
   font-size: 12px;
 }
 
-.c15 {
+.c14 {
   -webkit-font-smoothing: antialiased;
   font-family: Rubik;
   color: #3c4858;
   font-size: 24px;
 }
 
-.c20 {
+.c19 {
   -webkit-font-smoothing: antialiased;
   font-family: Rubik;
   color: #1D1919;
   font-size: 18px;
 }
 
-.c22 {
+.c21 {
   outline: none;
   cursor: pointer;
   padding: 0 20px 0 20px;
@@ -126,12 +126,15 @@ exports[`renders correctly 1`] = `
   border-style: solid;
 }
 
-.c22 :hover {
+.c21:hover {
   background-color: #f50057;
 }
 
 .c0 {
-  width: calc(100vw - 40px);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   padding: 80px 20px 20px 20px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
@@ -140,6 +143,10 @@ exports[`renders correctly 1`] = `
 }
 
 .c16 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   width: 100%;
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
@@ -147,19 +154,20 @@ exports[`renders correctly 1`] = `
 }
 
 .c17 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   position: relative;
   box-sizing: border-box;
   margin: 10px 0 10px 0;
 }
 
-.c19 {
+.c18 {
   -webkit-font-smoothing: antialiased;
   font-family: Rubik;
   color: #ffffff;
   font-size: 18px;
-}
-
-.c18 {
   z-index: 1;
   display: -webkit-box;
   display: -webkit-flex;
@@ -194,7 +202,11 @@ exports[`renders correctly 1`] = `
   border-right: 1px dashed #979797;
 }
 
-.c21 {
+.c20 {
+  -webkit-font-smoothing: antialiased;
+  font-family: Rubik;
+  color: #ffffff;
+  font-size: 18px;
   z-index: 1;
   display: -webkit-box;
   display: -webkit-flex;
@@ -218,14 +230,23 @@ exports[`renders correctly 1`] = `
   margin-right: 14px;
 }
 
-.c4 {
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 20px;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   border: 1px solid #e0e6ed;
   box-shadow: 0px 2px 2px rgba(0,0,0,0.3);
   border-radius: 2px;
 }
 
 @media screen and (min-width:780px) {
-  .c2 {
+  .c1 {
     width: 50%;
   }
 }
@@ -239,10 +260,10 @@ exports[`renders correctly 1`] = `
 
 <div>
   <div
-    className="c0 c1"
+    className="c0"
   >
     <div
-      className="c2"
+      className="c1"
       width={
         Array [
           1,
@@ -253,7 +274,7 @@ exports[`renders correctly 1`] = `
       }
     >
       <p
-        className="c3"
+        className="c2"
         color="green"
         fontSize="large"
         fontWeight="bold"
@@ -261,19 +282,19 @@ exports[`renders correctly 1`] = `
         Parabéns, sua solicitação foi recebida com sucesso.
       </p>
       <div
-        className="c4 c5"
+        className="c3"
       >
         <div
-          className="c6"
+          className="c4"
         >
           <div
-            className="c1"
+            className="c5"
           >
             <div
               className=""
             >
               <span
-                className="c7"
+                className="c6"
                 color="grey"
                 fontSize="small"
               >
@@ -282,13 +303,13 @@ exports[`renders correctly 1`] = `
             </div>
           </div>
           <div
-            className="c8"
+            className="c7"
           >
             <div
               className=""
             >
               <span
-                className="c9"
+                className="c8"
                 color="dark"
                 fontSize="small"
                 fontWeight="bold"
@@ -298,14 +319,14 @@ exports[`renders correctly 1`] = `
             </div>
           </div>
           <div
-            className="c1"
+            className="c5"
           >
             <div
-              className="c10"
+              className="c9"
               width={0.5}
             >
               <span
-                className="c7"
+                className="c6"
                 color="grey"
                 fontSize="small"
               >
@@ -313,11 +334,11 @@ exports[`renders correctly 1`] = `
               </span>
             </div>
             <div
-              className="c10"
+              className="c9"
               width={0.5}
             >
               <span
-                className="c7"
+                className="c6"
                 color="grey"
                 fontSize="small"
               >
@@ -326,14 +347,14 @@ exports[`renders correctly 1`] = `
             </div>
           </div>
           <div
-            className="c1"
+            className="c5"
           >
             <div
-              className="c10"
+              className="c9"
               width={0.5}
             >
               <span
-                className="c9"
+                className="c8"
                 color="dark"
                 fontSize="small"
                 fontWeight="bold"
@@ -342,11 +363,11 @@ exports[`renders correctly 1`] = `
               </span>
             </div>
             <div
-              className="c10"
+              className="c9"
               width={0.5}
             >
               <span
-                className="c9"
+                className="c8"
                 color="dark"
                 fontSize="small"
                 fontWeight="bold"
@@ -356,27 +377,27 @@ exports[`renders correctly 1`] = `
             </div>
           </div>
           <div
-            className="c1"
+            className="c5"
           >
             <div
-              className="c10"
+              className="c9"
               width={0.5}
             >
                
             </div>
             <div
-              className="c10"
+              className="c9"
               width={0.5}
             >
               <div
-                className="c1"
+                className="c5"
               >
                 <div
-                  className="c11"
+                  className="c10"
                   width={0.16666666666666666}
                 >
                   <span
-                    className="c12"
+                    className="c11"
                     color="dark"
                     fontSize={12}
                   >
@@ -384,11 +405,11 @@ exports[`renders correctly 1`] = `
                   </span>
                 </div>
                 <div
-                  className="c13"
+                  className="c12"
                   width={0.8333333333333334}
                 >
                   <span
-                    className="c7"
+                    className="c6"
                     color="grey"
                     fontSize="small"
                   >
@@ -401,13 +422,13 @@ exports[`renders correctly 1`] = `
         </div>
       </div>
       <div
-        className="c14"
+        className="c13"
       >
         <div
           className=""
         >
           <p
-            className="c15"
+            className="c14"
             color="dark"
             fontSize="large"
             style={
@@ -421,26 +442,27 @@ exports[`renders correctly 1`] = `
         </div>
       </div>
       <div
-        className="c5"
+        className="c15"
       >
         <div
           className=""
         >
           <div
-            className="c16 c1"
+            className="c16"
           >
             <div
-              className="c17 c1"
+              className="c17"
             >
               <span
-                className="c18 c19"
+                className="c18"
                 color="white"
                 fontSize="default"
+                last={0}
               >
                 1
               </span>
               <span
-                className="c20"
+                className="c19"
                 color="grey"
                 fontSize="default"
               >
@@ -448,17 +470,18 @@ exports[`renders correctly 1`] = `
               </span>
             </div>
             <div
-              className="c17 c1"
+              className="c17"
             >
               <span
-                className="c18 c19"
+                className="c18"
                 color="white"
                 fontSize="default"
+                last={0}
               >
                 2
               </span>
               <span
-                className="c20"
+                className="c19"
                 color="grey"
                 fontSize="default"
               >
@@ -466,17 +489,18 @@ exports[`renders correctly 1`] = `
               </span>
             </div>
             <div
-              className="c17 c1"
+              className="c17"
             >
               <span
-                className="c18 c19"
+                className="c18"
                 color="white"
                 fontSize="default"
+                last={0}
               >
                 3
               </span>
               <span
-                className="c20"
+                className="c19"
                 color="grey"
                 fontSize="default"
               >
@@ -484,17 +508,18 @@ exports[`renders correctly 1`] = `
               </span>
             </div>
             <div
-              className="c17 c1"
+              className="c17"
             >
               <span
-                className="c21 c19"
+                className="c20"
                 color="white"
                 fontSize="default"
+                last={1}
               >
                 4
               </span>
               <span
-                className="c20"
+                className="c19"
                 color="grey"
                 fontSize="default"
               >
@@ -505,13 +530,13 @@ exports[`renders correctly 1`] = `
         </div>
       </div>
       <div
-        className="c14"
+        className="c13"
       >
         <div
           className=""
         >
           <button
-            className="c22"
+            className="c21"
             fontSize="default"
             height="tall"
             onClick={[Function]}

@@ -17,9 +17,7 @@ const shouldShowMap = () => {
   return false
 }
 
-const H2Title = Text.withComponent('h2')
-
-const Title = styled(H2Title)`
+const Title = styled(Text)`
   margin: 0 ${theme.space[4]}px ${theme.space[3]}px;
 `
 

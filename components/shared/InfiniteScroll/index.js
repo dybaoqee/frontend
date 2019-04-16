@@ -67,7 +67,7 @@ export default class InfiniteScroll extends Component {
       <Wrapper
         title={title}
         horizontal={horizontal}
-        innerRef={(wrapper) => (this.wrapper = wrapper)}
+        ref={(wrapper) => (this.wrapper = wrapper)}
       >
         {title && <Title horizontal={horizontal}>{title}</Title>}
         {titleComponent && !horizontal && titleComponent}
@@ -77,7 +77,7 @@ export default class InfiniteScroll extends Component {
         {remaining_count > 0 && (
           <Footer
             className="infinite-scroll-footer"
-            innerRef={this.footerRef}
+            ref={this.footerRef}
             horizontal={horizontal}
           >
             <a

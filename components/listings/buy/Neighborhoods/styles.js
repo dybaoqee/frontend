@@ -4,11 +4,6 @@ import {breakpoint} from '@emcasa/ui/lib/styles'
 import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 
-const thumbWidth = 345
-
-export const Title = Text.withComponent('h2')
-export const SubTitle = Text.withComponent('h3')
-
 export const Container = styled(View)`
   width: 100%;
   max-width: ${1204 + theme.space[4]}px;
@@ -20,7 +15,7 @@ export const Container = styled(View)`
 export const Header = styled(View)`
   margin-bottom: ${theme.space[4]}px;
 
-  ${Title} {
+  h2 {
     margin: 0;
   }
 
@@ -39,7 +34,7 @@ export const City = styled(View)`
   flex-direction: column;
   margin-bottom: ${theme.space[2]}px;
 
-  ${SubTitle} {
+  h3 {
     margin-bottom: 0;
   }
 `
@@ -127,9 +122,7 @@ export const NeighborhoodsLinks = styled(View)`
   }
 `
 
-const NeighborhoodsLinkTitle = Text.withComponent('h4')
-
-export const ListTitle = styled(NeighborhoodsLinkTitle)`
+export const ListTitle = styled(Text)`
   font-size: inherit;
   margin: 0;
   color: inherit;

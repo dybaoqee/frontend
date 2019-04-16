@@ -2,12 +2,12 @@ import React, { PureComponent } from 'react'
 import Button from '@emcasa/ui-dom/components/Button'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
+import Text from '@emcasa/ui-dom/components/Text'
 import Container from 'components/listings/new-listing/shared/Container'
 import NumberedList from 'components/shared/NumberedList'
 import { LARGE_BUTTON_WIDTH } from 'components/listings/new-listing/styles'
 import {
   Space,
-  Title,
   Background
 } from './styles'
 
@@ -29,13 +29,14 @@ class Intro extends PureComponent {
           <Container>
             <Col width={1}>
               <Space />
-              <Title
+              <Text
+                as="h1"
                 fontSize="xlarge"
                 fontWeight="bold"
                 textAlign="center"
               >
                 {this.props.evaluation ? "Descubra agora por quanto vender seu imóvel" : "Como vender seu imóvel na EmCasa?"}
-              </Title>
+              </Text>
               <Row justifyContent="center">
                 <Col>
                   <NumberedList

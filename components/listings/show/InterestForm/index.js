@@ -12,8 +12,6 @@ import {
   LISTING_DETAIL_VISIT_FORM_PHONE_INPUT
 } from 'lib/logging'
 
-const Title = Text.withComponent('h1')
-
 export default class InterestForm extends Component {
   constructor(props) {
     super(props)
@@ -42,7 +40,7 @@ export default class InterestForm extends Component {
 
     return (
       <Modal onClose={onClose} justifyContent="center" padding unstyledCloseButton>
-        <Title fontSize="large" textAlign="center">Contato</Title>
+        <Text as="h1" fontSize="large" textAlign="center">Contato</Text>
         <Row my={2} justifyContent="center"><Text inline textAlign="center">Por favor, informe seu nome e telefone.</Text></Row>
         <Input
           height={mobile ? "medium" : "tall"}

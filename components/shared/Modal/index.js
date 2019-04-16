@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import enhanceWithClickOutside from 'react-click-outside'
 import CloseButton from 'components/shared/CloseButton'
@@ -7,10 +7,14 @@ import {
   Container
 } from './styles'
 
-class ContainerClickOutside extends Container {
+class ContainerClickOutside extends Component {
   handleClickOutside(e) {
     e.preventDefault()
     this.props.onClose()
+  }
+
+  render() {
+    return <Container {...this.props} />
   }
 }
 
@@ -25,9 +29,15 @@ class Modal extends Component {
           justifyContent={this.props.justifyContent}
           onClose={this.props.onClose}
           onClick={(e) => {e.preventDefault()}}
+          mobileKeyboard={this.props.mobileKeyboard}
         >
-          <CloseButton unstyled={this.props.unstyledCloseButton} onClick={this.props.onClose} />
-          {this.props.children}
+          <CloseButton
+            onClick={this.props.onClose}
+            buttonStyle={this.props.closeButtonStyle}
+            iconStyle={this.props.closeIconStyle}
+            color={this.props.closeIconColor}
+          />
+            {this.props.children}
         </EnhancedContainer>
       </Background>
     )
@@ -37,7 +47,10 @@ class Modal extends Component {
 Modal.propTypes = {
   onClose: PropTypes.func.isRequired,
   justifyContent: PropTypes.string,
-  unstyledCloseButton: PropTypes.bool
+  mobileKeyboard: PropTypes.bool,
+  closeButtonStyle: PropTypes.object,
+  closeIconStyle: PropTypes.object,
+  closeIconColor: PropTypes.string
 }
 
 export default Modal
