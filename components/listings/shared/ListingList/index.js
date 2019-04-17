@@ -1,4 +1,4 @@
-import {Component} from 'react'
+import {Component, Fragment} from 'react'
 import {Query} from 'react-apollo'
 import {GET_USER_LISTINGS_ACTIONS} from 'graphql/user/queries'
 import {
@@ -10,6 +10,7 @@ import differenceBy from 'lodash/differenceBy'
 import map from 'lodash/map'
 import ListingInfiniteScroll from 'components/shared/ListingInfiniteScroll'
 import ListingCard from 'components/listings/shared/ListingCard'
+import {CardWidthGlobal} from 'components/listings/shared/ListingCard/styles'
 import Map from 'components/listings/shared/Map'
 import ListingsNotFound from 'components/listings/shared/NotFound'
 import Neighborhood from 'components/listings/shared/Neighborhood'
@@ -27,8 +28,6 @@ class ListingList extends Component {
       excludedListingIds: []
     }
   }
-
-  state = {}
 
   componentWillReceiveProps(newProps) {
     const currentFilters = this.props.filters
@@ -64,65 +63,68 @@ class ListingList extends Component {
             const favorites = userProfile ? userProfile.favorites : []
             const filteredListings = differenceBy(result.listings, 'id')
             return (
-              <ListingInfiniteScroll
-                titleComponent={
-                  params.neighborhood && (
-                    <Neighborhood
-                      neighborhood={params.neighborhood}
-                      state={params.state}
-                      city={params.city}
-                      neighborhoodListener={neighborhoodListener}
-                    />
-                  )
-                }
-                entries={filteredListings}
-                filters={filters}
-                remaining_count={result.remainingCount}
-                onLoad={async () => {
-                  const loadedListings = await fetchMore({
-                    variables: {
-                      pagination: {
-                        ...this.pagination,
-                        excludedListingIds: map(result.listings, 'id')
-                      }
-                    },
-                    updateQuery: (
-                      prev,
-                      {fetchMoreResult, variables: {pagination}}
-                    ) => {
-                      if (!fetchMoreResult) return prev
-                      this.pagination = pagination
-                      const result = {
-                        ...prev,
-                        listings: {
-                          ...prev.listings,
-                          remainingCount:
-                            fetchMoreResult.listings.remainingCount,
-                          listings: [
-                            ...prev.listings.listings,
-                            ...fetchMoreResult.listings.listings
-                          ]
+              <Fragment>
+                <CardWidthGlobal />
+                <ListingInfiniteScroll
+                  titleComponent={
+                    params.neighborhood && (
+                      <Neighborhood
+                        neighborhood={params.neighborhood}
+                        state={params.state}
+                        city={params.city}
+                        neighborhoodListener={neighborhoodListener}
+                      />
+                    )
+                  }
+                  entries={filteredListings}
+                  filters={filters}
+                  remaining_count={result.remainingCount}
+                  onLoad={async () => {
+                    const loadedListings = await fetchMore({
+                      variables: {
+                        pagination: {
+                          ...this.pagination,
+                          excludedListingIds: map(result.listings, 'id')
                         }
+                      },
+                      updateQuery: (
+                        prev,
+                        {fetchMoreResult, variables: {pagination}}
+                      ) => {
+                        if (!fetchMoreResult) return prev
+                        this.pagination = pagination
+                        const result = {
+                          ...prev,
+                          listings: {
+                            ...prev.listings,
+                            remainingCount:
+                            fetchMoreResult.listings.remainingCount,
+                            listings: [
+                              ...prev.listings.listings,
+                              ...fetchMoreResult.listings.listings
+                            ]
+                          }
+                        }
+                        return result
                       }
-                      return result
-                    }
-                  })
-                  return loadedListings
-                }}
-              >
-                {(listing) => (
-                  <ListingCard
-                    onMouseEnter={onHoverListing}
-                    onMouseLeave={onLeaveListing}
-                    highlight={highlight}
-                    key={listing.id}
-                    listing={listing}
-                    currentUser={user}
-                    loading={loading}
-                    favorited={favorites || []}
-                  />
-                )}
-              </ListingInfiniteScroll>
+                    })
+                    return loadedListings
+                  }}
+                >
+                  {(listing) => (
+                    <ListingCard
+                      onMouseEnter={onHoverListing}
+                      onMouseLeave={onLeaveListing}
+                      highlight={highlight}
+                      key={listing.id}
+                      listing={listing}
+                      currentUser={user}
+                      loading={loading}
+                      favorited={favorites || []}
+                    />
+                  )}
+                </ListingInfiniteScroll>
+              </Fragment>
             )
           }}
         </Query>
