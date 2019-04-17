@@ -45,7 +45,7 @@ exports[`<ListingCard/> should render component 1`] = `
   position: relative;
   box-sizing: border-box;
   cursor: pointer;
-  width: px;
+  width: 280px;
   height: auto;
   border: 1px solid #e0e6ed;
   border-radius: 4px;
@@ -61,8 +61,8 @@ exports[`<ListingCard/> should render component 1`] = `
   box-sizing: border-box;
   object-fit: cover;
   width: 100%;
-  min-height: NaNpx;
-  height: NaNpx;
+  min-height: 140px;
+  height: 140px;
   border-radius: 4px 4px 0 0;
 }
 
