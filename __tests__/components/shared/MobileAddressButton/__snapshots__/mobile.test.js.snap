@@ -25,10 +25,6 @@ exports[`<MobileAddressButton/> should render component on mobile 1`] = `
   padding: 0 10px 0 10px;
 }
 
-.c0:hover {
-  background-color: #ffffff;
-}
-
 .c2 {
   -webkit-font-smoothing: antialiased;
   font-family: Rubik;

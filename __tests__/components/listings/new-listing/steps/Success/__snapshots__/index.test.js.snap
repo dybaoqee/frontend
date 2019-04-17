@@ -126,10 +126,6 @@ exports[`renders correctly 1`] = `
   border-style: solid;
 }
 
-.c21:hover {
-  background-color: #f50057;
-}
-
 .c0 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -383,7 +379,7 @@ exports[`renders correctly 1`] = `
               className="c9"
               width={0.5}
             >
-               
+
             </div>
             <div
               className="c9"
