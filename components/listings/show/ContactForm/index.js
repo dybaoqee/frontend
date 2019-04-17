@@ -147,6 +147,14 @@ class ContactForm extends Component {
                     this.logInputTouched(e, 'phoneTouched', LISTING_DETAIL_VISIT_FORM_PHONE_INPUT)
                     this.validatePhoneField(e)
                   }}
+                  onKeyDown={(e) => {
+                    const value = e.target.value
+                    if (e.keyCode === 8 && value && value.length > 0) {
+                      e.preventDefault()
+                      const cursorPosition = e.target.selectionStart
+                      e.target.value = value.substring(0, cursorPosition - 1)
+                    }
+                  }}
                 />
               }
             />
