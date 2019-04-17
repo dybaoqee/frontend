@@ -30,12 +30,12 @@ describe('currency formatting', () => {
 describe('phone mask', () => {
   it('should return a phone mask for an 8 digit number', () => {
     const mask = getPhoneMask('11')
-    expect(mask).toEqual(["(", /\d/, /\d/, ")", " ", /\d/, /\d/, /\d/, /\d/, "-", /\d/, /\d/, /\d/, /\d/])
+    expect(mask).toEqual(["(", /\d/, /\d/, ")", /\d/, /\d/, /\d/, /\d/, "-", /\d/, /\d/, /\d/, /\d/])
   })
 
   it('should return a phone mask for a 9 digit number', () => {
     const mask = getPhoneMask('11111111111')
-    expect(mask).toEqual(["(", /\d/, /\d/, ")", " ", /\d/, /\d/, /\d/, /\d/, /\d/, "-", /\d/, /\d/, /\d/, /\d/])
+    expect(mask).toEqual(["(", /\d/, /\d/, ")", /\d/, /\d/, /\d/, /\d/, /\d/, "-", /\d/, /\d/, /\d/, /\d/])
   })
 })
 
