@@ -3,7 +3,8 @@ import {
   currencyToInt,
   roundUpPrice,
   getUrlVars,
-  arrayToString
+  arrayToString,
+  getPhoneMask
 } from 'utils/text-utils'
 
 describe('currency formatting', () => {
@@ -23,6 +24,18 @@ describe('currency formatting', () => {
     const price = 1234567
     const roundedPrice = roundUpPrice(price)
     expect(roundedPrice).toBe(1240000)
+  })
+})
+
+describe('phone mask', () => {
+  it('should return a phone mask for an 8 digit number', () => {
+    const mask = getPhoneMask('11')
+    expect(mask).toEqual(["(", /\d/, /\d/, ")", " ", /\d/, /\d/, /\d/, /\d/, "-", /\d/, /\d/, /\d/, /\d/])
+  })
+
+  it('should return a phone mask for a 9 digit number', () => {
+    const mask = getPhoneMask('11111111111')
+    expect(mask).toEqual(["(", /\d/, /\d/, ")", " ", /\d/, /\d/, /\d/, /\d/, /\d/, "-", /\d/, /\d/, /\d/, /\d/])
   })
 })
 
