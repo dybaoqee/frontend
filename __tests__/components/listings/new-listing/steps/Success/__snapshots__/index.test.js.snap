@@ -379,7 +379,7 @@ exports[`renders correctly 1`] = `
               className="c9"
               width={0.5}
             >
-
+               
             </div>
             <div
               className="c9"
