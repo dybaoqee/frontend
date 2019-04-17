@@ -19,7 +19,6 @@ const shouldShowMap = () => {
 
 const Title = styled(Text)`
   margin: 0 ${theme.space[4]}px ${theme.space[3]}px;
-  text-align: center;
 `
 
 const Container = styled(Row)`
