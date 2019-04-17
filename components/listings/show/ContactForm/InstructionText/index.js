@@ -4,7 +4,7 @@ import View from '@emcasa/ui-dom/components/View'
 import Text from '@emcasa/ui-dom/components/Text'
 import Icon from '@emcasa/ui-dom/components/Icon'
 import Row from '@emcasa/ui-dom/components/Row'
-import Col from '@emcasa/ui-dom/components/Col'
+import ArrowButton from 'components/shared/ArrowButton'
 
 const TIME = 6000
 
@@ -42,31 +42,46 @@ class InstructionText extends Component {
     clearInterval(this.state.intervalId)
   }
 
-  switchText = () => {
+  switchText = (previous) => {
     const {textDisplay} = this.state
-    const newTextDisplay = textDisplay === INSTRUCTIONS.length - 1 ? 0 : textDisplay + 1
+    let newTextDisplay = previous ? textDisplay - 1 : textDisplay + 1
+    if (newTextDisplay === -1) {
+      newTextDisplay = INSTRUCTIONS.length - 1
+    } else if (newTextDisplay === INSTRUCTIONS.length) {
+      newTextDisplay = 0
+    }
     this.setState({textDisplay: newTextDisplay})
   }
 
   render() {
     return (
-      <View m={4}>
-        <Text fontSize="small" textAlign="center" fontWeight="bold">{INSTRUCTIONS[this.state.textDisplay].title}</Text>
-        <Text fontSize="small" textAlign="center">{INSTRUCTIONS[this.state.textDisplay].description}</Text>
-        <Row width="30px" justifyContent="space-between" m="auto">
-            {INSTRUCTIONS.map((item, index) => {
-              const active = this.state.textDisplay === index
-              return (
-                <Icon
-                  key={index}
-                  name="circle"
-                  color={active ? theme.colors.blue : theme.colors.extraDarkSmoke}
-                  size={active ? 10 : 6}
-                  style={{marginTop: active ? 0 : 2}}
-                />
-              )
-            })}
-        </Row>
+      <View m={4} style={{position: 'relative'}}>
+        <ArrowButton left onClick={() => {
+          clearInterval(this.state.intervalId)
+          this.switchText(true)
+        }} />
+        <ArrowButton right onClick={() => {
+          clearInterval(this.state.intervalId)
+          this.switchText()
+        }} />
+        <View mx="40px">
+          <Text fontSize="small" textAlign="center" fontWeight="bold">{INSTRUCTIONS[this.state.textDisplay].title}</Text>
+          <Text fontSize="small" textAlign="center">{INSTRUCTIONS[this.state.textDisplay].description}</Text>
+          <Row width="30px" justifyContent="space-between" m="auto">
+              {INSTRUCTIONS.map((item, index) => {
+                const active = this.state.textDisplay === index
+                return (
+                  <Icon
+                    key={index}
+                    name="circle"
+                    color={active ? theme.colors.blue : theme.colors.extraDarkSmoke}
+                    size={active ? 10 : 6}
+                    style={{marginTop: active ? 0 : 2}}
+                  />
+                )
+              })}
+          </Row>
+        </View>
       </View>
     )
   }
