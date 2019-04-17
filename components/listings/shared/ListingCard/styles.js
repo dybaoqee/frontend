@@ -39,6 +39,7 @@ const Container = styled(View)`
   height: auto;
   border: 1px solid ${themeGet('colors.lightGrey')};
   border-radius: ${themeGet('space.1')}px;
+  background-color: ${theme.colors.white};
   margin: 0 ${themeGet('space.4')}px ${themeGet('space.4')}px 0;
 
   :hover {
