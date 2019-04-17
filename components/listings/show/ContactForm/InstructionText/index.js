@@ -55,7 +55,7 @@ class InstructionText extends Component {
 
   render() {
     return (
-      <View m={4} style={{position: 'relative'}}>
+      <View m={4} style={{position: 'relative', height: 140}}>
         <ArrowButton left onClick={() => {
           clearInterval(this.state.intervalId)
           this.switchText(true)
