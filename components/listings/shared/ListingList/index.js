@@ -28,6 +28,7 @@ class ListingList extends Component {
       excludedListingIds: []
     }
   }
+  state = {}
 
   componentWillReceiveProps(newProps) {
     const currentFilters = this.props.filters
