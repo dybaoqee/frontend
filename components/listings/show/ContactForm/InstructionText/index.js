@@ -56,11 +56,11 @@ class InstructionText extends Component {
   render() {
     return (
       <View m={4} style={{position: 'relative', height: 140}}>
-        <ArrowButton left onClick={() => {
+        <ArrowButton left color={theme.colors.extraDarkSmoke} noShadow onClick={() => {
           clearInterval(this.state.intervalId)
           this.switchText(true)
         }} />
-        <ArrowButton right onClick={() => {
+        <ArrowButton right color={theme.colors.extraDarkSmoke} noShadow onClick={() => {
           clearInterval(this.state.intervalId)
           this.switchText()
         }} />

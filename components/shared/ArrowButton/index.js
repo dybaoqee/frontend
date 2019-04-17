@@ -13,7 +13,7 @@ const StyledButton = styled(Button)`
   position: absolute;
   top: calc(50% - ${theme.space[2]}px);
   ${({left}) => (!left ? `right: 0` : `left: 0`)};
-  color: white;
+  color: ${({color}) => color ? color : `white`};
   cursor: pointer;
   padding: 0;
   background: 0;
@@ -28,7 +28,7 @@ const StyledButton = styled(Button)`
   svg {
     width: 40px !important;
     height: 40px;
-    filter: drop-shadow(1px 1px 4px ${theme.colors.dark});
+    ${({noShadow}) => !noShadow ? `filter: drop-shadow(1px 1px 4px ${theme.colors.dark});` : null}
   }
 `
 
