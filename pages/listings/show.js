@@ -1,5 +1,5 @@
 import '@emcasa/ui-dom/components/global-styles'
-import {Component} from 'react'
+import {Component, Fragment} from 'react'
 import {Query} from 'react-apollo'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
@@ -268,6 +268,7 @@ class Listing extends Component {
           <Query
             query={GET_USER_LISTINGS_ACTIONS}
             skip={!currentUser.authenticated}
+            ssr={true}
           >
             {({data, loading, error}) => {
               const userProfile = data ? data.userProfile : null
@@ -300,7 +301,7 @@ class Listing extends Component {
                 })
               }
               return (
-                <>
+                <Fragment>
                   <ListingHead
                     listing={listing}
                     routerAsPath={router.asPath}
@@ -395,7 +396,7 @@ class Listing extends Component {
                       />
                     )}
                   </Row>
-                </>
+                </Fragment>
               )
             }}
           </Query>
