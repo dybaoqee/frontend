@@ -13,7 +13,7 @@
     "test": "NODE_ENV=test jest \\.test\\.js",
     "test:e2e": "yarn test_server && TEST=cypress start-server-and-test dev http://localhost:3000/login cy:run",
     "test-unit:watch": "NODE_ENV=test jest --watch",
-    "heroku-postbuild": "npm run build && npm run s3:sync",
+    "heroku-postbuild": "npm run s3:sync",
     "s3:sync": "node deploy/s3-sync.js",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
