@@ -15,53 +15,20 @@ import ListingsNotFound from 'components/listings/shared/NotFound'
 import Neighborhood from 'components/listings/shared/Neighborhood'
 import {getTitleTextByFilters, getTitleTextByParams} from './title'
 import {log, LISTING_SEARCH_MAP_PIN, LISTING_SEARCH_RESULTS} from 'lib/logging'
-import {
-  MIN_WIDTH_FOR_MAP_RENDER,
-  Container,
-  MapContainer,
-  Loading,
-  Title
-} from './styles'
+import {Container, MapContainer, Title} from './styles'
 import {buildSlug} from 'lib/listings'
 import {thumbnailUrl} from 'utils/image_url'
 
 class ListingList extends Component {
   constructor(props) {
     super(props)
-    this.onResize = this.onResize.bind(this)
-
     this.pagination = {
       pageSize: 12,
       excludedListingIds: []
     }
   }
 
-  state = {
-    renderMap: false
-  }
-
-  componentWillMount() {
-    if (process.browser) {
-      window.onresize = this.onResize
-    }
-  }
-
-  componentDidMount() {
-    this.onResize()
-  }
-
-  shouldRenderMap() {
-    if (process.browser) {
-      return window.innerWidth >= MIN_WIDTH_FOR_MAP_RENDER
-    }
-    return false
-  }
-
-  onResize() {
-    this.setState({
-      renderMap: this.shouldRenderMap()
-    })
-  }
+  state = {}
 
   componentWillReceiveProps(newProps) {
     const currentFilters = this.props.filters
@@ -75,7 +42,6 @@ class ListingList extends Component {
     const {
       user,
       params,
-      resetFilters,
       filters,
       onHoverListing,
       onLeaveListing,
@@ -83,13 +49,13 @@ class ListingList extends Component {
       neighborhoodListener
     } = this.props
 
-    if (!process.browser) {
-      return null
-    }
-
     if (result && result.listings.length > 0) {
       return (
-        <Query query={GET_USER_LISTINGS_ACTIONS} skip={!user.authenticated}>
+        <Query
+          query={GET_USER_LISTINGS_ACTIONS}
+          ssr={true}
+          skip={!user.authenticated}
+        >
           {({data, loading}) => {
             if (loading) {
               return <div />
@@ -256,18 +222,14 @@ class ListingList extends Component {
           }
           return (
             <MapContainer>
-              {process.browser ? (
-                <Map
-                  zoom={13}
-                  onSelect={this.onSelectListing}
-                  listings={mapListings.listings}
-                  highlight={highlight}
-                  onChange={this.onChangeMap}
-                  updateAfterApiCall
-                />
-              ) : (
-                <Loading>Carregando mapa...</Loading>
-              )}
+              <Map
+                zoom={13}
+                onSelect={this.onSelectListing}
+                listings={mapListings.listings}
+                highlight={highlight}
+                onChange={this.onChangeMap}
+                updateAfterApiCall
+              />
             </MapContainer>
           )
         }}
@@ -356,10 +318,12 @@ class ListingList extends Component {
             <Container>
               {hasListings && this.getItemList(listings.listings)}
               <div>
-                <Title as="h2" fontWeight="normal">{h1Content}</Title>
+                <Title as="h2" fontWeight="normal">
+                  {h1Content}
+                </Title>
                 {this.getListings(listings, fetchMore)}
               </div>
-              {this.state.renderMap && hasListings && this.getMap()}
+              {hasListings && this.getMap()}
             </Container>
           )
         }}

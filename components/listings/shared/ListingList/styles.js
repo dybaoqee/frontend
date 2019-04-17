@@ -19,6 +19,7 @@ const shouldShowMap = () => {
 
 const Title = styled(Text)`
   margin: 0 ${theme.space[4]}px ${theme.space[3]}px;
+  text-align: center;
 `
 
 const Container = styled(Row)`
@@ -36,6 +37,9 @@ const MapContainer = styled.div`
   border-radius: 4px;
   min-width: ${MAP_WIDTH_PERCENT}%;
   height: calc(100vh - ${MAP_OFFSET}px - ${theme.space[2]}px);
+  @media screen and (max-width: ${MIN_WIDTH_FOR_MAP_RENDER - 1}px) {
+    display: none;
+  }
 `
 
 const Loading = styled.div`
