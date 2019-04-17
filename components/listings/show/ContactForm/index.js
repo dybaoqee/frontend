@@ -128,6 +128,7 @@ class ContactForm extends Component {
           <Col width={1/2} ml={2} mr={4}>
             <MaskedInput
               mask={getPhoneMask(this.phoneField && this.phoneField.value ? this.phoneField.value : null)}
+              placeholderChar=" "
               render={(ref, props) =>
                 <Input
                   {...props}

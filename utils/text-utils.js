@@ -64,9 +64,9 @@ const currencyInputMask = createNumberMask({
 const getPhoneMask = (value) => {
   const cleanValue = value ? value.replace('(', '').replace(')', '').replace(' ', '').replace('-', '').replace(/_/g, '') : ''
   if (cleanValue.length <= 10) {
-    return ['(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
+    return ['(', /\d/, /\d/, ')', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
   } else {
-    return ['(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
+    return ['(', /\d/, /\d/, ')', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
   }
 }
 
