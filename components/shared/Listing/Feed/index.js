@@ -2,9 +2,16 @@ import {Component} from 'react'
 import PropTypes from 'prop-types'
 import {Query} from 'react-apollo'
 import {GET_FAVORITE_LISTINGS} from 'graphql/user/queries'
+import Link from 'next/link'
 import Text from '@emcasa/ui-dom/components/Text'
 import ListingCard from 'components/listings/shared/ListingCard'
-import {Container, ListingsContainer, Gradient} from './styles'
+import {
+  Wrapper,
+  Container,
+  ListingsContainer,
+  MoreButtonWrapper,
+  MoreButton
+} from './styles'
 
 class ListingFeed extends Component {
   render() {
@@ -28,25 +35,31 @@ class ListingFeed extends Component {
             favorites = userProfile.favorites
           }
           return (
-            <Container>
-              <Text as="h3" color="grey" fontWeight="bold">
-                Veja também
-              </Text>
-              <ListingsContainer>
-                {listings.map((listing) => {
-                  return (
-                    <ListingCard
-                      key={listing.id}
-                      listing={listing}
-                      currentUser={currentUser}
-                      favorited={favorites}
-                      related
-                    />
-                  )
-                })}
-              </ListingsContainer>
-              <Gradient />
-            </Container>
+            <Wrapper>
+              <Container>
+                <Text as="h3" color="grey" fontWeight="bold">
+                  Veja também
+                </Text>
+                <ListingsContainer>
+                  {listings.map((listing) => {
+                    return (
+                      <ListingCard
+                        key={listing.id}
+                        listing={listing}
+                        currentUser={currentUser}
+                        favorited={favorites}
+                        related
+                      />
+                    )
+                  })}
+                </ListingsContainer>
+                <MoreButtonWrapper>
+                  <Link passHref href="/listings" as="/imoveis">
+                    <MoreButton as="a" height="tall">Explorar mais imóveis</MoreButton>
+                  </Link>
+                </MoreButtonWrapper>
+              </Container>
+            </Wrapper>
           )
         }}
       </Query>
