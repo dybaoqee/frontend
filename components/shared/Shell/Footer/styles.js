@@ -4,83 +4,75 @@ import Text from '@emcasa/ui-dom/components/Text'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import {breakpoint} from '@emcasa/ui/lib/styles'
+import {listingDetailsMaxWidth, listingDetailsBarHeight} from 'constants/dimensions.js'
 
-const LINK_FONT_SIZE_MOBILE = '14px'
-const LINK_FONT_SIZE = '16px'
+const MAX_WIDTH_LOGO = 110
 
 export const Wrapper = styled.address`
   font-style: normal;
+  background-color: ${theme.colors.dark};
 `
 
 export const Container = styled(Row)`
-  border-top: 1px solid ${theme.colors.pink};
-  margin: 50px;
-  padding: ${theme.space[4]}px 2.5vw 0 5vw;
+  flex-direction: column;
+  margin: 0 auto;
+  padding: ${theme.space[5]}px ${theme.space[4]}px ${listingDetailsBarHeight + (theme.space[5] * 2)}px;
+  max-width: ${listingDetailsMaxWidth + 420}px;
+  box-sizing: border-box;
 
-  @media (max-width: 1024px) {
-    margin: ${theme.space[4]}px ${theme.space[4]}px 170px;
-    flex-direction: column;
-    padding: ${theme.space[4]}px 5vmin 0;
+  @media screen and ${breakpoint.up('desktop')} {
+    flex-direction: row;
+    padding: ${theme.space[5] * 2}px ${theme.space[4]}px ${theme.space[6]}px;
   }
 `
 
 export const AboutContainer = styled(Row)`
   flex: 1 1 100%;
+  min-width: ${MAX_WIDTH_LOGO}px;
   flex-direction: column;
+  margin: 0 ${theme.space[5]}px ${theme.space[5]}px 0;
 `
 
-export const AboutLogo = styled.div`
-  content: url(https://s3.amazonaws.com/emcasa-ui/logo/logo.svg);
-  max-width: 110px;
-  margin-top: 1.5em;
+export const LogoWrapper = styled.div`
+  max-width: ${MAX_WIDTH_LOGO}px;
 `
 
 export const AboutText = styled(Text)`
   max-width: 350px;
+  margin: ${theme.space[4]}px 0 0;
 `
 
-export const LinksContainer = styled('div')`
+export const LinksContainer = styled(Row)`
   flex: 1 1 100%;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 0 ${theme.space[5] * 2}px;
+  grid-template-columns: 1fr;
+  gap: ${theme.space[5]}px ${theme.space[4] * 2}px;
 
-  @media ${breakpoint.down('tablet')} {
-    grid-template-columns: 1fr;
+  @media screen and ${breakpoint.up('desktop')} {
+    grid-template-columns: 1fr 1fr 1fr;
   }
 `
 
 export const TitleLinks = styled(Text)`
-  font-weight: 500;
+  margin: 0 0 ${theme.space[2]}px;
+  color: ${theme.colors.white};
   white-space: nowrap;
 `
 
 export const TextLink = styled(Text)`
-  cursor: pointer;
-  color: ${theme.colors.grey};
-  line-height: 1.2;
-  font-size: ${LINK_FONT_SIZE};
+  margin: ${theme.space[3]}px 0 0;
+  color: ${theme.colors.disabled};
   white-space: nowrap;
 
   &:hover {
-    color: ${theme.colors.pink};
+    color: ${theme.colors.white};
   }
 
   svg {
-    width: ${LINK_FONT_SIZE};
-    height: ${LINK_FONT_SIZE};
-    margin-right: 5px;
-  }
-
-  @media ${breakpoint.down('tablet')} {
-    margin-right: 20px;
-    min-height: ${LINK_FONT_SIZE_MOBILE};
-    font-size: ${LINK_FONT_SIZE_MOBILE};
-
-    svg {
-      width: ${LINK_FONT_SIZE_MOBILE};
-      height: ${LINK_FONT_SIZE_MOBILE};
-    }
+    width: 1em;
+    height: 1em;
+    margin-right: ${theme.space[2]}px;
+    color: ${theme.colors.white};
   }
 `
 
