@@ -65,9 +65,9 @@ class ContactForm extends Component {
   }
 
   submit = (e) => {
-    if (this.nameField && this.nameField.current && this.phoneField && this.phoneField.current) {
+    if (this.nameField && this.nameField.current && this.phoneField) {
       const name = this.nameField.current.value ? this.nameField.current.value.trim() : ''
-      const phone = this.phoneField.current.value ? this.phoneField.current.value.trim() : ''
+      const phone = this.phoneField.value ? this.phoneField.value.trim() : ''
       this.setState({loading: true})
       this.props.onSubmit(e, {name, phone}, (error) => {
         log(LISTING_DETAIL_VISIT_FORM_ERROR, {
