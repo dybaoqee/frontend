@@ -61,6 +61,15 @@ const currencyInputMask = createNumberMask({
   integerLimit: 12
 })
 
+const getPhoneMask = (value) => {
+  const cleanValue = value ? value.replace('(', '').replace(')', '').replace(' ', '').replace('-', '').replace(/_/g, '') : ''
+  if (cleanValue.length <= 10) {
+    return ['(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
+  } else {
+    return ['(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
+  }
+}
+
 export {
   getParagraphs,
   getUrlVars,
@@ -70,6 +79,7 @@ export {
   intToCurrency,
   roundUpPrice,
   arrayToString,
+  getPhoneMask,
 
   PREFIX,
   THOUSANDS_SEPARATOR_SYMBOL

@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
+import MaskedInput from 'react-text-mask'
 import theme from '@emcasa/ui'
 import Text from '@emcasa/ui-dom/components/Text'
 import View from '@emcasa/ui-dom/components/View'
@@ -9,6 +10,7 @@ import Col from '@emcasa/ui-dom/components/Col'
 import Input from '@emcasa/ui-dom/components/Input'
 import Modal from 'components/shared/Modal'
 import InstructionText from './InstructionText'
+import {getPhoneMask} from 'utils/text-utils'
 import {
   log,
   LISTING_DETAIL_VISIT_FORM_NAME_INPUT,
@@ -124,19 +126,28 @@ class ContactForm extends Component {
             />
           </Col>
           <Col width={1/2} ml={2} mr={4}>
-            <Input
-              fluid
-              label="Celular"
-              height="medium"
-              type="tel"
-              placeholder="(11) 11111-1111"
-              onFocus={() => {this.setState({mobileKeyboard: true})}}
-              onBlur={() => {this.setState({mobileKeyboard: false})}}
-              onChange={(e) => {
-                this.logInputTouched(e, 'phoneTouched', LISTING_DETAIL_VISIT_FORM_PHONE_INPUT)
-                this.validatePhoneField(e)
-              }}
-              ref={this.phoneField}
+            <MaskedInput
+              mask={getPhoneMask(this.phoneField && this.phoneField.value ? this.phoneField.value : null)}
+              render={(ref, props) =>
+                <Input
+                  {...props}
+                  ref={(input) => {
+                    ref(input)
+                    this.phoneField = input
+                  }}
+                  fluid
+                  label="Celular"
+                  height="medium"
+                  type="tel"
+                  placeholder="(11) 11111-1111"
+                  onFocus={() => {this.setState({mobileKeyboard: true})}}
+                  onBlur={() => {this.setState({mobileKeyboard: false})}}
+                  onChange={(e) => {
+                    this.logInputTouched(e, 'phoneTouched', LISTING_DETAIL_VISIT_FORM_PHONE_INPUT)
+                    this.validatePhoneField(e)
+                  }}
+                />
+              }
             />
           </Col>
         </Row>
