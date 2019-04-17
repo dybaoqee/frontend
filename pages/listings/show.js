@@ -30,7 +30,7 @@ import MatterportPopup from 'components/listings/show/MatterportPopup'
 import MapPopup from 'components/listings/show/MapPopup'
 import ContactForm from 'components/listings/show/ContactForm'
 import ContactSuccess from 'components/listings/show/ContactSuccess'
-import RelatedListings from 'components/listings/show/RelatedListings'
+import ListingFeed from 'components/shared/Listing/Feed'
 import Warning from 'components/shared/Common/Warning'
 import {buildSlug, getListingId} from 'lib/listings'
 import NextHead from 'components/shared/NextHead'
@@ -373,10 +373,12 @@ class Listing extends Component {
                         listing={listing}
                         user={currentUser}
                       />
-                      <RelatedListings
-                        currentUser={currentUser}
-                        listings={related}
-                      />
+                      <Col mt={4}>
+                        <ListingFeed
+                          currentUser={currentUser}
+                          listings={related}
+                        />
+                      </Col>
                     </Row>
                     {isInterestPopupVisible && (
                       <ContactForm
