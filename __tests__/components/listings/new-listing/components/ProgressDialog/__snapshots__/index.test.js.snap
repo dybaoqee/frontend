@@ -40,10 +40,6 @@ exports[`<ProgressDialog/> should render component 1`] = `
   border-style: solid;
 }
 
-.c5:hover {
-  background-color: #ffffff;
-}
-
 .c6 {
   outline: none;
   display: block;
@@ -63,10 +59,6 @@ exports[`<ProgressDialog/> should render component 1`] = `
   font-size: 18px;
   -webkit-font-smoothing: antialiased;
   border-style: solid;
-}
-
-.c6:hover {
-  background-color: #f50057;
 }
 
 .c1 {
