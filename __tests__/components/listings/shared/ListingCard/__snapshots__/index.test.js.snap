@@ -106,6 +106,10 @@ exports[`<ListingCard/> should render component 1`] = `
   box-shadow: 0 6px 16px 0 rgba(38,38,38,0.15);
 }
 
+.c6:hover {
+  background-color: #ffffff;
+}
+
 .c6 svg {
   width: 15px;
   text-shadow: 2px 2px 3px #f00;
@@ -184,7 +188,7 @@ exports[`<ListingCard/> should render component 1`] = `
           fontSize="large"
           fontWeight="bold"
         >
-          R$1,000,000
+          R$ 1,000,000
         </span>
       </div>
     </div>
