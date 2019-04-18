@@ -92,22 +92,25 @@ export default class ListingGallery extends Component {
     })
   }
 
-  getSliderImages = () => {
-    const {id, images, price, address, type} = this.props.listing
+  getImage = ({filename}) => {
+    const {id, address, type} = this.props.listing
     return (
-      images.map(({filename}) => {
-        return (
-          <img
-            className="slider-image"
-            decoding="async"
-            key={filename}
-            src={thumbnailUrl(filename, 1920, 1080)}
-            alt={`Imagem ${type === 'Apartamento' ? 'do' : 'da'} ${type} ID-${id} na ${address.street}, ${address.neighborhood}, ${address.city} - ${address.state}`}
-            loaded={this[filename]}
-          />
-        )
-      })
+      <img
+        className="slider-image"
+        decoding="async"
+        key={filename}
+        src={thumbnailUrl(filename, 1920, 1080)}
+        alt={`Imagem ${type === 'Apartamento' ? 'do' : 'da'} ${type} ID-${id} na ${address.street}, ${address.neighborhood}, ${address.city} - ${address.state}`}
+        loaded={this[filename]}
+      />
     )
+  }
+  getSliderImages = () => {
+    const {listing} = this.props
+    const images = [...listing.images].concat(
+      listing.development ? listing.development.images : []
+    )
+    return images.map(this.getImage)
   }
 
   getSliderNavigation = () => {
