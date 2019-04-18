@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import theme from '@emcasa/ui'
 import View from '@emcasa/ui-dom/components/View'
+import Input from '@emcasa/ui-dom/components/Input'
 
 export const PinkBox = styled(View)`
   display: flex;
@@ -20,4 +21,11 @@ export const Logo = styled.div`
   background-color: white;
   width: 120px;
   height: 120px;
+`
+
+export const StyledInput = styled(Input)`
+  font-size: 14px;
+  ::placeholder {
+    color: ${theme.colors.extraDarkSmoke};
+  }
 `
