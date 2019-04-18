@@ -265,7 +265,7 @@ class Listing extends Component {
     const feedVariables = {
       pagination: {
         pageSize: 8,
-        excludedListingIds: []
+        excludedListingIds: [listing.id]
       },
       filters: {
         neighborhoodsSlugs: [neighborhoodSlug]
