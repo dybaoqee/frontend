@@ -6,7 +6,6 @@ import Button from '@emcasa/ui-dom/components/Button'
 
 export const Wrapper = styled.div`
   background-color: ${theme.colors.smoke};
-  padding: ${theme.space[4]}px;
 `
 
 export const Container = styled.div`
@@ -14,6 +13,7 @@ export const Container = styled.div`
   width: 100%;
   max-width: ${listingDetailsMaxWidth}px;
   margin: 0 auto;
+  padding: ${theme.space[4]}px;
   box-sizing: border-box;
 `
 
@@ -24,9 +24,11 @@ export const ListingsContainer = styled.div`
 `
 
 export const MoreButtonWrapper = styled.div`
+  margin: ${theme.space[4]}px 0 0;
+
   @media screen and ${breakpoint.up('desktop')} {
     max-width: 320px;
-    margin: 0 auto;
+    margin: ${theme.space[4]}px auto 0;
     padding: 0 0 ${theme.space[4]}px;
   }
 `

@@ -8,10 +8,10 @@ import ListingCard from 'components/listings/shared/ListingCard'
 import {
   Wrapper,
   Container,
-  ListingsContainer,
   MoreButtonWrapper,
   MoreButton
 } from './styles'
+import {ListContainer} from 'components/shared/ListingInfiniteScroll/styles'
 
 class ListingFeed extends Component {
   render() {
@@ -40,7 +40,7 @@ class ListingFeed extends Component {
                 <Text as="h3" color="grey" fontWeight="bold">
                   Veja também
                 </Text>
-                <ListingsContainer>
+                <ListContainer>
                   {listings.map((listing) => {
                     return (
                       <ListingCard
@@ -52,7 +52,7 @@ class ListingFeed extends Component {
                       />
                     )
                   })}
-                </ListingsContainer>
+                </ListContainer>
                 <MoreButtonWrapper>
                   <Link passHref href="/listings" as="/imoveis">
                     <MoreButton as="a" height="tall">Explorar mais imóveis</MoreButton>
