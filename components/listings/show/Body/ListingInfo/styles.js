@@ -82,6 +82,18 @@ export const OpenMatterportButton = styled(Button)`
   }
 `
 
+export const OpenMatterportButton2 = styled(Button)`
+  z-index: 1;
+  position: absolute;
+  top: ${theme.space[5]}px;
+  left: 50%;
+  flex: 1;
+  transform: translateX(-50%);
+  color: ${theme.colors.white};
+  background-color: ${theme.colors.blue};
+  border: none;
+`
+
 export const PriceItem = styled(Text)`
   display: flex;
   justify-content: space-between;

@@ -16,11 +16,13 @@ import {
   ExtraTitleSEO,
   ButtonsContainer,
   OpenMatterportButton,
+  OpenMatterportButton2,
   PriceItem,
   PriceItemSpacer,
   ValuesContainer,
   ValuesItem
  } from './styles'
+import withFlagr from '../../../../shared/Flagr/withFlagr'
 
 class ListingInfo extends React.Component {
   render() {
@@ -81,6 +83,7 @@ class ListingInfo extends React.Component {
         </ValuesContainer>
         <ButtonsContainer>
           {matterportCode && <OpenMatterportButton onClick={openMatterportPopup}><FontAwesomeIcon icon={faCube} />Ver por dentro</OpenMatterportButton>}
+          {matterportCode && <OpenMatterportButton2 onClick={openMatterportPopup}><FontAwesomeIcon icon={faCube} />Ver por dentro</OpenMatterportButton2>}
           <Button onClick={openMapPopup}><FontAwesomeIcon icon={faMap} color={theme.colors.blue} />Mapa</Button>
           <Button onClick={openStreetViewPopup}><FontAwesomeIcon icon={faStreetView} color={theme.colors.blue} />Rua</Button>
         </ButtonsContainer>
@@ -135,7 +138,8 @@ ListingInfo.propTypes = {
   title: PropTypes.string,
   openMatterportPopup: PropTypes.func,
   openMapPopup: PropTypes.func,
-  openStreetViewPopup: PropTypes.func
+  openStreetViewPopup: PropTypes.func,
+  flagrFlags: PropTypes.object
 }
 
-export default ListingInfo
+export default withFlagr(ListingInfo)
