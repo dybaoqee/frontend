@@ -19,7 +19,8 @@ import {
 } from 'lib/logging'
 import {
   PinkBox,
-  Logo
+  Logo,
+  StyledInput
 } from './styles'
 
 class ContactForm extends Component {
@@ -112,10 +113,11 @@ class ContactForm extends Component {
         <InstructionText />
         <Row justifyContent="space-around">
           <Col width={1/2} ml={4} mr={2}>
-            <Input
+            <StyledInput
               fluid
               label="Nome"
               height="medium"
+              placeholder="Maria da Silva"
               onFocus={() => {this.setState({mobileKeyboard: true})}}
               onBlur={() => {this.setState({mobileKeyboard: false})}}
               onChange={(e) => {
@@ -130,7 +132,7 @@ class ContactForm extends Component {
               mask={getPhoneMask(this.phoneField && this.phoneField.value ? this.phoneField.value : null)}
               placeholderChar=" "
               render={(ref, props) =>
-                <Input
+                <StyledInput
                   {...props}
                   ref={(input) => {
                     ref(input)

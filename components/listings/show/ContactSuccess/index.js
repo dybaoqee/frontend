@@ -1,5 +1,6 @@
 import {Component} from 'react'
 import PropTypes from 'prop-types'
+import Link from 'next/link'
 import theme from '@emcasa/ui'
 import {Mutation} from 'react-apollo'
 import {FAVORITE_LISTING} from 'graphql/listings/mutations'
@@ -18,7 +19,8 @@ import {
   LISTING_DETAIL_VISIT_FORM_SAVE_LISTING_BUTTON,
   LISTING_DETAIL_VISIT_FORM_SAVE_LISTING_LOGIN_CANCEL,
   LISTING_DETAIL_VISIT_FORM_SAVE_LISTING_LOGIN_SUCCESS,
-  LISTING_DETAIL_VISIT_FORM_SAVE_LISTING_SUCCESS
+  LISTING_DETAIL_VISIT_FORM_SAVE_LISTING_SUCCESS,
+  LISTING_DETAIL_VISIT_FORM_VIEW_LISTINGS
 } from 'lib/logging'
 import {
   GreenBox,
@@ -46,6 +48,7 @@ class ContactSuccess extends Component {
   }
 
   render() {
+    const neighborhoodSlug = this.props.listing.address.neighborhoodSlug
     return (
       <Modal
         onClose={this.props.onClose}
@@ -83,7 +86,12 @@ class ContactSuccess extends Component {
             </Mutation>
           </Col>
           <Col m="auto" mt={2}>
-            <Button onClick={this.props.onClose}>Ver outros imóveis</Button>
+            <Link href={`/listings?bairros=${neighborhoodSlug}`} as={`/imoveis?bairros=${neighborhoodSlug}`}>
+              <Button onClick={() => {
+                log(LISTING_DETAIL_VISIT_FORM_VIEW_LISTINGS, {listingId: this.props.listing.id})
+                this.props.onClose()
+              }}>Ver outros imóveis</Button>
+            </Link>
           </Col>
         </Row>
       </Modal>
