@@ -262,6 +262,16 @@ class Listing extends Component {
       {name: 'Este imóvel'}
     ]
 
+    const feedVariables = {
+      pagination: {
+        pageSize: 8,
+        excludedListingIds: []
+      },
+      filters: {
+        neighborhoodsSlugs: [neighborhoodSlug]
+      }
+    }
+
     return (
       <Mutation mutation={FAVORITE_LISTING}>
         {(favoriteListing) => (
@@ -378,6 +388,7 @@ class Listing extends Component {
                         <ListingFeed
                           currentUser={currentUser}
                           listings={related}
+                          variables={feedVariables}
                         />
                       </Col>
                     </Row>
