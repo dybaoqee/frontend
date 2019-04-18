@@ -68,6 +68,15 @@ const formatRange = (values, formatFn = (x) => x) => {
   else return `${formatFn(min)} - ${formatFn(max)}`
 }
 
+const getPhoneMask = (value) => {
+  const cleanValue = value ? value.replace('(', '').replace(')', '').replace(' ', '').replace('-', '').replace(/_/g, '') : ''
+  if (cleanValue.length <= 10) {
+    return ['(', /\d/, /\d/, ')', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
+  } else {
+    return ['(', /\d/, /\d/, ')', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
+  }
+}
+
 module.exports = {
   getParagraphs,
   getUrlVars,
@@ -78,7 +87,7 @@ module.exports = {
   roundUpPrice,
   arrayToString,
   formatRange,
-
+  getPhoneMask,
   PREFIX,
   THOUSANDS_SEPARATOR_SYMBOL
 }

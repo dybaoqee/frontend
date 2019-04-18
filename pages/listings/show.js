@@ -1,5 +1,5 @@
 import '@emcasa/ui-dom/components/global-styles'
-import {Component} from 'react'
+import {Component, Fragment} from 'react'
 import {Query} from 'react-apollo'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
@@ -108,7 +108,7 @@ class Listing extends Component {
         const urlParams = asPath.split('/').length
         //If client is trying to access old slugs then redirect
         if (urlParams <= 3 || urlParams === 5) {
-          res.redirect(301, buildSlug(listing))
+          res.redirect(301, buildSlug(listing, asPath))
         }
       }
 
@@ -187,7 +187,7 @@ class Listing extends Component {
     this.setState({isInterestSuccessPopupVisible: false})
   }
 
-  onSubmit = async (e, userInfo) => {
+  onSubmit = async (e, userInfo, callback) => {
     e && e.preventDefault()
 
     const {id} = this.props.listing
@@ -195,14 +195,16 @@ class Listing extends Component {
 
     const res = await createInterest(id, {name: userInfo.name, phone: userInfo.phone})
 
-    if (res.data.errors) {
+    if (res && res.data && res.data.errors) {
       this.setState({errors: res.data.errors})
+      callback(res.data.errors)
       return
     }
 
     log(LISTING_DETAIL_SCHEDULE_VISIT, getListingInfoForLogs(listing))
 
     if (!res.data) {
+      callback(res)
       return res
     }
 
@@ -266,6 +268,7 @@ class Listing extends Component {
           <Query
             query={GET_USER_LISTINGS_ACTIONS}
             skip={!currentUser.authenticated}
+            ssr={true}
           >
             {({data, loading, error}) => {
               const userProfile = data ? data.userProfile : null
@@ -298,7 +301,7 @@ class Listing extends Component {
                 })
               }
               return (
-                <>
+                <Fragment>
                   <ListingHead
                     listing={listing}
                     routerAsPath={router.asPath}
@@ -377,6 +380,7 @@ class Listing extends Component {
                       <ContactForm
                         onClose={this.closeInterestPopup}
                         onSubmit={this.onSubmit}
+                        listing={listing}
                       />
                     )}
                     {isInterestSuccessPopupVisible && (
@@ -387,7 +391,7 @@ class Listing extends Component {
                       />
                     )}
                   </Row>
-                </>
+                </Fragment>
               )
             }}
           </Query>

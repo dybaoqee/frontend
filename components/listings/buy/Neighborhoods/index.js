@@ -34,7 +34,7 @@ const NEIGHBORHOODS = [
   {name: 'Leblon', thumb: 'leblon', city: RJ_SLUG},
   {name: 'Perdizes', thumb: 'perdizes', city: SP_SLUG},
   {name: 'Vila Pompéia', thumb: 'vila-pompeia', city: SP_SLUG},
-  {name: 'Pinheiros', thumb: 'pinheiros', soon: true, city: SP_SLUG}
+  {name: 'Pinheiros', thumb: 'pinheiros', city: SP_SLUG}
 ]
 
 const NEIGHBORHOODS_BY_CITIES = NEIGHBORHOODS.reduce((cities, neighborhood) => {

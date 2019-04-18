@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
+import MaskedInput from 'react-text-mask'
 import theme from '@emcasa/ui'
 import Text from '@emcasa/ui-dom/components/Text'
 import View from '@emcasa/ui-dom/components/View'
@@ -9,10 +10,12 @@ import Col from '@emcasa/ui-dom/components/Col'
 import Input from '@emcasa/ui-dom/components/Input'
 import Modal from 'components/shared/Modal'
 import InstructionText from './InstructionText'
+import {getPhoneMask} from 'utils/text-utils'
 import {
   log,
   LISTING_DETAIL_VISIT_FORM_NAME_INPUT,
-  LISTING_DETAIL_VISIT_FORM_PHONE_INPUT
+  LISTING_DETAIL_VISIT_FORM_PHONE_INPUT,
+  LISTING_DETAIL_VISIT_FORM_ERROR
 } from 'lib/logging'
 import {
   PinkBox,
@@ -32,7 +35,8 @@ class ContactForm extends Component {
     showSuccess: false,
     mobileKeyboard: false,
     nameTouched: false,
-    phoneTouched: false
+    phoneTouched: false,
+    loading: false
   }
 
   componentDidMount() {
@@ -61,10 +65,22 @@ class ContactForm extends Component {
   }
 
   submit = (e) => {
-    if (this.nameField && this.nameField.current && this.phoneField && this.phoneField.current) {
+    if (this.nameField && this.nameField.current && this.phoneField) {
       const name = this.nameField.current.value ? this.nameField.current.value.trim() : ''
-      const phone = this.phoneField.current.value ? this.phoneField.current.value.trim() : ''
-      this.props.onSubmit(e, {name, phone})
+      const phone = this.phoneField.value ? this.phoneField.value.trim() : ''
+      this.setState({loading: true})
+      this.props.onSubmit(e, {name, phone}, (error) => {
+        log(LISTING_DETAIL_VISIT_FORM_ERROR, {
+          listingId: this.props.listing.id,
+          name,
+          phone,
+          error
+        })
+        this.setState({
+          loading: false,
+          error
+        })
+      })
     }
   }
 
@@ -110,31 +126,49 @@ class ContactForm extends Component {
             />
           </Col>
           <Col width={1/2} ml={2} mr={4}>
-            <Input
-              fluid
-              label="Telefone"
-              height="medium"
-              type="tel"
-              onFocus={() => {this.setState({mobileKeyboard: true})}}
-              onBlur={() => {this.setState({mobileKeyboard: false})}}
-              onChange={(e) => {
-                this.logInputTouched(e, 'phoneTouched', LISTING_DETAIL_VISIT_FORM_PHONE_INPUT)
-                this.validatePhoneField(e)
-              }}
-              ref={this.phoneField}
+            <MaskedInput
+              mask={getPhoneMask(this.phoneField && this.phoneField.value ? this.phoneField.value : null)}
+              placeholderChar=" "
+              render={(ref, props) =>
+                <Input
+                  {...props}
+                  ref={(input) => {
+                    ref(input)
+                    this.phoneField = input
+                  }}
+                  fluid
+                  label="Celular"
+                  height="medium"
+                  type="tel"
+                  placeholder="(11) 11111-1111"
+                  onFocus={() => {this.setState({mobileKeyboard: true})}}
+                  onBlur={() => {this.setState({mobileKeyboard: false})}}
+                  onChange={(e) => {
+                    this.logInputTouched(e, 'phoneTouched', LISTING_DETAIL_VISIT_FORM_PHONE_INPUT)
+                    this.validatePhoneField(e)
+                  }}
+                  onKeyDown={(e) => {
+                    const value = e.target.value
+                    if (e.keyCode === 8 && value && value.length > 0) {
+                      e.preventDefault()
+                      const cursorPosition = e.target.selectionStart
+                      e.target.value = value.substring(0, cursorPosition - 1)
+                    }
+                  }}
+                />
+              }
             />
           </Col>
         </Row>
-        <Row justifyContent="center">
-          <Col>
-            <Button
-              active
-              onClick={this.submit}
-              disabled={!(this.state.nameFieldValid && this.state.phoneFieldValid)}
-            >
-              Solicitar atendimento
-            </Button>
-          </Col>
+        <Row alignItems="center" flexDirection="column">
+          <Button
+            active
+            onClick={this.submit}
+            disabled={!(this.state.nameFieldValid && this.state.phoneFieldValid) || this.state.loading}
+          >
+            Solicitar atendimento
+          </Button>
+          {!this.state.loading && <Text textAlign="center" color={theme.colors.red}>{this.state.error && 'Ocorreu um erro. Por favor, tente novamente.'}</Text>}
         </Row>
       </Modal>
     )
@@ -143,7 +177,9 @@ class ContactForm extends Component {
 
 ContactForm.propTypes = {
   onClose: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired
+  onSubmit: PropTypes.func.isRequired,
+  listing: PropTypes.object.isRequired,
+  error: PropTypes.string
 }
 
 export default ContactForm

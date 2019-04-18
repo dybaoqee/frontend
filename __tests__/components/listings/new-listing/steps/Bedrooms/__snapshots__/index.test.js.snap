@@ -71,10 +71,6 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   border-style: solid;
 }
 
-.c13:hover {
-  background-color: #ffffff;
-}
-
 .c16 {
   outline: none;
   cursor: pointer;
@@ -95,10 +91,6 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   border-style: solid;
 }
 
-.c16:hover {
-  background-color: #ffffff;
-}
-
 .c17 {
   outline: none;
   cursor: default;
@@ -117,10 +109,6 @@ exports[`<AddressInput/> should render a clean page 1`] = `
   font-size: 18px;
   -webkit-font-smoothing: antialiased;
   border-style: solid;
-}
-
-.c17:hover {
-  background-color: #ffffff;
 }
 
 .c6 {
