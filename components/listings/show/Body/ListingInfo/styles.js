@@ -92,7 +92,6 @@ export const OpenMatterportButton2 = styled(Button)`
   color: ${theme.colors.white};
   background-color: ${theme.colors.blue};
   border: none;
-  display: none;
   @media screen and ${breakpoint.up('desktop')} {
     display: flex;
   }
