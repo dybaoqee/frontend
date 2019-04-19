@@ -3,19 +3,20 @@ import PropTypes from 'prop-types'
 import {Query} from 'react-apollo'
 import {GET_LISTINGS} from 'graphql/listings/queries'
 import Link from 'next/link'
+import {buildNeighborhoodSlug} from 'lib/listings'
 import Text from '@emcasa/ui-dom/components/Text'
 import ListingCard from 'components/listings/shared/ListingCard'
+import {ListContainer} from 'components/shared/ListingInfiniteScroll/styles'
 import {
   Wrapper,
   Container,
   MoreButtonWrapper,
   MoreButton
 } from './styles'
-import {ListContainer} from 'components/shared/ListingInfiniteScroll/styles'
 
 class ListingFeed extends Component {
   render() {
-    const {currentUser, listings, variables} = this.props
+    const {currentUser, currentListing, listings, variables} = this.props
     return (
       <Query
         query={GET_LISTINGS}
@@ -29,10 +30,11 @@ class ListingFeed extends Component {
           if (error) {
             return `Error!: ${error}`
           }
+
           return (
             <Wrapper>
               <Container>
-                <Text as="h3" color="grey" fontWeight="bold">Veja também</Text>
+                <Text as="h3" color="grey" fontWeight="bold">Outros imóveis no bairro</Text>
                 <ListContainer>
                   {data.listings.listings.map((listing) => {
                     return (
@@ -47,8 +49,12 @@ class ListingFeed extends Component {
                   })}
                 </ListContainer>
                 <MoreButtonWrapper>
-                  <Link passHref href="/listings" as="/imoveis">
-                    <MoreButton as="a" height="tall">Explorar mais imóveis</MoreButton>
+                  <Link
+                    href={`/listings`}
+                    as={buildNeighborhoodSlug(currentListing)}
+                    passHref
+                  >
+                    <MoreButton as="a" height="tall">Ver mais imóveis</MoreButton>
                   </Link>
                 </MoreButtonWrapper>
               </Container>

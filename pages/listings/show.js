@@ -387,6 +387,7 @@ class Listing extends Component {
                       <Col mt={4}>
                         <ListingFeed
                           currentUser={currentUser}
+                          currentListing={listing}
                           listings={related}
                           variables={feedVariables}
                         />
