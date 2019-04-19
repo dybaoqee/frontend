@@ -21,4 +21,9 @@ WORKDIR /opt/emcasa/frontend
 # copying package.json and .npmrc doesn't solve the problem
 # app add source code and install it
 COPY . /opt/emcasa/frontend
+ENV PORT=8080
+EXPOSE 8080
 RUN yarn install
+RUN yarn build
+ENTRYPOINT ["yarn"]
+CMD ["start"]
