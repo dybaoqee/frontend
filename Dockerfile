@@ -22,3 +22,5 @@ WORKDIR /opt/emcasa/frontend
 # app add source code and install it
 COPY . /opt/emcasa/frontend
 RUN yarn install
+ENTRYPOINT ["yarn"]
+CMD ["start"]
