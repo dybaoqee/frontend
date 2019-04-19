@@ -1,89 +1,22 @@
-version: 2
-jobs:
-  build:
-    docker:
-      - image: circleci/node:10.9.0
-    steps:
-      - checkout
-      - setup_remote_docker
-      - restore_cache:
-          name: Restore Yarn Package Cache
-          key: yarn-packages-{{ checksum "yarn.lock" }}
-      - run:
-          name: Install dependencies
-          command: yarn
-      - run:
-          name: Run tests
-          command: yarn test
-      - run:
-          name: Build application
-          command: yarn build
-      - save_cache:
-          name: Save Yarn Package cache
-          key: yarn-packages-{{ checksum "yarn.lock" }}
-          paths:
-            - ~/.cache/yarn
-      - run:
-          name: Set convenience environment variables
-          command: |
-            echo 'export ECR_REPOSITORY_NAME="${AWS_RESOURCE_NAME_PREFIX}"' >> $BASH_ENV
-            echo 'export FULL_IMAGE_NAME="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${ECR_REPOSITORY_NAME}:${CIRCLE_SHA1}"' >> $BASH_ENV
-      - run:
-          name: Build image
-          command: docker build -t $FULL_IMAGE_NAME .
-      - run:
-          name: Save image to an archive
-          command: |
-            mkdir docker-image
-            docker save -o docker-image/image.tar $FULL_IMAGE_NAME
-      - persist_to_workspace:
-          root: .
-          paths:
-            - docker-image
-  deploy:
-    docker:
-      - image: circleci/python:3.6.1
-    environment:
-      AWS_DEFAULT_OUTPUT: json
-    steps:
-      - checkout
-      - setup_remote_docker
-      - attach_workspace:
-          at: workspace
-      - restore_cache:
-          key: v1-{{ checksum "requirements.txt" }}
-      - run:
-          name: Install awscli
-          command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            pip install -r requirements.txt
-      - save_cache:
-          key: v1-{{ checksum "requirements.txt" }}
-          paths:
-            - "venv"
-      - run:
-          name: Load image
-          command: |
-            docker load --input workspace/docker-image/image.tar
-      - run:
-          name: Setup common environment variables
-          command: |
-            echo 'export ECR_REPOSITORY_NAME="${AWS_RESOURCE_NAME_PREFIX}"' >> $BASH_ENV
-      - run:
-          name: Push image
-          command: |
-            . venv/bin/activate
-            eval $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
-            docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$ECR_REPOSITORY_NAME:$CIRCLE_SHA1
+version: 2.1
+orbs:
+  aws-ecr: circleci/aws-ecr@0.0.2
+  aws-ecs: circleci/aws-ecs@0.0.3
 workflows:
-  version: 2
-  build-deploy:
+  build-and-deploy:
     jobs:
-      - build
-      - deploy:
-          requires:
-            - build
+      - aws-ecr/build_and_push_image:
+          account-url: "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
+          repo: "${AWS_RESOURCE_NAME_PREFIX}"
+          region: ${AWS_DEFAULT_REGION}
+          tag: "${CIRCLE_SHA1}"
           filters:
             branches:
               only: master
+      - aws-ecs/deploy-service-update:
+          requires:
+            - aws-ecr/build_and_push_image
+          aws-region: ${AWS_DEFAULT_REGION}
+          family: "${AWS_RESOURCE_NAME_PREFIX}-service"
+          cluster-name: "${AWS_RESOURCE_NAME_PREFIX}-cluster"
+          container-image-name-updates: "container=${AWS_RESOURCE_NAME_PREFIX}-service,tag=${CIRCLE_SHA1}"
