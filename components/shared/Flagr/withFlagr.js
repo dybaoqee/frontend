@@ -31,9 +31,9 @@ export default (Component) => {
       {(flagrFlags) => {
         // $FlowFixMe
         const {defaultProps} = Component
-        const themeProp = determineFlagrFlags(props, flagrFlags, defaultProps)
+        const flagrProp = determineFlagrFlags(props, flagrFlags, defaultProps)
 
-        if (process.env.NODE_ENV !== 'production' && themeProp === undefined) {
+        if (process.env.NODE_ENV !== 'production' && flagrProp === undefined) {
           // eslint-disable-next-line no-console
           console.warn(
             `[withFlagr] You are not using a FlagrProvider nor passing a 
@@ -42,7 +42,7 @@ export default (Component) => {
           )
         }
 
-        return <Component {...props} theme={themeProp} ref={ref} />
+        return <Component {...props} flagrFlags={flagrProp} ref={ref} />
       }}
     </FlagrConsumer>
   ))

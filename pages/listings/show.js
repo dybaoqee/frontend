@@ -320,6 +320,7 @@ class Listing extends Component {
                           listing={listing}
                           currentUser={currentUser}
                           favoritedListing={{loading, favorite}}
+                          openMatterportPopup={this.openMatterportPopup}
                         />
                         {!isActive && (
                           <Warning green={url.query.r}>

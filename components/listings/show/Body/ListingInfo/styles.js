@@ -57,7 +57,7 @@ export const ButtonsContainer = styled(Row)`
       width: 1em;
       height: 1em;
       overflow: visible;
-      vertical-align: -.125em;
+      vertical-align: -0.125em;
       font-size: inherit;
     }
   }
@@ -92,6 +92,20 @@ export const OpenMatterportButton2 = styled(Button)`
   color: ${theme.colors.white};
   background-color: ${theme.colors.blue};
   border: none;
+  display: none;
+  @media screen and ${breakpoint.up('desktop')} {
+    display: flex;
+  }
+
+  svg {
+    margin-right: ${theme.space[2]}px;
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    overflow: visible;
+    vertical-align: -0.125em;
+    font-size: inherit;
+  }
 `
 
 export const PriceItem = styled(Text)`
@@ -105,7 +119,7 @@ export const PriceItem = styled(Text)`
   }
 
   span {
-    font-size: inherit; 
+    font-size: inherit;
   }
 `
 
