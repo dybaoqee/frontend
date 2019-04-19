@@ -10,9 +10,9 @@ workflows:
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           account-url: AWS_ECR_ACCOUNT_URL
-          repo: AWS_RESOURCE_NAME_PREFIX
+          repo: ${AWS_RESOURCE_NAME_PREFIX}
           region: AWS_DEFAULT_REGION
-          tag: CIRCLE_SHA1
+          tag: ${CIRCLE_SHA1}
           extra-build-args: "--build-arg ACCOUNT_KIT_APP_SECRET=${ACCOUNT_KIT_APP_SECRET} --build-arg AMPLITUDE_API_KEY=${AMPLITUDE_API_KEY} --build-arg APOLLO_ENGINE=${APOLLO_ENGINE} --build-arg FACEBOOK_APP_ID=${FACEBOOK_APP_ID} --build-arg FACEBOOK_PAGES=${FACEBOOK_PAGES} --build-arg FLAGR_URL=${FLAGR_URL} --build-arg GOOGLE_ANALYTICS_TRACKING_ID=${GOOGLE_ANALYTICS_TRACKING_ID} --build-arg GOOGLE_MAPS_KEY=${GOOGLE_MAPS_KEY} --build-arg HOTJAR_SITE_ID=${HOTJAR_SITE_ID} --build-arg IS_STAGING=${IS_STAGING} --build-arg SENTRY_AUTH_TOKEN=${SENTRY_AUTH_TOKEN} --build-arg SENTRY_DSN=${SENTRY_DSN} --build-arg SENTRY_ORG=${SENTRY_ORG} --build-arg SENTRY_PROJECT=${SENTRY_PROJECT} --build-arg WEBSERVICE_BASE_URL=${WEBSERVICE_BASE_URL}"
           filters:
             branches:
