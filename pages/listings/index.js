@@ -188,7 +188,7 @@ class ListingSearch extends Component {
     return (
       <NextHead
         title={`${titleContent} | Emcasa`}
-        description={`Conheça em Compre Apartamentos e Casas à venda ${titleContent} com o sistema exclusivo de Tour Virtual 3D do Emcasa, a sua startup imobiliária.`}
+        description={`Conheça e Compre Apartamentos e Casas à venda ${titleContent} com o sistema exclusivo de Tour Virtual 3D da Emcasa, a sua startup imobiliária.`}
         imageSrc={imageSrc}
         url={url}
         canonical={canonical}
@@ -205,7 +205,7 @@ class ListingSearch extends Component {
       name:
         'Apartamentos e Casas à venda na Zona Sul do Rio de Janeiro e em São Paulo',
       description:
-        'Conheça em Compre Apartamentos e Casas à venda na Zona Sul do Rio de Janeiro e em São Paulo com o sistema exclusivo de Tour Virtual 3D do Emcasa, a sua startup imobiliária.',
+        'Conheça e Compre Apartamentos e Casas à venda na Zona Sul do Rio de Janeiro e em São Paulo com o sistema exclusivo de Tour Virtual 3D da Emcasa, a sua startup imobiliária.',
       breadcrumb: this.getBreadcrumbList()
     }
 
