@@ -48,14 +48,14 @@ const MainBlock = styled(Block)`
 
 const BASE_TITLE = 'Imóveis, Casas e Apartamentos à Venda'
 const BASE_DESCRIPTION =
-  'com o sistema exclusivo de Tour Virtual 3D do Emcasa, a sua startup imobiliária.'
+  'com o sistema exclusivo de Tour Virtual 3D da Emcasa, a sua startup imobiliária.'
 
 const CONTENT = {
   all: {
     seoURL: 'http://www.emcasa.com',
     seoImg: imageUrl('buy'),
     seoTitle: `${BASE_TITLE} no Rio de Janeiro e São Paulo | EmCasa`,
-    seoDescription: `Encontre ${BASE_TITLE} no Rio de Janeiro em Ipanema, Leblon, Copacabana, Botafogo, Flamengo, Lagoa e toda Zona Sul ou em São Paulo ${BASE_DESCRIPTION}`,
+    seoDescription: `Encontre ${BASE_TITLE} no Rio de Janeiro em toda Zona Sul ou em São Paulo ${BASE_DESCRIPTION}`,
     heroTitle: 'Quer comprar um imóvel?'
   },
   sp: {

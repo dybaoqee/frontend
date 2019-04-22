@@ -30,7 +30,7 @@ class Intro extends PureComponent {
             <Col width={1}>
               <Space />
               <Text
-                as="h1"
+                as="h2"
                 fontSize="xlarge"
                 fontWeight="bold"
                 textAlign="center"
