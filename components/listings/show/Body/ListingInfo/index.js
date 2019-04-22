@@ -112,7 +112,7 @@ class ListingInfo extends React.Component {
           {hasValues(area) ? (
             <ValuesItem flexDirection="column">
               <Text fontSize={2}>{formatRange(area)}</Text>
-              <Text fontSize={[1, null, null, 2]}>área/m²</Text>
+              <Text fontSize={[1, null, null, 2]}>área (m²)</Text>
             </ValuesItem>
           ) : null}
           {hasValues(floor) ? (
