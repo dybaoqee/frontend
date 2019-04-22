@@ -23,7 +23,7 @@ export default class MyPage extends Component {
   render() {
     const {search} = this.props
     const seoTitle = 'Mapa do Site | EmCasa'
-    const seoDescription = 'Encontre Imóveis, Casas e Apartamentos à Venda no Rio de Janeiro em Ipanema, Leblon, Copacabana, Botafogo, Flamengo, Lagoa e toda Zona Sul ou São Paulo em Perdizes com o sistema exclusivo de Tour Virtual 3D do Emcasa, a sua startup imobiliária.'
+    const seoDescription = 'Encontre Imóveis, Casas e Apartamentos à Venda no Rio de Janeiro em Ipanema, Leblon, Copacabana, Botafogo, Flamengo, Lagoa e toda Zona Sul ou São Paulo com o sistema exclusivo de Tour Virtual 3D da Emcasa, a sua startup imobiliária.'
     const seoImg = imageUrl('buy')
     return (
       <ThemeProvider theme={theme}>
