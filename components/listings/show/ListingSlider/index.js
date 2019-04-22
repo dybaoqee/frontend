@@ -24,10 +24,10 @@ import Container, {
 } from './styles'
 import {OpenMatterportButton2} from '../Body/ListingInfo/styles'
 import faCube from '@fortawesome/fontawesome-free-solid/faCube'
-import Flagr from '../../../shared/Flagr'
-import {TEST_TOUR_BUTTON_FULL_SCREEN_GALLERY} from '../../../shared/Flagr/tests'
-import withFlagr from '../../../shared/Flagr/withFlagr'
-import Case from '../../../shared/Flagr/Case'
+import Flagr from 'components/shared/Flagr'
+import {TEST_TOUR_BUTTON_FULL_SCREEN_GALLERY} from 'components/shared/Flagr/tests'
+import withFlagr from 'components/shared/Flagr/withFlagr'
+import Case from 'components/shared/Flagr/Case'
 
 class ListingGallery extends Component {
   state = {

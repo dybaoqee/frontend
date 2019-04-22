@@ -21,7 +21,6 @@ import {
   ValuesContainer,
   ValuesItem
  } from './styles'
-import withFlagr from '../../../../shared/Flagr/withFlagr'
 
 class ListingInfo extends React.Component {
   render() {
