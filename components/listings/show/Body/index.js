@@ -33,16 +33,12 @@ class ListingMainContent extends Component {
       openMapPopup,
       openStreetViewPopup
     } = this.props
-    const {
-      street,
-      neighborhood,
-      streetNumber
-    } = listing.address
+    const {street, neighborhood, streetNumber} = listing.address
+    const paragraphs = getParagraphs(listing.description)
     const ownerOrAdmin = canEdit(user, listing)
     const listingUserInfo = ownerOrAdmin
       ? `${street}, ${streetNumber} ${
-          listing.complement ? `- ${listing.complement}` : ''
-        }`
+        listing.complement ? `- ${listing.complement}` : ''}`
       : `${street}`
     const developmentListings = listing.development
         ? listing.development.listings.filter(
@@ -54,7 +50,9 @@ class ListingMainContent extends Component {
         <Container>
           <ListingInfo
             listing={listing}
-            title={`${listingUserInfo}, ${neighborhood}, ${listing.address.city}`}
+            title={`${listingUserInfo}, ${neighborhood}, ${
+              listing.address.city
+            }`}
             openMatterportPopup={openMatterportPopup}
             openMapPopup={openMapPopup}
             openStreetViewPopup={openStreetViewPopup}

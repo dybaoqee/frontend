@@ -6,15 +6,9 @@ import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
 import {GET_USER_LISTINGS_ACTIONS} from 'graphql/user/queries'
-import {
-  GET_FULL_LISTING,
-  GET_DISTRICTS
-} from 'graphql/listings/queries'
+import {GET_FULL_LISTING, GET_DISTRICTS} from 'graphql/listings/queries'
 import {Mutation} from 'react-apollo'
-import {
-  FAVORITE_LISTING,
-  VISUALIZE_TOUR
-} from 'graphql/listings/mutations'
+import {FAVORITE_LISTING, VISUALIZE_TOUR} from 'graphql/listings/mutations'
 import {isAuthenticated, isAdmin, getCurrentUserId, getJwt} from 'lib/auth'
 import {getRelatedListings} from 'services/listing-api'
 import Link from 'next/link'
@@ -37,11 +31,10 @@ import NextHead from 'components/shared/NextHead'
 import getApolloClient from 'lib/apollo/initApollo'
 import {getUserInfo} from 'lib/user'
 import {getCookie} from 'lib/session'
+import {fetchFlag, DEVICE_ID_COOKIE} from 'components/shared/Flagr'
 import {
-  fetchFlag,
-  DEVICE_ID_COOKIE
-} from 'components/shared/Flagr'
-import {TEST_SCHEDULE_VISIT_CTA} from 'components/shared/Flagr/tests'
+  TEST_TOUR_BUTTON_FULL_SCREEN_GALLERY
+} from 'components/shared/Flagr/tests'
 import {
   log,
   getListingInfoForLogs,
@@ -58,7 +51,7 @@ import {
 } from 'lib/logging'
 import {listingDetailsBarHeight} from 'constants/dimensions'
 import {captureException} from '@sentry/browser'
-
+import FlagrProvider from '../../components/shared/Flagr/Context'
 
 class Listing extends Component {
   favMutated = false
@@ -100,7 +93,10 @@ class Listing extends Component {
     // Flagr
     const deviceId = getCookie(DEVICE_ID_COOKIE, context.req)
     const flagrFlags = {
-      [TEST_SCHEDULE_VISIT_CTA]: await fetchFlag(TEST_SCHEDULE_VISIT_CTA, deviceId)
+      [TEST_TOUR_BUTTON_FULL_SCREEN_GALLERY]: await fetchFlag(
+        TEST_TOUR_BUTTON_FULL_SCREEN_GALLERY,
+        deviceId
+      )
     }
 
     if (listing) {
@@ -117,7 +113,7 @@ class Listing extends Component {
         currentUser,
         flagrFlags
       }
-   } else {
+    } else {
       return {
         listingFetchError: errors[0],
         currentUser,
@@ -172,7 +168,10 @@ class Listing extends Component {
       }
     }
     if (!this.state.isInterestPopupVisible) {
-      log(LISTING_DETAIL_OPEN_VISIT_FORM, getListingInfoForLogs(this.props.listing))
+      log(
+        LISTING_DETAIL_OPEN_VISIT_FORM,
+        getListingInfoForLogs(this.props.listing)
+      )
     }
     this.setState({isInterestPopupVisible: true})
   }
@@ -193,7 +192,10 @@ class Listing extends Component {
     const {id} = this.props.listing
     const {listing} = this.props
 
-    const res = await createInterest(id, {name: userInfo.name, phone: userInfo.phone})
+    const res = await createInterest(id, {
+      name: userInfo.name,
+      phone: userInfo.phone
+    })
 
     if (res && res.data && res.data.errors) {
       this.setState({errors: res.data.errors})
@@ -222,20 +224,24 @@ class Listing extends Component {
     this.checkListing(listing)
 
     if (listing && listing.id) {
-      const related = await getRelatedListings(listing.id).then(({data}) => data.listings)
+      const related = await getRelatedListings(listing.id).then(
+        ({data}) => data.listings
+      )
       this.setState({related})
     }
   }
 
   showListing = () => {
-    const {user: currentUser, url, listing, router} = this.props
-    const {related, isMatterportPopupVisible, isMapPopupVisible, isStreetViewPopupVisible} = this.state
+    const {user: currentUser, url, listing} = this.props
+    const {
+      related,
+      isMatterportPopupVisible,
+      isMapPopupVisible,
+      isStreetViewPopupVisible
+    } = this.state
     const {isActive} = listing
 
-    const {
-      isInterestPopupVisible,
-      isInterestSuccessPopupVisible
-   } = this.state
+    const {isInterestPopupVisible, isInterestSuccessPopupVisible} = this.state
 
     const roomInformationForPath = listing.rooms
       ? ` de ${listing.rooms} dormitórios`
@@ -252,9 +258,9 @@ class Listing extends Component {
       },
       {
         name: listing.type + roomInformationForPath,
-        href: `/listings?bairros=${
-          neighborhoodSlug
-        }&quartos_minimo=${listing.rooms}`,
+        href: `/listings?bairros=${neighborhoodSlug}&quartos_minimo=${
+          listing.rooms
+        }`,
         as: `/imoveis?bairros=${neighborhoodSlug}&quartos_minimo=${
           listing.rooms
         }&quartos_maximo=${listing.rooms}`
@@ -263,140 +269,147 @@ class Listing extends Component {
     ]
 
     return (
-      <Mutation mutation={FAVORITE_LISTING}>
-        {(favoriteListing) => (
-          <Query
-            query={GET_USER_LISTINGS_ACTIONS}
-            skip={!currentUser.authenticated}
-            ssr={true}
-          >
-            {({data, loading, error}) => {
-              const userProfile = data ? data.userProfile : null
-              const {router} = this.props
-              const favorite =
-                !loading &&
-                !error &&
-                userProfile &&
-                userProfile.favorites &&
-                userProfile.favorites.filter(
-                  (listingSaved) =>
-                    listingSaved.id.toString() === listing.id.toString()
-                ).length > 0
-              if (
-                !isUndefined(router.query.f) &&
-                !loading &&
-                !favorite &&
-                !this.favMutated
-              ) {
-                this.favMutated = true
-                favoriteListing({
-                  refetchQueries: [
-                    {
-                      query: GET_USER_LISTINGS_ACTIONS
+      <FlagrProvider flagrFlags={this.props.flagrFlags}>
+        <Mutation mutation={FAVORITE_LISTING}>
+          {(favoriteListing) => (
+            <Query
+              query={GET_USER_LISTINGS_ACTIONS}
+              skip={!currentUser.authenticated}
+              ssr={true}
+            >
+              {({data, loading, error}) => {
+                const userProfile = data ? data.userProfile : null
+                const {router} = this.props
+                const favorite =
+                  !loading &&
+                  !error &&
+                  userProfile &&
+                  userProfile.favorites &&
+                  userProfile.favorites.filter(
+                    (listingSaved) =>
+                      listingSaved.id.toString() === listing.id.toString()
+                  ).length > 0
+                if (
+                  !isUndefined(router.query.f) &&
+                  !loading &&
+                  !favorite &&
+                  !this.favMutated
+                ) {
+                  this.favMutated = true
+                  favoriteListing({
+                    refetchQueries: [
+                      {
+                        query: GET_USER_LISTINGS_ACTIONS
+                      }
+                    ],
+                    variables: {
+                      id: listing.id
                     }
-                  ],
-                  variables: {
-                    id: listing.id
-                  }
-                })
-              }
-              return (
-                <Fragment>
-                  <ListingHead
-                    listing={listing}
-                    routerAsPath={router.asPath}
-                  />
-                  <Row flexDirection={['column-reverse', null, null, 'column']} mt={[null, null, null, `${listingDetailsBarHeight}px`]}>
-                    <Breadcrumb paths={paths} />
-                    <Row flexDirection="column">
-                      <ListingSlider
-                        listing={listing}
-                        currentUser={currentUser}
-                        favoritedListing={{loading, favorite}}
-                      />
-                      {!isActive && (
-                        <Warning green={url.query.r}>
-                          {url.query.r ? (
-                            <p>
-                              <b>Pré-cadastro feito com sucesso.</b> Nossa equipe
-                              entrará em contato via email.
-                            </p>
-                          ) : (
-                            <p>
-                              Imóvel não está visível para o público pois está em
-                              fase de moderação.
-                            </p>
-                          )}
-                        </Warning>
-                      )}
-                      <PriceBar listing={listing} />
-                      <ListingMainContent
-                        listing={listing}
-                        user={currentUser}
-                        favorite={favorite}
-                        flagrFlags={this.props.flagrFlags}
-                        openMatterportPopup={this.openMatterportPopup}
-                        openMapPopup={this.openMapPopup}
-                        openStreetViewPopup={this.openStreetViewPopup}
-                      />
+                  })
+                }
+                return (
+                  <Fragment>
+                    <ListingHead listing={listing} routerAsPath={router.asPath} />
+                    <Row
+                      flexDirection={['column-reverse', null, null, 'column']}
+                      mt={[null, null, null, `${listingDetailsBarHeight}px`]}
+                    >
+                      <Breadcrumb paths={paths} />
+                      <Row flexDirection="column">
+                        <ListingSlider
+                          listing={listing}
+                          currentUser={currentUser}
+                          favoritedListing={{loading, favorite}}
+                          openMatterportPopup={this.openMatterportPopup}
+                        />
+                        {!isActive && (
+                          <Warning green={url.query.r}>
+                            {url.query.r ? (
+                              <p>
+                                <b>Pré-cadastro feito com sucesso.</b> Nossa
+                                equipe entrará em contato via email.
+                              </p>
+                            ) : (
+                              <p>
+                                Imóvel não está visível para o público pois está
+                                em fase de moderação.
+                              </p>
+                            )}
+                          </Warning>
+                        )}
+                        <PriceBar listing={listing} />
+                        <ListingMainContent
+                          listing={listing}
+                          user={currentUser}
+                          favorite={favorite}
+                          openMatterportPopup={this.openMatterportPopup}
+                          openMapPopup={this.openMapPopup}
+                          openStreetViewPopup={this.openStreetViewPopup}
+                        />
 
-                      <Mutation mutation={VISUALIZE_TOUR}>
-                        {(visualizeTour) => {
-                          if (!this.visualizeTour) {
-                            this.visualizeTour = visualizeTour
-                          }
-                          return (
-                            <MatterportPopup
-                              listing={listing}
-                              isMatterportPopupVisible={isMatterportPopupVisible}
-                              closeMatterportPopup={this.closeMatterportPopup}
-                            />
-                          )
-                        }}
-                      </Mutation>
-                      <MapPopup
-                        listing={listing}
-                        isMapPopupVisible={isMapPopupVisible}
-                        closeMapPopup={this.closeMapPopup}
-                      />
-                      <MapPopup
-                        streetView
-                        listing={listing}
-                        isMapPopupVisible={isStreetViewPopupVisible}
-                        closeMapPopup={this.closeStreetViewPopup}
-                      />
-                      <ButtonsBar
-                        handleOpenInterestPopup={this.openInterestPopup}
-                        favorite={favorite}
-                        listing={listing}
-                        user={currentUser}
-                      />
-                      <RelatedListings
-                        currentUser={currentUser}
-                        listings={related}
-                      />
+                        <Mutation mutation={VISUALIZE_TOUR}>
+                          {(visualizeTour) => {
+                            if (!this.visualizeTour) {
+                              this.visualizeTour = visualizeTour
+                            }
+                            return (
+                              <MatterportPopup
+                                listing={listing}
+                                isMatterportPopupVisible={
+                                  isMatterportPopupVisible
+                                }
+                                closeMatterportPopup={this.closeMatterportPopup}
+                              />
+                            )
+                          }}
+                        </Mutation>
+                        <MapPopup
+                          listing={listing}
+                          isMapPopupVisible={isMapPopupVisible}
+                          closeMapPopup={this.closeMapPopup}
+                        />
+                        <MapPopup
+                          streetView
+                          listing={listing}
+                          isMapPopupVisible={isStreetViewPopupVisible}
+                          closeMapPopup={this.closeStreetViewPopup}
+                        />
+                        <ButtonsBar
+                          handleOpenInterestPopup={this.openInterestPopup}
+                          favorite={favorite}
+                          listing={listing}
+                          user={currentUser}
+                        />
+                        <RelatedListings
+                          currentUser={currentUser}
+                          listings={related}
+                        />
+                      </Row>
+                      {isInterestPopupVisible && (
+                        <ContactForm
+                          onClose={this.closeInterestPopup}
+                          onSubmit={this.onSubmit}
+                          listing={listing}
+                        />
+                      )}
+                      {isInterestSuccessPopupVisible && (
+                        <ContactSuccess
+                          onClose={this.closeSuccessPostInterestPopup}
+                          listing={listing}
+                          userInfo={{
+                            name: this.state.userName,
+                            phone: this.state.userPhone
+                          }}
+                        />
+                      )}
                     </Row>
-                    {isInterestPopupVisible && (
-                      <ContactForm
-                        onClose={this.closeInterestPopup}
-                        onSubmit={this.onSubmit}
-                        listing={listing}
-                      />
-                    )}
-                    {isInterestSuccessPopupVisible && (
-                      <ContactSuccess
-                        onClose={this.closeSuccessPostInterestPopup}
-                        listing={listing}
-                        userInfo={{name: this.state.userName, phone: this.state.userPhone}}
-                      />
-                    )}
-                  </Row>
-                </Fragment>
-              )
-            }}
-          </Query>
-        )}
-      </Mutation>
+                  </Fragment>
+                )
+              }}
+            </Query>
+          )}
+        </Mutation>
+      </FlagrProvider>
     )
   }
 
@@ -409,43 +422,44 @@ class Listing extends Component {
     return (
       <Query query={GET_DISTRICTS}>
         {({loading, error, data}) => {
-          if (loading) return (<div/>)
-          if (error || !data || !data.districts) return `Error! ${error.message}`
+          if (loading) return <div />
+          if (error || !data || !data.districts)
+            return `Error! ${error.message}`
 
           const districts = data.districts
-          const findState = districts.find(a => a.stateSlug === state)
-          const findCity = districts.find(a => a.citySlug === city)
-          const findNeighborhood = districts.find(a => a.nameSlug === neighborhood)
+          const findState = districts.find((a) => a.stateSlug === state)
+          const findCity = districts.find((a) => a.citySlug === city)
+          const findNeighborhood = districts.find(
+            (a) => a.nameSlug === neighborhood
+          )
           let errorTitle = 'Este imóvel não está mais disponível!'
           let endQuestion = 'de imóveis'
           let buttonLabel = 'Explorar imóveis'
           let buttonHref = '/imoveis'
 
           if (findNeighborhood) {
-            endQuestion = ` em ${findNeighborhood.name}, ${findNeighborhood.city}`
+            endQuestion = ` em ${findNeighborhood.name}, ${
+              findNeighborhood.city
+            }`
             buttonLabel += ` em ${findNeighborhood.name}`
-            buttonHref += `/${findNeighborhood.stateSlug}/${findNeighborhood.citySlug}/${findNeighborhood.nameSlug}`
-         } else if (findCity) {
+            buttonHref += `/${findNeighborhood.stateSlug}/${
+              findNeighborhood.citySlug
+            }/${findNeighborhood.nameSlug}`
+          } else if (findCity) {
             endQuestion = ` em ${findCity.city}, ${findCity.state}`
             buttonLabel += ` em ${findCity.city}`
             buttonHref += `/${findCity.stateSlug}/${findCity.citySlug}`
-         } else if (findState) {
+          } else if (findState) {
             endQuestion = ` em ${findState.state}`
             buttonLabel += ` em ${findState.state}`
             buttonHref += `/${findState.stateSlug}`
           }
 
           return (
-            <>
-              <NextHead title={`Imóvel não encontrado | EmCasa`} />
-              <Row
-                justifyContent="center"
-                px={5}
-              >
-                <Row
-                  flexDirection="column"
-                  width={[1,null,null,'768px']}
-                >
+            <Fragment>
+              <NextHead title={'Imóvel não encontrado | EmCasa'} />
+              <Row justifyContent="center" px={5}>
+                <Row flexDirection="column" width={[1, null, null, '768px']}>
                   <Text
                     as="h2"
                     textAlign="center"
@@ -454,20 +468,14 @@ class Listing extends Component {
                   >
                     {errorTitle}
                   </Text>
-                  <Text color="grey">{`Que tal olhar outras opções ${endQuestion}? Separamos alguns imóveis para você! Fique a vontade para dar uma olhada nessa lista`}
+                  <Text color="grey">
+                    {`Que tal olhar outras opções ${endQuestion}? Separamos alguns imóveis para você! Fique a vontade para dar uma olhada nessa lista`}
                   </Text>
                   <Row justifyContent="center" mt={2}>
-                    <Col width={[1,null,null,3/5]}>
-                      <Link
-                        passHref
-                        href={buttonHref}
-                      >
+                    <Col width={[1, null, null, 3 / 5]}>
+                      <Link passHref href={buttonHref}>
                         <a>
-                          <Button
-                            active
-                            fluid
-                            height="tall"
-                          >
+                          <Button active fluid height="tall">
                             {buttonLabel}
                           </Button>
                         </a>
@@ -476,7 +484,7 @@ class Listing extends Component {
                   </Row>
                 </Row>
               </Row>
-            </>
+            </Fragment>
           )
         }}
       </Query>
@@ -497,19 +505,21 @@ class Listing extends Component {
   }
 
   checkListing(listing) {
+    if (!listing) {
+      captureException(new Error('No listing prop in ListingDetail'))
+      return
+    }
     if (!listing.type) {
-      captureException(new Error("Type is null in listing id ", listing.id));
+      captureException(new Error('Type is null in listing id ', listing.id))
     }
   }
 
   render() {
     const {listingFetchError, url: {asPath}} = this.props
 
-    return listingFetchError ? (
-      this.showListingFetchError(listingFetchError, asPath)
-    ) : (
-      this.showListing()
-    )
+    return listingFetchError
+      ? this.showListingFetchError(listingFetchError, asPath)
+      : this.showListing()
   }
 }
 
