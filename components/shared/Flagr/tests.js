@@ -1,2 +1,3 @@
-// Schedule visit call-to-action text
-export const TEST_SCHEDULE_VISIT_CTA = 'test_schedule_visit_cta_2'
+// Show the 3d tour button when gallery is on full screen mode
+export const TEST_TOUR_BUTTON_FULL_SCREEN_GALLERY =
+  'test_tour_button_full_screen_gallery'
