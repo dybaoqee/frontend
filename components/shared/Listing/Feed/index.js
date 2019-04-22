@@ -7,8 +7,12 @@ import ListingCard from 'components/listings/shared/ListingCard'
 import {Container, ListingsContainer, Gradient} from './styles'
 
 class ListingFeed extends Component {
+  static defaultProps = {
+    title: 'Veja também'
+  }
+
   render() {
-    const {listings, currentUser} = this.props
+    const {title, listings, currentUser, bg} = this.props
     return (
       <Query
         query={GET_FAVORITE_LISTINGS}
@@ -30,7 +34,7 @@ class ListingFeed extends Component {
           return (
             <Container>
               <Text as="h3" color="grey" fontWeight="bold">
-                Veja também
+                {title}
               </Text>
               <ListingsContainer>
                 {listings.map((listing) => {
@@ -45,7 +49,7 @@ class ListingFeed extends Component {
                   )
                 })}
               </ListingsContainer>
-              <Gradient />
+              <Gradient bg={bg || 'white'} />
             </Container>
           )
         }}
