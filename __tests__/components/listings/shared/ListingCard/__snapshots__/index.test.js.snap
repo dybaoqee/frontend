@@ -172,6 +172,7 @@ exports[`<ListingCard/> should render component 1`] = `
           color="grey"
           fontSize="small"
         >
+          
         </span>
       </div>
       <div
