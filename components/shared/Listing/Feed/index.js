@@ -15,6 +15,10 @@ import {
 } from './styles'
 
 class ListingFeed extends Component {
+  static defaultProps = {
+    title: 'Veja também'
+  }
+
   render() {
     const {currentUser, currentListing, listings, variables} = this.props
     return (

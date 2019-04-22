@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import theme from 'config/theme'
+import {backgroundColor} from 'styled-system'
 import {breakpoint} from '@emcasa/ui/lib/styles'
 import {listingDetailsMaxWidth} from 'constants/dimensions'
 import Button from '@emcasa/ui-dom/components/Button'
@@ -30,6 +31,17 @@ export const MoreButtonWrapper = styled.div`
     max-width: 320px;
     margin: ${theme.space[4]}px auto 0;
     padding: 0 0 ${theme.space[4]}px;
+
+    position: absolute;
+    top: 0;
+    right: ${theme.space[4]}px;
+    width: 60px;
+    height: 100%;
+    background-image: linear-gradient(
+      to right,
+      transparent,
+      ${(props) => backgroundColor(props).backgroundColor}
+    );
   }
 `
 

@@ -16,6 +16,8 @@ export const Container = styled(Col)`
 
 export const Title = styled(Text)`
   margin: 0;
+  display: flex;
+  flex-direction: column;
 `
 
 export const ExtraTitleSEO = styled.span`

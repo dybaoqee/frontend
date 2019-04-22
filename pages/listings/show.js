@@ -347,7 +347,7 @@ class Listing extends Component {
                             )}
                           </Warning>
                         )}
-                        <PriceBar type={listing.type} price={listing.price} />
+                        <PriceBar listing={listing} />
                         <ListingMainContent
                           listing={listing}
                           user={currentUser}
