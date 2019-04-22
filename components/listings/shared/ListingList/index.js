@@ -10,10 +10,10 @@ import differenceBy from 'lodash/differenceBy'
 import map from 'lodash/map'
 import ListingInfiniteScroll from 'components/shared/ListingInfiniteScroll'
 import ListingCard from 'components/listings/shared/ListingCard'
-import {CardWidthGlobal} from 'components/listings/shared/ListingCard/styles'
 import Map from 'components/listings/shared/Map'
 import ListingsNotFound from 'components/listings/shared/NotFound'
 import Neighborhood from 'components/listings/shared/Neighborhood'
+import Col from '@emcasa/ui-dom/components/Col'
 import {getTitleTextByFilters, getTitleTextByParams} from './title'
 import {log, LISTING_SEARCH_MAP_PIN, LISTING_SEARCH_RESULTS} from 'lib/logging'
 import {Container, MapContainer, Title} from './styles'
@@ -65,7 +65,6 @@ class ListingList extends Component {
             const filteredListings = differenceBy(result.listings, 'id')
             return (
               <Fragment>
-                <CardWidthGlobal />
                 <ListingInfiniteScroll
                   titleComponent={
                     params.neighborhood && (
@@ -320,12 +319,12 @@ class ListingList extends Component {
           return (
             <Container>
               {hasListings && this.getItemList(listings.listings)}
-              <div>
+              <Col width="100%">
                 <Title as="h2" fontWeight="normal">
                   {h1Content}
                 </Title>
                 {this.getListings(listings, fetchMore)}
-              </div>
+              </Col>
               {hasListings && this.getMap()}
             </Container>
           )

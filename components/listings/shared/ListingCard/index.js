@@ -11,10 +11,7 @@ import LikeButton from 'components/shared/Common/Buttons/Like'
 import { thumbnailUrl } from 'utils/image_url'
 import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
-import {
-  Container,
-  getCardWidth
-} from './styles'
+import {Container} from './styles'
 import {
   log,
   LISTING_DETAIL_VIEW_FEATURED_LISTING
@@ -72,7 +69,6 @@ class ListingCard extends Component {
               </Row>
             </Row>
             <LikeButton
-              top={Math.round(getCardWidth() * 0.5 - 25)}
               favorite={favorited}
               listing={listing}
               user={currentUser}

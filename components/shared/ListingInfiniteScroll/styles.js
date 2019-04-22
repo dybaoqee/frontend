@@ -2,16 +2,16 @@ import styled from 'styled-components'
 import Row from '@emcasa/ui-dom/components/Row'
 import View from '@emcasa/ui-dom/components/View'
 import {themeGet} from 'styled-system'
+import {MIN_CARD_WIDTH} from 'components/listings/shared/ListingCard/styles'
 
 const Container = styled(View)`
-  padding: 0 0 ${themeGet('space.4')}px ${themeGet('space.4')}px;
+  padding: 0 ${themeGet('space.4')}px ${themeGet('space.4')}px;
 `
 
 const ListContainer = styled(Row)`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(${MIN_CARD_WIDTH}px, 1fr));
+  grid-gap: ${themeGet('space.4')}px;
 `
 
 const Footer = styled.footer`
