@@ -32,9 +32,7 @@ import getApolloClient from 'lib/apollo/initApollo'
 import {getUserInfo} from 'lib/user'
 import {getCookie} from 'lib/session'
 import {fetchFlag, DEVICE_ID_COOKIE} from 'components/shared/Flagr'
-import {
-  TEST_TOUR_BUTTON_FULL_SCREEN_GALLERY
-} from 'components/shared/Flagr/tests'
+import {TEST_TOUR_BUTTON_FULL_SCREEN_GALLERY} from 'components/shared/Flagr/tests'
 import {
   log,
   getListingInfoForLogs,
@@ -47,7 +45,8 @@ import {
   LISTING_DETAIL_MAP_OPEN,
   LISTING_DETAIL_MAP_CLOSE,
   LISTING_DETAIL_STREETVIEW_OPEN,
-  LISTING_DETAIL_STREETVIEW_CLOSE
+  LISTING_DETAIL_STREETVIEW_CLOSE,
+  LISTING_DETAIL_MATTERPORT_OPEN_FULLSCREEN
 } from 'lib/logging'
 import {listingDetailsBarHeight} from 'constants/dimensions'
 import {captureException} from '@sentry/browser'
@@ -122,15 +121,23 @@ class Listing extends Component {
     }
   }
 
-  openMatterportPopup = () => {
-    const {listing: {id}} = this.props
-
+  openMatterport = (id) => {
     if (this.visualizeTour) {
       this.visualizeTour({variables: {id}})
     }
-
-    log(LISTING_DETAIL_MATTERPORT_OPEN, {listingId: id})
     this.setState({isMatterportPopupVisible: true})
+  }
+
+  openMatterportPopup = () => {
+    const {listing: {id}} = this.props
+    this.openMatterport(id)
+    log(LISTING_DETAIL_MATTERPORT_OPEN, {listingId: id})
+  }
+
+  openMatterportPopupFullscreen = () => {
+    const {listing: {id}} = this.props
+    this.openMatterport(id)
+    log(LISTING_DETAIL_MATTERPORT_OPEN_FULLSCREEN, {listingId: id})
   }
 
   closeMatterportPopup = () => {
@@ -319,7 +326,10 @@ class Listing extends Component {
                 }
                 return (
                   <Fragment>
-                    <ListingHead listing={listing} routerAsPath={router.asPath} />
+                    <ListingHead
+                      listing={listing}
+                      routerAsPath={router.asPath}
+                    />
                     <Row
                       flexDirection={['column-reverse', null, null, 'column']}
                       mt={[null, null, null, `${listingDetailsBarHeight}px`]}
@@ -330,7 +340,9 @@ class Listing extends Component {
                           listing={listing}
                           currentUser={currentUser}
                           favoritedListing={{loading, favorite}}
-                          openMatterportPopup={this.openMatterportPopup}
+                          openMatterportPopup={
+                            this.openMatterportPopupFullscreen
+                          }
                         />
                         {!isActive && (
                           <Warning green={url.query.r}>
