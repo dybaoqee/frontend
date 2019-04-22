@@ -390,10 +390,14 @@ class Listing extends Component {
                           listing={listing}
                           user={currentUser}
                         />
-                        <RelatedListings
-                          currentUser={currentUser}
-                          listings={related}
-                        />
+                        <Col mt={4}>
+                          <ListingFeed
+                            currentUser={currentUser}
+                            currentListing={listing}
+                            listings={related}
+                            variables={feedVariables}
+                          />
+                        </Col>
                       </Row>
                       {isInterestPopupVisible && (
                         <ContactForm
@@ -412,59 +416,6 @@ class Listing extends Component {
                           }}
                         />
                       )}
-                      <PriceBar
-                        type={listing.type}
-                        price={listing.price}
-                      />
-                      <ListingMainContent
-                        listing={listing}
-                        user={currentUser}
-                        favorite={favorite}
-                        flagrFlags={this.props.flagrFlags}
-                        openMatterportPopup={this.openMatterportPopup}
-                        openMapPopup={this.openMapPopup}
-                        openStreetViewPopup={this.openStreetViewPopup}
-                      />
-
-                      <Mutation mutation={VISUALIZE_TOUR}>
-                        {(visualizeTour) => {
-                          if (!this.visualizeTour) {
-                            this.visualizeTour = visualizeTour
-                          }
-                          return (
-                            <MatterportPopup
-                              listing={listing}
-                              isMatterportPopupVisible={isMatterportPopupVisible}
-                              closeMatterportPopup={this.closeMatterportPopup}
-                            />
-                          )
-                        }}
-                      </Mutation>
-                      <MapPopup
-                        listing={listing}
-                        isMapPopupVisible={isMapPopupVisible}
-                        closeMapPopup={this.closeMapPopup}
-                      />
-                      <MapPopup
-                        streetView
-                        listing={listing}
-                        isMapPopupVisible={isStreetViewPopupVisible}
-                        closeMapPopup={this.closeStreetViewPopup}
-                      />
-                      <ButtonsBar
-                        handleOpenInterestPopup={this.openInterestPopup}
-                        favorite={favorite}
-                        listing={listing}
-                        user={currentUser}
-                      />
-                      <Col mt={4}>
-                        <ListingFeed
-                          currentUser={currentUser}
-                          currentListing={listing}
-                          listings={related}
-                          variables={feedVariables}
-                        />
-                      </Col>
                     </Row>
                   </Fragment>
                 )
