@@ -500,6 +500,10 @@ class Listing extends Component {
   }
 
   checkListing(listing) {
+    if (!listing) {
+      captureException(new Error('No listing prop in ListingDetail'))
+      return
+    }
     if (!listing.type) {
       captureException(new Error("Type is null in listing id ", listing.id));
     }
