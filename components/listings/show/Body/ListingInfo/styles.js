@@ -57,7 +57,7 @@ export const ButtonsContainer = styled(Row)`
       width: 1em;
       height: 1em;
       overflow: visible;
-      vertical-align: -.125em;
+      vertical-align: -0.125em;
       font-size: inherit;
     }
   }
@@ -82,6 +82,32 @@ export const OpenMatterportButton = styled(Button)`
   }
 `
 
+export const OpenMatterportButton2 = styled(Button)`
+  z-index: 1;
+  position: absolute;
+  top: ${theme.space[5]}px;
+  left: 50%;
+  flex: 1;
+  transform: translateX(-50%);
+  color: ${theme.colors.white};
+  background-color: ${theme.colors.blue};
+  border: none;
+  min-width: 190px;
+  @media screen and ${breakpoint.up('desktop')} {
+    display: flex;
+  }
+
+  svg {
+    margin-right: ${theme.space[2]}px;
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    overflow: visible;
+    vertical-align: -0.125em;
+    font-size: inherit;
+  }
+`
+
 export const PriceItem = styled(Text)`
   display: flex;
   justify-content: space-between;
@@ -93,7 +119,7 @@ export const PriceItem = styled(Text)`
   }
 
   span {
-    font-size: inherit; 
+    font-size: inherit;
   }
 `
 
