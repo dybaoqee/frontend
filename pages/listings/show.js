@@ -49,7 +49,6 @@ import {
 } from 'lib/logging'
 import {listingDetailsBarHeight} from 'constants/dimensions'
 import {captureException} from '@sentry/browser'
-import FlagrProvider from '../../components/shared/Flagr/Context'
 
 class Listing extends Component {
   favMutated = false
@@ -90,12 +89,6 @@ class Listing extends Component {
 
     // Flagr
     const deviceId = getCookie(DEVICE_ID_COOKIE, context.req)
-    const flagrFlags = {
-      [TEST_TOUR_BUTTON_FULL_SCREEN_GALLERY]: await fetchFlag(
-        TEST_TOUR_BUTTON_FULL_SCREEN_GALLERY,
-        deviceId
-      )
-    }
 
     if (listing) {
       if (asPath && res) {
@@ -108,14 +101,12 @@ class Listing extends Component {
 
       return {
         listing,
-        currentUser,
-        flagrFlags
+        currentUser
       }
     } else {
       return {
         listingFetchError: errors[0],
-        currentUser,
-        flagrFlags
+        currentUser
       }
     }
   }
@@ -285,156 +276,149 @@ class Listing extends Component {
     }
 
     return (
-      <FlagrProvider flagrFlags={this.props.flagrFlags}>
-        <Mutation mutation={FAVORITE_LISTING}>
-          {(favoriteListing) => (
-            <Query
-              query={GET_USER_LISTINGS_ACTIONS}
-              skip={!currentUser.authenticated}
-              ssr={true}
-            >
-              {({data, loading, error}) => {
-                const userProfile = data ? data.userProfile : null
-                const {router} = this.props
-                const favorite =
-                  !loading &&
-                  !error &&
-                  userProfile &&
-                  userProfile.favorites &&
-                  userProfile.favorites.filter(
-                    (listingSaved) =>
-                      listingSaved.id.toString() === listing.id.toString()
-                  ).length > 0
-                if (
-                  !isUndefined(router.query.f) &&
-                  !loading &&
-                  !favorite &&
-                  !this.favMutated
-                ) {
-                  this.favMutated = true
-                  favoriteListing({
-                    refetchQueries: [
-                      {
-                        query: GET_USER_LISTINGS_ACTIONS
-                      }
-                    ],
-                    variables: {
-                      id: listing.id
+      <Mutation mutation={FAVORITE_LISTING}>
+        {(favoriteListing) => (
+          <Query
+            query={GET_USER_LISTINGS_ACTIONS}
+            skip={!currentUser.authenticated}
+            ssr={true}
+          >
+            {({data, loading, error}) => {
+              const userProfile = data ? data.userProfile : null
+              const {router} = this.props
+              const favorite =
+                !loading &&
+                !error &&
+                userProfile &&
+                userProfile.favorites &&
+                userProfile.favorites.filter(
+                  (listingSaved) =>
+                    listingSaved.id.toString() === listing.id.toString()
+                ).length > 0
+              if (
+                !isUndefined(router.query.f) &&
+                !loading &&
+                !favorite &&
+                !this.favMutated
+              ) {
+                this.favMutated = true
+                favoriteListing({
+                  refetchQueries: [
+                    {
+                      query: GET_USER_LISTINGS_ACTIONS
                     }
-                  })
-                }
-                return (
-                  <Fragment>
-                    <ListingHead
-                      listing={listing}
-                      routerAsPath={router.asPath}
-                    />
-                    <Row
-                      flexDirection={['column-reverse', null, null, 'column']}
-                      mt={[null, null, null, `${listingDetailsBarHeight}px`]}
-                    >
-                      <Breadcrumb paths={paths} />
-                      <Row flexDirection="column">
-                        <ListingSlider
-                          listing={listing}
-                          currentUser={currentUser}
-                          favoritedListing={{loading, favorite}}
-                          openMatterportPopup={
-                            this.openMatterportPopupFullscreen
-                          }
-                        />
-                        {!isActive && (
-                          <Warning green={url.query.r}>
-                            {url.query.r ? (
-                              <p>
-                                <b>Pré-cadastro feito com sucesso.</b> Nossa
-                                equipe entrará em contato via email.
-                              </p>
-                            ) : (
-                              <p>
-                                Imóvel não está visível para o público pois está
-                                em fase de moderação.
-                              </p>
-                            )}
-                          </Warning>
-                        )}
-                        <PriceBar listing={listing} />
-                        <ListingMainContent
-                          listing={listing}
-                          user={currentUser}
-                          favorite={favorite}
-                          openMatterportPopup={this.openMatterportPopup}
-                          openMapPopup={this.openMapPopup}
-                          openStreetViewPopup={this.openStreetViewPopup}
-                        />
+                  ],
+                  variables: {
+                    id: listing.id
+                  }
+                })
+              }
+              return (
+                <Fragment>
+                  <ListingHead listing={listing} routerAsPath={router.asPath} />
+                  <Row
+                    flexDirection={['column-reverse', null, null, 'column']}
+                    mt={[null, null, null, `${listingDetailsBarHeight}px`]}
+                  >
+                    <Breadcrumb paths={paths} />
+                    <Row flexDirection="column">
+                      <ListingSlider
+                        listing={listing}
+                        currentUser={currentUser}
+                        favoritedListing={{loading, favorite}}
+                        openMatterportPopup={this.openMatterportPopupFullscreen}
+                      />
+                      {!isActive && (
+                        <Warning green={url.query.r}>
+                          {url.query.r ? (
+                            <p>
+                              <b>Pré-cadastro feito com sucesso.</b> Nossa
+                              equipe entrará em contato via email.
+                            </p>
+                          ) : (
+                            <p>
+                              Imóvel não está visível para o público pois está
+                              em fase de moderação.
+                            </p>
+                          )}
+                        </Warning>
+                      )}
+                      <PriceBar listing={listing} />
+                      <ListingMainContent
+                        listing={listing}
+                        user={currentUser}
+                        favorite={favorite}
+                        openMatterportPopup={this.openMatterportPopup}
+                        openMapPopup={this.openMapPopup}
+                        openStreetViewPopup={this.openStreetViewPopup}
+                      />
 
-                        <Mutation mutation={VISUALIZE_TOUR}>
-                          {(visualizeTour) => {
-                            if (!this.visualizeTour) {
-                              this.visualizeTour = visualizeTour
-                            }
-                            return (
-                              <MatterportPopup
-                                listing={listing}
-                                isMatterportPopupVisible={
-                                  isMatterportPopupVisible
-                                }
-                                closeMatterportPopup={this.closeMatterportPopup}
-                              />
-                            )
-                          }}
-                        </Mutation>
-                        <MapPopup
-                          listing={listing}
-                          isMapPopupVisible={isMapPopupVisible}
-                          closeMapPopup={this.closeMapPopup}
+                      <Mutation mutation={VISUALIZE_TOUR}>
+                        {(visualizeTour) => {
+                          if (!this.visualizeTour) {
+                            this.visualizeTour = visualizeTour
+                          }
+                          return (
+                            <MatterportPopup
+                              listing={listing}
+                              isMatterportPopupVisible={
+                                isMatterportPopupVisible
+                              }
+                              closeMatterportPopup={this.closeMatterportPopup}
+                            />
+                          )
+                        }}
+                      </Mutation>
+                      <MapPopup
+                        listing={listing}
+                        isMapPopupVisible={isMapPopupVisible}
+                        closeMapPopup={this.closeMapPopup}
+                      />
+                      <MapPopup
+                        streetView
+                        listing={listing}
+                        isMapPopupVisible={isStreetViewPopupVisible}
+                        closeMapPopup={this.closeStreetViewPopup}
+                      />
+                      <ButtonsBar
+                        handleOpenInterestPopup={this.openInterestPopup}
+                        favorite={favorite}
+                        listing={listing}
+                        user={currentUser}
+                      />
+                      <Col mt={4}>
+                        <ListingFeed
+                          currentUser={currentUser}
+                          currentListing={listing}
+                          listings={related}
+                          variables={feedVariables}
                         />
-                        <MapPopup
-                          streetView
-                          listing={listing}
-                          isMapPopupVisible={isStreetViewPopupVisible}
-                          closeMapPopup={this.closeStreetViewPopup}
-                        />
-                        <ButtonsBar
-                          handleOpenInterestPopup={this.openInterestPopup}
-                          favorite={favorite}
-                          listing={listing}
-                          user={currentUser}
-                        />
-                        <Col mt={4}>
-                          <ListingFeed
-                            currentUser={currentUser}
-                            currentListing={listing}
-                            listings={related}
-                            variables={feedVariables}
-                          />
-                        </Col>
-                      </Row>
-                      {isInterestPopupVisible && (
-                        <ContactForm
-                          onClose={this.closeInterestPopup}
-                          onSubmit={this.onSubmit}
-                          listing={listing}
-                        />
-                      )}
-                      {isInterestSuccessPopupVisible && (
-                        <ContactSuccess
-                          onClose={this.closeSuccessPostInterestPopup}
-                          listing={listing}
-                          userInfo={{
-                            name: this.state.userName,
-                            phone: this.state.userPhone
-                          }}
-                        />
-                      )}
+                      </Col>
                     </Row>
-                  </Fragment>
-                )
-              }}
-            </Query>
-          )}
-        </Mutation>
-      </FlagrProvider>
+                    {isInterestPopupVisible && (
+                      <ContactForm
+                        onClose={this.closeInterestPopup}
+                        onSubmit={this.onSubmit}
+                        listing={listing}
+                      />
+                    )}
+                    {isInterestSuccessPopupVisible && (
+                      <ContactSuccess
+                        onClose={this.closeSuccessPostInterestPopup}
+                        listing={listing}
+                        userInfo={{
+                          name: this.state.userName,
+                          phone: this.state.userPhone
+                        }}
+                      />
+                    )}
+                  </Row>
+                </Fragment>
+              )
+            }}
+          </Query>
+        )}
+      </Mutation>
     )
   }
 
