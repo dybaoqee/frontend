@@ -5,7 +5,6 @@ import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
 import {
   desktopHeaderHeight,
-  listingDetailsMaxWidth,
   listingDetailsBarHeight
 } from 'constants/dimensions'
 

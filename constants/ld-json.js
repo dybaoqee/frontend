@@ -1,4 +1,4 @@
-const description = "A EmCasa é uma imobiliária digital feita para simplificar a compra e venda de imóveis. Encontre Imóveis, Casas e Apartamentos à Venda no Rio de Janeiro em Ipanema, Leblon, Copacabana, Botafogo, Flamengo, Lagoa e toda Zona Sul ou São Paulo em Perdizes com o sistema exclusivo de Tour Virtual 3D do Emcasa."
+const description = "A EmCasa é uma imobiliária digital feita para simplificar a compra e venda de imóveis. Encontre Imóveis, Casas e Apartamentos à Venda no Rio de Janeiro em Ipanema, Leblon, Copacabana, Botafogo, Flamengo, Lagoa e toda Zona Sul ou São Paulo com o sistema exclusivo de Tour Virtual 3D da Emcasa."
 
 const logo = [
   {

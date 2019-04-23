@@ -26,7 +26,7 @@ MapMarker.propTypes = {
   id: PropTypes.number,
   lat: PropTypes.string,
   lng: PropTypes.string,
-  text: PropTypes.string,
+  text: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   onSelect: PropTypes.func,
   highlight: PropTypes.bool
 }

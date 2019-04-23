@@ -1868,12 +1868,11 @@
   dependencies:
     lodash.once "^4.1.1"
 
-"@emcasa/ui-dom@2.0.9":
-  version "2.0.9"
-  resolved "https://registry.yarnpkg.com/@emcasa/ui-dom/-/ui-dom-2.0.9.tgz#52607280eae8c78982a8404e7e374d579f6e4eea"
-  integrity sha512-44V0kFs7RY4bzgG6CcjBDc2GXlfoo1bIfahgkYyzpO1G8wI2tfq+tsZVC7pccf4QkiXezH22/5kvLsN9y0Whkw==
+"@emcasa/ui-dom@2.0.11":
+  version "2.0.11"
+  resolved "https://registry.yarnpkg.com/@emcasa/ui-dom/-/ui-dom-2.0.11.tgz#aad3e73b949cf8d472053e6195657758194ebc25"
   dependencies:
-    "@emcasa/ui" "^2.0.9"
+    "@emcasa/ui" "^2.0.11"
     "@rebass/grid" "6.0.0-4"
     classnames "^2.2.6"
     deepmerge "^3.2.0"
@@ -1890,10 +1889,9 @@
     styled-system "4.1.0"
     tinycolor2 "^1.4.1"
 
-"@emcasa/ui@2.0.9", "@emcasa/ui@^2.0.9":
-  version "2.0.9"
-  resolved "https://registry.yarnpkg.com/@emcasa/ui/-/ui-2.0.9.tgz#c05c8329737a706669dd365f6075c793b121e69a"
-  integrity sha512-NTtb7A0VWfz62++j8YgrhwNW5GgBvq1AfyOBz5aazJNjLqaU9zr6rhRBxicL+nRn/9czGcK9zbC97ZjZN1jMHA==
+"@emcasa/ui@2.0.11", "@emcasa/ui@^2.0.11":
+  version "2.0.11"
+  resolved "https://registry.yarnpkg.com/@emcasa/ui/-/ui-2.0.11.tgz#583c795076615cc346c14d264f1b4e4dd0eed6e8"
   dependencies:
     "@fortawesome/free-solid-svg-icons" "^5.4.1"
     everpolate "^0.0.3"
@@ -5484,7 +5482,6 @@ deepmerge@^2.1.1:
 deepmerge@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/deepmerge/-/deepmerge-3.2.0.tgz#58ef463a57c08d376547f8869fdc5bcee957f44e"
-  integrity sha512-6+LuZGU7QCNUnAJyX8cIrlzoEgggTM6B7mm+znKOX4t5ltluT9KLjN6g61ECMS0LTsLW7yDpNoxhix5FZcrIow==
 
 default-require-extensions@^2.0.0:
   version "2.0.0"

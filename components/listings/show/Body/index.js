@@ -2,15 +2,27 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {getParagraphs} from 'utils/text-utils'
 import {canEdit} from 'permissions/listings-permissions'
-import {log, getListingInfoForLogs, LISTING_DETAIL_OPEN} from 'lib/logging'
-import Row from '@emcasa/ui-dom/components/Row'
+import {
+  log,
+  getListingInfoForLogs,
+  LISTING_DETAIL_OPEN,
+  LISTING_DETAIL_EXPAND_DESCRIPTION
+} from 'lib/logging'
+import View from '@emcasa/ui-dom/components/View'
+import Col from '@emcasa/ui-dom/components/Col'
 import ListingInfo from './ListingInfo'
 import ListingDescription from './ListingDescription'
-import {Container} from './styles'
+import DevelopmentPhase from './DevelopmentPhase'
+import ListingsFeed from 'components/shared/Listing/Feed'
+import {Container, DevelopmentContainer} from './styles'
 
 class ListingMainContent extends Component {
   componentDidMount() {
     log(LISTING_DETAIL_OPEN, getListingInfoForLogs(this.props.listing))
+  }
+
+  onExpandDescription = () => {
+    log(LISTING_DETAIL_EXPAND_DESCRIPTION, getListingInfoForLogs(this.props.listing))
   }
 
   render() {
@@ -28,9 +40,13 @@ class ListingMainContent extends Component {
       ? `${street}, ${streetNumber} ${
         listing.complement ? `- ${listing.complement}` : ''}`
       : `${street}`
-
+    const developmentListings = listing.development
+        ? listing.development.listings.filter(
+          ({id}) => id !== listing.id
+        )
+        : []
     return (
-      <Row justifyContent="center" width="100%" mt={5}>
+      <Col alignItems="center" width="100%" mt={5}>
         <Container>
           <ListingInfo
             listing={listing}
@@ -41,9 +57,38 @@ class ListingMainContent extends Component {
             openMapPopup={openMapPopup}
             openStreetViewPopup={openStreetViewPopup}
           />
-          <ListingDescription listing={listing} paragraphs={paragraphs} />
+          <View flex="1 1 100%" pb={5}>
+            {listing.development && (
+              <DevelopmentPhase phase={listing.development.phase} />
+            )}
+            <ListingDescription
+              collapsedHeight="215px"
+              title="Sobre o imóvel"
+              paragraphs={getParagraphs(listing.description)}
+              onExpand={this.onExpandDescription}
+            />
+          </View>
         </Container>
-      </Row>
+        {listing.development && (
+          <DevelopmentContainer>
+            <ListingDescription
+              bg="snow"
+              title="Sobre o empreendimento"
+              paragraphs={getParagraphs(listing.development.description)}
+            >
+              {developmentListings.length && (
+                <View className="listingsFeed" width="100vw">
+                  <ListingsFeed
+                    bg="snow"
+                    title="Imóveis do empreendimento"
+                    listings={developmentListings}
+                  />
+                </View>
+              )}
+            </ListingDescription>
+          </DevelopmentContainer>
+        )}
+      </Col>
     )
   }
 }

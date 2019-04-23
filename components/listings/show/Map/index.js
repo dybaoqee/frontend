@@ -10,15 +10,28 @@ export default class ListingMap extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      map: null,
-      maps: null
+      panorama: null
+    }
+  }
+
+  processStreetViewService = (data) => {
+    const {panorama} = this.state
+
+    if (panorama) {
+      panorama.setPov({
+        heading: 270,
+        pitch: 0
+      })
+      panorama.setPano(data.location.pano)
     }
   }
 
   loadStreetView = (map, maps) => {
     const {listing, streetView} = this.props
+    const {lat, lng} = listing.address
+
     if (streetView) {
-      const {lat, lng} = listing.address
+      const sv = new google.maps.StreetViewService()
       const panorama = new maps.StreetViewPanorama(
         ReactDOM.findDOMNode(this.refs.panorama), {
           position: {lat: lat, lng: lng},
@@ -28,19 +41,18 @@ export default class ListingMap extends Component {
         }
       )
       map.setStreetView(panorama)
+      sv.getPanorama({location: {lat: lat, lng: lng}, source: maps.StreetViewSource.OUTDOOR}, this.processStreetViewService)
+      this.setState({panorama: panorama})
     }
-
-    this.setState({
-      map: map,
-      maps: maps
-    })
   }
 
   componentDidUpdate() {
-    const {isVisible, streetView} = this.props
-    const {map, maps} = this.state
-    if (streetView && map && maps) {
-      const panorama = map.getStreetView()
+    const {listing, isVisible, streetView} = this.props
+    const {panorama} = this.state
+    const {lat, lng} = listing.address
+
+    if (streetView && panorama) {
+      panorama.setPosition({lat: lat, lng: lng})
       panorama.setVisible(isVisible)
     }
   }

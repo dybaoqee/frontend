@@ -8,11 +8,17 @@ import {
 import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
 import {listingDetailsMaxWidth} from 'constants/dimensions'
+import {breakpoint} from '@emcasa/ui/lib/styles'
 
 export const Wrapper = styled(Row)`
   justify-content: center;
-  padding: 0 ${theme.space[4]}px;
-  margin: ${theme.space[5]}px 0;
+  padding: ${theme.space[4]}px;
+  background-color: ${theme.colors.smoke};
+
+  @media screen and ${breakpoint.up('desktop')} {
+    background-color: initial;
+    padding: ${theme.space[5]}px ${theme.space[4]}px;
+  }
 `
 
 export const Container = styled('ul')`

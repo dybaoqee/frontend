@@ -3,12 +3,7 @@ import PropTypes from 'prop-types'
 import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
 import Icon from '@emcasa/ui-dom/components/Icon'
-import Container, {Title, Content} from './styles'
-import {
-  log,
-  getListingInfoForLogs,
-  LISTING_DETAIL_EXPAND_DESCRIPTION
-} from 'lib/logging'
+import Container, {P, Title, Content, BottomRow} from './styles'
 
 class ListingDescription extends React.Component {
   constructor(props) {
@@ -19,44 +14,55 @@ class ListingDescription extends React.Component {
     this.toggleBody = this.toggleBody.bind(this)
   }
 
-  toggleBody() {
-    if (!this.state.expanded) {
-      log(
-        LISTING_DETAIL_EXPAND_DESCRIPTION,
-        getListingInfoForLogs(this.props.listing)
-      )
-    }
-    this.setState({expanded: !this.state.expanded})
+  static P = P
+
+  toggleBody = () => {
+    this.setState({ expanded: !this.state.expanded }, () => {
+      if (this.state.expanded && this.props.onExpand) this.props.onExpand()
+      if (!this.state.expanded && this.props.onCollapse) this.props.onCollapse()
+    })
   }
 
   render() {
-    const {paragraphs} = this.props
+    const {
+      bg = 'white',
+      title,
+      collapsedHeight,
+      paragraphs,
+      children
+    } = this.props
     const {expanded} = this.state
 
     return (
-      <Container flexDirection="column" mt={[5, null, null, 0]}>
+      <Container bg={bg} flexDirection="column">
         <Title as="h3" fontWeight="bold">
-          O imóvel
+          <span>{title}</span>
         </Title>
-        <Content flexDirection="column" expanded={expanded}>
+        <Content
+          expanded={expanded}
+          flexDirection="column"
+          collapsedHeight={collapsedHeight}
+        >
           {paragraphs &&
             paragraphs.map((paragraph, i) => (
-              <Text fontSize={[1, null, null, 2]} key={i}>
+              <P fontSize={[1, null, null, 2]} key={i}>
                 {paragraph}
-              </Text>
+              </P>
             ))}
+          {children}
         </Content>
-        <Button expanded={expanded} onClick={this.toggleBody}>
-          <Icon name={expanded ? 'chevron-up' : 'chevron-down'} />
-          {expanded ? 'Fechar' : 'Ler mais'}
-        </Button>
+        <BottomRow bg={bg} expanded={expanded}>
+          <Button expanded={expanded} onClick={this.toggleBody}>
+            <Icon name={expanded ? 'chevron-up' : 'chevron-down'} />
+            {expanded ? 'Fechar' : 'Ler mais'}
+          </Button>
+        </BottomRow>
       </Container>
     )
   }
 }
 
 ListingDescription.propTypes = {
-  listing: PropTypes.object.isRequired,
   paragraphs: PropTypes.array
 }
 

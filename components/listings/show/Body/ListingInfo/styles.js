@@ -16,6 +16,8 @@ export const Container = styled(Col)`
 
 export const Title = styled(Text)`
   margin: 0;
+  display: flex;
+  flex-direction: column;
 `
 
 export const ExtraTitleSEO = styled.span`
@@ -82,7 +84,7 @@ export const OpenMatterportButton = styled(Button)`
   }
 `
 
-export const OpenMatterportButton2 = styled(Button)`
+export const OpenMatterportGalleryButton = styled(Button)`
   z-index: 1;
   position: absolute;
   top: ${theme.space[5]}px;

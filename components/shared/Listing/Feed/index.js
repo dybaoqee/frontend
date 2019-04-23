@@ -1,52 +1,68 @@
 import {Component} from 'react'
 import PropTypes from 'prop-types'
 import {Query} from 'react-apollo'
-import {GET_FAVORITE_LISTINGS} from 'graphql/user/queries'
+import {GET_LISTINGS} from 'graphql/listings/queries'
+import Link from 'next/link'
+import {buildNeighborhoodSlug} from 'lib/listings'
 import Text from '@emcasa/ui-dom/components/Text'
 import ListingCard from 'components/listings/shared/ListingCard'
-import {Container, ListingsContainer, Gradient} from './styles'
+import {ListContainer} from 'components/shared/ListingInfiniteScroll/styles'
+import {
+  Wrapper,
+  Container,
+  MoreButtonWrapper,
+  MoreButton
+} from './styles'
 
 class ListingFeed extends Component {
+  static defaultProps = {
+    title: 'Veja também'
+  }
+
   render() {
-    const {listings, currentUser} = this.props
+    const {currentUser, currentListing, listings, variables} = this.props
     return (
       <Query
-        query={GET_FAVORITE_LISTINGS}
-        skip={!currentUser || !currentUser.authenticated}
+        query={GET_LISTINGS}
+        variables={variables}
         ssr={true}
       >
         {({error, data}) => {
-          if (!listings) {
+          if (!data) {
             return null
           }
           if (error) {
             return `Error!: ${error}`
           }
-          let favorites = []
-          const userProfile = data ? data.userProfile : null
-          if (userProfile && userProfile.favorites) {
-            favorites = userProfile.favorites
-          }
+
           return (
-            <Container>
-              <Text as="h3" color="grey" fontWeight="bold">
-                Veja também
-              </Text>
-              <ListingsContainer>
-                {listings.map((listing) => {
-                  return (
-                    <ListingCard
-                      key={listing.id}
-                      listing={listing}
-                      currentUser={currentUser}
-                      favorited={favorites}
-                      related
-                    />
-                  )
-                })}
-              </ListingsContainer>
-              <Gradient />
-            </Container>
+            <Wrapper>
+              <Container>
+                <Text as="h3" color="grey" fontWeight="bold">Outros imóveis no bairro</Text>
+                <ListContainer>
+                  {data.listings.listings.map((listing) => {
+                    return (
+                      <ListingCard
+                        key={listing.id}
+                        listing={listing}
+                        currentUser={currentUser}
+                        favorited={[]}
+                        related
+                      />
+                    )
+                  })}
+                </ListContainer>
+                <MoreButtonWrapper>
+                  <Link
+                    href={`/listings`}
+                    as={buildNeighborhoodSlug(currentListing)}
+                    passHref
+                  >
+                    <MoreButton as="a" height="tall">Ver mais imóveis</MoreButton>
+                  </Link>
+                </MoreButtonWrapper>
+              </Container>
+            </Wrapper>
           )
         }}
       </Query>
