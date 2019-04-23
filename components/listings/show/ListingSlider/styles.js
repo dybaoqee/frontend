@@ -69,9 +69,11 @@ export const SpinnerWrapper = styled.div`
   transform: translate3d(-50%, -50%, 0);
 `
 
-export const Spinner = styled(MoonLoader).attrs({
-  color: ({theme}) => theme.colors.pink,
-  size: SPINNER_SIZE
+export const Spinner = styled(MoonLoader).attrs(({theme}) => {
+  return {
+    color: theme.colors.pink,
+    size: SPINNER_SIZE
+  }
 })``
 
 export const Thumb = styled.div`
