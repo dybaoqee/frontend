@@ -1,5 +1,5 @@
 import React, {Component } from 'react'
-import theme from 'config/theme'
+import NoSSR from 'react-no-ssr'
 import Container from './styles'
 import GMap from 'components/listings/show/Map'
 import CloseButton from 'components/shared/CloseButton'
@@ -14,10 +14,12 @@ class MapPopup extends Component {
     } = this.props
 
     return (
-      <Container open={isMapPopupVisible}>
-        <CloseButton onClick={closeMapPopup} />
-        <GMap isVisible={isMapPopupVisible} listing={listing} streetView={streetView} />
-      </Container>
+      <NoSSR>
+        <Container open={isMapPopupVisible}>
+          <CloseButton onClick={closeMapPopup} />
+          <GMap isVisible={isMapPopupVisible} listing={listing} streetView={streetView} />
+        </Container>
+      </NoSSR>
     )
   }
 }
