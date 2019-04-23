@@ -22,12 +22,8 @@ import Container, {
   Arrow,
   SliderNavigation
 } from './styles'
-import {OpenMatterportButton2} from '../Body/ListingInfo/styles'
+import {OpenMatterportGalleryButton} from '../Body/ListingInfo/styles'
 import faCube from '@fortawesome/fontawesome-free-solid/faCube'
-import Flagr from 'components/shared/Flagr'
-import {TEST_TOUR_BUTTON_FULL_SCREEN_GALLERY} from 'components/shared/Flagr/tests'
-import withFlagr from 'components/shared/Flagr/withFlagr'
-import Case from 'components/shared/Flagr/Case'
 
 class ListingGallery extends Component {
   state = {
@@ -231,23 +227,13 @@ class ListingGallery extends Component {
 
         {listing.images.length > 0 &&
           isFullScreen && <CloseButton onClick={this.toggleFullScreen} />}
-        <Flagr
-          flagKey={TEST_TOUR_BUTTON_FULL_SCREEN_GALLERY}
-          flagrFlags={flagrFlags}
-        >
-          <Case variant="with_button">
-            {listing.images.length > 0 &&
-              isFullScreen &&
-              matterportCode && (
-              <OpenMatterportButton2 onClick={onClickShowTour}>
-                <FontAwesomeIcon icon={faCube} />Ver por dentro
-              </OpenMatterportButton2>
-            )}
-          </Case>
-          <Case variant="no_button">
-            <div />
-          </Case>
-        </Flagr>
+        {listing.images.length > 0 &&
+          isFullScreen &&
+          matterportCode && (
+          <OpenMatterportGalleryButton onClick={onClickShowTour}>
+            <FontAwesomeIcon icon={faCube} />Ver por dentro
+          </OpenMatterportGalleryButton>
+        )}
       </Container>
     )
   }
@@ -271,4 +257,4 @@ function SliderArrow({onClick, icon, left, listingId}) {
   )
 }
 
-export default withFlagr(ListingGallery)
+export default ListingGallery

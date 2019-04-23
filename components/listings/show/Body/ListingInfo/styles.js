@@ -84,7 +84,7 @@ export const OpenMatterportButton = styled(Button)`
   }
 `
 
-export const OpenMatterportButton2 = styled(Button)`
+export const OpenMatterportGalleryButton = styled(Button)`
   z-index: 1;
   position: absolute;
   top: ${theme.space[5]}px;
