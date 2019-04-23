@@ -47,10 +47,12 @@ export default class ListingMap extends Component {
   }
 
   componentDidUpdate() {
-    const {isVisible, streetView} = this.props
+    const {listing, isVisible, streetView} = this.props
     const {panorama} = this.state
+    const {lat, lng} = listing.address
 
     if (streetView && panorama) {
+      panorama.setPosition({lat: lat, lng: lng})
       panorama.setVisible(isVisible)
     }
   }
