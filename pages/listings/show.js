@@ -131,13 +131,13 @@ class Listing extends Component {
   openMatterportPopup = () => {
     const {listing: {id}} = this.props
     this.openMatterport(id)
-    log(LISTING_DETAIL_MATTERPORT_OPEN, {listingId: id})
+    log(LISTING_DETAIL_MATTERPORT_OPEN, {listingId: id, isFromGallery: false})
   }
 
   openMatterportPopupFullscreen = () => {
     const {listing: {id}} = this.props
     this.openMatterport(id)
-    log(LISTING_DETAIL_MATTERPORT_OPEN_FULLSCREEN, {listingId: id})
+    log(LISTING_DETAIL_MATTERPORT_OPEN, {listingId: id, isFromGallery: true})
   }
 
   closeMatterportPopup = () => {
