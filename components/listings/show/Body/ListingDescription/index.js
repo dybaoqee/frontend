@@ -63,7 +63,6 @@ class ListingDescription extends React.Component {
 }
 
 ListingDescription.propTypes = {
-  listing: PropTypes.object.isRequired,
   paragraphs: PropTypes.array
 }
 
