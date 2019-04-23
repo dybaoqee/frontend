@@ -1,12 +1,8 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import NumberFormat from 'react-number-format'
 import Text from '@emcasa/ui-dom/components/Text'
 import {getListingPrice} from 'lib/listings'
-import {
-  Wrapper,
-  Container
-} from './styles'
+import {Wrapper, Container} from './styles'
 
 class PriceBar extends Component {
   render() {
@@ -27,8 +23,7 @@ class PriceBar extends Component {
 }
 
 PriceBar.propTypes = {
-  type: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired
+  listing: PropTypes.object.isRequired
 }
 
 export default PriceBar
