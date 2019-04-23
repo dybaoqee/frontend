@@ -45,8 +45,7 @@ import {
   LISTING_DETAIL_MAP_OPEN,
   LISTING_DETAIL_MAP_CLOSE,
   LISTING_DETAIL_STREETVIEW_OPEN,
-  LISTING_DETAIL_STREETVIEW_CLOSE,
-  LISTING_DETAIL_MATTERPORT_OPEN_FULLSCREEN
+  LISTING_DETAIL_STREETVIEW_CLOSE
 } from 'lib/logging'
 import {listingDetailsBarHeight} from 'constants/dimensions'
 import {captureException} from '@sentry/browser'
