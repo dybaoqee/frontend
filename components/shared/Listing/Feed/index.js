@@ -15,12 +15,8 @@ import {
 } from './styles'
 
 class ListingFeed extends Component {
-  static defaultProps = {
-    title: 'Veja também'
-  }
-
   render() {
-    const {currentUser, currentListing, listings, variables} = this.props
+    const {currentUser, currentListing, variables} = this.props
     return (
       <Query
         query={GET_LISTINGS}

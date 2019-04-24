@@ -11,10 +11,7 @@ import faCube from '@fortawesome/fontawesome-free-solid/faCube'
 import faMap from '@fortawesome/fontawesome-free-solid/faMap'
 import faStreetView from '@fortawesome/fontawesome-free-solid/faStreetView'
 import {intToCurrency, formatRange} from 'utils/text-utils'
-import {
-  getListingValues,
-  getListingValueRange
-} from 'lib/listings'
+import {getListingValues, getListingValueRange} from 'lib/listings'
 
 import {
   Container,
@@ -26,7 +23,10 @@ import {
   PriceItemSpacer,
   ValuesContainer,
   ValuesItem
- } from './styles'
+} from './styles'
+import {TEST_MATTERPORT_BUTTON_TEXT} from 'components/shared/Flagr/tests'
+import Case from 'components/shared/Flagr/Case'
+import Flagr from 'components/shared/Flagr'
 
 const hasValues = (range = []) => range.find((val) => val && val > 0)
 
@@ -70,7 +70,7 @@ class ListingInfo extends React.Component {
     const suites = getListingValueRange(listing, 'suites')
     const floor = uniq(getListingValues(listing, 'floor'))
       .filter(Boolean)
-      .map((num) => isNaN(num) ? num : `${num}°`)
+      .map((num) => (isNaN(num) ? num : `${num}°`))
       .sort()
     const pricePerSquareMeter = [
       Math.floor(price[0] / area[0]),
@@ -80,8 +80,11 @@ class ListingInfo extends React.Component {
       <Container>
         <Title as="h2" fontWeight="bold">
           {listing.development && <span>{listing.development.name}</span>}
-          <span style={{fontWeight: listing.development ? 'normal' : 'inherit'}}>
-            <ExtraTitleSEO>{type} na </ExtraTitleSEO>{title}
+          <span
+            style={{fontWeight: listing.development ? 'normal' : 'inherit'}}
+          >
+            <ExtraTitleSEO>{type} na </ExtraTitleSEO>
+            {title}
           </span>
         </Title>
         <ValuesContainer>
@@ -123,12 +126,24 @@ class ListingInfo extends React.Component {
           ) : null}
         </ValuesContainer>
         <ButtonsContainer>
-          {matterportCode && <OpenMatterportButton onClick={openMatterportPopup}><FontAwesomeIcon icon={faCube} />Ver por dentro</OpenMatterportButton>}
-          <Button onClick={openMapPopup}><FontAwesomeIcon icon={faMap} color={theme.colors.blue} />Mapa</Button>
-          <Button onClick={openStreetViewPopup}><FontAwesomeIcon icon={faStreetView} color={theme.colors.blue} />Rua</Button>
+          {matterportCode && (
+            <OpenMatterportButton onClick={openMatterportPopup}>
+              <FontAwesomeIcon icon={faCube} />
+              <Flagr flagKey={TEST_MATTERPORT_BUTTON_TEXT}>
+                <Case variant="old_text">Ver por dentro</Case>
+                <Case variant="new_text">Iniciar Tour Virtual</Case>
+              </Flagr>
+            </OpenMatterportButton>
+          )}
+          <Button onClick={openMapPopup}>
+            <FontAwesomeIcon icon={faMap} color={theme.colors.blue} />Mapa
+          </Button>
+          <Button onClick={openStreetViewPopup}>
+            <FontAwesomeIcon icon={faStreetView} color={theme.colors.blue} />Rua
+          </Button>
         </ButtonsContainer>
         <Row flexDirection="column" mt={5}>
-          {hasValues(maintenanceFee) &&
+          {hasValues(maintenanceFee) && (
             <PriceItem mb={2}>
               <Text inline>Condomínio</Text>
               <PriceItemSpacer />
@@ -140,8 +155,8 @@ class ListingInfo extends React.Component {
                 decimalSeparator={','}
               />
             </PriceItem>
-          }
-          {hasValues(propertyTax) &&
+          )}
+          {hasValues(propertyTax) && (
             <PriceItem mb={2}>
               <Text inline>IPTU/ano</Text>
               <PriceItemSpacer />
@@ -153,8 +168,8 @@ class ListingInfo extends React.Component {
                 decimalSeparator={','}
               />
             </PriceItem>
-          }
-          {hasValues(pricePerSquareMeter) &&
+          )}
+          {hasValues(pricePerSquareMeter) && (
             <PriceItem>
               <Text inline>Preço/m²</Text>
               <PriceItemSpacer />
@@ -166,7 +181,7 @@ class ListingInfo extends React.Component {
                 decimalSeparator={','}
               />
             </PriceItem>
-          }
+          )}
         </Row>
       </Container>
     )
