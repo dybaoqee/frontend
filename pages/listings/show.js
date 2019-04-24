@@ -10,7 +10,6 @@ import {GET_FULL_LISTING, GET_DISTRICTS} from 'graphql/listings/queries'
 import {Mutation} from 'react-apollo'
 import {FAVORITE_LISTING, VISUALIZE_TOUR} from 'graphql/listings/mutations'
 import {isAuthenticated, isAdmin, getCurrentUserId, getJwt} from 'lib/auth'
-import {getRelatedListings} from 'services/listing-api'
 import Link from 'next/link'
 import {createInterest} from 'services/interest-api'
 import isUndefined from 'lodash/isUndefined'
@@ -215,23 +214,9 @@ class Listing extends Component {
     })
   }
 
-  async componentDidMount() {
-    const {listing} = this.props
-
-    this.checkListing(listing)
-
-    if (listing && listing.id) {
-      const related = await getRelatedListings(listing.id).then(
-        ({data}) => data.listings
-      )
-      this.setState({related})
-    }
-  }
-
   showListing = () => {
     const {user: currentUser, url, listing} = this.props
     const {
-      related,
       isMatterportPopupVisible,
       isMapPopupVisible,
       isStreetViewPopupVisible
@@ -390,7 +375,6 @@ class Listing extends Component {
                         <ListingFeed
                           currentUser={currentUser}
                           currentListing={listing}
-                          listings={related}
                           variables={feedVariables}
                         />
                       </Col>
@@ -510,16 +494,6 @@ class Listing extends Component {
         return 'Internal Server Error'
       default:
         return 'Erro desconhecido'
-    }
-  }
-
-  checkListing(listing) {
-    if (!listing) {
-      captureException(new Error('No listing prop in ListingDetail'))
-      return
-    }
-    if (!listing.type) {
-      captureException(new Error('Type is null in listing id ', listing.id))
     }
   }
 
