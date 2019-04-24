@@ -321,7 +321,7 @@ class Listing extends Component {
                       routerAsPath={router.asPath}
                     />
                     <Row
-                      flexDirection={['column-reverse', null, null, 'column']}
+                      flexDirection={'column-reverse'}
                       mt={[null, null, null, `${listingDetailsBarHeight}px`]}
                     >
                       <Breadcrumb paths={paths} />
