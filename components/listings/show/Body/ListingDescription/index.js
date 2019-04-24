@@ -5,6 +5,8 @@ import Button from '@emcasa/ui-dom/components/Button'
 import Icon from '@emcasa/ui-dom/components/Icon'
 import Container, {P, Title, Content, BottomRow} from './styles'
 
+const COLAPSE_HEIGHT = 245
+
 class ListingDescription extends React.Component {
   constructor(props) {
     super(props)
@@ -25,23 +27,21 @@ class ListingDescription extends React.Component {
 
   render() {
     const {
-      bg = 'white',
       title,
-      collapsedHeight,
       paragraphs,
       children
     } = this.props
     const {expanded} = this.state
 
     return (
-      <Container bg={bg} flexDirection="column">
+      <Container flexDirection="column">
         <Title as="h3" fontWeight="bold">
           <span>{title}</span>
         </Title>
         <Content
           expanded={expanded}
           flexDirection="column"
-          collapsedHeight={collapsedHeight}
+          collapsedHeight={COLAPSE_HEIGHT}
         >
           {paragraphs &&
             paragraphs.map((paragraph, i) => (
@@ -51,7 +51,7 @@ class ListingDescription extends React.Component {
             ))}
           {children}
         </Content>
-        <BottomRow bg={bg} expanded={expanded}>
+        <BottomRow expanded={expanded}>
           <Button expanded={expanded} onClick={this.toggleBody}>
             <Icon name={expanded ? 'chevron-up' : 'chevron-down'} />
             {expanded ? 'Fechar' : 'Ler mais'}
