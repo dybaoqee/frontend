@@ -44,19 +44,21 @@ class LikeButton extends Component {
       if (!id) {
         throw new Error('User ID not found after authentication')
       }
-      const response = await apolloClient.mutate({
-        mutation: EDIT_PROFILE,
-        variables: {
-          id: id,
-          name: this.state.name
-        }
-      })
 
-      if (response && response.data) {
-        log(LISTING_SAVE_LOGIN_SUCCESS)
-        favoriteListing({refetchQueries: [{query: GET_USER_LISTINGS_ACTIONS}], variables: {id: this.props.listing.id}})
-        this.setState({ showSuccess: true })
+      const name = this.state.name
+      if (name) {
+        response = await apolloClient.mutate({
+          mutation: EDIT_PROFILE,
+          variables: {
+            id: id,
+            name
+          }
+        })
       }
+
+      log(LISTING_SAVE_LOGIN_SUCCESS)
+      favoriteListing({refetchQueries: [{query: GET_USER_LISTINGS_ACTIONS}], variables: {id: this.props.listing.id}})
+      this.setState({ showSuccess: true })
     } catch (e) {
       captureException(e)
       log(LISTING_SAVE_LOGIN_FAILED)
