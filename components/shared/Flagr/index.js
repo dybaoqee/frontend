@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import withFlagr from './withFlagr'
 
 export const DEVICE_ID_COOKIE = 'flagrDeviceId'
 const FLAGR_EVALUATION_URL = '/api/v1/evaluation/'
@@ -53,7 +54,8 @@ class Flagr extends PureComponent {
 
 Flagr.propTypes = {
   flagKey: PropTypes.string.isRequired,
+  flagrFlags: PropTypes.object.isRequired,
   children: PropTypes.node
 }
 
-export default Flagr
+export default withFlagr(Flagr)
