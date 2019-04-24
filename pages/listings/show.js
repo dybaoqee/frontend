@@ -31,8 +31,11 @@ import getApolloClient from 'lib/apollo/initApollo'
 import {getUserInfo} from 'lib/user'
 import {getCookie} from 'lib/session'
 import {fetchFlag, DEVICE_ID_COOKIE} from 'components/shared/Flagr'
-import FlagrProvider from '../../components/shared/Flagr/Context'
-import {TEST_MATTERPORT_BUTTON_TEXT} from 'components/shared/Flagr/tests'
+import FlagrProvider from 'components/shared/Flagr/Context'
+import {
+  TEST_MATTERPORT_BUTTON_TEXT,
+  TEST_SAVE_LISTING_USER_NAME
+} from 'components/shared/Flagr/tests'
 import {
   log,
   getListingInfoForLogs,
@@ -91,6 +94,10 @@ class Listing extends Component {
     const flagrFlags = {
       [TEST_MATTERPORT_BUTTON_TEXT]: await fetchFlag(
         TEST_MATTERPORT_BUTTON_TEXT,
+        deviceId
+      ),
+      [TEST_SAVE_LISTING_USER_NAME]: await fetchFlag(
+        TEST_SAVE_LISTING_USER_NAME,
         deviceId
       )
     }

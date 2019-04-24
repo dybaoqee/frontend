@@ -8,6 +8,9 @@ import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
 import Input from '@emcasa/ui-dom/components/Input'
 import Modal from 'components/shared/Modal'
+import {TEST_SAVE_LISTING_USER_NAME} from 'components/shared/Flagr/tests'
+import Case from 'components/shared/Flagr/Case'
+import Flagr from 'components/shared/Flagr'
 import { HeartContainer } from './styles'
 
 class FavoriteLogin extends Component {
@@ -56,30 +59,48 @@ class FavoriteLogin extends Component {
         <Row m={2} justifyContent="center">
           <Text inline fontWeight="bold" textAlign="center">Salvar imóvel</Text>
         </Row>
-        <Text inline textAlign="center">Este imóvel será salvo na sua aba de favoritos. Para isso, só precisamos do seu nome e telefone.</Text>
-        <Row justifyContent="center">
-          <Col width={3/4} mt="40px">
-            <Input
-              fluid
-              label="Nome"
-              height="medium"
-              onChange={this.validateNameField}
-              ref={this.nameField}
-            />
-          </Col>
-        </Row>
-        <Row justifyContent="center">
-          <Col mt="40px">
-            <Button
-              active
-              height="tall"
-              onClick={this.submit}
-              disabled={!this.state.nameFieldValid}
-            >
-              Continuar
-            </Button>
-          </Col>
-        </Row>
+        <Flagr flagKey={TEST_SAVE_LISTING_USER_NAME}>
+          <Case variant="default">
+            <Text inline textAlign="center">Este imóvel será salvo na sua aba de favoritos. Para isso, só precisamos do seu nome e telefone.</Text>
+            <Row justifyContent="center">
+              <Col width={3/4} mt="40px">
+                <Input
+                  fluid
+                  label="Nome"
+                  height="medium"
+                  onChange={this.validateNameField}
+                  ref={this.nameField}
+                />
+              </Col>
+            </Row>
+            <Row justifyContent="center">
+              <Col mt="40px">
+                <Button
+                  active
+                  height="tall"
+                  onClick={this.submit}
+                  disabled={!this.state.nameFieldValid}
+                >
+                  Continuar
+                </Button>
+              </Col>
+            </Row>
+          </Case>
+          <Case variant="name_not_required">
+            <Text inline textAlign="center">Este imóvel será salvo na sua aba de favoritos. Para isso, só precisamos do seu telefone.</Text>
+            <Row justifyContent="center">
+              <Col mt="40px">
+                <Button
+                  active
+                  height="tall"
+                  onClick={this.submit}
+                >
+                  Continuar
+                </Button>
+              </Col>
+            </Row>
+          </Case>
+        </Flagr>
       </Modal>
     )
   }

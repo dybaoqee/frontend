@@ -23,6 +23,10 @@ import {
 } from 'constants/ld-json'
 import {Query} from 'react-apollo'
 import {GET_DISTRICTS} from 'graphql/listings/queries'
+import {fetchFlag, DEVICE_ID_COOKIE} from 'components/shared/Flagr'
+import FlagrProvider from 'components/shared/Flagr/Context'
+import {TEST_SAVE_LISTING_USER_NAME} from 'components/shared/Flagr/tests'
+import {getCookie} from 'lib/session'
 
 const BASE_URL = 'https://www.emcasa.com/imoveis'
 
@@ -55,13 +59,24 @@ class ListingSearch extends Component {
     } else if (context.query) {
       query = context.query
     }
+
+    // Flagr
+    const deviceId = getCookie(DEVICE_ID_COOKIE, context.req)
+    const flagrFlags = {
+      [TEST_SAVE_LISTING_USER_NAME]: await fetchFlag(
+        TEST_SAVE_LISTING_USER_NAME,
+        deviceId
+      )
+    }
+
     return {
       hideSeparator: true,
       transparentHeader: false,
       query,
       params,
       renderFooter: false,
-      headerSearch: true
+      headerSearch: true,
+      flagrFlags
     }
   }
 
@@ -257,63 +272,65 @@ class ListingSearch extends Component {
     const listingFilters = getListingFiltersFromState(filters)
 
     return (
-      <Query query={GET_DISTRICTS}>
-        {({data, loading, error}) => {
-          if (loading) return <div />
-          if (error) return <p>ERROR</p>
-          const districts = data ? data.districts : []
-          return (
-            <Fragment>
-              {this.getHead(districts)}
-              <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{
-                  __html: JSON.stringify(SchemaWebSite)
-                }}
-              />
-              <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{
-                  __html: JSON.stringify(SchemaRealEstateAgent)
-                }}
-              />
-              <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{
-                  __html: JSON.stringify(SchemaOrganization)
-                }}
-              />
-              <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{
-                  __html: JSON.stringify(this.getWebPage())
-                }}
-              />
-              <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{
-                  __html: JSON.stringify(this.getBreadcrumbList())
-                }}
-              />
-              <ListingFilter onSubmit={this.onChangeFilter} values={filters} />
-              <ListingList
-                query={query}
-                params={params}
-                user={user}
-                resetFilters={this.onResetFilter}
-                filters={listingFilters}
-                apolloClient={client}
-                districts={districts}
-                neighborhoodListener={(neighborhood) => {
-                  if (!this.state.neighborhood) {
-                    this.setState({neighborhood: neighborhood})
-                  }
-                }}
-              />
-            </Fragment>
-          )
-        }}
-      </Query>
+      <FlagrProvider flagrFlags={this.props.flagrFlags}>
+        <Query query={GET_DISTRICTS}>
+          {({data, loading, error}) => {
+            if (loading) return <div />
+            if (error) return <p>ERROR</p>
+            const districts = data ? data.districts : []
+            return (
+              <Fragment>
+                {this.getHead(districts)}
+                <script
+                  type="application/ld+json"
+                  dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(SchemaWebSite)
+                  }}
+                />
+                <script
+                  type="application/ld+json"
+                  dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(SchemaRealEstateAgent)
+                  }}
+                />
+                <script
+                  type="application/ld+json"
+                  dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(SchemaOrganization)
+                  }}
+                />
+                <script
+                  type="application/ld+json"
+                  dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(this.getWebPage())
+                  }}
+                />
+                <script
+                  type="application/ld+json"
+                  dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(this.getBreadcrumbList())
+                  }}
+                />
+                <ListingFilter onSubmit={this.onChangeFilter} values={filters} />
+                <ListingList
+                  query={query}
+                  params={params}
+                  user={user}
+                  resetFilters={this.onResetFilter}
+                  filters={listingFilters}
+                  apolloClient={client}
+                  districts={districts}
+                  neighborhoodListener={(neighborhood) => {
+                    if (!this.state.neighborhood) {
+                      this.setState({neighborhood: neighborhood})
+                    }
+                  }}
+                />
+              </Fragment>
+            )
+          }}
+        </Query>
+      </FlagrProvider>
     )
   }
 }
