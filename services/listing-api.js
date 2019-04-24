@@ -122,19 +122,6 @@ export const getListing = async (id, jwt) => {
   }
 }
 
-export const getRelatedListings = async (id) => {
-  const endpoint = `/listings/${id}/related`
-
-  try {
-    return await get(endpoint, null, {page_size: 4})
-  } catch (error) {
-    throw {
-      message: error.message,
-      status: error.response ? error.response.status : 500
-    }
-  }
-}
-
 export const getFeaturedListings = async () => {
   const endpoint = '/featured_listings'
 
