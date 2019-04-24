@@ -15,7 +15,7 @@ class MatterportPopup extends Component {
     return (
       <Container open={isMatterportPopupVisible}>
         <Matterport
-          matterport_code={listing.matterportCode}
+          matterport_code={listing.matterportCode || ''}
           handleClose={closeMatterportPopup}
           listingId={Number(listing.id)}
         />

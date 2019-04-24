@@ -31,5 +31,6 @@ module.exports = {
   'process.env.FACEBOOK_PAGES': process.env.FACEBOOK_PAGES || '',
   'process.env.ACCOUNT_KIT_APP_SECRET': process.env.ACCOUNT_KIT_APP_SECRET || null,
   'process.env.FLAGR_URL': process.env.FLAGR_URL || null,
-  'process.env.SENTRY_RELEASE': process.env.SOURCE_VERSION || process.env.HEROKU_SLUG_COMMIT
+  'process.env.SENTRY_RELEASE': process.env.SOURCE_VERSION || process.env.HEROKU_SLUG_COMMIT,
+  'process.env.HOTJAR_SITE_ID': process.env.HOTJAR_SITE_ID || null
 }
