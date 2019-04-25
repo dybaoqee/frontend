@@ -473,7 +473,7 @@ class Listing extends Component {
           return (
             <Fragment>
               <NextHead title={'Imóvel não encontrado | EmCasa'} />
-              <Row justifyContent="center" px={5}>
+              <Row justifyContent="center" px={4} pb={5}>
                 <Row flexDirection="column" width={[1, null, null, '768px']}>
                   <Text
                     as="h2"
