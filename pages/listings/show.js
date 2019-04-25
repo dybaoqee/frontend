@@ -150,22 +150,22 @@ class Listing extends Component {
   }
 
   openMapPopup = () => {
-    log(LISTING_DETAIL_MAP_OPEN)
+    log(LISTING_DETAIL_MAP_OPEN, {listingId: this.props.listing.id})
     this.setState({isMapPopupVisible: true})
   }
 
   closeMapPopup = () => {
-    log(LISTING_DETAIL_MAP_CLOSE)
+    log(LISTING_DETAIL_MAP_CLOSE, {listingId: this.props.listing.id})
     this.setState({isMapPopupVisible: false})
   }
 
   openStreetViewPopup = () => {
-    log(LISTING_DETAIL_STREETVIEW_OPEN)
+    log(LISTING_DETAIL_STREETVIEW_OPEN, {listingId: this.props.listing.id})
     this.setState({isStreetViewPopupVisible: true})
   }
 
   closeStreetViewPopup = () => {
-    log(LISTING_DETAIL_STREETVIEW_CLOSE)
+    log(LISTING_DETAIL_STREETVIEW_CLOSE, {listingId: this.props.listing.id})
     this.setState({isStreetViewPopupVisible: false})
   }
 
