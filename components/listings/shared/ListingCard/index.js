@@ -1,22 +1,28 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
+import {withTheme} from 'styled-components'
+import theme from '@emcasa/ui'
 import {
   buildSlug,
   getListingSummary,
   getListingPrice,
   getListingValueRange
 } from 'lib/listings'
-import LikeButton from 'components/shared/Common/Buttons/Like'
-import { thumbnailUrl } from 'utils/image_url'
-import Row from '@emcasa/ui-dom/components/Row'
-import Text from '@emcasa/ui-dom/components/Text'
-import {Container} from './styles'
 import {
   log,
   LISTING_DETAIL_VIEW_FEATURED_LISTING
 } from 'lib/logging'
-import {withTheme} from 'styled-components'
+import {thumbnailUrl} from 'utils/image_url'
+import Row from '@emcasa/ui-dom/components/Row'
+import Text from '@emcasa/ui-dom/components/Text'
+import LikeButton from 'components/shared/Common/Buttons/Like'
+import {
+  Wrapper,
+  Container,
+  LISTING_CARD_IMAGE_HEIGHT
+} from './styles'
+import {BUTTON_LIKE_CIRCLE_HEIGHT} from 'components/shared/Common/Buttons/Like/styles'
 
 class ListingCard extends Component {
   render() {
@@ -38,12 +44,12 @@ class ListingCard extends Component {
     const priceRangeDelta = priceRange[1] - priceRange[0]
 
     return (
-      <Link
-        href={`/listings/show?id=${listing.id}`}
-        as={buildSlug(listing)}
-        passHref
-      >
-        <a style={{textDecoration: 'none'}}>
+      <Wrapper>
+        <Link
+          href={`/listings/show?id=${listing.id}`}
+          as={buildSlug(listing)}
+          passHref
+        >
           <Container aria-label={`listing-${listing.id}`} onClick={(e) => {
             if (e.target.tagName !== 'path') {
               if (this.props.related) {
@@ -57,26 +63,23 @@ class ListingCard extends Component {
               alt={`Imagem do imóvel ID-${listing.id} na ${listing.address.street}, ${listing.address.neighborhood}, ${listing.address.city} - ${listing.address.state}`}
             />
             <Row flexDirection="column" p={2}>
-              <Row><Text inline fontSize="small">{listing.address.neighborhood.toUpperCase()}</Text></Row>
-              <Row><Text inline fontSize="small">{listing.address.street}</Text></Row>
-              <Row><Text inline fontSize="small" color="grey">{listingSummary}</Text></Row>
-              <Row>
-                <Text inline fontSize="large" fontWeight="bold">
-                  <span style={{lineHeight: '100%', fontSize: `${(priceRangeDelta == 0 ? 1 : 0.8) * 100}%`}}>
-                    {getListingPrice(listing)}
-                  </span>
-                </Text>
+              <Row justifyContent="space-between">
+                <Text inline fontSize="small" fontWeight="bold">{listing.address.neighborhood}</Text>
+                <Text inline fontSize="small" color="pink">{getListingPrice(listing)}</Text>
               </Row>
+              <Text inline fontSize="small">{listing.address.street}</Text>
+              <Text inline fontSize="small">{listingSummary}</Text>
             </Row>
-            <LikeButton
-              favorite={favorited}
-              listing={listing}
-              user={currentUser}
-              secondary
-            />
           </Container>
-        </a>
-      </Link>
+        </Link>
+        <LikeButton
+          favorite={favorited}
+          listing={listing}
+          user={currentUser}
+          secondary
+          top={LISTING_CARD_IMAGE_HEIGHT - (BUTTON_LIKE_CIRCLE_HEIGHT + theme.space[2])}
+        />
+      </Wrapper>
     )
   }
 }
