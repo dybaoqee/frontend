@@ -87,6 +87,23 @@ class ListingInfo extends React.Component {
             {title}
           </span>
         </Title>
+        <ButtonsContainer>
+          {matterportCode && (
+            <OpenMatterportButton onClick={openMatterportPopup}>
+              <FontAwesomeIcon icon={faCube} />
+              <Flagr flagKey={TEST_MATTERPORT_BUTTON_TEXT}>
+                <Case variant="old_text">Ver por dentro</Case>
+                <Case variant="new_text">Iniciar Tour Virtual</Case>
+              </Flagr>
+            </OpenMatterportButton>
+          )}
+          <Button onClick={openMapPopup}>
+            <FontAwesomeIcon icon={faMap} color={theme.colors.blue} />Mapa
+          </Button>
+          <Button onClick={openStreetViewPopup}>
+            <FontAwesomeIcon icon={faStreetView} color={theme.colors.blue} />Rua
+          </Button>
+        </ButtonsContainer>
         <ValuesContainer>
           {hasValues(rooms) ? (
             <ValuesItem flexDirection="column">
@@ -125,23 +142,6 @@ class ListingInfo extends React.Component {
             </ValuesItem>
           ) : null}
         </ValuesContainer>
-        <ButtonsContainer>
-          {matterportCode && (
-            <OpenMatterportButton onClick={openMatterportPopup}>
-              <FontAwesomeIcon icon={faCube} />
-              <Flagr flagKey={TEST_MATTERPORT_BUTTON_TEXT}>
-                <Case variant="old_text">Ver por dentro</Case>
-                <Case variant="new_text">Iniciar Tour Virtual</Case>
-              </Flagr>
-            </OpenMatterportButton>
-          )}
-          <Button onClick={openMapPopup}>
-            <FontAwesomeIcon icon={faMap} color={theme.colors.blue} />Mapa
-          </Button>
-          <Button onClick={openStreetViewPopup}>
-            <FontAwesomeIcon icon={faStreetView} color={theme.colors.blue} />Rua
-          </Button>
-        </ButtonsContainer>
         <Row flexDirection="column" mt={5}>
           {hasValues(maintenanceFee) && (
             <PriceItem mb={2}>

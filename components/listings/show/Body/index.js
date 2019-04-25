@@ -62,7 +62,6 @@ class ListingMainContent extends Component {
               <DevelopmentPhase phase={listing.development.phase} />
             )}
             <ListingDescription
-              collapsedHeight="215px"
               title="Sobre o imóvel"
               paragraphs={getParagraphs(listing.description)}
               onExpand={this.onExpandDescription}
