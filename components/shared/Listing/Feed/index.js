@@ -7,7 +7,7 @@ import {buildNeighborhoodSlug} from 'lib/listings'
 import {log, LISTING_DETAIL_MORE_LISTINGS_BUTTON} from 'lib/logging'
 import Text from '@emcasa/ui-dom/components/Text'
 import ListingCard from 'components/listings/shared/ListingCard'
-import {ListContainer} from 'components/shared/ListingInfiniteScroll/styles'
+import ListingsGrid from 'components/listings/shared/ListingsGrid'
 import {
   Wrapper,
   Container,
@@ -36,7 +36,7 @@ class ListingFeed extends Component {
             <Wrapper>
               <Container>
                 <Text as="h3" color="grey" fontWeight="bold">Outros imóveis no bairro</Text>
-                <ListContainer>
+                <ListingsGrid>
                   {data.listings.listings.map((listing) => {
                     return (
                       <ListingCard
@@ -48,7 +48,7 @@ class ListingFeed extends Component {
                       />
                     )
                   })}
-                </ListContainer>
+                </ListingsGrid>
                 <MoreButtonWrapper>
                   <Link
                     href={`/listings`}
