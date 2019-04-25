@@ -63,7 +63,7 @@ class ListingCard extends Component {
               alt={`Imagem do imóvel ID-${listing.id} na ${listing.address.street}, ${listing.address.neighborhood}, ${listing.address.city} - ${listing.address.state}`}
             />
             <Row flexDirection="column" p={2}>
-              <Row justifyContent="space-between">
+              <Row justifyContent="space-between" mb={1}>
                 <Text inline fontSize="small" fontWeight="bold">{listing.address.neighborhood}</Text>
                 <Text inline fontSize="small" color="pink">{getListingPrice(listing)}</Text>
               </Row>
