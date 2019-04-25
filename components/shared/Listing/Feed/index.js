@@ -4,6 +4,7 @@ import {Query} from 'react-apollo'
 import {GET_LISTINGS} from 'graphql/listings/queries'
 import Link from 'next/link'
 import {buildNeighborhoodSlug} from 'lib/listings'
+import {log, LISTING_DETAIL_MORE_LISTINGS_BUTTON} from 'lib/logging'
 import Text from '@emcasa/ui-dom/components/Text'
 import ListingCard from 'components/listings/shared/ListingCard'
 import {ListContainer} from 'components/shared/ListingInfiniteScroll/styles'
@@ -54,7 +55,15 @@ class ListingFeed extends Component {
                     as={buildNeighborhoodSlug(currentListing)}
                     passHref
                   >
-                    <MoreButton as="a" height="tall">Ver mais imóveis</MoreButton>
+                    <MoreButton
+                      as="a"
+                      height="tall"
+                      onClick={() => {
+                        log(LISTING_DETAIL_MORE_LISTINGS_BUTTON, {listingId: currentListing.id})
+                      }}
+                    >
+                      Ver mais imóveis
+                    </MoreButton>
                   </Link>
                 </MoreButtonWrapper>
               </Container>
