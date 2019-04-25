@@ -12,6 +12,10 @@ import {TEST_SAVE_LISTING_USER_NAME} from 'components/shared/Flagr/tests'
 import Case from 'components/shared/Flagr/Case'
 import Flagr from 'components/shared/Flagr'
 import { HeartContainer } from './styles'
+import {
+  log,
+  LISTING_SAVE_LOGIN_OPEN
+} from 'lib/logging'
 
 class FavoriteLogin extends Component {
   constructor(props) {
@@ -25,6 +29,9 @@ class FavoriteLogin extends Component {
 
   componentDidMount() {
     document.addEventListener('keypress', this.onPressEnter)
+    if (this.props.onMount) {
+      this.props.onMount()
+    }
   }
 
   componentWillUnmount() {
@@ -109,6 +116,7 @@ class FavoriteLogin extends Component {
 FavoriteLogin.propTypes = {
   onClose: PropTypes.func.isRequired,
   onSignIn: PropTypes.func.isRequired,
+  onMount: PropTypes.func
 }
 
 export default FavoriteLogin

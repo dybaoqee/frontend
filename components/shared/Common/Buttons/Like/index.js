@@ -93,6 +93,9 @@ class LikeButton extends Component {
                       signIn()
                     })
                   }}
+                  onMount={() => {
+                    log(LISTING_SAVE_LOGIN_OPEN)
+                  }}
                 />
               }
             </AccountKit>}
@@ -155,7 +158,6 @@ class LikeButton extends Component {
                     }
                   })
                 } else {
-                  log(LISTING_SAVE_LOGIN_OPEN)
                   this.setState({ showLogin: true })
                 }
               }}
