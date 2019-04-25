@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import Router from 'next/router'
 import {
   GET_USER_INFO,
-  GET_USER_LISTINGS,
   GET_FAVORITE_LISTINGS
 } from 'graphql/user/queries'
 import {
@@ -34,7 +33,6 @@ import {
   log,
   PROFILE_OPEN,
   PROFILE_MY_PROFILE,
-  PROFILE_MY_LISTINGS,
   PROFILE_FAVORITES,
   PROFILE_LOGOUT,
   PROFILE_EDIT,
@@ -51,11 +49,9 @@ import {
 } from './styles'
 
 const MY_PROFILE_LABEL = 'Meu Perfil'
-const MY_LISTINGS_LABEL = 'Meus Imóveis'
 const FAVORITES_LABEL = 'Favoritos'
 
 export const MY_PROFILE_TAB = 'profile'
-export const MY_LISTINGS_TAB = 'listings'
 export const FAVORITES_TAB = 'favorites'
 
 class UserProfile extends Component {
@@ -369,72 +365,6 @@ class UserProfile extends Component {
     )
   }
 
-  getUserListings = () => {
-    const {user} = this.props
-    return (
-      <Query query={GET_USER_LISTINGS}>
-        {({loading, error, data}) => {
-          if (loading) return <div />
-          if (error) return `Error!: ${error}`
-          const userProfile = data ? data.userProfile : null
-          if (userProfile.listings.length > 0) {
-            return (
-              <ProfileList
-                width="100%"
-                flexWrap="wrap"
-                justifyContent="space-between"
-              >
-                {userProfile.listings.map((listing) => {
-                  return (
-                    <ListingCard
-                      key={listing.id}
-                      listing={listing}
-                      currentUser={user}
-                      loading={loading}
-                      favorited={userProfile.favorites || []}
-                    />
-                  )
-                })}
-              </ProfileList>
-            )
-          } else {
-            return (
-            <InitialView maxWidth="440px">
-              <Col
-                width="100%"
-                alignItems="center"
-              >
-                <Text
-                  textAlign="center"
-                  fontSize="large"
-                  fontWeight="bold"
-                >Você não tem nenhum imóvel anunciado</Text>
-                <Row
-                  justifyContent="center"
-                  py={5}
-                >
-                  <Icon icon="/static/svg-icons/house.svg"/>
-                </Row>
-                <Text
-                  textAlign="center"
-                  color="gray"
-                >Venda seu imóvel de um jeito fácil e seguro.<br /> Quer anunciar aqui na EmCasa?</Text>
-                <Link href="/vender">
-                  <Button
-                    active
-                    fluid
-                    height="tall"
-                  >Começar</Button>
-                </Link>
-              </Col>
-            </InitialView>
-            )
-          }
-        }}
-      </Query>
-    )
-  }
-
   getUserFavorites = () => {
     const {user} = this.props
     return (
@@ -511,11 +441,9 @@ class UserProfile extends Component {
     }
 
     let profileLabelProps = {}
-    let listingsLabelProps = {}
     let favoritesLabelProps = {}
     if (!initialTabApplied) {
       profileLabelProps = {selected: initialTabApplied ? null : initialTab === MY_PROFILE_TAB}
-      listingsLabelProps = {selected: initialTabApplied ? null : initialTab === MY_LISTINGS_TAB}
       favoritesLabelProps = {selected: initialTabApplied ? null : initialTab === FAVORITES_TAB}
     }
 
@@ -535,8 +463,6 @@ class UserProfile extends Component {
               if (target.tagName.toLowerCase() === 'button') {
                 if (target.innerText === MY_PROFILE_LABEL) {
                   log(PROFILE_MY_PROFILE)
-                } else if (target.innerText === MY_LISTINGS_LABEL) {
-                  log(PROFILE_MY_LISTINGS)
                 } else if (target.innerText === FAVORITES_LABEL) {
                   log(PROFILE_FAVORITES)
                 }
@@ -545,9 +471,6 @@ class UserProfile extends Component {
           }}>
             <Tab label={MY_PROFILE_LABEL} {...profileLabelProps}>
               {this.state.editingProfile ? this.getProfileForm() : this.getInitialView()}
-            </Tab>
-            <Tab label={MY_LISTINGS_LABEL} {...listingsLabelProps}>
-              {this.getUserListings()}
             </Tab>
             <Tab label={FAVORITES_LABEL} {...favoritesLabelProps}>
               {this.getUserFavorites()}
