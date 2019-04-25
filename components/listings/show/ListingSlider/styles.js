@@ -29,7 +29,9 @@ export default styled.div`
   box-sizing: border-box;
 
   @media screen and ${breakpoint.up('desktop')} {
-    height: ${({isFullScreen}) => isFullScreen ? null : `${LISTINGSLIDER_HEIGHT}px`};
+    height: ${({isFullScreen}) => isFullScreen ? null : '45vh'};
+    max-height: ${({isFullScreen}) => isFullScreen ? null : '540px'};
+    min-height: ${({isFullScreen}) => isFullScreen ? null : '300px'};
   }
 
   > ${Button} {
