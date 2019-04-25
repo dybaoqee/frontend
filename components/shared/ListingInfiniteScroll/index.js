@@ -5,7 +5,8 @@ import {FadeLoader} from 'react-spinners'
 import Row from '@emcasa/ui-dom/components/Row'
 import theme from 'config/theme'
 import {log, LISTING_SEARCH_LOAD_MORE} from 'lib/logging'
-import {Container, ListContainer, Footer} from './styles'
+import {Container, Footer} from './styles'
+import ListingsGrid from 'components/listings/shared/ListingsGrid'
 
 class ListingInfiniteScroll extends Component {
   static defaultProps = {
@@ -80,7 +81,7 @@ class ListingInfiniteScroll extends Component {
         ref={(wrapper) => (this.wrapper = wrapper)}
       >
         {titleComponent && !horizontal && titleComponent}
-        <ListContainer>{entries.map(renderEntry)}</ListContainer>
+        <ListingsGrid>{entries.map(renderEntry)}</ListingsGrid>
         {remaining_count > 0 && (
           <Footer
             className="infinite-scroll-footer"

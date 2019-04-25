@@ -1,6 +1,5 @@
 import styled, {createGlobalStyle} from 'styled-components'
 import {themeGet} from 'styled-system'
-import theme from 'config/theme'
 import View from '@emcasa/ui-dom/components/View'
 
 const MIN_CARD_WIDTH = 280
@@ -13,7 +12,7 @@ const Container = styled(View)`
   height: auto;
   border: 1px solid ${themeGet('colors.lightGrey')};
   border-radius: ${themeGet('space.1')}px;
-  background-color: ${theme.colors.white};
+  background-color: ${themeGet('colors.white')};
 
   :hover {
     border-color: ${themeGet('colors.pink')};
@@ -30,4 +29,7 @@ const Container = styled(View)`
   }
 `
 
-export {Container, MIN_CARD_WIDTH}
+export {
+  Container,
+  MIN_CARD_WIDTH
+}
