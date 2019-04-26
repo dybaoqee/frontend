@@ -47,7 +47,7 @@ router.get('/:state/:city/:neighborhood/:extra', (req, res) => {
     actualPage = '/listings/show'
     req.params.streetwithId = req.params.extra
   } else {
-    actualPage = '/listings/'
+    actualPage = '/listings'
     req.params.tag = req.params.extra
   }
 
