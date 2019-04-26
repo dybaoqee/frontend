@@ -30,7 +30,8 @@ class ListingDescription extends React.Component {
       title,
       paragraphs,
       children,
-      tags
+      tags,
+      address
     } = this.props
     const {expanded} = this.state
 
@@ -39,7 +40,7 @@ class ListingDescription extends React.Component {
         <Title as="h3" fontWeight="bold">
           <span>{title}</span>
         </Title>
-        <ListingTags tags={tags} />
+        <ListingTags tags={tags} address={address} />
         <Content
           expanded={expanded}
           flexDirection="column"
