@@ -41,7 +41,7 @@ router.get(
 
 router.get('/:state/:city/:neighborhood/:extra', (req, res) => {
   let actualPage
-  const hasId = req.params.extra.match(/\d+/)
+  const hasId = req.params.extra.match(/id-\d+/)
 
   if (hasId) {
     actualPage = '/listings/show'
