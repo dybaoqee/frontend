@@ -13,7 +13,7 @@ const Wrapper = styled.article`
     z-index: 2;
 
     svg {
-      transition: transform .5s cubic-bezier(.4, .2, 0, 1);
+      transition: transform .45s cubic-bezier(.4, .2, 0, 1);
     }
 
     &:hover {
@@ -31,6 +31,8 @@ const Container = styled.a`
   box-sizing: border-box;
   cursor: pointer;
   width: 100%;
+  overflow: hidden;
+  backface-visibility: hidden;
   border: 1px solid ${theme.colors.lightGrey};
   border-radius: ${theme.space[2]}px;
   background-color: ${theme.colors.white};
@@ -46,7 +48,6 @@ const Container = styled.a`
     object-fit: cover;
     width: 100%;
     height: ${LISTING_CARD_IMAGE_HEIGHT}px;
-    border-radius: ${theme.space[2]}px ${theme.space[2]}px 0 0;
   }
 `
 
