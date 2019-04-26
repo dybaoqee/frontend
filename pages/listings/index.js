@@ -267,6 +267,9 @@ class ListingSearch extends Component {
       if (params.neighborhood) {
         filters.neighborhoods = [params.neighborhood]
       }
+      if (params.tag) {
+        filters.tagsSlug = [params.tag]
+      }
     }
 
     const listingFilters = getListingFiltersFromState(filters)
