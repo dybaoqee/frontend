@@ -65,6 +65,7 @@ export const BottomRow = styled(Row)`
 
   button {
     z-index: 1;
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
