@@ -39,8 +39,18 @@ router.get(
   }
 )
 
-router.get('/:state/:city/:neighborhood/:streetwithId', (req, res) => {
-  const actualPage = '/listings/show'
+router.get('/:state/:city/:neighborhood/:extra', (req, res) => {
+  let actualPage
+  const hasId = req.params.extra.match(/\d+/)
+
+  if (hasId) {
+    actualPage = '/listings/show'
+    req.params.streetwithId = req.params.extra
+  } else {
+    actualPage = '/listings/'
+    req.params.tag = req.params.extra
+  }
+
   res.locals.app.render(req, res, actualPage, req.query)
 })
 
