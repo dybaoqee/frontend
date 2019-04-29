@@ -19,8 +19,9 @@ import ListingMainContent from 'components/listings/show/Body'
 import Breadcrumb from 'components/listings/show/Breadcrumb'
 import PriceBar from 'components/listings/show/PriceBar'
 import ButtonsBar from 'components/listings/show/ButtonsBar'
-import MatterportPopup from 'components/listings/show/MatterportPopup'
-import MapPopup from 'components/listings/show/MapPopup'
+import Popup from 'components/listings/show/Popup'
+import ListingMap from 'components/listings/show/Map'
+import Matterport from 'components/listings/show/Matterport'
 import ContactForm from 'components/listings/show/ContactForm'
 import ContactSuccess from 'components/listings/show/ContactSuccess'
 import ListingFeed from 'components/shared/Listing/Feed'
@@ -365,27 +366,41 @@ class Listing extends Component {
                               this.visualizeTour = visualizeTour
                             }
                             return (
-                              <MatterportPopup
-                                listing={listing}
-                                isMatterportPopupVisible={
-                                  isMatterportPopupVisible
+                              <Popup
+                                isPopupVisible={isMatterportPopupVisible}
+                                closePopup={this.closeMatterportPopup}
+                              >
+                                {isMatterportPopupVisible &&
+                                  <Matterport
+                                    matterport_code={listing.matterportCode || ''}
+                                    handleClose={this.closeMatterportPopup}
+                                    listingId={Number(listing.id)}
+                                  />
                                 }
-                                closeMatterportPopup={this.closeMatterportPopup}
-                              />
+                              </Popup>
                             )
                           }}
                         </Mutation>
-                        <MapPopup
-                          listing={listing}
-                          isMapPopupVisible={isMapPopupVisible}
-                          closeMapPopup={this.closeMapPopup}
-                        />
-                        <MapPopup
-                          streetView
-                          listing={listing}
-                          isMapPopupVisible={isStreetViewPopupVisible}
-                          closeMapPopup={this.closeStreetViewPopup}
-                        />
+                        <Popup
+                          isPopupVisible={isMapPopupVisible}
+                          closePopup={this.closeMapPopup}
+                        >
+                          {isMapPopupVisible &&
+                            <ListingMap isVisible={isMapPopupVisible} listing={listing} />
+                          }
+                        </Popup>
+                        <Popup
+                          isPopupVisible={isStreetViewPopupVisible}
+                          closePopup={this.closeStreetViewPopup}
+                        >
+                          {isStreetViewPopupVisible &&
+                            <ListingMap
+                              streetView
+                              isVisible={isStreetViewPopupVisible}
+                              listing={listing}
+                            />
+                          }
+                        </Popup>
                         <ButtonsBar
                           handleOpenInterestPopup={this.openInterestPopup}
                           favorite={favorite}
