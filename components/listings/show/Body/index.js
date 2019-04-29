@@ -63,6 +63,8 @@ class ListingMainContent extends Component {
             )}
             <ListingDescription
               title="Sobre o imóvel"
+              address={listing.address}
+              tags={listing.tags}
               paragraphs={getParagraphs(listing.description)}
               onExpand={this.onExpandDescription}
             />

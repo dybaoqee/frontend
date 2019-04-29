@@ -4,7 +4,7 @@ import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
 import Icon from '@emcasa/ui-dom/components/Icon'
 import Container, {P, Title, Content, BottomRow} from './styles'
-
+import ListingTags from '../ListingTags'
 const COLAPSE_HEIGHT = 245
 
 class ListingDescription extends React.Component {
@@ -29,7 +29,9 @@ class ListingDescription extends React.Component {
     const {
       title,
       paragraphs,
-      children
+      children,
+      tags,
+      address
     } = this.props
     const {expanded} = this.state
 
@@ -38,6 +40,7 @@ class ListingDescription extends React.Component {
         <Title as="h3" fontWeight="bold">
           <span>{title}</span>
         </Title>
+        <ListingTags tags={tags} address={address} />
         <Content
           expanded={expanded}
           flexDirection="column"
