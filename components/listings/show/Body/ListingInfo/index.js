@@ -88,7 +88,7 @@ class ListingInfo extends React.Component {
           {matterportCode && (
             <OpenMatterportButton onClick={openMatterportPopup}>
               <FontAwesomeIcon icon={faCube} />
-              Iniciar Tour Virtual
+              Iniciar tour virtual
             </OpenMatterportButton>
           )}
           <Button onClick={openMapPopup}>

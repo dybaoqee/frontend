@@ -232,7 +232,7 @@ class ListingGallery extends Component {
           matterportCode && (
           <OpenMatterportGalleryButton onClick={onClickShowTour}>
             <FontAwesomeIcon icon={faCube} />
-            Iniciar Tour Virtual
+            Iniciar tour virtual
           </OpenMatterportGalleryButton>
         )}
       </Container>
