@@ -370,13 +370,7 @@ class Listing extends Component {
                                 isPopupVisible={isMatterportPopupVisible}
                                 closePopup={this.closeMatterportPopup}
                               >
-                                {isMatterportPopupVisible &&
-                                  <Matterport
-                                    matterport_code={listing.matterportCode || ''}
-                                    handleClose={this.closeMatterportPopup}
-                                    listingId={Number(listing.id)}
-                                  />
-                                }
+                                {isMatterportPopupVisible && <Matterport matterport_code={listing.matterportCode || ''} />}
                               </Popup>
                             )
                           }}
