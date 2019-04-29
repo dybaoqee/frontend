@@ -35,7 +35,7 @@ import {fetchFlag, DEVICE_ID_COOKIE} from 'components/shared/Flagr'
 import FlagrProvider from 'components/shared/Flagr/Context'
 import {
   TEST_MATTERPORT_BUTTON_TEXT,
-  TEST_SAVE_LISTING_USER_NAME
+  TEST_SAVE_LISTING_TEXT
 } from 'components/shared/Flagr/tests'
 import {
   log,
@@ -97,8 +97,8 @@ class Listing extends Component {
         TEST_MATTERPORT_BUTTON_TEXT,
         deviceId
       ),
-      [TEST_SAVE_LISTING_USER_NAME]: await fetchFlag(
-        TEST_SAVE_LISTING_USER_NAME,
+      [TEST_SAVE_LISTING_TEXT]: await fetchFlag(
+        TEST_SAVE_LISTING_TEXT,
         deviceId
       )
     }
