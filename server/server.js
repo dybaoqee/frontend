@@ -16,6 +16,15 @@ const timber = require('timber')
 
 timber.config.append_metadata = true
 
+function isELBHealthCheck(req) {
+  return (
+    req &&
+    req.headers &&
+    req.headers['user-agent'] &&
+    req.headers['user-agent'].indexOf('ELB-HealthChecker') > -1
+  )
+}
+
 const startServer = () => {
   app
     .prepare()
@@ -25,11 +34,7 @@ const startServer = () => {
       server.use(timber.middlewares.express())
       server.use(function(req, res, next) {
         if (process.env.NODE_ENV === 'production') {
-          console.log(req)
-          if (
-            req.headers['x-forwarded-proto'] !== 'https' &&
-            req.url.indexOf('/ping') === -1
-          ) {
+          if (req.headers['x-forwarded-proto'] !== 'https' && !isELBHealthCheck(req)) {
             res.redirect(301, 'https://' + req.hostname + req.originalUrl)
           } else {
             next()
@@ -41,7 +46,11 @@ const startServer = () => {
 
       if (process.env.NODE_ENV === 'production') {
         server.use((req, res, next) => {
-          if (req.hostname === 'localhost' || req.subdomains.length > 0)
+          if (
+            req.hostname === 'localhost' ||
+            req.subdomains.length > 0 ||
+            isELBHealthCheck(req)
+          )
             return next()
           res.redirect(301, `https://www.${req.headers.host}${req.url}`)
         })
