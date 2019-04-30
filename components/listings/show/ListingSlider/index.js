@@ -17,11 +17,10 @@ import {
 import Container, {
   SpinnerWrapper,
   Spinner,
-  Thumb,
   CarouselItem,
-  Arrow,
-  SliderNavigation
+  Arrow
 } from './styles'
+import {Background} from 'components/listings/show/Popup/styles'
 import {OpenMatterportGalleryButton} from '../Body/ListingInfo/styles'
 import faCube from '@fortawesome/fontawesome-free-solid/faCube'
 import {TEST_MATTERPORT_BUTTON_TEXT} from 'components/shared/Flagr/tests'
@@ -50,7 +49,7 @@ class ListingGallery extends Component {
       if (event.defaultPrevented) {
         return
       }
-      if (!this.slider1) {
+      if (!this.slider2) {
         return
       }
       switch (event.keyCode) {
@@ -58,10 +57,10 @@ class ListingGallery extends Component {
           this.setState({isFullScreen: false})
           break
         case 39:
-          this.slider1.slickNext()
+          this.slider2.slickNext()
           break
         case 37:
-          this.slider1.slickPrev()
+          this.slider2.slickPrev()
           break
       }
     })
@@ -89,9 +88,6 @@ class ListingGallery extends Component {
     log(event, {listingId: this.props.listing.id})
     this.setState({isFullScreen: !this.state.isFullScreen}, () => {
       setTimeout(() => {
-        if (this.slider1) {
-          this.slider1.slickGoTo(index)
-        }
         if (this.slider2) {
           this.slider2.slickGoTo(index)
         }
@@ -108,7 +104,7 @@ class ListingGallery extends Component {
         key={filename}
         src={thumbnailUrl(filename, 1920, 1080)}
         alt={`Imagem ${
-          type === 'Apartamento' ? 'do' : 'da'
+          type === 'Casa' ? 'da' : 'do'
         } ${type} ID-${id} na ${address.street}, ${address.neighborhood}, ${
           address.city
         } - ${address.state}`}
@@ -125,38 +121,6 @@ class ListingGallery extends Component {
     return images.map(this.getImage)
   }
 
-  getSliderNavigation = () => {
-    const {listing: {id, images}} = this.props
-    const settings = {
-      infinite: true,
-      className: 'thumb-slider',
-      speed: 500,
-      slidesToShow: this.state.slidesToShow,
-      slidesToScroll: 1,
-      swipeToSlide: true,
-      nextArrow: <SliderArrow icon={faAngleRight} listingId={id} />,
-      prevArrow: <SliderArrow icon={faAngleLeft} left={true} listingId={id} />,
-      centerMode: true,
-      focusOnSelect: true
-    }
-    return (
-      <div className="container">
-        <Carousel
-          {...settings}
-          asNavFor={this.state.nav2}
-          ref={(slider) => (this.slider1 = slider)}
-        >
-          {images.map(({filename}) => (
-            <Thumb
-              key={filename}
-              background={thumbnailUrl(filename, 180, 100)}
-            />
-          ))}
-        </Carousel>
-      </div>
-    )
-  }
-
   render() {
     const {listing, openMatterportPopup, flagrFlags} = this.props
     const {matterportCode} = listing
@@ -168,12 +132,11 @@ class ListingGallery extends Component {
     const settings = {
       dots: false,
       className: 'images-slider',
-      infinite: true,
+      infinite: false,
       slidesToShow: isFullScreen ? 1 : 3,
       slidesToScroll: isFullScreen ? 1 : 3,
       centerMode: false,
       speed: 500,
-
       focusOnSelect: true,
       lazyLoad: true,
       swipeToSlide: true,
@@ -223,11 +186,6 @@ class ListingGallery extends Component {
             </CarouselItem>
           ))}
         </Carousel>
-
-        <SliderNavigation show={isFullScreen}>
-          {this.getSliderNavigation()}
-        </SliderNavigation>
-
         {listing.images.length > 0 &&
           isFullScreen && <CloseButton onClick={this.toggleFullScreen} />}
         {listing.images.length > 0 &&
@@ -241,6 +199,7 @@ class ListingGallery extends Component {
             </Flagr>
           </OpenMatterportGalleryButton>
         )}
+        <Background />
       </Container>
     )
   }
@@ -255,7 +214,9 @@ function SliderArrow({onClick, icon, left, listingId}) {
           ? LISTING_DETAIL_PHOTOS_LEFT
           : LISTING_DETAIL_PHOTOS_RIGHT
         log(event, properties)
-        onClick()
+        if (onClick) {
+          onClick()
+        }
       }}
       left={left}
     >

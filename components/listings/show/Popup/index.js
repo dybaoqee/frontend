@@ -1,5 +1,11 @@
 import React, {Component } from 'react'
-import Container, {Content, Background} from './styles'
+import
+  Container,
+  {
+    Wrapper,
+    Content,
+    Background
+} from './styles'
 import CloseButton from 'components/shared/CloseButton'
 
 class Popup extends Component {
@@ -13,7 +19,9 @@ class Popup extends Component {
     return (
       <Container open={isPopupVisible}>
         <CloseButton onClick={closePopup} />
-        <Content>{this.props.children}</Content>
+        <Wrapper>
+          <Content>{this.props.children}</Content>
+        </Wrapper>
         <Background /> 
       </Container>
     )

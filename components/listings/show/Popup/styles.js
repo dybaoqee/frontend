@@ -17,18 +17,27 @@ export default styled.div`
   height: 100%;
 `
 
-export const Content = styled.div`
+export const Wrapper = styled.div`
   z-index: 2;
   position: relative;
+  width: 100%;
+  height: 100%;
+
+  @media screen and ${breakpoint.up('desktop')} {
+    max-width: ${listingDetailsMaxWidth}px;
+    max-height: 65vh;
+  }
+`
+
+export const Content = styled.div`
   width: 100%;
   height: 100%;
   background: ${theme.colors.white};
 
   @media screen and ${breakpoint.up('desktop')} {
-    max-width: ${listingDetailsMaxWidth}px;
-    max-height: 65vh;
-    padding: ${theme.space[4]}px;
     width: calc(100% - ${theme.space[4]}px);
+    padding: ${theme.space[4]}px;
+    margin: 0 auto;
     box-sizing: border-box;
   }
 `
