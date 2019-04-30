@@ -59,7 +59,7 @@ class ListingMainContent extends Component {
             openStreetViewPopup={openStreetViewPopup}
           />
           <View flex="1 1 100%" pb={5}>
-            {listing.development && (
+            {Boolean(listing.development) && (
               <DevelopmentPhase phase={listing.development.phase} />
             )}
             <ListingDescription
@@ -71,7 +71,7 @@ class ListingMainContent extends Component {
             />
           </View>
         </Container>
-        {listing.development && (
+        {listing.development > 0 && (
           <DevelopmentContainer>
             <DevelopmentDescription
               bg="snow"
