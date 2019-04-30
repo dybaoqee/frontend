@@ -25,6 +25,7 @@ const startServer = () => {
       server.use(timber.middlewares.express())
       server.use(function(req, res, next) {
         if (process.env.NODE_ENV === 'production') {
+          console.log(req)
           if (
             req.headers['x-forwarded-proto'] !== 'https' &&
             req.url.indexOf('/ping') === -1
