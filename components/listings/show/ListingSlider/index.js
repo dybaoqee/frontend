@@ -18,10 +18,11 @@ import Container, {
   SpinnerWrapper,
   Spinner,
   CarouselItem,
-  Arrow
+  Arrow,
+  OpenMatterportButtonWrapper
 } from './styles'
 import {Background} from 'components/listings/show/Popup/styles'
-import {OpenMatterportGalleryButton} from '../Body/ListingInfo/styles'
+import {OpenMatterportButton} from '../Body/ListingInfo/styles'
 import faCube from '@fortawesome/fontawesome-free-solid/faCube'
 import {TEST_MATTERPORT_BUTTON_TEXT} from 'components/shared/Flagr/tests'
 import Case from 'components/shared/Flagr/Case'
@@ -165,6 +166,21 @@ class ListingGallery extends Component {
 
     return (
       <Container isFullScreen={isFullScreen}>
+        {listing.images.length > 0 &&
+          isFullScreen && <CloseButton onClick={this.toggleFullScreen} />}
+        {listing.images.length > 0 &&
+          isFullScreen &&
+          matterportCode && (
+          <OpenMatterportButtonWrapper>
+            <OpenMatterportButton onClick={onClickShowTour}>
+              <FontAwesomeIcon icon={faCube} />
+              <Flagr flagKey={TEST_MATTERPORT_BUTTON_TEXT}>
+                <Case variant="old_text">Ver por dentro</Case>
+                <Case variant="new_text">Iniciar Tour Virtual</Case>
+              </Flagr>
+            </OpenMatterportButton>
+          </OpenMatterportButtonWrapper>
+        )}
         <Carousel
           {...settings}
           asNavFor={this.state.nav1}
@@ -186,19 +202,6 @@ class ListingGallery extends Component {
             </CarouselItem>
           ))}
         </Carousel>
-        {listing.images.length > 0 &&
-          isFullScreen && <CloseButton onClick={this.toggleFullScreen} />}
-        {listing.images.length > 0 &&
-          isFullScreen &&
-          matterportCode && (
-          <OpenMatterportGalleryButton onClick={onClickShowTour}>
-            <FontAwesomeIcon icon={faCube} />
-            <Flagr flagKey={TEST_MATTERPORT_BUTTON_TEXT}>
-              <Case variant="old_text">Ver por dentro</Case>
-              <Case variant="new_text">Iniciar Tour Virtual</Case>
-            </Flagr>
-          </OpenMatterportGalleryButton>
-        )}
         <Background />
       </Container>
     )

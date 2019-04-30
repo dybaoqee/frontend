@@ -18,6 +18,7 @@ import {
   Title,
   ExtraTitleSEO,
   ButtonsContainer,
+  OpenMatterportButtonWrapper,
   OpenMatterportButton,
   PriceItem,
   PriceItemSpacer,
@@ -89,13 +90,15 @@ class ListingInfo extends React.Component {
         </Title>
         <ButtonsContainer>
           {matterportCode && (
-            <OpenMatterportButton onClick={openMatterportPopup}>
-              <FontAwesomeIcon icon={faCube} />
-              <Flagr flagKey={TEST_MATTERPORT_BUTTON_TEXT}>
-                <Case variant="old_text">Ver por dentro</Case>
-                <Case variant="new_text">Iniciar Tour Virtual</Case>
-              </Flagr>
-            </OpenMatterportButton>
+            <OpenMatterportButtonWrapper>
+              <OpenMatterportButton onClick={openMatterportPopup}>
+                <FontAwesomeIcon icon={faCube} />
+                <Flagr flagKey={TEST_MATTERPORT_BUTTON_TEXT}>
+                  <Case variant="old_text">Ver por dentro</Case>
+                  <Case variant="new_text">Iniciar Tour Virtual</Case>
+                </Flagr>
+              </OpenMatterportButton>
+            </OpenMatterportButtonWrapper>
           )}
           <Button onClick={openMapPopup}>
             <FontAwesomeIcon icon={faMap} color={theme.colors.blue} />Mapa

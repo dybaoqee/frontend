@@ -144,3 +144,8 @@ export const Arrow = styled(Button)`
     filter: drop-shadow(1px 1px 4px ${theme.colors.dark});
   }
 `
+export const OpenMatterportButtonWrapper = styled.div`
+  z-index: 2;
+  position: relative;
+  margin: 0 0 ${theme.space[4]}px;
+`
