@@ -36,14 +36,14 @@ workflows:
     jobs:
       - deploy:
          type: approval
-         requires:
-            - aws-ecs/deploy-service-update
       - aws-ecr/build_and_push_image:
           context: frontend-production
           <<: *build-and-push-image
           filters:
             branches:
               only: master
+          requires:
+            - deploy
       - aws-ecs/deploy-service-update:
           context: frontend-production
           <<: *deploy-service-update
