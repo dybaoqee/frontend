@@ -12,8 +12,9 @@ import View from '@emcasa/ui-dom/components/View'
 import Col from '@emcasa/ui-dom/components/Col'
 import ListingInfo from './ListingInfo'
 import ListingDescription from './ListingDescription'
+import DevelopmentDescription from './DevelopmentDescription'
 import DevelopmentPhase from './DevelopmentPhase'
-import ListingsFeed from 'components/shared/Listing/Feed'
+import ListingsFeed from 'components/shared/Listing/Feed/Grid'
 import {Container, DevelopmentContainer} from './styles'
 
 class ListingMainContent extends Component {
@@ -58,7 +59,7 @@ class ListingMainContent extends Component {
             openStreetViewPopup={openStreetViewPopup}
           />
           <View flex="1 1 100%" pb={5}>
-            {listing.development && (
+            {Boolean(listing.development) && (
               <DevelopmentPhase phase={listing.development.phase} />
             )}
             <ListingDescription
@@ -70,12 +71,13 @@ class ListingMainContent extends Component {
             />
           </View>
         </Container>
-        {listing.development && (
+        {listing.development > 0 && (
           <DevelopmentContainer>
-            <ListingDescription
+            <DevelopmentDescription
               bg="snow"
               title="Sobre o empreendimento"
               paragraphs={getParagraphs(listing.development.description)}
+              collapsedHeight={0}
             >
               {developmentListings.length && (
                 <View className="listingsFeed" width="100vw">
@@ -86,7 +88,7 @@ class ListingMainContent extends Component {
                   />
                 </View>
               )}
-            </ListingDescription>
+            </DevelopmentDescription>
           </DevelopmentContainer>
         )}
       </Col>
