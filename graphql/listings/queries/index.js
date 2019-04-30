@@ -134,6 +134,9 @@ export const GET_FULL_LISTING = gql`
         listings {
           id
           type
+          development {
+            uuid
+          }
           address {
             street
             neighborhood

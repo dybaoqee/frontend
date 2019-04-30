@@ -394,7 +394,7 @@ class Listing extends Component {
                           listing={listing}
                           user={currentUser}
                         />
-                        <Col mt={4}>
+                        <Col>
                           <ListingFeed
                             currentUser={currentUser}
                             currentListing={listing}
