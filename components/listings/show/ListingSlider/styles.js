@@ -72,7 +72,6 @@ export default styled.div`
     position: relative;
     width: 100%;
     height: 100%;
-    cursor: pointer;
     object-fit: cover;
     box-sizing: border-box;
   }
@@ -109,7 +108,7 @@ export const Spinner = styled(MoonLoader).attrs(({theme}) => {
 
 export const CarouselItem = styled.div`
   height: 100%;
-  cursor: pointer;
+  cursor: ${({isFullScreen}) => isFullScreen ? null : 'pointer'};
   outline: none;
   box-sizing: border-box;
   position: relative;
@@ -159,6 +158,18 @@ export const OpenMatterportButtonWrapper = styled.div`
     left: initial;
     transform: initial;
     margin: 0 0 ${theme.space[4]}px;
+  }
+
+  ${Button} {
+    svg {
+      margin-right: ${theme.space[2]}px;
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      overflow: visible;
+      vertical-align: -0.125em;
+      font-size: inherit;
+    }
   }
 `
 

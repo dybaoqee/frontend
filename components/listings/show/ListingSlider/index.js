@@ -205,6 +205,7 @@ class ListingGallery extends Component {
         >
           {this.getSliderImages().map((content, id) => (
             <CarouselItem
+              isFullScreen={isFullScreen}
               key={content.key || id}
               onClick={() => {
                 this.enterFullScreen(id)
