@@ -105,3 +105,11 @@ export const TOUR_SCHEDULE = gql`
     }
   }
 `
+
+export const CREATE_LEAD = gql`
+  mutation SiteSellerLeadCreate ($input: SiteSellerLeadInput!) {
+    siteSellerLeadCreate(input: $input) {
+      uuid
+    }
+  }
+`
