@@ -18,6 +18,7 @@ workflows:
             branches:
               only: master
       - aws-ecs/deploy-service-update:
+          context: frontend-staging
           requires:
             - aws-ecr/build_and_push_image
           aws-region: ${AWS_DEFAULT_REGION}
