@@ -27,7 +27,7 @@ const startServer = () => {
         if (process.env.NODE_ENV === 'production') {
           if (
             req.headers['x-forwarded-proto'] !== 'https' &&
-            !req.url.startsWith('/ping')
+            req.url.indexOf('/ping') === -1
           ) {
             res.redirect(301, 'https://' + req.hostname + req.originalUrl)
           } else {
