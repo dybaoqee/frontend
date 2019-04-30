@@ -43,13 +43,19 @@ export const Phase = styled(function DevelopmentPhase({
     </Row>
   )
 })`
+  position: relative;
   flex: 1 1 ${100 / 3}%;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: flex-start;
+  padding-bottom: ${themeGet('space.4')}px;
   ${Icon} {
     margin-bottom: ${themeGet('space.2')}px;
+  }
+  ${Text} {
+    position: absolute;
+    bottom: 0;
   }
 `
 

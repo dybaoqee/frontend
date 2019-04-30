@@ -11,7 +11,7 @@ export default function DevelopmentPhaseBar({phase}) {
       {PHASES.map(([value, label]) => {
         isActive = isActive || value == phase
         return (
-          <Phase active={isActive}>
+          <Phase key={value} active={isActive}>
             {label}
           </Phase>
         )
