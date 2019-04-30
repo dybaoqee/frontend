@@ -10,7 +10,7 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faCube from '@fortawesome/fontawesome-free-solid/faCube'
 import faMap from '@fortawesome/fontawesome-free-solid/faMap'
 import faStreetView from '@fortawesome/fontawesome-free-solid/faStreetView'
-import {intToCurrency, formatRange} from 'utils/text-utils'
+import {formatRange} from 'utils/text-utils'
 import {getListingValues, getListingValueRange} from 'lib/listings'
 
 import {
@@ -25,9 +25,6 @@ import {
   ValuesContainer,
   ValuesItem
 } from './styles'
-import {TEST_MATTERPORT_BUTTON_TEXT} from 'components/shared/Flagr/tests'
-import Case from 'components/shared/Flagr/Case'
-import Flagr from 'components/shared/Flagr'
 
 const hasValues = (range = []) => range.find((val) => val && val > 0)
 
@@ -93,10 +90,7 @@ class ListingInfo extends React.Component {
             <OpenMatterportButtonWrapper>
               <OpenMatterportButton onClick={openMatterportPopup}>
                 <FontAwesomeIcon icon={faCube} />
-                <Flagr flagKey={TEST_MATTERPORT_BUTTON_TEXT}>
-                  <Case variant="old_text">Ver por dentro</Case>
-                  <Case variant="new_text">Iniciar Tour Virtual</Case>
-                </Flagr>
+                Iniciar tour virtual
               </OpenMatterportButton>
             </OpenMatterportButtonWrapper>
           )}
