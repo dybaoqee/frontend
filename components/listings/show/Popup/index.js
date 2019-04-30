@@ -9,6 +9,24 @@ import
 import CloseButton from 'components/shared/CloseButton'
 
 class Popup extends Component {
+  componentDidMount() {
+    this.keyListener = window.addEventListener('keyup', (event) => {
+      if (event.defaultPrevented) {
+        return
+      }
+
+      switch (event.keyCode) {
+        case 27:
+          this.props.closePopup()
+          break
+      }
+    })
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keyup', this.keyListener)
+  }
+
   render() {
     const {
       listing,
@@ -22,7 +40,7 @@ class Popup extends Component {
         <Wrapper>
           <Content>{this.props.children}</Content>
         </Wrapper>
-        <Background /> 
+        <Background onClick={closePopup} />
       </Container>
     )
   }
