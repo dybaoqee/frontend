@@ -14,7 +14,6 @@ import NeighborhoodPicker from 'components/shared/NeighborhoodPicker'
 import NeighborhoodAutoComplete from 'components/shared/NeighborhoodAutoComplete'
 import MobileAddressButton from 'components/shared/MobileAddressButton'
 import {MobileTypeaheadContainer} from 'components/shared/NeighborhoodAutoComplete/styles'
-import {USE_NEW_SEARCH} from 'config/globals'
 import theme from 'config/theme'
 import {
   log,
@@ -76,26 +75,11 @@ class Header extends Component {
   }
 
   renderSearch() {
-    if (USE_NEW_SEARCH) {
-      return (
-        <NeighborhoodPicker
-          onClick={this.props.isMobile ? this.openMobileSearch : () => {}}
-          query={this.props.router.query}
-        />
-      )
-    }
-
-    const height = this.props.isMobile ? 'tall' : 'medium'
     return (
-      <Search>
-        {this.props.isMobile ? <MobileAddressButton
-          address="Bairro ou Cidade"
-          onClick={this.openMobileSearch}
-          isMobile={this.props.isMobile}
-        /> :
-          <NeighborhoodAutoComplete height={height} />
-        }
-      </Search>
+      <NeighborhoodPicker
+        onClick={this.props.isMobile ? this.openMobileSearch : () => {}}
+        query={this.props.router.query}
+      />
     )
   }
 
@@ -103,20 +87,12 @@ class Header extends Component {
     return (
       <MobileTypeaheadContainer justifyContent="center" p={4}>
         <Col width={1}>
-          {USE_NEW_SEARCH ?
-            <NeighborhoodPicker
-              mobile
-              fullscreen
-              onBackPressed={this.closeMobileSearch}
-              query={this.props.router.query}
-            />
-            :
-            <NeighborhoodAutoComplete
-              onBackPressed={this.closeMobileSearch}
-              onClearInput={() => {}}
-              height={this.props.isMobile ? 'tall' : 'medium'}
-            />
-          }
+          <NeighborhoodPicker
+            mobile
+            fullscreen
+            onBackPressed={this.closeMobileSearch}
+            query={this.props.router.query}
+          />
         </Col>
       </MobileTypeaheadContainer>
     )
