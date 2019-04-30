@@ -145,7 +145,16 @@ export const Arrow = styled(Button)`
   }
 `
 export const OpenMatterportButtonWrapper = styled.div`
-  z-index: 2;
-  position: relative;
-  margin: 0 0 ${theme.space[4]}px;
+  z-index: 5;
+  position: absolute;
+  top: ${theme.space[2]}px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  @media screen and ${breakpoint.up('desktop')} {
+    position: relative;
+    left: initial;
+    transform: initial;
+    margin: 0 0 ${theme.space[4]}px;
+  }
 `

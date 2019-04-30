@@ -31,16 +31,14 @@ import Flagr from 'components/shared/Flagr'
 class ListingGallery extends Component {
   state = {
     downloadingImages: false,
-    nav1: null,
-    nav2: null,
+    nav: null,
     isFullScreen: false,
     slidesToShow: 10
   }
 
   componentDidMount() {
     this.setState({
-      nav1: this.slider1,
-      nav2: this.slider2
+      nav: this.slider
     })
     window.focus()
 
@@ -50,18 +48,18 @@ class ListingGallery extends Component {
       if (event.defaultPrevented) {
         return
       }
-      if (!this.slider2) {
+      if (!this.slider) {
         return
       }
       switch (event.keyCode) {
         case 27:
-          this.setState({isFullScreen: false})
+          this.exitFullScreen()
           break
         case 39:
-          this.slider2.slickNext()
+          this.slider.slickNext()
           break
         case 37:
-          this.slider2.slickPrev()
+          this.slider.slickPrev()
           break
       }
     })
@@ -80,20 +78,6 @@ class ListingGallery extends Component {
     const blob = await response.blob()
     downloadBlob(blob, `${id}.zip`, 'application/zip')
     this.setState({downloadingImages: false})
-  }
-
-  toggleFullScreen = (index) => {
-    const event = this.state.isFullScreen
-      ? LISTING_DETAIL_PHOTOS_FULLSCREEN_CLOSE
-      : LISTING_DETAIL_PHOTOS_FULLSCREEN_OPEN
-    log(event, {listingId: this.props.listing.id})
-    this.setState({isFullScreen: !this.state.isFullScreen}, () => {
-      setTimeout(() => {
-        if (this.slider2) {
-          this.slider2.slickGoTo(index)
-        }
-      }, 100)
-    })
   }
 
   getImage = ({filename}) => {
@@ -122,12 +106,38 @@ class ListingGallery extends Component {
     return images.map(this.getImage)
   }
 
+  enterFullScreen = (index) => {
+    if (!this.state.isFullScreen) {
+      log(LISTING_DETAIL_PHOTOS_FULLSCREEN_OPEN, {listingId: this.props.listing.id})
+      this.setState({isFullScreen: true}, () => {
+        setTimeout(() => {
+          if (this.slider) {
+            this.slider.slickGoTo(index)
+          }
+        }, 100)
+      })
+    }
+  }
+
+  exitFullScreen = (index) => {
+    if (this.state.isFullScreen) {
+      log(LISTING_DETAIL_PHOTOS_FULLSCREEN_CLOSE, {listingId: this.props.listing.id})
+      this.setState({isFullScreen: false}, () => {
+        setTimeout(() => {
+          if (this.slider) {
+            this.slider.slickGoTo(index)
+          }
+        }, 100)
+      })
+    }
+  }
+
   render() {
     const {listing, openMatterportPopup, flagrFlags} = this.props
     const {matterportCode} = listing
     const {isFullScreen} = this.state
     const onClickShowTour = () => {
-      this.toggleFullScreen()
+      this.exitFullScreen()
       openMatterportPopup()
     }
     const settings = {
@@ -150,7 +160,7 @@ class ListingGallery extends Component {
           }
         },
         {
-          breakpoint: 600,
+          breakpoint: 760,
           settings: {
             slidesToShow: 1,
             slidesToScroll: isFullScreen ? 1 : 1
@@ -167,7 +177,7 @@ class ListingGallery extends Component {
     return (
       <Container isFullScreen={isFullScreen}>
         {listing.images.length > 0 &&
-          isFullScreen && <CloseButton onClick={this.toggleFullScreen} />}
+          isFullScreen && <CloseButton onClick={this.exitFullScreen} />}
         {listing.images.length > 0 &&
           isFullScreen &&
           matterportCode && (
@@ -183,14 +193,13 @@ class ListingGallery extends Component {
         )}
         <Carousel
           {...settings}
-          asNavFor={this.state.nav1}
-          ref={(slider) => (this.slider2 = slider)}
+          ref={(slider) => (this.slider = slider)}
         >
           {this.getSliderImages().map((content, id) => (
             <CarouselItem
               key={content.key || id}
               onClick={() => {
-                this.toggleFullScreen(id)
+                this.enterFullScreen(id)
               }}
             >
               {content.props.src && (
@@ -202,7 +211,7 @@ class ListingGallery extends Component {
             </CarouselItem>
           ))}
         </Carousel>
-        <Background />
+        <Background onClick={this.exitFullScreen} />
       </Container>
     )
   }
