@@ -52,6 +52,6 @@ export const Background = styled.div`
   background: ${theme.colors.white};
 
   @media screen and ${breakpoint.up('desktop')} {
-    opacity: .8;
+    opacity: .95;
   }
 `

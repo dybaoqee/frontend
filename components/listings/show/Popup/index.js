@@ -17,7 +17,9 @@ class Popup extends Component {
 
       switch (event.keyCode) {
         case 27:
-          this.props.closePopup()
+          if (this.props.isPopupVisible) {
+            this.props.closePopup()
+          }
           break
       }
     })
