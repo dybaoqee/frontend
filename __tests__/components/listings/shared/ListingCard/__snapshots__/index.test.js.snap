@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<ListingCard/> should render component 1`] = `
-.c1 {
+.c2 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -12,61 +12,96 @@ exports[`<ListingCard/> should render component 1`] = `
   flex-direction: column;
 }
 
-.c2 {
+.c3 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-}
-
-.c3 {
-  -webkit-font-smoothing: antialiased;
-  font-family: Rubik;
-  color: #3c4858;
-  font-size: 14px;
+  margin-bottom: 4px;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
 }
 
 .c4 {
   -webkit-font-smoothing: antialiased;
   font-family: Rubik;
-  color: #1D1919;
+  color: #3c4858;
   font-size: 14px;
+  font-weight: 500;
 }
 
 .c5 {
   -webkit-font-smoothing: antialiased;
   font-family: Rubik;
+  color: #f50057;
+  font-size: 14px;
+}
+
+.c6 {
+  -webkit-font-smoothing: antialiased;
+  font-family: Rubik;
   color: #3c4858;
-  font-size: 24px;
-  font-weight: 500;
+  font-size: 14px;
 }
 
 .c0 {
   position: relative;
+  width: 100%;
+}
+
+.c0 > button {
+  z-index: 2;
+}
+
+.c0 > button svg {
+  -webkit-transition: -webkit-transform .45s cubic-bezier(.4,.2,0,1);
+  -webkit-transition: transform .45s cubic-bezier(.4,.2,0,1);
+  transition: transform .45s cubic-bezier(.4,.2,0,1);
+}
+
+.c0 > button:hover svg {
+  -webkit-transform: scale(1.12);
+  -ms-transform: scale(1.12);
+  transform: scale(1.12);
+}
+
+.c1 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   box-sizing: border-box;
   cursor: pointer;
   width: 100%;
-  height: auto;
+  overflow: hidden;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
   border: 1px solid #e0e6ed;
-  border-radius: 4px;
+  border-radius: 10px;
   background-color: #ffffff;
+  -webkit-transition: border .25s,box-shadow .25s ease-in;
+  transition: border .25s,box-shadow .25s ease-in;
 }
 
-.c0:hover {
+.c1:hover {
   border-color: #f50057;
   box-shadow: 0 0 2px #f50057;
 }
 
-.c0 img {
+.c1 img {
   box-sizing: border-box;
   object-fit: cover;
   width: 100%;
-  min-height: 140px;
   height: 140px;
-  border-radius: 4px 4px 0 0;
 }
 
-.c6 {
+.c7 {
   outline: none;
   cursor: pointer;
   padding: 0 20px 0 20px;
@@ -86,8 +121,8 @@ exports[`<ListingCard/> should render component 1`] = `
   border-style: solid;
   position: absolute;
   cursor: pointer;
-  right: 20px;
-  top: 115px;
+  right: 14px;
+  top: 90px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -100,19 +135,19 @@ exports[`<ListingCard/> should render component 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   box-shadow: 0 6px 16px 0 rgba(38,38,38,0.15);
 }
 
-.c6 svg {
-  width: 15px;
+.c7 svg {
+  width: 25px;
   text-shadow: 2px 2px 3px #f00;
   text-shadow: 2px 2px 3px #f00;
 }
 
-.c6 svg path {
+.c7 svg path {
   text-shadow: 2px 2px 3px #f00;
   fill: #ffffff;
   stroke: #3c4858;
@@ -120,18 +155,13 @@ exports[`<ListingCard/> should render component 1`] = `
   stroke-width: 60;
 }
 
-<a
-  href="/imoveis/rj/rio-de-janeiro/bairro/rua-tal/id-undefined"
-  onClick={[Function]}
-  style={
-    Object {
-      "textDecoration": "none",
-    }
-  }
+<article
+  className="c0"
 >
-  <div
+  <a
     aria-label="listing-undefined"
-    className="c0"
+    className="c1"
+    href="/imoveis/rj/rio-de-janeiro/bairro/rua-tal/id-undefined"
     onClick={[Function]}
   >
     <img
@@ -140,86 +170,65 @@ exports[`<ListingCard/> should render component 1`] = `
       src="https://res.cloudinary.com/emcasa/image/upload/f_auto,c_fit,h_600,w_600/v1513818385/"
     />
     <div
-      className="c1"
+      className="c2"
     >
       <div
-        className="c2"
-      >
-        <span
-          className="c3"
-          color="dark"
-          fontSize="small"
-        >
-          BAIRRO
-        </span>
-      </div>
-      <div
-        className="c2"
-      >
-        <span
-          className="c3"
-          color="dark"
-          fontSize="small"
-        >
-          Rua tal
-        </span>
-      </div>
-      <div
-        className="c2"
+        className="c3"
       >
         <span
           className="c4"
-          color="grey"
-          fontSize="small"
-        >
-          
-        </span>
-      </div>
-      <div
-        className="c2"
-      >
-        <span
-          className="c5"
           color="dark"
-          fontSize="large"
+          fontSize="small"
           fontWeight="bold"
         >
-          <span
-            style={
-              Object {
-                "fontSize": "100%",
-                "lineHeight": "100%",
-              }
-            }
-          >
-            R$1,000,000
-          </span>
+          Bairro
+        </span>
+        <span
+          className="c5"
+          color="pink"
+          fontSize="small"
+        >
+          R$1,000,000
         </span>
       </div>
-    </div>
-    <button
-      className="c6"
-      fontSize="default"
-      height="medium"
-      onClick={[Function]}
-    >
-      <svg
-        aria-hidden="true"
-        className="svg-inline--fa fa-heart fa-w-16 fa-1x "
-        data-icon="heart"
-        data-prefix="fas"
-        role="img"
-        style={Object {}}
-        viewBox="0 0 512 512"
-        xmlns="http://www.w3.org/2000/svg"
+      <span
+        className="c6"
+        color="dark"
+        fontSize="small"
       >
-        <path
-          d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z"
-          fill="currentColor"
-          style={Object {}}
-        />
-      </svg>
-    </button>
-  </div>
-</a>
+        Rua tal
+      </span>
+      <span
+        className="c6"
+        color="dark"
+        fontSize="small"
+      >
+        
+      </span>
+    </div>
+  </a>
+  <button
+    className="c7"
+    fontSize="default"
+    height="medium"
+    onClick={[Function]}
+  >
+    <svg
+      aria-hidden="true"
+      className="svg-inline--fa fa-heart fa-w-16 fa-1x "
+      data-icon="heart"
+      data-prefix="fas"
+      role="img"
+      style={Object {}}
+      viewBox="0 0 512 512"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z"
+        fill="currentColor"
+        style={Object {}}
+      />
+    </svg>
+  </button>
+</article>
 `;

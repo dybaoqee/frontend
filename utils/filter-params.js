@@ -224,6 +224,7 @@ export const getListingFiltersFromState = ({
   rooms,
   neighborhoods,
   citiesSlug,
+  tagsSlug,
   types
 }) => {
   const filters = {
@@ -236,6 +237,7 @@ export const getListingFiltersFromState = ({
     minGarageSpots: garageSpots && parseInt(garageSpots.min),
     maxGarageSpots: garageSpots && parseInt(garageSpots.max),
     citiesSlug,
+    tagsSlug,
     types:
       types &&
       types.length > 0 &&

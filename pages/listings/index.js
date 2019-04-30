@@ -25,7 +25,7 @@ import {Query} from 'react-apollo'
 import {GET_DISTRICTS} from 'graphql/listings/queries'
 import {fetchFlag, DEVICE_ID_COOKIE} from 'components/shared/Flagr'
 import FlagrProvider from 'components/shared/Flagr/Context'
-import {TEST_SAVE_LISTING_USER_NAME} from 'components/shared/Flagr/tests'
+import {TEST_SAVE_LISTING_TEXT} from 'components/shared/Flagr/tests'
 import {getCookie} from 'lib/session'
 
 const BASE_URL = 'https://www.emcasa.com/imoveis'
@@ -63,8 +63,8 @@ class ListingSearch extends Component {
     // Flagr
     const deviceId = getCookie(DEVICE_ID_COOKIE, context.req)
     const flagrFlags = {
-      [TEST_SAVE_LISTING_USER_NAME]: await fetchFlag(
-        TEST_SAVE_LISTING_USER_NAME,
+      [TEST_SAVE_LISTING_TEXT]: await fetchFlag(
+        TEST_SAVE_LISTING_TEXT,
         deviceId
       )
     }
@@ -266,6 +266,9 @@ class ListingSearch extends Component {
       }
       if (params.neighborhood) {
         filters.neighborhoods = [params.neighborhood]
+      }
+      if (params.tag) {
+        filters.tagsSlug = [params.tag]
       }
     }
 

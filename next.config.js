@@ -6,9 +6,7 @@ const {
   WebpackBundleSizeAnalyzerPlugin
 } = require('webpack-bundle-size-analyzer')
 
-const {ANALYZE, BUILD, AWS_DEFAULT_REGION, AWS_S3_BUCKET_NAME} = process.env
-const s3URL = `https://s3-${AWS_DEFAULT_REGION}.amazonaws.com/${AWS_S3_BUCKET_NAME}`
-const shouldUseAssetPrefix = !isEmpty(AWS_S3_BUCKET_NAME)
+const {ANALYZE, BUILD} = process.env
 
 const findPlugin = ({plugins}, name) =>
   plugins.find((plugin) => plugin.constructor.name === name)
@@ -18,7 +16,7 @@ const findMinimizer = ({optimization}, name) =>
   )
 
 module.exports = {
-  assetPrefix: shouldUseAssetPrefix ? s3URL : '',
+  assetPrefix: '',
   webpack: function(config, {dev, isServer}) {
     config.node = {fs: 'empty'}
     if (ANALYZE) {
@@ -54,16 +52,6 @@ module.exports = {
 
     if (BUILD) {
       config.mode = 'production'
-
-      if (shouldUseAssetPrefix) {
-        config.plugins.push(
-          new CompressionPlugin({
-            asset: 'gzip/[path][query]',
-            algorithm: 'gzip',
-            test: /\.js$|\.css$|\.html$/
-          })
-        )
-      }
     }
 
     if (!dev) {

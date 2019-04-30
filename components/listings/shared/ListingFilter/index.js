@@ -8,6 +8,7 @@ import {
   RoomsFilter,
   GarageSpotsFilter
 } from '@emcasa/ui-dom/components/Filters/ListingFilters'
+import {zIndexFilter} from 'constants/zIndex'
 import {MAX_HEADER_HEIGHT} from 'components/shared/Shell/Header/styles'
 
 const ListingFilter = styled(function ListingFilter(props) {
@@ -21,6 +22,7 @@ const ListingFilter = styled(function ListingFilter(props) {
     </Filters>
   )
 })`
+  z-index: ${zIndexFilter};
   position: sticky !important;
   width: auto !important;
   top: ${MAX_HEADER_HEIGHT}px;

@@ -47,7 +47,7 @@ class LikeButton extends Component {
 
       const name = this.state.name
       if (name) {
-        response = await apolloClient.mutate({
+        const response = await apolloClient.mutate({
           mutation: EDIT_PROFILE,
           variables: {
             id: id,

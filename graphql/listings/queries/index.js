@@ -181,6 +181,12 @@ export const GET_FULL_LISTING = gql`
       owner {
         id
       }
+      tags {
+        name
+        nameSlug
+        category
+        uuid
+      }
     }
   }
 `
