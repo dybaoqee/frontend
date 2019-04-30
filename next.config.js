@@ -52,16 +52,6 @@ module.exports = {
 
     if (BUILD) {
       config.mode = 'production'
-
-      if (shouldUseAssetPrefix) {
-        config.plugins.push(
-          new CompressionPlugin({
-            asset: 'gzip/[path][query]',
-            algorithm: 'gzip',
-            test: /\.js$|\.css$|\.html$/
-          })
-        )
-      }
     }
 
     if (!dev) {
