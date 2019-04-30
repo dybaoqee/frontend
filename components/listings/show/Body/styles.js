@@ -10,6 +10,7 @@ export const Container = styled(Row)`
   margin: auto;
   flex-direction: column;
   padding: 0 ${themeGet('space.4')}px;
+  margin-bottom: ${themeGet('space.4')}px;
   box-sizing: border-box;
 
   @media screen and ${breakpoint.up('desktop')} {

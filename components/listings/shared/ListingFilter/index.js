@@ -13,7 +13,7 @@ import {MAX_HEADER_HEIGHT} from 'components/shared/Shell/Header/styles'
 
 const ListingFilter = styled(function ListingFilter(props) {
   return (
-    <Filters {...props}>
+    <Filters {...props} zIndex={zIndexFilter}>
       <TypesFilter />
       <PriceFilter />
       <AreaFilter />
@@ -22,7 +22,6 @@ const ListingFilter = styled(function ListingFilter(props) {
     </Filters>
   )
 })`
-  z-index: ${zIndexFilter};
   position: sticky !important;
   width: auto !important;
   top: ${MAX_HEADER_HEIGHT}px;
