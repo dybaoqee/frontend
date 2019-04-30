@@ -8,7 +8,6 @@ import NeighborhoodAutoComplete from 'components/shared/NeighborhoodAutoComplete
 import NeighborhoodPicker from 'components/shared/NeighborhoodPicker'
 import MobileAddressButton from 'components/shared/MobileAddressButton'
 import { MobileTypeaheadContainer } from 'components/shared/NeighborhoodAutoComplete/styles'
-import { USE_NEW_SEARCH } from 'config/globals'
 import ScrollTracker from 'components/shared/ScrollTracker'
 import {
   showHeader,
@@ -50,38 +49,19 @@ class BuyListing extends Component {
   }
 
   renderSearch() {
-    if (USE_NEW_SEARCH) {
-      return (
-        this.props.isMobile ?
-          <Col mb={4}>
-            <NeighborhoodPicker
-              fromHome
-              onClick={this.openMobileAddressInput}
-              fullscreen={this.state.showMobileAddressInput}
-            />
-          </Col>
-        :
-          <Col mb={2} width={1}>
-            <NeighborhoodPicker
-              fromHome
-            />
-        </Col>
-      )
-    }
-
     return (
       this.props.isMobile ?
         <Col mb={4}>
-          <MobileAddressButton
+          <NeighborhoodPicker
+            fromHome
             onClick={this.openMobileAddressInput}
-            address="Bairro ou Cidade"
+            fullscreen={this.state.showMobileAddressInput}
           />
         </Col>
       :
         <Col mb={2} width={1}>
-          <NeighborhoodAutoComplete
-            defaultValue={this.state.address}
-            onClearInput={() => {}}
+          <NeighborhoodPicker
+            fromHome
           />
       </Col>
     )
@@ -90,23 +70,13 @@ class BuyListing extends Component {
   render() {
     if (this.state.showMobileAddressInput) {
       return (
-        USE_NEW_SEARCH ?
-          <MobileTypeaheadContainer justifyContent="center" p={4}>
-            <Col width={1}>
-              <NeighborhoodPicker
-                mobile
-                fromHome
-                fullscreen
-                onBackPressed={this.close}
-              />
-            </Col>
-          </MobileTypeaheadContainer>
-        :
         <MobileTypeaheadContainer justifyContent="center" p={4}>
           <Col width={1}>
-            <NeighborhoodAutoComplete
+            <NeighborhoodPicker
+              mobile
+              fromHome
+              fullscreen
               onBackPressed={this.close}
-              onClearInput={() => {}}
             />
           </Col>
         </MobileTypeaheadContainer>
