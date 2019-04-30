@@ -4,7 +4,6 @@ const {parse} = require('url')
 const compression = require('compression')
 const {join} = require('path')
 const path = require('path')
-const sslRedirect = require('heroku-ssl-redirect')
 const checkPort = require('../lib/middlewares/checkPort')
 const buildSitemap = require('../lib/sitemap')
 const dev = process.env.NODE_ENV !== 'production'
@@ -24,7 +23,20 @@ const startServer = () => {
       const server = express()
       server.use(compression())
       server.use(timber.middlewares.express())
-      server.use(sslRedirect(['production'], 301))
+      server.use(function(req, res, next) {
+        if (process.env.NODE_ENV === 'production') {
+          if (
+            req.headers['x-forwarded-proto'] !== 'https' &&
+            !req.url.startsWith('/ping')
+          ) {
+            res.redirect(301, 'https://' + req.hostname + req.originalUrl)
+          } else {
+            next()
+          }
+        } else {
+          next()
+        }
+      })
 
       if (process.env.NODE_ENV === 'production') {
         server.use((req, res, next) => {
@@ -132,7 +144,6 @@ const startServer = () => {
       server.get('/rio-de-janeiro', (req, res) => {
         return app.render(req, res, '/listings/buy', {city: 'rj'})
       })
-
 
       server.get('/comprar', (req, res) => {
         return res.redirect(301, '/')

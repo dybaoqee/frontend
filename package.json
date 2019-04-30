@@ -55,7 +55,6 @@
     "google-map-react": "1.0.6",
     "graphql": "14.2.1",
     "graphql-tag": "2.10.1",
-    "heroku-ssl-redirect": "0.0.4",
     "humps": "2.0.1",
     "immutability-helper": "2.7.1",
     "intersection-observer": "0.5.1",
