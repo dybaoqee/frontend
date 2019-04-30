@@ -19,7 +19,9 @@ import Container, {
   Spinner,
   CarouselItem,
   Arrow,
-  OpenMatterportButtonWrapper
+  OpenMatterportButtonWrapper,
+  PaginationTextWrapper,
+  PaginationText
 } from './styles'
 import {Background} from 'components/listings/show/Popup/styles'
 import {OpenMatterportButton} from '../Body/ListingInfo/styles'
@@ -33,16 +35,15 @@ class ListingGallery extends Component {
     downloadingImages: false,
     nav: null,
     isFullScreen: false,
-    slidesToShow: 10
+    currentImage: 0
   }
 
   componentDidMount() {
     this.setState({
       nav: this.slider
     })
-    window.focus()
 
-    if (window.matchMedia(mobileMedia).matches) this.setState({slidesToShow: 4})
+    window.focus()
 
     this.keyListener = window.addEventListener('keyup', (event) => {
       if (event.defaultPrevented) {
@@ -108,10 +109,12 @@ class ListingGallery extends Component {
 
   enterFullScreen = (index) => {
     if (!this.state.isFullScreen) {
+      const afterChange = this.afterChange
       log(LISTING_DETAIL_PHOTOS_FULLSCREEN_OPEN, {listingId: this.props.listing.id})
       this.setState({isFullScreen: true}, () => {
         setTimeout(() => {
           if (this.slider) {
+            afterChange(index)
             this.slider.slickGoTo(index)
           }
         }, 100)
@@ -121,10 +124,12 @@ class ListingGallery extends Component {
 
   exitFullScreen = (index) => {
     if (this.state.isFullScreen) {
+      const afterChange = this.afterChange
       log(LISTING_DETAIL_PHOTOS_FULLSCREEN_CLOSE, {listingId: this.props.listing.id})
       this.setState({isFullScreen: false}, () => {
         setTimeout(() => {
           if (this.slider) {
+            afterChange(index)
             this.slider.slickGoTo(index)
           }
         }, 100)
@@ -132,10 +137,17 @@ class ListingGallery extends Component {
     }
   }
 
+  afterChange = (index) => {
+    this.setState({currentImage: index})
+  }
+
   render() {
     const {listing, openMatterportPopup, flagrFlags} = this.props
     const {matterportCode} = listing
-    const {isFullScreen} = this.state
+    const imagesLength = listing.images.length
+    const {isFullScreen, currentImage} = this.state
+    const afterChange = this.afterChange
+
     const onClickShowTour = () => {
       this.exitFullScreen()
       openMatterportPopup()
@@ -144,6 +156,7 @@ class ListingGallery extends Component {
       dots: false,
       className: 'images-slider',
       infinite: false,
+      easing: 'ease-out',
       slidesToShow: isFullScreen ? 1 : 3,
       slidesToScroll: isFullScreen ? 1 : 3,
       centerMode: false,
@@ -168,10 +181,11 @@ class ListingGallery extends Component {
         }
       ],
       adaptiveHeight: false,
-      nextArrow: <SliderArrow icon={faAngleRight} listingId={listing.id} />,
+      nextArrow: <SliderArrow disabled={(currentImage + 1) >= imagesLength} icon={faAngleRight} listingId={listing.id} />,
       prevArrow: (
-        <SliderArrow icon={faAngleLeft} left={true} listingId={listing.id} />
-      )
+        <SliderArrow disabled={currentImage <= 0} icon={faAngleLeft} left={true} listingId={listing.id} />
+      ),
+      afterChange: afterChange
     }
 
     return (
@@ -211,15 +225,19 @@ class ListingGallery extends Component {
             </CarouselItem>
           ))}
         </Carousel>
+        <PaginationTextWrapper isFullScreen={isFullScreen}>
+          <PaginationText color="dark" fontSize="small" fontWeight="bold">{`Foto ${currentImage + 1} de ${listing.images.length}`}</PaginationText>
+        </PaginationTextWrapper>
         <Background onClick={this.exitFullScreen} />
       </Container>
     )
   }
 }
 
-function SliderArrow({onClick, icon, left, listingId}) {
+function SliderArrow({onClick, icon, left, listingId, disabled}) {
   return (
     <Arrow
+      disabled={disabled}
       onClick={() => {
         const properties = {listingId}
         const event = left

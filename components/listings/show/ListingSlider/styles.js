@@ -11,6 +11,7 @@ import MoonLoader from 'react-spinners/MoonLoader'
 import {Content} from 'components/listings/show/Popup/styles'
 import {listingDetailsMaxWidth} from 'constants/dimensions'
 import {zIndexModal} from 'constants/zIndex'
+import Text from '@emcasa/ui-dom/components/Text'
 
 export const SPINNER_SIZE = 40
 export const LISTINGSLIDER_HEIGHT = 454
@@ -131,6 +132,8 @@ export const Arrow = styled(Button)`
   padding: 0;
   background: 0;
   border: 0;
+  cursor: ${({disabled}) => disabled ? 'default' : null};
+  opacity: ${({disabled}) => disabled ? '0.5' : null};
 
   &:hover {
     svg {
@@ -156,5 +159,32 @@ export const OpenMatterportButtonWrapper = styled.div`
     left: initial;
     transform: initial;
     margin: 0 0 ${theme.space[4]}px;
+  }
+`
+
+export const PaginationTextWrapper = styled.div`
+  display: ${({isFullScreen}) => isFullScreen ? null : 'none'};
+  z-index: 5;
+  position: absolute;
+  bottom: ${theme.space[2]}px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  @media screen and ${breakpoint.up('desktop')} {
+    position: relative;
+    left: initial;
+    transform: initial;
+    margin: ${theme.space[4]}px 0 0;
+  }
+`
+
+export const PaginationText = styled(Text)`
+  color: ${theme.colors.white};
+  margin: 0;
+  text-shadow: 1px 1px 2px ${theme.colors.dark};
+
+  @media screen and ${breakpoint.up('desktop')} {
+    color: ${theme.colors.dark};
+    text-shadow: initial;
   }
 `
