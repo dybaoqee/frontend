@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import * as Sentry from '@sentry/browser'
-import { Formik, Field } from 'formik'
+import {Formik, Field} from 'formik'
 import Button from '@emcasa/ui-dom/components/Button'
 import Input from '@emcasa/ui-dom/components/Input'
 import Row from '@emcasa/ui-dom/components/Row'
@@ -8,9 +8,9 @@ import Col from '@emcasa/ui-dom/components/Col'
 import Container from 'components/listings/new-listing/shared/Container'
 import Text from '@emcasa/ui-dom/components/Text'
 import NavButtons from 'components/listings/new-listing/shared/NavButtons'
-import { getAddressInput } from 'lib/address'
-import { estimatePrice, getPricingInput } from 'lib/listings/pricing'
-import { getUser } from 'components/listings/new-listing/lib/auth'
+import {getAddressInput} from 'lib/address'
+import {estimatePrice, getPricingInput} from 'lib/listings/pricing'
+import {getUser} from 'components/listings/new-listing/lib/auth'
 import Steps from 'components/listings/new-listing/shared/Steps'
 import {
   log,
@@ -119,11 +119,12 @@ class Bedrooms extends Component {
 
     // Handle result
     if (response.result) {
-      const { suggestedPrice, userPrice } = response.result
+      const {id, suggestedPrice, userPrice} = response.result
       if (suggestedPrice) {
         log(`${getSellerEventPrefix(this.props.evaluation)}${SELLER_ONBOARDING_PRICING_SUCCESS}`, {
           name: userInfo.name,
           phone: userInfo.phone,
+          priceRequestId: id,
           pricingInput,
           suggestedPrice: suggestedPrice
         })
@@ -137,6 +138,7 @@ class Bedrooms extends Component {
       const { navigateTo, updatePricing, pricing } = this.props
       updatePricing({
         ...pricing,
+        priceRequestId: id,
         suggestedPrice,
         userPrice
       })

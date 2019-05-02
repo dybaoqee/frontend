@@ -44,6 +44,7 @@ export const initialState = {
     id: null
   },
   pricing: {
+    priceRequestId: null,
     suggestedPrice: null,
     userPrice: null,
     editingPrice: null
