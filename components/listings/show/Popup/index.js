@@ -3,6 +3,8 @@ import
   Container,
   {
     Wrapper,
+    Header,
+    Title,
     Content,
     Background
 } from './styles'
@@ -33,13 +35,21 @@ class Popup extends Component {
     const {
       listing,
       isPopupVisible,
-      closePopup
+      closePopup,
+      title
     } = this.props
 
     return (
       <Container open={isPopupVisible}>
         <CloseButton onClick={closePopup} />
-        <Wrapper>
+        <Wrapper
+          width="100%"
+          height="100%"
+          flexDirection="column"
+        >
+          <Header>
+            <Title fontWeight="bold">{title}</Title>
+          </Header>
           <Content>{this.props.children}</Content>
         </Wrapper>
         <Background onClick={closePopup} />

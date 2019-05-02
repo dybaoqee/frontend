@@ -362,6 +362,7 @@ class Listing extends Component {
                               <Popup
                                 isPopupVisible={isMatterportPopupVisible}
                                 closePopup={this.closeMatterportPopup}
+                                title="Tour Virtual"
                               >
                                 {isMatterportPopupVisible && <Matterport matterport_code={listing.matterportCode || ''} />}
                               </Popup>
@@ -371,6 +372,7 @@ class Listing extends Component {
                         <Popup
                           isPopupVisible={isMapPopupVisible}
                           closePopup={this.closeMapPopup}
+                          title="Mapa"
                         >
                           {isMapPopupVisible &&
                             <ListingMap isVisible={isMapPopupVisible} listing={listing} />
@@ -379,6 +381,7 @@ class Listing extends Component {
                         <Popup
                           isPopupVisible={isStreetViewPopupVisible}
                           closePopup={this.closeStreetViewPopup}
+                          title="Rua"
                         >
                           {isStreetViewPopupVisible &&
                             <ListingMap

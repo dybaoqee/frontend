@@ -16,6 +16,7 @@ import Text from '@emcasa/ui-dom/components/Text'
 export const SPINNER_SIZE = 40
 export const LISTINGSLIDER_HEIGHT = 454
 export const LISTINGSLIDER_OFFSET = (desktopHeaderHeight + listingDetailsBarHeight)
+const ARROW_SIZE = 40
 
 export default styled.div`
   z-index: ${({isFullScreen}) => isFullScreen ? zIndexModal : null};
@@ -32,7 +33,7 @@ export default styled.div`
   overflow: hidden;
   box-sizing: border-box;
 
-  @media screen and ${breakpoint.up('desktop')} {
+  @media screen and (min-width: 813px) {
     height: ${({isFullScreen}) => isFullScreen ? null : '45vh'};
     max-height: ${({isFullScreen}) => isFullScreen ? null : '540px'};
     min-height: ${({isFullScreen}) => isFullScreen ? null : '300px'};
@@ -45,6 +46,15 @@ export default styled.div`
     right: ${theme.space[2]}px;
   }
 
+  .slick-list {
+    width: 100%;
+    margin: 0 auto;
+
+    @media screen and (min-width: 813px) {
+      width: ${({isFullScreen}) => isFullScreen ? `calc(100% - ${ARROW_SIZE * 2}px)` : null};
+    }
+  }
+
   .slick-list,
   .slick-track,
   .slick-slide > div {
@@ -55,10 +65,10 @@ export default styled.div`
     z-index: 2;
     position: relative;
     width: 100%;
-    height: 100%;
+    height: ${({isFullScreen}) => isFullScreen ? null : '100%'};
     background: ${theme.colors.white};
 
-    @media screen and ${breakpoint.up('desktop')} {
+    @media screen and (min-width: 813px) {
       max-width: ${({isFullScreen}) => isFullScreen ? `${listingDetailsMaxWidth}px` : null};
       max-height: ${({isFullScreen}) => isFullScreen ? '65vh' : null};
       padding: ${({isFullScreen}) => isFullScreen ? `${theme.space[4]}px` : null};
@@ -72,8 +82,12 @@ export default styled.div`
     position: relative;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: ${({isFullScreen}) => isFullScreen ? 'contain' : 'cover'};
     box-sizing: border-box;
+
+    @media screen and (min-width: 813px) {
+      object-fit: cover;
+    }
   }
 
   .slick-dots {
@@ -112,7 +126,7 @@ export const CarouselItem = styled.div`
   outline: none;
   box-sizing: border-box;
   position: relative;
-  background: ${theme.colors.smoke};
+  background: ${theme.colors.white};
 
   @keyframes spin {
     to {
@@ -125,7 +139,8 @@ export const Arrow = styled(Button)`
   z-index: 3;
   position: absolute;
   top: calc(50% - ${theme.space[2]}px);
-  ${({left}) => (!left ? `right: ${theme.space[4]}px` : `left: ${theme.space[4]}px`)};
+  ${({left}) => (!left ? `right: 0` : `left: 0`)};
+  width: 40px;
   color: white;
   cursor: pointer;
   padding: 0;
@@ -140,20 +155,35 @@ export const Arrow = styled(Button)`
     }
   }
 
+  @media screen and (min-width: 813px) {
+    color: ${({isFullScreen}) => isFullScreen ? theme.colors.dark : theme.colors.white};
+  }
+
   svg {
-    width: 40px !important;
-    height: 40px;
+    display: block;
+    width: 100% !important;
+    height: 100%;
     filter: drop-shadow(1px 1px 4px ${theme.colors.dark});
+
+    @media screen and (min-width: 813px) {
+      color: ${({isFullScreen}) => isFullScreen ? theme.colors.dark : theme.colors.white};
+      filter: ${({isFullScreen}) => isFullScreen ? 'initial' : `drop-shadow(1px 1px 4px ${theme.colors.dark})`};
+    }
   }
 `
 export const OpenMatterportButtonWrapper = styled.div`
   z-index: 5;
-  position: absolute;
-  top: ${theme.space[2]}px;
-  left: 50%;
-  transform: translateX(-50%);
+  position: ${({isFullScreen}) => isFullScreen ? 'relative' : 'absolute'};
+  top: ${({isFullScreen}) => isFullScreen ? null : `${theme.space[2]}px`};
+  left: ${({isFullScreen}) => isFullScreen ? null : '50%'};
+  margin-bottom: ${theme.space[2]}px;
+  transform: ${({isFullScreen}) => isFullScreen ? null : 'translateX(-50%)'};
 
-  @media screen and ${breakpoint.up('desktop')} {
+  @media screen and (max-width: 812px) and (orientation: landscape) {
+    display: ${({isFullScreen}) => isFullScreen ? 'none' : null};
+  }
+
+  @media screen and (min-width: 813px) {
     position: relative;
     left: initial;
     transform: initial;
@@ -176,12 +206,14 @@ export const OpenMatterportButtonWrapper = styled.div`
 export const PaginationTextWrapper = styled.div`
   display: ${({isFullScreen}) => isFullScreen ? null : 'none'};
   z-index: 5;
-  position: absolute;
-  bottom: ${theme.space[2]}px;
-  left: 50%;
-  transform: translateX(-50%);
+  position: relative;
+  margin-top: ${theme.space[2]}px;
 
-  @media screen and ${breakpoint.up('desktop')} {
+  @media screen and (max-width: 812px) and (orientation: landscape) {
+    display: ${({isFullScreen}) => isFullScreen ? 'none' : null};
+  }
+
+  @media screen and (min-width: 813px) {
     position: relative;
     left: initial;
     transform: initial;
@@ -190,11 +222,10 @@ export const PaginationTextWrapper = styled.div`
 `
 
 export const PaginationText = styled(Text)`
-  color: ${theme.colors.white};
+  color: ${theme.colors.dark};
   margin: 0;
-  text-shadow: 1px 1px 2px ${theme.colors.dark};
 
-  @media screen and ${breakpoint.up('desktop')} {
+  @media screen and (min-width: 813px) {
     color: ${theme.colors.dark};
     text-shadow: initial;
   }

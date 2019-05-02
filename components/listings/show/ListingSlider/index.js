@@ -178,9 +178,9 @@ class ListingGallery extends Component {
         }
       ],
       adaptiveHeight: false,
-      nextArrow: <SliderArrow disabled={(currentImage + 1) >= imagesLength} icon={faAngleRight} listingId={listing.id} />,
+      nextArrow: <SliderArrow isFullScreen={isFullScreen} disabled={(currentImage + 1) >= imagesLength} icon={faAngleRight} listingId={listing.id} />,
       prevArrow: (
-        <SliderArrow disabled={currentImage <= 0} icon={faAngleLeft} left={true} listingId={listing.id} />
+        <SliderArrow isFullScreen={isFullScreen} disabled={currentImage <= 0} icon={faAngleLeft} left={true} listingId={listing.id} />
       ),
       afterChange: afterChange
     }
@@ -192,7 +192,7 @@ class ListingGallery extends Component {
         {listing.images.length > 0 &&
           isFullScreen &&
           matterportCode && (
-          <OpenMatterportButtonWrapper>
+          <OpenMatterportButtonWrapper isFullScreen={isFullScreen}>
             <OpenMatterportButton onClick={onClickShowTour}>
               <FontAwesomeIcon icon={faCube} />
               Iniciar tour virtual
@@ -221,7 +221,7 @@ class ListingGallery extends Component {
           ))}
         </Carousel>
         <PaginationTextWrapper isFullScreen={isFullScreen}>
-          <PaginationText color="dark" fontSize="small" fontWeight="bold">{`Foto ${currentImage + 1} de ${listing.images.length}`}</PaginationText>
+          <PaginationText color="dark" fontSize="small">{`${currentImage + 1} / ${listing.images.length}`}</PaginationText>
         </PaginationTextWrapper>
         <Background onClick={this.exitFullScreen} />
       </Container>
@@ -229,9 +229,10 @@ class ListingGallery extends Component {
   }
 }
 
-function SliderArrow({onClick, icon, left, listingId, disabled}) {
+function SliderArrow({onClick, icon, left, listingId, disabled, isFullScreen}) {
   return (
     <Arrow
+      isFullScreen={isFullScreen}
       disabled={disabled}
       onClick={() => {
         const properties = {listingId}

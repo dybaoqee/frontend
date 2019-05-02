@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import theme from 'config/theme'
 import {breakpoint} from '@emcasa/ui/lib/styles'
 import Row from '@emcasa/ui-dom/components/Row'
+import Text from '@emcasa/ui-dom/components/Text'
 import {zIndexModal} from 'constants/zIndex'
 import {listingDetailsMaxWidth} from 'constants/dimensions'
 
@@ -15,13 +16,20 @@ export default styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
+
+  > button {
+
+    @media screen and ${breakpoint.down('tablet')} {
+      top: ${theme.space[1]}px;
+      right: 0;
+      border: initial;
+    }
+  }
 `
 
-export const Wrapper = styled.div`
+export const Wrapper = styled(Row)`
   z-index: 2;
   position: relative;
-  width: 100%;
-  height: 100%;
 
   @media screen and ${breakpoint.up('desktop')} {
     max-width: ${listingDetailsMaxWidth}px;
@@ -29,14 +37,34 @@ export const Wrapper = styled.div`
   }
 `
 
+export const Header = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  @media screen and ${breakpoint.up('desktop')} {
+    width: calc(100% - ${theme.space[4]}px);
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+`
+
+export const Title = styled(Text)`
+  margin: ${theme.space[2]}px 0 ${theme.space[2]}px ${theme.space[4]}px;
+
+  @media screen and ${breakpoint.up('desktop')} {
+    margin: 0 0 ${theme.space[2]}px;
+  }
+`
+
 export const Content = styled.div`
+  flex: 1 1 100%;
   width: 100%;
-  height: 100%;
   background: ${theme.colors.white};
 
   @media screen and ${breakpoint.up('desktop')} {
     width: calc(100% - ${theme.space[4]}px);
-    padding: ${theme.space[4]}px;
     margin: 0 auto;
     box-sizing: border-box;
   }
@@ -45,7 +73,7 @@ export const Content = styled.div`
 export const Background = styled.div`
   z-index: 1;
   position: absolute;
-  top: 0;
+  top: 4px;
   left: 0;
   width: 100%;
   height: 100%;
