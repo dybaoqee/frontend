@@ -3,6 +3,7 @@ import theme from 'config/theme'
 import {breakpoint} from '@emcasa/ui/lib/styles'
 import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
+import Button from '@emcasa/ui-dom/components/Button'
 import {zIndexModal} from 'constants/zIndex'
 import {listingDetailsMaxWidth} from 'constants/dimensions'
 
@@ -62,6 +63,24 @@ export const HeaderRight = styled.div`
   @media screen and ${breakpoint.up('desktop')} {
     display: block;
   }
+
+  ${Button} {
+    margin-left: ${theme.space[2]}px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    svg {
+      margin-right: ${theme.space[2]}px;
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      overflow: visible;
+      vertical-align: -0.125em;
+      font-size: inherit;
+    }
+  }
 `
 
 export const Title = styled(Text)`
@@ -69,7 +88,7 @@ export const Title = styled(Text)`
 
   @media screen and ${breakpoint.up('desktop')} {
     position: relative;
-    margin: 0 0 ${theme.space[2]}px;
+    margin: 0;
   }
 `
 
