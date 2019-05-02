@@ -1,29 +1,21 @@
 import React, { PureComponent } from 'react'
-import Router from 'next/router'
 import theme from '@emcasa/ui'
 import routerEvents from 'next-router-events'
 import View from '@emcasa/ui-dom/components/View'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
-import Button from '@emcasa/ui-dom/components/Button'
 import { intToCurrency } from 'utils/text-utils'
 import { getFullTourDateDisplay } from 'components/listings/new-listing/lib/times'
 import Container from 'components/listings/new-listing/shared/Container'
-import { LARGE_BUTTON_WIDTH } from 'components/listings/new-listing/styles'
 import NumberedList from 'components/shared/NumberedList'
-import { MY_LISTINGS_TAB } from 'pages/user/profile'
 import {
-  Box,
-  Bullet
+  Box
 } from './styles'
-
-const ROUTE_MY_LISTINGS = '/meu-perfil'
 
 class Success extends PureComponent {
   constructor(props) {
     super(props)
-    this.viewMyListings = this.viewMyListings.bind(this)
     this.reset = this.reset.bind(this)
   }
 
@@ -41,13 +33,8 @@ class Success extends PureComponent {
     this.props.resetStore()
   }
 
-  viewMyListings() {
-    Router.push(`${ROUTE_MY_LISTINGS}?tab=${MY_LISTINGS_TAB}`)
-  }
-
   render() {
-    const { tour, location, pricing, listing } = this.props
-    const listingId = listing.id
+    const { tour, location, pricing } = this.props
     const { day } = tour
     const { address } = location
     const { userPrice } = pricing
@@ -121,11 +108,6 @@ class Success extends PureComponent {
                     'Em caso de proposta, conduzimos a negociação até o final do processo.'
                   ]}
                 />
-              </Col>
-            </Row>
-            <Row justifyContent="center">
-              <Col>
-                <Button active style={{width: LARGE_BUTTON_WIDTH}} height="tall" onClick={this.viewMyListings}>Ver Meus Imóveis</Button>
               </Col>
             </Row>
           </Col>

@@ -106,26 +106,6 @@ exports[`renders correctly 1`] = `
   font-size: 18px;
 }
 
-.c21 {
-  outline: none;
-  cursor: pointer;
-  padding: 0 20px 0 20px;
-  border-color: #f50057;
-  background-color: #f50057;
-  border-radius: 4px;
-  border-width: 1px;
-  width: auto;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  height: 60px;
-  color: #ffffff;
-  font-family: Rubik;
-  font-size: 18px;
-  -webkit-font-smoothing: antialiased;
-  border-style: solid;
-}
-
 .c0 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -523,27 +503,6 @@ exports[`renders correctly 1`] = `
               </span>
             </div>
           </div>
-        </div>
-      </div>
-      <div
-        className="c13"
-      >
-        <div
-          className=""
-        >
-          <button
-            className="c21"
-            fontSize="default"
-            height="tall"
-            onClick={[Function]}
-            style={
-              Object {
-                "width": 260,
-              }
-            }
-          >
-            Ver Meus Imóveis
-          </button>
         </div>
       </div>
     </div>
