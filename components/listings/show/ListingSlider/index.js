@@ -21,9 +21,14 @@ import Container, {
   Arrow,
   OpenMatterportButtonWrapper,
   PaginationTextWrapper,
-  PaginationText
+  PaginationText,
+  Header,
+  TitleWrapper,
+  Title
 } from './styles'
-import {Background} from 'components/listings/show/Popup/styles'
+import {
+  Background
+} from 'components/listings/show/Popup/styles'
 import {OpenMatterportButton} from '../Body/ListingInfo/styles'
 import faCube from '@fortawesome/fontawesome-free-solid/faCube'
 
@@ -188,17 +193,23 @@ class ListingGallery extends Component {
     return (
       <Container isFullScreen={isFullScreen}>
         {listing.images.length > 0 &&
-          isFullScreen && <CloseButton onClick={this.exitFullScreen} />}
-        {listing.images.length > 0 &&
-          isFullScreen &&
-          matterportCode && (
-          <OpenMatterportButtonWrapper isFullScreen={isFullScreen}>
-            <OpenMatterportButton onClick={onClickShowTour}>
-              <FontAwesomeIcon icon={faCube} />
-              Iniciar tour virtual
-            </OpenMatterportButton>
-          </OpenMatterportButtonWrapper>
-        )}
+          isFullScreen && <CloseButton justIcon onClick={this.exitFullScreen} />}
+        <Header isFullScreen={isFullScreen}>
+          <TitleWrapper isFullScreen={isFullScreen}>
+            <Title fontWeight="bold">Fotos</Title>
+          </TitleWrapper>
+          {listing.images.length > 0 &&
+            isFullScreen &&
+            matterportCode && (
+            <OpenMatterportButtonWrapper isFullScreen={isFullScreen}>
+              <OpenMatterportButton onClick={onClickShowTour}>
+                <FontAwesomeIcon icon={faCube} />
+                Iniciar tour virtual
+              </OpenMatterportButton>
+            </OpenMatterportButtonWrapper>
+          )}
+        </Header>
+
         <Carousel
           {...settings}
           ref={(slider) => (this.slider = slider)}

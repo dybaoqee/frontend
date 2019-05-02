@@ -16,7 +16,7 @@ import Text from '@emcasa/ui-dom/components/Text'
 export const SPINNER_SIZE = 40
 export const LISTINGSLIDER_HEIGHT = 454
 export const LISTINGSLIDER_OFFSET = (desktopHeaderHeight + listingDetailsBarHeight)
-const ARROW_SIZE = 40
+const ARROW_SIZE = 48
 
 export default styled.div`
   z-index: ${({isFullScreen}) => isFullScreen ? zIndexModal : null};
@@ -33,17 +33,22 @@ export default styled.div`
   overflow: hidden;
   box-sizing: border-box;
 
+  @media screen and (max-width: 812px) and (orientation: landscape) {
+    justify-content: flex-start;
+  }
+
   @media screen and (min-width: 813px) {
     height: ${({isFullScreen}) => isFullScreen ? null : '45vh'};
     max-height: ${({isFullScreen}) => isFullScreen ? null : '540px'};
     min-height: ${({isFullScreen}) => isFullScreen ? null : '300px'};
   }
 
-  > ${Button} {
-    z-index: 5;
-    position: absolute;
-    top: ${theme.space[2]}px;
-    right: ${theme.space[2]}px;
+  > button {
+
+    @media screen and (max-width: 812px) {
+      top: ${theme.space[1]}px;
+      right: 0;
+    }
   }
 
   .slick-list {
@@ -71,8 +76,6 @@ export default styled.div`
     @media screen and (min-width: 813px) {
       max-width: ${({isFullScreen}) => isFullScreen ? `${listingDetailsMaxWidth}px` : null};
       max-height: ${({isFullScreen}) => isFullScreen ? '65vh' : null};
-      padding: ${({isFullScreen}) => isFullScreen ? `${theme.space[4]}px` : null};
-      width: ${({isFullScreen}) => isFullScreen ? `calc(100% - ${theme.space[4]}px)` : null};
       box-sizing: ${({isFullScreen}) => isFullScreen ? 'border-box' : null};
     }
   }
@@ -82,12 +85,8 @@ export default styled.div`
     position: relative;
     width: 100%;
     height: 100%;
-    object-fit: ${({isFullScreen}) => isFullScreen ? 'contain' : 'cover'};
+    object-fit: cover;
     box-sizing: border-box;
-
-    @media screen and (min-width: 813px) {
-      object-fit: cover;
-    }
   }
 
   .slick-dots {
@@ -138,9 +137,11 @@ export const CarouselItem = styled.div`
 export const Arrow = styled(Button)`
   z-index: 3;
   position: absolute;
-  top: calc(50% - ${theme.space[2]}px);
+  top: 50%;
+  transform: translateY(-50%);
   ${({left}) => (!left ? `right: 0` : `left: 0`)};
-  width: 40px;
+  width: ${ARROW_SIZE}px;
+  height: ${ARROW_SIZE}px;
   color: white;
   cursor: pointer;
   padding: 0;
@@ -171,12 +172,57 @@ export const Arrow = styled(Button)`
     }
   }
 `
+
+export const Header = styled.div`
+  display: ${({isFullScreen}) => isFullScreen ? 'flex' : 'none'};
+  z-index: 2;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: ${theme.space[2]}px;
+
+  @media screen and (max-width: 812px) and (orientation: landscape) {
+    margin-bottom: 0;
+    justify-content: flex-start;
+  }
+
+  @media screen and (min-width: 813px) {
+    justify-content: space-between;
+    max-width: ${({isFullScreen}) => isFullScreen ? `${listingDetailsMaxWidth - (ARROW_SIZE * 2)}px` : null};
+    width: calc(100% - ${ARROW_SIZE * 2}px);
+    margin-bottom: 0;
+  }
+`
+
+export const Title = styled(Text)`
+  margin: ${theme.space[2]}px 0 ${theme.space[2]}px ${theme.space[4]}px;
+
+  @media screen and (min-width: 813px) {
+    margin: ${theme.space[2]}px 0;
+  }
+`
+
+export const TitleWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  @media screen and (max-width: 812px) and (orientation: landscape) {
+    position: ${({isFullScreen}) => isFullScreen ? 'relative' : null};
+  }
+
+  @media screen and (min-width: 813px) {
+    position: initial;
+    top: initial;
+    left: initial;
+  }
+`
+
 export const OpenMatterportButtonWrapper = styled.div`
   z-index: 5;
   position: ${({isFullScreen}) => isFullScreen ? 'relative' : 'absolute'};
   top: ${({isFullScreen}) => isFullScreen ? null : `${theme.space[2]}px`};
   left: ${({isFullScreen}) => isFullScreen ? null : '50%'};
-  margin-bottom: ${theme.space[2]}px;
   transform: ${({isFullScreen}) => isFullScreen ? null : 'translateX(-50%)'};
 
   @media screen and (max-width: 812px) and (orientation: landscape) {
@@ -187,7 +233,7 @@ export const OpenMatterportButtonWrapper = styled.div`
     position: relative;
     left: initial;
     transform: initial;
-    margin: 0 0 ${theme.space[4]}px;
+    margin: 0 0 ${theme.space[2]}px;
   }
 
   ${Button} {
