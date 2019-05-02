@@ -13,7 +13,7 @@ import {
   START
 } from './actions'
 
-const initialState = {
+export const initialState = {
   step: 'intro',
   startedAt: null,
   location: {
