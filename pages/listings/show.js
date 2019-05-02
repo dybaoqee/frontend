@@ -1,10 +1,14 @@
 import '@emcasa/ui-dom/components/global-styles'
 import {Component, Fragment} from 'react'
 import {Query} from 'react-apollo'
+import theme from '@emcasa/ui'
 import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import faMap from '@fortawesome/fontawesome-free-solid/faMap'
+import faStreetView from '@fortawesome/fontawesome-free-solid/faCube'
 import {GET_USER_LISTINGS_ACTIONS} from 'graphql/user/queries'
 import {GET_FULL_LISTING, GET_DISTRICTS} from 'graphql/listings/queries'
 import {Mutation} from 'react-apollo'
@@ -161,6 +165,16 @@ class Listing extends Component {
   closeStreetViewPopup = () => {
     log(LISTING_DETAIL_STREETVIEW_CLOSE, {listingId: this.props.listing.id})
     this.setState({isStreetViewPopupVisible: false})
+  }
+
+  openMapAndCloseStreetViewPopup = () => {
+    this.closeStreetViewPopup()
+    this.openMapPopup()
+  }
+
+  openStreetViewAndCloseMapPopup = () => {
+    this.closeMapPopup()
+    this.openStreetViewPopup()
   }
 
   openInterestPopup = async (e) => {
@@ -369,10 +383,12 @@ class Listing extends Component {
                             )
                           }}
                         </Mutation>
+
                         <Popup
                           isPopupVisible={isMapPopupVisible}
                           closePopup={this.closeMapPopup}
                           title="Mapa"
+                          headerContent={<Button onClick={this.openStreetViewAndCloseMapPopup}><FontAwesomeIcon icon={faStreetView} color={theme.colors.blue} />Rua</Button>}
                         >
                           {isMapPopupVisible &&
                             <ListingMap isVisible={isMapPopupVisible} listing={listing} />
@@ -382,6 +398,7 @@ class Listing extends Component {
                           isPopupVisible={isStreetViewPopupVisible}
                           closePopup={this.closeStreetViewPopup}
                           title="Rua"
+                          headerContent={<Button onClick={this.openMapAndCloseStreetViewPopup}><FontAwesomeIcon icon={faMap} color={theme.colors.blue} />Mapa</Button>}
                         >
                           {isStreetViewPopupVisible &&
                             <ListingMap
