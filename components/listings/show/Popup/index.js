@@ -4,6 +4,8 @@ import
   {
     Wrapper,
     Header,
+    HeaderLeft,
+    HeaderRight,
     Title,
     Content,
     Background
@@ -36,19 +38,25 @@ class Popup extends Component {
       listing,
       isPopupVisible,
       closePopup,
-      title
+      title,
+      headerContent
     } = this.props
 
     return (
       <Container open={isPopupVisible}>
-        <CloseButton onClick={closePopup} />
+        <CloseButton justIcon onClick={closePopup} />
         <Wrapper
           width="100%"
           height="100%"
           flexDirection="column"
         >
           <Header>
-            <Title fontWeight="bold">{title}</Title>
+            <HeaderLeft>
+              <Title fontWeight="bold">{title}</Title>
+            </HeaderLeft>
+            <HeaderRight>
+              {headerContent}
+            </HeaderRight>
           </Header>
           <Content>{this.props.children}</Content>
         </Wrapper>

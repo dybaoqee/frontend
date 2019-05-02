@@ -22,7 +22,6 @@ export default styled.div`
     @media screen and ${breakpoint.down('tablet')} {
       top: ${theme.space[1]}px;
       right: 0;
-      border: initial;
     }
   }
 `
@@ -38,6 +37,7 @@ export const Wrapper = styled(Row)`
 `
 
 export const Header = styled.div`
+  z-index: 2;
   position: relative;
   display: flex;
   align-items: center;
@@ -45,8 +45,22 @@ export const Header = styled.div`
 
   @media screen and ${breakpoint.up('desktop')} {
     width: calc(100% - ${theme.space[4]}px);
+    max-width: ${listingDetailsMaxWidth}px;
     margin: 0 auto;
+    padding-bottom: ${theme.space[2]}px;
     box-sizing: border-box;
+  }
+`
+
+export const HeaderLeft = styled.div`
+  display: flex;
+`
+
+export const HeaderRight = styled.div`
+  display: none;
+
+  @media screen and ${breakpoint.up('desktop')} {
+    display: block;
   }
 `
 
@@ -54,6 +68,7 @@ export const Title = styled(Text)`
   margin: ${theme.space[2]}px 0 ${theme.space[2]}px ${theme.space[4]}px;
 
   @media screen and ${breakpoint.up('desktop')} {
+    position: relative;
     margin: 0 0 ${theme.space[2]}px;
   }
 `
@@ -61,7 +76,6 @@ export const Title = styled(Text)`
 export const Content = styled.div`
   flex: 1 1 100%;
   width: 100%;
-  background: ${theme.colors.white};
 
   @media screen and ${breakpoint.up('desktop')} {
     width: calc(100% - ${theme.space[4]}px);
@@ -73,13 +87,9 @@ export const Content = styled.div`
 export const Background = styled.div`
   z-index: 1;
   position: absolute;
-  top: 4px;
+  top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background: ${theme.colors.white};
-
-  @media screen and ${breakpoint.up('desktop')} {
-    opacity: .95;
-  }
 `
