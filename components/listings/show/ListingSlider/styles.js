@@ -73,6 +73,10 @@ export default styled.div`
     height: ${({isFullScreen}) => isFullScreen ? null : '100%'};
     background: ${theme.colors.white};
 
+    @media screen and (max-width: 812px) and (orientation: landscape) {
+      overflow: hidden;
+    }
+
     @media screen and (min-width: 813px) {
       max-width: ${({isFullScreen}) => isFullScreen ? `${listingDetailsMaxWidth}px` : null};
       max-height: ${({isFullScreen}) => isFullScreen ? '65vh' : null};
