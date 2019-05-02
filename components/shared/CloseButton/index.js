@@ -4,7 +4,7 @@ import {
  } from './style'
 
 const CloseButton = (props) =>
-  <StyledCloseButton inline style={props.buttonStyle} onClick={props.onClick}>
+  <StyledCloseButton justIcon={props.justIcon} inline style={props.buttonStyle} onClick={props.onClick}>
     <CloseIcon
       name="times"
       size={18}

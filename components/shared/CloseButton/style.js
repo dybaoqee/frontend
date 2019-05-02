@@ -8,6 +8,8 @@ export const StyledCloseButton = styled(Button)`
   position: absolute;
   top: ${theme.space[2]}px;
   right: ${theme.space[2]}px;
+  background-color: ${({justIcon}) => justIcon ? 'initial' : null};
+  border: ${({justIcon}) => justIcon ? '0' : null};
 `
 
 export const CloseIcon = styled(Icon)`
