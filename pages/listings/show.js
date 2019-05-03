@@ -1,3 +1,4 @@
+
 import '@emcasa/ui-dom/components/global-styles'
 import {Component, Fragment} from 'react'
 import {Query} from 'react-apollo'
@@ -215,7 +216,7 @@ class Listing extends Component {
           listing={listing}
           user={user}
         />
-        <ButtonIcon onClick={this.openMapAndCloseStreetViewPopup} icon={faMap} iconColor={theme.colors.blue}>Mapa</ButtonIcon>
+        <ButtonIcon onClick={this.openStreetViewAndCloseMapPopup} icon={faStreetView} iconColor={theme.colors.blue}>Rua</ButtonIcon>
       </Fragment>
     )
   }
@@ -229,7 +230,7 @@ class Listing extends Component {
           listing={listing}
           user={user}
         />
-        <ButtonIcon onClick={this.openStreetViewAndCloseMapPopup} icon={faStreetView} iconColor={theme.colors.blue}>Rua</ButtonIcon>
+        <ButtonIcon onClick={this.openMapAndCloseStreetViewPopup} icon={faMap} iconColor={theme.colors.blue}>Mapa</ButtonIcon>
       </Fragment>
     )
   }
