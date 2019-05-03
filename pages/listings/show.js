@@ -7,6 +7,7 @@ import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
+import faEye from '@fortawesome/fontawesome-free-solid/faEye'
 import faMap from '@fortawesome/fontawesome-free-solid/faMap'
 import faStreetView from '@fortawesome/fontawesome-free-solid/faCube'
 import {GET_USER_LISTINGS_ACTIONS} from 'graphql/user/queries'
@@ -207,30 +208,16 @@ class Listing extends Component {
     this.setState({isInterestSuccessPopupVisible: false})
   }
 
-  getMapHeaderButtons = (favorite, listing, user) => {
+  getPopupHeaderButtons = ({likebutton, onClick, icon, label}) => {
     return (
       <Fragment>
-        <LikeButton
+        {likebutton && <LikeButton
           textButton
-          favorite={favorite}
-          listing={listing}
-          user={user}
-        />
-        <ButtonIcon onClick={this.openStreetViewAndCloseMapPopup} icon={faStreetView} iconColor={theme.colors.blue}>Rua</ButtonIcon>
-      </Fragment>
-    )
-  }
-
-  getStreetViewHeaderButtons = (favorite, listing, user) => {
-    return (
-      <Fragment>
-        <LikeButton
-          textButton
-          favorite={favorite}
-          listing={listing}
-          user={user}
-        />
-        <ButtonIcon onClick={this.openMapAndCloseStreetViewPopup} icon={faMap} iconColor={theme.colors.blue}>Mapa</ButtonIcon>
+          favorite={likebutton.favorite}
+          listing={likebutton.listing}
+          user={likebutton.user}
+        />}
+        <ButtonIcon onClick={onClick} icon={icon.fa} iconColor={icon.color}>{label}</ButtonIcon>
       </Fragment>
     )
   }
@@ -418,7 +405,15 @@ class Listing extends Component {
                           isPopupVisible={isMapPopupVisible}
                           closePopup={this.closeMapPopup}
                           title="Mapa"
-                          headerContent={this.getMapHeaderButtons(favorite, listing, currentUser)}
+                          headerContent={this.getPopupHeaderButtons({
+                            likeButton: {favorite, listing, currentUser},
+                            onClick: this.openStreetViewAndCloseMapPopup,
+                            icon: {
+                              color: theme.colors.blue,
+                              fa: faMap
+                            },
+                            label: 'Rua'
+                          })}
                         >
                           {isMapPopupVisible &&
                             <ListingMap isVisible={isMapPopupVisible} listing={listing} />
@@ -428,7 +423,15 @@ class Listing extends Component {
                           isPopupVisible={isStreetViewPopupVisible}
                           closePopup={this.closeStreetViewPopup}
                           title="Rua"
-                          headerContent={this.getStreetViewHeaderButtons(favorite, listing, currentUser)}
+                          headerContent={this.getPopupHeaderButtons({
+                            likeButton: {favorite, listing, currentUser},
+                            onClick: this.openMapAndCloseStreetViewPopup,
+                            icon: {
+                              color: theme.colors.blue,
+                              fa: faStreetView
+                            },
+                            label: 'Mapa'
+                          })}
                         >
                           {isStreetViewPopupVisible &&
                             <ListingMap
