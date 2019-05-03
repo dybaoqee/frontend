@@ -6,9 +6,9 @@ import NumberFormat from 'react-number-format'
 import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
-import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faCube from '@fortawesome/fontawesome-free-solid/faCube'
 import faMap from '@fortawesome/fontawesome-free-solid/faMap'
+import ButtonIcon from 'components/shared/Common/Buttons'
 import faStreetView from '@fortawesome/fontawesome-free-solid/faStreetView'
 import {formatRange} from 'utils/text-utils'
 import {getListingValues, getListingValueRange} from 'lib/listings'
@@ -19,7 +19,6 @@ import {
   ExtraTitleSEO,
   ButtonsContainer,
   OpenMatterportButtonWrapper,
-  OpenMatterportButton,
   PriceItem,
   PriceItemSpacer,
   ValuesContainer,
@@ -88,18 +87,32 @@ class ListingInfo extends React.Component {
         <ButtonsContainer>
           {matterportCode && (
             <OpenMatterportButtonWrapper>
-              <OpenMatterportButton onClick={openMatterportPopup}>
-                <FontAwesomeIcon icon={faCube} />
+              <ButtonIcon
+                onClick={openMatterportPopup}
+                iconColor={theme.colors.white}
+                color={theme.colors.white}
+                backgroundColor={theme.colors.blue}
+                noBorder
+                icon={faCube}
+              >
                 Iniciar tour virtual
-              </OpenMatterportButton>
+              </ButtonIcon>
             </OpenMatterportButtonWrapper>
           )}
-          <Button onClick={openMapPopup}>
-            <FontAwesomeIcon icon={faMap} color={theme.colors.blue} />Mapa
-          </Button>
-          <Button onClick={openStreetViewPopup}>
-            <FontAwesomeIcon icon={faStreetView} color={theme.colors.blue} />Rua
-          </Button>
+          <ButtonIcon
+            onClick={openMapPopup}
+            iconColor={theme.colors.blue}
+            icon={faMap}
+          >
+            Mapa
+          </ButtonIcon>
+          <ButtonIcon
+            onClick={openStreetViewPopup}
+            iconColor={theme.colors.blue}
+            icon={faStreetView}
+          >
+            Rua
+          </ButtonIcon>
         </ButtonsContainer>
         <ValuesContainer>
           {hasValues(rooms) ? (

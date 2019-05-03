@@ -52,16 +52,6 @@ export const ButtonsContainer = styled(Row)`
     &:last-child {
       margin-right: 0;
     }
-
-    svg {
-      margin-right: ${theme.space[2]}px;
-      display: inline-block;
-      width: 1em;
-      height: 1em;
-      overflow: visible;
-      vertical-align: -0.125em;
-      font-size: inherit;
-    }
   }
 `
 
@@ -80,12 +70,6 @@ export const OpenMatterportButtonWrapper = styled.div`
     margin-right: ${theme.space[2]}px;
     transform: translateX(0);
   }
-`
-
-export const OpenMatterportButton = styled(Button)`
-  color: ${theme.colors.white};
-  background-color: ${theme.colors.blue};
-  border: none;
 `
 
 export const PriceItem = styled(Text)`

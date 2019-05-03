@@ -70,16 +70,6 @@ export const HeaderRight = styled.div`
     &:first-child {
       margin-left: 0;
     }
-
-    svg {
-      margin-right: ${theme.space[2]}px;
-      display: inline-block;
-      width: 1em;
-      height: 1em;
-      overflow: visible;
-      vertical-align: -0.125em;
-      font-size: inherit;
-    }
   }
 `
 

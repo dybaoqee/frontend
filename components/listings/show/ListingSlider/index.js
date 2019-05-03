@@ -1,9 +1,12 @@
 import React, {Component} from 'react'
 import Carousel from 'react-slick'
-import CloseButton from 'components/shared/CloseButton'
+import theme from '@emcasa/ui'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faAngleRight from '@fortawesome/fontawesome-pro-regular/faAngleRight'
 import faAngleLeft from '@fortawesome/fontawesome-pro-regular/faAngleLeft'
+import faCube from '@fortawesome/fontawesome-free-solid/faCube'
+import CloseButton from 'components/shared/CloseButton'
+import ButtonIcon from 'components/shared/Common/Buttons'
 import {thumbnailUrl} from 'utils/image_url'
 import {downloadBlob} from 'utils/file-utils'
 import {mobileMedia} from 'constants/media'
@@ -29,8 +32,6 @@ import Container, {
 import {
   Background
 } from 'components/listings/show/Popup/styles'
-import {OpenMatterportButton} from '../Body/ListingInfo/styles'
-import faCube from '@fortawesome/fontawesome-free-solid/faCube'
 
 class ListingGallery extends Component {
   state = {
@@ -202,10 +203,16 @@ class ListingGallery extends Component {
             isFullScreen &&
             matterportCode && (
             <OpenMatterportButtonWrapper isFullScreen={isFullScreen}>
-              <OpenMatterportButton onClick={onClickShowTour}>
-                <FontAwesomeIcon icon={faCube} />
+              <ButtonIcon
+                onClick={onClickShowTour}
+                iconColor={theme.colors.white}
+                color={theme.colors.white}
+                backgroundColor={theme.colors.blue}
+                noBorder
+                icon={faCube}
+              >
                 Iniciar tour virtual
-              </OpenMatterportButton>
+              </ButtonIcon>
             </OpenMatterportButtonWrapper>
           )}
         </Header>

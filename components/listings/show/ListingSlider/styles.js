@@ -239,18 +239,6 @@ export const OpenMatterportButtonWrapper = styled.div`
     transform: initial;
     margin: 0;
   }
-
-  ${Button} {
-    svg {
-      margin-right: ${theme.space[2]}px;
-      display: inline-block;
-      width: 1em;
-      height: 1em;
-      overflow: visible;
-      vertical-align: -0.125em;
-      font-size: inherit;
-    }
-  }
 `
 
 export const PaginationTextWrapper = styled.div`

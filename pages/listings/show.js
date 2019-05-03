@@ -6,7 +6,6 @@ import Row from '@emcasa/ui-dom/components/Row'
 import Col from '@emcasa/ui-dom/components/Col'
 import Text from '@emcasa/ui-dom/components/Text'
 import Button from '@emcasa/ui-dom/components/Button'
-import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faMap from '@fortawesome/fontawesome-free-solid/faMap'
 import faStreetView from '@fortawesome/fontawesome-free-solid/faCube'
 import {GET_USER_LISTINGS_ACTIONS} from 'graphql/user/queries'
@@ -38,6 +37,7 @@ import {getCookie} from 'lib/session'
 import {fetchFlag, DEVICE_ID_COOKIE} from 'components/shared/Flagr'
 import FlagrProvider from 'components/shared/Flagr/Context'
 import {TEST_SAVE_LISTING_TEXT} from 'components/shared/Flagr/tests'
+import ButtonIcon from 'components/shared/Common/Buttons'
 import LikeButton from 'components/shared/Common/Buttons/Like'
 import {
   log,
@@ -208,29 +208,29 @@ class Listing extends Component {
 
   getMapHeaderButtons = (favorite, listing, user) => {
     return (
-      <>
+      <Fragment>
         <LikeButton
           textButton
           favorite={favorite}
           listing={listing}
           user={user}
         />
-        <Button onClick={this.openMapAndCloseStreetViewPopup}><FontAwesomeIcon icon={faMap} color={theme.colors.blue} />Mapa</Button>
-      </>
+        <ButtonIcon onClick={this.openMapAndCloseStreetViewPopup} icon={faMap} iconColor={theme.colors.blue}>Mapa</ButtonIcon>
+      </Fragment>
     )
   }
 
   getStreetViewHeaderButtons = (favorite, listing, user) => {
     return (
-      <>
+      <Fragment>
         <LikeButton
           textButton
           favorite={favorite}
           listing={listing}
           user={user}
         />
-        <Button onClick={this.openStreetViewAndCloseMapPopup}><FontAwesomeIcon icon={faStreetView} color={theme.colors.blue} />Rua</Button>
-      </>
+        <ButtonIcon onClick={this.openStreetViewAndCloseMapPopup} icon={faStreetView} iconColor={theme.colors.blue}>Rua</ButtonIcon>
+      </Fragment>
     )
   }
 
