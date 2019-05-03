@@ -194,7 +194,7 @@ export const Header = styled.div`
     justify-content: space-between;
     max-width: ${({isFullScreen}) => isFullScreen ? `${listingDetailsMaxWidth - (ARROW_SIZE * 2)}px` : null};
     width: calc(100% - ${ARROW_SIZE * 2}px);
-    margin-bottom: 0;
+    margin-bottom: ${theme.space[4]}px;
   }
 `
 
@@ -202,7 +202,7 @@ export const Title = styled(Text)`
   margin: ${theme.space[2]}px 0 ${theme.space[2]}px ${theme.space[4]}px;
 
   @media screen and (min-width: 813px) {
-    margin: ${theme.space[2]}px 0;
+    margin: 0;
   }
 `
 
@@ -237,7 +237,7 @@ export const OpenMatterportButtonWrapper = styled.div`
     position: relative;
     left: initial;
     transform: initial;
-    margin: 0 0 ${theme.space[2]}px;
+    margin: 0;
   }
 
   ${Button} {
@@ -267,7 +267,9 @@ export const PaginationTextWrapper = styled.div`
     position: relative;
     left: initial;
     transform: initial;
-    margin: ${theme.space[4]}px 0 0;
+    max-width: ${({isFullScreen}) => isFullScreen ? `${listingDetailsMaxWidth - (ARROW_SIZE * 2)}px` : null};
+    width: calc(100% - ${ARROW_SIZE * 2}px);
+    margin: ${theme.space[4]}px ${ARROW_SIZE + theme.space[1]}px 0;
   }
 `
 
@@ -278,5 +280,6 @@ export const PaginationText = styled(Text)`
   @media screen and (min-width: 813px) {
     color: ${theme.colors.dark};
     text-shadow: initial;
+    text-align: right;
   }
 `
