@@ -38,6 +38,7 @@ import {getCookie} from 'lib/session'
 import {fetchFlag, DEVICE_ID_COOKIE} from 'components/shared/Flagr'
 import FlagrProvider from 'components/shared/Flagr/Context'
 import {TEST_SAVE_LISTING_TEXT} from 'components/shared/Flagr/tests'
+import LikeButton from 'components/shared/Common/Buttons/Like'
 import {
   log,
   getListingInfoForLogs,
@@ -203,6 +204,34 @@ class Listing extends Component {
   closeSuccessPostInterestPopup = () => {
     log(LISTING_DETAIL_CLOSE_VISIT_FORM)
     this.setState({isInterestSuccessPopupVisible: false})
+  }
+
+  getMapHeaderButtons = (favorite, listing, user) => {
+    return (
+      <>
+        <LikeButton
+          textButton
+          favorite={favorite}
+          listing={listing}
+          user={user}
+        />
+        <Button onClick={this.openMapAndCloseStreetViewPopup}><FontAwesomeIcon icon={faMap} color={theme.colors.blue} />Mapa</Button>
+      </>
+    )
+  }
+
+  getStreetViewHeaderButtons = (favorite, listing, user) => {
+    return (
+      <>
+        <LikeButton
+          textButton
+          favorite={favorite}
+          listing={listing}
+          user={user}
+        />
+        <Button onClick={this.openStreetViewAndCloseMapPopup}><FontAwesomeIcon icon={faStreetView} color={theme.colors.blue} />Rua</Button>
+      </>
+    )
   }
 
   onSubmit = async (e, userInfo, callback) => {
@@ -388,7 +417,7 @@ class Listing extends Component {
                           isPopupVisible={isMapPopupVisible}
                           closePopup={this.closeMapPopup}
                           title="Mapa"
-                          headerContent={<Button onClick={this.openStreetViewAndCloseMapPopup}><FontAwesomeIcon icon={faStreetView} color={theme.colors.blue} />Rua</Button>}
+                          headerContent={this.getMapHeaderButtons(favorite, listing, currentUser)}
                         >
                           {isMapPopupVisible &&
                             <ListingMap isVisible={isMapPopupVisible} listing={listing} />
@@ -398,7 +427,7 @@ class Listing extends Component {
                           isPopupVisible={isStreetViewPopupVisible}
                           closePopup={this.closeStreetViewPopup}
                           title="Rua"
-                          headerContent={<Button onClick={this.openMapAndCloseStreetViewPopup}><FontAwesomeIcon icon={faMap} color={theme.colors.blue} />Mapa</Button>}
+                          headerContent={this.getStreetViewHeaderButtons(favorite, listing, currentUser)}
                         >
                           {isStreetViewPopupVisible &&
                             <ListingMap
