@@ -136,9 +136,9 @@ class Phone extends Component {
 
   async estimatePrice(userInfo) {
     // Prepare input
-    const { homeDetails, rooms, garage, location } = this.props
+    const { homeDetails, rooms, location } = this.props
     const addressInput = getAddressInput(location.addressData)
-    const pricingInput = getPricingInput(addressInput, homeDetails, rooms, garage, userInfo)
+    const pricingInput = getPricingInput(addressInput, homeDetails, rooms, userInfo)
 
     // Run mutation
     const response = await estimatePrice(apolloClient, pricingInput)
@@ -152,11 +152,12 @@ class Phone extends Component {
 
     // Handle result
     if (response.result) {
-      const { suggestedPrice, userPrice } = response.result
+      const {id, suggestedPrice, userPrice} = response.result
       if (suggestedPrice) {
         log(`${getSellerEventPrefix(this.props.evaluation)}${SELLER_ONBOARDING_PRICING_SUCCESS}`, {
           name: userInfo.name,
           phone: userInfo.phone,
+          priceRequestId: id,
           pricingInput,
           suggestedPrice: suggestedPrice
         })
@@ -170,8 +171,13 @@ class Phone extends Component {
       const { navigateTo, updatePricing, pricing } = this.props
       updatePricing({
         ...pricing,
+        priceRequestId: id,
         suggestedPrice,
         userPrice
+      })
+      this.setState({
+        loading: false,
+        error: null
       })
       navigateTo('pricing')
     }
